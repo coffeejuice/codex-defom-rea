@@ -1,0 +1,1141 @@
+{
+  "scope": "Observed original step25 KEY and retained C++ host little-endian dump buffers only. No general format/type-name rule claimed. No C++ changes.",
+  "sources": {
+    "key": {
+      "path": "analysis/oracle/interactive/rea-step25/output.key",
+      "size": 2845589,
+      "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856"
+    },
+    "header": {
+      "path": "analysis/oracle/cpp-step25.header.bin",
+      "size": 23200,
+      "sha256": "a3ab17fdf7eb63bdaddda86e68285b792cbf9b95abca058a7b1a6495b93960d8"
+    },
+    "integers": {
+      "path": "analysis/oracle/cpp-step25.integers.bin",
+      "size": 792428,
+      "sha256": "76b43b682feed759780da8617b3dcbe02791699536a8fa82dfc51d43e28377ad"
+    },
+    "reals": {
+      "path": "analysis/oracle/cpp-step25.reals.bin",
+      "size": 6056824,
+      "sha256": "f84b2cca507002dd13f98286f2e745c8c29c6ad150b5cef1f678c7f86d212903"
+    }
+  },
+  "object_count": 7,
+  "totals": {
+    "mesh_nodes": 3696,
+    "mesh_elements": 13642
+  },
+  "index_convention": "All buffer indexes explicitly zero-based unless key says one_based. KEY source lines are one-based. Integer descriptors contain original one-based starts/ends.",
+  "observed_pointer_values": [
+    {
+      "integer_index_zero_based": 3,
+      "value": 479
+    },
+    {
+      "integer_index_zero_based": 4,
+      "value": 829
+    },
+    {
+      "integer_index_zero_based": 145,
+      "value": 2088
+    },
+    {
+      "integer_index_zero_based": 149,
+      "value": 13652
+    }
+  ],
+  "candidate_layout_notes": [
+    "Exact object-name byte strings recur at header double indexes 206+400*i and real double indexes2091+100*i. Each observed name is padded with spaces to64bytes.",
+    "Integer blocks at478+50*i contain node/element ranges at relative offsets4..7; complete RZ/ELMCON payload matches corroborate these ranges for this fixture. Relative offset12 equals nodes-per-element;13 is the one-based start relative to the observed connectivity region.",
+    "Header values at188+400*i and189+400*i match KEY mesh counts in the same name-anchored400-double stride. This remains a candidate rule requiring executable source evidence.",
+    "OBJTYP numeric codes retained without assigning semantic labels. No type-offset claim from isolated numeric matches.",
+    "DIEGEO counts describe separate geometry in KEY and differ from RZ/ELMCON mesh counts; keep them distinct."
+  ],
+  "objects": [
+    {
+      "id": 1,
+      "key_lines": [
+        {
+          "line": 325,
+          "text": "*  Data for Object #     1"
+        },
+        {
+          "line": 327,
+          "text": "OBJTYP       1       2       0"
+        },
+        {
+          "line": 328,
+          "text": "OBJNAM       1"
+        },
+        {
+          "line": 329,
+          "text": "Workpiece"
+        },
+        {
+          "line": 351,
+          "text": "RZ           1     492"
+        },
+        {
+          "line": 2835,
+          "text": "ELMCON       1    1945       4"
+        }
+      ],
+      "type_code": 2,
+      "type_other_words": [
+        0
+      ],
+      "name": "Workpiece",
+      "node_count": 492,
+      "rz_payload_check": {
+        "first_line": 352,
+        "last_line": 843,
+        "rows": 492,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 1945,
+      "elmcon_payload_check": {
+        "first_line": 2836,
+        "last_line": 4780,
+        "rows": 1945,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 1648,
+              "double_index_zero_based": 206,
+              "double_index_one_based": 207,
+              "next_64_bytes_ascii": "Workpiece                                                       "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 16728,
+              "double_index_zero_based": 2091,
+              "double_index_one_based": 2092,
+              "next_64_bytes_ascii": "Workpiece                                                       "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 188,
+          "value": 492.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 189,
+          "value": 1945.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 478,
+          "words": [
+            1,
+            1,
+            0,
+            1,
+            1,
+            492,
+            1,
+            1945,
+            1,
+            1,
+            0,
+            0,
+            4,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            19,
+            20,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 13651,
+          "component_count": 1476,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 828,
+          "integer_count": 7780,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "key_lines": [
+        {
+          "line": 18240,
+          "text": "*  Data for Object #     2"
+        },
+        {
+          "line": 18242,
+          "text": "OBJTYP       2       1       0"
+        },
+        {
+          "line": 18243,
+          "text": "OBJNAM       2"
+        },
+        {
+          "line": 18244,
+          "text": "Top 650 New"
+        },
+        {
+          "line": 18267,
+          "text": "DIEGEO       2       1    1017    2030"
+        },
+        {
+          "line": 21316,
+          "text": "RZ           2    1046"
+        },
+        {
+          "line": 26560,
+          "text": "ELMCON       2    3836       4"
+        }
+      ],
+      "type_code": 1,
+      "type_other_words": [
+        0
+      ],
+      "name": "Top 650 New",
+      "diegeo_words": [
+        1,
+        1017,
+        2030
+      ],
+      "node_count": 1046,
+      "rz_payload_check": {
+        "first_line": 21317,
+        "last_line": 22362,
+        "rows": 1046,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 3836,
+      "elmcon_payload_check": {
+        "first_line": 26561,
+        "last_line": 30396,
+        "rows": 3836,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 4848,
+              "double_index_zero_based": 606,
+              "double_index_one_based": 607,
+              "next_64_bytes_ascii": "Top 650 New                                                     "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 17528,
+              "double_index_zero_based": 2191,
+              "double_index_one_based": 2192,
+              "next_64_bytes_ascii": "Top 650 New                                                     "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 588,
+          "value": 1046.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 589,
+          "value": 3836.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 528,
+          "words": [
+            1,
+            0,
+            0,
+            1,
+            493,
+            1538,
+            1946,
+            5781,
+            2,
+            2,
+            0,
+            0,
+            4,
+            7781,
+            0,
+            0,
+            0,
+            0,
+            0,
+            22,
+            22,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 15127,
+          "component_count": 3138,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 8608,
+          "integer_count": 15344,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 492
+        }
+      }
+    },
+    {
+      "id": 3,
+      "key_lines": [
+        {
+          "line": 30457,
+          "text": "*  Data for Object #     3"
+        },
+        {
+          "line": 30459,
+          "text": "OBJTYP       3       1       0"
+        },
+        {
+          "line": 30460,
+          "text": "OBJNAM       3"
+        },
+        {
+          "line": 30461,
+          "text": "Bot 650 New"
+        },
+        {
+          "line": 30484,
+          "text": "DIEGEO       3       1    1017    2030"
+        },
+        {
+          "line": 33533,
+          "text": "RZ           3    1034"
+        },
+        {
+          "line": 38717,
+          "text": "ELMCON       3    3781       4"
+        }
+      ],
+      "type_code": 1,
+      "type_other_words": [
+        0
+      ],
+      "name": "Bot 650 New",
+      "diegeo_words": [
+        1,
+        1017,
+        2030
+      ],
+      "node_count": 1034,
+      "rz_payload_check": {
+        "first_line": 33534,
+        "last_line": 34567,
+        "rows": 1034,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 3781,
+      "elmcon_payload_check": {
+        "first_line": 38718,
+        "last_line": 42498,
+        "rows": 3781,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 8048,
+              "double_index_zero_based": 1006,
+              "double_index_one_based": 1007,
+              "next_64_bytes_ascii": "Bot 650 New                                                     "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 18328,
+              "double_index_zero_based": 2291,
+              "double_index_one_based": 2292,
+              "next_64_bytes_ascii": "Bot 650 New                                                     "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 988,
+          "value": 1034.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 989,
+          "value": 3781.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 578,
+          "words": [
+            1,
+            0,
+            0,
+            1,
+            1539,
+            2572,
+            5782,
+            9562,
+            3,
+            3,
+            0,
+            0,
+            4,
+            23125,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 18265,
+          "component_count": 3102,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 23952,
+          "integer_count": 15124,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 1538
+        }
+      }
+    },
+    {
+      "id": 4,
+      "key_lines": [
+        {
+          "line": 42555,
+          "text": "*  Data for Object #     4"
+        },
+        {
+          "line": 42557,
+          "text": "OBJTYP       4       1       0"
+        },
+        {
+          "line": 42558,
+          "text": "OBJNAM       4"
+        },
+        {
+          "line": 42559,
+          "text": "Left Manipulator 1"
+        },
+        {
+          "line": 42582,
+          "text": "DIEGEO       4       1      76     148"
+        },
+        {
+          "line": 42808,
+          "text": "RZ           4     281"
+        },
+        {
+          "line": 43384,
+          "text": "ELMCON       4    1020       4"
+        }
+      ],
+      "type_code": 1,
+      "type_other_words": [
+        0
+      ],
+      "name": "Left Manipulator 1",
+      "diegeo_words": [
+        1,
+        76,
+        148
+      ],
+      "node_count": 281,
+      "rz_payload_check": {
+        "first_line": 42809,
+        "last_line": 43089,
+        "rows": 281,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 1020,
+      "elmcon_payload_check": {
+        "first_line": 43385,
+        "last_line": 44404,
+        "rows": 1020,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 11248,
+              "double_index_zero_based": 1406,
+              "double_index_one_based": 1407,
+              "next_64_bytes_ascii": "Left Manipulator 1                                              "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 19128,
+              "double_index_zero_based": 2391,
+              "double_index_one_based": 2392,
+              "next_64_bytes_ascii": "Left Manipulator 1                                              "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 1388,
+          "value": 281.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 1389,
+          "value": 1020.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 628,
+          "words": [
+            1,
+            0,
+            0,
+            1,
+            2573,
+            2853,
+            9563,
+            10582,
+            4,
+            4,
+            0,
+            0,
+            4,
+            38249,
+            0,
+            0,
+            0,
+            0,
+            0,
+            25,
+            25,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 21367,
+          "component_count": 843,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 39076,
+          "integer_count": 4080,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 2572
+        }
+      }
+    },
+    {
+      "id": 5,
+      "key_lines": [
+        {
+          "line": 44463,
+          "text": "*  Data for Object #     5"
+        },
+        {
+          "line": 44465,
+          "text": "OBJTYP       5       1       0"
+        },
+        {
+          "line": 44466,
+          "text": "OBJNAM       5"
+        },
+        {
+          "line": 44467,
+          "text": "Left Manipulator 2"
+        },
+        {
+          "line": 44490,
+          "text": "DIEGEO       5       1      76     148"
+        },
+        {
+          "line": 44716,
+          "text": "RZ           5     281"
+        },
+        {
+          "line": 45292,
+          "text": "ELMCON       5    1020       4"
+        }
+      ],
+      "type_code": 1,
+      "type_other_words": [
+        0
+      ],
+      "name": "Left Manipulator 2",
+      "diegeo_words": [
+        1,
+        76,
+        148
+      ],
+      "node_count": 281,
+      "rz_payload_check": {
+        "first_line": 44717,
+        "last_line": 44997,
+        "rows": 281,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 1020,
+      "elmcon_payload_check": {
+        "first_line": 45293,
+        "last_line": 46312,
+        "rows": 1020,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 14448,
+              "double_index_zero_based": 1806,
+              "double_index_one_based": 1807,
+              "next_64_bytes_ascii": "Left Manipulator 2                                              "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 19928,
+              "double_index_zero_based": 2491,
+              "double_index_one_based": 2492,
+              "next_64_bytes_ascii": "Left Manipulator 2                                              "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 1788,
+          "value": 281.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 1789,
+          "value": 1020.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 678,
+          "words": [
+            1,
+            0,
+            0,
+            1,
+            2854,
+            3134,
+            10583,
+            11602,
+            5,
+            5,
+            0,
+            0,
+            4,
+            42329,
+            0,
+            0,
+            0,
+            0,
+            0,
+            26,
+            26,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 22210,
+          "component_count": 843,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 43156,
+          "integer_count": 4080,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 2853
+        }
+      }
+    },
+    {
+      "id": 6,
+      "key_lines": [
+        {
+          "line": 46371,
+          "text": "*  Data for Object #     6"
+        },
+        {
+          "line": 46373,
+          "text": "OBJTYP       6       1       0"
+        },
+        {
+          "line": 46374,
+          "text": "OBJNAM       6"
+        },
+        {
+          "line": 46375,
+          "text": "Right Manipulator 1"
+        },
+        {
+          "line": 46398,
+          "text": "DIEGEO       6       1      76     148"
+        },
+        {
+          "line": 46624,
+          "text": "RZ           6     281"
+        },
+        {
+          "line": 48043,
+          "text": "ELMCON       6    1020       4"
+        }
+      ],
+      "type_code": 1,
+      "type_other_words": [
+        0
+      ],
+      "name": "Right Manipulator 1",
+      "diegeo_words": [
+        1,
+        76,
+        148
+      ],
+      "node_count": 281,
+      "rz_payload_check": {
+        "first_line": 46625,
+        "last_line": 46905,
+        "rows": 281,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 1020,
+      "elmcon_payload_check": {
+        "first_line": 48044,
+        "last_line": 49063,
+        "rows": 1020,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 17648,
+              "double_index_zero_based": 2206,
+              "double_index_one_based": 2207,
+              "next_64_bytes_ascii": "Right Manipulator 1                                             "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 20728,
+              "double_index_zero_based": 2591,
+              "double_index_one_based": 2592,
+              "next_64_bytes_ascii": "Right Manipulator 1                                             "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 2188,
+          "value": 281.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 2189,
+          "value": 1020.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 728,
+          "words": [
+            1,
+            0,
+            0,
+            1,
+            3135,
+            3415,
+            11603,
+            12622,
+            6,
+            6,
+            0,
+            0,
+            4,
+            46409,
+            0,
+            0,
+            0,
+            0,
+            0,
+            27,
+            27,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 23053,
+          "component_count": 843,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 47236,
+          "integer_count": 4080,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 3134
+        }
+      }
+    },
+    {
+      "id": 7,
+      "key_lines": [
+        {
+          "line": 49122,
+          "text": "*  Data for Object #     7"
+        },
+        {
+          "line": 49124,
+          "text": "OBJTYP       7       1       0"
+        },
+        {
+          "line": 49125,
+          "text": "OBJNAM       7"
+        },
+        {
+          "line": 49126,
+          "text": "Right Manipulator 2"
+        },
+        {
+          "line": 49149,
+          "text": "DIEGEO       7       1      76     148"
+        },
+        {
+          "line": 49375,
+          "text": "RZ           7     281"
+        },
+        {
+          "line": 50794,
+          "text": "ELMCON       7    1020       4"
+        }
+      ],
+      "type_code": 1,
+      "type_other_words": [
+        0
+      ],
+      "name": "Right Manipulator 2",
+      "diegeo_words": [
+        1,
+        76,
+        148
+      ],
+      "node_count": 281,
+      "rz_payload_check": {
+        "first_line": 49376,
+        "last_line": 49656,
+        "rows": 281,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 4
+      },
+      "element_count": 1020,
+      "elmcon_payload_check": {
+        "first_line": 50795,
+        "last_line": 51814,
+        "rows": 1020,
+        "contiguous_ids_from_one": true,
+        "fields_per_row": 5
+      },
+      "nodes_per_element": 4,
+      "buffer_observations": {
+        "exact_name_byte_hits": {
+          "header": [
+            {
+              "byte_offset": 20848,
+              "double_index_zero_based": 2606,
+              "double_index_one_based": 2607,
+              "next_64_bytes_ascii": "Right Manipulator 2                                             "
+            }
+          ],
+          "reals": [
+            {
+              "byte_offset": 21528,
+              "double_index_zero_based": 2691,
+              "double_index_one_based": 2692,
+              "next_64_bytes_ascii": "Right Manipulator 2                                             "
+            }
+          ]
+        },
+        "header_node_count_candidate": {
+          "zero_based_index": 2588,
+          "value": 281.0
+        },
+        "header_element_count_candidate": {
+          "zero_based_index": 2589,
+          "value": 1020.0
+        },
+        "integer_descriptor_candidate": {
+          "zero_based_index": 778,
+          "words": [
+            1,
+            0,
+            0,
+            1,
+            3416,
+            3696,
+            12623,
+            13642,
+            7,
+            7,
+            0,
+            0,
+            4,
+            50489,
+            0,
+            0,
+            0,
+            0,
+            0,
+            28,
+            28,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "rz_complete_sequence": {
+          "zero_based_real_index": 23896,
+          "component_count": 843,
+          "layout": "xyz triples in KEY row order",
+          "comparison": "absolute difference <= max(1e-9, abs(binary value)*6e-11), allowing KEY decimal precision"
+        },
+        "elmcon_complete_sequence": {
+          "zero_based_integer_index": 51316,
+          "integer_count": 4080,
+          "layout": "four nodes per element in KEY row order",
+          "comparison": "exact after adding node_index_shift to every KEY node ID",
+          "node_index_shift": 3415
+        }
+      }
+    }
+  ]
+}

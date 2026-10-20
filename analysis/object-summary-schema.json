@@ -1,0 +1,440 @@
+{
+  "scope": "Source-backed object-summary extraction from fully loaded version11000 3D arrays; this is not a complete object/geometry importer.",
+  "artifact_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "index_convention": "All indexes zero-based. Values stored in address tables remain original one-based addresses.",
+  "evidence": [
+    {
+      "file": "import-0x1401cc420.json",
+      "evidence_id": "ev_63a524ebe7fc74a3177cd409eea867d47487ae67defa9a9b2c05cfc4c867288d",
+      "procedure": "0x1401cc420"
+    },
+    {
+      "file": "import-0x1401cd1f0.json",
+      "evidence_id": "ev_c0923a357e9cc41a854cda75f0327fb03cc69988ad54ce8938507a9f2e67433d",
+      "procedure": "0x1401cd1f0"
+    },
+    {
+      "file": "import-0x1403dd950.json",
+      "evidence_id": "ev_05d5735aa22b46e987a4c90788f35b8e6617a026b2e4d0c1d8ae9c739a5b6322",
+      "procedure": "0x1403dd950"
+    },
+    {
+      "file": "import-0x1401d2230.json",
+      "evidence_id": "ev_3eb25c14c091422183e804a9b8226fa42749cb9c9d5abbd2df89e2a33e34f07c",
+      "procedure": "0x1401d2230"
+    },
+    {
+      "file": "import-0x14016caf0.json",
+      "evidence_id": "ev_2d8863def47b832b3118ac2bdc5db3fddb585e3168e8252a0b3ce562b4c36961",
+      "procedure": "0x14016caf0"
+    },
+    {
+      "file": "import-0x1401c7080.json",
+      "evidence_id": "ev_3cb591c9dea83322831e56a9c8abbe6d42bda989830f315ec4bc1de932acd3e7",
+      "procedure": "0x1401c7080"
+    },
+    {
+      "file": "import-0x1401c77c0.json",
+      "evidence_id": "ev_720175eeae4fab22add92494348fa3336bfc93181c3d7a9f692e8adc5c6d0a99",
+      "procedure": "0x1401c77c0"
+    },
+    {
+      "file": "import-0x1401c7d10.json",
+      "evidence_id": "ev_6fb55ec1f31eb7030a6725286e890cbee22c958a128c9fcc7205f9254b906dcd",
+      "procedure": "0x1401c7d10"
+    },
+    {
+      "file": "import-0x1401c7d40.json",
+      "evidence_id": "ev_dd37f2a09b168c104783a03f3d5b0d7b7650060678918d50e54616b481b80ad4",
+      "procedure": "0x1401c7d40"
+    },
+    {
+      "file": "import-0x1401cca80.json",
+      "evidence_id": "ev_7a77133ccf54be6ac92352e2758f981dc3d9d1e7752fa1b22bf48140244a7cfb",
+      "procedure": "0x1401cca80"
+    },
+    {
+      "file": "import-0x1403239f0.json",
+      "evidence_id": "ev_23241f3199be4322ad23f11993edd116083d6a4171301a106af0c24c27f52983",
+      "procedure": "0x1403239f0"
+    },
+    {
+      "file": "import-0x140324020.json",
+      "evidence_id": "ev_707e8996ea925c326a86e1a90463d26a28353349ca1c291a4890f7ebe8a529f7",
+      "procedure": "0x140324020"
+    },
+    {
+      "file": "import-0x140324000.json",
+      "evidence_id": "ev_99926d7e28881be9477ff3f515e85d12239c1ab3c6df40fe3c928e06cac3f561",
+      "procedure": "0x140324000"
+    },
+    {
+      "file": "import-0x140323e50.json",
+      "evidence_id": "ev_2839f5948c2bfcaf410f5397230a0b0cb248780b0c4c24553c5aa171b17f39bc",
+      "procedure": "0x140323e50"
+    },
+    {
+      "file": "import-0x140323ec0.json",
+      "evidence_id": "ev_1c314f84ed79501194aabb48514a7fff497b02cb50311efee50cee3d4422b5d9",
+      "procedure": "0x140323ec0"
+    },
+    {
+      "file": "import-0x140323de0.json",
+      "evidence_id": "ev_495d009ac1b11ebfcba381208ca3f29ac0410f72d4c58c4ccb8859197417cb6d",
+      "procedure": "0x140323de0"
+    },
+    {
+      "file": "import-objects-small.json",
+      "evidence_id": "ev_7700747a9d94dff5c2110d7b9ac6f6efac6583a82c74eab88b938a7143a5bcb2",
+      "operation": "instrument_with_frida"
+    }
+  ],
+  "input_arrays": {
+    "H": "decoded step-header float64 array",
+    "M": "decoded MAR int32 array",
+    "A": "decoded A float64 array; names are byte payloads, not numeric floating-point values"
+  },
+  "address_tables": {
+    "integer_table_length": "nI = M[1] - M[0]",
+    "real_table_length": "nR = M[2] - M[1]",
+    "integer_table": "I = M[0:nI]",
+    "real_table": "R = M[nI:nI+nR]",
+    "note": "DBMADR copies from M start, not from address M[0]-1. Its two pointer differences provide table lengths. For version>=11000 host imports copy 140/280 slots directly, rather than applying old-version remapping tables.",
+    "native_host_buffer_sizes": {
+      "integer_table_slots": 140,
+      "real_table_slots": 280
+    },
+    "object_integer_base": "I[3] - 1",
+    "object_integer_stride": "I[73] int32 elements",
+    "object_real_base": "R[5] - 1",
+    "object_real_stride": "R[145] float64 elements",
+    "fixture_values": {
+      "nI": 140,
+      "nR": 280,
+      "I3": 479,
+      "I73": 50,
+      "R5": 2088,
+      "R145": 100
+    }
+  },
+  "object_count": {
+    "formula": "truncate_to_int32(H[0])",
+    "source": "0x1401cca80 stores this at host offset0x1378; 0x1401d2230 iterates [0,count).",
+    "fixture_value": 7
+  },
+  "per_object": {
+    "id": "i + 1",
+    "integer_descriptor": "D = M[I[3] - 1 + I[73]*i : ...]",
+    "real_descriptor": "Q = A[R[5] - 1 + R[145]*i : ...]",
+    "descriptor_early_exit": "If D[0]==0, set application type enum7 and skip all remaining fields in 0x14016caf0.",
+    "mesh_flag": "D[0]==1 -> mesh flag1; D[0]==2 -> mesh flag0; other positive statuses leave existing/default host state unchanged (not established).",
+    "raw_type": "D[1]",
+    "raw_type_to_application_enum": {
+      "0": 0,
+      "1": 1,
+      "2": 3,
+      "3": 4,
+      "4": 6
+    },
+    "special_type_override": "If D[2]==1, application enum becomes2, overriding recognized raw types. D[0]==0 takes precedence via early exit.",
+    "unknown_type": "For other D[1] values and no override, no assignment to application type is observed; constructor/default state is outside this slice.",
+    "node_range": "inclusive global start/end D[4],D[5]",
+    "node_count": "max(0, D[5]-D[4]+1), then force0 when mesh flag0",
+    "element_range": "inclusive global start/end D[6],D[7]",
+    "element_count": "max(0, D[7]-D[6]+1), then force0 when mesh flag0",
+    "boundary_range": "inclusive start/end D[8],D[9]",
+    "boundary_count": "D[9]-D[8]+1",
+    "name_processing_gate": "Boundary count must be <101. Otherwise original prints ERROR: NoBdry = %d greater than maximum! and skips name assignment and following fields.",
+    "nodes_per_element_raw": "D[12]",
+    "element_kind_application_enum_3d": {
+      "raw4": 2,
+      "raw8": 4,
+      "other": 2
+    },
+    "name": {
+      "byte_location": "64 bytes beginning at Q[4], or byte offset 8*(R[5]-1+R[145]*i+4) in loaded A",
+      "copy": "Original strncpy copies at most64bytes, stopping/padding on embedded NUL.",
+      "source_character_mode": "truncate_to_int32(H[5]) for3D; original host offset0x748",
+      "native_character_mode": "0x140324000 returns2",
+      "transform_condition": "native*100+source_character_mode in {1,2,3,100,200,300}",
+      "transform": "0x140323de0 swaps bytes0/3 and1/2 in each4byte group, called sixteen times by0x140323e50. 0x140323ec0 then swaps the two4byte halves of each8byte group. The combined operation reverses each of eight8byte groups. For native mode2 and source modes0..3, only source mode0 transforms.",
+      "fixture_mode": 2,
+      "fixture_transform_applied": false,
+      "trim": "0x1403239f0 removes trailing space, tab, CR, LF, NUL; preserves leading whitespace. All-whitespace64byte input leaves its first whitespace then NUL at index1. No-trailing-whitespace input is terminated at index64.",
+      "implementation_caveat": "Do not unconditionally reverse the bytes of numeric-loaded doubles: that corrupts names in observed native-mode2 fixtures."
+    }
+  },
+  "KEY_type_mapping": {
+    "established_observations": [
+      {
+        "raw_D1": 1,
+        "D2": 0,
+        "app_enum": 1,
+        "KEY_OBJTYP": 2,
+        "objects": [
+          1
+        ]
+      },
+      {
+        "raw_D1": 0,
+        "D2": 0,
+        "app_enum": 0,
+        "KEY_OBJTYP": 1,
+        "objects": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "general_rule_established": false,
+    "limitation": "No KEY type writer or semantic enum-label definition is in the reviewed slice. Do not equate raw descriptor codes, application enum values, and KEY codes; no general raw+1 rule has been established."
+  },
+  "reference_corroboration": {
+    "file": "object-key-reference.json",
+    "sources": {
+      "key": {
+        "path": "analysis/oracle/interactive/rea-step25/output.key",
+        "size": 2845589,
+        "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856"
+      },
+      "header": {
+        "path": "analysis/oracle/cpp-step25.header.bin",
+        "size": 23200,
+        "sha256": "a3ab17fdf7eb63bdaddda86e68285b792cbf9b95abca058a7b1a6495b93960d8"
+      },
+      "integers": {
+        "path": "analysis/oracle/cpp-step25.integers.bin",
+        "size": 792428,
+        "sha256": "76b43b682feed759780da8617b3dcbe02791699536a8fa82dfc51d43e28377ad"
+      },
+      "reals": {
+        "path": "analysis/oracle/cpp-step25.reals.bin",
+        "size": 6056824,
+        "sha256": "f84b2cca507002dd13f98286f2e745c8c29c6ad150b5cef1f678c7f86d212903"
+      }
+    },
+    "objects": [
+      {
+        "id": 1,
+        "integer_descriptor_index": 478,
+        "real_descriptor_index": 2087,
+        "status": 1,
+        "raw_type": 1,
+        "special_type_flag": 0,
+        "application_type_enum": 1,
+        "KEY_OBJTYP_observed": 2,
+        "name": "Workpiece",
+        "node_count": 492,
+        "element_count": 1945,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      },
+      {
+        "id": 2,
+        "integer_descriptor_index": 528,
+        "real_descriptor_index": 2187,
+        "status": 1,
+        "raw_type": 0,
+        "special_type_flag": 0,
+        "application_type_enum": 0,
+        "KEY_OBJTYP_observed": 1,
+        "name": "Top 650 New",
+        "node_count": 1046,
+        "element_count": 3836,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      },
+      {
+        "id": 3,
+        "integer_descriptor_index": 578,
+        "real_descriptor_index": 2287,
+        "status": 1,
+        "raw_type": 0,
+        "special_type_flag": 0,
+        "application_type_enum": 0,
+        "KEY_OBJTYP_observed": 1,
+        "name": "Bot 650 New",
+        "node_count": 1034,
+        "element_count": 3781,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      },
+      {
+        "id": 4,
+        "integer_descriptor_index": 628,
+        "real_descriptor_index": 2387,
+        "status": 1,
+        "raw_type": 0,
+        "special_type_flag": 0,
+        "application_type_enum": 0,
+        "KEY_OBJTYP_observed": 1,
+        "name": "Left Manipulator 1",
+        "node_count": 281,
+        "element_count": 1020,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      },
+      {
+        "id": 5,
+        "integer_descriptor_index": 678,
+        "real_descriptor_index": 2487,
+        "status": 1,
+        "raw_type": 0,
+        "special_type_flag": 0,
+        "application_type_enum": 0,
+        "KEY_OBJTYP_observed": 1,
+        "name": "Left Manipulator 2",
+        "node_count": 281,
+        "element_count": 1020,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      },
+      {
+        "id": 6,
+        "integer_descriptor_index": 728,
+        "real_descriptor_index": 2587,
+        "status": 1,
+        "raw_type": 0,
+        "special_type_flag": 0,
+        "application_type_enum": 0,
+        "KEY_OBJTYP_observed": 1,
+        "name": "Right Manipulator 1",
+        "node_count": 281,
+        "element_count": 1020,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      },
+      {
+        "id": 7,
+        "integer_descriptor_index": 778,
+        "real_descriptor_index": 2687,
+        "status": 1,
+        "raw_type": 0,
+        "special_type_flag": 0,
+        "application_type_enum": 0,
+        "KEY_OBJTYP_observed": 1,
+        "name": "Right Manipulator 2",
+        "node_count": 281,
+        "element_count": 1020,
+        "nodes_per_element": 4,
+        "matches_KEY_name_and_mesh_counts": true
+      }
+    ]
+  },
+  "limitations": [
+    "Formulas intentionally restricted to fully loaded3D version11000 arrays; older versions require remapping tables and partial-load modes have additional logic.",
+    "The helper to label application enum values and the KEY object-type writer were not inspected; retain numeric codes without invented semantic names.",
+    "Header name/count candidate strides400 were corroborative observations only; the importer uses address tables and descriptor strides instead.",
+    "DIEGEO counts refer to separate geometry and are not substitutes for mesh node/element counts.",
+    "This establishes summary extraction, not complete object material/contact/geometry reconstruction.",
+    "C++ validation of malformed pointer/count inputs is an implementation boundary; the original performs unchecked arithmetic and copies."
+  ],
+  "runtime_corroboration": {
+    "file": "import-objects-small.json",
+    "evidence_id": "ev_7700747a9d94dff5c2110d7b9ac6f6efac6583a82c74eab88b938a7143a5bcb2",
+    "target": "DEF_PRE_64.exe (pid 25608)",
+    "entry_chain": [
+      {
+        "function": "db-menu",
+        "address": "0x14000b170",
+        "caller": "0x140014ea3"
+      },
+      {
+        "function": "select-step",
+        "address": "0x1401cc2a0",
+        "caller": "0x14000b96f"
+      },
+      {
+        "function": "import-step",
+        "address": "0x1401cc420",
+        "caller": "0x1401cc337"
+      },
+      {
+        "function": "read-header",
+        "address": "0x1401cca80",
+        "caller": "0x1401cc667"
+      },
+      {
+        "function": "read-arrays",
+        "address": "0x1401cd1f0",
+        "caller": "0x1401cc6e0"
+      },
+      {
+        "function": "read-objects",
+        "address": "0x1401d2230",
+        "caller": "0x1401cc7e1"
+      }
+    ],
+    "header_observation": {
+      "operation": "leave",
+      "function": "read-header",
+      "status": 0,
+      "object_count": 7,
+      "source_byteorder": 2
+    },
+    "object_checks": [
+      {
+        "id": 1,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      },
+      {
+        "id": 2,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      },
+      {
+        "id": 3,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      },
+      {
+        "id": 4,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      },
+      {
+        "id": 5,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      },
+      {
+        "id": 6,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      },
+      {
+        "id": 7,
+        "descriptor_50_int32_matches_loaded_array": true,
+        "raw_name_64_bytes_matches_loaded_array": true,
+        "summary_matches_runtime": true
+      }
+    ],
+    "all_seven_objects_match": true,
+    "messages_truncated": false,
+    "import_step_status": 0,
+    "limitations": [
+      "Artifact identity is unavailable for this observation.",
+      "The target operating system and architecture were not reported by this observation."
+    ],
+    "comparison_note": "Compare names only through first NUL: bytes after the terminator are retained or uninitialized application storage, not part of the public string."
+  },
+  "confidence": {
+    "address_formulas": "Static call and indexing evidence, corroborated by all seven50word descriptors and64byte source names in original-process observations versus decoded arrays.",
+    "summary_fields": "All seven names, mesh flags, internal types, node counts and element counts agree with original runtime output and KEY reference.",
+    "byte_order_mode_2": "Directly observed in original runtime and all seven names.",
+    "byte_order_mode_0": "Complete static transform chain establishes each8byte reversal; not exercised by this runtime fixture.",
+    "other_type_branches": "Raw types2..4, overrideD2=1, inactiveD0=0 and nonmeshD0=2 are source-backed but not exercised by this runtime fixture.",
+    "identity_binding": "Static dossiers bind executable SHA256. Runtime tool records target process name/PID but does not supply artifact digest, OS or architecture."
+  }
+}

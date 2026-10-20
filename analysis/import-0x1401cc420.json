@@ -1,0 +1,92 @@
+{
+  "evidence_id": "ev_63a524ebe7fc74a3177cd409eea867d47487ae67defa9a9b2c05cfc4c867288d",
+  "subject": {
+    "name": "DEF_PRE_64.exe",
+    "digest": {
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    },
+    "local_path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\source\\DEF_PRE_64.exe",
+    "format": "pe",
+    "architecture": "x86_64"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.4"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.4"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "pdb_observations": "program-info-v5",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "call_relationship_coverage": "function-body-call-coverage-v5",
+      "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+      "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+      "no_return_repair": "disabled-windows-p0",
+      "process_launch": "official-headless-script-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "bb0af08834149e89edadd849fc76d93580191b315769be5638e63d0f4ebf4051"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "0x1401cc420"
+  },
+  "raw_result": {
+    "value": "\r\nint FUN_1401cc420(undefined8 *param_1,longlong param_2,int param_3)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  longlong lVar3;\r\n  longlong local_res10;\r\n  int local_res18;\r\n  undefined4 local_1c;\r\n  undefined4 local_18;\r\n  undefined1 local_14;\r\n  undefined1 local_13;\r\n  undefined1 local_12;\r\n  \r\n  if (*(longlong *)(param_2 + 0xad8) == 0) {\r\n    iVar2 = 2;\r\n  }\r\n  else if (((*(int *)(*(longlong *)(param_2 + 0xad8) + 0x1c + (longlong)param_3 * 0x28) == 2) &&\r\n           (DAT_1406dcb6c == 0)) ||\r\n          ((*(int *)(*(longlong *)(param_2 + 0xad8) + 0x1c + (longlong)param_3 * 0x28) == 3 &&\r\n           (DAT_1406dcb70 == 0)))) {\r\n    lVar3 = FUN_14047903c();\r\n    fprintf((FILE *)(lVar3 + 0x30),\"\\n*** Error occurred on reading DEFORM database.\\n\");\r\n    lVar3 = FUN_14047903c();\r\n    fprintf((FILE *)(lVar3 + 0x30),\"\\n    License Error - There is no valid DEFORM lincese.\\n\");\r\n    iVar2 = 7;\r\n  }\r\n  else {\r\n    FUN_1401d7ef0(param_1);\r\n    FUN_140199dc0(&DAT_1406f2e60,\"Start\");\r\n    local_res10 = param_2;\r\n    if (param_2 == 0) {\r\n      local_res10 = param_1[0x672];\r\n    }\r\n    local_res18 = param_3;\r\n    if (param_3 == -1) {\r\n      local_res18 = *(int *)(param_1 + 0xe8);\r\n    }\r\n    if ((local_res18 < 0) || (*(int *)(local_res10 + 0xac8) <= local_res18)) {\r\n      iVar2 = 2;\r\n    }\r\n    else {\r\n      FUN_140199df0(&DAT_1406f2e60,\"FreeData\",0);\r\n      FUN_1401cb440(param_1);\r\n      if (*(int *)(*(longlong *)(local_res10 + 0xad8) + 0x1c + (longlong)local_res18 * 0x28) == 2) {\r\n        local_1c = 2;\r\n        (**(code **)*param_1)(param_1,&local_1c);\r\n      }\r\n      else {\r\n        local_18 = 3;\r\n        (**(code **)*param_1)(param_1,&local_18);\r\n      }\r\n      *(int *)(param_1 + 0xe8) = local_res18;\r\n      *(undefined4 *)((longlong)param_1 + 0x744) =\r\n           *(undefined4 *)\r\n            (*(longlong *)(local_res10 + 0xad8) + 4 + (longlong)*(int *)(param_1 + 0xe8) * 0x28);\r\n      FUN_1401cc120(param_1,*(undefined4 *)(local_res10 + 0xabc));\r\n      FUN_1401cc160(param_1,*(undefined4 *)\r\n                             (*(longlong *)(local_res10 + 0xad8) + 0x20 +\r\n                             (longlong)*(int *)(param_1 + 0xe8) * 0x28));\r\n      FUN_140199df0(&DAT_1406f2e60,\"ReadStepHeader\",0);\r\n      iVar2 = FUN_1401cca80(param_1,local_res10);\r\n      if (iVar2 == 0) {\r\n        if (*(int *)(*(longlong *)(local_res10 + 0xad8) + 0x24 +\r\n                    (longlong)*(int *)(param_1 + 0xe8) * 0x28) == 0) {\r\n          iVar2 = 2;\r\n        }\r\n        else {\r\n          FUN_140199df0(&DAT_1406f2e60,\"ReadArrays\",&DAT_1406f8200);\r\n          iVar2 = FUN_1401cd1f0(param_1,local_res10);\r\n          FUN_140199df0(&DAT_1406f2e60,\"Update progressbar\",0);\r\n          if (iVar2 == 0) {\r\n            cVar1 = FUN_1401d83b0(param_1);\r\n            if (cVar1 == '\\0') {\r\n              FUN_140199df0(&DAT_1406f2e60,\"getUnitSystem\",0);\r\n              FUN_140235c10();\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadSimCtrl\",0);\r\n              FUN_1401cf4a0(param_1);\r\n              FUN_140235c30(*(undefined4 *)((longlong)param_1 + 0x84c));\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadMatlInfo\",0);\r\n              FUN_1401cff20(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadInterMatlInfo\",0);\r\n              FUN_1401d0180(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadObjInfo\",0);\r\n              FUN_1401d2230(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadInterObjInfo\",0);\r\n              FUN_1401d5c10(param_1);\r\n              FUN_1401d0320(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadArrays\",&DAT_1406edac0);\r\n              FUN_1401d2be0(param_1);\r\n              cVar1 = FUN_1400015e0(param_1);\r\n              if (cVar1 != '\\0') {\r\n                FUN_1401d5f50(param_1);\r\n              }\r\n              cVar1 = FUN_1400015f0(param_1);\r\n              if (cVar1 != '\\0') {\r\n                FUN_140199df0(&DAT_1406f2e60,\"ReadObjFoldInfoFromDB\",0);\r\n                FUN_1401d25d0(param_1);\r\n              }\r\n              FUN_140199df0(&DAT_1406f2e60,\"ProcessStepHeader\",0);\r\n              iVar2 = FUN_1401cd020(param_1,local_res10,*(undefined4 *)(param_1 + 0xe8));\r\n              if (iVar2 == 0) {\r\n                FUN_140199df0(&DAT_1406f2e60,\"free DB arrays\",0);\r\n                if (param_1[0x370] != 0) {\r\n                  free((void *)param_1[0x370]);\r\n                }\r\n                param_1[0x370] = 0;\r\n                if (param_1[0x371] != 0) {\r\n                  free((void *)param_1[0x371]);\r\n                }\r\n                param_1[0x371] = 0;\r\n                if (param_1[0x36f] != 0) {\r\n                  free((void *)param_1[0x36f]);\r\n                }\r\n                param_1[0x36f] = 0;\r\n                if (param_1[0x448] != 0) {\r\n                  free((void *)param_1[0x448]);\r\n                }\r\n                param_1[0x448] = 0;\r\n                FUN_140199df0(&DAT_1406f2e60,\"ReadDynamicArrayFromDB\",0);\r\n                iVar2 = FUN_1401cc180(param_1);\r\n                if (10999 < iVar2) {\r\n                  FUN_1401d2760(param_1);\r\n                }\r\n                FUN_140199df0(&DAT_1406f2e60,\"genGeoSymPlane\",0);\r\n                cVar1 = FUN_1400015f0(param_1);\r\n                if (cVar1 != '\\0') {\r\n                  FUN_1401d63c0(param_1,0);\r\n                }\r\n                local_14 = 1;\r\n                FUN_140199eb0(&DAT_1406f2e60,&local_14);\r\n                cVar1 = FUN_1401d2b70(param_1);\r\n                if ((cVar1 == '\\0') || (cVar1 = FUN_1401d2bb0(param_1), cVar1 == '\\0')) {\r\n                  local_12 = 1;\r\n                }\r\n                else {\r\n                  local_12 = 0;\r\n                }\r\n                local_13 = local_12;\r\n                FUN_1401d8f80(param_1,&local_13);\r\n                iVar2 = 0;\r\n              }\r\n              else {\r\n                *(undefined4 *)(param_1 + 0x26f) = 0;\r\n              }\r\n            }\r\n            else {\r\n              iVar2 = 0;\r\n            }\r\n          }\r\n          else {\r\n            *(undefined4 *)(param_1 + 0x26f) = 0;\r\n          }\r\n        }\r\n      }\r\n      else {\r\n        *(undefined4 *)(param_1 + 0x26f) = 0;\r\n      }\r\n    }\r\n  }\r\n  return iVar2;\r\n}\r\n\r\n",
+    "limitations": []
+  },
+  "normalized_result": "\r\nint FUN_1401cc420(undefined8 *param_1,longlong param_2,int param_3)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  longlong lVar3;\r\n  longlong local_res10;\r\n  int local_res18;\r\n  undefined4 local_1c;\r\n  undefined4 local_18;\r\n  undefined1 local_14;\r\n  undefined1 local_13;\r\n  undefined1 local_12;\r\n  \r\n  if (*(longlong *)(param_2 + 0xad8) == 0) {\r\n    iVar2 = 2;\r\n  }\r\n  else if (((*(int *)(*(longlong *)(param_2 + 0xad8) + 0x1c + (longlong)param_3 * 0x28) == 2) &&\r\n           (DAT_1406dcb6c == 0)) ||\r\n          ((*(int *)(*(longlong *)(param_2 + 0xad8) + 0x1c + (longlong)param_3 * 0x28) == 3 &&\r\n           (DAT_1406dcb70 == 0)))) {\r\n    lVar3 = FUN_14047903c();\r\n    fprintf((FILE *)(lVar3 + 0x30),\"\\n*** Error occurred on reading DEFORM database.\\n\");\r\n    lVar3 = FUN_14047903c();\r\n    fprintf((FILE *)(lVar3 + 0x30),\"\\n    License Error - There is no valid DEFORM lincese.\\n\");\r\n    iVar2 = 7;\r\n  }\r\n  else {\r\n    FUN_1401d7ef0(param_1);\r\n    FUN_140199dc0(&DAT_1406f2e60,\"Start\");\r\n    local_res10 = param_2;\r\n    if (param_2 == 0) {\r\n      local_res10 = param_1[0x672];\r\n    }\r\n    local_res18 = param_3;\r\n    if (param_3 == -1) {\r\n      local_res18 = *(int *)(param_1 + 0xe8);\r\n    }\r\n    if ((local_res18 < 0) || (*(int *)(local_res10 + 0xac8) <= local_res18)) {\r\n      iVar2 = 2;\r\n    }\r\n    else {\r\n      FUN_140199df0(&DAT_1406f2e60,\"FreeData\",0);\r\n      FUN_1401cb440(param_1);\r\n      if (*(int *)(*(longlong *)(local_res10 + 0xad8) + 0x1c + (longlong)local_res18 * 0x28) == 2) {\r\n        local_1c = 2;\r\n        (**(code **)*param_1)(param_1,&local_1c);\r\n      }\r\n      else {\r\n        local_18 = 3;\r\n        (**(code **)*param_1)(param_1,&local_18);\r\n      }\r\n      *(int *)(param_1 + 0xe8) = local_res18;\r\n      *(undefined4 *)((longlong)param_1 + 0x744) =\r\n           *(undefined4 *)\r\n            (*(longlong *)(local_res10 + 0xad8) + 4 + (longlong)*(int *)(param_1 + 0xe8) * 0x28);\r\n      FUN_1401cc120(param_1,*(undefined4 *)(local_res10 + 0xabc));\r\n      FUN_1401cc160(param_1,*(undefined4 *)\r\n                             (*(longlong *)(local_res10 + 0xad8) + 0x20 +\r\n                             (longlong)*(int *)(param_1 + 0xe8) * 0x28));\r\n      FUN_140199df0(&DAT_1406f2e60,\"ReadStepHeader\",0);\r\n      iVar2 = FUN_1401cca80(param_1,local_res10);\r\n      if (iVar2 == 0) {\r\n        if (*(int *)(*(longlong *)(local_res10 + 0xad8) + 0x24 +\r\n                    (longlong)*(int *)(param_1 + 0xe8) * 0x28) == 0) {\r\n          iVar2 = 2;\r\n        }\r\n        else {\r\n          FUN_140199df0(&DAT_1406f2e60,\"ReadArrays\",&DAT_1406f8200);\r\n          iVar2 = FUN_1401cd1f0(param_1,local_res10);\r\n          FUN_140199df0(&DAT_1406f2e60,\"Update progressbar\",0);\r\n          if (iVar2 == 0) {\r\n            cVar1 = FUN_1401d83b0(param_1);\r\n            if (cVar1 == '\\0') {\r\n              FUN_140199df0(&DAT_1406f2e60,\"getUnitSystem\",0);\r\n              FUN_140235c10();\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadSimCtrl\",0);\r\n              FUN_1401cf4a0(param_1);\r\n              FUN_140235c30(*(undefined4 *)((longlong)param_1 + 0x84c));\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadMatlInfo\",0);\r\n              FUN_1401cff20(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadInterMatlInfo\",0);\r\n              FUN_1401d0180(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadObjInfo\",0);\r\n              FUN_1401d2230(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadInterObjInfo\",0);\r\n              FUN_1401d5c10(param_1);\r\n              FUN_1401d0320(param_1);\r\n              FUN_140199df0(&DAT_1406f2e60,\"ReadArrays\",&DAT_1406edac0);\r\n              FUN_1401d2be0(param_1);\r\n              cVar1 = FUN_1400015e0(param_1);\r\n              if (cVar1 != '\\0') {\r\n                FUN_1401d5f50(param_1);\r\n              }\r\n              cVar1 = FUN_1400015f0(param_1);\r\n              if (cVar1 != '\\0') {\r\n                FUN_140199df0(&DAT_1406f2e60,\"ReadObjFoldInfoFromDB\",0);\r\n                FUN_1401d25d0(param_1);\r\n              }\r\n              FUN_140199df0(&DAT_1406f2e60,\"ProcessStepHeader\",0);\r\n              iVar2 = FUN_1401cd020(param_1,local_res10,*(undefined4 *)(param_1 + 0xe8));\r\n              if (iVar2 == 0) {\r\n                FUN_140199df0(&DAT_1406f2e60,\"free DB arrays\",0);\r\n                if (param_1[0x370] != 0) {\r\n                  free((void *)param_1[0x370]);\r\n                }\r\n                param_1[0x370] = 0;\r\n                if (param_1[0x371] != 0) {\r\n                  free((void *)param_1[0x371]);\r\n                }\r\n                param_1[0x371] = 0;\r\n                if (param_1[0x36f] != 0) {\r\n                  free((void *)param_1[0x36f]);\r\n                }\r\n                param_1[0x36f] = 0;\r\n                if (param_1[0x448] != 0) {\r\n                  free((void *)param_1[0x448]);\r\n                }\r\n                param_1[0x448] = 0;\r\n                FUN_140199df0(&DAT_1406f2e60,\"ReadDynamicArrayFromDB\",0);\r\n                iVar2 = FUN_1401cc180(param_1);\r\n                if (10999 < iVar2) {\r\n                  FUN_1401d2760(param_1);\r\n                }\r\n                FUN_140199df0(&DAT_1406f2e60,\"genGeoSymPlane\",0);\r\n                cVar1 = FUN_1400015f0(param_1);\r\n                if (cVar1 != '\\0') {\r\n                  FUN_1401d63c0(param_1,0);\r\n                }\r\n                local_14 = 1;\r\n                FUN_140199eb0(&DAT_1406f2e60,&local_14);\r\n                cVar1 = FUN_1401d2b70(param_1);\r\n                if ((cVar1 == '\\0') || (cVar1 = FUN_1401d2bb0(param_1), cVar1 == '\\0')) {\r\n                  local_12 = 1;\r\n                }\r\n                else {\r\n                  local_12 = 0;\r\n                }\r\n                local_13 = local_12;\r\n                FUN_1401d8f80(param_1,&local_13);\r\n                iVar2 = 0;\r\n              }\r\n              else {\r\n                *(undefined4 *)(param_1 + 0x26f) = 0;\r\n              }\r\n            }\r\n            else {\r\n              iVar2 = 0;\r\n            }\r\n          }\r\n          else {\r\n            *(undefined4 *)(param_1 + 0x26f) = 0;\r\n          }\r\n        }\r\n      }\r\n      else {\r\n        *(undefined4 *)(param_1 + 0x26f) = 0;\r\n      }\r\n    }\r\n  }\r\n  return iVar2;\r\n}\r\n\r\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+    "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+    "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+    "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+  ],
+  "relationship_coverage": null,
+  "locations": [],
+  "evidence_links": []
+}

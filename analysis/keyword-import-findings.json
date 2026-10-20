@@ -1,0 +1,43 @@
+{
+  "target": "source/DEF_PRE_64.exe",
+  "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "method": "REA Ghidra static analysis; keyword-import runtime not exercised",
+  "findings": [
+    {
+      "claim": "File Input option 1 opens KEY file through 0x1401b5f00; parser 0x1401b6520 resolves keyword IDs/categories and dispatches seven handler families.",
+      "evidence": [
+        "keyword-dispatch.json",
+        "keyword-reader.json",
+        "keyword-parser.json"
+      ]
+    },
+    {
+      "claim": "Object handler 0x14038b8a0 reads object ID, obtains object through 0x14019ccc0, and writes name at +0x828 and internal type at +0xc, matching DB importer object layout.",
+      "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27"
+    },
+    {
+      "claim": "Simulation handler writes application scalar fields and applies checks/defaults. Material and interaction handlers find or create records.",
+      "evidence": "keyword-handlers-evidence.json"
+    },
+    {
+      "claim": "Wrapper conditionally calls finalization 0x1401d7f40, including material-reference handling and iteration over active objects.",
+      "evidence": [
+        "keyword-detail-1.json",
+        "keyword-handlers-evidence.json"
+      ]
+    },
+    {
+      "claim": "Unknown keyword branch warns and skips remaining line, except special silent SRFNRG case. Read/data errors are reported. Not every input keyword is guaranteed to be accepted.",
+      "evidence": "keyword-parser.json"
+    },
+    {
+      "claim": "Special-command handler 0x140378e00 DBREAD branch calls DB importer 0x1401cc2a0. Other branches include recursive keyword-file reading and object transforms. Keyword import is not exclusively passive data loading.",
+      "evidence_id": "ev_ee137353e8e7af83a905cfca7056341401c12a3e30241ae8193a3079439d3380"
+    }
+  ],
+  "limits": [
+    "Not a complete keyword specification.",
+    "Not a runtime validation or round-trip equivalence test.",
+    "Exact merge/reset behavior, every finalization effect, and full command side effects have not been recovered."
+  ]
+}

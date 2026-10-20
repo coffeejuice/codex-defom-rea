@@ -1,0 +1,115 @@
+{
+  "artifact_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": "Static reconstruction of auxiliary dynamic-array loading invoked by loader mode 5",
+  "evidence": [
+    {"file": "loader_mode5.json", "procedure": "0x1403bcf76", "evidence_id": "ev_7d0c5ffa4822d208c71360d7d42929e62e3a84013b2d6ff7a19733eea792bc52"},
+    {"file": "0x1403b6679.json", "procedure": "0x1403b6679", "evidence_id": "ev_2b47c8e25ba2a10789c5290e22bc7aed2d6b9dd6b073c636c37b968f89ad627c"},
+    {"file": "aux-0x1403be093.json", "procedure": "0x1403be093", "evidence_id": "ev_e431648951371826a3aff024d20a6c522516512ce5480982b17da41987d569ee"},
+    {"file": "aux-0x1403bc85b.json", "procedure": "0x1403bc85b", "evidence_id": "ev_50fa64aecab36e54cece9bd1ce91bc11d29f3c39cfb5148e9e32d6d7ba035e01"},
+    {"file": "aux-0x1403bd3b5.json", "procedure": "0x1403bd3b5", "evidence_id": "ev_fb92e9f7fdb46b1ec48ac105da716e0809b715fc3272f5f2718e37626a41bb44"},
+    {"file": "aux-0x1403bda24.json", "procedure": "0x1403bda24", "evidence_id": "ev_ffaa818f452fd56f53a285ff28ef445146d0af3044f38714f58032c954a5e41f"},
+    {"file": "aux-0x1403be165.json", "procedure": "0x1403be165", "evidence_id": "ev_56a856d07a4400d6c356dc63b98d32698ee37dc15f02ea764c99b3eaa20ed59c"},
+    {"file": "aux-0x1403be25d.json", "procedure": "0x1403be25d", "evidence_id": "ev_214b51d5c66bf5bf699cfc6a025598f24926ab1b4fd031814ffa29d8c1fb92bb"}
+  ],
+  "activation": {
+    "version_gate": "Return immediately with ierr=0 when the active step version DAT_140b490f4 < 11000. This is not the database-header version DAT_140b490fc.",
+    "effective_step_version": "In the normal mode2/mode3 then mode5 sequence, 0x1403b6679 sets DAT_140b490f4 from selected row[8] for unified databases, or from the database-header version for legacy-signature databases.",
+    "runtime_state_prerequisite": "Mode5 checks DAT_140b490f4 before resolving its requested stored-step index. The original therefore depends on the previously established active-step state. A stateless C++ load_auxiliary(index) uses the selected step's effective version to reproduce the normal load-step-then-mode5 sequence; arbitrary original call histories are not modeled.",
+    "effective_step_version_evidence_file": "0x1403b6679.json",
+    "step_field": {"index_zero_based": 9, "type": "int32", "meaning": "physical record of auxiliary metadata"},
+    "zero_record_behavior": "Return with ierr=0 without reading auxiliary data.",
+    "record_byte_offset": "(record - 1) * 512",
+    "positive_selector": "Use supplied one-based stored-step index through step-table loader.",
+    "nonpositive_selector": "Search path compares step number with DAT_140707758; its initialization is not established by this dossier.",
+    "search_failure_code": 201
+  },
+  "metadata": {
+    "word_type": "int32 in database byte order",
+    "word_count": 20,
+    "byte_count": 80,
+    "groups": [
+      {"kind": "integer", "word_offset_zero_based": 0, "loaded_at": "0x140b48e60", "directory_buffer": "0x140b48680"},
+      {"kind": "real", "word_offset_zero_based": 10, "loaded_at": "0x140b48e88", "directory_buffer": "0x140b46740"}
+    ],
+    "group_fields_zero_based": [
+      {"index": 0, "meaning": "directory entry count"},
+      {"index": 1, "meaning": "overwritten in memory with maximum positive decoded element count across entries; on-disk semantics not established"},
+      {"index": 2, "meaning": "directory physical record"},
+      {"index": 3, "meaning": "directory length in int32 words"},
+      {"indices": [4, 5, 6, 7, 8, 9], "meaning": "not used by inspected read/allocation routines; retain raw"}
+    ],
+    "directory_read_condition": "group[0] > 0 and group[2] > 0",
+    "payload_load_condition": "group[0] > 0, independently of directory read condition",
+    "error_handling": "Metadata/directory helper maps low-level nonzero I/O error to 1 after attempting word swapping. Top-level mode5 does not check this status before proceeding to allocation and payload readers."
+  },
+  "directory": {
+    "entry_word_count": 10,
+    "entry_byte_stride": 40,
+    "prefix_word_count": 0,
+    "entry_fields_zero_based": [
+      {"index": 0, "type": "int32", "meaning": "expected decoded element count"},
+      {"index": 1, "type": "int32", "meaning": "overwritten in memory with allocation index when entry[0] > 0; not a physical record or file byte offset"},
+      {"index": 2, "type": "int32", "meaning": "stored payload element count, including compression trailer"},
+      {"index": 3, "type": "int32", "meaning": "payload physical record"},
+      {"indices": [4, 5, 6, 7, 8, 9], "meaning": "not used by inspected read/allocation routines; retain raw"}
+    ],
+    "byte_order": "all directory words swapped using normal int32 database conversion when the file/native mode requires it",
+    "allocation": {
+      "integer": "entry[0] int32 elements when positive",
+      "real": "entry[0] float64 elements, allocated as 2 * entry[0] int32 words when positive",
+      "temporary_integer": "maximum expected integer count + 2 int32 elements",
+      "temporary_real": "2 * maximum expected real count + 4 int32 words"
+    }
+  },
+  "payload": {
+    "integer": {
+      "element_type": "int32",
+      "stored_byte_length": "entry[2] * 4",
+      "helper": "0x1403be165",
+      "decompressor": "0x14044aeeb",
+      "diagnostic": "Error in READ_INTEGER_DYN_ARRAY()"
+    },
+    "real": {
+      "element_type": "float64",
+      "stored_byte_length": "entry[2] * 8",
+      "helper": "0x1403be25d",
+      "decompressor": "0x14044b3f5",
+      "diagnostic": "Error in READ_REAL_DYN_ARRAY()"
+    },
+    "compression": "Unconditionally use the same backward run-link unpacking routines as regular arrays, including their trailing decoded-length and last-run-pointer elements.",
+    "low_level_order": [
+      "Read the stored payload at entry[3].",
+      "Perform normal integer-word or float64 byte swapping for the database conversion mode.",
+      "Unpack even if the preceding read reported an error.",
+      "Map a nonzero I/O status to 1."
+    ],
+    "wrapper_order": [
+      "Set ierr=0 on entry to the integer or real array wrapper.",
+      "Process all count entries in directory order; no positive-stored-count guard appears in the wrapper.",
+      "Call payload helper to obtain decoded element count.",
+      "Call the integer/real copy helper with the decoded count before checking status or expected count.",
+      "If ierr is nonzero or decoded count differs from entry[0], print diagnostic fields but continue to next entry.",
+      "Free temporary storage after loop."
+    ],
+    "diagnostic_fields": {
+      "IERR": "current I/O status",
+      "ISIZE_ACTUAL": "entry[0], expected decoded count",
+      "ISIZE": "entry[2], stored count",
+      "ISIZE_NEW": "unpacker-reported decoded count"
+    },
+    "count_mismatch_status": "No new error code is assigned for count mismatch alone.",
+    "status_overwrite": "The real wrapper resets ierr=0 and may mask earlier integer errors; subsequent low-level reads may replace earlier statuses. Exact malformed-input parity has not been run."
+  },
+  "fixture_coverage": [
+    {"path": "C:\\PROBLEM\\TEST_REA\\COG_P1_B1\\COG_P1_B1.DB", "sha256": "707326e90e4f8fb0fee2aa1fa9f174e8d6e40b213fe2a7c0a828be00829671df", "step_rows_checked": 32, "nonzero_auxiliary_records": 0},
+    {"path": "C:\\PROBLEM\\TEST_REA\\Inc718_D420_GFM_V_DIES_Angle2_18\\Inc718_D420_GFM_V_DIES_Angle2_18.DB", "sha256": "b1db49f3a662881f79b791f660a5e7e43191eed15f7b9d562ada0538af5953a3", "step_rows_checked": 790, "nonzero_auxiliary_records": 0}
+  ],
+  "limitations": [
+    "Schema describes fields consumed by these compiled readers. Retaining unused metadata/entry words is necessary because their meanings remain unknown.",
+    "No supplied fixture exercises auxiliary loading, so the schema is supported by static code only.",
+    "Ghidra output is recovered pseudocode, not original Fortran; overlapping globals and recovered signatures retain provider limitations.",
+    "Original unchecked reads, count-dependent allocation, and copying before error checking do not establish safe malformed-input semantics.",
+    "The initialization of DAT_140707758 for nonpositive step selectors remains unresolved.",
+    "No target executable was run by this auxiliary investigation."
+  ]
+}
