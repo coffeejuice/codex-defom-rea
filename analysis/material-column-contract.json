@@ -1,0 +1,164 @@
+{
+  "status": "selected_material_assignment_and_column_profile_verified_with_initial_and_independent_captures",
+  "created_utc": "2026-10-20T21:59:00.059103+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "MTLGRP174 live integer-array imports and unconditional202960 postprocess, including partial failures.",
+    "Per-object3980 dominant group: first encounter breaks ties, zero restores prior, deactivation retains; ELMCON fills only when positive.",
+    "VOLFC205/VOLFS216 ordered material selection, temporary floating reads, success-only commits, row-width and final-line cursor behavior.",
+    "Existing material insertion remapping validated with nonzero values, multiple rows, signed material IDs, lower/middle/higher insertions, and signed-zero raw bytes."
+  ],
+  "verification": {
+    "original_imports": 48,
+    "predeclared_splits": {
+      "producer_training": 25,
+      "held_out_reference": 7,
+      "held_out_column": 16
+    },
+    "tokens": 110,
+    "handlers": 108,
+    "token_material_reader_calls": 291,
+    "reference_reader_calls": 31,
+    "column_reader_calls": 46,
+    "final_descriptor_snapshots": 2120,
+    "nonzero_remap_checks": 8,
+    "temporary_copies": 16,
+    "nonzero_remapped_entries": 30,
+    "held_out_negative_zero_reader_slots": 14,
+    "held_out_negative_zero_remapped_slots": 2,
+    "independent_tamper_rejections": 70,
+    "tests_verified": 36,
+    "frozen_runtime_files_unchanged": 27
+  },
+  "candidate_changed_after_first_freeze": false,
+  "public_database_loader_api_changed": false,
+  "captures": [
+    {
+      "evidence_id": "ev_6644619aa25bf322071e1008b433ca992eb042e019d481aee2bd13c91fed0a4b",
+      "pid": 19420,
+      "imports": 32,
+      "probe_errors": 0,
+      "messages_truncated": false,
+      "original_exit_code": 0
+    },
+    {
+      "evidence_id": "ev_3cf7180a806de5cc49edadac29e9f537c3e5a6c2e4319b2036dd8eb1b2b00da7",
+      "pid": 20384,
+      "imports": 16,
+      "probe_errors": 0,
+      "messages_truncated": false,
+      "original_exit_code": 0
+    }
+  ],
+  "checker_corrections": [
+    "Held-out trace redundant JSON numbers lose negative-zero sign; checker permits this display-only loss while exact raw binary64 bytes remain authoritative. No candidate or probe correction.",
+    "Independent verifier generalized unknown token checks to verified source scans and keyword catalog, and separately accounts for redundant numeric sign loss. Earlier shared verifiers stayed unchanged.",
+    "Original checker/verifier versions and initial diagnostics remain archived; training was revalidated under final checkers."
+  ],
+  "limitations": [
+    "Selected finite, owned mesh/material state and normal import wrapper only; this is not complete application equivalence.",
+    "Uninitialized first matching-failure destinations, native allocation failures, overflowing extents, nonfinite values, arbitrary shared native storage and remaining scientific material properties are unresolved or excluded from this checkpoint.",
+    "Native scratch leaks on reader failure are not replicated by owned C++ temporary storage. Failure mutations and stream consumption are compared.",
+    "Cumulative test verification comprises34 tests after candidate build and both new tests after final checker/registration changes; runtime candidate files were unchanged."
+  ],
+  "next_action": "Use array-keyword-next-inventory.json to verify native callsites and postprocessing for the coherent25-keyword fixed-layout field family; generalize in-place reader modes0/1/6, then implement and independently evaluate node and element fields. Keep dynamic property stores, additional modes and full command/export workflows in scope.",
+  "bindings": [
+    {
+      "path": "analysis/material-column-model-contract.json",
+      "sha256": "613200cc664894c14a72a235760017834ce134a5655ec7e8a61cdff3bfe62b14"
+    },
+    {
+      "path": "analysis/material-column-producer-static-contract.json",
+      "sha256": "eb56bc8c0d4dfd0d5fc9fdef3e7ff32edbf7b6a913b55e8d1e0119d1c9ca2c18"
+    },
+    {
+      "path": "analysis/material-column-candidate-freeze.json",
+      "sha256": "93001c7fa1305c55de3e35cd94a54a109d52ea05b8f17efec73c60377838b1db"
+    },
+    {
+      "path": "analysis/material-column-input-freeze.json",
+      "sha256": "e21cc56e8bf8c67e7b8b836a78b37c04a2bbed293c53b1dc54f27fc916719c6a"
+    },
+    {
+      "path": "analysis/material-column-held-out-input-freeze.json",
+      "sha256": "7cc7d5721f49fb5267f619d6da43e68f3bc2a98208f962332149d49659381bbf"
+    },
+    {
+      "path": "analysis/material-column-evaluation-cases.json",
+      "sha256": "f5ffd87d20d9eb6f1f3ae1105a286185e15d31ee073b0907f3b7e2b76cef3927"
+    },
+    {
+      "path": "analysis/material-column-held-out-cases.json",
+      "sha256": "e57b491b1b94d3dcaa464f60fd26ea2155868139b7b46183ffb2c8cab0b926df"
+    },
+    {
+      "path": "analysis/material-column-runtime-training.json",
+      "sha256": "6b29c23fd306dfdd5b29804a43be50d67050ff944d8ea8e065ec69d66d046183"
+    },
+    {
+      "path": "analysis/material-column-runtime-held-out.json",
+      "sha256": "4b65ff859372e7892c81db812b415a429e0ee39f62d83dea76fd82f8adfc1713"
+    },
+    {
+      "path": "analysis/oracle/material-column-training/run.json",
+      "sha256": "db00fa7ebed2d76344bcf1cc6f45915d7a0f42d278de9cc74b01b22fe1ba9528"
+    },
+    {
+      "path": "analysis/oracle/material-column-held-out/run.json",
+      "sha256": "3f85b1ea44c1639fe6d048b9fec971a5cf2866e3a2771f3797dcbc136fd7264d"
+    },
+    {
+      "path": "analysis/material-column-training-comparison.json",
+      "sha256": "e7e48b35160a9f557d55a479133638459929fc84f21799dc99d2486607111b09"
+    },
+    {
+      "path": "analysis/material-column-training-comparison-revalidated.json",
+      "sha256": "cf3eb0444839a8b1862665859e7052dc2e5773e5dc0f28a6515a9e29333c5861"
+    },
+    {
+      "path": "analysis/material-column-held-out-comparison.json",
+      "sha256": "0d44330dcdde0f921c52231d7fcfb149b9a4067623d01a6ffb4c3a622915f099"
+    },
+    {
+      "path": "analysis/material-column-observations.json",
+      "sha256": "6c7b8f563e9ecdb2ffa82ef87de87e884dab1c692ee27726751f571ab8e6527b"
+    },
+    {
+      "path": "analysis/material-column-held-out-observations.json",
+      "sha256": "0780bdce1006c4b6d2ffe648ff95ddef3bc8e1a36666e51edd9d376ca12e5f33"
+    },
+    {
+      "path": "analysis/material-column-held-out-comparator-error.json",
+      "sha256": "b78aa658e6a46eeabdff301046b38667d73f9bf696345c7ced263aa279a3cce8"
+    },
+    {
+      "path": "analysis/material-column-verifier-initial-diagnostic.json",
+      "sha256": "e1a2d9a845f6b90ecec86c3b1882239ad997f34c81f12729525a210906eb1d06"
+    },
+    {
+      "path": "analysis/material-column-held-out-verifier-initial-diagnostic.json",
+      "sha256": "2871dc22d742de303a99fe9f7f519d0c493f662413fbc80531434bf977c8ab06"
+    },
+    {
+      "path": "analysis/material-column-test-registration.json",
+      "sha256": "084cbe36d24d7066df8df349da018c379598edd890e83c2dfbf1e597a66428e8"
+    },
+    {
+      "path": "analysis/array-keyword-next-inventory.json",
+      "sha256": "cfe64415fc8abc76aa0d686e13ed845c3bfaaa495fd8629cd3e243eb507c26f4"
+    },
+    {
+      "path": "tools/compare_material_column_import.py",
+      "sha256": "0d8fa8526639ccfa5bd1e1777650f303867903ada39262365467a0b930c72c24"
+    },
+    {
+      "path": "tools/verify_material_column_observations.py",
+      "sha256": "43bff7e281094c8a3ae348a764d0eeb71fee86f221b22399ac9cca4aba2e2f4f"
+    },
+    {
+      "path": "tools/observe_material_column_import.js",
+      "sha256": "831be246596a365f0b1a5c5b70b0c4acbcc07186f105bd7acada898b8c438f45"
+    }
+  ],
+  "full_application_status": "incomplete_goal_active"
+}

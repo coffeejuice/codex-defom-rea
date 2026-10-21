@@ -1,0 +1,1104 @@
+{
+  "schema_version": 1,
+  "scope": "Input-only boundary evaluation fixtures for partial reconstruction. No REA provider calls, original executions, expected original results, or boundary implementation are included. This set does not establish complete mesh or application compatibility.",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "evaluation_protocol": {
+    "training": "Use training fixtures for observation and implementation development. Record actual original status, raw boundary arrays, ownership, and provenance independently.",
+    "held_out": "Freeze and record implementation commit or content hashes before running the original or reconstructed program on held-out fixtures. Preserve these input hashes. If results inform implementation changes, reclassify those cases as training and prepare new held-out cases.",
+    "independence_limit": "Held-out input designs are visible in this repository. Independence means no held-out runtime results are used before the implementation freeze, not concealed test design.",
+    "required_comparison": "Compare import status and exact raw face, ownership, and object boundary arrays, including order. Also record empty/error outcomes; do not infer them from candidate incidence counts.",
+    "eight_node_scope": "Both cube cases are discovery-only because the frozen candidate implements four-node tetrahedral boundaries. Keep the held-out cube unexecuted until a future eight-node candidate is frozen; its presence does not expand the current implementation claim."
+  },
+  "static_syntax_basis": {
+    "ELMCON_arity_8": "Original object handler 0x14038b8a0 accepts arity8 in the three-coordinate branch, sets kind4 through 0x140165500, and reads label plus eight node IDs through 0x140414600. This establishes input shape only; cube runtime acceptance remains untested.",
+    "equal_sum_sorting": "Saved comparator 0x14043c7f0 compares node-ID sums without a secondary key. Equal-key runtime ordering and odd-duplicate ownership remain unresolved.",
+    "tetra_permutations": "Signed six-volume is calculated solely to classify input orientation and degeneracy, not to predict import acceptance or boundary outputs."
+  },
+  "evidence": [
+    {
+      "path": "analysis/keyword-object-contract.json",
+      "sha256": "b7cad5d0855f0f9326f33524c0a9cd9412312ae5399a121eb636216595d1f3c3",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/keyword-handlers-evidence.json",
+      "sha256": "77a33290e256a1db6a526d86a4572ad57c071ff51ac8e7c560abf7e5affb5550",
+      "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27"
+    },
+    {
+      "path": "analysis/model-0x140165500.json",
+      "sha256": "d887c57597fb4cd1bc78ae0368774139842051a670475f64b2435e6062caa4f4",
+      "evidence_id": "ev_dfe8d8e94157b8ee5b2214872bf9542aaf566714b34e2de802af11d41683a87c"
+    },
+    {
+      "path": "analysis/mesh-boundary-tables.json",
+      "sha256": "b801ff6e713b7a4170768dbb52b6b5432867f1a6cbc0e15ac8a4f5636dd32076",
+      "evidence_id": "ev_83c4d28e273db4cba1fa042c9e860d4d9a2260fb49065ea9183fe5cc6386cdf5"
+    },
+    {
+      "path": "analysis/mesh-0x14043c7f0.json",
+      "sha256": "a076d7d492bcdf2aec174f382c0f121141314dd02310a0907c470777d22662b6",
+      "evidence_id": "ev_b2b36b0a0388ecc59c42b4b5eae8b60534b8ed4e5fff7bfee21b40a94dc6625a"
+    },
+    {
+      "path": "tests/fixtures/keywords/07_tetrahedron.KEY",
+      "sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+      "evidence_id": null
+    },
+    {
+      "path": "tests/fixtures/keywords/13_two_tetrahedra.KEY",
+      "sha256": "1b4d393a40ecc37ddfa8ef5698a85ea60c9f64665e05d8940caa80965385d35c",
+      "evidence_id": null
+    }
+  ],
+  "counts": {
+    "training": 5,
+    "held_out": 5,
+    "total": 10
+  },
+  "cases": [
+    {
+      "id": "01_triple_duplicate_tetra",
+      "split": "training",
+      "path": "tests/fixtures/boundary/training/01_triple_duplicate_tetra.KEY",
+      "sha256": "39c090116e2862ed7135acaedcf71dbea24a820d9a6c9a3970be3a92ff51433d",
+      "size_bytes": 165,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonphysical_overlapping_topological_stress",
+      "node_count": 4,
+      "element_count": 3,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "research_questions": [
+        "Which element owns each remaining face after cancellation of an odd number of identical tetrahedra, and in what order are those faces emitted?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          1,
+          1,
+          1
+        ],
+        "all_elements_nondegenerate": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": []
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "02_three_tetra_shared_face",
+      "split": "training",
+      "path": "tests/fixtures/boundary/training/02_three_tetra_shared_face.KEY",
+      "sha256": "9ab254da0a41ec49c5da1796ac4607055209a4ef8df4ce29cd02cd58d0412bcc",
+      "size_bytes": 189,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonmanifold_and_overlapping_topological_stress",
+      "node_count": 6,
+      "element_count": 3,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0.25,
+          0.25,
+          2
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          3,
+          2,
+          5
+        ],
+        [
+          1,
+          2,
+          3,
+          6
+        ]
+      ],
+      "research_questions": [
+        "How does the original cancel three occurrences of the shared triangular face, and which element and orientation remain?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          1,
+          1,
+          2.0
+        ],
+        "all_elements_nondegenerate": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": [
+          {
+            "sum": 8,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  1,
+                  3,
+                  4
+                ],
+                "node_id_sum": 8
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  1,
+                  2,
+                  5
+                ],
+                "node_id_sum": 8
+              }
+            ]
+          },
+          {
+            "sum": 9,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  2,
+                  3,
+                  4
+                ],
+                "node_id_sum": 9
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  1,
+                  3,
+                  5
+                ],
+                "node_id_sum": 9
+              },
+              {
+                "element_id": 3,
+                "sorted_nodes": [
+                  1,
+                  2,
+                  6
+                ],
+                "node_id_sum": 9
+              }
+            ]
+          },
+          {
+            "sum": 10,
+            "occurrences": [
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  2,
+                  3,
+                  5
+                ],
+                "node_id_sum": 10
+              },
+              {
+                "element_id": 3,
+                "sorted_nodes": [
+                  1,
+                  3,
+                  6
+                ],
+                "node_id_sum": 10
+              }
+            ]
+          }
+        ]
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "03_disjoint_equal_sum_faces",
+      "split": "training",
+      "path": "tests/fixtures/boundary/training/03_disjoint_equal_sum_faces.KEY",
+      "sha256": "e25a1a9d15ded40926d48793c4b72eef96276a0e2930ac2a2e8e2a862c4aea10",
+      "size_bytes": 189,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "geometrically_disjoint_valid_tetrahedra",
+      "node_count": 8,
+      "element_count": 2,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          3,
+          4,
+          8
+        ],
+        [
+          2,
+          5,
+          6,
+          7
+        ]
+      ],
+      "research_questions": [
+        "Do distinct faces with equal node-ID sums retain independent identities, and how does their equal-key ordering affect output?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          1,
+          1
+        ],
+        "all_elements_nondegenerate": true,
+        "element_node_sets_disjoint": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": [
+          {
+            "sum": 13,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  1,
+                  4,
+                  8
+                ],
+                "node_id_sum": 13
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  2,
+                  5,
+                  6
+                ],
+                "node_id_sum": 13
+              }
+            ]
+          },
+          {
+            "sum": 15,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  3,
+                  4,
+                  8
+                ],
+                "node_id_sum": 15
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  2,
+                  6,
+                  7
+                ],
+                "node_id_sum": 15
+              }
+            ]
+          }
+        ]
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "04_cyclic_tetra_connectivity",
+      "split": "training",
+      "path": "tests/fixtures/boundary/training/04_cyclic_tetra_connectivity.KEY",
+      "sha256": "9445df59182f8bf284190f7804029c625538ce318bbe62e3773bfac7d87ab509",
+      "size_bytes": 148,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "valid_tetrahedron_orientation_preserving_permutation",
+      "node_count": 4,
+      "element_count": 1,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          1,
+          4
+        ]
+      ],
+      "research_questions": [
+        "How does a cyclic connectivity permutation change emitted face order and orientation?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          1
+        ],
+        "all_elements_nondegenerate": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": []
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "05_unit_hexahedron",
+      "split": "training",
+      "path": "tests/fixtures/boundary/training/05_unit_hexahedron.KEY",
+      "sha256": "06954715ab18e9677709ef2e17fe26149805f5af901579bdfb4bc69d69593ebb",
+      "size_bytes": 178,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "valid_unit_cube_static_syntax_only",
+      "node_count": 8,
+      "element_count": 1,
+      "arity": 8,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "research_questions": [
+        "Does the original accept this eight-node cube, and what face ordering, ownership, and fourth-slot treatment does its boundary builder expose?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "geometry": "Axis-aligned cube; connectivity is the canonical eight-node sequence or a proper cyclic rotation of both four-node layers.",
+        "side_length": 1
+      },
+      "evaluation_role": "eight_node_discovery_only_not_implemented"
+    },
+    {
+      "id": "01_triple_duplicate_mixed_orientation",
+      "split": "held_out",
+      "path": "tests/fixtures/boundary/held_out/01_triple_duplicate_mixed_orientation.KEY",
+      "sha256": "313f6dd208aae8d8cacf34cd3dc2e4a7fe1dd1376ed96e81d0ce8a2ce47ff641",
+      "size_bytes": 177,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonphysical_overlapping_topological_stress_with_inverted_element",
+      "node_count": 4,
+      "element_count": 3,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          1,
+          4
+        ],
+        [
+          1,
+          3,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "research_questions": [
+        "Does the frozen implementation reproduce ownership and face orientation for odd duplicate tetrahedra with mixed connectivity orientation?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          1,
+          -1,
+          1
+        ],
+        "all_elements_nondegenerate": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": []
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "02_shared_face_reordered",
+      "split": "held_out",
+      "path": "tests/fixtures/boundary/held_out/02_shared_face_reordered.KEY",
+      "sha256": "ba096d762b1e22d59a364351c2aac0b611ae38cd80ca10643afc1771fb7015b6",
+      "size_bytes": 187,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonmanifold_and_overlapping_topological_stress",
+      "node_count": 6,
+      "element_count": 3,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0.25,
+          0.25,
+          2
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          1,
+          6
+        ],
+        [
+          3,
+          2,
+          1,
+          5
+        ],
+        [
+          3,
+          1,
+          2,
+          4
+        ]
+      ],
+      "research_questions": [
+        "Does changing element order and cyclic local ordering change surviving shared-face ownership or ordering in the same way in both programs?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          2.0,
+          1,
+          1
+        ],
+        "all_elements_nondegenerate": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": [
+          {
+            "sum": 8,
+            "occurrences": [
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  1,
+                  2,
+                  5
+                ],
+                "node_id_sum": 8
+              },
+              {
+                "element_id": 3,
+                "sorted_nodes": [
+                  1,
+                  3,
+                  4
+                ],
+                "node_id_sum": 8
+              }
+            ]
+          },
+          {
+            "sum": 9,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  1,
+                  2,
+                  6
+                ],
+                "node_id_sum": 9
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  1,
+                  3,
+                  5
+                ],
+                "node_id_sum": 9
+              },
+              {
+                "element_id": 3,
+                "sorted_nodes": [
+                  2,
+                  3,
+                  4
+                ],
+                "node_id_sum": 9
+              }
+            ]
+          },
+          {
+            "sum": 10,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  1,
+                  3,
+                  6
+                ],
+                "node_id_sum": 10
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  2,
+                  3,
+                  5
+                ],
+                "node_id_sum": 10
+              }
+            ]
+          }
+        ]
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "03_equal_sum_elements_reordered",
+      "split": "held_out",
+      "path": "tests/fixtures/boundary/held_out/03_equal_sum_elements_reordered.KEY",
+      "sha256": "9f545dfab11feb06d37e3c7821b2ee82bbef0725332cf7a9e2bb1c89fb85f4aa",
+      "size_bytes": 193,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "geometrically_disjoint_valid_tetrahedra",
+      "node_count": 8,
+      "element_count": 2,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          5,
+          6,
+          2,
+          7
+        ],
+        [
+          3,
+          4,
+          1,
+          8
+        ]
+      ],
+      "research_questions": [
+        "Does the frozen implementation match equal-sum face ordering after reversing element order and cyclically permuting local nodes?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          1,
+          1
+        ],
+        "all_elements_nondegenerate": true,
+        "element_node_sets_disjoint": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": [
+          {
+            "sum": 13,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  2,
+                  5,
+                  6
+                ],
+                "node_id_sum": 13
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  1,
+                  4,
+                  8
+                ],
+                "node_id_sum": 13
+              }
+            ]
+          },
+          {
+            "sum": 15,
+            "occurrences": [
+              {
+                "element_id": 1,
+                "sorted_nodes": [
+                  2,
+                  6,
+                  7
+                ],
+                "node_id_sum": 15
+              },
+              {
+                "element_id": 2,
+                "sorted_nodes": [
+                  3,
+                  4,
+                  8
+                ],
+                "node_id_sum": 15
+              }
+            ]
+          }
+        ]
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "04_inverted_tetra_connectivity",
+      "split": "held_out",
+      "path": "tests/fixtures/boundary/held_out/04_inverted_tetra_connectivity.KEY",
+      "sha256": "03240448eb687d7968e91aa3f321a251046e9d89cf32d0b57703e5f64781110d",
+      "size_bytes": 150,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "inverted_orientation_topological_stress",
+      "node_count": 4,
+      "element_count": 1,
+      "arity": 4,
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          3,
+          2,
+          4
+        ]
+      ],
+      "research_questions": [
+        "Does an odd connectivity permutation cause rejection, orientation correction, or direct reversed-face emission?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "signed_six_volumes": [
+          -1
+        ],
+        "all_elements_nondegenerate": true
+      },
+      "input_diagnostics": {
+        "distinct_face_sets_with_equal_node_id_sum": []
+      },
+      "evaluation_role": "four_node_frozen_candidate_evaluation"
+    },
+    {
+      "id": "05_transformed_rotated_hexahedron",
+      "split": "held_out",
+      "path": "tests/fixtures/boundary/held_out/05_transformed_rotated_hexahedron.KEY",
+      "sha256": "b8c078d6260b79a198360303a025b1b72a170e7fb6ba640ecf3fada311815496",
+      "size_bytes": 201,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "valid_translated_scaled_cube_orientation_preserving_permutation_static_syntax_only",
+      "node_count": 8,
+      "element_count": 1,
+      "arity": 8,
+      "coordinates": [
+        [
+          3,
+          -4,
+          5
+        ],
+        [
+          5,
+          -4,
+          5
+        ],
+        [
+          5,
+          -2,
+          5
+        ],
+        [
+          3,
+          -2,
+          5
+        ],
+        [
+          3,
+          -4,
+          7
+        ],
+        [
+          5,
+          -4,
+          7
+        ],
+        [
+          5,
+          -2,
+          7
+        ],
+        [
+          3,
+          -2,
+          7
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          4,
+          1,
+          6,
+          7,
+          8,
+          5
+        ]
+      ],
+      "research_questions": [
+        "Does the frozen implementation reproduce the original hexahedral boundary arrays after translation, scaling, and a proper local connectivity rotation?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_checks": {
+        "all_node_ids_positive_and_within_coordinate_count": true,
+        "all_element_nodes_distinct": true,
+        "sequential_coordinate_and_element_row_labels": true,
+        "geometry": "Axis-aligned cube; connectivity is the canonical eight-node sequence or a proper cyclic rotation of both four-node layers.",
+        "side_length": 2
+      },
+      "evaluation_role": "eight_node_discovery_only_not_implemented"
+    }
+  ],
+  "validation": {
+    "all_fixtures_ascii": true,
+    "all_connectivity_ids_positive_and_within_coordinate_count": true,
+    "all_tetrahedra_nondegenerate": true,
+    "fixture_sizes_bytes": [
+      148,
+      201
+    ],
+    "no_original_or_reconstructed_program_executed": true,
+    "independent_readback_parse": "PASS: headers, row counts, row labels, numeric coordinates, exact connectivity, arities, ID ranges, ASCII bytes, sizes and hashes match the manifest for all ten fixtures."
+  }
+}

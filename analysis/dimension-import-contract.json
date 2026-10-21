@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "selected_model_dimension_reset_implemented_and_compared",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "scope": "Extend the selected OBJNAM/OBJTYP/RZ/ELMCON importer with empty-root control initialization, destructive dimension changes, same-dimension preservation, and complementary linked-root dimensions. Full application scope remains active.",
+  "implementation": [
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_import.cpp",
+    "tests/keyword_import_replay.cpp"
+  ],
+  "behavior": [
+    "initialized_root_controls derives 79 counts with initialize_layout after resetting scalar inputs and an empty material collection.",
+    "set_dimension returns without mutation when the dimension is unchanged. Otherwise it stores the new dimension, releases represented objects, resets the selected controls and increments an internal identity generation.",
+    "Reset retains the process-derived temperature default, boundary suppression, alternate-root flag and linked pointer. Fresh objects have direct61 default zero and unit multiplicities.",
+    "link_root stores a borrowed pointer and aligns its dimension to the complement of the primary root. The linked root must outlive the link.",
+    "The first recognized header sets the primary dimension and then the linked dimension. Later recognized headers within the same import are ignored.",
+    "Objects and descriptors retain identity within a dimension generation. A reset starts a new generation; native addresses can be reused and are not compared across generations.",
+    "Original alternate-root keyword dispatch remains explicitly unsupported. Linking a secondary root does not enable that dispatch.",
+    "Scientific finalization remains explicitly pending after parsing."
+  ],
+  "evidence": {
+    "reset_audit": "analysis/root-reset-contract-audit.json",
+    "dimension_setter": "analysis/root-layout-0x1401c8ba0.json",
+    "root_initializer": "analysis/model-0x1401c8c00.json",
+    "parser": "analysis/keyword-parser.json",
+    "linking": ["analysis/model-0x1401d8000.json", "analysis/model-0x1401d8050.json"],
+    "empty_material_query_counts": [
+      "analysis/root-reset-0x1401d6c60.json",
+      "analysis/root-reset-0x1401d6b30.json"
+    ],
+    "process_unit_getter": "analysis/root-reset-0x140235c10.json",
+    "object_destruction": "analysis/root-reset-0x14015f790.json",
+    "component_layout": "analysis/component-layout-contract.json"
+  },
+  "evaluation": {
+    "candidate_freeze": "analysis/dimension-import-candidate-freeze.json",
+    "candidate_files": 21,
+    "candidate_history": "Source files, library and replay executable archived before the new original capture. Initial report required all current identities to match that archive; no C++ candidate changes followed capture.",
+    "fixture_manifest": "analysis/dimension-import-evaluation-cases.json",
+    "capture": "analysis/dimension-import-runtime-evaluation.json",
+    "evidence_id": "ev_b624bd6fb12b1afc81a8247aac1c0bbf7f9be137a743e0b7fb0427c62a613916",
+    "pid": 32056,
+    "run_record": "analysis/oracle/dimension-import-evaluation/run.json",
+    "comparison": "analysis/dimension-import-comparison.json",
+    "independent_observation_report": "analysis/dimension-import-observations.json",
+    "original_imports": 6,
+    "keyword_events": 15,
+    "parser_complete_primary_object_snapshots": 7,
+    "parser_complete_descriptor_snapshots": 371,
+    "primary_dimension_changes": 3,
+    "linked_dimension_changes": 3,
+    "messages": 113,
+    "probe_errors": 0,
+    "independent_provenance_tampering_checks": 17,
+    "descriptor_observations_across_all_probe_snapshots": 2385,
+    "result": "All captured primary pre-import states and primary/linked parser-complete states match. Includes coordinate/connectivity/direct arrays, descriptor shapes/history/values, persisted 2D boundary nodes and 3D faces/owners.",
+    "ctest": "All 15 tests passed, including dimension_import_reference_replay."
+  },
+  "coverage": [
+    "Load a 3D mesh, then preserve it under a same-3D header.",
+    "Switch to 2D, discard the spatial model and import a planar mesh.",
+    "Preserve the planar mesh under a same-2D header.",
+    "Switch back to 3D and discard the planar mesh.",
+    "Create an object before the first header, discard it when that header changes dimension, and ignore a subsequent conflicting header.",
+    "Compare the empty linked root's complementary dimensions and generated tables after every import."
+  ],
+  "limitations": [
+    "This reconstructs the represented object/mesh subset, not every root subobject or destructor side effect.",
+    "Linked roots are empty in this evaluation; destruction of populated linked models and linked object identity need further original captures.",
+    "Runtime covers suppression zero, alternate dispatch disabled and process units selecting temperature20. Nonzero flags and global-unit changes remain untested.",
+    "Borrowed-link lifetime and rejection of self-links are internal safety constraints; original invalid-pointer behavior is not reproduced.",
+    "The original parser captures the linked pointer at import entry. The current synchronous selected handlers cannot change it, so capturing it at header application is equivalent within this subset; future relinking handlers must preserve original timing.",
+    "Numeric JSON comparisons do not establish bitwise floating-point equality. Temporary planar builder ranges are not captured here; persisted boundary groups are.",
+    "Inputs are bounded ASCII text translated before the parser. Full Windows file I/O, all recognized handlers and scientific finalization remain outstanding.",
+    "Same-dimension preservation includes explicit custom component tables, but reset establishes the recovered empty-material profile; arbitrary material or feature-query states are not implemented."
+  ],
+  "next": "Recover preserving object-array resize and material-dependent feature-query effects before integrating GEOTYP/STNOUT refresh. Continue scientific finalization, remaining model families, DB integration, output and console workflows."
+}

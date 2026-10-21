@@ -1,0 +1,74 @@
+{
+  "status": "incomplete_observation_not_candidate_comparison",
+  "capture": {
+    "path": "analysis/material-object-runtime-training.json",
+    "sha256": "4e5ecb7be205a38dfb238bea9f1a92019da398be9304cbe39e1ba01c6586d08f"
+  },
+  "evidence_id": "ev_0f860fb255c43e73547f3def3e4a1924e2b940f4f62d93a9e540bfda41c6dcf9",
+  "pid": 36816,
+  "message_count": 1507,
+  "probe_errors": [
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "02_first_second_material.KEY",
+      "operation": "probe-error",
+      "sequence": 172
+    },
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "02_first_second_material.KEY",
+      "operation": "probe-error",
+      "sequence": 254
+    },
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "04_new_name_eof.KEY",
+      "operation": "probe-error",
+      "sequence": 390
+    },
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "10_planar_append_and_failure.KEY",
+      "operation": "probe-error",
+      "sequence": 973
+    },
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "10_planar_append_and_failure.KEY",
+      "operation": "probe-error",
+      "sequence": 993
+    },
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "10_planar_append_and_failure.KEY",
+      "operation": "probe-error",
+      "sequence": 1064
+    },
+    {
+      "error": "Error: unproven segment allocation extent",
+      "file": "10_planar_append_and_failure.KEY",
+      "operation": "probe-error",
+      "sequence": 1084
+    }
+  ],
+  "native_process": {
+    "status": "completed",
+    "exit_code": 0
+  },
+  "run_record": {
+    "path": "analysis/oracle/material-object-training/run.json",
+    "sha256": "23acd99bece02c7151d4293ae42f21215d5fb0daa2b02cc0895de7de6a53d1f9"
+  },
+  "candidate_freeze": {
+    "path": "analysis/material-object-candidate-freeze.json",
+    "sha256": "6cf162ac31f42eaf2443a2c6c1e90272d5b67f18564e38b415a8ee45977c5a25"
+  },
+  "transport_recovery": {
+    "bundle": {
+      "path": "analysis/oracle/material-object-transport-evidence.json",
+      "sha256": "91ce32b160c6629508e32144bb466af89cacc81a81b36dd1673c82238d694eed"
+    },
+    "note": "Initial instrumentation call did not expose structuredContent to the orchestrator; its subsequent store(undefined) failed. Complete evidence was recovered from the retained session bundle by matching PID36816. Exact inline failure text was not preserved; no stronger transport cause is asserted."
+  },
+  "next_action": "Repair conservative allocation tracking for copied temporary geometry, retain this failed observation, freeze changed probe inputs separately, and repeat with unchanged candidate and fixtures."
+}

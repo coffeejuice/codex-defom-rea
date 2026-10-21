@@ -1,0 +1,46 @@
+{
+  "status": "resolved_comparator_assumption_no_candidate_change",
+  "record_kind": "Retrospective diagnostic from the observed first comparator exception; no historical comparator file or failed-result JSON was retained.",
+  "initial_error": "ValueError: one exact-ID material lookup",
+  "initial_location": "verify_handler in tools/compare_material_import.py required exactly one material-lookup for each MTNAME handler.",
+  "cause": "Missing-record handlers first look up the requested ID. Their mode0 scratch-map preparation then performs an additional exact-ID lookup for every old material in insertion order to obtain ranks. Renames still perform only the requested-ID lookup.",
+  "observed_example": {
+    "file": "02_out_of_order.KEY",
+    "selector_lookup_sequence": 39,
+    "selector": 1,
+    "selector_result": "null",
+    "scratch_before_sequence": 40,
+    "old_id_lookup_sequence": 41,
+    "old_id": 3,
+    "scratch_after_sequence": 42
+  },
+  "correction": "Validate the initial requested-ID lookup followed by the old insertion-ordered IDs when creating a record; verify every additional lookup returns the retained old record address.",
+  "candidate_change": false,
+  "probe_change": false,
+  "fixture_change": false,
+  "subsequent_strict_result": {
+    "imports": 10,
+    "tokens": 8,
+    "reader_calls": 36,
+    "status": "pass",
+    "frozen_runtime_entries": 27
+  },
+  "bindings": [
+    {
+      "path": "analysis/material-import-runtime-training.json",
+      "sha256": "0ed25d75df1ff253d50facc5db4a45b9461c88da59d0cb9980bd2d8dd847ab74"
+    },
+    {
+      "path": "analysis/material-import-candidate-freeze.json",
+      "sha256": "214199339ed01f5e3c613f466d0a1fc05bd9a7de34cef6b7c7cbaa443fecf288"
+    },
+    {
+      "path": "tools/compare_material_import.py",
+      "sha256": "94f93cc47c94d9274857082c74bab76dd7598e0a9aed97e28bbe9d06a54ca552"
+    },
+    {
+      "path": "analysis/material-import-comparison.json",
+      "sha256": "e21b44c52784b77ca2c78aefa461480d057a31ff05f426986812ec94c0fcf05c"
+    }
+  ]
+}

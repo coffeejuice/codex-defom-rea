@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "status": "ready_for_bounded_native_capture_static_probe_and_fixture_audits_complete",
+  "purpose": "Selected FSTRES mode14 and GRNDAT selector4 nested table routes; independent outer helper state/status, generic table behavior, and exact refresh ordering.",
+  "cases": [
+    {
+      "path": "tests/fixtures/nested_materials/01_new_fstres_scalar.KEY",
+      "sha256": "a6ec5d44df477813151cd0706cf7da00df828f185a548af7a88e9ffff9b45dd7",
+      "bytes": 42,
+      "hypothesis": "New FSTRES material: constructor scalar1.0, creation refresh before outer mode/coefficient/table writes.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/02_fstres_selector_one.KEY",
+      "sha256": "510f38783f086aae0313c5ef8090ef1471b0c4a89e9eea85328aa7beed52416e",
+      "bytes": 45,
+      "hypothesis": "Existing material rank-one selector1 replaces table; finite signed zero coefficient.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/03_fstres_selector_two.KEY",
+      "sha256": "49ab197dfd7f0f9125a7bf3e95dd5490d8636de928bfb3c0c46997c679e610ba",
+      "bytes": 44,
+      "hypothesis": "Selector2 rank-one axis9, three distinct points.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/04_fstres_selector_three.KEY",
+      "sha256": "e16825d842427ea6b25cd5a0f190ef7568d553204da13ad81b07318a6f0bf523",
+      "bytes": 35,
+      "hypothesis": "Selector3 rank-one axis12 with one point.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/05_fstres_selector_four.KEY",
+      "sha256": "67b39ffaa6c24aa1a81e49805d55cf85c6c6687f3ff94374a47dee2cffbf1b62",
+      "bytes": 47,
+      "hypothesis": "Selector4 rank-two axes3/12 and two dependent values; auxiliary input ignored for aux-null route.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/06_fstres_selector_five.KEY",
+      "sha256": "66a13e7374b3de73aafdb18279c798ec946bf0c3d4406909e16094aa7c04472d",
+      "bytes": 43,
+      "hypothesis": "Selector5 rank-two axes3/8 and two dependent values.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/07_fstres_selector_six.KEY",
+      "sha256": "5475cfa2ad8b827a8c6e2028a61ced436adb1262fcea185d5f5fdbf965ef2787",
+      "bytes": 39,
+      "hypothesis": "Selector6 rank-one axis8.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/08_fstres_selector_seven.KEY",
+      "sha256": "2ceab2275b4bcaa18f0fe96068157788cd57cef937f6470183d94237db6c4d33",
+      "bytes": 51,
+      "hypothesis": "Selector7 rank-two axes3/4, four distinguishable dependent values.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/09_fstres_negative_count.KEY",
+      "sha256": "54786eda175e483493470e32c0bd683294ab1fc0eadb2c065f68a60816f686f5",
+      "bytes": 30,
+      "hypothesis": "Negative count clamps to zero during allocation and no payload is required.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/10_fstres_unknown_selector.KEY",
+      "sha256": "bd5a816a03a3d846889904edf664e728a2b599bb6c4bc8711cc2c6729d408195",
+      "bytes": 34,
+      "hypothesis": "Unknown generic selector resets nested table to zero scalar without reading payload.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/11_fstres_nonnumeric_coefficients.KEY",
+      "sha256": "484b4cbef436ee0250b98947e3b5665b525d80b56e9025d29436eb2e81227ebc",
+      "bytes": 25,
+      "hypothesis": "Zero coefficient conversions zero all initialized destinations; table reader succeeds and determines final status.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/12_fstres_blank_coefficients.KEY",
+      "sha256": "603e0c05aa12e92b5d56ed6e6db757e5bc06a3feea60dec8002c968441eeeee3",
+      "bytes": 24,
+      "hypothesis": "Coefficient helper status1 is overwritten by successful nested table status0.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/13_fstres_partial_coefficients_eof.KEY",
+      "sha256": "9e7681706ac78445146b9ec82d3751779d4b4d50ca23a76a6387131ee6ad1f9f",
+      "bytes": 22,
+      "hypothesis": "Partial coefficients persist while subsequent table header EOF preserves prior table.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/14_fstres_coefficients_eof.KEY",
+      "sha256": "b87712914e62d679832bc06fe30f0f44034115bba89706a5d5969f5a18493986",
+      "bytes": 17,
+      "hypothesis": "Coefficient EOF zeros all four live fields; table EOF preserves prior table and controls final failure.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/15_fstres_outer_blank.KEY",
+      "sha256": "f585e4513e9a83ac88f5233865ebde5052530edbc7d7669b75cff977e31cf14f",
+      "bytes": 11,
+      "hypothesis": "Outer header failure occurs before mode/coefficient/table mutation.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/16_new_material_outer_eof.KEY",
+      "sha256": "0c057d8428bc286e7e24dd8413acd09346db42a418f45ba0f2649fa376e92040",
+      "bytes": 9,
+      "hypothesis": "New material creation and initial refresh precede outer header EOF; selected constructor defaults remain observable.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/17_grndat_scalar_on_created_material.KEY",
+      "sha256": "4e0333878d8f5f245ec6fa39cc1da0c5e93ed90f4ce36ccb1d70d3b2fffa56c0",
+      "bytes": 19,
+      "hypothesis": "GRNDAT uses material created by failed FSTRES; selector4 table update followed by refresh0.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/18_grndat_selector_one.KEY",
+      "sha256": "f3eff03a96aa763efd8a270059ace235298852a92752533b1e30a785233d30a8",
+      "bytes": 30,
+      "hypothesis": "Second nested table on same material, rank-one selector1; FSTRES table remains independent.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/19_grndat_selector_two.KEY",
+      "sha256": "c62c2f26bc77aa3cce4f9a2d839851b6b60169c37c5ac3b7d0b6e1b57dcd32ad",
+      "bytes": 24,
+      "hypothesis": "GRNDAT selector2, rank-one axis9, existing-material preserving refresh.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/20_grndat_selector_three.KEY",
+      "sha256": "3e458c3b682adbe36c81b649e0dc4dace390ffb43b74e798aaf01954643f967f",
+      "bytes": 30,
+      "hypothesis": "GRNDAT selector3 axis12.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/21_grndat_selector_four.KEY",
+      "sha256": "1fcbefb870a514fae6ae43d31fa30bfc531264542d7cde6f3a7871bb1d468c56",
+      "bytes": 44,
+      "hypothesis": "GRNDAT rank-two selector4 with complete temporary dependent commit.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/22_grndat_selector_five.KEY",
+      "sha256": "e8decd90b959183229b83718283a1d1b8800a5913a946d292e89674ce3504f25",
+      "bytes": 34,
+      "hypothesis": "GRNDAT selector5 replaces prior owned buffers.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/23_grndat_selector_six.KEY",
+      "sha256": "0511dedc19cb2c8d889a846cf65a7cda7b57b6e8b0308b8bc1ffb52e18cfd29c",
+      "bytes": 36,
+      "hypothesis": "GRNDAT rank-one selector6 with three values.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/24_grndat_selector_seven.KEY",
+      "sha256": "6dde0d3b97f031501a51637f1be677f1bf93b0b0c5630ce9e2c1f1ec426396ec",
+      "bytes": 34,
+      "hypothesis": "GRNDAT rank-two selector7.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/25_grndat_table_header_eof.KEY",
+      "sha256": "f365fcc769fa71de7778bee2b1069cd90dd68c8843529c465cd790bb8c1626ab",
+      "bytes": 14,
+      "hypothesis": "Successful outer header then table EOF retains old table but refresh0 still runs.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/26_grndat_outer_blank.KEY",
+      "sha256": "031b110fc324ad896c9514f151868f1c708a5ecab6ba15b46f58e7524266559c",
+      "bytes": 11,
+      "hypothesis": "Outer blank header returns early and omits post-payload refresh.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/27_grndat_partial_outer_header.KEY",
+      "sha256": "858a838990bac64ebb9849446e4318db90b44eaa917493fbb3f0f6bf01ae10fe",
+      "bytes": 18,
+      "hypothesis": "Single assigned outer selector is successful; zero secondary is unused and nested table is read.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/28_grndat_axis_eof.KEY",
+      "sha256": "bfe42935a783124ad30953a96bc52c2605d6bb49205b40528eb2bd3cfd20ef84",
+      "bytes": 21,
+      "hypothesis": "Rank-two axis partial EOF persists before table failure and mandatory refresh0.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/29_grndat_dependent_eof.KEY",
+      "sha256": "c948be92be5f1ac8dc629dff405b7c6c1d9585596e53ffa73268e1d52c14e099",
+      "bytes": 29,
+      "hypothesis": "Complete axes plus incomplete dependent temporary: destination stays calloc-zero, refresh still runs.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/30_planar_mesh_and_nested_fields.KEY",
+      "sha256": "05ec574feadb9dd637256e3bfff4cb78315030a25821e51e5786a5c1d31afc09",
+      "bytes": 190,
+      "hypothesis": "Dimension reset followed by valid planar mesh; material creation/GRNDAT refresh preserve populated relation table and mesh.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/31_same_dimension_replacements.KEY",
+      "sha256": "10b1af699288eb9aa7150d23e1e8d6d453dd262e6f33a4c38d70c5871d33e10f",
+      "bytes": 80,
+      "hypothesis": "Same dimension retains objects/relations; GRNDAT refresh and FSTRES no-refresh edit have distinct histories.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/nested_materials/32_spatial_mesh_and_two_materials.KEY",
+      "sha256": "620fc93183386d9b9426a94e103bb4bb991452f3964859709b74a446907d945b",
+      "bytes": 171,
+      "hypothesis": "Spatial reset, successful tetrahedron, both nested tables on one signed material and separate material refresh.",
+      "expected_output": null,
+      "split": "training"
+    }
+  ],
+  "ordered_imports": [
+    "01_new_fstres_scalar.KEY",
+    "02_fstres_selector_one.KEY",
+    "03_fstres_selector_two.KEY",
+    "04_fstres_selector_three.KEY",
+    "05_fstres_selector_four.KEY",
+    "06_fstres_selector_five.KEY",
+    "07_fstres_selector_six.KEY",
+    "08_fstres_selector_seven.KEY",
+    "09_fstres_negative_count.KEY",
+    "10_fstres_unknown_selector.KEY",
+    "11_fstres_nonnumeric_coefficients.KEY",
+    "12_fstres_blank_coefficients.KEY",
+    "13_fstres_partial_coefficients_eof.KEY",
+    "14_fstres_coefficients_eof.KEY",
+    "15_fstres_outer_blank.KEY",
+    "16_new_material_outer_eof.KEY",
+    "17_grndat_scalar_on_created_material.KEY",
+    "18_grndat_selector_one.KEY",
+    "19_grndat_selector_two.KEY",
+    "20_grndat_selector_three.KEY",
+    "21_grndat_selector_four.KEY",
+    "22_grndat_selector_five.KEY",
+    "23_grndat_selector_six.KEY",
+    "24_grndat_selector_seven.KEY",
+    "25_grndat_table_header_eof.KEY",
+    "26_grndat_outer_blank.KEY",
+    "27_grndat_partial_outer_header.KEY",
+    "28_grndat_axis_eof.KEY",
+    "29_grndat_dependent_eof.KEY",
+    "30_planar_mesh_and_nested_fields.KEY",
+    "31_same_dimension_replacements.KEY",
+    "32_spatial_mesh_and_two_materials.KEY"
+  ],
+  "probe": {
+    "path": "tools/observe_nested_material_import.js",
+    "sha256": "86a018c26f8c455fd51ce38e4d52d7ef76a9ccba4a78b1b4dc0b0d75c80fd4e3"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/relation-property-follow-on-plan.json",
+      "sha256": "e7f6672318dd380291f5a411b071d7a129b2f78e77d6df07dfe4a91e81793275"
+    },
+    {
+      "path": "analysis/nested-material-fixture-plan.json",
+      "sha256": "43a00ff9b8099afacd5a9283cbe99d09a633e7c2b49c74b4b67f9840920a2c57"
+    },
+    {
+      "path": "analysis/nested-material-byte-audit.json",
+      "sha256": "8bfce494f264ccb084ea5a0f2118e31ce1337edfb373bc72e86bb63a7000e77c"
+    },
+    {
+      "path": "analysis/nested-material-0x140288ae0.json",
+      "sha256": "32c7240e3544ab908b80047fd5fc6030c064d9d565089af95cd5f9bf61a8f40a",
+      "evidence_id": "ev_38cba3c1facb4a004a16194672937dcaade2e7883e30051ee3b6427584f1cb34"
+    },
+    {
+      "path": "analysis/nested-material-0x14028a3e0.json",
+      "sha256": "c7bc538c4521dfdfd42da58f41257f14b3a8ee8db82cbca20c082586160e837b",
+      "evidence_id": "ev_7798fd93b72327c3ea18f345f14b465715694d5834421ffa444a60508b2bfe5e"
+    },
+    {
+      "path": "analysis/nested-material-0x14028a420.json",
+      "sha256": "9a22970edf80cfe9fb06e08a76a04b7949e9de7bea3bbea5f3a4a2d1ee849cd9",
+      "evidence_id": "ev_128b1875cf857a73ab5b99dcfa7c6465f9f61d1b4c41836c36c2dd9ff7c7af2e"
+    },
+    {
+      "path": "analysis/nested-material-0x14028b8e0.json",
+      "sha256": "12d18e7c5b970328ad0f771a47c3e97c70fceb43c27770a4812b8deda74428df",
+      "evidence_id": "ev_ef6027e87fd9c2f2964277819fd3bb66ccaa0f40edc39f209b755ee08eedf69c"
+    },
+    {
+      "path": "analysis/nested-material-0x14029cdc0.json",
+      "sha256": "214ac48c874fff90058decc5c4b61ea267a64f6c972a8d837352442752606336",
+      "evidence_id": "ev_942077dd9cede05c567c96d12d92956ec60c7c983137b34791945c4a65273435"
+    },
+    {
+      "path": "analysis/property-table-static-contract.json",
+      "sha256": "c3e7abf7b579494510c49cea6bb8bf323c44cf2f6dc150263dae810a3ff49906"
+    },
+    {
+      "path": "analysis/relation-property-static-contract.json",
+      "sha256": "5897f7ea9cdf3195467f3d29f7b3014e9f1dfd947b5aa719ccf7d8ef633cf753"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/property-table-byte-audit.json",
+      "sha256": "dbe5bb52e5cd6a082081529cefd0ce3e11891a58ebf0634ea843da17b47f28a0"
+    },
+    {
+      "path": "analysis/relation-property-0x140414e40.json",
+      "sha256": "573e88a7f45ad70ea83a0b1c5987847c33715af6f7e5e145e3667adf5b0bc6f1",
+      "evidence_id": "ev_952facb2f6aa5a320b1861a28320721556458a5320018ac9e13c037b412eef51"
+    },
+    {
+      "path": "analysis/geometry-import-0x140413fb0.json",
+      "sha256": "efd89cb299085aa0cee2f5d7d7e113b65df791dcdca53726ab7f1242d5ca321b",
+      "evidence_id": "ev_a90d7f429b69fba18f03414b7da240d79901b3fc365c94fc11ce0ba156a27eaa"
+    },
+    {
+      "path": "analysis/model-0x140413ee0.json",
+      "sha256": "936d6e16e7e7da5b17b60c836a14833220e9cf6fd6d076d9ee7d4eb78e8706ba",
+      "evidence_id": "ev_425990d83131876d26c5ceb1d48d0c798a4cc95ec500ae132fb87860ca1cc628"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "analysis/material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "analysis/material-import-0x14028cb70.json",
+      "sha256": "3d100243681513140e916f4611a071757571466c2f595682c4f255604c9c2142",
+      "evidence_id": "ev_7df799febc47cbb09d6a4c2efac41bce07538aff9a8bcc3cb32062c3dbef5801"
+    },
+    {
+      "path": "analysis/material-import-0x14028b850.json",
+      "sha256": "a16675f3d8e52cd884ea8b9c5d0161465c6112df5eb114d683957590ccf2096a",
+      "evidence_id": "ev_479f740335baefae6e3482a4d3942b61f4f1c5c5a00c1cfd51851e07336807b5"
+    },
+    {
+      "path": "analysis/material-object-integration-contract.json",
+      "sha256": "ca5dd365c26ddf7470c653be78bcaabbb38672c3dc8f52955cb41755f3222228"
+    },
+    {
+      "path": "analysis/nested-material-0x1401d70c0.json",
+      "sha256": "e2966ddbff96a1337e97f950b339d278821f054f637dab54542490bd19c9b24b",
+      "evidence_id": "ev_96417059ac0b5af620082875615dbbfde0f3af2acd1ad6a23672d8b8f0d79b80"
+    },
+    {
+      "path": "analysis/nested-material-static-contract.json",
+      "sha256": "40bf7406ce78223d5b56a9093cd3b1b5e872ef914bb0d021f6f2bf5bb1892d1c"
+    },
+    {
+      "path": "analysis/nested-material-precapture-audit.json",
+      "sha256": "a0d04552a5d51d0c78c197d3190df69b9ea8ad3d0b60450e7b144dba44c7228a"
+    }
+  ],
+  "handler_scope": {
+    "category1": [],
+    "category2": [
+      145,
+      159,
+      173
+    ],
+    "category4": [
+      94,
+      108
+    ],
+    "category5": [
+      135,
+      136
+    ]
+  },
+  "bounds": {
+    "imports": 32,
+    "materials": 2,
+    "relations": 1,
+    "objects": 1,
+    "nodes_per_object": 4,
+    "elements_per_object": 1,
+    "rank": 2,
+    "axis_count": 3,
+    "values_per_point": 1,
+    "dependent_items": 4,
+    "temporary_dependent_items": 4
+  },
+  "preconditions": {
+    "grain_gate_0x864": 0
+  },
+  "declared_gaps": [
+    "Other outer FSTRES/GRNDAT modes are not covered.",
+    "No enabled grain feature53 path, scientific evaluation, table cache callbacks, nonfinite values, overflowing products or allocation failure.",
+    "No matching failure in uninitialized rank-two temporary slots."
+  ],
+  "independence": "Authored from retained native contracts without candidate implementation/output or native capture consultation."
+}

@@ -1,0 +1,193 @@
+{
+  "status": "selected_material_shape_profile_verified_with_training_and_independent_captures",
+  "created_utc": "2026-10-20T23:40:10.868738+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": {
+    "keyword_ids": [
+      127,
+      128,
+      210,
+      211
+    ],
+    "keywords": [
+      "SIZEMD",
+      "TXTURE",
+      "SIZESH",
+      "TXTODF"
+    ],
+    "profile": "Material producers, root feature queries54/55 and owned element stores54/55, 2D/3D, explicit widths, defaults, partial failures, reference contributions and saved-width lifecycle."
+  },
+  "behavior": [
+    "SIZEMD writes material+2150; TXTURE writes +2154/+2158/+215c using zero-initialized integer readers, including partial/EOF mutation. Missing materials append and refresh before property read; neither property write refreshes afterward.",
+    "Feature54 sums modes1..6 as1,4,3,2,4,1; other modes contributezero. Feature55 uses own texture when material mode1cc8=0; otherwise sums immediate exact-ID referenced textures, including duplicate references without recursion and ignoring missing targets.",
+    "Texture modes1/2, second1, resolution1..4 give10,76,600,4784; mode3 gives7,50,388,3080. Unsupported known-mode parameters returnzero. Unknown nonzero mode prints Error in TEXTURE_DATA::countNumODFs() with newline to stdout and returnszero.",
+    "SIZESH/TXTODF read one raw mixed header without comma normalization. Invalid width/header EOF rejects before width mutation. Positive width changes root width before selector validation; nonzero selectors reject without allocation or rows.",
+    "Selectorzero invokes setter then getter allocation, preserving native shape history. Saved widths at object+adc/+ae0 update only for positive stored allocation count. Refresh, replacement and deactivation retain saved widths; object initialization/reset clears them.",
+    "Explicit default fills declared header rows at selected width; absent default preserves linear values and zero-initialized growth. Indexed rows scan every scalar before committing a complete valid row; earlier writes survive EOF. No trailing line consumption."
+  ],
+  "verification": {
+    "original_imports": 57,
+    "training_imports": 32,
+    "independent_held_out_imports": 25,
+    "selected_keywords": 4,
+    "all_selected_keywords_observed_in_both_dimensions": true,
+    "complete_handler_snapshots": 120,
+    "selected_handlers": 66,
+    "shape_consumers": 25,
+    "aggregate_shape_reader_calls": 85,
+    "scalar_scan_calls": 58,
+    "feature_queries": 108,
+    "selected_storage_calls": 38,
+    "failed_selected_handlers": 11,
+    "final_standard_descriptor_snapshots": 2438,
+    "independent_tamper_rejections": 62,
+    "independent_tamper_checks_skipped": 0,
+    "tests_verified": 44,
+    "corrected_frozen_runtime_files_unchanged": 29,
+    "max_original_texture_query_width": 4784,
+    "high_texture_width_profile": "Largest resolutions queried with no objects; populated mesh storage bounded by manifests."
+  },
+  "candidate_changed_after_first_freeze": true,
+  "public_database_loader_api_changed": false,
+  "test_order": "After stdout correction, all42 existing CTests passed. Candidate v2 frozen before held-out capture. Two new CTests passed with all29 corrected runtime files unchanged. Not a single44-test invocation.",
+  "candidate_correction": {
+    "description": "Training found original diagnostic on stdout whereas first C++ candidate wrote stderr. Corrected production routing and added replay logical stdout capture to preserve JSON framing. Five frozen files changed: two sources and three rebuilt artifacts. No state, reader or storage logic correction required.",
+    "initial_failure": "analysis/material-shape-training-initial-failure.json",
+    "static_review_limitation": "Precapture audit accepted an unproven FILE-pointer channel assertion; original erroneous audit preserved and withdrawn by correction record.",
+    "training_provenance": "Corrected training retains original capture/input freeze and explicitly records five current-file mismatches. Not an unchanged-candidate training pass.",
+    "held_out_provenance": "Inputs independently authored before outcomes. Strict corrected candidate-v2 enforcement passed unchanged implementation, probe, comparator and independent verifier.",
+    "pre_capture_metadata_change": "Training input freeze v2 corrected conservative bound metadata before original capture; fixture/probe bytes unchanged."
+  },
+  "captures": [
+    {
+      "path": "analysis/material-shape-runtime-training.json",
+      "sha256": "34cacfea72987da8a6860f393ed6675ab3eebb8b3742662bc51be6c5dc2167c1",
+      "evidence_id": "ev_68d0610d43cd1583f76e319c58a444ed88320da5cbc84007ac61371f0a67d39f",
+      "imports": 32,
+      "messages": 1835,
+      "run_record": {
+        "path": "analysis/oracle/material-shape-training/run.json",
+        "sha256": "05a99c39354ff9cc5fb6ae0337a918d017a601817833e2e981a15465eb4755b5"
+      },
+      "status": "verified_original_normal_exit_0"
+    },
+    {
+      "path": "analysis/material-shape-runtime-held-out.json",
+      "sha256": "9d0ede42fe07cd13d4eb9ccddd8dd63dd73da843cda81fc1ab1f0f55a0e405e3",
+      "evidence_id": "ev_caa4ce1986200874adb89429ad357ec4706f00230b8f36fa5593d1daf2e073f3",
+      "imports": 25,
+      "messages": 1264,
+      "run_record": {
+        "path": "analysis/oracle/material-shape-held-out/run.json",
+        "sha256": "bfb922f58a98adda16429611396926fdab5aa4b24d077bbe6753ca0154a8fff5"
+      },
+      "status": "verified_original_normal_exit_0"
+    }
+  ],
+  "limitations": [
+    "Finite ASCII numeric inputs, initialized native locals and bounded owned buffers only; no complete application equivalence claim.",
+    "Large texture resolutions verified as no-object feature queries, not large populated mesh imports.",
+    "Uninitialized first native selector failures, allocation failure, overflowing or unsafe extents, arbitrary shared aliases and full object copying remain outside profile.",
+    "Legacy floating conversion extremes, nonfinite inputs and other locales remain unverified.",
+    "Native explicit row helper may return before freeing scratch on EOF. C++ uses RAII; no separate allocation-leak census performed.",
+    "PHASTF count production identified statically; populated relation-column remapping and scientific tables pending. Remaining material properties, full DB state import/export, scientific operations and console integration remain required."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/material-shape-static-contract.json",
+      "sha256": "9e4015bc56ff2869280a64af30fea6db943e1187ce51dd4668ef156eee6903d0"
+    },
+    {
+      "path": "analysis/material-shape-callsite-byte-audit.json",
+      "sha256": "3ad9d925fe8da3c63964e118a9f99a47e6f9c45d2b425c8802cc5c4ecef404ad"
+    },
+    {
+      "path": "analysis/material-shape-precapture-audit.json",
+      "sha256": "0ead972aa851a95c41e63b73696a49ba18561480b431986f350edaa0cdadfc77"
+    },
+    {
+      "path": "analysis/material-shape-static-audit-correction.json",
+      "sha256": "c770ab0388a4cbb1558cf3e181063919f272b145d369368d29316cb7fa7e2df8"
+    },
+    {
+      "path": "analysis/material-shape-candidate-freeze.json",
+      "sha256": "06088a59d1838394c8766f3db3ab89269417da9892411ef5976feeeba1bed3e2"
+    },
+    {
+      "path": "analysis/material-shape-candidate-freeze-v2.json",
+      "sha256": "57885f588d2715375cfa1e4334e0f6174d98b99547821fc8dbc8ac6f207095a2"
+    },
+    {
+      "path": "analysis/material-shape-input-freeze.json",
+      "sha256": "a5a07cf847ea612080c1b7d08c87365361a1b1681e4b638920aee0ed24b0d309"
+    },
+    {
+      "path": "analysis/material-shape-input-freeze-v2.json",
+      "sha256": "83737936fa0332a5a8aea50d2cbcbc847da8a84acbb42063ff1f2c0f7d0269ac"
+    },
+    {
+      "path": "analysis/material-shape-held-out-input-freeze.json",
+      "sha256": "b94048bd6bf2fb2645c42f4cf9ad3b182443f4536fdda593bc270e31e29445c6"
+    },
+    {
+      "path": "analysis/material-shape-evaluation-cases.json",
+      "sha256": "9fc03316a13f8cc8d76ea5736127f63041178ab740c9e6ed9aa7bdc863197a53"
+    },
+    {
+      "path": "analysis/material-shape-held-out-cases.json",
+      "sha256": "c7c0d4884deeb873c30b63f9757e6519cabeeb796a67f581f09e0ed825b1a3be"
+    },
+    {
+      "path": "analysis/material-shape-training-initial-failure.json",
+      "sha256": "265aa0787cad995f5274f29a3effbfbb4a2d625a7173dcd09ebc01aaabed3e78"
+    },
+    {
+      "path": "analysis/material-shape-training-corrected-comparison.json",
+      "sha256": "c797e0b3fc5f9a323011fcd5b6f74376b3ffeb464bcfdfaa06d22ab5f8f8890f"
+    },
+    {
+      "path": "analysis/material-shape-held-out-comparison.json",
+      "sha256": "ec4462e976b88009c53c4865ac55bc6c0f9d60270ee187b010ad4bf8e7802f5b"
+    },
+    {
+      "path": "analysis/material-shape-observations.json",
+      "sha256": "6d9e6856b17056f1b2a41e7768d3b906d47ac3da570b00bda54206d6096bddf4"
+    },
+    {
+      "path": "analysis/material-shape-held-out-observations.json",
+      "sha256": "f5705eefbc4b80b864dc228065bef2b7e22c2da55e30a5ad467087b037846475"
+    },
+    {
+      "path": "analysis/material-shape-test-registration.json",
+      "sha256": "b1620b2dd6cce79c748c35f3da5d9830c1daed67899c267967db07acb25a5a87"
+    },
+    {
+      "path": "analysis/material-shape-training-transport-response.json",
+      "sha256": "548fd5144064122d645fded502078c81c11402a7d9c45bde61c0a4aaabc639b1"
+    },
+    {
+      "path": "analysis/material-shape-held-out-transport-response.json",
+      "sha256": "237f400d9743986623080bc0ccd793ec4752066c0894fa5b4e25ef1e52ebe965"
+    },
+    {
+      "path": "tools/observe_material_shape_import.js",
+      "sha256": "54956c5ea4e9df00c9ffd8736acdb3636a1118e60e0126de09898e9cec14f427"
+    },
+    {
+      "path": "tools/compare_material_shape_import.py",
+      "sha256": "b25308ea2ac14a24539a9ee31ca93ff31f1b1157fa7be221a69a85bb66858073"
+    },
+    {
+      "path": "tools/verify_material_shape_observations.py",
+      "sha256": "901a8b2fadc7300d06447cf1a5842f35f321dacd76f1770d21bf8e63c6c0eafe"
+    },
+    {
+      "path": "analysis/oracle/material-shape-corrected-baseline-ctest.log",
+      "sha256": "1847706319f0b848271a265af596422f69c95bbfd42828c672c2717e48ecb00a"
+    },
+    {
+      "path": "analysis/oracle/material-shape-ctest.log",
+      "sha256": "28f0f19dfb8feb8a57bfe9b2d8bb73d3d8fdb765dec666718f5f84d72b23c82e"
+    }
+  ]
+}

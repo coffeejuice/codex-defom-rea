@@ -1,0 +1,156 @@
+{
+  "status": "implemented_selected_model_slice_static_contract_runtime_validation_pending",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "purpose": "Material assignment174 enables nonzero material-reference column producers205/216 and subsequent append remapping; no broad scientific material implementation.",
+  "dispatch": {
+    "helper": "0x14038b8a0 common object-category handler",
+    "common": "Except ID286, scan object selector%i then find/create19ccc0; EOF returns2, missingobject returns2. Selector local initialized0. Switch subtracts0x90 from keywordID.",
+    "MTLGRP174": "case0x1e calls419d40(FILE,object9f8,header884,root16ec), then202960(object) regardless helper status; sharedtail returns0 ifhelper0 else2.",
+    "VOLFC205": "case0x3d calls3981c0(root,FILE,object,objecta58,header884,root16bc).",
+    "VOLFS216": "case0x48 calls3981c0(root,FILE,object,objecta60,header884,root16c0).",
+    "dimension": "Common prefix and these three cases have no 2D/3D or type7 condition. In contrast neighboring cases explicitly call dimension predicates. Retained39a200 is an unrelated geometry helper, not a separate2D dispatcher."
+  },
+  "integer_reader": {
+    "419d40": "fgets1024 then sscanf%i%i, no comma replacement or zeroed header locals. EOF orscanf-1 returns1. scanf0 leaves uninitialized rowcount and is outside defined selected domain. Two conversions immediately default-fill every elementcount*width integer with second field; one conversion preserves existingdestination. Then419ea0 with firstfield rowcount and width.",
+    "419ea0": "rowcount<1 returns0 without moreinput. Otherwise calloc(width,4) reusable rowbuffer; looprowcount reading%i rowID thenwidth%i values. Only-1 aborts1; matching0 reusesprior destination (firstrowID is uninitialized). After a complete row, valid1-based ID copies allwidthvalues in-place; invalidID consumes withoutwrite. After allrows free rowbuffer then requirefgets1024; trailingEOF returns1 with existingcommits preserved.",
+    "partial_mutation": "Headerdefault persists even laterEOF; completedrows persist while failed row never commits. MTLGRP still postprocesses on returned helper1. Native scratch leak on EOF is not an application-state claim."
+  },
+  "material_group": {
+    "field": "signedint32 object3980, exposed ObjectRecord::material_group_0x3980",
+    "initialization": "15f0b0 explicitly zeros3980. Existing selected deactivation15fbf0/161260 releases mesh but does not reset3980; temporary copy1613a0 explicitly copies3980.",
+    "postprocess202960": [
+      "Save old3980, temporarily write0; initialize two outputs0; call1fb270.",
+      "Because3980is0,1fb270 selects1fb440. 1fb440 initializesoutputs0 and only reads when mesh87c!=0 AND direct61pointer9f8nonnull.",
+      "Count occurrences of each signed ID in first-occurrence order over header884 elementrows. Select first ID with maximal frequency (strictgreater updates winner). Includes zero and negative IDs; no material-list lookup.",
+      "1fb440 may write3980 internally whenold0 absent, but202960 ultimately storesselectedID ifnonzero, otherwise restores old3980. No other persistent changes."
+    ],
+    "empty_or_failed_mesh": "Absentmesh/pointer orzeroheaderrows yieldsselected0 and preservesprior3980. Failed freshELMCON leavesmeshfalse. Failedreplacement preservesalreadytrue87c because163090→1632a0 onlyreleases/reallocateselementcontainer; completedELMCON sets87c=1.",
+    "connectivity_default": "1653b0 fillsnewdirect61 from3980 ONLY when3980>0; nonpositive3980 leavescalloczeros. This is distinct from preserving a negative3980 field. Initializedimporter uses max(3980,0); oldexplicit-root-table context retains its supplied direct61default."
+  },
+  "model_apis": {
+    "material_column_mapping": "ObjectModel::material_column_mapping(const ObjectRecord&) const returns MaterialColumnMapping{columns,input_width}. Requires owned object, selected reset controls, live mesh and known direct61 prefix coveringheaderrows.",
+    "apply_material_columns": "ObjectModel::apply_material_columns(ObjectRecord&,int descriptor_id,const MaterialColumnMapping&,span<const double>) accepts49/50 only, validates every extent/map before writing; importer invokes only on readerstatus0.",
+    "finalize_material_groups": "ObjectModel::finalize_material_groups(ObjectRecord&) implements202960 selectedpersistent result; caller invokes after integer reader regardlessstatus.",
+    "record_direct_integer_writes": "MeshStorage::record_direct_integer_writes(int,const vector<bool>&) advances initializedprefix through newly written contiguous positions. Written islands beyond gaps do not imply a known tail.",
+    "serialization": "Replay fullstate objects[].material_group_0x3980 signedint; identicalserializer reused by handler_states[].state and linkedroot snapshots."
+  },
+  "column_mapping398350": {
+    "setup": "Size map/rootmaterialcount entries initially-1, marks0, previousID0.",
+    "loop": "For each firstheader884 direct61 ID, skipif equals previousID; otherwise storepreviousID andfindsort-rank29c870. If validrankcurrentlymark0 and exact materialmode1, markownrank1 thenmarkeach existingreferencedIDrank2. Logicalnonpositivecount visitsnone.",
+    "ordering": "References may overwrite1with2; a later group's processing requiresmark0. InitialID0 is skipped whilepreviousID0; this is not a set-union/transitive graph simplification.",
+    "result": "Increasing sortedmaterialrank withmark2 receives nextinputcolumn0..; allotherranks remain-1. Sortedrank countsIDs strictlyless and exactIDmustexist.",
+    "commit3981c0": "Scratch is zero-initialized elementcount*inputwidth thenread. On reader0 only, eachdestinationcolumn<rootwidth with map>=0 copies mapped scratch value across headerrows; unmappeddestinationvalues are preserved. Readerfailure nevercommits.",
+    "widths": "Direct61 root16ec equalscomponent61; a58/root16bc descriptor49 and a60/root16c0 descriptor50. Nativecodeusesheaderrows notcontainerallocationcount; modelchecks prefixagainstownedextent."
+  },
+  "boundaries": [
+    "No native execution or build by this subagent; parent owns immutable freeze, build, original captures, and comparisons.",
+    "Header first matching failure/first streamrowID matching failure has uninitialized native locals; selectedreader explicitly rejects unsupported instead of inventingzero.",
+    "Native398350 leaves inputwidth uninitialized on meshfalse/mapnull. Mapping rejectsmeshfalse beforepayloadconsumption; no claim of reproducing undefined native allocation behavior.",
+    "MTLGRP requires selected initializedsimulationprofile beforemutation; legacy externally supplied component tables remain supported by their previousAPI but do not imply native materialcontext.",
+    "Allocation failure, native negative/overflow allocationextents, corrupt logicalreferencecount/allocations, staleexternalmaps, arbitraryshared/borrowedstorage, nonfinite/out-of-range scalar behavior are not generalized.",
+    "Known-prefix checks reject reads of unestablished directbuffer tails; mutable-span values do not by themselves establish referenceequivalence.",
+    "Component/materialfeature rules remain the selected default-scientific-property/referenceprofile. No inference from scientific names of column values."
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/geometry-import-0x14038b8a0.json",
+      "sha256": "76d86a332755c224b4539b295b190f5b40d7da5ac239f25396eda4cbafbfcff0",
+      "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27"
+    },
+    {
+      "path": "analysis/material-column-producer-static-contract.json",
+      "sha256": "eb56bc8c0d4dfd0d5fc9fdef3e7ff32edbf7b6a913b55e8d1e0119d1c9ca2c18",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-reference-0x140398350.json",
+      "sha256": "c3f18d96d72e6409ae1722f2476d8e4219758974bf865981337e79185aa396dd",
+      "evidence_id": "ev_f5b1f39a4a99c9247d4768387ea461cc06b54fd9ca86aef5cedaa9cec2c8169f"
+    },
+    {
+      "path": "analysis/material-reference-0x1403981c0.json",
+      "sha256": "6520b4a52e4733850dfc303757041303e58a904b96b11f5a0f3af442a338d613",
+      "evidence_id": "ev_5922ce7928473d2deb2e9afe8c906dc8103487d4e7bddfe66ad956cc81c14e25"
+    },
+    {
+      "path": "analysis/material-import-0x14029c870.json",
+      "sha256": "d69e9d2443e3c20d0be14aec26b35301fcdf69dbb44737e3f527cbbc6d57a75f",
+      "evidence_id": "ev_92ca60819b33a7e4f8079737335a898bd53f7bb3eb7f34ba2c37378e64bad9c1"
+    },
+    {
+      "path": "analysis/material-reference-0x1401d7060.json",
+      "sha256": "4970fd7d87dd4456959d388b491310793d9b73a89f1fe5dcdcf567699f394568",
+      "evidence_id": "ev_6d66a55e2214ac3385f09b9740aaa31ce9761064e9339b2b73a9c8f1171234cf"
+    },
+    {
+      "path": "analysis/geometry-segments-lifecycle-0x14015f0b0.json",
+      "sha256": "d24d0e637245b3c435827e484a04118eedc5bdb43cc0dc52b7644ebab22f5fd4",
+      "evidence_id": "ev_d738eb716a595a6af7c86b295de57c1f505bdf8b6b789cba03cdbf3dd83602e0"
+    },
+    {
+      "path": "analysis/geometry-segments-lifecycle-0x14015fbf0.json",
+      "sha256": "63b1e94de194b8d8f9b1c66295a909c33a4dda319a40f42dfc6ce43eb7ad1c9a",
+      "evidence_id": "ev_8d2976707044a34d083247a0bc7c8bfa1fc876bfdf1547ebbb47c3aeb4354945"
+    },
+    {
+      "path": "analysis/geometry-segments-lifecycle-0x140161260.json",
+      "sha256": "47e5c59d4e6c3bea0fbf1a41ae6ab9393ffd2288b5ecedd09c1fdfd0f43a583c",
+      "evidence_id": "ev_3c9421cd569050e1dabe9e34832c796db6d7cea6bb1e5ec9e8afd852f090861e"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401613a0.json",
+      "sha256": "8921fe4e0a6b09e9c37991984d5da975d0bb83eb3c3d5b1db9680ab7f64906a5",
+      "evidence_id": "ev_2917643009755cc73f22c787e56ef285edce5e8667688614b6cbed23072cb6ff"
+    },
+    {
+      "path": "analysis/model-0x1401653b0.json",
+      "sha256": "7c1e3c999b1ae7a069ec85eb159dc497edf984ae991eeb7e031a14f7bcca25e9",
+      "evidence_id": "ev_dd2726186f631c4d2b1cad13abe6fbd0334b1ce4da088aea24db932821b6f195"
+    },
+    {
+      "path": "analysis/model-0x140163090.json",
+      "sha256": "d4cda0e332a30db916db834b3e5dbbee896760318f1c1f56cd434bdb34f8b33e",
+      "evidence_id": "ev_69311701daacd9016453c19ade2919ae6b5aed486aa2d910459c7bedb975a5a4"
+    },
+    {
+      "path": "analysis/model-0x1401632a0.json",
+      "sha256": "91be56215a7d1227c0357d6ecdf83c49daf09e0d8b5938d03c08744a7c0ae4bc",
+      "evidence_id": "ev_18ec050530f4b57945a38c4b536b28bb81feeff216aead14d7dc0d729b8ccf66"
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-object-integration-contract.json",
+      "sha256": "ca5dd365c26ddf7470c653be78bcaabbb38672c3dc8f52955cb41755f3222228",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-columns-0x1401fb270.json",
+      "sha256": "ddef0e00304c59687688850662f0512196d5a15e0454659b980c66e31a6db920",
+      "evidence_id": "ev_d29b3e669345f9eb05ef762a89540b85733b76a230812521bc148a553f8236e8"
+    },
+    {
+      "path": "analysis/material-columns-0x1401fb440.json",
+      "sha256": "53f6ef689af0cc296b4710228f3ad7b0b7a2b838115c9814866e4a2dcb0ce269",
+      "evidence_id": "ev_66947724f8b6e76b60701337053badf7ebf325b7185d3cb0fd7c21a10d7c3339"
+    },
+    {
+      "path": "analysis/material-columns-0x140202960.json",
+      "sha256": "0324c6d6a3dd839851064be5554437d8101b92d232e582e09c160f0167dc9c92",
+      "evidence_id": "ev_9d783734ac7fc7cb6ca3c18009ab00e19eef3ac59dc654f24152bf29071328a4"
+    },
+    {
+      "path": "analysis/material-columns-0x140419d40.json",
+      "sha256": "4b5c61bf99fd3551a8f35ba662111ab59b3d013d8c24fe098f3d31a8b42e0b6f",
+      "evidence_id": "ev_20c98fa80c6d95808077711c464289ed8e59bc8a5c4afe4b366f5704549d9ad0"
+    },
+    {
+      "path": "analysis/material-columns-0x140419ea0.json",
+      "sha256": "1c3978b8a81fc0cca950709f095e2c12f295f9921e9d8abd1bebe8e4692b4775",
+      "evidence_id": "ev_6a4240144a814b816dda7860219765e8f2af06e88384b89b52eabf0cdf9d358b"
+    }
+  ]
+}

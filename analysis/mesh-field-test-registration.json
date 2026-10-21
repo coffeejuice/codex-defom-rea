@@ -1,0 +1,191 @@
+{
+  "status": "two_new_tests_pass",
+  "created_utc": "2026-10-20T22:23:27.597212+00:00",
+  "seconds": 2.96,
+  "commands": [
+    "cmake -S . -B build",
+    "ctest --test-dir build -C Release -R '^mesh_field_(reference|held_out)_replay$' --output-on-failure --output-log analysis/oracle/mesh-field-ctest.log"
+  ],
+  "test_log": {
+    "path": "analysis/oracle/mesh-field-ctest.log",
+    "sha256": "b9d3a3241a6c6f175e5d48a4fc5bbe6b5256c44f3acf40bdcb8d5dfba585f559"
+  },
+  "candidate_freeze": {
+    "path": "analysis/mesh-field-candidate-freeze.json",
+    "sha256": "7c87974b6bc3e692edc3209eeaa62d30f1f7a066bd5f31e4991b1533e089958a"
+  },
+  "all_27_runtime_files_unchanged": true,
+  "candidate_files": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "configuration_before": {
+    "path": "analysis/oracle/mesh-field-cmake-before-registration.txt",
+    "sha256": "ab77885667a9fbc8d7f04440a1467110f299a3ec8a310181359d9afb68a6fe28"
+  },
+  "configuration_after": {
+    "path": "CMakeLists.txt",
+    "sha256": "435f1c7e7b9eb568f10bf00083159d6b019d6303cb250229df0b950d419c7979"
+  },
+  "registration_diff": {
+    "path": "analysis/mesh-field-test-registration.diff",
+    "sha256": "c1a6b9ca1cbe2cef2cf8794b0d5bd2ee0b1b77575bbf9d334f90d93737065f58"
+  },
+  "comparator": {
+    "path": "tools/compare_mesh_field_import.py",
+    "sha256": "d4312fbf089da478147beb734c1d0d1904397675482d49cea4b3702697ecc1c1"
+  },
+  "comparisons": [
+    {
+      "path": "analysis/mesh-field-training-comparison.json",
+      "sha256": "7d3a95b7253fd9133407c214e9812378b150458082c57aef782aefd2271a2b09"
+    },
+    {
+      "path": "analysis/mesh-field-held-out-comparison.json",
+      "sha256": "52d465086b737cd47eb62b35918b546c918e40df67178e5fd27143c742a207f8"
+    }
+  ],
+  "new_tests": [
+    "mesh_field_reference_replay",
+    "mesh_field_held_out_replay"
+  ],
+  "scope": "Only the two newly registered tests were run here; total registered test count38 is not a claim that the entire38-test suite ran. Both comparisons separately passed with strict frozen candidate enforcement before registration. Tests retain explicit original capture/manifest/input-freeze paths but permit future candidate changes for regression use.",
+  "prior_successful_artifacts": [
+    {
+      "path": "analysis/oracle/mesh-field-before-default-repair/compare_mesh_field_import.py",
+      "sha256": "abdc50acfc4c1b424aae67f85741e0405ad1caf1435e4a612a43668ac5a8d9b5"
+    },
+    {
+      "path": "analysis/oracle/mesh-field-before-default-repair/mesh-field-ctest.log",
+      "sha256": "c627a6705938e9b3c7d2635b86cf8759c337db16c4c0b2acdea204276f39df3c"
+    },
+    {
+      "path": "analysis/oracle/mesh-field-before-default-repair/mesh-field-held-out-comparison.json",
+      "sha256": "c876cf2d27a780adb28fbfbc5cec86572ba15c56fd30b457a5a9ffcd03640292"
+    },
+    {
+      "path": "analysis/oracle/mesh-field-before-default-repair/mesh-field-test-registration.json",
+      "sha256": "a4da003ff10c7fe50c53eccf2741e22e58adf15c0d471b27bbca3083204f28ea"
+    },
+    {
+      "path": "analysis/oracle/mesh-field-before-default-repair/mesh-field-training-comparison.json",
+      "sha256": "045486ab6d15f1b6c7a6668dbf73db936310577e6223613fd9ac4876ed906610"
+    }
+  ],
+  "default_selection_update": {
+    "changes": [
+      "capture default selects repaired training-v2",
+      "run-record default selects repaired training-v2",
+      "cases default selects repaired v2 manifest"
+    ],
+    "comparison_logic_changed": false,
+    "runtime_candidate_changed": false,
+    "both_strict_comparisons_rerun": true
+  }
+}

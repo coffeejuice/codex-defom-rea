@@ -1,0 +1,52 @@
+{
+  "status": "resolved_comparator_scope_assumption_with_fixture_coverage_loss_preserved",
+  "error": "ValueError: selected material/object keyword scope",
+  "comparator_at_failure": {
+    "path": "tools\\compare_material_object_import.py",
+    "sha256": "9825a860d0953ae9c379f0e1e8ffca1772e8c153c01e554338ad92f3116ec813",
+    "archive": "analysis/oracle/material-object-comparator-initial.py"
+  },
+  "capture": {
+    "path": "analysis/material-object-runtime-training-v2.json",
+    "sha256": "4057abbda81cdff17f4b3eac8e4a2708e1d90259370de06e44103150e5996477"
+  },
+  "unexpected_resolved_tokens": [
+    {
+      "category": 0,
+      "file": "01_spatial_mesh_geometries.KEY",
+      "id": 305,
+      "operation": "keyword-resolved",
+      "sequence": 42,
+      "token": "1"
+    },
+    {
+      "category": 0,
+      "file": "05_inactive_placeholders.KEY",
+      "id": 305,
+      "operation": "keyword-resolved",
+      "sequence": 503,
+      "token": "1"
+    },
+    {
+      "category": 0,
+      "file": "07_reactivate_and_repopulate.KEY",
+      "id": 305,
+      "operation": "keyword-resolved",
+      "sequence": 684,
+      "token": "1"
+    }
+  ],
+  "candidate_changed": false,
+  "probe_changed": false,
+  "fixtures_changed": false,
+  "resolution": "Accept observed unknown305/category0 tokens, compare warning counts against original stdout, and retain handler failure statuses. Do not infer successful element loading from fixture names. No candidate, probe or fixture changes.",
+  "fixture_coverage_loss": "Three spatial ELMCON headers omit arity4. Original handler173 returns2, row-leading1 is parsed as unknown305, and spatial objects have nodes but zero elements. Populated tetrahedral refresh remains untested by this capture; planar ELMCON succeeds.",
+  "final_comparison": {
+    "path": "analysis/material-object-training-comparison.json",
+    "sha256": "b18328a983f08939da1080b4055816b19a4d14dd940c2a7b1309bda2f758b90b"
+  },
+  "corrected_comparator": {
+    "path": "tools/compare_material_object_import.py",
+    "sha256": "7d43d8c850bf06c3a764189bf1b70c77cb194cdb7a51f1cf750cc951237a2333"
+  }
+}

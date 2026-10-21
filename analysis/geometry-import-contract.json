@@ -1,0 +1,92 @@
+{
+  "status": "direct_spatial_geometry_implemented_and_compared_alternate_formats_pending",
+  "keyword": {
+    "name": "DIEGEO",
+    "id": 158,
+    "category": 2
+  },
+  "implemented": [
+    "Three-integer header reader with conversion count",
+    "Direct spatial geometry coordinate/connectivity replacement with nonpositive-count retention",
+    "Classification and auxiliary buffers",
+    "Enabled plane grouping during import finalization",
+    "Object deactivation and dimension reset for represented geometry"
+  ],
+  "verification": {
+    "original_imports": 36,
+    "tokens": 39,
+    "row_helpers": 184,
+    "descriptor_snapshots": 1802,
+    "independent_tamper_rejections": 42,
+    "frozen_files": 25,
+    "candidate_unchanged_for_all_three_captures": true,
+    "ctests_passed": 27,
+    "comparisons": "Exact original coordinate and plane binary64 bytes, flags, integer buffers, immediate handler state, status/cursor and post-finalization model; no candidate edits after first freeze."
+  },
+  "fixture_correction": "Held-out cases11/12 used next-line OBJTYP pairs and reached parser errors, not intended lifecycle. Their original behavior remains tested and unchanged. A separate six-import lifecycle capture with same-line pairs verifies actual deactivation/reactivation. No C++ correction was required.",
+  "observed_distinctions": [
+    "Normal/distance tolerance cases select one or two planes as original does.",
+    "First-match overlap classifies601,602,601.",
+    "Finite +/-1e30 bounding-box initialization remains observable for large finite coordinates.",
+    "Failed coordinate rows partially overwrite storage and root finalization still runs.",
+    "Deactivation clears geometry and3990 but retains3994; reactivation leaves empty geometry."
+  ],
+  "remaining": [
+    "Alternate 2D/3D segmented/matrix formats require integration and original comparisons. NewGeometrySegments component and30fixtures/probe are prepared but unbuilt/unexecuted.",
+    "Add KeywordReader::MatrixRowRead and matrix_row for415990, then integrate alternate dispatch andsegmentstate observation.",
+    "Copied-plane argument1, native shared buffers, malformed eligible indices, nonfinite/overflow inputs and complete scientific model remain unresolved.",
+    "Full original application reconstruction is not complete."
+  ],
+  "next_evidence": [
+    "analysis/geometry-format-static-audit.json",
+    "analysis/geometry-segments-implementation-contract.json",
+    "analysis/geometry-segments-probe-static-audit.json",
+    "tests/fixtures/geometry_segments/cases.json"
+  ],
+  "bindings": [
+    {
+      "path": "analysis/geometry-import-direct-contract.json",
+      "sha256": "394c6e887ee1a08e1ab7a106060213372300246d95bf710bf1f4481612905412"
+    },
+    {
+      "path": "analysis/geometry-finalize-static-audit.json",
+      "sha256": "6a83b5433b73fbc15e263635e7a710673ae7eba4560551f4c0b1d9cd818f8c3b"
+    },
+    {
+      "path": "analysis/geometry-storage-implementation-contract.json",
+      "sha256": "2f805915d171c8ead38f08741ba59abc21fb322936b3492920fca55070a99235"
+    },
+    {
+      "path": "analysis/geometry-import-candidate-freeze.json",
+      "sha256": "de222c57fa5b30066f99636a3a8aaf7ea96410d554883da6da36da45ee283ef5"
+    },
+    {
+      "path": "analysis/geometry-import-held-out-fixture-correction.json",
+      "sha256": "58206d9da9489375622d219a0a4becab9e46e6ac4afb30ca7cf4ba922b5e80ab"
+    },
+    {
+      "path": "analysis/geometry-import-training-comparison.json",
+      "sha256": "a4936b2ac5fb4ea2a0ee4047f6988949ace95d8e94c2e77d40f851afd770dd8c"
+    },
+    {
+      "path": "analysis/geometry-import-training-observations.json",
+      "sha256": "1b3046624220345018e5e07b4c90581c471bd69d4566c417211cdc29ca1c0502"
+    },
+    {
+      "path": "analysis/geometry-import-held-out-comparison.json",
+      "sha256": "ec1a7832ec1adc560748b8c1d6d6e393315a164728b86dc40a9568def586a12c"
+    },
+    {
+      "path": "analysis/geometry-import-held-out-observations.json",
+      "sha256": "d43d0893c1997d5b0cbd7f50c8fadd33363d4514bfeef2520f5aa1c0ab7f6762"
+    },
+    {
+      "path": "analysis/geometry-import-lifecycle-comparison.json",
+      "sha256": "0d01513a88583edfb7d540a15e084fe304f9f8c56de6fb9ce5a5505dc479f048"
+    },
+    {
+      "path": "analysis/geometry-import-lifecycle-observations.json",
+      "sha256": "47f557addedc1a9a04be626bc780039bc7c5c161dc9cbfe10c849469bece87db"
+    }
+  ]
+}

@@ -1,0 +1,1077 @@
+{
+  "schema_version": 1,
+  "scope": "Input-only planar boundary fixtures based on saved parser/object-handler and directed-edge helper evidence. No original or replacement execution and no expected output arrays.",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "counts": {
+    "training": 6,
+    "held_out": 6,
+    "total_fixtures": 12,
+    "total_elements": 32
+  },
+  "syntax_basis": {
+    "dimension": "Recognized first header comment DEFORM-2D invokes primary root dimension2 and linked secondary dimension3 in 0x1401b6520. No SIMDIM keyword is used.",
+    "coordinates": "The 2D object-handler branch reads each RZ row as a label plus two coordinates through 0x140415680.",
+    "connectivity": "The 2D ELMCON header reads object ID and element count only; arity is implicit4. Each row has a label plus four integers. No trailing arity value is put on the header.",
+    "triangle": "0x14032da62 skips the fourth edge when first and fourth connectivity entries are equal, motivating [1,2,3,1].",
+    "runtime_uncertainties": [
+      "Original import acceptance and active model routing remain untested for these exact inputs.",
+      "The runtime probe must confirm dimension2, four connectivity slots, entry to the planar builder, and resulting consumer groups."
+    ]
+  },
+  "protocol": {
+    "training": "Use for runtime observation and reconstruction development.",
+    "held_out": "Record candidate freeze hashes before original or replacement evaluation; any results used to change implementation become training evidence. Inputs are visible, outputs are not predicted.",
+    "comparison": "Preserve exact ordered groups, raw one-based inclusive ranges, flat chain nodes and separators/sentinel, plus object-consumer arrays and statuses."
+  },
+  "evidence": [
+    {
+      "path": "analysis/keyword-parser.json",
+      "sha256": "3a7445dfe4e7a131767b7a5fc65edfde052b7e5d94280e69775e9988109474e7",
+      "evidence_id": "ev_aefdab7cc5bacd20219db5946789b42596854134a4eb31098b26448449930416"
+    },
+    {
+      "path": "analysis/keyword-object-contract.json",
+      "sha256": "b7cad5d0855f0f9326f33524c0a9cd9412312ae5399a121eb636216595d1f3c3"
+    },
+    {
+      "path": "analysis/keyword-handlers-evidence.json",
+      "sha256": "77a33290e256a1db6a526d86a4572ad57c071ff51ac8e7c560abf7e5affb5550"
+    },
+    {
+      "path": "analysis/mesh-0x14032da62.json",
+      "sha256": "69e1b46a6cfa80d1bade611e8d35085a833f2ed0b195c4cb09078104db172674",
+      "evidence_id": "ev_abf01926157d848d3d73501162b578b016ebb5ebc69790272ea3365f778e4fe0"
+    },
+    {
+      "path": "analysis/mesh-0x1401fc290.json",
+      "sha256": "81f31832634c033f016c53995587fea8f52f8e2c004f8c99dab787797febb6c3",
+      "evidence_id": "ev_90e6b2a97d661e89fa225875423bbf58c0b7c011ad3939e4af339354bdc8b2d7"
+    },
+    {
+      "path": "analysis/model-lifecycle-specification.json",
+      "sha256": "6b02cc6a29089f96bd8e57081226f8f0fd083ccfcba79cb3e9f639e89cf28a09"
+    }
+  ],
+  "cases": [
+    {
+      "id": "training/01_single_quad",
+      "split": "training",
+      "path": "tests/fixtures/planar_boundary/training/01_single_quad.KEY",
+      "sha256": "c4fa21157cbeefa131c3bc87491d32b184c2729c35d075455e52ba55978b61d5",
+      "size_bytes": 131,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 4,
+      "element_count": 1,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "classification": "valid_quad",
+      "questions": [
+        "What directed node chain, range indices, and terminators does the original emit for this local orientation?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          2
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 4,
+        "directed_edge_scratch_integers": 8,
+        "group_count_upper_bound": 4,
+        "range_integers_upper_bound": 8,
+        "flat_chain_integers_upper_bound": 13,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "training/02_closed_triangle",
+      "split": "training",
+      "path": "tests/fixtures/planar_boundary/training/02_closed_triangle.KEY",
+      "sha256": "81502fac9729434c530f3dde454b1741deac3408e048fad3af757c310a6343d4",
+      "size_bytes": 129,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 3,
+      "element_count": 1,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "classification": "triangle_encoded_by_repeated_first_slot",
+      "questions": [
+        "Does repeated first/last connectivity suppress the fourth directed edge, and what exact closed chain is emitted?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          1
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [
+          1
+        ],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 4,
+        "directed_edge_scratch_integers": 8,
+        "group_count_upper_bound": 4,
+        "range_integers_upper_bound": 8,
+        "flat_chain_integers_upper_bound": 13,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "training/03_adjacent_quads",
+      "split": "training",
+      "path": "tests/fixtures/planar_boundary/training/03_adjacent_quads.KEY",
+      "sha256": "51fedbf0209f28a4497e826beba12968225ba57fdeb0c03704b01d8060957957",
+      "size_bytes": 156,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 6,
+      "element_count": 2,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          2,
+          5,
+          6,
+          3
+        ]
+      ],
+      "classification": "two_valid_adjacent_quads",
+      "questions": [
+        "How does shared-edge cancellation interact with element order, orientation, chain start, and output group order?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          2,
+          2
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 8,
+        "directed_edge_scratch_integers": 16,
+        "group_count_upper_bound": 8,
+        "range_integers_upper_bound": 16,
+        "flat_chain_integers_upper_bound": 25,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "training/04_disconnected_loops",
+      "split": "training",
+      "path": "tests/fixtures/planar_boundary/training/04_disconnected_loops.KEY",
+      "sha256": "51c1c090fd9c8cd874ac0faeda7b6d2d14879add0bf3358ba40df0556e4ea9f3",
+      "size_bytes": 172,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 8,
+      "element_count": 2,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "classification": "two_disjoint_valid_quads",
+      "questions": [
+        "How are disconnected components ordered and separated in ranges, flat node output, and object groups?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          2,
+          2
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 8,
+        "directed_edge_scratch_integers": 16,
+        "group_count_upper_bound": 8,
+        "range_integers_upper_bound": 16,
+        "flat_chain_integers_upper_bound": 25,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "training/05_duplicate_quads",
+      "split": "training",
+      "path": "tests/fixtures/planar_boundary/training/05_duplicate_quads.KEY",
+      "sha256": "b9e051b6292dc3ccefbfd4951aff2f1241d529cc00c9e7bff8e9256c2efaf2bc",
+      "size_bytes": 145,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 4,
+      "element_count": 2,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "classification": "nonphysical_duplicate_same_orientation",
+      "questions": [
+        "Does edge cancellation depend on reversed direction, and what happens to same-direction duplicate edges or opposite-orientation duplicates?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          2,
+          2
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 8,
+        "directed_edge_scratch_integers": 16,
+        "group_count_upper_bound": 8,
+        "range_integers_upper_bound": 16,
+        "flat_chain_integers_upper_bound": 25,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "training/06_ring_with_hole",
+      "split": "training",
+      "path": "tests/fixtures/planar_boundary/training/06_ring_with_hole.KEY",
+      "sha256": "f84028c47abd9f6b153f85d289307b9067cfd45d023a08ff9d03bb0397b6d93e",
+      "size_bytes": 298,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 16,
+      "element_count": 8,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          6,
+          5
+        ],
+        [
+          2,
+          3,
+          7,
+          6
+        ],
+        [
+          3,
+          4,
+          8,
+          7
+        ],
+        [
+          5,
+          6,
+          10,
+          9
+        ],
+        [
+          7,
+          8,
+          12,
+          11
+        ],
+        [
+          9,
+          10,
+          14,
+          13
+        ],
+        [
+          10,
+          11,
+          15,
+          14
+        ],
+        [
+          11,
+          12,
+          16,
+          15
+        ]
+      ],
+      "classification": "valid_eight_quad_ring_with_hole",
+      "questions": [
+        "How are the outer loop and hole represented, ordered, and oriented after element reordering and global orientation reversal?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 32,
+        "directed_edge_scratch_integers": 64,
+        "group_count_upper_bound": 32,
+        "range_integers_upper_bound": 64,
+        "flat_chain_integers_upper_bound": 97,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "held_out/01_single_quad",
+      "split": "held_out",
+      "path": "tests/fixtures/planar_boundary/held_out/01_single_quad.KEY",
+      "sha256": "20050018e7dd003bea4eb3e7853e8bfe6fbfa3d7ae5436a49eabf42ef592906e",
+      "size_bytes": 131,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 4,
+      "element_count": 1,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          1,
+          4,
+          3
+        ]
+      ],
+      "classification": "valid_quad_reversed_orientation",
+      "questions": [
+        "What directed node chain, range indices, and terminators does the original emit for this local orientation?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          -8
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 4,
+        "directed_edge_scratch_integers": 8,
+        "group_count_upper_bound": 4,
+        "range_integers_upper_bound": 8,
+        "flat_chain_integers_upper_bound": 13,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "held_out/02_closed_triangle",
+      "split": "held_out",
+      "path": "tests/fixtures/planar_boundary/held_out/02_closed_triangle.KEY",
+      "sha256": "a37eb2ef483ad8327b8a3b81410486bc9920233916666681c46545f20d5571cb",
+      "size_bytes": 129,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 3,
+      "element_count": 1,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          1,
+          3,
+          2
+        ]
+      ],
+      "classification": "triangle_encoded_by_repeated_first_slot",
+      "questions": [
+        "Does repeated first/last connectivity suppress the fourth directed edge, and what exact closed chain is emitted?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          -4
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [
+          1
+        ],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 4,
+        "directed_edge_scratch_integers": 8,
+        "group_count_upper_bound": 4,
+        "range_integers_upper_bound": 8,
+        "flat_chain_integers_upper_bound": 13,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "held_out/03_adjacent_quads",
+      "split": "held_out",
+      "path": "tests/fixtures/planar_boundary/held_out/03_adjacent_quads.KEY",
+      "sha256": "df0370f484cb2a44bb3b79d11965e90a236988c4e9b356ca616121429722cc4b",
+      "size_bytes": 156,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 6,
+      "element_count": 2,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "connectivity": [
+        [
+          5,
+          2,
+          3,
+          6
+        ],
+        [
+          2,
+          1,
+          4,
+          3
+        ]
+      ],
+      "classification": "two_valid_adjacent_quads_reordered_and_reversed",
+      "questions": [
+        "How does shared-edge cancellation interact with element order, orientation, chain start, and output group order?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          -8,
+          -8
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 8,
+        "directed_edge_scratch_integers": 16,
+        "group_count_upper_bound": 8,
+        "range_integers_upper_bound": 16,
+        "flat_chain_integers_upper_bound": 25,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "held_out/04_disconnected_loops",
+      "split": "held_out",
+      "path": "tests/fixtures/planar_boundary/held_out/04_disconnected_loops.KEY",
+      "sha256": "68f95e1e01a27484b52ef3d9c87dc12fb20cc476b7f9fd256ed540455a12b424",
+      "size_bytes": 176,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 8,
+      "element_count": 2,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          13,
+          5
+        ],
+        [
+          11,
+          5
+        ]
+      ],
+      "connectivity": [
+        [
+          6,
+          5,
+          8,
+          7
+        ],
+        [
+          2,
+          1,
+          4,
+          3
+        ]
+      ],
+      "classification": "two_disjoint_valid_quads",
+      "questions": [
+        "How are disconnected components ordered and separated in ranges, flat node output, and object groups?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          -8,
+          -8
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 8,
+        "directed_edge_scratch_integers": 16,
+        "group_count_upper_bound": 8,
+        "range_integers_upper_bound": 16,
+        "flat_chain_integers_upper_bound": 25,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "held_out/05_duplicate_quads",
+      "split": "held_out",
+      "path": "tests/fixtures/planar_boundary/held_out/05_duplicate_quads.KEY",
+      "sha256": "0905659f6d55cd97bd16850cd91a33495e0f042ab5429b834e108061457d5d33",
+      "size_bytes": 145,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 4,
+      "element_count": 2,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          4,
+          3,
+          2
+        ]
+      ],
+      "classification": "nonphysical_duplicate_opposite_orientation",
+      "questions": [
+        "Does edge cancellation depend on reversed direction, and what happens to same-direction duplicate edges or opposite-orientation duplicates?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          8,
+          -8
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 8,
+        "directed_edge_scratch_integers": 16,
+        "group_count_upper_bound": 8,
+        "range_integers_upper_bound": 16,
+        "flat_chain_integers_upper_bound": 25,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    },
+    {
+      "id": "held_out/06_ring_with_hole",
+      "split": "held_out",
+      "path": "tests/fixtures/planar_boundary/held_out/06_ring_with_hole.KEY",
+      "sha256": "b6646f85d0967fa13d164cc7bad9692377f45b2a5fabb42b5135c3283602cb1d",
+      "size_bytes": 302,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "dimension": 2,
+      "node_count": 16,
+      "element_count": 8,
+      "connectivity_slots": 4,
+      "coordinates": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          11,
+          9
+        ]
+      ],
+      "connectivity": [
+        [
+          12,
+          11,
+          15,
+          16
+        ],
+        [
+          11,
+          10,
+          14,
+          15
+        ],
+        [
+          10,
+          9,
+          13,
+          14
+        ],
+        [
+          8,
+          7,
+          11,
+          12
+        ],
+        [
+          6,
+          5,
+          9,
+          10
+        ],
+        [
+          4,
+          3,
+          7,
+          8
+        ],
+        [
+          3,
+          2,
+          6,
+          7
+        ],
+        [
+          2,
+          1,
+          5,
+          6
+        ]
+      ],
+      "classification": "valid_eight_quad_ring_with_hole",
+      "questions": [
+        "How are the outer loop and hole represented, ordered, and oriented after element reordering and global orientation reversal?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "signed_twice_element_areas": [
+          -8,
+          -8,
+          -8,
+          -8,
+          -8,
+          -8,
+          -8,
+          -8
+        ],
+        "all_node_ids_positive_and_in_range": true,
+        "closed_triangle_rows": [],
+        "all_elements_have_nonzero_geometric_area": true
+      },
+      "conservative_probe_bounds": {
+        "connectivity_integers": 32,
+        "directed_edge_scratch_integers": 64,
+        "group_count_upper_bound": 32,
+        "range_integers_upper_bound": 64,
+        "flat_chain_integers_upper_bound": 97,
+        "qualification": "Bounds allow every one of four slots per element to produce a separate one-edge chain with a start, endpoint, separator, plus final sentinel. These are storage limits, not expected output counts."
+      }
+    }
+  ],
+  "validation": {
+    "ascii_and_manifest_hashes": true,
+    "all_positive_node_ids_in_range": true,
+    "all_rows_four_connectivity_slots": true,
+    "all_coordinate_rows_two_components": true,
+    "conservative_array_bounds_below_512": true,
+    "conservative_group_bounds_below_100": true
+  }
+}

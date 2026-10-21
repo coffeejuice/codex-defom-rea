@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "PASS_STATIC_IMPLEMENTATION_REVIEW_RUNTIME_PENDING",
+  "scope": "All FSTRES94 dispatcher branches within the finite initialized and bounded allocation domain. This is an import/storage review, not verification of constitutive evaluation.",
+  "findings": [],
+  "reviewed_contracts": [
+    "All sixteen positive mode branches, zero, signed negative including INT_MIN, and unknown positive modes match the retained dispatch order and selected destinations.",
+    "Material selection and creation precede outer int3; failure preserves FSTRES state while earlier creation persists. FSTRES has no post-payload refresh.",
+    "All ten table constructors and all forty-two coefficient doubles plus three integer fields are represented once. Named coefficients at 0x368 have no duplicate scalar storage.",
+    "Type 0xa6 owns one zero axis and two dependent values at initialization; 0xa7 and 0xa8 own one zero dependent value even though rank0/width1 payload reading does nothing. Type0x51 defers allocation.",
+    "Mode9 runs both seven-real helpers and uses the second status. Mode10 consumes seven outputs but stores six. Mode14 reads its table even after coefficient failure and uses the table status.",
+    "Modes2/3,7/8 and16 perform their final flag stores after payload failure, but not after an earlier count/width helper failure.",
+    "Mode6 local-header failures preserve the corresponding prior table; first payload failure prevents the second header. Modes13/15 stop between independently owned linked tables.",
+    "Modes13/15 derive integer sum and product from axis0 in ascending order, not dependent data. Native CVTTSD2SI/ADD/IMUL are reproduced for representable finite conversion and non-overflowing intermediate extents; out-of-domain cases throw explicitly.",
+    "Seven-real parsing zero-initializes all destinations, replaces commas, keeps partial assignments, and returns failure only on fgets EOF or scan -1. Replay emits all seven outputs.",
+    "Property payload direct matching failures retain initialized values; rank2/3 scratch matching failures are explicitly unsupported. EOF keeps direct mutations and does not commit incomplete scratch."
+  ],
+  "limitations": [
+    "No native execution or original comparison was performed by this review; capture verification is pending.",
+    "Native signed32 overflow in derived extents and out-of-range floating conversion are intentionally outside the bounded API domain, although machine behavior is documented in the byte audit.",
+    "Allocation failure, nonfinite conversion, unknown native padding, arbitrary external aliases and the stress-law scientific consumers are not reconstructed by this review.",
+    "Native temporary-buffer leaks on failed payloads are not reproduced as C++ ownership leaks; imported values and status remain the comparison target."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/fstres-static-contract.json",
+      "sha256": "535bc76c17275fd043f8fbce2be65b026e20cad5359245738de343803f40a4b1"
+    },
+    {
+      "path": "analysis/fstres-byte-audit.json",
+      "sha256": "ec0a250115349bcb8b7f31670de25145bb9341b2bc49b25a7ff36942348b9f74"
+    },
+    {
+      "path": "analysis/fstres-model-inventory.json",
+      "sha256": "7e78b6dbf53b01649b01f7e21ad125980baa546f700fff6037250aeb7450a553"
+    },
+    {
+      "path": "analysis/nested-material-0x140288ae0.json",
+      "sha256": "32c7240e3544ab908b80047fd5fc6030c064d9d565089af95cd5f9bf61a8f40a"
+    },
+    {
+      "path": "analysis/nested-material-0x14029cdc0.json",
+      "sha256": "214ac48c874fff90058decc5c4b61ea267a64f6c972a8d837352442752606336"
+    },
+    {
+      "path": "analysis/fstres-0x1404151c0.json",
+      "sha256": "75463957977634be2394778c5214867af89d5a29cddfbd42518cb4d9ec20f14f"
+    },
+    {
+      "path": "analysis/configuration-0x14012d2a0.json",
+      "sha256": "3f9748aacea2b6df1d83cc34f5bdd68c0ce469b5e476f0e0d03db94cedbca943"
+    },
+    {
+      "path": "analysis/time-table-0x14041a800.json",
+      "sha256": "7934897d19d270e211b6af7232fb699e70b9af745535e754bc3b73bb7c97d12a"
+    },
+    {
+      "path": "src/recovered/fstres_properties.hpp",
+      "sha256": "009a9f806ae62bdca851842939f9e47d86e0dcf4782df74691b17476b5a751bb"
+    },
+    {
+      "path": "src/recovered/fstres_properties.cpp",
+      "sha256": "28b15a5c966682ff1856a982b643101a44aa91fc2aeb4bd029ed477485dac671"
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "sha256": "6bd11e40ec8659f56db4a495d9fa6a787bea9b2a606e2eb96336689c9c093f12"
+    },
+    {
+      "path": "src/recovered/property_table.cpp",
+      "sha256": "f62f90e6c731f2c1b8be96f7d88fcf14acc37cb0bc33cf7d623a700b836df992"
+    },
+    {
+      "path": "src/recovered/relation_properties.hpp",
+      "sha256": "00deac0cfee02b1f46b9952c1375c23bb6828e7ec46f81671d6d8ec29f7fb8aa"
+    },
+    {
+      "path": "src/recovered/relation_properties.cpp",
+      "sha256": "bee68cea05df2cba694ec2fd475c7ed3aa2166e9ce03b35ded3425274afeb660"
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "sha256": "8ef211507b6631afebae065db5ea002cbfd644bbc2df9ab7c71c8f84aca4008c"
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "sha256": "af6e65cf8e1821eb0d623c40eea495ab487a8ad321c36178898253f18bf25191"
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "sha256": "796d8d07a0e28518239c9a1d14ed0befb54a6d1c5545ae3b7fbb6b2bd7907e25"
+    }
+  ]
+}

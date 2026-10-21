@@ -1,0 +1,2401 @@
+{
+  "status": "pass",
+  "verifier": {
+    "path": "tools/verify_keyword_row_observations.py",
+    "sha256": "1f6770e7073fa179587ff91f1543a882d97548c74243f3254d70f194f5336bdf"
+  },
+  "scope": "Original passive row-helper capture provenance and internal consistency; no replacement execution or replacement-generated expected values.",
+  "template": {
+    "path": "tools/observe_keyword_rows.js",
+    "sha256": "4081703d700b265ba83b1e5fc3dc73d4a6164fa0b088392d62893724ebcdc52c"
+  },
+  "runs": [
+    {
+      "split": "training",
+      "capture": {
+        "path": "analysis/keyword-rows-runtime-training.json",
+        "sha256": "f3d0509fc43fc728d0db1d5234986e5de1fa16998ad650dc3344c72b855e0ca2"
+      },
+      "manifest": {
+        "path": "analysis/oracle/keyword-rows-training/run.json",
+        "sha256": "318e72ec3e14ab43ba0fbf355703671dc3d879c2ebe72f9ee3af7750ee38ce2e"
+      },
+      "fixture_manifest": {
+        "path": "analysis/keyword-row-evaluation-cases.json",
+        "sha256": "60f87f3e63173de3b7ea4dbf9e241ac3b5ae9ef82fcc4e94070b2a39d8936412"
+      },
+      "probe": {
+        "path": "analysis/oracle/keyword-rows-training.js",
+        "sha256": "dc17a287e14c458172cd8b94fa893eb96d599e5e72914bfcb304a7f01234aa97"
+      },
+      "evidence_id": "ev_d737f68e43345a8454eeab948daf70c3351abe946346803ab5e9ecd2d1e5cf71",
+      "pid": 23484,
+      "events": 46,
+      "rows": 29,
+      "imports": [
+        {
+          "file": "01_numeric.KEY",
+          "status": 0,
+          "text_bytes_accounted": 178
+        },
+        {
+          "file": "02_blank.KEY",
+          "status": 2,
+          "text_bytes_accounted": 41
+        },
+        {
+          "file": "03_cube.KEY",
+          "status": 0,
+          "text_bytes_accounted": 114
+        },
+        {
+          "file": "04_eof.KEY",
+          "status": 2,
+          "text_bytes_accounted": 23
+        }
+      ],
+      "fixtures": [
+        {
+          "source": "tests/fixtures/keyword_rows/training/01_numeric.KEY",
+          "copy": "analysis/oracle/keyword-rows-training/01_numeric.KEY",
+          "sha256": "f4e0a5e7365e49e805a90bff07246fe21d0fba571d2a1df4cb90fc7ce36a2911"
+        },
+        {
+          "source": "tests/fixtures/keyword_rows/training/02_blank.KEY",
+          "copy": "analysis/oracle/keyword-rows-training/02_blank.KEY",
+          "sha256": "6e836c36491be7f38048e530aa1c47a1eeb584198b99f9674be4eaff2b5adab2"
+        },
+        {
+          "source": "tests/fixtures/keyword_rows/training/03_cube.KEY",
+          "copy": "analysis/oracle/keyword-rows-training/03_cube.KEY",
+          "sha256": "21ac39cbb8f03ba8a9af0b70ccff12556942e4c4421a54efe8e4c272cbb1f6fb"
+        },
+        {
+          "source": "tests/fixtures/keyword_rows/training/04_eof.KEY",
+          "copy": "analysis/oracle/keyword-rows-training/04_eof.KEY",
+          "sha256": "a876ebaca01a3efb48c6189ac3c774547f3870f464fe7e66d4d2f22267a4b940"
+        }
+      ],
+      "helper_counts": {
+        "name": 3,
+        "int2": 2,
+        "int1": 4,
+        "coord3": 19,
+        "int9": 1
+      },
+      "observations": [
+        {
+          "sequence": 3,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "202052454120726f77207363616e6e657220747261696e696e672020200a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "",
+          "name_hex": "202052454120726f77207363616e6e657220747261696e696e67"
+        },
+        {
+          "sequence": 5,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "int2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "2031203031300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "2031203031300a",
+              "format": "%i %i",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            1,
+            8
+          ],
+          "output_hex": [
+            "01000000",
+            "08000000"
+          ]
+        },
+        {
+          "sequence": 7,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "20360a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "20360a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            6
+          ],
+          "output_hex": [
+            "06000000"
+          ]
+        },
+        {
+          "sequence": 8,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3120312e3235202d322e35203365320a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3120312e3235202d322e35203365320a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            1,
+            1.25,
+            -2.5,
+            300
+          ],
+          "output_hex": [
+            "01000000",
+            "000000000000f43f",
+            "00000000000004c0",
+            "0000000000c07240"
+          ]
+        },
+        {
+          "sequence": 9,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "30322c2b342e302c35452d312c2d360a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3032202b342e302035452d31202d360a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            2,
+            4,
+            0.5,
+            -6
+          ],
+          "output_hex": [
+            "02000000",
+            "0000000000001040",
+            "000000000000e03f",
+            "00000000000018c0"
+          ]
+        },
+        {
+          "sequence": 10,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "307833202e32352032443320340a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "307833202e32352032443320340a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            3,
+            0.25,
+            2,
+            0
+          ],
+          "output_hex": [
+            "03000000",
+            "000000000000d03f",
+            "0000000000000040",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 11,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3420372e350a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3420372e350a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            4,
+            7.5,
+            0,
+            0
+          ],
+          "output_hex": [
+            "04000000",
+            "0000000000001e40",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 12,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "626164203820392031300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "626164203820392031300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 0
+            }
+          ],
+          "values": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "00000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 13,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "362030783170322031652b20330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "362030783170322031652b20330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            6,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "06000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 15,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "4166746572206e756d6572696320726f77730a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "202052454120726f77207363616e6e657220747261696e696e67",
+          "name_hex": "4166746572206e756d6572696320726f7773"
+        },
+        {
+          "sequence": 19,
+          "operation": "row",
+          "file": "02_blank.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "20320a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "20320a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            2
+          ],
+          "output_hex": [
+            "02000000"
+          ]
+        },
+        {
+          "sequence": 20,
+          "operation": "row",
+          "file": "02_blank.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "312031203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "312031203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            3
+          ],
+          "output_hex": [
+            "01000000",
+            "000000000000f03f",
+            "0000000000000040",
+            "0000000000000840"
+          ]
+        },
+        {
+          "sequence": 21,
+          "operation": "row",
+          "file": "02_blank.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 1,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "0a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": -1
+            }
+          ],
+          "values": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "00000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 23,
+          "operation": "row",
+          "file": "02_blank.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "416674657220626c616e6b20726f770a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "4166746572206e756d6572696320726f7773",
+          "name_hex": "416674657220626c616e6b20726f77"
+        },
+        {
+          "sequence": 27,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "203031300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "203031300a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            8
+          ],
+          "output_hex": [
+            "08000000"
+          ]
+        },
+        {
+          "sequence": 28,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "312030203020300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "312030203020300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "01000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 29,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "322031203020300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "322031203020300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            2,
+            1,
+            0,
+            0
+          ],
+          "output_hex": [
+            "02000000",
+            "000000000000f03f",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 30,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "332031203120300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "332031203120300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            3,
+            1,
+            1,
+            0
+          ],
+          "output_hex": [
+            "03000000",
+            "000000000000f03f",
+            "000000000000f03f",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 31,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "342030203120300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "342030203120300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            4,
+            0,
+            1,
+            0
+          ],
+          "output_hex": [
+            "04000000",
+            "0000000000000000",
+            "000000000000f03f",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 32,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "352030203020310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "352030203020310a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            5,
+            0,
+            0,
+            1
+          ],
+          "output_hex": [
+            "05000000",
+            "0000000000000000",
+            "0000000000000000",
+            "000000000000f03f"
+          ]
+        },
+        {
+          "sequence": 33,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "362031203020310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "362031203020310a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            6,
+            1,
+            0,
+            1
+          ],
+          "output_hex": [
+            "06000000",
+            "000000000000f03f",
+            "0000000000000000",
+            "000000000000f03f"
+          ]
+        },
+        {
+          "sequence": 34,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "372031203120310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "372031203120310a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            7,
+            1,
+            1,
+            1
+          ],
+          "output_hex": [
+            "07000000",
+            "000000000000f03f",
+            "000000000000f03f",
+            "000000000000f03f"
+          ]
+        },
+        {
+          "sequence": 35,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "382030203120310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "382030203120310a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            8,
+            0,
+            1,
+            1
+          ],
+          "output_hex": [
+            "08000000",
+            "0000000000000000",
+            "000000000000f03f",
+            "000000000000f03f"
+          ]
+        },
+        {
+          "sequence": 37,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "int2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "203031203031300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "203031203031300a",
+              "format": "%i %i",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            1,
+            8
+          ],
+          "output_hex": [
+            "01000000",
+            "08000000"
+          ]
+        },
+        {
+          "sequence": 38,
+          "operation": "row",
+          "file": "03_cube.KEY",
+          "kind": "int9",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3078312030312030783220332034203520362037203031300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3078312030312030783220332034203520362037203031300a",
+              "format": "%i %i %i %i %i %i %i %i %i",
+              "conversions": 9
+            }
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "output_hex": [
+            "01000000",
+            "01000000",
+            "02000000",
+            "03000000",
+            "04000000",
+            "05000000",
+            "06000000",
+            "07000000",
+            "08000000"
+          ]
+        },
+        {
+          "sequence": 42,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "20380a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "20380a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            8
+          ],
+          "output_hex": [
+            "08000000"
+          ]
+        },
+        {
+          "sequence": 43,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "312030203020300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "312030203020300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "01000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 44,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "322031203020300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "322031203020300a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            2,
+            1,
+            0,
+            0
+          ],
+          "output_hex": [
+            "02000000",
+            "000000000000f03f",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 45,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 1,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": true,
+              "hex": null
+            }
+          ],
+          "scans": [],
+          "values": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "00000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "split": "discovery",
+      "capture": {
+        "path": "analysis/keyword-rows-runtime-discovery.json",
+        "sha256": "572ec9cd7efa99e77b29a25d430f3e42cd754525cdd92f1d59dec2a605985bca"
+      },
+      "manifest": {
+        "path": "analysis/oracle/keyword-rows-discovery/run.json",
+        "sha256": "cf1d038e2b43fc84290788eeffb8bd3df40862dd81c69db54d42290ec35800b1"
+      },
+      "fixture_manifest": {
+        "path": "analysis/keyword-row-discovery-cases.json",
+        "sha256": "09fb37aa2162e9d8192200290512e6630519f11ebfac534a1f35e9384e2639b3"
+      },
+      "probe": {
+        "path": "analysis/oracle/keyword-rows-discovery.js",
+        "sha256": "214eefab352dfd873cb0d97331d2dfe44d7a6b7ae27bd7a725a88d6f1feb26b0"
+      },
+      "evidence_id": "ev_878c1a4dbcda8fd317e815c46e034e65f4abffbdfb113a1000592769786b5f77",
+      "pid": 8240,
+      "events": 18,
+      "rows": 14,
+      "imports": [
+        {
+          "file": "01_decimal_edges.KEY",
+          "status": 0,
+          "text_bytes_accounted": 183
+        }
+      ],
+      "fixtures": [
+        {
+          "source": "tests/fixtures/keyword_rows/discovery/01_decimal_edges.KEY",
+          "copy": "analysis/oracle/keyword-rows-discovery/01_decimal_edges.KEY",
+          "sha256": "73813046da7de60dc769107543f9e2c2b035f1766d93710f75037fe0a70eb294"
+        }
+      ],
+      "helper_counts": {
+        "int1": 1,
+        "coord3": 12,
+        "name": 1
+      },
+      "observations": [
+        {
+          "sequence": 3,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "2031320a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "2031320a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            12
+          ],
+          "output_hex": [
+            "0c000000"
+          ]
+        },
+        {
+          "sequence": 4,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "312031652b203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "312031652b203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            3
+          ],
+          "output_hex": [
+            "01000000",
+            "000000000000f03f",
+            "0000000000000040",
+            "0000000000000840"
+          ]
+        },
+        {
+          "sequence": 5,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "322031652d203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "322031652d203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            2,
+            1,
+            2,
+            3
+          ],
+          "output_hex": [
+            "02000000",
+            "000000000000f03f",
+            "0000000000000040",
+            "0000000000000840"
+          ]
+        },
+        {
+          "sequence": 6,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "33203165203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "33203165203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            3,
+            1,
+            2,
+            3
+          ],
+          "output_hex": [
+            "03000000",
+            "000000000000f03f",
+            "0000000000000040",
+            "0000000000000840"
+          ]
+        },
+        {
+          "sequence": 7,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "34202e203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "34202e203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "04000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 8,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "35202b203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "35202b203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            5,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "05000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 9,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "36202d3078327033203120320a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "36202d3078327033203120320a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            6,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "06000000",
+            "0000000000000080",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 10,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "37202e6532203120320a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "37202e6532203120320a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            7,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "07000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 11,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "38203132442d31203220330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "38203132442d31203220330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            8,
+            12,
+            0,
+            0
+          ],
+          "output_hex": [
+            "08000000",
+            "0000000000002840",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 12,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "392030312030322030330a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "392030312030322030330a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            9,
+            1,
+            2,
+            3
+          ],
+          "output_hex": [
+            "09000000",
+            "000000000000f03f",
+            "0000000000000040",
+            "0000000000000840"
+          ]
+        },
+        {
+          "sequence": 13,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "313020312e322e3320340a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "313020312e322e3320340a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            10,
+            1.2,
+            0.3,
+            4
+          ],
+          "output_hex": [
+            "0a000000",
+            "333333333333f33f",
+            "333333333333d33f",
+            "0000000000001040"
+          ]
+        },
+        {
+          "sequence": 14,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "313120307832203320340a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "313120307832203320340a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            11,
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "0b000000",
+            "0000000000000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 15,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "coord3",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3132202b2e35202d322e3565312033652d320a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3132202b2e35202d322e3565312033652d320a",
+              "format": "%i %Flf %Flf %Flf",
+              "conversions": 4
+            }
+          ],
+          "values": [
+            12,
+            0.5,
+            -25,
+            0.03
+          ],
+          "output_hex": [
+            "0c000000",
+            "000000000000e03f",
+            "00000000000039c0",
+            "b81e85eb51b89e3f"
+          ]
+        },
+        {
+          "sequence": 17,
+          "operation": "row",
+          "file": "01_decimal_edges.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "416674657220646563696d616c206772616d6d61720a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "",
+          "name_hex": "416674657220646563696d616c206772616d6d6172"
+        }
+      ]
+    },
+    {
+      "split": "held-out",
+      "capture": {
+        "path": "analysis/keyword-rows-runtime-held-out.json",
+        "sha256": "4792657ae5a9fbcc5c5693690efeee9f99b1f4084e30354327d9739b97397e48"
+      },
+      "manifest": {
+        "path": "analysis/oracle/keyword-rows-held-out/run.json",
+        "sha256": "920dc1a7d955b4214612898bb179930ec2f6157415fc72344e73b683f9be7aa5"
+      },
+      "fixture_manifest": {
+        "path": "analysis/keyword-row-evaluation-cases.json",
+        "sha256": "60f87f3e63173de3b7ea4dbf9e241ac3b5ae9ef82fcc4e94070b2a39d8936412"
+      },
+      "probe": {
+        "path": "analysis/oracle/keyword-rows-held-out.js",
+        "sha256": "e163efefe11eba615eb69bdb894fb0b5e7c176cce7f3f22f0aa7f224f69e8025"
+      },
+      "evidence_id": "ev_42aa1ad4d0302022167e8a18f5c90e63df61e87d27cc961259ffc8d9037a67ea",
+      "pid": 31700,
+      "events": 41,
+      "rows": 23,
+      "imports": [
+        {
+          "file": "01_numeric.KEY",
+          "status": 0,
+          "text_bytes_accounted": 142
+        },
+        {
+          "file": "02_names.KEY",
+          "status": 2,
+          "text_bytes_accounted": 207
+        },
+        {
+          "file": "03_quad.KEY",
+          "status": 0,
+          "text_bytes_accounted": 57
+        },
+        {
+          "file": "04_eof.KEY",
+          "status": 2,
+          "text_bytes_accounted": 19
+        }
+      ],
+      "fixtures": [
+        {
+          "source": "tests/fixtures/keyword_rows/held_out/01_numeric.KEY",
+          "copy": "analysis/oracle/keyword-rows-held-out/01_numeric.KEY",
+          "sha256": "ab13c42bce6db27c3125aed003bb49ff81f3bba3a561f274a716945e87f25c26"
+        },
+        {
+          "source": "tests/fixtures/keyword_rows/held_out/02_names.KEY",
+          "copy": "analysis/oracle/keyword-rows-held-out/02_names.KEY",
+          "sha256": "c494e4e78c2e6b03379c76f7c686a9daadfdb6cc279602d7524d674f6bd206e8"
+        },
+        {
+          "source": "tests/fixtures/keyword_rows/held_out/03_quad.KEY",
+          "copy": "analysis/oracle/keyword-rows-held-out/03_quad.KEY",
+          "sha256": "f55840c89d80175129048433006475c89956d51534790793d05dedd7a759555a"
+        },
+        {
+          "source": "tests/fixtures/keyword_rows/held_out/04_eof.KEY",
+          "copy": "analysis/oracle/keyword-rows-held-out/04_eof.KEY",
+          "sha256": "6ce7c00e5a188cbeabd1e73d331b7fdaaf3d4f8d21f90b4aa5306f8902a7ddf0"
+        }
+      ],
+      "helper_counts": {
+        "int2": 1,
+        "int1": 4,
+        "coord2": 12,
+        "name": 5,
+        "int5": 1
+      },
+      "observations": [
+        {
+          "sequence": 3,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "int2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "203078312c307831310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "2030783120307831310a",
+              "format": "%i %i",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            1,
+            17
+          ],
+          "output_hex": [
+            "01000000",
+            "11000000"
+          ]
+        },
+        {
+          "sequence": 5,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "2030350a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "2030350a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            5
+          ],
+          "output_hex": [
+            "05000000"
+          ]
+        },
+        {
+          "sequence": 6,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3031202d312e3235652d32202b332e313235452b310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3031202d312e3235652d32202b332e313235452b310a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            1,
+            -0.0125,
+            31.25
+          ],
+          "output_hex": [
+            "01000000",
+            "9a999999999989bf",
+            "0000000000403f40"
+          ]
+        },
+        {
+          "sequence": 7,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3078322c372e37352c382e352069676e6f7265640a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "30783220372e373520382e352069676e6f7265640a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            2,
+            7.75,
+            8.5
+          ],
+          "output_hex": [
+            "02000000",
+            "0000000000001f40",
+            "0000000000002140"
+          ]
+        },
+        {
+          "sequence": 8,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "33202d30202b300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "33202d30202b300a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            3,
+            0,
+            0
+          ],
+          "output_hex": [
+            "03000000",
+            "0000000000000080",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 9,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3420392e32356f6f707320380a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "3420392e32356f6f707320380a",
+              "format": "%i %Flf %Flf",
+              "conversions": 2
+            }
+          ],
+          "values": [
+            4,
+            9.25,
+            0
+          ],
+          "output_hex": [
+            "04000000",
+            "0000000000802240",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 10,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "7820342e3520362e37350a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "7820342e3520362e37350a",
+              "format": "%i %Flf %Flf",
+              "conversions": 0
+            }
+          ],
+          "values": [
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "00000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 12,
+          "operation": "row",
+          "file": "01_numeric.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "202052454120706c616e6172207363616e20200a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "",
+          "name_hex": "202052454120706c616e6172207363616e"
+        },
+        {
+          "sequence": 16,
+          "operation": "row",
+          "file": "02_names.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141410a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "202052454120706c616e6172207363616e",
+          "name_hex": "4141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141"
+        },
+        {
+          "sequence": 18,
+          "operation": "row",
+          "file": "02_names.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242420a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "4141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+          "name_hex": "4242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242"
+        },
+        {
+          "sequence": 20,
+          "operation": "row",
+          "file": "02_names.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "4242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242",
+          "name_hex": ""
+        },
+        {
+          "sequence": 22,
+          "operation": "row",
+          "file": "02_names.KEY",
+          "kind": "name",
+          "skip": 0,
+          "status": 1,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "0a"
+            },
+            {
+              "limit": 1024,
+              "eof": true,
+              "hex": null
+            }
+          ],
+          "scans": [],
+          "previous_name_hex": "",
+          "name_hex": ""
+        },
+        {
+          "sequence": 26,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "20340a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "20340a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            4
+          ],
+          "output_hex": [
+            "04000000"
+          ]
+        },
+        {
+          "sequence": 27,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "31203020300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "31203020300a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            1,
+            0,
+            0
+          ],
+          "output_hex": [
+            "01000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 28,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "32203120300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "32203120300a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            2,
+            1,
+            0
+          ],
+          "output_hex": [
+            "02000000",
+            "000000000000f03f",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 29,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "33203120310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "33203120310a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            3,
+            1,
+            1
+          ],
+          "output_hex": [
+            "03000000",
+            "000000000000f03f",
+            "000000000000f03f"
+          ]
+        },
+        {
+          "sequence": 30,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "34203020310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "34203020310a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            4,
+            0,
+            1
+          ],
+          "output_hex": [
+            "04000000",
+            "0000000000000000",
+            "000000000000f03f"
+          ]
+        },
+        {
+          "sequence": 32,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "20310a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "20310a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            1
+          ],
+          "output_hex": [
+            "01000000"
+          ]
+        },
+        {
+          "sequence": 33,
+          "operation": "row",
+          "file": "03_quad.KEY",
+          "kind": "int5",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "3078312c30312c3078322c332c340a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "30783120303120307832203320340a",
+              "format": "%i %i %i %i %i",
+              "conversions": 5
+            }
+          ],
+          "values": [
+            1,
+            1,
+            2,
+            3,
+            4
+          ],
+          "output_hex": [
+            "01000000",
+            "01000000",
+            "02000000",
+            "03000000",
+            "04000000"
+          ]
+        },
+        {
+          "sequence": 37,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "int1",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "20340a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "20340a",
+              "format": "%i",
+              "conversions": 1
+            }
+          ],
+          "values": [
+            4
+          ],
+          "output_hex": [
+            "04000000"
+          ]
+        },
+        {
+          "sequence": 38,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "31203020300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "31203020300a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            1,
+            0,
+            0
+          ],
+          "output_hex": [
+            "01000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 39,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 0,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": false,
+              "hex": "32203120300a"
+            }
+          ],
+          "scans": [
+            {
+              "input_hex": "32203120300a",
+              "format": "%i %Flf %Flf",
+              "conversions": 3
+            }
+          ],
+          "values": [
+            2,
+            1,
+            0
+          ],
+          "output_hex": [
+            "02000000",
+            "000000000000f03f",
+            "0000000000000000"
+          ]
+        },
+        {
+          "sequence": 40,
+          "operation": "row",
+          "file": "04_eof.KEY",
+          "kind": "coord2",
+          "skip": 0,
+          "status": 1,
+          "lines": [
+            {
+              "limit": 1024,
+              "eof": true,
+              "hex": null
+            }
+          ],
+          "scans": [],
+          "values": [
+            0,
+            0,
+            0
+          ],
+          "output_hex": [
+            "00000000",
+            "0000000000000000",
+            "0000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "total_imports": 9,
+  "total_rows": 66,
+  "candidate_freeze": {
+    "manifest": {
+      "path": "analysis/keyword-reader-candidate-freeze.json",
+      "sha256": "32fd4a73996a87a2ce3deb41241b87664050f8a7e58e86b070f562585388fb68"
+    },
+    "declared_stage": "after original training and decimal-edge discovery; before held-out capture",
+    "files": [
+      {
+        "path": "src/recovered/keyword_reader.hpp",
+        "sha256": "c376973885e9acf99fea2e67614b9ba00c7b813357a92ac01e15439427b14a70",
+        "current_matches": true
+      },
+      {
+        "path": "src/recovered/keyword_reader.cpp",
+        "sha256": "2fe47032cdb64d2869803b1916e8fdd024998381e2f2d4da3f8b3a6e25151204",
+        "current_matches": true
+      },
+      {
+        "path": "tests/keyword_reader_replay.cpp",
+        "sha256": "e2d61c36adfd7787ea7132e0116254f08556fcfc4659e80f4d8e4085ce304f67",
+        "current_matches": true
+      },
+      {
+        "path": "build/Release/keyword_reader_replay.exe",
+        "sha256": "663e8675e54f91ace847eede7dd2b5daca87196c34c49dfa7076a0a9d08e13b2",
+        "current_matches": false
+      }
+    ]
+  },
+  "tampering_checks": [
+    {
+      "mutation": "wrong PID",
+      "rejected": true
+    },
+    {
+      "mutation": "truncated capture",
+      "rejected": true
+    },
+    {
+      "mutation": "missing event",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong event sequence",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong file",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong keyword ID",
+      "rejected": true
+    },
+    {
+      "mutation": "altered raw line",
+      "rejected": true
+    },
+    {
+      "mutation": "false EOF",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong scanf format",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong scan bytes",
+      "rejected": true
+    },
+    {
+      "mutation": "impossible conversions",
+      "rejected": true
+    },
+    {
+      "mutation": "output bytes disagree",
+      "rejected": true
+    },
+    {
+      "mutation": "numeric status mismatch",
+      "rejected": true
+    },
+    {
+      "mutation": "short name buffer",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong import status",
+      "rejected": true
+    },
+    {
+      "mutation": "original hash binding",
+      "rejected": true
+    },
+    {
+      "mutation": "fixture copy hash",
+      "rejected": true
+    },
+    {
+      "mutation": "probe source hash",
+      "rejected": true
+    },
+    {
+      "mutation": "output transcript hash",
+      "rejected": true
+    },
+    {
+      "mutation": "wrong ready gate",
+      "rejected": true
+    }
+  ],
+  "comparator_review": {
+    "source": {
+      "path": "tools/compare_keyword_readers.py",
+      "sha256": "30871ddb347ef3805add2ddbb996e293c5283fcafacf49b1b3dfb31e20ebf956"
+    },
+    "conclusion": "No material mismatch found within its declared per-helper replay scope.",
+    "boundaries": [
+      "Concatenates captured fgets chunks into isolated helper input, so cannot establish physical file position, token dispatch, object selector parsing or inter-helper state.",
+      "Checks return codes, conversion counts, line attempts/cursor and exact integer/double output bytes; preserves negative zero when decoding replay JSON.",
+      "Names are compared only through first NUL. Full 81-byte padding and prior uninitialized bytes are deliberately outside comparison.",
+      "Does not compare import-after status or application model; this verifier preserves observed import statuses independently."
+    ]
+  },
+  "limitations": [
+    "66 helper calls in nine declared fixture copies; not complete importer equivalence or a general numerical grammar proof.",
+    "Only skip=0 and lines shorter than the 1024-byte fgets limit occur; locale, nonfinite values, overflow and long-line splitting remain untested.",
+    "File accounting checks these ASCII fixtures with CRLF text translation; object-selector 1 and comment skipping are unhooked gaps checked against fixture syntax, not recovered token-reader coverage.",
+    "Conversion counts are native observations checked for bounds/status/output consistency, not recomputed by a replacement or independent scanf implementation.",
+    "Negative zero sign is retained in raw output_hex; Frida's JSON numeric value alone loses its sign.",
+    "Name buffers are validated at 81 bytes in raw captures; report stores logical bytes through first NUL to omit uninitialized padding.",
+    "Hash binding detects changed retained artifacts, not malicious coordinated rewriting of all records. Candidate freeze stage is a declared chronology, not a trusted timestamp.",
+    "Candidate current hash matches are informational and do not gate original-capture provenance."
+  ]
+}

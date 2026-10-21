@@ -1,0 +1,28 @@
+{
+  "status": "corrected_lifecycle_capture_passed_with_unchanged_candidate",
+  "capture": "analysis/geometry-import-runtime-held-out.json",
+  "evidence_id": "ev_aee1dbfe6de1a1bbe01f2f58ef9ca59467c59eada43853d9bd58900ca1127209",
+  "original_run": "analysis/oracle/geometry-import-held-out/run.json",
+  "candidate": "analysis/geometry-import-candidate-freeze.json",
+  "finding": "The predeclared lifecycle cases11/12 did not reach their intended object-type mutations. Both supplied OBJTYP object selector on one line and the type pair on the following line. The original line reader consumed the blank remainder, returned an error, then the outer scanner treated99 or2 as unknown tokens.",
+  "preservation": "Original17fixtures,manifest,run,capture and frozen candidate retained unchanged.",
+  "observed": [
+    {
+      "file": "11_deactivate.KEY",
+      "handler_status": 2,
+      "unknown_token": "99",
+      "unknown_id": 305,
+      "unknown_category": 0
+    },
+    {
+      "file": "12_reactivate.KEY",
+      "handler_status": 2,
+      "unknown_token": "2",
+      "unknown_id": 305,
+      "unknown_category": 0
+    }
+  ],
+  "implication": "Do not claim object deactivation/reactivation coverage from these two cases. Their actual parser-error behavior remains useful. Other geometry/tolerance/reset cases remain valid.",
+  "next": "Separate correctly formatted lifecycle inputs and original capture, using the unchanged candidate. Comparator now accepts established unknown-token sentinel305/category0, verifies skipped lines and exact original stdout warning counts; original and C++ IDs already match and require no remapping.",
+  "resolved_by": "analysis/geometry-import-lifecycle-comparison.json"
+}

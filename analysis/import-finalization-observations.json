@@ -1,0 +1,1525 @@
+{
+  "status": "pass",
+  "scope": "Verify retained original post-keyword-import finalization without executing either program.",
+  "capture": {
+    "path": "analysis/import-finalization-runtime-evaluation.json",
+    "sha256": "5380bc293cc13d3f07f3c0b533a609558e9b629818709f58d37bfe656d8a88c2"
+  },
+  "evidence_id": "ev_0ef39ce9d33d2003dd7c7c170e276fcde5cf9fd2d0e2dd73cdb3377ba7586fba",
+  "pid": 25356,
+  "run": {
+    "path": "analysis/oracle/import-finalization-evaluation/run.json",
+    "sha256": "048c31fc96c6c0b9882e289c42207669fef0457f4dcadbae7e819e3b676367d0"
+  },
+  "fixtures": {
+    "path": "analysis/import-finalization-evaluation-cases.json",
+    "sha256": "94d9aaa099a70f150947133f0cb5fdef633c7bad2ea40aa3404ed8fdcd919707"
+  },
+  "probe": {
+    "path": "analysis/oracle/import-finalization-evaluation-probe.js",
+    "sha256": "66f022d1de26d5f7b04c73b6127911782396b4342764a0e8fcde4461afb31b2e"
+  },
+  "probe_template": {
+    "path": "tools/observe_import_finalization.js",
+    "sha256": "275d0ec2de20e6a98e06ce04b38476169a08fa89ca4db8a38a9c61db51ac3ab4"
+  },
+  "harness_source": {
+    "path": "tools/capture_keywords.py",
+    "sha256": "736c65763ebc6907d7b67aae99226d62f91551735a0dbe7821f4e0f2a5bc5151"
+  },
+  "pid_record": {
+    "path": "analysis/oracle/import-finalization-evaluation.pid.json",
+    "sha256": "b13eaed2c98e6212e8cbb07f9f20abc8a7e8ccb645d739700be4338fd0443ff4"
+  },
+  "dependencies": [
+    {
+      "path": "tools/capture_oracle.py",
+      "sha256": "feafb95e35a45b1ec20fd0b9a8386ef6b011923f436f5bf87aa0b5b922327345"
+    },
+    {
+      "path": "tools/verify_boundary_sort_observations.py",
+      "sha256": "5fd94053f05621b84f832a84149bf38dd72a2a5397aeee3923618e1937579c2f"
+    },
+    {
+      "path": "tools/verify_keyword_import_observations.py",
+      "sha256": "c053ba3ff23951a6a625104eb0f537eca6d47b74aca51df3ba725be7251e91eb"
+    },
+    {
+      "path": "tools/verify_mesh_array_observations.py",
+      "sha256": "923f0d8a760d7d70d15642cc02c1d923e0101c526b8bcac4ff54fcc331f5a2a9"
+    },
+    {
+      "path": "tools/verify_mesh_refresh_observations.py",
+      "sha256": "076c4dff028c3687c7ba42835fe36b80344bf98e0e8e6cef622d4034eff2ccaa"
+    },
+    {
+      "path": "tools/verify_root_layout_observations.py",
+      "sha256": "762b2d2a3d7f9b25f823c693003af46ddda72c3b288b3fb8262a1770ad12323c"
+    },
+    {
+      "path": "tools/verify_configuration_import_observations.py",
+      "sha256": "54035d4a1e5dcdbe5aa4f2fe3284aeac7e268a5335249885313106b5850ab186"
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612"
+    },
+    {
+      "path": "analysis/import-finalization-callsite-audit.json",
+      "sha256": "d9f2c6ec27ac1b714cb4e7fd1e7da0d966df61c54c0f6829798ed33d4d91dd83"
+    },
+    {
+      "path": "analysis/keyword-reader.json",
+      "sha256": "4d26756d8a14e3fb3d08e132d31bf26d80763a6b20b3db7c6b59847724034cb5"
+    },
+    {
+      "path": "analysis/keyword-parser.json",
+      "sha256": "3a7445dfe4e7a131767b7a5fc65edfde052b7e5d94280e69775e9988109474e7"
+    },
+    {
+      "path": "analysis/keyword-handlers-evidence.json",
+      "sha256": "77a33290e256a1db6a526d86a4572ad57c071ff51ac8e7c560abf7e5affb5550"
+    },
+    {
+      "path": "analysis/finalization-0x1401d7f40.json",
+      "sha256": "8098f62c76063fb6c088dec1f05ce747e5c7242fc9fb6302979543ce213aa78a"
+    },
+    {
+      "path": "analysis/finalization-0x1401d7f10.json",
+      "sha256": "3cce4b251aa08cfc589fb33fbd160c110ec274b429f79997cf54c87ec66f0572"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce"
+    },
+    {
+      "path": "analysis/finalization-0x1401d63c0.json",
+      "sha256": "cd18e29b72c6d453543bf700289f2d1c6a9aabed1bdefe1f7b126cf2cb9a3707"
+    },
+    {
+      "path": "analysis/model-0x1401ee510.json",
+      "sha256": "ae0bf1d457128ed3946053520f48f2ae1b46633bf7f09b2fb394707fac3f2e5b"
+    },
+    {
+      "path": "analysis/model-0x1401ee5a0.json",
+      "sha256": "990fd5d54bfd818646dc102988fe9707aa738eff3b71925abe65d722f27605b7"
+    },
+    {
+      "path": "analysis/model-0x140160d90.json",
+      "sha256": "e97b32a485087d201c412d1b0ee051986e8eba85b4d046b76686618d08b176c4"
+    },
+    {
+      "path": "analysis/model-0x1402059a0.json",
+      "sha256": "70fda111646ad92308aee83e2f708c4d3b230523391794df77b1e971c0c8cbc9"
+    }
+  ],
+  "verifier": {
+    "path": "tools/verify_import_finalization_observations.py",
+    "sha256": "fc729c145ad26d3912a8dcafe1ab46eecb4ea8ee4b666498980713b8c224d805"
+  },
+  "candidate_freeze": {
+    "manifest": {
+      "path": "analysis/import-finalization-candidate-freeze.json",
+      "sha256": "207a82411f3575687aea1d2840a0e5f8aa6c2754e46f46c8dc3a3fc7fbf85632"
+    },
+    "declared_created_utc": "2026-10-20T18:53:27.191459+00:00",
+    "verified_archives": 21,
+    "current_matches": [
+      {
+        "path": "src/recovered/component_layout.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/hexa_boundary.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/keyword_import.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/keyword_reader.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/mesh_boundary.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/mesh_storage.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/object_model.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/planar_boundary.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/state_variable.cpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/component_layout.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/keyword_catalog.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/keyword_import.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/keyword_reader.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/mesh_boundary.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/mesh_storage.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/object_model.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/planar_boundary.hpp",
+        "matches": true
+      },
+      {
+        "path": "src/recovered/state_variable.hpp",
+        "matches": true
+      },
+      {
+        "path": "tests/keyword_import_replay.cpp",
+        "matches": true
+      },
+      {
+        "path": "build/Release/deform_recovered_state.lib",
+        "matches": true
+      },
+      {
+        "path": "build/Release/keyword_import_replay.exe",
+        "matches": true
+      }
+    ]
+  },
+  "imports": [
+    {
+      "file": "01_positive_populated.KEY",
+      "status": 0,
+      "scans": 13,
+      "handlers": [
+        {
+          "id": 145,
+          "status": 0
+        },
+        {
+          "id": 144,
+          "status": 0
+        },
+        {
+          "id": 159,
+          "status": 0
+        },
+        {
+          "id": 173,
+          "status": 0
+        },
+        {
+          "id": 144,
+          "status": 0
+        },
+        {
+          "id": 36,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 0,
+      "after_controls": {
+        "step_number_0x8b0": -5,
+        "saved_step_0x744": -5,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "02_zero.KEY",
+      "status": 0,
+      "scans": 2,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -5,
+        "saved_step_0x744": -5,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "03_negative.KEY",
+      "status": 0,
+      "scans": 2,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "04_missing.KEY",
+      "status": 0,
+      "scans": 3,
+      "handlers": [
+        {
+          "id": 144,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 0,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "05_blank.KEY",
+      "status": 2,
+      "scans": 4,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 2
+        },
+        {
+          "id": 144,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 0,
+      "after_controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 0,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "06_eof.KEY",
+      "status": 2,
+      "scans": 2,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 2
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 0,
+      "after_controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 0,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "07_success_then_eof.KEY",
+      "status": 2,
+      "scans": 3,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        },
+        {
+          "id": 36,
+          "status": 2
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 0,
+      "after_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "08_garbage.KEY",
+      "status": 0,
+      "scans": 2,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "09_missing_after_error.KEY",
+      "status": 0,
+      "scans": 3,
+      "handlers": [
+        {
+          "id": 144,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 0,
+      "dimension": 2,
+      "visited_object_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "file": "10_dimension_reset.KEY",
+      "status": 0,
+      "scans": 5,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        },
+        {
+          "id": 144,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 0,
+      "after_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 3,
+      "visited_object_ids": [
+        1
+      ]
+    },
+    {
+      "file": "11_int_max.KEY",
+      "status": 0,
+      "scans": 2,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 3,
+      "visited_object_ids": [
+        1
+      ]
+    },
+    {
+      "file": "12_int_min.KEY",
+      "status": 0,
+      "scans": 2,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 3,
+      "visited_object_ids": [
+        1
+      ]
+    },
+    {
+      "file": "13_success_then_blank.KEY",
+      "status": 2,
+      "scans": 5,
+      "handlers": [
+        {
+          "id": 36,
+          "status": 0
+        },
+        {
+          "id": 36,
+          "status": 2
+        },
+        {
+          "id": 144,
+          "status": 0
+        }
+      ],
+      "before_controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "before_flag": 1,
+      "after_controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "after_flag": 1,
+      "dimension": 3,
+      "visited_object_ids": [
+        1
+      ]
+    }
+  ],
+  "NSTART_handlers": [
+    {
+      "file": "01_positive_populated.KEY",
+      "sequence": 36,
+      "offset": 154,
+      "consumed_hex": "20340a",
+      "status": 0,
+      "stored_step": 4,
+      "flag": 1
+    },
+    {
+      "file": "02_zero.KEY",
+      "sequence": 56,
+      "offset": 6,
+      "consumed_hex": "20300a",
+      "status": 0,
+      "stored_step": 0,
+      "flag": 1
+    },
+    {
+      "file": "03_negative.KEY",
+      "sequence": 76,
+      "offset": 6,
+      "consumed_hex": "202d370a",
+      "status": 0,
+      "stored_step": -7,
+      "flag": 1
+    },
+    {
+      "file": "05_blank.KEY",
+      "sequence": 118,
+      "offset": 6,
+      "consumed_hex": "0a",
+      "status": 2,
+      "stored_step": 0,
+      "flag": 0
+    },
+    {
+      "file": "06_eof.KEY",
+      "sequence": 143,
+      "offset": 6,
+      "consumed_hex": "",
+      "status": 2,
+      "stored_step": 0,
+      "flag": 0
+    },
+    {
+      "file": "07_success_then_eof.KEY",
+      "sequence": 163,
+      "offset": 6,
+      "consumed_hex": "20330a",
+      "status": 0,
+      "stored_step": 3,
+      "flag": 1
+    },
+    {
+      "file": "07_success_then_eof.KEY",
+      "sequence": 166,
+      "offset": 15,
+      "consumed_hex": "",
+      "status": 2,
+      "stored_step": 0,
+      "flag": 1
+    },
+    {
+      "file": "08_garbage.KEY",
+      "sequence": 186,
+      "offset": 6,
+      "consumed_hex": "206e6f6e73656e73650a",
+      "status": 0,
+      "stored_step": 0,
+      "flag": 1
+    },
+    {
+      "file": "10_dimension_reset.KEY",
+      "sequence": 228,
+      "offset": 6,
+      "consumed_hex": "20380a",
+      "status": 0,
+      "stored_step": 8,
+      "flag": 1
+    },
+    {
+      "file": "11_int_max.KEY",
+      "sequence": 264,
+      "offset": 6,
+      "consumed_hex": "20323134373438333634370a",
+      "status": 0,
+      "stored_step": 2147483647,
+      "flag": 1
+    },
+    {
+      "file": "12_int_min.KEY",
+      "sequence": 282,
+      "offset": 6,
+      "consumed_hex": "202d323134373438333634380a",
+      "status": 0,
+      "stored_step": -2147483648,
+      "flag": 1
+    },
+    {
+      "file": "13_success_then_blank.KEY",
+      "sequence": 300,
+      "offset": 6,
+      "consumed_hex": "20350a",
+      "status": 0,
+      "stored_step": 5,
+      "flag": 1
+    },
+    {
+      "file": "13_success_then_blank.KEY",
+      "sequence": 303,
+      "offset": 15,
+      "consumed_hex": "0a",
+      "status": 2,
+      "stored_step": 0,
+      "flag": 1
+    }
+  ],
+  "stage_exits": [
+    {
+      "file": "01_positive_populated.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 4,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 40
+    },
+    {
+      "file": "01_positive_populated.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 4,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 42
+    },
+    {
+      "file": "01_positive_populated.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 4,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 48
+    },
+    {
+      "file": "02_zero.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -5,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 60
+    },
+    {
+      "file": "02_zero.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -5,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 62
+    },
+    {
+      "file": "02_zero.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -5,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 68
+    },
+    {
+      "file": "03_negative.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 80
+    },
+    {
+      "file": "03_negative.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 82
+    },
+    {
+      "file": "03_negative.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 88
+    },
+    {
+      "file": "04_missing.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 102
+    },
+    {
+      "file": "04_missing.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 104
+    },
+    {
+      "file": "04_missing.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": -7,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 110
+    },
+    {
+      "file": "05_blank.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 127
+    },
+    {
+      "file": "05_blank.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 129
+    },
+    {
+      "file": "05_blank.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 135
+    },
+    {
+      "file": "06_eof.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 147
+    },
+    {
+      "file": "06_eof.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 149
+    },
+    {
+      "file": "06_eof.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 155
+    },
+    {
+      "file": "07_success_then_eof.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 170
+    },
+    {
+      "file": "07_success_then_eof.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 172
+    },
+    {
+      "file": "07_success_then_eof.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -7,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 178
+    },
+    {
+      "file": "08_garbage.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 190
+    },
+    {
+      "file": "08_garbage.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 192
+    },
+    {
+      "file": "08_garbage.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 198
+    },
+    {
+      "file": "09_missing_after_error.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 212
+    },
+    {
+      "file": "09_missing_after_error.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 214
+    },
+    {
+      "file": "09_missing_after_error.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 220
+    },
+    {
+      "file": "10_dimension_reset.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 250
+    },
+    {
+      "file": "10_dimension_reset.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 252
+    },
+    {
+      "file": "10_dimension_reset.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": -1,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 256
+    },
+    {
+      "file": "11_int_max.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 2147483647,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 268
+    },
+    {
+      "file": "11_int_max.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 2147483647,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 270
+    },
+    {
+      "file": "11_int_max.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 2147483647,
+        "saved_step_0x744": -1,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 274
+    },
+    {
+      "file": "12_int_min.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 286
+    },
+    {
+      "file": "12_int_min.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 288
+    },
+    {
+      "file": "12_int_min.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": -2147483648,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 292
+    },
+    {
+      "file": "13_success_then_blank.KEY",
+      "stage": "control",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 312
+    },
+    {
+      "file": "13_success_then_blank.KEY",
+      "stage": "materials",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 314
+    },
+    {
+      "file": "13_success_then_blank.KEY",
+      "stage": "objects",
+      "controls": {
+        "step_number_0x8b0": 0,
+        "saved_step_0x744": -2147483648,
+        "step_increment_0x930": 0,
+        "control_0x93c": 0,
+        "mode_0x990": 1
+      },
+      "sequence": 318
+    }
+  ],
+  "dimension_header_observations": [
+    {
+      "file": "01_positive_populated.KEY",
+      "from": 3,
+      "to": 2,
+      "flag_before": 0,
+      "sequence": 9
+    },
+    {
+      "file": "10_dimension_reset.KEY",
+      "from": 2,
+      "to": 3,
+      "flag_before": 1,
+      "sequence": 246
+    }
+  ],
+  "dimension_transitions": [
+    {
+      "sequence": 9,
+      "linked": false,
+      "from": 3,
+      "to": 2
+    },
+    {
+      "sequence": 9,
+      "linked": true,
+      "from": 2,
+      "to": 3
+    },
+    {
+      "sequence": 246,
+      "linked": false,
+      "from": 2,
+      "to": 3
+    },
+    {
+      "sequence": 246,
+      "linked": true,
+      "from": 3,
+      "to": 2
+    }
+  ],
+  "operation_counts": {
+    "import-before": 13,
+    "flags-reset-before": 13,
+    "flags-reset-after": 13,
+    "stream-scan": 48,
+    "keyword-resolved": 23,
+    "object-selected": 10,
+    "handler-after": 23,
+    "allocation-free": 14,
+    "allocation-update": 2,
+    "finalize-before": 13,
+    "stage-before": 39,
+    "stage-after": 39,
+    "object-stage-before": 22,
+    "object-stage-after": 22,
+    "finalize-after": 13,
+    "import-after": 13
+  },
+  "counts": {
+    "root_snapshots": 150,
+    "object_snapshots": 172,
+    "descriptor_snapshots": 9116,
+    "unknown_items_in_snapshots": 0
+  },
+  "allocation_updates": 2,
+  "process_units_raw": [
+    0
+  ],
+  "tampering_checks": [
+    {
+      "mutation": "PID",
+      "rejected": true,
+      "reason": "PID/target"
+    },
+    {
+      "mutation": "missing event",
+      "rejected": true,
+      "reason": "sequence completeness"
+    },
+    {
+      "mutation": "sequence gap",
+      "rejected": true,
+      "reason": "sequence completeness"
+    },
+    {
+      "mutation": "scan bytes",
+      "rejected": true,
+      "reason": "held-out buffer identity"
+    },
+    {
+      "mutation": "pre-reset prior flag",
+      "rejected": true,
+      "reason": "wrapper pre-parse flag reset entry"
+    },
+    {
+      "mutation": "reset fails to clear flag",
+      "rejected": true,
+      "reason": "flag reset effects"
+    },
+    {
+      "mutation": "reset changes step",
+      "rejected": true,
+      "reason": "flag reset effects"
+    },
+    {
+      "mutation": "NSTART failed read accepted",
+      "rejected": true,
+      "reason": "NSTART byte-derived status"
+    },
+    {
+      "mutation": "NSTART garbage treated as error",
+      "rejected": true,
+      "reason": "NSTART byte-derived status"
+    },
+    {
+      "mutation": "NSTART failed read retained destination",
+      "rejected": true,
+      "reason": "NSTART unrelated state mutation"
+    },
+    {
+      "mutation": "successful then failed read clears success flag",
+      "rejected": true,
+      "reason": "NSTART unrelated state mutation"
+    },
+    {
+      "mutation": "dimension reset clears import flag",
+      "rejected": true,
+      "reason": "handler control/flag mutation or dimension-reset persistence"
+    },
+    {
+      "mutation": "stage order",
+      "rejected": true,
+      "reason": "finalizer stage order/entry continuity"
+    },
+    {
+      "mutation": "stage root",
+      "rejected": true,
+      "reason": "finalizer stage order/entry continuity"
+    },
+    {
+      "mutation": "stage serial",
+      "rejected": true,
+      "reason": "finalizer stage order/entry continuity"
+    },
+    {
+      "mutation": "control normalization result",
+      "rejected": true,
+      "reason": "stage effects or premature root step update"
+    },
+    {
+      "mutation": "premature step update in material stage",
+      "rejected": true,
+      "reason": "stage effects or premature root step update"
+    },
+    {
+      "mutation": "object stage nonzero option",
+      "rejected": true,
+      "reason": "object stage nesting/option"
+    },
+    {
+      "mutation": "type7 object visited",
+      "rejected": true,
+      "reason": "object visit order/type7 skip/geometry guard"
+    },
+    {
+      "mutation": "wrong object visit identity",
+      "rejected": true,
+      "reason": "object visit order/type7 skip/geometry guard"
+    },
+    {
+      "mutation": "geometry gate differs",
+      "rejected": true,
+      "reason": "object visit order/type7 skip/geometry guard"
+    },
+    {
+      "mutation": "missing visit pair with repaired sequence",
+      "rejected": true,
+      "reason": "object visit order/type7 skip/geometry guard"
+    },
+    {
+      "mutation": "negative step transformed twice",
+      "rejected": true,
+      "reason": "finalizer tail effects/other tracked mutation"
+    },
+    {
+      "mutation": "saved step not updated",
+      "rejected": true,
+      "reason": "finalizer tail effects/other tracked mutation"
+    },
+    {
+      "mutation": "finalizer clears import flag",
+      "rejected": true,
+      "reason": "finalizer tail effects/other tracked mutation"
+    },
+    {
+      "mutation": "error return discarded",
+      "rejected": true,
+      "reason": "wrapper result/status aggregation"
+    },
+    {
+      "mutation": "descriptor slot mapping",
+      "rejected": true,
+      "reason": "descriptor registration"
+    },
+    {
+      "mutation": "finalizer mutates descriptor history",
+      "rejected": true,
+      "reason": "finalizer tail effects/other tracked mutation"
+    },
+    {
+      "mutation": "predeclared fixture outcome",
+      "rejected": true,
+      "reason": "predeclared fixture hypotheses"
+    },
+    {
+      "mutation": "fixture hash",
+      "rejected": true,
+      "reason": "fixture hashes"
+    },
+    {
+      "mutation": "executable hash",
+      "rejected": true,
+      "reason": "original identity"
+    },
+    {
+      "mutation": "probe hash",
+      "rejected": true,
+      "reason": "probe binding"
+    },
+    {
+      "mutation": "harness order",
+      "rejected": true,
+      "reason": "fixture order"
+    },
+    {
+      "mutation": "transcript hash",
+      "rejected": true,
+      "reason": "captured file identity mismatch"
+    },
+    {
+      "mutation": "frozen archive hash",
+      "rejected": true,
+      "reason": "frozen candidate archive"
+    }
+  ],
+  "findings": [
+    "The enabled wrapper clears both captured import flags before scans, including when the previous successful import left 2f88 set.",
+    "All imports reach control, materials and objects in that order; root step encoding/copy happens only after these stages.",
+    "Active object visits follow the root inventory and omit type 7. All observed geometry guards are zero, so 2059a0 has an empty guarded body for this subset.",
+    "NSTART blank/EOF failures zero the destination, preserve an earlier success flag in the same import and retain status 2 through later successful handlers.",
+    "NSTART zero-conversion nonblank text succeeds with stored zero and flag 1; positive, zero, negative, INT_MAX and INT_MIN paths are observed.",
+    "The observed dimension change after NSTART resets control step/saved fields to -1 while preserving root 2f88=1. This is a bounded runtime observation, not an exhaustive transitive reset proof.",
+    "Across these finalizers the full emitted object, descriptor and direct-buffer state is preserved; finalizer scalar changes follow the retained rules."
+  ],
+  "limitations": [
+    "No original or replacement execution by this verifier; no replacement-generated expected states.",
+    "Thirteen short ASCII fixtures, empty materials, unmasked NSTART, geometry gate 0, empty linked roots and one process unit context.",
+    "Control normalization is observed only at step_increment=0, control=0 and mode=1. Positive increment, nonzero control and NaN branches remain untested.",
+    "The probe does not hook fclose or filename clears; their ordering is static wrapper evidence. Disabled-finalization options, open failures and recursive imports are unobserved.",
+    "NSTART lines are interpreted from bound fixture bytes using a bounded independent integer helper, not general native CRT equivalence. Object handler statuses are captured and aggregated, not independently reconstructed here.",
+    "Snapshots validate 53 descriptor mappings, shape, values/raw bytes, identity and finalizer preservation. They do not independently predict all object-handler state transitions.",
+    "No unknown direct tails occur here. Allocation knowledge is checked but arbitrary preserving growth behavior belongs to the separate refresh evaluation.",
+    "Empty-material and zero-geometry gates avoid those payload algorithms; no complete scientific pipeline recovery claim.",
+    "Freeze archives are hash-verified. Declared chronology is metadata, not a trusted timestamp; current source matches are informational.",
+    "Run/PID/input/transcript/probe bindings verify retained provenance. The harness did not retain a launch-time harness-source digest."
+  ]
+}

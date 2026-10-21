@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "status": "static_contract_recovered_for_selected_finite_3d_finalization_runtime_pending",
+  "purpose": "Define the geometry plane-grouping finalizer reached by selected DIEGEO imports without substituting an assumed scientific algorithm.",
+  "original": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "authority": "Ghidra retained shipped-artifact dossiers, assembly and analyzed bytes. This audit executes no original or replacement code.",
+  "entry": {
+    "address": "0x1402059a0",
+    "sources": [
+      "geometry-finalize-0x1402059a0.json",
+      "geometry-finalize-0x140198620.json"
+    ],
+    "conditions": [
+      "Calls160d90(object); if object+0x3990 is zero, returns without geometry changes.",
+      "All geometry accesses use index0 through198620, which reads object+0x3c00+8*index. No geometry-pointer null check is visible.",
+      "For enabled geometry: clear geometry+0x28 plane list, optionally copy object+0x2e80 list when second argument nonzero, call virtual+0x48 scale calculation, obtain face count and mutable coordinate/connectivity pointers, then classify eligible faces in array order."
+    ],
+    "selected_import_context": "Existing root finalization1d63c0 passes argument0, so optional list-copy path is not reached by that callsite. Parent owns import dispatch and buffering evidence."
+  },
+  "layout": {
+    "geometry": [
+      {
+        "offset": "0x00",
+        "meaning": "_OBJ_GEO3D vtable pointer"
+      },
+      {
+        "offset": "0x10",
+        "meaning": "reference-counted vector<double> wrapper; coordinate count=element length/3"
+      },
+      {
+        "offset": "0x18",
+        "meaning": "reference-counted vector<int32> wrapper; face count=element length/4"
+      },
+      {
+        "offset": "0x20",
+        "meaning": "raw int32 classification buffer used by2059a0; not the vector at+0x68"
+      },
+      {
+        "offset": "0x28",
+        "meaning": "plane-list head pointer; tail+0x30; signed count+0x38"
+      },
+      {
+        "offset": "0x68",
+        "meaning": "separate per-face vector;2059a0 does not use it"
+      }
+    ],
+    "plane_record": {
+      "allocation_bytes": 64,
+      "fields": [
+        {
+          "offset": "0x00",
+          "type": "int32",
+          "meaning": "identifier",
+          "default": 0
+        },
+        {
+          "offset": "0x04",
+          "type": "padding4",
+          "meaning": "not explicitly initialized; no semantic value claimed"
+        },
+        {
+          "offset": "0x08",
+          "type": "double[3]",
+          "meaning": "origin",
+          "default": "positive zero bits"
+        },
+        {
+          "offset": "0x20",
+          "type": "double[3]",
+          "meaning": "oriented normal",
+          "default": "positive zero bits"
+        },
+        {
+          "offset": "0x38",
+          "type": "pointer",
+          "meaning": "next",
+          "default": 0
+        }
+      ],
+      "sources": [
+        "geometry-finalize-0x140257340.json",
+        "geometry-finalize-0x140257e90.json"
+      ]
+    },
+    "defaults_and_allocation": [
+      "2f9020 installs_OBJ_GEO3D vtable and constructs vectors/list; sets raw+0x20 null.257bf0->257c20 zeroes head,tail,count.",
+      "2f9970 allocates4*face_count bytes and memset0 when count>0; for count<1 returns0 without setting an existing+0x20 pointer. Allocation is parent importer contract, not an action performed by2059a0.",
+      "2059a0 does not clear classification bytes; positive fourth-slot faces and degenerate normals keep their previous values. Fresh allocated zero buffer and repeated finalization must be distinguished.",
+      "Coordinate/connectivity accessors005e70/005100 can detach shared vector storage when reference count>1; returned pointers are mutable. Full shared-copy constructors are outside this bounded audit."
+    ]
+  },
+  "virtual_scale": {
+    "constructor": "0x1402f9020 installs vtable at0x140548d18",
+    "vtable_slot": {
+      "byte_offset": "0x48",
+      "address": "0x140548d60",
+      "little_endian_bytes": "20b12f4001000000",
+      "target": "0x1402fb120"
+    },
+    "sources": [
+      "geometry-finalize-0x1402f9020.json",
+      "geometry-finalize-vtable.json",
+      "geometry-finalize-0x1402fb120.json",
+      "geometry-finalize-constant-0x140509b50.json",
+      "geometry-finalize-constant-0x14051bef0.json"
+    ],
+    "steps": [
+      "Return positive0 if coordinate count<1 OR face count<1.",
+      "Initialize three minima to+1e30 and three maxima to-1e30, not infinities or first coordinate.",
+      "Visit every coordinate in order, axisx theny thenz, independently compare/update minima and maxima. Includes coordinates not referenced by any face.",
+      "Start accumulator positive0. For each axisx/y/z separately compute(max-min)*(max-min), then add to accumulator; call484644 sqrt.",
+      "No cache field write is observed; mutable vector accessor can cause sharing detach."
+    ],
+    "finite_constraints": "Preserve finite sentinel behavior for extreme coordinates outside +/-1e30. Nonfinite comparison/CRT exception behavior is not reduced to the finite pseudocode contract."
+  },
+  "numerical_contract": {
+    "sources": [
+      "geometry-finalize-0x14023e050.json",
+      "geometry-finalize-0x1402399b0.json",
+      "geometry-finalize-0x140239a30.json",
+      "geometry-finalize-0x14023b850.json",
+      "geometry-finalize-0x14023c770.json",
+      "geometry-finalize-0x140484644.json",
+      "geometry-finalize-0x140484558.json",
+      "geometry-finalize-numeric-constants.json"
+    ],
+    "precision": "Separate x86-64 SSE binary64 subtraction, multiplication, addition and division instructions; no fused multiply-add. Preserve expression association and signed-zero results.",
+    "normal": [
+      "Let A,B,C be coordinates at the first three one-based face indices. Compute u=C-B in x/y/z order, then v=A-B in x/y/z order.",
+      "nx=u.y*v.z-u.z*v.y; ny=u.z*v.x-u.x*v.z; nz=u.x*v.y-u.y*v.x, stored in x/y/z order.",
+      "m=sqrt((nx*nx+ny*ny)+nz*nz). If m!=0 divide nx,ny,nz by m separately and in order. Do not compare triangle area to1e-6 before normalization.",
+      "Copy resulting normal and compute sqrt((nx*nx+ny*ny)+nz*nz) again through239a30->2399b0->484644. For finite results require >=1e-6 before grouping."
+    ],
+    "matching": [
+      "Normal distance23b850 is squared Euclidean oriented distance: ((nx-px)^2+(ny-py)^2)+(nz-pz)^2, not absolute dot, angle, or sqrt. Require strictly<0.01.",
+      "23c770 computes abs((px*(Ax-Ox)+py*(Ay-Oy))+pz*(Az-Oz)); multiplies stored plane normal by each point delta, x/y add thenz, calls484558.",
+      "Require distance strictly<0.001*scale (assembly loads0.001 thenMULSD scale). No <= relaxation; no nearest-plane selection."
+    ],
+    "constants": [
+      {
+        "address": "0x14051f1b8",
+        "value": 1e-06,
+        "little_endian_hex": "8dedb5a0f7c6b03e"
+      },
+      {
+        "address": "0x14051f1e8",
+        "value": 0.001,
+        "little_endian_hex": "fca9f1d24d62503f"
+      },
+      {
+        "address": "0x14051f258",
+        "value": 0.01,
+        "little_endian_hex": "7b14ae47e17a843f"
+      },
+      {
+        "address": "0x140509b50",
+        "value": 1e+30,
+        "little_endian_hex": "ea8ca039593e2946"
+      },
+      {
+        "address": "0x14051bef0",
+        "value": -1e+30,
+        "little_endian_hex": "ea8ca039593e29c6"
+      }
+    ],
+    "comparison_qualification": "Finite contract only. AssemblyCOMISD/JBE at205ca2/205cab can admit unordered norm into the processing branch, unlike literal C++ >=; match comparisons reject unordered. CRTsqrt/fabs include special-value/error-state paths. Preserve these as unresolved nonfinite compatibility rather than pretending ordinary comparison syntax covers them."
+  },
+  "grouping": {
+    "sources": [
+      "geometry-finalize-0x1402059a0.json",
+      "geometry-finalize-0x140258090.json",
+      "geometry-finalize-0x140258260.json",
+      "geometry-finalize-0x1402580f0.json",
+      "geometry-finalize-0x140257e90.json",
+      "geometry-finalize-0x140257510.json",
+      "geometry-finalize-0x140257590.json"
+    ],
+    "steps": [
+      "For face_index=0..face_count-1, process only when signed fourth int32 is<1, including negative values. First three indices are directly decremented and indexed without validation.",
+      "After normal qualifies, visit planes in linked-list order through one-based positional258090; first plane satisfying both strict comparisons wins.",
+      "If no match:258260 probes identifiers1,2,... through2580f0 until missing.257e90 appends64-byte constructed node and increments count, then writes identifier.",
+      "Copy A into plane origin+8 via257510 and normalized n into+0x20 via257590, each24-byte memcpy.",
+      "Write classification[face_index]=plane.identifier+600. Orientation reversal usually yields a separate normal; insertion order matters where tolerance neighborhoods overlap."
+    ],
+    "empty_and_degenerate": "Plane list is cleared even for zero faces or entirely skipped/degenerate faces. Existing classification values are not rewritten for skipped faces.",
+    "allocation_failure": "257e90 records null allocation then unconditionally writes*node after list mutation; original has no safe failure return at that point. No clean OOM compatibility claimed."
+  },
+  "list_lifecycle": {
+    "sources": [
+      "geometry-finalize-0x1402581b0.json",
+      "geometry-finalize-0x14025bf00.json",
+      "geometry-finalize-0x140257440.json",
+      "geometry-finalize-0x140257c80.json",
+      "geometry-finalize-0x1402573c0.json"
+    ],
+    "clear": "Save each next+0x38 before25bf00(node,1);257440 destructor is empty;free(node). Then tail=0,head=0,count=0.",
+    "optional_copy": "When2059a0 argument2!=0,257c80 clears destination again, traverses source object+0x2e80 by positionalindex, appends node id0 then2573c0 copies id and origin/normal only; sets next0. Source node is explicitly passed inRDX at257cdf despite caller decompiler omitting the argument. Copied identifiers can have gaps; new IDs still use first unused positive integer.",
+    "caveat": "Ownership and possible aliasing of source object+0x2e80 list, plus all producers of that list, have not been recovered here."
+  },
+  "unresolved": [
+    "No runtime geometry capture is claimed by this audit. Threshold equality, reversed orientation, repeated imports and degeneracy require independent oracle evaluation.",
+    "DIEGEO planar/alternative-format reader branches, row failure timing, all object geometry slots and geometry ownership are outside this finalizer-only audit and parent-owned.",
+    "Shared vector copy constructors0033f0/002ba0 and allocation failures not fully recovered here; unique-buffer finite selected imports are the proposed first implementation scope.",
+    "Nonfinite inputs, overflow/underflow-sensitive normals, floating environment/CRT side effects and extreme coordinates require dedicated evidence before general equivalence claims.",
+    "Connectivity malformed indices may access invalid memory in original; do not infer an original validation policy from replacement bounds checks.",
+    "Other dynamic geometry classes could override virtual+0x48; this target is proved for constructor-installed_OBJ_GEO3D only.",
+    "This is partial app recovery, not a complete scientific geometry model or complete finalizer equivalence."
+  ],
+  "evidence_bindings": [
+    {
+      "path": "analysis/geometry-finalize-0x140003500.json",
+      "sha256": "2b3b57fa13955935dae5ab851cbba4d4c112dc617a9356d6d1e172b1dcf1107e",
+      "evidence_id": "ev_bc61481b458a30e5a049b240e9add5494e245738f0b3b1f011647e58477e9bb8"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140005100.json",
+      "sha256": "01c2542b06f0eab2983e72fefd3d658f440100381c700795cd214c4eb5f1b2cb",
+      "evidence_id": "ev_13b47563245db7a280272a4e00425573083d72278e0e6617f13a8ba6e99b4e00"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140005510.json",
+      "sha256": "c50ff5b8a88fd664cd19c286dc9093dce6d2e8a6f2f6c48f32119f082970ca00",
+      "evidence_id": "ev_127d3d35780bf9a06e4a99e45a83cf9e7e80c13beda15f97f9b44e7e78532a98"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140005e70.json",
+      "sha256": "e9a99d7845eb0a0944032e9bb00ffe4bd8270b5d9cad62165012f0b414c91ee4",
+      "evidence_id": "ev_8b4414cca58d1382e52bfeabb0487f861aa507771b58e2602057fb8118131fe3"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140006410.json",
+      "sha256": "04a3a861d64c87202aa1e0c67553ba08dbddc00e2f8ac1898a59c13931182cf5",
+      "evidence_id": "ev_eac67afcba9c11dc1aa25b334e04b0af35767fb1fdf4b85b33830916781c0b2e"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140158e60.json",
+      "sha256": "0e7d03bc17bc7adea77363392abacdfff40244a99aa482db96ffac67dba74077",
+      "evidence_id": "ev_165baeddc6b9c4b7274b34e9f2b619bc972f0d5bd3b407a57d25f94017802b08"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140158e70.json",
+      "sha256": "1cb3d37abf347254aba83dc59d2f50b1cac1c0dabcee90f8bb8b078464074544",
+      "evidence_id": "ev_f443ead37be0e4bcb1a6c6e82d4a9907db50e58b228f1a3811dd439d3a57af8c"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140158e80.json",
+      "sha256": "cf0058dbba8a4114079812313810900a85b26b028b7ddc2009476b1a2867fcd7",
+      "evidence_id": "ev_6a1d682d4ec6dc79517a9df30087527a0845f7e53daecafacbd442f5f7ce1404"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140198620.json",
+      "sha256": "7e26c7b0ef11667b5d866cb4487b9d88dcbbeb801211626087df5dd471f7f211",
+      "evidence_id": "ev_cf5a45284fb75bb63676f6b0abb34e8a7bdf02d5ade752162dcf513084015dca"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402059a0.json",
+      "sha256": "f5cde30885be43231d1e0761ad908ca54826fba6e9121436687aa726c91b32e1",
+      "evidence_id": "ev_fdc50ece7fa2a610fa0a0bd728b4f59c673c6c47edb5b74317402fb5c6813d9c"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402399b0.json",
+      "sha256": "85ce380e43351c9edbd19c9edaf86ebbdfa5cf091fa7c1aa2088b29106acf282",
+      "evidence_id": "ev_5cc3b51da686ad873c1cbec8f219eb12fde3f85b0d29456eca5e33d3f20b1962"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140239a30.json",
+      "sha256": "5008f79241eb8e735859b047544931b58b347d75233d26f04430283f95d559b0",
+      "evidence_id": "ev_c01e60f9f9fb46f5c2b47ebbb2dce7bc6300b1970e0cedbbe446b2315e70b162"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14023b850.json",
+      "sha256": "a317b176187b2f9fa4ac59efaac779450fa21b8edb28f8ad1f6452f9705ce43c",
+      "evidence_id": "ev_04c90d4eb40bdd9d4a868952dd1e9ca3f1cc438837ed3305c01a30533bdb93c3"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14023c770.json",
+      "sha256": "cd600898f3efab92ceef506055d01fc54638dc0af81dc28630cdc8a05d8c1141",
+      "evidence_id": "ev_2e9521cf14b3390c54c48ad2b165507d8d08892efe8888dbe4d807a421ee8143"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14023e050.json",
+      "sha256": "27f153bf71284b860e5d8059056972223f4ccdbacb27d2f71f8508a2e8787bec",
+      "evidence_id": "ev_5998eb1aa489a7379c79e974c42ea7d7dc9aa6dd93462e15dd1f00e0d9a2b94d"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257340.json",
+      "sha256": "474eaa3c93a7cfecd78e1e9095a3d7c10bfb94dc79c05925b3241d5ec1cc8eba",
+      "evidence_id": "ev_d49d0e5e795ba45ccc1b5f307df8609f18cca8f34c656cb13680cb19602bba9f"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402573c0.json",
+      "sha256": "cbebc6519b4ac8b724c42c9dbb09787bf31514307d391706b717b9c7c01d5c32",
+      "evidence_id": "ev_ef610e9298d4e76e23d4dc75eca05ccc0e04c6541297a2a9603a99ea254dcf55"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257440.json",
+      "sha256": "80dc8b0022679a1844c87c950e9dd7a1d4672d080d41aa2eba5ebb6ce8a92a1c",
+      "evidence_id": "ev_42349e082a12fb7b2d74b787b91acf61d100c22d57709fb6c686e2ccf17a18e2"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257510.json",
+      "sha256": "9213f44c335547103440ac9c0926d3c87b350ebcb774bed910edc10d9e6540be",
+      "evidence_id": "ev_303198fa97f43d7543d6c134125b5599bc0d77364612fb39f80379413d309f18"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257590.json",
+      "sha256": "45373353252d02e6c61de0fc7c71ed106f28c3ddd787d744893891753cb5e2b5",
+      "evidence_id": "ev_e9115905a0b2712645148618b952be82e2e22318398b33dc3a2e2ffde96a615b"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257bf0.json",
+      "sha256": "214a981d824da3fa01558fa2d346f2a617a11b9b32060fdcf4fbfa566e53ef71",
+      "evidence_id": "ev_e1331c4af373929ac1903b5ce1f910d5074bbfb10756429077b080f31858a1b7"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257c20.json",
+      "sha256": "c6828da3b910c68ea0dfc359337d17dc53c8964c84dbadd7d5d0875eb9d5d772",
+      "evidence_id": "ev_ec08533ce8d09cf407253f1f27ec08b54f01b1b877946ac6ccbe25a43d260547"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257c80.json",
+      "sha256": "5e13b7d761236b5aeae56fb288bc9a751b44539e66a6858f29fa754c49af396b",
+      "evidence_id": "ev_f6e31a83497065e3e08ac02771c7573f770dfa4198a147e7269b275c3a4db998"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140257e90.json",
+      "sha256": "b14e814446857c46fef37555ce92d09e2c835dc59b59772953d9199a82293fca",
+      "evidence_id": "ev_92f54f48afb8caa16de270a44feeb08e782e51f89c6856c1bf2b497c26a21f7a"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140258090.json",
+      "sha256": "e6f7a67fbd42545282bad4d6d54c659c9d309d39e864b0d56bb93f9f50ca6ad6",
+      "evidence_id": "ev_449166dea4f4a39a692563d4a7008704d1acd55f071f068b98d0493c4678a151"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402580f0.json",
+      "sha256": "9b4eb04a5c96265bdfffa227128b0ec025bd36a9867ce9c53bf6674d805830e8",
+      "evidence_id": "ev_631694c0c6e7405e3cbae389e3004b301652d0d1199b6debe2662042a82810a0"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402581b0.json",
+      "sha256": "90ee64670b1a120714c3cf9dce32139b714ef81cc6ec7eab9592353dcb4f4aa6",
+      "evidence_id": "ev_957e7c66e110af2810a03cd17a115ade093bf5e9799aa8aca7b2c0bc28a8a748"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140258260.json",
+      "sha256": "446145fedc903117c484083ae455086fdad2b0e4e3b96052cbfdd487f795b0bc",
+      "evidence_id": "ev_37398f8c1a96a0124549eae33730d654de655751d6b05c6a98ecde4f5f1be96d"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14025bf00.json",
+      "sha256": "9e9470a31250d91809e1345cc5bd6662f87ad69b75624b8a87bab35aaf75e207",
+      "evidence_id": "ev_4110a5ef63d3d1233f21341e6277a5104afb779eeac55120ee49f36aa321010e"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9020.json",
+      "sha256": "98662b94e13a772f847aaa9adb3245e61eb31005b6e7c5f980abef45b1494c64",
+      "evidence_id": "ev_328c9cc5d306306f5285a063c4924e9f0d45669495e7ff41a0576da58ed5bdeb"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f92b0.json",
+      "sha256": "118d6c4439fc38a5345e1e1c9b9dc875ed68edfeeee58c57217e2071da355ce5",
+      "evidence_id": "ev_6beb91cc003ea8980b53cae5734a0610acf0dcca34a0dd2adcbe78c400432c15"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fb120.json",
+      "sha256": "c8d28b452510ed7489e6b20f3b0cd5a778f4d33a902cda8acc941d4d71aaa95b",
+      "evidence_id": "ev_abed3845b3e07075057fd5b9a2514d3d828608c6b87390bd8b1d14715d6dc47f"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140484558.json",
+      "sha256": "3674bfda1f25c1a9bcfcaae0439adb53a242fadbe4e9b7276f69aa9f53ce7ee9",
+      "evidence_id": "ev_7f2127f512b3731bbdedce6ea1a32e568d5fb2527a7196e1e61136d90d3b986d"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140484644.json",
+      "sha256": "040f74250ec1e02fa3ddb415f2acddb321a15ca39a9728d15db7263abcf26a86",
+      "evidence_id": "ev_dca2c6613dcc5e94cc1e6b34b157cd3b79317e232f015ec0b1718c5e9e9d6e91"
+    },
+    {
+      "path": "analysis/geometry-finalize-constant-0x140509b50.json",
+      "sha256": "1a1aee44c251cfbc08fe493ef16346adf9b1d734c8d59dd77baa83fd65932213",
+      "evidence_id": "ev_236d96baff2a5457eb228a9e136e03f368313ac8a2be2d32818fc6f6c6eabe11"
+    },
+    {
+      "path": "analysis/geometry-finalize-constant-0x14051bef0.json",
+      "sha256": "b8e66dd7d884835d8deaa10f089fd879b314d537210adfe3ef5efd9dad3ec441",
+      "evidence_id": "ev_fca6a00943f5cceb07821391645182478b311aae0a8543fcc44510dd665452b0"
+    },
+    {
+      "path": "analysis/geometry-finalize-numeric-constants.json",
+      "sha256": "f47b48be4a01f67b153f582500299a0ebd1b5a3110e3b4a2888e187929d9fafe",
+      "evidence_id": "ev_c23cf596e51b9fb48cfd00cb9378795c801bd2492c9f31e9c56a6c3510131b69"
+    },
+    {
+      "path": "analysis/geometry-finalize-vtable.json",
+      "sha256": "831f5231bd50da08a810f813ffece9283be636710729d739b0ec187fd8e541b9",
+      "evidence_id": "ev_5330117fa88ab59562a42e9d53e2b3a71edb287794526920be17bd1d7b9db89f"
+    },
+    {
+      "path": "analysis/geometry-import-0x1400034d0.json",
+      "sha256": "8cf085abccd0bf0c847207db73f2574366949429e0717e1b877a47513f07fd52",
+      "evidence_id": "ev_88dc7564e646973c5e32c19bb04f8d1f96ccdd5768693353a5ec28819abdbaee"
+    },
+    {
+      "path": "analysis/geometry-import-0x1402f9970.json",
+      "sha256": "be5018290d99c33113b7049d630af790beda6c87e2862ff62db8747379e012b1",
+      "evidence_id": "ev_dff42781a5a9ce1baee0cc38a9668a99119edbad06b2363e6253493fbd586137"
+    },
+    {
+      "path": "analysis/finalization-0x1401d63c0.json",
+      "sha256": "cd18e29b72c6d453543bf700289f2d1c6a9aabed1bdefe1f7b126cf2cb9a3707",
+      "evidence_id": "ev_244ddc31f118de343342c6537e2952500548d6d19db44f31ce86f65b6e1cc451"
+    },
+    {
+      "path": "analysis/model-0x140160d90.json",
+      "sha256": "e97b32a485087d201c412d1b0ee051986e8eba85b4d046b76686618d08b176c4",
+      "evidence_id": "ev_404a6ee82e58bef0a67d0e83904e9425d904c436ba6c0a89a953271296d1de01"
+    }
+  ]
+}

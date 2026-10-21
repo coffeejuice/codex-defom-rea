@@ -1,0 +1,409 @@
+{
+  "target": "source/DEF_PRE_64.exe",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "result": "PASS",
+  "method": "Validate retained passive builder/consumer captures and file/process provenance; no original execution or replacement implementation.",
+  "process_runs": 1,
+  "imports": 4,
+  "boundary_counts": [
+    4,
+    6,
+    0,
+    4
+  ],
+  "assertions": [
+    "All four imports return status zero and contain complete ordered builder and object-consumer observations.",
+    "One tetrahedron yields four face records; two tetrahedra sharing one face yield six.",
+    "Two identical tetrahedra yield no boundary faces in this specific input.",
+    "Reimporting the original tetrahedron restores its exact prior face and owner arrays.",
+    "Object boundary count, face arrays and owner arrays exactly match builder outputs in every capture."
+  ],
+  "array_convention": [
+    "Connectivity, faces and owner_elements retain original integer order and numbering.",
+    "Each captured face occupies four integers. In these tetrahedron cases the fourth repeats the first.",
+    "No sorting or canonicalization is applied during verification; orientation and output order are retained."
+  ],
+  "static_context": [
+    {
+      "file": "analysis/mesh-0x1401fc290.json",
+      "file_sha256": "81f31832634c033f016c53995587fea8f52f8e2c004f8c99dab787797febb6c3",
+      "procedure": "0x1401fc290",
+      "evidence_id": "ev_90e6b2a97d661e89fa225875423bbf58c0b7c011ad3939e4af339354bdc8b2d7"
+    },
+    {
+      "file": "analysis/mesh-0x140354ed0.json",
+      "file_sha256": "a6650abcebc1abf5f7c263dde48d2ffe27563d76240c6f1d32ce33722d79f9bf",
+      "procedure": "0x140354ed0",
+      "evidence_id": "ev_a632f4b0165ba43ade369ca4e5b596cc0356f1e574e7562c1af6b8249d670031"
+    },
+    {
+      "file": "analysis/mesh-0x140355cbf.json",
+      "file_sha256": "4281c7c500550940f7bff46c220933a00f5a65ba08fc41f9f64b6beed1ed0fa4",
+      "procedure": "0x140355cbf",
+      "evidence_id": "ev_3634e7eb82d346f6a5690aefe6b56472f1dde471b4676d7d9adddc05c5120f65"
+    },
+    {
+      "file": "analysis/mesh-0x14043c760.json",
+      "file_sha256": "ec80bf7c2473100fb036a7a76483ab147109f1bc979acbcd1e62fea7007509d7",
+      "procedure": "0x14043c760",
+      "evidence_id": "ev_a72b99d41b4382bbf81494ca681f0e9b4558e61536b4fd9f405361214622c114"
+    },
+    {
+      "file": "analysis/mesh-0x14043c7f0.json",
+      "file_sha256": "a076d7d492bcdf2aec174f382c0f121141314dd02310a0907c470777d22662b6",
+      "procedure": "0x14043c7f0",
+      "evidence_id": "ev_b2b36b0a0388ecc59c42b4b5eae8b60534b8ed4e5fff7bfee21b40a94dc6625a"
+    },
+    {
+      "file": "analysis/mesh-boundary-tables.json",
+      "file_sha256": "b801ff6e713b7a4170768dbb52b6b5432867f1a6cbc0e15ac8a4f5636dd32076",
+      "read_evidence_id": "ev_83c4d28e273db4cba1fa042c9e860d4d9a2260fb49065ea9183fe5cc6386cdf5",
+      "call_site_evidence_id": "ev_a632f4b0165ba43ade369ca4e5b596cc0356f1e574e7562c1af6b8249d670031",
+      "qualification": "Analysis-memory table and assembly observations only. The non-eight-node call selects 0x60-byte blocks from 0x140605090; selected row counts and interpretation require further validation."
+    }
+  ],
+  "static_findings": [
+    "0x140355cbf builds candidate-face records and passes two-int sorting records to 0x14043c760.",
+    "0x14043c760 invokes qsort with eight-byte records and comparator 0x14043c7f0.",
+    "The comparator compares only the first int32 key; face construction sets that key from a sum of node IDs."
+  ],
+  "remaining_questions": [
+    "Equal-key qsort ordering and its interaction with duplicate/nonmanifold ownership are unresolved.",
+    "The full candidate cancellation, orientation and final ordering rules are not established by these four cases.",
+    "Other element arities, 2D boundaries, degenerate input, nonmanifold faces, overflow and allocation failures are untested.",
+    "Full geometric finalization and downstream boundary consumers remain outside this report."
+  ],
+  "limitations": [
+    "This is a bounded observation corpus, not a complete recovered boundary algorithm or a replacement-equivalence claim.",
+    "Static helper/table evidence describes analyzed code and bytes; it is not additional runtime coverage.",
+    "The probe starts before fixture input; this harness does not claim suspended-at-creation startup tracing."
+  ],
+  "run": {
+    "evidence_file": "analysis/mesh-boundary-runtime-1.json",
+    "evidence_id": "ev_c1dac573eddbcc814e4cfcec0c7fb0845fc8dd599d7e56a17710a033faba6c37",
+    "evidence_sha256": "eb663601d7560cb52e31df3195ad4755a8d1de36a31ca3d4b421776256e3e943",
+    "run_record": "analysis/oracle/mesh-boundary-1/run.json",
+    "run_record_sha256": "e0b014fc6fa25877bf848dcf09e552d9e9ab504de109d3006f58cda7df17cc23",
+    "pid": 32036,
+    "probe_source": "analysis/oracle/mesh-boundary-1.js",
+    "probe_sha256": "efd4ca225b6c0ed992a6fd29d21e1f514eaf20c76981992a1373967b538293ad",
+    "probe_template": "tools/observe_mesh_boundary.js",
+    "probe_template_sha256": "c9c27ff15a3efe38c219c09603d0e1a65f3b160ac1c1d1027400ec2d607bb921",
+    "fixture_hashes": {
+      "07_tetrahedron.KEY": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+      "13_two_tetrahedra.KEY": "1b4d393a40ecc37ddfa8ef5698a85ea60c9f64665e05d8940caa80965385d35c",
+      "14_duplicate_tetrahedron.KEY": "629301d83e3b4d8b3807c7259cfef76d0bbe6a8b7ec6ea715feaed36efcd0c03"
+    },
+    "event_count": 20,
+    "imports": [
+      {
+        "ordinal": 1,
+        "file": "07_tetrahedron.KEY",
+        "fixture_sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+        "sequence_range": [
+          1,
+          5
+        ],
+        "status": 0,
+        "builder_input": {
+          "elements": 1,
+          "arity": 4,
+          "connectivity": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "builder_output": {
+          "count": 4,
+          "faces": [
+            1,
+            3,
+            2,
+            1,
+            1,
+            2,
+            4,
+            1,
+            1,
+            4,
+            3,
+            1,
+            2,
+            3,
+            4,
+            2
+          ],
+          "owner_elements": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "object_output": {
+          "id": 1,
+          "dimension": 3,
+          "total": 4,
+          "boundaries": [
+            {
+              "count": 4,
+              "faces": [
+                1,
+                3,
+                2,
+                1,
+                1,
+                2,
+                4,
+                1,
+                1,
+                4,
+                3,
+                1,
+                2,
+                3,
+                4,
+                2
+              ],
+              "owner_elements": [
+                1,
+                1,
+                1,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "ordinal": 2,
+        "file": "13_two_tetrahedra.KEY",
+        "fixture_sha256": "1b4d393a40ecc37ddfa8ef5698a85ea60c9f64665e05d8940caa80965385d35c",
+        "sequence_range": [
+          6,
+          10
+        ],
+        "status": 0,
+        "builder_input": {
+          "elements": 2,
+          "arity": 4,
+          "connectivity": [
+            1,
+            2,
+            3,
+            4,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "builder_output": {
+          "count": 6,
+          "faces": [
+            1,
+            3,
+            2,
+            1,
+            1,
+            2,
+            4,
+            1,
+            1,
+            4,
+            3,
+            1,
+            2,
+            3,
+            5,
+            2,
+            2,
+            5,
+            4,
+            2,
+            3,
+            4,
+            5,
+            3
+          ],
+          "owner_elements": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            2
+          ]
+        },
+        "object_output": {
+          "id": 1,
+          "dimension": 3,
+          "total": 6,
+          "boundaries": [
+            {
+              "count": 6,
+              "faces": [
+                1,
+                3,
+                2,
+                1,
+                1,
+                2,
+                4,
+                1,
+                1,
+                4,
+                3,
+                1,
+                2,
+                3,
+                5,
+                2,
+                2,
+                5,
+                4,
+                2,
+                3,
+                4,
+                5,
+                3
+              ],
+              "owner_elements": [
+                1,
+                1,
+                1,
+                2,
+                2,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "ordinal": 3,
+        "file": "14_duplicate_tetrahedron.KEY",
+        "fixture_sha256": "629301d83e3b4d8b3807c7259cfef76d0bbe6a8b7ec6ea715feaed36efcd0c03",
+        "sequence_range": [
+          11,
+          15
+        ],
+        "status": 0,
+        "builder_input": {
+          "elements": 2,
+          "arity": 4,
+          "connectivity": [
+            1,
+            2,
+            3,
+            4,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "builder_output": {
+          "count": 0,
+          "faces": [],
+          "owner_elements": []
+        },
+        "object_output": {
+          "id": 1,
+          "dimension": 3,
+          "total": 0,
+          "boundaries": [
+            {
+              "count": 0,
+              "faces": [],
+              "owner_elements": []
+            }
+          ]
+        }
+      },
+      {
+        "ordinal": 4,
+        "file": "07_tetrahedron.KEY",
+        "fixture_sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+        "sequence_range": [
+          16,
+          20
+        ],
+        "status": 0,
+        "builder_input": {
+          "elements": 1,
+          "arity": 4,
+          "connectivity": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "builder_output": {
+          "count": 4,
+          "faces": [
+            1,
+            3,
+            2,
+            1,
+            1,
+            2,
+            4,
+            1,
+            1,
+            4,
+            3,
+            1,
+            2,
+            3,
+            4,
+            2
+          ],
+          "owner_elements": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "object_output": {
+          "id": 1,
+          "dimension": 3,
+          "total": 4,
+          "boundaries": [
+            {
+              "count": 4,
+              "faces": [
+                1,
+                3,
+                2,
+                1,
+                1,
+                2,
+                4,
+                1,
+                1,
+                4,
+                3,
+                1,
+                2,
+                3,
+                4,
+                2
+              ],
+              "owner_elements": [
+                1,
+                1,
+                1,
+                1
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

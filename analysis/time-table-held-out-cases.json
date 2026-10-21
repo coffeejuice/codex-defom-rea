@@ -1,0 +1,65 @@
+{
+  "purpose": "Additional cases selected after initial14-case comparison, before new original observation. Same unchanged23-file candidate; no native after-state seeds. Bounded rank0/1 counts<=3; reused planar topology explicitly identified.",
+  "created_utc": "2026-10-20T19:31:32.444746+00:00",
+  "cases": [
+    {
+      "path": "tests/fixtures/time_table/held_out/01_axis_sign_eof.KEY",
+      "sha256": "1b31456edc795864b3b2c0617dbbfbcc51b41b2c1d41a34b321b546090a3bd24",
+      "hypothesis": "Unassigned axis after sign at EOF; failing read retains zero storage."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/02_axis_dot_eof.KEY",
+      "sha256": "d1d82f66703cee5c824bd5fed96376363e8383eb2377bf94e74e05a66e5366a0",
+      "hypothesis": "Unassigned axis after dot at EOF, mode1 retained by rank guard."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/03_dependent_sign_eof.KEY",
+      "sha256": "5e2a5d63519deee8cc40850704a2f991f35100e052e644eb37958f190962e921",
+      "hypothesis": "Successful axis then failed dependent sign at EOF."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/04_exponent_eof.KEY",
+      "sha256": "ab8229a042ad59a082f39dab659856652c04064a1abb64cc5f55c312b44112cf",
+      "hypothesis": "Incomplete exponent at EOF retains a successful significand conversion and signed-zero axis."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/05_sign_across_lines.KEY",
+      "sha256": "4afe297e47825bdc6c9c5c4ab61e2ad2138e86c9011fec6c7af0fcb7e8a5627c",
+      "hypothesis": "Matching failure at a line-terminated sign followed by subsequent numeric assignments across lines."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/06_dot_text.KEY",
+      "sha256": "93ad3cdf538f365303ac247a2b4b2dba54ce2f85fc1f0643f667decb4164c428",
+      "hypothesis": "Dot consumption followed by unconsumed text; bounded failed scans and final remainder discard."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/07_three_rows.KEY",
+      "sha256": "7b59d7f0282ab53944a3f48244a9fa6dae6d1d30dc311f264ba603bc92efa1a3",
+      "hypothesis": "Three table rows span blank lines and mixed whitespace."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/08_header_commas.KEY",
+      "sha256": "8b8ec5a28e4818a0c4eda12cce32fc3cc5a77ea6b751b6a04070cda1a9e02e83",
+      "hypothesis": "Header comma replacement and octal integers are distinct from stream real payload."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/09_scalar_ignores_count.KEY",
+      "sha256": "f5d1bf2197736404314892114f31f6b5d8159918d2f2625ef7647e4677415b69",
+      "hypothesis": "Selector zero consumes no payload despite a positive header count."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/10_discard_keyword.KEY",
+      "sha256": "4a399213d4519a31369b79331ef5479a52eecb8949e284cec3ad00dda775bda7",
+      "hypothesis": "Negative fallback selector; trailing keyword on final table row is discarded rather than dispatched."
+    },
+    {
+      "path": "tests/fixtures/time_table/held_out/11_populated_model.KEY",
+      "sha256": "0d9ec483508c4aba7acfdef639ec8c87674fd48bee6d84f28caf85a83a6cbc34",
+      "hypothesis": "Existing planar mesh setup followed by new table/scalar/table-clear sequence. Topology is reused; compound sequence is new."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_time_table.js",
+    "sha256": "4ce0702c86ca4d45dac3ac3e396585b81fbff6f597aef3da24e2f09c69e3bdd0"
+  }
+}

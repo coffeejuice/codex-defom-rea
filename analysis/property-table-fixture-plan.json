@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "status": "connected_route_resolved_training_draft_pending_audit",
+  "purpose": "Observe the connected thirteen material property-table imports without inferring a scientific schema or reading uninitialized native storage.",
+  "keywords": [
+    {
+      "id": 95,
+      "name": "YOUNG",
+      "case": "0x3"
+    },
+    {
+      "id": 96,
+      "name": "POISON",
+      "case": "0x4"
+    },
+    {
+      "id": 97,
+      "name": "EXPAND",
+      "case": "0x5"
+    },
+    {
+      "id": 98,
+      "name": "THRCND",
+      "case": "0x6"
+    },
+    {
+      "id": 99,
+      "name": "HEATCP",
+      "case": "0x7"
+    },
+    {
+      "id": 100,
+      "name": "EMSVTY",
+      "case": "0x8"
+    },
+    {
+      "id": 115,
+      "name": "ELRST",
+      "case": "0x17"
+    },
+    {
+      "id": 121,
+      "name": "PMEAB",
+      "case": "0x1d"
+    },
+    {
+      "id": 122,
+      "name": "PMITT",
+      "case": "0x1e"
+    },
+    {
+      "id": 125,
+      "name": "MASDEN",
+      "case": "0x21"
+    },
+    {
+      "id": 126,
+      "name": "COARSE",
+      "case": "0x22"
+    },
+    {
+      "id": 131,
+      "name": "GBENGY",
+      "case": "0x27"
+    },
+    {
+      "id": 133,
+      "name": "NUCSIZ",
+      "case": "0x29"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/property-table-next-plan.json",
+      "sha256": "6e5c464694b9e70b4eead06dad502d05d28e7fdc3740629c2d87e13171cd1fef"
+    },
+    {
+      "path": "analysis/material-property-next-inventory.json",
+      "sha256": "99a70980ef846022b4540e01bad1b01b5210da9139a1abf309ac4b31972c3ab1"
+    },
+    {
+      "path": "analysis/time-table-0x14041a800.json",
+      "sha256": "7934897d19d270e211b6af7232fb699e70b9af745535e754bc3b73bb7c97d12a"
+    },
+    {
+      "path": "analysis/configuration-0x14012d2a0.json",
+      "sha256": "3f9748aacea2b6df1d83cc34f5bdd68c0ce469b5e476f0e0d03db94cedbca943"
+    },
+    {
+      "path": "analysis/configuration-0x14012fad0.json",
+      "sha256": "f1b05259d7f3bfc6f74e88c649ec6984c65fa8d28ed6d5bc9cc6acaa47e4cbc8"
+    },
+    {
+      "path": "analysis/configuration-0x14012f480.json",
+      "sha256": "9a9fb6b32aa86f074d4e5ac56bf30dbfa51df80e4f995e86ee71555b8ff7ae85"
+    },
+    {
+      "path": "analysis/configuration-0x14012ff20.json",
+      "sha256": "5fcdaa7c5648248493dc6756b6db2fa56bf88fb89b21e0578d8fe861f65eed80"
+    }
+  ],
+  "provisional_bounds": {
+    "imports_per_batch": 32,
+    "materials": 2,
+    "objects": 1,
+    "rank": 3,
+    "count_per_axis": 2,
+    "dependent_width": 4,
+    "dependent_items": 32,
+    "negative_allocation_extents": false
+  },
+  "coverage_matrix": [
+    {
+      "group": "dispatch",
+      "cases": "At least one proven valid header for each of the thirteen keywords; same material and a sparse second ID.",
+      "dependency": "41b270 header/type mapping and material destination offsets."
+    },
+    {
+      "group": "rank0",
+      "cases": "Scalar and multi-value table forms if reachable; replacement of a populated rank1 table; incomplete vector at physical EOF.",
+      "dependency": "Reachable type codes and constant/header placement."
+    },
+    {
+      "group": "rank1",
+      "cases": "Two points with distinct axis and dependent values; width1 and a proven width>1; partial axis versus partial dependent EOF; no-final-LF and trailing keyword discard.",
+      "dependency": "Proven type selection and width controls."
+    },
+    {
+      "group": "rank2",
+      "cases": "Distinct two-axis values and row-major-distinguishing dependent values; physical EOF during first/later axis; EOF after some temporary dependent assignments; success followed by populated replacement.",
+      "dependency": "Header axis count order and downstream temporary allocation bound."
+    },
+    {
+      "group": "rank3",
+      "cases": "Small non-symmetric dimensions where reachable; first/last axis failure and late dependent EOF; verify all-or-nothing temporary commit separately from direct axis writes.",
+      "dependency": "Type selection and count product."
+    },
+    {
+      "group": "headers",
+      "cases": "Blank/EOF/partial header, invalid defined type branches, zero counts, comma behavior and exact line discard, only after initialization/status semantics are proven.",
+      "dependency": "41b270 full branches and local initialization."
+    },
+    {
+      "group": "special_cases",
+      "cases": "EXPAND optional double, HEATCP optional-double-to-int postwrite on failure, PMEAB rank2 axis-code postwrite, COARSE disabled/enabled reader ordering.",
+      "dependency": "Caller field defaults and exact pre/post continuation sites."
+    },
+    {
+      "group": "lifecycle",
+      "cases": "Same material repeated table replacement, unrelated table independence, same-dimension import, dimension reset destruction, small populated mesh unchanged except documented material creation refresh.",
+      "dependency": "Constructor defaults and destructor ownership."
+    },
+    {
+      "group": "held_out",
+      "cases": "Independently chosen distinct values/count permutations, signed zero, partial conversion after assigned values, alternative reachable type widths, zero count, optional auxiliary retention and dimension sequence. No replacement or training outputs used.",
+      "dependency": "Freeze complete candidate before held-out execution."
+    }
+  ],
+  "observation_requirements": {
+    "root": "Retain existing primary and linked root, material list, object/mesh/geometry snapshots.",
+    "material": "Thirteen property table snapshots plus proven auxiliary fields; only initialized table metadata, never whole-record bytes.",
+    "allocation": "Track each table axis/dependent pointer capacity on successful12fad0 return. Hook12f480 to invalidate old associations without trusting newly changed counts; associate fresh default pointers during observed constructor allocation. Expose logical metadata separately from recorded physical capacity.",
+    "reader": "41b270 entry/exit with FILE cursor, original header line bytes and scan conversion count;41a800 entry/exit with table identity, rank/width/counts and direct storage. Use verified native continuations where needed rather than unproven return-frame reuse.",
+    "numeric": "For484924%Flf scans capture destination identity and assigned8byte value only when return1. On0/-1 do not dereference an uninitialized temporary. Record ordered scans and cursor before/after.",
+    "temporary": "Rank2/3 malloc buffer tracked by observed allocator extent. Maintain assignment mask; emit only assigned slots. Observe commit and free ordering, not guessed zero tails. EOF leak is recorded, not repaired.",
+    "comparison": "Preserve raw binary64 bytes, table ownership/address relationships, physical arrays, scalar/auxiliary metadata, immediate handler state and final state; scientific consumers outside scope."
+  },
+  "blocking_static_questions": [
+    "41b270 exact argument ABI, header grammar and conversion-sensitive branches.",
+    "Thirteen material table offsets, constructor types and initialized-versus-unwritten metadata.",
+    "Reachable type/rank/width mapping; axis count order; optional output semantics.",
+    "Verified continuations for41b270/41a800 and temporary dependent memcpy/free.",
+    "Physical allocation initialization and conditionalfree12f480 alias branch handling in selected domain."
+  ],
+  "excluded_until_proven": [
+    "Negative/overflowing products",
+    "Nonfinite numeric input",
+    "Fresh uninitialized conversion failures",
+    "Unsupported scientific table aliases/copies",
+    "Ranks above3",
+    "OOM behavior"
+  ],
+  "reachable_scope": {
+    "rank": [
+      0,
+      1,
+      2
+    ],
+    "values_per_point": 1,
+    "reason": "41b270 resets type0/width1 and selects only rank0/1/2; rank3/vector widths need different future entry points."
+  }
+}

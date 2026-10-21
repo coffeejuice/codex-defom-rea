@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_compared_with_bounded_original_observations",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "scope": "Internal 79-entry component-table initialization and refresh calculations. This is not a complete root model, feature-query implementation, or original external ABI.",
+  "implementation": [
+    "src/recovered/component_layout.hpp",
+    "src/recovered/component_layout.cpp",
+    "tests/component_layout_replay.cpp"
+  ],
+  "static_bindings": [
+    {
+      "procedure": "0x1401d09c0",
+      "role": "initialize_layout; starts with 79 ones and applies ordered writes",
+      "evidence": "analysis/root-layout-0x1401d09c0.json",
+      "evidence_id": "ev_77968f14dcb6435fff0e9d95a018214f389629fbb600ce664abc73f959fb230f"
+    },
+    {
+      "procedure": "0x1401d0320",
+      "role": "refresh_layout; independently regenerates the table using additional root inputs",
+      "evidence": "analysis/root-layout-0x1401d0320.json",
+      "evidence_id": "ev_d57d0d56722651d21c5770e910854bfcb471bf40c332fe736e5ed2f3c591ec8e"
+    },
+    {
+      "procedure": "0x1401d64f0",
+      "role": "Original feature query; observed results are explicit candidate inputs, not a reconstructed implementation",
+      "evidence": "analysis/root-layout-0x1401d64f0.json"
+    },
+    {
+      "procedure": "0x1401c8ba0",
+      "role": "Virtual dimension setter: unchanged dimension returns without reset; changed dimension is stored before root cleanup and reinitialization",
+      "evidence": "analysis/root-layout-0x1401c8ba0.json",
+      "evidence_id": "ev_bd33bc267eb062111163c55ab1389312f7f5fd34302be716ef13f2625497f0cc"
+    }
+  ],
+  "input_contract": {
+    "dimension": "Exact signed integer; 2 and 3 branches are distinct, without normalization.",
+    "scalars": "Twenty root scalar fields retain offset-based names until their domain meanings are established.",
+    "queries": "Explicit enabled and post-call width values for IDs 24, 49, 53, 29, 54, 55 and 46. A width can retain the previous local accumulator value.",
+    "arithmetic": "Checked signed-int32 intermediates. Overflow throws; equivalence to native overflow or invalid allocation behavior is not claimed."
+  },
+  "evaluation": {
+    "candidate_freeze": "analysis/component-layout-candidate-freeze.json",
+    "candidate_history": "Three source files and one replay executable were archived before both new captures. Historical report enforces current identity; regression mode reports current identity separately while always verifying archived hashes.",
+    "comparison": "analysis/component-layout-comparison.json",
+    "observation_verification": "analysis/root-layout-observations.json",
+    "captures": [
+      "analysis/root-layout-runtime-training.json",
+      "analysis/root-layout-runtime-held-out.json"
+    ],
+    "original_processes": 2,
+    "imports": 10,
+    "dimension_calls": 18,
+    "changed_dimension_calls": 10,
+    "layout_calls": 20,
+    "initialize_calls": 10,
+    "refresh_calls": 10,
+    "exact_integer_outputs": 1580,
+    "feature_query_observations": 128,
+    "provenance_tampering_checks": 36,
+    "initialize_dimensions": {"2": 5, "3": 5},
+    "refresh_dimensions": {"2": 7, "3": 3},
+    "query_coverage": "ID24 enabled only; ID49 both enabled and disabled; IDs53/29/54/55/46 disabled only. Observed output widths are zero.",
+    "ctest": "All 14 tests passed, including component_layout_reference_replay."
+  },
+  "established_transition_behavior": [
+    "Changing the dimension destroys current objects through root cleanup before initialization; it does not convert an existing mesh.",
+    "Same-dimension calls preserve the captured root and object subset.",
+    "The first recognized header controls the import; later recognized headers in that import are ignored in the observed sequences.",
+    "The parser also applies the complementary dimension to an existing linked root even when alternate routing is disabled.",
+    "Existing-model refresh is a different path: regenerate the table, visit objects whose type is not 7, and resize their arrays.",
+    "Direct-array resize helpers use realloc and contain no explicit initialization of newly grown tails. Zero-filled tails must not be inferred."
+  ],
+  "limitations": [
+    "This component checkpoint does not itself integrate root reset. Later selected importer integration is recorded in analysis/dimension-import-contract.json.",
+    "Feature queries can mutate root/global state and depend on materials. Passing observed query results does not reproduce those effects.",
+    "The probe attaches after process startup. Initialization calls here occur during dimension resets, not initial process construction.",
+    "Root snapshots cover selected fields and object summaries, not every byte, mesh array or scientific invariant.",
+    "No arbitrary-dimension, extreme arithmetic, nonzero query-width, allocation-failure or complete material-state equivalence is established.",
+    "Preserving object resize, complete destruction, unit/global persistence and scientific finalization remain separate recovery work."
+  ],
+  "next_action": "Recover and implement root dimension reset and linked-root behavior with original model comparisons. Recover preserving array resize and feature-query dependencies before integrating GEOTYP/STNOUT-driven refresh."
+}

@@ -1,0 +1,153 @@
+{
+  "status": "implemented and compared within the stated four-handler subset",
+  "reference": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "scope": "Internal C++ object/model subset and sequential translated-byte keyword imports. Public DB loader interfaces remain unchanged; no claim of original binary ABI or complete application replacement.",
+  "implementation": [
+    {
+      "path": "src/recovered/object_model.hpp",
+      "sha256": "2f74cff943b7efff325cad3c258777389e970363718f98a134db3fe177c3d261"
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "sha256": "95683a4d13a0fd5d60421aac1cd7f45c356a2c8061b45c987cf0ebf76220ed4a"
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "sha256": "467b254635c608db7d8170b363f73685a2d13fa554602b95cd7b69b6e3742676"
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "sha256": "6d92085019e67969388ea95fff5132aa774f51abe7ecf29b43718dc911123036"
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "sha256": "e9ce7ca03a8ed1cb88e091f5f8ee8f85a3a436c93e6add0a2d043b7dc39d173c"
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "sha256": "026d94efbece20b01c4c099db540f365e9d73225f463afd1d113c9d777c77caa"
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "sha256": "b89366a1ba867bf0f3a1fa1b35d3e3785c6a3288bcfbe5c5e2090ba8c48851c7"
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "sha256": "443a890e0e5ae337f256c9800a2cb10d9a3fc9e32f249a4ce2b0a5d029935dc7"
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "sha256": "072c34c2bbba951f9aa8df0336aaeb402d67b7912567daf77a7b8815af283350"
+    }
+  ],
+  "catalog": {
+    "recognized": 304,
+    "implemented": [
+      "OBJNAM",
+      "OBJTYP",
+      "RZ",
+      "ELMCON"
+    ],
+    "source": {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    },
+    "evidence_ids": [
+      "ev_95e7b9181fc3326c058a90c14a41cd431d65de21cf1cfe423ac621156b1b0c97",
+      "ev_d168f0788bf29aec69fca2c1e81e850ae3cc0ade64efd2c00c842a8adb3991d9"
+    ]
+  },
+  "contracts": [
+    "Stable object identity across list growth, sparse-ID placeholders, name/type/secondary fields, mesh-owned deactivation with retained descriptor history and arity.",
+    "Case-sensitive full-catalog lookup, bounded token and line consumption, unknown-keyword warning distinction, explicit unsupported outcome for recognized unimplemented keywords.",
+    "Object selectors use recovered integer-prefix grammar, consuming whitespace, sign and base prefix even when conversion fails. Zero-initialized destination and EOF status match captured calls.",
+    "Mutations occur immediately; failed imports retain objects and rows already written. Later successful handlers do not erase the last nonzero status.",
+    "RZ and ELMCON use recovered allocation and dependent buffers. Arity rejection happens before connectivity replacement, while object selection may already have created records.",
+    "Boundary suppression is separate from mesh marking. Normal constructor default is zero; temporary-root import can set one. Static contract establishes this branch; current end-to-end captures use zero.",
+    "Scientific/material finalization remains explicitly pending whenever requested, including after parser errors. It is never advertised as complete."
+  ],
+  "verification": {
+    "training": {
+      "imports": 4,
+      "tokens": 20,
+      "object_snapshots": 13,
+      "descriptor_snapshots": 689,
+      "stream_calls": 41
+    },
+    "evaluation": {
+      "imports": 9,
+      "tokens": 32,
+      "object_snapshots": 43,
+      "descriptor_snapshots": 2279,
+      "stream_calls": 70
+    },
+    "total": {
+      "imports": 13,
+      "tokens": 52,
+      "object_snapshots": 56,
+      "descriptor_snapshots": 2968,
+      "stream_calls": 111
+    },
+    "ctest": "13/13 passed",
+    "candidate_unchanged_after_freeze": true,
+    "freeze": {
+      "path": "analysis/keyword-import-candidate-freeze.json",
+      "sha256": "88c94914cfecd66f7ccd86b6fc9d34b1a5e697e69e8ac87e650037a2eece300c"
+    },
+    "comparison_reports": [
+      {
+        "path": "analysis/keyword-import-training-comparison.json",
+        "sha256": "b6e55ab289f192a7c982dedea59af45563984659eb2f13e0dd8c6ba038e8f04e"
+      },
+      {
+        "path": "analysis/keyword-import-held-out-comparison.json",
+        "sha256": "128663e525016274f84465bd7ad42d8518cd6841a86f43559eacf7ba99074a7a"
+      },
+      {
+        "path": "analysis/keyword-stream-training-comparison.json",
+        "sha256": "9290322009e23dd402a14aa35e2053e5c10a29a2c767648cf41451bcd5963426"
+      },
+      {
+        "path": "analysis/keyword-stream-held-out-comparison.json",
+        "sha256": "e2c9a7fe18460765d2f9e1a905f2fbd0f889a39b511c93b35451289060dfc9fb"
+      }
+    ],
+    "qualification": "Candidate source, library and replay binaries archived before the evaluation capture. New import compositions and selector edges were defined before capture; some cube/tetra component fixtures had been used earlier. Numeric model values are compared through JSON; separate row-helper captures compare raw numeric bytes.",
+    "independent_provenance_reports": [
+      {
+        "path": "analysis/keyword-import-observations.json",
+        "sha256": "e530cce594bcda625f6f0e8fb835090e12e7c71db53b90b5e770a0fab613d5a7"
+      },
+      {
+        "path": "analysis/keyword-import-held-out-observations.json",
+        "sha256": "c0587673536ca56a826c1f7c708dcfbed0a5c6abd9e1e0a1f975c3d71db9e49c"
+      }
+    ],
+    "tampering_checks_rejected": 40
+  },
+  "evaluation_harness_correction": {
+    "initial_report": {
+      "path": "analysis/keyword-stream-held-out-initial-comparison.json",
+      "sha256": "ec73612f8277087d5b28fde24aa00239d5098dc2ca97c3c66f8a8b6ce56cb94f"
+    },
+    "cause": "Comparator initially treated a FILE buffer reset by preceding fgets EOF as logical offset zero. Corrected EOF normalization using empty versus null buffer observations. C++ implementation and frozen binaries did not change."
+  },
+  "finalization_evidence": {
+    "path": "analysis/boundary-suppression-contract.json",
+    "sha256": "d77a14427d0ef8579deead8a0d99aca5c6bb12b0f766cdfa4d6322403ba7db43"
+  },
+  "limitations": [
+    "Only four handlers and the captured fields are reconstructed. Remaining recognized keywords stop as unsupported instead of being silently skipped.",
+    "Same-dimension headers only; changes to root dimension, linked alternate-root dispatch and their initialization side effects remain unsupported.",
+    "Explicit default root controls; nonunit multiplicities, sharing, nondefault allocation modes and complete descriptor families remain unresolved.",
+    "End-to-end comparison covers 3D default controls and small ASCII fixtures. Component-level 2D boundary evidence does not establish 2D full-import equivalence.",
+    "Input is already translated text. File opening, Windows CRLF/Ctrl-Z rules, encodings, large buffers, locale changes and numeric extremes remain separate.",
+    "Original finalizer can conditionally write root+0x990 and process materials/geometry not captured by this probe. Equality of tracked fields is not a complete no-op proof.",
+    "Model snapshots compare numeric JSON values, not all floating storage bits. Native addresses are checked for within-process identity then normalized away.",
+    "Complete model, scientific operations, output formats, editing commands and console integration remain required work under the active full-application goal."
+  ],
+  "next": "Recover explicit startup/root profiles and dimension changes, then reachable finalization and the next keyword families with original-state comparisons."
+}

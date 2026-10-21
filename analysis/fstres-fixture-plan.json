@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "ready_for_bounded_native_capture_static_probe_and_all96_fixture_audit_complete",
+  "purpose": "Observe every FSTRES import branch and its owned scalar/table state, including constructor allocations and staged failures.",
+  "base_probe": {
+    "path": "tools/observe_nested_material_import.js",
+    "sha256": "86a018c26f8c455fd51ce38e4d52d7ef76a9ccba4a78b1b4dc0b0d75c80fd4e3"
+  },
+  "cohorts": {
+    "training": {
+      "batch_a": 32,
+      "batch_b": 16
+    },
+    "held_out": {
+      "batch_a": 32,
+      "batch_b": 16
+    }
+  },
+  "batch_initialization": "Each native process/batch begins with an explicit dimension header and self-contained setup; no state is carried between batches.",
+  "required_modes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    0,
+    -1,
+    17
+  ],
+  "coverage": [
+    "All42 initialized doubles and3 explicit integers",
+    "All10 table constructor/default/reset states and physical capacities",
+    "Mode2/3 and7/8 count failure versus payload failure flag sequencing",
+    "Mode6 first-header/first-payload/second-header/second-payload partitions with selectors0..3 and unknown",
+    "Mode9 first seven-real failure overwritten by second helper result",
+    "Mode10 discarded seventh local conversion",
+    "Mode12 selector mappings and retained old table on local-header failure",
+    "Mode13/15 linked sum/product extents derived from axis coordinates; zero/one extents retain constructor buffer",
+    "Mode16 deferred allocation reset, width/count failures and payload normalization",
+    "Mode0, initialized zero-conversion outer header, signed negative and unknown positive no-payload cases",
+    "Cross-mode retention, independent material IDs, dimension reset and existing mesh refresh"
+  ],
+  "allocation_scope": "Exact ten addresses within active constructor frame, exact selected table during reset or direct data frame, and existing exact nested wrapper scope. Never inspect arbitrary12fad0 tables.",
+  "snapshot_policy": "Read physical extents proven by allocation events independently from logical rank/count/width; no uninitialized table padding or malloc scratch reads.",
+  "provisional_bounds": {
+    "materials": 2,
+    "objects": 1,
+    "nodes": 4,
+    "elements": 1,
+    "rank": 3,
+    "axis_count": 3,
+    "table_width": 8,
+    "dependent_items": 16
+  },
+  "exclusions": [
+    "Scientific material-law evaluation",
+    "Unassigned rank2/3 temporary matching-failure bytes",
+    "Nonfinite/overflowing derived extents or OOM",
+    "Other GRNDAT outer selectors"
+  ],
+  "pending": [],
+  "resolved_contract": {
+    "path": "analysis/fstres-static-contract.json",
+    "sha256": "535bc76c17275fd043f8fbce2be65b026e20cad5359245738de343803f40a4b1"
+  },
+  "resolved_notes": [
+    "4151c0 seven-real grammar, zero initialization and status are source-proven.",
+    "All36 selected return sites and patch-range incoming branches are PE-byte audited.",
+    "Native signed32 conversion, wrap arithmetic and negative-mode negation are established; fixture extents remain bounded and nonoverflowing."
+  ],
+  "readiness_audit": {
+    "path": "analysis/fstres-precapture-audit.json",
+    "sha256": "227bf1d6955e8bf10036c1bc1bb26c076cc79fed6020ecc3141e326a4148019b"
+  }
+}

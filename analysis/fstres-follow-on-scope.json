@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "status": "FOLLOW_ON_STATIC_SCOPE_PROPOSAL_NOT_IMPLEMENTED",
+  "purpose": "Recover the remaining GRNDAT108 import family as a connected model, reader, ownership and refresh chain after complete FSTRES import validation. Scientific grain-model evaluation remains a separate task.",
+  "confirmed_dispatch": {
+    "source": "analysis/material-import-0x140384a50.json",
+    "case_index": "0x10",
+    "outer": "413ee0 reads two initialized integer locals; failure returns2 before selector storage. Successful outer header writes material+0x17e8.",
+    "selector1": {
+      "headers": "Nine sequential int2 headers, each failing before its associated reset; all nine headers precede payload reads.",
+      "table_offsets": [
+        "0x1088",
+        "0x1100",
+        "0x1178",
+        "0x11f0",
+        "0x1268",
+        "0x12e0",
+        "0x1358",
+        "0x13d0",
+        "0x1448"
+      ],
+      "types": [
+        "0x55",
+        "0x54",
+        "0x56",
+        "0x57",
+        "0x58",
+        "0x59",
+        "0x5a",
+        "0x5b",
+        "0x5c"
+      ],
+      "flags": [
+        "0x1078",
+        "0x107c",
+        "0x1080",
+        "0x1084"
+      ],
+      "payloads": "Nine41a800 calls in table order with immediate failure returns; final414a40 writes +0x14c8 then+0x14c0, and then reaches refresh even on final-pair failure."
+    },
+    "selector2": {
+      "secondary_destination": "0x14d0",
+      "initial_record": "41bed0(material+0x14d8); failure returns before list clearing.",
+      "list_order": [
+        "0x16f8",
+        "0x16e0",
+        "0x16c8",
+        "0x1710",
+        "0x1728"
+      ],
+      "operations": "28b240 clears each selected list;413de0(skip1) reads zero-initialized local count and its status is ignored;28b050 appends records;41bed0 parses each appended record; record failure returns immediately, retaining earlier mutations."
+    },
+    "selector4": "Previously reconstructed41b270 table+0x1740, followed by refresh regardless of payload status.",
+    "selector5": "415080 writes six live doubles+0x17b8 through+0x17e0; refresh follows returned status.",
+    "negative": "Stores int32 negation at+0x17ec and normalizes selector+0x17e8 to-1; exact INT_MIN instruction proof still needed.",
+    "other": "Successful zero,3, and unknown positive selectors retain their parsed selector and proceed to refresh.",
+    "refresh": "1d0fc0(root,0) occurs only on the fallthrough path; earlier explicit returns skip it."
+  },
+  "required_recovery_before_implementation": [
+    "Exact41bed0 record grammar, constructor field initialization, typed tables, payload ownership and failure ordering.",
+    "28b050 append allocation/constructor;28b240 clear/destructor; containing group initialization/destruction from28b850 and descendants.",
+    "415080 six-real helper outputs and continuation ABI.",
+    "PE-byte proof for every header, payload and list continuation, including ignored count statuses and negative INT_MIN behavior.",
+    "Root0x864 producer and feature29/53 behavior require a separate proof before leaving the current disabled-gate profile."
+  ],
+  "comparison_plan": [
+    "All selectors and unknown/negative routing in both dimensions; scalar and table transitions on the same record.",
+    "Selector1 one-axis counts0/1/2, selectors1/2/3 and unknown subselectors; failure at each staged header and each payload, preserving later old tables.",
+    "Selector2 empty/single/multiple list nodes, repeated replacement, failure after append and ignored skip1 count failure; capture physical arrays from observed allocations only.",
+    "Selector5 all six coefficients, partial line, matching failure, EOF and signed zero; refresh despite coefficient failure.",
+    "Cross-family retention: existing FSTRES tables, material references, relations and populated object meshes; primary/linked root resets and material removal."
+  ],
+  "limits": [
+    "No field names implying unproven scientific semantics.",
+    "No full native byte image, unknown padding, arbitrary allocator behavior or scientific-consumer equivalence.",
+    "The current FSTRES checkpoint remains pending original comparison; this plan does not mark it complete."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10"
+    }
+  ]
+}

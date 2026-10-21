@@ -1,0 +1,51 @@
+{
+  "status": "implemented_from_static_evidence_unbuilt_unintegrated_runtime_pending",
+  "files": [
+    "src/recovered/geometry_segments.hpp",
+    "src/recovered/geometry_segments.cpp"
+  ],
+  "evidence": "analysis/geometry-format-static-audit.json",
+  "scope": "Owned first GEO2D_AND_MESH2D container at object3998: ordered OBJ_GEO2D segment payloads, wrapper IDs, transform matrix, and the two retained flags. This is separate from spatial geometry at object3c00.",
+  "api": {
+    "class": "deform::recovered::GeometrySegments",
+    "import_segments": "int import_segments(KeywordReader&, int format, int count): implements39a200; status0 success,2 input failure or invalid format,3 matching failure.",
+    "import_transformed": "int import_transformed(KeywordReader&, int total_rows, int prefix_rows): implements399e60 and returns its helper status without wrapper remapping.",
+    "clear": "void clear(): clears segments, sets container flag0xb8=true, preserves matrix.",
+    "observations": "segments() returns a const span; matrix() returns const array<double,16> in native row-major order; flag_0xb8() returns the retained container byte.",
+    "segment_fields": "id (one-based wrapper+30), format (+10), count (+14), values (owned +18 payload), flag_0x28. Native auxiliary pointer+20 is null throughout this selected path and is not represented as an invented buffer."
+  },
+  "initial_state": {
+    "segments": [],
+    "matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+    "flag_0xb8": true,
+    "new_segment": "id=current count+1; format0,count0,empty data,flag0x28=false."
+  },
+  "readers": {
+    "segment_label": "Existing selector_integer(): stream base0 integer, no line discard.",
+    "segment_values": "Existing stream_real(): stream decimal, no comma replacement. Every assignment must succeed; conversion-1 returns2, conversion0 returns3.",
+    "discarded_prefix": "Existing coordinates3(): same415880 line scanner as the two discarded prefix records. Native output aliasing is unobservable because all outputs are discarded.",
+    "matrix_rows": "Requires parent addition KeywordReader::MatrixRowRead and matrix_row(), corresponding415990: label plus4 real values, one fgets1024 line, comma replacement, zeroed outputs, status1 only fgetsnull or scan-1. Parent agreed this API; it is intentionally not added by this component task."
+  },
+  "behavior": [
+    "No final line read after import_segments. Counts exclude separator rows labelled-1, although each separator consumes a complete numeric row. Initial/consecutive separators create empty segments.",
+    "A complete group commits at a separator or the final advertised nonseparator row. Existing segments are overwritten by zero-based index, missing segments appended, trailing segments retained. Incomplete groups never commit; earlier groups survive errors.",
+    "Successful format2 multiplies every stored segment's sixth value in each stride6 row by0.017453292519943295, including untouched trailing format2 segments. Early returns perform no angle conversion.",
+    "Format3 validates0<prefix<total. Prefix2/6 discards two line records before clearing. Clearing then creates one empty segment. Prefix4/6 reads four matrix rows into a local replacement, committed only after all four helpers succeed. Matrix failure leaves the old matrix but retains prior segment clearing. Other positive prefix values consume no prefix records but still subtract from total.",
+    "No spatial flags3990/3994, component tables, mesh arrays, root fields, or scientific finalizers are changed by this class."
+  ],
+  "caller_integration": [
+    "Parent must retain DIEGEO header conversion-count dispatch, not interpret the fifth413fb0 argument as another input integer.",
+    "Planar format1/2 dispatch does not pre-clear and maps any nonzero39a200 result to2.",
+    "Spatial exactly-two-conversion format1/2 dispatch pre-clears a nonempty alternate container, calls39a200, then ignores its returned status. Exceptions for unsupported domains must remain explicit unsupported outcomes, not silently suppressed native statuses.",
+    "Spatial format3 dispatch maps a nonzero399e60 result to2. This class already performs its internal clear at the recovered point."
+  ],
+  "unsupported_domains": [
+    "Negative count or signed32 byte-extent overflow: throws invalid_argument/out_of_range. The conservative bound also excludes the275fa0 signed32 memset-size overflow.",
+    "Format2 conversion over retained storage shorter than count*6: throws after input/group commits but before any angle conversion. This specifically exposes the native mixed trailing format1 out-of-bounds hazard; it is not a repaired behavior presented as equivalent.",
+    "Segment IDs beyond signed32, allocation failure, native borrowed pointers, missing container/dynamic-cast failures, and other native subcollections are outside the ownership contract.",
+    "The existing reader's finite decimal/integer compatibility boundaries apply. Nonfinite and overflow/underflow input behavior is not broadened.",
+    "Native temporary storage leaks on reader errors. C++ private ownership releases it; no memory-allocation identity/leak equivalence is claimed.",
+    "Matrix interpretation by downstream geometry consumers, alternate-geometry deactivation, native external ownership, and scientific finalization remain outside this component."
+  ],
+  "validation": "Static review and whitespace check only. No CMake integration, build, tests, original execution, or changes to current frozen sources. Original comparison remains required."
+}

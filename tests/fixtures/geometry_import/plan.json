@@ -1,0 +1,70 @@
+{
+  "status": "13 concrete direct3D fixtures prepared; no original capture",
+  "scope": "DIEGEO158 spatial direct import first; planar and alternate formats require separate format/ABI proof. Existing model/finalizer observations retained.",
+  "probe": "tools/observe_geometry_import.js",
+  "probe_completeness": "Spatial COWvector begin/end/capacity, allocation-tracked classification, auxiliaryfacevector, planes withrawpoint/normal, row helpers, flags, finalization. Rank2D/alternateDIEGEO formats excluded.",
+  "required_offsets": [
+    "Geometry vertex count, face count, coordinates buffer, four-int face records, classification array, allocation extents and ownership during replacement.",
+    "Plane list record location/count/head/next or array pointers, plane id/point/normal fields, insertion/reset behavior.",
+    "Virtual+48 target and scale definition used by local80*0.001 plane tolerance.",
+    "DIEGEO direct header/row formats and callsite ABI, count setters/allocators and row failure writes.",
+    "Constructor/deactivation/reset geometry state and3994 semantics; classify initialization and skipped-face retention."
+  ],
+  "proposed_cases": [
+    {
+      "case": "minimal_valid_triangle",
+      "purpose": "Nondegenerate triangle enables finalizer; observe one plane and per-face classification."
+    },
+    {
+      "case": "coplanar_pair",
+      "purpose": "Two eligible triangles with matching orientation and plane establish deterministic grouping/order."
+    },
+    {
+      "case": "opposite_orientation",
+      "purpose": "Reverse face winding to test angular criterion without assuming absolute-normal equivalence."
+    },
+    {
+      "case": "distinct_plane",
+      "purpose": "Parallel translated and tilted triangles exercise separate-plane creation at comfortably non-boundary distances."
+    },
+    {
+      "case": "face_ineligibility",
+      "purpose": "Fourth connectivity integer positive skips face; observe classification retention exactly."
+    },
+    {
+      "case": "degenerate_triangle",
+      "purpose": "Repeated/coincident/collinear vertices test normal-length gate and untouched classification, after helper numeric audit."
+    },
+    {
+      "case": "header_failure",
+      "purpose": "Blank/EOF/partial header tests whether prior geometry and flags survive; no invalid connectivity dereferences."
+    },
+    {
+      "case": "partial_coordinate_rows",
+      "purpose": "Bounded failed coordinate read; only run when validation confirms resulting indices remain safe for finalizer."
+    },
+    {
+      "case": "partial_connectivity_rows",
+      "purpose": "Potential zero/invalid indices can cause original out-of-bounds reads; defer until guarded branch or finalization behavior is established."
+    },
+    {
+      "case": "repeated_replacement",
+      "purpose": "Change counts and geometry twice; verify allocation lifetime, flag persistence, plane-list reset and classification replacement."
+    },
+    {
+      "case": "dimension_reset",
+      "purpose": "Transition valid spatial geometry through reset, then reimport; establish geometry ownership cleanup."
+    },
+    {
+      "case": "plane_thresholds",
+      "purpose": "Separate held-out cases around1e-6 normal,0.01 angular andscale*0.001 distance only after exact numeric helpers/scale are proven."
+    }
+  ],
+  "execution_constraints": [
+    "No original launch by this agent.",
+    "Predeclare concrete KEY bytes and hashes only after header/row format resolved.",
+    "Freeze candidate before original evaluation.",
+    "Private bounded cwd,source/probe/fixture identity,PID,continuous events,normal exit required.",
+    "Read buffers only within proven allocated extents; never derive extents solely from newly written counts during replacement."
+  ]
+}

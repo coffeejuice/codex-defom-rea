@@ -1,0 +1,39 @@
+{
+  "status": "failed_initial_candidate_output_channel",
+  "created_utc": "2026-10-20T23:31:31.280967+00:00",
+  "bindings": [
+    {
+      "path": "tools/compare_material_shape_import.py",
+      "sha256": "c0767a55ed7be694256a9126af0944b104144d8344af61e21ffd40a42401c534"
+    },
+    {
+      "path": "analysis/material-shape-candidate-freeze.json",
+      "sha256": "06088a59d1838394c8766f3db3ab89269417da9892411ef5976feeeba1bed3e2"
+    },
+    {
+      "path": "analysis/material-shape-runtime-training.json",
+      "sha256": "34cacfea72987da8a6860f393ed6675ab3eebb8b3742662bc51be6c5dc2167c1"
+    },
+    {
+      "path": "analysis/material-shape-input-freeze-v2.json",
+      "sha256": "83737936fa0332a5a8aea50d2cbcbc847da8a84acbb42063ff1f2c0f7d0269ac"
+    },
+    {
+      "path": "analysis/oracle/material-shape-training/run.json",
+      "sha256": "05a99c39354ff9cc5fb6ae0337a918d017a601817833e2e981a15465eb4755b5"
+    }
+  ],
+  "checker_archive": {
+    "path": "analysis/oracle/material-shape-comparator-initial/compare_material_shape_import.py",
+    "sha256": "c0767a55ed7be694256a9126af0944b104144d8344af61e21ffd40a42401c534"
+  },
+  "original_stdout_diagnostic_count": 1,
+  "original_stderr_diagnostic_count": 0,
+  "original_stderr_hex": "",
+  "replacement_observed_stderr": "Error in TEXTURE_DATA::countNumODFs()\n",
+  "error": "ValueError: replacement replay stderr/status differs: Error in TEXTURE_DATA::countNumODFs()",
+  "failed_check": "process.returncode == 0 and process.stderr == expected_stderr, expected_stderr empty from original transcript",
+  "classification": "Candidate output channel mismatch; not a checker tolerance or JSON metadata issue. Original-side structural/lifecycle checks completed; replacement state comparison was not reached.",
+  "changes_made": [],
+  "next": "Correct production output channel based on retained native evidence, preserve initial freeze, create corrected candidate freeze; expose per-command raw stdout diagnostic bytes through replay JSON."
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "status": "selected_alternate_geometry_profile_implemented_and_compared",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "scope": "DIEGEO segmented planar/spatial and transformed imports into the first owner-bound alternate container; lifecycle and coexistence with direct spatial geometry. Complete application remains unfinished.",
+  "implementation": [
+    "src/recovered/geometry_segments.hpp",
+    "src/recovered/geometry_segments.cpp",
+    "src/recovered/keyword_reader.cpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_import.cpp"
+  ],
+  "verified_behavior": [
+    "Every supported owner-bound object starts with one empty alternate container and identity transform.",
+    "Planar segment imports replace committed groups by index, retain untouched trailing groups, and map internal errors to handler2.",
+    "Spatial two-field headers clear existing segments before reading, preserve transform, and ignore ordinary internal segment-reader status.",
+    "Separator rows consume numeric data without contributing to advertised count; committed earlier groups survive later failures.",
+    "Successful format2 converts sixth values of every stored segment, including retained trailing segments; early failure skips conversion.",
+    "Transformed imports consume conditional prefixes before clear, then create an empty segment; four matrix rows commit together only after all row helpers succeed.",
+    "Matrix row outputs start at zero and partial or zero-conversion scans can return success; missing-row errors preserve old matrix after the earlier segment clear.",
+    "Deactivation restores alternate identity/empty defaults; reactivation does not restore old payload. Dimension changes destroy objects, same-dimension headers preserve them.",
+    "Direct spatial geometry and alternate segments retain separate payload and flags; direct plane finalization still runs when its flag is enabled."
+  ],
+  "captures": [
+    {
+      "phase": "training",
+      "original_imports": 30,
+      "tokens": 35,
+      "row_helpers": 59,
+      "scalar_scans": 142,
+      "descriptor_snapshots": 1590,
+      "internal_reader_calls": 37,
+      "independent_tamper_rejections": 16,
+      "evidence_id": "ev_b1b712306aabfb1ba7f8cd9abf26422696efe18c9846a4f3f9bdc0bfc28b265a",
+      "pid": 36388,
+      "candidate_all_28_matched_at_verification": true,
+      "comparison": "analysis/geometry-segments-training-comparison.json",
+      "audit": "analysis/geometry-segments-audit-observations.json"
+    },
+    {
+      "phase": "held-out",
+      "original_imports": 24,
+      "tokens": 30,
+      "row_helpers": 53,
+      "scalar_scans": 65,
+      "descriptor_snapshots": 1272,
+      "internal_reader_calls": 20,
+      "independent_tamper_rejections": 19,
+      "evidence_id": "ev_819f74b80e40febbc84e74ced76c7d29037f3df57059e64e488f2909be5fc51d",
+      "pid": 34072,
+      "candidate_all_28_matched_at_verification": true,
+      "comparison": "analysis/geometry-segments-held-out-comparison.json",
+      "audit": "analysis/geometry-segments-audit-held-out-observations.json"
+    }
+  ],
+  "totals": {
+    "original_imports": 54,
+    "tokens": 65,
+    "row_helpers": 112,
+    "scalar_scans": 207,
+    "descriptor_snapshots": 2862,
+    "internal_reader_calls": 57,
+    "independent_tamper_rejections": 35,
+    "ctests_passed": 29
+  },
+  "candidate_history": {
+    "freeze_entries": 28,
+    "unchanged_across_both_captures_and_strict_verification": true,
+    "post_verification_change": "CMakeLists.txt registers the two tests. Other27 frozen source/driver/library entries remain identical; receipt binds exact test-only diff and archived CTest log. No C++ correction after freeze.",
+    "receipt": "analysis/geometry-segments-test-registration.json"
+  },
+  "preserved_diagnostic": {
+    "path": "analysis/geometry-segments-initial-comparator-error.json",
+    "cause": "Comparator assumed every segment-clear event was within DIEGEO. Original construction and dimension cleanup also invoke clear. Corrected comparator verifies those paired lifecycle events and matrix preservation; candidate, probe and fixtures unchanged."
+  },
+  "evidence_boundaries": [
+    "Static pseudocode and supplemental dispatch assembly establish call/field semantics; runtime captures separately establish observed behavior.",
+    "The original-only audit checks provenance, scanner assignments, allocation zeroing, group commits and lifecycle. Independent corrupted-record checks test its sensitivity.",
+    "Comparison uses original raw binary64 bytes, complete represented buffers, handler and final states; pointer identities/capacities are provenance rather than cross-process ABI targets.",
+    "Prepared fixture manifests retain their pre-execution status and hypotheses as historical evidence; these completed reports supersede their pending outcomes."
+  ],
+  "limitations": [
+    "Finite bounded fixtures do not prove all importer or numeric behavior.",
+    "Negative/overflowing segment extents, nonfinite/range failures and unsafe retained format1 storage visited by format2 remain explicit unsupported domains.",
+    "Additional geometry containers, shared ownership, allocation failures, transient native leaks and full downstream transformation/scientific operations remain unrecovered.",
+    "Material-empty finalization profile only; populated-material initialization, reconciliation and component remapping are the next recovery area.",
+    "Public database-loader interfaces remain unchanged; full original console/file/API replacement is not complete."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/geometry-format-static-audit.json",
+      "sha256": "4f4e3b8c1b45332b934eb98c49bd63250926e30555462589d7310a4c9aa51ccb"
+    },
+    {
+      "path": "analysis/geometry-segments-probe-static-audit.json",
+      "sha256": "d5de30b1bbaf8e581447ae87364754a14858194ba9e781e31b8fa4794e890339"
+    },
+    {
+      "path": "analysis/geometry-segments-implementation-contract.json",
+      "sha256": "129211046e8588bc0341c35d158ee13f54441be3a1a2641779a303eafef5d400"
+    },
+    {
+      "path": "analysis/geometry-segments-integration-contract.json",
+      "sha256": "09b0b7355e239c2f2bf287cde401f262172ed15ca62cdfbb12d1a3fbfdf4b914"
+    },
+    {
+      "path": "analysis/geometry-matrix-row-contract.json",
+      "sha256": "c562cbdc6643408f0b959cc0657f5e87599538bd2ecf10292d2fb78b6a3cf711"
+    },
+    {
+      "path": "analysis/geometry-segments-audit-static.json",
+      "sha256": "45f88101b3954471002af689b07393a9d35db3aac50589b6232eb826173f5695"
+    },
+    {
+      "path": "analysis/geometry-segments-candidate-freeze.json",
+      "sha256": "e64991a802db73157a70a76f5448df4ddbcb4f527033f8b8be4736a683775ea1"
+    },
+    {
+      "path": "analysis/geometry-segments-held-out-input-freeze.json",
+      "sha256": "af694d133a231a4d48af14dfb5d75ea242a470f4fd70de1df6112b1c9d0808b4"
+    },
+    {
+      "path": "analysis/geometry-segments-initial-comparator-error.json",
+      "sha256": "889f8f62bdaf89ade64cf2a6f8b7d5ac49687e8d4db7841ff64497ac63c15646"
+    },
+    {
+      "path": "analysis/geometry-segments-test-registration.json",
+      "sha256": "7267af7b96f385358b18f23fb2a189dcae3ff7cd89c5a0a644e9ca68c341e7c7"
+    },
+    {
+      "path": "analysis/geometry-segments-training-comparison.json",
+      "sha256": "6f615be6156f1e8887c9a94be1997aac6f155670451f00dcba2afbd4a9b7a558"
+    },
+    {
+      "path": "analysis/geometry-segments-audit-observations.json",
+      "sha256": "cb6850f6a6e692109a21f847a67f67eb7a5b41401cda80924afa9b8ad678810f"
+    },
+    {
+      "path": "analysis/geometry-segments-held-out-comparison.json",
+      "sha256": "c937999482a2b23a54cceb2b5715a43327aa239a11418c572e26943dfb900c03"
+    },
+    {
+      "path": "analysis/geometry-segments-audit-held-out-observations.json",
+      "sha256": "a7fe149b2fcf1085165d68878e4747b742f8b0888419750545ff9f3c7d9a28ed"
+    }
+  ]
+}

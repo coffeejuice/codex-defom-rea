@@ -1,0 +1,187 @@
+{
+  "status": "two_new_tests_pass",
+  "created_utc": "2026-10-20T23:12:47.385363+00:00",
+  "seconds": 3.37,
+  "commands": [
+    "cmake -S . -B build",
+    "ctest --test-dir build -C Release -R '^custom_field_(reference|held_out)_replay$' --output-on-failure --output-log analysis/oracle/custom-field-ctest.log"
+  ],
+  "test_log": {
+    "path": "analysis/oracle/custom-field-ctest.log",
+    "sha256": "fa4d69ceb17cf789cc855e8c4c6d3002fd772d2a0479ecd2e83d72fc26497953"
+  },
+  "candidate_freeze": {
+    "path": "analysis/custom-field-candidate-freeze.json",
+    "sha256": "3df0a5238833b7bb81ee4a99e1b54fb8d3dceefa7f1ee451060e1e0d261c57ef"
+  },
+  "all_29_runtime_files_unchanged": true,
+  "candidate_files": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/custom_fields.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/custom_fields.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "cmake": {
+    "path": "CMakeLists.txt",
+    "sha256": "7cd37983077c086908ae7b6623752c452c11c6e89e803ba7f9bd94f4d20b66d2"
+  },
+  "previous_cmake": {
+    "path": "analysis/oracle/custom-field-test-registration/CMakeLists.before.txt",
+    "sha256": "eb0887f6f2a5b593a78df9614a6bbc74f659ba5ea0043f215c361c7d1d6a25ed"
+  },
+  "registration_diff": {
+    "path": "analysis/oracle/custom-field-test-registration/registration.diff",
+    "sha256": "8104f4bc5d8e61718253702083670b4c1b62bd5efe23da4ac9104d64925dbeea"
+  },
+  "comparator": {
+    "path": "tools/compare_custom_field_import.py",
+    "sha256": "c9fe329da8a06fd76704a738ef68b6c4b0c577ad415700b76bd8277595e7fe17"
+  },
+  "reports": [
+    {
+      "binding": {
+        "path": "analysis/custom-field-training-comparison.json",
+        "sha256": "72d8ec2d0bd0fb3902ed4a95b03c507ae462b0f1fada173e38859138dffe7585"
+      },
+      "imports": 32,
+      "tokens": 42,
+      "handler_snapshots": 42,
+      "descriptors": 1643,
+      "custom_handlers": 32,
+      "custom_readers": 64,
+      "custom_scalars": 56,
+      "destructions": 4
+    },
+    {
+      "binding": {
+        "path": "analysis/custom-field-held-out-comparison.json",
+        "sha256": "89e2426564da953f2d7b0666d39ca92a605eb1011dbb869757ccb0d844207af3"
+      },
+      "imports": 32,
+      "tokens": 38,
+      "handler_snapshots": 38,
+      "descriptors": 1643,
+      "custom_handlers": 28,
+      "custom_readers": 54,
+      "custom_scalars": 58,
+      "destructions": 4
+    }
+  ],
+  "notes": [
+    "Two new regression tests only; parent previously ran all 40 baseline tests on this frozen candidate.",
+    "CMake registration adds tests without changing frozen runtime sources or binaries.",
+    "Held-out strict comparison required no checker changes. Training corrected only metadata dictionary identity handling; development diagnostic retained."
+  ]
+}

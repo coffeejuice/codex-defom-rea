@@ -1,0 +1,25 @@
+--- CMakeLists.txt.before
++++ CMakeLists.txt.after
+@@ -214,4 +214,22 @@
+       --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-column-held-out/run.json"
+       --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-column-held-out-cases.json"
+       --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-column-held-out-input-freeze.json")
++  add_test(NAME mesh_field_reference_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_field_import.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
++      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-runtime-training-v2.json"
++      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/mesh-field-training-v2/run.json"
++      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-evaluation-cases-v2.json"
++      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-candidate-freeze.json"
++      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-v2-input-freeze.json")
++  add_test(NAME mesh_field_held_out_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_field_import.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
++      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-runtime-held-out.json"
++      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/mesh-field-held-out/run.json"
++      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-held-out-cases.json"
++      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-candidate-freeze.json"
++      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-held-out-input-freeze.json")
+ endif()

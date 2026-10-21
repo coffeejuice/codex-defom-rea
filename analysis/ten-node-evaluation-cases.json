@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "scope": "Two rejection/control-flow inputs; no new geometry, original execution, replacement execution, or predicted model-state outputs.",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "required_baseline": {
+    "path": "tests/fixtures/keywords/07_tetrahedron.KEY",
+    "sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+    "protocol": "Import this known tetrahedron fixture immediately before each rejection case, record the complete before snapshot, then import exactly one case and record its status/after snapshot. Reimport the baseline before the second case to isolate effects."
+  },
+  "syntax_basis": {
+    "header": "Intentionally no dimension/header/object-creation/coordinate block. The preceding baseline supplies dimension3 and object1 with four existing nodes.",
+    "ELMCON": "Object ID, element count, requested arity10 followed by a labeled ten-integer row containing1..10. Baseline defines only four nodes; missing node coordinates are intentional because this is a rejection/control-flow probe, not a valid mesh.",
+    "OBJNAM": "Second fixture appends supported OBJNAM object ID and next-line name syntax."
+  },
+  "evidence": [
+    {
+      "path": "analysis/keyword-handlers-evidence.json",
+      "sha256": "77a33290e256a1db6a526d86a4572ad57c071ff51ac8e7c560abf7e5affb5550",
+      "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+      "procedure": "0x14038b8a0"
+    },
+    {
+      "path": "analysis/keyword-parser.json",
+      "sha256": "3a7445dfe4e7a131767b7a5fc65edfde052b7e5d94280e69775e9988109474e7",
+      "evidence_id": "ev_aefdab7cc5bacd20219db5946789b42596854134a4eb31098b26448449930416",
+      "procedure": "0x1401b6520"
+    }
+  ],
+  "cases": [
+    {
+      "id": "15_unsupported_ten_nodes",
+      "path": "tests/fixtures/keywords/15_unsupported_ten_nodes.KEY",
+      "sha256": "88d8d074b5a0951c407fa3c68b1d0f3a1f4caf7123fe20a943956b6d7ace92f8",
+      "size_bytes": 37,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "requested_arity": 10,
+      "requested_element_count": 1,
+      "object_id": 1,
+      "connectivity_payload": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "payload_classification": "Sequential IDs1..10 solely as rejected-input payload. Baseline defines only1..4; IDs5..10 intentionally have no coordinates. This is not a valid ten-node geometry.",
+      "following_name": null,
+      "research_questions": [
+        "What exact import status and handler control flow occur for this requested arity?",
+        "Which object count, kind, arity, connectivity, coordinates, name, and boundary fields differ from the baseline after import?"
+      ],
+      "original_execution_status": "not_run"
+    },
+    {
+      "id": "16_unsupported_ten_followed_name",
+      "path": "tests/fixtures/keywords/16_unsupported_ten_followed_name.KEY",
+      "sha256": "c9df3c3fd14e19639e0b9890021f1494e1c2752f15fe51f222726bbcd5d7bc9d",
+      "size_bytes": 83,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "requested_arity": 10,
+      "requested_element_count": 1,
+      "object_id": 1,
+      "connectivity_payload": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "payload_classification": "Sequential IDs1..10 solely as rejected-input payload. Baseline defines only1..4; IDs5..10 intentionally have no coordinates. This is not a valid ten-node geometry.",
+      "following_name": "REA after unsupported ten-node block",
+      "research_questions": [
+        "What exact import status and handler control flow occur for this requested arity?",
+        "Which object count, kind, arity, connectivity, coordinates, name, and boundary fields differ from the baseline after import?",
+        "Is the later supported OBJNAM block processed after the rejected ELMCON block, and what final status is returned?"
+      ],
+      "original_execution_status": "not_run"
+    }
+  ],
+  "validation": {
+    "all_ascii": true,
+    "only_requested_blocks_present": true,
+    "ten_payload_integers_each": true,
+    "no_expected_state_recorded": true,
+    "payload_ids_sequential_one_through_ten": true,
+    "payload_ids_five_through_ten_lack_baseline_coordinates": true
+  }
+}

@@ -1,0 +1,1962 @@
+{
+  "schema_version": 1,
+  "implementation_checkpoints": [
+    {
+      "component": "Keyword row readers and legacy decimal scanning",
+      "source": "src/recovered/keyword_reader.cpp",
+      "status": "implemented_subset",
+      "evidence": [
+        "analysis/keyword-reader-contract.json",
+        "analysis/keyword-reader-comparison.json",
+        "analysis/keyword-row-observations.json"
+      ],
+      "validation": "66 original helper calls match status, conversion count, line consumption and numeric output bytes; 23 held-out calls passed after candidate-source freeze.",
+      "qualification": "Includes the observed correction for hexadecimal floats and incomplete exponents. Full token dispatch, file translation, numeric range/rounding and model mutation remain pending."
+    },
+    {
+      "component": "Integrated mesh storage",
+      "source": "src/recovered/mesh_storage.cpp",
+      "status": "implemented_subset",
+      "evidence": [
+        "analysis/mesh-storage-contract.json",
+        "analysis/mesh-storage-comparison.json"
+      ],
+      "validation": "39 object snapshots and 2067 descriptor snapshots match across four original processes; 19 snapshots additionally compare direct buffers and boundary state, including mesh deactivation.",
+      "qualification": "Default 3D layouts, partial imports and eight deactivation discovery snapshots. It does not compare original addresses or prove full scanner, object lifecycle, error-status or scientific finalization equivalence."
+    },
+    {
+      "component": "Internal state-variable storage",
+      "source": "src/recovered/state_variable.cpp",
+      "status": "implemented_subset",
+      "evidence": [
+        "analysis/mesh-array-contract.json",
+        "analysis/state-variable-comparison.json"
+      ],
+      "validation": "1060 descriptor snapshots reproduced exactly across seven original imports.",
+      "qualification": "This is an allocation component, not a complete application model or keyword importer."
+    },
+    {
+      "component": "Internal tetrahedral boundary construction and legacy sort",
+      "source": "src/recovered/mesh_boundary.cpp",
+      "status": "implemented_subset",
+      "evidence": [
+        "analysis/mesh-boundary-contract.json",
+        "analysis/mesh-boundary-comparison.json"
+      ],
+      "validation": "12 tetrahedral boundary outputs and 10 sort permutations reproduced exactly; candidate unchanged through separate held-out evaluation.",
+      "qualification": "Four-node 3D elements only. Other element kinds and complete importer integration remain outstanding."
+    },
+    {
+      "component": "Internal eight-slot boundary construction",
+      "source": "src/recovered/hexa_boundary.cpp",
+      "status": "implemented_subset",
+      "evidence": [
+        "analysis/hexa-boundary-contract.json",
+        "analysis/hexa-boundary-comparison.json"
+      ],
+      "validation": "16 boundary outputs and 16 sort permutations reproduced exactly across three original processes; candidate unchanged after freeze.",
+      "qualification": "Includes observed zero/repeated-node collapsed and mixed classes. Native invalid-memory faults and malformed numerical domains remain exclusions; complete importer integration remains outstanding."
+    },
+    {
+      "component": "Internal planar boundary construction",
+      "source": "src/recovered/planar_boundary.cpp",
+      "status": "implemented_subset",
+      "evidence": [
+        "analysis/planar-boundary-contract.json",
+        "analysis/planar-boundary-comparison.json"
+      ],
+      "validation": "12 exact raw boundary streams/ranges and object-consumer outputs across two original processes; candidate unchanged after freeze.",
+      "qualification": "Positive-node bounded meshes only; malformed IDs, group truncation, allocation failure and importer integration remain outstanding."
+    }
+  ],
+  "scope": "Partial evidence-based inventory for full DEF_PRE_64.exe reconstruction; not an exhaustive application specification or completion percentage.",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+    "platform": "Windows x64",
+    "interface": "Observed console/text preprocessor"
+  },
+  "method": "Read saved REA static/runtime evidence and current replacement source. No new provider queries or original-process execution in this inventory pass.",
+  "status_axes": {
+    "static": [
+      "string_only_candidates",
+      "parser_confirmed",
+      "dispatcher_confirmed",
+      "recovered_partial"
+    ],
+    "runtime": [
+      "not_characterized",
+      "tested_bounded",
+      "partial_artifact_corroboration"
+    ],
+    "implementation": [
+      "not_implemented",
+      "implemented_subset"
+    ],
+    "interpretation": "Axes are independent. A dispatched command is not a recovered algorithm. A successful bounded comparison does not establish universal compatibility."
+  },
+  "evidence": {
+    "main": {
+      "file": "analysis/main.json",
+      "evidence_id": "ev_40aff2affaeb24877b1eebf99b947eec4b59d655148415e723720a3676767b19",
+      "procedure": "0x14001c9f0"
+    },
+    "args": {
+      "file": "analysis/argument_parser.json",
+      "evidence_id": "ev_c49448250c3aa00308ec08e430a46478ec72cd950e0912479001a885037c617f",
+      "procedure": "0x14001b7b0"
+    },
+    "main_dispatch": {
+      "file": "analysis/startup-0x14001ad90.json",
+      "evidence_id": "ev_e3bfeedf3c93ae2a5da906748964d377af23ba77c5e082e14130f9fcc64aa575",
+      "procedure": "0x14001ad90"
+    },
+    "main_menu": {
+      "file": "analysis/startup-0x14000a200.json",
+      "evidence_id": "ev_3139de42245eaa4a6d0dc778c09ba7ad7906923a61d2b43d76f063f055132ed8",
+      "procedure": "0x14000a200"
+    },
+    "input_dispatch": {
+      "file": "analysis/keyword-dispatch.json",
+      "evidence_id": "ev_704219a5c530c0d99650cf52ef84b36d8c5df196b2ca4b784e5b36f86f18f73f",
+      "procedure": "0x140014ba0"
+    },
+    "input_menu": {
+      "file": "analysis/keyword-menu.json",
+      "evidence_id": "ev_23312d161f49d725ae696826da19653a54871fb84d9af237a90ade19dfe70262",
+      "procedure": "0x14000bac0"
+    },
+    "menu_strings": {
+      "file": "analysis/application-menu-inventory.json"
+    },
+    "startup_spec": {
+      "file": "analysis/startup-existing-evidence.json"
+    },
+    "startup_runtime": {
+      "file": "analysis/startup-observations.json"
+    },
+    "keyword_spec": {
+      "file": "analysis/model-lifecycle-specification.json"
+    },
+    "keyword_runtime": {
+      "file": "analysis/keyword-observations.json"
+    },
+    "keyword_table": {
+      "file": "analysis/keyword-table-selected.json",
+      "evidence_id": "ev_95e7b9181fc3326c058a90c14a41cd431d65de21cf1cfe423ac621156b1b0c97"
+    },
+    "keyword_reader": {
+      "file": "analysis/keyword-reader.json",
+      "evidence_id": "ev_bf855ce11b4915b6be4ef2e2a91b1324766ebba712a1af30d9f8223eaf4ba65e",
+      "procedure": "0x1401b5f00"
+    },
+    "keyword_parser": {
+      "file": "analysis/keyword-parser.json",
+      "evidence_id": "ev_aefdab7cc5bacd20219db5946789b42596854134a4eb31098b26448449930416",
+      "procedure": "0x1401b6520"
+    },
+    "db_import": {
+      "file": "analysis/import-0x1401cc420.json",
+      "evidence_id": "ev_63a524ebe7fc74a3177cd409eea867d47487ae67defa9a9b2c05cfc4c867288d",
+      "procedure": "0x1401cc420"
+    },
+    "db_selection": {
+      "file": "analysis/import-0x14000b170.json",
+      "evidence_id": "ev_9d4c73ba9ff2f49d21b78bc824359685349d6698338afc281f0437b33ff0c7dc",
+      "procedure": "0x14000b170"
+    },
+    "db_loader": {
+      "file": "analysis/loader_dispatch.json",
+      "evidence_id": "ev_2ab3c4d5d45ccf9861bd4923e46e07ff37dee4cfd6e87aa155ab33720defd593",
+      "procedure": "0x1403b5a04"
+    },
+    "db_source": {
+      "file": "analysis/datarm-source-map.json"
+    },
+    "batch_comparison": {
+      "file": "analysis/oracle-comparison.json"
+    },
+    "array_comparison": {
+      "file": "analysis/runtime-comparison.json"
+    },
+    "object_comparison": {
+      "file": "analysis/object-comparison.json"
+    },
+    "object_schema": {
+      "file": "analysis/object-summary-schema.json"
+    },
+    "object_finalization": {
+      "file": "analysis/model-0x1402059a0.json",
+      "evidence_id": "ev_fdc50ece7fa2a610fa0a0bd728b4f59c673c6c47edb5b74317402fb5c6813d9c",
+      "procedure": "0x1402059a0"
+    },
+    "db_write_candidate_1": {
+      "file": "analysis/import-0.json",
+      "evidence_id": "ev_4395c64bcde3ddc6f770e49c26d449792b49307059ef3b94c028213ab8ce2822"
+    },
+    "db_write_candidate_2": {
+      "file": "analysis/import-1.json",
+      "evidence_id": "ev_20bd73b84c0c2886b558f9972dd1b07264a3dd8e762f689d5a40425dda2d0aec"
+    },
+    "db_write_candidate_3": {
+      "file": "analysis/import-2.json",
+      "evidence_id": "ev_acb68df0006c62b37ce5d28a01bb1872604c6b8acf1a5e30e24415a832f5908a"
+    },
+    "cpp_build": {
+      "file": "CMakeLists.txt"
+    },
+    "cpp_cli": {
+      "file": "tools/deform_db.cpp"
+    },
+    "cpp_loader": {
+      "file": "include/deform/database.hpp"
+    },
+    "cpp_objects": {
+      "file": "include/deform/object_summary.hpp"
+    },
+    "readme": {
+      "file": "README.md"
+    },
+    "handler_0x1401d63c0": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_244ddc31f118de343342c6537e2952500548d6d19db44f31ce86f65b6e1cc451",
+      "procedure": "0x1401d63c0"
+    },
+    "handler_0x140383120": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_6513c088ecb9ec49bb29c4cd07545192e2daca1fb8c486b32b13450a3418c2e4",
+      "procedure": "0x140383120"
+    },
+    "handler_0x140384a50": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108",
+      "procedure": "0x140384a50"
+    },
+    "handler_0x14038b8a0": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+      "procedure": "0x14038b8a0"
+    },
+    "handler_0x14039aa90": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+      "procedure": "0x14039aa90"
+    },
+    "handler_0x1401d6250": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078",
+      "procedure": "0x1401d6250"
+    },
+    "handler_0x140388fb0": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_d03941c0fea54e1002b165756ea3c5ce7e3b2fb37d15a08b0e325178bbfd6c5f",
+      "procedure": "0x140388fb0"
+    },
+    "handler_0x140378e00": {
+      "file": "analysis/keyword-handlers-evidence.json",
+      "evidence_id": "ev_ee137353e8e7af83a905cfca7056341401c12a3e30241ae8193a3079439d3380",
+      "procedure": "0x140378e00"
+    },
+    "batch_header": {
+      "file": "analysis/batch_header.json",
+      "evidence_id": "ev_5f467795441cb31b928ea758991e5928386afee469d2df1cd6dbdf04ebc23298",
+      "procedure": "0x14001bc80"
+    },
+    "batch_stepList": {
+      "file": "analysis/batch_steps.json",
+      "evidence_id": "ev_b2dd63f6259fe1c3a59dd05107a6911d7c15d50950ffed7e17359b967f13d36e",
+      "procedure": "0x14001be50"
+    },
+    "batch_lastStepNo": {
+      "file": "analysis/batch_last.json",
+      "evidence_id": "ev_77cb4a3ba7f1887e19fa7a2a22e4c7c37f8014e54dc57794487ae08b33d74de6",
+      "procedure": "0x14001bf40"
+    },
+    "batch_simStepList": {
+      "file": "analysis/batch_simsteps.json",
+      "evidence_id": "ev_50edd0939d2f94fa806875f423b33536db37637ba3a65b043c113022da8ce584",
+      "procedure": "0x14001c100"
+    }
+  },
+  "features": [
+    {
+      "id": "startup",
+      "title": "Startup, configuration and initial model",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x14001c9f0",
+        "facts": [
+          "Application main separates batch dispatch from interactive context construction.",
+          "Interactive initialization chooses successfully opened DEF_MULTI.INI, else DEF_PRE3.INI, else DEF_PRE.INI.",
+          "Two root models, separate DB helpers and model linking precede startup configuration."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Four fresh suspended-launch captures verified.",
+          "First-menu primary/secondary dimensions are 3/2 without configuration, 3/2 with PRE3 plus PRE, and 2/2 with PRE only.",
+          "MULTI has priority with all three files present and exits without main menu.",
+          "Selected controls, 79 component counts and object ownership were observed; this is not complete model-state validation."
+        ]
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main",
+        "startup_spec",
+        "startup_runtime"
+      ],
+      "next_questions": [
+        "Recover untraced startup service at 0x140224d80 and deeper global initialization.",
+        "Establish malformed configuration-file behavior and full construction/destruction ownership."
+      ]
+    },
+    {
+      "id": "console_dispatch",
+      "title": "Main console command loop",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "entry": "0x14001ad90",
+        "facts": [
+          "Menu entries 1 through 9 map to code branches.",
+          "0/E/e requests confirmation; /,R,r redisplay through a separate loop branch.",
+          "The shown loop increments a trial counter and breaks after it exceeds 100; exact input and redisplay behavior need focused tests."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Startup captures reach the main menu and exit through E/Y in three cases.",
+          "KEY and DB fixture transcripts traverse File Input; other command branches are not thereby validated."
+        ]
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_dispatch",
+        "main_menu",
+        "startup_runtime",
+        "keyword_runtime",
+        "object_comparison"
+      ],
+      "next_questions": [
+        "Recover shared input helpers, empty input, cancellation, EOF and trial-count behavior.",
+        "Inventory every nested dispatcher and classify its state changes."
+      ]
+    },
+    {
+      "id": "problem_id",
+      "title": "Change Problem ID",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "1",
+        "entry": "inline branch in 0x14001ad90",
+        "facts": [
+          "Writes console+0x4d0, corresponding to primary root+0x340 after string processing."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "file_input",
+      "title": "File Input",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "2",
+        "entry": "0x140014ba0",
+        "facts": [
+          "Selects KEY, DB, or converter-mediated input."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "KEY fixture imports and two DB object-summary import captures exercise portions of this path."
+        ]
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch",
+        "input_menu",
+        "input_dispatch",
+        "keyword_runtime",
+        "object_comparison"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "simulation_controls",
+      "title": "Simulation Controls Modification",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "3",
+        "entry": "0x140017540",
+        "facts": [
+          "Binds console pointers to primary simulation controls and root before the submenu call."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "material_properties",
+      "title": "Material Properties Modification",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "4",
+        "entry": "0x1400157c0",
+        "facts": [
+          "Binds the primary root before the submenu call."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "object_editing",
+      "title": "Object Data Modification",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "5",
+        "entry": "0x14001a050",
+        "facts": [
+          "Binds the primary root before the submenu call."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "inter_object",
+      "title": "Inter-Object Data Modification",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "6",
+        "entry": "0x140019c20",
+        "facts": [
+          "Binds the primary root before the submenu call."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "simulation_generation",
+      "title": "DEFORM Simulation Data Generation",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "7",
+        "entry": "0x14000a370",
+        "facts": [
+          "Main dispatcher calls this entry; complete generation and external dependency behavior is unresolved."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "keyword_export",
+      "title": "Keyword Values Save",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "8",
+        "entry": "0x14000ac60",
+        "facts": [
+          "Main dispatcher calls this entry; full serialization contract and order are unresolved."
+        ]
+      },
+      "runtime": {
+        "status": "partial_artifact_corroboration",
+        "facts": [
+          "README/object schema record a small-case original KEY export corroborating object summaries. This is not a complete exporter comparison."
+        ]
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch",
+        "object_schema",
+        "readme"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "convert_2d_3d",
+      "title": "Convert the 2D DB to 3D keyword file",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "menu_choice": "9",
+        "entry": "0x14000afd0",
+        "facts": [
+          "Main dispatcher passes console+0x188; full conversion algorithm and dimensional constraints are unresolved."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "main_menu",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Trace this entry through all state/output changes and dependencies.",
+        "Create bounded representative transcripts and independent compatibility cases."
+      ]
+    },
+    {
+      "id": "keyword_import",
+      "title": "KEY reader, keyword dispatch and state mutation",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x1401b5f00",
+        "facts": [
+          "Parser 0x1401b6520 routes recognized keywords to seven handler families.",
+          "Lookup has 304 table rows; this is not a claim of 304 distinct supported features.",
+          "Selected exact keywords include PROBID, RUNTYP, DBREAD, KFREAD, GENDB, OBJNAM, OBJTYP, RZ and ELMCON.",
+          "Special-command handling can invoke DB import, recursive keyword reads and other operations."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Two runs and fourteen imports establish selected 3D identity, name, type, coordinate and connectivity updates.",
+          "Unknown/lowercase keyword handling, gaps in positive IDs, repeated imports and one truncated coordinate block were observed.",
+          "Finalization runs after the tested parse failure; partial updates survive."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "src/recovered/keyword_import.cpp",
+          "src/recovered/keyword_reader.cpp"
+        ],
+        "facts": [
+          "Selected OBJNAM/OBJTYP/RZ/ELMCON handlers, dimension headers, GEOTYP/STNOUT and recognized-versus-unsupported dispatch are reconstructed and evaluated.",
+          "304 keyword rows are catalogued; remaining handlers and recursive command effects are not implemented.",
+          "Configuration refresh requires an explicit empty-material/reset profile.",
+          "NSTART and selected root post-import finalization now execute for the asserted empty-material profile, including handled reader errors; unsupported outcomes remain pending.",
+          "Six dynamic/temperature/user-field imports now match 64 original imports across training and independent cohorts; see dynamic_field_checkpoint for exact scope.",
+          "The complete bounded FSTRES94 import dispatcher, ten typed tables and branch-specific failure behavior are verified against 96 original imports; see fstres_checkpoint. Scientific stress-law evaluation and remaining GRNDAT branches are not implied."
+        ]
+      },
+      "evidence": [
+        "keyword_reader",
+        "keyword_parser",
+        "keyword_table",
+        "keyword_spec",
+        "keyword_runtime",
+        "handler_0x140378e00"
+      ],
+      "next_questions": [
+        "Recover every handler contract and ordering dependency.",
+        "Recover 2D mesh import, dependent-array ownership, units, error boundaries and recursive command effects."
+      ]
+    },
+    {
+      "id": "editable_model",
+      "title": "Editable application model and mesh lifecycle",
+      "static": {
+        "status": "recovered_partial",
+        "facts": [
+          "Root label _DB_STEP_DATA contains controls, material/object collections and interactions.",
+          "Objects labelled LLOBJ_DATA own separate node and element buffers.",
+          "Coordinate/connectivity replacement processes dependent arrays and finalization; ownership is not completely mapped."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Selected state transitions are observed in KEY and startup captures.",
+          "Small tetrahedral fixtures do not establish scientific correctness for general geometry."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "src/recovered/object_model.cpp",
+          "src/recovered/mesh_storage.cpp",
+          "src/recovered/state_variable.cpp"
+        ],
+        "facts": [
+          "Selected object lifecycle, mesh replacement/preserving refresh, component layout and linked dimension resets are implemented.",
+          "Unknown direct-buffer tails have explicit known-prefix metadata.",
+          "Materials, interactions, complete scientific finalization and other root/object fields remain incomplete.",
+          "Selected user-field metadata resizing, global width refresh, selected allocation and MATAXI width divergence are recovered and compared. Separate owned CUSVAR/DYNARY stores, parser behavior and lifecycle are verified by the custom-field checkpoint; arbitrary shared aliases remain unrecovered.",
+          "SIZEMD/TXTURE material producers, feature queries54/55 and SIZESH/TXTODF owned element stores verified in57 original imports. Initial output-channel mismatch corrected before independent evaluation.",
+          "PHASTF ordered-pair relation ownership, stale cached active count, material gate and nonzero DVOLF/TICF resize/import behavior verified in62 original imports; relation property imports are covered by the later bounded checkpoint; scientific evaluation remains unrecovered.",
+          "The complete bounded FSTRES94 import dispatcher, ten typed tables and branch-specific failure behavior are verified against 96 original imports; see fstres_checkpoint. Scientific stress-law evaluation and remaining GRNDAT branches are not implied."
+        ]
+      },
+      "evidence": [
+        "keyword_spec",
+        "keyword_runtime",
+        "startup_spec",
+        "object_finalization"
+      ],
+      "next_questions": [
+        "Complete dependency/ownership map for node and element arrays.",
+        "Recover and validate post-connectivity calculation at 0x1401fc290 and object finalization at 0x1402059a0.",
+        "Exercise dimension/type/count changes with existing data and destruction/reset paths."
+      ]
+    },
+    {
+      "id": "db_loader",
+      "title": "DB physical records, step tables and packed arrays",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x1403b5a04",
+        "facts": [
+          "Recovered low-level loading routines associated with datarm23.f.",
+          "Source attribution does not recover original source text or usable source line programs."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Two selected original-process main-array captures match replacement buffers.",
+          "README reports all 214 stored steps in the supplied databases decode; those are not 214 independent runtime equivalence observations."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "src/database.cpp",
+          "src/packed_array.cpp",
+          "include/deform/database.hpp",
+          "include/deform/packed_array.hpp"
+        ],
+        "facts": [
+          "Independent C++20 reader supplies headers, tables, full main arrays and separate auxiliary data.",
+          "Does not provide DB writing or editable application objects."
+        ]
+      },
+      "evidence": [
+        "db_loader",
+        "db_source",
+        "array_comparison",
+        "cpp_loader",
+        "readme"
+      ],
+      "next_questions": [
+        "Expand independent fixture coverage for legacy versions, 2D, byte order, auxiliary records and error paths.",
+        "Keep read/write dispatch branches distinct."
+      ]
+    },
+    {
+      "id": "db_import",
+      "title": "DB selection and population of application state",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x1401cc420",
+        "facts": [
+          "DB selection resolves a signed step number and coordinates headers, raw arrays, material and object population.",
+          "Raw buffers are not themselves the complete editable model."
+        ]
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Two original imports validate selected descriptor mappings and fourteen object summaries."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "src/object_summary.cpp",
+          "include/deform/object_summary.hpp",
+          "tools/object_summary.cpp"
+        ],
+        "facts": [
+          "Object summary only: IDs, active state, names, raw/internal types and mesh counts.",
+          "Explicitly limited to traced full-array 3D version-11000 layout; no mesh/material/editable-state reconstruction."
+        ]
+      },
+      "evidence": [
+        "db_selection",
+        "db_import",
+        "object_schema",
+        "object_comparison",
+        "cpp_objects"
+      ],
+      "next_questions": [
+        "Recover coordinate/connectivity and all dependent field import.",
+        "Recover material and interaction transfer, initialization/merge behavior and other layouts."
+      ]
+    },
+    {
+      "id": "batch_header",
+      "title": "Batch query header",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x14001bc80"
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Included in fourteen retained exact-byte/output-existence/exit-code comparisons; invalid-file tests cover only header and stepList."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "tools/deform_db.cpp"
+        ],
+        "facts": [
+          "Tested output behavior implemented; original argument-parser compatibility is incomplete."
+        ]
+      },
+      "evidence": [
+        "args",
+        "batch_header",
+        "batch_comparison",
+        "cpp_cli"
+      ],
+      "next_questions": [
+        "Extend argument spelling/value forms and invalid-input coverage from original evidence."
+      ]
+    },
+    {
+      "id": "batch_stepList",
+      "title": "Batch query stepList",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x14001be50"
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Included in fourteen retained exact-byte/output-existence/exit-code comparisons; invalid-file tests cover only header and stepList."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "tools/deform_db.cpp"
+        ],
+        "facts": [
+          "Tested output behavior implemented; original argument-parser compatibility is incomplete."
+        ]
+      },
+      "evidence": [
+        "args",
+        "batch_stepList",
+        "batch_comparison",
+        "cpp_cli"
+      ],
+      "next_questions": [
+        "Extend argument spelling/value forms and invalid-input coverage from original evidence."
+      ]
+    },
+    {
+      "id": "batch_lastStepNo",
+      "title": "Batch query lastStepNo",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x14001bf40"
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Included in fourteen retained exact-byte/output-existence/exit-code comparisons; invalid-file tests cover only header and stepList."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "tools/deform_db.cpp"
+        ],
+        "facts": [
+          "Tested output behavior implemented; original argument-parser compatibility is incomplete."
+        ]
+      },
+      "evidence": [
+        "args",
+        "batch_lastStepNo",
+        "batch_comparison",
+        "cpp_cli"
+      ],
+      "next_questions": [
+        "Extend argument spelling/value forms and invalid-input coverage from original evidence."
+      ]
+    },
+    {
+      "id": "batch_simStepList",
+      "title": "Batch query simStepList",
+      "static": {
+        "status": "recovered_partial",
+        "entry": "0x14001c100"
+      },
+      "runtime": {
+        "status": "tested_bounded",
+        "facts": [
+          "Included in fourteen retained exact-byte/output-existence/exit-code comparisons; invalid-file tests cover only header and stepList."
+        ]
+      },
+      "implementation": {
+        "status": "implemented_subset",
+        "files": [
+          "tools/deform_db.cpp"
+        ],
+        "facts": [
+          "Tested output behavior implemented; original argument-parser compatibility is incomplete."
+        ]
+      },
+      "evidence": [
+        "args",
+        "batch_simStepList",
+        "batch_comparison",
+        "cpp_cli"
+      ],
+      "next_questions": [
+        "Extend argument spelling/value forms and invalid-input coverage from original evidence."
+      ]
+    },
+    {
+      "id": "batch_remaining",
+      "title": "Additional batch mode names and command-line grammar",
+      "static": {
+        "status": "parser_confirmed",
+        "entry": "0x14001b7b0",
+        "facts": [
+          "Parser recognizes diff, reclist and summary as mode values 5, 6 and 7. Their full downstream behavior is not established here.",
+          "Parser accepts uppercase/lowercase option letters and attached or following values.",
+          "Recognizes steplist/stepList and simsteplist/simStepList aliases.",
+          "D/d and S/s track first/second values; R/r and T/t have additional numeric destinations. Exact downstream contracts remain unresolved."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented",
+        "facts": [
+          "Current deform_db parser accepts only separated -m/-d/-o values plus help and four query modes; verify is a new extension."
+        ]
+      },
+      "evidence": [
+        "args",
+        "main",
+        "cpp_cli"
+      ],
+      "next_questions": [
+        "Recover batch dispatcher 0x14001c500 and help routine 0x14001b4e0 completely.",
+        "Compare grammar, duplicates, missing values, errors, stdout/stderr and exit codes."
+      ]
+    },
+    {
+      "id": "converter_inputs",
+      "title": "IGES, ANSYS/PREP7, STL, PATRAN, IDEAS and UGII input",
+      "static": {
+        "status": "dispatcher_confirmed",
+        "entry": "0x140014ba0",
+        "facts": [
+          "Choices 3..8 pass command strings DEF_CVT3 KEY IGE/ANS/STL/PDA/STB/UG2 to 0x1402240d0.",
+          "After the call, successfully opening SCRATCH.KEY triggers the KEY reader.",
+          "This evidence establishes a converter-command boundary; it does not establish six native file parsers in DEF_PRE_64.exe."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "input_menu",
+        "input_dispatch"
+      ],
+      "next_questions": [
+        "Analyze 0x1402240d0 for executable resolution, launch, blocking and failure semantics.",
+        "Locate and identify any authorized companion converter artifact before attempting its reconstruction.",
+        "Establish SCRATCH.KEY lifecycle and behavior on missing/failed converter output."
+      ]
+    },
+    {
+      "id": "db_writing",
+      "title": "Database generation and serialization",
+      "static": {
+        "status": "recovered_partial",
+        "facts": [
+          "Saved import-0/import-1/import-2 records contain generation messages, marshaling paths and write-mode calls; their filenames do not mean they are read-only import routines.",
+          "Main menu generation and GENDB keyword are entry candidates; connection to all write paths requires further tracing."
+        ]
+      },
+      "runtime": {
+        "status": "not_characterized"
+      },
+      "implementation": {
+        "status": "not_implemented"
+      },
+      "evidence": [
+        "db_write_candidate_1",
+        "db_write_candidate_2",
+        "db_write_candidate_3",
+        "keyword_table",
+        "main_dispatch"
+      ],
+      "next_questions": [
+        "Recover exact write layouts, version decisions, overwrite/append behavior and buffer ownership.",
+        "Validate generated files by independent original reopening and semantic comparison."
+      ]
+    }
+  ],
+  "nested_menu_candidates": [
+    {
+      "id": "simulation_controls",
+      "status": "string_only_candidates",
+      "evidence": "menu_strings",
+      "items": [
+        {
+          "file_offset": "0x505830",
+          "text": "***  Processing Conditions Modification Menu  ***"
+        },
+        {
+          "file_offset": "0x506310",
+          "text": "***  Process Definition Modification Menu  ***"
+        },
+        {
+          "file_offset": "0x5066d8",
+          "text": "***  Stopping & Step Controls Modification Menu  ***"
+        },
+        {
+          "file_offset": "0x507208",
+          "text": "***  Iteration Controls Modification Menu  ***"
+        },
+        {
+          "file_offset": "0x508840",
+          "text": "5 - User Defined Variables"
+        },
+        {
+          "file_offset": "0x508868",
+          "text": "4 - Processing Conditions"
+        },
+        {
+          "file_offset": "0x508888",
+          "text": "3 - Iteration Controls"
+        },
+        {
+          "file_offset": "0x5088a8",
+          "text": "2 - Stopping & Step Controls"
+        },
+        {
+          "file_offset": "0x5088d0",
+          "text": "1 - Process Definition"
+        }
+      ],
+      "limits": [
+        "Menu text establishes embedded labels only. Submenu reachability, branch implementation, numerical algorithms and external dependencies require code/runtime evidence."
+      ]
+    },
+    {
+      "id": "material_properties",
+      "status": "string_only_candidates",
+      "evidence": "menu_strings",
+      "items": [
+        {
+          "file_offset": "0x505870",
+          "text": "6 - Material Data Retrieval"
+        },
+        {
+          "file_offset": "0x505890",
+          "text": "5 - Thermal Properties"
+        },
+        {
+          "file_offset": "0x5058b0",
+          "text": "4 - Elastic Properties"
+        },
+        {
+          "file_offset": "0x5058d0",
+          "text": "3 - Plastic Properties"
+        },
+        {
+          "file_offset": "0x5058f0",
+          "text": "2 - Material Name   [%s]"
+        },
+        {
+          "file_offset": "0x505910",
+          "text": "1 - Material Number [    %d]"
+        }
+      ],
+      "limits": [
+        "Menu text establishes embedded labels only. Submenu reachability, branch implementation, numerical algorithms and external dependencies require code/runtime evidence."
+      ]
+    },
+    {
+      "id": "object_geometry_mesh",
+      "status": "string_only_candidates",
+      "evidence": "menu_strings",
+      "items": [
+        {
+          "file_offset": "0x506a00",
+          "text": "7 - Generate Mesh"
+        },
+        {
+          "file_offset": "0x506a20",
+          "text": "6 - Check Die Geometry"
+        },
+        {
+          "file_offset": "0x506a48",
+          "text": "5 - Modify Connectivity"
+        },
+        {
+          "file_offset": "0x506a70",
+          "text": "4 - Display Connectivity    [        0 ]"
+        },
+        {
+          "file_offset": "0x506aa0",
+          "text": "4 - Display Connectivity      [      %d ]"
+        },
+        {
+          "file_offset": "0x506ad0",
+          "text": "3 - Modify Point Coordinates"
+        },
+        {
+          "file_offset": "0x506af8",
+          "text": "2 - Display Point Coordinates [       0 ]"
+        },
+        {
+          "file_offset": "0x506b28",
+          "text": "2 - Display Point Coordinates [      %d ]"
+        },
+        {
+          "file_offset": "0x506b58",
+          "text": "1 - Definition Type           [ %s ]"
+        },
+        {
+          "file_offset": "0x506bb0",
+          "text": "3 - Modify Point Coordinates"
+        },
+        {
+          "file_offset": "0x5075a0",
+          "text": "7 - Element Definition %s"
+        },
+        {
+          "file_offset": "0x5075c0",
+          "text": "6 - Node Definition %s"
+        },
+        {
+          "file_offset": "0x5075e0",
+          "text": "5 - Rigid Die/Object Border Definition %s"
+        }
+      ],
+      "limits": [
+        "Menu text establishes embedded labels only. Submenu reachability, branch implementation, numerical algorithms and external dependencies require code/runtime evidence."
+      ]
+    },
+    {
+      "id": "object_physics",
+      "status": "string_only_candidates",
+      "evidence": "menu_strings",
+      "items": [
+        {
+          "file_offset": "0x5074c0",
+          "text": "12 - Fracture Definition %s"
+        },
+        {
+          "file_offset": "0x5074e0",
+          "text": "11 - User Defined Mesh Generation %s"
+        },
+        {
+          "file_offset": "0x507508",
+          "text": "10 - Remeshing/Mesh Generation Criteria %s"
+        },
+        {
+          "file_offset": "0x507538",
+          "text": "9 - Boundary Condition Generation %s"
+        },
+        {
+          "file_offset": "0x507568",
+          "text": "8 - Boundary Condition Function Definition %s"
+        },
+        {
+          "file_offset": "0x507610",
+          "text": "4 - Object Characteristics %s"
+        }
+      ],
+      "limits": [
+        "Menu text establishes embedded labels only. Submenu reachability, branch implementation, numerical algorithms and external dependencies require code/runtime evidence."
+      ]
+    },
+    {
+      "id": "positioning_interaction",
+      "status": "string_only_candidates",
+      "evidence": "menu_strings",
+      "items": [
+        {
+          "file_offset": "0x506bd8",
+          "text": "4 - Position the Object"
+        },
+        {
+          "file_offset": "0x506bf8",
+          "text": "3 - X, Y Offset Values       [  %lf  %lf  %lf ]"
+        },
+        {
+          "file_offset": "0x506c30",
+          "text": "5 - Interference Depth       [  %lf]"
+        },
+        {
+          "file_offset": "0x506c60",
+          "text": "4 - Relative Velocity        [  %lf  %lf  %lf ]"
+        },
+        {
+          "file_offset": "0x506c98",
+          "text": "3 - Reference Object         [  %d ]"
+        },
+        {
+          "file_offset": "0x506cc8",
+          "text": "6 - Position the Object"
+        },
+        {
+          "file_offset": "0x506cf0",
+          "text": "5 - Rotation Angle           [      %lf ]"
+        },
+        {
+          "file_offset": "0x506d20",
+          "text": "4 - Axis                     [   %lf  %lf  %lf ]"
+        },
+        {
+          "file_offset": "0x506d58",
+          "text": "3 - Center                   [   %lf  %lf  %lf ]"
+        },
+        {
+          "file_offset": "0x506dc0",
+          "text": "1 - Position Method          [  %s ]"
+        },
+        {
+          "file_offset": "0x5096b8",
+          "text": "4 - Generate Inter-object Boundary Conditions"
+        },
+        {
+          "file_offset": "0x5096f0",
+          "text": "3 - Position Objects"
+        },
+        {
+          "file_offset": "0x509710",
+          "text": "2 - Modify Object Interactions"
+        },
+        {
+          "file_offset": "0x509738",
+          "text": "1 - Display Defined Objects"
+        },
+        {
+          "file_offset": "0x509a10",
+          "text": "4 - Master-Slave (Non-separable)"
+        },
+        {
+          "file_offset": "0x509a38",
+          "text": "3 - Slave-Master (Non-separable)"
+        },
+        {
+          "file_offset": "0x509a60",
+          "text": "2 - Master-Slave (Separable)"
+        },
+        {
+          "file_offset": "0x509a80",
+          "text": "1 - Slave-Master (Separable)"
+        }
+      ],
+      "limits": [
+        "Menu text establishes embedded labels only. Submenu reachability, branch implementation, numerical algorithms and external dependencies require code/runtime evidence."
+      ]
+    },
+    {
+      "id": "boundary_functions",
+      "status": "string_only_candidates",
+      "evidence": "menu_strings",
+      "items": [
+        {
+          "file_offset": "0x505de8",
+          "text": "2 - Function Definition: (#, Time, Value)"
+        },
+        {
+          "file_offset": "0x505e18",
+          "text": "1 - Boundary Condition Function Number [  ]"
+        },
+        {
+          "file_offset": "0x506088",
+          "text": "3 - Initialize BCC"
+        },
+        {
+          "file_offset": "0x5060a0",
+          "text": "2 - Generate Boundary Conditions"
+        },
+        {
+          "file_offset": "0x5060c8",
+          "text": "1 - Change Error Limit [      %lf]"
+        },
+        {
+          "file_offset": "0x507568",
+          "text": "8 - Boundary Condition Function Definition %s"
+        },
+        {
+          "file_offset": "0x509938",
+          "text": "0 - Constant; 1 - Time Function; 2 - Pressure Function"
+        }
+      ],
+      "limits": [
+        "Menu text establishes embedded labels only. Submenu reachability, branch implementation, numerical algorithms and external dependencies require code/runtime evidence."
+      ]
+    }
+  ],
+  "interface_contracts": [
+    {
+      "surface": "Console protocol",
+      "status": "partial",
+      "requirements": [
+        "Preserve observed choices, prompts, accepted input forms, state sequencing, cancellation and exit behavior."
+      ],
+      "unknowns": [
+        "Nested menus, EOF handling and complete formatting contract."
+      ]
+    },
+    {
+      "surface": "Batch CLI",
+      "status": "partial",
+      "requirements": [
+        "Recover all original arguments, output files and exit/stdout/stderr behavior."
+      ],
+      "unknowns": [
+        "diff/reclist/summary implementation and complete parser edge cases."
+      ]
+    },
+    {
+      "surface": "KEY format and command execution",
+      "status": "partial",
+      "requirements": [
+        "Preserve supported field semantics, ordering, partial-update/error behavior and command side effects."
+      ],
+      "unknowns": [
+        "Full table coverage, scientific fields and recursive/external commands."
+      ]
+    },
+    {
+      "surface": "DB format",
+      "status": "partial",
+      "requirements": [
+        "Recover read/write behavior across supported versions and dimensions."
+      ],
+      "unknowns": [
+        "Full write contract and untested historical layouts."
+      ]
+    },
+    {
+      "surface": "Existing replacement library",
+      "status": "established_local_api",
+      "requirements": [
+        "Preserve current include/deform public interfaces while adding recovered functionality."
+      ],
+      "unknowns": [
+        "No evidence here establishes an original exported ABI; new C++ APIs must not be described as recovered binary ABI."
+      ]
+    }
+  ],
+  "dependency_questions": [
+    {
+      "dependency": "DEF_CVT3",
+      "basis": "input_dispatch",
+      "status": "command_boundary_confirmed_execution_unknown",
+      "facts": [
+        "The source directory contains only DEF_PRE_64.exe in this inventory pass; this is not a machine-wide absence claim."
+      ],
+      "next": "Inspect launch wrapper and search only relevant authorized installation/project locations if needed."
+    },
+    {
+      "dependency": "Startup service 0x140224d80",
+      "basis": "main",
+      "status": "unclassified",
+      "facts": [
+        "Called with TEXT_PRE and DEFORM-23 strings before environment setup. Its complete role is not established; do not infer licensing or other service semantics from the strings alone."
+      ],
+      "next": "Analyze callee and external calls before assigning a role."
+    },
+    {
+      "dependency": "CRT/Fortran runtime, process environment and filesystem",
+      "basis": "startup_spec",
+      "status": "partial",
+      "facts": [
+        "Saved startup analysis establishes process-local executable-directory environment assignments and NEWEQ.MSG-related runtime descriptors."
+      ],
+      "next": "Inventory imported APIs/runtime dependencies and reproduce observable required behavior without copying undefined internals."
+    },
+    {
+      "dependency": "Scientific and material resources",
+      "basis": "menu_strings",
+      "status": "unknown",
+      "facts": [
+        "Material Data Retrieval and Generate Mesh are embedded labels; resource files and external service boundaries are not established."
+      ],
+      "next": "Trace corresponding concrete dispatchers before asserting self-contained functionality."
+    }
+  ],
+  "priority_questions": [
+    "Complete node/element dependent-array ownership and scientific finalization needed for the first independent editable-model milestone.",
+    "Trace each main-menu destination and its nested dispatchers; expand this inventory when evidence reveals additional behavior.",
+    "Separate internal algorithms from companion executable/resource dependencies.",
+    "Recover remaining batch mode implementations and complete external interface grammar.",
+    "Build independent evaluation cases for each feature; maintain observed, unsupported and unresolved outcomes separately."
+  ],
+  "limitations": [
+    "The inventory deliberately includes unrecovered and unimplemented features; no feature has been removed from the full-application objective.",
+    "String groups can overlap and are not a count of distinct features. 304 keyword table rows are not 304 confirmed algorithms.",
+    "Historical reports summarize earlier tests; this pass does not rerun tests or establish that every current binary matches a retained executable hash.",
+    "The scientific solver is not inferred to be inside this input-preparation executable. Simulation-data generation must be traced on its own terms.",
+    "Superseded startup and runtime captures are excluded as authority where corrected reports identify replacements."
+  ],
+  "selected_keyword_import_checkpoint": {
+    "state": "partial",
+    "contract": "analysis/keyword-import-contract.json",
+    "implemented_keywords": [
+      "OBJNAM",
+      "OBJTYP",
+      "RZ",
+      "ELMCON"
+    ],
+    "recognized_keywords": 304,
+    "verified_original_imports": 13,
+    "finalization": "explicitly pending",
+    "next": "Dimension reset and linked-root table updates are integrated; see dimension_import_checkpoint. Continue preserving object resize, feature-query dependencies and scientific finalization."
+  },
+  "component_layout_checkpoint": {
+    "state": "partial_application_integration",
+    "contract": "analysis/component-layout-contract.json",
+    "implemented": [
+      "79-entry initialization",
+      "79-entry refresh"
+    ],
+    "verified_original_calls": 20,
+    "verified_integer_outputs": 1580,
+    "ctest_passed": 14,
+    "dimension_change": "Original cleanup/reinitialization observed; selected importer integration is recorded in dimension_import_checkpoint.",
+    "feature_queries": "Observed results supplied explicitly; material-dependent query implementation remains pending.",
+    "next": "Expand root reset coverage and recover preserving array resize without assuming newly allocated tails are initialized."
+  },
+  "dimension_import_checkpoint": {
+    "state": "selected_model_implemented_and_compared",
+    "contract": "analysis/dimension-import-contract.json",
+    "original_imports": 6,
+    "object_snapshots": 7,
+    "descriptor_snapshots": 371,
+    "primary_dimension_changes": 3,
+    "linked_dimension_changes": 3,
+    "ctest_passed": 15,
+    "limits": "Empty secondary roots, default units and flags; alternate-root dispatch and scientific finalization remain unsupported.",
+    "next": "Preserving storage resize is compared in mesh_refresh_checkpoint; continue feature-query effects and configuration keyword integration."
+  },
+  "mesh_refresh_checkpoint": {
+    "state": "storage_component_implemented_and_compared",
+    "contract": "analysis/mesh-refresh-contract.json",
+    "configuration_contract": "analysis/configuration-refresh-contract.json",
+    "object_refreshes": 14,
+    "post_refresh_descriptor_snapshots": 742,
+    "known_floating_comparison": "binary64 bitwise",
+    "unknown_direct_tails": "explicit initialized-prefix metadata; replay outputs null",
+    "limits": "Before-values supplied as replay inputs; private storage/unit multiplicities; configuration keyword dispatch and scientific finalization pending.",
+    "next": "Selected GEOTYP/STNOUT integration completed in configuration_import_checkpoint; expand other dependencies and scientific consumers."
+  },
+  "configuration_import_checkpoint": {
+    "state": "selected_empty_material_profile_implemented_and_compared",
+    "contract": "analysis/configuration-refresh-contract.json",
+    "imports": 8,
+    "tokens": 26,
+    "descriptor_snapshots": 954,
+    "known_floating_comparison": "binary64 bitwise",
+    "replay_inputs": "initialized profile and fixture bytes; no captured array/component-table seeding",
+    "limits": "Empty materials/private storage/unit multiplicities; scientific finalization and full importer remain pending."
+  },
+  "import_finalization_checkpoint": {
+    "state": "selected_profile_implemented_and_compared",
+    "contract": "analysis/import-finalization-contract.json",
+    "imports": 13,
+    "tokens": 23,
+    "descriptor_snapshots": 1643,
+    "limits": "No materials, active geometry flag off, option0. General material/scientific finalization is not implemented."
+  },
+  "time_controls_checkpoint": {
+    "state": "implemented_and_compared_after_documented_correction",
+    "contract": "analysis/time-controls-contract.json",
+    "imports": 29,
+    "real_helper_calls": 65,
+    "held_out_imports": 13,
+    "limits": "DTTYPE/table controls, nonzero93c and general scientific/model behavior remain pending."
+  },
+  "time_table_checkpoint": {
+    "status": "implemented_subset",
+    "contract": "analysis/time-table-contract.json",
+    "comparisons": [
+      "analysis/time-table-comparison.json",
+      "analysis/time-table-held-out-comparison.json"
+    ],
+    "validation": "25imports,63handlers,79stream reads,159descriptor snapshots; unchanged23-file frozen candidate;22CTests pass.",
+    "remaining": "Interpolation/scientific consumers, higher ranks and general allocation/numerical domains.",
+    "independent_audit": {
+      "reports": [
+        "analysis/time-table-observations.json",
+        "analysis/time-table-held-out-observations.json"
+      ],
+      "tamper_checks": 71,
+      "candidate_files_matching": 23
+    }
+  },
+  "step_distance_checkpoint": {
+    "status": "implemented_subset",
+    "contract": "analysis/step-distance-contract.json",
+    "comparisons": [
+      "analysis/step-distance-corrected-training-comparison.json",
+      "analysis/step-distance-held-out-comparison.json"
+    ],
+    "preserved_failure": "analysis/step-distance-initial-comparison.json",
+    "validation": "29imports95handlers78line-readers2544descriptor snapshots; corrected23-file candidate unchanged during additional capture;24CTests pass.",
+    "remaining": "Complete motion/scientific model, geometry-enabled finalization, material-dependent behavior and general numerical domains.",
+    "independent_audit": {
+      "reports": [
+        "analysis/step-distance-observations.json",
+        "analysis/step-distance-held-out-observations.json"
+      ],
+      "tamper_checks": 82,
+      "corrected_candidate_files_matching": 23
+    }
+  },
+  "geometry_import_checkpoint": {
+    "status": "direct_spatial_geometry_implemented_and_compared",
+    "contract": "analysis/geometry-import-contract.json",
+    "validation": {
+      "original_imports": 36,
+      "tokens": 39,
+      "row_helpers": 184,
+      "descriptor_snapshots": 1802,
+      "independent_tamper_rejections": 42,
+      "frozen_files": 25,
+      "candidate_unchanged_for_all_three_captures": true,
+      "ctests_passed": 27,
+      "comparisons": "Exact original coordinate and plane binary64 bytes, flags, integer buffers, immediate handler state, status/cursor and post-finalization model; no candidate edits after first freeze."
+    },
+    "remaining": [
+      "Alternate formats are now implemented and compared in geometry_segments_checkpoint.",
+      "Copied-plane argument1, native shared buffers, malformed eligible indices, nonfinite/overflow inputs and full scientific model remain unresolved.",
+      "Full application reconstruction is not complete."
+    ],
+    "fixture_correction": "analysis/geometry-import-held-out-fixture-correction.json"
+  },
+  "geometry_segments_checkpoint": {
+    "status": "selected_profile_implemented_and_compared",
+    "contract": "analysis/geometry-segments-contract.json",
+    "validation": {
+      "original_imports": 54,
+      "tokens": 65,
+      "row_helpers": 112,
+      "scalar_scans": 207,
+      "descriptor_snapshots": 2862,
+      "internal_reader_calls": 57,
+      "independent_tamper_rejections": 35,
+      "ctests_passed": 29
+    },
+    "captures": [
+      "analysis/geometry-segments-training-comparison.json",
+      "analysis/geometry-segments-held-out-comparison.json"
+    ],
+    "independent_audits": [
+      "analysis/geometry-segments-audit-observations.json",
+      "analysis/geometry-segments-audit-held-out-observations.json"
+    ],
+    "remaining": [
+      "Populated-material initialization/reconciliation and existing-object component remapping.",
+      "Additional containers/shared ownership, unsafe numeric/storage domains, downstream scientific use and complete application workflows."
+    ]
+  },
+  "material_import_checkpoint": {
+    "name": "default_material_name_import_lifecycle",
+    "result": "MTNAME exact signed IDs, stable insertion/rename, capacity65 name reads, creation refresh before name errors, and material reset lifecycle reconstructed for default materials with no objects.",
+    "verification": {
+      "original_imports": 34,
+      "handlers": 31,
+      "reader_calls": 133,
+      "name_reads": 29,
+      "new_materials": 16,
+      "independent_tamper_rejections": 39,
+      "ctests_passed": 31,
+      "frozen_runtime_entries": 27,
+      "candidate_unchanged_across_both_captures": true
+    },
+    "evidence": [
+      "analysis/material-import-contract.json"
+    ],
+    "qualification": "Existing-object copy/remapping, material property tables and nonempty reference graphs remain required work. No complete-application equivalence claim."
+  },
+  "material_object_integration_checkpoint": {
+    "name": "default_material_and_populated_object_integration",
+    "result": "Both material/object creation orders now supported for owned objects and default materials, with preserving active-only refresh, original failure timing and complete modeled handler snapshots.",
+    "verification": {
+      "original_imports": 31,
+      "handlers": 98,
+      "tokens": 101,
+      "token_material_reader_calls": 250,
+      "geometry_rows": 57,
+      "segment_scalar_calls": 30,
+      "final_descriptor_snapshots": 2915,
+      "temporary_copy_lifetimes": 14,
+      "successful_held_out_3d_connectivity_handlers": 4,
+      "independent_tamper_rejections": 64,
+      "ctests_passed": 33,
+      "frozen_runtime_files_unchanged": 27
+    },
+    "evidence": [
+      "analysis/material-object-contract.json",
+      "analysis/material-object-test-registration.json"
+    ],
+    "qualification": "Initial incomplete probe capture and three missing-arity fixture failures are preserved. Repaired captures and independent successful tetrahedral cases validate the integration; property-driven remapping, material reference graphs and full application remain incomplete."
+  },
+  "material_reference_checkpoint": {
+    "name": "material_reference_count_storage_and_finalization",
+    "result": "MSTMTR116 count/allocation lifetime, finite reference conversion, immediate insertion-order finalization, and feature-enabled populated-mesh refresh with zero-valued columns.",
+    "verification": {
+      "original_imports": 24,
+      "tokens": 40,
+      "handlers": 39,
+      "token_material_reader_calls": 111,
+      "reference_reader_calls": 43,
+      "final_descriptor_snapshots": 1219,
+      "temporary_copy_lifetimes": 6,
+      "reference_allocations": 14,
+      "finalizer_lookups": 25,
+      "feature_queries": 20,
+      "independent_tamper_rejections": 22,
+      "tests_verified": 34,
+      "frozen_runtime_files_unchanged": 27
+    },
+    "evidence": [
+      "analysis/material-reference-contract.json"
+    ],
+    "qualification": "Initial24-case capture only. Nonzero material-column permutation and independent held-out reference coverage remain pending; full application goal stays active."
+  },
+  "material_column_checkpoint": {
+    "name": "element_material_assignments_and_nonzero_columns",
+    "result": "MTLGRP/VOLFC/VOLFS and stored default lifecycle reconstructed; nonzero/signed-zero material-column permutations verified on multirow meshes.",
+    "verification": {
+      "original_imports": 48,
+      "predeclared_splits": {
+        "producer_training": 25,
+        "held_out_reference": 7,
+        "held_out_column": 16
+      },
+      "tokens": 110,
+      "handlers": 108,
+      "token_material_reader_calls": 291,
+      "reference_reader_calls": 31,
+      "column_reader_calls": 46,
+      "final_descriptor_snapshots": 2120,
+      "nonzero_remap_checks": 8,
+      "temporary_copies": 16,
+      "nonzero_remapped_entries": 30,
+      "held_out_negative_zero_reader_slots": 14,
+      "held_out_negative_zero_remapped_slots": 2,
+      "independent_tamper_rejections": 70,
+      "tests_verified": 36,
+      "frozen_runtime_files_unchanged": 27
+    },
+    "evidence": [
+      "analysis/material-column-contract.json"
+    ],
+    "qualification": "Selected48-case owned finite profile; complete model,scientific operations,exports andconsole remain unfinished."
+  },
+  "mesh_field_checkpoint": {
+    "contract": {
+      "path": "analysis/mesh-field-contract.json",
+      "sha256": "509c0b32a7b900045862ee361af99b1714c028cfda5bfb892510d17774cffe3f"
+    },
+    "status": "selected_fixed_mesh_field_profile_verified_with_training_and_independent_captures",
+    "verification": {
+      "original_imports": 64,
+      "training_imports": 32,
+      "independent_held_out_imports": 32,
+      "selected_keywords": 25,
+      "all_selected_keywords_observed_in_both_dimensions": true,
+      "tokens": 186,
+      "complete_handler_snapshots": 186,
+      "field_reader_calls": 165,
+      "scalar_scan_calls": 281,
+      "ordinary_reader_calls": 440,
+      "final_descriptor_snapshots": 3339,
+      "failed_field_reads": 9,
+      "zero_width_field_reads": 12,
+      "negative_zero_field_values": 143,
+      "bccdef_converted_rows": 16,
+      "bccdef_converted_rows_after_failed_read": 5,
+      "independent_tamper_rejections": 64,
+      "tests_verified": 38,
+      "frozen_runtime_files_unchanged": 27
+    },
+    "remaining": [
+      "Finite ASCII/finite numeric owned-storage profile; this does not prove complete application equivalence.",
+      "Historical fixed-field checkpoint covered DVOLF/TICF at zero width. Later relation checkpoint verifies PHASTF-produced nonzero widths and populated flat-prefix resizing in2D/3D.",
+      "Mode6 width>10 rejection is established statically and checked in replacement-only tests; no reachable original import fixture for that width.",
+      "Undefined first matching failures, unknown integer tails, arbitrary shared storage and allocation failures remain unsupported."
+    ]
+  },
+  "dynamic_field_checkpoint": {
+    "contract": {
+      "path": "analysis/dynamic-field-contract.json",
+      "sha256": "d32e3dad519dd29ca1b2dd2401d45976cebf0d15457bb9cd1cfbde0345a5e0e2"
+    },
+    "status": "selected_dynamic_field_profile_verified_with_training_and_independent_captures",
+    "verification": {
+      "original_imports": 64,
+      "training_imports": 32,
+      "independent_held_out_imports": 32,
+      "selected_keywords": 6,
+      "all_selected_keywords_observed_in_both_dimensions": true,
+      "tokens": 99,
+      "complete_handler_snapshots": 99,
+      "dynamic_handlers": 69,
+      "dynamic_reader_calls": 105,
+      "scalar_scan_calls": 212,
+      "ordinary_reader_calls": 268,
+      "getter_observations": 259,
+      "width_setter_observations": 29,
+      "metadata_resizes": 24,
+      "failed_dynamic_handlers": 10,
+      "final_descriptor_snapshots": 6572,
+      "independent_tamper_rejections": 76,
+      "tests_verified": 40,
+      "frozen_runtime_files_unchanged": 27
+    },
+    "remaining": [
+      "Finite ASCII/finite numeric owned-storage profile; no claim of full application equivalence.",
+      "At the dynamic-field checkpoint, custom stores and named property editing were unresolved. The later custom-field checkpoint verifies selected owned CUSVAR/DYNARY storage; opaque user metadata and remaining property editing still require recovery.",
+      "Negative widths, unsafe mode 2 capacity growth, allocation failure, undefined locals, uninitialized direct-buffer tails and externally shared storage remain outside this profile.",
+      "Native pointer identities are checked within original lifetimes; replacement addresses and native heap leakage are not ABI requirements.",
+      "DVOLF/TICF positive root13f4 width producer, remaining material properties, full DB state import/export, scientific operations and console integration remain required work."
+    ]
+  },
+  "custom_field_checkpoint": {
+    "contract": {
+      "path": "analysis/custom-field-contract.json",
+      "sha256": "47a81b58496175291d9de5e9d79050099a0e720a31b9593726d40251d91ab1bd"
+    },
+    "status": "selected_custom_field_profile_verified_with_training_and_independent_captures",
+    "verification": {
+      "original_imports": 64,
+      "training_imports": 32,
+      "independent_held_out_imports": 32,
+      "selected_keywords": 2,
+      "all_selected_keywords_observed_in_both_dimensions": true,
+      "complete_handler_snapshots": 80,
+      "custom_handlers": 60,
+      "custom_reader_calls": 118,
+      "scalar_scan_calls": 114,
+      "ordinary_reader_calls": 230,
+      "failed_custom_handlers": 9,
+      "final_standard_descriptor_snapshots": 3286,
+      "independent_tamper_rejections": 71,
+      "tests_verified": 42,
+      "frozen_runtime_files_unchanged": 29
+    },
+    "remaining": [
+      "Bounded initialized owned storage and finite ASCII numeric inputs only; no claim of complete application equivalence.",
+      "Arbitrary copy-on-write aliases, full object copying, shared or external buffers, allocation failure, negative/overflowing extents and unsafe native writes remain outside this profile.",
+      "Legacy floating conversion extremes, all rounding cases, locale and nonfinite inputs remain unproven. DYNARY atof return is checked indirectly where native default-fill storage exposes its bytes; the probe records its input, not the floating return register.",
+      "Native pointer identities and links are checked within original lifetimes; replacement addresses and intentional heap leakage are not compatibility requirements.",
+      "Positive DVOLF/TICF width production, named material property editing, complete DB application-state import/export, scientific operations and console integration remain required work."
+    ]
+  },
+  "material_shape_checkpoint": {
+    "contract": {
+      "path": "analysis/material-shape-contract.json",
+      "sha256": "5e039fcc4a502e13a54cc17671e2f0f6252aca582bdec2f0c1abaddbef5769a4"
+    },
+    "status": "selected_material_shape_profile_verified_with_training_and_independent_captures",
+    "verification": {
+      "original_imports": 57,
+      "training_imports": 32,
+      "independent_held_out_imports": 25,
+      "selected_keywords": 4,
+      "all_selected_keywords_observed_in_both_dimensions": true,
+      "complete_handler_snapshots": 120,
+      "selected_handlers": 66,
+      "shape_consumers": 25,
+      "aggregate_shape_reader_calls": 85,
+      "scalar_scan_calls": 58,
+      "feature_queries": 108,
+      "selected_storage_calls": 38,
+      "failed_selected_handlers": 11,
+      "final_standard_descriptor_snapshots": 2438,
+      "independent_tamper_rejections": 62,
+      "independent_tamper_checks_skipped": 0,
+      "tests_verified": 44,
+      "corrected_frozen_runtime_files_unchanged": 29,
+      "max_original_texture_query_width": 4784,
+      "high_texture_width_profile": "Largest resolutions queried with no objects; populated mesh storage bounded by manifests."
+    },
+    "remaining": [
+      "Finite ASCII numeric inputs, initialized native locals and bounded owned buffers only; no complete application equivalence claim.",
+      "Large texture resolutions verified as no-object feature queries, not large populated mesh imports.",
+      "Uninitialized first native selector failures, allocation failure, overflowing or unsafe extents, arbitrary shared aliases and full object copying remain outside profile.",
+      "Legacy floating conversion extremes, nonfinite inputs and other locales remain unverified.",
+      "Native explicit row helper may return before freeing scratch on EOF. C++ uses RAII; no separate allocation-leak census performed.",
+      "PHASTF count production identified statically; populated relation-column remapping and scientific tables pending. Remaining material properties, full DB state import/export, scientific operations and console integration remain required."
+    ]
+  },
+  "volume_fraction_width_next_contract": {
+    "path": "analysis/volume-fraction-width-static-contract.json",
+    "sha256": "53af0b938fcd34f9875e98215aacb2c8b20397f631ce4eb59a0c10de179a991e"
+  },
+  "relation_checkpoint": {
+    "contract": {
+      "path": "analysis/relation-contract.json",
+      "sha256": "8db3cd3fba802f8246979f0be826bfba02bbf3f7f401dc9e0b99db1ba9eee43e"
+    },
+    "status": "selected_relation_import_and_nonzero_field_profile_verified_with_independent_captures",
+    "verification": {
+      "original_imports": 62,
+      "training_imports": 32,
+      "independent_held_out_imports": 30,
+      "selected_keywords": 3,
+      "all_selected_keywords_observed_in_both_dimensions": true,
+      "complete_handler_snapshots": 106,
+      "selected_handlers": 73,
+      "PHASTF_handlers": 48,
+      "relation_reader_calls": 96,
+      "field_reader_calls": 25,
+      "field_scalar_scan_calls": 140,
+      "relation_descriptor_preservation_checks": 46,
+      "failed_selected_handlers": 9,
+      "final_standard_descriptor_snapshots": 2332,
+      "independent_tamper_rejections": 78,
+      "independent_tamper_checks_skipped": 0,
+      "tests_verified": 46,
+      "frozen_runtime_files_unchanged": 29
+    },
+    "remaining": [
+      "Bounded initialized owned-storage profile and finite ASCII numeric inputs; not complete application equivalence.",
+      "Twelve relation scientific tables, their nine other category5 handlers, complete material property tables, broad relation copy/deserialization and scientific consumers remain incomplete.",
+      "Native first selector matching failures or partial selector assignment use uninitialized keys and remain explicitly unsupported. Overflowing extents, OOM, unsafe writes, arbitrary sharing, nonfinite inputs and extreme numeric conversions remain unverified.",
+      "Root85c nonzero gate is source-backed and represented but not exercised by these KEY fixtures; tested material mode supplies the gate.",
+      "Original pointer identities and list ownership are validated within native lifetimes; replacement memory addresses and intentional native scratch leaks are not compatibility requirements.",
+      "Complete DB application-state import/export, remaining model fields, scientific operations and console integration remain required work."
+    ]
+  },
+  "property_table_next_plan": {
+    "path": "analysis/property-table-next-plan.json",
+    "sha256": "6e5c464694b9e70b4eead06dad502d05d28e7fdc3740629c2d87e13171cd1fef"
+  },
+  "property_table_checkpoint": {
+    "contract": {
+      "path": "analysis/property-table-contract.json",
+      "sha256": "c39772ab96aff80dbc9409adf52aa3fc98185df1b2162f2f216a6ed883100b08"
+    },
+    "status": "selected_material_property_import_profile_verified_with_independent_captures",
+    "verification": {
+      "original_imports": 64,
+      "training_imports": 32,
+      "independent_held_out_imports": 32,
+      "selected_keywords": 13,
+      "complete_handler_snapshots": 120,
+      "selected_property_handlers": 111,
+      "property_wrapper_calls": 109,
+      "property_header_and_coarse_reader_calls": 116,
+      "property_scalar_scan_calls": 193,
+      "base_reader_calls": 309,
+      "failed_selected_handlers": 14,
+      "final_standard_descriptor_snapshots": 265,
+      "independent_tamper_rejections": 80,
+      "independent_tamper_checks_skipped": 0,
+      "baseline_tests_passed": 46,
+      "new_tests_passed": 2,
+      "tests_registered": 48,
+      "frozen_runtime_files_unchanged": 31
+    },
+    "remaining": [
+      "Runtime comparisons cover the thirteen material routes, ranks0/1/2, width1, bounded owned allocations and finite ASCII numbers in2D/3D; this is not complete application equivalence.",
+      "All124 explicit type-initializer cases and rank0-vector/rank3 value readers are implemented from static evidence but not runtime exercised through these13routes, which cannot reach them.",
+      "The twelve relation tables and nine remaining category5 keyword handlers still need connection and independent comparison. FSTRES94 mode14 and GRNDAT108 selector4 also reach41b270 through unrecovered enclosing handlers.",
+      "Interpolation, extrapolation, scientific consumers, editor operations and table export remain unresolved. Correct import state does not prove those calculations.",
+      "Borrowed pointers, nonnull cache68, allocation failures, overflowing products, uninitialized staged matching failures, nonfinite/extreme numeric conversions and arbitrary legacy memory corruption are outside the supported domain.",
+      "C++ owns allocations and avoids native scratch leaks. Native pointer addresses and native ABI layout are not supplied by this internal model; the established public database-loader API is unchanged.",
+      "Complete DB application-state integration/export, remaining model properties, scientific operations and console workflows remain required."
+    ]
+  },
+  "property_table_follow_on_plan": {
+    "path": "analysis/property-table-follow-on-plan.json",
+    "sha256": "ec05cef0f87b5ff98716e99897c8ec8bdaec0a48ea90d6efdaeb4c263725d688"
+  },
+  "relation_property_checkpoint": {
+    "status": "implemented_and_verified_bounded",
+    "keywords": [
+      "TTTD",
+      "TTTN",
+      "PHASLH",
+      "PHASVL",
+      "TRNSFP",
+      "PHEQVF",
+      "COARSN",
+      "IPSNRG",
+      "VARSEL"
+    ],
+    "source": "src/recovered/relation_properties.cpp",
+    "evidence": [
+      "analysis/relation-property-contract.json",
+      "analysis/relation-property-training-comparison.json",
+      "analysis/relation-property-held-out-comparison.json",
+      "analysis/relation-property-observations.json",
+      "analysis/relation-property-held-out-observations.json",
+      "analysis/relation-property-test-registration.json"
+    ],
+    "verification": "64 original imports with frozen 33 runtime files;123 complete handler states; independent113 relation-handler audits and92 rejected corruptions.48 existing tests plus 2 new tests passed.",
+    "limits": "Observable initialized state and selected finite input behavior only. Complete model/application, interpolation/evaluation/export and native resource-sharing ABI remain unfinished."
+  },
+  "relation_property_follow_on_plan": "analysis/relation-property-follow-on-plan.json",
+  "nested_material_checkpoint": {
+    "status": "implemented_and_verified_bounded",
+    "selected_branches": {
+      "FSTRES": 14,
+      "GRNDAT": 4
+    },
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "evidence": [
+      "analysis/nested-material-contract.json",
+      "analysis/nested-material-training-comparison.json",
+      "analysis/nested-material-held-out-comparison.json",
+      "analysis/nested-material-observations.json",
+      "analysis/nested-material-held-out-observations.json",
+      "analysis/nested-material-test-registration.json"
+    ],
+    "verification": "64 original imports, 95 complete handler snapshots, 72 selected nested handlers and 96 rejected corruptions.50 existing plus2 new regression tests passed with33 runtime files unchanged after freeze.",
+    "limits": "This historical checkpoint covered FSTRES14 and GRNDAT4 with root864=0. The later fstres_checkpoint covers the complete bounded FSTRES import family. Remaining GRNDAT branches, enabled grain features and scientific evaluation are unrecovered; full application incomplete."
+  },
+  "nested_material_follow_on_plan": "analysis/nested-material-follow-on-plan.json",
+  "fstres_checkpoint": {
+    "status": "implemented_and_verified_bounded_complete_dispatch_family",
+    "contract": {
+      "path": "analysis/fstres-contract.json",
+      "sha256": "4895af78b66cdab1dbaa937f2419995536d46120c52c5a03af702492cd4246c2"
+    },
+    "source": "src/recovered/fstres_properties.cpp",
+    "evidence": [
+      "analysis/fstres-contract.json",
+      "analysis/fstres-training-a-comparison.json",
+      "analysis/fstres-training-a-observations.json",
+      "analysis/fstres-training-b-comparison.json",
+      "analysis/fstres-training-b-observations.json",
+      "analysis/fstres-held-out-a-comparison.json",
+      "analysis/fstres-held-out-a-observations.json",
+      "analysis/fstres-held-out-b-comparison.json",
+      "analysis/fstres-held-out-b-observations.json",
+      "analysis/fstres-test-registration.json"
+    ],
+    "verification": {
+      "imports": 96,
+      "parsed_tokens": 117,
+      "complete_handler_snapshots": 117,
+      "FSTRES_handlers": 106,
+      "independently_audited_selected_handlers": 108,
+      "GRNDAT_handlers": 2,
+      "failed_FSTRES_handlers": 36,
+      "FSTRES_line_reader_calls": 228,
+      "FSTRES_direct_payload_calls": 93,
+      "FSTRES_typed_resets": 99,
+      "FSTRES_constructor_calls": 7,
+      "property_scalar_scan_calls": 312,
+      "final_standard_descriptor_snapshots": 159,
+      "independent_tamper_rejections": 188,
+      "independent_tamper_checks_skipped": 4,
+      "baseline_tests_passed": 52,
+      "new_tests_passed": 4,
+      "tests_registered": 56,
+      "frozen_runtime_files_unchanged": 35
+    },
+    "limits": "Bounded initialized finite import domain; no scientific stress-law evaluation or full application equivalence. Negative table counts normalize and rank0 widths at or below1 retain buffers. Overflowing derived extents, allocation failure, undefined staged matching failures, enabled grain features and remaining GRNDAT branches remain outside this checkpoint."
+  },
+  "fstres_follow_on_scope": "analysis/fstres-follow-on-scope.json"
+}

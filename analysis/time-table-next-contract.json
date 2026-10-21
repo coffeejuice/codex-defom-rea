@@ -1,0 +1,27 @@
+{
+  "status": "historical_static_lead_completed_in_bounded_scope",
+  "entry": "DTTYPE51 case0x1d of39aa90",
+  "sources": [
+    "analysis/mesh-refresh-controls-pseudocode.json",
+    "analysis/time-table-0x14012fc70.json",
+    "analysis/time-table-0x14041a800.json",
+    "analysis/configuration-0x14012d2a0.json",
+    "analysis/configuration-0x14012fad0.json",
+    "analysis/configuration-0x14012ff20.json"
+  ],
+  "facts": [
+    "Integer pair failure returns2 before resetting the table.",
+    "12fc70 saves record+54 and+60, invokes12d2a0(type80), then restores those two fields; their semantics remain unknown.",
+    "DTTYPE0 sets root93c0 and clears root940, then normalizes mode. Nonzero selector sets rank93c1, rowcount954 from second integer, interpolation selector948 and mode990 from first integer, then invokes41a800.",
+    "Root938 is the shared table record: root93c is its rank+4, root954 is axis count+1c, root960 is axis pointer+28, root978 is values-per-point+40, root980 is dependent-values pointer+48, root990 aliases record+58.",
+    "41a800 allocates via12fad0 and uses repeated stream fscanf(%Flf), not line reads. Rank1 reads each axis value then its dependent values; rank2/3 read axes separately then a temporary flattened dependent block.",
+    "Only fscanf=-1 causes immediate return1; matching failure0 continues loops with partial/zero buffers and unconsumed invalid bytes. A positive total dependent count triggers a final fgets to discard the line remainder."
+  ],
+  "unknowns": [
+    "Stream real scanner exact cursor/EOF behavior must be evaluated independently; existing line real helpers do not establish it.",
+    "Preserved fields+54/+60 and interpolation consumers need recovery.",
+    "Allocation failure, rank2/3 temporary-buffer ownership and failure paths need explicit assessment."
+  ],
+  "next": "Model the shared table structure from evidence, recover stream real reads, and evaluate DTTYPE scalar-to-table-to-scalar transitions before implementing consumers.",
+  "followup": "analysis/time-table-contract.json"
+}

@@ -1,0 +1,82 @@
+{
+  "status": "PASS_selected_bounded_native_capture_ready",
+  "created_utc": "2026-10-20T23:52:34.815707+00:00",
+  "scope": "Read-only source, current frozen implementation, passive probe and all32 training/30 independent held-out inputs. No original execution and no candidate-output inference.",
+  "bindings": [
+    {
+      "path": "analysis/relation-import-static-contract.json",
+      "sha256": "67166ea827c447bd8628074f0deac8deede498b6bcedb8d1376ebf978e325b9c"
+    },
+    {
+      "path": "analysis/relation-import-byte-audit.json",
+      "sha256": "56560e988ae97b59f17973ae8a854d370a0cf45809f3df61b1a54b8de6f11c74"
+    },
+    {
+      "path": "analysis/relation-candidate-freeze.json",
+      "sha256": "9d7cf0b6c3fc3c79cd2c995278adeac4113b5717a20d180290939762776e1a16"
+    },
+    {
+      "path": "tools/observe_relation_import.js",
+      "sha256": "9f104ad8e011ea6bb3f7b1cd5da992ecd4c3c04f13fb0cbddebd584f511c4774"
+    },
+    {
+      "path": "analysis/relation-evaluation-cases.json",
+      "sha256": "5316f06eee7b46edf387303c59cdd4fc2a87aef9040e742156efd7aa8fa7812c"
+    },
+    {
+      "path": "analysis/relation-held-out-cases.json",
+      "sha256": "e709406be7118f830f857238c4c95b43a8398345691c6079b9e26934128f5a81"
+    }
+  ],
+  "source_audit": {
+    "PHASTF_continuation": "0x14038324f verified byte-for-byte against source PE; RAX is captured before native status store.",
+    "pair_selector": "Both signed base0 key conversions succeed in all fixtures; no uninitialized native key reads requested.",
+    "mode_failure": "Initialized line destination is read even helperfailure; relation fields snapshot before native mode store at continuation.",
+    "refresh": "Option0 recalculates layout then flat-prefix preserves storage. No invented relation-rank permutation.",
+    "table_constructor": "Only proven initialized scalar/pointer fields asserted; padding44..47 and5c..5f unspecified."
+  },
+  "probe_audit": {
+    "record_bounds": "Only initialized fields0..14, first2 namebytes, next770 andowner778 of0x780 allocation read.",
+    "list_bounds": "count0..3, null/cycle/owner/head-tail checks; no freed record reads after destructor.",
+    "buffer_bounds": "51/52 from registered descriptor physical begin/end; selected pointer cloned; <=6 doubles per descriptor.",
+    "stream_reads": "Only assigned pairselector outputs read. Initialized mode output and rawbytes captured; frames popped at byte-verified caller continuation.",
+    "startup": "Native primary/linked material_gate85c observed0 as explicit precondition; not seeded."
+  },
+  "fixture_bounds": {
+    "cohorts": [
+      32,
+      30
+    ],
+    "objects": 1,
+    "materials": 2,
+    "relation_records": 3,
+    "nodes": 6,
+    "elements": 2,
+    "stored_width": 3,
+    "stored_double_items": 6,
+    "explicit_input_width": 3
+  },
+  "training_case26": {
+    "safe": true,
+    "proof": "419b90 allocates scratch3 and scans all3 input values; per-row destination copies min(inputwidth3,livewidth2)=2. Scalar default fill uses exactly2 elements*livewidth2=4 doubles. No copy addresses beyond the registered descriptor."
+  },
+  "held_out_review": [
+    "Extreme signed32 ordered keys and modes remain representable.",
+    "Inactive object has empty storage and is skipped by refresh; reactivate fixtures reload mesh before fieldwrites.",
+    "Dimensionchange clears lists and buffers; same dimension retains them.",
+    "Invalid row3 is consumed but discarded with2element destination.",
+    "EOF and matching-failure mutations are intentional, not assumed successful imports."
+  ],
+  "implementation_review": "No discrepancy found in selected initialized profile. Candidate29file freeze remains authoritative; no edits made.",
+  "native_session": {
+    "export": "analysis/oracle/relation-static-evidence.json",
+    "records": 602,
+    "snapshot": "analysis/oracle/relation-snapshot.json",
+    "primitive_entries": 494,
+    "closed": true
+  },
+  "limitations": [
+    "Not a runtime equivalence receipt.",
+    "No OOM, signed extent overflow, incomplete pairselector, scientific relation tables or generalcopy/deserialization claims."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "status": "VERIFIER_ATTRIBUTION_FAILURE_PRESERVED",
+  "error": "rank0 width<=1 returns before normalization/allocation",
+  "cause": "The generic wrapper owns property-allocation serial; its child data frame has a different serial. Direct FSTRES data owns its allocation serial. Match the exact table within the observed child interval.",
+  "candidate_or_probe_discrepancy": false,
+  "bindings": [
+    {
+      "path": "analysis\\oracle\\fstres-first-validation-verifier.py",
+      "sha256": "1be82a566595715f4f3064205b0f1d89def84456c7de5ac49680ec08d066b5ed"
+    },
+    {
+      "path": "analysis\\fstres-runtime-training-a.json",
+      "sha256": "38a7df2dbb2d4084a761ede1011211fbb173c7381635e761d899a57ff05bf85c"
+    },
+    {
+      "path": "tools\\observe_fstres_import.js",
+      "sha256": "3dd23830057e5685d4a9ffec3d90a8a07dc30d802f78a3e7a54d696fb9baea48"
+    }
+  ],
+  "historical_verifier": {
+    "path": "tools\\verify_fstres_observations.py",
+    "sha256": "1be82a566595715f4f3064205b0f1d89def84456c7de5ac49680ec08d066b5ed",
+    "note": "Historical working-file hash at failure; immutable archive is bound below."
+  },
+  "observed_allocation_attribution": {
+    "data_serial": 114,
+    "wrapper_serial": 113,
+    "data_begin_sequence": 930,
+    "allocation_sequence": 931,
+    "data_end_sequence": 941
+  }
+}

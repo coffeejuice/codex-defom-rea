@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "status": "static_review_no_discrepancy_found_selected_branches_runtime_pending",
+  "scope": "Read-only review of FSTRES94 mode14 and GRNDAT108 selector4, constructor defaults, full selected state serialization and dependency ordering. No original process or replacement build was executed by this reviewer.",
+  "source_bindings": [
+    {
+      "path": "analysis/nested-material-model-inventory.json",
+      "sha256": "4571a1fda39bf6ce97481fc09b674adafda44b08dc6c2faad7d8ff842b609e07"
+    },
+    {
+      "path": "analysis/nested-material-byte-audit.json",
+      "sha256": "8bfce494f264ccb084ea5a0f2118e31ce1337edfb373bc72e86bb63a7000e77c"
+    },
+    {
+      "path": "analysis/nested-material-0x140288ae0.json",
+      "sha256": "32c7240e3544ab908b80047fd5fc6030c064d9d565089af95cd5f9bf61a8f40a"
+    },
+    {
+      "path": "analysis/nested-material-0x14028a3e0.json",
+      "sha256": "c7bc538c4521dfdfd42da58f41257f14b3a8ee8db82cbca20c082586160e837b"
+    },
+    {
+      "path": "analysis/nested-material-0x14029cdc0.json",
+      "sha256": "214ac48c874fff90058decc5c4b61ea267a64f6c972a8d837352442752606336"
+    },
+    {
+      "path": "analysis/nested-material-0x14028b8e0.json",
+      "sha256": "12d18e7c5b970328ad0f771a47c3e97c70fceb43c27770a4812b8deda74428df"
+    },
+    {
+      "path": "analysis/nested-material-0x14028a420.json",
+      "sha256": "9a22970edf80cfe9fb06e08a76a04b7949e9de7bea3bbea5f3a4a2d1ee849cd9"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10"
+    },
+    {
+      "path": "analysis/material-import-0x14028b850.json",
+      "sha256": "a16675f3d8e52cd884ea8b9c5d0161465c6112df5eb114d683957590ccf2096a"
+    },
+    {
+      "path": "analysis/configuration-0x14012d2a0.json",
+      "sha256": "3f9748aacea2b6df1d83cc34f5bdd68c0ce469b5e476f0e0d03db94cedbca943"
+    },
+    {
+      "path": "analysis/property-table-0x14041b270.json",
+      "sha256": "133d60392f3cdcbf5218cc82ec3bc3d1b584694d0d8a1838d132eb582546aa88"
+    },
+    {
+      "path": "analysis/relation-property-0x140414e40.json",
+      "sha256": "573e88a7f45ad70ea83a0b1c5987847c33715af6f7e5e145e3667adf5b0bc6f1"
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "sha256": "f82c9c23317e3c0c48b5383f840db10553ecb6e0dcc34607dbaa66bb5ac2ce75"
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "sha256": "27898e2e35a72072d16375b6c3243f9da88b68db794ab056def95752c4f51ba7"
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "sha256": "f976915df98ef6c1e1f5d471870d7685feddc085eed4facd885d7b557c1caf35"
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "sha256": "04f6a02e6636efe0c6c62d2f57dda82848a059caeafea258ce5a7b3201f7e335"
+    },
+    {
+      "path": "src/recovered/relation_properties.hpp",
+      "sha256": "7b6895a0e27ab083c5c561c94e9e96726f0ef5a3b4e09cb5540b7b6ec13b2d2f"
+    },
+    {
+      "path": "src/recovered/relation_properties.cpp",
+      "sha256": "b1ac73678d323324c17ba3a8dc9722050e15965ee33467ef443cd02edf0a8e6f"
+    },
+    {
+      "path": "src/recovered/property_table.cpp",
+      "sha256": "f62f90e6c731f2c1b8be96f7d88fcf14acc37cb0bc33cf7d623a700b836df992"
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "sha256": "8ff9c4b50e133d8e5c3aee5158d2c1b0278ea53d0326f04201df1e93f7bf4f21"
+    }
+  ],
+  "checks": [
+    {
+      "topic": "Constructor defaults",
+      "result": "FstresProperties mode1, four positive zeros and table0xae match288ae0; PropertyTable type0xae starts scalar1.0. GrndatProperties table0xac is rank2 axes3/8 with zero counts, while selector17e8 and secondary17ec start0. Selected buffers are empty; unrelated native table480 allocations are not represented or claimed."
+    },
+    {
+      "topic": "Material selection and creation",
+      "result": "Both routes run only after the existing exact signed selector and find_or_create_material path. Native outer-header failure can therefore leave a newly created record, as implemented."
+    },
+    {
+      "topic": "FSTRES outer input",
+      "result": "integer_triple uses initialized int3, one line and no blank-line retry. Native failure returns2 before mode change. Any accepted header with selector other than14 throws explicit unsupported before branch mutations."
+    },
+    {
+      "topic": "FSTRES live coefficients and status overwrite",
+      "result": "Mode11 is stored before read_relation_header(four_reals). Initialized four doubles are copied even after helper failure. The subsequent read_property call always occurs and alone determines native0/2 handler status. No early return on the ignored real4 status."
+    },
+    {
+      "topic": "GRNDAT selector and refresh",
+      "result": "integer_pair failure returns2 before selector store. Accepted selector4 writes the single mutable feature_0x17e8, preserves secondary17ec, invokes table1740 and then refresh_components regardless of table failure. refresh_components selects option0 with no material-column remap; creation option1 remains separate."
+    },
+    {
+      "topic": "Shared table helper",
+      "result": "Both nested branches pass flag0 and null auxiliary to unchanged read_property. Header failure preserves prior table; accepted header resets type0 while retaining54/60. Existing initialized direct and staged dependent payload behavior is reused, including explicit unsupported undefined scratch domains."
+    },
+    {
+      "topic": "Ownership and resets",
+      "result": "Value-owned selected tables are copied for observation snapshots and destroyed with material records. Native selected destructor chains reach12f410 at388 and1740. Root dimension reset destroys material lists through the previously recovered lifecycle; no fake contiguous native record is used."
+    },
+    {
+      "topic": "Snapshot serialization",
+      "result": "Both nested records are serialized in the agreed schema. Coefficients have numeric and raw binary64 views; tables preserve actual physical arrays separately from logical shape. GRNDAT selector mirrors the same feature_0x17e8 field, avoiding duplicate mutable state."
+    },
+    {
+      "topic": "Disabled scientific feature profile",
+      "result": "Current explicit root reset profile has864=0, which gates feature queries29/53. The comparator must assert that original gate in every root snapshot and query event. Enabled grain-dependent widths are not proven by this integration."
+    }
+  ],
+  "discrepancies": [],
+  "limits": [
+    "Static correspondence does not substitute for upcoming passive original captures and independent verification.",
+    "Only outer mode14 and selector4 are implemented; valid other selectors are explicit unsupported outcomes, not reconstructed native error returns.",
+    "The selected API cannot establish enabled root864 behavior, scientific evaluation/interpolation, all nested material fields, padding or shared native ownership.",
+    "Library safe exceptions and owned cleanup on undefined allocations are intentional boundaries; no allocator/leak equivalence is claimed."
+  ]
+}

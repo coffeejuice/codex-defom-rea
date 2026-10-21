@@ -1,0 +1,486 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "created_utc": "2026-10-20T22:35:02.365953+00:00",
+  "purpose": "Independent held-out dynamic-field inputs authored after candidate freeze from retained native static contracts only. No candidate implementation/output or current native training observations consulted. Hypotheses remain unmeasured until capture.",
+  "cases": [
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/01_planar_unequal_mesh_counts.KEY",
+      "sha256": "60bfe3eebc59d7e29d94f4a30554e1e7c70aa2fe52447c9124380d686ffb594a",
+      "bytes": 166,
+      "hypothesis": "Begin in2D with six-node/two-quad object1 and four-node/one-quad object2, making selected and globally refreshed extents differ.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/02_temperature_signed_zero_pair.KEY",
+      "sha256": "9d462534f649f08c2f0b4f8d534938f4596aad214743c2aeca8501e11a80dd39",
+      "bytes": 29,
+      "hypothesis": "Signed-zero pair ordering distinguishes copied second values and subtraction signs across transformed temperature/gradient arrays.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/03_temperature_pair_repeated_invalid.KEY",
+      "sha256": "25b1d50e0577578ffc9e45b27533bc88f26ed154f517f665307f4f950f248979",
+      "bytes": 46,
+      "hypothesis": "Planar temporary rows include repeated valid ID and out-of-range ID; only complete valid rows affect transformed arrays.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/04_temperature_nonpair_selector.KEY",
+      "sha256": "2e1d65fdba5a4445bc1345e77d9a2d4c513f84f576e535bfdd576049c94d5cc7",
+      "bytes": 21,
+      "hypothesis": "Selector3 takes the scalar fallback rather than width3 allocation; node12 clears and temperature row remains scalar.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/05_temperature_comma_header.KEY",
+      "sha256": "284fed683bd4d6029dda055cccfdef509e29e06869dfcbafa01a5d496e5b21ca",
+      "bytes": 27,
+      "hypothesis": "415590 comma replacement applies to header grammar; planar pair data on object2 remains whitespace-scanned.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/06_node_user_comma_width_three.KEY",
+      "sha256": "af7a44365010f3ba6a5af54d3f82291eb4f3f0dee13d76606c652b56a99cb823",
+      "bytes": 32,
+      "hypothesis": "User-node width3 selected on smaller second object, with comma header and signed-zero default before global refresh.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/07_node_user_grow_five.KEY",
+      "sha256": "4dd072ce43175df6ee61429f491848a710219ed119040384441666c92c33f690",
+      "bytes": 39,
+      "hypothesis": "Grow user width3 to5, a new width beyond training, preserving old metadata and creating zeroed records.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/08_node_user_shrink_sparse.KEY",
+      "sha256": "b2075197f6b7e9e96a877f6c3f717cb77135305541429d8b8866251397759e41",
+      "bytes": 36,
+      "hypothesis": "Shrink width5 to2 and overwrite sparse rows in reverse node order; other object refreshes to matching width.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/09_inactive_selected_width_change.KEY",
+      "sha256": "650ea184661c67a7cb176cfd63ec18e4c7ec83a624e7ab81dd62c54b05a5d7ff",
+      "bytes": 32,
+      "hypothesis": "Deactivate object2, then change global node width from that zero-count object; active object1 refreshes while inactive storage stays empty.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/10_reactivate_same_width.KEY",
+      "sha256": "1f2307df66f334f4f344398c952ff6c9d589b00ce5d5fc6e365e1502a067a31c",
+      "bytes": 99,
+      "hypothesis": "Reactivate and replace mesh after inactive setter; same-width user import should retain metadata and avoid another global width refresh.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/11_element_user_three_two_rows.KEY",
+      "sha256": "df0e7ba163f805cd98e27dc083b78a8a89933885900bfb3aa13cfbe2b383a5ce",
+      "bytes": 44,
+      "hypothesis": "User-element width3 with two distinct element rows establishes nonzero row-stride data before later width changes.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/12_element_user_zero_fallback.KEY",
+      "sha256": "6247710f5494405d987954b1b79a3957defbf700365d826fdfa5f06743ab49ee",
+      "bytes": 27,
+      "hypothesis": "A requested zero element width falls back to2, globally shrinking three-component data on object1.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/13_planar_axis_two_rows.KEY",
+      "sha256": "e2d565de483c2b578965401d7d8566ddb82aa00645bdb4ef3898f5e426ae6ef8",
+      "bytes": 28,
+      "hypothesis": "Planar physical width1 for two elements, with distinct row values including signed zero.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/14_planar_axis_zero_width_invalid_rows.KEY",
+      "sha256": "d513c6c602cce1de79a316ed167100e623f79804a39cbe416b44a3a07cc6e1c3",
+      "bytes": 18,
+      "hypothesis": "Mode2 width0 consumes two IDs without scalar reads, including IDs outside logical rows, preserving physical two-double storage.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/15_planar_wear_sparse.KEY",
+      "sha256": "4368bf77ce9fd2aeea740be42a45dd88897c5d32514d74ce7778c9aefe9e46e7",
+      "bytes": 35,
+      "hypothesis": "Lazy planar wear width5 with signed-zero broadcast on six nodes and a final-node vector.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/16_wear_failure_then_displacement_skip.KEY",
+      "sha256": "77b9644713d3af216bee41feb7f354d2c47277e6b8c8ecf1b7cb88da31f512e4",
+      "bytes": 34,
+      "hypothesis": "Wear blank header fails without writes; planar DRMESH consumes no following payload, exposing same-line user-element keyword.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/17_temperature_pair_partial_eof.KEY",
+      "sha256": "118689d1cead18bfb43521806f4d5ed009b1b970738ac567bfe3a2d30075f242",
+      "bytes": 30,
+      "hypothesis": "Completed pair and default pairs transform after EOF interrupts a later pair; physical temporary extent is twelve doubles.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/18_node_metadata_clear_regrow.KEY",
+      "sha256": "8821ab65806117bbd5755648f08ca3a660b1b40396d143e75a44ceeda65b27d5",
+      "bytes": 33,
+      "hypothesis": "Clear node metadata/storage globally, then regrow width1 in the same import from the other object.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/19_spatial_unequal_mesh_counts.KEY",
+      "sha256": "dbdea635e3343c48309f123aad9d5141629fa3077614f7e23ed1ae917c5de466",
+      "bytes": 181,
+      "hypothesis": "Reset to3D with five-node/two-tet object1 and four-node/one-tet object2; metadata and previous planar fields must reset.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/20_spatial_nodes_width_five.KEY",
+      "sha256": "3a7eb765d4eebb147045439f05fb99e499560a8a925f9b3f0ec0df0eadd75c0b",
+      "bytes": 60,
+      "hypothesis": "Spatial width5 on five nodes, with two sparse vectors and negative-zero defaults on untouched rows.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/21_spatial_elements_width_four.KEY",
+      "sha256": "6674dde5b5479ad40243570c98e4ac9cc1b63c85d887a21852aba7c78a32b8f2",
+      "bytes": 52,
+      "hypothesis": "Spatial user-element width4 and two rows provide distinct data for subsequent same-width and global refresh cases.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/22_spatial_axis_vector_two_rows.KEY",
+      "sha256": "18ee2297f3aebb925e920a9d6bfe40c7e45cfcdeba17c2b60ac08f61dedccce9",
+      "bytes": 49,
+      "hypothesis": "Nine-component defaults fill physical18 doubles for two elements, establishing distinguishable retained tails.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/23_spatial_axis_narrow_packed_rows.KEY",
+      "sha256": "483e47bf3dea7b5c9ad9a62ea3bda6ca4b615be483c271d905d39a1b3126f69c",
+      "bytes": 40,
+      "hypothesis": "Mode2 width2 packs two rows into first four physical doubles while remaining14 doubles retain prior values.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/24_spatial_axis_partial_width_header.KEY",
+      "sha256": "f18f2c69d7caf7c53dadd492db50c35edeed4f1f1ecfb80fdb4c0668d5461a7c",
+      "bytes": 13,
+      "hypothesis": "Header with only rowcount writes width0; subsequent implicit zero-width row consumes ID and leaves physical storage unchanged.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/25_same_element_width_without_refresh.KEY",
+      "sha256": "47c4ca20f7af4e6affe2fb25dc82f0acb7fd45afe298de7967e010fd5723d338",
+      "bytes": 17,
+      "hypothesis": "Same-width user setter targets second object while root46 is0 but object1 physical MATAXI storage remains allocated.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/26_element_growth_global_layout.KEY",
+      "sha256": "14719865c3747ff31b85563c87b17e892161c4cc047498fb3905027b1fa15450",
+      "bytes": 39,
+      "hypothesis": "Width4 to5 global refresh recomputes component46 independently of its previous mode2 override and refreshes the other object.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/27_axis_reallocate_partial_eof.KEY",
+      "sha256": "13c43823676d091a8b01eacb4d9bc162b752fb5335d082c8c31a298b30cd6850",
+      "bytes": 29,
+      "hypothesis": "MATAXI getter establishes width9 after global refresh; signed-zero defaults survive EOF in an incomplete nine-value row.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/28_mesh_displacement_physical_eof.KEY",
+      "sha256": "af8b93c760d36fa9357146aeeea5ec67f38c0e0900e3a6e9408181e173f85ebd",
+      "bytes": 27,
+      "hypothesis": "Spatial displacement completed row commits before implicit final fgets encounters physical EOF without newline.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/29_spatial_temperature_negative_zero.KEY",
+      "sha256": "3aae35a5b551b3fc0c209990e5f737371169712fc8b028e3d4d0659dc0c59940",
+      "bytes": 13,
+      "hypothesis": "Spatial scalar temperature default preserves signed zero on a smaller non-selected-by-prior-import object.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/30_spatial_wear_invalid_and_valid.KEY",
+      "sha256": "8f8c234556ec26b67c34959b44731a3842c2886cd421eb68b7195e1c14de3243",
+      "bytes": 57,
+      "hypothesis": "Spatial wear consumes a complete invalid-ID vector before a valid row, with bounded width5 storage.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/31_blank_node_header_missing_element_width.KEY",
+      "sha256": "9b8eb238f21f9c2142e828b9848bb6dc0210a48f0e8ccf1c19923c274a09fd69",
+      "bytes": 24,
+      "hypothesis": "Blank user-node header returns failure without setter; missing element width initializes0 then falls back2 before refresh.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/dynamic_fields/held_out/32_final_planar_reset.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "hypothesis": "Final dimension reset leaves no objects and clears global user metadata, testing destruction after several grow/shrink cycles.",
+      "split": "held_out",
+      "expected_output": null
+    }
+  ],
+  "ordered_imports": [
+    "01_planar_unequal_mesh_counts.KEY",
+    "02_temperature_signed_zero_pair.KEY",
+    "03_temperature_pair_repeated_invalid.KEY",
+    "04_temperature_nonpair_selector.KEY",
+    "05_temperature_comma_header.KEY",
+    "06_node_user_comma_width_three.KEY",
+    "07_node_user_grow_five.KEY",
+    "08_node_user_shrink_sparse.KEY",
+    "09_inactive_selected_width_change.KEY",
+    "10_reactivate_same_width.KEY",
+    "11_element_user_three_two_rows.KEY",
+    "12_element_user_zero_fallback.KEY",
+    "13_planar_axis_two_rows.KEY",
+    "14_planar_axis_zero_width_invalid_rows.KEY",
+    "15_planar_wear_sparse.KEY",
+    "16_wear_failure_then_displacement_skip.KEY",
+    "17_temperature_pair_partial_eof.KEY",
+    "18_node_metadata_clear_regrow.KEY",
+    "19_spatial_unequal_mesh_counts.KEY",
+    "20_spatial_nodes_width_five.KEY",
+    "21_spatial_elements_width_four.KEY",
+    "22_spatial_axis_vector_two_rows.KEY",
+    "23_spatial_axis_narrow_packed_rows.KEY",
+    "24_spatial_axis_partial_width_header.KEY",
+    "25_same_element_width_without_refresh.KEY",
+    "26_element_growth_global_layout.KEY",
+    "27_axis_reallocate_partial_eof.KEY",
+    "28_mesh_displacement_physical_eof.KEY",
+    "29_spatial_temperature_negative_zero.KEY",
+    "30_spatial_wear_invalid_and_valid.KEY",
+    "31_blank_node_header_missing_element_width.KEY",
+    "32_final_planar_reset.KEY"
+  ],
+  "probe": {
+    "path": "tools/observe_dynamic_field_import.js",
+    "sha256": "30c58ab51f2e2abeecc3cf9a08df75251486a0e7af58c3aa1d81ec2d9dd2429b"
+  },
+  "candidate_freeze": {
+    "path": "analysis/dynamic-field-candidate-freeze.json",
+    "sha256": "54b7b738173d376f8c708e59cf034f4f98d04ab5f3e7d8e96247f51335d2d022"
+  },
+  "training_input_freeze": {
+    "path": "analysis/dynamic-field-input-freeze.json",
+    "sha256": "b4a2f0dfc536cea638a8e65f6028d3789b8d1eda64c0543c1e37d756bf0fa96b"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/array-keyword-next-inventory.json",
+      "sha256": "cfe64415fc8abc76aa0d686e13ed845c3bfaaa495fd8629cd3e243eb507c26f4"
+    },
+    {
+      "path": "analysis/geometry-import-0x14038b8a0.json",
+      "sha256": "76d86a332755c224b4539b295b190f5b40d7da5ac239f25396eda4cbafbfcff0"
+    },
+    {
+      "path": "analysis/geometry-import-0x14038b8a0-assembly.json",
+      "sha256": "8f714501d220e8ad0962660a982341bd5fe07039f7c259d22e07147b0d0fdc32"
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612"
+    },
+    {
+      "path": "analysis/material-reference-0x140416c90.json",
+      "sha256": "b8b241404689a00a28fd62cfe13268a5a49bc7ab9a8c658f87f57b1642593651"
+    },
+    {
+      "path": "analysis/material-reference-0x1404199a0.json",
+      "sha256": "7d91e748f40496c14778ea2db058bb3ed127f807b1bd7c72d6ff39599bde848b"
+    },
+    {
+      "path": "analysis/material-reference-0x140419b90.json",
+      "sha256": "6a08f5571d4af4c6249c27ad036db24f5e40b5bdd9feb2843298a979d01158ca"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d21c0.json",
+      "sha256": "64349922e6b0c9524ae06a8279fda219745776713c03f63636a9d60e5e49372e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d2090.json",
+      "sha256": "b6bf81006fbe8d95e8e9ac874f59abcb961488107502c2da1f95f61b70b5ec64"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d09c0.json",
+      "sha256": "de1b0e50ccd3575f04a8f37f07d607370fc30a95c4c2c3d642e5603a675c1181"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf"
+    },
+    {
+      "path": "analysis/dynamic-field-0x14017f020.json",
+      "sha256": "cedd87a432aaec4eaf211fa1e1983d4f9bd41a4f67cdd5b13d597e40cf67c62c"
+    },
+    {
+      "path": "analysis/dynamic-field-0x14017ffe0.json",
+      "sha256": "ede41a0a970c2a0dc228476a42414180dab2f8ad8ec3cc0ff310796876a2964a"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140181190.json",
+      "sha256": "acb9ad471adc096201b452b17abaf9644043d9087c65499c01b32671f82f8d60"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401815b0.json",
+      "sha256": "f9ce5eaaad3e06d568dc17d989b2443c3d0e7b09069614f9aa681e872b3bd389"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140182980.json",
+      "sha256": "bf7057ffd280fa3c17b6fefb5d34f2a610880df99a90afc601069d63d132a5e2"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401836c0.json",
+      "sha256": "7d9e4a4c9df93979b065d182eb1e1a9c32a81c49e7afef8782ed0c34665ac92e"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140184150.json",
+      "sha256": "7f6293fe75d66bdd9e092ed05ecbfc80b2e33c838cdedfef656d7f1d861b7551"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140184a30.json",
+      "sha256": "82934d442bd0097e731858a754a6f7abe229160972242fcae0ddcac5522f47e8"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401cb660.json",
+      "sha256": "9a5d8ec5322e46c7707ed3f105f7c013d0eb296f577ef36d41ad0388d8742eda"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401cb7d0.json",
+      "sha256": "c2f751945fe89cf1692dc45aaf3c75570ee1a22d61fcbf74c657a8b2350fbf6a"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401cb910.json",
+      "sha256": "4e40706e0cd5bc32ab631ec613ed5371807a0ba120732b3965fe177ca266cf0e"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401cba80.json",
+      "sha256": "fb05c646c19e4890e9d012157ebe7b20c3f6848f225678c3cecaae410024518d"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401cf930.json",
+      "sha256": "f2f2307635dd3dfea1ae0da8783e906b67862cc73a46be5f2e8c10057ca0b6a2"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401cfc30.json",
+      "sha256": "9326ded98a0b16cc41ceed6cddff0c3a572e903bb94104f87bfd8680a9b23512"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401d2b70.json",
+      "sha256": "5e0a5c1e5f7f3bfdf21f5d13e67ef9c0d7c983c48b335da0d40e0a35b6c8cc62"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401d48d0.json",
+      "sha256": "638a791477079a6995623bd56ae60521bbaab62d8b1b3bb1d23950b6f5cbbfab"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140329e60.json",
+      "sha256": "18168ce654986c4ec906e50a478fb71db4da24877752a7a0b636724d0ec3fd11"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140415590.json",
+      "sha256": "7b34a9719271bd2cc16b17979ffc8f475305604d4169a2eb9a8bdda7a2ec4b23"
+    },
+    {
+      "path": "analysis/dynamic-field-static-contract.json",
+      "sha256": "dcbdc4b4a9fdf26d4ffb42596c81aba1cbb065dcaa1c75d19dc4072369cb807e"
+    },
+    {
+      "path": "analysis/dynamic-field-precapture-audit.json",
+      "sha256": "52e8d35db39e0ecb3208a0effc8bd03f4241d070ff129521ff90df98d51f2db9"
+    }
+  ],
+  "selected_keywords": [
+    "NDTMP",
+    "USRNOD",
+    "USRELM",
+    "MATAXI",
+    "NWEAR",
+    "DRMESH"
+  ],
+  "handler_scope": {
+    "category1": [],
+    "category2": [
+      145,
+      159,
+      170,
+      173,
+      196,
+      197,
+      254,
+      255,
+      263
+    ],
+    "category4": []
+  },
+  "bounds": {
+    "imports": 32,
+    "objects": 2,
+    "materials": 0,
+    "nodes_per_object": 6,
+    "elements_per_object": 2,
+    "user_width": 5,
+    "physical_field_width": 9,
+    "mode2_requested_width": 9,
+    "declared_rows": 3,
+    "maximum_fixture_bytes": 181
+  },
+  "predeclared_coverage": [
+    "Different selected/nonselected mesh row extents in both dimensions.",
+    "User widths1..5 plus node zero and element-zero fallback; global growth/shrink, equal-width skip, clear/regrow metadata.",
+    "Inactive selected object changes width while active peer refreshes, followed by reactivation with fresh mesh.",
+    "MATAXI physical18-double storage with effective four-double prefix, zero-width/partial headers and later component refresh.",
+    "Planar temperature pair subtraction signs, repeated/outside rows, nonpair selector3, comma header and partial EOF transform.",
+    "NWEAR blank header and invalid-ID consumption;2D DRMESH no-consumption and3D completed row before final-fgets EOF."
+  ],
+  "declared_gaps": [
+    "No negative/overflow allocation extents, allocation failure, uninitialized input destinations, nonfinite or overflow floating values.",
+    "No native field-name editing keyword; metadata record content remains the default zeroed profile.",
+    "No unsafe MATAXI requested width greater than its actual existing allocation; this native hazard is not executed.",
+    "No unsupported positive property table profile or full scientific interpretation of user fields is claimed."
+  ],
+  "fixture_bytes": 1389
+}

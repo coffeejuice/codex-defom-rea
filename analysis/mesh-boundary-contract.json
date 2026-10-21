@@ -1,0 +1,68 @@
+{
+  "status": "partial_implementation_with_exact_recorded_comparisons",
+  "reference": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "entry_chain": [
+    {"address": "0x1401fc290", "role": "Object boundary update after connectivity; dispatches by dimension and copies builder output into one boundary group.", "evidence": "analysis/mesh-0x1401fc290.json"},
+    {"address": "0x140354ed0", "role": "3D wrapper selects element-width branch and orders equal-sum output faces by first and second nodes while carrying owner IDs.", "evidence": "analysis/mesh-0x140354ed0.json"},
+    {"address": "0x140355cbf", "role": "Tetrahedral face generation and pairwise cancellation.", "evidence": "analysis/mesh-0x140355cbf.json"},
+    {"address": "0x14043c760", "role": "Sorts 8-byte sum/index records.", "evidence": "analysis/mesh-0x14043c760.json"},
+    {"address": "0x14043c7f0", "role": "Comparator uses signed sum only; equal sums compare equal.", "evidence": "analysis/mesh-0x14043c7f0.json"},
+    {"address": "0x140484bd0", "role": "Embedded quicksort whose tie permutation is retained.", "evidence": "analysis/mesh-0x140484bd0.json"},
+    {"address": "0x140484b10", "role": "Selection-sort fallback for partitions of at most eight records; first strict maximum is swapped to the end.", "evidence": "analysis/mesh-0x140484b10.json"}
+  ],
+  "tetrahedral_contract": {
+    "local_faces_one_based": [[1,3,2],[1,2,4],[1,4,3],[2,3,4]],
+    "table_address": "0x140605090",
+    "table_evidence": "analysis/mesh-boundary-tables.json",
+    "candidate_order": "Element input order, then local-face table order.",
+    "sort_key": "Sum of three node IDs; face index travels with the key.",
+    "cancellation": "In sorted order, skip a face whose first node was cleared. Search later candidates with the same sum for a face containing all three current node IDs. Clear the matching candidate's first node and discard the current face. Unpaired faces survive.",
+    "orientation": "Surviving faces retain their original local-table orientation.",
+    "output": "Four node slots per face, repeating the first node in the fourth slot, plus one-based owning element.",
+    "final_order": "Within each equal-sum group, nested comparison/swap orders by first node then second node and carries the owning-element value.",
+    "implication": "Duplicate cancellation is pairwise, so an odd number of identical faces can leave one face. Equal-key permutation can affect which orientation and owner survive."
+  },
+  "implementation": {
+    "files": ["src/recovered/mesh_boundary.hpp", "src/recovered/mesh_boundary.cpp"],
+    "driver": "tests/mesh_boundary_replay.cpp",
+    "internal_component_only": true,
+    "external_loader_api_changes": false,
+    "design_choices": [
+      "Portable vectors and indices replace original temporary buffers and pointer arithmetic.",
+      "Recursive sorting of disjoint partitions replaces the reference's explicit stack; comparator state is limited to the key.",
+      "Nonpositive node IDs, face-sum overflow and excessive counts are rejected outside the established compatibility domain."
+    ]
+  },
+  "evaluation": {
+    "comparison_report": "analysis/mesh-boundary-comparison.json",
+    "provenance_reports": ["analysis/mesh-boundary-observations.json", "analysis/boundary-sort-observations.json"],
+    "candidate_freeze": "analysis/boundary-candidate-freeze.json",
+    "fixture_definitions": "analysis/boundary-evaluation-cases.json",
+    "captures": [
+      "analysis/mesh-boundary-runtime-1.json",
+      "analysis/mesh-boundary-sort-runtime-training.json",
+      "analysis/mesh-boundary-sort-runtime-held-out.json"
+    ],
+    "exact_tetrahedral_outputs": 12,
+    "exact_sort_permutations": 10,
+    "comparison_fields": ["face count", "oriented node sequences", "face order", "owner element IDs", "sort key/index permutation"],
+    "candidate_unchanged_during_evaluation": true,
+    "limitations": [
+      "Fixtures were independently prepared by another agent in the same project, not by an external benchmark authority.",
+      "The largest observed sort contains 12 records; large meshes and deep partitions need further evaluation.",
+      "The two eight-node observations contribute sort comparisons but no claim of implemented hexahedral boundary construction.",
+      "The first held-out launch timed out waiting for its observation gate and was terminated; it is excluded. The authoritative held-out capture uses the fresh retry directory and PID 2344."
+    ]
+  },
+  "remaining": [
+    "2D boundary builder",
+    "Eight-node branch, including zero/repeated-node degeneracy classification",
+    "Ten-node element branch",
+    "Derived geometry and dependent-array integration",
+    "Malformed connectivity, allocation failures and numerical overflow compatibility",
+    "Complete object lifecycle and keyword importer"
+  ]
+}

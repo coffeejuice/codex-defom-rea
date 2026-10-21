@@ -1,0 +1,1856 @@
+{
+  "schema_version": 1,
+  "scope": "Input-only eight-slot keyword fixtures. No original or replacement execution and no expected behavioral outputs. Standard cases are separate from unverified collapsed-topology discovery encodings.",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "counts": {
+    "training": 5,
+    "held_out": 5,
+    "discovery": 6,
+    "total_fixtures": 16,
+    "total_elements": 29
+  },
+  "protocol": {
+    "training": "Use to observe original behavior and develop reconstruction.",
+    "held_out": "Record implementation freeze hashes before any held-out original or replacement runs. If these results guide changes, reclassify them and create new held-out inputs. Design visibility does not imply runtime independence.",
+    "discovery": "Isolated exploratory cases only. Eight integer tokens are syntactically justified, but neither successful import nor a physically valid collapsed topology is asserted. Do not include these in standard-hexahedron equivalence claims.",
+    "comparison": "Retain import status, exact sort records, exact boundary faces/owners, and consumer arrays. Do not substitute guessed expected counts or normalize ordering."
+  },
+  "static_basis": {
+    "arity": "Saved keyword handler accepts ELMCON arity8 and reads eight integer slots. No new grammar is introduced by these fixtures.",
+    "collapsed_dispatch": "Saved 0x14035672f pseudocode counts zero slots and maximum repeated-slot multiplicity. Two zeros OR maximum multiplicity two selects local six-node metadata; otherwise four zeros OR maximum multiplicity four selects four-node metadata. Face construction also filters repeated/zero entries. These branch predicates motivate discovery inputs only; exact importer acceptance, table conventions, and final arrays remain runtime questions.",
+    "zero_policy": "Only discovery inputs contain zero node slots. All nonzero IDs are positive and within the coordinate count; zeros are explicit padding candidates, never coordinate indices.",
+    "mixed_class_ownership_question": "0x14035672f emits an owner-like output from (compressed candidate index - 1) / local face count + 1. Mixed-class discovery fixtures test the observed result; no equivalence to input element ID is assumed."
+  },
+  "evidence": [
+    {
+      "path": "analysis/mesh-0x14035672f.json",
+      "sha256": "ab0eead46880061a08f92b880d6a496f743a17e122f31087cc0a1c64f56b046f",
+      "evidence_id": "ev_fd45bd14be59488f46f5fcb6fedadd45dd71192a783db1e82d8045af63d9c41e"
+    },
+    {
+      "path": "analysis/keyword-object-contract.json",
+      "sha256": "b7cad5d0855f0f9326f33524c0a9cd9412312ae5399a121eb636216595d1f3c3",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/mesh-boundary-tables.json",
+      "sha256": "b801ff6e713b7a4170768dbb52b6b5432867f1a6cbc0e15ac8a4f5636dd32076",
+      "evidence_id": null
+    },
+    {
+      "path": "tests/fixtures/boundary/training/05_unit_hexahedron.KEY",
+      "sha256": "06954715ab18e9677709ef2e17fe26149805f5af901579bdfb4bc69d69593ebb",
+      "evidence_id": null
+    }
+  ],
+  "cases": [
+    {
+      "id": "training/01_adjacent_hexes",
+      "split": "training",
+      "path": "tests/fixtures/hexa_boundary/training/01_adjacent_hexes.KEY",
+      "sha256": "8ecdb590a92eeeab40b8b36f60de076fa7a8f41d1ab7f25288e53dd27d020147",
+      "size_bytes": 239,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "two_valid_adjacent_cubes",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          2,
+          9,
+          10,
+          3,
+          6,
+          11,
+          12,
+          7
+        ]
+      ],
+      "node_count": 12,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "How are the shared-face records treated, and which exact ordering and ownership appear in the remaining original arrays?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "training/02_two_duplicate_hexes",
+      "split": "training",
+      "path": "tests/fixtures/hexa_boundary/training/02_two_duplicate_hexes.KEY",
+      "sha256": "eb65fca4bc0d4b19fb579d1dfc8145ee1a525d7ba3a32c9b48c3f2ff6338c5a6",
+      "size_bytes": 205,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonphysical_overlapping_topological_stress",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "node_count": 8,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "How does the original handle two coincident hexahedra, including mixed local orientation-preserving order?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "training/03_three_duplicate_hexes",
+      "split": "training",
+      "path": "tests/fixtures/hexa_boundary/training/03_three_duplicate_hexes.KEY",
+      "sha256": "8ff0bc9e870064bdbdfcceb4c53bde320a30e7cd038cc7d7dc84ae25294b4d75",
+      "size_bytes": 225,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonphysical_overlapping_topological_stress",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "node_count": 8,
+      "element_count": 3,
+      "arity": 8,
+      "questions": [
+        "Does odd duplicate multiplicity select one occurrence, retain several, or behave differently, and how does equal-key ordering affect ownership?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1,
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 24,
+        "six_candidate_faces_per_element_upper_bound": 18,
+        "sort_integers_upper_bound": 36,
+        "face_output_integers_upper_bound": 72,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "training/04_disjoint_equal_sum_faces",
+      "split": "training",
+      "path": "tests/fixtures/hexa_boundary/training/04_disjoint_equal_sum_faces.KEY",
+      "sha256": "5ed8a724ece2e520cecf1ca2e468c2bb7f59ff24691d7629770be001e9e1f937",
+      "size_bytes": 289,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "two_valid_disjoint_cubes_equal_sum_stress",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          4,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          4,
+          0,
+          1
+        ],
+        [
+          3,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          13,
+          9,
+          14,
+          10,
+          3,
+          6,
+          16,
+          2
+        ],
+        [
+          7,
+          1,
+          5,
+          8,
+          15,
+          11,
+          4,
+          12
+        ]
+      ],
+      "node_count": 16,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "Are distinct quadrilateral faces with colliding node-ID sums distinguished correctly, and what equal-key order is observed?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1
+        ],
+        "cross_element_distinct_faces_with_equal_node_id_sums": [
+          {
+            "left": {
+              "owner_input_row": 1,
+              "nodes": [
+                2,
+                10,
+                14,
+                16
+              ],
+              "sum": 42
+            },
+            "right": {
+              "owner_input_row": 2,
+              "nodes": [
+                4,
+                11,
+                12,
+                15
+              ],
+              "sum": 42
+            }
+          },
+          {
+            "left": {
+              "owner_input_row": 1,
+              "nodes": [
+                2,
+                10,
+                14,
+                16
+              ],
+              "sum": 42
+            },
+            "right": {
+              "owner_input_row": 2,
+              "nodes": [
+                7,
+                8,
+                12,
+                15
+              ],
+              "sum": 42
+            }
+          }
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "training/05_rotated_connectivity",
+      "split": "training",
+      "path": "tests/fixtures/hexa_boundary/training/05_rotated_connectivity.KEY",
+      "sha256": "9f3fb3e963504d07e37ccdbd922b68c142376618667cf18ea6a8c022d061d17f",
+      "size_bytes": 188,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "valid_cube_orientation_preserving_permutation",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          4,
+          1,
+          6,
+          7,
+          8,
+          5
+        ]
+      ],
+      "node_count": 8,
+      "element_count": 1,
+      "arity": 8,
+      "questions": [
+        "What exact face ordering and ownership follow a proper rotation of local connectivity?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 8,
+        "six_candidate_faces_per_element_upper_bound": 6,
+        "sort_integers_upper_bound": 12,
+        "face_output_integers_upper_bound": 24,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "held_out/01_adjacent_hexes",
+      "split": "held_out",
+      "path": "tests/fixtures/hexa_boundary/held_out/01_adjacent_hexes.KEY",
+      "sha256": "33477c85e5b962eebe4914c58cc549e513b06f106a051d5e2c70ee7639b73ed9",
+      "size_bytes": 251,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "two_valid_adjacent_cubes",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          5,
+          -3,
+          4
+        ],
+        [
+          7,
+          -3,
+          4
+        ],
+        [
+          7,
+          -1,
+          4
+        ],
+        [
+          5,
+          -1,
+          4
+        ],
+        [
+          5,
+          -3,
+          6
+        ],
+        [
+          7,
+          -3,
+          6
+        ],
+        [
+          7,
+          -1,
+          6
+        ],
+        [
+          5,
+          -1,
+          6
+        ],
+        [
+          9,
+          -3,
+          4
+        ],
+        [
+          9,
+          -1,
+          4
+        ],
+        [
+          9,
+          -3,
+          6
+        ],
+        [
+          9,
+          -1,
+          6
+        ]
+      ],
+      "connectivity": [
+        [
+          9,
+          10,
+          3,
+          2,
+          11,
+          12,
+          7,
+          6
+        ],
+        [
+          2,
+          3,
+          4,
+          1,
+          6,
+          7,
+          8,
+          5
+        ]
+      ],
+      "node_count": 12,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "How are the shared-face records treated, and which exact ordering and ownership appear in the remaining original arrays?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "held_out/02_two_duplicate_hexes",
+      "split": "held_out",
+      "path": "tests/fixtures/hexa_boundary/held_out/02_two_duplicate_hexes.KEY",
+      "sha256": "764c722d1529dda9ee91fb65c62eda1940c11c422c2c39c5b3518f4845d169d7",
+      "size_bytes": 213,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonphysical_overlapping_topological_stress",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          5,
+          -3,
+          4
+        ],
+        [
+          7,
+          -3,
+          4
+        ],
+        [
+          7,
+          -1,
+          4
+        ],
+        [
+          5,
+          -1,
+          4
+        ],
+        [
+          5,
+          -3,
+          6
+        ],
+        [
+          7,
+          -3,
+          6
+        ],
+        [
+          7,
+          -1,
+          6
+        ],
+        [
+          5,
+          -1,
+          6
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          4,
+          1,
+          6,
+          7,
+          8,
+          5
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "node_count": 8,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "How does the original handle two coincident hexahedra, including mixed local orientation-preserving order?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "held_out/03_three_duplicate_hexes",
+      "split": "held_out",
+      "path": "tests/fixtures/hexa_boundary/held_out/03_three_duplicate_hexes.KEY",
+      "sha256": "897595de76b0f827b2376b69da07cb32c7d8c9a46bbbc913e669b9da4b86f479",
+      "size_bytes": 233,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "nonphysical_overlapping_topological_stress",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          5,
+          -3,
+          4
+        ],
+        [
+          7,
+          -3,
+          4
+        ],
+        [
+          7,
+          -1,
+          4
+        ],
+        [
+          5,
+          -1,
+          4
+        ],
+        [
+          5,
+          -3,
+          6
+        ],
+        [
+          7,
+          -3,
+          6
+        ],
+        [
+          7,
+          -1,
+          6
+        ],
+        [
+          5,
+          -1,
+          6
+        ]
+      ],
+      "connectivity": [
+        [
+          2,
+          3,
+          4,
+          1,
+          6,
+          7,
+          8,
+          5
+        ],
+        [
+          3,
+          4,
+          1,
+          2,
+          7,
+          8,
+          5,
+          6
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "node_count": 8,
+      "element_count": 3,
+      "arity": 8,
+      "questions": [
+        "Does odd duplicate multiplicity select one occurrence, retain several, or behave differently, and how does equal-key ordering affect ownership?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1,
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 24,
+        "six_candidate_faces_per_element_upper_bound": 18,
+        "sort_integers_upper_bound": 36,
+        "face_output_integers_upper_bound": 72,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "held_out/04_disjoint_equal_sum_faces",
+      "split": "held_out",
+      "path": "tests/fixtures/hexa_boundary/held_out/04_disjoint_equal_sum_faces.KEY",
+      "sha256": "b28c6e62d67d85e69f42566473938135d86164de865790a4c55218ba0dead8e1",
+      "size_bytes": 313,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "two_valid_disjoint_cubes_equal_sum_stress",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          13,
+          -3,
+          4
+        ],
+        [
+          5,
+          -1,
+          6
+        ],
+        [
+          5,
+          -3,
+          6
+        ],
+        [
+          13,
+          -1,
+          6
+        ],
+        [
+          13,
+          -1,
+          4
+        ],
+        [
+          7,
+          -3,
+          6
+        ],
+        [
+          11,
+          -3,
+          4
+        ],
+        [
+          11,
+          -1,
+          4
+        ],
+        [
+          7,
+          -3,
+          4
+        ],
+        [
+          5,
+          -1,
+          4
+        ],
+        [
+          13,
+          -3,
+          6
+        ],
+        [
+          11,
+          -1,
+          6
+        ],
+        [
+          5,
+          -3,
+          4
+        ],
+        [
+          7,
+          -1,
+          4
+        ],
+        [
+          11,
+          -3,
+          6
+        ],
+        [
+          7,
+          -1,
+          6
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          5,
+          8,
+          7,
+          11,
+          4,
+          12,
+          15
+        ],
+        [
+          9,
+          14,
+          10,
+          13,
+          6,
+          16,
+          2,
+          3
+        ]
+      ],
+      "node_count": 16,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "Are distinct quadrilateral faces with colliding node-ID sums distinguished correctly, and what equal-key order is observed?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          1
+        ],
+        "cross_element_distinct_faces_with_equal_node_id_sums": [
+          {
+            "left": {
+              "owner_input_row": 1,
+              "nodes": [
+                4,
+                11,
+                12,
+                15
+              ],
+              "sum": 42
+            },
+            "right": {
+              "owner_input_row": 2,
+              "nodes": [
+                2,
+                10,
+                14,
+                16
+              ],
+              "sum": 42
+            }
+          },
+          {
+            "left": {
+              "owner_input_row": 1,
+              "nodes": [
+                7,
+                8,
+                12,
+                15
+              ],
+              "sum": 42
+            },
+            "right": {
+              "owner_input_row": 2,
+              "nodes": [
+                2,
+                10,
+                14,
+                16
+              ],
+              "sum": 42
+            }
+          }
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "held_out/05_rotated_connectivity",
+      "split": "held_out",
+      "path": "tests/fixtures/hexa_boundary/held_out/05_rotated_connectivity.KEY",
+      "sha256": "7e0c6fe99c4cdfce4954fb078831c630e8f9cbd654865ad12b3953a726ef5b9b",
+      "size_bytes": 196,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "valid_cube_orientation_preserving_permutation",
+      "role": "standard_hexahedral_boundary_evaluation",
+      "coordinates": [
+        [
+          5,
+          -3,
+          4
+        ],
+        [
+          7,
+          -3,
+          4
+        ],
+        [
+          7,
+          -1,
+          4
+        ],
+        [
+          5,
+          -1,
+          4
+        ],
+        [
+          5,
+          -3,
+          6
+        ],
+        [
+          7,
+          -3,
+          6
+        ],
+        [
+          7,
+          -1,
+          6
+        ],
+        [
+          5,
+          -1,
+          6
+        ]
+      ],
+      "connectivity": [
+        [
+          3,
+          4,
+          1,
+          2,
+          7,
+          8,
+          5,
+          6
+        ]
+      ],
+      "node_count": 8,
+      "element_count": 1,
+      "arity": 8,
+      "questions": [
+        "What exact face ordering and ownership follow a proper rotation of local connectivity?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          1
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 8,
+        "six_candidate_faces_per_element_upper_bound": 6,
+        "sort_integers_upper_bound": 12,
+        "face_output_integers_upper_bound": 24,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "discovery/01_wedge_zero_tail",
+      "split": "discovery",
+      "path": "tests/fixtures/hexa_boundary/discovery/01_wedge_zero_tail.KEY",
+      "sha256": "3ed640c3cc2809dd0cf7ec846a1639ccb817c4f305ae84da6f31087b84d856a4",
+      "size_bytes": 167,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "candidate_six_node_zero_padded_encoding",
+      "role": "discovery_only_not_valid_mesh_claim",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          0,
+          0
+        ]
+      ],
+      "node_count": 6,
+      "element_count": 1,
+      "arity": 8,
+      "questions": [
+        "Does this eight-slot input enter the zero-count-two branch, and are its import status and resulting topology consistent with a wedge?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          2
+        ],
+        "maximum_slot_multiplicities": [
+          2
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 8,
+        "six_candidate_faces_per_element_upper_bound": 6,
+        "sort_integers_upper_bound": 12,
+        "face_output_integers_upper_bound": 24,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "discovery/02_wedge_repeated_tail",
+      "split": "discovery",
+      "path": "tests/fixtures/hexa_boundary/discovery/02_wedge_repeated_tail.KEY",
+      "sha256": "b0649133e714d485657706746c294e91f3acf8db2ed67c6b6e22547b2b9f401e",
+      "size_bytes": 171,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "candidate_six_node_repetition_encoding",
+      "role": "discovery_only_not_valid_mesh_claim",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          5,
+          6
+        ]
+      ],
+      "node_count": 6,
+      "element_count": 1,
+      "arity": 8,
+      "questions": [
+        "Does maximum node multiplicity two select the same internal path as two zero slots, and how do the resulting arrays differ?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          2
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 8,
+        "six_candidate_faces_per_element_upper_bound": 6,
+        "sort_integers_upper_bound": 12,
+        "face_output_integers_upper_bound": 24,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "discovery/03_tetra_zero_tail",
+      "split": "discovery",
+      "path": "tests/fixtures/hexa_boundary/discovery/03_tetra_zero_tail.KEY",
+      "sha256": "af9f3f7a582805308a27b8476f17db3ce8eda68ada1e5394ec43edb4a7e10c20",
+      "size_bytes": 151,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "candidate_four_node_zero_padded_encoding",
+      "role": "discovery_only_not_valid_mesh_claim",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "node_count": 4,
+      "element_count": 1,
+      "arity": 8,
+      "questions": [
+        "Does zero-count-four select the collapsed-four-node path, and how does the observed topology compare with ordinary arity-four input?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          4
+        ],
+        "maximum_slot_multiplicities": [
+          4
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 8,
+        "six_candidate_faces_per_element_upper_bound": 6,
+        "sort_integers_upper_bound": 12,
+        "face_output_integers_upper_bound": 24,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "discovery/04_tetra_repeated_tail",
+      "split": "discovery",
+      "path": "tests/fixtures/hexa_boundary/discovery/04_tetra_repeated_tail.KEY",
+      "sha256": "7e3d266a94565ef40b60ba5e2459527ae08010f9ee5ae9d42372812d9aacd5a4",
+      "size_bytes": 155,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "candidate_four_node_repetition_encoding",
+      "role": "discovery_only_not_valid_mesh_claim",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          4,
+          4,
+          4,
+          1
+        ]
+      ],
+      "node_count": 4,
+      "element_count": 1,
+      "arity": 8,
+      "questions": [
+        "Does maximum node multiplicity four select the collapsed-four-node path, and are the extra repeated slots ignored, transformed, or rejected?"
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0
+        ],
+        "maximum_slot_multiplicities": [
+          4
+        ]
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 8,
+        "six_candidate_faces_per_element_upper_bound": 6,
+        "sort_integers_upper_bound": 12,
+        "face_output_integers_upper_bound": 24,
+        "qualification": "Bounds use the six-face standard hexahedral call shape; they are instrumentation sizing bounds, not predicted retained-face counts."
+      }
+    },
+    {
+      "id": "discovery/05_hex_then_wedge",
+      "split": "discovery",
+      "path": "tests/fixtures/hexa_boundary/discovery/05_hex_then_wedge.KEY",
+      "sha256": "8c8048196d0f1f96da495cc3eaf110a948a51a2b5331a930217ec8f3930a3b76",
+      "size_bytes": 259,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "mixed_standard_and_candidate_collapsed_elements_disjoint_geometry",
+      "role": "discovery_only_not_valid_mesh_claim",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          3,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          4,
+          0,
+          1
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          0,
+          0
+        ]
+      ],
+      "node_count": 14,
+      "element_count": 2,
+      "arity": 8,
+      "questions": [
+        "What original import status, compressed candidate ordering, boundary faces, and ownership values occur when eight-slot elements select different local face counts?",
+        "Does emitted ownership follow the input element row, or the static compressed-candidate-index calculation using the candidate owner's local face count? Preserve any apparent discrepancy rather than correcting it."
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          0,
+          2
+        ],
+        "maximum_slot_multiplicities": [
+          1,
+          2
+        ],
+        "positive_node_sets_pairwise_disjoint": true
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 16,
+        "six_candidate_faces_per_element_upper_bound": 12,
+        "sort_integers_upper_bound": 24,
+        "face_output_integers_upper_bound": 48,
+        "qualification": "Instrumentation sizing upper bounds only; no predicted retained-face count."
+      }
+    },
+    {
+      "id": "discovery/06_wedge_hex_tetra",
+      "split": "discovery",
+      "path": "tests/fixtures/hexa_boundary/discovery/06_wedge_hex_tetra.KEY",
+      "sha256": "475db65ca6b98458a8710efdd71379923f4393c9c9a528d7aea1b523c8ba1832",
+      "size_bytes": 318,
+      "encoding": "ASCII",
+      "line_endings": "LF",
+      "classification": "mixed_standard_and_candidate_collapsed_elements_disjoint_geometry",
+      "role": "discovery_only_not_valid_mesh_claim",
+      "coordinates": [
+        [
+          3,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          4,
+          0,
+          1
+        ],
+        [
+          3,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          6,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0
+        ],
+        [
+          6,
+          1,
+          0
+        ],
+        [
+          6,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          0,
+          0
+        ],
+        [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        [
+          15,
+          16,
+          17,
+          18,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "node_count": 18,
+      "element_count": 3,
+      "arity": 8,
+      "questions": [
+        "What original import status, compressed candidate ordering, boundary faces, and ownership values occur when eight-slot elements select different local face counts?",
+        "Does emitted ownership follow the input element row, or the static compressed-candidate-index calculation using the candidate owner's local face count? Preserve any apparent discrepancy rather than correcting it."
+      ],
+      "original_execution_status": "not_run",
+      "expected_original_output": null,
+      "input_diagnostics": {
+        "zero_counts": [
+          2,
+          0,
+          4
+        ],
+        "maximum_slot_multiplicities": [
+          2,
+          1,
+          4
+        ],
+        "positive_node_sets_pairwise_disjoint": true
+      },
+      "probe_input_bounds": {
+        "connectivity_integers": 24,
+        "six_candidate_faces_per_element_upper_bound": 18,
+        "sort_integers_upper_bound": 36,
+        "face_output_integers_upper_bound": 72,
+        "qualification": "Instrumentation sizing upper bounds only; no predicted retained-face count."
+      }
+    }
+  ],
+  "validation": {
+    "all_ascii": true,
+    "all_rows_have_eight_slots": true,
+    "all_nonzero_ids_within_coordinate_count": true,
+    "standard_cases_use_eight_distinct_positive_nodes_per_element": true,
+    "all_case_probe_integer_bounds_at_most_512": true,
+    "total_elements_at_most_40": true
+  }
+}

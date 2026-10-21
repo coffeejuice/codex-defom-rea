@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded static reachability assessment from saved evidence and current reconstruction source. No provider calls, process execution, full-program cross-reference enumeration, or proof of global unreachability.",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "conclusion": "The low-level boundary wrapper contains an arity10 branch, but none of the inspected object-construction, keyword-import, or DB object-descriptor paths establishes object connectivity arity10. A whole-program reachability claim remains unresolved.",
+  "fields": {
+    "object+0x890": "element-kind code",
+    "object+0x894": "connectivity slot count passed to allocation and 3D boundary wrapper",
+    "object+0x898": "face-count metadata for observed 3D kinds",
+    "object+0x89c": "face-width metadata for observed 3D kinds"
+  },
+  "evidence": [
+    {
+      "path": "analysis/model-0x140165500.json",
+      "sha256": "d887c57597fb4cd1bc78ae0368774139842051a670475f64b2435e6062caa4f4",
+      "evidence_id": "ev_dfe8d8e94157b8ee5b2214872bf9542aaf566714b34e2de802af11d41683a87c",
+      "procedure": "0x140165500"
+    },
+    {
+      "path": "analysis/model-0x14015f0b0.json",
+      "sha256": "a57609aff1c31df575595ff67566260a8e811607679168e97528651833c0ab33",
+      "evidence_id": "ev_b94cc249f14926e5dff04b7eb77fa84ad4712e322c2e005147f1680410af3510",
+      "procedure": "0x14015f0b0"
+    },
+    {
+      "path": "analysis/keyword-handlers-evidence.json",
+      "sha256": "77a33290e256a1db6a526d86a4572ad57c071ff51ac8e7c560abf7e5affb5550",
+      "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+      "procedure": "0x14038b8a0"
+    },
+    {
+      "path": "analysis/keyword-parser.json",
+      "sha256": "3a7445dfe4e7a131767b7a5fc65edfde052b7e5d94280e69775e9988109474e7",
+      "evidence_id": "ev_aefdab7cc5bacd20219db5946789b42596854134a4eb31098b26448449930416",
+      "procedure": "0x1401b6520"
+    },
+    {
+      "path": "analysis/import-0x1401cc420.json",
+      "sha256": "ba3c24e8495088e1092c9a06b5f7eec4c55460d748029c00213c88a09a80b02e",
+      "evidence_id": "ev_63a524ebe7fc74a3177cd409eea867d47487ae67defa9a9b2c05cfc4c867288d",
+      "procedure": "0x1401cc420"
+    },
+    {
+      "path": "analysis/import-0x1401d2230.json",
+      "sha256": "74edd9958f304a542769f35ccfea76b3e9962bc88cb58ad9e276b4342c38a889",
+      "evidence_id": "ev_3eb25c14c091422183e804a9b8226fa42749cb9c9d5abbd2df89e2a33e34f07c",
+      "procedure": "0x1401d2230"
+    },
+    {
+      "path": "analysis/import-0x14016caf0.json",
+      "sha256": "65cc8f6468a0a3271f0235d5a515f5044f5d8f7de49023265b038bad16fac4e3",
+      "evidence_id": "ev_2d8863def47b832b3118ac2bdc5db3fddb585e3168e8252a0b3ce562b4c36961",
+      "procedure": "0x14016caf0"
+    },
+    {
+      "path": "analysis/model-0x140163090.json",
+      "sha256": "d4cda0e332a30db916db834b3e5dbbee896760318f1c1f56cd434bdb34f8b33e",
+      "evidence_id": "ev_69311701daacd9016453c19ade2919ae6b5aed486aa2d910459c7bedb975a5a4",
+      "procedure": "0x140163090"
+    },
+    {
+      "path": "analysis/mesh-0x1401fc290.json",
+      "sha256": "81f31832634c033f016c53995587fea8f52f8e2c004f8c99dab787797febb6c3",
+      "evidence_id": "ev_90e6b2a97d661e89fa225875423bbf58c0b7c011ad3939e4af339354bdc8b2d7",
+      "procedure": "0x1401fc290"
+    },
+    {
+      "path": "analysis/mesh-0x140354ed0.json",
+      "sha256": "a6650abcebc1abf5f7c263dde48d2ffe27563d76240c6f1d32ce33722d79f9bf",
+      "evidence_id": "ev_a632f4b0165ba43ade369ca4e5b596cc0356f1e574e7562c1af6b8249d670031",
+      "procedure": "0x140354ed0"
+    }
+  ],
+  "findings": [
+    {
+      "id": "setter",
+      "status": "static_confirmed",
+      "evidence_procedures": [
+        "0x140165500"
+      ],
+      "facts": [
+        "The setter always writes its second argument to object+0x890.",
+        "Kind2 then writes object+0x894=4, +0x898=4, +0x89c=3. Kind4 writes8,6,4.",
+        "For any other kind, the setter returns after writing the kind and leaves those three metadata fields unchanged. There is no observed setter branch producing arity10."
+      ],
+      "limitation": "The setter permits other kind integers; this does not prove any caller passes them or that preexisting metadata cannot originate elsewhere."
+    },
+    {
+      "id": "initialization",
+      "status": "static_confirmed",
+      "evidence_procedures": [
+        "0x14015f0b0",
+        "0x140165500"
+      ],
+      "facts": [
+        "Constructor/reset path calls the setter with kind2 when 0x1400015e0(root) is false.",
+        "The other branch directly stores kind0, arity4, and zero values at+0x898/+0x89c."
+      ],
+      "limitation": "Only the retained constructor/reset path is covered."
+    },
+    {
+      "id": "keyword_import",
+      "status": "static_confirmed",
+      "evidence_procedures": [
+        "0x14038b8a0",
+        "0x1401b6520"
+      ],
+      "facts": [
+        "In the three-coordinate ELMCON branch, count and requested arity are parsed before type selection. Arity4 selects kind2; arity8 selects kind4; any other requested arity returns2 before this branch stores object+0x884 or calls connectivity allocation.",
+        "The parser reports handler status2 and continues its token loop; it does not universally abort the remainder of the file on that status.",
+        "The handler selects or obtains the object before dispatching the keyword. Early ELMCON return alone is not proof of a transaction or complete state preservation."
+      ],
+      "limitation": "These are static control-flow facts. Exact whole-file result, subsequent OBJNAM behavior, and before/after state for the proposed fixtures remain unobserved."
+    },
+    {
+      "id": "db_object_descriptor",
+      "status": "static_confirmed",
+      "evidence_procedures": [
+        "0x1401cc420",
+        "0x1401d2230",
+        "0x14016caf0"
+      ],
+      "facts": [
+        "Successful staged DB import calls0x1401d2230 for object information; that loop creates objects and calls0x14016caf0 with the per-object integer and real descriptor spans.",
+        "In0x14016caf0, when0x1400015e0(root) is false and0x1400015f0(root) is true, integer descriptor param_2[12] equal4 selects setter kind2; equal8 selects kind4; all other values select kind2.",
+        "When0x1400015e0(root) is true, descriptor param_2[10] equal0 or1 directly writes object kind0 or1. This branch does not write arity10.",
+        "The relevant descriptor helper falls back to four-slot metadata for unsupported param_2[12] values; it does not explicitly reject those values at this callsite."
+      ],
+      "limitation": "Both predicates and surrounding guards are preserved rather than assuming this selection runs for every DB. The remainder of DB arrays/materialization and all alternative import routes have not been fully enumerated."
+    },
+    {
+      "id": "allocation_consumer",
+      "status": "static_confirmed",
+      "evidence_procedures": [
+        "0x140163090",
+        "0x1401fc290"
+      ],
+      "facts": [
+        "Three-dimensional element allocation passes object+0x894 through to0x1401836c0; it does not independently select10.",
+        "The3D boundary consumer reads object+0x894 and passes it to0x140354ed0. This supplies a potential downstream consumer if some uninspected writer can establish10."
+      ],
+      "limitation": "A permissive downstream parameter is not evidence of an application route that sets that value."
+    },
+    {
+      "id": "low_level_ten_node_branch",
+      "status": "static_confirmed",
+      "evidence_procedures": [
+        "0x140354ed0"
+      ],
+      "facts": [
+        "The wrapper tests its supplied arity against10 and sets internal face width6, face count4, and table-selection index2.",
+        "Arity8 instead selects the separate hexahedral path; the other path reaches0x140355cbf."
+      ],
+      "limitation": "This identifies shipped low-level code support, not demonstrated UI/KEY/DB reachability or complete ten-node semantics."
+    }
+  ],
+  "observed_setter_callers_in_saved_pseudocode": [
+    {
+      "caller": "0x14015f0b0",
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "caller": "0x14038b8a0",
+      "arguments": [
+        2,
+        4
+      ]
+    },
+    {
+      "caller": "0x14016caf0",
+      "arguments": [
+        2,
+        4
+      ]
+    }
+  ],
+  "search_coverage": {
+    "method": "Searched saved analysis JSON for literal FUN_140165500,0x140165500,0x894, then inspected retained constructor, setter, keyword ELMCON, DB import/object-descriptor, allocation, and boundary wrapper pseudocode. Current src/recovered interfaces were inspected separately.",
+    "completeness": "Selected retained evidence only; textual searches do not enumerate machine-code writers, aliases, indirect calls, computed offsets, or missing decompilations.",
+    "missing_followup_body": "No saved import-0x1401d2be0.json was found.0x1401cc420 calls that later arrays/materialization function.",
+    "current_reconstruction_source": [
+      {
+        "path": "src/recovered/mesh_boundary.hpp",
+        "sha256": "3b644110746b9f6e78643f48a6629bc035a12d2958c76d5479e98345b64513e4",
+        "fact": "Current boundary interface exposes four-slot tetrahedral and eight-slot hexahedral inputs; it does not expose a ten-slot type. This is reconstruction scope, not original-app evidence."
+      }
+    ]
+  },
+  "next_questions": [
+    "Which whole-program writers, including alias/computed-offset writes, can establish object+0x894=10?",
+    "Does any uninspected mesh conversion, external converter, alternate DB version, plugin, or object type supply ten-slot connectivity?",
+    "Do full setter caller references contain kinds beyond2/4, and with what preceding metadata?",
+    "How do descriptor arity10 and later DB array loading interact after the observed kind2 fallback?",
+    "What exact parser status and model state follow unsupported KEY arity10, with and without a following supported OBJNAM keyword?"
+  ],
+  "runtime_status": "not_run"
+}

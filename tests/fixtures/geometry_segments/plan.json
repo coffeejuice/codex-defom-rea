@@ -1,0 +1,71 @@
+{
+  "status": "prepared_not_executed",
+  "probe": "tools/observe_geometry_segments.js",
+  "case_manifest": "tests/fixtures/geometry_segments/cases.json",
+  "order": "Exactly cases.json order in one fresh process; imports1..12 planar,13 resets to spatial,13..30 spatial. No file may be reordered or run alone to claim retained-state expectations.",
+  "preconditions": [
+    "Freeze integrated C++ candidate, probe, fixture bytes, driver and harness before original launch.",
+    "Use existing authorized bounded harness with30imports (less than32maximum); passive probe does not inject application calls.",
+    "Original process is unmodified; all Frida hooks only observe.",
+    "Root and linked-root full snapshots retained; one selected object ID1, no direct mesh or unsafe direct connectivity.",
+    "Two-conversion spatial header routes alternate format; three-conversion firstinteger3 selects transformed helper."
+  ],
+  "observations": [
+    "Object geometry_segments independently captures object3998 handle, container list, segment wrappers and payloads, identity/default flags, all16 matrix values and raw bits.",
+    "geometryState also reads object3c00 in2D because recovered constructor establishes same spatial geometry slots; alternative routes do not infer any relationship to that separate storage.",
+    "39a200/399e60 entry/exit show internal status separately from handler/import status, including ignored3D helper failures.",
+    "Segment scanf events include stream cursors, conversions and assigned raw values; uninitialized destination data is never read on failed segment assignments.",
+    "415990 matrix rows and415880 prefixes include all destinations (including aliasing), original and comma-normalized line bytes, conversions and zeroed outputs.",
+    "Allocation tracking via27f360 post-return validates positive buffer extents;276030 removes stale ownership. Container/list counts and sentinel closure are bounded."
+  ],
+  "safety_exclusions": [
+    "No format2 import follows retained narrow planar format1 segments. Spatial final format2zero first clears priorformat1 storage.",
+    "No negative or overflowing count, malformed pointers, invalid spatial connectivity, nonfinite float, or allocation-failure injection.",
+    "No original execution or C++build by this agent."
+  ],
+  "fixture_groups": {
+    "planar_retention_and_reconversion": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "planar_separator_and_partial_errors": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "spatial_clear_and_ignored_errors": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "prefix_matrix_consumption_and_commit": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ]
+  },
+  "limitations": [
+    "Expectations are static hypotheses pending original capture. Full model finalization and alternative geometry deactivation are not asserted by these fixtures.",
+    "Raw pointer/reference counts are provenance, not cross-process identity targets.",
+    "Collection getters can detach shared storage; probe follows raw links without calling getters or mutating COW reference counts."
+  ]
+}

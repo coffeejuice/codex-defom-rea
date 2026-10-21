@@ -1,0 +1,115 @@
+{
+  "status": "static_links_recovered_probe_prepared_no_runtime",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "sources": [
+    {
+      "path": "analysis/geometry-segments-probe-0x140284ff0.json",
+      "sha256": "a396fc05326217dabe6e6606b8bd28d12ab6f637e34707fbd2d2301928ffb72e",
+      "evidence_id": "ev_6338c17f32987989edbcb328797af35ac0cddf5c9cdc0473aec8d7dba399f8f4",
+      "procedure": {
+        "procedure": "0x140284ff0"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140285820.json",
+      "sha256": "a939336393c8ef5d98d4c14a60bc4143413d5dcd74fcca7a1c53b80d1865d53a",
+      "evidence_id": "ev_a091b12ef872be7ddc5c39d972f743097fb717f650f7119121552211900fab50",
+      "procedure": {
+        "procedure": "0x140285820"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140285e20.json",
+      "sha256": "bb34a1a6357a65c71721b4d6496254bfabb441d370d6687583fcaa51d19d3747",
+      "evidence_id": "ev_b18ca90f591c08c4f65743e7ffdb21842b1acbe8af50c5f96b0ed8d80c7649af",
+      "procedure": {
+        "procedure": "0x140285e20"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140285fc0.json",
+      "sha256": "a1e192beb77e43a51e3ec643caa605cb7f414b2d9905503c88f7bc11792a31cb",
+      "evidence_id": "ev_5bb465f1cc100759afe40a3ad7ae1b7971af9e47e31eafdd8d4511681e8715bf",
+      "procedure": {
+        "procedure": "0x140285fc0"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140287180.json",
+      "sha256": "3365571d1bd21b4be31a0e1ad9a2cb16ed6baed7f930a95cfbf2cb8274ced08c",
+      "evidence_id": "ev_5b2f19ff7ccb3c1ff9ab8bf6ed4469fdf89653a35c2212cd79126e1aa22f71f2",
+      "procedure": {
+        "procedure": "0x140287180"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140301f50.json",
+      "sha256": "5116a1b54b9bde7e4f68ec4461e73c089bfc01e8b288e033b35229fdc77d7e0e",
+      "evidence_id": "ev_398513b3b9e5e06f8ad25c6ed34183f48e8f96cde25bd7c8efabbca60a4e3f1d",
+      "procedure": {
+        "procedure": "0x140301f50"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140302020.json",
+      "sha256": "59c3c88cd6d25ba923cc341c0b118c7daab9d3fb6f873cda771ff161d1e0274f",
+      "evidence_id": "ev_e550013b7e1c0413ba03d12c7472f4b2d1ba657ed81a2a51b0d24da6e8a764cb",
+      "procedure": {
+        "procedure": "0x140302020"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140302090.json",
+      "sha256": "bd6582afc64adbc24d9cac674d40e7c919bbdb7ed9da4ada1abc663909f370b7",
+      "evidence_id": "ev_698ceec513fc90039329cb727b9c804bedc2c7466564e1a75d18572b28b018d1",
+      "procedure": {
+        "procedure": "0x140302090"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x1403020c0.json",
+      "sha256": "2b0b494553f7e2240cf907845f62d630f098567802597b13d30e9182c77e689a",
+      "evidence_id": "ev_2c9b84093bf5b0547f406a1148cf47c5c0b2c771239ec461e453dd93afcd1e1a",
+      "procedure": {
+        "procedure": "0x1403020c0"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x140302290.json",
+      "sha256": "b539f2575dec62bc04a4b250ee374ccd0b57dcf1a9c868eb3eb9c1606f7536ac",
+      "evidence_id": "ev_09f189b5c518f918681ace7751c3154c56e0a3b2ceed320cde84aa2d5b5e0d24",
+      "procedure": {
+        "procedure": "0x140302290"
+      }
+    },
+    {
+      "path": "analysis/geometry-segments-probe-0x1403025c0.json",
+      "sha256": "c97f96133720857fb7251b3daef511cc6726783fc59667f37dd4110143926420",
+      "evidence_id": "ev_253fc5bb7f9e0b6e7930a3e996f7e4a43e35df75fcb078191a6246068ce05256",
+      "procedure": {
+        "procedure": "0x1403025c0"
+      }
+    }
+  ],
+  "prior_sources": "analysis/geometry-format-static-audit.json",
+  "layout": {
+    "root_handle": "object+3998 pointer; dereference8-byte handle to refcounted list storage",
+    "list_storage": "reference count+0; sentinel pointer+8; uint64 count+10",
+    "iteration": "first node=*sentinel; subsequent node=*node; exactly count nodes must lead back to sentinel; this probe never invokes getter functions that may detach COW",
+    "container": "container-list node+10 inline GEO2D_AND_MESH2D",
+    "segment_handle": "container+18 handle; same list iteration; segment-list node+10 holds DEF_EDGE pointer",
+    "payload": "DEF_EDGE+8 points OBJ_GEO2D; wrapper+30 ID; payload+10 format,+14 count,+18 data,+20 auxiliary pointer,+28 flag",
+    "matrix": "container+38 sixteen row-major doubles; flag+b8"
+  },
+  "probe": {
+    "path": "tools/observe_geometry_segments.js",
+    "sha256": "15d5ad9ec692f98e93010e6e36e052520bed16f4a01052e537d257a511280894"
+  },
+  "evidence_bundle": "analysis/oracle/geometry-segments-probe-evidence.json",
+  "snapshot": "analysis/oracle/geometry-segments-probe-snapshot.json",
+  "validation": [
+    "node --check succeeded; no execution of probe",
+    "Fixture manifest includes30exact ASCII files with deliberate partial-token and line-boundary EOF; original evaluation pending"
+  ],
+  "bounds": "Native list max4containers/32segments, max16rows/segment, tracked positive allocation exact count*width, existing global byte limit4096."
+}

@@ -1,0 +1,79 @@
+{
+  "purpose": "Predeclared bounded DTTYPE51 original evaluation. Hypotheses are provisional, captured native outputs are oracle. Counts at most2, rank0/1 only; no interpolation consumer or solver claim. Fresh3D empty profile; sequential imports.",
+  "cases": [
+    {
+      "path": "tests/fixtures/time_table/01_selectors.KEY",
+      "sha256": "e98c2ae042fc3db32e026be9ba7e78bfa461d8d6ef3a6f304e5dc3833e68751a",
+      "hypothesis": "Selectors1/2/3/4/fallback map interpolation selector/mode; interleaved axis/dependent rows."
+    },
+    {
+      "path": "tests/fixtures/time_table/02_zero_negative_counts.KEY",
+      "sha256": "c834dc02b834026fd613d96f4ca04d3db0bc92c7ec84c01a859c52935ac5218b",
+      "hypothesis": "Zero/negative rowcounts consume no rows; allocator clamps negative count to0 and table rank gates scalar-mode normalization."
+    },
+    {
+      "path": "tests/fixtures/time_table/03_partial_header.KEY",
+      "sha256": "a9bb0bfb920ed6b84e9c483a57028e81a9e0fd8025b67ba0f139db414621f1b8",
+      "hypothesis": "One header conversion leaves count0 but accepts header and resets table; subsequent table preserves signed zero."
+    },
+    {
+      "path": "tests/fixtures/time_table/04_blank_header.KEY",
+      "sha256": "5942871bf71d7dc1a544851ff75144dbad7831926927a260ba9021aa519e2fc1",
+      "hypothesis": "Blank header failure preserves previous table; scalar change respects existing table rank."
+    },
+    {
+      "path": "tests/fixtures/time_table/05_eof_header.KEY",
+      "sha256": "8e639d21a0d1f13920b9f2d602bbf12739ff9f1849448760c9921a1b176ad931",
+      "hypothesis": "EOF header failure preserves previous table without table reset."
+    },
+    {
+      "path": "tests/fixtures/time_table/06_nonnumeric_header.KEY",
+      "sha256": "ba5a963f3e0c6fa721e3e97c6f7294f2515de7eb3355d6d3b8d3ba9bd3d74faf",
+      "hypothesis": "Zero header conversions may be accepted as selector0/count0 and clear prior table."
+    },
+    {
+      "path": "tests/fixtures/time_table/07_scalar_table_scalar.KEY",
+      "sha256": "3c9dfdb77e4ad1cad7d40237a47faf4b59ed68007775a135ec413b93fd001b2d",
+      "hypothesis": "Table mode persists during scalar changes while rank1; selector0 clears table then normalizes scalar-mode control."
+    },
+    {
+      "path": "tests/fixtures/time_table/08_partial_row_eof.KEY",
+      "sha256": "9119024ac78f0027791defbd00feacb4353016042a5b4821635c839946d987b6",
+      "hypothesis": "EOF before last dependent value leaves previously parsed axis/dependent prefix and zero-filled missing value; helper failure propagates."
+    },
+    {
+      "path": "tests/fixtures/time_table/09_comma_matching_failure.KEY",
+      "sha256": "fb7c6b95ea7c59d87d9853d635424917d859183832e23d55067753cf360392f3",
+      "hypothesis": "Stream numeric reads do not replace commas; repeated matching failures leave invalid byte until final line discard."
+    },
+    {
+      "path": "tests/fixtures/time_table/10_text_matching_failure.KEY",
+      "sha256": "3124258c97d0b10d6f5e712b11fccebffc199f08ca95c27b778639f232526be4",
+      "hypothesis": "Matching failure0 continues bounded table loops with zero buffers; final discard resumes following keyword."
+    },
+    {
+      "path": "tests/fixtures/time_table/11_legacy_stream_numeric.KEY",
+      "sha256": "2bc36b8e5ef88660ae7a9a13d33c5edcaa2db10645e12c4a176b05ffbfb1a1aa",
+      "hypothesis": "Incomplete exponents and negative-zero bits in stream scanner; negative selector fallback."
+    },
+    {
+      "path": "tests/fixtures/time_table/12_dimension_reset.KEY",
+      "sha256": "7e370d3716bff0503c002df5ca9f910ea449569212c79c86e4a4aa9e80c2c2c1",
+      "hypothesis": "Late first dimension header resets root controls/table; following table uses new profile."
+    },
+    {
+      "path": "tests/fixtures/time_table/13_eof_before_rows.KEY",
+      "sha256": "fe06cc4a26e46a8851c54b07c5c690e3e5ec1f5f1c0dea869004a3dce88b0fb6",
+      "hypothesis": "Positive count allocates zero arrays then first stream read reaches EOF; partial table remains."
+    },
+    {
+      "path": "tests/fixtures/time_table/14_complete_row_eof.KEY",
+      "sha256": "73e1340e6bcc2e4b72d58361f869fdc577daa881d1751d909bf7fe6d7502f483",
+      "hypothesis": "Complete table at physical EOF: final line-discard fgets may fail without changing successful reader status."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_time_table.js",
+    "sha256": "4ce0702c86ca4d45dac3ac3e396585b81fbff6f597aef3da24e2f09c69e3bdd0"
+  }
+}

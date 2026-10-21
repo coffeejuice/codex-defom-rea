@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "selected_empty_material_profile_implemented_and_compared",
+  "source": "analysis/mesh-refresh-controls-pseudocode.json",
+  "parent_evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+  "view_evidence_id": "ev_0c5ba8bba09189416cdaaf22f5ceb6502b243a665c4f572f6eec3700ca274dd0",
+  "procedure": "0x14039aa90",
+  "coverage": "Complete retained pseudocode page: 24544 UTF-16 units, exhausted. Full dossier exceeded MCP transport budget and remains retained for export; analysis/mesh-refresh-0x14039aa90.json is the transport receipt, not a successful dossier.",
+  "switch": "Switch index equals keyword ID minus 0x16.",
+  "GEOTYP": {
+    "keyword_id": 28,
+    "case": 6,
+    "dimension2": "Read an integer with 413de0 directly into root+0x850, then always call 1d0fc0(root,0), even if the reader reports failure.",
+    "dimension3": "Skip the branch without reading the record remainder or invoking refresh. The outer token scanner subsequently sees any remaining bytes.",
+    "result": "The common handler epilogue returns0 when reader status0, otherwise2.",
+    "limitation": "3D no-consume behavior evaluated in two imports; malformed 2D GEOTYP still needs runtime cases."
+  },
+  "STNOUT": {
+    "keyword_id": 34,
+    "case": 12,
+    "reader": "414600 reads nine base0 integers with comma replacement and no repeated-blank-line skipping.",
+    "destinations": [
+      "root+0x86c",
+      "root+0x870",
+      "root+0x874",
+      "root+0x878",
+      "root+0x87c",
+      "root+0x880",
+      "root+0x884",
+      "local temporary0",
+      "local temporary1"
+    ],
+    "mutation": "The reader zeros all nine destinations before fgets. Partial conversions therefore mutate the seven root fields before refresh.",
+    "refresh": "Always call 1d0fc0(root,0), then map reader status to handler0/2.",
+    "reader_source": "analysis/model-0x140414600.json",
+    "limitation": "Full, partial, blank and physical-EOF reads evaluated in the selected empty-material profile; general numerical domains remain untested."
+  },
+  "refresh": {
+    "source": "analysis/root-layout-0x1401d0fc0.json",
+    "sequence": "Copy the old79 counts, regenerate with1d0320, then visit nonnull objects whose type!=7 and invoke199650 with new and old tables.",
+    "parameter0": "GEOTYP/STNOUT pass0, so material-ID remapping via temporary object copies is not taken.",
+    "preserving_storage": "analysis/mesh-refresh-contract.json"
+  },
+  "next": "Expand to malformed2D GEOTYP, material-dependent feature queries and other configuration handlers; recover scientific finalization and downstream consumers of unspecified tails.",
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.cpp",
+      "tests/keyword_import_replay.cpp"
+    ],
+    "profile": "Optional SimulationControls asserts the empty-material/reset state; arbitrary supplied component tables do not imply this profile. Initialized root controls establish it.",
+    "mutation": "GEOTYP/STNOUT store zero/partial reader results and refresh even on status2; GEOTYP3D returns without reading.",
+    "validity": "Allocation metadata and initialized prefixes are serialized; unspecified grown tails appear as null, never as asserted zero."
+  },
+  "evaluation": {
+    "capture": "analysis/configuration-import-runtime-evaluation.json",
+    "evidence_id": "ev_9cac5f25f134b673c5712e0f13854ee07b63af42ca13db567eb8274fc4deb261",
+    "freeze": "analysis/configuration-import-candidate-freeze.json",
+    "cases": "analysis/configuration-import-evaluation-cases.json",
+    "comparison": "analysis/configuration-import-comparison.json",
+    "static_audit": "analysis/configuration-import-static-audit.json",
+    "imports": 8,
+    "tokens": 26,
+    "descriptor_snapshots": 954,
+    "candidate_changed_after_freeze": false,
+    "inputs": "Only initialized profile, captured process unit default and fixture bytes; no captured component table or array values seed the replay.",
+    "known_floating_values": "Compared bitwise as binary64 from raw captured bytes.",
+    "scope": "Primary and empty linked root; private descriptor storage; unit multiplicities; alternate dispatch disabled; states compared before scientific finalization.",
+    "observations": "analysis/configuration-import-observations.json"
+  }
+}

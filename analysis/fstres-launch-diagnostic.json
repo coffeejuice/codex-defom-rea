@@ -1,0 +1,72 @@
+{
+  "status": "FAILED_LAUNCHES_RETAINED_VALID_RETRIES_PASS",
+  "scope": "Capture lifecycle only; no C++ or probe repair and no fixture revision. Both expired launches sent no import transcript and produced no oracle evidence.",
+  "attempts": [
+    {
+      "batch": "training-a",
+      "initial_run": {
+        "path": "analysis/oracle/fstres-training-a/run.json",
+        "sha256": "eecb87296787b1672d23ce6d8c5a2af8dbe2ea81ded27fe5eccc0c2a06d36809"
+      },
+      "initial_pid": 36308,
+      "status": "gate_timeout",
+      "gate_wait_seconds": 120.015,
+      "fixture_input_sent": false,
+      "retry_run": {
+        "path": "analysis/oracle/fstres-training-a-v2/run.json",
+        "sha256": "53ec66e5ba5754faabb939f56ca0deb06401c88c461bdb6367fd2e972fbdf1a8"
+      },
+      "retry_pid": 3908,
+      "same_frozen_inputs": true,
+      "reason": "Automatic permission review timed out; explicitly permitted retry then found the original PID already gone."
+    },
+    {
+      "batch": "held-out-b",
+      "initial_run": {
+        "path": "analysis/oracle/fstres-held-out-b/run.json",
+        "sha256": "91da593fca4a2656f14ccf74206baedb711812bcfd43e5feec496ffe4c9eaa9b"
+      },
+      "initial_pid": 33100,
+      "status": "gate_timeout",
+      "gate_wait_seconds": 120.031,
+      "fixture_input_sent": false,
+      "retry_run": {
+        "path": "analysis/oracle/fstres-held-out-b-v2/run.json",
+        "sha256": "9aa796aa9a171028af52e8320d3bd9c84e502f56965338ac247faa35856389a4"
+      },
+      "retry_pid": 16028,
+      "same_frozen_inputs": true,
+      "reason": "Readiness gate elapsed before attachment; attach returned process not found. The cause of dispatch delay was not established."
+    }
+  ],
+  "bindings": [
+    {
+      "path": "analysis/launch_fstres_capture.ps1",
+      "sha256": "ad1aefedf8dd639c826cb78d1a328921bf2b3c61edfbf7f3979e959060e0d2db"
+    },
+    {
+      "path": "tools/capture_keywords.py",
+      "sha256": "736c65763ebc6907d7b67aae99226d62f91551735a0dbe7821f4e0f2a5bc5151"
+    },
+    {
+      "path": "analysis/fstres-candidate-freeze.json",
+      "sha256": "7b22e590d2d95d0afa45db612461e38ebc3bf8a7b77281cb9efe9689aca91fe5"
+    },
+    {
+      "path": "analysis/fstres-training-a-input-freeze.json",
+      "sha256": "a9c1264a085fc13383ab6bc023a9720e5b1722b0cd7278d7191be8bb61dd70f6"
+    },
+    {
+      "path": "analysis/fstres-training-b-input-freeze.json",
+      "sha256": "7590a94b978d8f1a7fa0ca47f09ac85de09e30f63fa8c240f23debfda743d4b9"
+    },
+    {
+      "path": "analysis/fstres-held-out-a-input-freeze.json",
+      "sha256": "b96951ae9ae0a5dba4bccceaa6d76fc1e404dbcf0431fa6405ac8216f25c8f09"
+    },
+    {
+      "path": "analysis/fstres-held-out-b-input-freeze.json",
+      "sha256": "66c60f883a453b74a1c4df0f82decbc9617904a8f32e0c3f529d7cadc96c4bee"
+    }
+  ]
+}

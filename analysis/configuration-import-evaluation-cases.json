@@ -1,0 +1,161 @@
+{
+  "purpose": "Predeclared independent configuration-import integration evaluation. Scenario expectations are hypotheses checked against the original; captured arrays remain the oracle. No original capture or candidate freeze performed by this harness author.",
+  "cases": [
+    {
+      "path": "tests/fixtures/configuration_import/01_planar_refresh.KEY",
+      "sha256": "38aaef9758582cdcd52525e0f16ad7b53cd6ddf9f15165114be24e4a23aea740",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_status": 0,
+      "expected_geometry_mode": 3,
+      "expected_output_flags": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "purpose": "Populated planar GEOTYP/STNOUT growth/shrink; type7 placeholder skipped; end with unknown grown direct tails."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/02_same_planar.KEY",
+      "sha256": "1b43feccf37d7de7366ee6d87f6ceaf40fe6d41c88242316ffc00f52a07aa5be",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_status": 0,
+      "expected_geometry_mode": 3,
+      "expected_output_flags": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "purpose": "Repeated2D header retains mesh/configuration then changes output flags."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/03_partial_flags.KEY",
+      "sha256": "9ed86a5061abd4fe7b35212b836c4576f6261587a015e0ba84a6e5ecbb40f995",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_status": 0,
+      "expected_geometry_mode": 3,
+      "expected_output_flags": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "purpose": "Partial nine-integer conversion retains first field and zeros remaining fields before refresh."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/04_blank_flags.KEY",
+      "sha256": "8773827e89875f5f3abf46f11e1e02b1043d1e6e2f815778bd9ec976c8f18721",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_status": 2,
+      "expected_geometry_mode": 3,
+      "expected_output_flags": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "purpose": "Whitespace-only remainder reports reader error but zeroes flags, refreshes, and continues to OBJNAM."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/05_eof_flags.KEY",
+      "sha256": "a3a29d5697a2a4228d8737c32bd34169e5a948b1ace2bd34ae636160dafb99f2",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_status": 2,
+      "expected_geometry_mode": 3,
+      "expected_output_flags": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "purpose": "Set all flags then STNOUT at physical EOF without final newline; failure still mutates flags and refreshes."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/06_spatial_no_consume.KEY",
+      "sha256": "e404a2a0b685d1fac7fa969600f45f2e011420419d7e6b194e8a2c75dcb492d8",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "expected_status": 0,
+      "expected_geometry_mode": 1,
+      "expected_output_flags": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "purpose": "Dimension reset then3D GEOTYP consumes no remainder; OBJNAM on same line remains a keyword."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/07_same_spatial.KEY",
+      "sha256": "9b04c585f5b091ae3f9f8058c91fecff186c766c1d1665f6f3f39d333adff221",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "expected_status": 0,
+      "expected_geometry_mode": 1,
+      "expected_output_flags": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "purpose": "Repeated3D header preserves profile and repeated GEOTYP no-consume behavior."
+    },
+    {
+      "path": "tests/fixtures/configuration_import/08_return_planar.KEY",
+      "sha256": "ededb760cc641a3d203256efc0603b2dd577a090ecd66d907bcba29acb1e8b3d",
+      "expected_dimension": 2,
+      "expected_generation": 3,
+      "expected_status": 0,
+      "expected_geometry_mode": 3,
+      "expected_output_flags": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "purpose": "Return to fresh2D reset profile then GEOTYP3; previous output flags discarded."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_configuration_import.js",
+    "sha256": "b11a27c71ac23d32df0a429bbd45ff7d6aa6696ec55f6456aaee3a41143fdc29"
+  },
+  "explicit_scope": [
+    "GEOTYP28 andSTNOUT34 category1; OBJNAM144,OBJTYP145,RZ159,ELMCON173 category2; recognized dimension headers.",
+    "Eight sequential imports in a fresh original process, bounded to3 objects,6nodes and2elements.",
+    "Initial allocations from17ffe0/1836c0 establish calloc extents;180150/183770 retain min-known prefix;17f130/182a50 invalidate slot tracking.",
+    "Geometry mode atroot850, sevenoutput flags86c..884, primary/linked roots, logical/allocatedcounts,53descriptors/object andpersisted boundaries.",
+    "Unknown raw tails are never read; snapshots contain nulls plus explicit allocated/known/unknown metadata."
+  ],
+  "protocol": "Replacement driver uses initialized DIMENSION NODE8_DEFAULT SUPPRESS_BOUNDARIES, optional link DIMENSION, then import HEX_BYTES commands;79component counts are not injected."
+}

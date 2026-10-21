@@ -1,0 +1,35 @@
+{
+  "purpose": "Controlled inputs for original-application observation, not expected-output tests.",
+  "syntax_source": "analysis/oracle/interactive/rea-step25/output.key: OBJTYP, OBJNAM, DEFORM-3D header",
+  "scenarios": [
+    {"name": "baseline", "keys": ["01_object.KEY"], "question": "What defaults and objects exist after a minimal name/type import?"},
+    {"name": "name_patch", "keys": ["01_object.KEY", "02_name_patch.KEY"], "question": "Does a second import retain unspecified type and other state?"},
+    {"name": "repeat_file", "keys": ["01_object.KEY", "01_object.KEY"], "question": "Does reimport update an existing object or create a new one?"},
+    {"name": "repeated_keywords", "keys": ["03_repeated.KEY"], "question": "Which values and mutations survive repeated definitions?"},
+    {"name": "name_before_type", "keys": ["04_name_before_type.KEY"], "question": "Can a name definition precede an object-type definition?"},
+    {"name": "unknown_keyword", "keys": ["05_unknown.KEY"], "question": "Does parsing continue after an unknown keyword line?"},
+    {"name": "invalid_numeric", "keys": ["06_invalid_numeric.KEY"], "question": "What state and parser status remain after an invalid numeric value?"},
+    {"name": "tetrahedron", "keys": ["07_tetrahedron.KEY"], "question": "How are four coordinates and one tetrahedral connectivity row represented?"},
+    {"name": "relabelled_rows", "keys": ["07_tetrahedron.KEY", "08_relabelled_coordinates.KEY"], "question": "Do coordinate and element row labels determine storage positions?"},
+    {"name": "partial_coordinate_read", "keys": ["07_tetrahedron.KEY", "08_relabelled_coordinates.KEY", "09_truncated_coordinates.KEY"], "question": "Does a failed coordinate read roll back the previous arrays or preserve partial writes?"},
+    {"name": "sparse_object_id", "keys": ["07_tetrahedron.KEY", "10_sparse_id.KEY"], "question": "What objects and defaults fill gaps before a requested object ID?"},
+    {"name": "type_code_six", "keys": ["07_tetrahedron.KEY", "11_type_six.KEY"], "question": "Does type code 6 change an existing type?"},
+    {"name": "lowercase_keyword", "keys": ["07_tetrahedron.KEY", "12_lowercase.KEY"], "question": "Are keyword names case sensitive, and does parsing continue?"}
+  ],
+  "observed_transcripts": [
+    {
+      "evidence": "analysis/keyword-runtime-1.json",
+      "keys": ["01_object.KEY", "02_name_patch.KEY", "01_object.KEY", "03_repeated.KEY", "04_name_before_type.KEY", "05_unknown.KEY", "06_invalid_numeric.KEY"]
+    },
+    {
+      "evidence": "analysis/keyword-runtime-2.json",
+      "keys": ["07_tetrahedron.KEY", "08_relabelled_coordinates.KEY", "09_truncated_coordinates.KEY", "07_tetrahedron.KEY", "10_sparse_id.KEY", "11_type_six.KEY", "12_lowercase.KEY"]
+    }
+  ],
+  "limitations": [
+    "The scenario recipes are questions; measured assertions live in tools/verify_keyword_observations.py.",
+    "Observed transcripts share state between imports; a scenario recipe is not itself evidence of an independently executed run.",
+    "These cases do not exercise materials, cross-object references, or command keywords.",
+    "Export may omit or transform incomplete objects; passive state probes are primary evidence."
+  ]
+}

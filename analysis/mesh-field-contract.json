@@ -1,0 +1,210 @@
+{
+  "status": "selected_fixed_mesh_field_profile_verified_with_training_and_independent_captures",
+  "created_utc": "2026-10-20T22:22:12.406683+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": {
+    "keyword_ids": [
+      160,
+      162,
+      163,
+      165,
+      166,
+      167,
+      168,
+      169,
+      171,
+      172,
+      176,
+      177,
+      206,
+      207,
+      213,
+      214,
+      217,
+      219,
+      220,
+      221,
+      222,
+      233,
+      237,
+      238,
+      239
+    ],
+    "keywords": [
+      "DRZ",
+      "BCCDEF",
+      "BCCDFN",
+      "URZ",
+      "FRZ",
+      "PRZ",
+      "BCCTMP",
+      "BCCTFN",
+      "NDHEAT",
+      "NDFLUX",
+      "STNCMP",
+      "DENSTY",
+      "DVOLF",
+      "TICF",
+      "VOTAGE",
+      "DATOM",
+      "HDNOBJ",
+      "BCCCRB",
+      "BCCRHT",
+      "CRBFLX",
+      "RHTFLX",
+      "YLDS",
+      "ZEFI",
+      "ZMFI",
+      "CURRNT"
+    ],
+    "readers": [
+      "419d40 integer columns",
+      "416c90 real columns modes0/1/6 with4199a0/419b90"
+    ],
+    "mutation": "Defaults and complete rows change live storage even when a later read fails; BCCDEF3D then converts equal negative triples with native32-bit wrapping."
+  },
+  "verification": {
+    "original_imports": 64,
+    "training_imports": 32,
+    "independent_held_out_imports": 32,
+    "selected_keywords": 25,
+    "all_selected_keywords_observed_in_both_dimensions": true,
+    "tokens": 186,
+    "complete_handler_snapshots": 186,
+    "field_reader_calls": 165,
+    "scalar_scan_calls": 281,
+    "ordinary_reader_calls": 440,
+    "final_descriptor_snapshots": 3339,
+    "failed_field_reads": 9,
+    "zero_width_field_reads": 12,
+    "negative_zero_field_values": 143,
+    "bccdef_converted_rows": 16,
+    "bccdef_converted_rows_after_failed_read": 5,
+    "independent_tamper_rejections": 64,
+    "tests_verified": 38,
+    "frozen_runtime_files_unchanged": 27
+  },
+  "candidate_changed_after_first_freeze": false,
+  "public_database_loader_api_changed": false,
+  "captures": [
+    {
+      "path": "analysis/mesh-field-runtime-training.json",
+      "status": "excluded_incomplete_probe",
+      "reason": "81selected-object pointer errors; copied Frida callback retval required."
+    },
+    {
+      "path": "analysis/mesh-field-runtime-training-v2.json",
+      "status": "verified",
+      "imports": 32
+    },
+    {
+      "path": "analysis/mesh-field-runtime-held-out.json",
+      "status": "verified",
+      "imports": 32
+    }
+  ],
+  "checker_corrections": {
+    "candidate_comparator": "No comparison logic correction; both valid captures passed first attempt without runtime changes. Afterwards only three argparse defaults were changed to select repaired training v2; both strict comparisons and new tests passed again. Prior checker/reports archived in analysis/oracle/mesh-field-before-default-repair/.",
+    "independent_audit": "Pre-held-out verifier corrections preserved in diagnostics; final verifier passed both captures unchanged."
+  },
+  "limitations": [
+    "Finite ASCII/finite numeric owned-storage profile; this does not prove complete application equivalence.",
+    "DVOLF/TICF dispatch and zero-width consumption verified; positive root13f4 width producer remains unresolved.",
+    "Mode6 width>10 rejection is established statically and checked in replacement-only tests; no reachable original import fixture for that width.",
+    "Undefined first matching failures, unknown integer tails, arbitrary shared storage and allocation failures remain unsupported.",
+    "Native Ghidra Listing lacked case instructions; all25 call sites corroborated with Microsoft disassembly and exact PE byte/jump-table checks.",
+    "36existing tests passed before final BCCDEF stride bound; final candidate then passed both new captures and2new registered tests. No existing handler changed in that final guard."
+  ],
+  "next_action": "Recover the remaining dimension-dependent and dynamic field import paths, starting with NDTMP2D transformations and USRNOD/USRELM width setters/allocation effects; keep material properties, full DB state import, exports, scientific operations and console integration in scope.",
+  "bindings": [
+    {
+      "path": "analysis/mesh-field-static-contract.json",
+      "sha256": "cbf2a681bb4869a1b542fa91954a1c77d20b39e9389dc5dc83438df6d9564d77"
+    },
+    {
+      "path": "analysis/mesh-field-callsite-audit.json",
+      "sha256": "b43b80fc9ee089016b68b57298dd9070d14a0a079b38a6fb185048d25584c235"
+    },
+    {
+      "path": "analysis/mesh-field-bccdef-native-bytes.json",
+      "sha256": "06553d5231ab9e0ef7d1344202080a73858be20e6cbcac78b3b927ebc55685c5"
+    },
+    {
+      "path": "analysis/mesh-field-candidate-freeze.json",
+      "sha256": "7c87974b6bc3e692edc3209eeaa62d30f1f7a066bd5f31e4991b1533e089958a"
+    },
+    {
+      "path": "analysis/mesh-field-evaluation-cases-v2.json",
+      "sha256": "4cd43da4f0397a79eeb147e94d930d575c6bc11295522db1199f1fc8d13df9db"
+    },
+    {
+      "path": "analysis/mesh-field-v2-input-freeze.json",
+      "sha256": "81b45b27d8670f0372427edfd981b5068a9fd61cc629a4d45d5947a46e265330"
+    },
+    {
+      "path": "analysis/mesh-field-runtime-training-v2.json",
+      "sha256": "724c428cf3ca793e700e0c26486d0e8cecf1b301257865563e51419316be5753"
+    },
+    {
+      "path": "analysis/mesh-field-training-comparison.json",
+      "sha256": "7d3a95b7253fd9133407c214e9812378b150458082c57aef782aefd2271a2b09"
+    },
+    {
+      "path": "analysis/mesh-field-observations.json",
+      "sha256": "c207da8d28e0f1b27785a3a7bb679e5d20c761e75799353f6ce93e5c70969db6"
+    },
+    {
+      "path": "analysis/mesh-field-held-out-cases.json",
+      "sha256": "feb02fda01719be507411abbd6f4d9ec1a1ffdcb8ca7383630e129c9ec32184e"
+    },
+    {
+      "path": "analysis/mesh-field-held-out-input-freeze.json",
+      "sha256": "72688287a1831ded3ef69ea15aac8b76fc4ecf7aa998de38bdab50c717c87033"
+    },
+    {
+      "path": "analysis/mesh-field-runtime-held-out.json",
+      "sha256": "ed07b9dfb41ec4561c8d5990a037c2e9ba23bc7ce778b71c2bc7061c85a56012"
+    },
+    {
+      "path": "analysis/mesh-field-held-out-comparison.json",
+      "sha256": "52d465086b737cd47eb62b35918b546c918e40df67178e5fd27143c742a207f8"
+    },
+    {
+      "path": "analysis/mesh-field-held-out-observations.json",
+      "sha256": "68a8437a554135d3d0a7d990801c00565b030fee0c8f781be6ca031398b7b249"
+    },
+    {
+      "path": "analysis/mesh-field-test-registration.json",
+      "sha256": "a9a07e94910ff2434a890baadb19a716cae45a78c9d2c37107feea20cd944e7e"
+    },
+    {
+      "path": "analysis/mesh-field-v1-selection-diagnostic.json",
+      "sha256": "5407951eb6adbd428fba8b264568359fcf4aeb589f10d5ef69e64c6573f01f25"
+    },
+    {
+      "path": "analysis/mesh-field-precapture-audit.json",
+      "sha256": "4420079b0306e7145c13ddc7781d7ad4ddce0d6fa3897251bd19cd72c38b1673"
+    },
+    {
+      "path": "analysis/oracle/mesh-field-final-baseline-ctest.log",
+      "sha256": "aa5339e3fecc5ef905ffdb9414904df80d7b134ed37ffd88cd76d367e3ac7ffb"
+    },
+    {
+      "path": "analysis/oracle/mesh-field-ctest.log",
+      "sha256": "b9d3a3241a6c6f175e5d48a4fc5bbe6b5256c44f3acf40bdcb8d5dfba585f559"
+    },
+    {
+      "path": "tools/compare_mesh_field_import.py",
+      "sha256": "d4312fbf089da478147beb734c1d0d1904397675482d49cea4b3702697ecc1c1"
+    },
+    {
+      "path": "tools/verify_mesh_field_observations.py",
+      "sha256": "6dcf4edd81191176b66d2db8901ff15fcea1a2262fee498321659ce63de6cdf6"
+    },
+    {
+      "path": "tools/observe_mesh_field_import.js",
+      "sha256": "84f1fdec5d2eb7114d3740ac958ce839442fa0ef5b31757b0483357b5824a8fe"
+    }
+  ],
+  "full_application_status": "incomplete_active"
+}

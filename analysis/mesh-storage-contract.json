@@ -1,0 +1,52 @@
+{
+  "status": "partial_internal_component_verified",
+  "purpose": "Compose recovered mesh allocation, descriptor history, direct integer buffers and boundary construction before integrating the keyword importer.",
+  "implementation": ["src/recovered/mesh_storage.hpp", "src/recovered/mesh_storage.cpp"],
+  "evidence": [
+    "analysis/mesh-array-contract.json",
+    "analysis/mesh-boundary-contract.json",
+    "analysis/hexa-boundary-contract.json",
+    "analysis/planar-boundary-contract.json",
+    "analysis/mesh-storage-runtime-evaluation.json",
+    "analysis/mesh-storage-observations.json",
+    "analysis/mesh-storage-comparison.json",
+    "analysis/mesh-storage-candidate-freeze.json",
+    "analysis/mesh-storage-evaluation-cases.json",
+    "analysis/object-deactivation-runtime.json",
+    "analysis/object-deactivation-recovery.json",
+    "analysis/object-deactivation-observations.json"
+  ],
+  "established_behavior": [
+    "Node replacement clears and allocates coordinates, six direct integer buffers and 28 registered state variables; field 8 receives the supplied default.",
+    "Element replacement clears and allocates connectivity, direct integer buffer 61 and 25 registered state variables, preserving the recovered shape-history rules and field defaults.",
+    "Bulk replacement and row filling are separate operations, allowing partially imported arrays to remain visible after input failure.",
+    "Successful connectivity completion sets the mesh-present flag and invokes the recovered boundary builder. Coordinate replacement alone retains the previous boundary state.",
+    "The current internal API accepts explicit component controls and defaults rather than inferring scientific field meanings.",
+    "Mesh deactivation clears buffers and descriptor counts in place, retaining selected arity, descriptor width/multiplicity history and the active boundary-group count with empty payloads. Repeated deactivation updates previous counts to zero."
+  ],
+  "validation": {
+    "original_processes": 4,
+    "imports": 15,
+    "object_snapshots": 39,
+    "descriptor_snapshots": 2067,
+    "direct_and_boundary_snapshots": 19,
+    "result": "Exact recorded comparisons passed.",
+    "new_sequence": ["cube", "tetrahedron", "incomplete coordinates", "rotated cube"],
+    "qualification": "The mesh-switching sequence combines previously used individual fixtures; its candidate was frozen before capture. The later populated-object deactivation capture supplies eight additional discovery snapshots and guided the new deactivate method. It is not held-out deactivation coverage.",
+    "ctest": "mesh_storage_reference_replay",
+    "provenance": "Independent verifier checks the new capture's four import statuses, 15 ordered events, 53 descriptor mappings per snapshot, pointer binding, buffer shapes and retained boundaries; 12 tampering cases are rejected."
+  },
+  "design_choices": [
+    "Portable vectors own storage. Native addresses, allocator behavior and physical object layout are not reproduced. The state comparator normalizes null buffers to empty arrays; it does not establish pointer-binding or allocation-identity equivalence.",
+    "Unsupported extents and multiplicities are rejected outside the established compatibility domain.",
+    "The replay fixture reader only supplies known test inputs; it is not the production keyword scanner."
+  ],
+  "remaining": [
+    "Full object identity, names, types and cleanup outside the reconstructed mesh-owned portion.",
+    "Production keyword scanner, complete dispatch, status propagation and finalization. The integrated replay compares state and does not emit or compare importer return codes.",
+    "2D integrated allocation and dimension switching; the planar boundary component has separate comparisons.",
+    "Nondefault multiplicities, shared backing and copy/detach behavior.",
+    "Additional auxiliary and boundary-dependent arrays and derived scientific geometry.",
+    "Allocation failure, malformed indices, arbitrary mesh sizes and complete external ABI compatibility."
+  ]
+}

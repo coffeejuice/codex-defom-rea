@@ -24,3 +24,358 @@ add_test(NAME database COMMAND database_test)
 add_executable(object_summary_test tests/object_summary_test.cpp)
 target_link_libraries(object_summary_test PRIVATE deform_loader)
 add_test(NAME object_summary COMMAND object_summary_test)
+add_library(deform_recovered_state src/recovered/state_variable.cpp src/recovered/mesh_boundary.cpp src/recovered/hexa_boundary.cpp src/recovered/planar_boundary.cpp src/recovered/mesh_storage.cpp src/recovered/keyword_reader.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/object_model.cpp src/recovered/keyword_import.cpp src/recovered/geometry_storage.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/component_layout.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/geometry_segments.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/custom_fields.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/property_table.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/relation_properties.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/fstres_properties.cpp)
+target_include_directories(deform_recovered_state PUBLIC src)
+target_compile_features(deform_recovered_state PUBLIC cxx_std_20)
+if(MSVC)
+  target_compile_options(deform_recovered_state PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(deform_recovered_state PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+add_executable(state_variable_replay tests/state_variable_replay.cpp)
+target_link_libraries(state_variable_replay PRIVATE deform_recovered_state)
+add_executable(mesh_boundary_replay tests/mesh_boundary_replay.cpp)
+target_link_libraries(mesh_boundary_replay PRIVATE deform_recovered_state)
+add_executable(planar_boundary_replay tests/planar_boundary_replay.cpp)
+target_link_libraries(planar_boundary_replay PRIVATE deform_recovered_state)
+add_executable(mesh_storage_replay tests/mesh_storage_replay.cpp)
+target_link_libraries(mesh_storage_replay PRIVATE deform_recovered_state)
+add_executable(mesh_refresh_replay tests/mesh_refresh_replay.cpp)
+target_link_libraries(mesh_refresh_replay PRIVATE deform_recovered_state)
+add_executable(keyword_reader_replay tests/keyword_reader_replay.cpp)
+target_link_libraries(keyword_reader_replay PRIVATE deform_recovered_state)
+add_executable(keyword_import_replay tests/keyword_import_replay.cpp)
+target_link_libraries(keyword_import_replay PRIVATE deform_recovered_state)
+add_executable(component_layout_replay tests/component_layout_replay.cpp)
+target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
+find_package(Python3 COMPONENTS Interpreter QUIET)
+if(Python3_Interpreter_FOUND)
+  add_test(NAME state_variable_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_state_variables.py"
+      --driver "$<TARGET_FILE:state_variable_replay>")
+  add_test(NAME mesh_boundary_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_boundaries.py"
+      --driver "$<TARGET_FILE:mesh_boundary_replay>")
+  add_test(NAME hexa_boundary_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_hexa_boundaries.py"
+      --driver "$<TARGET_FILE:mesh_boundary_replay>")
+  add_test(NAME planar_boundary_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_planar_boundaries.py"
+      --driver "$<TARGET_FILE:planar_boundary_replay>")
+  add_test(NAME mesh_storage_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_storage.py"
+      --driver "$<TARGET_FILE:mesh_storage_replay>")
+  add_test(NAME keyword_reader_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_keyword_readers.py"
+      --driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME keyword_stream_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_keyword_stream.py"
+      --driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME keyword_import_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_keyword_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>")
+  add_test(NAME keyword_stream_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_keyword_stream.py"
+      --driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/keyword-import-runtime-held-out.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/keyword_import/held_out")
+  add_test(NAME keyword_import_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_keyword_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/keyword-import-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/keyword-import-held-out/run.json")
+  add_test(NAME component_layout_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_component_layout.py"
+      --driver "$<TARGET_FILE:component_layout_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/root-layout-runtime-training.json"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/root-layout-runtime-held-out.json")
+  add_test(NAME dimension_import_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_dimension_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>")
+  add_test(NAME mesh_refresh_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_refresh.py"
+      --driver "$<TARGET_FILE:mesh_refresh_replay>")
+  add_test(NAME configuration_import_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_configuration_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>")
+  add_test(NAME import_finalization_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_import_finalization.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>")
+  add_test(NAME time_controls_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_time_controls.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME time_controls_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_time_controls.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-controls-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/time-controls-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-controls-held-out-cases.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/time_controls/held_out"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-controls-corrected-freeze.json")
+  add_test(NAME time_table_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_time_table.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME time_table_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_time_table.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-table-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/time-table-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-table-held-out-cases.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/time_table/held_out"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-table-candidate-freeze.json")
+  add_test(NAME step_distance_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_step_distance.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME step_distance_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_step_distance.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/step-distance-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/step-distance-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/step-distance-held-out-cases.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/step_distance/held_out"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/step-distance-corrected-freeze.json")
+  add_test(NAME geometry_import_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME geometry_import_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-import-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/geometry-import-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-import-held-out-cases.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/geometry_import/held_out")
+  add_test(NAME geometry_import_lifecycle_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-import-runtime-lifecycle.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/geometry-import-lifecycle/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-import-lifecycle-cases.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/geometry_import/lifecycle")
+  add_test(NAME geometry_segments_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_segments.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME geometry_segments_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_segments.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-segments-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/geometry-segments-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-segments-held-out-cases.json"
+      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/geometry_segments/held_out")
+  add_test(NAME material_import_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME material_import_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-import-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-import-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-import-held-out-cases.json")
+  add_test(NAME material_object_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_object_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME material_object_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_object_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-object-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-object-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-object-held-out-cases.json")
+  add_test(NAME material_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_reference_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
+  add_test(NAME material_column_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_column_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-column-input-freeze.json")
+  add_test(NAME material_column_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_column_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-column-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-column-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-column-held-out-cases.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-column-held-out-input-freeze.json")
+  add_test(NAME mesh_field_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_field_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-runtime-training-v2.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/mesh-field-training-v2/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-evaluation-cases-v2.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-v2-input-freeze.json")
+  add_test(NAME mesh_field_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_mesh_field_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/mesh-field-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-held-out-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-held-out-input-freeze.json")
+  add_test(NAME dynamic_field_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_dynamic_field_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-runtime-training.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/dynamic-field-training/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-evaluation-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-input-freeze.json")
+  add_test(NAME dynamic_field_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_dynamic_field_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/dynamic-field-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-held-out-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-held-out-input-freeze.json")
+  add_test(NAME custom_field_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_custom_field_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-runtime-training-v2.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/custom-field-training-v2c/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-evaluation-cases-v2.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-v2-input-freeze.json")
+  add_test(NAME custom_field_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_custom_field_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-runtime-held-out-v2.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/custom-field-held-out-v2/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-held-out-cases-v2.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/custom-field-held-out-v2-input-freeze.json")
+  add_test(NAME material_shape_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_shape_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-runtime-training.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-shape-training/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-evaluation-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-input-freeze-v2.json")
+  add_test(NAME material_shape_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_shape_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-shape-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-held-out-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-candidate-freeze-v2.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-shape-held-out-input-freeze.json")
+  add_test(NAME relation_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_relation_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-runtime-training.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/relation-training-b/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-evaluation-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-input-freeze.json")
+  add_test(NAME relation_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_relation_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/relation-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-held-out-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-held-out-input-freeze.json")
+  add_test(NAME property_table_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_property_table_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-runtime-training-v3.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/property-table-training-c/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-evaluation-cases-v3.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-v4-input-freeze.json")
+  add_test(NAME property_table_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_property_table_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/property-table-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-held-out-cases-v2.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/property-table-held-out-input-freeze.json")
+  add_test(NAME relation_property_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_relation_property_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-runtime-training-v2.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/relation-property-training-b/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-evaluation-cases-v2.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-v2-input-freeze.json")
+  add_test(NAME relation_property_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_relation_property_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/relation-property-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-held-out-cases-v2.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/relation-property-held-out-input-freeze.json")
+  add_test(NAME nested_material_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_nested_material_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-runtime-training.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/nested-material-training/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-evaluation-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-input-freeze.json")
+  add_test(NAME nested_material_held_out_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_nested_material_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-runtime-held-out.json"
+      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/nested-material-held-out/run.json"
+      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-held-out-cases.json"
+      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-candidate-freeze.json"
+      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/nested-material-held-out-input-freeze.json")
+  foreach(fstres_batch IN ITEMS training-a training-b held-out-a held-out-b)
+    string(REPLACE "-" "_" fstres_test_suffix "${fstres_batch}")
+    set(fstres_run "fstres-${fstres_batch}")
+    if(fstres_batch STREQUAL "training-a" OR fstres_batch STREQUAL "held-out-b")
+      string(APPEND fstres_run "-v2")
+    endif()
+    add_test(NAME "fstres_${fstres_test_suffix}_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_fstres_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/fstres-runtime-${fstres_batch}.json"
+        --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/${fstres_run}/run.json"
+        --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/fstres-${fstres_batch}-cases.json"
+        --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/fstres-candidate-freeze.json"
+        --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/fstres-${fstres_batch}-input-freeze.json")
+  endforeach()
+endif()

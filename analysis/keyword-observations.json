@@ -1,0 +1,1821 @@
+{
+  "target": "source/DEF_PRE_64.exe",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "method": "Validation of retained REA passive Frida captures and original console-run records",
+  "result": "PASS",
+  "process_runs": 2,
+  "imports": 14,
+  "normalization": [
+    "Object names stop at the first NUL; name_bytes_hex preserves exact name bytes.",
+    "name is a reversible Latin-1 display, not a claim about the application's text encoding.",
+    "Addresses and pointer values are excluded from state summaries; within-run object identity is checked separately.",
+    "Coordinates, connectivity, and offset-named auxiliary array prefixes are retained without assigning unverified meaning."
+  ],
+  "scope": [
+    "Two exact 3D transcripts in the identified Windows x64 executable; each run shares state across its seven imports.",
+    "Observed fields only, not a full memory comparison or complete application-model specification.",
+    "Only selected keywords and small valid/invalid fixtures; no general error-handling or allocation-failure guarantee.",
+    "No runtime rerun, C++ importer implementation, or replacement-equivalence claim is made by this verifier."
+  ],
+  "assertions": [
+    "Both process runs begin with empty observed object lists.",
+    "Name-only import preserves object identity and type in the tested sequence.",
+    "Repeated import updates object 1 in place; repeated name/type keywords leave the last tested values.",
+    "Name-before-type succeeds for an already existing object; fresh-object ordering is not established by this run.",
+    "Unknown REA_UNKNOWN_TEST resolves to ID 305/category 0; later OBJNAM is processed.",
+    "OBJTYP 1 BAD 0 produces status 0, internal type 7, and parsing continues to the following name.",
+    "The tetrahedron imports four XYZ rows and one four-node connectivity row.",
+    "Changed coordinate row labels and element row label do not reorder the tested arrays.",
+    "Truncated RZ returns status 2 after replacing coordinates with two read rows and two zero rows; existing connectivity survives.",
+    "Finalization still runs before the failed RZ import returns.",
+    "Reimporting the tetrahedron restores the observed mesh values.",
+    "Requesting name for ID 4 expands IDs to 1..4; gap objects 2/3 have type 7 and requested object 4 has type 0.",
+    "OBJTYP code 6 retains prior observed state for object 1 in this run.",
+    "Lowercase objtyp resolves as unknown; following uppercase OBJNAM still updates the name."
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "evidence_id": "ev_c55f3b9082ce17e82bb893ea32a9ad9e0be8e1b2baa77857f5d2e3bba9efc694",
+      "evidence_file": "analysis/keyword-runtime-1.json",
+      "evidence_sha256": "75d16008220a3e6091d737677d51b440fb69611a7343c126518de7598793e299",
+      "run_record": "analysis/oracle/keyword-lifecycle-1/run.json",
+      "run_record_sha256": "ba904d097724a84e797c09cb5ee4a881d074c165336659c16d94b4fa8fbab80d",
+      "pid": 16692,
+      "probe_source": "analysis/oracle/keyword-lifecycle-1.js",
+      "probe_sha256": "ac0d9aca2ee412459881f1ba3e77c60b646b379a123528d0fb56e67c361b9bb9",
+      "event_count": 97,
+      "imports": [
+        {
+          "ordinal": 1,
+          "file": "01_object.KEY",
+          "fixture_sha256": "2b95c9a0f85cf82a6c523696aaf6f5cbf769c59b1798d55048cfac853c6fb6f9",
+          "sequence_range": [
+            1,
+            12
+          ],
+          "status": 0,
+          "retained_object_identity": {},
+          "before": {
+            "object_count": 0,
+            "list_count": 0,
+            "objects": []
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA baseline object",
+                "name_bytes_hex": "52454120626173656c696e65206f626a656374"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              10,
+              11
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 2,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 6,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 5,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 9,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "file": "02_name_patch.KEY",
+          "fixture_sha256": "95ea3947da11f080fb4ef21aa5773a6029f035a7985348c5fda85fafc6b4e1ca",
+          "sequence_range": [
+            13,
+            20
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA baseline object",
+                "name_bytes_hex": "52454120626173656c696e65206f626a656374"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA renamed object",
+                "name_bytes_hex": "5245412072656e616d6564206f626a656374"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              18,
+              19
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 14,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 17,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "file": "01_object.KEY",
+          "fixture_sha256": "2b95c9a0f85cf82a6c523696aaf6f5cbf769c59b1798d55048cfac853c6fb6f9",
+          "sequence_range": [
+            21,
+            32
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA renamed object",
+                "name_bytes_hex": "5245412072656e616d6564206f626a656374"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA baseline object",
+                "name_bytes_hex": "52454120626173656c696e65206f626a656374"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              30,
+              31
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 22,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 26,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 25,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 29,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "file": "03_repeated.KEY",
+          "fixture_sha256": "8e7e651c7f4b7d6a0aa24eba542a379c8be78847fce75796a6f66d51f46e6b19",
+          "sequence_range": [
+            33,
+            52
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA baseline object",
+                "name_bytes_hex": "52454120626173656c696e65206f626a656374"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA second name",
+                "name_bytes_hex": "524541207365636f6e64206e616d65"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              50,
+              51
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 34,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 38,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            },
+            {
+              "sequence": 42,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            },
+            {
+              "sequence": 46,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 37,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 41,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 45,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 49,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "file": "04_name_before_type.KEY",
+          "fixture_sha256": "71a0b4a0522fb7c18bc6e349326604c4649732487e00cf3b4919e8b08096c79a",
+          "sequence_range": [
+            53,
+            64
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA second name",
+                "name_bytes_hex": "524541207365636f6e64206e616d65"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA name before type",
+                "name_bytes_hex": "524541206e616d65206265666f72652074797065"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              62,
+              63
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 54,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            },
+            {
+              "sequence": 58,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 57,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 61,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "file": "05_unknown.KEY",
+          "fixture_sha256": "0f22fdf4e5233d6575df9974e845c9cae7a206f8a9588f00f0839db2b8950a2e",
+          "sequence_range": [
+            65,
+            77
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA name before type",
+                "name_bytes_hex": "524541206e616d65206265666f72652074797065"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA after unknown",
+                "name_bytes_hex": "52454120616674657220756e6b6e6f776e"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              75,
+              76
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 66,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 70,
+              "keyword": "REA_UNKNOWN_TEST",
+              "id": 305,
+              "category": 0
+            },
+            {
+              "sequence": 71,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 69,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 74,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "file": "06_invalid_numeric.KEY",
+          "fixture_sha256": "9f218ee0717a888da53e9b87bc405ec02a32db284497963dfcb010df5c1fa15f",
+          "sequence_range": [
+            78,
+            97
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA after unknown",
+                "name_bytes_hex": "52454120616674657220756e6b6e6f776e"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA after invalid value",
+                "name_bytes_hex": "52454120616674657220696e76616c69642076616c7565"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              95,
+              96
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 79,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 83,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            },
+            {
+              "sequence": 87,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 91,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 82,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 86,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 90,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 94,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "evidence_id": "ev_d70d4a535fe76be8020d6902b3173d895d2f3f7d3317e070501c3ef3699118d6",
+      "evidence_file": "analysis/keyword-runtime-2.json",
+      "evidence_sha256": "fef25415b25933a80136238172578ea10e9e6d69db1c6428087504f6360cb734",
+      "run_record": "analysis/oracle/keyword-lifecycle-2/run.json",
+      "run_record_sha256": "2768df1436f36d43b9b7f5874ecbb0d27ba4abd9f773a1128700c0d0c5b1de13",
+      "pid": 34984,
+      "probe_source": "analysis/oracle/keyword-lifecycle-2.js",
+      "probe_sha256": "8e063a84ff1c61611f9319b2c98eab6fcad9c116735b926c2435b825df3a7d33",
+      "event_count": 85,
+      "imports": [
+        {
+          "ordinal": 1,
+          "file": "07_tetrahedron.KEY",
+          "fixture_sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+          "sequence_range": [
+            1,
+            20
+          ],
+          "status": 0,
+          "retained_object_identity": {},
+          "before": {
+            "object_count": 0,
+            "list_count": 0,
+            "objects": []
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              18,
+              19
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 2,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 6,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            },
+            {
+              "sequence": 10,
+              "keyword": "RZ",
+              "id": 159,
+              "category": 2
+            },
+            {
+              "sequence": 14,
+              "keyword": "ELMCON",
+              "id": 173,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 5,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 9,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 13,
+              "keyword": "RZ",
+              "id": 159,
+              "status": 0
+            },
+            {
+              "sequence": 17,
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "file": "08_relabelled_coordinates.KEY",
+          "fixture_sha256": "42ef7d240a6a31afa40e8679db0f096de4d28b145965c7227550a544ca3cb431",
+          "sequence_range": [
+            21,
+            32
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  10,
+                  0,
+                  0,
+                  11,
+                  0,
+                  0,
+                  10,
+                  1,
+                  0,
+                  10,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              30,
+              31
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 22,
+              "keyword": "RZ",
+              "id": 159,
+              "category": 2
+            },
+            {
+              "sequence": 26,
+              "keyword": "ELMCON",
+              "id": 173,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 25,
+              "keyword": "RZ",
+              "id": 159,
+              "status": 0
+            },
+            {
+              "sequence": 29,
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "file": "09_truncated_coordinates.KEY",
+          "fixture_sha256": "733467b8c183ba89ddc52159efd276ffbb80c42033b2263cc3c03df8ada0671a",
+          "sequence_range": [
+            33,
+            40
+          ],
+          "status": 2,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  10,
+                  0,
+                  0,
+                  11,
+                  0,
+                  0,
+                  10,
+                  1,
+                  0,
+                  10,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  20,
+                  0,
+                  0,
+                  21,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              38,
+              39
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 34,
+              "keyword": "RZ",
+              "id": 159,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 37,
+              "keyword": "RZ",
+              "id": 159,
+              "status": 2
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "file": "07_tetrahedron.KEY",
+          "fixture_sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+          "sequence_range": [
+            41,
+            60
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  20,
+                  0,
+                  0,
+                  21,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              58,
+              59
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 42,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            },
+            {
+              "sequence": 46,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            },
+            {
+              "sequence": 50,
+              "keyword": "RZ",
+              "id": 159,
+              "category": 2
+            },
+            {
+              "sequence": 54,
+              "keyword": "ELMCON",
+              "id": 173,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 45,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 49,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 53,
+              "keyword": "RZ",
+              "id": 159,
+              "status": 0
+            },
+            {
+              "sequence": 57,
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "file": "10_sparse_id.KEY",
+          "fixture_sha256": "fabb6d7bf3454daf5ef6a60eedffaca5dd2c3fe8e2fd64e4dbc459d3bb2cb517",
+          "sequence_range": [
+            61,
+            68
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true
+          },
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 4,
+            "list_count": 4,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              },
+              {
+                "id": 2,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 3,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 4,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA sparse fourth object",
+                "name_bytes_hex": "5245412073706172736520666f75727468206f626a656374"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              66,
+              67
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 62,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 65,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "file": "11_type_six.KEY",
+          "fixture_sha256": "2d2c3e4ec7a6b8c13dbbb141532395fa89e83aba0ee5749956c493403b65ac6c",
+          "sequence_range": [
+            69,
+            76
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true,
+            "2": true,
+            "3": true,
+            "4": true
+          },
+          "before": {
+            "object_count": 4,
+            "list_count": 4,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              },
+              {
+                "id": 2,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 3,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 4,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA sparse fourth object",
+                "name_bytes_hex": "5245412073706172736520666f75727468206f626a656374"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 4,
+            "list_count": 4,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              },
+              {
+                "id": 2,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 3,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 4,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA sparse fourth object",
+                "name_bytes_hex": "5245412073706172736520666f75727468206f626a656374"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              74,
+              75
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 70,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 73,
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "file": "12_lowercase.KEY",
+          "fixture_sha256": "904a3dddfcbdbae799838f7f2b67db5f92936c1d828f63ad8383cce85405cac8",
+          "sequence_range": [
+            77,
+            85
+          ],
+          "status": 0,
+          "retained_object_identity": {
+            "1": true,
+            "2": true,
+            "3": true,
+            "4": true
+          },
+          "before": {
+            "object_count": 4,
+            "list_count": 4,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "name_bytes_hex": "524541207465747261686564726f6e"
+              },
+              {
+                "id": 2,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 3,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 4,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA sparse fourth object",
+                "name_bytes_hex": "5245412073706172736520666f75727468206f626a656374"
+              }
+            ]
+          },
+          "after": {
+            "object_count": 4,
+            "list_count": 4,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA after lowercase",
+                "name_bytes_hex": "524541206166746572206c6f77657263617365"
+              },
+              {
+                "id": 2,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 3,
+                "type": 7,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "name_bytes_hex": ""
+              },
+              {
+                "id": 4,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA sparse fourth object",
+                "name_bytes_hex": "5245412073706172736520666f75727468206f626a656374"
+              }
+            ]
+          },
+          "finalization": {
+            "sequences": [
+              83,
+              84
+            ],
+            "observed_fields_changed": false
+          },
+          "keywords": [
+            {
+              "sequence": 78,
+              "keyword": "objtyp",
+              "id": 305,
+              "category": 0
+            },
+            {
+              "sequence": 79,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "category": 2
+            }
+          ],
+          "handler_results": [
+            {
+              "sequence": 82,
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

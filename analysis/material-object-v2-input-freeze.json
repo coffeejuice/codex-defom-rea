@@ -1,0 +1,264 @@
+{
+  "created_utc": "2026-10-20T21:11:53.390793+00:00",
+  "candidate_manifest": {
+    "path": "analysis/material-object-candidate-freeze.json",
+    "sha256": "6cf162ac31f42eaf2443a2c6c1e90272d5b67f18564e38b415a8ee45977c5a25"
+  },
+  "candidate_current_all_match": true,
+  "candidate_current": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "fixture_manifest": {
+    "path": "analysis/material-object-training-v2-cases.json",
+    "sha256": "f3ed1260b4d4b8acc6be96ea4c42dd89c96340e8f214ee99755e463c02f02cac",
+    "archive": "analysis/oracle/frozen-material-object-v2-inputs/analysis/material-object-training-v2-cases.json"
+  },
+  "original_input_manifest": {
+    "path": "tests/fixtures/material_objects/cases.json",
+    "sha256": "d0d50124fdd33735ba787c268df667cbcb7c36a8fe63087e5ac699518bba2858"
+  },
+  "inputs": [
+    {
+      "path": "tests/fixtures/material_objects/01_spatial_mesh_geometries.KEY",
+      "sha256": "d5e8ecb7b17980b7343d2b6bf24b3bf1cd377f653ba734619b1421122eb70358",
+      "bytes": 234,
+      "hypothesis": "Establish one active object with tetrahedral mesh, direct triangular geometry and alternate transformed segment before any material creation.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/01_spatial_mesh_geometries.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/02_first_second_material.KEY",
+      "sha256": "b696d9756714d4bfe9fa6a1105d253ce69353403a37455e3fd38e05ca7779194",
+      "bytes": 31,
+      "hypothesis": "Observe first and second material creation around already populated mesh/geometries, including temporary copies, component refresh and stable persistent ownership.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/02_first_second_material.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/03_existing_rename.KEY",
+      "sha256": "dcd41da155b747a6936a17a194e099fe5bea228e0a9c6b1c493b821b9c0c678e",
+      "bytes": 24,
+      "hypothesis": "Existing material rename should avoid the creation refresh path while preserving populated object state.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/03_existing_rename.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/04_new_name_eof.KEY",
+      "sha256": "9496f8f3d97bf7e064def598350f4c85631bee18d4d191b47513b73af75e9998",
+      "bytes": 9,
+      "hypothesis": "New material with second-name-line EOF must retain append/refresh side effects around the active populated object.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/04_new_name_eof.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/05_inactive_placeholders.KEY",
+      "sha256": "9ade6354d3af72b0aa774edba5fe11c3d5a7263a1825f851b0c3e5519a626f6b",
+      "bytes": 172,
+      "hypothesis": "Deactivate the first object, create object3 through inactive placeholder2, and populate a new active mesh/direct geometry after materials already exist.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/05_inactive_placeholders.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/06_append_with_inactive.KEY",
+      "sha256": "17dcc837808b7aab42ed6233bba16714efd2e11ab37aed6c439bb762ed0050b8",
+      "bytes": 25,
+      "hypothesis": "Fourth append refreshes active object3 while inactive objects1/2 remain present; inspect temporary copy selection and cleanup.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/06_append_with_inactive.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/07_reactivate_and_repopulate.KEY",
+      "sha256": "076ae57d2ba26802703ad91b25b74126bc1493c018d666ffb8ce88affded7cb1",
+      "bytes": 203,
+      "hypothesis": "Reactivate object1, repopulate its mesh/alternate geometry, and rename an existing material without a new refresh.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/07_reactivate_and_repopulate.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/08_planar_material_first.KEY",
+      "sha256": "fb3102c9370b2ca4e8c113fcc56354e8de3a53463e5159d80fa7ca388e0a1f90",
+      "bytes": 43,
+      "hypothesis": "Dimension reset destroys prior materials/objects, then creates the first material before any planar object exists.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/08_planar_material_first.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/09_planar_objects_after_material.KEY",
+      "sha256": "7fe255eaea9956f570f34b1e8b9af94cb2139c0cee80a7e082b507334643410c",
+      "bytes": 133,
+      "hypothesis": "Create active object3 after the first material, retaining inactive placeholders1/2; populate quadrilateral mesh and format2 alternate geometry.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/09_planar_objects_after_material.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/10_planar_append_and_failure.KEY",
+      "sha256": "5e9577eee1f3a549e90920633b72f3b95ce6ad7b0b94629a51d0a4456687a12d",
+      "bytes": 32,
+      "hypothesis": "Append a second material, then a third with name EOF; both refresh an existing planar mesh/segment and preserve committed state.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/10_planar_append_and_failure.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/11_all_inactive_append.KEY",
+      "sha256": "32bed661c971ad51d4dceef5668629652003f6fb7e1989b5f195de3027d622d3",
+      "bytes": 41,
+      "hypothesis": "Deactivate the sole active planar object and append the fourth material while all three objects are inactive.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/11_all_inactive_append.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/12_planar_reactivate.KEY",
+      "sha256": "ec5f709cbe7ac6766bda00b44c23ae9d74451283e82889eda7daf111010c6d5d",
+      "bytes": 153,
+      "hypothesis": "Reactivate/repopulate planar object3 and rename an existing material, testing lifecycle state without creation refresh.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/12_planar_reactivate.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/13_mixed_order_after_reset.KEY",
+      "sha256": "576f66bc29d74212a0ab3f460dbc282584b5495426f21f732bda87a7a97bf0af",
+      "bytes": 153,
+      "hypothesis": "After another reset, create one material before an object and a second after its direct geometry in the same import.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/13_mixed_order_after_reset.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/14_final_empty_reset.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "hypothesis": "Final changed-dimension reset destroys remaining materials and geometry objects and realigns the linked root.",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tests/fixtures/material_objects/14_final_empty_reset.KEY"
+    },
+    {
+      "path": "tools/observe_material_object_import.js",
+      "sha256": "b121c9cb10128c76e92a0a6823b54ea01b1ccd8eafc6f2d6b7374f7b675a1703",
+      "archive": "analysis/oracle/frozen-material-object-v2-inputs/tools/observe_material_object_import.js"
+    }
+  ],
+  "repair_diagnostic": {
+    "path": "analysis/material-object-probe-v1-diagnostic.json",
+    "sha256": "3dadff58b8b38f2cea4f3fa39d26444674c27079bf64f3aa74a43504e358322d"
+  },
+  "native_source_bindings": [
+    {
+      "path": "analysis/geometry-format-0x140275f30.json",
+      "sha256": "d33e81e255aac3395b914215411575cfd03e12a02de81358002f4603a21e2d88"
+    },
+    {
+      "path": "analysis/geometry-format-0x140275fa0.json",
+      "sha256": "b390970dc12b8c60b4c36612b802263f768ee10cda9c1c70b2b5719c8b50df57"
+    },
+    {
+      "path": "analysis/material-object-0x140276140.json",
+      "sha256": "30437990a6e75193ab24a02c9a71055976c0015189152ea64b2ac27216cad2c3"
+    }
+  ]
+}

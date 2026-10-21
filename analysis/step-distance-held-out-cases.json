@@ -1,0 +1,70 @@
+{
+  "purpose": "Additional original-process cases after address-offset correction, selected before capture against frozen corrected candidate. No native-unit precondition; correct field1104 is an independent int32 reset by1ead60. Reused planar topology identified explicitly.",
+  "created_utc": "2026-10-20T19:53:55.677528+00:00",
+  "cases": [
+    {
+      "path": "tests/fixtures/step_distance/held_out/01_default_fields.KEY",
+      "sha256": "8c9f554c0eb5a3500c366f782afaf6a67d63082a1da282234bbfe102a64dc883",
+      "hypothesis": "Fresh roots have integer1104 default0; absentobject skips arithmetic."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/02_selected_base_counts.KEY",
+      "sha256": "2120d602e597613552a1a193fab6dc167dfe3c17ab4a28e977f4aee4802eca67",
+      "hypothesis": "Hex/octal/malformed-octal integer suffixes after real conversion; unchanged prior result when parsed count0."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/03_hex_prefix_eof.KEY",
+      "sha256": "e69896b161aff0eb37ce43cfa752b56aa869c35b10cee593eb4bd01e60714e25",
+      "hypothesis": "Incomplete hexadecimal integer prefix at physical EOF after real success."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/04_count_sign_eof.KEY",
+      "sha256": "45d7d63bfeb6d4e35e08db64c389db18fbadd33e3d05dc88d15f11c99435cec0",
+      "hypothesis": "Sign-only integer at EOF preserves real conversion and earlier model state."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/05_exponent_prefix.KEY",
+      "sha256": "746de63cd50ddbee9216586782fc346fdc1edb73db8a89677b4d55d66c55222d",
+      "hypothesis": "Incomplete real exponent followed by signed base0 integer."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/06_negative_zero_result.KEY",
+      "sha256": "2f8309e0c379601eb54cba7153d978ac8d71dab90f3f5c10008aba845f408782",
+      "hypothesis": "Equal absolute operands divided by negative count yields negative-zero result; final mode normalizes."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/07_partial_stroke_eof.KEY",
+      "sha256": "934ba15215fbd2061255a86868f78c91565f6e4cd02503826f79ee95a6e02e4d",
+      "hypothesis": "Third real fails after two conversions at EOF, retaining partial triple and successful helper status."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/08_stroke_sign_eof.KEY",
+      "sha256": "258703e6175ae9952c990232e34efe2e2930bc186fd9e6d5a187f8aa685a15e1",
+      "hypothesis": "No successful real conversion after sign at EOF; STROKE status2 and zeroed triple."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/09_inactive_retention.KEY",
+      "sha256": "2df7764144d940f37ad627db9db1b727b80c6586e3e76f719c796992a1233103",
+      "hypothesis": "Existing stroke survives deactivation and is used by unfiltered lookup without another STROKE write."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/10_selection_limits.KEY",
+      "sha256": "f0fe75f08ec81fd312e21e551dd5a1e12154dece3274fffbc4bca96485b11461",
+      "hypothesis": "Signed integer limits in PDIE; missing-object guard and signed count."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/11_planar_reset.KEY",
+      "sha256": "c36d7a7bd878c0365f64a90680569df18ddbe098a7c417e2e9de08616a16705a",
+      "hypothesis": "Changed dimension resets PDIE independently of unit settings; planar STROKE and delayed mode update."
+    },
+    {
+      "path": "tests/fixtures/step_distance/held_out/12_populated_mesh.KEY",
+      "sha256": "7f58b186a4ef2dda96aa827e377249eca4dafb11f2efd6ff37924c8db696cc57",
+      "hypothesis": "Reused planar topology with a new STROKE/PDIE/step/table sequence; arrays must remain unchanged during scalar updates."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_step_distance.js",
+    "sha256": "8e08834395840709e875063bb6528d2c8486b0fcb5720c6f5ac05e2de0e16327"
+  }
+}

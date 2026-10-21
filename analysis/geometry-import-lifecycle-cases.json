@@ -1,0 +1,66 @@
+{
+  "purpose": "Separate lifecycle followup correcting the earlier held-out OBJTYP line-placement error. Original17case inputs/capture remain unchanged; these six imports independently test valid same-line syntax and actual cleanup/reinitialization.",
+  "cases": [
+    {
+      "path": "tests/fixtures/geometry_import/lifecycle/01_setup.KEY",
+      "sha256": "93cbbd22dcb7ec1adccded9f51d5957074a72c31d15ae4511c49e89f9263ff83",
+      "bytes": 82,
+      "question": "Establish enabled spatial geometry with multiple oriented planes before cleanup.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/lifecycle/02_deactivate.KEY",
+      "sha256": "f8fc8ca799053d021958b98bd0db62142f532103438011b81b0012ee39b0b31f",
+      "bytes": 27,
+      "question": "Does valid same-line OBJTYP deactivate the object, clear geometry arrays/planes/3990, preserve3994 and retain secondary37?",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/lifecycle/03_reactivate.KEY",
+      "sha256": "c6a174f7eb18f69fa0f3a2cc1edd208de0f5fea97988ceb3a319369c98c54d70",
+      "bytes": 54,
+      "question": "Does valid same-line OBJTYP reactivate type1 with secondary43 while preserving cleared geometry state?",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/lifecycle/04_repopulate.KEY",
+      "sha256": "7a1e0dc8c9a1120840e7fef51ce5cfc94779cc2e8a0163c62fb820c461ae6918",
+      "bytes": 61,
+      "question": "Does direct geometry import repopulate the reactivated object and set geometry flags?",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/lifecycle/05_dimension_planar.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "question": "Does header-only2D reset remove the spatial object and geometry?",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/lifecycle/06_dimension_spatial.KEY",
+      "sha256": "93cbbd22dcb7ec1adccded9f51d5957074a72c31d15ae4511c49e89f9263ff83",
+      "bytes": 82,
+      "question": "Does returning to3D start with fresh spatial geometry before this import?",
+      "expected_output": null
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_geometry_import.js",
+    "sha256": "bc35c613b2329f90c7d30a094c9575491fda65b4c5308560100928439a0ec6e5"
+  },
+  "bounds": {
+    "vertices": 4,
+    "faces": 2,
+    "plane_probe_limit": 32,
+    "bytes_per_file": 4095
+  },
+  "syntax": "OBJTYP selector and type/secondary pair on the SAME line: OBJTYP 1 99 37 and OBJTYP 1 2 43. Setup/restoration geometry first-three connectivity IDs validated positive within coordinate count.",
+  "correction_of": {
+    "manifest": "analysis/geometry-import-held-out-cases.json",
+    "files": [
+      "11_deactivate.KEY",
+      "12_reactivate.KEY"
+    ],
+    "reason": "The earlier fixtures put the pair after newline, causing blank fgets andstatus2. They did not exercise cleanup or reactivation."
+  }
+}

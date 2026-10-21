@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-21T00:32:29.993900+00:00",
+  "status": "selected_material_property_import_profile_verified_with_independent_captures",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "implemented_keywords": [
+    "YOUNG",
+    "POISON",
+    "EXPAND",
+    "THRCND",
+    "HEATCP",
+    "EMSVTY",
+    "ELRST",
+    "PMEAB",
+    "PMITT",
+    "MASDEN",
+    "COARSE",
+    "GBENGY",
+    "NUCSIZ"
+  ],
+  "behavior": [
+    "OwnedPropertyTable preserves type,rank,constant,selectors,counts,width,flags andrawmetadata54/60, with separate physical arrays. No invented native padding defaults.",
+    "41b270 consumes one comma-normalized bounded header;EOF preserves existingtable, while accepted partial/matching/unknown headers follow zeroed native locals and type0reset.",
+    "41a800 allocates zeroed arrays;rank1 updates directly;rank2 axes update directly but dependent values commit only after all staged reads. EOF preserves the corresponding partial state.",
+    "EXPAND auxiliary updates only when present;HEATCP writes its initialized local even onfailure;PMEAB forces secondselector20 forrank2 even onfailure;COARSE alwaysreadsflag andskips table fornonpositive results.",
+    "Exact signed material selection and creation-before-read refresh remain unchanged;dimensionreset destroys the material tables."
+  ],
+  "verification": {
+    "original_imports": 64,
+    "training_imports": 32,
+    "independent_held_out_imports": 32,
+    "selected_keywords": 13,
+    "complete_handler_snapshots": 120,
+    "selected_property_handlers": 111,
+    "property_wrapper_calls": 109,
+    "property_header_and_coarse_reader_calls": 116,
+    "property_scalar_scan_calls": 193,
+    "base_reader_calls": 309,
+    "failed_selected_handlers": 14,
+    "final_standard_descriptor_snapshots": 265,
+    "independent_tamper_rejections": 80,
+    "independent_tamper_checks_skipped": 0,
+    "baseline_tests_passed": 46,
+    "new_tests_passed": 2,
+    "tests_registered": 48,
+    "frozen_runtime_files_unchanged": 31
+  },
+  "validation_order": "Release build and46existing tests passed before freezing31runtimefiles. Both valid32import comparisons passed first attempt without candidate or comparator logic corrections. Two new CTests then passed without rebuilding or changing the candidate. This is46+2, not one48-test invocation.",
+  "correction_history": [
+    "Sandbox launch failed before processcreation withWinError623; bounded authorized outside-sandbox runs completed.",
+    "Pre-capture review missed shared41abc8 bypassbranches; probe guard was corrected before any observed imports.",
+    "Circular audit/manifest provenance was corrected and a new freeze saved while the original waited at a closed gate, before imports were sent.",
+    "First actualtraining capture completed but had two observer errors because a globalallocationhook applied selected bounds to unrelatedtables duringreset. Capture retained as invalid; exact unselected table identity was not captured. Active-table scope was repaired, audited andrefrozen before new training andheldout runs.",
+    "Candidate and all64fixturebytes remained unchanged throughout. Comparator rejected the invalidcapture.",
+    "Independent verifier initially omitted established post-refresh scratch cleanup; failure preserved and verifier corrected from retained source, then same finalverifier passed bothcohorts and80applied corruptionchecks."
+  ],
+  "captures": [
+    {
+      "path": "analysis/property-table-runtime-training-v3.json",
+      "evidence_id": "ev_442f32abd23a485ca3fa64ce13c9e02ec29bdd85d25d5cfc5a2e776ba549ace2"
+    },
+    {
+      "path": "analysis/property-table-runtime-held-out.json",
+      "evidence_id": "ev_ae9b6914403966bcaf86b8b8228ca5dac43dcf28247e773807747dc6b8ece799"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/property-table-static-contract.json",
+      "sha256": "c3e7abf7b579494510c49cea6bb8bf323c44cf2f6dc150263dae810a3ff49906"
+    },
+    {
+      "path": "analysis/property-table-connected-inventory.json",
+      "sha256": "1c6e28b98c581c9e887926cbb55c6e36dff2fd2c0626f32f59b2c7bd48611fa0"
+    },
+    {
+      "path": "analysis/property-table-byte-audit.json",
+      "sha256": "dbe5bb52e5cd6a082081529cefd0ce3e11891a58ebf0634ea843da17b47f28a0"
+    },
+    {
+      "path": "analysis/property-table-implementation-static-review.json",
+      "sha256": "5a8b07879320e2bf94ea717b73cf42783459ad110fb8ea3d128e7ce829aa888f"
+    },
+    {
+      "path": "analysis/property-table-candidate-freeze.json",
+      "sha256": "656ff1e6dca2fe1f10f0ca6f01d8edfbb83b7f599fb675ce5eb6282894da0e5c"
+    },
+    {
+      "path": "analysis/property-table-evaluation-cases-v3.json",
+      "sha256": "ea9923fc9d924045355f9c323fd63924e140611109dbc79a013e4f15c8b6a9aa"
+    },
+    {
+      "path": "analysis/property-table-held-out-cases-v2.json",
+      "sha256": "f83b94a6853b07b93c6b784f309e5356a94cca3a4fc253e83279087eb6ab150a"
+    },
+    {
+      "path": "analysis/property-table-v4-input-freeze.json",
+      "sha256": "816f833dc364d8bbad77f790e57420ff0d9dfafd587433e9191c1c035f739138"
+    },
+    {
+      "path": "analysis/property-table-held-out-input-freeze.json",
+      "sha256": "066638c549be3d708db93064b0547493d7ddaec5fddcfbcbc7277b7e3ac4cb14"
+    },
+    {
+      "path": "analysis/property-table-runtime-training-v3.json",
+      "sha256": "b5f8688782de90f83498ce58126a1c6954b5e4a2d64ef7000aa488609e916cbd"
+    },
+    {
+      "path": "analysis/property-table-runtime-held-out.json",
+      "sha256": "0ef533541491425f8d3a46513f3fc7d7b6d7ed11379d04ec9a6379d6333496ff"
+    },
+    {
+      "path": "analysis/property-table-training-comparison.json",
+      "sha256": "050c278256469e6839e8b5cebb9907f9a419fe3f5804e3c747f81b176e7e5fea"
+    },
+    {
+      "path": "analysis/property-table-held-out-comparison.json",
+      "sha256": "0667498b5c832b9a8889e0e09dbd779de3784aed3a345ef8652d3edcc71bb803"
+    },
+    {
+      "path": "analysis/property-table-observations.json",
+      "sha256": "a637938e217ded2a65e90cb64b89067bba819fcd114007ce2d2c18085e2506a6"
+    },
+    {
+      "path": "analysis/property-table-held-out-observations.json",
+      "sha256": "14bb9946c259ad49db5999ce76fd1eab6ec5b23be540eb09537ca42ddf0b483b"
+    },
+    {
+      "path": "analysis/property-table-test-registration.json",
+      "sha256": "1ad4ced2c0ace286cc1a34b7cb6c950bdf5c41fb63e1ce393b6e4d1e663ad722"
+    },
+    {
+      "path": "analysis/property-table-launch-diagnostic.json",
+      "sha256": "fa0e5abf1d7ce9f524545893e198dabc64dbd033b4e03a46f6e54a217f713136"
+    },
+    {
+      "path": "analysis/property-table-probe-failure-diagnostic.json",
+      "sha256": "10470aa29b572b71353a367f2494c62efa8a220381a8d0e0984993f533f8095b"
+    },
+    {
+      "path": "analysis/property-table-probe-scope-diagnostic.json",
+      "sha256": "731b4b770854f7926529fb2a1bcf0d3a04520f8e7586e72c53f0d57b0723055d"
+    },
+    {
+      "path": "analysis/property-table-probe-v3-scope-audit.json",
+      "sha256": "af03588d735e81c3bcd9dbd1e5bd62b8f559fc3d1990bff7d6019f549fe02602"
+    },
+    {
+      "path": "analysis/property-table-comparator-default-update.json",
+      "sha256": "a05e9a9d3a07c9639e6faf49a567ca31aa609868f3ef3ab00c68f7ac27ec8276"
+    },
+    {
+      "path": "analysis/property-table-initial-verifier-diagnostic.json",
+      "sha256": "fa3e45f6b25826c20263f6fc636ce5e80b04efc6da30f645876dacd602e791ce"
+    },
+    {
+      "path": "analysis/property-table-follow-on-plan.json",
+      "sha256": "ec05cef0f87b5ff98716e99897c8ec8bdaec0a48ea90d6efdaeb4c263725d688"
+    },
+    {
+      "path": "tools/compare_property_table_import.py",
+      "sha256": "d22f6cc3ea6552c3ae0a085349840edb163740820df32a9fc59840335ed81b80"
+    },
+    {
+      "path": "tools/verify_property_table_observations.py",
+      "sha256": "fc83fc7336ad8c0aaef95a3b89754f6eda4351c5b409d2f9fb4355bfdaa50d4c"
+    },
+    {
+      "path": "tools/observe_property_table_import.js",
+      "sha256": "3c0c296f6b062610edf2341303495971f6572da1738bbae5aabd4b2f8014b362"
+    }
+  ],
+  "limitations": [
+    "Runtime comparisons cover the thirteen material routes, ranks0/1/2, width1, bounded owned allocations and finite ASCII numbers in2D/3D; this is not complete application equivalence.",
+    "All124 explicit type-initializer cases and rank0-vector/rank3 value readers are implemented from static evidence but not runtime exercised through these13routes, which cannot reach them.",
+    "The twelve relation tables and nine remaining category5 keyword handlers still need connection and independent comparison. FSTRES94 mode14 and GRNDAT108 selector4 also reach41b270 through unrecovered enclosing handlers.",
+    "Interpolation, extrapolation, scientific consumers, editor operations and table export remain unresolved. Correct import state does not prove those calculations.",
+    "Borrowed pointers, nonnull cache68, allocation failures, overflowing products, uninitialized staged matching failures, nonfinite/extreme numeric conversions and arbitrary legacy memory corruption are outside the supported domain.",
+    "C++ owns allocations and avoids native scratch leaks. Native pointer addresses and native ABI layout are not supplied by this internal model; the established public database-loader API is unchanged.",
+    "Complete DB application-state integration/export, remaining model properties, scientific operations and console workflows remain required."
+  ]
+}

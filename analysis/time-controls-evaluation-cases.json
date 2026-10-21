@@ -1,0 +1,89 @@
+{
+  "purpose": "Predeclared bounded original time-control evaluation. Hypotheses are not measured facts; original runtime outputs are the oracle. No DTTYPE or scientific material/plane branches. Candidate inputs are fixture bytes and captured startup profile only.",
+  "cases": [
+    {
+      "path": "tests/fixtures/time_controls/01_mixed_repeated.KEY",
+      "sha256": "331cbc339f15323ac844dc3126a924919bf673a2fe57da8f2e572db56dd73423",
+      "hypothesis": "Positive DSMAX clears only primary DTMAX; secondary persists. Positive DTMAX clears DSMAX. Nonpositive DSMAX delays mode normalization until finalization."
+    },
+    {
+      "path": "tests/fixtures/time_controls/02_zero_negative.KEY",
+      "sha256": "51dda7b2059d372ec8c454b1453b0baf3c93d52674a400d1760d8ab8f042411f",
+      "hypothesis": "Zero/negative primary values preserve the other primary field; finalization normalizes mode from DSMAX."
+    },
+    {
+      "path": "tests/fixtures/time_controls/03_partial_and_garbage.KEY",
+      "sha256": "38561d2b9c5661288f66028f584139683d8fe7ce259a152674a6cd4190829050",
+      "hypothesis": "Outputs are zeroed before partial/nonconverting scans; nonempty failed conversions may be accepted."
+    },
+    {
+      "path": "tests/fixtures/time_controls/04_blank.KEY",
+      "sha256": "992872a28511d91dfe7bd6270ab4559c6ac9e77e1e2b0b27d24478ef7a83f6e0",
+      "hypothesis": "LF-only lines may return scanner EOF and handler status2; finalization still runs."
+    },
+    {
+      "path": "tests/fixtures/time_controls/05_legacy_decimal.KEY",
+      "sha256": "7562e77afddccff2436a0be6d4d6729f1caef88913b208a91d0748e14d5a6b1f",
+      "hypothesis": "Legacy decimal consumption differs from modern hexadecimal parsing; incomplete exponent may be consumed and accepted."
+    },
+    {
+      "path": "tests/fixtures/time_controls/06_negative_zero.KEY",
+      "sha256": "da76f6435513815ef4e463181530b27958ee2ba7e8cd054f5c74cecf83a2fe41",
+      "hypothesis": "Raw binary64 must retain negative-zero bits in all three scalar fields."
+    },
+    {
+      "path": "tests/fixtures/time_controls/07_failed_signs_newline.KEY",
+      "sha256": "4b353218220002d1dbe57f9ddebc00d3a3d701522af017740c43c4bbca4fac5d",
+      "hypothesis": "First floating conversion failure at sign/dot is unproven: record conversion count and status without assuming0."
+    },
+    {
+      "path": "tests/fixtures/time_controls/08_real1_eof.KEY",
+      "sha256": "bf464b17bb120a299fc60a76b94f84aff2ae3808cb5ab4a56ba154d1b26933a8",
+      "hypothesis": "Physical EOF before line read zeroes destination; expected helper failure."
+    },
+    {
+      "path": "tests/fixtures/time_controls/09_real2_eof.KEY",
+      "sha256": "9dea15d4ba6a87e29ac13a74707b3f2dc1c7cc7c43546230cfae947fa442f687",
+      "hypothesis": "Physical EOF before line read zeroes both destinations; expected helper failure."
+    },
+    {
+      "path": "tests/fixtures/time_controls/10_real1_plus_eof.KEY",
+      "sha256": "29f11b968e0569c0e22d344abe4f7e5e856993cdd280f4f62f0777e3f8944264",
+      "hypothesis": "Bare EOF sign distinguishes matching failure from input failure."
+    },
+    {
+      "path": "tests/fixtures/time_controls/11_real1_minus_eof.KEY",
+      "sha256": "6df8339fd7a58f16818578a5a232fb3bf1a99e4c1f4e1a9fe60e0177f018243f",
+      "hypothesis": "Bare EOF negative sign distinguishes matching failure from input failure."
+    },
+    {
+      "path": "tests/fixtures/time_controls/12_real1_dot_eof.KEY",
+      "sha256": "1c9368af55d31b2044b15d56108acfdc85c345e402f02c5ec484256c725bc67e",
+      "hypothesis": "Bare EOF decimal point distinguishes matching failure from input failure."
+    },
+    {
+      "path": "tests/fixtures/time_controls/13_real2_plus_eof.KEY",
+      "sha256": "0772be13845b3912f8e420ba744dd7072efb615e018bdb1ba04c6c1f91c8c7ab",
+      "hypothesis": "Bare EOF sign in pair reader, before any assignment."
+    },
+    {
+      "path": "tests/fixtures/time_controls/14_real2_dot_eof.KEY",
+      "sha256": "4091e7093596a8e55805408070a4581cc51f953509be1aea7ae37b619e00877d",
+      "hypothesis": "Bare EOF dot in pair reader, before any assignment."
+    },
+    {
+      "path": "tests/fixtures/time_controls/15_real2_partial_eof.KEY",
+      "sha256": "a92b0ec95386779ba4e7f98df3d41655010ea4cbe42c3455adc733fe351ba07e",
+      "hypothesis": "One assigned float followed by bare EOF sign; partial outputs persist."
+    },
+    {
+      "path": "tests/fixtures/time_controls/16_restore_normal.KEY",
+      "sha256": "8eecccd5a9b6645f0e6536aaa64a5748687bfb4035b2674660b343b3538620d0",
+      "hypothesis": "Normal values after prior failures verify sequential state recovery and repeated finalization."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_time_controls.js",
+    "sha256": "5d2f84f34f84f800ab975d7d3dfdd84578380513e1444c19ebf23afcd61098a0"
+  }
+}

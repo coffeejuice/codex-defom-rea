@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "status": "selected_MTNAME_default_material_profile_implemented_training_and_held_out_compared",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "scope": "Normal MTNAME92/category4 import into the owner-bound material list with zero objects and selected default-name-only material fields. The complete material-property model and original application remain unfinished.",
+  "implementation": [
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_reader.hpp",
+    "src/recovered/keyword_reader.cpp",
+    "src/recovered/keyword_import.cpp"
+  ],
+  "established_behavior": [
+    "Material IDs are looked up exactly. A missing sparse ID appends one record in insertion order without placeholder records; renaming reuses the original record.",
+    "Creation stores the requested ID and separate root count, performs component refresh with old-ID/rank scratch maps, releases scratch storage, and only then reads the name. Existing-ID rename skips creation and refresh.",
+    "The material name helper uses capacity65, consumes the selector-line remainder and one name line, preserves leading whitespace, trims the established trailing bytes, and stores at most64 name bytes plus a terminator.",
+    "Name-read EOF returns handler2. Existing names remain intact, while a new record and its prior refresh persist. Selector EOF returns2 before creating a record.",
+    "The captured selected feature/default fields remain zero, except2158/215c which are1; references remain count0/null. This proves only the selected default-name-only profile.",
+    "Same-dimension headers preserve material identities and names. Changed dimension destroys the old list, resets root/list counts, and also aligns the linked root. Allocator address reuse after reset is not identity preservation.",
+    "For these default mode0/reference-empty materials, the material finalization stage preserves the tracked records. Full property-table defaults and nonempty reference graphs are not inferred.",
+    "Held-out selectors include zero, negative, hexadecimal/octal forms and both signed32-bit endpoints. Exact-ID lookup and insertion order remain observable; names cover whitespace,64-byte truncation, partial final lines and first/second fgets EOF."
+  ],
+  "training": {
+    "capture": "analysis/material-import-runtime-training.json",
+    "evidence_id": "ev_7bae51c02248debc728cc10a5d548fc2d9bb131c7178ae87e04bd4f601419be9",
+    "pid": 12208,
+    "imports": 10,
+    "tokens": 8,
+    "reader_calls": 36,
+    "name_reads": 7,
+    "new_materials": 5,
+    "status_sequence": [
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0
+    ],
+    "strict_comparison": "analysis/material-import-comparison.json",
+    "independent_original_audit": "analysis/material-import-observations.json",
+    "candidate_all_27_runtime_entries_matched": true,
+    "events": 255,
+    "independent_tamper_rejections": 18
+  },
+  "held_out": {
+    "status": "strict_frozen_comparison_and_independent_audit_pass",
+    "comparator_arguments": [
+      "--cases",
+      "--capture",
+      "--run-record"
+    ],
+    "source_resolution": "Source fixture paths come from the retained harness run record and are checked against each ordered manifest case path and SHA256. No training fixture directory is hardcoded for explicit capture arguments.",
+    "case_manifest": "analysis/material-import-held-out-cases.json",
+    "input_freeze": "analysis/material-import-held-out-input-freeze.json",
+    "capture": "analysis/material-import-runtime-held-out.json",
+    "evidence_id": "ev_8a67549be864630823afcbf6d8d9d32635cb1b5eaab7e8acded1e5e67bdcd6fc",
+    "pid": 15160,
+    "imports": 24,
+    "tokens": 23,
+    "reader_calls": 97,
+    "name_reads": 22,
+    "new_materials": 11,
+    "events": 625,
+    "status_sequence": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      0,
+      0
+    ],
+    "strict_comparison": "analysis/material-import-held-out-comparison.json",
+    "candidate_all_27_runtime_entries_matched": true,
+    "independent_original_audit": "analysis/material-import-held-out-observations.json",
+    "independent_tamper_rejections": 21
+  },
+  "regression": {
+    "status": "all_31_tests_pass",
+    "build_configuration": "CMakeLists.txt",
+    "runtime_candidate_unchanged": true,
+    "freeze_note": "The original CMake file is archived separately in the immutable candidate manifest. Adding this test changes only build/test registration metadata.",
+    "names": [
+      "material_import_reference_replay",
+      "material_import_held_out_replay"
+    ],
+    "previous_ctest_total": 30,
+    "previous_ctest_seconds": 11.34,
+    "ctest_total": 31,
+    "ctest_seconds": 12.07,
+    "log": "analysis/oracle/material-import-ctest.log"
+  },
+  "candidate_history": {
+    "freeze": "analysis/material-import-candidate-freeze.json",
+    "runtime_entries": 27,
+    "post_capture_cpp_changes": false,
+    "diagnostic": "analysis/material-import-initial-comparator-error.json",
+    "unchanged_across_both_captures_and_strict_comparisons": true,
+    "held_out_comparator_corrections": false,
+    "held_out_audit_diagnostic": "analysis/material-import-held-out-verifier-initial-error.json"
+  },
+  "evidence_boundaries": [
+    "Static evidence defines the selected fields and branch semantics. The original-only audit and replacement comparison use separate checks against the retained native capture.",
+    "Original record addresses, links, owners, scratch maps and within-generation identities are provenance checks. They do not promise a matching C++ heap layout or complete native record ABI.",
+    "Replacement snapshots compare selected material/root state before imports, immediately after handlers and after finalization; primary and linked roots are compared at import boundaries.",
+    "Original refresh-call ordering is verified, while replacement refresh is assessed by its resulting component table and material state rather than an internal call-event hook.",
+    "Fixture hypotheses and immutable freeze metadata retain their original preparation history; completed reports record actual results."
+  ],
+  "limitations": [
+    "No full material-property/table model or owner-unit-dependent hidden defaults.",
+    "New material creation with existing objects and new object creation with materials are explicitly unsupported pending deep-copy/remapping recovery; existing material rename remains supported.",
+    "Nonempty material reference lists, MSTMTR116 parsing and order-sensitive mode1/mode2 reconciliation are a separate milestone.",
+    "Selector conversion0 can expose an uninitialized native value and is excluded; EOF is covered.",
+    "Allocation failures, corrupted/shared ownership, embedded NUL/non-ASCII names, full executable API compatibility and complete scientific behavior are not claimed."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/material-import-next-contract.json",
+      "sha256": "76cb3d1013ab8b0bb29365c8eea1192dc2c0ffafeff3dc245f1a7c754d2a428c"
+    },
+    {
+      "path": "analysis/material-import-implementation-contract.json",
+      "sha256": "361fa2f5fbfa05091ce2916a773156da6dcfa6309e7accad9909cda172eba256"
+    },
+    {
+      "path": "analysis/material-import-candidate-freeze.json",
+      "sha256": "214199339ed01f5e3c613f466d0a1fc05bd9a7de34cef6b7c7cbaa443fecf288"
+    },
+    {
+      "path": "analysis/material-import-runtime-training.json",
+      "sha256": "0ed25d75df1ff253d50facc5db4a45b9461c88da59d0cb9980bd2d8dd847ab74"
+    },
+    {
+      "path": "tests/fixtures/material_import/cases.json",
+      "sha256": "232e79c2555ad993a3a0e65c2552269d17c3764dfea4873f7ffef3c5b0170925"
+    },
+    {
+      "path": "tools/observe_material_import.js",
+      "sha256": "ea75f2484738f55f9adc9b6742be372c1938105905d670eb57e427127ebe2fac"
+    },
+    {
+      "path": "tools/compare_material_import.py",
+      "sha256": "94f93cc47c94d9274857082c74bab76dd7598e0a9aed97e28bbe9d06a54ca552"
+    },
+    {
+      "path": "analysis/material-import-comparison.json",
+      "sha256": "e21b44c52784b77ca2c78aefa461480d057a31ff05f426986812ec94c0fcf05c"
+    },
+    {
+      "path": "analysis/material-import-observations.json",
+      "sha256": "eaae9e975ed59f2ac5ee5255f16d3170087938cb322d5c81107dad8ae82d2dec"
+    },
+    {
+      "path": "analysis/material-import-initial-comparator-error.json",
+      "sha256": "ae9be12a452e5be6d5f412bd8716727e6263be3f8ca9be943639cbedf8f4bce9"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "fb24d29ad8862c464efcd6a886bf718848dacd75ef8f05d4daa2de3cb4fbc915"
+    },
+    {
+      "path": "analysis/material-import-held-out-cases.json",
+      "sha256": "1345398663095a589550876da73e0245b84244708b303e8261892c6617e66033"
+    },
+    {
+      "path": "analysis/material-import-held-out-input-freeze.json",
+      "sha256": "e51c3c8167511312539928ab78b1a20760a7e455ca9655710549a236ac446e2b"
+    },
+    {
+      "path": "analysis/material-import-runtime-held-out.json",
+      "sha256": "a28cd69d5b8447c349ef087c5cf642ee0112b04351994e89423b633aa468be12"
+    },
+    {
+      "path": "analysis/material-import-held-out-comparison.json",
+      "sha256": "78fc51bc77b5303b24aa3a4252c0b6b6f932ca326aca50aab290c479f6d9da92"
+    },
+    {
+      "path": "analysis/material-import-held-out-observations.json",
+      "sha256": "ecf1863bad2a1e0bea6e76d14c4c56121ddda81cb34ff20b0d09e829f3a09ff9"
+    },
+    {
+      "path": "analysis/material-import-held-out-verifier-initial-error.json",
+      "sha256": "50388bd2ef6f58ff7312f183c68569da840171381b9683448c02fe400c4aa511"
+    },
+    {
+      "path": "analysis/material-reference-next-contract.json",
+      "sha256": "0b2674acf6050dfa4b1997d78447333dc1a7ed21ccdb453f9f99fb60f9d24f5a"
+    },
+    {
+      "path": "analysis/oracle/material-import-ctest.log",
+      "sha256": "c0dff9bfc4d388905f0f51c02845c38da80da345e745708529ed9e7c38c5ae07"
+    }
+  ],
+  "totals": {
+    "original_imports": 34,
+    "tokens": 31,
+    "reader_calls": 133,
+    "name_reads": 29,
+    "new_materials": 16
+  }
+}

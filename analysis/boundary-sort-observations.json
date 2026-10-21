@@ -1,0 +1,1664 @@
+{
+  "result": "PASS",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "method": "Read-only provenance and internal-consistency validation of saved original captures. No replacement-generated expected values or program execution.",
+  "fixture_manifest": {
+    "path": "analysis/boundary-evaluation-cases.json",
+    "sha256": "821e5fcf5e26b2f3121fb7cbfc2c03d95b713068769d730ddcfdeeaf90704778"
+  },
+  "process_runs": 2,
+  "imports": 10,
+  "ordered_events": 70,
+  "runs": [
+    {
+      "split": "training",
+      "pid": 30892,
+      "evidence": {
+        "path": "analysis/mesh-boundary-sort-runtime-training.json",
+        "sha256": "02b75691198520de848701ed288f0aad0d8e328bd10cd76ffa9d069ecefb37cc"
+      },
+      "evidence_id": "ev_17820c13adaadfcf9dcdd28edd85e5d4e292e724ed594ef4e297b828ea7ffb19",
+      "run_record": {
+        "path": "analysis/oracle/boundary-sort-training/run.json",
+        "sha256": "0a9882af712c5c8020e7d8fdbbca675734cc72dae74d69b06dc881b1b232dbcf"
+      },
+      "probe": {
+        "script": {
+          "path": "analysis/oracle/boundary-sort-training.js",
+          "sha256": "92ff5b180f6d9bc566456be2f0cb2ef6f539ba1f373cc408cd14055253131058"
+        },
+        "template": {
+          "path": "tools/observe_boundary_sort.js",
+          "sha256": "342114186ac41b8f3a405208ead0da2d12a497900811c7dc1753de4de8f839da"
+        },
+        "utf8_bom_present": false,
+        "validated_serialization": "forward-slash gate substitution; exact remaining bytes"
+      },
+      "event_count": 35,
+      "imports": [
+        {
+          "case_id": "01_triple_duplicate_tetra",
+          "fixture": "tests/fixtures/boundary/training/01_triple_duplicate_tetra.KEY",
+          "fixture_sha256": "39c090116e2862ed7135acaedcf71dbea24a820d9a6c9a3970be3a92ff51433d",
+          "sequence_range": [
+            1,
+            7
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 3,
+            "arity": 4,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              2,
+              3,
+              4,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "sort_before": {
+            "count": 12,
+            "records": [
+              6,
+              1,
+              7,
+              2,
+              8,
+              3,
+              9,
+              4,
+              6,
+              5,
+              7,
+              6,
+              8,
+              7,
+              9,
+              8,
+              6,
+              9,
+              7,
+              10,
+              8,
+              11,
+              9,
+              12
+            ]
+          },
+          "sort_after": {
+            "count": 12,
+            "records": [
+              6,
+              1,
+              6,
+              5,
+              6,
+              9,
+              7,
+              2,
+              7,
+              6,
+              7,
+              10,
+              8,
+              7,
+              8,
+              11,
+              8,
+              3,
+              9,
+              4,
+              9,
+              12,
+              9,
+              8
+            ]
+          },
+          "builder_output": {
+            "count": 4,
+            "faces": [
+              1,
+              3,
+              2,
+              1,
+              1,
+              2,
+              4,
+              1,
+              1,
+              4,
+              3,
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "owner_elements": [
+              3,
+              3,
+              1,
+              2
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 4,
+            "boundaries": [
+              {
+                "count": 4,
+                "faces": [
+                  1,
+                  3,
+                  2,
+                  1,
+                  1,
+                  2,
+                  4,
+                  1,
+                  1,
+                  4,
+                  3,
+                  1,
+                  2,
+                  3,
+                  4,
+                  2
+                ],
+                "owner_elements": [
+                  3,
+                  3,
+                  1,
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "02_three_tetra_shared_face",
+          "fixture": "tests/fixtures/boundary/training/02_three_tetra_shared_face.KEY",
+          "fixture_sha256": "9ab254da0a41ec49c5da1796ac4607055209a4ef8df4ce29cd02cd58d0412bcc",
+          "sequence_range": [
+            8,
+            14
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 3,
+            "arity": 4,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              3,
+              2,
+              5,
+              1,
+              2,
+              3,
+              6
+            ]
+          },
+          "sort_before": {
+            "count": 12,
+            "records": [
+              6,
+              1,
+              7,
+              2,
+              8,
+              3,
+              9,
+              4,
+              6,
+              5,
+              9,
+              6,
+              8,
+              7,
+              10,
+              8,
+              6,
+              9,
+              9,
+              10,
+              10,
+              11,
+              11,
+              12
+            ]
+          },
+          "sort_after": {
+            "count": 12,
+            "records": [
+              6,
+              9,
+              6,
+              5,
+              6,
+              1,
+              7,
+              2,
+              8,
+              3,
+              8,
+              7,
+              9,
+              10,
+              9,
+              4,
+              9,
+              6,
+              10,
+              11,
+              10,
+              8,
+              11,
+              12
+            ]
+          },
+          "builder_output": {
+            "count": 10,
+            "faces": [
+              1,
+              3,
+              2,
+              1,
+              1,
+              2,
+              4,
+              1,
+              1,
+              4,
+              3,
+              1,
+              1,
+              5,
+              2,
+              1,
+              1,
+              2,
+              6,
+              1,
+              1,
+              3,
+              5,
+              1,
+              2,
+              3,
+              4,
+              2,
+              1,
+              6,
+              3,
+              1,
+              3,
+              2,
+              5,
+              3,
+              2,
+              3,
+              6,
+              2
+            ],
+            "owner_elements": [
+              1,
+              1,
+              1,
+              2,
+              3,
+              2,
+              1,
+              3,
+              2,
+              3
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 10,
+            "boundaries": [
+              {
+                "count": 10,
+                "faces": [
+                  1,
+                  3,
+                  2,
+                  1,
+                  1,
+                  2,
+                  4,
+                  1,
+                  1,
+                  4,
+                  3,
+                  1,
+                  1,
+                  5,
+                  2,
+                  1,
+                  1,
+                  2,
+                  6,
+                  1,
+                  1,
+                  3,
+                  5,
+                  1,
+                  2,
+                  3,
+                  4,
+                  2,
+                  1,
+                  6,
+                  3,
+                  1,
+                  3,
+                  2,
+                  5,
+                  3,
+                  2,
+                  3,
+                  6,
+                  2
+                ],
+                "owner_elements": [
+                  1,
+                  1,
+                  1,
+                  2,
+                  3,
+                  2,
+                  1,
+                  3,
+                  2,
+                  3
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "03_disjoint_equal_sum_faces",
+          "fixture": "tests/fixtures/boundary/training/03_disjoint_equal_sum_faces.KEY",
+          "fixture_sha256": "e25a1a9d15ded40926d48793c4b72eef96276a0e2930ac2a2e8e2a862c4aea10",
+          "sequence_range": [
+            15,
+            21
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 2,
+            "arity": 4,
+            "connectivity": [
+              1,
+              3,
+              4,
+              8,
+              2,
+              5,
+              6,
+              7
+            ]
+          },
+          "sort_before": {
+            "count": 8,
+            "records": [
+              8,
+              1,
+              12,
+              2,
+              13,
+              3,
+              15,
+              4,
+              13,
+              5,
+              14,
+              6,
+              15,
+              7,
+              18,
+              8
+            ]
+          },
+          "sort_after": {
+            "count": 8,
+            "records": [
+              8,
+              1,
+              12,
+              2,
+              13,
+              5,
+              13,
+              3,
+              14,
+              6,
+              15,
+              7,
+              15,
+              4,
+              18,
+              8
+            ]
+          },
+          "builder_output": {
+            "count": 8,
+            "faces": [
+              1,
+              4,
+              3,
+              1,
+              1,
+              3,
+              8,
+              1,
+              1,
+              8,
+              4,
+              1,
+              2,
+              6,
+              5,
+              2,
+              2,
+              5,
+              7,
+              2,
+              2,
+              7,
+              6,
+              2,
+              3,
+              4,
+              8,
+              3,
+              5,
+              6,
+              7,
+              5
+            ],
+            "owner_elements": [
+              1,
+              1,
+              1,
+              2,
+              2,
+              2,
+              1,
+              2
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 8,
+            "boundaries": [
+              {
+                "count": 8,
+                "faces": [
+                  1,
+                  4,
+                  3,
+                  1,
+                  1,
+                  3,
+                  8,
+                  1,
+                  1,
+                  8,
+                  4,
+                  1,
+                  2,
+                  6,
+                  5,
+                  2,
+                  2,
+                  5,
+                  7,
+                  2,
+                  2,
+                  7,
+                  6,
+                  2,
+                  3,
+                  4,
+                  8,
+                  3,
+                  5,
+                  6,
+                  7,
+                  5
+                ],
+                "owner_elements": [
+                  1,
+                  1,
+                  1,
+                  2,
+                  2,
+                  2,
+                  1,
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "04_cyclic_tetra_connectivity",
+          "fixture": "tests/fixtures/boundary/training/04_cyclic_tetra_connectivity.KEY",
+          "fixture_sha256": "9445df59182f8bf284190f7804029c625538ce318bbe62e3773bfac7d87ab509",
+          "sequence_range": [
+            22,
+            28
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 1,
+            "arity": 4,
+            "connectivity": [
+              2,
+              3,
+              1,
+              4
+            ]
+          },
+          "sort_before": {
+            "count": 4,
+            "records": [
+              6,
+              1,
+              9,
+              2,
+              7,
+              3,
+              8,
+              4
+            ]
+          },
+          "sort_after": {
+            "count": 4,
+            "records": [
+              6,
+              1,
+              7,
+              3,
+              8,
+              4,
+              9,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 4,
+            "faces": [
+              2,
+              1,
+              3,
+              2,
+              2,
+              4,
+              1,
+              2,
+              3,
+              1,
+              4,
+              3,
+              2,
+              3,
+              4,
+              2
+            ],
+            "owner_elements": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 4,
+            "boundaries": [
+              {
+                "count": 4,
+                "faces": [
+                  2,
+                  1,
+                  3,
+                  2,
+                  2,
+                  4,
+                  1,
+                  2,
+                  3,
+                  1,
+                  4,
+                  3,
+                  2,
+                  3,
+                  4,
+                  2
+                ],
+                "owner_elements": [
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "05_unit_hexahedron",
+          "fixture": "tests/fixtures/boundary/training/05_unit_hexahedron.KEY",
+          "fixture_sha256": "06954715ab18e9677709ef2e17fe26149805f5af901579bdfb4bc69d69593ebb",
+          "sequence_range": [
+            29,
+            35
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 1,
+            "arity": 8,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "sort_before": {
+            "count": 6,
+            "records": [
+              10,
+              1,
+              26,
+              2,
+              14,
+              3,
+              18,
+              4,
+              22,
+              5,
+              18,
+              6
+            ]
+          },
+          "sort_after": {
+            "count": 6,
+            "records": [
+              10,
+              1,
+              14,
+              3,
+              18,
+              4,
+              18,
+              6,
+              22,
+              5,
+              26,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 6,
+            "faces": [
+              1,
+              4,
+              3,
+              2,
+              1,
+              2,
+              6,
+              5,
+              2,
+              3,
+              7,
+              6,
+              4,
+              1,
+              5,
+              8,
+              3,
+              4,
+              8,
+              7,
+              5,
+              6,
+              7,
+              8
+            ],
+            "owner_elements": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 6,
+            "boundaries": [
+              {
+                "count": 6,
+                "faces": [
+                  1,
+                  4,
+                  3,
+                  2,
+                  1,
+                  2,
+                  6,
+                  5,
+                  2,
+                  3,
+                  7,
+                  6,
+                  4,
+                  1,
+                  5,
+                  8,
+                  3,
+                  4,
+                  8,
+                  7,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "owner_elements": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "split": "held_out",
+      "pid": 2344,
+      "evidence": {
+        "path": "analysis/mesh-boundary-sort-runtime-held-out.json",
+        "sha256": "a049252492a1f315cebe75c785e3c145ec3fd4bb9e2830b2b1a773e81cfad328"
+      },
+      "evidence_id": "ev_55f799653b8253c71414e8c3219107ce3ea42c6788e4a7b1049abd27d773c207",
+      "run_record": {
+        "path": "analysis/oracle/boundary-sort-held-out-retry/run.json",
+        "sha256": "29628dc78c594f9a36bdb620ef0450e79c65412c8a407593a88cafdbf9692aae"
+      },
+      "probe": {
+        "script": {
+          "path": "analysis/oracle/boundary-sort-held-out-retry.js",
+          "sha256": "e7f6e47bb1b40ff19eab37150632aed38f59dcc2983f12bde6ea1246b603603b"
+        },
+        "template": {
+          "path": "tools/observe_boundary_sort.js",
+          "sha256": "342114186ac41b8f3a405208ead0da2d12a497900811c7dc1753de4de8f839da"
+        },
+        "utf8_bom_present": false,
+        "validated_serialization": "escaped Windows gate substitution plus one terminal CRLF"
+      },
+      "event_count": 35,
+      "imports": [
+        {
+          "case_id": "01_triple_duplicate_mixed_orientation",
+          "fixture": "tests/fixtures/boundary/held_out/01_triple_duplicate_mixed_orientation.KEY",
+          "fixture_sha256": "313f6dd208aae8d8cacf34cd3dc2e4a7fe1dd1376ed96e81d0ce8a2ce47ff641",
+          "sequence_range": [
+            1,
+            7
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 3,
+            "arity": 4,
+            "connectivity": [
+              2,
+              3,
+              1,
+              4,
+              1,
+              3,
+              2,
+              4,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "sort_before": {
+            "count": 12,
+            "records": [
+              6,
+              1,
+              9,
+              2,
+              7,
+              3,
+              8,
+              4,
+              6,
+              5,
+              8,
+              6,
+              7,
+              7,
+              9,
+              8,
+              6,
+              9,
+              7,
+              10,
+              8,
+              11,
+              9,
+              12
+            ]
+          },
+          "sort_after": {
+            "count": 12,
+            "records": [
+              6,
+              5,
+              6,
+              9,
+              6,
+              1,
+              7,
+              3,
+              7,
+              10,
+              7,
+              7,
+              8,
+              11,
+              8,
+              4,
+              8,
+              6,
+              9,
+              2,
+              9,
+              12,
+              9,
+              8
+            ]
+          },
+          "builder_output": {
+            "count": 4,
+            "faces": [
+              2,
+              1,
+              3,
+              2,
+              1,
+              4,
+              2,
+              1,
+              1,
+              3,
+              4,
+              1,
+              3,
+              2,
+              4,
+              3
+            ],
+            "owner_elements": [
+              1,
+              2,
+              2,
+              2
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 4,
+            "boundaries": [
+              {
+                "count": 4,
+                "faces": [
+                  2,
+                  1,
+                  3,
+                  2,
+                  1,
+                  4,
+                  2,
+                  1,
+                  1,
+                  3,
+                  4,
+                  1,
+                  3,
+                  2,
+                  4,
+                  3
+                ],
+                "owner_elements": [
+                  1,
+                  2,
+                  2,
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "02_shared_face_reordered",
+          "fixture": "tests/fixtures/boundary/held_out/02_shared_face_reordered.KEY",
+          "fixture_sha256": "ba096d762b1e22d59a364351c2aac0b611ae38cd80ca10643afc1771fb7015b6",
+          "sequence_range": [
+            8,
+            14
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 3,
+            "arity": 4,
+            "connectivity": [
+              2,
+              3,
+              1,
+              6,
+              3,
+              2,
+              1,
+              5,
+              3,
+              1,
+              2,
+              4
+            ]
+          },
+          "sort_before": {
+            "count": 12,
+            "records": [
+              6,
+              1,
+              11,
+              2,
+              9,
+              3,
+              10,
+              4,
+              6,
+              5,
+              10,
+              6,
+              9,
+              7,
+              8,
+              8,
+              6,
+              9,
+              8,
+              10,
+              9,
+              11,
+              7,
+              12
+            ]
+          },
+          "sort_after": {
+            "count": 12,
+            "records": [
+              6,
+              9,
+              6,
+              5,
+              6,
+              1,
+              7,
+              12,
+              8,
+              10,
+              8,
+              8,
+              9,
+              3,
+              9,
+              7,
+              9,
+              11,
+              10,
+              6,
+              10,
+              4,
+              11,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 10,
+            "faces": [
+              2,
+              1,
+              3,
+              2,
+              1,
+              2,
+              4,
+              1,
+              2,
+              1,
+              5,
+              2,
+              3,
+              1,
+              4,
+              3,
+              2,
+              6,
+              1,
+              2,
+              3,
+              4,
+              2,
+              3,
+              3,
+              5,
+              1,
+              3,
+              3,
+              1,
+              6,
+              3,
+              3,
+              2,
+              5,
+              3,
+              2,
+              3,
+              6,
+              2
+            ],
+            "owner_elements": [
+              1,
+              3,
+              2,
+              3,
+              1,
+              3,
+              2,
+              1,
+              2,
+              1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 10,
+            "boundaries": [
+              {
+                "count": 10,
+                "faces": [
+                  2,
+                  1,
+                  3,
+                  2,
+                  1,
+                  2,
+                  4,
+                  1,
+                  2,
+                  1,
+                  5,
+                  2,
+                  3,
+                  1,
+                  4,
+                  3,
+                  2,
+                  6,
+                  1,
+                  2,
+                  3,
+                  4,
+                  2,
+                  3,
+                  3,
+                  5,
+                  1,
+                  3,
+                  3,
+                  1,
+                  6,
+                  3,
+                  3,
+                  2,
+                  5,
+                  3,
+                  2,
+                  3,
+                  6,
+                  2
+                ],
+                "owner_elements": [
+                  1,
+                  3,
+                  2,
+                  3,
+                  1,
+                  3,
+                  2,
+                  1,
+                  2,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "03_equal_sum_elements_reordered",
+          "fixture": "tests/fixtures/boundary/held_out/03_equal_sum_elements_reordered.KEY",
+          "fixture_sha256": "9f545dfab11feb06d37e3c7821b2ee82bbef0725332cf7a9e2bb1c89fb85f4aa",
+          "sequence_range": [
+            15,
+            21
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 2,
+            "arity": 4,
+            "connectivity": [
+              5,
+              6,
+              2,
+              7,
+              3,
+              4,
+              1,
+              8
+            ]
+          },
+          "sort_before": {
+            "count": 8,
+            "records": [
+              13,
+              1,
+              18,
+              2,
+              14,
+              3,
+              15,
+              4,
+              8,
+              5,
+              15,
+              6,
+              12,
+              7,
+              13,
+              8
+            ]
+          },
+          "sort_after": {
+            "count": 8,
+            "records": [
+              8,
+              5,
+              12,
+              7,
+              13,
+              8,
+              13,
+              1,
+              14,
+              3,
+              15,
+              6,
+              15,
+              4,
+              18,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 8,
+            "faces": [
+              3,
+              1,
+              4,
+              3,
+              3,
+              8,
+              1,
+              3,
+              4,
+              1,
+              8,
+              4,
+              5,
+              2,
+              6,
+              5,
+              5,
+              7,
+              2,
+              5,
+              3,
+              4,
+              8,
+              3,
+              6,
+              2,
+              7,
+              6,
+              5,
+              6,
+              7,
+              5
+            ],
+            "owner_elements": [
+              2,
+              2,
+              2,
+              1,
+              1,
+              2,
+              1,
+              1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 8,
+            "boundaries": [
+              {
+                "count": 8,
+                "faces": [
+                  3,
+                  1,
+                  4,
+                  3,
+                  3,
+                  8,
+                  1,
+                  3,
+                  4,
+                  1,
+                  8,
+                  4,
+                  5,
+                  2,
+                  6,
+                  5,
+                  5,
+                  7,
+                  2,
+                  5,
+                  3,
+                  4,
+                  8,
+                  3,
+                  6,
+                  2,
+                  7,
+                  6,
+                  5,
+                  6,
+                  7,
+                  5
+                ],
+                "owner_elements": [
+                  2,
+                  2,
+                  2,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "04_inverted_tetra_connectivity",
+          "fixture": "tests/fixtures/boundary/held_out/04_inverted_tetra_connectivity.KEY",
+          "fixture_sha256": "03240448eb687d7968e91aa3f321a251046e9d89cf32d0b57703e5f64781110d",
+          "sequence_range": [
+            22,
+            28
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 1,
+            "arity": 4,
+            "connectivity": [
+              1,
+              3,
+              2,
+              4
+            ]
+          },
+          "sort_before": {
+            "count": 4,
+            "records": [
+              6,
+              1,
+              8,
+              2,
+              7,
+              3,
+              9,
+              4
+            ]
+          },
+          "sort_after": {
+            "count": 4,
+            "records": [
+              6,
+              1,
+              7,
+              3,
+              8,
+              2,
+              9,
+              4
+            ]
+          },
+          "builder_output": {
+            "count": 4,
+            "faces": [
+              1,
+              2,
+              3,
+              1,
+              1,
+              4,
+              2,
+              1,
+              1,
+              3,
+              4,
+              1,
+              3,
+              2,
+              4,
+              3
+            ],
+            "owner_elements": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 4,
+            "boundaries": [
+              {
+                "count": 4,
+                "faces": [
+                  1,
+                  2,
+                  3,
+                  1,
+                  1,
+                  4,
+                  2,
+                  1,
+                  1,
+                  3,
+                  4,
+                  1,
+                  3,
+                  2,
+                  4,
+                  3
+                ],
+                "owner_elements": [
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case_id": "05_transformed_rotated_hexahedron",
+          "fixture": "tests/fixtures/boundary/held_out/05_transformed_rotated_hexahedron.KEY",
+          "fixture_sha256": "b8c078d6260b79a198360303a025b1b72a170e7fb6ba640ecf3fada311815496",
+          "sequence_range": [
+            29,
+            35
+          ],
+          "status": 0,
+          "builder_input": {
+            "elements": 1,
+            "arity": 8,
+            "connectivity": [
+              2,
+              3,
+              4,
+              1,
+              6,
+              7,
+              8,
+              5
+            ]
+          },
+          "sort_before": {
+            "count": 6,
+            "records": [
+              10,
+              1,
+              26,
+              2,
+              18,
+              3,
+              22,
+              4,
+              18,
+              5,
+              14,
+              6
+            ]
+          },
+          "sort_after": {
+            "count": 6,
+            "records": [
+              10,
+              1,
+              14,
+              6,
+              18,
+              5,
+              18,
+              3,
+              22,
+              4,
+              26,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 6,
+            "faces": [
+              2,
+              1,
+              4,
+              3,
+              1,
+              2,
+              6,
+              5,
+              2,
+              3,
+              7,
+              6,
+              4,
+              1,
+              5,
+              8,
+              3,
+              4,
+              8,
+              7,
+              6,
+              7,
+              8,
+              5
+            ],
+            "owner_elements": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 3,
+            "total": 6,
+            "boundaries": [
+              {
+                "count": 6,
+                "faces": [
+                  2,
+                  1,
+                  4,
+                  3,
+                  1,
+                  2,
+                  6,
+                  5,
+                  2,
+                  3,
+                  7,
+                  6,
+                  4,
+                  1,
+                  5,
+                  8,
+                  3,
+                  4,
+                  8,
+                  7,
+                  6,
+                  7,
+                  8,
+                  5
+                ],
+                "owner_elements": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "excluded_attempt": {
+    "run_record": {
+      "path": "analysis/oracle/boundary-sort-held-out/run.json",
+      "sha256": "501d81004c2976905d636141628d9707eab4480dd071d01bc30fd4b83eade4ee"
+    },
+    "pid": 940,
+    "status": "gate_timeout",
+    "reason": "First held-out attempt never reported hook readiness and is excluded from all observation counts.",
+    "qualification": "The harness establishes a readiness-gate timeout; the operator reported timeout before hooks. This is not a successful instrumented run or behavioral result."
+  },
+  "tampering_checks": [
+    {
+      "mutation": "PID",
+      "result": "REJECTED",
+      "reason": "PID mismatch"
+    },
+    {
+      "mutation": "sequence",
+      "result": "REJECTED",
+      "reason": "noncontiguous sequence"
+    },
+    {
+      "mutation": "sort_record",
+      "result": "REJECTED",
+      "reason": "sort lost/changed records"
+    },
+    {
+      "mutation": "sort_order",
+      "result": "REJECTED",
+      "reason": "sort keys are not nondecreasing"
+    },
+    {
+      "mutation": "consumer_face",
+      "result": "REJECTED",
+      "reason": "builder/consumer mismatch"
+    },
+    {
+      "mutation": "status",
+      "result": "REJECTED",
+      "reason": "import returned nonzero status"
+    },
+    {
+      "mutation": "truncation",
+      "result": "REJECTED",
+      "reason": "truncated capture or cleanup error"
+    },
+    {
+      "mutation": "missing_event",
+      "result": "REJECTED",
+      "reason": "missing or extra events"
+    }
+  ],
+  "limitations": [
+    "Checks preserve observed ordering and establish sort permutation preservation/nondecreasing keys, not universal qsort or cancellation equivalence.",
+    "Eight tetrahedral cases and two single-cube discovery cases are covered; no other arities, 2D, overflow or allocation-failure coverage.",
+    "Fixture split labels are retained from the manifest. Implementation freeze chronology and replacement agreement require separate evidence.",
+    "No candidate-face generation, duplicate cancellation, expected boundary count or ownership algorithm is implemented in this verifier.",
+    "The current fixture manifest still says inputs were not run; those fields describe fixture-preparation time. This report records the later executions without editing the manifest.",
+    "Retry probe bytes have no UTF-8 BOM; differences from template are escaped Windows ready-gate path and one extra terminal CRLF, both explicitly checked."
+  ]
+}

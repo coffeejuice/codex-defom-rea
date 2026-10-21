@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "design_pending_nested_constructor_and_outer_callsite_proof",
+  "purpose": "Observe the two nested material table routes and their distinct outer failure/refresh ordering without extending to unsupported outer modes.",
+  "base_probe": {
+    "path": "tools/observe_relation_property_import.js",
+    "sha256": "81f29cfa92c517a7848847be2a6c3467f1442dc572ab5bcdb0105c2f7119ec89"
+  },
+  "scope": {
+    "FSTRES": {
+      "id": 94,
+      "outer_mode": 14,
+      "table_offset": "0x388",
+      "questions": [
+        "Outer header failure before mode assignment",
+        "Coefficient blank/EOF/partial mutation followed unconditionally by table reader",
+        "Final handler status from table reader rather than coefficient reader",
+        "Existing material edit versus creation refresh"
+      ]
+    },
+    "GRNDAT": {
+      "id": 108,
+      "outer_selector": 4,
+      "table_offset": "0x1740",
+      "questions": [
+        "Partial selector-only header versus blank/EOF header",
+        "Table failure followed by preserving refresh0",
+        "New material creation refresh1 precedes payload and refresh0",
+        "Mesh allocation history and unrelated arrays survive refresh"
+      ]
+    }
+  },
+  "training_matrix": [
+    "Both routes on new and existing signed material IDs",
+    "Generic selectors0..7 plus invalid selector reset, scalar/rank1/rank2",
+    "Negative/zero counts and same-line next token consumption",
+    "Direct-axis EOF versus uncommitted dependent temporary EOF",
+    "Finite negative zero and partial initialized header outputs",
+    "Both nested tables on one material and two independent records",
+    "Populated tet and planar mesh, same/change dimension resets"
+  ],
+  "held_out_matrix": [
+    "Independent values/order and different axis cardinalities",
+    "New record with failed outer header followed by later success",
+    "Longer successful tables replaced by scalar/empty tables",
+    "Blank coefficient status1 followed by successful table status0",
+    "Alternating nested updates on two materials with populated mesh",
+    "Header/trailing-discard cursor boundaries and table matching0 in initialized direct storage"
+  ],
+  "bounds": {
+    "imports_per_cohort": 32,
+    "materials": 3,
+    "objects": 2,
+    "nodes_per_object": 4,
+    "elements_per_object": 1,
+    "rank": 2,
+    "axis_count": 3,
+    "values_per_point": 1,
+    "dependent_items": 9
+  },
+  "pending_static_facts": [
+    "Nested constructor/destructor initialized fields and table profiles",
+    "Exact native outer helper and wrapper continuations with incoming branch audit",
+    "Any additional refresh-triggered writes to selected nested stores"
+  ],
+  "exclusions": [
+    "Other FSTRES/GRNDAT outer modes",
+    "Scientific evaluation/cache callbacks",
+    "Nonfinite/overflow/OOM",
+    "Matching failure in uninitialized rank2 temporary slots"
+  ],
+  "no_execution": "Probe copied only; no original execution or native-session mutation."
+}

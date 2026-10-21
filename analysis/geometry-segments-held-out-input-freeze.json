@@ -1,0 +1,242 @@
+{
+  "created_utc": "2026-10-20T20:41:23.462183+00:00",
+  "candidate_manifest": {
+    "path": "analysis/geometry-segments-candidate-freeze.json",
+    "sha256": "e64991a802db73157a70a76f5448df4ddbcb4f527033f8b8be4736a683775ea1"
+  },
+  "candidate_current_all_28_match": true,
+  "fixture_manifest": {
+    "path": "analysis/geometry-segments-held-out-cases.json",
+    "sha256": "b05dc2f95ee8fbfaa12ae0f3d01e615149fa36c286ff8a82972053bff1f24026"
+  },
+  "inputs": [
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/01_coexist_seed.KEY",
+      "sha256": "c8e9ee4c282a81cc1108f512b6f45130ab8beb090b8d87206870c3bc95841b34",
+      "hypothesis": "One object holds a valid direct triangle and a separate alternate segment with nonidentity matrix A. Alternative import preserves spatial flags/data; finalization classifies the original triangle.",
+      "focus": [
+        "coexistence",
+        "matrix"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/01_coexist_seed.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/02_same_dimension.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "hypothesis": "Same-dimension header preserves object identity, both geometries and nonidentity matrix A; normal finalization can rebuild the same direct plane.",
+      "focus": [
+        "same_dimension"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/02_same_dimension.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/03_deactivate.KEY",
+      "sha256": "f8fc8ca799053d021958b98bd0db62142f532103438011b81b0012ee39b0b31f",
+      "hypothesis": "Same-line OBJTYP selects object1 and writes filetype99/secondary37; resulting type7 deactivation clears spatial payload, replaces alternate container with identity/empty defaults, clears3990, and preserves3994.",
+      "focus": [
+        "deactivation"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/03_deactivate.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/04_inactive_type6.KEY",
+      "sha256": "e8ba5ad573fd89359adfed9d21f5297047b74073d13dc9b423c99fc811f539bd",
+      "hypothesis": "Filetype6 leaves existing type7 unchanged; secondary41 stores and deactivation runs again, retaining identity/empty alternate defaults.",
+      "focus": [
+        "inactive"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/04_inactive_type6.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/05_reactivate.KEY",
+      "sha256": "9ff9d00cb99ce41f2ecd3e36c4494afd7f3722a2b807eb8e85c41cc136b67cc5",
+      "hypothesis": "Filetype2 reactivates type1 and stores secondary43 without recreating payload; both geometries remain empty and alternate matrix remains identity.",
+      "focus": [
+        "reactivation"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/05_reactivate.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/06_partial_prefix_seed.KEY",
+      "sha256": "e28b5d6f25b7da44784374b166b35c1ec2d2bd3bc289314a34855368772ca2b7",
+      "hypothesis": "Prefix6 accepts label-only first line and zero-conversion second line; both discarded. Four full matrix rows commit matrix A, then one format1 segment stores signed zero,.25,-2.",
+      "focus": [
+        "prefix6_partial",
+        "matrix"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/06_partial_prefix_seed.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/07_change_planar.KEY",
+      "sha256": "a060d973553c5c68616215c1c6651a9f7985063e398669dae6e132ecef442c7a",
+      "hypothesis": "Changed dimension destroys prior object and nonidentity alternate state. Newly selected planar object has one identity/empty container and empty spatial slots.",
+      "focus": [
+        "changed_dimension"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/07_change_planar.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/08_planar_wide_seed.KEY",
+      "sha256": "6a2f6e837d8383fa64637d7d0b662912ccd44842c4194c963e2e2fd70ad18433",
+      "hypothesis": "Stream label scans accept hexadecimal and octal; two wide segments commit signed/exponent values. Sixth entries360 and-180 undergo conversion; signed zero in a nonangle field is retained.",
+      "focus": [
+        "stream_decimal",
+        "safe_reconversion"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/08_planar_wide_seed.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/09_adjacent_sign_suffix.KEY",
+      "sha256": "600ef6145b4a01cf6c3fe5267c5a46f7d851db055cf7668a79d1a2d1b4c1a26b",
+      "hypothesis": "Adjacent signed decimals delimit successive scanf calls. Final90 commits/converts despite suffix, which remains for outer token parsing. Untouched trailing wide segment is converted again.",
+      "focus": [
+        "adjacent_sign",
+        "suffix_after_final",
+        "safe_reconversion"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/09_adjacent_sign_suffix.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/10_exponent_fragments.KEY",
+      "sha256": "c30629089b99663929cacd0ef1a5c4bf464b4641a45cd1f286edcf43556556b2",
+      "hypothesis": "Legacy stream scanner consumes incomplete exponent fragments but assigns significands1,2,3,4,5,180. Format2 commits first segment and reconverts the safe trailing wide segment.",
+      "focus": [
+        "incomplete_exponents"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/10_exponent_fragments.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/11_bare_sign_eof.KEY",
+      "sha256": "f665156b47ca81ce6adb296bc517dd5d21cec0d68e915d2323c4df4b0d27e603",
+      "hypothesis": "First real scan consumes bare plus through EOF and returns-1; current group never commits, earlier segments/matrix remain and planar handler returns2.",
+      "focus": [
+        "bare_eof_sign"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/11_bare_sign_eof.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/12_sign_before_lf.KEY",
+      "sha256": "24a9b8c165071ea2260f659471537e9676d5adc70fcf0cf9dad97d0a080052c8",
+      "hypothesis": "Plus followed by LF is matching failure0 rather than input failure-1; planar helper returns3 and handler maps2, with no segment commit or reconversion.",
+      "focus": [
+        "sign_lf"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/12_sign_before_lf.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/13_middle_suffix.KEY",
+      "sha256": "e2df81fe36600d1ad0f3a9adb305cc82ac3c0fb896ad957b26eddde1fcefbc6d",
+      "hypothesis": "First value2 assigns while suffix remains; next float conversion fails0 at 'tail'. No current commit and no global angle reconversion; outer parser consumes remaining unknown-token line.",
+      "focus": [
+        "suffix_middle"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/13_middle_suffix.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/14_invalid_planar_format.KEY",
+      "sha256": "6186b3cdbd649a7e759617d99eb029c0ed070eb76b0c79ae1a0deadebe81198c",
+      "hypothesis": "Planar format3 is rejected after header read, preserving existing wide segments/matrix without payload reads.",
+      "focus": [
+        "invalid_format"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/14_invalid_planar_format.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/15_change_spatial.KEY",
+      "sha256": "850cde584b7bb2f4507c30825dd88d7c4cbf85bb660f4e7e169f39e8c7da833c",
+      "hypothesis": "Dimension reset destroys planar retained segments. Newly selected spatial object has one identity/empty alternate container and empty direct geometry.",
+      "focus": [
+        "changed_dimension"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/15_change_spatial.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/16_prefix2_partial.KEY",
+      "sha256": "304a2b39fe56f9b1a0e156ea47f8c247b8505918aa69772cbdf045882a085c9d",
+      "hypothesis": "Both partial prefix coordinate lines succeed because each has at least a label; outputs are discarded. Container clears then stores one segment, preserving identity matrix.",
+      "focus": [
+        "prefix2_partial"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/16_prefix2_partial.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/17_prefix6_partial_matrix.KEY",
+      "sha256": "0a07856157a4d7897ed86269e291a6c59e0ebe678e7320b2b5615f92ab53ba5f",
+      "hypothesis": "Prefix6 tolerates partial and zero-conversion discarded lines. Partial first matrix row zeroes missing columns; all four rows succeed and commit nonidentity matrix B before segment import.",
+      "focus": [
+        "prefix6_partial",
+        "matrix_partial"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/17_prefix6_partial_matrix.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/18_second_prefix_eof.KEY",
+      "sha256": "9fa77bc761928d50d2becf132e54726636ddf95b1cff88e0e9abb9414bd884cd",
+      "hypothesis": "First discarded prefix line succeeds at bare EOF after partial conversions; next fgets fails. Existing segment and matrix B survive because clear has not occurred.",
+      "focus": [
+        "prefix2_failure_before_clear"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/18_second_prefix_eof.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/19_prefix6_matrix_blank.KEY",
+      "sha256": "7f68ca22c349ef345eb25c19d09f96f0b6ceb05e7287678f97e4d93acaccf298",
+      "hypothesis": "Two prefix rows succeed, then container clears and creates empty format0 segment. Blank third matrix row fails; previous matrix B remains because local replacement never commits.",
+      "focus": [
+        "prefix6_failure_after_clear"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/19_prefix6_matrix_blank.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/20_invalid_total.KEY",
+      "sha256": "e59dd5414d974bce2cf608fe0dcc117e3a31b91b1451067e0ddffadbe4a68e28",
+      "hypothesis": "Format3 total0 fails validation before any reads or clear; empty segment and matrix B remain.",
+      "focus": [
+        "invalid_total"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/20_invalid_total.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/21_invalid_zero_prefix.KEY",
+      "sha256": "999d81c645a7512f348c2c5d305b7415776f704bbecee867a1a079ee187a75c6",
+      "hypothesis": "Format3 prefix0 fails validation before any reads or clear; prior state remains.",
+      "focus": [
+        "invalid_prefix"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/21_invalid_zero_prefix.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/22_invalid_large_prefix.KEY",
+      "sha256": "1fd691595191b296321b0c706a062a812ec219e4a3da4f29f2b793a728e0b8fa",
+      "hypothesis": "Format3 prefix greater than total fails validation before reads or clear; prior state remains.",
+      "focus": [
+        "invalid_prefix"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/22_invalid_large_prefix.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/23_invalid_spatial_format.KEY",
+      "sha256": "d04ef132ae6908d842be65cc0263a6c5094f9594cb05d6b93ee494680cb6b77e",
+      "hypothesis": "Exactly two header conversions select alternate dispatch, but format0 rejects before clearing the existing empty format0 segment/matrix B.",
+      "focus": [
+        "invalid_format"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/23_invalid_spatial_format.KEY"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/held_out/24_coexist_after_reset.KEY",
+      "sha256": "b06a232f80a40fe084a04ea72e53a58715412fa2d94966f37c2efdc3271f09c4",
+      "hypothesis": "Rebuild valid direct triangle and replace alternate collection with one wide segment. Spatial pre-clear safely removes prior format0 segment while preserving matrix B; direct geometry and plane classification coexist independently.",
+      "focus": [
+        "coexistence",
+        "stream_decimal"
+      ],
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tests/fixtures/geometry_segments/held_out/24_coexist_after_reset.KEY"
+    },
+    {
+      "path": "tools/observe_geometry_segments.js",
+      "sha256": "15d5ad9ec692f98e93010e6e36e052520bed16f4a01052e537d257a511280894",
+      "archive": "analysis/oracle/frozen-geometry-segments-held-out-inputs/tools/observe_geometry_segments.js"
+    }
+  ]
+}

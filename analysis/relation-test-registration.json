@@ -1,0 +1,203 @@
+{
+  "status": "two_new_tests_pass",
+  "created_utc": "2026-10-20T23:57:34.219464+00:00",
+  "seconds": 4.15,
+  "commands": [
+    "cmake -S . -B build",
+    "ctest --test-dir build -C Release -R '^relation_(reference|held_out)_replay$' --output-on-failure --output-log analysis/oracle/relation-ctest.log"
+  ],
+  "tests": [
+    "relation_reference_replay",
+    "relation_held_out_replay"
+  ],
+  "registered_test_indices": [
+    45,
+    46
+  ],
+  "scope": "Only the two newly registered tests ran here; parent previously passed44 baseline tests against unchanged candidate. CTest does not enforce current candidate freeze, allowing future replacement regression builds; both retained immediate comparison reports enforce all29 frozenfiles.",
+  "all_29_runtime_files_unchanged": true,
+  "candidate_files": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/custom_fields.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/custom_fields.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "bindings": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "a93dbcb1ec45d279c861634487263e642b7ef8829d10e9b61c958f7c622ea813"
+    },
+    {
+      "path": "analysis/oracle/relation-test-registration/CMakeLists-before.txt",
+      "sha256": "e40d9ac18c59a018606e2ee87d6495ebb304dc877f17ac61e8a34f9ffb563795"
+    },
+    {
+      "path": "analysis/oracle/relation-test-registration/registration.diff",
+      "sha256": "6ef53cfa53508649ff83c3fd4ff1b82034762ee44b687c463efd73ae601254ef"
+    },
+    {
+      "path": "tools/compare_relation_import.py",
+      "sha256": "44c239b87f100e99888ffb505c5f504daa7fb6f38dbfa5a0dcaf65e6691e5205"
+    },
+    {
+      "path": "analysis/relation-training-comparison.json",
+      "sha256": "961928a8a1a89dd5b4337f241c42c2dc165640e5342aced182beccbc5712156d"
+    },
+    {
+      "path": "analysis/relation-held-out-comparison.json",
+      "sha256": "cf610470f4e22f0d69e74e62aead7fc22995bb954b2b46fdf46333e252a36d88"
+    },
+    {
+      "path": "analysis/relation-candidate-freeze.json",
+      "sha256": "9d7cf0b6c3fc3c79cd2c995278adeac4113b5717a20d180290939762776e1a16"
+    },
+    {
+      "path": "analysis/relation-input-freeze.json",
+      "sha256": "bc0f11fca324ac6818cd8e0714fb73ba808ef9daf586bd9bc225b723ec7de725"
+    },
+    {
+      "path": "analysis/relation-held-out-input-freeze.json",
+      "sha256": "43dece00a0416028601916435dbda60786532c5bb08ceeb847b44d9b4c15a3f2"
+    },
+    {
+      "path": "analysis/oracle/relation-ctest.log",
+      "sha256": "5db30ff9e457d2d58c458dfb51bdac57e49d8cf7c19154de5bc149c1a94fc7c0"
+    }
+  ],
+  "training": {
+    "status": "pass",
+    "imports": 32,
+    "handlers": 47,
+    "descriptor_snapshots": 1219,
+    "PHASTF_calls": 22,
+    "relation_reader_calls": 44,
+    "field_reader_calls": 12,
+    "field_scalar_reads": 73,
+    "relation_descriptor_preservation_checks": 24,
+    "frozen_candidate_required": true
+  },
+  "held-out": {
+    "status": "pass",
+    "imports": 30,
+    "handlers": 59,
+    "descriptor_snapshots": 1113,
+    "PHASTF_calls": 26,
+    "relation_reader_calls": 52,
+    "field_reader_calls": 13,
+    "field_scalar_reads": 67,
+    "relation_descriptor_preservation_checks": 22,
+    "frozen_candidate_required": true
+  }
+}

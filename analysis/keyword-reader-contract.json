@@ -1,0 +1,50 @@
+{
+  "status": "internal_row_reader_implemented_and_compared",
+  "implementation": ["src/recovered/keyword_reader.hpp", "src/recovered/keyword_reader.cpp"],
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "evidence": [
+    "analysis/model-0x140415680.json",
+    "analysis/model-0x140414600.json",
+    "analysis/model-0x140323970.json",
+    "analysis/scanner-0x14047c354.json",
+    "analysis/scanner-0x140493dec.json",
+    "analysis/keyword-open-mode.json",
+    "analysis/keyword-row-observations.json",
+    "analysis/keyword-reader-comparison.json"
+  ],
+  "established_rules": [
+    "Numeric helpers zero all outputs before a bounded fgets read of at most 1023 bytes, replace commas before the first NUL, and report failure only for failed line read or scanf return -1.",
+    "Partial conversions remain successful and retain zero-filled suffixes. Connectivity helpers read a label plus four or eight integers; coordinates read a label plus two or three doubles.",
+    "Integer conversion uses base-detecting %i semantics. The observed cases include decimal, leading-zero octal and hexadecimal forms.",
+    "The legacy floating scanner accepts decimal significands and e/E exponents. It consumes incomplete exponent suffixes such as e+ but converts the significand; 1e+ becomes 1 and following values are still parsed.",
+    "Hexadecimal floating syntax is not recognized. At 0x1p2 the first float consumes only 0, and the next conversion fails at x. Signed zero is preserved.",
+    "Adjacent decimal forms can be separate conversions without whitespace: 1.2.3 produces 1.2 then 0.3.",
+    "OBJNAM reads and discards the current-line remainder, reads the next bounded line, copies at most 80 bytes and trims trailing spaces/CR/LF/NUL. Leading whitespace and trailing tabs are not trimmed. Failed reads preserve the previous name.",
+    "The original file-open mode bytes are r followed by NUL. The component accepts already translated text bytes; it does not implement Windows file translation."
+  ],
+  "validation": {
+    "processes": 3,
+    "imports": 9,
+    "row_helper_calls": 66,
+    "training_and_discovery_calls": 43,
+    "held_out_calls": 23,
+    "original_ordered_events": 105,
+    "comparison": "Exact helper status, conversion count, consumed line bytes, integer/double output bytes, and logical name bytes through first NUL.",
+    "result": "All compared calls pass; independent provenance checks reject 20 tampering cases.",
+    "candidate_history": "Initial direct modern-CRT substitution failed with 17 field differences across six rows. It was replaced with a recovered decimal lexer. Candidate sources were frozen before held-out capture and remained unchanged through evaluation.",
+    "binary_retention": "The executable was relinked later when the shared library gained mesh deactivation. Its current hash differs from the pre-evaluation freeze; unchanged reader sources and a fresh passing replay are recorded. The pre-evaluation executable was not separately archived.",
+    "ctest": "keyword_reader_reference_replay"
+  },
+  "design_choices": [
+    "Portable byte storage with an explicit cursor and recorded line-read attempts.",
+    "C-locale modern sscanf retains integer conversions; an explicit decimal lexer feeds bounded decimal strings to strtod.",
+    "Name comparison preserves logical content, not native buffer padding or physical allocation."
+  ],
+  "remaining": [
+    "Full keyword token dispatch, recognized unsupported records, object ID parsing, model mutation and end-of-file finalization.",
+    "Runtime coverage for token39 boundaries, line1023 boundaries and nonzero blank-line-skip flags.",
+    "Complete Windows text translation, embedded NUL/Ctrl-Z and locale behavior.",
+    "Integer overflow, floating overflow/underflow, full decimal rounding equivalence and allocation failure.",
+    "Token and line methods have recovered static rules; this row-helper comparison does not establish complete token-parser equivalence."
+  ]
+}

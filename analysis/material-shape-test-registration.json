@@ -1,0 +1,201 @@
+{
+  "status": "two_new_tests_pass",
+  "created_utc": "2026-10-20T23:38:00.758162+00:00",
+  "seconds": 5.5,
+  "commands": [
+    "cmake -S . -B build",
+    "ctest --test-dir build -C Release -R '^material_shape_(reference|held_out)_replay$' --output-on-failure --output-log analysis/oracle/material-shape-ctest.log"
+  ],
+  "test_log": {
+    "path": "analysis/oracle/material-shape-ctest.log",
+    "sha256": "28f0f19dfb8feb8a57bfe9b2d8bb73d3d8fdb765dec666718f5f84d72b23c82e"
+  },
+  "corrected_candidate_freeze": {
+    "path": "analysis/material-shape-candidate-freeze-v2.json",
+    "sha256": "57885f588d2715375cfa1e4334e0f6174d98b99547821fc8dbc8ac6f207095a2"
+  },
+  "all_29_corrected_runtime_files_unchanged": true,
+  "candidate_files": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/custom_fields.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/custom_fields.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "cmake": {
+    "path": "CMakeLists.txt",
+    "sha256": "e40d9ac18c59a018606e2ee87d6495ebb304dc877f17ac61e8a34f9ffb563795"
+  },
+  "previous_cmake": {
+    "path": "analysis/oracle/material-shape-test-registration/CMakeLists.before.txt",
+    "sha256": "7cd37983077c086908ae7b6623752c452c11c6e89e803ba7f9bd94f4d20b66d2"
+  },
+  "registration_diff": {
+    "path": "analysis/oracle/material-shape-test-registration/registration.diff",
+    "sha256": "39bc85bceab79d6b09c275cee3f4254eddfdbe45e9cfac1f2bc5bc1eadf75dbd"
+  },
+  "comparator": {
+    "path": "tools/compare_material_shape_import.py",
+    "sha256": "b25308ea2ac14a24539a9ee31ca93ff31f1b1157fa7be221a69a85bb66858073"
+  },
+  "reports": [
+    {
+      "binding": {
+        "path": "analysis/material-shape-training-corrected-comparison.json",
+        "sha256": "c797e0b3fc5f9a323011fcd5b6f74376b3ffeb464bcfdfaa06d22ab5f8f8890f"
+      },
+      "imports": 32,
+      "tokens": 61,
+      "handler_snapshots": 61,
+      "descriptors": 1643,
+      "shape_consumers": 13,
+      "feature_queries": 56,
+      "storage_calls": 20,
+      "shape_readers": 44,
+      "shape_scalars": 28,
+      "stdout_diagnostics": 1,
+      "candidate_matches_historical_freeze": false,
+      "frozen_enforcement": false
+    },
+    {
+      "binding": {
+        "path": "analysis/material-shape-held-out-comparison.json",
+        "sha256": "ec4462e976b88009c53c4865ac55bc6c0f9d60270ee187b010ad4bf8e7802f5b"
+      },
+      "imports": 25,
+      "tokens": 59,
+      "handler_snapshots": 59,
+      "descriptors": 795,
+      "shape_consumers": 12,
+      "feature_queries": 52,
+      "storage_calls": 18,
+      "shape_readers": 41,
+      "shape_scalars": 30,
+      "stdout_diagnostics": 0,
+      "candidate_matches_historical_freeze": true,
+      "frozen_enforcement": true
+    }
+  ],
+  "initial_failure": {
+    "path": "analysis/material-shape-training-initial-failure.json",
+    "sha256": "265aa0787cad995f5274f29a3effbfbb4a2d625a7173dcd09ebc01aaabed3e78"
+  },
+  "notes": [
+    "Parent ran all42 baseline tests on corrected candidate; this receipt runs only two new regression tests.",
+    "Historical training input/candidate freeze remains original. Training comparison is not frozen-enforced and reports five changed candidate entries.",
+    "Held-out strict comparison passed against corrected freeze with all29 current files unchanged. Ongoing CTest entries omit frozen enforcement so later candidate versions can run regressions without claiming historical identity.",
+    "Production diagnostic stdout correction and replay stdout capture preserved outputchannel rather than accepting stderr equivalence. Raw native stdout transcript is bound; only known literal CRLF is normalized for logical-byte comparison.",
+    "No comparator changes were necessary for held-out evaluation."
+  ]
+}

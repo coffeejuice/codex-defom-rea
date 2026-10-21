@@ -1,0 +1,288 @@
+{
+  "created_utc": "2026-10-20T21:17:15.583500+00:00",
+  "candidate_manifest": {
+    "path": "analysis/material-object-candidate-freeze.json",
+    "sha256": "6cf162ac31f42eaf2443a2c6c1e90272d5b67f18564e38b415a8ee45977c5a25"
+  },
+  "candidate_current_all_match": true,
+  "candidate_current": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "fixture_manifest": {
+    "path": "analysis/material-object-held-out-cases.json",
+    "sha256": "721a628a2c95b751d9a0c187e49223f0fd752dda0fb93bd06eef0273ab98c5e2",
+    "archive": "analysis/oracle/frozen-material-object-held-out-inputs/analysis/material-object-held-out-cases.json"
+  },
+  "probe_v2_input_freeze": {
+    "path": "analysis/material-object-v2-input-freeze.json",
+    "sha256": "4125722a42aa8151f5ee2d26c41bdf0ada903ce571bc0c5037c29e7ce3deaebb"
+  },
+  "inputs": [
+    {
+      "path": "tests/fixtures/material_objects/held_out/01_proper_tet_both_geometry.KEY",
+      "sha256": "16110b4a0eb75681af8f499844949c8090793599ed0984bdc69567988eaa35a3",
+      "bytes": 246,
+      "hypothesis": "Establish successful3D tetra connectivity using explicitcount1/arity4 before anymaterial, alongside direct and transformed alternate geometry.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/01_proper_tet_both_geometry.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/02_negative_first_material.KEY",
+      "sha256": "c95fb6c0666e71f2f1ea16a5e12b1ec90ea5493827faf889139d499986809ef0",
+      "bytes": 34,
+      "hypothesis": "First material append after a successfully connected tetra mesh; signed-ID listownership and temporarycopy are observed.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/02_negative_first_material.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/03_partial_coordinates_same_extent.KEY",
+      "sha256": "059f6c54fb62a83d193cce2bb4f8afbebf79dda861203e7fd5be800a220e061f",
+      "bytes": 27,
+      "hypothesis": "Partial coordinate payload retains four allocatednodes and all valid connectivityindices; inspect committed prefix/zeros without enlarging any sourceextent.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/03_partial_coordinates_same_extent.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/04_zero_after_partial.KEY",
+      "sha256": "73e33781fe1e1fd62f187a6bacbf35c2ff5cbfdc1075a1d2412be894263ff73d",
+      "bytes": 40,
+      "hypothesis": "Append materialID0 while sourcecoords are partial but node/element allocationextents remainvalid.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/04_zero_after_partial.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/05_reload_tet_scalar_controls.KEY",
+      "sha256": "cc286114b9890d3bda66b83e727d7bc6e09667c43f751966dd26f1dfe1864154",
+      "bytes": 134,
+      "hypothesis": "Reload successfultetconnectivity and apply previouslyrecovered stroke/selection/time controls before another materialappend.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/05_reload_tet_scalar_controls.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/06_new_first_name_eof.KEY",
+      "sha256": "17f8a21fde26e01a13f0eca8e38206b42acd59c9b1f7e9d0de29642a8318686f",
+      "bytes": 8,
+      "hypothesis": "Newthird material appends and refreshes after successfultetreload evenwhen the firstname fgets encountersphysicalEOF.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/06_new_first_name_eof.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/07_partial_element_header.KEY",
+      "sha256": "729dc35243a3b30de68b012d237281922abb3477c93a0f691f758a882e115a17",
+      "bytes": 10,
+      "hypothesis": "Header-only ELMCON missingarity atEOF exercises a defined failurewhile preservingprior validconnectivity; no invalidrowindices are supplied.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/07_partial_element_header.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/08_fourth_after_header_failure.KEY",
+      "sha256": "79077f30acfdc606822be33013550881f366b5d32c05df7db9357cf458142cbb",
+      "bytes": 37,
+      "hypothesis": "Fourth materialappend after partialelementheader failure observes source mesh/stroke/scalar preservation.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/08_fourth_after_header_failure.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/09_inactive_and_new_sparse_object.KEY",
+      "sha256": "a6609640070468d1b29ab389d786687af6480c16c4977b000b825d1cccd475c1",
+      "bytes": 189,
+      "hypothesis": "Withmaterials already present,deactivateobject1 thencreateobject3 throughinactiveplaceholder2 and successfullypopulateanother tetrahedron.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/09_inactive_and_new_sparse_object.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/10_planar_material_before_objects.KEY",
+      "sha256": "7f3831fdced054ab9810e5ba2a75cf97ae2cd4b255ad5561ce6fc0e118918669",
+      "bytes": 44,
+      "hypothesis": "Changed dimension clears priorobjects/materials, thencreates a signedmaterial before newplanarobjects.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/10_planar_material_before_objects.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/11_planar_sparse_controls.KEY",
+      "sha256": "08cb6449f4453fd02438764c95b9f5cee1e659bd9b7abcac33ee055bcdb9d704",
+      "bytes": 171,
+      "hypothesis": "Createactiveobject3 andtwoinactiveplaceholders aftermaterialcreation; quadconnectivity, alternateformat2 geometry andoutput/geometrycontrol refresh precede nextappend.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/11_planar_sparse_controls.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/12_planar_second_after_controls.KEY",
+      "sha256": "82df40b94565dc33c454c7b4c9b7d81b836421f29ef390b2ee381afb2fdcfad8",
+      "bytes": 38,
+      "hypothesis": "Materialappend observes alreadyrefreshed planarobject widths andalternategeometry under GEOTYP3/STNOUT controls.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/12_planar_second_after_controls.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/13_inactive_name_failure.KEY",
+      "sha256": "a631b208aee88b62141bb0760ed66c55dab119eb47769e9383f52be2c4314949",
+      "bytes": 24,
+      "hypothesis": "Deactivate soleactiveplanarobject, thenappendthird materialwithsecondname-lineEOF whileallobjects areinactive.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/13_inactive_name_failure.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/14_reactivate_quad_scalar_controls.KEY",
+      "sha256": "57199e569e4b60a556b29def18661135c89526151520bc0036e518c0572d5191",
+      "bytes": 184,
+      "hypothesis": "Reactivateandload validquadmesh, shrinkoutput widths,andsetselectedobject/stroke/time controls before finalplanarappend.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/14_reactivate_quad_scalar_controls.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/15_planar_fourth_no_final_lf.KEY",
+      "sha256": "01c2a80468b839a7bb460881e109dc2fa0daa4ae57333562a346c28eeb20d7fb",
+      "bytes": 46,
+      "hypothesis": "Fourth materialappend afterreactivatedquadreload consumes a successful non-LFname andpreserves controlledstate.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/15_planar_fourth_no_final_lf.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/16_spatial_inverse_order_reload.KEY",
+      "sha256": "481cdfdc407ef36c64540258e11010c9a96eefd082121ca17ab3e21f10411c4b",
+      "bytes": 271,
+      "hypothesis": "In oneimport afterreset,createamaterialfirst,then sparseobject3 withsuccessfulcount1/arity4 tetrahedron,andappendanother signedmaterial afterward.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/16_spatial_inverse_order_reload.KEY"
+    },
+    {
+      "path": "tests/fixtures/material_objects/held_out/17_final_planar_reset.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "hypothesis": "Destroy finalpopulatedspatialobjects andmaterials andcheck primary/linked resetstate.",
+      "split": "held_out",
+      "expected_output": null,
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tests/fixtures/material_objects/held_out/17_final_planar_reset.KEY"
+    },
+    {
+      "path": "tools/observe_material_object_import.js",
+      "sha256": "b121c9cb10128c76e92a0a6823b54ea01b1ccd8eafc6f2d6b7374f7b675a1703",
+      "archive": "analysis/oracle/frozen-material-object-held-out-inputs/tools/observe_material_object_import.js"
+    }
+  ],
+  "scope": "Pre-capture held-out fixture/probe archive; compiledcandidate and repairedprobe unchanged."
+}

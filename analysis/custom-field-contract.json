@@ -1,0 +1,196 @@
+{
+  "status": "selected_custom_field_profile_verified_with_training_and_independent_captures",
+  "created_utc": "2026-10-20T23:14:04.529656+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": {
+    "keyword_ids": [
+      198,
+      266
+    ],
+    "keywords": [
+      "CUSVAR",
+      "DYNARY"
+    ],
+    "profile": "Bounded owned object stores in 2D/3D, signed custom IDs, positional dynamic arrays, defaults, sparse/sequential rows, partial failures, independent real/integer buffers, deactivation and dimension reset."
+  },
+  "behavior": [
+    "CUSVAR stores exact signed IDs in a separate object collection at native +0xb58; a missing ID creates one descriptor with base ID78. Kind0 uses declared rows, kind1 current mesh nodes, kind2 current mesh elements; other kinds retain prior count. Width always updates shape history. Default fills the entire physical allocation before sparse rows.",
+    "Root +0x33b8 is one signed last-selected custom ID. It updates only after a successful CUSVAR row reader. A dimension reset destroys object stores but preserves this root ID.",
+    "DYNARY uses a distinct positional list at native object +0xba8. Positive positions create missing placeholders; nonpositive positions select the existing first entry or no entry. Configuring forces mode1. Known selectors change the discriminator; unknown selectors retain it.",
+    "DYNARY retains separate real and integer buffers and resizes only the selected buffer. Discriminator1 reads sequential real rows at widths2/3; discriminator2 reads sequential integer rows at widths3/4/8; discriminator3 fills and reads sparse real rows. Unsupported widths consume no detailed rows.",
+    "CUSVAR uses the mixed scanf header. DYNARY tokenizes one line into up to ten tokens, uses decimal strtol for integers, and legacy atof semantics for optional defaults. Missing tokens and blank headers follow the observed zero/default behavior.",
+    "Typed row readers preserve zero or partially assigned destination values even on failure. Sparse readers preserve defaults and completed mutations. Deactivation and global array refresh retain both stores; tested dimension resets destroy them. The selected temporary copy path omits both stores."
+  ],
+  "verification": {
+    "original_imports": 64,
+    "training_imports": 32,
+    "independent_held_out_imports": 32,
+    "selected_keywords": 2,
+    "all_selected_keywords_observed_in_both_dimensions": true,
+    "complete_handler_snapshots": 80,
+    "custom_handlers": 60,
+    "custom_reader_calls": 118,
+    "scalar_scan_calls": 114,
+    "ordinary_reader_calls": 230,
+    "failed_custom_handlers": 9,
+    "final_standard_descriptor_snapshots": 3286,
+    "independent_tamper_rejections": 71,
+    "tests_verified": 42,
+    "frozen_runtime_files_unchanged": 29
+  },
+  "candidate_changed_after_first_freeze": false,
+  "public_database_loader_api_changed": false,
+  "test_order": "All 40 existing CTests passed before candidate freeze; two new replay CTests then passed on those same unchanged runtime sources and binaries. This is not a claim of a single 42-test invocation.",
+  "captures": [
+    {
+      "path": "analysis/custom-field-runtime-training-v2.json",
+      "sha256": "1fc9d73c3b6ae9299860e8a467e1c5329297299253ad44eaa4dd9c5cd53eedc2",
+      "evidence_id": "ev_b0b00da3986fff2f310e633fa8d89f2cf8454c2bc6feea67bb038c4d5260d6b1",
+      "run_record": {
+        "path": "analysis/oracle/custom-field-training-v2c/run.json",
+        "sha256": "dff5a2bf9d206eb28a660d834b9ca04f33fdf13e8294dbe1fb791c9a1ae58707"
+      },
+      "status": "verified",
+      "imports": 32
+    },
+    {
+      "path": "analysis/custom-field-runtime-held-out-v2.json",
+      "sha256": "a56f930a58aa4e688a09ad2dd629747e7af284acc74ce3bddfde5898fe26c50f",
+      "evidence_id": "ev_d9673bc0e244c1ebf31d69669dee0dcec05049eddb8dfaebe8b93fc484a371ac",
+      "run_record": {
+        "path": "analysis/oracle/custom-field-held-out-v2/run.json",
+        "sha256": "16a04aa6721e86eeb2d1fe558eedb91226e5e631f909fad5373f331b88f69882"
+      },
+      "status": "verified",
+      "imports": 32
+    }
+  ],
+  "probe_correction": {
+    "failed_capture": {
+      "path": "analysis/custom-field-runtime-training.json",
+      "sha256": "095f16aac2b5b4bfe8b8feec81e4ed7b570c2fc36939a9f1933fb52ccaa2bf7d"
+    },
+    "description": "V1 retained reader frames after missing positive-row completion callbacks and produced 71 probe errors. It is excluded from behavioral comparison. V2 passively observes the native caller continuation instructions at RVAs0x397e46 and0x397760, reading EAX before the native result store. Exact cause of missing V1 completion callbacks remains unproven. All failed artifacts retained; no candidate changes.",
+    "launch_attempts": [
+      {
+        "run_record": {
+          "path": "analysis/oracle/custom-field-training-v2/run.json",
+          "sha256": "1f8ae907b30cc3eb43af3f950519beee0f14e401a7f027e80d787f3a11da3d55"
+        },
+        "outcome": "observer_gate_timeout_no_capture"
+      },
+      {
+        "run_record": {
+          "path": "analysis/oracle/custom-field-training-v2b/run.json",
+          "sha256": "ec09be33b5c1bd9c328400bebf0442a1829682e9f7dfbcfc681e8b79078866c1"
+        },
+        "outcome": "sandbox_process_creation_failed_WinError623_no_PID"
+      },
+      {
+        "run_record": {
+          "path": "analysis/oracle/custom-field-training-v2c/run.json",
+          "sha256": "dff5a2bf9d206eb28a660d834b9ca04f33fdf13e8294dbe1fb791c9a1ae58707"
+        },
+        "outcome": "valid_capture_normal_exit_0"
+      }
+    ]
+  },
+  "checker_corrections": {
+    "candidate_comparator": "Training accepted additional evidence_id:null provenance metadata while retaining exact path/hash checks. Held-out passed unchanged checker.",
+    "independent_audit": "Corrected a verifier-local typed-row endpoint variable shadowing the lookup endpoint. Held-out passed unchanged verifier. 36 training and35 held-out corruption checks were applied and rejected; one unavailable typed-row helper-failure mutation is explicitly skipped in held-out and covered in training."
+  },
+  "native_resource_observation": {
+    "description": "The source shows helper4199a0 returns before freeing its temporary row buffer on early scalar EOF; training cases07 and17 observe these branches. This probe does not separately register temporary calloc pointers, so this is source-backed cleanup behavior, not an allocation-leak census. C++ uses RAII without reproducing that leak."
+  },
+  "limitations": [
+    "Bounded initialized owned storage and finite ASCII numeric inputs only; no claim of complete application equivalence.",
+    "Arbitrary copy-on-write aliases, full object copying, shared or external buffers, allocation failure, negative/overflowing extents and unsafe native writes remain outside this profile.",
+    "Legacy floating conversion extremes, all rounding cases, locale and nonfinite inputs remain unproven. DYNARY atof return is checked indirectly where native default-fill storage exposes its bytes; the probe records its input, not the floating return register.",
+    "Native pointer identities and links are checked within original lifetimes; replacement addresses and intentional heap leakage are not compatibility requirements.",
+    "Positive DVOLF/TICF width production, named material property editing, complete DB application-state import/export, scientific operations and console integration remain required work."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/custom-field-static-contract.json",
+      "sha256": "b5cce43adf8f1fd4f061e086fe0618adc1de47f083916da3b9c38113163f927e"
+    },
+    {
+      "path": "analysis/custom-field-reader-contract.json",
+      "sha256": "039fd088c58f1285a9e766307545c3dca3021229466338b6be4da3572250bfaa"
+    },
+    {
+      "path": "analysis/custom-field-callsite-audit.json",
+      "sha256": "6fb8b5e3d7962c5e65d1740396edce96f592d18c8d833581ba444bd62df7dc2a"
+    },
+    {
+      "path": "analysis/custom-field-candidate-freeze.json",
+      "sha256": "3df0a5238833b7bb81ee4a99e1b54fb8d3dceefa7f1ee451060e1e0d261c57ef"
+    },
+    {
+      "path": "analysis/custom-field-v2-input-freeze.json",
+      "sha256": "2dc2aedc9b8f008e2e6e91a91749862073806f9ebcb25ec14cabd2c15700af23"
+    },
+    {
+      "path": "analysis/custom-field-held-out-v2-input-freeze.json",
+      "sha256": "c30bf6da5d2cfe73d4df1c93b43aff544b760039e63958dd89096d8cbf3205b6"
+    },
+    {
+      "path": "analysis/custom-field-evaluation-cases-v2.json",
+      "sha256": "a7c835c33e904bc8b368130b3900b68cf597a258ffc85fa4e1df9659fa6daed0"
+    },
+    {
+      "path": "analysis/custom-field-held-out-cases-v2.json",
+      "sha256": "08815d5a1943615359a9c8492caef7e2d4063b7fa04caf61c32cb94c0aeb2f44"
+    },
+    {
+      "path": "analysis/custom-field-training-comparison.json",
+      "sha256": "72d8ec2d0bd0fb3902ed4a95b03c507ae462b0f1fada173e38859138dffe7585"
+    },
+    {
+      "path": "analysis/custom-field-held-out-comparison.json",
+      "sha256": "89e2426564da953f2d7b0666d39ca92a605eb1011dbb869757ccb0d844207af3"
+    },
+    {
+      "path": "analysis/custom-field-observations.json",
+      "sha256": "e8f2c9ef3ced8e8319b69eb0f65b8ebc79490f9b64363b8ad0631c2862fb76b2"
+    },
+    {
+      "path": "analysis/custom-field-held-out-observations.json",
+      "sha256": "2f3be1e074d3ed3ccb7081116b060513af34452e816269ac7cb03bb612adc48c"
+    },
+    {
+      "path": "analysis/custom-field-test-registration.json",
+      "sha256": "376d62a95d77cf353e0b7723f5602b29733706813187370fd6b3be15fbe4eddb"
+    },
+    {
+      "path": "analysis/custom-field-v1-probe-diagnostic.json",
+      "sha256": "5a036206f1c957a09425601f305ea2bedb9597472f70165c4472a33f96c1d02b"
+    },
+    {
+      "path": "analysis/custom-field-probe-v2-audit.json",
+      "sha256": "df061fa9fdc41bbc4c8ddb2ddf31ee0493a89b0e2b985e0e2696a5991c51e49e"
+    },
+    {
+      "path": "tools/observe_custom_field_import.js",
+      "sha256": "ada61e2564d2206f966c1b753be8be60dd6e4f9984875ee39fa4ebc2d4aeef2a"
+    },
+    {
+      "path": "tools/compare_custom_field_import.py",
+      "sha256": "c9fe329da8a06fd76704a738ef68b6c4b0c577ad415700b76bd8277595e7fe17"
+    },
+    {
+      "path": "tools/verify_custom_field_observations.py",
+      "sha256": "0b5c08fc6a1c0a2031893377c204a9d0e7be1bee99216eeba724e127e5bbfe4d"
+    },
+    {
+      "path": "analysis/oracle/custom-field-baseline-ctest.log",
+      "sha256": "227da54a42fb421de5358c1b0b2bfda0bab261a826c8607732db0c3f07f20b22"
+    },
+    {
+      "path": "analysis/oracle/custom-field-ctest.log",
+      "sha256": "fa4d69ceb17cf789cc855e8c4c6d3002fd772d2a0479ecd2e83d72fc26497953"
+    }
+  ],
+  "next_action": "Recover remaining keyword-controlled model fields and their producer paths from REA, beginning with the nonzero DVOLF/TICF width producer and material properties; then connect the complete recovered state to DB import/export and console workflows.",
+  "full_application_status": "incomplete_active"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "keyword_rejection_observed_global_reachability_unresolved",
+  "evidence": [
+    "analysis/mesh-0x140354ed0.json",
+    "analysis/mesh-0x140355cbf.json",
+    "analysis/mesh-boundary-tables.json",
+    "analysis/ten-node-reachability.json",
+    "analysis/ten-node-observations.json"
+  ],
+  "observations": [
+    "The 3D wrapper selects face width six, four faces per element and the second local-index table when input arity is ten.",
+    "The non-eight-node helper stores the first three table-selected nodes in four-slot candidate records. It only writes a nonzero fourth candidate node when width equals four.",
+    "Its membership loop is controlled by the selected face width, while each candidate record occupies only four slots.",
+    "The fourth output slot is explicitly filled only for width four or, by repeating the first node, width three. The width-six path needs assembly/runtime verification before interpreting its output.",
+    "Two original processes and seven imports establish rejection of the tested 3D ELMCON arity-ten blocks with status 2 before boundary construction. Existing mesh buffers remain unchanged. A fresh import can still create its target object before rejecting the block.",
+    "The parser continues after rejection: the tested following OBJNAM takes effect while the final import status remains 2. Subsequent ordinary tetrahedral import succeeds.",
+    "The inspected DB object-descriptor branch maps width four to kind 2, width eight to kind 4, and other widths to kind 2. Later DB materialization and other writers remain outside this bounded reachability assessment."
+  ],
+  "next_steps": [
+    "Preserve the observed keyword rejection and partial object creation when implementing importer dispatch.",
+    "Inspect other writers and later DB materialization if a reachable ten-node path is identified.",
+    "If a reachable path is established, inspect assembly at candidate generation, membership and output stores and collect bounded runtime evidence before implementing geometry."
+  ],
+  "qualification": "The tested keyword route rejects ten-node input. This does not prove global unreachability of the low-level branch or establish its runtime output; no conventional quadratic-element geometry has been substituted."
+}

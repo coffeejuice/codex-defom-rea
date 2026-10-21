@@ -1,0 +1,80 @@
+{
+  "status": "PASS_active_selected_table_allocation_scope_capture_ready",
+  "supersedes_readiness": "Prior v2 continuation repair remains correct, but its overall readiness was insufficient: global allocation metadata bounds were incorrectly applied to unselected table families. Invalid capture and old audits remain preserved.",
+  "invalid_capture_errors": [
+    {
+      "error": "Error: property rank/width bound",
+      "file": "31_planar_reset_all_fields.KEY",
+      "operation": "probe-error",
+      "sequence": 1112
+    },
+    {
+      "error": "Error: property rank/width bound",
+      "file": "31_planar_reset_all_fields.KEY",
+      "operation": "probe-error",
+      "sequence": 1126
+    }
+  ],
+  "repair": "Only the active41b270 exact table can register allocation metadata. The guard precedes every table field read, product calculation and capacity mutation. All other callbacks return without touching table memory.",
+  "static_reasoning": [
+    "All13 material destinations are constructed by12d050(type0);28cdc0 overrides only types93 and182. These three profiles retain rank0,width1,zero axis counts and null payloads;12ff20 returns0 for them. Initial snapshots therefore require no constructor allocation registration.",
+    "Every selected13 nonempty fixture allocation occurs in41b270 reset or its41a800 reader, while the exact per-thread wrapper table is active.",
+    "Global12f480 invalidation remains metadata-free and removes stale tracked capacities during resets/destruction.",
+    "Later non-null unobserved selected buffers still fail the strict snapshot guard; this repair does not broaden observation claims.",
+    "No new hook, fixture, candidate or native behavior changes. Exact unselected table identities at the two errors were not logged and remain unclaimed."
+  ],
+  "diff": [
+    "--- v2",
+    "+++ v3",
+    "@@ -1,10 +1,15 @@",
+    " Interceptor.attach(at(0x12fad0),{",
+    "     onEnter(args){this.propertyAllocated=ptr(args[0].toString());},",
+    "-    onLeave(){safe(()=>{",
+    "-        const t=this.propertyAllocated,axes=Array.from({length:3},(_,i)=>({pointer:t.add(0x28+8*i).readPointer().toString(),count:Math.max(0,t.add(0x1c+4*i).readS32())}));",
+    "-        const dependent={pointer:t.add(0x48).readPointer().toString(),count:propertyTotal(t)};",
+    "-        propertyCapacities.set(t.toString(),{axes,dependent});",
+    "-        const c=propertyInvocations.get(this.threadId);",
+    "-        if(c && c.table.equals(t))emit('property-allocation',{serial:c.serial,table:propertyTable(t)});",
+    "-    });}",
+    "+    onLeave(){",
+    "+        const c=propertyInvocations.get(this.threadId),t=this.propertyAllocated;",
+    "+        // Unrelated native tables have different valid metadata domains. Do not inspect them.",
+    "+        // Every selected13 constructor starts with null buffers; selected allocations occur in41b270.",
+    "+        if(!c || !c.table.equals(t))return;",
+    "+        safe(()=>{",
+    "+            const axes=Array.from({length:3},(_,i)=>({pointer:t.add(0x28+8*i).readPointer().toString(),count:Math.max(0,t.add(0x1c+4*i).readS32())}));",
+    "+            const dependent={pointer:t.add(0x48).readPointer().toString(),count:propertyTotal(t)};",
+    "+            propertyCapacities.set(t.toString(),{axes,dependent});",
+    "+            emit('property-allocation',{serial:c.serial,table:propertyTable(t)});",
+    "+        });",
+    "+    }",
+    " });"
+  ],
+  "bindings": [
+    {
+      "path": "tools/observe_property_table_import.js",
+      "sha256": "3c0c296f6b062610edf2341303495971f6572da1738bbae5aabd4b2f8014b362"
+    },
+    {
+      "path": "analysis/oracle/property-table-probe-v2-before-scope-repair.js",
+      "sha256": "d53cd5d2d7697aa15bee572eedbce432e9d268f627e2e5dad7640ada003fe603"
+    },
+    {
+      "path": "analysis/property-table-static-contract.json",
+      "sha256": "c3e7abf7b579494510c49cea6bb8bf323c44cf2f6dc150263dae810a3ff49906"
+    },
+    {
+      "path": "analysis/property-table-probe-v2-repair-audit.json",
+      "sha256": "8ae3880b83e2f2c526b509ad148523308e5ee40db76543d59db5bc4bb92e988b"
+    },
+    {
+      "path": "analysis/property-table-runtime-training.json",
+      "sha256": "ff71e26bb092c7a937d0e1334d8e2b065d92683e5a8b9a16a78dacd2af9d04e8"
+    },
+    {
+      "path": "analysis/property-table-probe-scope-diagnostic.json",
+      "sha256": "731b4b770854f7926529fb2a1bcf0d3a04520f8e7586e72c53f0d57b0723055d"
+    }
+  ],
+  "native_runtime_validation": "Pending fresh repaired-probe capture; invalid prior capture is not compatibility evidence."
+}

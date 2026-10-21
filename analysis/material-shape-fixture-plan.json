@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "status": "probe_and_fixture_design_prepared_pending_independent_precapture_audit",
+  "created_utc": "2026-10-20T23:20:03.925598+00:00",
+  "purpose": "Bounded producer\u2192material feature query\u2192element width/storage\u2192consumer evaluation; observe stale layout before explicit refresh rather than treating writes as refresh.",
+  "probe_base": {
+    "path": "tools/observe_custom_field_import.js",
+    "sha256": "ada61e2564d2206f966c1b753be8be60dd6e4f9984875ee39fa4ebc2d4aeef2a"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10"
+    },
+    {
+      "path": "analysis/material-import-0x14029b300.json",
+      "sha256": "3669c4b16f0cea45098731927633f7c52890deaaebe27a7268c73ea930c84a79"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c5a0.json",
+      "sha256": "82fed73bc5ca0b3bbad197f3a566c2b2c34e0b5e8f9acf4ea7e9131148fd3d3e"
+    },
+    {
+      "path": "analysis/volume-width-0x140417c80.json",
+      "sha256": "9648dc34222d4d1911af7be0209c1d85fe010bbcd26fb0ebf64149d423bad58e"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d6b30.json",
+      "sha256": "070a72ad0b4596537c8dd05ae1f463c9990a9ca677fc906c59252de8737e6311"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf"
+    }
+  ],
+  "established": [
+    "SIZEMD127 reads initialized integer into material2150 through413de0(skip0).",
+    "TXTURE128 reads initialized integer triple into2154/2158/215c through413fb0.",
+    "Existing material writes lack refresh epilogue; new material creation refreshes before property parsing.",
+    "417c80 mode4 header is rows,selector,width,default; no comma normalization. Positive width is stored before selector validation. Components54/55 accept selector0 only; selector1/other failure retains allocation and mutates positive rootwidth.",
+    "Selector0 explicitly resizes selected descriptor and conditionally broadcasts default, then uses419b90 with equal input/output widths and no trailing fgets.",
+    "Texture smallest positive branches produce10 or7 components, allowing small finite fixtures."
+  ],
+  "training_design": [
+    "Establish2D mesh before first material; create SIZEMD material then show width remains creation-time layout until STNOUT refresh.",
+    "Exercise SIZEMD mode mapping on existing records, with explicit refresh separated from writes; include disabled/unknown/partial/EOF initialized-output cases.",
+    "Create/modify TXTURE with type1/2resolution1 andtype3resolution1, keep secondparameter1; compare no-refresh vs refresh and smallest positive widths.",
+    "Produce two materials then safe MSTMTR references so query55 traverses already covered graph semantics; observe finalizer mode changes before next refresh.",
+    "SIZESH/TXTODF selector0 default, sparse rows, repeatedrows and partial EOF using physical registered allocation.",
+    "Unsupported selector1/other with positive requested width: expect statusfailure/rootwidth change but no allocation or row consumption; explicit refresh afterward restores derived layout.",
+    "Dimension change and objectdeactivation lifetime with subsequent refresh; keep oneobject/twoelements."
+  ],
+  "independent_held_out_design": [
+    "Reverse producer/object creation order in3D; signed material IDs and secondmaterial append while fieldsnonzero.",
+    "Different SIZEMD modes/order and texture type3\u2192type1 transition, graphduplicate or mode2 only if contract bounds proven.",
+    "Different defaults/rawnegativezero, two rows with distinct values, sparseout-of-range/repeated rows and late matchingfailure only after locals initialized.",
+    "Headerpartial/blank/EOF and unknownselector width divergence, same-line nextkeyword consumption boundary.",
+    "Material disable/enable retains prior physical storage until explicit refresh; selected allocation after stale-rootwidth cases."
+  ],
+  "proposed_bounds": {
+    "imports_per_batch": 32,
+    "objects": 1,
+    "materials": 3,
+    "nodes": 6,
+    "elements": 2,
+    "selected_reader_width": 10,
+    "physical_values_per_descriptor": 68,
+    "feature_width_with_objects": 34,
+    "feature_width_without_objects": 4784
+  },
+  "excluded": [
+    "Large texture ARRAY allocation is excluded. All high-resolution query branches are tested only while objectcount is zero; dimensionreset isolates later boundedmeshphase.",
+    "No direct mutation of native state or injectedcalls; nofirstundefinedmatchingfailure.",
+    "PHASTF/relation-backed13f4 producer is a separate milestone."
+  ],
+  "resolved_contract": {
+    "path": "analysis/material-shape-static-contract.json",
+    "sha256": "9e4015bc56ff2869280a64af30fea6db943e1187ce51dd4668ef156eee6903d0"
+  },
+  "questions_resolved_by_contract": [
+    "Exact1d64f0 query54/55 enabled flag and optional output semantics, especially reference mode1/2 and duplicate references.",
+    "Exact helper417c80 and419b90 native caller continuations for status snapshots without relying on helper onLeave.",
+    "Confirm183840 selected allocation clears/preserves/history behavior and getter allocation fallback when no elements.",
+    "Confirm producer127/128 constructor/default and finalizer interactions; negative/unknownmode safe returns without undefined accesses.",
+    "Do query54/55 observers need additional recursive targets, or only1d6b30/material28c5a0?"
+  ],
+  "remaining_questions": [
+    "Runtime parity and complete probe event delivery require frozen original capture; no runtime outputs used to author these fixtures."
+  ],
+  "prepared_inputs": [
+    "tools/observe_material_shape_import.js",
+    "analysis/material-shape-evaluation-cases.json",
+    "analysis/material-shape-held-out-cases.json"
+  ],
+  "bound_note": "Final conservative maxima include own plus referenced contributions without assuming finalizer reduction:training30/60values,held-out34/68values. Higher resolutions are queried with zeroobjects only."
+}

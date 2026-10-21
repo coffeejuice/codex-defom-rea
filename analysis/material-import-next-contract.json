@@ -1,0 +1,361 @@
+{
+  "status": "static_recovery_complete_for_minimal_MTNAME_profile_runtime_pending",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": "MTNAME92/category4, owner-bound root material list, fresh/default name-only material records, selected fields and zero-object refresh. This is not a complete material-property or scientific model.",
+  "keyword": {
+    "name": "MTNAME",
+    "id": 92,
+    "category": 4,
+    "handler": "0x140384a50",
+    "case": "param3-0x5c == 0",
+    "name_helper": "0x140413ab0",
+    "name_destination": "material+0x0c",
+    "capacity": 65
+  },
+  "dispatch": [
+    "Scan one material ID with stream fscanf %i. Return2 only if conversion result==-1. Conversion0 is not checked and leaves the native local ID uninitialized; malformed selector matching failure is outside the supported domain.",
+    "Search exact ID with29c2c0(root+1328,id). Existing ID reuses the record and skips append, list-map allocation and component refresh.",
+    "If missing:29ca10(list,0) snapshots old ID/rank arrays;29c060 appends one default record; handler stores requestedID at+0; stores root1320 from listcount199c50; calls1d0fc0(root,1); then29ca10(list,1) frees scratch arrays.",
+    "Only after those side effects, call413ab0(file,material+0xc,0x41). Map helper0 to handler0 and any nonzero to2. A newly appended record and refresh survive name-read failure."
+  ],
+  "name_semantics": [
+    "413ab0 performs two fgets calls of1024 bytes: first discards the remainder after the selector on its line; second reads the name. EOF on either returns1 without writing the existing name.",
+    "On success, remove the first LF, strncpy64 bytes into material+0xc, then trim trailing NUL,space,LF,CR across positions63..0 and write terminator after the last remaining byte. Leading whitespace and other bytes are retained.",
+    "A blank name line stores empty text; a name of at least64 nontrim bytes stores exactly64 plus terminator. Native storage is65bytes; it is not an81-byte object name."
+  ],
+  "root_list_layout": {
+    "0x1320": "Separate root int32 material count, updated by missing-ID append and reset.",
+    "0x1328": "List head pointer (list-relative0).",
+    "0x1330": "List tail pointer (relative8).",
+    "0x1338": "List int32 count (relative10).",
+    "0x1340": "Scratch old-ID array pointer (relative18).",
+    "0x1348": "Scratch old-rank array pointer (relative20).",
+    "0x1350": "Owner root pointer (relative28);29b4c0 initializes,1d8300 binds."
+  },
+  "record_layout": {
+    "allocation_bytes": "0x2218",
+    "0x0": "int32 ID; constructor initializes0; handler writes requested selector.",
+    "0x4": "int32 default0, purpose unasserted.",
+    "0x8": "int32 default0, purpose unasserted.",
+    "0xc": "65-byte name; default empty proven by28cdc0 strcpy from zero byte at140539206.",
+    "0x17e8": "int32 default0:28b850(material+1078) writes its+770.",
+    "0x1cc8": "int32 mode/tag default0;1d6250 tests1 and writes2.",
+    "0x1ccc": "int32 reference count default0.",
+    "0x1cd0": "Owned int32 reference-ID array pointer defaultnull;28cb70 frees it during destruction.",
+    "0x1e40": "int32 default0 via289fe0.",
+    "0x2150": "int32 default0 via28cdc0 index854.",
+    "0x2154": "int32 default0;28c500 also sets+2158/+215c to1.",
+    "0x2200": "Next material pointer; constructor initializesnull,append links previous tail.",
+    "0x2208": "Owner root pointer copied from list-relative28.",
+    "other_fields": "Many embedded tables/property subobjects exist. Their complete initialization and interpretation remain outside this minimal model. Do not zero-fill or invent them as an equivalent native record."
+  },
+  "lookup_and_ownership": [
+    "29c060 allocates0x2218, constructs28c6f0 with owner pointer, appends at tail and increments listcount. Sparse/out-of-order IDs append exactly one record; there are no placeholder records.",
+    "29c260(list,index) followsnext+2200 by insertion position, one-based. Index<=1 returnshead, including0/negative; oversized positive index returnsnull.",
+    "29c2c0(list,id) searches exact int32 ID in insertion order; no positivity or type filter.",
+    "29c870(list,id) returns-1 if IDabsent, otherwise counts records with smaller ID, independent of insertion order.",
+    "29ca10 always frees/non-null clears prior scratch pointers. For mode0 it calloc(count,4) twice and writes insertion-ordered IDs and rank29c870 for each. Mode1 only clears. Zero-size calloc pointer identity is platform/runtime dependent; do not infer absence from count0.",
+    "29c310 deletes each record through29e210\u219228cb70 thenfree, then clearshead/tail/count.28cb70 freesreferenceIDs and destroys embeddedpropertytables.29b500 merely zeros listmetadata and scratch pointers; it is not a substitute for destructor traversal."
+  ],
+  "constructor_and_reset": [
+    "Root constructor1c8950 constructs29b4c0(root+1328,0), bindsowner with1d8300, then1c8c00 initializesempty state.",
+    "Material constructor28c6f0 initializes embeddedsubobjects,owner+2208,next+2200,then28cdc0 defaults.28cdc0 setsmode/count/pointer1cc8/1ccc/1cd0 to0/0/null andnameempty;28d030 zeros+4/+8.",
+    "Changed dimension1c8ba0 writesnewdimension, invokes1cb440 (which calls29c310 before object-list cleanup), then1c8c00 resetsroot1320 and29b500 listmetadata. Same dimension doesnothing.",
+    "1c8c00 byitself is reset initialization aftercleanup; calling it onpopulated state without1cb440 is not asserted safe.",
+    "Hidden property initialization can depend on rootunit84c via1c8f40\u21921f4090 or processdefault235c10. Those complete tabledefaults are not inferred from selected zero featurefields."
+  ],
+  "refresh_effects": [
+    "1d0fc0(root,1) is a required creation side effect. It snapshots79componentcounts, creates a temporary objectlist, reads oldmaterial maps with1d8fa0/1d8fb0, may copy activeobjects with1613a0, calls refreshlayout1d0320, invokes199650 on activeobjects, and may remap two per-element arrays when feature49 isenabled.",
+    "Name-only fresh materials have feature fields1cc8=0,17e8=0,1e40=0,2150=0,2154=0. Under resetroot flags85c=0/864=0, queries49/53/29 remainfalse,54/55 widths0;46 stays dimension2 true or3Dfalse. Presence alone does not enable root16bc/16c0 material-width fields.",
+    "This derives selected feature outcomes, not permission to reuse an empty-material assertion unchanged for arbitrary records. Future model should assert a default-name-only material profile explicitly.",
+    "The smallest first runtime domain has zeroobjects, avoiding1613a0 deep-copy/remap behavior and zero-size calloc identity branching. Existing-object creation/remapping needs its own evidence and fixtures."
+  ],
+  "finalization": {
+    "1d6250": "Iterate positions1..root1320 through29c260. For each nonnull source mode1, iterate its current reference count and resolve each int32 ID through29c2c0. Each resolved target whose mode!=2: if targetcount>0,free nonnullpointer,clearpointer,count=0; thenstoremode2. Nonpositive counts do not clearpointer. Missingreferences ignored.",
+    "ordering": "Traversal is insertion order and mutations are immediate. A target that is a later source may become2 and skip its own references; selfreferences can clear the source count/list. Do not replace this with an order-independent set operation.",
+    "minimal_profile": "All MTNAME-only fresh/renamed records remainmode0/count0/null, so material finalization is a proven no-op despite a nonempty list.",
+    "1d63c0": "Separately iterate object positions1..root1378 via17aa80; call2059a0 only for nonnull type!=7. This function does not itself resolve materials; any deeper material interactions in2059a0 remain under its existing selected geometry scope.",
+    "reference_producer": "Category4 MSTMTR116 is handler384a50 case18hex. It writescount with413de0,positivecount setsmode1/replacesint32array, scans each ID through %Flf then truncatesdouble toint. EOF aborts, but conversion0 can reuse an uninitialized/prior localdouble. Generalreference parsing, failure behavior and numericcast domain are deferred."
+  },
+  "required_unknowns": [
+    "Full materialproperty/table model and all constructors/defaults; ownerunit-dependent values outside selected fields.",
+    "Existing-object refresh deep copy1613a0 and material-rank remapping with populated maps; no general scientific completion claim.",
+    "Malformed selector conversion0 and MSTMTR conversion0 native uninitialized-value behavior; exclude rather than fabricate deterministic values.",
+    "Allocation failure, corrupted listmetadata, duplicate external records, borrowedreferencearrays and int overflow.",
+    "Nonempty reference graph mutation parity needs a separate valid MSTMTRfixture milestone; MTNAME alone cannot exercise modes1/2.",
+    "Rawname encoding, embeddedNUL and non-ASCII CRT classification are not added to the first ASCII fixtures.",
+    "Alternate-root keyworddispatch remains outside the existing normal-wrapper profile."
+  ],
+  "smallest_runtime_plan": {
+    "execution": "One fresh boundedprocess; normal wrapper; no objects or meshkeywords; no original launch performed inthisresearch. Freeze implementation/probe/fixtures before observing.",
+    "bounds": {
+      "maximum_imports": 10,
+      "maximum_materials": 4,
+      "maximum_name_bytes": 64,
+      "objects": 0,
+      "reference_count": 0
+    },
+    "cases": [
+      {
+        "sequence": 1,
+        "input": "* DEFORM-3D\nMTNAME 3\nCopper\n",
+        "hypothesis": "Creates one defaultmaterial ID3;refresh occursbefore name;first append doesnotcreate IDs1/2."
+      },
+      {
+        "sequence": 2,
+        "input": "MTNAME 1\nLow ID\n",
+        "hypothesis": "Appends ID1 afterID3, count2; saved oldID/rank map is observable duringrefresh,clearedafterward."
+      },
+      {
+        "sequence": 3,
+        "input": "MTNAME 3 trailing selector text\n  Copper renamed   \n",
+        "hypothesis": "ExistingID rename preserves leading spaces,trims trailing spaces,and doesnotrefresh."
+      },
+      {
+        "sequence": 4,
+        "input": "MTNAME 7\n\n",
+        "hypothesis": "NewID7 with emptyname; mode/count/reference defaultsremainzero."
+      },
+      {
+        "sequence": 5,
+        "input": "MTNAME 1\n",
+        "hypothesis": "Existingrecord secondfgets EOF returns2,preservesname andcount."
+      },
+      {
+        "sequence": 6,
+        "input": "MTNAME 9\n",
+        "hypothesis": "NewID9 appendedandrefresh completed before nameEOF; record persists empty,count4."
+      },
+      {
+        "sequence": 7,
+        "input": "MTNAME",
+        "hypothesis": "Selector EOF returns2 without creation;avoid malformedselector0-conversion."
+      },
+      {
+        "sequence": 8,
+        "input": "* DEFORM-3D\n",
+        "hypothesis": "Samedimension preservesmateriallist and IDs/names."
+      },
+      {
+        "sequence": 9,
+        "input": "* DEFORM-2D\n",
+        "hypothesis": "Changed dimension destroys allmaterials andclearsroot/listcounts; observeboth primary/linkedroots."
+      },
+      {
+        "sequence": 10,
+        "input": "MTNAME 5\nABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789XY\n",
+        "hypothesis": "Newplanar ID5 stores exactly64namebytes plusNUL; defaultmaterialfeaturefieldsremainzero."
+      }
+    ],
+    "probe_requirements": [
+      "Snapshot root1320/listhead/tail/count/owner and bounded linkedrecords before/afterimports,handlers,refresh andfinalization; validatecount/next/tailconsistency.",
+      "Capture selecteddefaultfields,name bytes/terminator,mode/count/referencepointer and zero referenceextent. Do not read unrelateduninitializedpadding or entirestructas semanticstate.",
+      "Hook384a50,29c2c0,29c060,29ca10,1d0fc0,1d0320,413ab0 and its fgets calls; observe namefailure timing and scratchmapcount/values only within allocationbounds.",
+      "Hook1d6250/1d63c0 and destruction29c310/28cb70 for ordering; capture79rootcomponentcounts and report objectcount0 as a scope invariant.",
+      "Capture ownerunit84c as context only, without assigning meaning/default for unseenmaterialtables; pointeraddresses are provenance,not comparisonvalues."
+    ]
+  },
+  "validation": "Static evidence only; no C++candidate changes, original runtime execution or claimed parity.",
+  "source_bindings": [
+    {
+      "path": "analysis/material-import-0x140199c50.json",
+      "sha256": "4e5cf5764fd6394838487415e43544dfc5271a3e49bcd70d456d1b7818857616",
+      "evidence_id": "ev_6c9f17728785352e3b1575357737a7dc9a140582f257f3937953c420c9456f62"
+    },
+    {
+      "path": "analysis/material-import-0x1401c5700.json",
+      "sha256": "e602d632063559e700428246dd6e57d101e3a5ec76fdbb4224f9a03a78e7033a",
+      "evidence_id": "ev_b63fdb8b9baf0c94df343b2baa731f6f2a5785ffaa7f2c96a62808ec357c6c4f"
+    },
+    {
+      "path": "analysis/material-import-0x1401c8ba0.json",
+      "sha256": "54d2059183667d125b12e1ea873c9d282ffa2c108698748a177fbfacce6a924a",
+      "evidence_id": "ev_cd87f4f6e50a87c1de6b0c22425dfa5dbbe65ead6ff751e2365a35f2c0c4f9f6"
+    },
+    {
+      "path": "analysis/material-import-0x1401c8f40.json",
+      "sha256": "a8cf3169175b036247c1cd7920f2ea867c39c741818ed885d6416ceef8b77a3b",
+      "evidence_id": "ev_67c9561aa2c548b464630666f7a3d512e6e625b4f8201d435a3ed19cdc2f28f2"
+    },
+    {
+      "path": "analysis/material-import-0x1401cb440.json",
+      "sha256": "82a6860f75180a5f541bbc66692269c309a6d464c7fe8fe47c8d0afdcd121e16",
+      "evidence_id": "ev_f4de621586db9104ce6082024ffff50ce681b1f5bfae4c5f2a200f59c6cadae1"
+    },
+    {
+      "path": "analysis/material-import-0x1401d8300.json",
+      "sha256": "40575b9181de064e757d2f586b9529bbd791c9acd0fb4f2ec42f3be741a5b3cc",
+      "evidence_id": "ev_74d5191a5d576855ceec7968d59f4ca9cc3fe6a9c22481c291e1c89855f995d5"
+    },
+    {
+      "path": "analysis/material-import-0x1401f4090.json",
+      "sha256": "dc497f6c1b7d2b8ceeb0fe4282a7b4d66d1c59cae887ccf6cfb94e2b077fbf5d",
+      "evidence_id": "ev_cc02aff64ad031eaa41edfeaf0299ea300848ad6c6bba6e42fe22e16df8a1c88"
+    },
+    {
+      "path": "analysis/material-import-0x140289fe0.json",
+      "sha256": "62883b53be83a4a17a510de295682f84771366cbbc3ae7ee9f107970301b2f65",
+      "evidence_id": "ev_c99e076da72f467d2e7952df7da605e195e8dc88256ec7954f8d8f2c20319e9a"
+    },
+    {
+      "path": "analysis/material-import-0x14028b850.json",
+      "sha256": "a16675f3d8e52cd884ea8b9c5d0161465c6112df5eb114d683957590ccf2096a",
+      "evidence_id": "ev_479f740335baefae6e3482a4d3942b61f4f1c5c5a00c1cfd51851e07336807b5"
+    },
+    {
+      "path": "analysis/material-import-0x14028c500.json",
+      "sha256": "5084464426a7595940905311e4a527ffb144a25a97dfcdd51aa37da33269fab5",
+      "evidence_id": "ev_df83f15a8460980f5eed6fb6aca594c744f7ea392761a5feb18d277dbfa45363"
+    },
+    {
+      "path": "analysis/material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "analysis/material-import-0x14028cb70.json",
+      "sha256": "3d100243681513140e916f4611a071757571466c2f595682c4f255604c9c2142",
+      "evidence_id": "ev_7df799febc47cbb09d6a4c2efac41bce07538aff9a8bcc3cb32062c3dbef5801"
+    },
+    {
+      "path": "analysis/material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "analysis/material-import-0x14028d030.json",
+      "sha256": "5f5b22fb50dc684d793b23307da952b8f43786ee26ee27064989dc0224fe161c",
+      "evidence_id": "ev_f0062ba32915027187bdbcd2c91d47098cb950265db18908778545301b4946a8"
+    },
+    {
+      "path": "analysis/material-import-0x14029b300.json",
+      "sha256": "3669c4b16f0cea45098731927633f7c52890deaaebe27a7268c73ea930c84a79",
+      "evidence_id": "ev_770013e598c5cbf60d17ca6813ff0d2b7c136d3ac634d6c29f30e29ac578e414"
+    },
+    {
+      "path": "analysis/material-import-0x14029b4c0.json",
+      "sha256": "be4bfb3f3cf2d821e329b5b979361221cc5813fadd18713232797edc5a35a250",
+      "evidence_id": "ev_b50b97ed967781de055ff5dde68073e75ddecf63cdfd9018ee7ad4f0d0e70568"
+    },
+    {
+      "path": "analysis/material-import-0x14029b500.json",
+      "sha256": "2985912291e4f682c19765e35498e688df52ad163fd54234b601d20e69269f40",
+      "evidence_id": "ev_e45dd007e29152cb9d937539eef07fa5fcfac1042e8782a8e4230ed2b9fba78e"
+    },
+    {
+      "path": "analysis/material-import-0x14029b580.json",
+      "sha256": "e51ae6dd76aa6c56d429796aed4820e9b4cc9e943be97c3869cb8909aafdae6a",
+      "evidence_id": "ev_091f82a520f9034a7f26b8faf19ea77146fabdb95bd3c5d6e28d159ac0908052"
+    },
+    {
+      "path": "analysis/material-import-0x14029c060.json",
+      "sha256": "3547749a4ed6f85a2cd8b47e060bd372f83aab8bcdc850ed36cb06941bb8957b",
+      "evidence_id": "ev_82235543dc243ce814750e631f0fffece5b80d56867e5c4e4f57fe6d514017ea"
+    },
+    {
+      "path": "analysis/material-import-0x14029c260.json",
+      "sha256": "b77a6197fa077c76c1394e841d440680c45124c35ab07eeb5e07ba901c86a448",
+      "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda"
+    },
+    {
+      "path": "analysis/material-import-0x14029c2c0.json",
+      "sha256": "d55f5e114a2d6f3ff8c3b231bf248224401254c78fe75f8c0afbbb688df685f9",
+      "evidence_id": "ev_322633bd11d53f354da900f4df36a32133449d77d9161e5076e8c08bcba48bad"
+    },
+    {
+      "path": "analysis/material-import-0x14029c310.json",
+      "sha256": "43977f55ea8d9e1c341f46934743f66434bc176cb0a6fba05004f7a796933a61",
+      "evidence_id": "ev_1db6e50c7001f385c097c0992f249e27bc7eaace780fd7f57fb6bd7c03c15f47"
+    },
+    {
+      "path": "analysis/material-import-0x14029c870.json",
+      "sha256": "d69e9d2443e3c20d0be14aec26b35301fcdf69dbb44737e3f527cbbc6d57a75f",
+      "evidence_id": "ev_92ca60819b33a7e4f8079737335a898bd53f7bb3eb7f34ba2c37378e64bad9c1"
+    },
+    {
+      "path": "analysis/material-import-0x14029ca10.json",
+      "sha256": "a453ced99f1ad15103df086268ffa6a893d2f2965efbaf8842d7cb0ea67153f7",
+      "evidence_id": "ev_82dbf8f2a991c88f22b1b2b98ed35ea8419b540c69309393281962c862894c97"
+    },
+    {
+      "path": "analysis/material-import-0x14029e210.json",
+      "sha256": "b9381422276e2f82038e97da4d8eb5407d224b4bad9a87a50514b33fc5d75e3e",
+      "evidence_id": "ev_ded640d49b9e66e96d673bad20b58c85b2a68b9786a1ece0b9a807b1f5520d3b"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/material-import-default-name-bytes.json",
+      "sha256": "ad9f9dc4ab64acfd86bca33affbaa38c39280f3f20abfc503dc8cc167eb7f7c4",
+      "evidence_id": "ev_0e51021cbbdd6a3f8a48338d09aa6256818494c7fcf0ea4bb90c59d8d307265a"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce",
+      "evidence_id": "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078"
+    },
+    {
+      "path": "analysis/finalization-0x1401d63c0.json",
+      "sha256": "cd18e29b72c6d453543bf700289f2d1c6a9aabed1bdefe1f7b126cf2cb9a3707",
+      "evidence_id": "ev_244ddc31f118de343342c6537e2952500548d6d19db44f31ce86f65b6e1cc451"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f",
+      "evidence_id": "ev_dd14a08f618ea92599ee067ee52c77920b12b87ef68522e734ab03d476c14ab9"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf",
+      "evidence_id": "ev_d57d0d56722651d21c5770e910854bfcb471bf40c332fe736e5ed2f3c591ec8e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/root-reset-0x1401d6b30.json",
+      "sha256": "f673bcef748e5f4cb2000c9b1de113292adc9ab736388e923a1da9d85ff68d2f",
+      "evidence_id": "ev_5c223edc773b9da3c4e4955b1ad07d01d1af7decc88bc1ae672316c1f07216ec"
+    },
+    {
+      "path": "analysis/root-reset-0x1401d6c60.json",
+      "sha256": "d2a02009fb90154a68823a335d715954157c887ac572bdf6f7f12e997431ba1d",
+      "evidence_id": "ev_a4f1aa1a76ddce2a7d4a17d84a7fc65ae0d2b887b72af2f09df6bef7732161ce"
+    },
+    {
+      "path": "analysis/model-0x140413ab0.json",
+      "sha256": "62010e15380276eb9795add79024728eb4f31134cdeae2a1ba815d9ac0ddfc05",
+      "evidence_id": "ev_26b41e6c40cefe32bb3d2fdc86fcba9fce8bf2dbacffe3347cde1092b954c372"
+    },
+    {
+      "path": "analysis/model-0x1401c8950.json",
+      "sha256": "69fab00a99e7bd8d2cabd3d2b2e8fe0cd64c6c3e29ec2a4c72f33d0e94aa8e02",
+      "evidence_id": "ev_e2c12d13e5450214150903948694981ec5d0d4fb6ffcc5567e0e609068f3967d"
+    },
+    {
+      "path": "analysis/model-0x1401c8c00.json",
+      "sha256": "d9b27ac6e94cf2eec3e118bba1abb97b839e7a60d04df55d29882842b64cc689",
+      "evidence_id": "ev_fe5894be8463ce95af6c012687aff06a7570af678fb8ec29172fb15663622c2d"
+    }
+  ],
+  "catalog_binding": {
+    "path": "analysis/keyword-catalog.json",
+    "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+  },
+  "retained_artifacts": {
+    "bundle": "analysis/oracle/material-import-evidence.json",
+    "snapshot": "analysis/oracle/material-import-snapshot.json",
+    "handler_transport_limit": "analysis/material-import-handler-transport-limit.json",
+    "note": "Full384a50 dossier recovered from exportedretainedEvidence after inline10MiBtransportlimit,nottruncated."
+  },
+  "selector_id_domain": {
+    "established": "The handler uses stream %i and exact-ID lookup with no explicit positivity check.29c060 appends one record for any missing numericID supplied to it; ObjectModel positive-ID/placeholder rules do not apply.",
+    "first_runtime_scope": "Use only small positive IDs in the first ten fixtures. Numeric zero/negative IDs remain a later runtime/domain question, not a reason to invent native ReadingError or placeholder behavior.",
+    "failure_distinction": "Conversion-1 (EOF/input failure) returns2 beforelookup. Conversion0 is unchecked and can use an uninitializedlocalID; exclude matching-failure selectors rather than emulate withzero."
+  }
+}

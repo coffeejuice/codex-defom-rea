@@ -1,0 +1,18 @@
+{
+  "status": "VERIFIER_SCOPE_LIMITATION_PRESERVED",
+  "capture": {
+    "path": "analysis/nested-material-runtime-held-out.json",
+    "sha256": "d635b1e8f5a6db72b285359af4d5f52085ff5bc1e2beeb3c57185333b25ecee1"
+  },
+  "verifier": {
+    "path": "analysis/oracle/nested-material-initial-verifier.py",
+    "sha256": "2f83386f4e43c3ef989d144366277b3c0d1fd3c0506baaa6facae789dfc6bd94"
+  },
+  "initial_training_receipt": {
+    "path": "analysis/oracle/nested-material-initial-training-observations.json",
+    "sha256": "0143191b4be981d17432893a7c254baff7d2ea8812db8b127a62635411a836a8"
+  },
+  "failure": "selected complete numeric grammar",
+  "cause": "Historical custom line-helper lexer excludes bare sign/point; held-out finite initialized real4 row includes 9 + at physical EOF. First conversion succeeds, second fails, aggregate remains 1 and helper status remains 0. No native mismatch established.",
+  "correction": "Copy exact initialized line-helper validation locally and use already retained nested finite decimal lexer; historical verifiers and runtime candidate untouched."
+}

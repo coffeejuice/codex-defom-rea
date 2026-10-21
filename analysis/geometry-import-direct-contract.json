@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "direct_spatial_static_contract_recovered_runtime_pending",
+  "keyword": {
+    "name": "DIEGEO",
+    "id": 158,
+    "category": 2
+  },
+  "sources": [
+    "analysis/geometry-import-0x140413fb0.json",
+    "analysis/keyword-handlers-evidence.json",
+    "analysis/geometry-import-dispatch-dumpbin.json",
+    "analysis/geometry-import-dispatch-dumpbin.txt",
+    "analysis/geometry-import-0x1402fcd90.json",
+    "analysis/geometry-import-0x1402f9600.json",
+    "analysis/geometry-import-0x1402f96a0.json",
+    "analysis/geometry-import-0x1402f9970.json",
+    "analysis/geometry-import-0x1402f9a50.json",
+    "analysis/geometry-finalize-static-audit.json"
+  ],
+  "header": [
+    "Normal object selector/find-or-create happens first, including placeholder behavior.",
+    "2D reads integer pair (format,count), accepts only format1/2, calls39a200 and maps nonzero return to2.",
+    "3D reads THREE integers using413fb0; fifth function argument points to scan-conversion-count initialized0 by caller. It is NOT a fourth input field.",
+    "413fb0 zeros three integers, fgets1024, replaces commas, scans%i%i%i; returns1 only on fgets EOF or sscanf=-1. On fgets EOF optional conversion output is untouched.",
+    "3D first value3 selects399e60, whose errors map2. Otherwise conversions==2 accepts format1/2, optionally clears existing planar container, invokes39a200 but ignores its return. Other conversion counts select direct spatial branch without format validation.",
+    "Supplemental Microsoft disassembly verifies exact callsites3900de,390208 and390081; Ghidra Listing omitted switch body although pseudocode recovered it."
+  ],
+  "direct_spatial": [
+    "Use geometry slot0 at object3c00.",
+    "Header second and third integers pass BY POINTER to2fcd90. Positive vertex count resizes coordinate doubles to3*n preserving existing prefix and zero-initializing appended elements. Nonpositive vertex count leaves existing vector unchanged.",
+    "Positive face count resizes connectivity int32 vector to4*n preserving prefix and zero-appending. Nonpositive face count leaves existing vector unchanged.",
+    "After those resizes, effective face count is recomputed. When positive, allocate a new zeroed raw classification array of that length atgeometry20; resize auxiliary int32 vector68 preservingprefix/zeroappend. Effectivezero leaves both unchanged.",
+    "Loops use effective counts from vector lengths, not input counts. Every coordinate row415880 zeroes/writes3doubles and ignores label. Failed helper leaves partial/zero row, returns2 without setting3990/3994.",
+    "If header firstvalue==1, read every connectivity row414200(label+4ints,blank retrydisabled); failedhelper leaveszero/partial row thenreturns2. Otherfirstvalues skip all connectivity input.",
+    "Only after full directpath success setintobject3994=1 thenbyte3990=1. Existing flags are not cleared before allocation/read.",
+    "Finalization2059a0 groups planes per separate42sourceaudit. Empty-material root wrapper still finalizes after importerreadingerrors2/3. Unsafe malformed faceindices are not claimed."
+  ],
+  "corrections": [
+    "Withdraw earlier shorthand fourth-header-value==2: actual branch is sscanf conversioncount==2.",
+    "Withdraw angle comparison shorthand: compares squared Euclidean normal difference<.01.",
+    "Withdraw countsetter shorthand: nonpositive input counts do not clear or reset lengths."
+  ],
+  "next": [
+    "Complete alternate segment/matrix format contract and implement all DIEGEO routes.",
+    "Capture full direct-spatial state and finalization with bounded original-process probes.",
+    "Compare C++ buffers, flags, numeric bits, partial outcomes and repeatedimports; retainunknowns."
+  ]
+}

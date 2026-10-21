@@ -1,0 +1,230 @@
+{
+  "status": "PASS_v2_reset_join_repair_static_and_isolated_callback_audit_runtime_pending",
+  "supersedes_readiness_only": {
+    "path": "analysis/relation-property-precapture-audit.json",
+    "sha256": "f4a3a624d1867103fd06b69127a47ca08f64a2641fc51cf3c1dfdb02d9306eea"
+  },
+  "history": "Initial readiness is withdrawn for the original probe. Its capture has four reset-continuation probe errors and is not comparison evidence. Initial artifacts remain unchanged.",
+  "bindings": [
+    {
+      "path": "tools/observe_relation_property_import.js",
+      "sha256": "81f29cfa92c517a7848847be2a6c3467f1442dc572ab5bcdb0105c2f7119ec89"
+    },
+    {
+      "path": "analysis/oracle/relation-property-probe-v1-before-reset-repair.js",
+      "sha256": "d280d44e8e7c81c368b4080e46ee68c9eafffa338cd1e568f52d4405c1331c63"
+    },
+    {
+      "path": "analysis/relation-property-probe-v2-diagnostic.json",
+      "sha256": "89118ee1d9126fb4525001003b5cecb8a0ad1c7584d61ad68d9de2e7609930e1"
+    },
+    {
+      "path": "analysis/relation-property-probe-initial-failure.json",
+      "sha256": "58de7e209a880d18760cd264f41a75bc4f77f80ffeef6d0874373d1ff9d91a9c"
+    },
+    {
+      "path": "analysis/relation-property-runtime-training.json",
+      "sha256": "1d493145d67a81cc242ed0813e7d7fcfa29fb7db67436d672b43b074cee05e4a"
+    },
+    {
+      "path": "analysis/relation-property-byte-audit.json",
+      "sha256": "1083307ba03cc58f0292feb782825dfb4d33cdf5b58ce6cc4f532cf974788af4"
+    },
+    {
+      "path": "analysis/relation-property-static-contract.json",
+      "sha256": "5897f7ea9cdf3195467f3d29f7b3014e9f1dfd947b5aa719ccf7d8ef633cf753"
+    },
+    {
+      "path": "analysis/relation-property-dispatch-dumpbin.txt",
+      "sha256": "fa899bfb2b18c0a7a596fe5781fb72fec837a46769bcc388e9eb9a9e0ea6a362"
+    }
+  ],
+  "native_flow": [
+    {
+      "return_rva": "0x383402",
+      "instruction_bytes": "e991000000",
+      "observation_rva": "0x383498"
+    },
+    {
+      "return_rva": "0x383436",
+      "instruction_bytes": "eb60",
+      "observation_rva": "0x383498"
+    },
+    {
+      "return_rva": "0x383467",
+      "instruction_bytes": "eb2f",
+      "observation_rva": "0x383498"
+    },
+    {
+      "return_rva": "0x383498",
+      "instruction_bytes": "488b8c2400010000",
+      "observation_rva": "0x383498"
+    }
+  ],
+  "proof": "The first three returns jump directly to383498; fourth returns there. At383498 first MOV only loads the relation pointer; subsequent caller stores begin3834a7. No caller mutation lies between the four helper returns and shared observation. Unknown model branches to383498 without a reset call/frame.",
+  "repair_review": "Only reset completion instrumentation changes. The first three hook sites are omitted; shared join checks pending completion membership in allfour and records original completion_rva separately from observation_rva. Other reset sites require exact completion. Actual callbacks tested for allfour completions, no-frame bypass, and wrong pending completion rejection (six tests passed).",
+  "known_limit": "The initial trace did not record the firing mismatched hook; exact Frida relocation/overlap mechanism remains unestablished. No native or candidate mutation is inferred.",
+  "fixture_bindings": [
+    {
+      "path": "tests/fixtures/relation_properties/01_all_nine_defaults.KEY",
+      "sha256": "47014cb941528991ec686c0734683539368367302dbc2d482f22299920276159",
+      "bytes": 186
+    },
+    {
+      "path": "tests/fixtures/relation_properties/02_tttd_model_0.KEY",
+      "sha256": "ca71bb0cf5ce4348721cc33dbe77a3491e3ea968e7e0c8a036fb650363fb69d5",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/relation_properties/03_tttd_model_1.KEY",
+      "sha256": "b4a64530fc957ea2e49a4f5eb36c24219bbd994e777b6343f71224d2621121a9",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/relation_properties/04_tttd_model_2.KEY",
+      "sha256": "af165b0c4a7c5bcebf1cecdb2d6c35b20f4d7a8b45707d2ba5936a8ed212d9be",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/relation_properties/05_tttd_model_3.KEY",
+      "sha256": "8b00d655a74e7b6e61a624a3cc5e6ab27684c6fd94c076c6eaa6a2c92407fac2",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/relation_properties/06_ttdd_mode_two.KEY",
+      "sha256": "c6ce98cbb9229e5361f00ddb85ca59418e6732390d2d3dd90d5ba52e4ae6c6e9",
+      "bytes": 42
+    },
+    {
+      "path": "tests/fixtures/relation_properties/07_mode_two_status_three.KEY",
+      "sha256": "73427fb6c84439c756d6dcdc71983f409f7e0f0347a72dab3911cdb1890205c6",
+      "bytes": 22
+    },
+    {
+      "path": "tests/fixtures/relation_properties/08_eleven_coefficient_scan.KEY",
+      "sha256": "03cde7e5fcb393c623f6731c862fe5f6c6c9fea2b93ed6895f6dd7dede1c4903",
+      "bytes": 38
+    },
+    {
+      "path": "tests/fixtures/relation_properties/09_real_four_and_rank_one.KEY",
+      "sha256": "072a8b4d8b59a05222e1f88a66c6385d594185993f5317bc27b73a9c961d1ca2",
+      "bytes": 40
+    },
+    {
+      "path": "tests/fixtures/relation_properties/10_six_coefficient_scan.KEY",
+      "sha256": "573ec5929d9b951241a3d958fcbc93fc38c6b3669df05a1bfe76f988d034506d",
+      "bytes": 32
+    },
+    {
+      "path": "tests/fixtures/relation_properties/11_four_coefficient_row.KEY",
+      "sha256": "1aeec1d455b05d229b565614aaedfe09bb780e8e649651157ba036568973b049",
+      "bytes": 26
+    },
+    {
+      "path": "tests/fixtures/relation_properties/12_seven_coefficient_scan.KEY",
+      "sha256": "4cbcdc27d601860dcfbc12c9a38f84f54df47ab88d3e31bc6b4f30f9a51c53ea",
+      "bytes": 35
+    },
+    {
+      "path": "tests/fixtures/relation_properties/13_rank_one_second_table.KEY",
+      "sha256": "e8bb2d9e8554c0e98d82ea9c8d9eee37298d50f03f460ff03ccd32b835f2aa80",
+      "bytes": 28
+    },
+    {
+      "path": "tests/fixtures/relation_properties/14_alternate_rank_three.KEY",
+      "sha256": "8780f6f9a8c1ad8e39e760905392afb007572cda344735793bbc67a7bf3e9ac4",
+      "bytes": 52
+    },
+    {
+      "path": "tests/fixtures/relation_properties/15_vector_mode_10.KEY",
+      "sha256": "085cb04335bc310d0c9907e222fa532f1ab8605b594b05664aea2e3a5be2ef37",
+      "bytes": 29
+    },
+    {
+      "path": "tests/fixtures/relation_properties/16_vector_mode_11.KEY",
+      "sha256": "8063b89f21e0914f3ae65421de1fa1429723a326bb027ac74e5ef9fc22640101",
+      "bytes": 25
+    },
+    {
+      "path": "tests/fixtures/relation_properties/17_vector_mode_12.KEY",
+      "sha256": "d2a1bd977ccd49580f513c0ed2bf15fb0d40b090c13aa462e4d2d28fd7470b9f",
+      "bytes": 33
+    },
+    {
+      "path": "tests/fixtures/relation_properties/18_vector_mode_13.KEY",
+      "sha256": "b616609bbccb82b7b328a34a5d5558b5faaf2e319c34f0ce631f64baaea570ec",
+      "bytes": 17
+    },
+    {
+      "path": "tests/fixtures/relation_properties/19_negative_int_min.KEY",
+      "sha256": "47ba6550878df9af189a306ce14c58e330a002bfafdc828a57e693238d72757b",
+      "bytes": 24
+    },
+    {
+      "path": "tests/fixtures/relation_properties/20_unhandled_positive_mode.KEY",
+      "sha256": "a581996647d9ff3a7b9e7ef57965d4200a37922a311f5353fb53691b4f11be95",
+      "bytes": 15
+    },
+    {
+      "path": "tests/fixtures/relation_properties/21_transform_rank_two_to_scalar.KEY",
+      "sha256": "2e6ce0150a9fa1a62f22c317c2ae762b3987b5d48a2638acf79ef84b87305240",
+      "bytes": 61
+    },
+    {
+      "path": "tests/fixtures/relation_properties/22_transform_grow_shape.KEY",
+      "sha256": "583bb01254007a0910a9a32e85f0bcef865dcdd1660339fb3de7f1c710e975a0",
+      "bytes": 48
+    },
+    {
+      "path": "tests/fixtures/relation_properties/23_disable_and_phase_interaction.KEY",
+      "sha256": "3393d027498bf36f962ceac0fea734dd823baf0b8c4c83dfe562e428c4375d18",
+      "bytes": 52
+    },
+    {
+      "path": "tests/fixtures/relation_properties/24_latent_volume_tables.KEY",
+      "sha256": "25602d00fda7a691fe4b440a277d55df3609ce0ab31ffaa620219040c139f5a3",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/relation_properties/25_equilibrium_and_energy.KEY",
+      "sha256": "30ca89ceabc709f500aaa2a4aef469caa4131d74cc24c04d1526ef12a5e1f96f",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/relation_properties/26_coarsening_blank_header.KEY",
+      "sha256": "c678d98f7d11d4bdb0481d2b0d116cfab0a02e636d371a048b4bddce28e449d3",
+      "bytes": 12
+    },
+    {
+      "path": "tests/fixtures/relation_properties/27_rank_three_axis_eof.KEY",
+      "sha256": "2e0ec50d5b9b1cae517f53d26f4fbcc680fd8446e997adfdf42778c40873e1ac",
+      "bytes": 35
+    },
+    {
+      "path": "tests/fixtures/relation_properties/28_rank_three_dependent_eof.KEY",
+      "sha256": "90f559257468f813b514faa6cac5e9dfe0eefe910f968da853601949d20a8cc2",
+      "bytes": 45
+    },
+    {
+      "path": "tests/fixtures/relation_properties/29_relation_name_eof.KEY",
+      "sha256": "d143c8f19edfed8f1b109643b4638874b722f492394d27c4913b56118154f79e",
+      "bytes": 10
+    },
+    {
+      "path": "tests/fixtures/relation_properties/30_varsel_eof.KEY",
+      "sha256": "685f937a95e122fbd075be91398f58a3e66f5117eafb6fda3442a737413c6d1f",
+      "bytes": 11
+    },
+    {
+      "path": "tests/fixtures/relation_properties/31_planar_reset_all_routes.KEY",
+      "sha256": "172ebb8f43c80eac6b4eb196966d97c434509df399931874bd67c67cb4b02645",
+      "bytes": 186
+    },
+    {
+      "path": "tests/fixtures/relation_properties/32_populated_refresh_and_vectors.KEY",
+      "sha256": "066296515697fc11ae2d1503e36376d12369f62125a9944a0261f6dcf9e01425",
+      "bytes": 178
+    }
+  ],
+  "scope": "Corrected probe plus unchanged32training fixtures. No mutable manifest binding, avoiding provenance cycle."
+}

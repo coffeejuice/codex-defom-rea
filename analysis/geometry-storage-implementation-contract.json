@@ -1,0 +1,236 @@
+{
+  "status": "implemented_selected_finite_3d_storage_pending_parent_build_and_original_comparison",
+  "component": "deform::recovered::GeometryStorage",
+  "sources": [
+    "analysis/geometry-finalize-static-audit.json",
+    "analysis/geometry-import-0x1402fcd90.json",
+    "analysis/geometry-import-0x1402f9600.json",
+    "analysis/geometry-import-0x1402f96a0.json",
+    "analysis/geometry-import-0x1402f9970.json",
+    "analysis/geometry-import-0x1402f9a50.json",
+    "analysis/geometry-import-0x14019a740.json",
+    "analysis/geometry-import-0x140159b60.json",
+    "analysis/geometry-finalize-0x1402f92b0.json",
+    "analysis/model-0x14015fbf0.json",
+    "analysis/geometry-finalize-0x1402f9340.json",
+    "analysis/geometry-finalize-0x1402fcde0.json",
+    "analysis/geometry-finalize-0x1402f9670.json",
+    "analysis/geometry-finalize-0x1402f9710.json",
+    "analysis/geometry-finalize-0x1402f9a00.json",
+    "analysis/geometry-finalize-0x1402f9ac0.json",
+    "analysis/geometry-finalize-0x1402568b0.json",
+    "analysis/geometry-finalize-0x14019a7d0.json",
+    "analysis/geometry-finalize-0x140256900.json",
+    "analysis/geometry-finalize-0x14019b040.json",
+    "analysis/geometry-finalize-0x1402fbb50.json",
+    "analysis/geometry-finalize-0x1402fbba0.json"
+  ],
+  "implementation_files": [
+    "src/recovered/geometry_storage.hpp",
+    "src/recovered/geometry_storage.cpp"
+  ],
+  "interface": {
+    "begin_replace": "Positive coordinate/face counts independently resize owned flattened vectors, keeping prefix and appending zero. Nonpositive counts are no-ops for that vector. Effective positive face count freshly zeros classification storage and resizes aux68 with prefix/zero growth. Plane list remains unchanged until finalization.",
+    "rows": "write_coordinate and write_face use zero-based checked row positions; flat mutable spans allow importer partial writes. Class does not parse lines or set object flags.",
+    "finalize_planes": "Caller establishes object3990 enable. Clear/reseed plane list then finite3D grouping. Optional copied plane IDs/origins/normals preserved; new IDs fill first positive gap. No model-source plane list lookup is implemented.",
+    "observation": "Counts derived from flattened vector lengths. Read spans cover coordinate/connectivity/classification/aux68, plus const Plane vector with id/origin/normal.",
+    "reset": "Selected virtual+0x10=2f92b0 clears coordinates/connectivity/classification/aux68 but retains plane list. Original additionally resets unmodeled48,60,70,78.",
+    "deactivate": "2f9340->2fcde0 clears all five represented vectors. Original additionally clears unmodeled subrecords40,50,58; their effects are not claimed.",
+    "flags": "GeometryStorage does not own object3990 or3994.15fbf0 explicitly clears3990; no direct3994 clear is present in that dossier. Parent must preserve field ownership."
+  },
+  "exact_behavior": [
+    "SSE binary64 arithmetic association represented explicitly; compiler-specific contraction disabling pragmas, no fast-math compatibility.",
+    "Bounding diagonal uses all points, positive-coordinate-and-face gates, min+1e30/max-1e30 sentinels, <= tie behavior, accumulator0+x\u00c2\u00b2+y\u00c2\u00b2+z\u00c2\u00b2 then sqrt.",
+    "Cross product uses(C-B)x(A-B), normalized only when magnitude!=0. Magnitude of normalized result is recomputed for>=1e-6 gate.",
+    "First insertion-order plane satisfying oriented normal squared distance<0.01 and absolute point-plane distance<0.001*diagonal wins.",
+    "Classification=id+600; skipped fourthslot>=1 and degenerate triangles retain prior bytes.",
+    "New plane origin is first triangle point; normal is copied normalized result. No normal canonicalization.",
+    "Reset and deactivation intentionally differ in plane retention."
+  ],
+  "defined_domain_and_limits": [
+    "Finite coordinate and copied-plane inputs only. Check finite intermediate differences/products/sums/divisions; throw domain_error on overflow/nonfinite results rather than claiming CRT special-value compatibility.",
+    "Signed32 count multiplication must fit: coordinate_count<=INT32_MAX/3 and face_count<=INT32_MAX/4. Oversized positive counts throw length_error before resizing; nonpositive counts remain no-op.",
+    "Eligible faces require first three positive IDs within coordinate count. Check before unsafe coordinate access; malformed-input native behavior not reproduced. Skipped positive-fourthslot faces do not dereference indices.",
+    "Plane ID exhaustion or id+600 overflow throws overflow_error; native wrap/undefined resource behavior not reproduced.",
+    "Resource failure and excluded-domain exceptions are not transactional. Owned allocation/pointer addresses/capacities/free timing and original reference-counted sharing are not reproduced.",
+    "Subnormal intermediate behavior assumes matching default floating environment; underflow, nonfinite, NaN payloads, FP exceptions and alternate rounding modes are not validated.",
+    "Source/destination aliasing in optional plane copy is made safe by taking a copy; no claim of reproducing original aliased list behavior.",
+    "Only geometry object fields listed above; not full_OBJ_GEO3D construction/destruction, nonspatial DIEGEO paths or complete app finalization."
+  ],
+  "reset_followup_evidence": [
+    {
+      "path": "analysis/geometry-finalize-0x1402f9340.json",
+      "evidence_id": "ev_67f5cd44f59e713e326131e24112bf6ceb3cda5adeeff8a9bddfe9b2608514ae",
+      "procedure": "0x1402f9340",
+      "pseudocode": "void FUN_1402f9340(undefined8 param_1)\r\n\r\n{\r\n  FUN_1402fcde0(param_1);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fcde0.json",
+      "evidence_id": "ev_9cb199784a91ee5c5109047987174301a4cedd09f9aa78b4cd8da308178e2a59",
+      "procedure": "0x1402fcde0",
+      "pseudocode": "void FUN_1402fcde0(longlong param_1)\r\n\r\n{\r\n  FUN_1402f9670(param_1);\r\n  FUN_1402f9710(param_1);\r\n  FUN_1402f9a00(param_1);\r\n  FUN_1402581b0(param_1 + 0x28);\r\n  FUN_1402f9ac0(param_1);\r\n  FUN_14015a620(param_1 + 0x40);\r\n  FUN_1402ff680(param_1 + 0x50);\r\n  FUN_1402ff790(param_1 + 0x58);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9670.json",
+      "evidence_id": "ev_a5f48ca3f811690e1082981b4f1d492aab8865d18f5c7f2d15dd5f2e98e26b5e",
+      "procedure": "0x1402f9670",
+      "pseudocode": "void FUN_1402f9670(longlong param_1)\r\n\r\n{\r\n  FUN_1402568b0(param_1 + 0x10);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9710.json",
+      "evidence_id": "ev_35f3a31e20931df77906f821741f467d156576abb9859f8dd07b506c081fd7ac",
+      "procedure": "0x1402f9710",
+      "pseudocode": "void FUN_1402f9710(longlong param_1)\r\n\r\n{\r\n  FUN_14019a7d0(param_1 + 0x18);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9a00.json",
+      "evidence_id": "ev_55ed245955cc49bd1f3b2f3a13be6fc8586d2d20d8137ebbdf21556b00e2d75d",
+      "procedure": "0x1402f9a00",
+      "pseudocode": "void FUN_1402f9a00(longlong param_1)\r\n\r\n{\r\n  if (*(longlong *)(param_1 + 0x20) != 0) {\r\n    free(*(void **)(param_1 + 0x20));\r\n  }\r\n  *(undefined8 *)(param_1 + 0x20) = 0;\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9ac0.json",
+      "evidence_id": "ev_93f6414eec71e7628cd1bd0b6aef437dac62264d67a0e38c97c15cb175950732",
+      "procedure": "0x1402f9ac0",
+      "pseudocode": "void FUN_1402f9ac0(longlong param_1)\r\n\r\n{\r\n  FUN_14019a7d0(param_1 + 0x68);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402568b0.json",
+      "evidence_id": "ev_a8e4d6ebcb74414c2d236cfe51d12a994edd661b5bf9b2b246ab6cf77f54b00f",
+      "procedure": "0x1402568b0",
+      "pseudocode": "void FUN_1402568b0(undefined8 *param_1)\r\n\r\n{\r\n  FUN_1400051a0(param_1);\r\n  FUN_140256900(*param_1);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14019a7d0.json",
+      "evidence_id": "ev_55d457f297de228875e54142c49874b7fe73694612d3725f1ef40bda74674502",
+      "procedure": "0x14019a7d0",
+      "pseudocode": "void FUN_14019a7d0(undefined8 *param_1)\r\n\r\n{\r\n  FUN_140004e60(param_1);\r\n  FUN_14019b040(*param_1);\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140256900.json",
+      "evidence_id": "ev_132c41f58766482faf54c6d8c489a901ba570c1909a40fdd8d3b9f532864f1f3",
+      "procedure": "0x140256900",
+      "pseudocode": "void FUN_140256900(longlong param_1)\r\n\r\n{\r\n  free(*(void **)(param_1 + 8));\r\n  *(undefined8 *)(param_1 + 8) = 0;\r\n  *(undefined8 *)(param_1 + 0x10) = 0;\r\n  *(undefined8 *)(param_1 + 0x18) = 0;\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14019b040.json",
+      "evidence_id": "ev_69c8ec94b032549478b3a9baabb4c5366207bdc8d5218c2838a188bec6db3901",
+      "procedure": "0x14019b040",
+      "pseudocode": "void FUN_14019b040(longlong param_1)\r\n\r\n{\r\n  free(*(void **)(param_1 + 8));\r\n  *(undefined8 *)(param_1 + 8) = 0;\r\n  *(undefined8 *)(param_1 + 0x10) = 0;\r\n  *(undefined8 *)(param_1 + 0x18) = 0;\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fbb50.json",
+      "evidence_id": "ev_da6540750d091c424fadd5fe9b0d02f79c876a86fc1f1aaacb8d22472ee63e1a",
+      "procedure": "0x1402fbb50",
+      "pseudocode": "void FUN_1402fbb50(longlong param_1,undefined4 *param_2)\r\n\r\n{\r\n  *(undefined4 *)(param_1 + 0x48) = *param_2;\r\n  return;\r\n}"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fbba0.json",
+      "evidence_id": "ev_2a9ee934921844cdcc737f3a4d074563111283a1a679895c8207683cb565167b",
+      "procedure": "0x1402fbba0",
+      "pseudocode": "void FUN_1402fbba0(longlong param_1,undefined4 *param_2)\r\n\r\n{\r\n  *(undefined4 *)(param_1 + 0x60) = *param_2;\r\n  return;\r\n}"
+    }
+  ],
+  "verification": {
+    "performed": "Read-only comparison of source operation order and field effects against saved static dossiers. Literal constants/vtable slot checked in static audit.",
+    "pending": "Parent compile, integration and independent original capture comparisons. No original executable or replacement driver executed by this implementation task."
+  },
+  "evidence_bindings": [
+    {
+      "path": "analysis/geometry-finalize-static-audit.json",
+      "sha256": "6a83b5433b73fbc15e263635e7a710673ae7eba4560551f4c0b1d9cd818f8c3b"
+    },
+    {
+      "path": "analysis/geometry-import-0x1402fcd90.json",
+      "sha256": "1acd6e235ba9389007f331a9a2bc1ac0a306ee04b41d98735b9f923cdd337351"
+    },
+    {
+      "path": "analysis/geometry-import-0x1402f9600.json",
+      "sha256": "79fa7dbdc0282b474a9c7364c77a4229b9c6e8fb0d981968c41e98735e9e00a0"
+    },
+    {
+      "path": "analysis/geometry-import-0x1402f96a0.json",
+      "sha256": "60231449afb5d2fbc904451f1547f5b495b2fce8236fd4723050a8e8825fed14"
+    },
+    {
+      "path": "analysis/geometry-import-0x1402f9970.json",
+      "sha256": "be5018290d99c33113b7049d630af790beda6c87e2862ff62db8747379e012b1"
+    },
+    {
+      "path": "analysis/geometry-import-0x1402f9a50.json",
+      "sha256": "a5ae124278811f58ce3fc233776cc41eb4ab19f9246ad72dc9827c7ee5d2f62d"
+    },
+    {
+      "path": "analysis/geometry-import-0x14019a740.json",
+      "sha256": "69278a6f1740941c292175650235fe5fc3b5827b2e553a29ee8f55196b1058c1"
+    },
+    {
+      "path": "analysis/geometry-import-0x140159b60.json",
+      "sha256": "eb1caca3b6bcfa7d2f197d26517e13f153242cd0abd21857df728449fddfed81"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f92b0.json",
+      "sha256": "118d6c4439fc38a5345e1e1c9b9dc875ed68edfeeee58c57217e2071da355ce5"
+    },
+    {
+      "path": "analysis/model-0x14015fbf0.json",
+      "sha256": "ee74e8ba46ee597965d303f761408c414f9ba35f47f75a585a78f2438a7f69d0"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9340.json",
+      "sha256": "f17ae3f5944845fb123f222e96d7b6147b5b831caacda8fd3b5df1728e071588"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fcde0.json",
+      "sha256": "879d7cb2542d21f1cc13365fb79cbd9d22df70b126cc74825c09e9cfdc6875ef"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9670.json",
+      "sha256": "8a5408c5afbb0803a426055e03c41d317276ff074673e728e04b7e2e600e606a"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9710.json",
+      "sha256": "ce80b816d3116944a8a4d8376d4fcbd50c7967c6622fd18de0b01c52024381b7"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9a00.json",
+      "sha256": "c62858c7a89947be6caae05d572954c0fe8c0efc176ca7537585bce7a5b9728f"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402f9ac0.json",
+      "sha256": "bdf0630e6f95bab7dbc956b6746c2d36deb9ea5cf270e73999faf02f6469d489"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402568b0.json",
+      "sha256": "0cfec58b73a0c40f6fcb17c34eadd5737945b0c05168ba4fa39e849a980b91ec"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14019a7d0.json",
+      "sha256": "6d6393011629abaa818e89f94877c9b2bde3844d15f98977ecf523b46eb07a2d"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x140256900.json",
+      "sha256": "83a51b844a412c6a387b17765ecbd628ed7c2c9282b17607244bc6bd4e99c9aa"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x14019b040.json",
+      "sha256": "24f8a98e99fd9bd3746768e106d7b9915516d13ffdcc7ef50ab013c1f9a0bfe9"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fbb50.json",
+      "sha256": "1500885bf665d54740157a69d991f6ff48bcfc4a844dbbe496597551b8292051"
+    },
+    {
+      "path": "analysis/geometry-finalize-0x1402fbba0.json",
+      "sha256": "4679431f20398ca67019e3a36a4b133155c0253ce7a9beb5066ffb18b21dbf37"
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "sha256": "4ba6208a9318b10c3f9533e6c86646ffe5c6fe319e930e05553528558b8710bf"
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "sha256": "52d574e5b939a76b3f431e67990e0c1c19c07c8fbf04c6fc89273cfa50fadf0b"
+    }
+  ]
+}

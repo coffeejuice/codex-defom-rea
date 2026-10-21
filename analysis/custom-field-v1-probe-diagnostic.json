@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-20T23:04:05.224946+00:00",
+  "status": "v1_capture_invalid_probe_v2_prepared_not_executed",
+  "capture": {
+    "path": "analysis/custom-field-runtime-training.json",
+    "sha256": "095f16aac2b5b4bfe8b8feec81e4ed7b570c2fc36939a9f1933fb52ccaa2bf7d",
+    "evidence_id": "ev_d86a1bcd1ba31c7d7f12978b59489dcd2452884c735938b62889eb563483da44"
+  },
+  "original_probe_archive": {
+    "path": "analysis/oracle/frozen-custom-field-inputs/tools/observe_custom_field_import.js",
+    "sha256": "ee4a227d0aabacb8aef70ed1aace6feff22ca13c08299ac9411e92b3f4dac2c0"
+  },
+  "original_manifest": {
+    "path": "analysis/custom-field-evaluation-cases.json",
+    "sha256": "3794c7722332864467a659f2ea4b7b7d7280b8d184cf3e4aace631faa0756499"
+  },
+  "repaired_probe": {
+    "path": "tools/observe_custom_field_import.js",
+    "sha256": "ada61e2564d2206f966c1b753be8be60dd6e4f9984875ee39fa4ebc2d4aeef2a"
+  },
+  "repaired_manifest": {
+    "path": "analysis/custom-field-evaluation-cases-v2.json",
+    "sha256": "a7c835c33e904bc8b368130b3900b68cf597a258ffc85fa4e1df9659fa6daed0"
+  },
+  "observed_failure": {
+    "probe_errors": 71,
+    "error_counts": {
+      "Error: custom scalar format": 71
+    },
+    "error_sequences": [
+      77,
+      94,
+      116,
+      133,
+      157,
+      174,
+      195,
+      212,
+      230,
+      247,
+      267,
+      284,
+      292,
+      309,
+      327,
+      344,
+      363,
+      380,
+      401,
+      430,
+      447,
+      476,
+      493,
+      530,
+      547,
+      573,
+      590,
+      616,
+      633,
+      659,
+      676,
+      712,
+      729,
+      762,
+      779,
+      805,
+      831,
+      848,
+      877,
+      894,
+      923,
+      940,
+      959,
+      974,
+      981,
+      994,
+      1004,
+      1021,
+      1038,
+      1076,
+      1093,
+      1106,
+      1116,
+      1133,
+      1157,
+      1174,
+      1192,
+      1209,
+      1229,
+      1246,
+      1280,
+      1297,
+      1323,
+      1340,
+      1366,
+      1392,
+      1409,
+      1417,
+      1425,
+      1442,
+      1480
+    ],
+    "detailed_rows_before": 16,
+    "detailed_rows_after": 3,
+    "completed_declared_rows": [
+      0,
+      0,
+      0
+    ],
+    "missing_positive_row_completions": [
+      {
+        "sequence": 66,
+        "serial": 3,
+        "file": "02_custom_node_domain.KEY",
+        "declared_rows": 2
+      },
+      {
+        "sequence": 107,
+        "serial": 6,
+        "file": "03_custom_element_domain.KEY",
+        "declared_rows": 1
+      },
+      {
+        "sequence": 146,
+        "serial": 9,
+        "file": "04_custom_explicit_negative_id.KEY",
+        "declared_rows": 2
+      },
+      {
+        "sequence": 186,
+        "serial": 12,
+        "file": "05_custom_repeat_shape.KEY",
+        "declared_rows": 1
+      },
+      {
+        "sequence": 224,
+        "serial": 15,
+        "file": "06_custom_zero_width.KEY",
+        "declared_rows": 1
+      },
+      {
+        "sequence": 259,
+        "serial": 18,
+        "file": "07_custom_partial_row_eof.KEY",
+        "declared_rows": 2
+      },
+      {
+        "sequence": 356,
+        "serial": 25,
+        "file": "10_custom_other_kind_retains_count.KEY",
+        "declared_rows": 1
+      },
+      {
+        "sequence": 521,
+        "serial": 41,
+        "file": "13_dynamic_sparse_default.KEY",
+        "declared_rows": 2
+      },
+      {
+        "sequence": 704,
+        "serial": 57,
+        "file": "17_dynamic_sparse_partial_eof.KEY",
+        "declared_rows": 2
+      },
+      {
+        "sequence": 757,
+        "serial": 61,
+        "file": "18_dynamic_invalid_kind_retains_mode.KEY",
+        "declared_rows": 1
+      },
+      {
+        "sequence": 1146,
+        "serial": 85,
+        "file": "25_planar_node_custom.KEY",
+        "declared_rows": 2
+      },
+      {
+        "sequence": 1222,
+        "serial": 91,
+        "file": "27_custom_complete_row_final_eof.KEY",
+        "declared_rows": 1
+      },
+      {
+        "sequence": 1274,
+        "serial": 95,
+        "file": "28_planar_dynamic_placeholder.KEY",
+        "declared_rows": 1
+      }
+    ]
+  },
+  "diagnosis": "Every positive detailed-row invocation lacks a matching observer after event; zero-row calls complete. Frames therefore remain live and subsequent keyword %39s scans enter scalar-only routing. No earlier probe-error explains the missing completions. Exact Frida InvocationContext property-loss mechanism has not been established; no native semantic mismatch is inferred.",
+  "repair": [
+    "Record detailed-row input frame by thread at4199a0 entry.",
+    "Close frame at exact native caller continuation397e46(CUSVAR) or397760(DYNARY), reading RAX int32 before native MOV to localstatus. This removes reliance on helper onLeave delivery/property lifetime.",
+    "Keep physical bounds/scalar format checks unchanged; reject missing/mismatched frames.",
+    "Always remove captured frame after continuation snapshot, including snapshot exceptions. Require empty frame structures at custom handler return."
+  ],
+  "validation": {
+    "javascript_syntax": "PASS",
+    "isolated_callback_lifecycle": "PASS: both native-continuation callbacks, zero/positive declared rows, status0/1, missing-frame detection, snapshot-failure cleanup; no helper onLeave used.",
+    "fixture_hashes_unchanged": true,
+    "candidate_files": [
+      {
+        "path": "src/recovered/component_layout.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/hexa_boundary.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/keyword_import.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/keyword_reader.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/mesh_boundary.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/mesh_storage.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/object_model.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/planar_boundary.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/state_variable.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/component_layout.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/keyword_catalog.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/keyword_import.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/keyword_reader.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/mesh_boundary.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/mesh_storage.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/object_model.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/planar_boundary.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/state_variable.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "tests/keyword_import_replay.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "tests/keyword_reader_replay.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "build/Release/deform_recovered_state.lib",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "build/Release/keyword_import_replay.exe",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "build/Release/keyword_reader_replay.exe",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/geometry_storage.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/geometry_storage.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/geometry_segments.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/geometry_segments.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/custom_fields.hpp",
+        "current_matches": true,
+        "archive_matches": true
+      },
+      {
+        "path": "src/recovered/custom_fields.cpp",
+        "current_matches": true,
+        "archive_matches": true
+      }
+    ]
+  },
+  "limits": [
+    "No native rerun performed by this agent. Repaired instrumentation requires new original capture and independent audit.",
+    "V1 observations cannot establish full import parity; preserve failed capture, archived probe and original manifest."
+  ],
+  "native_continuation_evidence": {
+    "path": "analysis/custom-field-callsite-audit.json",
+    "sha256": "6fb8b5e3d7962c5e65d1740396edce96f592d18c8d833581ba444bd62df7dc2a"
+  },
+  "intermediate_unexecuted_repair_diagnostic": {
+    "path": "analysis/oracle/custom-field-v1-probe-diagnostic-intermediate-thread-map.json",
+    "sha256": "fb85f7eb8db568bdb3c2f67790d7ede78ef6047bad635afb4855b155d5c94d05"
+  }
+}

@@ -1,0 +1,607 @@
+{
+  "schema_version": 1,
+  "status": "draft_pending_independent_held_out_static_audit",
+  "purpose": "Independent held-out relation property cases designed only from retained native contracts, without candidate source/output or training runtime consultation.",
+  "cases": [
+    {
+      "path": "tests/fixtures/relation_properties/held_out/01_planar_all_nine.KEY",
+      "sha256": "9700af5f1ff1236b20fa653b916d1e917532ef2ba1d13341f2072bfadd453ea3",
+      "bytes": 227,
+      "hypothesis": "Independent planar construction, zero/signed ordered keys, all nine routes, negative zero, and INT_MIN VARSEL.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/02_rank_three_single_width.KEY",
+      "sha256": "18afd997e05009508858229b4f7abdac08a461ec664dd1ff741cd31bd1fb68dd",
+      "bytes": 55,
+      "hypothesis": "TTTD model0 with width1: distinct coefficient destination branch and rank-three dependent order.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/03_unknown_model_retains_profile.KEY",
+      "sha256": "602a48629761e3a56dbc6fad6b59ce5fc79ab10c631a3e658ff619664f3dc503",
+      "bytes": 85,
+      "hypothesis": "Unknown model takes shared reset continuation without a reset; retains prior type while growing physical storage to eight doubles.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/04_negative_counts_zero_product.KEY",
+      "sha256": "4b24fc8ac3de41d47529320c0c7eea1968189f58197bd59721ee2903d1b7b668",
+      "bytes": 35,
+      "hypothesis": "Negative axis counts clamp during allocation; zero product consumes no table payload.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/05_mode_two_zero_counts.KEY",
+      "sha256": "74c0f04bab572fec3f06496f9434c5c264276575cdb5249b075f8bd09db8e59d",
+      "bytes": 23,
+      "hypothesis": "Valid mode2 selector with zero counts; zero-product rank-three table.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/06_eleven_values_seed.KEY",
+      "sha256": "2de91501df180954fc532361e8b36bd6004d0dac172259800aac106eb99a248b",
+      "bytes": 48,
+      "hypothesis": "Seed all eleven initialized direct coefficients, including negative zero.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/07_eleven_values_late_match_failure.KEY",
+      "sha256": "46997f2eba7a2be01cc38fea8c9cc001f97dca08f721bfddb13549adcc0d62d3",
+      "bytes": 25,
+      "hypothesis": "Combined scan assigns two coefficients, then conversion failure retains the remaining prior coefficients; x is an unknown token.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/08_eleven_values_eof.KEY",
+      "sha256": "a9f1fb4d47ebedea656fb96fd13f1a20895138428e8b5ad8fec4b2027b24c511",
+      "bytes": 15,
+      "hypothesis": "Combined scan EOF preserves the initialized coefficient block and returns failure.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/09_real_four_partial_then_eof.KEY",
+      "sha256": "6cfa50d01a035c9f9d329d2f3717b98ee9b6c4cbaebcf4030f8f958b39d8fc19",
+      "bytes": 18,
+      "hypothesis": "Partial real4 header assigns two and zeros two; following count EOF prevents table reset.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/10_real_four_rank_one_three.KEY",
+      "sha256": "13e5d3937d51cac828c3ea814d3d982f0430a5a873663795d2d06202cfb6ff46",
+      "bytes": 47,
+      "hypothesis": "Replace rank-one table with three distinct points after successful four-coefficient line.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/11_six_values_partial_assignment.KEY",
+      "sha256": "d02f19daa2d330ba2fc829ee1aa893b9a06888e9501ed030a9c2f4628405a0e8",
+      "bytes": 53,
+      "hypothesis": "Successful combined six-value seed followed by partial positive conversion count at physical EOF.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/12_four_values_blank.KEY",
+      "sha256": "10f5184cb18bc9c9209db7e9d9c81af10f3d7840eace2f2b2bea6907e3e1bd96",
+      "bytes": 16,
+      "hypothesis": "Blank real4 line zeroes every persistent destination and reports failure.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/13_seven_values_late_match_failure.KEY",
+      "sha256": "90bbf83f9c7c42a3591474208afd88d4a73230810608de3671988a0afa933b3d",
+      "bytes": 56,
+      "hypothesis": "Seed seven-value direct block then a defined matching failure after one assigned coefficient.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/14_rank_one_axis_eof.KEY",
+      "sha256": "f2b9b48bb7f3fa834009bef2690a5971007e463c994ff768af024eaf2ae1033e",
+      "bytes": 19,
+      "hypothesis": "Rank-one direct axis commits at EOF while its dependent calloc value remains zero.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/15_mode_nine_width_one.KEY",
+      "sha256": "9fa0bdd56711367d6003c43ecc736d80667a59dc66334551b0acec366634c809",
+      "bytes": 43,
+      "hypothesis": "Mode9 width1 uses scalar coefficient fields and a separate rank-three table.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/16_vector_four_values.KEY",
+      "sha256": "2011c72ed2c5a259cf47ec93736e14110cfdbfc9cd9771f3700ed22bf586c485",
+      "bytes": 30,
+      "hypothesis": "Rank-zero vector with four values and negative zero.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/17_vector_zero_width_retains_storage.KEY",
+      "sha256": "26dbf981dd93bcd512c32b0ad5134f3839c607698dd3eaea55818e5f41510c26",
+      "bytes": 18,
+      "hypothesis": "Width0 early-return retains the prior four physical values without allocation/clamping.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/18_vector_negative_width_retains_storage.KEY",
+      "sha256": "57a6f60ab1ff46abe417a4679078c6a30115ff110af1062667dd939f4b75813a",
+      "bytes": 19,
+      "hypothesis": "Negative width early-return retains old physical storage independently of logical metadata.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/19_vector_shrink_to_two.KEY",
+      "sha256": "861f6fde910adc68a12c02dda3ee0f1ba01084306bc4373211f9077c5099e4d6",
+      "bytes": 24,
+      "hypothesis": "Positive width2 reallocates the retained vector and stores a fresh two-value payload.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/20_negative_model_and_secondary.KEY",
+      "sha256": "7858f35f274aec111fa0c11b5ac608dae6c39ae8839c9716d211cdee4b1454d4",
+      "bytes": 17,
+      "hypothesis": "Negative mode updates absolute model field and valid secondary selector without table mutation.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/21_transform_rank_two_seed.KEY",
+      "sha256": "cc067e83cff66b33eae1147440469559101f2e89c0dba3987263f2cf848192d3",
+      "bytes": 35,
+      "hypothesis": "Seed a rank-two transform with distinct axis/dependent buffers.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/22_transform_scalar_and_unknown_selector.KEY",
+      "sha256": "9f6cd7e7c0a13c8d63abe873186a8d5ff6fedb56e16ea27cbc071b6890c7cdeb",
+      "bytes": 44,
+      "hypothesis": "Scalar switch retains old buffers/counts; unknown selector retains metadata and consumes no payload on scalar early-return.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/23_transform_header_eof.KEY",
+      "sha256": "ef3bb015534d684aa40beb3d198eff3864a66fe1a9ac9b9bd8b32226b7ff7edc",
+      "bytes": 12,
+      "hypothesis": "Header EOF preserves existing transform table and enable flag.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/24_latent_axis_partial_eof.KEY",
+      "sha256": "07dbe7ff62b8a6b6c3a5664fbac946fc6a51c79884d65d6705ce36be05ad6f78",
+      "bytes": 20,
+      "hypothesis": "Rank-two first axis partial EOF commits only assigned calloc-backed axis values; no dependent temporary commit.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/25_volume_direct_matching_failure.KEY",
+      "sha256": "e345602d9fe8b54937c4b204c4e52bcd42d30eff619da9785df850aef30e724b",
+      "bytes": 21,
+      "hypothesis": "Rank-one direct scans all return conversion0 against initialized calloc destinations; final discard consumes the nonnumeric line.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/26_equilibrium_variant_selectors.KEY",
+      "sha256": "3abe155cf734636e901cf86ac536cec36ed49f19b118259f1fb9de5f59f5a186",
+      "bytes": 48,
+      "hypothesis": "Alternative selectors5/6 create rank-one axes3/12 through separate reset paths.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/27_coarsening_rank_one.KEY",
+      "sha256": "8feaa57ad17a48d55151a4fa9e6476c9edad8c8cfe97d6a7c0316f405d157dd2",
+      "bytes": 38,
+      "hypothesis": "Coarsening first two coefficients persist, fifth header value is discarded, and selector1 stores rank-one data.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/28_coarsening_partial_header.KEY",
+      "sha256": "f5a2a5d549a732f81be75defcc19cf35d3b5ff0c89507b864253fc5e9857ba30",
+      "bytes": 17,
+      "hypothesis": "Positive partial header conversion sets first coefficient, zeros second and locals, and selects the scalar branch at EOF.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/29_energy_dependent_temporary_eof.KEY",
+      "sha256": "552dca783452e104db16fa939e6ce75e83c64b2ae80a5165bc3c124b8b420876",
+      "bytes": 27,
+      "hypothesis": "Rank-two axes complete, but only one temporary dependent value is assigned before EOF; destination remains calloc-zero.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/30_long_name_and_varsel.KEY",
+      "sha256": "d8d3708dcf5f32d78fbe9359cd075e2384ab1999efe5ad0f2693c683c429acc7",
+      "bytes": 144,
+      "hypothesis": "Name helper consumes the whole line but stores at most80 bytes plus NUL; following VARSEL proves cursor alignment.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/31_spatial_reset_all_nine.KEY",
+      "sha256": "c7c2b93bf83451c3d7f837d0c42640342d2ecac2e444ed557a4e7fde8829108a",
+      "bytes": 228,
+      "hypothesis": "Dimension reset destroys old tables and reconstructs all nine routes for the reversed ordered pair.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relation_properties/held_out/32_populated_tet_refresh.KEY",
+      "sha256": "927bfadb3969df92ec61ad2ebe99602cc48590afd14e7051b750d56df002d0ed",
+      "bytes": 212,
+      "hypothesis": "Successful tetrahedral mesh, material reference gate, nonzero relation data, stale disable then enabled refresh preserving relation tables.",
+      "expected_output": null,
+      "split": "held_out"
+    }
+  ],
+  "ordered_imports": [
+    "01_planar_all_nine.KEY",
+    "02_rank_three_single_width.KEY",
+    "03_unknown_model_retains_profile.KEY",
+    "04_negative_counts_zero_product.KEY",
+    "05_mode_two_zero_counts.KEY",
+    "06_eleven_values_seed.KEY",
+    "07_eleven_values_late_match_failure.KEY",
+    "08_eleven_values_eof.KEY",
+    "09_real_four_partial_then_eof.KEY",
+    "10_real_four_rank_one_three.KEY",
+    "11_six_values_partial_assignment.KEY",
+    "12_four_values_blank.KEY",
+    "13_seven_values_late_match_failure.KEY",
+    "14_rank_one_axis_eof.KEY",
+    "15_mode_nine_width_one.KEY",
+    "16_vector_four_values.KEY",
+    "17_vector_zero_width_retains_storage.KEY",
+    "18_vector_negative_width_retains_storage.KEY",
+    "19_vector_shrink_to_two.KEY",
+    "20_negative_model_and_secondary.KEY",
+    "21_transform_rank_two_seed.KEY",
+    "22_transform_scalar_and_unknown_selector.KEY",
+    "23_transform_header_eof.KEY",
+    "24_latent_axis_partial_eof.KEY",
+    "25_volume_direct_matching_failure.KEY",
+    "26_equilibrium_variant_selectors.KEY",
+    "27_coarsening_rank_one.KEY",
+    "28_coarsening_partial_header.KEY",
+    "29_energy_dependent_temporary_eof.KEY",
+    "30_long_name_and_varsel.KEY",
+    "31_spatial_reset_all_nine.KEY",
+    "32_populated_tet_refresh.KEY"
+  ],
+  "probe": {
+    "path": "tools/observe_relation_property_import.js",
+    "sha256": "d280d44e8e7c81c368b4080e46ee68c9eafffa338cd1e568f52d4405c1331c63"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/volume-width-0x140383120.json",
+      "sha256": "5a03783d70b579a1939d5dd264cd63faf7e27494997bebdead71809f434f712c",
+      "evidence_id": "ev_6513c088ecb9ec49bb29c4cd07545192e2daca1fb8c486b32b13450a3418c2e4"
+    },
+    {
+      "path": "analysis/volume-width-0x140333f60.json",
+      "sha256": "64fe723a9b840b083c380df6a55f2e523f7f5b8d22c22b14e9587bece92350d1",
+      "evidence_id": "ev_943aa5c905fc4b6cefda2b83ffb19435d67c9154fa5c125582197e1754769422"
+    },
+    {
+      "path": "analysis/relation-import-static-contract.json",
+      "sha256": "67166ea827c447bd8628074f0deac8deede498b6bcedb8d1376ebf978e325b9c"
+    },
+    {
+      "path": "analysis/property-table-static-contract.json",
+      "sha256": "c3e7abf7b579494510c49cea6bb8bf323c44cf2f6dc150263dae810a3ff49906"
+    },
+    {
+      "path": "analysis/property-table-byte-audit.json",
+      "sha256": "dbe5bb52e5cd6a082081529cefd0ce3e11891a58ebf0634ea843da17b47f28a0"
+    },
+    {
+      "path": "analysis/relation-property-byte-audit.json",
+      "sha256": "1083307ba03cc58f0292feb782825dfb4d33cdf5b58ce6cc4f532cf974788af4"
+    },
+    {
+      "path": "analysis/model-0x140413ee0.json",
+      "sha256": "936d6e16e7e7da5b17b60c836a14833220e9cf6fd6d076d9ee7d4eb78e8706ba",
+      "evidence_id": "ev_425990d83131876d26c5ceb1d48d0c798a4cc95ec500ae132fb87860ca1cc628"
+    },
+    {
+      "path": "analysis/geometry-import-0x140413fb0.json",
+      "sha256": "efd89cb299085aa0cee2f5d7d7e113b65df791dcdca53726ab7f1242d5ca321b",
+      "evidence_id": "ev_a90d7f429b69fba18f03414b7da240d79901b3fc365c94fc11ce0ba156a27eaa"
+    },
+    {
+      "path": "analysis/custom-field-0x140414100.json",
+      "sha256": "fb0af895277eb2c04922177c8156af7ba12a6b4e48e5d3cdcc496de7c477b792",
+      "evidence_id": "ev_e0453c9b526bf85e5f5b0ab9363cca366adf12d4cf2a7d458ad1b5a6256ec3be"
+    },
+    {
+      "path": "analysis/time-controls-0x140414a40.json",
+      "sha256": "6cb4bb82cae19824f619e623b6d7d9efdab49703ac567afc891f44e734cf8617",
+      "evidence_id": "ev_3cca4d026ca3c858b28c1df4705b88bafc183871c8c888b7bcbc56fdf5eb828d"
+    },
+    {
+      "path": "analysis/model-0x140413de0.json",
+      "sha256": "132da8ef32c9a5a46739641430046f49ba635f1b02a0d651d8a74cd104fe038a",
+      "evidence_id": "ev_89797bd9d526735a04c1d510f836868cfa21abe38429ed3944d4a3741ecc7ecc"
+    },
+    {
+      "path": "analysis/model-0x140413ab0.json",
+      "sha256": "62010e15380276eb9795add79024728eb4f31134cdeae2a1ba815d9ac0ddfc05",
+      "evidence_id": "ev_26b41e6c40cefe32bb3d2fdc86fcba9fce8bf2dbacffe3347cde1092b954c372"
+    },
+    {
+      "path": "analysis/model-0x140415680.json",
+      "sha256": "55ea09790024c818d4bc12e972c0b983182a16776cb71b8ad9ebf8db7368ecc8",
+      "evidence_id": "ev_502dcac2ded6160db37cf91c2883626e99cd104cb533048ba068c565f7688796"
+    },
+    {
+      "path": "analysis/relation-property-0x140414e40.json",
+      "sha256": "573e88a7f45ad70ea83a0b1c5987847c33715af6f7e5e145e3667adf5b0bc6f1",
+      "evidence_id": "ev_952facb2f6aa5a320b1861a28320721556458a5320018ac9e13c037b412eef51"
+    },
+    {
+      "path": "analysis/relation-property-0x140414f50.json",
+      "sha256": "4a8a72127558f72b75d1f9dc1f07343fad28ff774c4cb480230295c8411d8030",
+      "evidence_id": "ev_cdd10ab07d737b8704a57a37a399d72374b42fd94928738ac9b55922d7b0af13"
+    },
+    {
+      "path": "analysis/relation-property-0x140415ff0.json",
+      "sha256": "1223020448c45ace9286b0e06168cd0568b796f8ebd2a8bd1675fa71ce510cd8",
+      "evidence_id": "ev_6a1a4206e0ed0dd72ab15df0b6ee16c4209f78daa2e50c6f72d466fb63f7ef4f"
+    },
+    {
+      "path": "analysis/relation-property-0x140484ab8.json",
+      "sha256": "aed1ca33c2f44c697bc812991ef30b39c21f3fef39401bcfce296a6811fb47c0",
+      "evidence_id": "ev_a2364d3654122e1e8c0e19027ca5b72dea7809068afd03970df7fb41b2e29f6d"
+    },
+    {
+      "path": "analysis/property-table-0x14041b270.json",
+      "sha256": "133d60392f3cdcbf5218cc82ec3bc3d1b584694d0d8a1838d132eb582546aa88",
+      "evidence_id": "ev_af7fec7c4e071b8149e18d512c521a72a1dc15966c987f8fb85ecf610970687b"
+    },
+    {
+      "path": "analysis/property-table-41b270-instructions.json",
+      "sha256": "87cb3cb0ba6a01cbffe498dbb30f8d3f317c8420b9a30326fdc65e0f094ffeda",
+      "evidence_id": "ev_3d7124e9b108c175bcbcf2b50f2997300124ae3d26528ac7b49491927d8492c2"
+    },
+    {
+      "path": "analysis/audit_property_table_bytes.py",
+      "sha256": "ed70515ae99861c0d5b727e30c5a30bbfc7eb86877b8620635f54edf37a4f48e"
+    },
+    {
+      "path": "analysis/property-table-material-dispatch-dumpbin.txt",
+      "sha256": "e2fe458cc4060362e40462208c96a2cb6a61e1caf7265e185bd3bd80b38ae8e0"
+    },
+    {
+      "path": "analysis/property-table-readers-dumpbin.txt",
+      "sha256": "e1b0e19fb633144e97898103bb5e4709e50e4a52627ce43174cd770e5d0b63a0"
+    },
+    {
+      "path": "analysis/time-table-0x14041a800.json",
+      "sha256": "7934897d19d270e211b6af7232fb699e70b9af745535e754bc3b73bb7c97d12a",
+      "evidence_id": "ev_33f13cb4897eb3f442aa3f5a7db21534a44395aba1e45b66b5231b2703d6ce0a"
+    },
+    {
+      "path": "analysis/relation-import-0x14012d050.json",
+      "sha256": "203cff8021292c0902989416d8472b97d4f36beb43e399e3c8f1c1f1d2eb3f94",
+      "evidence_id": "ev_d96f6fb8a792c1716ab12b1ee41e7177137ff43b677700d0151c5912b8cbd7b7"
+    },
+    {
+      "path": "analysis/configuration-0x14012d2a0.json",
+      "sha256": "3f9748aacea2b6df1d83cc34f5bdd68c0ce469b5e476f0e0d03db94cedbca943",
+      "evidence_id": "ev_3ff9cf1ffae6a3f6c6d3766d3eea9d2976727c994c2497bb6c269026f034378c"
+    },
+    {
+      "path": "analysis/time-table-0x14012fc70.json",
+      "sha256": "3a24ec1a732a3c00385ce9b2dd3d70a3d3f7683901b2f807e4731eb7e3b4b713",
+      "evidence_id": "ev_c837c107be791a89166a181c7b3c6d92754fa17ca6f6cbf36e57d544cf6e7c71"
+    },
+    {
+      "path": "analysis/configuration-0x14012f480.json",
+      "sha256": "9a9fb6b32aa86f074d4e5ac56bf30dbfa51df80e4f995e86ee71555b8ff7ae85",
+      "evidence_id": "ev_2f99be66d40810a8814de1e7660ea38642e89bfba153467f4314e2d8d04fc463"
+    },
+    {
+      "path": "analysis/configuration-0x14012fad0.json",
+      "sha256": "f1b05259d7f3bfc6f74e88c649ec6984c65fa8d28ed6d5bc9cc6acaa47e4cbc8",
+      "evidence_id": "ev_153672bedc826ca51d564dc5f034efb23f7630f259f28b5871dfdbf2598d6dee"
+    },
+    {
+      "path": "analysis/configuration-0x14012fc00.json",
+      "sha256": "39eecd47a32e62592aab61d4f34c0a1e1fdc7b8a365551c67514dd5c7a10808f",
+      "evidence_id": "ev_8c3e720a7fefca0a04a64b07d6b10aed03bbfa93c53cc4f47a226ad5a3b4c25a"
+    },
+    {
+      "path": "analysis/configuration-0x14012ff20.json",
+      "sha256": "5fcdaa7c5648248493dc6756b6db2fa56bf88fb89b21e0578d8fe861f65eed80",
+      "evidence_id": "ev_2b30705ee91c992a00a26de63f942ae043180bd56ce360e5becfbcd32f3d1dd0"
+    },
+    {
+      "path": "analysis/property-table-0x14012f410.json",
+      "sha256": "d51acf0d1b147c7e67903c21b2b76fc9c1c85f13d2e602984b12165e7ca47efb",
+      "evidence_id": "ev_895d58904114c274ef52ba517609167406dd688c5e43960e85284a42a3520f42"
+    },
+    {
+      "path": "analysis/property-table-0x14047780c.json",
+      "sha256": "be0438553ad95b9f7420d73e9dc21fd7d0f662ef146b4648aa446f81374559fa",
+      "evidence_id": "ev_b144d7017a7658e26dba19a1fe476fbc7e448e28deaf061e59964e44af39d010"
+    },
+    {
+      "path": "analysis/property-table-0x1404797d8.json",
+      "sha256": "4ae4bf251e3339ec66eb6554b9f528f171190588674b8c6abdb584ea7115c673",
+      "evidence_id": "ev_10665d2b44b58b92aee1950f4b73fba9093918ee93e8f8754d0bc64a4cc0f142"
+    },
+    {
+      "path": "analysis/material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "analysis/material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "analysis/material-import-0x14028cb70.json",
+      "sha256": "3d100243681513140e916f4611a071757571466c2f595682c4f255604c9c2142",
+      "evidence_id": "ev_7df799febc47cbb09d6a4c2efac41bce07538aff9a8bcc3cb32062c3dbef5801"
+    },
+    {
+      "path": "analysis/material-import-0x14028d030.json",
+      "sha256": "5f5b22fb50dc684d793b23307da952b8f43786ee26ee27064989dc0224fe161c",
+      "evidence_id": "ev_f0062ba32915027187bdbcd2c91d47098cb950265db18908778545301b4946a8"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/volume-width-0x140334490.json",
+      "sha256": "bf660cb7fa2640e9cbc7da67447ce02d74536c643a2fd7136377fa35b6b11873",
+      "evidence_id": "ev_faae2fd20177613714f0ca547441071fb0fc5f11838f8956171265d3f1c24a55"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    },
+    {
+      "path": "C:/Users/alext/Projects/codex-deform-rea/analysis/build_property_table_contract.py",
+      "sha256": "d6dc94d9fa026b96742dcc373bbd0748e035f69c00c73acee9f21a4379d60b62"
+    },
+    {
+      "path": "analysis/property-table-bytes-0x140388cec.json",
+      "sha256": "56c5df6cd60595716b005a456187c455256b6659ee8b4415bea071eb3d65a691",
+      "evidence_id": "ev_7684ef0a93543dcd1a4eee7223fa4653252f2e08247a0e6689ba6179f4b096b0"
+    },
+    {
+      "path": "analysis/property-table-bytes-0x14041a800.json",
+      "sha256": "84e8d76d9f26b4d21ea28f3715916ea17f052dbd09b26b0ad4c9146bc921951a",
+      "evidence_id": "ev_2f37a26917894b1357e07ec85c742cd79d8b96c2203a0a244f0fb9fd6f55c09f"
+    },
+    {
+      "path": "analysis/property-table-bytes-0x14041b270.json",
+      "sha256": "cc93e418aaa98015005a8de3a0f4c9f3d4fb67483a344a6edf6d3b6e7b22eaac",
+      "evidence_id": "ev_122d1a76e8dc5c2b9125e93fecdf85581ffcd1ae445e1846986044aea3635eae"
+    },
+    {
+      "path": "analysis/property-table-bytes-0x14041b678.json",
+      "sha256": "06985eb26a88f1478e07213d1afa7848568a450ff325a18092cec5c797b50a60",
+      "evidence_id": "ev_d39bb5521b22ac5f277df6534b9a7271f6dca7d060b3c17ec55aab932f155461"
+    },
+    {
+      "path": "analysis/property-table-bytes-0x140566758.json",
+      "sha256": "961a58d6d77e16dde1c47f28f2d56420e277470df01da163f68eda328c99e448",
+      "evidence_id": "ev_814a5ffde865baf8ccfe5865a7f5f49701d7aa4d395db4e35db5a093d5224b7c"
+    },
+    {
+      "path": "C:/Users/alext/Projects/codex-deform-rea/analysis/audit_relation_property_bytes.py",
+      "sha256": "898d5fba609ee406b9d8a5b6415fdf764423dc5446b3a6f27e77cb5c3ba7b534"
+    },
+    {
+      "path": "analysis/relation-property-dispatch-dumpbin.txt",
+      "sha256": "fa899bfb2b18c0a7a596fe5781fb72fec837a46769bcc388e9eb9a9e0ea6a362"
+    },
+    {
+      "path": "analysis/relation-property-constructor-dumpbin.txt",
+      "sha256": "5da1ab9d6c0a6d74a2af2b71a0270b12d2886fd0b99671b9817882a65c0f8bb5"
+    },
+    {
+      "path": "analysis/relation-property-real-helpers-dumpbin.txt",
+      "sha256": "f073799a1488a3554292e6cb01ca0655ee82b5ea00f44fd169fede242ef2fab2"
+    },
+    {
+      "path": "analysis/relation-property-mixed-helper-dumpbin.txt",
+      "sha256": "be10c914da986b39d7221fb056e613e2b7aa63ce85dfcf87081252e9b73c81d0"
+    },
+    {
+      "path": "analysis/relation-property-abs-dumpbin.txt",
+      "sha256": "d9729faf5d1b0caf9dc33c9b6bc0ed926389cb11940e3a11b132542aa7a15fc3"
+    },
+    {
+      "path": "C:/Users/alext/Projects/codex-deform-rea/analysis/build_relation_property_contract.py",
+      "sha256": "b497414b174be11fc3764515a030325d937c66803ae9db1a64bf73e6325756f3"
+    },
+    {
+      "path": "analysis/relation-property-static-contract.json",
+      "sha256": "5897f7ea9cdf3195467f3d29f7b3014e9f1dfd947b5aa719ccf7d8ef633cf753"
+    },
+    {
+      "path": "analysis/relation-property-fixture-plan.json",
+      "sha256": "451d2b8a1b67f7f22d3bbdc086afdd99d37858f7fd335635e3daa156a0819e29"
+    },
+    {
+      "path": "analysis/relation-property-precapture-audit.json",
+      "sha256": "f4a3a624d1867103fd06b69127a47ca08f64a2641fc51cf3c1dfdb02d9306eea"
+    }
+  ],
+  "handler_scope": {
+    "category1": [],
+    "category2": [
+      145,
+      159,
+      173
+    ],
+    "category4": [
+      92,
+      116
+    ],
+    "category5": [
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143
+    ]
+  },
+  "bounds": {
+    "imports": 32,
+    "relations": 1,
+    "materials": 2,
+    "objects": 1,
+    "nodes": 4,
+    "elements": 1,
+    "rank": 3,
+    "axis_count": 3,
+    "values_per_point": 4,
+    "dependent_items": 8,
+    "temporary_dependent_items": 8
+  },
+  "declared_gaps": [
+    "No unassigned pair selector or uninitialized temporary matching-failure inputs.",
+    "No nonfinite values, overflowing products, scientific evaluation, allocation failure, or table cache callbacks.",
+    "Unknown tokens after defined direct-scan matching failure are intentional and must remain observable."
+  ],
+  "independence": "All32 held-out byte streams authored after candidate freeze from native static contracts only, before viewing any training capture or replacement output."
+}

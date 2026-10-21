@@ -1,0 +1,159 @@
+{
+  "purpose": "Predeclared passive discovery of preserving mesh resize via normal KEY import. No original execution or candidate equivalence claim.",
+  "cases": [
+    {
+      "path": "tests/fixtures/mesh_refresh/01_planar_preserving.KEY",
+      "sha256": "6c8465dd365a9298ad9540154757c6daf6091c9416684d8289c89ae84cf4f2bf",
+      "setup": "2D mode1; active object1 with6 nodes and2 quads; OBJNAM3 creates inactive type7 placeholder2 plus empty active3.",
+      "ordered_refreshes_after_mesh": [
+        "GEOTYP3",
+        "GEOTYP1",
+        "STNOUT1,1,1,1,1,1,1,1,1",
+        "STNOUT0,0,0,0,0,0,0,0,0",
+        "GEOTYP3",
+        "STNOUT1,1,0,0,0,1,0,0,0",
+        "GEOTYP1"
+      ],
+      "ordering": "All refreshes occur after RZ/ELMCON and before the first EOF scientific finalizer."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_mesh_refresh.js",
+    "sha256": "9cedfd54506c7047e059d1d01e25ab32125d65f8b27c9988b0d44fb12f3f3f23",
+    "hooks": [
+      "0x140199650 mesh wrapper",
+      "0x140180150 node preserving resize",
+      "0x140183770 element preserving resize",
+      "0x1401d0fc0 all-object root refresh",
+      "0x1401d1660 selected-object root refresh",
+      "0x1401d0320 layout",
+      "0x140300c90 descriptor registration and retained destructor hooks",
+      "0x1401b5f00 import",
+      "0x1402f76c0 keyword resolution",
+      "0x1401d7f40 finalization boundary"
+    ]
+  },
+  "capture_fields": {
+    "common": [
+      "sequence",
+      "file",
+      "serial",
+      "parent_serial"
+    ],
+    "resize_enter": [
+      "kind",
+      "container",
+      "requested_count",
+      "requested_arity",
+      "requested_components[79]",
+      "object"
+    ],
+    "mesh_wrapper_enter": [
+      "requested_components[79]",
+      "prior_components_argument[79]",
+      "object"
+    ],
+    "object": [
+      "address",
+      "owner",
+      "id",
+      "type",
+      "name",
+      "dimension",
+      "logical nodes/elements/arity",
+      "allocated_nodes at+0x9cc",
+      "allocated_elements at+0xac8",
+      "allocated_arity at+0xacc",
+      "element_kind",
+      "mesh_flag",
+      "root_components[79]",
+      "buffers",
+      "53 registered descriptors including shape/history/binding/values/raw bytes",
+      "2D boundary nodes or3D faces/owners",
+      "boundary_total"
+    ],
+    "buffer": [
+      "slot",
+      "pointer",
+      "extent_source",
+      "allocation_serial when known",
+      "allocated_bytes/items",
+      "values with nonfinite doubles represented bynull",
+      "bytes_hex"
+    ],
+    "resize_leave": [
+      "object",
+      "buffers",
+      "per-buffer old/new byte extents",
+      "known prefix extent and before/after hex",
+      "prefix_equal",
+      "grown_tail_bytes",
+      "grown_tail_initialization=not-established"
+    ],
+    "root_events": [
+      "root address/dimension/component table/object inventory before and after refresh; skipped type7 is determined from inventory and absence of matching wrapper calls"
+    ]
+  },
+  "bounds": {
+    "objects": 8,
+    "items_per_buffer": 512,
+    "bytes_per_buffer": 4096,
+    "boundary_groups": 100
+  },
+  "limitations": [
+    "Only null pointers or matching per-slot completed-helper requests establish readable direct-buffer extents; unknown non-null allocations are not read.",
+    "Grown tails may contain arbitrary bytes. Captured zeros do not establish initialization. Only min(old,new) byte prefixes are classified for preservation.",
+    "Per-slot tracking is scoped to this fixture; no populated object is destroyed/recreated and dimension is unchanged after allocation.",
+    "Root tables can temporarily disagree with allocated containers. Root widths never determine reads of old allocations.",
+    "Descriptor reads use storage begin/end bounds and retain raw bytes, including nonfinite floating-point values.",
+    "No internal functions are invoked and no process memory is written. Only a fresh ready-gate file is written.",
+    "Temporary boundary-builder chain ranges are not captured; persisted planar boundary nodes are captured."
+  ],
+  "static_evidence": [
+    {
+      "path": "analysis/root-layout-0x140199650.json",
+      "sha256": "805d41025bed160a792f6795cdbc664be76553a99ba26bcdf92b66ea8558502b",
+      "evidence_id": "ev_7d1f0ad5e095a53059671c82cbb581e81334f30bcecde17677cc3634f07ce00f"
+    },
+    {
+      "path": "analysis/root-layout-0x140180150.json",
+      "sha256": "93759325d507370ef09bb62215781fd3b32e5181f003d72f9772a14dabe4f2d8",
+      "evidence_id": "ev_51baa2454fdb7b9bf33114d35cc4f32851d6ca6ac627ada17231f8c06477362c"
+    },
+    {
+      "path": "analysis/root-layout-0x140183770.json",
+      "sha256": "7b694aa7bd447234d6e3d0722d053da232d0cad6ad6846a80e0c56aaabb45cec",
+      "evidence_id": "ev_0c4a4da0f9a0da3de0ac8cd81267f1dd970676d4c06ad491c3081f9008bb5925"
+    },
+    {
+      "path": "analysis/root-reset-0x140182840.json",
+      "sha256": "458420eaeaa9622adcecdc56a97cab4708d79a9e990571bd1b9e6dea74698269",
+      "evidence_id": "ev_565ae030edc7a7186b619d62a93182058c7ab047144085e768085489e7069e90"
+    },
+    {
+      "path": "analysis/root-reset-0x1401854f0.json",
+      "sha256": "75a59f92d3c292713c8db2d1b1a3136ab957e9c7ee6b2678a2105b30fcc7ec4a",
+      "evidence_id": "ev_6d11357362f7eae9dbd8de3c1b080d6dd765862614a91f081695372f8d0b3964"
+    },
+    {
+      "path": "analysis/root-reset-0x140185530.json",
+      "sha256": "5db27a71c4793b65e0099ad643fd7cd706f8480f3386ec0ce0efb46f3ac41b0b",
+      "evidence_id": "ev_df819485092a0c8c3c0be856dda1c9ea09290bd99a0bd3a79a54bd1eb32c1414"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f",
+      "evidence_id": "ev_dd14a08f618ea92599ee067ee52c77920b12b87ef68522e734ab03d476c14ab9"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d1660.json",
+      "sha256": "7c3733f0c92226f955ea95d6d0eb4f426987710d298bac1999666a1ae8de5aaa",
+      "evidence_id": "ev_edd212908fca3a28d924ab0b4be78734f6a6536c0b24411f98b96e74925fbc35"
+    },
+    {
+      "path": "analysis/root-layout-0x140160f10.json",
+      "sha256": "6b38b04649b191a55a24a3f90848d8bdbb3e96a877777602b72d219ad097ac26",
+      "evidence_id": "ev_5b60a0909cb78f784ddb69b9a85884ef32905064787bbda31c1380c6d8dfcd25"
+    }
+  ]
+}

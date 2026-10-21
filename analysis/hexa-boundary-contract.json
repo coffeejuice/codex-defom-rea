@@ -1,0 +1,88 @@
+{
+  "status": "implemented_internal_component_with_bounded_runtime_verification",
+  "reference_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": [
+    "analysis/mesh-0x14035672f.json",
+    "analysis/mesh-0x140354ed0.json",
+    "analysis/hexa-callsite.json",
+    "analysis/hexa-tables.json",
+    "analysis/mesh-0x140484bd0.json",
+    "analysis/mesh-0x140484b10.json"
+  ],
+  "implementation": "src/recovered/hexa_boundary.cpp",
+  "entry": "0x14035672f, selected by 0x140354ed0 when connectivity arity equals eight",
+  "classification": {
+    "inputs": "Count zero slots and maximum multiplicity of any node ID, including zero.",
+    "precedence": [
+      "Exactly two zeros OR maximum multiplicity exactly two: node kind 6, face count 5, face width 4.",
+      "Otherwise, exactly four zeros OR maximum multiplicity exactly four: node kind 4, face count 4, face width 3.",
+      "Otherwise: node kind 8, face count 6, face width 4."
+    ],
+    "qualification": "These are recovered predicates, not a general geometric validity test. The implementation must not replace them with unique-node counting."
+  },
+  "tables_one_based": {
+    "standard_address": "0x140604fd0",
+    "standard": [[1,4,3,2],[5,6,7,8],[1,2,6,5],[2,3,7,6],[3,4,8,7],[4,1,5,8]],
+    "tetra_address": "0x140604f10",
+    "tetra": [[1,3,2],[1,2,4],[1,4,3],[2,3,4],[0,0,0],[0,0,0]],
+    "wedge_address": "0x140605030",
+    "wedge": [[1,3,2,1],[4,5,6,4],[1,2,5,4],[2,3,6,5],[3,1,4,6],[3,3,6,6]]
+  },
+  "candidate_construction": [
+    "Traverse elements and six table rows in input order.",
+    "For kind 4, read three local nodes and initialize fourth candidate slot to zero. For other kinds, read all four slots.",
+    "Count zero slots and equal-node pairs across the four candidate slots.",
+    "Keep candidates only when there are fewer than two zeros and fewer than two duplicate pairs.",
+    "Assign each retained candidate a compressed one-based index. Its key is the sum of all four candidate slots.",
+    "Sort key/index records with the recovered embedded qsort, including its equal-key permutation."
+  ],
+  "cancellation": [
+    "Skip candidates whose first node has been cleared.",
+    "For each remaining candidate, inspect later equal-key candidates.",
+    "All current nodes up to current face width must occur among the other's first three slots, or first four slots only if both widths are four.",
+    "On the first match, clear the other's first node and omit the current candidate. Otherwise emit the current face."
+  ],
+  "output": {
+    "triangle": "Repeat the first node in the fourth output slot.",
+    "kind_6": "Compact positive node IDs in order; if fewer than four remain, repeat the first node in slot four.",
+    "owner": "Integer division of the zero-based compressed candidate index by the classified face count of that candidate's source element, plus one.",
+    "final_order": "Wrapper compares sums of all four output slots. Within consecutive equal-sum records, nested swaps order by first node then second node and carry owner IDs. It does not globally re-sort after triangle normalization."
+  },
+  "observed_mixed_class_behavior": {
+    "capture": "analysis/hexa-runtime-discovery.json",
+    "two_element_case": "05_hex_then_wedge.KEY",
+    "faces": 11,
+    "owner_sequence": [1,1,1,1,1,1,2,2,3,2,2],
+    "three_element_case": "06_wedge_hex_tetra.KEY",
+    "three_element_owner_sequence": [1,1,1,1,1,1,2,2,2,2,3,4,4,2,4],
+    "interpretation": "The original emits values beyond the number of input elements in these mixed-class cases. Reconstruction retains the exact values. Downstream interpretation and consequences have not been recovered."
+  },
+  "verification": {
+    "fixture_manifest": "analysis/hexa-boundary-evaluation-cases.json",
+    "candidate_freeze": "analysis/hexa-candidate-freeze.json",
+    "provenance_report": "analysis/hexa-observations.json",
+    "comparison_report": "analysis/hexa-boundary-comparison.json",
+    "original_processes": 3,
+    "successful_imports": 16,
+    "exact_boundaries": 16,
+    "exact_sort_permutations": 16,
+    "splits": {"training": 5, "held_out": 5, "discovery": 6},
+    "candidate_changed_after_freeze": false,
+    "coverage": [
+      "Adjacent hexahedra sharing a face",
+      "Two and three duplicate hexahedra",
+      "Disjoint equal-sum candidates",
+      "Rotated connectivity and reordered input",
+      "Zero-padded and repeated-node wedge encodings",
+      "Zero-padded and repeated-node tetrahedral encodings",
+      "Mixed standard/wedge/tetra element classes"
+    ]
+  },
+  "limitations": [
+    "These fixtures are not exhaustive and were prepared by another agent in the same project.",
+    "Negative IDs, signed-sum overflow and allocation failures are outside the implemented compatibility domain.",
+    "The original accesses a preceding connectivity value through zero table indices for the last two collapsed-tetra rows. These rows always fail the duplicate-pair filter if reads succeed. The replacement skips those reads and does not reproduce possible native access faults.",
+    "No 2D or ten-node implementation is provided by this component.",
+    "Complete object lifecycle, derived geometry, importer integration and external application/API compatibility remain outstanding."
+  ]
+}

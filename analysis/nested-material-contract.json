@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-21T01:37:56.841944+00:00",
+  "status": "selected_nested_material_import_profile_verified",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "implemented_profile": {
+    "FSTRES": {
+      "id": 94,
+      "outer_mode": 14
+    },
+    "GRNDAT": {
+      "id": 108,
+      "outer_selector": 4
+    },
+    "root_0x864": 0
+  },
+  "behavior": [
+    "Constructor-derived FSTRES mode 1, four zero coefficients and scalar table value 1; GRNDAT selector 0, secondary 0 and empty rank-two table with selectors 3/8 are preserved until imported.",
+    "Material selection and missing-record creation precede outer headers. Outer input failures preserve selected fields after any creation; unrelated valid outer branches remain explicit unsupported outcomes.",
+    "FSTRES mode 14 stores mode 11 and initializes four live coefficients. Its coefficient-helper status is overwritten by the subsequent property reader, including observed failure followed by success.",
+    "GRNDAT selector 4 preserves secondary field 0x17ec, imports table 0x1740 and refreshes components even after table failure. Creation option 1 and later preserving option 0 refreshes remain distinct.",
+    "The original disabled grain-feature gate is observed in primary and linked roots and query 53 calls. Enabled scientific component widths are not inferred.",
+    "Both nested tables, all selected material fields, physical buffers, descriptors, meshes and retained relation/custom state are compared at the reported full snapshots."
+  ],
+  "verification": {
+    "imports": 64,
+    "parsed_tokens": 95,
+    "complete_handler_snapshots": 95,
+    "selected_nested_handlers": 72,
+    "failed_selected_handlers": 17,
+    "nested_line_reader_calls": 105,
+    "nested_property_wrapper_calls": 66,
+    "property_header_and_coarse_reader_calls": 66,
+    "property_scalar_scan_calls": 187,
+    "base_reader_calls": 257,
+    "final_standard_descriptor_snapshots": 530,
+    "ignored_failed_coefficients_followed_by_success": 2,
+    "GRNDAT_failed_table_followed_by_refresh": 6,
+    "material_refreshes": 42,
+    "disabled_feature53_queries": 50,
+    "independent_tamper_rejections": 96,
+    "independent_tamper_checks_skipped": 0,
+    "baseline_tests_passed": 50,
+    "new_tests_passed": 2,
+    "tests_registered": 52,
+    "frozen_runtime_files_unchanged": 33
+  },
+  "cohorts": {
+    "training": {
+      "counts": {
+        "imports": 32,
+        "parsed_tokens": 44,
+        "complete_handler_snapshots": 44,
+        "selected_nested_handlers": 36,
+        "failed_selected_handlers": 8,
+        "nested_line_reader_calls": 53,
+        "nested_property_wrapper_calls": 33,
+        "property_header_and_coarse_reader_calls": 33,
+        "property_scalar_scan_calls": 91,
+        "base_reader_calls": 122,
+        "final_standard_descriptor_snapshots": 159,
+        "ignored_failed_coefficients_followed_by_success": 1,
+        "GRNDAT_failed_table_followed_by_refresh": 3,
+        "material_refreshes": 21,
+        "disabled_feature53_queries": 25,
+        "independent_tamper_rejections": 48,
+        "independent_tamper_checks_skipped": 0
+      },
+      "capture": {
+        "path": "analysis/nested-material-runtime-training.json",
+        "sha256": "1fbc547b23a9181530ffffd28ada905bba272cdcdec5898dee82e8520a3f2ba8",
+        "evidence_id": "ev_7ddd5cc88ea3bcbc7a5ca110f6feb34bdbc19f5cf3bf4d706b5522a3583e2fbc"
+      },
+      "messages": 1841,
+      "pid": 14080,
+      "keyword_counts": {
+        "94": 19,
+        "108": 17
+      },
+      "id_dimensions": [
+        [
+          94,
+          2
+        ],
+        [
+          94,
+          3
+        ],
+        [
+          108,
+          2
+        ],
+        [
+          108,
+          3
+        ]
+      ],
+      "property_selectors": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        99
+      ],
+      "failed_cases": [
+        {
+          "file": "13_fstres_partial_coefficients_eof.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "14_fstres_coefficients_eof.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "15_fstres_outer_blank.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "16_new_material_outer_eof.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "25_grndat_table_header_eof.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "26_grndat_outer_blank.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "28_grndat_axis_eof.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "29_grndat_dependent_eof.KEY",
+          "id": 108,
+          "status": 2
+        }
+      ],
+      "skipped_corruption_checks": []
+    },
+    "held_out": {
+      "counts": {
+        "imports": 32,
+        "parsed_tokens": 51,
+        "complete_handler_snapshots": 51,
+        "selected_nested_handlers": 36,
+        "failed_selected_handlers": 9,
+        "nested_line_reader_calls": 52,
+        "nested_property_wrapper_calls": 33,
+        "property_header_and_coarse_reader_calls": 33,
+        "property_scalar_scan_calls": 96,
+        "base_reader_calls": 135,
+        "final_standard_descriptor_snapshots": 371,
+        "ignored_failed_coefficients_followed_by_success": 1,
+        "GRNDAT_failed_table_followed_by_refresh": 3,
+        "material_refreshes": 21,
+        "disabled_feature53_queries": 25,
+        "independent_tamper_rejections": 48,
+        "independent_tamper_checks_skipped": 0
+      },
+      "capture": {
+        "path": "analysis/nested-material-runtime-held-out.json",
+        "sha256": "d635b1e8f5a6db72b285359af4d5f52085ff5bc1e2beeb3c57185333b25ecee1",
+        "evidence_id": "ev_29deb74c16ec39550a001aea7d0d03cb85aaa283bab079a6450784c14702fa9c"
+      },
+      "messages": 1830,
+      "pid": 36796,
+      "keyword_counts": {
+        "108": 18,
+        "94": 18
+      },
+      "id_dimensions": [
+        [
+          94,
+          2
+        ],
+        [
+          94,
+          3
+        ],
+        [
+          108,
+          2
+        ],
+        [
+          108,
+          3
+        ]
+      ],
+      "property_selectors": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        77
+      ],
+      "failed_cases": [
+        {
+          "file": "04_grndat_blank_table_header.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "09_fstres_late_coefficient_failure_eof.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "10_fstres_existing_outer_eof.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "11_new_zero_id_outer_blank.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "22_grndat_partial_axis_eof.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "23_fstres_partial_dependent_eof.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "24_fstres_both_blank_helpers.KEY",
+          "id": 94,
+          "status": 2
+        },
+        {
+          "file": "29_reactivate_and_table_eof.KEY",
+          "id": 108,
+          "status": 2
+        },
+        {
+          "file": "30_spatial_reset_new_outer_failure.KEY",
+          "id": 94,
+          "status": 2
+        }
+      ],
+      "skipped_corruption_checks": []
+    }
+  },
+  "validation_order": "50 baseline tests passed before the unchanged 33-file freeze; both captured cohorts passed strict comparison. Two new regressions then passed, giving 52 registered tests. This is 50+2, not a claim of one combined test invocation.",
+  "development_history": [
+    {
+      "kind": "unchanged_candidate_and_observer",
+      "statement": "Both native comparisons passed on their first attempts. No C++ or probe repair was required in this milestone. Candidate files and their archives are unchanged at checkpoint creation."
+    },
+    {
+      "kind": "independent_verifier_scope_correction",
+      "record": {
+        "path": "analysis/nested-material-initial-verifier-diagnostic.json",
+        "sha256": "016bc2e547c90befee38c67c50c599f26c36fb2b898b7e38a495948a36233068"
+      },
+      "statement": "The initial independent verifier reused a historical helper lexer that excluded an incomplete sign after an assigned coefficient. The local verifier was corrected using the already recovered finite decimal grammar, with its original script and training receipt preserved. Both final audits bind the same current verifier; no candidate or native mismatch is implied."
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/nested-material-candidate-freeze.json",
+      "sha256": "6a4114ac54f44b3fc9ae4ae411a18a7bc8d2727b0dffad715dfb8c40184a3488"
+    },
+    {
+      "path": "tools/compare_nested_material_import.py",
+      "sha256": "14b563e89e7b116e94651400a2d1a06d715d531dec73af05981027f6b89d62c6"
+    },
+    {
+      "path": "tools/verify_nested_material_observations.py",
+      "sha256": "daa7f5cfd1ac6817cfb06b603149a4b0ea201bb84df492f29587c45ce7057534"
+    },
+    {
+      "path": "tools/observe_nested_material_import.js",
+      "sha256": "86a018c26f8c455fd51ce38e4d52d7ef76a9ccba4a78b1b4dc0b0d75c80fd4e3"
+    },
+    {
+      "path": "analysis/nested-material-initial-verifier-diagnostic.json",
+      "sha256": "016bc2e547c90befee38c67c50c599f26c36fb2b898b7e38a495948a36233068"
+    },
+    {
+      "path": "analysis/nested-material-test-registration.json",
+      "sha256": "667c30edcadc271208cab4e3e48981665f789f291b1a7fb573f5abae1d2fa4b4"
+    },
+    {
+      "path": "analysis/nested-material-static-contract.json",
+      "sha256": "40bf7406ce78223d5b56a9093cd3b1b5e872ef914bb0d021f6f2bf5bb1892d1c"
+    },
+    {
+      "path": "analysis/nested-material-byte-audit.json",
+      "sha256": "8bfce494f264ccb084ea5a0f2118e31ce1337edfb373bc72e86bb63a7000e77c"
+    },
+    {
+      "path": "analysis/nested-material-model-inventory.json",
+      "sha256": "4571a1fda39bf6ce97481fc09b674adafda44b08dc6c2faad7d8ff842b609e07"
+    },
+    {
+      "path": "analysis/nested-material-implementation-review.json",
+      "sha256": "35dbde988903b40d3cb58b1fec2098ca5ff941e7cc54bd8799809abd331b2b19"
+    },
+    {
+      "path": "analysis/nested-material-precapture-audit.json",
+      "sha256": "a0d04552a5d51d0c78c197d3190df69b9ea8ad3d0b60450e7b144dba44c7228a"
+    },
+    {
+      "path": "analysis/nested-material-held-out-precapture-audit.json",
+      "sha256": "f2ffb00aa3b26e909521a926e7b8f90f908805e8990ab3b16648f292eaaab5f0"
+    },
+    {
+      "path": "analysis/nested-material-follow-on-plan.json",
+      "sha256": "cc0e5aa2454c5bf0c6f1f4e02b5307006608f829b95c4bffa9d603450a3fbd0e"
+    },
+    {
+      "path": "analysis/build_nested_material_checkpoint.py",
+      "sha256": "abe149eec32399d4b249694b095405e676c1a7be9230d35d17fc8193eb92337b"
+    },
+    {
+      "path": "analysis/nested-material-runtime-training.json",
+      "sha256": "1fbc547b23a9181530ffffd28ada905bba272cdcdec5898dee82e8520a3f2ba8",
+      "evidence_id": "ev_7ddd5cc88ea3bcbc7a5ca110f6feb34bdbc19f5cf3bf4d706b5522a3583e2fbc"
+    },
+    {
+      "path": "analysis/nested-material-evaluation-cases.json",
+      "sha256": "1d32b79c4a6773972070d4e1612adcbe2b93a33812c4c5e8c270c78bf3bc3f25"
+    },
+    {
+      "path": "analysis/nested-material-input-freeze.json",
+      "sha256": "a7172ada046444bf645a6f63626d9658da35336d8d17633ea5630f11e4cbd20a"
+    },
+    {
+      "path": "analysis/oracle/nested-material-training/run.json",
+      "sha256": "005e156d0ef285f1bd586a70275065c12be55a5f39be765d11df6c94ab40f921"
+    },
+    {
+      "path": "analysis/nested-material-training-comparison.json",
+      "sha256": "305b8439242208304d2b1688faca57c8b60198d434e493964738044ea19ea0b7"
+    },
+    {
+      "path": "analysis/nested-material-observations.json",
+      "sha256": "38120499edb0d50b3ba6cae6529e2e110584729f45953a40118bfe3bd6701cc0"
+    },
+    {
+      "path": "analysis/nested-material-runtime-held-out.json",
+      "sha256": "d635b1e8f5a6db72b285359af4d5f52085ff5bc1e2beeb3c57185333b25ecee1",
+      "evidence_id": "ev_29deb74c16ec39550a001aea7d0d03cb85aaa283bab079a6450784c14702fa9c"
+    },
+    {
+      "path": "analysis/nested-material-held-out-cases.json",
+      "sha256": "0e6608c3107e885db3528925be9032a247dcae4f3fbb176f15609122946574d3"
+    },
+    {
+      "path": "analysis/nested-material-held-out-input-freeze.json",
+      "sha256": "5035194ec9cccb4d921d316d5e1935f8200059f7c54d235fa3347c526d532c4c"
+    },
+    {
+      "path": "analysis/oracle/nested-material-held-out/run.json",
+      "sha256": "6630a5c1e6b24934459d649fc03f87a4df3864462f2c4fa1de8bddab762b96c0"
+    },
+    {
+      "path": "analysis/nested-material-held-out-comparison.json",
+      "sha256": "fdf68cf39bcc7fe1355b8d56d4e0b72ad470c42fa523dd1da8f3d4792df99740"
+    },
+    {
+      "path": "analysis/nested-material-held-out-observations.json",
+      "sha256": "5714bde23aab50a863b5d8a5dd282f86904067c5866061bcb4a3d50645b5f4f5"
+    }
+  ],
+  "limits": [
+    "Only FSTRES mode 14 and GRNDAT selector 4 are recovered here; neither complete keyword family nor the complete application is claimed.",
+    "The explicit profile with root 0x864 disabled excludes enabled grain-dependent scientific widths, interpolation, constitutive evaluation and simulation behavior.",
+    "Native padding, shared external table ownership, allocation failure, nonfinite values and undefined scratch reads are not fabricated. Owned cleanup does not reproduce native temporary leaks.",
+    "Exact captured floating bytes and stream semantics establish the tested finite domain, not every legacy decimal rounding case."
+  ],
+  "next_recovery": {
+    "plan": {
+      "path": "analysis/nested-material-follow-on-plan.json",
+      "sha256": "cc0e5aa2454c5bf0c6f1f4e02b5307006608f829b95c4bffa9d603450a3fbd0e"
+    },
+    "scope": "Complete bounded FSTRES94 import family: all modes, ten table owners, 42 initialized doubles, derived vector extents, failure sequencing and lifecycle."
+  }
+}

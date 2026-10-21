@@ -1,0 +1,741 @@
+{
+  "purpose": "Predeclared held-out direct spatial geometry evaluation; cases are research questions, no replacement-generated expectations. Candidate is already frozen. Cases11-15 depend on preceding state in listed order.",
+  "cases": [
+    {
+      "path": "tests/fixtures/geometry_import/held_out/01_normal_below.KEY",
+      "sha256": "1ff68b74b065d33850c45b1f58dddcf8378e34090d7c749f99251f91577f62af",
+      "bytes": 83,
+      "question": "Does oriented normal-distance threshold group a shared-origin tilted triangle near the lower side of the normal tolerance?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0.1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          1,
+          2,
+          4,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/02_normal_above.KEY",
+      "sha256": "cf31d0dfd6d47639b591006b340b3bf7bfbd88194d6aed861d70486f161734b5",
+      "bytes": 85,
+      "question": "How does the adjacent tilt on the other side of the normal threshold change plane assignment?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0.101
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          1,
+          2,
+          4,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/03_distance_below.KEY",
+      "sha256": "697e2a252bebe01637134be3462de3391ab63df5fed1de3767362b5ffd142a38",
+      "bytes": 118,
+      "question": "Which plane grouping occurs for this parallel-plane separation near 0.001 times the full bounding diagonal?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0.001414
+        ],
+        [
+          1,
+          0,
+          0.001414
+        ],
+        [
+          0,
+          1,
+          0.001414
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          4,
+          5,
+          6,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/04_distance_above.KEY",
+      "sha256": "ec761b954c29e43a1a1c33c568eb5d9c733037a30ef2af3065ba894db945c613",
+      "bytes": 118,
+      "question": "Which plane grouping occurs for this parallel-plane separation near 0.001 times the full bounding diagonal?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0.001415
+        ],
+        [
+          1,
+          0,
+          0.001415
+        ],
+        [
+          0,
+          1,
+          0.001415
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          4,
+          5,
+          6,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/05_oblique_labels_negative.KEY",
+      "sha256": "8dedbcb6e6f61832622e8222da0eddf6d51acc414bf6ed700fb27cf9360b01e3",
+      "bytes": 85,
+      "question": "Are row labels ignored while a negative fourth slot still admits a non-axis triangle?",
+      "coordinates": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          3,
+          3,
+          5
+        ],
+        [
+          2,
+          5,
+          4
+        ],
+        [
+          4,
+          6,
+          6
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          -7
+        ],
+        [
+          2,
+          4,
+          3,
+          0
+        ]
+      ],
+      "row_labels": [
+        99,
+        -2,
+        40,
+        7
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/06_unused_point_bbox.KEY",
+      "sha256": "c608a72861adbf2e6012333b04e9149f84abc039666cf17f00a6a0023c2563e8",
+      "bytes": 105,
+      "question": "Does the unreferenced sixth point affect the bounding scale used to match approximately parallel triangles?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0.01
+        ],
+        [
+          1,
+          0,
+          0.01
+        ],
+        [
+          0,
+          100,
+          0
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          4,
+          5,
+          3,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/07_tiny_oblique.KEY",
+      "sha256": "407b82188aec2063c01ea3d1e002e2d0919333253c0974b4bac65e4fed01a51d",
+      "bytes": 78,
+      "question": "Does normalization precede the small-normal threshold for a tiny non-axis triangle?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1e-12,
+          2e-12,
+          0
+        ],
+        [
+          0,
+          1e-12,
+          3e-12
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/08_degenerate_and_live.KEY",
+      "sha256": "a7f834ff61cd1e9451c8165a09e22dc35e6a9ab3f0fd165b95c709d045450913",
+      "bytes": 81,
+      "question": "How do degenerate and live faces coexist in classifications and plane-list order?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          2,
+          4,
+          6
+        ],
+        [
+          2,
+          0,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          1,
+          2,
+          4,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/09_orientation_order.KEY",
+      "sha256": "3c1e8acaddbe4099d6f9a5cddbd61e64ce85cbb24af858e0011dbe114cd745b1",
+      "bytes": 92,
+      "question": "Does first-seen orientation determine identifiers with reordered coplanar triangles?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          3,
+          2,
+          0
+        ],
+        [
+          2,
+          3,
+          4,
+          0
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/10_repeat_finalize.KEY",
+      "sha256": "d1ef98bb0bd2b9107dc40ad5264fdbe27f68e291a28bd76ef93b4d1f8166074b",
+      "bytes": 43,
+      "question": "Does a subsequent name-only import clear/rebuild planes while preserving raw classifications and geometry buffers?",
+      "coordinates": null,
+      "connectivity": null,
+      "row_labels": null,
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/11_deactivate.KEY",
+      "sha256": "2111da26fbe69eaba1d0edd47c1a02756885056da9758ab04664b4aa4f718fe0",
+      "bytes": 27,
+      "question": "Does deactivation clear geometry payload/enable while preserving secondary37 and geometry flag3994?",
+      "coordinates": null,
+      "connectivity": null,
+      "row_labels": null,
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/12_reactivate.KEY",
+      "sha256": "5e77438147a1ced599db63719ed5fdc0c119efc36faaf00269b8ae3677bcdb4b",
+      "bytes": 64,
+      "question": "What geometry flags and empty storage survive reactivation without DIEGEO?",
+      "coordinates": null,
+      "connectivity": null,
+      "row_labels": null,
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/13_repopulate.KEY",
+      "sha256": "df7316ce34f6c39a0943cebde6dedcc0928e6e2454b9bd7f87e4fc428e8e4fe8",
+      "bytes": 62,
+      "question": "Does a fresh geometry replacement repopulate a reactivated object?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/14_dimension_planar.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "question": "Does a2D recognized header clear the previous spatial object and geometry, leaving an empty2D root? No planar object or DIEGEO is supplied.",
+      "coordinates": null,
+      "connectivity": null,
+      "row_labels": null,
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/15_dimension_spatial.KEY",
+      "sha256": "df418cac9ac268db9b40cea4bffa7451e7693a1ed6166e9b36761bd9170627c9",
+      "bytes": 62,
+      "question": "Does returning to3D initialize fresh geometry and clear prior dimension state before import?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/16_first_match_overlap.KEY",
+      "sha256": "fe448144e3ae8f48fcd459d16d9607d9516cb8949aab6fb453e1ab7ebe97156e",
+      "bytes": 103,
+      "question": "Which prior plane is selected when the third tilted triangle satisfies both earlier tolerance neighborhoods; does insertion order or closest normal govern?",
+      "coordinates": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0.15
+        ],
+        [
+          0,
+          1,
+          0.08
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          1,
+          2,
+          4,
+          0
+        ],
+        [
+          1,
+          2,
+          5,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/geometry_import/held_out/17_finite_bbox_sentinel.KEY",
+      "sha256": "c7f8c878d47eebca473726087f8db3d055e70d05acbb4795a7188a39508967c6",
+      "bytes": 182,
+      "question": "How do finite+1e30 bbox minima affect grouping for coordinates entirely above the initializer; can this distinguish native sentinels from first-point or infinity initialization?",
+      "coordinates": [
+        [
+          2e+30,
+          2e+30,
+          2e+30
+        ],
+        [
+          3e+30,
+          2e+30,
+          2e+30
+        ],
+        [
+          2e+30,
+          3e+30,
+          2e+30
+        ],
+        [
+          2e+30,
+          2e+30,
+          2.0018e+30
+        ],
+        [
+          3e+30,
+          2e+30,
+          2.0018e+30
+        ],
+        [
+          2e+30,
+          3e+30,
+          2.0018e+30
+        ]
+      ],
+      "connectivity": [
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          4,
+          5,
+          6,
+          0
+        ]
+      ],
+      "row_labels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "split": "held_out",
+      "expected_output": null
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_geometry_import.js",
+    "sha256": "bc35c613b2329f90c7d30a094c9575491fda65b4c5308560100928439a0ec6e5"
+  },
+  "bounds": {
+    "vertices_per_geometry": 6,
+    "faces_per_geometry": 4,
+    "plane_probe_limit": 32,
+    "bytes_per_file": 4095
+  },
+  "domain": "Finite binary64, bounded valid first-three connectivity IDs, no shared storage or nonfinite/overflow stress. Some topology is synthetic and not a physical part.",
+  "construction": "Threshold-adjacent geometric inputs chosen from static formulas, without running original or replacement or assigning expected outputs."
+}

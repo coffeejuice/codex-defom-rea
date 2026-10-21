@@ -1,0 +1,79 @@
+{
+  "purpose": "Predeclared held-out time-control evaluation following correction of initial bare-EOF first-conversion failures. Starts a fresh3D empty root; candidate receives only fixture bytes and startup profile. Hypotheses are not oracle outputs.",
+  "cases": [
+    {
+      "path": "tests/fixtures/time_controls/held_out/01_transitions.KEY",
+      "sha256": "2a434f1220c7fb923bc2b4cfd07e339cc88be99df5031d455ddbe0594c20106e",
+      "hypothesis": "Fresh3D empty profile; switching primaries, retained secondary value, delayed normalization, signed-zero bits."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/02_failed_items_delimited.KEY",
+      "sha256": "e1c80ac964193d60b2ac45993edf490629aec1ce390d375cc675c7ae51b0067e",
+      "hypothesis": "Failed sign-plus-dot items followed by LF or whitespace should be matching failures, not input exhaustion; verify actual scanner status."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/03_plus_dot_eof.KEY",
+      "sha256": "14e173e539962250380596fae907665c5622f76607e6d453b68268d7a69ebe56",
+      "hypothesis": "Sign-plus-dot consumes all input before first conversion; hypothesized scanner EOF/helper1/import2."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/04_minus_dot_eof.KEY",
+      "sha256": "a158dad24049e95c2219a84de1ec9d3488de18e197e5ab3a22c5f55ec0c7a9dd",
+      "hypothesis": "Pair reader sign-plus-dot consumes input before assignment; hypothesized scanner EOF/helper1/import2."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/05_whitespace_eof.KEY",
+      "sha256": "c7f99637313ab362015e3735c7d44873fc1fe467c3ea6fee7bd4bb5fff962f6f",
+      "hypothesis": "Whitespace-only tail before EOF: zero destination and input-failure status."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/06_invalid_plus_x_eof.KEY",
+      "sha256": "ed2ad24dfada3e5d14604ccf6869547411971ba2280334e24ad9890df481ecd1",
+      "hypothesis": "Invalid character remains after sign; hypothesized scanner0/helper0/import0, unlike exhausted sign."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/07_invalid_minus_x_eof.KEY",
+      "sha256": "037d40bfd2f4ac4ff874871d5615f0c8f59f9e20f443879ed3094e1a950f409e",
+      "hypothesis": "Invalid character remains after negative sign in pair reader; hypothesized matching failure with zero outputs."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/08_partial_minus_eof.KEY",
+      "sha256": "059f9f2814c7cfc46f6727fccf393cc2594949c5b3ee3e60156948a28bca03a7",
+      "hypothesis": "First value assigned, second consumes sign to EOF; partial conversion count1/helper0/import0."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/09_partial_dot_eof.KEY",
+      "sha256": "4aa0fc1f555d5dda22d3e67bde28396e51456fcaf80d4949db2438ee818c6b8d",
+      "hypothesis": "First value assigned before second bare-dot failure; negative primary and zero secondary persist."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/10_pair_exponents_eof.KEY",
+      "sha256": "9bf2ba02def532a8bf4f93a72528fd1a4b52c3e5f6a1cee9324e3a9755af2666",
+      "hypothesis": "Legacy incomplete exponents may be consumed and accepted in both pair positions, including physical EOF."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/11_exponent_delimiters.KEY",
+      "sha256": "28decae19d6b9791992440c4efd5196295d122b8632d865e0b4d36b2e5e4af5a",
+      "hypothesis": "Missing exponent digits at LF/space delimiters and negative-zero exponent syntax; compare raw bits and immediate/post-finalizer mode."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/12_first_exponent_eof.KEY",
+      "sha256": "fabfff1107eb813bcb34f6f146f9c90ad82fd8461eedb50b1eb26a19717aedf0",
+      "hypothesis": "First floating item with incomplete exponent at physical EOF may still convert6; distinguish numeric-prefix success from failed sign/dot."
+    },
+    {
+      "path": "tests/fixtures/time_controls/held_out/13_populated_planar.KEY",
+      "sha256": "e95c8b0c77bc6378082f8beb3f87cb41bb454e923bb323599f7fd7e45cc9be22",
+      "hypothesis": "Compound new sequence: switch to populated2D model including inactive placeholder and unknown direct tails, then change time/displacement controls and verify finalizer retains all mesh data."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_time_controls.js",
+    "sha256": "5d2f84f34f84f800ab975d7d3dfdd84578380513e1444c19ebf23afcd61098a0"
+  },
+  "scope": [
+    "DSMAX48 and DTMAX50 only; no DTTYPE51 or other new handlers.",
+    "No objects or materials: numerical handler/finalizer interaction only.",
+    "Preserve original discovery fixtures and initial comparison. Freeze corrected candidate before running these new original inputs."
+  ]
+}

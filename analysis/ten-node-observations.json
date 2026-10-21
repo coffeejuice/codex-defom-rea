@@ -1,0 +1,1359 @@
+{
+  "result": "PASS",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "method": "Verify saved passive original observations and provenance, without execution or replacement-generated state.",
+  "fixture_manifest": {
+    "path": "analysis/ten-node-evaluation-cases.json",
+    "sha256": "14e20c5324a6108bda9c11d63f070965420b01067ff144fc7e7d6d8f23def20c"
+  },
+  "static_reachability": {
+    "path": "analysis/ten-node-reachability.json",
+    "sha256": "7ddf5ef5e496d1f51993963c18d9b37e27dbd8d05096852f4e53a7c2cb601d84"
+  },
+  "process_runs": 2,
+  "imports": 7,
+  "ordered_events": 107,
+  "runs": [
+    {
+      "scenario": "existing",
+      "pid": 16224,
+      "evidence": {
+        "path": "analysis/ten-node-runtime-existing.json",
+        "sha256": "1c7e0ba1ee7637e04736aefa79a1b4f6ca734781d626f891185490a85da4df2f"
+      },
+      "evidence_id": "ev_47223c42a0cfd108e3abf9f40798dca30e7828670702d8a8432c9bf61d72bb10",
+      "run_record": {
+        "path": "analysis/oracle/ten-node-existing/run.json",
+        "sha256": "f9bc17db8b2ed5e14047dfbdb51f45da1e6da12df0b83ffc5508b647e5c43b2d"
+      },
+      "probe": {
+        "path": "analysis/oracle/ten-node-existing.js",
+        "sha256": "f0ff66271a04b680b22507491ac5cc0b30e04c865f8193af840362d63c20b5a1"
+      },
+      "probe_template": {
+        "path": "tools/observe_connectivity_rejection.js",
+        "sha256": "fd7c94a7e6353279ca20ac378569ecd1039dd511f5ed9aa5588e9cd6cf1d9286"
+      },
+      "fixture_hashes": {
+        "07_tetrahedron.KEY": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+        "15_unsupported_ten_nodes.KEY": "88d8d074b5a0951c407fa3c68b1d0f3a1f4caf7123fe20a943956b6d7ace92f8",
+        "16_unsupported_ten_followed_name.KEY": "c9df3c3fd14e19639e0b9890021f1494e1c2752f15fe51f222726bbcd5d7bc9d"
+      },
+      "diagnostics": [
+        "ERROR: Keyword ELMCON Reading Error.",
+        "WARNING: Keyword 1 not found. Skip  1 2 3 4 5 6 7 8 9 10",
+        "ERROR: Keyword ELMCON Reading Error.",
+        "WARNING: Keyword 1 not found. Skip  1 2 3 4 5 6 7 8 9 10"
+      ],
+      "event_count": 64,
+      "imports": [
+        {
+          "file": "07_tetrahedron.KEY",
+          "sequence_range": [
+            1,
+            21
+          ],
+          "status": 0,
+          "object_created_during_import": true,
+          "before": {
+            "object_count": 0,
+            "list_count": 0,
+            "objects": []
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 1,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 2,
+              "operation": "keyword-resolved",
+              "keyword": "OBJTYP",
+              "id": 145
+            },
+            {
+              "sequence": 3,
+              "operation": "handler-before",
+              "keyword": "OBJTYP",
+              "id": 145
+            },
+            {
+              "sequence": 4,
+              "operation": "object-resolved",
+              "keyword": "OBJTYP"
+            },
+            {
+              "sequence": 5,
+              "operation": "handler-after",
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 6,
+              "operation": "keyword-resolved",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 7,
+              "operation": "handler-before",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 8,
+              "operation": "object-resolved",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 9,
+              "operation": "handler-after",
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 10,
+              "operation": "keyword-resolved",
+              "keyword": "RZ",
+              "id": 159
+            },
+            {
+              "sequence": 11,
+              "operation": "handler-before",
+              "keyword": "RZ",
+              "id": 159
+            },
+            {
+              "sequence": 12,
+              "operation": "object-resolved",
+              "keyword": "RZ"
+            },
+            {
+              "sequence": 13,
+              "operation": "handler-after",
+              "keyword": "RZ",
+              "id": 159,
+              "status": 0
+            },
+            {
+              "sequence": 14,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 15,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 16,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 17,
+              "operation": "boundary-enter",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 18,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 0
+            },
+            {
+              "sequence": 19,
+              "operation": "finalize-before",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 20,
+              "operation": "finalize-after",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 21,
+              "operation": "import-after",
+              "keyword": "ELMCON",
+              "status": 0
+            }
+          ],
+          "boundary_entry_count": 1,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": false
+        },
+        {
+          "file": "15_unsupported_ten_nodes.KEY",
+          "sequence_range": [
+            22,
+            30
+          ],
+          "status": 2,
+          "object_created_during_import": false,
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 22,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 23,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 24,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 25,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 26,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 2
+            },
+            {
+              "sequence": 27,
+              "operation": "keyword-resolved",
+              "keyword": "1",
+              "id": 305
+            },
+            {
+              "sequence": 28,
+              "operation": "finalize-before",
+              "keyword": "1"
+            },
+            {
+              "sequence": 29,
+              "operation": "finalize-after",
+              "keyword": "1"
+            },
+            {
+              "sequence": 30,
+              "operation": "import-after",
+              "keyword": "1",
+              "status": 2
+            }
+          ],
+          "boundary_entry_count": 0,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": true
+        },
+        {
+          "file": "16_unsupported_ten_followed_name.KEY",
+          "sequence_range": [
+            31,
+            43
+          ],
+          "status": 2,
+          "object_created_during_import": false,
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA after unsupported ten-node block",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 31,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 32,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 33,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 34,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 35,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 2
+            },
+            {
+              "sequence": 36,
+              "operation": "keyword-resolved",
+              "keyword": "1",
+              "id": 305
+            },
+            {
+              "sequence": 37,
+              "operation": "keyword-resolved",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 38,
+              "operation": "handler-before",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 39,
+              "operation": "object-resolved",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 40,
+              "operation": "handler-after",
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 41,
+              "operation": "finalize-before",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 42,
+              "operation": "finalize-after",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 43,
+              "operation": "import-after",
+              "keyword": "OBJNAM",
+              "status": 2
+            }
+          ],
+          "boundary_entry_count": 0,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": true
+        },
+        {
+          "file": "07_tetrahedron.KEY",
+          "sequence_range": [
+            44,
+            64
+          ],
+          "status": 0,
+          "object_created_during_import": false,
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA after unsupported ten-node block",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 44,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 45,
+              "operation": "keyword-resolved",
+              "keyword": "OBJTYP",
+              "id": 145
+            },
+            {
+              "sequence": 46,
+              "operation": "handler-before",
+              "keyword": "OBJTYP",
+              "id": 145
+            },
+            {
+              "sequence": 47,
+              "operation": "object-resolved",
+              "keyword": "OBJTYP"
+            },
+            {
+              "sequence": 48,
+              "operation": "handler-after",
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 49,
+              "operation": "keyword-resolved",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 50,
+              "operation": "handler-before",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 51,
+              "operation": "object-resolved",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 52,
+              "operation": "handler-after",
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 53,
+              "operation": "keyword-resolved",
+              "keyword": "RZ",
+              "id": 159
+            },
+            {
+              "sequence": 54,
+              "operation": "handler-before",
+              "keyword": "RZ",
+              "id": 159
+            },
+            {
+              "sequence": 55,
+              "operation": "object-resolved",
+              "keyword": "RZ"
+            },
+            {
+              "sequence": 56,
+              "operation": "handler-after",
+              "keyword": "RZ",
+              "id": 159,
+              "status": 0
+            },
+            {
+              "sequence": 57,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 58,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 59,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 60,
+              "operation": "boundary-enter",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 61,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 0
+            },
+            {
+              "sequence": 62,
+              "operation": "finalize-before",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 63,
+              "operation": "finalize-after",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 64,
+              "operation": "import-after",
+              "keyword": "ELMCON",
+              "status": 0
+            }
+          ],
+          "boundary_entry_count": 1,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": false
+        }
+      ]
+    },
+    {
+      "scenario": "fresh",
+      "pid": 25120,
+      "evidence": {
+        "path": "analysis/ten-node-runtime-fresh.json",
+        "sha256": "ca24caf0b2dfc0d31b631a37af16e5559e1aa38ddb77fd35fe606f621701f30f"
+      },
+      "evidence_id": "ev_868bb69cceb383b17b9c3fc83b7a83a3fabf5a598fc5fee98c0c7e72f041223d",
+      "run_record": {
+        "path": "analysis/oracle/ten-node-fresh/run.json",
+        "sha256": "0daf25bb0039f1b5480e0e726bbb8104bbd613cf2d6f8ca6ce0d62a30076b54e"
+      },
+      "probe": {
+        "path": "analysis/oracle/ten-node-fresh.js",
+        "sha256": "7aeb2a688d69d83148c85aaa8ac2655243fb3ef4a4ef4725655ee7230186c3ef"
+      },
+      "probe_template": {
+        "path": "tools/observe_connectivity_rejection.js",
+        "sha256": "fd7c94a7e6353279ca20ac378569ecd1039dd511f5ed9aa5588e9cd6cf1d9286"
+      },
+      "fixture_hashes": {
+        "07_tetrahedron.KEY": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81",
+        "15_unsupported_ten_nodes.KEY": "88d8d074b5a0951c407fa3c68b1d0f3a1f4caf7123fe20a943956b6d7ace92f8",
+        "16_unsupported_ten_followed_name.KEY": "c9df3c3fd14e19639e0b9890021f1494e1c2752f15fe51f222726bbcd5d7bc9d"
+      },
+      "diagnostics": [
+        "ERROR: Keyword ELMCON Reading Error.",
+        "WARNING: Keyword 1 not found. Skip  1 2 3 4 5 6 7 8 9 10",
+        "ERROR: Keyword ELMCON Reading Error.",
+        "WARNING: Keyword 1 not found. Skip  1 2 3 4 5 6 7 8 9 10"
+      ],
+      "event_count": 43,
+      "imports": [
+        {
+          "file": "15_unsupported_ten_nodes.KEY",
+          "sequence_range": [
+            1,
+            9
+          ],
+          "status": 2,
+          "object_created_during_import": true,
+          "before": {
+            "object_count": 0,
+            "list_count": 0,
+            "objects": []
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "coordinates_pointer_nonnull": false,
+                "connectivity_pointer_nonnull": false
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 1,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 2,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 3,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 4,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 5,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 2
+            },
+            {
+              "sequence": 6,
+              "operation": "keyword-resolved",
+              "keyword": "1",
+              "id": 305
+            },
+            {
+              "sequence": 7,
+              "operation": "finalize-before",
+              "keyword": "1"
+            },
+            {
+              "sequence": 8,
+              "operation": "finalize-after",
+              "keyword": "1"
+            },
+            {
+              "sequence": 9,
+              "operation": "import-after",
+              "keyword": "1",
+              "status": 2
+            }
+          ],
+          "boundary_entry_count": 0,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": true
+        },
+        {
+          "file": "16_unsupported_ten_followed_name.KEY",
+          "sequence_range": [
+            10,
+            22
+          ],
+          "status": 2,
+          "object_created_during_import": false,
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "",
+                "coordinates_pointer_nonnull": false,
+                "connectivity_pointer_nonnull": false
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA after unsupported ten-node block",
+                "coordinates_pointer_nonnull": false,
+                "connectivity_pointer_nonnull": false
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 10,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 11,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 12,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 13,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 14,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 2
+            },
+            {
+              "sequence": 15,
+              "operation": "keyword-resolved",
+              "keyword": "1",
+              "id": 305
+            },
+            {
+              "sequence": 16,
+              "operation": "keyword-resolved",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 17,
+              "operation": "handler-before",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 18,
+              "operation": "object-resolved",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 19,
+              "operation": "handler-after",
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 20,
+              "operation": "finalize-before",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 21,
+              "operation": "finalize-after",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 22,
+              "operation": "import-after",
+              "keyword": "OBJNAM",
+              "status": 2
+            }
+          ],
+          "boundary_entry_count": 0,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": true
+        },
+        {
+          "file": "07_tetrahedron.KEY",
+          "sequence_range": [
+            23,
+            43
+          ],
+          "status": 0,
+          "object_created_during_import": false,
+          "before": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 0,
+                "mesh_flag": 0,
+                "nodes": 0,
+                "elements": 0,
+                "element_kind": 2,
+                "arity": 4,
+                "name": "REA after unsupported ten-node block",
+                "coordinates_pointer_nonnull": false,
+                "connectivity_pointer_nonnull": false
+              }
+            ]
+          },
+          "after": {
+            "object_count": 1,
+            "list_count": 1,
+            "objects": [
+              {
+                "id": 1,
+                "type": 1,
+                "mesh_flag": 1,
+                "nodes": 4,
+                "elements": 1,
+                "element_kind": 2,
+                "arity": 4,
+                "coordinates": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "connectivity": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "array_8e0_prefix": [
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "array_a30_prefix": [
+                  1
+                ],
+                "array_a38_prefix": [
+                  0
+                ],
+                "name": "REA tetrahedron",
+                "coordinates_pointer_nonnull": true,
+                "connectivity_pointer_nonnull": true
+              }
+            ]
+          },
+          "events": [
+            {
+              "sequence": 23,
+              "operation": "import-before",
+              "keyword": null
+            },
+            {
+              "sequence": 24,
+              "operation": "keyword-resolved",
+              "keyword": "OBJTYP",
+              "id": 145
+            },
+            {
+              "sequence": 25,
+              "operation": "handler-before",
+              "keyword": "OBJTYP",
+              "id": 145
+            },
+            {
+              "sequence": 26,
+              "operation": "object-resolved",
+              "keyword": "OBJTYP"
+            },
+            {
+              "sequence": 27,
+              "operation": "handler-after",
+              "keyword": "OBJTYP",
+              "id": 145,
+              "status": 0
+            },
+            {
+              "sequence": 28,
+              "operation": "keyword-resolved",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 29,
+              "operation": "handler-before",
+              "keyword": "OBJNAM",
+              "id": 144
+            },
+            {
+              "sequence": 30,
+              "operation": "object-resolved",
+              "keyword": "OBJNAM"
+            },
+            {
+              "sequence": 31,
+              "operation": "handler-after",
+              "keyword": "OBJNAM",
+              "id": 144,
+              "status": 0
+            },
+            {
+              "sequence": 32,
+              "operation": "keyword-resolved",
+              "keyword": "RZ",
+              "id": 159
+            },
+            {
+              "sequence": 33,
+              "operation": "handler-before",
+              "keyword": "RZ",
+              "id": 159
+            },
+            {
+              "sequence": 34,
+              "operation": "object-resolved",
+              "keyword": "RZ"
+            },
+            {
+              "sequence": 35,
+              "operation": "handler-after",
+              "keyword": "RZ",
+              "id": 159,
+              "status": 0
+            },
+            {
+              "sequence": 36,
+              "operation": "keyword-resolved",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 37,
+              "operation": "handler-before",
+              "keyword": "ELMCON",
+              "id": 173
+            },
+            {
+              "sequence": 38,
+              "operation": "object-resolved",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 39,
+              "operation": "boundary-enter",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 40,
+              "operation": "handler-after",
+              "keyword": "ELMCON",
+              "id": 173,
+              "status": 0
+            },
+            {
+              "sequence": 41,
+              "operation": "finalize-before",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 42,
+              "operation": "finalize-after",
+              "keyword": "ELMCON"
+            },
+            {
+              "sequence": 43,
+              "operation": "import-after",
+              "keyword": "ELMCON",
+              "status": 0
+            }
+          ],
+          "boundary_entry_count": 1,
+          "finalization_observed": true,
+          "captured_mesh_and_pointer_fields_unchanged_after_resolution": false
+        }
+      ]
+    }
+  ],
+  "tampering_checks": [
+    {
+      "mutation": "PID",
+      "result": "REJECTED",
+      "reason": "PID mismatch"
+    },
+    {
+      "mutation": "sequence",
+      "result": "REJECTED",
+      "reason": "event sequence incomplete"
+    },
+    {
+      "mutation": "handler_status",
+      "result": "REJECTED",
+      "reason": "handler status mismatch"
+    },
+    {
+      "mutation": "coordinate",
+      "result": "REJECTED",
+      "reason": "state changed between handler and finalization"
+    },
+    {
+      "mutation": "connectivity",
+      "result": "REJECTED",
+      "reason": "state changed between handler and finalization"
+    },
+    {
+      "mutation": "coordinate_pointer",
+      "result": "REJECTED",
+      "reason": "state changed between handler and finalization"
+    },
+    {
+      "mutation": "connectivity_pointer",
+      "result": "REJECTED",
+      "reason": "state changed between handler and finalization"
+    },
+    {
+      "mutation": "unexpected_boundary",
+      "result": "REJECTED",
+      "reason": "event order/keyword/file mismatch"
+    },
+    {
+      "mutation": "following_name",
+      "result": "REJECTED",
+      "reason": "finalization changed captured fields"
+    },
+    {
+      "mutation": "missing_finalize",
+      "result": "REJECTED",
+      "reason": "event order/keyword/file mismatch"
+    },
+    {
+      "mutation": "truncation",
+      "result": "REJECTED",
+      "reason": "truncation or cleanup error"
+    }
+  ],
+  "findings": [
+    "Both rejection files return ELMCON-handler status 2 and overall import status 2 in existing and initially fresh scenarios.",
+    "Neither rejection file enters the observed 3D boundary wrapper; both still execute finalization.",
+    "Existing mesh fields, coordinates, connectivity, dependent arrays, object identity and array pointers remain unchanged during rejection.",
+    "The initially fresh rejected ELMCON creates an empty object 1 with kind 2/arity 4 before returning 2.",
+    "The following OBJNAM handler succeeds and changes the name despite overall import status 2.",
+    "The rejected connectivity row label is subsequently resolved as unknown keyword 1, corroborated by the original console warning.",
+    "A later supported tetrahedron import returns 0 and enters the four-slot boundary path."
+  ],
+  "limitations": [
+    "These observations establish rejection of these two KEY arity 10 inputs, not global absence of ten-node support. Low-level arity 10 code and uninspected routes remain documented separately.",
+    "The probe covers selected model fields, not complete model state or transactions.",
+    "Absolute pointers are compared internally but omitted from this report. Name bytes after the first NUL are excluded because they are not meaningful string content.",
+    "The existing run uses baseline, rejection 15, rejection 16, baseline; it does not reset the baseline immediately before 16 as originally proposed. The unchanged state after 15 is verified. The fresh run intentionally omits a baseline before rejection.",
+    "State snapshots verify object creation at resolution before the rejected handler returns; the probe does not capture every constructor instruction."
+  ]
+}

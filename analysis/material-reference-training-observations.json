@@ -1,0 +1,1179 @@
+{
+  "status": "PASS",
+  "scope": "Original-only bounded MSTMTR count/storage mutation, finite scalar reads, allocation lifetime, and immediate insertion-order material finalization.",
+  "evidence_id": "ev_34f2e806c33928e20beb7396fa4f5611ccb61ccc18c89e6ec84404c2ec21a2c3",
+  "pid": 14428,
+  "result": {
+    "imports": [
+      {
+        "file": "01_tet_two_materials.KEY",
+        "status": 0,
+        "sequence": [
+          1,
+          219
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "02_existing_missing_fractional.KEY",
+        "status": 0,
+        "sequence": [
+          220,
+          253
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 3,
+            "capacity": 3,
+            "physical_ids": [
+              20,
+              999,
+              20
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "03_append_with_reference_source.KEY",
+        "status": 0,
+        "sequence": [
+          254,
+          362
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 3,
+            "capacity": 3,
+            "physical_ids": [
+              20,
+              999,
+              20
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "04_clear_retains_allocation.KEY",
+        "status": 0,
+        "sequence": [
+          363,
+          389
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 3,
+            "physical_ids": [
+              20,
+              999,
+              20
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "05_negative_after_clear.KEY",
+        "status": 0,
+        "sequence": [
+          390,
+          413
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 0,
+            "logical_count": -2,
+            "capacity": 3,
+            "physical_ids": [
+              20,
+              999,
+              20
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "06_count_physical_eof.KEY",
+        "status": 2,
+        "sequence": [
+          414,
+          437
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 3,
+            "physical_ids": [
+              20,
+              999,
+              20
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "07_replace_fractional_signed.KEY",
+        "status": 0,
+        "sequence": [
+          438,
+          470
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 2,
+            "capacity": 2,
+            "physical_ids": [
+              30,
+              -7
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "08_blank_count_preserves_mode.KEY",
+        "status": 2,
+        "sequence": [
+          471,
+          494
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 0,
+            "capacity": 2,
+            "physical_ids": [
+              30,
+              -7
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "09_append_with_zero_count_source.KEY",
+        "status": 0,
+        "sequence": [
+          495,
+          598
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 0,
+            "capacity": 2,
+            "physical_ids": [
+              30,
+              -7
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 40,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "10_nonnumeric_count.KEY",
+        "status": 0,
+        "sequence": [
+          599,
+          622
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 0,
+            "capacity": 2,
+            "physical_ids": [
+              30,
+              -7
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 40,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "11_no_reference_at_eof.KEY",
+        "status": 2,
+        "sequence": [
+          623,
+          656
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 3,
+            "capacity": 3,
+            "physical_ids": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 40,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "12_partial_references_eof.KEY",
+        "status": 2,
+        "sequence": [
+          657,
+          691
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 3,
+            "capacity": 3,
+            "physical_ids": [
+              20,
+              0,
+              0
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 40,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "13_cycle_forward_order.KEY",
+        "status": 0,
+        "sequence": [
+          692,
+          732
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 1,
+            "logical_count": 1,
+            "capacity": 1,
+            "physical_ids": [
+              20
+            ]
+          },
+          {
+            "id": 20,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 40,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "14_self_reference_ends_loop.KEY",
+        "status": 0,
+        "sequence": [
+          733,
+          765
+        ],
+        "materials": [
+          {
+            "id": 10,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 20,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 30,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 40,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "15_planar_inverse_insertion.KEY",
+        "status": 0,
+        "sequence": [
+          766,
+          890
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 1,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "16_cycle_reverse_order.KEY",
+        "status": 0,
+        "sequence": [
+          891,
+          929
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 1,
+            "logical_count": 1,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "17_clear_then_configuration_refresh.KEY",
+        "status": 0,
+        "sequence": [
+          930,
+          976
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "18_missing_target_then_append.KEY",
+        "status": 0,
+        "sequence": [
+          977,
+          1098
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "logical_count": 1,
+            "capacity": 1,
+            "physical_ids": [
+              3
+            ]
+          },
+          {
+            "id": 3,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          }
+        ]
+      },
+      {
+        "file": "19_create_through_reference.KEY",
+        "status": 0,
+        "sequence": [
+          1099,
+          1224
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 3,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 4,
+            "mode": 1,
+            "logical_count": 2,
+            "capacity": 2,
+            "physical_ids": [
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "file": "20_late_matching_failure.KEY",
+        "status": 0,
+        "sequence": [
+          1225,
+          1259
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 3,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 4,
+            "mode": 1,
+            "logical_count": 2,
+            "capacity": 2,
+            "physical_ids": [
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "file": "21_negative_target_retained.KEY",
+        "status": 0,
+        "sequence": [
+          1260,
+          1296
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "logical_count": 1,
+            "capacity": 1,
+            "physical_ids": [
+              4
+            ]
+          },
+          {
+            "id": 3,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 4,
+            "mode": 2,
+            "logical_count": -1,
+            "capacity": 2,
+            "physical_ids": [
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "file": "22_blank_live_source.KEY",
+        "status": 2,
+        "sequence": [
+          1297,
+          1320
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              4
+            ]
+          },
+          {
+            "id": 3,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 4,
+            "mode": 2,
+            "logical_count": -1,
+            "capacity": 2,
+            "physical_ids": [
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "file": "23_replace_without_final_newline.KEY",
+        "status": 0,
+        "sequence": [
+          1321,
+          1350
+        ],
+        "materials": [
+          {
+            "id": 2,
+            "mode": 0,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 1,
+            "physical_ids": [
+              4
+            ]
+          },
+          {
+            "id": 3,
+            "mode": 2,
+            "logical_count": 0,
+            "capacity": 0,
+            "physical_ids": []
+          },
+          {
+            "id": 4,
+            "mode": 1,
+            "logical_count": 1,
+            "capacity": 1,
+            "physical_ids": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "file": "24_reset_releases_retained.KEY",
+        "status": 0,
+        "sequence": [
+          1351,
+          1404
+        ],
+        "materials": []
+      }
+    ],
+    "handlers": [
+      {
+        "keyword": 92,
+        "selected_id": 10,
+        "created": true,
+        "status": 0,
+        "sequence": 45
+      },
+      {
+        "keyword": 92,
+        "selected_id": 20,
+        "created": true,
+        "status": 0,
+        "sequence": 126
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 225
+      },
+      {
+        "keyword": 92,
+        "selected_id": 30,
+        "created": true,
+        "status": 0,
+        "sequence": 259
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 368
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 395
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 2,
+        "sequence": 419
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 443
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 2,
+        "sequence": 476
+      },
+      {
+        "keyword": 92,
+        "selected_id": 40,
+        "created": true,
+        "status": 0,
+        "sequence": 500
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 604
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 2,
+        "sequence": 628
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 2,
+        "sequence": 662
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 697
+      },
+      {
+        "keyword": 116,
+        "selected_id": 20,
+        "created": false,
+        "status": 0,
+        "sequence": 708
+      },
+      {
+        "keyword": 116,
+        "selected_id": 10,
+        "created": false,
+        "status": 0,
+        "sequence": 738
+      },
+      {
+        "keyword": 92,
+        "selected_id": 2,
+        "created": true,
+        "status": 0,
+        "sequence": 804
+      },
+      {
+        "keyword": 92,
+        "selected_id": 1,
+        "created": true,
+        "status": 0,
+        "sequence": 822
+      },
+      {
+        "keyword": 116,
+        "selected_id": 1,
+        "created": false,
+        "status": 0,
+        "sequence": 896
+      },
+      {
+        "keyword": 116,
+        "selected_id": 2,
+        "created": false,
+        "status": 0,
+        "sequence": 905
+      },
+      {
+        "keyword": 116,
+        "selected_id": 2,
+        "created": false,
+        "status": 0,
+        "sequence": 935
+      },
+      {
+        "keyword": 116,
+        "selected_id": 1,
+        "created": false,
+        "status": 0,
+        "sequence": 982
+      },
+      {
+        "keyword": 92,
+        "selected_id": 3,
+        "created": true,
+        "status": 0,
+        "sequence": 991
+      },
+      {
+        "keyword": 116,
+        "selected_id": 4,
+        "created": true,
+        "status": 0,
+        "sequence": 1104
+      },
+      {
+        "keyword": 116,
+        "selected_id": 4,
+        "created": false,
+        "status": 0,
+        "sequence": 1230
+      },
+      {
+        "keyword": 116,
+        "selected_id": 4,
+        "created": false,
+        "status": 0,
+        "sequence": 1265
+      },
+      {
+        "keyword": 116,
+        "selected_id": 1,
+        "created": false,
+        "status": 0,
+        "sequence": 1274
+      },
+      {
+        "keyword": 116,
+        "selected_id": 1,
+        "created": false,
+        "status": 2,
+        "sequence": 1302
+      },
+      {
+        "keyword": 116,
+        "selected_id": 4,
+        "created": false,
+        "status": 0,
+        "sequence": 1326
+      }
+    ],
+    "allocation_count": 14,
+    "finalizer_lookups": 25,
+    "features": {
+      "49:0": 12,
+      "49:1": 8
+    },
+    "retained_nonpositive_snapshots": {
+      "0": 14,
+      "-2": 1,
+      "-1": 2
+    },
+    "nonzero_descriptor49_50_values_at_refresh": 0,
+    "event_counts": {
+      "import-before": 24,
+      "flags-reset-before": 24,
+      "flags-reset-after": 24,
+      "stream-scan": 75,
+      "keyword-resolved": 40,
+      "handler-before": 39,
+      "segment-clear-before": 174,
+      "segment-clear-after": 174,
+      "object-selected": 8,
+      "handler-after": 39,
+      "allocation-free": 48,
+      "allocation-update": 32,
+      "material-selector": 29,
+      "material-lookup": 83,
+      "material-scratch-before": 16,
+      "material-scratch-after": 16,
+      "material-append-before": 8,
+      "material-append-after": 8,
+      "material-refresh-before": 10,
+      "material-copy-before": 6,
+      "geometry-flag-before": 4,
+      "geometry-flag-after": 4,
+      "material-copy-after": 6,
+      "material-layout-before": 10,
+      "material-reference-feature": 20,
+      "material-layout-after": 10,
+      "material-copy-destroy-before": 6,
+      "material-copy-destroy-after": 6,
+      "material-refresh-after": 10,
+      "material-name": 7,
+      "finalize-before": 24,
+      "stage-before": 72,
+      "stage-after": 72,
+      "material-reference-finalize-before": 24,
+      "material-reference-finalize-after": 24,
+      "object-stage-before": 23,
+      "object-stage-after": 23,
+      "finalize-after": 24,
+      "import-after": 24,
+      "material-reference-count": 22,
+      "material-reference-allocate": 14,
+      "material-reference-scan": 21,
+      "material-reference-lookup-before": 25,
+      "material-reference-free-before": 14,
+      "material-reference-free-after": 14,
+      "material-clear-before": 4,
+      "material-destroy-before": 8,
+      "material-destroy-after": 8,
+      "material-clear-after": 4
+    }
+  },
+  "tampering_rejected": [
+    "event order",
+    "count destination",
+    "count raw bytes",
+    "count status",
+    "count cursor",
+    "count source line",
+    "allocated capacity",
+    "calloc zero bytes",
+    "calloc call site",
+    "scalar raw bytes",
+    "failed scalar destination exposure",
+    "free contents",
+    "free owner",
+    "finalizer insertion order",
+    "finalizer immediate outcome",
+    "feature result",
+    "retained allocation bytes",
+    "provenance pid",
+    "provenance source_sha256",
+    "provenance messages_truncated",
+    "fixture hash",
+    "frozen archive hash"
+  ],
+  "bindings": [
+    {
+      "path": "analysis/material-reference-runtime-training.json",
+      "sha256": "76bc2abc53bd7d809e9a9a1cbd1de451c834b6f1965b67282af62fac4e5fa20e"
+    },
+    {
+      "path": "analysis/oracle/material-reference-training/run.json",
+      "sha256": "a84556e8dfe8bc1b2902f658f1274603357a01559dd0990cb7bfe07be5b0dc58"
+    },
+    {
+      "path": "analysis/material-reference-evaluation-cases.json",
+      "sha256": "3d0faa9b4fd08c683b39896a82cbc29ff8eaa9f39b8c6c2c8770f2d4e5c2f661"
+    },
+    {
+      "path": "analysis/material-reference-candidate-freeze.json",
+      "sha256": "0853ff97b88cd8a39c28d41d4a83c9f08e85695866aaf7905d0558bd844bbee0"
+    },
+    {
+      "path": "tools/observe_material_reference_import.js",
+      "sha256": "91115644112be4418b1168ca8f16008de3e44bef16503c23aadaf49178445f28"
+    },
+    {
+      "path": "analysis/material-reference-next-contract.json",
+      "sha256": "0b2674acf6050dfa4b1997d78447333dc1a7ed21ccdb453f9f99fb60f9d24f5a"
+    }
+  ],
+  "limitations": [
+    "No replacement execution or candidate-generated expectations. This is a bounded observation audit, not full application compatibility.",
+    "Nonzero descriptor49/50 material-column permutation remains pending: this capture contains zero-valued columns at refresh. Feature query results and allocation effects are observed.",
+    "First-reference matching failure may read an uninitialized native local and is excluded. The selected later matching failure follows a proven successful scalar in the same handler.",
+    "Scientific meanings of material modes are not inferred. Other keyword algorithms retain their earlier milestone scope.",
+    "Allocation failure, nonfinite/overflow conversions, shared aliases, and material property tables beyond selected fields are outside this experiment."
+  ]
+}

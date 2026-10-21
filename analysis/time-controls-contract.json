@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_compared_with_corrected_reader",
+  "scope": "DSMAX48 and DTMAX50 scalar imports in the explicit empty-material profile; root93c=0 in runtime cases. DTTYPE and DSMAX_NSTEP remain pending.",
+  "sources": [
+    {
+      "path": "analysis/time-controls-0x140414990.json",
+      "sha256": "acdd3f5136603bebfa4584ec0063bcda623d5240c80c57d4754153609c9b296a"
+    },
+    {
+      "path": "analysis/time-controls-0x140414a40.json",
+      "sha256": "6cb4bb82cae19824f619e623b6d7d9efdab49703ac567afc891f44e734cf8617"
+    },
+    {
+      "path": "analysis/mesh-refresh-controls-pseudocode.json",
+      "sha256": "3b8537633adc73869ca55af0da000d61ab62ac0128b693aac9a43e7016a64662"
+    },
+    {
+      "path": "analysis/finalization-0x1401f4390.json",
+      "sha256": "a6fad76dd90e670a492ce957023c2be8eb73048954dd8c35501509288f0e48bc"
+    },
+    {
+      "path": "analysis/model-0x1401ee510.json",
+      "sha256": "ae0bf1d457128ed3946053520f48f2ae1b46633bf7f09b2fb394707fac3f2e5b"
+    },
+    {
+      "path": "analysis/model-0x1401ee5a0.json",
+      "sha256": "990fd5d54bfd818646dc102988fe9707aa738eff3b71925abe65d722f27605b7"
+    },
+    {
+      "path": "analysis/startup-0x1401e8650.json",
+      "sha256": "f20d1bb19ecdcb96bd04cae6e277d557a28948d897760af7795a9656bb12a691"
+    }
+  ],
+  "static_audit": "analysis/time-controls-static-audit.json",
+  "readers": {
+    "procedures": [
+      "0x140414990",
+      "0x140414a40"
+    ],
+    "rule": "Zero destination doubles, fgets at most1023 bytes, comma replacement, legacy decimal sscanf. Return1 only on failed fgets or sscanf=-1; otherwise0 including zero/partial conversions.",
+    "floating_domain": "Existing decimal lexer and finite, in-range C-locale conversion. No broad claim about every rounding edge, overflow/underflow, nonfinite values, NUL, locale changes or stream-text translation.",
+    "discovery": "A lone sign or decimal point consumed to the end of the scanned string before any assignment returns-1. LF-terminated matching failure returns0. Prior successful assignments preserve a positive partial count.",
+    "initial_bug": "The first candidate treated all failures after non-whitespace as status0; five EOF cases disagreed. Original candidate and failed comparison are retained.",
+    "correction": "On failed decimal conversion with zero prior assignments and cursor at scanned-string end, return conversions=-1/status1."
+  },
+  "handlers": {
+    "DSMAX": {
+      "id": 48,
+      "mutation": "Store root930. Only if930>0, clear root920 and call1ee510. root928 is retained. No reader-status guard precedes the positivity branch."
+    },
+    "DTMAX": {
+      "id": 50,
+      "mutation": "Store root920 and928, including zero/partial results. Only if920>0, zero root930 via1f4390 and call1ee510.",
+      "status": "Both handlers map helper1 to2 and helper0 to0."
+    },
+    "normalization": "1ee510 changes mode990 only when93c==0:930<=0 gives1, otherwise0. Import finalization calls it again, so nonpositive reads can defer a mode change until finalization.",
+    "mesh": "No component refresh is invoked by these two handlers."
+  },
+  "implementation": {
+    "reader": "src/recovered/keyword_reader.cpp",
+    "model": "src/recovered/object_model.cpp",
+    "importer": "src/recovered/keyword_import.cpp",
+    "observer": "Optional synchronous read-only handler observer; existing constructor/import signatures preserved. Replay records selected controls immediately after each handler.",
+    "new_fields": [
+      "SimulationControls.time_step_0x920",
+      "SimulationControls.time_step_secondary_0x928"
+    ],
+    "public_api": "Existing include/deform interfaces unchanged."
+  },
+  "evaluation": {
+    "discovery_capture": "analysis/time-controls-runtime-evaluation.json",
+    "discovery_evidence_id": "ev_c3ec56fbe2c3a23e68ba9841897eed70f79d89c74606fc6954ca154360015b3b",
+    "initial_freeze": "analysis/time-controls-candidate-freeze.json",
+    "initial_failed_report": "analysis/time-controls-initial-comparison.json",
+    "corrected_training_report": "analysis/time-controls-corrected-training-comparison.json",
+    "corrected_freeze": "analysis/time-controls-corrected-freeze.json",
+    "held_out_capture": "analysis/time-controls-runtime-held-out.json",
+    "held_out_evidence_id": "ev_e689d711c8c1fbbafc133467ab4b49e3250bc59c7c78e0fe2a487e15f4edfe54",
+    "held_out_report": "analysis/time-controls-held-out-comparison.json",
+    "discovery_imports": 16,
+    "held_out_imports": 13,
+    "discovery_real_calls": 39,
+    "held_out_real_calls": 26,
+    "handler_states": 76,
+    "held_out_descriptor_snapshots": 159,
+    "corrected_candidate_changed_after_held_out_freeze": false,
+    "ctest_passed": 20,
+    "observations": "analysis/time-controls-observations.json",
+    "scope": "Post-finalization and immediate-handler scalar states; helper line attempts, conversion counts/cursors/raw binary64; repeated imports; negative zero; incomplete exponents and signs; partial/error cases; one populated2D compound sequence with unknown direct tails.",
+    "independence": "Held-out cases captured after archiving the corrected23-file candidate. The planar setup reused an earlier configuration fixture within a new compound sequence; it is not a novel mesh topology.",
+    "limitations": [
+      "Initial five mismatches are discovery evidence, not successful independent evaluation.",
+      "No nonzero93c/DTTYPE runtime coverage yet.",
+      "Normal wrapper option0, private storage, empty materials and linked roots, geometry gate off.",
+      "No proof of arbitrary numerical-domain equivalence."
+    ],
+    "held_out_observations": "analysis/time-controls-held-out-observations.json",
+    "independent_verification": {
+      "discovery_tamper_checks": 38,
+      "held_out_tamper_checks": 39,
+      "held_out_allocation_updates": 22,
+      "held_out_object_snapshots": 40,
+      "held_out_descriptor_observations": 2120,
+      "corrected_frozen_files_matching": 23
+    }
+  },
+  "next": "Recover DTTYPE51 and its table record/stream reader, then DSMAX_NSTEP object-dependent calculation and other scientific/model features."
+}

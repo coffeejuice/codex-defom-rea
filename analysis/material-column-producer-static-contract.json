@@ -1,0 +1,115 @@
+{
+  "status": "static_recovery_only_no_producer_implementation_or_original_execution_by_this_agent",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "dispatch": {
+    "provenance": "Parent recovered handler38b8a0 keywordID-0x90 switch mapping; parent owns dispatch binding.",
+    "VOLFC": {
+      "id": 205,
+      "case": "0x3d",
+      "destination": "object+0xa58",
+      "width": "root+0x16bc"
+    },
+    "VOLFS": {
+      "id": 216,
+      "case": "0x48",
+      "destination": "object+0xa60",
+      "width": "root+0x16c0"
+    },
+    "DVOLF": "ID206 targets+a68 through a different path; not the second producer here."
+  },
+  "wrapper_3981c0": {
+    "signature": "(root, FILE*, object, destination doubles, header element count, destination width)",
+    "sequence": [
+      "calloc(root1320,4) map.",
+      "398350(root,object,map,&inputwidth), where caller inputwidth starts uninitialized.",
+      "calloc(elementcount*inputwidth,8) temporary row-major doubles.",
+      "416c90(FILE,temp,elementcount,&inputwidth,1).",
+      "On status0 only: for each header element and destination column, if map[column]>=0 copy temp[row*inputwidth+map[column]] to destination[row*destinationwidth+column]. Unmapped destination columns retain prior values.",
+      "Free map/temp only on success; return reader status. Failure returns without copying destination or freeing scratch."
+    ]
+  },
+  "mapping_398350": {
+    "guard": "Entire body requires mapnonnull AND object87c mesh flag nonzero. Failing guard leaves inputwidth untouched/uninitialized.",
+    "setup": "Set map[0..root1320)=-1; calloc root1320 int marks; lastID=0.",
+    "iteration": [
+      "Visit element indices<object884. Read element direct61 atobject9f8.",
+      "If ID equals lastID, skip. Otherwise replace lastID, resolve zero-based sortedrank29c870.",
+      "For valid rank whose mark==0: exactlookup1d7060→29c2c0; if material exists and mode1, set own mark1, then each logical reference with valid sortedrank sets target mark2.",
+      "In increasing sortedrank order, every mark2 gets consecutive input column0..; all other map entries stay-1. Store resulting inputwidth and free marks."
+    ],
+    "caveats": "Initial ID0 equals lastID0 and is skipped until ID changes. Reference marking can overwrite prior mark1 with2; repeated material processing depends on current marks and element order. Do not replace with a generic graph traversal."
+  },
+  "line_reader_416c90": {
+    "selected_mode": 1,
+    "initialization": "Header row-count int0, explicit row-width int0, ten local doubles0.",
+    "header": "One fgets1024; sscanf \"%i %i %Flf\" without comma conversion. Require conversions>=1. Missing second field leaves width0. Third field, if converted, fills every temporary row/input column with that value before detailed records.",
+    "call": "419b90(FILE,temp,header_row_count,elementcount,inputwidth,explicit_row_width).",
+    "abi_evidence": "Assembly41720e..417247 writes explicit width to stack+28 and inputwidth to stack+20 beforecall419b90. Corresponding4199a0 stack+20 width is at4171dc.",
+    "other_modes": "Full dossier also recovers modes0/2/3/6 but selected producer always mode1; other modes need their own call-site domain."
+  },
+  "record_readers": {
+    "419b90_explicit_nonzero_width": [
+      "calloc(explicitwidth,8) reusable row values.",
+      "Loop declared row count: fscanf%i into uninitialized/prior rowID; fscanf%Flf explicitwidth times into reused zero-initialized row storage.",
+      "Abort only conversion return-1, preserving partial scratch and leaking local allocation. Matching failure0 continues using retained destination contents; first rowID failure is undefined.",
+      "For valid1-based rowID<=elementcount copy min(inputwidth,explicitwidth) values to that row; invalid IDs consume values without destination writes.",
+      "On success free local allocation, return0. No final line consumption."
+    ],
+    "4199a0_when_explicit_width_zero": [
+      "If declared rowcount<1 return0 immediately without reading.",
+      "Otherwise calloc(inputwidth,8); read rowID plus inputwidth stream doubles per row, same -1-only failure handling and row bounds.",
+      "On success free local storage then require one fgets1024; null finalfgets returns1, causing wrapper to discard all temporary values instead of committing.",
+      "This final fgets consumes the remainder after the last scalar; it is absent from nonzero-explicit-width branch."
+    ]
+  },
+  "safe_next_fixture_requirements": [
+    "Mesh flag87c true and known element direct61 assignments; selected material IDs should be nonzero to avoid lastID0 special case in initial fixture.",
+    "At least one mode1 material with references to existing distinct materials; root feature49 refreshed so destination widths/storage are valid.",
+    "Bounded positive counts and finite values, valid base0 row IDs. Start with successful conversions, then separately validate defined failure/reuse paths.",
+    "Use different finite values per referenced material column, append signed/sparse material ID changing sorted rank, and observe49/50 remap.",
+    "Test zero explicit row width versus positive explicit width with next keyword placement and EOF to establish cursor/commit distinction."
+  ],
+  "unresolved_or_excluded": [
+    "Producer dispatch/category evidence owned by parent, not newly queried here.",
+    "Parent dispatch recovery identifies MTLGRP174 (38b8a0 case0x1e) as direct61/object9f8 producer:419d40(FILE,buffer,elementcount,root16ec) then202960(object). These dependencies remain pending recovery; current reset direct61=0 suppresses initial map selection.",
+    "Native OOM, negative allocation counts, int extent overflow, invalid map/destination widths and uninitialized row IDs/inputwidth are not safe compatibility domains.",
+    "First matching failure of rowID is not assigned an invented zero. Reused double row buffers can have defined retained values but require runtime proof before extending parser."
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/material-import-0x14029c870.json",
+      "sha256": "d69e9d2443e3c20d0be14aec26b35301fcdf69dbb44737e3f527cbbc6d57a75f",
+      "evidence_id": "ev_92ca60819b33a7e4f8079737335a898bd53f7bb3eb7f34ba2c37378e64bad9c1"
+    },
+    {
+      "path": "analysis/material-reference-0x1401d7060.json",
+      "sha256": "4970fd7d87dd4456959d388b491310793d9b73a89f1fe5dcdcf567699f394568",
+      "evidence_id": "ev_6d66a55e2214ac3385f09b9740aaa31ce9761064e9339b2b73a9c8f1171234cf"
+    },
+    {
+      "path": "analysis/material-reference-0x1403981c0.json",
+      "sha256": "6520b4a52e4733850dfc303757041303e58a904b96b11f5a0f3af442a338d613",
+      "evidence_id": "ev_5922ce7928473d2deb2e9afe8c906dc8103487d4e7bddfe66ad956cc81c14e25"
+    },
+    {
+      "path": "analysis/material-reference-0x140398350.json",
+      "sha256": "c3f18d96d72e6409ae1722f2476d8e4219758974bf865981337e79185aa396dd",
+      "evidence_id": "ev_f5b1f39a4a99c9247d4768387ea461cc06b54fd9ca86aef5cedaa9cec2c8169f"
+    },
+    {
+      "path": "analysis/material-reference-0x140416c90.json",
+      "sha256": "b8b241404689a00a28fd62cfe13268a5a49bc7ab9a8c658f87f57b1642593651",
+      "evidence_id": "ev_362881569c9bcef7d752b4bc9ff0daa45688afcae5bb877a7ec153be0aad9468"
+    },
+    {
+      "path": "analysis/material-reference-0x1404199a0.json",
+      "sha256": "7d91e748f40496c14778ea2db058bb3ed127f807b1bd7c72d6ff39599bde848b",
+      "evidence_id": "ev_6ff468f9099d81912b0402c2ceec8a600df6d7e8cff9ffd3d79020970e1f5424"
+    },
+    {
+      "path": "analysis/material-reference-0x140419b90.json",
+      "sha256": "6a08f5571d4af4c6249c27ad036db24f5e40b5bdd9feb2843298a979d01158ca",
+      "evidence_id": "ev_30af2cb46d162fb4fa0f33fce2015ed2255c4e61d331f8464df397cbc4ff158c"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "purpose": "Predeclared bounded direct3D DIEGEO158 geometry/plane-finalization research. Candidate format recognition is constrained by exact3-int header conversions. All connectivity indices are positive and within retained actual vertex counts, including partial coordinate case. No partial connectivity or alternate geometry formats.",
+  "cases": [
+    {
+      "path": "tests/fixtures/geometry_import/01_triangle.KEY",
+      "sha256": "2a8e591d7ed6d031b51eb1bea4775504bce7fceb1c3b8c6efb2fb1c1c7230277",
+      "hypothesis": "Valid direct3D triangle; header3conversion selects direct branch, finalizer creates one plane."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/02_coplanar_pair.KEY",
+      "sha256": "a1a971c9e576696d6d2f37e375d48c68f4f933a7c5ebaae72859d07a64632333",
+      "hypothesis": "Coplanar equal-orientation faces share first plane; stable traversal/order."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/03_zero_counts_preserve.KEY",
+      "sha256": "61a2aab30183c44c4f9a32ad1c09ca348fd957e82169d0e4a80fdd39a8c0aea5",
+      "hypothesis": "Zero requested counts preserve actual4vertices/2faces; importer loops over stored extents and still consumes all rows."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/04_negative_counts_preserve.KEY",
+      "sha256": "9d518f8836ddd05edf0cb53c501c2cf4d9d79c3da86c7b7bd19cc378032f2c33",
+      "hypothesis": "Negative requested counts are no-op resizes; reuse old valid extents and supply complete rows."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/05_coordinates_only.KEY",
+      "sha256": "76ddbe7986d6fc2b0a7d67de0545b22980f7a685796f385272f707a60a3134e1",
+      "hypothesis": "Three-conversion format0 enters direct branch but omits face-row reads, preserving valid old connectivity."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/06_opposite_orientation.KEY",
+      "sha256": "15326eae8532559132755e28d23414e0fd17caee4fe0b7da9733f6f7889108f7",
+      "hypothesis": "Opposite unit normals have squared difference4 and form distinct plane records."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/07_skipped_face.KEY",
+      "sha256": "cc50ca2e72744e114683d8ec38cc7fd457a7b8089eedf2d89084bf91f7df91f6",
+      "hypothesis": "Positive fourth face integer skips classification; new allocation startszero."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/08_degenerate_face.KEY",
+      "sha256": "99bf9873c096877861c3fd4d404b26611d4f5154f214ac080c6ac9c7799eca3d",
+      "hypothesis": "Collinear triangle has zero normalized normal; classification remainszero, plane listempty."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/09_tiny_nondegenerate.KEY",
+      "sha256": "dc019e1a65b7735397f2534c4acb51e5515508848623bd22c40df82728d50603",
+      "hypothesis": "Tiny nonzero-area triangle normalizes before1e-6 test; should not be rejected merely for small raw area."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/10_parallel_planes.KEY",
+      "sha256": "d90e39fc880dc13c9e7aa88937ea3a70e75e501191229279747422de6211a58f",
+      "hypothesis": "Parallel displaced triangles create separate planes using bbox diagonal scale over all6points."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/11_blank_header.KEY",
+      "sha256": "3eff000457c9e5ab47d4642a27832aa077043295d7f026086f3ceb3939a65e42",
+      "hypothesis": "Blank header reportserror without vector replacement; preexisting valid geometry finalizes again."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/12_eof_header.KEY",
+      "sha256": "1b27c38fd49dd341afb48e0eadeed84af1994516d94818d7341da86176d85c46",
+      "hypothesis": "EOF header preserves valid existing geometry; flags/classifications compared around finalizer."
+    },
+    {
+      "path": "tests/fixtures/geometry_import/13_partial_coordinate_eof.KEY",
+      "sha256": "06f2109595fdeb896bdd932ed6ec9599a516b4ded6c150919f0f005d6c7a89d3",
+      "hypothesis": "Safe partial coordinates: same6vertex extent, old2faces keep valid1..6indices. First missing coordinate rowzeroes outputs thenerror; remaining coordinate prefix/storage retained. No partial connectivity fixture."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_geometry_import.js",
+    "sha256": "bc35c613b2329f90c7d30a094c9575491fda65b4c5308560100928439a0ec6e5"
+  },
+  "bounds": {
+    "maximum_vertices": 6,
+    "maximum_faces": 2,
+    "maximum_objects": 1,
+    "dimension": 3
+  },
+  "numeric_scope": "Finite coordinates, simple normals including opposite and degenerate, tiny1e-9 right triangle. Angular predicate is squared unit-normal distance, not angle; distance tolerance scales by full bounding-box diagonal."
+}

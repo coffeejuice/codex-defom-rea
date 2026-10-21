@@ -1,0 +1,159 @@
+{
+  "status": "two_new_tests_pass",
+  "created_utc": "2026-10-20T22:39:42.551604+00:00",
+  "seconds": 3.47,
+  "commands": [
+    "cmake -S . -B build",
+    "ctest --test-dir build -C Release -R '^dynamic_field_(reference|held_out)_replay$' --output-on-failure --output-log analysis/oracle/dynamic-field-ctest.log"
+  ],
+  "test_log": {
+    "path": "analysis/oracle/dynamic-field-ctest.log",
+    "sha256": "4930a92c0849d48576117d1aee261417ca3c11394b19d0aa515d181b4b09db0f"
+  },
+  "candidate_freeze": {
+    "path": "analysis/dynamic-field-candidate-freeze.json",
+    "sha256": "54b7b738173d376f8c708e59cf034f4f98d04ab5f3e7d8e96247f51335d2d022"
+  },
+  "all_27_runtime_files_unchanged": true,
+  "candidate_files": [
+    {
+      "path": "src/recovered/component_layout.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/hexa_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/component_layout.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_catalog.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_import.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/keyword_reader.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/mesh_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/planar_boundary.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/state_variable.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "tests/keyword_reader_replay.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/deform_recovered_state.lib",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_import_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "build/Release/keyword_reader_replay.exe",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_storage.cpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "matches_freeze": true
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "matches_freeze": true
+    }
+  ],
+  "configuration_before": {
+    "path": "analysis/oracle/dynamic-field-cmake-before-registration.txt",
+    "sha256": "435f1c7e7b9eb568f10bf00083159d6b019d6303cb250229df0b950d419c7979"
+  },
+  "configuration_after": {
+    "path": "CMakeLists.txt",
+    "sha256": "fef5c437f3a118993a6b734cd6ca853fa8730113ee7731bf4e46cba309694e17"
+  },
+  "registration_diff": {
+    "path": "analysis/dynamic-field-test-registration.diff",
+    "sha256": "303e52ef300bde315248719a8a509f3dda581808bd4d622a0b479e03b54e4960"
+  },
+  "comparator": {
+    "path": "tools/compare_dynamic_field_import.py",
+    "sha256": "2044cbb2429a74693d23d991dced551459eb801a08313e69ddc464c9a57f2cb4"
+  },
+  "comparisons": [
+    {
+      "path": "analysis/dynamic-field-training-comparison.json",
+      "sha256": "9cc385d7e3662cd54066306796fa69f493a11b8052693bf0a569975669be9bf1"
+    },
+    {
+      "path": "analysis/dynamic-field-held-out-comparison.json",
+      "sha256": "8705bc7b8b132528238c00421eb55b137f2f486af5b2b4568f597ba15dc9452b"
+    }
+  ],
+  "new_tests": [
+    "dynamic_field_reference_replay",
+    "dynamic_field_held_out_replay"
+  ],
+  "scope": "Only the two newly registered tests ran here; total registered count40 does not claim a fresh complete40-test run. Both captured comparisons separately passed strict frozen candidate enforcement. Regression registrations permit future candidate changes and preserve explicit original capture/manifest/freeze paths."
+}

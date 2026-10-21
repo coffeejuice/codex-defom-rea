@@ -1,0 +1,82 @@
+{
+  "status": "static_review_selected_domain_no_discrepancy_found_runtime_pending",
+  "scope": "Independent comparison of GeometrySegments source with retained39a200/399e60, allocation/constructor/list helpers, passive probe and30 ordered fixtures.",
+  "findings": [],
+  "confirmed": [
+    "Format1/2 stream scan order is label then3/6 doubles; separator label-1 consumes numeric payload but does not count toward advertised nonseparator rows.",
+    "Groups commit only at separator or final nonseparator; earlier commits survive failure while incomplete group does not commit; trailing stored segments survive helper39a200.",
+    "Format2 postconversion loops all stored segments using stride6; successful zero-count calls still reconvert trailing angles. No conversion on early failure.",
+    "Transformed prefix2/6 consumes two line records before clear; prefix4/6 clears then stages four rows and commits matrix only after all rows succeed. Other positive prefix values subtract without consuming prefix lines.",
+    "Selected clear preserves matrix and sets containerb8; modeled payload flag28 remains0; default segment format/count0 and identity transform match constructor evidence.",
+    "Probe only reads segment scan outputs after successful assignment, avoiding uninitialized native temporary values on failed scans; aliased discarded-prefix destinations must be checked explicitly.",
+    "Fixture sequence avoids retained narrow-format1 storage during format2 conversion: narrow planar segment is followed by format1 until dimension reset; spatial format2 later clears collection."
+  ],
+  "unsafe_domains": [
+    {
+      "domain": "Format2 over retained format1 rows",
+      "native": "No format guard before stride6 element5 access; may read/write beyond3*count storage.",
+      "replacement": "Explicit exception after input commits, before angle conversion; excluded behavior, not a compatibility fix."
+    },
+    {
+      "domain": "Negative count and signed32 byte extent overflow",
+      "native": "Unchecked signed products feed allocation andmemset; no safe recovered fallback.",
+      "replacement": "Reject beforeallocation; excluded."
+    },
+    {
+      "domain": "Resource failure or failed dynamic cast/absent container",
+      "native": "Unchecked payload dereferences/append loops and leaked temporary allocations can occur.",
+      "replacement": "Private RAII vectors/exception semantics; not equivalent allocation identity or leak lifetime."
+    },
+    {
+      "domain": "Nonfinite/underflow/extreme lexical values and nondefault FP environment",
+      "native": "Inherited embedded scanner/CRT behavior not fully recovered.",
+      "replacement": "Finite bounded fixture grammar only."
+    },
+    {
+      "domain": "Unlimited separator stream",
+      "native": "Separators do not advance advertised completedrowcount; finitecount does not bound line consumption or number of segments.",
+      "replacement": "Same loop shape; caller resource/input bounding remains external."
+    }
+  ],
+  "probe_review": {
+    "established": "Counts and allocation records bound payload reads; native linked-list traversal checks sentinel closure, cycle, count and tail relationships within probe. Verifier can validate emitted pointers/extents but cannot independently recover unreported intermediate links.",
+    "limits": [
+      "Only first alternate container and selected collection represented; other mesh/geometry collections excluded.",
+      "Allocation hooks observe zeroed payload before memcpy; subsequent snapshot needed to prove copied groups.",
+      "Spatial direct geometry and root scientific side effects remain separate modules.",
+      "Failed scanner destinations intentionally null in events; no zero-init assumption allowed."
+    ]
+  },
+  "fixture_review": {
+    "manifest": "tests/fixtures/geometry_segments/cases.json",
+    "count": 30,
+    "scope": "Planar overwrite/retention/errors, spatial helper-result suppression, transformedprefix2/4/6/other, partial/EOF/mismatchmatrix rows.",
+    "no_execution": "No original or replacement process launched by reviewer."
+  },
+  "evidence_bindings": [
+    {
+      "path": "src/recovered/geometry_segments.hpp",
+      "sha256": "9a5e8004060cf78654b8b5b2221a29a79cec423cf0d08ba9e414e1877c69f97c"
+    },
+    {
+      "path": "src/recovered/geometry_segments.cpp",
+      "sha256": "3c85bd1a8e5feabb4087a9d15c4d6dffc808d9f3a15217dd50888c85b440cd3b"
+    },
+    {
+      "path": "analysis/geometry-segments-implementation-contract.json",
+      "sha256": "129211046e8588bc0341c35d158ee13f54441be3a1a2641779a303eafef5d400"
+    },
+    {
+      "path": "analysis/geometry-format-static-audit.json",
+      "sha256": "4f4e3b8c1b45332b934eb98c49bd63250926e30555462589d7310a4c9aa51ccb"
+    },
+    {
+      "path": "tools/observe_geometry_segments.js",
+      "sha256": "15d5ad9ec692f98e93010e6e36e052520bed16f4a01052e537d257a511280894"
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/cases.json",
+      "sha256": "93fb89a537381f2c1151016635018e17108d4beed65c0ebc0894bebacde5a494"
+    }
+  ]
+}

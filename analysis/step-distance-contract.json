@@ -1,0 +1,116 @@
+{
+  "status": "implemented_and_compared_bounded_subset",
+  "target": "DEF_PRE_64.exe",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_audit": "analysis/step-distance-state-audit.json",
+  "handlers": {
+    "PDIE": {
+      "id": 38,
+      "fields": [
+        "root+0x8b8 selected object ID",
+        "root+0x1104 independent int32"
+      ],
+      "read": "Integer pair413ee0 stores zero/partial results even on failure; helper1 maps to handler2.",
+      "reset": "1e8490 clears controls+168=root8b8;1ead60 clears controls+9b4=root1104."
+    },
+    "STROKE": {
+      "id": 153,
+      "fields": "Object+22d0/+22d8/+22e0 three doubles, zeroed by18b500.",
+      "read": "Normal object selector/create path. In3D reader414c20 stores three zero/partial reals; in2D existing414a40 updates only first two. Helper1 maps to handler2.",
+      "lifetime": "STROKE writes existing inactive objects without reactivation; selected values survive deactivation in tested paths. Dimension change destroys objects."
+    },
+    "DSMAX_NSTEP": {
+      "id": 49,
+      "read": "416aa0 zeroes one double and one int, fgets1024, comma replacement, sscanf(%Flf %i); status1 only fgets failure or scan=-1.",
+      "status": "Assembly confirms handler local status is initialized0 and reader return is not assigned to it. Handler returns0 even for failed mixed reads in the established domain.",
+      "lookup": "1d6ea0 delegates17aaf0: search IDs through the object list without type7 filtering. No creation occurs.",
+      "calculation": "If object exists, parsed count!=0 and parsed double!=0, root930=(fabs(parsed double)-fabs(object22e0))/signed count. Separate binary64 subtraction then division.",
+      "mutation": "Only root930 changes; root920/root928 are not cleared and mode is not normalized here. Finalization normalizes mode unless nonzero table rank suppresses it."
+    }
+  },
+  "readers": {
+    "added": [
+      "real_integer()/realint replay",
+      "real_triple()/real3 replay"
+    ],
+    "scope": "Existing finite in-range C-locale decimal and signed32 integer domain. Preserve partial assignments, line consumption, conversion counts and signed zero."
+  },
+  "correction_history": {
+    "initial_error": "Wrong address subtraction treated root1100 as controls+3b0. Actual offset is9b0; this associated PDIE with an unrelated unit-dependent double reset at rootB00.",
+    "comparison_finding": "Original root1104 initialized/reset to0, but initial candidate populated its containing eight-byte window from1.0. Other captured reader, stroke, lookup and arithmetic outcomes matched.",
+    "static_resolution": "1ead60 directly zeroes int32 controls+9b4=root1104. The preceding four captured bytes belong near the tail/padding of an81-byte string array; no eight-byte numeric field is established.",
+    "correction": "Model independent int32 secondary1104. Removed invented eight-byte field, unit dependency, optional profile extension and initialized_units replay protocol. Original three-argument initialized_root_controls interface restored.",
+    "preserved": [
+      "analysis/step-distance-candidate-freeze.json",
+      "analysis/step-distance-initial-comparison.json",
+      "analysis/step-distance-comparison.json"
+    ],
+    "qualifications": "The original provisional fixture manifest and probe are unchanged. Their initial UNIT0 condition is unnecessary for the corrected field model. Historical audit claims are described as withdrawn; no byte-verified original audit copy is asserted.",
+    "adjacent_bytes": "Probe retains an eight-byte window at1100. Model comparison uses only genuine int32 upper four bytes at1104; observation verifier checks PDIE leaves preceding bytes unchanged. Their initializer is not invented."
+  },
+  "implementation": {
+    "public_api": "Existing include/deform APIs unchanged.",
+    "files": [
+      "src/recovered/keyword_reader.cpp",
+      "src/recovered/keyword_reader.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/object_model.hpp",
+      "src/recovered/keyword_import.cpp",
+      "tests/keyword_reader_replay.cpp",
+      "tests/keyword_import_replay.cpp"
+    ]
+  },
+  "evaluation": {
+    "initial": {
+      "capture": "analysis/step-distance-runtime-evaluation.json",
+      "evidence_id": "ev_7a88baf84098711f2424761d782b12ed0db7ea067cfe0f0a18b9827a7a08a8e0",
+      "imports": 17,
+      "handlers": 49,
+      "line_helpers": 44,
+      "table_stream_reads": 2,
+      "descriptor_snapshots": 1855,
+      "corrected_report": "analysis/step-distance-corrected-training-comparison.json"
+    },
+    "held_out": {
+      "capture": "analysis/step-distance-runtime-held-out.json",
+      "evidence_id": "ev_2005dd98f03a6302e777f590e49153f0028b460e54a9e6aeb33e65a396b511d3",
+      "imports": 12,
+      "handlers": 46,
+      "line_helpers": 34,
+      "table_stream_reads": 2,
+      "lookup_calls": 15,
+      "descriptor_snapshots": 689,
+      "report": "analysis/step-distance-held-out-comparison.json"
+    },
+    "corrected_freeze": "analysis/step-distance-corrected-freeze.json",
+    "frozen_files": 23,
+    "corrected_candidate_changed_after_freeze": false,
+    "capture_recovery": "Initial response exceeded10MiB MCP transport budget; complete retained Evidence was exported and extracted by exact evidence ID. Receipt retained at step-distance-runtime-transport-receipt.json. No rerun or event truncation.",
+    "comparisons": "Exact handler status/state and reader conversions/cursors; raw binary64 stroke and scalar values; selection, independent1104 integer, inactive retention, dimension reset and tracked mesh state.",
+    "independence": "Initial mismatch is discovery, not a successful independent result. Corrected candidate frozen before12additional original imports; reused planar topology is identified in their manifest.",
+    "ctest_passed": 24,
+    "independent_verifier": {
+      "status": "pass",
+      "tool": "tools/verify_step_distance_observations.py",
+      "reports": [
+        "analysis/step-distance-observations.json",
+        "analysis/step-distance-held-out-observations.json"
+      ],
+      "initial_lookup_calculation_pairs": 24,
+      "held_out_lookup_calculation_pairs": 15,
+      "initial_tamper_checks": 47,
+      "held_out_tamper_checks": 35,
+      "corrected_frozen_files_matching": 23,
+      "scope": "Independent field/reset/reader/lookup/arithmetic/finalizer and provenance checks. Held-out mesh setup is covered structurally and by raw extent/value consistency; exact mesh preservation through scalar handlers/finalizers is independently checked, while setup topology/refresh semantics remain comparator coverage."
+    },
+    "transport_export_archive": "analysis/oracle/step-distance-transport-evidence.json"
+  },
+  "limits": [
+    "Selected empty-material/reset context, normal import wrapper option0, geometry-processing gate off.",
+    "No proof of arbitrary numerical-domain, nonfinite, locale, floating-environment or allocation-failure equivalence.",
+    "Raw adjacency at1100 is not interpreted as a model field; separate startup unit-field provenance remains unresolved and is not a PDIE dependency.",
+    "STROKE storage and this step calculation do not recover the complete motion model or solver.",
+    "Full application reconstruction remains active."
+  ],
+  "next": "Recover DIEGEO158 geometry import, its flag3990 activation and the now-reachable2059a0 geometry finalization; complete both spatial surface and planar geometry paths incrementally."
+}

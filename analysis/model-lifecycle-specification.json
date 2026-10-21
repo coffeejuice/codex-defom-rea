@@ -1,0 +1,147 @@
+{
+  "status": "Partial recovered specification; internal state-variable, boundary and integrated mesh-storage components implemented, complete object model and importer pending",
+  "target": {
+    "file": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+    "scope": "Observed Windows x64 v11 console preprocessor; mesh import fixtures exercise 3D, and startup fixtures exercise default, PRE3, PRE and MULTI paths"
+  },
+  "evidence_convention": "Each static address below has a model-<address>.json record containing target identity, provider, pseudocode and Evidence ID. Earlier keyword and DB import records supply the parser and consumer paths. Byte offsets describe this executable, not a proposed portable C++ layout.",
+  "root_state": {
+    "recovered_vtable_label": "_DB_STEP_DATA",
+    "constructor": "0x1401c8950",
+    "initializer": "0x1401c8c00",
+    "containers": [
+      {"offset": "0x750", "role": "Simulation-control subobject", "basis": "Constructor plus simulation keyword handler writes"},
+      {"offset": "0x1328", "role": "Material collection", "count_offset": "0x1320", "basis": "Constructor plus material keyword and DB handlers"},
+      {"offset": "0x1358", "role": "Material-pair records", "basis": "Constructor plus two-ID material interaction handler; complete record semantics unresolved"},
+      {"offset": "0x1380", "role": "Main object linked list", "count_offset": "0x1378"},
+      {"offset": "0x13a8", "role": "Second object-list instance", "basis": "Same list constructor; domain purpose not yet established"},
+      {"offset": "0x13c8", "role": "Object-pair interaction records", "basis": "Constructor plus two-ID object interaction handler"},
+      {"offset": "0x15f8", "role": "Array component-count/layout descriptors", "basis": "Passed to node and element allocation helpers"}
+    ],
+    "initialization": [
+      "Root initialization sets material and main object counts to zero and initializes their collections.",
+      "The console constructor 0x14001c770 constructs two root-state instances and two DB-related instances, then connects the root states using 0x1401d8000.",
+      "The alternate root pointer is at +0x33e8. Keyword parser target helper 0x1401d81b0 returns it only when it is nonnull and +0x33f0 is enabled; otherwise it returns the current root.",
+      "Both root constructors receive dimension 3. Linking through 0x1401d8000/0x1401d8050 changes the secondary root to dimension 2; the completed console context has primary 3 and secondary 2.",
+      "Startup configuration is processed before the first menu: DEF_MULTI.INI takes precedence and exits after keyword processing; otherwise DEF_PRE3.INI precedes DEF_PRE.INI. The PRE-only fixture changes the primary dimension to 2 while the secondary stays 2. The roots are therefore not universally complementary.",
+      "Without startup files, both root collections are empty at the first menu. PRE3 and PRE fixtures create object 1 before that menu. Constructor state and configured first-menu state must be represented as distinct phases.",
+      "Alternate-model routing during general imports and dimension changes with existing meshes remain unverified. Startup evidence is recorded in startup-existing-evidence.json and startup-observations.json.",
+      "Ordinary keyword import is not a call to the full root initializer. The observed second import preserved existing object identity and fields omitted from the file."
+    ]
+  },
+  "object_lifecycle": {
+    "recovered_vtable_label": "LLOBJ_DATA",
+    "allocation": "0x14017a880 allocates 0x3f28 bytes, calls 0x14015ec80, and appends to the list",
+    "list": {
+      "head": "collection+0",
+      "tail": "collection+8",
+      "size": "collection+0x10",
+      "owner": "collection+0x18",
+      "next": "object+0x3940",
+      "lookup": "0x14017aaf0 walks the list comparing object+8 against the requested ID"
+    },
+    "owner_binding": "0x14015ef60 stores the owner at object+0x3a98 (decimal15000), binds subobjects and calls 0x14015f0b0",
+    "initialization": {
+      "procedure": "0x14015f0b0",
+      "fields": [
+        {"offset": "0x8", "role": "ID", "initial_value": 0},
+        {"offset": "0xc", "role": "Internal type", "initial_value": 0},
+        {"offset": "0x828", "role": "Name string", "initial_value": ""},
+        {"offset": "0x87c", "role": "Mesh-present flag", "initial_value": 0},
+        {"offset": "0x880", "role": "Node count", "initial_value": 0},
+        {"offset": "0x884", "role": "Element count", "initial_value": 0},
+        {"offset": "0x890", "role": "Element kind in 3D", "initial_value": 2},
+        {"offset": "0x894", "role": "Connectivity width in 3D", "initial_value": 4}
+      ],
+      "qualification": "Many additional members and owned subobjects are initialized. This list is only the observed import subset, not the entire object."
+    },
+    "lookup_or_create": {
+      "procedure": "0x14019ccc0",
+      "rules": [
+        "Nonpositive IDs return a null pointer.",
+        "An existing ID returns the existing object.",
+        "Missing positive ID creates intervening numbered objects with internal type7, then the target object with its constructor defaults.",
+        "The root object count includes the intervening placeholders."
+      ],
+      "runtime_confirmation": "keyword-runtime-2.json: importing OBJNAM for ID4 after ID1 yielded IDs1,2,3,4; types1,7,7,0"
+    },
+    "deactivation": {
+      "procedure": "0x140161260",
+      "effects": "Calls cleanup, sets type7, clears name, mesh flag and node/element counts; the list entry and object identity remain in the observed malformed-type case.",
+      "unknown": "Full cleanup ownership and all fields retained by the deeper cleanup routine remain unrecovered."
+    }
+  },
+  "import_lifecycle": {
+    "entry": "0x1401b5f00",
+    "parser": "0x1401b6520",
+    "lookup": "0x1402f78d0",
+    "sequence": [
+      "Optionally clear two per-import flags through 0x1401d7f10; this does not clear the model.",
+      "Record current filename, open file and set import option flags.",
+      "Read tokens sequentially; detect dimension from recognized header comments.",
+      "Resolve exact keyword spelling and handler category, select current or alternate root, and dispatch immediately.",
+      "Handlers mutate model records and arrays as they read.",
+      "Close the file and reset file/option state.",
+      "When the caller's finalize flag is enabled, run 0x1401d7f40 even after the parser reports an error.",
+      "Return the parser status; console success wording alone does not establish success."
+    ],
+    "keyword_table": {
+      "entries": 304,
+      "stride_bytes": 48,
+      "case_sensitive": true,
+      "evidence": "keyword-table-selected.json",
+      "warning": "304 table entries is not a claim of 304 distinct implemented keywords."
+    },
+    "finalization": [
+      "Calls a simulation-control routine at 0x1401ee510, whose complete meaning remains unresolved.",
+      "0x1401d6250 traverses material references and adjusts referenced records.",
+      "0x1401d63c0 visits non-inactive objects and calls 0x1402059a0, which conditionally performs geometry-related calculations and classifications.",
+      "Updates step-related fields if the corresponding import flag was set.",
+      "The observed truncated-coordinate import ran finalization and retained partial state."
+    ],
+    "commands": "DBREAD, KFREAD and GENDB are confirmed table entries in the special-handler category. The first invokes the DB importer; the second can recursively read another keyword file. Complete command behavior and effects are outside this milestone."
+  },
+  "array_ownership": {
+    "coordinates": {
+      "pointer": "object+0x8a8",
+      "path": ["0x1401652b0", "0x140162ff0", "0x140163270", "0x14017f130", "0x14017ffe0"],
+      "behavior": "The old coordinate buffer is freed and nulled, then a zero-initialized double buffer is allocated through 0x140257150/calloc for a positive count. Dependent node buffers are also processed. The handler fills rows sequentially.",
+      "dependent_default": "0x1401652b0 sets a dependent double array at +0x8e0 to20.0 or68.0 according to the unit predicate. Runtime observed20.0; the68.0 branch has not been exercised."
+    },
+    "connectivity": {
+      "pointer": "object+0x9e8",
+      "path": ["0x1401653b0", "0x140163090", "0x1401632a0", "0x140182a50", "0x1401836c0"],
+      "behavior": "The old connectivity buffer is freed and nulled, then zero-initialized integers are allocated through 0x140256dc0/calloc. Reuse of the same numerical address does not imply preservation of the old allocation.",
+      "dependent_defaults": "Dependent arrays include +0xa30 set to1.0 and +0xa38 set to0.0. Their domain meanings are not asserted."
+    },
+    "qualification": "The subsequent mesh-array-contract.json maps all 28 node and 25 element registered state variables and the direct-buffer paths. Default 3D bulk replacement is runtime-validated, and the internal C++ state-variable component passes captured-state replay. Sharing, nondefault controls, 2D paths and complete object ownership remain partial."
+  },
+  "validation": {
+    "runtime_evidence": ["keyword-runtime-1.json", "keyword-runtime-2.json"],
+    "repeatable_verifier": "tools/verify_keyword_observations.py",
+    "normalized_report": "keyword-observations.json",
+    "scope": "Two fresh original processes, fourteen sequential imports of twelve small synthetic 3D fixtures, passive memory observation only",
+    "excluded": "No exhaustive keyword coverage, complete object layout, 2D mesh-import validation, solver validation, or replacement implementation.",
+    "startup": {
+      "runtime_evidence": ["startup-runtime-default-v3.json", "startup-runtime-pre3-priority.json", "startup-runtime-pre2.json", "startup-runtime-multi-priority.json"],
+      "repeatable_verifier": "tools/verify_startup_observations.py",
+      "normalized_report": "startup-observations.json",
+      "static_ledger": "startup-existing-evidence.json",
+      "scope": "Four fresh original processes suspended at creation, passive hooks installed before primary-thread resume; constructor, context and configured state observations",
+      "qualification": "Selected controls and all 79 component counts are captured. Observed offset values do not establish the meaning or initialization provenance of every field."
+    }
+  },
+  "implementation_gate": {
+    "decision": "Do not yet present this partial specification as a complete recreated application model.",
+    "remaining_questions": [
+      "Recover complete ownership and defaults of node/element dependent fields before replacing their allocation behavior.",
+      "Explain and validate post-connectivity derived-state calculation at0x1401fc290 and the geometry-related finalization path with nontrivial fixtures.",
+      "Recover alternate-model routing and dimension changes, including their interaction with existing objects.",
+      "Recover material/object reference invariants before adding those domains.",
+      "Exercise remaining order, count-change, whitespace, missing-value and error cases before declaring a keyword subset compatible.",
+      "Separate observed deterministic legacy behavior from unsafe or undefined cases; do not silently invent a policy."
+    ],
+    "next_boundary": "A source-backed object identity/name/type and mesh import contract, including allocation side effects and finalization, followed by a C++ implementation only where this contract is established."
+  }
+}

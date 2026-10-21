@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "status": "pass_bounded_precapture_static_audit",
+  "created_utc": "2026-10-20T22:58:24.541239+00:00",
+  "purpose": "Check the passive probe and declared inputs against retained native storage and reader contracts before original execution. This is not runtime equivalence evidence.",
+  "bindings": [
+    {
+      "path": "analysis/custom-field-static-contract.json",
+      "sha256": "b5cce43adf8f1fd4f061e086fe0618adc1de47f083916da3b9c38113163f927e",
+      "bytes": 46982
+    },
+    {
+      "path": "analysis/custom-field-callsite-audit.json",
+      "sha256": "6fb8b5e3d7962c5e65d1740396edce96f592d18c8d833581ba444bd62df7dc2a",
+      "bytes": 70043
+    },
+    {
+      "path": "analysis/custom-field-candidate-freeze.json",
+      "sha256": "3df0a5238833b7bb81ee4a99e1b54fb8d3dceefa7f1ee451060e1e0d261c57ef",
+      "bytes": 7817
+    },
+    {
+      "path": "analysis/custom-field-input-freeze.json",
+      "sha256": "ef0a05a10c587938fb5f69aba08b49b10304c023c30a1632a40cc49cc863d724",
+      "bytes": 43820
+    },
+    {
+      "path": "analysis/custom-field-evaluation-cases.json",
+      "sha256": "3794c7722332864467a659f2ea4b7b7d7280b8d184cf3e4aace631faa0756499",
+      "bytes": 43242
+    },
+    {
+      "path": "tools/observe_custom_field_import.js",
+      "sha256": "ee4a227d0aabacb8aef70ed1aace6feff22ca13c08299ac9411e92b3f4dac2c0",
+      "bytes": 111553
+    },
+    {
+      "path": "src/recovered/custom_fields.hpp",
+      "sha256": "fca250e4212d73a151be3b6d96ade680bb842e655db42509bef7bf181ebbf921",
+      "bytes": 3903
+    },
+    {
+      "path": "src/recovered/custom_fields.cpp",
+      "sha256": "2e7d0090113dd2f1dd665a57407b6603dd38d0440586a8a860d0f63b59bcc9b8",
+      "bytes": 2575
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "sha256": "ed0657f82e7e7147e12bed2eef9431c904da22c4187f0f0297f70257aca452a8",
+      "bytes": 14003
+    },
+    {
+      "path": "src/recovered/object_model.cpp",
+      "sha256": "c6210e257ce13d4dc3e9be99b647db3bd9e2f77eb8c22ca8cb5288129b5b9985",
+      "bytes": 26290
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "sha256": "5ab50c61d5bf799193f4cdf1a586cc3518eda0e0373f0d77b906d2f5a8c1538d",
+      "bytes": 33870
+    },
+    {
+      "path": "src/recovered/keyword_reader.cpp",
+      "sha256": "349bf02fbe32750bc24b415abaa7ba73c87ca541655cde8e9562b41cbb008662",
+      "bytes": 35030
+    }
+  ],
+  "fixtures": [
+    {
+      "path": "tests/fixtures/custom_fields/01_spatial_mesh.KEY",
+      "sha256": "2d4204e076bdc826188ccedf3c3b9586c19d81eea6fff0a0128d3aacadb4f569",
+      "bytes": 87
+    },
+    {
+      "path": "tests/fixtures/custom_fields/02_custom_node_domain.KEY",
+      "sha256": "aa7af7dae7bce965442186ef9383bb49d0648143e54c23bfa36e3fc6efebd14e",
+      "bytes": 38
+    },
+    {
+      "path": "tests/fixtures/custom_fields/03_custom_element_domain.KEY",
+      "sha256": "56a5dfcce08d9704af09bbf634ca2ceb9f7fc95fe47c9ae096f8672ecf2222fc",
+      "bytes": 31
+    },
+    {
+      "path": "tests/fixtures/custom_fields/04_custom_explicit_negative_id.KEY",
+      "sha256": "0c2cf161ef7bdbb4d93b31b19d2670bad84e76d71de00bf05167166bdbf49612",
+      "bytes": 37
+    },
+    {
+      "path": "tests/fixtures/custom_fields/05_custom_repeat_shape.KEY",
+      "sha256": "e7dae5a078895c8b932a160f90ef0bf934a0c86466b4e59e6602dfdfd0130bbd",
+      "bytes": 33
+    },
+    {
+      "path": "tests/fixtures/custom_fields/06_custom_zero_width.KEY",
+      "sha256": "58a9987333d6bc8fefcdd81bf7ae2cb4194af46e9d16670a0b139a7f1e8c6a03",
+      "bytes": 22
+    },
+    {
+      "path": "tests/fixtures/custom_fields/07_custom_partial_row_eof.KEY",
+      "sha256": "4b547fd68cd06efa9426b8200ec3f494d2266783b50a064820651df253b4b6a6",
+      "bytes": 36
+    },
+    {
+      "path": "tests/fixtures/custom_fields/08_custom_header_eof.KEY",
+      "sha256": "8b572c6b029eab8a8754a27d2c95d05a0d2970792e357aeb6c159c32558db95a",
+      "bytes": 8
+    },
+    {
+      "path": "tests/fixtures/custom_fields/09_custom_matching_header_zero.KEY",
+      "sha256": "6b5fc56fb80d4f9a1f8360caacf4025f1f626679618c8b0d0c9cfa21e2ba604a",
+      "bytes": 15
+    },
+    {
+      "path": "tests/fixtures/custom_fields/10_custom_other_kind_retains_count.KEY",
+      "sha256": "dba48fad0450a2615eb435030c70792d77995bbd2430c26c0d1284d57475b09f",
+      "bytes": 29
+    },
+    {
+      "path": "tests/fixtures/custom_fields/11_dynamic_empty_position_and_real2.KEY",
+      "sha256": "5d93c1b32c05f73c905a92241334a1ad5471a32a22e428a60ab2b24fc52cd1cd",
+      "bytes": 61
+    },
+    {
+      "path": "tests/fixtures/custom_fields/12_dynamic_integer_three.KEY",
+      "sha256": "941d0e83db6d54155e0aefa1f54d1f1e4a4ed90cd7e6a85a72fe7aec5f1c570d",
+      "bytes": 35
+    },
+    {
+      "path": "tests/fixtures/custom_fields/13_dynamic_sparse_default.KEY",
+      "sha256": "9eff6bec5d5b805878f724817f6e42adda52b67f9d783e08798040532b3940ef",
+      "bytes": 45
+    },
+    {
+      "path": "tests/fixtures/custom_fields/14_dynamic_real_to_integer.KEY",
+      "sha256": "1ba702c4f4a164cb99de27f2843061b3443a198916144f1e40eefe1a329080aa",
+      "bytes": 33
+    },
+    {
+      "path": "tests/fixtures/custom_fields/15_dynamic_integer_to_real.KEY",
+      "sha256": "988eada37a4a37959e28f88aec23e888ea7abe037720ada5f2ab36ed119c0864",
+      "bytes": 31
+    },
+    {
+      "path": "tests/fixtures/custom_fields/16_dynamic_integer_eight.KEY",
+      "sha256": "4fced640084ec5b14cef706ec80e972aad47edb06690f9bfca5ba2c7b9262dca",
+      "bytes": 45
+    },
+    {
+      "path": "tests/fixtures/custom_fields/17_dynamic_sparse_partial_eof.KEY",
+      "sha256": "3fe19f355bdd0662467f8c27edf1df8ec3cfa5eb03eba121d0d0147e45540a9b",
+      "bytes": 40
+    },
+    {
+      "path": "tests/fixtures/custom_fields/18_dynamic_invalid_kind_retains_mode.KEY",
+      "sha256": "cebd04efe99d69336539075717ea7f5ca500e0ef4320318e050ae9f20a64cf10",
+      "bytes": 32
+    },
+    {
+      "path": "tests/fixtures/custom_fields/19_dynamic_nonpositive_existing.KEY",
+      "sha256": "ad88551de97ecfc5829f84cc9dcd929007300ce70895424e9cac9549b9e96f52",
+      "bytes": 59
+    },
+    {
+      "path": "tests/fixtures/custom_fields/20_dynamic_real_partial_line.KEY",
+      "sha256": "8338d46d6c2aa1ffd57cd225802de0e20f5c0f249eb14c7615782f0c99a4a449",
+      "bytes": 38
+    },
+    {
+      "path": "tests/fixtures/custom_fields/21_dynamic_integer_row_eof.KEY",
+      "sha256": "ee26bf474c4d401c776d449a39357e1d436e745c7e1e4316e070a74fb4b388de",
+      "bytes": 37
+    },
+    {
+      "path": "tests/fixtures/custom_fields/22_deactivate_preserve_stores.KEY",
+      "sha256": "485e39007ee837209bb62bddc6aa040e24c85ae07829c492579cdc14c828ca44",
+      "bytes": 15
+    },
+    {
+      "path": "tests/fixtures/custom_fields/23_reactivate_and_custom_fill.KEY",
+      "sha256": "85e81be2d70f4a7c3094bf306762c83e17b4d8f9f872d505060cf57c8c35a68a",
+      "bytes": 98
+    },
+    {
+      "path": "tests/fixtures/custom_fields/24_planar_reset_preserves_root_id.KEY",
+      "sha256": "2054d25b287a2db205e42cff0ef061e6cf7dc7be9575ced305e2da9bbbe63e30",
+      "bytes": 77
+    },
+    {
+      "path": "tests/fixtures/custom_fields/25_planar_node_custom.KEY",
+      "sha256": "b74fd01ec0cf960a89af479813eeaa07ab3276371c848b93205d42ca9fad67df",
+      "bytes": 42
+    },
+    {
+      "path": "tests/fixtures/custom_fields/26_planar_element_default.KEY",
+      "sha256": "d39b41aaef063a4c5496eb747a2e6b32bc19983f83350e9bec6f0224ea59d30a",
+      "bytes": 22
+    },
+    {
+      "path": "tests/fixtures/custom_fields/27_custom_complete_row_final_eof.KEY",
+      "sha256": "68ada646bc453cbcf2ad26390761fa7c66ac487817425580f667a6b60f4877de",
+      "bytes": 35
+    },
+    {
+      "path": "tests/fixtures/custom_fields/28_planar_dynamic_placeholder.KEY",
+      "sha256": "c74a8a9a5d20ec5e493eb640ed4003a6fb7107f9e3c7b4cb5b20a9b96f8eb741",
+      "bytes": 35
+    },
+    {
+      "path": "tests/fixtures/custom_fields/29_planar_dynamic_real_three.KEY",
+      "sha256": "7438337fc259cf754ee28e87f236eccc670d36a4f40ac5366d9cc99d52be7e95",
+      "bytes": 34
+    },
+    {
+      "path": "tests/fixtures/custom_fields/30_planar_dynamic_switch.KEY",
+      "sha256": "1e9e8da7074add742f0426a451f4ed5926a4d102a2847c307540dea5c4da3093",
+      "bytes": 58
+    },
+    {
+      "path": "tests/fixtures/custom_fields/31_custom_blank_dynamic_header_eof.KEY",
+      "sha256": "9b5072d40b6b75a90872cd28deaea9074480df7dbce11a243238e173e611e9f7",
+      "bytes": 17
+    },
+    {
+      "path": "tests/fixtures/custom_fields/32_final_spatial_reset.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12
+    }
+  ],
+  "checks": [
+    "All 32 fixture hashes, sizes, and ASCII encodings match the frozen manifest.",
+    "CUSVAR sentinel traversal reads exactly the bounded list count, validates previous and terminal links, and never reads the uninitialized sentinel payload.",
+    "DYNARY traversal follows next at +0x10, checks head/tail/count, and snapshots both independently retained typed vectors.",
+    "Vector snapshots read only initialized begin-to-end storage; capacity is checked separately and its unused tail is not read.",
+    "CUSVAR helper 416700 argument order is ID, kind, declared rows, double default, width. All destination outputs are initialized before the probe reads them.",
+    "Typed row helper 414100 receives FILE, label, three integer destinations; the other four typed helpers have independently recovered matching destination widths. Probe verifies row stride and physical extent.",
+    "Pointers retained from lookup returns are copied into stable NativePointer values. Destruction-after events do not dereference freed custom descriptors; dynamic clear reads the still-live cleared owner.",
+    "Fixture extents remain within one object, four nodes, one element, four custom entries, three dynamic entries, twelve custom doubles, six dynamic doubles, and eight dynamic integers.",
+    "Inputs use finite bounded values and avoid negative allocation extents, signed multiplication overflow, first uninitialized scalar use, arbitrary COW aliases, and unsupported broad CRT conversion domains.",
+    "Read-only implementation review found no actionable divergence in selected storage, shape history, default fill, independent typed buffers, partial writes, or success-only root selection ordering."
+  ],
+  "limitations": [
+    "Native runtime values and process outcomes have not yet been evaluated.",
+    "Pointer plausibility relies on the recovered owned native object profile; this is not a generic corrupt-memory probe.",
+    "Arbitrary COW alias ownership, allocation failure, negative/overflowing extents, and broad CRT nonfinite/locale/range behavior remain outside this fixture domain."
+  ],
+  "native_session": {
+    "export": "analysis/oracle/custom-field-evidence.json",
+    "snapshot": "analysis/oracle/custom-field-snapshot.json",
+    "closed": true
+  }
+}

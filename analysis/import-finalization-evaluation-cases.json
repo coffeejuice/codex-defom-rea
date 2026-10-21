@@ -1,0 +1,147 @@
+{
+  "purpose": "Predeclared independent selected import-finalization evaluation. No candidate values or captured AFTER data are supplied as replay inputs. Expected values are static-contract hypotheses, including persistence of the success flag across a dimension reset.",
+  "cases": [
+    {
+      "path": "tests/fixtures/import_finalization/01_positive_populated.KEY",
+      "sha256": "98890ef738a07e53f79650cfa4d72be96b7d20e1d494b486dcb793019bcb9861",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -5,
+      "expected_post_saved_step": -5,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/02_zero.KEY",
+      "sha256": "68c119d307c7635f2d209291745d7b8694dafc83731e7e30c35508d9c8dd37b3",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -1,
+      "expected_post_saved_step": -1,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/03_negative.KEY",
+      "sha256": "531e09baa8e794dbe18b5ddd674f97680b50be78d0dfbd91bd7a8b0d321e3b4a",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -7,
+      "expected_post_saved_step": -7,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/04_missing.KEY",
+      "sha256": "494ad169674c060234debfee550a861bba037d4e35c1e715c8008519ebff9124",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -7,
+      "expected_post_saved_step": -7,
+      "expected_post_import_flag_0x2f88": 0,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/05_blank.KEY",
+      "sha256": "66456a310c0b7a595da29d34b329b52a80f7de6929f579d6f16cb079d7c46b0b",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": 0,
+      "expected_post_saved_step": -7,
+      "expected_post_import_flag_0x2f88": 0,
+      "expected_status": 2
+    },
+    {
+      "path": "tests/fixtures/import_finalization/06_eof.KEY",
+      "sha256": "9ffba9ede67007e9705ec8dc5abc7be05022e4176c4d9f6a27567be62b0aba01",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": 0,
+      "expected_post_saved_step": -7,
+      "expected_post_import_flag_0x2f88": 0,
+      "expected_status": 2
+    },
+    {
+      "path": "tests/fixtures/import_finalization/07_success_then_eof.KEY",
+      "sha256": "52935828e2d55ab91d7ad187b8cc431056c56b72dcae0f5c4990f55e45a73444",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -1,
+      "expected_post_saved_step": -1,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 2
+    },
+    {
+      "path": "tests/fixtures/import_finalization/08_garbage.KEY",
+      "sha256": "8c461cec9ca0dac732a424bf17f044c6499b422c713393551d13c879336aa5c5",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -1,
+      "expected_post_saved_step": -1,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/09_missing_after_error.KEY",
+      "sha256": "8e26abcf5433d2ff9413173fc18768961af3079227b814aa3528887e75b9d18a",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "expected_post_step": -1,
+      "expected_post_saved_step": -1,
+      "expected_post_import_flag_0x2f88": 0,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/10_dimension_reset.KEY",
+      "sha256": "bf6dce4d034de8c929b49243ca7e7b771305a8ce47eb53fe86694934fb7447b0",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "expected_post_step": -1,
+      "expected_post_saved_step": -1,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/11_int_max.KEY",
+      "sha256": "27f5be70daa2f0a5a44c52e963b3d395ad5ae4d6bb3538e2fb4635d07e72e33f",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "expected_post_step": -2147483648,
+      "expected_post_saved_step": -2147483648,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/12_int_min.KEY",
+      "sha256": "0eb9faf78ba766120808ba849bd0ede4fea72feefb9f1b60ad56e09e69e5e2fa",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "expected_post_step": -2147483648,
+      "expected_post_saved_step": -2147483648,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 0
+    },
+    {
+      "path": "tests/fixtures/import_finalization/13_success_then_blank.KEY",
+      "sha256": "2cf235785f79b24cc3c8c6c1cc4444fa75e19f018175a761641b69cb4b74f389",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "expected_post_step": -1,
+      "expected_post_saved_step": -1,
+      "expected_post_import_flag_0x2f88": 1,
+      "expected_status": 2
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_import_finalization.js",
+    "sha256": "275d0ec2de20e6a98e06ce04b38476169a08fa89ca4db8a38a9c61db51ac3ab4"
+  },
+  "scope": [
+    "NSTART positive/zero/negative/INT_MAX/INT_MIN; blank/EOF/zero-conversion text; success followed by failure in one import; absent NSTART in later imports; dimension reset after NSTART.",
+    "Populated planar object1, inactive type7 placeholder2 and empty active3; later dimension reset leaves one empty spatial object.",
+    "Material count0, NSTART option1740=0, object gate3990=0; no plane-geometry/material finalization reconstruction claim.",
+    "Observe preparse flag reset, parser-complete state, control/material/object stage ordering, finalizer-complete and import-return state.",
+    "Root930 is double,93c/990/8b0/744/1740 are int32,2f88/2f89 and3990 are bytes."
+  ],
+  "protocol": "initialized DIM NODE8 SUPPRESS; optional link DIM; then sequential import HEX_BYTES. Compare post-finalization state and finalization_pending=false."
+}

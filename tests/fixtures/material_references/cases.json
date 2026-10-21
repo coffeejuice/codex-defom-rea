@@ -1,0 +1,248 @@
+{
+  "status": "prepared_not_executed",
+  "purpose": "Predeclared bounded material-reference allocation, graph finalization and populated-mesh refresh research. Inputs derive from retained static evidence; no candidate output consulted.",
+  "cases": [
+    {
+      "path": "tests/fixtures/material_references/01_tet_two_materials.KEY",
+      "sha256": "86e68f43350e23c21e675a548078ab07787d33eb29bab284f542d649c56c35e2",
+      "bytes": 149,
+      "hypothesis": "Establish a successful tetrahedron before two named materials; no references yet.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/02_existing_missing_fractional.KEY",
+      "sha256": "581fd8c8bc650410eba5cf0736a103cf1bfad6cf077f040c76e649e560c8379f",
+      "bytes": 25,
+      "hypothesis": "Existing, missing and duplicate target IDs after fractional truncation; no eager refresh.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/03_append_with_reference_source.KEY",
+      "sha256": "f8807b3247aa759bd6625f67189782a6d9c1fb48a225a363994a9c5d1a29052e",
+      "bytes": 17,
+      "hypothesis": "Append while source10 remains mode1; observe feature49 and descriptor49/50 layout/remapping on populated tetrahedron.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/04_clear_retains_allocation.KEY",
+      "sha256": "c49b9a8b9e0c6b6e355e3317a5501e2acdd9942df0c3a7afdc10033d7bcc57e0",
+      "bytes": 12,
+      "hypothesis": "Successful zero count resets old resolved target modes and source mode, retaining the allocation and contents.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/05_negative_after_clear.KEY",
+      "sha256": "a305a167d8fdf35deb73220af19a7c9ee94f56a7f8a6ae08f6a298751c0ece0c",
+      "bytes": 13,
+      "hypothesis": "Negative logical count with an existing retained buffer and mode0; guard prevents further clearing.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/06_count_physical_eof.KEY",
+      "sha256": "0f63f260f7060c1c205beffe16ef435566f35b7a2e195168579b84ff51c69cb8",
+      "bytes": 9,
+      "hypothesis": "Count-helper EOF directly after selector writes logical0 without replacing retained storage.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/07_replace_fractional_signed.KEY",
+      "sha256": "fb13b9ec56a9d342f5a9854ee8463787cee7f755af81cebaf70b4c128cdaa91f",
+      "bytes": 22,
+      "hypothesis": "Positive replacement frees retained allocation and truncates finite signed fractional references toward zero.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/08_blank_count_preserves_mode.KEY",
+      "sha256": "254f1c2386c744ff621025cd194f227a4beca455a205d0f2d8729b5437e7f070",
+      "bytes": 10,
+      "hypothesis": "Blank remainder fails count helper after zeroing live count; mode1 and allocation remain.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/09_append_with_zero_count_source.KEY",
+      "sha256": "7d06ee4578659fd725a7bfdd240334df441636b165594d431be68bc54b6a1d6c",
+      "bytes": 16,
+      "hypothesis": "Fourth material append tests feature49 from mode1 despite zero logical reference count.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/10_nonnumeric_count.KEY",
+      "sha256": "991e89d2f6436fe7f7468cc019d12350bd0ce02e35334f5d349d992c3feb8fdb",
+      "bytes": 14,
+      "hypothesis": "Matching-failure count returns success with zero; prior count0 makes mode-reset guard false.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/11_no_reference_at_eof.KEY",
+      "sha256": "69a6eba19e96a953cc1dc921616679391d56aa9d0fdce168783696f06073c4b3",
+      "bytes": 12,
+      "hypothesis": "Positive count allocates three zeroed slots; first reference read hits EOF and partial state survives.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/12_partial_references_eof.KEY",
+      "sha256": "1f7b8708c3bb6e3c082d3111024a0ac2af4bf718ed8bbaaa85a0e6521a712633",
+      "bytes": 15,
+      "hypothesis": "Only the first reference is assigned before EOF; remaining calloc slots stay zero.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/13_cycle_forward_order.KEY",
+      "sha256": "1f658229cf4a8a9b3c763f142947a07758069f9bb8bba8303cbe2075ff8396ae",
+      "bytes": 30,
+      "hypothesis": "Cycle before one finalization; insertion order lets material10 clear and disable material20 reference storage.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/14_self_reference_ends_loop.KEY",
+      "sha256": "e2cc82147bf068c09b9eaa09cd0576a3cc5f60e0daa60c9e5403f0b76db7ef1a",
+      "bytes": 18,
+      "hypothesis": "Self-reference can free its own allocation and zero count, terminating the live-count loop before the second ID.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/15_planar_inverse_insertion.KEY",
+      "sha256": "1a47462a8a723f49d7cb740ed142f2c3b40048d3bc1f025596d8404a2f444f23",
+      "bytes": 149,
+      "hypothesis": "Dimension reset destroys prior reference buffers; materials2,1 precede successful planar mesh.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/16_cycle_reverse_order.KEY",
+      "sha256": "ff17ba2da0b7a6e39164cad2b4295b980dd6b09dc73422de277519f5cdc08b0f",
+      "bytes": 26,
+      "hypothesis": "Equivalent cycle with insertion order2,1 changes which source is visited first.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/17_clear_then_configuration_refresh.KEY",
+      "sha256": "d7b07e49c88635fc260ae13340a8c6ef7c5a1ca9a9551c54d83bcf0b9013155d",
+      "bytes": 45,
+      "hypothesis": "Clear the surviving source then refresh populated planar arrays through existing supported configuration keywords.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/18_missing_target_then_append.KEY",
+      "sha256": "f08db74fce3aaf630f366d37cc654c2bf96e81a1131123123fbbf3d7ba63ab1f",
+      "bytes": 43,
+      "hypothesis": "Reference initially missing during handler becomes resolvable after append before finalization; append refresh sees source mode1.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/19_create_through_reference.KEY",
+      "sha256": "98a3f40e86b7f2a976bb2858e8fa854130e98215f4eb2a8fd31e649abd269b28",
+      "bytes": 19,
+      "hypothesis": "MSTMTR itself creates fourth material, refreshes existing object before reference mutation, then reads two fractional targets.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/20_late_matching_failure.KEY",
+      "sha256": "95e0334732afb214263b4861249d430669281e5a63280a35914568a08d4e8cde",
+      "bytes": 15,
+      "hypothesis": "After one successful scalar, matching failure reuses assigned local double for next slot; x remains for unknown-token handling.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/21_negative_target_retained.KEY",
+      "sha256": "24fa4259d05caec918b34ab88985b1afeb6f2407be5f8e16b50f77c9f71726a3",
+      "bytes": 25,
+      "hypothesis": "Nonpositive clearing retains buffer; later source resolves a negative-count target and finalizer sets mode2 without freeing it.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/22_blank_live_source.KEY",
+      "sha256": "1b0614806f1c3a1f87e5203d7117ce9b5b808de47ddbc96a855074f5ebf5b3d0",
+      "bytes": 9,
+      "hypothesis": "Blank count on mode1 with positive old count zeros logical count while retaining mode/allocation; finalizer visits no references.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/23_replace_without_final_newline.KEY",
+      "sha256": "7149944ee62e58c913c9aacbb525ee267db3c85f3924a14c7e6997c8a04482b4",
+      "bytes": 15,
+      "hypothesis": "Replace a negative-count retained allocation and assign a finite fractional target at physical EOF without LF.",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_references/24_reset_releases_retained.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12,
+      "hypothesis": "Dimension reset destroys positive, zero and negative logical-count material records and any retained reference allocations.",
+      "expected_output": null
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_material_reference_import.js",
+    "sha256": "91115644112be4418b1168ca8f16008de3e44bef16503c23aadaf49178445f28"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/material-reference-next-contract.json",
+      "sha256": "0b2674acf6050dfa4b1997d78447333dc1a7ed21ccdb453f9f99fb60f9d24f5a"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce"
+    },
+    {
+      "path": "analysis/model-0x140413de0.json",
+      "sha256": "132da8ef32c9a5a46739641430046f49ba635f1b02a0d651d8a74cd104fe038a"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91"
+    },
+    {
+      "path": "analysis/material-import-0x14029c2c0.json",
+      "sha256": "d55f5e114a2d6f3ff8c3b231bf248224401254c78fe75f8c0afbbb688df685f9"
+    },
+    {
+      "path": "analysis/material-import-0x14028cb70.json",
+      "sha256": "3d100243681513140e916f4611a071757571466c2f595682c4f255604c9c2142"
+    },
+    {
+      "path": "tests/fixtures/keyword_import/held_out/05_tetra.KEY",
+      "sha256": "8915c4b4bf9522ecaee4448ed10819f198e4bb870090c51ba5ee7d68bfea5b81"
+    }
+  ],
+  "bounds": {
+    "imports": 24,
+    "materials": 4,
+    "objects": 1,
+    "nodes_per_object": 4,
+    "elements_per_object": 1,
+    "reference_allocation_capacity": 3,
+    "probe_reference_capacity_limit": 8,
+    "maximum_fixture_bytes": 149
+  },
+  "handler_scope": {
+    "category1": [
+      28,
+      34
+    ],
+    "category2": [
+      144,
+      145,
+      159,
+      173
+    ],
+    "category4": [
+      92,
+      116
+    ],
+    "unknown_tokens": [
+      "x"
+    ]
+  },
+  "domain": "Finite bounded reference conversions, exact signed existing/missing IDs and defined late matching failure only. No first-reference matching failure, nonfinite/overflow conversion, allocation failure, malformed material selectors, invalid connectivity or special command keywords. Count inputs are on selector line because skipblank=0. Allocation capacity is observed independently of logical count; zero/negative retained contents are not inferred from count.",
+  "probe_notes": [
+    "Only successful reference scalar scans expose numeric output; failed scans never read potentially uninitialized local destination.",
+    "Reference calloc is accepted only at exact return RVA3883ee with width4 and bounded capacity. Tracked free operations record pre-free bytes only.",
+    "Full primary/linked material snapshots plus allocation-aware mesh descriptors preserve feature49/50 refresh evidence; no extra application calls are injected.",
+    "Finalizer lookup-before snapshots and stage endpoints expose sequential immediate mutations; no graph reachability interpretation is assumed."
+  ]
+}

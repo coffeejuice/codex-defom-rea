@@ -1,0 +1,45 @@
+{
+  "status": "pass_static_precapture_review_not_runtime_validation",
+  "bindings": [
+    {
+      "path": "tools/observe_mesh_field_import.js",
+      "sha256": "f2449d2fefb0b3947983424af9ce9def12c97a43c899fa756ff538e047bad777"
+    },
+    {
+      "path": "analysis/mesh-field-evaluation-cases.json",
+      "sha256": "89549cb6bbe57e9e0757b7defe1280f8f5f254408349bb59a419d0367e4451e7"
+    },
+    {
+      "path": "analysis/mesh-field-static-contract.json",
+      "sha256": "cbf2a681bb4869a1b542fa91954a1c77d20b39e9389dc5dc83438df6d9564d77"
+    },
+    {
+      "path": "analysis/mesh-field-callsite-audit.json",
+      "sha256": "b43b80fc9ee089016b68b57298dd9070d14a0a079b38a6fb185048d25584c235"
+    },
+    {
+      "path": "analysis/mesh-field-candidate-freeze.json",
+      "sha256": "7c87974b6bc3e692edc3209eeaa62d30f1f7a066bd5f31e4991b1533e089958a"
+    }
+  ],
+  "checks": {
+    "mapping_count": 25,
+    "fixture_hashes_and_lengths": 32,
+    "fixture_ASCII": true,
+    "probe_is_passive": "Interceptor observation only; no new NativeFunction/replace/memory mutation. Existing gate writes a harness-ready file only.",
+    "scalar_reads": "Native%i/%Flf destination read only successful conversion1; failed locals omitted.",
+    "real_buffer": "Observed object19ccc0 pointer binds slot; descriptor registration plus width, begin/end length and storage pointer verified before reading count*width doubles.",
+    "integer_buffer": "Bound slot to allocation ledger and require no unknown items; actual allocation covers headercount*width.",
+    "raw_bytes": "Double values_hex uses exact8bytes/item, integers4; n0 returns empty without dereference; positive null rejected; max4096bytes. Negativezero retained in rawhex.",
+    "nested_rows": "419b90 explicit0 nests4199a0; fieldReaders balanced individually and realStack retains outer416c90 frame. Detailed row args are native callees using same proven destination; rows count<=8,width<=10, explicit<=10.",
+    "bccdef": "field-reader-after is before parent conversion; handler field-postprocess captures sameallocation after conversion, includingreaderfailure. Native parent mutates values only; no allocation change.",
+    "width_zero": "DVOLF/TICF nullzero-length descriptors acceptn0; explicit reads still observed, no positive nullread.",
+    "fixture_bounds": "5nodes/2tets or8nodes/3quads; explicitwidth<=8;finitevalues except exact signed32 INT_MIN integer; no uninitialized firstrow selector; lateEOF intentional. GEOTYP3 followed freshRZ andELMCON before grownarrays inspected.",
+    "not_claimed": "No runtime outcome, exact status comparison, independent tamper verifier or arbitrary injected/malformed pointer safety claimed."
+  },
+  "caveats": [
+    "New detailed row hooks rely on confirmed caller argument propagation for same destination rather than repeat descriptor ledger lookup. They are bounded to selected static callgraph and current fixtures.",
+    "Global fieldReaders/activeHandler follow existing single synchronous import harness; concurrent application imports outside scope.",
+    "Probe emits errors on unknown extents; a future capture must have no probe errors before acceptance."
+  ]
+}

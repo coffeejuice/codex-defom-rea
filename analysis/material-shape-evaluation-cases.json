@@ -1,0 +1,593 @@
+{
+  "schema_version": 1,
+  "status": "prepared_pending_independent_static_audit",
+  "created_utc": "2026-10-20T23:23:22.340044+00:00",
+  "purpose": "Native-static-contract training for materialshape127/128\u2192feature54/55\u2192selectedfield210/211; no candidate outputs used.",
+  "cases": [
+    {
+      "path": "tests/fixtures/material_shapes/01_planar_mesh.KEY",
+      "sha256": "5b0c8eb46307e71a43062d79b8bc7559c5526825b4ad434cb99789031e88b563",
+      "bytes": 99,
+      "hypothesis": "Two-element planar mesh before material producers; initial fields54/55 widthzero.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/02_new_size_material.KEY",
+      "sha256": "8df2f273a87896430779a6bd05d8a1f16161c20c45a74da9f610ecde12f68865",
+      "bytes": 12,
+      "hypothesis": "New material refresh precedes size property write; no inferred post-write refresh.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/03_refresh_size_and_values.KEY",
+      "sha256": "9400b60236645ef6ff444e6010c0e3200dc3bd4bfca6aa210f787c577ce5c3d3",
+      "bytes": 55,
+      "hypothesis": "Explicit refresh exposes mode1 width1; two distinct sparse rows and negativezero.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/04_size_mode_two_stale.KEY",
+      "sha256": "3fd867707629d5fdf85795bbe7536ca22f3523bd77590b1e8fcdb84a602ad285",
+      "bytes": 12,
+      "hypothesis": "Existing material changes mode while componentwidth/physicaldescriptor remain stale.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/05_size_mode_two_refresh.KEY",
+      "sha256": "b32bcf7b2dc58885fba03ec60f0a157fda10777ed8b45bba8aa8cc4ce8a3baa9",
+      "bytes": 58,
+      "hypothesis": "Refresh derives width4, then default and sparse four-value row.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/06_size_mode_three.KEY",
+      "sha256": "7c09f8bd93066c2b9e1389e009961e44b0838c79161a9c9576c14888a1c3ae63",
+      "bytes": 37,
+      "hypothesis": "Mode3 derives width3 only through known refresh.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/07_size_mode_four.KEY",
+      "sha256": "bcde293af9ac7b276dd56a552ce5c96cf301b7f77b6f75ef34f54bdd908fc393",
+      "bytes": 37,
+      "hypothesis": "Mode4 derives width2.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/08_size_mode_five.KEY",
+      "sha256": "374453291006bc208112a3acf612478731483f0b05b46864e14db39007fbecbd",
+      "bytes": 37,
+      "hypothesis": "Mode5 derives width4.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/09_size_mode_six.KEY",
+      "sha256": "101381c8df8a30fb2d90236004f691c898961043577a5c36eedb3710d1500546",
+      "bytes": 37,
+      "hypothesis": "Mode6 derives width1.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/10_size_unknown.KEY",
+      "sha256": "da018502f323dd34f16fe1c7dd5a368c6eb96b8baff5b3a0c9b8351cf5af4e41",
+      "bytes": 38,
+      "hypothesis": "Unknown material mode contributeszero without inventing a valid width.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/11_size_blank.KEY",
+      "sha256": "dd2639b65e91ccb6083531f31fc3e3e211ca574604557fa8c2af946bb8227dce",
+      "bytes": 10,
+      "hypothesis": "LF-only integer header zeroes destination and returns readfailure.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/12_size_eof.KEY",
+      "sha256": "35af053ff5d8e662eff3bfb09e965d15e566c1858a13372c49cb4ecc6d0e86b8",
+      "bytes": 9,
+      "hypothesis": "Physical EOF after selector; initialized material field overwrittenzero before failure.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/13_new_texture.KEY",
+      "sha256": "7231505b6efcdddb4def648b264a29fb018ea3d029373577997e60f3a20a1ef4",
+      "bytes": 16,
+      "hypothesis": "Create second material then set texture; snapshot pre-property refresh and stale55.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/14_texture_ten_default.KEY",
+      "sha256": "ea381e10c74f6d2860217e2e5cf423c4310fe2870532fbbcbb0bc7d9da5585bd",
+      "bytes": 46,
+      "hypothesis": "Feature width10; scalar default broadcast over two elements with no row records.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/15_texture_three_stale.KEY",
+      "sha256": "2ae501b3577a0146d362b4f44be66a5fe69a8fa367425d90330f24e9938f9fe2",
+      "bytes": 35,
+      "hypothesis": "Existing texture mode changes without refresh; consumer explicitwidth2 independently overrides root/descriptor.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/16_texture_seven_rows.KEY",
+      "sha256": "88518fd53ef7f725f127fc51a47a56b95b7020cdf60b2d1f6663c238f9a3697f",
+      "bytes": 61,
+      "hypothesis": "Refresh derives width7 then sparse last element changes all seven components.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/17_texture_type_two.KEY",
+      "sha256": "e5ab8986bacac2ccd16255991c4f063af4e3ab314d75e18be36f2f3113f33ca2",
+      "bytes": 41,
+      "hypothesis": "Type2 smallest resolution contributes10.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/18_texture_disabled_second.KEY",
+      "sha256": "a0836b7259920d4dadf22d6b2a164aa5d1a0e1b13939699bf2864bdd51ff0252",
+      "bytes": 41,
+      "hypothesis": "Nonunit second texture parameter contributeszero.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/19_texture_disabled_resolution.KEY",
+      "sha256": "770334ad7046d4f8ba7765f64744a394acda0514e1246fd25c3dffae21b56014",
+      "bytes": 41,
+      "hypothesis": "Unsupported resolution0 contributeszero.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/20_texture_unknown_mode.KEY",
+      "sha256": "6215408ed6ffbfbe3393b804b51ef79ed08bccdfedafc814a22e75294ec7b44d",
+      "bytes": 42,
+      "hypothesis": "Unknown first mode contributeszero and may emit legacy diagnostic; no arbitrary allocation.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/21_texture_partial_header.KEY",
+      "sha256": "325a6304f5d266d92c52188178fd570d1d5a900ceeeb439f0c076b75f91c3c29",
+      "bytes": 12,
+      "hypothesis": "Partial successful triple parse leaves initialized zero second/third fields.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/22_texture_header_eof.KEY",
+      "sha256": "40300a515301e1011788807f7bf712d6fea43c8aac2c092e197366b6f7758002",
+      "bytes": 9,
+      "hypothesis": "Physical EOF resets all three initialized fields and returnsfailure.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/23_texture_reference_duplicates.KEY",
+      "sha256": "ec38957c5d0e3db8d8a365e9db279d501fcbabbc02b8cc9ffecfb24a669ba72b",
+      "bytes": 59,
+      "hypothesis": "Third material references existingtexture twice; finalizer mode changes precede next independent refresh.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/24_reference_texture_refresh.KEY",
+      "sha256": "cc526c3907aac8e182518f5ba0e7bffe029d1d1798cd34ce986075eae747cf60",
+      "bytes": 62,
+      "hypothesis": "Query55 counts duplicate referenced target twice without recursion/dedup; explicitwidth3 overrides derived20 safely.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/25_reference_clear.KEY",
+      "sha256": "9d2907d2c1bd1b519de472b48fb6418f0b222a3fb28aeea29ada587f92f8c307",
+      "bytes": 37,
+      "hypothesis": "Clear logical references while observing retainedallocation and targetmode reset; explicitrefresh follows.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/26_size_rejected_selector.KEY",
+      "sha256": "1f91524d5ed241d880b0ec9aa235080b16cbc406d6ae50ef5a7594c3361ae30a",
+      "bytes": 29,
+      "hypothesis": "Selector1 rejects54 after rootwidth5 store; no reallocation or rows, followingkeyword remains parseable.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/27_texture_rejected_selector.KEY",
+      "sha256": "1f96b69f7a4378a87ec422099485d4fadd785b0cd9fec65ea0cb39e67e25eeaf",
+      "bytes": 42,
+      "hypothesis": "Other selector rejects55 after rootwidth4 store; nextrefresh restores derivedlayout.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/28_size_partial_rows.KEY",
+      "sha256": "c2e5193ec30624d0d1645988806b115127f2722310904f897908fc35c19328c0",
+      "bytes": 33,
+      "hypothesis": "Second explicitrow EOF preserves previous complete-row writes and scalar default; incomplete row is not committed; raw negativezero retained where untouched.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/29_texture_partial_width.KEY",
+      "sha256": "5e1ad2e34aaa55e8ede3fe86600deefa014b53d50e4b838642c6f63be31a0d4a",
+      "bytes": 12,
+      "hypothesis": "Missing positive width leaves zero-initialized width, failurebefore rootstore.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/30_spatial_full_chain.KEY",
+      "sha256": "f411bc266fa5a239ad9b1dae559284ec408eaa96bfcb8ffcd491e0c0291761dd",
+      "bytes": 193,
+      "hypothesis": "Dimension reset then two-tetrahedron producer/refresh/consumer chain with smallpositive54/55.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/31_inactive_zero_elements.KEY",
+      "sha256": "370db25bd10f1fecdb5c528b4375725b387a9cbe5427611e1e38778cf175a48b",
+      "bytes": 32,
+      "hypothesis": "Inactiveobject has zero allocatedelements; setter guard leaves savedwidth metadata, no row or data dereference.",
+      "expected_output": null,
+      "split": "training"
+    },
+    {
+      "path": "tests/fixtures/material_shapes/32_final_dimension_reset.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "hypothesis": "Final dimensionreset destroys materials andobject fieldstorage.",
+      "expected_output": null,
+      "split": "training"
+    }
+  ],
+  "ordered_imports": [
+    "01_planar_mesh.KEY",
+    "02_new_size_material.KEY",
+    "03_refresh_size_and_values.KEY",
+    "04_size_mode_two_stale.KEY",
+    "05_size_mode_two_refresh.KEY",
+    "06_size_mode_three.KEY",
+    "07_size_mode_four.KEY",
+    "08_size_mode_five.KEY",
+    "09_size_mode_six.KEY",
+    "10_size_unknown.KEY",
+    "11_size_blank.KEY",
+    "12_size_eof.KEY",
+    "13_new_texture.KEY",
+    "14_texture_ten_default.KEY",
+    "15_texture_three_stale.KEY",
+    "16_texture_seven_rows.KEY",
+    "17_texture_type_two.KEY",
+    "18_texture_disabled_second.KEY",
+    "19_texture_disabled_resolution.KEY",
+    "20_texture_unknown_mode.KEY",
+    "21_texture_partial_header.KEY",
+    "22_texture_header_eof.KEY",
+    "23_texture_reference_duplicates.KEY",
+    "24_reference_texture_refresh.KEY",
+    "25_reference_clear.KEY",
+    "26_size_rejected_selector.KEY",
+    "27_texture_rejected_selector.KEY",
+    "28_size_partial_rows.KEY",
+    "29_texture_partial_width.KEY",
+    "30_spatial_full_chain.KEY",
+    "31_inactive_zero_elements.KEY",
+    "32_final_dimension_reset.KEY"
+  ],
+  "probe": {
+    "path": "tools/observe_material_shape_import.js",
+    "sha256": "54956c5ea4e9df00c9ffd8736acdb3636a1118e60e0126de09898e9cec14f427",
+    "evidence_id": null
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/volume-width-0x140182830.json",
+      "sha256": "3c5d5dd79075c1fba568bd1785f657f5c98f9d05b72af1164575bf15937028ad"
+    },
+    {
+      "path": "analysis/volume-width-0x1401829c0.json",
+      "sha256": "ae093aabdab9dd963345018bfcb5c3beb19a3ec8bc710a4476e6c236c905f61f"
+    },
+    {
+      "path": "analysis/volume-width-0x140182a50.json",
+      "sha256": "684b5014fcf47e40c679ccc6e0348ff4cfb72c439df3c7b5b17f5107a11e2910"
+    },
+    {
+      "path": "analysis/volume-width-0x140183770.json",
+      "sha256": "174ceff55e98fe97d008004e959bd7e917b710c0ec940eb389e3aabe6a7dd28f"
+    },
+    {
+      "path": "analysis/volume-width-0x140183840.json",
+      "sha256": "1de49f5dd63dfec615a268d56e9ef120cf23055e7a432362b3baf279105f47da"
+    },
+    {
+      "path": "analysis/volume-width-0x1401845b0.json",
+      "sha256": "915813b7d0a98bf7c2fe9f8bbe3ed936c2b5431b6f8af48d84ad59143369cd36"
+    },
+    {
+      "path": "analysis/volume-width-0x140184640.json",
+      "sha256": "39e93b617ac1ad2d4e55a88a4803cb9f22caf8c1db3186f12a45bd0769b90d6c"
+    },
+    {
+      "path": "analysis/volume-width-0x14019a410.json",
+      "sha256": "1487abc828767061c58e1effa4278bab152d5895ca37464e098d3fd2e192e796"
+    },
+    {
+      "path": "analysis/volume-width-0x14019a430.json",
+      "sha256": "c5ea318b93901f5509fd7d8c4bc736364308863079febd73e10087518c9aca68"
+    },
+    {
+      "path": "analysis/volume-width-0x14019da6c.json",
+      "sha256": "e35664aab141d8c4cfa6ffa267db319909601fba13b34ea466e99c6ade661db7"
+    },
+    {
+      "path": "analysis/volume-width-0x1401b05f0.json",
+      "sha256": "2baca50068a8b08c2f0406af879ab89abaae7e910550060a2a7a0716fd848304"
+    },
+    {
+      "path": "analysis/volume-width-0x1401cf4a0.json",
+      "sha256": "545d71ed5e3e7eb47d7cb2772332acdee7f93ef3446568142a04db182dc27043"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d6450.json",
+      "sha256": "3b69c1b17b3338435cddaa13ca9033ed6e04dcff0dc513aa34952b31436a3c37"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d6b30.json",
+      "sha256": "070a72ad0b4596537c8dd05ae1f463c9990a9ca677fc906c59252de8737e6311"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d7390.json",
+      "sha256": "af0190e171b2286fa298b8224caaa8c47e79ffa8262fa7b8dbee4e57cf378c17"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c4b0.json",
+      "sha256": "80915391ca82f6a731c7cc238c585f8c979c07e04a6a87e0fa17fa424c29a655"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c500.json",
+      "sha256": "dc7a9820e218bda49e045c35ff6e229a214c7d9ca47d0c00dc3b2ef0f43a7595"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c540.json",
+      "sha256": "51ec6100c826666a307b653160ea0763041b6d85baf3dcaa93e722b71c34ba7f"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c5a0.json",
+      "sha256": "82fed73bc5ca0b3bbad197f3a566c2b2c34e0b5e8f9acf4ea7e9131148fd3d3e"
+    },
+    {
+      "path": "analysis/volume-width-0x14029b300.json",
+      "sha256": "4ba505c1931c7267b95f49d0c3ab63a187d103786b66fca2e9dba3b310efb020"
+    },
+    {
+      "path": "analysis/volume-width-0x140333f60.json",
+      "sha256": "64fe723a9b840b083c380df6a55f2e523f7f5b8d22c22b14e9587bece92350d1"
+    },
+    {
+      "path": "analysis/volume-width-0x140334490.json",
+      "sha256": "bf660cb7fa2640e9cbc7da67447ce02d74536c643a2fd7136377fa35b6b11873"
+    },
+    {
+      "path": "analysis/volume-width-0x140339cd0.json",
+      "sha256": "cf4e4eba9be9e10d405b54cfdc5dcb339f0c463fbef89c92a2e91d131ad9f586"
+    },
+    {
+      "path": "analysis/volume-width-0x140339df0.json",
+      "sha256": "cb641b21c0003c4fb794612d3acaf06f5a1762438ceef2e3b1d670c6bc88e367"
+    },
+    {
+      "path": "analysis/volume-width-0x140339fe0.json",
+      "sha256": "d0aa5d06b6d463f06ca09dff9a5af213ff2c3d718471357c39b6db6eb82775b6"
+    },
+    {
+      "path": "analysis/volume-width-0x14033a040.json",
+      "sha256": "4efcfd0c837c2e56a8d0d11bded2c83d5d3446b4df60771f86b4d6de2e646bd7"
+    },
+    {
+      "path": "analysis/volume-width-0x14033a120.json",
+      "sha256": "1f049421907e5dba5b41db819096bf6785d6c6875675ba7f7561ec4469d3a865"
+    },
+    {
+      "path": "analysis/volume-width-0x14033a990.json",
+      "sha256": "1ef669ecb582079c066dffea95235b68b56a715f4cd1515a29fafea98e2d94f1"
+    },
+    {
+      "path": "analysis/volume-width-0x140383120.json",
+      "sha256": "5a03783d70b579a1939d5dd264cd63faf7e27494997bebdead71809f434f712c"
+    },
+    {
+      "path": "analysis/volume-width-0x1403a13c0.json",
+      "sha256": "63aca4c71b806dc613d4f5182cbe1b7ee1fd382520f59fb79019bbd584f5d76f"
+    },
+    {
+      "path": "analysis/volume-width-0x140417c80.json",
+      "sha256": "9648dc34222d4d1911af7be0209c1d85fe010bbcd26fb0ebf64149d423bad58e"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x140388b2d.json",
+      "sha256": "6e686623778db9f6e837ce0f0d87abcd79e86a7dea94f862323f2aa800e72e02"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x14039354a.json",
+      "sha256": "d796b42124d975fc39c1fa6c938d0be3ec89a3d34b963631b07274ef812cde77"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x14039359b.json",
+      "sha256": "aef87286727f2a2adcfaf1f729e800fc932e7f0df028974098eab52e12ecff27"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x140417db4.json",
+      "sha256": "38f1f0a97009c7008593f8c4e5668910556bf41a282b13a2048ee367bcaf0510"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x140418897.json",
+      "sha256": "8253c3ee49328111ae7725bd674243190ea83a8f2c6a83187ae8a761c5d5d72a"
+    },
+    {
+      "path": "analysis/volume-width-search-13f4.json",
+      "sha256": "bdc49a7bb607feb67d28f04e7e2b3aa7f8be3074688a75e088b2333705fa50b7"
+    },
+    {
+      "path": "analysis/volume-width-search-element-fc.json",
+      "sha256": "7965750d1f261bf029bf661f0549393fa0632205adbfe380ac587a942f4856d8"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf"
+    },
+    {
+      "path": "analysis/material-reference-model-contract.json",
+      "sha256": "796c2614ca557e2e63603540eadb191d825ccab7bf05a69a96db55b07a5cb106"
+    },
+    {
+      "path": "source/DEF_PRE_64.exe",
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    },
+    {
+      "path": "analysis/material-shape-callsite-byte-audit.json",
+      "sha256": "3ad9d925fe8da3c63964e118a9f99a47e6f9c45d2b425c8802cc5c4ecef404ad"
+    },
+    {
+      "path": "analysis/material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "analysis/material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "analysis/root-reset-0x1401d6c60.json",
+      "sha256": "d2a02009fb90154a68823a335d715954157c887ac572bdf6f7f12e997431ba1d",
+      "evidence_id": "ev_a4f1aa1a76ddce2a7d4a17d84a7fc65ae0d2b887b72af2f09df6bef7732161ce"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d09c0.json",
+      "sha256": "de1b0e50ccd3575f04a8f37f07d607370fc30a95c4c2c3d642e5603a675c1181",
+      "evidence_id": "ev_77968f14dcb6435fff0e9d95a018214f389629fbb600ce664abc73f959fb230f"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140329e60.json",
+      "sha256": "18168ce654986c4ec906e50a478fb71db4da24877752a7a0b636724d0ec3fd11",
+      "evidence_id": "ev_ce854fb47478a043433f91758a658590bd628115d09dbc18c51d7e2654c17f92"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401836c0.json",
+      "sha256": "7d9e4a4c9df93979b065d182eb1e1a9c32a81c49e7afef8782ed0c34665ac92e",
+      "evidence_id": "ev_3891c0de0bd80902ce5b7537843f8af3088ca37dd381100623377af288d6d30c"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140182980.json",
+      "sha256": "bf7057ffd280fa3c17b6fefb5d34f2a610880df99a90afc601069d63d132a5e2",
+      "evidence_id": "ev_032d46eb7688cd7c9508b5c5f9f4c22ec3b187275ad511e1857689700c765920"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401d48d0.json",
+      "sha256": "638a791477079a6995623bd56ae60521bbaab62d8b1b3bb1d23950b6f5cbbfab",
+      "evidence_id": "ev_0a6e6310fb89b19bf9955539cabc6260851120d91b392ddde20e4e96ae384b1b"
+    },
+    {
+      "path": "analysis/material-reference-0x140419b90.json",
+      "sha256": "6a08f5571d4af4c6249c27ad036db24f5e40b5bdd9feb2843298a979d01158ca",
+      "evidence_id": "ev_30af2cb46d162fb4fa0f33fce2015ed2255c4e61d331f8464df397cbc4ff158c"
+    },
+    {
+      "path": "analysis/material-reference-0x1404199a0.json",
+      "sha256": "7d91e748f40496c14778ea2db058bb3ed127f807b1bd7c72d6ff39599bde848b",
+      "evidence_id": "ev_6ff468f9099d81912b0402c2ceec8a600df6d7e8cff9ffd3d79020970e1f5424"
+    },
+    {
+      "path": "analysis/mesh-0x140182880.json",
+      "sha256": "f4b6566fc1b8a29b69f8ae29cbf026f215434d67de04bb2555fbc39e4264e40c",
+      "evidence_id": "ev_7c28f62eeed2725289ada6b13daac3caa74c615f69bdd39f3291e9eacebf5fc2"
+    },
+    {
+      "path": "analysis/mesh-field-dispatch-dumpbin.txt",
+      "sha256": "3ec94125693ed491598335353668649983474b555be85647e28405262c9b9704"
+    },
+    {
+      "path": "analysis/material-shape-static-contract.json",
+      "sha256": "9e4015bc56ff2869280a64af30fea6db943e1187ce51dd4668ef156eee6903d0"
+    }
+  ],
+  "handler_scope": {
+    "category1": [
+      34
+    ],
+    "category2": [
+      145,
+      159,
+      173,
+      210,
+      211
+    ],
+    "category4": [
+      92,
+      116,
+      127,
+      128
+    ]
+  },
+  "bounds": {
+    "imports": 32,
+    "objects": 1,
+    "materials": 3,
+    "nodes": 6,
+    "elements": 2,
+    "maximum_selected_reader_width": 10,
+    "maximum_feature_width": 30,
+    "maximum_descriptor_items": 60,
+    "maximum_declared_rows": 2,
+    "maximum_feature_width_with_objects": 30,
+    "feature_bound_basis": "Conservative direct-own plus one-level reference contributions across intermediate material modes; duplicates retained. Source audit found held-out populated width34, not17. Physical descriptor reads are bounded independently to512items in probe."
+  },
+  "predeclared_coverage": [
+    "All six SIZEMD mapping branches plus unknown/zero/blank/EOF.",
+    "TXTURE first modes1/2/3, unsupported first/second/third andpartial/EOF.",
+    "Existing-material stale layout, newmaterial refresh-before-write, independent explicitrefresh.",
+    "Reference duplicate counting and logicalclear without unproven recursivegraphs.",
+    "Mode4 default, sparse partial/EOF, positive rejectedselector width mutation, physicaldescriptor bounds andsavedwidthguard.",
+    "Bothdimensions andinactive zeroelements, finalreset."
+  ],
+  "declared_gaps": [
+    "No large texture resolutions, allocationfailure,negativecounts or overflow.",
+    "No selector1 supported-component35/63 branch;54/55 reject it.",
+    "No first uninitialized detailed-row matchingfailure; partialEOF remains initializedcalloc storage.",
+    "No PHASTF/relation-backed13f4 producer."
+  ]
+}

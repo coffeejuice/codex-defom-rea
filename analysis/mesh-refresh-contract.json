@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "status": "preserving_mesh_storage_refresh_implemented_and_compared",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "implementation": ["src/recovered/mesh_storage.hpp", "src/recovered/mesh_storage.cpp", "tests/mesh_refresh_replay.cpp"],
+  "static_audit": "analysis/mesh-refresh-static-audit.json",
+  "contract": [
+    "Track node container allocation count, element container allocation count and allocation arity independently of logical object counts and selected arity.",
+    "For each positive-count container, resize direct buffers by linear prefix preservation and invoke registered descriptor allocation without clearing previous storage.",
+    "A nonpositive-count container is a complete no-op, including no reads from the component table.",
+    "Refresh does not reapply node8, element44 or direct61 replacement defaults, and does not rebuild boundaries.",
+    "Descriptor storage preserves existing entries and zero-fills appended entries. MATAXI diagonal initialization follows its existing total-size-change/width9 policy.",
+    "Direct buffers retain initialized-prefix metadata. Shrinking clamps that prefix; growing does not extend it. New tail placeholders are explicitly not original values.",
+    "The new replay serializes unspecified direct-buffer entries as null rather than exposing backing zeros as recovered data.",
+    "All extents for both active containers are checked before mutation. Allocation failure during mutation is not transactional and is outside verified equivalence."
+  ],
+  "evidence": {
+    "candidate_freeze": "analysis/mesh-refresh-candidate-freeze.json",
+    "archived_files": 7,
+    "candidate_history": "Source, library and executable archived before both original captures. No C++ candidate changes followed either capture.",
+    "discovery_capture": "analysis/mesh-refresh-runtime-evaluation.json",
+    "discovery_observations": "analysis/mesh-refresh-v1-partial-observations.json",
+    "discovery_limitation": "The first probe did not hook initial replacement allocations, leaving first direct-before extents unknown. Its template and capture remain unchanged.",
+    "complete_capture": "analysis/mesh-refresh-runtime-complete.json",
+    "complete_evidence_id": "ev_309857ff54214f69b41372865a51fd710572c3eef58e1251a467765af1da2632",
+    "complete_pid": 18808,
+    "complete_probe": "tools/observe_mesh_refresh_complete.js",
+    "run_record": "analysis/oracle/mesh-refresh-complete/run.json",
+    "comparison": "analysis/mesh-refresh-comparison.json",
+    "independent_observations": "analysis/mesh-refresh-observations.json",
+    "fixture_manifest": "analysis/mesh-refresh-evaluation-cases.json"
+  },
+  "evaluation": {
+    "original_imports_in_complete_capture": 1,
+    "root_refreshes": 8,
+    "object_refreshes": 14,
+    "container_resize_pairs": 28,
+    "post_refresh_descriptor_snapshots": 742,
+    "pre_refresh_descriptor_metadata_guards": 742,
+    "inactive_object_skips": 7,
+    "all_probe_object_snapshots": 177,
+    "all_probe_descriptor_observations": 9381,
+    "provenance_tampering_checks": 18,
+    "inputs": "Each object keeps one replay instance. Captured BEFORE values seed descriptors and known direct prefixes; AFTER observations never seed the candidate.",
+    "comparison": "Compare continuing shape/history, allocation metadata, boundaries, all53 descriptors and known direct prefixes. Known binary64 values are decoded from raw hex and compared bitwise, including signed zero.",
+    "unknown_values": "Native grown-tail bytes are retained as observations, not expected zeros. The independent verifier compares min(old,new) raw bytes even when that prefix includes earlier unspecified bytes; replacement validity remains conservative.",
+    "coverage": "One populated2D mesh, an inactive placeholder and an empty active object. GEOTYP1/3 and STNOUT combinations cause growth, shrink and repeated refresh before scientific finalization.",
+    "ctest": "All16 tests passed, including mesh_refresh_reference_replay."
+  },
+  "limitations": [
+    "This evaluates storage refresh, not replacement prediction of every BEFORE value or GEOTYP/STNOUT parsing.",
+    "Raw mutable spans still expose backing storage. Downstream consumers must honor initialized-prefix metadata; writes through spans cannot yet promote validity.",
+    "The fixture keeps logical/container counts and arity unchanged during refresh. Separate metadata is supported by static evidence, but divergence and arbitrary direct count changes remain untested.",
+    "Private descriptor storage and unit multiplicities only; sharing/detachment, nonunit multiplicities and allocation failures remain unresolved.",
+    "Runtime does not cover every descriptor policy branch, including a newly activated9-wide MATAXI field.",
+    "The complete capture repeats the discovery fixture after probe repair. It is not a wholly unseen held-out input.",
+    "Scientific finalization and complete model/importer integration remain required."
+  ],
+  "next": "Integrate configuration scalar state and feature-query results with the selected importer, using configuration-refresh-contract.json; make all output and downstream reads respect unknown direct-buffer tails."
+}

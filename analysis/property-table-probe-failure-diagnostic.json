@@ -1,0 +1,36 @@
+{
+  "status": "invalid_observation_capture_retained",
+  "created_utc": "2026-10-21T00:21:29.855141+00:00",
+  "capture": {
+    "path": "analysis/property-table-runtime-training.json",
+    "sha256": "ff71e26bb092c7a937d0e1334d8e2b065d92683e5a8b9a16a78dacd2af9d04e8",
+    "evidence_id": "ev_cb3ec42004b7a999f51401c92115359a0d76396500f1492c5cb4d02163c3c8fc"
+  },
+  "errors": [
+    {
+      "payload": {
+        "error": "Error: property rank/width bound",
+        "file": "31_planar_reset_all_fields.KEY",
+        "operation": "probe-error",
+        "sequence": 1112
+      },
+      "script_id": "2ec4f56f-8f21-4c2d-82b2-feb86f23bebe",
+      "type": "send"
+    },
+    {
+      "payload": {
+        "error": "Error: property rank/width bound",
+        "file": "31_planar_reset_all_fields.KEY",
+        "operation": "probe-error",
+        "sequence": 1126
+      },
+      "script_id": "2ec4f56f-8f21-4c2d-82b2-feb86f23bebe",
+      "type": "send"
+    }
+  ],
+  "original_exit_code": 0,
+  "candidate_current_all_match": true,
+  "candidate_changed": false,
+  "diagnosis": "Global shared-table allocation observer applied the selected material bounds to unrelated tables during dimension reset. Repair must narrow observation scope; this capture cannot establish a passing comparison.",
+  "next_action": "Audit scoped probe, freeze unchanged candidate and fixture bytes with new probe, rerun original training cohort under new run and evidence identities."
+}

@@ -1,0 +1,93 @@
+{
+  "status": "implemented_and_compared_bounded_subset",
+  "target": "DEF_PRE_64.exe",
+  "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "keyword": {
+    "name": "DTTYPE",
+    "id": 51,
+    "handler": "0x14039aa90 case0x1d"
+  },
+  "static_audit": "analysis/time-table-static-audit.json",
+  "sources": [
+    "analysis/mesh-refresh-controls-pseudocode.json",
+    "analysis/time-table-0x14012fc70.json",
+    "analysis/time-table-0x14041a800.json",
+    "analysis/configuration-0x14012d2a0.json",
+    "analysis/configuration-0x14012fad0.json",
+    "analysis/configuration-0x14012f480.json",
+    "analysis/configuration-0x14012fc00.json",
+    "analysis/configuration-0x14012ff20.json"
+  ],
+  "recovered_behavior": {
+    "header": "413ee0 reads two base0 integers from one bounded line with comma replacement. Header failure returns2 before any table reset; zero or partial conversion may still be accepted.",
+    "reset": "12fc70 preserves raw record+54 (4bytes) and+60 (8bytes), resets type80 with12d2a0, then restores them. Fields retain offset names because their meaning is unresolved.",
+    "shared_state": "Record root+938 rank+4 is existing root93c; mode+58 is existing root990. C++ has a single storage location for each alias.",
+    "selector_zero": "Rank0, zero constant, no table payload; mode normalized from scalar controls.",
+    "selector_nonzero": "Rank1 with count from second header integer. Selectors1/3 give axis selector1;2/4 give2; other nonzero selectors fall back to1. Mode1 only for3/4, otherwise0.",
+    "allocation": "Selected private type80 table has values-per-point1. Negative count clamps to0. Positive count allocates zero-filled axis and dependent arrays.",
+    "reads": "41a800 uses repeated stream fscanf(%Flf) interleaving each axis and its dependent value. Payload commas are not replaced. Failed assignments preserve destination; only conversion return-1 aborts. Matching failure0 continues bounded loops.",
+    "discard": "After a completed positive-size table, one fgets(1024) discards the remaining line, including any apparent keyword on it. EOF on that discard does not change success. Body EOF returns before discard and preserves partial arrays.",
+    "scalar_interaction": "DSMAX/DTMAX normalization leaves mode unchanged while rank is nonzero. Clearing the table restores scalar normalization.",
+    "dimension_reset": "A changed dimension resets the table with other simulation controls; same-dimension header retains current data."
+  },
+  "implementation": {
+    "files": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_reader.hpp",
+      "src/recovered/keyword_reader.cpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "api": "Existing include/deform interfaces unchanged. Internal model adds selected table storage and stream reader.",
+    "representation": "Owned C++ vectors for selected private allocations. Native address identity and borrowed-buffer ownership are not emulated."
+  },
+  "evaluation": {
+    "freeze": "analysis/time-table-candidate-freeze.json",
+    "frozen_files": 23,
+    "initial": {
+      "capture": "analysis/time-table-runtime-evaluation.json",
+      "evidence_id": "ev_68bbddf0279e353f3f344de23d29ff893aa32c386c6b16b61640be10285dad8c",
+      "report": "analysis/time-table-comparison.json",
+      "imports": 14,
+      "handlers": 30,
+      "stream_reads": 43
+    },
+    "additional": {
+      "capture": "analysis/time-table-runtime-held-out.json",
+      "evidence_id": "ev_84ed190c2491a2d15862c056b66b8510d68cada80a801a91c74a9d351d52b2fd",
+      "report": "analysis/time-table-held-out-comparison.json",
+      "imports": 11,
+      "handlers": 33,
+      "stream_reads": 36,
+      "descriptor_snapshots": 159
+    },
+    "candidate_changed_after_freeze": false,
+    "result": "Both strict comparisons passed without candidate correction.",
+    "comparisons": "Statuses, consumed bytes and cursors, binary64 values including signed zero, table metadata and partial arrays, immediate handler states and final application state.",
+    "independence": "Candidate archived before first DTTYPE capture; further cases selected after first comparison and before a separate original-process capture. Additional planar topology reuses an earlier fixture in a new compound sequence.",
+    "ctest_passed": 22,
+    "independent_verifier": {
+      "status": "pass",
+      "tool": "tools/verify_time_table_observations.py",
+      "reports": [
+        "analysis/time-table-observations.json",
+        "analysis/time-table-held-out-observations.json"
+      ],
+      "initial_tamper_checks": 34,
+      "held_out_tamper_checks": 37,
+      "messages_accounted_for": 903,
+      "current_frozen_files_matching": 23,
+      "scope": "Independent table/scalar state, partial arrays, reset and stream logic, discard/finalization order, provenance. Held-out mesh setup is not independently reconstructed; exact captured mesh preservation and eligible object visits are checked."
+    }
+  },
+  "limits": [
+    "Finite C-locale in-range decimal inputs and bounded private rank0/1 type80 tables; no proof of arbitrary-input equivalence.",
+    "Higher-rank generic table import, borrowed buffers, allocation failure, overflowing counts, nonfinite/range-error conversion and locale changes remain outside the established compatibility domain.",
+    "Interpolation and downstream scientific consumers are not reconstructed by matching table storage.",
+    "Preserved metadata+54/+60 semantics remain unknown; observed reset path preserves their bytes.",
+    "Empty-material profile, normal wrapper option0, active objects' geometry-processing gate off.",
+    "Complete application recovery remains active.",
+    "Runtime preserved metadata54/60 values were zero; preservation of nonzero values is established statically, not by these runtime fixtures."
+  ],
+  "next": "Recover DSMAX_NSTEP49 object-dependent calculation and its real-plus-integer reader, including dispatch status handling and selected object lookup; then material reconciliation and enabled geometry paths."
+}

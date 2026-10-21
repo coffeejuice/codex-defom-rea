@@ -1,0 +1,1163 @@
+{
+  "status": "PASS",
+  "scope": "Original-only audit of material assignment, column producers and rank remaps.\n\nUses frozen source bytes and passive native observations, never replay output.",
+  "evidence_id": "ev_3cf7180a806de5cc49edadac29e9f537c3e5a6c2e4319b2036dd8eb1b2b00da7",
+  "pid": 20384,
+  "result": {
+    "imports": 16,
+    "coverage": {
+      "columns_success": 11,
+      "columns_failure_no_commit": 0,
+      "group_first_ties": 1,
+      "group_zero_retained": 2,
+      "negative_replacement_defaults_zeroed": 1,
+      "positive_replacement_defaults": 1,
+      "negative_zero_reader_slots": 14,
+      "negative_zero_remapped_slots": 2,
+      "copies": 4,
+      "container_updates": 10,
+      "nonzero_remapped": 10,
+      "multirow_arrays": 2,
+      "rank_changes": 2
+    },
+    "column_handlers": [
+      {
+        "file": "01_zero_source_setup.KEY",
+        "id": 174,
+        "status": 0,
+        "selected": 0,
+        "previous": 0,
+        "result": 0,
+        "rows": 3,
+        "tie": false
+      },
+      {
+        "file": "02_zero_skip_then_revisit.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 0,
+        "status": 0,
+        "nonzero_committed": 0
+      },
+      {
+        "file": "02_zero_skip_then_revisit.KEY",
+        "id": 174,
+        "status": 0,
+        "selected": 0,
+        "previous": 0,
+        "result": 0,
+        "rows": 3,
+        "tie": false
+      },
+      {
+        "file": "03_distinct_rows_signed_zero.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 4
+      },
+      {
+        "file": "03_distinct_rows_signed_zero.KEY",
+        "id": 216,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 6
+      },
+      {
+        "file": "05_explicit_short_keeps_keyword.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 6
+      },
+      {
+        "file": "06_implicit_discards_keyword.KEY",
+        "id": 216,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 2
+      },
+      {
+        "file": "07_late_scalar_matching_failure.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 4
+      },
+      {
+        "file": "08_late_row_id_matching_failure.KEY",
+        "id": 216,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 2
+      },
+      {
+        "file": "09_integer_default_partial_eof.KEY",
+        "id": 174,
+        "status": 1,
+        "selected": 12,
+        "previous": 0,
+        "result": 12,
+        "rows": 3,
+        "tie": true
+      },
+      {
+        "file": "11_negative_default_then_eof.KEY",
+        "id": 174,
+        "status": 0,
+        "selected": -6,
+        "previous": 12,
+        "result": -6,
+        "rows": 3,
+        "tie": false
+      },
+      {
+        "file": "11_negative_default_then_eof.KEY",
+        "id": 174,
+        "status": 1,
+        "selected": 0,
+        "previous": -6,
+        "result": -6,
+        "rows": 3,
+        "tie": false
+      },
+      {
+        "file": "12_restore_zero_revisit.KEY",
+        "id": 174,
+        "status": 0,
+        "selected": 0,
+        "previous": -6,
+        "result": -6,
+        "rows": 3,
+        "tie": false
+      },
+      {
+        "file": "13_wider_explicit_rows.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 6
+      },
+      {
+        "file": "14_negative_zero_defaults.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 0
+      },
+      {
+        "file": "14_negative_zero_defaults.KEY",
+        "id": 216,
+        "rows": 3,
+        "width": 2,
+        "status": 0,
+        "nonzero_committed": 0
+      },
+      {
+        "file": "15_clear_mapping_then_refresh.KEY",
+        "id": 205,
+        "rows": 3,
+        "width": 0,
+        "status": 0,
+        "nonzero_committed": 0
+      }
+    ],
+    "refreshes": [
+      {
+        "copies": 1,
+        "container_updates": 2,
+        "nonzero_remapped": 0,
+        "multirow_arrays": 0,
+        "rank_changes": 0
+      },
+      {
+        "copies": 1,
+        "container_updates": 2,
+        "nonzero_remapped": 0,
+        "multirow_arrays": 0,
+        "rank_changes": 0
+      },
+      {
+        "copies": 1,
+        "container_updates": 2,
+        "nonzero_remapped": 0,
+        "multirow_arrays": 0,
+        "rank_changes": 0
+      },
+      {
+        "copies": 1,
+        "container_updates": 2,
+        "nonzero_remapped": 10,
+        "multirow_arrays": 2,
+        "rank_changes": 2
+      },
+      {
+        "copies": 0,
+        "container_updates": 2,
+        "nonzero_remapped": 0,
+        "multirow_arrays": 0,
+        "rank_changes": 0
+      }
+    ],
+    "connectivity_defaults": [
+      {
+        "default": 0,
+        "effective": 0,
+        "count": 3
+      },
+      {
+        "default": 12,
+        "effective": 12,
+        "count": 3
+      },
+      {
+        "default": -6,
+        "effective": 0,
+        "count": 3
+      }
+    ],
+    "references": {
+      "imports": [
+        {
+          "file": "01_zero_source_setup.KEY",
+          "status": 0,
+          "sequence": [
+            1,
+            361
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "02_zero_skip_then_revisit.KEY",
+          "status": 0,
+          "sequence": [
+            362,
+            416
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "03_distinct_rows_signed_zero.KEY",
+          "status": 0,
+          "sequence": [
+            417,
+            495
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "04_middle_positive_append.KEY",
+          "status": 0,
+          "sequence": [
+            496,
+            615
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "05_explicit_short_keeps_keyword.KEY",
+          "status": 0,
+          "sequence": [
+            616,
+            667
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "06_implicit_discards_keyword.KEY",
+          "status": 0,
+          "sequence": [
+            668,
+            721
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "07_late_scalar_matching_failure.KEY",
+          "status": 0,
+          "sequence": [
+            722,
+            770
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "08_late_row_id_matching_failure.KEY",
+          "status": 0,
+          "sequence": [
+            771,
+            819
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "09_integer_default_partial_eof.KEY",
+          "status": 2,
+          "sequence": [
+            820,
+            858
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "10_deactivate_reactivate_default.KEY",
+          "status": 0,
+          "sequence": [
+            859,
+            919
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "11_negative_default_then_eof.KEY",
+          "status": 2,
+          "sequence": [
+            920,
+            972
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "12_restore_zero_revisit.KEY",
+          "status": 0,
+          "sequence": [
+            973,
+            1013
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "13_wider_explicit_rows.KEY",
+          "status": 0,
+          "sequence": [
+            1014,
+            1066
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "14_negative_zero_defaults.KEY",
+          "status": 0,
+          "sequence": [
+            1067,
+            1129
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 1,
+              "logical_count": 2,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 2,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "15_clear_mapping_then_refresh.KEY",
+          "status": 0,
+          "sequence": [
+            1130,
+            1184
+          ],
+          "materials": [
+            {
+              "id": -6,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 0,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 2,
+              "physical_ids": [
+                -6,
+                12
+              ]
+            },
+            {
+              "id": 12,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            },
+            {
+              "id": 7,
+              "mode": 0,
+              "logical_count": 0,
+              "capacity": 0,
+              "physical_ids": []
+            }
+          ]
+        },
+        {
+          "file": "16_final_reset.KEY",
+          "status": 0,
+          "sequence": [
+            1185,
+            1234
+          ],
+          "materials": []
+        }
+      ],
+      "handlers": [
+        {
+          "keyword": 92,
+          "selected_id": -6,
+          "created": true,
+          "status": 0,
+          "sequence": 45
+        },
+        {
+          "keyword": 92,
+          "selected_id": 0,
+          "created": true,
+          "status": 0,
+          "sequence": 136
+        },
+        {
+          "keyword": 116,
+          "selected_id": 0,
+          "created": false,
+          "status": 0,
+          "sequence": 228
+        },
+        {
+          "keyword": 92,
+          "selected_id": 12,
+          "created": true,
+          "status": 0,
+          "sequence": 238
+        },
+        {
+          "keyword": 92,
+          "selected_id": 7,
+          "created": true,
+          "status": 0,
+          "sequence": 501
+        },
+        {
+          "keyword": 92,
+          "selected_id": 7,
+          "created": false,
+          "status": 0,
+          "sequence": 645
+        },
+        {
+          "keyword": 92,
+          "selected_id": 7,
+          "created": false,
+          "status": 0,
+          "sequence": 699
+        },
+        {
+          "keyword": 116,
+          "selected_id": 0,
+          "created": false,
+          "status": 0,
+          "sequence": 1135
+        }
+      ],
+      "allocation_count": 1,
+      "finalizer_lookups": 28,
+      "features": {
+        "49:0": 9,
+        "49:1": 4
+      },
+      "retained_nonpositive_snapshots": {
+        "0": 1
+      },
+      "nonzero_descriptor49_50_values_at_refresh": 10,
+      "event_counts": {
+        "import-before": 16,
+        "flags-reset-before": 16,
+        "flags-reset-after": 16,
+        "stream-scan": 79,
+        "material-clear-before": 4,
+        "material-clear-after": 4,
+        "material-reference-feature": 13,
+        "keyword-resolved": 36,
+        "handler-before": 34,
+        "segment-clear-before": 133,
+        "segment-clear-after": 133,
+        "object-selected": 25,
+        "handler-after": 34,
+        "allocation-free": 35,
+        "allocation-update": 23,
+        "material-selector": 8,
+        "material-lookup": 109,
+        "material-scratch-before": 8,
+        "material-scratch-after": 8,
+        "material-append-before": 4,
+        "material-append-after": 4,
+        "material-refresh-before": 5,
+        "material-copy-before": 4,
+        "material-copy-after": 4,
+        "material-layout-before": 5,
+        "material-layout-after": 5,
+        "material-copy-destroy-before": 4,
+        "material-copy-destroy-after": 4,
+        "material-refresh-after": 5,
+        "material-name": 6,
+        "material-reference-count": 2,
+        "material-reference-allocate": 1,
+        "material-reference-scan": 2,
+        "group-reader-before": 6,
+        "column-line": 20,
+        "group-rows-before": 5,
+        "group-rows-after": 5,
+        "group-reader-after": 6,
+        "group-postprocess-before": 6,
+        "group-postprocess-after": 6,
+        "finalize-before": 16,
+        "stage-before": 48,
+        "stage-after": 48,
+        "material-reference-finalize-before": 16,
+        "material-reference-lookup-before": 28,
+        "material-reference-finalize-after": 16,
+        "object-stage-before": 15,
+        "object-stage-after": 15,
+        "finalize-after": 16,
+        "import-after": 16,
+        "column-wrapper-before": 11,
+        "column-map-after": 11,
+        "column-reader-before": 11,
+        "column-rows-before": 13,
+        "column-rows-after": 13,
+        "column-reader-after": 11,
+        "column-wrapper-after": 11,
+        "column-scan": 66,
+        "material-destroy-before": 4,
+        "material-destroy-after": 4,
+        "material-reference-free-before": 1,
+        "material-reference-free-after": 1
+      }
+    },
+    "event_counts": {
+      "import-before": 16,
+      "flags-reset-before": 16,
+      "flags-reset-after": 16,
+      "stream-scan": 79,
+      "material-clear-before": 4,
+      "material-clear-after": 4,
+      "material-reference-feature": 13,
+      "keyword-resolved": 36,
+      "handler-before": 34,
+      "segment-clear-before": 133,
+      "segment-clear-after": 133,
+      "object-selected": 25,
+      "handler-after": 34,
+      "allocation-free": 35,
+      "allocation-update": 23,
+      "material-selector": 8,
+      "material-lookup": 109,
+      "material-scratch-before": 8,
+      "material-scratch-after": 8,
+      "material-append-before": 4,
+      "material-append-after": 4,
+      "material-refresh-before": 5,
+      "material-copy-before": 4,
+      "material-copy-after": 4,
+      "material-layout-before": 5,
+      "material-layout-after": 5,
+      "material-copy-destroy-before": 4,
+      "material-copy-destroy-after": 4,
+      "material-refresh-after": 5,
+      "material-name": 6,
+      "material-reference-count": 2,
+      "material-reference-allocate": 1,
+      "material-reference-scan": 2,
+      "group-reader-before": 6,
+      "column-line": 20,
+      "group-rows-before": 5,
+      "group-rows-after": 5,
+      "group-reader-after": 6,
+      "group-postprocess-before": 6,
+      "group-postprocess-after": 6,
+      "finalize-before": 16,
+      "stage-before": 48,
+      "stage-after": 48,
+      "material-reference-finalize-before": 16,
+      "material-reference-lookup-before": 28,
+      "material-reference-finalize-after": 16,
+      "object-stage-before": 15,
+      "object-stage-after": 15,
+      "finalize-after": 16,
+      "import-after": 16,
+      "column-wrapper-before": 11,
+      "column-map-after": 11,
+      "column-reader-before": 11,
+      "column-rows-before": 13,
+      "column-rows-after": 13,
+      "column-reader-after": 11,
+      "column-wrapper-after": 11,
+      "column-scan": 66,
+      "material-destroy-before": 4,
+      "material-destroy-after": 4,
+      "material-reference-free-before": 1,
+      "material-reference-free-after": 1
+    }
+  },
+  "tampering_rejected": [
+    "event sequence",
+    "map selected rank",
+    "map raw bytes",
+    "input width",
+    "live source assignments",
+    "source material mode",
+    "header source",
+    "header cursor",
+    "scalar value",
+    "scalar bytes",
+    "failed scalar exposed",
+    "scratch initial zero",
+    "scratch partial row",
+    "reader status",
+    "explicit row width",
+    "row count",
+    "group partial write",
+    "group selected tie/majority",
+    "group zero retention",
+    "old material rank",
+    "nonzero remapped value",
+    "positive-only replacement default",
+    "coherent remap row-stride transpose",
+    "coherent header default before rows",
+    "coherent selected map removed",
+    "coherent negative default wrongly propagated",
+    "last rather than first tied group",
+    "negative-zero scratch sign lost",
+    "unknown token catalog category",
+    "process identity",
+    "capture completeness",
+    "probe source hash",
+    "fixture bytes",
+    "frozen archive",
+    "input archive"
+  ],
+  "tampering_not_applied": [
+    {
+      "test": "failure destination commit",
+      "reason": "No qualifying native observation in this capture."
+    },
+    {
+      "test": "coherent failed wrapper commit",
+      "reason": "No qualifying native observation in this capture."
+    }
+  ],
+  "bindings": [
+    {
+      "path": "tools/verify_material_column_observations.py",
+      "sha256": "43bff7e281094c8a3ae348a764d0eeb71fee86f221b22399ac9cca4aba2e2f4f"
+    },
+    {
+      "path": "analysis/material-column-runtime-held-out.json",
+      "sha256": "4b65ff859372e7892c81db812b415a429e0ee39f62d83dea76fd82f8adfc1713"
+    },
+    {
+      "path": "analysis/oracle/material-column-held-out/run.json",
+      "sha256": "3f85b1ea44c1639fe6d048b9fec971a5cf2866e3a2771f3797dcbc136fd7264d"
+    },
+    {
+      "path": "analysis/material-column-held-out-cases.json",
+      "sha256": "e57b491b1b94d3dcaa464f60fd26ea2155868139b7b46183ffb2c8cab0b926df"
+    },
+    {
+      "path": "analysis/material-column-candidate-freeze.json",
+      "sha256": "93001c7fa1305c55de3e35cd94a54a109d52ea05b8f17efec73c60377838b1db"
+    },
+    {
+      "path": "analysis/material-column-held-out-input-freeze.json",
+      "sha256": "7cc7d5721f49fb5267f619d6da43e68f3bc2a98208f962332149d49659381bbf"
+    },
+    {
+      "path": "tools/observe_material_column_import.js",
+      "sha256": "831be246596a365f0b1a5c5b70b0c4acbcc07186f105bd7acada898b8c438f45"
+    },
+    {
+      "path": "analysis/material-column-model-contract.json",
+      "sha256": "613200cc664894c14a72a235760017834ce134a5655ec7e8a61cdff3bfe62b14"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    }
+  ],
+  "verifier_dependencies": [
+    {
+      "path": "tools/capture_oracle.py",
+      "sha256": "feafb95e35a45b1ec20fd0b9a8386ef6b011923f436f5bf87aa0b5b922327345"
+    },
+    {
+      "path": "tools/verify_boundary_sort_observations.py",
+      "sha256": "5fd94053f05621b84f832a84149bf38dd72a2a5397aeee3923618e1937579c2f"
+    },
+    {
+      "path": "tools/verify_material_object_observations.py",
+      "sha256": "0790ffad9c9296fcaacc5b65051984cd45ae51d9526ddf8fe06f3a92a7e72332"
+    },
+    {
+      "path": "tools/verify_material_reference_observations.py",
+      "sha256": "b90277781825f7737b988a713559d353cb386b22eaaf76a8cc1f5982e1840ebd"
+    },
+    {
+      "path": "tools/verify_material_import_observations.py",
+      "sha256": "ae57f302a9c221143df22f7bb742d76983594a7cc82e36418a6c560536c4d665"
+    },
+    {
+      "path": "tools/verify_mesh_array_observations.py",
+      "sha256": "923f0d8a760d7d70d15642cc02c1d923e0101c526b8bcac4ff54fcc331f5a2a9"
+    },
+    {
+      "path": "tools/verify_mesh_refresh_observations.py",
+      "sha256": "076c4dff028c3687c7ba42835fe36b80344bf98e0e8e6cef622d4034eff2ccaa"
+    },
+    {
+      "path": "tools/verify_geometry_segments_observations.py",
+      "sha256": "2127eb4b7ade551dcfebc3593331766333408b57f120543935e1acda2cd35788"
+    },
+    {
+      "path": "tools/verify_step_distance_observations.py",
+      "sha256": "a40a7ae151b5c549f231475b348ad732b196c35c55ac7adbc76cb73d65e58695"
+    },
+    {
+      "path": "tools/verify_time_controls_observations.py",
+      "sha256": "ad310d1c195390e2e8d9f902583efc1f5ae68e0b5226f0a668262035def8c7c6"
+    }
+  ],
+  "limitations": [
+    "No replacement process or comparator output is consulted. Selected bounded finite captures do not establish complete application compatibility.",
+    "First matching failure of an uninitialized native header/row ID, allocation failure, overflow and arbitrary shared storage remain excluded.",
+    "Other scientific keyword algorithms retain earlier milestone scope; captured descriptors and direct buffers are checked for owned shape and raw consistency."
+  ]
+}

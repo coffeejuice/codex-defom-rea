@@ -1,0 +1,295 @@
+{
+  "status": "implemented_zero_object_default_name_only_slice_original_evaluation_pending",
+  "files": [
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_import.hpp",
+    "src/recovered/keyword_import.cpp"
+  ],
+  "native_contract": "analysis/material-import-next-contract.json",
+  "scope": "MTNAME in reset controls with zero objects and immutable default-name-only material records. This is a bounded importer slice, not general MTNAME/material-object integration.",
+  "api": {
+    "MaterialRecord": "Stable unique_ptr-owned record, const signedint ID, mutable original-byte name, immutable Profile::default_name_only and the selected native integer defaults. No full native property struct is invented.",
+    "ObjectModel": "materials(),material_count(),find_material(int) const/nonconst,find_or_create_material(int). Existing public method signatures unchanged.",
+    "fields": {
+      "field_0x04": 0,
+      "field_0x08": 0,
+      "feature_0x17e8": 0,
+      "mode_0x1cc8": 0,
+      "count_0x1ccc": 0,
+      "feature_0x1e40": 0,
+      "feature_0x2150": 0,
+      "feature_0x2154": 0,
+      "field_0x2158": 1,
+      "field_0x215c": 1
+    },
+    "reference_ids": "Always empty constspan, representing proven count0/null storage in this immutable profile."
+  },
+  "behavior": [
+    "Material IDs cover the full successfully scanned signedint32 domain. ExactID lookup, no positivity filter and no placeholder creation. Each missingID appends exactlyone stable record; insertion order retained.",
+    "Category4/id92 is required in the complete catalog and routed to a separate material handler. Numeric selector inputfailure(-1) returns2; matchingfailure0 throws explicitunsupported before fabricatinganID.",
+    "Missingrecord creation requires asserted reset controls andzeroobjects before any append. It appends/updates root1320 and regenerates componentlayout before material_name reads its two lines. A subsequent namefailure preserves the new record/count/layout and returns2.",
+    "ExistingID rename skips creation/profile-preflight/refresh and uses the namehelper capacity65. Helperfailure preservespreviousname. Parent owns material_name implementation.",
+    "Default material fields are immutable, so references1cc8 remain0 and1d6250 is a proven no-op. Finalization still normalizes controls and applies the existing selected geometry and step rules.",
+    "Layout recipe now receives actual materialcount instead of silently retaining0. Feature outcomes remain the statically proved defaults because represented materialflags1cc8/17e8/1e40/2150/2154 arezero and rootflags85c/864 remainreset.",
+    "Changed dimension destroys materials andobjects, clearsmaterialcount and regeneratesreset controls. Same dimension is a no-op."
+  ],
+  "unsupported_boundaries": [
+    {
+      "trigger": "Missingmaterial ID when any object already exists.",
+      "position": "After stream selector scan but BEFORE temporary native ID/rank-map allocation, append/count updates orname read.",
+      "meaning": "Explicit unsupported prefix: native384a50 would continue with append and1d0fc0. We do not claim the retained model equals native state after its full handler or inventstatus2. Parent result leaves finalizationpending.",
+      "reason": "1d0fc0(root,1) can copy existing objects into a temporarylist through1613a0, refresh theirstorage and remap materialcolumns. Complete cross-domain copy effects are notyet established."
+    },
+    {
+      "trigger": "Missingpositive object ID when any material exists.",
+      "position": "Before object/placeholder creation. Existingobject lookup and original nonpositiveID rejection retain their order.",
+      "meaning": "Explicit unsupported prefix until construction/finalization with populated materials is validated; this guard preserves all prior geometry behavior when the materiallist isempty."
+    },
+    {
+      "trigger": "Legacy explicit componenttable without simulationprofile on a missingmaterial append.",
+      "position": "Before append.",
+      "meaning": "Do not infer reset/default material context from arbitrary componentcounts."
+    },
+    {
+      "trigger": "Selector matchingfailure0.",
+      "position": "After the original scanner consumed its prefix; no ID lookup/append.",
+      "meaning": "Native uses an uninitializedlocalID here. Unsupported rather than assigningzero."
+    }
+  ],
+  "resource_boundary": "No allocationidentity or transient scratch-array equivalence is claimed. Native29ca10 creates old ID/rankmaps and later frees them before the name read. With zeroobjects these maps have no represented durable effect; C++ uses stable owned records and does not allocate imitation native buffers.",
+  "next_cross_domain_expansion": {
+    "required": "Material creation among objects and objectcreation aftermaterials remain required for the complete importer. Current guards are temporary checkpoints.",
+    "known1613a0": "Copies fields, selected elementkind, spatial/alternate geometry, boundaries, node/element/property subobjects into a temporarydestination. It invokes161840,199c20,17ec20,180390,183900,185a10,186590,18bd30,189b70,195c80,1619c0,161ac0.",
+    "new_links": "161840 dispatches to1618b0 for3D or1619c0 for2D;1619c0 assigns alternatecollection through3019d0;161ac0 copiesselectedrawfields.1d8fa0/1d8fb0 return list+18/+20 maps.",
+    "next_analysis": [
+      "Establish source-versus-destination side effects in geometrycopy1618b0/3019d0 and meshcopy180390/183900 and cleanup oftemporaryobjects.",
+      "For default-name-only materials, feature49 remainsfalse, so final materialcolumn remapping branch is skipped; prove whether temporarycopy can be omitted without changing represented liveobjectstate.",
+      "Inspect object constructor15f0b0 material-related callees and2059a0 scope with nonempty defaultmateriallist before removing newobject guard.",
+      "Then freeze and observe default-name material insertion before/after populated meshobjects, includinginactiveobjects, zero-sizedmeshes and geometry, with allocation-prefix metadata and identity retained."
+    ],
+    "not_required_for_first_slice": "General MSTMTR referencegraph and scientificpropertyhandlers are separate later work."
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/material-import-0x140199c50.json",
+      "sha256": "4e5cf5764fd6394838487415e43544dfc5271a3e49bcd70d456d1b7818857616",
+      "evidence_id": "ev_6c9f17728785352e3b1575357737a7dc9a140582f257f3937953c420c9456f62"
+    },
+    {
+      "path": "analysis/material-import-0x1401c5700.json",
+      "sha256": "e602d632063559e700428246dd6e57d101e3a5ec76fdbb4224f9a03a78e7033a",
+      "evidence_id": "ev_b63fdb8b9baf0c94df343b2baa731f6f2a5785ffaa7f2c96a62808ec357c6c4f"
+    },
+    {
+      "path": "analysis/material-import-0x1401c8ba0.json",
+      "sha256": "54d2059183667d125b12e1ea873c9d282ffa2c108698748a177fbfacce6a924a",
+      "evidence_id": "ev_cd87f4f6e50a87c1de6b0c22425dfa5dbbe65ead6ff751e2365a35f2c0c4f9f6"
+    },
+    {
+      "path": "analysis/material-import-0x1401c8f40.json",
+      "sha256": "a8cf3169175b036247c1cd7920f2ea867c39c741818ed885d6416ceef8b77a3b",
+      "evidence_id": "ev_67c9561aa2c548b464630666f7a3d512e6e625b4f8201d435a3ed19cdc2f28f2"
+    },
+    {
+      "path": "analysis/material-import-0x1401cb440.json",
+      "sha256": "82a6860f75180a5f541bbc66692269c309a6d464c7fe8fe47c8d0afdcd121e16",
+      "evidence_id": "ev_f4de621586db9104ce6082024ffff50ce681b1f5bfae4c5f2a200f59c6cadae1"
+    },
+    {
+      "path": "analysis/material-import-0x1401d8300.json",
+      "sha256": "40575b9181de064e757d2f586b9529bbd791c9acd0fb4f2ec42f3be741a5b3cc",
+      "evidence_id": "ev_74d5191a5d576855ceec7968d59f4ca9cc3fe6a9c22481c291e1c89855f995d5"
+    },
+    {
+      "path": "analysis/material-import-0x1401f4090.json",
+      "sha256": "dc497f6c1b7d2b8ceeb0fe4282a7b4d66d1c59cae887ccf6cfb94e2b077fbf5d",
+      "evidence_id": "ev_cc02aff64ad031eaa41edfeaf0299ea300848ad6c6bba6e42fe22e16df8a1c88"
+    },
+    {
+      "path": "analysis/material-import-0x140289fe0.json",
+      "sha256": "62883b53be83a4a17a510de295682f84771366cbbc3ae7ee9f107970301b2f65",
+      "evidence_id": "ev_c99e076da72f467d2e7952df7da605e195e8dc88256ec7954f8d8f2c20319e9a"
+    },
+    {
+      "path": "analysis/material-import-0x14028b850.json",
+      "sha256": "a16675f3d8e52cd884ea8b9c5d0161465c6112df5eb114d683957590ccf2096a",
+      "evidence_id": "ev_479f740335baefae6e3482a4d3942b61f4f1c5c5a00c1cfd51851e07336807b5"
+    },
+    {
+      "path": "analysis/material-import-0x14028c500.json",
+      "sha256": "5084464426a7595940905311e4a527ffb144a25a97dfcdd51aa37da33269fab5",
+      "evidence_id": "ev_df83f15a8460980f5eed6fb6aca594c744f7ea392761a5feb18d277dbfa45363"
+    },
+    {
+      "path": "analysis/material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "analysis/material-import-0x14028cb70.json",
+      "sha256": "3d100243681513140e916f4611a071757571466c2f595682c4f255604c9c2142",
+      "evidence_id": "ev_7df799febc47cbb09d6a4c2efac41bce07538aff9a8bcc3cb32062c3dbef5801"
+    },
+    {
+      "path": "analysis/material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "analysis/material-import-0x14028d030.json",
+      "sha256": "5f5b22fb50dc684d793b23307da952b8f43786ee26ee27064989dc0224fe161c",
+      "evidence_id": "ev_f0062ba32915027187bdbcd2c91d47098cb950265db18908778545301b4946a8"
+    },
+    {
+      "path": "analysis/material-import-0x14029b300.json",
+      "sha256": "3669c4b16f0cea45098731927633f7c52890deaaebe27a7268c73ea930c84a79",
+      "evidence_id": "ev_770013e598c5cbf60d17ca6813ff0d2b7c136d3ac634d6c29f30e29ac578e414"
+    },
+    {
+      "path": "analysis/material-import-0x14029b4c0.json",
+      "sha256": "be4bfb3f3cf2d821e329b5b979361221cc5813fadd18713232797edc5a35a250",
+      "evidence_id": "ev_b50b97ed967781de055ff5dde68073e75ddecf63cdfd9018ee7ad4f0d0e70568"
+    },
+    {
+      "path": "analysis/material-import-0x14029b500.json",
+      "sha256": "2985912291e4f682c19765e35498e688df52ad163fd54234b601d20e69269f40",
+      "evidence_id": "ev_e45dd007e29152cb9d937539eef07fa5fcfac1042e8782a8e4230ed2b9fba78e"
+    },
+    {
+      "path": "analysis/material-import-0x14029b580.json",
+      "sha256": "e51ae6dd76aa6c56d429796aed4820e9b4cc9e943be97c3869cb8909aafdae6a",
+      "evidence_id": "ev_091f82a520f9034a7f26b8faf19ea77146fabdb95bd3c5d6e28d159ac0908052"
+    },
+    {
+      "path": "analysis/material-import-0x14029c060.json",
+      "sha256": "3547749a4ed6f85a2cd8b47e060bd372f83aab8bcdc850ed36cb06941bb8957b",
+      "evidence_id": "ev_82235543dc243ce814750e631f0fffece5b80d56867e5c4e4f57fe6d514017ea"
+    },
+    {
+      "path": "analysis/material-import-0x14029c260.json",
+      "sha256": "b77a6197fa077c76c1394e841d440680c45124c35ab07eeb5e07ba901c86a448",
+      "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda"
+    },
+    {
+      "path": "analysis/material-import-0x14029c2c0.json",
+      "sha256": "d55f5e114a2d6f3ff8c3b231bf248224401254c78fe75f8c0afbbb688df685f9",
+      "evidence_id": "ev_322633bd11d53f354da900f4df36a32133449d77d9161e5076e8c08bcba48bad"
+    },
+    {
+      "path": "analysis/material-import-0x14029c310.json",
+      "sha256": "43977f55ea8d9e1c341f46934743f66434bc176cb0a6fba05004f7a796933a61",
+      "evidence_id": "ev_1db6e50c7001f385c097c0992f249e27bc7eaace780fd7f57fb6bd7c03c15f47"
+    },
+    {
+      "path": "analysis/material-import-0x14029c870.json",
+      "sha256": "d69e9d2443e3c20d0be14aec26b35301fcdf69dbb44737e3f527cbbc6d57a75f",
+      "evidence_id": "ev_92ca60819b33a7e4f8079737335a898bd53f7bb3eb7f34ba2c37378e64bad9c1"
+    },
+    {
+      "path": "analysis/material-import-0x14029ca10.json",
+      "sha256": "a453ced99f1ad15103df086268ffa6a893d2f2965efbaf8842d7cb0ea67153f7",
+      "evidence_id": "ev_82dbf8f2a991c88f22b1b2b98ed35ea8419b540c69309393281962c862894c97"
+    },
+    {
+      "path": "analysis/material-import-0x14029e210.json",
+      "sha256": "b9381422276e2f82038e97da4d8eb5407d224b4bad9a87a50514b33fc5d75e3e",
+      "evidence_id": "ev_ded640d49b9e66e96d673bad20b58c85b2a68b9786a1ece0b9a807b1f5520d3b"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/material-import-default-name-bytes.json",
+      "sha256": "ad9f9dc4ab64acfd86bca33affbaa38c39280f3f20abfc503dc8cc167eb7f7c4",
+      "evidence_id": "ev_0e51021cbbdd6a3f8a48338d09aa6256818494c7fcf0ea4bb90c59d8d307265a"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce",
+      "evidence_id": "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078"
+    },
+    {
+      "path": "analysis/finalization-0x1401d63c0.json",
+      "sha256": "cd18e29b72c6d453543bf700289f2d1c6a9aabed1bdefe1f7b126cf2cb9a3707",
+      "evidence_id": "ev_244ddc31f118de343342c6537e2952500548d6d19db44f31ce86f65b6e1cc451"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f",
+      "evidence_id": "ev_dd14a08f618ea92599ee067ee52c77920b12b87ef68522e734ab03d476c14ab9"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf",
+      "evidence_id": "ev_d57d0d56722651d21c5770e910854bfcb471bf40c332fe736e5ed2f3c591ec8e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/root-reset-0x1401d6b30.json",
+      "sha256": "f673bcef748e5f4cb2000c9b1de113292adc9ab736388e923a1da9d85ff68d2f",
+      "evidence_id": "ev_5c223edc773b9da3c4e4955b1ad07d01d1af7decc88bc1ae672316c1f07216ec"
+    },
+    {
+      "path": "analysis/root-reset-0x1401d6c60.json",
+      "sha256": "d2a02009fb90154a68823a335d715954157c887ac572bdf6f7f12e997431ba1d",
+      "evidence_id": "ev_a4f1aa1a76ddce2a7d4a17d84a7fc65ae0d2b887b72af2f09df6bef7732161ce"
+    },
+    {
+      "path": "analysis/model-0x140413ab0.json",
+      "sha256": "62010e15380276eb9795add79024728eb4f31134cdeae2a1ba815d9ac0ddfc05",
+      "evidence_id": "ev_26b41e6c40cefe32bb3d2fdc86fcba9fce8bf2dbacffe3347cde1092b954c372"
+    },
+    {
+      "path": "analysis/model-0x1401c8950.json",
+      "sha256": "69fab00a99e7bd8d2cabd3d2b2e8fe0cd64c6c3e29ec2a4c72f33d0e94aa8e02",
+      "evidence_id": "ev_e2c12d13e5450214150903948694981ec5d0d4fb6ffcc5567e0e609068f3967d"
+    },
+    {
+      "path": "analysis/model-0x1401c8c00.json",
+      "sha256": "d9b27ac6e94cf2eec3e118bba1abb97b839e7a60d04df55d29882842b64cc689",
+      "evidence_id": "ev_fe5894be8463ce95af6c012687aff06a7570af678fb8ec29172fb15663622c2d"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401613a0.json",
+      "sha256": "8921fe4e0a6b09e9c37991984d5da975d0bb83eb3c3d5b1db9680ab7f64906a5",
+      "evidence_id": "ev_2917643009755cc73f22c787e56ef285edce5e8667688614b6cbed23072cb6ff"
+    },
+    {
+      "path": "analysis/material-refresh-0x140161840.json",
+      "sha256": "fefef2b8e0b1ca7d809b144812c8d54c1d5fc1e829e995428e0fa4d6049244bb",
+      "evidence_id": "ev_b9aa7662cf9088d68e68f279f376050ad310a7646f71e6ce90730ab0b1a72e84"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401619c0.json",
+      "sha256": "8df71340b3c043c1aa41a363386b489cdad633a5175b5d0c3cd4306783aa4279",
+      "evidence_id": "ev_03a5b54c31bebfaae91be576905905de54fb2b41e8dc2fd60096676b23c6df03"
+    },
+    {
+      "path": "analysis/material-refresh-0x140161ac0.json",
+      "sha256": "e5196e130d614f4c79a855d0b55f4b5e7a008f0e31f303a397d0ebb01c2c8a83",
+      "evidence_id": "ev_360116ee3ad6ab3fc8a7af90f9de0a5acc3c03d3fd65aa702b9ebdea641dbc61"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401d8fa0.json",
+      "sha256": "70a3d25b1c91f8e28b1f5d1487a1a991add21412d36765f07b3c1c3bda40bf57",
+      "evidence_id": "ev_db0bc36664f43cb989310fabefec8a7737bb6b733797c59ad0ce45e8fd08ea05"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401d8fb0.json",
+      "sha256": "98ac22ad29c526479351613771c8d79c72413a0d70971cf34421a225c1cb189c",
+      "evidence_id": "ev_fc590e59006f14e6edf09f5f238562f6cfd5976993e3f8de843f343d0b847aab"
+    }
+  ],
+  "validation": [
+    "Read implementation against exact retained native handler, constructor/list, refresh and finalizer evidence.",
+    "git diff --check passed for fourownedcandidatefiles.",
+    "No build or original launch by implementationagent. Parent owns replay/probe/build/freeze and runtimecomparison."
+  ]
+}

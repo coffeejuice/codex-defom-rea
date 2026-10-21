@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "status": "selected_profile_implemented_and_compared",
+  "scope": "Root post-keyword-import finalization and NSTART in the explicit empty-material/reset profile, with active object geometry gate3990 false and normal wrapper option0. Full application recovery remains active.",
+  "source_bindings": [
+    {
+      "path": "analysis/finalization-0x1401d7f40.json",
+      "sha256": "8098f62c76063fb6c088dec1f05ce747e5c7242fc9fb6302979543ce213aa78a"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce"
+    },
+    {
+      "path": "analysis/finalization-0x1401d63c0.json",
+      "sha256": "cd18e29b72c6d453543bf700289f2d1c6a9aabed1bdefe1f7b126cf2cb9a3707"
+    },
+    {
+      "path": "analysis/finalization-0x1401d7f10.json",
+      "sha256": "3cce4b251aa08cfc589fb33fbd160c110ec274b429f79997cf54c87ec66f0572"
+    },
+    {
+      "path": "analysis/finalization-0x1401f4390.json",
+      "sha256": "a6fad76dd90e670a492ce957023c2be8eb73048954dd8c35501509288f0e48bc"
+    },
+    {
+      "path": "analysis/model-0x1401ee510.json",
+      "sha256": "ae0bf1d457128ed3946053520f48f2ae1b46633bf7f09b2fb394707fac3f2e5b"
+    },
+    {
+      "path": "analysis/model-0x1401ee5a0.json",
+      "sha256": "990fd5d54bfd818646dc102988fe9707aa738eff3b71925abe65d722f27605b7"
+    },
+    {
+      "path": "analysis/model-0x140160d90.json",
+      "sha256": "e97b32a485087d201c412d1b0ee051986e8eba85b4d046b76686618d08b176c4"
+    },
+    {
+      "path": "analysis/model-0x14015f0b0.json",
+      "sha256": "a57609aff1c31df575595ff67566260a8e811607679168e97528651833c0ab33"
+    },
+    {
+      "path": "analysis/model-0x1402059a0.json",
+      "sha256": "70fda111646ad92308aee83e2f708c4d3b230523391794df77b1e971c0c8cbc9"
+    },
+    {
+      "path": "analysis/import-finalization-callsite-audit.json",
+      "sha256": "d9f2c6ec27ac1b714cb4e7fd1e7da0d966df61c54c0f6829798ed33d4d91dd83"
+    }
+  ],
+  "wrapper": {
+    "entry": "0x1401b5f00",
+    "flag_reset": "When *param3 is nonzero, 1d7f10 clears root2f88/2f89 before fopen.",
+    "ordering": "Successful open: set root1740 from *param4, parse, clear1740, fclose, clear filename, then run1d7f40 when *param3 nonzero even after parser error.",
+    "open_failure": "No finalization on failed open. File IO is not part of import_translated; input is already text-translated bytes.",
+    "request_false": "The component does not reset flags or finalize when request_finalization is false; this branch is statically established but not exercised through the normal console capture."
+  },
+  "NSTART": {
+    "id": 36,
+    "category": 1,
+    "reader": "413de0 integer line helper, zero destination before read, no skipped blank line.",
+    "option0": "Stores root8b0 even on failed/zero conversions; sets root2f88 only when reader status0. A later failed NSTART does not clear an earlier success flag.",
+    "option_bit4": "Original reads into a temporary when root1740 bit4 is set; this option is not yet exposed by the replacement.",
+    "status": "Blank or physical EOF returns handler2. Zero numerical conversions from nonblank text return0, store0 and set success flag in observed cases."
+  },
+  "finalizer": {
+    "procedure": "0x1401d7f40",
+    "sequence": [
+      "1ee510(root+750): if root93c==0, set root990 to1 when root930<=0, otherwise0.",
+      "1d6250: reconcile material reference records; empty list has no effects.",
+      "1d63c0(root,0): visit type!=7 objects;2059a0 returns without geometry work when byte3990 is0.",
+      "If root2f88 is nonzero, transform nonnegative8b0 to-(8b0+1) and copy8b0 to744. Negative values are copied unchanged."
+    ],
+    "flag_lifetime": "Finalizer does not clear2f88; next enabled import resets it. Tested dimension reset after NSTART preserves the flag while resetting8b0/744 to-1.",
+    "integer_boundary": "Uses widened C++ arithmetic so2147483647 maps to-2147483648 without signed overflow; both signed extrema matched original."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "completion_marker": "finalization_pending becomes false only when requested finalization executes for the supported profile. Unsupported parsing, missing asserted profile, or active object3990 leave it pending.",
+    "internal_fields": "Offset-labelled fields keep unestablished semantics explicit; existing include/deform interfaces are unchanged.",
+    "limits": "Material records and enabled plane-geometry processing remain unimplemented; no general scientific finalization claim."
+  },
+  "evaluation": {
+    "capture": "analysis/import-finalization-runtime-evaluation.json",
+    "evidence_id": "ev_0ef39ce9d33d2003dd7c7c170e276fcde5cf9fd2d0e2dd73cdb3377ba7586fba",
+    "cases": "analysis/import-finalization-evaluation-cases.json",
+    "freeze": "analysis/import-finalization-candidate-freeze.json",
+    "comparison": "analysis/import-finalization-comparison.json",
+    "candidate_changed_after_freeze": false,
+    "imports": 13,
+    "tokens": 23,
+    "descriptor_snapshots": 1643,
+    "ctest_passed": 18,
+    "inputs": "Initialized profile, observed process unit default, fixture bytes; no captured array values or component tables seed replay.",
+    "covered": [
+      "positive,zero,negative step",
+      "INT_MAX and INT_MIN",
+      "blank/physical EOF/zero conversions",
+      "success then failure in same import",
+      "omitted NSTART on later import",
+      "populated objects and inactive placeholders",
+      "dimension reset after NSTART",
+      "ordered control/material/object stages before step normalization"
+    ],
+    "not_covered": [
+      "Nonempty material references",
+      "object3990 enabled",
+      "nonzero import option bits",
+      "request_finalization false through original console",
+      "nondefault root930/93c branches in runtime",
+      "general scientific fields or full source reconstruction"
+    ],
+    "observations": "analysis/import-finalization-observations.json",
+    "independent_verification": {
+      "imports": 13,
+      "stage_pairs": 39,
+      "eligible_object_visits": 22,
+      "descriptor_observations": 9116,
+      "tamper_checks_rejected": 35
+    }
+  },
+  "next": "Recover scalar and table-based time/displacement controls feeding root930/93c/990; continue material references, geometry gate enabling paths, remaining keyword handlers and complete app workflows."
+}

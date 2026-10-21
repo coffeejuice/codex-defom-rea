@@ -1,0 +1,427 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "created_utc": "2026-10-20T22:16:47.600613+00:00",
+  "purpose": "Independent held-out fixed-field inputs authored from retained native static contracts after candidate freeze, without reading candidate output or native training/evaluation output. All expected behavior statements are research hypotheses, not measured outcomes.",
+  "cases": [
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/01_spatial_single_tet.KEY",
+      "sha256": "7935a9b17a72c2fd4aad7198f9e2f9fbf5a963225d163d1f315c09faca39adb7",
+      "bytes": 90,
+      "hypothesis": "Establish a four-node single tetrahedron, a different row extent from training, with non-unit translated geometry.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/02_spatial_all_node_defaults.KEY",
+      "sha256": "23bdd621cca0fd0b18b744003d1db5cb9be67171f4427f6e1fdeb4c763a9f93b",
+      "bytes": 152,
+      "hypothesis": "All ten real node keywords; exact three-component DRZ vector and negative-zero URZ broadcast, distinct negative scalar defaults.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/03_spatial_all_element_defaults.KEY",
+      "sha256": "554e80ec8a5aad1fbc6e7a25a8e0408c22e0bbfa19a694d850ffbf69e3782db6",
+      "bytes": 131,
+      "hypothesis": "All nine element keywords on one element; signed-zero default retained in explicitly zero-width DVOLF.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/04_spatial_integer_defaults.KEY",
+      "sha256": "b7084413966ea60c5ac335c8c655f7b15084a8cff4524c0a94a59848e80bc7ef",
+      "bytes": 88,
+      "hypothesis": "All six integer fields; zero BCCDEF reset and negative defaults in the other five fields.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/05_repeated_vector_rows.KEY",
+      "sha256": "ed56354b2b8a3022f887ebdfe65fdea78207130aec8935319aade4d3da5da0be",
+      "bytes": 55,
+      "hypothesis": "Repeated final-node vector row should overwrite its earlier row; unselected middle rows retain prior defaults.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/06_implicit_outside_rows.KEY",
+      "sha256": "8cec7b5c6ec2c7febb507e3f3de77a3253e8756d71735ae71af96f7ca0fd3a22",
+      "bytes": 64,
+      "hypothesis": "Implicit rows with zero, negative and greater-than-count IDs consume data without writes before a valid node row.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/07_explicit_outside_rows.KEY",
+      "sha256": "01ab501a0f6f1285097c46c91a3d555f512f5516e60fb77fc93711fd3eaa577d",
+      "bytes": 46,
+      "hypothesis": "Explicit short rows consume two invalid IDs then update the sole valid element, retaining header defaults in uncopied columns.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/08_late_float_matching_failure.KEY",
+      "sha256": "06ceeaf285b92af68ed44064b432ab9596678f85f61de0e76789f79be8de18b3",
+      "bytes": 30,
+      "hypothesis": "After a complete float row, matching failure reuses initialized row-buffer values; malformed token stays unconsumed until parser recovery.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/09_late_integer_matching_failure.KEY",
+      "sha256": "aefe28d349fbe2b6de097cc1ab8788ef62547e64a5af47a4471221ebef37c679",
+      "bytes": 33,
+      "hypothesis": "Integer row buffer is initialized by a complete row before later scalar matching failure; no uninitialized row ID is used.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/10_partial_mode1_header.KEY",
+      "sha256": "d3c30fb42c47585999c45ed1b0b9fad41feabd1a272e71dbf5015b34abbeca46",
+      "bytes": 25,
+      "hypothesis": "Mode1 header with only a row count uses initialized absent width/default outputs and consumes no records; following scalar field remains visible.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/11_partial_vector_defaults.KEY",
+      "sha256": "499fe4c8527af13fc621db9a5d548209636bd3a86b8b0012d8ddaec93cbdeada",
+      "bytes": 37,
+      "hypothesis": "A mode6 header stops after one signed-zero value at malformed suffix; four assigned defaults mismatch width three and broadcast the first.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/12_bccdef_equal_distinct_wrap.KEY",
+      "sha256": "2e1f714df6bfc6273ad87600dd64a47f1a1e3613caf85a2d469742589ddc05be",
+      "bytes": 94,
+      "hypothesis": "Observe equal negative triples including -200 and INT_MIN wrap, alongside a distinct negative triple that must not transform.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/13_bccdef_reset_positive.KEY",
+      "sha256": "435fdfa970e2cc049d9e91238162cf1b7fe311b59d2b3d3d81f7add2785de236",
+      "bytes": 38,
+      "hypothesis": "A zero default clears previously transformed data; equal positive values remain a triple.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/14_explicit_cursor_at_keyword.KEY",
+      "sha256": "f236543899a03352ac3fe4df6363c4863f7d7cabf619a7fe5bf1fcbfaf882b5b",
+      "bytes": 33,
+      "hypothesis": "Explicit width one leaves the same-line following keyword available to the parser.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/15_implicit_cursor_at_keyword.KEY",
+      "sha256": "6eb6a177321526c53f79b5d96a97991ff95b801a58739b075c57c4ef24d7211e",
+      "bytes": 46,
+      "hypothesis": "Implicit reader final fgets discards same-line keyword, while the next-line field remains visible and preserves signed zero.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/16_zero_width_records.KEY",
+      "sha256": "5b4effe0ec8cf9f485f09b45dc1e32f63c3e71431185c93c90a2f37a897d5074",
+      "bytes": 40,
+      "hypothesis": "Zero destination widths: explicit records consume scalar values, implicit records consume only IDs; no positive width is claimed.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/17_planar_two_quads.KEY",
+      "sha256": "aea8420ec930827668ad617763da787534fc374f7bf0aa337c121acbdac1dd64",
+      "bytes": 101,
+      "hypothesis": "Dimension reset creates six nodes and two adjacent non-square quads, different extents and geometry from training.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/18_planar_all_node_defaults.KEY",
+      "sha256": "974875e4665db574472d05582062d5feb498bf6cade60a8de0ef1fff034a56c6",
+      "bytes": 148,
+      "hypothesis": "Every real node keyword in 2D, with exact two-component DRZ defaults and negative-zero broadcast.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/19_planar_all_element_defaults.KEY",
+      "sha256": "6eca8dcec6f3f6b19b97e69779f21a51737fc15e4d8a4027087dea9921d5b974",
+      "bytes": 131,
+      "hypothesis": "Every element keyword in 2D with two element rows and distinct defaults; DVOLF/TICF remain explicitly zero width.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/20_planar_all_integer_defaults.KEY",
+      "sha256": "72efb450fbf8cc3ebf2d01f5ca03b8e1bb7d0720eb147e9d1b4f4f88536eab6f",
+      "bytes": 90,
+      "hypothesis": "All six integer defaults in 2D; negative equal pairs have no BCCDEF spatial transformation.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/21_planar_repeated_sparse.KEY",
+      "sha256": "484c7f0d797d9884ab14487cf99fcd30b9f3d85c0ff6082e83e507db28d69e88",
+      "bytes": 36,
+      "hypothesis": "Repeated final-node update and sparse middle-node update on six-row planar vector storage.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/22_scalar_repeated_outside.KEY",
+      "sha256": "37ba5c3a7636adf95bda6f91f4958f41b357c5c160ecf8091ae80539ecdfa583",
+      "bytes": 33,
+      "hypothesis": "Scalar field repeated valid row overwrites with signed zero; out-of-range positive and zero IDs do not write.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/23_explicit_minimum_copy.KEY",
+      "sha256": "13137cce9d9b6a61d7fe5be62c70ef0158474511cc8422d7fad6368b128d68e8",
+      "bytes": 28,
+      "hypothesis": "Explicit width one updates both planar element rows while three uncopied columns retain the default.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/24_explicit_wide_repetition.KEY",
+      "sha256": "4e78540bcdf8de60ce436a3447ae9965b00c892f8a9b0701aba91b4f1452e2f5",
+      "bytes": 78,
+      "hypothesis": "Explicit width five exceeds planar width four; repeated valid row and invalid element row distinguish consumption from min-copy writes.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/25_late_row_id_matching_failure.KEY",
+      "sha256": "4209981e35a8cae27f086b69d739da0467747f6917a5d37997d76ceaf43f73e9",
+      "bytes": 19,
+      "hypothesis": "A prior successful row establishes row ID and scalar destinations before a later row-ID and scalar matching failure; no first-row matching failure.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/26_integer_partial_eof.KEY",
+      "sha256": "0bcc98c1adc3f2736bd8e951a50b41d99e9e96bd34e21a6fd8ccc2b01c135394",
+      "bytes": 27,
+      "hypothesis": "Defaults and two complete integer rows survive EOF in the final scalar; physical EOF also avoids a final newline.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/27_planar_bccdef_partial_eof.KEY",
+      "sha256": "f196aefec0cd519833c6ba1c0660593dcc568d6793b8e829f28139f8fbdd5119",
+      "bytes": 47,
+      "hypothesis": "Two-dimensional BCCDEF keeps equal negative pairs and defaults; final incomplete pair does not become a committed row.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/28_planar_geometry_mode_three.KEY",
+      "sha256": "df2068524d9e92f933bf32502e694e0bbbb96289f98a0608576f3be13ace2529",
+      "bytes": 85,
+      "hypothesis": "GEOTYP3 changes selected widths to three; fresh coordinate/connectivity replacement establishes initialized extents before reads.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/29_planar_width_three_bccdef.KEY",
+      "sha256": "23f9e260b7ea0a0adeda7be32db6a10208bb18a55f00fe8c07474edd609294c3",
+      "bytes": 99,
+      "hypothesis": "Width-three BCCDEF remains untransformed because dimension is still two; exact URZ vector follows refreshed width.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/30_planar_mixed_width_defaults.KEY",
+      "sha256": "a10e53cc30c5ce04e7075214e13b40b7e9e1294040ecc5eef97f898ad9c5c581",
+      "bytes": 56,
+      "hypothesis": "GEOTYP3 leaves DRZ/PRZ at width two while STNCMP/YLDS width six; signed-zero scalar broadcast is tested on both domains.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/31_real_blank_then_valid.KEY",
+      "sha256": "b5732558c728a34d8bb3080fcf999d2064f2f5da558f5135884b9a79ffc86de7",
+      "bytes": 21,
+      "hypothesis": "Blank real header reports failure without preventing the following valid keyword from being parsed.",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/held_out/32_reset_spatial_header_eof.KEY",
+      "sha256": "9f4c8699272eefafdecb51caf77081e17f931c3b5293cef05527ac73568c79e6",
+      "bytes": 100,
+      "hypothesis": "Return to 3D resets the model and then applies a physical-EOF header containing only zero rows, with no default or newline.",
+      "split": "held_out",
+      "expected_output": null
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_mesh_field_import.js",
+    "sha256": "84f1fdec5d2eb7114d3740ac958ce839442fa0ef5b31757b0483357b5824a8fe"
+  },
+  "candidate_freeze": {
+    "path": "analysis/mesh-field-candidate-freeze.json",
+    "sha256": "7c87974b6bc3e692edc3209eeaa62d30f1f7a066bd5f31e4991b1533e089958a"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/mesh-field-static-contract.json",
+      "sha256": "cbf2a681bb4869a1b542fa91954a1c77d20b39e9389dc5dc83438df6d9564d77"
+    },
+    {
+      "path": "analysis/array-keyword-next-inventory.json",
+      "sha256": "cfe64415fc8abc76aa0d686e13ed845c3bfaaa495fd8629cd3e243eb507c26f4"
+    },
+    {
+      "path": "analysis/mesh-field-callsite-audit.json",
+      "sha256": "b43b80fc9ee089016b68b57298dd9070d14a0a079b38a6fb185048d25584c235"
+    },
+    {
+      "path": "analysis/mesh-field-bccdef-native-bytes.json",
+      "sha256": "06553d5231ab9e0ef7d1344202080a73858be20e6cbcac78b3b927ebc55685c5"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d09c0.json",
+      "sha256": "de1b0e50ccd3575f04a8f37f07d607370fc30a95c4c2c3d642e5603a675c1181"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf"
+    }
+  ],
+  "startup_context": {
+    "dimension": 3,
+    "node8_default": 20,
+    "suppress_boundaries": false
+  },
+  "ordered_imports": [
+    "01_spatial_single_tet.KEY",
+    "02_spatial_all_node_defaults.KEY",
+    "03_spatial_all_element_defaults.KEY",
+    "04_spatial_integer_defaults.KEY",
+    "05_repeated_vector_rows.KEY",
+    "06_implicit_outside_rows.KEY",
+    "07_explicit_outside_rows.KEY",
+    "08_late_float_matching_failure.KEY",
+    "09_late_integer_matching_failure.KEY",
+    "10_partial_mode1_header.KEY",
+    "11_partial_vector_defaults.KEY",
+    "12_bccdef_equal_distinct_wrap.KEY",
+    "13_bccdef_reset_positive.KEY",
+    "14_explicit_cursor_at_keyword.KEY",
+    "15_implicit_cursor_at_keyword.KEY",
+    "16_zero_width_records.KEY",
+    "17_planar_two_quads.KEY",
+    "18_planar_all_node_defaults.KEY",
+    "19_planar_all_element_defaults.KEY",
+    "20_planar_all_integer_defaults.KEY",
+    "21_planar_repeated_sparse.KEY",
+    "22_scalar_repeated_outside.KEY",
+    "23_explicit_minimum_copy.KEY",
+    "24_explicit_wide_repetition.KEY",
+    "25_late_row_id_matching_failure.KEY",
+    "26_integer_partial_eof.KEY",
+    "27_planar_bccdef_partial_eof.KEY",
+    "28_planar_geometry_mode_three.KEY",
+    "29_planar_width_three_bccdef.KEY",
+    "30_planar_mixed_width_defaults.KEY",
+    "31_real_blank_then_valid.KEY",
+    "32_reset_spatial_header_eof.KEY"
+  ],
+  "selected_keywords": [
+    "DRZ",
+    "BCCDEF",
+    "BCCDFN",
+    "URZ",
+    "FRZ",
+    "PRZ",
+    "BCCTMP",
+    "BCCTFN",
+    "NDHEAT",
+    "NDFLUX",
+    "STNCMP",
+    "DENSTY",
+    "DVOLF",
+    "TICF",
+    "VOTAGE",
+    "DATOM",
+    "HDNOBJ",
+    "BCCCRB",
+    "BCCRHT",
+    "CRBFLX",
+    "RHTFLX",
+    "YLDS",
+    "ZEFI",
+    "ZMFI",
+    "CURRNT"
+  ],
+  "handler_scope": {
+    "category1": [
+      28
+    ],
+    "category2": [
+      145,
+      159,
+      160,
+      162,
+      163,
+      165,
+      166,
+      167,
+      168,
+      169,
+      171,
+      172,
+      173,
+      176,
+      177,
+      206,
+      207,
+      213,
+      214,
+      217,
+      219,
+      220,
+      221,
+      222,
+      233,
+      237,
+      238,
+      239
+    ],
+    "category4": []
+  },
+  "bounds": {
+    "imports": 32,
+    "materials": 0,
+    "objects": 1,
+    "nodes_per_object": 6,
+    "elements_per_object": 2,
+    "actual_width": 6,
+    "explicit_record_width": 5,
+    "declared_rows": 4,
+    "maximum_fixture_bytes": 152
+  },
+  "predeclared_coverage": [
+    "All25 field keywords in both dimensions with new counts/data.",
+    "Repeated, sparse, zero/negative/out-of-range row IDs; vector versus broadcast defaults; signed-zero values and defaults.",
+    "Implicit versus explicit same-line cursor boundaries, min-copy widths, partial header and physical EOF.",
+    "Defined later matching failures after successfully assigning all reused destinations; first-row uninitialized matching failures excluded.",
+    "BCCDEF -200, unequal triples, INT_MIN wrap and zero reset in3D; width-three2D no-transform case.",
+    "Zero-width51/52 consumption only; no positive-width support claim."
+  ],
+  "declared_gaps": [
+    "Positive DVOLF/TICF width remains unavailable under recovered supported controls: root13f4 stays0. No unsupported control is invented.",
+    "Mode6 width>10 early-rejection is not exercised because current supported profiles have bounded widths2/3.",
+    "No first row-ID matching failure, uninitialized integer header, native allocation failure, negative allocation extent or float overflow/nonfinite values.",
+    "No shared-buffer/COW alias profile or complete scientific meaning of imported fields is claimed."
+  ],
+  "fixture_bytes": 2101,
+  "probe_repair_binding": "analysis/mesh-field-v1-selection-diagnostic.json"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "VERIFIER_INITIAL_ASSUMPTION_FAILURE",
+  "capture": {
+    "path": "analysis/material-object-runtime-training-v2.json",
+    "sha256": "4057abbda81cdff17f4b3eac8e4a2708e1d90259370de06e44103150e5996477"
+  },
+  "verifier_sha256": "a9f4ff1e7d82330012825d09923266acfd63f916a7be4c9a7e397d208a6436ef",
+  "assertion": "material fixture token scanner format",
+  "cause": "Reused material-only token verifier was called for all stream-scan events, but category2 object selectors also emit %i scans. This is a verifier dispatch error; candidate comparison has not been consulted.",
+  "correction_plan": "Dispatch token validator only for %39s; separately validate deterministic %i selectors and retain all events."
+}

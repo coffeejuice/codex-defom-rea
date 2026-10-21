@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "status": "selected_material_object_integration_verified_with_bounded_training_and_held_out_evidence",
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "scope": "Owned objects interacting with immutable default-name-only materials: creation order, refresh, lifecycle and selected mesh/geometry state. General material properties and complete application recovery remain unfinished.",
+  "implementation": [
+    "src/recovered/object_model.cpp",
+    "src/recovered/object_model.hpp",
+    "tests/keyword_import_replay.cpp"
+  ],
+  "implemented_contract": [
+    "Missing material creation no longer rejects existing owned objects. Append and separate count update precede component-table regeneration and active-object preserving refresh; the name read remains last. Existing-ID rename skips refresh.",
+    "New owned objects may be created after default-name-only materials. Object IDs retain the positive contiguous-placeholder policy, distinct from exact signed material IDs.",
+    "The immutable material feature profile keeps scientific column-remapping disabled. Existing selected mesh, geometry, names and identity persist through refresh; inactive type7 records are excluded from the native temporary-copy/refresh path.",
+    "Replay emits complete represented primary and linked model snapshots after each handler, retaining all pre-existing replay fields.",
+    "Held-out selected PDIE/STROKE/step-distance/time controls and GEOTYP/STNOUT changes coexist with material creation; resulting scalar fields, descriptor tables, partial-read state, geometry and mesh compare exactly within the represented profile."
+  ],
+  "training_v2": {
+    "capture": "analysis/material-object-runtime-training-v2.json",
+    "evidence_id": "ev_52272235c8b36d19d57b4519cc3787f48215b437f718204f0f7501a7ed644bc1",
+    "pid": 25432,
+    "imports": 14,
+    "tokens": 47,
+    "handlers": 44,
+    "token_material_reader_calls": 122,
+    "geometry_row_calls": 27,
+    "segment_scalar_calls": 19,
+    "final_descriptor_snapshots": 1378,
+    "temporary_copy_lifetimes": 7,
+    "events": 1513,
+    "independent_tamper_rejections": 32,
+    "comparison": "analysis/material-object-training-comparison.json",
+    "independent_audit": "analysis/material-object-observations.json",
+    "candidate_all_27_runtime_entries_matched": true,
+    "status_sequence": [
+      2,
+      0,
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    "coverage": {
+      "complete_post_handler_snapshots": 44,
+      "failed_connectivity_handlers": [
+        {
+          "file": "01_spatial_mesh_geometries.KEY",
+          "status": 2,
+          "dimension": 3
+        },
+        {
+          "file": "05_inactive_placeholders.KEY",
+          "status": 2,
+          "dimension": 3
+        },
+        {
+          "file": "07_reactivate_and_repopulate.KEY",
+          "status": 2,
+          "dimension": 3
+        }
+      ],
+      "spatial_final_object_snapshots_with_elements": 0,
+      "planar_final_object_snapshots_with_elements": 3
+    },
+    "independent_counts": {
+      "handlers": 44,
+      "failed_connectivity_handlers": 3,
+      "unknown_tokens": 3,
+      "temporary_copies": 7,
+      "container_refreshes": 14,
+      "created_materials": 10,
+      "materials_after_objects": 8,
+      "renames_or_selector_eof": 3,
+      "created_name_failures": 2,
+      "objects_after_materials": 3,
+      "dimension_resets": 3,
+      "successful_connectivity_2d": 2,
+      "successful_connectivity_2d_arity4": 2
+    }
+  },
+  "important_coverage_qualification": [
+    "Cases01/05/07 omit the third arity field in spatial ELMCON headers. Original handler173 returns2 and each next row-leading1 becomes an unknown token. Those spatial snapshots contain4nodes and0elements, despite the original fixture hypotheses.",
+    "This capture does establish populated planar element refresh: cases09/10/12 have4nodes and1element. It also exercises spatial coordinates, direct and alternate geometries, temporary copies, inactive placeholders and material/object creation in both orders.",
+    "Held-out cases01/05/09/16 use valid spatial ELMCON arity4. Strict comparison confirms tetrahedra under both material/object creation orders,10 final spatial object snapshots with elements, and4 planar snapshots. The intentional held-out case07 header-only arity failure preserves its existing tetrahedron."
+  ],
+  "probe_history": {
+    "v1": "Excluded from passing evidence: seven unproven-segment-allocation probe errors. Original process completed, but observation completeness failed.",
+    "v2": "Moved the segment allocation observation from27f360 to275f30, covering copy276140 allocation directly; fourteen fixture bytes and all27 compiled candidate entries unchanged.",
+    "transport": "The complete v2 record exceeded inline transport capacity. Its full evidence record was recovered from a retained export bundle; response and stable bundle are bound below."
+  },
+  "comparison_history": {
+    "initial_error": "Unknown305/category0 tokens were initially outside the comparator whitelist.",
+    "correction": "Observed unknown tokens and warning transcript are now compared. The coverage loss is explicit, not converted into a successful mesh-import claim.",
+    "diagnostic": "analysis/material-object-initial-comparator-error.json",
+    "candidate_changed_after_freeze": false,
+    "held_out_diagnostic": "analysis/material-object-held-out-comparator-error.json",
+    "held_out_correction": "Material creation uses refresh option1; selected configuration handlers use option0. Comparator now distinguishes caller context; candidate unchanged."
+  },
+  "held_out": {
+    "status": "strict_comparison_and_independent_audit_pass",
+    "capture": "analysis/material-object-runtime-held-out.json",
+    "evidence_id": "ev_de9f387acf6e172034e4a58c9ab51d00bb5c0e5e8f5e49dbd674dd973b415f29",
+    "pid": 18380,
+    "case_manifest": "analysis/material-object-held-out-cases.json",
+    "input_freeze": "analysis/material-object-held-out-input-freeze.json",
+    "imports": 17,
+    "tokens": 54,
+    "handlers": 54,
+    "token_material_reader_calls": 128,
+    "geometry_row_calls": 30,
+    "segment_scalar_calls": 11,
+    "final_descriptor_snapshots": 1537,
+    "temporary_copy_lifetimes": 7,
+    "comparison": "analysis/material-object-held-out-comparison.json",
+    "candidate_all_27_runtime_entries_matched": true,
+    "status_sequence": [
+      0,
+      0,
+      2,
+      0,
+      0,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    "coverage": {
+      "complete_post_handler_snapshots": 54,
+      "failed_connectivity_handlers": [
+        {
+          "file": "07_partial_element_header.KEY",
+          "status": 2,
+          "dimension": 3
+        }
+      ],
+      "spatial_final_object_snapshots_with_elements": 10,
+      "planar_final_object_snapshots_with_elements": 4
+    },
+    "transport": "Complete capture extracted from stable retained export after inline size limit; transport response and bundle are bound.",
+    "independent_audit": "analysis/material-object-held-out-observations.json",
+    "independent_tamper_rejections": 32,
+    "independent_counts": {
+      "handlers": 54,
+      "successful_connectivity_3d": 4,
+      "successful_connectivity_3d_arity4": 4,
+      "temporary_copies": 7,
+      "container_refreshes": 14,
+      "created_materials": 10,
+      "materials_after_objects": 8,
+      "control_handlers": 11,
+      "created_name_failures": 2,
+      "failed_connectivity_handlers": 1,
+      "objects_after_materials": 3,
+      "dimension_resets": 3,
+      "successful_connectivity_2d": 2,
+      "successful_connectivity_2d_arity4": 2,
+      "configuration_container_refreshes": 8
+    },
+    "events": 1672
+  },
+  "regression": {
+    "status": "parent_configure_and_full_CTest_pass",
+    "defaults": "V2 capture, run record and v2 case manifest; additional input freeze selected automatically.",
+    "runtime_candidate_unchanged": true,
+    "build_configuration_note": "Only CMake test registration changed after capture; original build configuration remains separately archived in the candidate freeze.",
+    "names": [
+      "material_object_reference_replay",
+      "material_object_held_out_replay"
+    ],
+    "previous_ctest_total": 31,
+    "ctests_passed": 33,
+    "ctests_total": 33,
+    "seconds": 21.01,
+    "diff_check_exit_code": 0,
+    "verification_receipt_note": "Archived CTest log and separate test-registration receipt confirm 33 passing tests; all 27 runtime source/binary entries remain covered by the immutable candidate freeze.",
+    "verification_receipt": "analysis/material-object-test-registration.json",
+    "test_log": "analysis/oracle/material-object-ctest.log",
+    "registration_diff": "analysis/material-object-test-registration.diff"
+  },
+  "evidence_boundaries": [
+    "Persistent root/object identity checks run only on primary/linked import and handler snapshots. Temporary-copy destinations have separate bounded metadata,53-descriptor and initialized-prefix checks and explicit destruction pairing.",
+    "Temporary source values/history are checked before/after copy; COW backing addresses and reference counts are not required to match across copy stages. Destination geometry payload is explicitly omitted by the probe.",
+    "Full represented mesh, descriptors, geometry and materials are compared after handlers and at import boundaries. Native handler-entry states are retained and identity-checked; replacement observer has no separate entry callback.",
+    "Existing geometry/mesh normalization runs on a detached view that bypasses its historical empty-material guard. Actual material counts, owner/list links, defaults and names are separately verified and restored into every expected snapshot.",
+    "Raw binary64 known buffers compare exactly. Uninitialized direct-buffer tails remain unknown rather than being assumed zero.",
+    "Static integration recommendations, immutable candidate/input freezes, original-only audit and replacement comparison are separate evidence layers."
+  ],
+  "limitations": [
+    "Cross-domain element coverage is bounded tetrahedral3D and quadrilateral2D inputs; it does not establish arbitrary topology, model size or every material/scientific interaction.",
+    "Default-name-only material records only: feature-enabled rank remapping, nonempty reference graphs and full property tables remain unrecovered.",
+    "Owned valid objects and bounded finite ASCII fixtures; external shared aliases, allocation failure, corruption, unsupported scientific subobjects and undefined selector conversion0 are outside scope.",
+    "Temporary native allocation topology and omitted geometry payloads are not reproduced as C++ ABI promises.",
+    "Complete executable replacement, all public interfaces and scientific equivalence are not claimed."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/material-object-integration-contract.json",
+      "sha256": "ca5dd365c26ddf7470c653be78bcaabbb38672c3dc8f52955cb41755f3222228"
+    },
+    {
+      "path": "analysis/material-object-candidate-freeze.json",
+      "sha256": "6cf162ac31f42eaf2443a2c6c1e90272d5b67f18564e38b415a8ee45977c5a25"
+    },
+    {
+      "path": "analysis/material-object-probe-v1-diagnostic.json",
+      "sha256": "3dadff58b8b38f2cea4f3fa39d26444674c27079bf64f3aa74a43504e358322d"
+    },
+    {
+      "path": "analysis/material-object-v2-input-freeze.json",
+      "sha256": "4125722a42aa8151f5ee2d26c41bdf0ada903ce571bc0c5037c29e7ce3deaebb"
+    },
+    {
+      "path": "analysis/material-object-training-v2-cases.json",
+      "sha256": "f3ed1260b4d4b8acc6be96ea4c42dd89c96340e8f214ee99755e463c02f02cac"
+    },
+    {
+      "path": "analysis/material-object-runtime-training-v2.json",
+      "sha256": "4057abbda81cdff17f4b3eac8e4a2708e1d90259370de06e44103150e5996477"
+    },
+    {
+      "path": "analysis/material-object-v2-transport-response.json",
+      "sha256": "67c5eec116bb590daea9e59d8db2e77d29836c3d005096bb7f1645652370040e"
+    },
+    {
+      "path": "analysis/oracle/material-object-v2-transport-evidence.json",
+      "sha256": "abe16a1aed7862d8933331e1c8016f9a3f91e9438ec64e843c2920764074cb5b"
+    },
+    {
+      "path": "analysis/material-object-initial-comparator-error.json",
+      "sha256": "3bef0fb3678571b1ea1b424ddabd8f80848f662b720c3710a68cccf99f693bfd"
+    },
+    {
+      "path": "analysis/material-object-training-comparison.json",
+      "sha256": "b18328a983f08939da1080b4055816b19a4d14dd940c2a7b1309bda2f758b90b"
+    },
+    {
+      "path": "analysis/material-object-observations.json",
+      "sha256": "eb0a87546682714bee4c6c2aced34c956ee52b7834ab7253463e1efc6a37ec29"
+    },
+    {
+      "path": "tools/compare_material_object_import.py",
+      "sha256": "7d43d8c850bf06c3a764189bf1b70c77cb194cdb7a51f1cf750cc951237a2333"
+    },
+    {
+      "path": "tools/observe_material_object_import.js",
+      "sha256": "b121c9cb10128c76e92a0a6823b54ea01b1ccd8eafc6f2d6b7374f7b675a1703"
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "sha256": "e677635bdcc51344821c1e453a888af96e79166b29bfdd902913f274dfac0cab"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "0c30cc4fce23ae711fbec97aeee65bd5301262b3c47fe901cae84182c3a91155"
+    },
+    {
+      "path": "analysis/material-object-runtime-held-out.json",
+      "sha256": "1a7d8a80ad22fa4b92b726bfd91eebd628d3594cd6fb966b654488710d74a32e"
+    },
+    {
+      "path": "analysis/material-object-held-out-cases.json",
+      "sha256": "721a628a2c95b751d9a0c187e49223f0fd752dda0fb93bd06eef0273ab98c5e2"
+    },
+    {
+      "path": "analysis/material-object-held-out-input-freeze.json",
+      "sha256": "e1e2597f1a34313af832fabc5f71e8e53d6d09bfe9f1076702c15a9600b1c79e"
+    },
+    {
+      "path": "analysis/material-object-held-out-comparison.json",
+      "sha256": "c3a6288671f7d8db582cfe683c10c8d4a38e03deb39ea7c330c5497cb9106e40"
+    },
+    {
+      "path": "analysis/material-object-held-out-comparator-error.json",
+      "sha256": "ea70e368c047fe53e000c775f988a1d6b51509d5ea128d1d17e29a1f0f705d94"
+    },
+    {
+      "path": "analysis/material-object-held-out-transport-response.json",
+      "sha256": "4839c5cd9bac2a8cb5dca7b5f09a3026bcac08b5ee1704a9db7d3e5d4100025b"
+    },
+    {
+      "path": "analysis/oracle/material-object-held-out-transport-evidence.json",
+      "sha256": "a99f1d76d9c4696c174e2de24cac1542bd8f42b46b8bdbe123f6a8fa0b939766"
+    },
+    {
+      "path": "analysis/material-object-held-out-observations.json",
+      "sha256": "b21a35548d8196ecfdf304898b9c556a6533feca717cd6cd3fb9574461013911"
+    },
+    {
+      "path": "tools/verify_material_object_observations.py",
+      "sha256": "0790ffad9c9296fcaacc5b65051984cd45ae51d9526ddf8fe06f3a92a7e72332"
+    },
+    {
+      "path": "analysis/material-object-test-registration.json",
+      "sha256": "4f8d8360082269d0f975045e47b8833b2c51df64b5cd9e25ffa942ffa431c777"
+    }
+  ],
+  "totals": {
+    "imports": 31,
+    "tokens": 101,
+    "handlers": 98,
+    "token_material_reader_calls": 250,
+    "geometry_row_calls": 57,
+    "segment_scalar_calls": 30,
+    "final_descriptor_snapshots": 2915,
+    "temporary_copy_lifetimes": 14,
+    "independent_tamper_rejections": 64,
+    "ctests_passed": 33
+  }
+}

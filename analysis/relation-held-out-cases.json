@@ -1,0 +1,631 @@
+{
+  "schema_version": 1,
+  "status": "ready_for_bounded_native_capture_independent_static_review_complete",
+  "created_utc": "2026-10-20T23:47:41.547956+00:00",
+  "purpose": "Independently authored relationheld-out cases from retainedstaticcontracts, without consulting replacementsource/output or nativecapture results.",
+  "cases": [
+    {
+      "path": "tests/fixtures/relations/held_out/01_extreme_pair_gate_off.KEY",
+      "sha256": "9adc6c2d2144341b2b48aaf97d0d08ac9a292f28e89fa5f51fc3298887d1df36",
+      "bytes": 45,
+      "hypothesis": "No-objectprefix with representable signedextreme/base0orderedkeys and negative mode.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/02_extreme_reverse_pair.KEY",
+      "sha256": "d4f7ae4f1c2a835ae614787f4a3dfa50c203a396df3347b64fd3d8c5a8d1bb5b",
+      "bytes": 32,
+      "hypothesis": "Reverseextremepair has separateidentity and insertionposition.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/03_zero_pair_third.KEY",
+      "sha256": "379b4ef24f395f58bed6767f49e775ec72988ca6defa7d392f1ad026378087e2",
+      "bytes": 15,
+      "hypothesis": "Octalzero/negativezero keys normalize to exact(0,0), third boundedrecord.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/04_disable_two_stale.KEY",
+      "sha256": "f4a97c4ff79afcd905271f94ccf7b9d9bcb0ced99093e3e92fba3e144b1c2db0",
+      "bytes": 64,
+      "hypothesis": "Two disables leave cachedcounter3 despite onlyzero-pair active.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/05_hex_mode_recount.KEY",
+      "sha256": "48ff5cf85a07202f344a8668bccef171827e48f7094e2a9c19613d697ccdb1e8",
+      "bytes": 17,
+      "hypothesis": "Base0 mode2 recounts1; no positive-key restriction.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/06_signed_material_gate.KEY",
+      "sha256": "074ab2982a33e0d4b2413a14936d97a90e56f63c8d1ce3a66ae2990f86273e03",
+      "bytes": 35,
+      "hypothesis": "Signed/zero materials supply coveredgate graph without linking pair IDs to materialexistence.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/07_gate_refresh_no_objects.KEY",
+      "sha256": "6f5e3636e2b60b4a1cd65888052607c134375b5184561ac986b15974df99b4a3",
+      "bytes": 15,
+      "hypothesis": "Duplicateenable activates positivewidth1 beforeobjectcreation.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/08_spatial_two_element_mesh.KEY",
+      "sha256": "04691eee8b785e7d5df45d6483e12cdcbb9224910dccd2a6b57299217ddd9d86",
+      "bytes": 94,
+      "hypothesis": "Two tetrahedra after width1 established.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/09_negative_row_seeds.KEY",
+      "sha256": "3acce4ad024c446dcdfecf192834a8fe820f5c9e3d50fde6691c222f8cceed7b",
+      "bytes": 52,
+      "hypothesis": "Distinct signed two-rowseeds including negativezero forflatprefix comparison.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/10_enable_first_grow.KEY",
+      "sha256": "5b9d81a25c148e031b425d48f0ccc9c4023c41ef596452b19cee72caac27a81c",
+      "bytes": 32,
+      "hypothesis": "Width1to2 prefixgrowth when firstinsertionrecord reenabled.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/11_distinct_width_two.KEY",
+      "sha256": "c1ebf3a63cdf8a68a2d526aac70bff7cce41b575e5200558a6a5e6513408e4b9",
+      "bytes": 71,
+      "hypothesis": "Nonzero four-item buffers before nextgrowth.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/12_enable_second_grow.KEY",
+      "sha256": "64c5a25ee26ef23b6875b8296be85f4d0865428533a32ef5ca73406cb7283434",
+      "bytes": 32,
+      "hypothesis": "Width2to3 prefixgrowth with positive mode3.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/13_distinct_width_three.KEY",
+      "sha256": "f57b48deaa97e557a7a91ef77145b01c829062eaa8d5b3680659d5c51ce82790",
+      "bytes": 88,
+      "hypothesis": "All sixphysical positions distinct, including one negativezero.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/14_disable_then_shrink.KEY",
+      "sha256": "484eb8d3ccd710fe1dc739c759fc44ef918a85e3aa919d85b78568d4f505217f",
+      "bytes": 64,
+      "hypothesis": "Disable then duplicateenable giveswidth2 flatfirst4, not relationsemantic orrowwise remap.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/15_refresh_does_not_recount.KEY",
+      "sha256": "a44682c7af3becc080d2b63ad5fa9a7bfa14661680f26b879244741881b3d26f",
+      "bytes": 72,
+      "hypothesis": "ExplicitSTNOUT refresh uses stale cachedcounter2 despite no active relations; it doesnotrecount itself.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/16_gate_off_zero_matching.KEY",
+      "sha256": "5919f259676d90070667a750ad0e5dca6854e823debb3c061f759325f52e4935",
+      "bytes": 74,
+      "hypothesis": "Gateoff shrinksfieldstozero; definedmode matchingfailure storeszero withoutrecount.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/17_gate_off_positive_recount.KEY",
+      "sha256": "5b9d81a25c148e031b425d48f0ccc9c4023c41ef596452b19cee72caac27a81c",
+      "bytes": 32,
+      "hypothesis": "Counter1 canremain independentofzero gatedwidths.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/18_gate_restore_explicit_refresh.KEY",
+      "sha256": "5bb8b156fe71072870af6d51fd7f922c91d244f8650286e78bab011454d2dda3",
+      "bytes": 40,
+      "hypothesis": "Restoregate thenSTNOUT exposes existingcounter1 without PHASTFenable.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/19_blank_field_then_explicit_rows.KEY",
+      "sha256": "0f6f9bb2c7b50811360c1b2ce5ac8d59bc87fc16a3183d639f1686ea3acc29e2",
+      "bytes": 42,
+      "hypothesis": "BlankTICFheader fails withoutdatawrite; DVOLF explicitwidth2 consumesout-of-range row3 and copiesfirstcolumn ofrow2.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/20_existing_pair_payload_eof.KEY",
+      "sha256": "4692604430026c3d63383ec3af04ded2745ac5c860c8e867c59d7b9c873719bc",
+      "bytes": 29,
+      "hypothesis": "Bothkeyconversions complete thenpayloadEOF, existingrecord retained andcounterstale.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/21_planar_reset_no_objects.KEY",
+      "sha256": "6e3e366dd719bbce603c26eeeef69d6ce0602d7589d42b882ddc813ace8d6f42",
+      "bytes": 71,
+      "hypothesis": "Resetdestroysoldrecords before newgate/reversepairprefix withnoobjects.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/22_planar_mesh_and_values.KEY",
+      "sha256": "3ae62a88d4c00c746d7c9b2fb27439cfe8cb37f909cf91ac9c85ea1ccb59fd52",
+      "bytes": 154,
+      "hypothesis": "Twoquadmesh withpositivewidth2 physicalseeds.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/23_comma_disable_stale.KEY",
+      "sha256": "c8724abb7bbc028e8989fd8037b12e25869f27e7d36b429eb3e3184f4c07ecdc",
+      "bytes": 55,
+      "hypothesis": "Modefgets commanormalization yieldszero andignorestrailinginteger; stale cached2 survivesrefresh.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/24_minimum_mode_reenable.KEY",
+      "sha256": "49e94e990677fcb65ceb1c89fc770f248b10940863fb27855d2048a8de13553d",
+      "bytes": 24,
+      "hypothesis": "Representable minimumsignedmode is nonzero, setsactive1 andrecountswidth1.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/25_inactive_refresh.KEY",
+      "sha256": "35982b96b0e38fe82d250262ef1e426a36a7f5cf37efd84883f5dcd6c2621c7e",
+      "bytes": 29,
+      "hypothesis": "Type7 object is skipped byoption0refresh while rootcounter/widthgrow2.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/26_reactivate_and_seed.KEY",
+      "sha256": "7d20305a9074792ebbe8ab066f93de4f128bbae7f0a629e7da1730ccc4aedd61",
+      "bytes": 154,
+      "hypothesis": "Reactivated replacementmeshallocations usecurrentwidth2, then distinctbuffersseeded.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/27_new_pair_blank_payload.KEY",
+      "sha256": "13824b3d8cb3fd77262f628789a91b388d4f6b40a9176e0a5c77ad66000cfba7",
+      "bytes": 11,
+      "hypothesis": "Thirdrecordcreated beforeblankmodefailure; initializedinactivefields/listcountgrow withoutcounterchange.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/28_third_reenable_growth.KEY",
+      "sha256": "3c7f45e0f8a42699da1744c1181a7ad629445eb4c94933c21036989d6c2de98f",
+      "bytes": 13,
+      "hypothesis": "Previouslyblank thirdrecord enablegrowswidth3 preserving four-itemprefix.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/29_shrink_then_partial_header.KEY",
+      "sha256": "5a6f0edcc57bac959d7c582a6a87cba3d7129e34ac31b6832e317e6578982187",
+      "bytes": 36,
+      "hypothesis": "Recountshrinksto2; partialmode1fieldheaderdeclaresrow butphysicalEOF beforefirstID returnsfailure withoutundefinedmatchingread.",
+      "expected_output": null,
+      "split": "held_out"
+    },
+    {
+      "path": "tests/fixtures/relations/held_out/30_final_spatial_reset.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12,
+      "hypothesis": "Finalresetclearsrelationlist/counter andmaterialgateobjects.",
+      "expected_output": null,
+      "split": "held_out"
+    }
+  ],
+  "ordered_imports": [
+    "01_extreme_pair_gate_off.KEY",
+    "02_extreme_reverse_pair.KEY",
+    "03_zero_pair_third.KEY",
+    "04_disable_two_stale.KEY",
+    "05_hex_mode_recount.KEY",
+    "06_signed_material_gate.KEY",
+    "07_gate_refresh_no_objects.KEY",
+    "08_spatial_two_element_mesh.KEY",
+    "09_negative_row_seeds.KEY",
+    "10_enable_first_grow.KEY",
+    "11_distinct_width_two.KEY",
+    "12_enable_second_grow.KEY",
+    "13_distinct_width_three.KEY",
+    "14_disable_then_shrink.KEY",
+    "15_refresh_does_not_recount.KEY",
+    "16_gate_off_zero_matching.KEY",
+    "17_gate_off_positive_recount.KEY",
+    "18_gate_restore_explicit_refresh.KEY",
+    "19_blank_field_then_explicit_rows.KEY",
+    "20_existing_pair_payload_eof.KEY",
+    "21_planar_reset_no_objects.KEY",
+    "22_planar_mesh_and_values.KEY",
+    "23_comma_disable_stale.KEY",
+    "24_minimum_mode_reenable.KEY",
+    "25_inactive_refresh.KEY",
+    "26_reactivate_and_seed.KEY",
+    "27_new_pair_blank_payload.KEY",
+    "28_third_reenable_growth.KEY",
+    "29_shrink_then_partial_header.KEY",
+    "30_final_spatial_reset.KEY"
+  ],
+  "probe": {
+    "path": "tools/observe_relation_import.js",
+    "sha256": "9f104ad8e011ea6bb3f7b1cd5da992ecd4c3c04f13fb0cbddebd584f511c4774",
+    "evidence_id": null
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/volume-width-0x1401d6450.json",
+      "sha256": "3b69c1b17b3338435cddaa13ca9033ed6e04dcff0dc513aa34952b31436a3c37",
+      "evidence_id": "ev_843fd5a8aea9418f1ec6ddcda80e46f556c2bdb7b29150598320eb04e1789595"
+    },
+    {
+      "path": "analysis/volume-width-0x140383120.json",
+      "sha256": "5a03783d70b579a1939d5dd264cd63faf7e27494997bebdead71809f434f712c",
+      "evidence_id": "ev_6513c088ecb9ec49bb29c4cd07545192e2daca1fb8c486b32b13450a3418c2e4"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d7390.json",
+      "sha256": "af0190e171b2286fa298b8224caaa8c47e79ffa8262fa7b8dbee4e57cf378c17",
+      "evidence_id": "ev_5619e95446b4aa3c43b1e7b714191e12cfb86e289b63a8cdf61cf54878b0bdaf"
+    },
+    {
+      "path": "analysis/volume-width-0x140339fe0.json",
+      "sha256": "d0aa5d06b6d463f06ca09dff9a5af213ff2c3d718471357c39b6db6eb82775b6",
+      "evidence_id": "ev_55a5178ee4982ad642e9bb82b28cadbb67d177eca06c90b474da391cf9e978c0"
+    },
+    {
+      "path": "analysis/volume-width-0x1401b05f0.json",
+      "sha256": "2baca50068a8b08c2f0406af879ab89abaae7e910550060a2a7a0716fd848304",
+      "evidence_id": "ev_5af5599fecacf00613214a10cf53a12672c910ade65a130a245ee7c356d96826"
+    },
+    {
+      "path": "analysis/volume-width-0x140339df0.json",
+      "sha256": "cb641b21c0003c4fb794612d3acaf06f5a1762438ceef2e3b1d670c6bc88e367",
+      "evidence_id": "ev_62a05604cea7544ce05a7aad4cb1299a75999b78275f2da5981ab49285c662de"
+    },
+    {
+      "path": "analysis/volume-width-0x14033a040.json",
+      "sha256": "4efcfd0c837c2e56a8d0d11bded2c83d5d3446b4df60771f86b4d6de2e646bd7",
+      "evidence_id": "ev_5c0d3ff196a81a082cfc10b6c74e7a0172e6fe7006520196b9d0d26dfe660ff9"
+    },
+    {
+      "path": "analysis/volume-width-0x140339cd0.json",
+      "sha256": "cf4e4eba9be9e10d405b54cfdc5dcb339f0c463fbef89c92a2e91d131ad9f586",
+      "evidence_id": "ev_2a3a2948e555874d91f6a379290029b3dac47f98e394d33a77dabb4b1d27bcd7"
+    },
+    {
+      "path": "analysis/volume-width-0x14033a120.json",
+      "sha256": "1f049421907e5dba5b41db819096bf6785d6c6875675ba7f7561ec4469d3a865",
+      "evidence_id": "ev_4c5feeca49efb8b7749ff43fc70d8fdafecb066c4172c5a8161b1422b84145b7"
+    },
+    {
+      "path": "analysis/volume-width-0x140339c90.json",
+      "sha256": "8b4045b1d55b6a6c1510e3af8a764d8d804a08551abbd831da2239f085434537",
+      "evidence_id": "ev_0a4af90c163c58b67929cb1043b19165d39e92883f0d22758a20bc72d8842b7c"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d8320.json",
+      "sha256": "7d9e82de5148530e13b7331a3d342f9162c79ac2bcb9fc100719c00af2113c2e",
+      "evidence_id": "ev_ffae93f938b9fd77e615cb38a46ecc87d3fa7845fe5dc2089d2ce8eb1210edd1"
+    },
+    {
+      "path": "analysis/volume-width-0x140333f60.json",
+      "sha256": "64fe723a9b840b083c380df6a55f2e523f7f5b8d22c22b14e9587bece92350d1",
+      "evidence_id": "ev_943aa5c905fc4b6cefda2b83ffb19435d67c9154fa5c125582197e1754769422"
+    },
+    {
+      "path": "analysis/volume-width-0x14033a990.json",
+      "sha256": "1ef669ecb582079c066dffea95235b68b56a715f4cd1515a29fafea98e2d94f1",
+      "evidence_id": "ev_30272402595c69463f702fad7029707d2a9499a81027ba826c7ccce391623442"
+    },
+    {
+      "path": "analysis/volume-width-0x140334490.json",
+      "sha256": "bf660cb7fa2640e9cbc7da67447ce02d74536c643a2fd7136377fa35b6b11873",
+      "evidence_id": "ev_faae2fd20177613714f0ca547441071fb0fc5f11838f8956171265d3f1c24a55"
+    },
+    {
+      "path": "analysis/volume-width-0x14019da6c.json",
+      "sha256": "e35664aab141d8c4cfa6ffa267db319909601fba13b34ea466e99c6ade661db7",
+      "evidence_id": "ev_20e3e58e7d30d60defa915c9e8f7997cbe70c12e0b40a19a0cf7d97f97967d7f"
+    },
+    {
+      "path": "analysis/volume-width-0x1401effc0.json",
+      "sha256": "4af1dad5e80401987170e32e5e61c6790c775d8599728f9ef264ff5cc2c0babd",
+      "evidence_id": "ev_c8deb9c7acfe50e5dfea1ee9d1d87a6d6a1166745ca811fe5e52cbb27afe8cbe"
+    },
+    {
+      "path": "analysis/volume-width-0x1401cf4a0.json",
+      "sha256": "545d71ed5e3e7eb47d7cb2772332acdee7f93ef3446568142a04db182dc27043",
+      "evidence_id": "ev_062d7ae83fe8af7bda419aad5087e9c6c012b89c804345950cc99fb54469da99"
+    },
+    {
+      "path": "analysis/volume-width-0x1403a13c0.json",
+      "sha256": "63aca4c71b806dc613d4f5182cbe1b7ee1fd382520f59fb79019bbd584f5d76f",
+      "evidence_id": "ev_168e4c332122412a7b36e6cdbd0b010c1fe06508ac6bc39496d903ddfdf71c0c"
+    },
+    {
+      "path": "analysis/volume-width-search-13f4.json",
+      "sha256": "bdc49a7bb607feb67d28f04e7e2b3aa7f8be3074688a75e088b2333705fa50b7",
+      "evidence_id": "ev_b9f6838d90a6652f172d8703dfbcf4831bce02b834a27cd244d8f6acbae716c0"
+    },
+    {
+      "path": "analysis/model-0x1401c8950.json",
+      "sha256": "69fab00a99e7bd8d2cabd3d2b2e8fe0cd64c6c3e29ec2a4c72f33d0e94aa8e02",
+      "evidence_id": "ev_e2c12d13e5450214150903948694981ec5d0d4fb6ffcc5567e0e609068f3967d"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/custom-field-0x1401c8c00.json",
+      "sha256": "90725c99feba73728f6893d644d72ce8f727bc0569db86468311b150c0d9c3b3",
+      "evidence_id": "ev_575c7fa796fcf10fb998f0612c06110e16a5e1573b0c3acf65b4b03a92884738"
+    },
+    {
+      "path": "analysis/material-import-0x1401cb440.json",
+      "sha256": "82a6860f75180a5f541bbc66692269c309a6d464c7fe8fe47c8d0afdcd121e16",
+      "evidence_id": "ev_f4de621586db9104ce6082024ffff50ce681b1f5bfae4c5f2a200f59c6cadae1"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf",
+      "evidence_id": "ev_d57d0d56722651d21c5770e910854bfcb471bf40c332fe736e5ed2f3c591ec8e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d09c0.json",
+      "sha256": "de1b0e50ccd3575f04a8f37f07d607370fc30a95c4c2c3d642e5603a675c1181",
+      "evidence_id": "ev_77968f14dcb6435fff0e9d95a018214f389629fbb600ce664abc73f959fb230f"
+    },
+    {
+      "path": "analysis/volume-fraction-width-static-contract.json",
+      "sha256": "53af0b938fcd34f9875e98215aacb2c8b20397f631ce4eb59a0c10de179a991e"
+    },
+    {
+      "path": "analysis/mesh-field-static-contract.json",
+      "sha256": "cbf2a681bb4869a1b542fa91954a1c77d20b39e9389dc5dc83438df6d9564d77",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-reference-model-contract.json",
+      "sha256": "796c2614ca557e2e63603540eadb191d825ccab7bf05a69a96db55b07a5cb106"
+    },
+    {
+      "path": "analysis/relation-import-byte-audit.json",
+      "sha256": "56560e988ae97b59f17973ae8a854d370a0cf45809f3df61b1a54b8de6f11c74"
+    },
+    {
+      "path": "analysis/relation-import-383120-instructions.json",
+      "sha256": "b9d40a1f297d942efea9271a0b5e3a9053cfc280e52fbd226502fca110397d79",
+      "evidence_id": "ev_afc6f72f92ed32344f084521438e845e34995b774b930fba016f3dfe4cfb55af"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f",
+      "evidence_id": "ev_dd14a08f618ea92599ee067ee52c77920b12b87ef68522e734ab03d476c14ab9"
+    },
+    {
+      "path": "analysis/custom-field-0x140199650.json",
+      "sha256": "414734535d00b5664dc58fce14145672807a146331c8087187ef97291108709f",
+      "evidence_id": "ev_33952114149b5870c5bc1afe1464ab1904ba599b3f0ed5869c579dd028aa52e8"
+    },
+    {
+      "path": "analysis/root-layout-0x140183770.json",
+      "sha256": "7b694aa7bd447234d6e3d0722d053da232d0cad6ad6846a80e0c56aaabb45cec",
+      "evidence_id": "ev_0c4a4da0f9a0da3de0ac8cd81267f1dd970676d4c06ad491c3081f9008bb5925"
+    },
+    {
+      "path": "analysis/root-layout-0x140160f10.json",
+      "sha256": "6b38b04649b191a55a24a3f90848d8bdbb3e96a877777602b72d219ad097ac26",
+      "evidence_id": "ev_5b60a0909cb78f784ddb69b9a85884ef32905064787bbda31c1380c6d8dfcd25"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140329e60.json",
+      "sha256": "18168ce654986c4ec906e50a478fb71db4da24877752a7a0b636724d0ec3fd11",
+      "evidence_id": "ev_ce854fb47478a043433f91758a658590bd628115d09dbc18c51d7e2654c17f92"
+    },
+    {
+      "path": "analysis/mesh-0x140301690.json",
+      "sha256": "7f2ae15ad5454cc154b664d3574b752d87bfcae9d579e11f880daeafcd240267",
+      "evidence_id": "ev_0bc484cedfa54487bbd164d7ebf2aeeba2b4a2052b48fef9e72c8f0a03e75daf"
+    },
+    {
+      "path": "analysis/custom-field-0x140301380.json",
+      "sha256": "df9645c5e1584053294c10e6b2eae21d1b4bbaafa813d4e14d89f09f4d8ac4d5",
+      "evidence_id": "ev_81f3abc35f36afb05c46f37cf0b0ef59dc2c5e6c96a70660780dc355e4ee4d51"
+    },
+    {
+      "path": "analysis/custom-field-0x14019a740.json",
+      "sha256": "69278a6f1740941c292175650235fe5fc3b5827b2e553a29ee8f55196b1058c1",
+      "evidence_id": "ev_36087e7b8003bcfaa777e33d43964620d0d521226b6f8571983e6897c78f9f08"
+    },
+    {
+      "path": "analysis/geometry-import-0x14019ade0.json",
+      "sha256": "5b628ab4b47b54e8e16637d58b971f57a0f8c79201908523b3f439491a0b5a41",
+      "evidence_id": "ev_1756111025eedf9a063cfee2ee921425984fc3903f42df72f50d5b8539915194"
+    },
+    {
+      "path": "analysis/geometry-import-0x14019b6f0.json",
+      "sha256": "501a50f574504814736de40f57da639c64ef3f0b0df50f9c7b0666357e31b3a1",
+      "evidence_id": "ev_6c806568403bc9fa85898e341db5e369c7b575536f5318dcc70e6bec39550e83"
+    },
+    {
+      "path": "analysis/mesh-refresh-0x14019bd10.json",
+      "sha256": "89ced9782bcdf877de6067666f2cb61dcbd0b13cbc8c61fde7560f188a8e4f3e",
+      "evidence_id": "ev_816c209af67b9dc672ff944134d6e74fe1796c93aff5174064086087a4429093"
+    },
+    {
+      "path": "analysis/material-object-0x1400051a0.json",
+      "sha256": "a440a50d094572c8750e1e698911c1fb18a42c09f379acb384a00bf2a300d968",
+      "evidence_id": "ev_445075a06c29e171f8b23018b9eb3c337d0402dc57e055e4365a2ffce0024f18"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401613a0.json",
+      "sha256": "8921fe4e0a6b09e9c37991984d5da975d0bb83eb3c3d5b1db9680ab7f64906a5",
+      "evidence_id": "ev_2917643009755cc73f22c787e56ef285edce5e8667688614b6cbed23072cb6ff"
+    },
+    {
+      "path": "analysis/material-object-0x140183900.json",
+      "sha256": "62f9a01ab948f40381759b23d6130385429d87aa50199451e66b6c5115cfaf44",
+      "evidence_id": "ev_8dc433f9a6eff4000d76890eda010ec7a9d5145f9af187c98a1ce7ba23a06ed9"
+    },
+    {
+      "path": "analysis/material-object-0x140329ef0.json",
+      "sha256": "c6f3e440fb5c8833b85ed86691f6bff43f11c2a3fa1beff4f24cdb8cade7b620",
+      "evidence_id": "ev_b5e3093800d39369258112e944ab858465768aee4a10ab7cabe1e0bb52576a09"
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/mesh-state-variable-vtables.json",
+      "sha256": "d75b49d526c0bdbd2bf401f9e22cd7c063b0e6ca454f1a7e19c2e4dc8564d9ff",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/relation-import-0x14012d050.json",
+      "sha256": "203cff8021292c0902989416d8472b97d4f36beb43e399e3c8f1c1f1d2eb3f94",
+      "evidence_id": "ev_d96f6fb8a792c1716ab12b1ee41e7177137ff43b677700d0151c5912b8cbd7b7"
+    },
+    {
+      "path": "analysis/configuration-0x14012d2a0.json",
+      "sha256": "3f9748aacea2b6df1d83cc34f5bdd68c0ce469b5e476f0e0d03db94cedbca943",
+      "evidence_id": "ev_3ff9cf1ffae6a3f6c6d3766d3eea9d2976727c994c2497bb6c269026f034378c"
+    },
+    {
+      "path": "analysis/configuration-0x14012fad0.json",
+      "sha256": "f1b05259d7f3bfc6f74e88c649ec6984c65fa8d28ed6d5bc9cc6acaa47e4cbc8",
+      "evidence_id": "ev_153672bedc826ca51d564dc5f034efb23f7630f259f28b5871dfdbf2598d6dee"
+    },
+    {
+      "path": "analysis/configuration-0x14012fc00.json",
+      "sha256": "39eecd47a32e62592aab61d4f34c0a1e1fdc7b8a365551c67514dd5c7a10808f",
+      "evidence_id": "ev_8c3e720a7fefca0a04a64b07d6b10aed03bbfa93c53cc4f47a226ad5a3b4c25a"
+    },
+    {
+      "path": "analysis/configuration-0x14012ff20.json",
+      "sha256": "5fcdaa7c5648248493dc6756b6db2fa56bf88fb89b21e0578d8fe861f65eed80",
+      "evidence_id": "ev_2b30705ee91c992a00a26de63f942ae043180bd56ce360e5becfbcd32f3d1dd0"
+    },
+    {
+      "path": "analysis/configuration-0x14012f480.json",
+      "sha256": "9a9fb6b32aa86f074d4e5ac56bf30dbfa51df80e4f995e86ee71555b8ff7ae85",
+      "evidence_id": "ev_2f99be66d40810a8814de1e7660ea38642e89bfba153467f4314e2d8d04fc463"
+    },
+    {
+      "path": "analysis/relation-import-static-contract.json",
+      "sha256": "67166ea827c447bd8628074f0deac8deede498b6bcedb8d1376ebf978e325b9c"
+    }
+  ],
+  "handler_scope": {
+    "category1": [
+      34
+    ],
+    "category2": [
+      145,
+      159,
+      173,
+      206,
+      207
+    ],
+    "category4": [
+      92,
+      116
+    ],
+    "category5": [
+      134
+    ]
+  },
+  "bounds": {
+    "imports": 30,
+    "objects": 1,
+    "materials": 2,
+    "relation_records": 3,
+    "active_relation_count": 3,
+    "nodes": 6,
+    "elements": 2,
+    "component51_52_width": 3,
+    "physical_items_per_selected_descriptor": 6,
+    "explicit_input_width": 3,
+    "declared_rows": 2
+  },
+  "predeclared_coverage": [
+    "No-objectprefix with representable signedextreme/base0orderedkeys and negative mode.",
+    "Reverseextremepair has separateidentity and insertionposition.",
+    "Octalzero/negativezero keys normalize to exact(0,0), third boundedrecord.",
+    "Two disables leave cachedcounter3 despite onlyzero-pair active.",
+    "Base0 mode2 recounts1; no positive-key restriction.",
+    "Signed/zero materials supply coveredgate graph without linking pair IDs to materialexistence.",
+    "Duplicateenable activates positivewidth1 beforeobjectcreation.",
+    "Two tetrahedra after width1 established.",
+    "Distinct signed two-rowseeds including negativezero forflatprefix comparison.",
+    "Width1to2 prefixgrowth when firstinsertionrecord reenabled.",
+    "Nonzero four-item buffers before nextgrowth.",
+    "Width2to3 prefixgrowth with positive mode3.",
+    "All sixphysical positions distinct, including one negativezero.",
+    "Disable then duplicateenable giveswidth2 flatfirst4, not relationsemantic orrowwise remap.",
+    "ExplicitSTNOUT refresh uses stale cachedcounter2 despite no active relations; it doesnotrecount itself.",
+    "Gateoff shrinksfieldstozero; definedmode matchingfailure storeszero withoutrecount.",
+    "Counter1 canremain independentofzero gatedwidths.",
+    "Restoregate thenSTNOUT exposes existingcounter1 without PHASTFenable.",
+    "BlankTICFheader fails withoutdatawrite; DVOLF explicitwidth2 consumesout-of-range row3 and copiesfirstcolumn ofrow2.",
+    "Bothkeyconversions complete thenpayloadEOF, existingrecord retained andcounterstale.",
+    "Resetdestroysoldrecords before newgate/reversepairprefix withnoobjects.",
+    "Twoquadmesh withpositivewidth2 physicalseeds.",
+    "Modefgets commanormalization yieldszero andignorestrailinginteger; stale cached2 survivesrefresh.",
+    "Representable minimumsignedmode is nonzero, setsactive1 andrecountswidth1.",
+    "Type7 object is skipped byoption0refresh while rootcounter/widthgrow2.",
+    "Reactivated replacementmeshallocations usecurrentwidth2, then distinctbuffersseeded.",
+    "Thirdrecordcreated beforeblankmodefailure; initializedinactivefields/listcountgrow withoutcounterchange.",
+    "Previouslyblank thirdrecord enablegrowswidth3 preserving four-itemprefix.",
+    "Recountshrinksto2; partialmode1fieldheaderdeclaresrow butphysicalEOF beforefirstID returnsfailure withoutundefinedmatchingread.",
+    "Finalresetclearsrelationlist/counter andmaterialgateobjects."
+  ],
+  "declared_gaps": [
+    "Scientificcategory5 tables beyond initializedselectedrecordfields are not claimed.",
+    "No incomplete/uninitialized pairselectors, first uninitialized rowmatchingfailure, negativeextents/OOM/overflow.",
+    "No generalrelationcopy/deserializationorpositive root85c controlproducer."
+  ],
+  "startup_preconditions": {
+    "material_gate_0x85c": 0,
+    "validation": "Observe primary and linked native roots; do not seed or infer the gate from the later cached relation count."
+  }
+}

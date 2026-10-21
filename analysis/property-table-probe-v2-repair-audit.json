@@ -1,0 +1,191 @@
+{
+  "status": "PASS_repaired_probe_bounded_training_capture_ready",
+  "supersedes_readiness": {
+    "path": "analysis/property-table-precapture-audit.json",
+    "sha256": "dec734f8ec2450d05727d023192e5852aebc7cc2bfbadb14826d82d348356c09"
+  },
+  "correction": "The prior readiness conclusion is withdrawn. It checked instruction alignment but missed four incoming branches at 41abc8. The historical audit is preserved unchanged. This is a probe audit error, not a candidate behavior discrepancy.",
+  "native_observation_status": "Faulty-probe launch failed before process creation (PID null); no native observations or compatibility claims are based on it.",
+  "repair": "41abc8 emits temporary-free only with an existing per-thread temporary frame. Rank0/rank1 and out-of-selected-rank bypass paths have no temporary and do not emit this event.",
+  "reachability_review": [
+    "41ab19 is reached after the temporary allocator; rank0/1 branch around it. Allocation precedes all staged scans, including zero-count staging.",
+    "41abab follows staged memcpy only. Scan EOF branches to function exit and cannot reach commit/free. Successful zero-count staging still reaches memcpy/free.",
+    "41abc8 additionally receives direct branches 41a89d,41a8b1,41a93c,41aa33; the new guard distinguishes these paths without reading a nonexistent temporary.",
+    "Header scan/reset/data continuations are immediately after their calls, have no direct branch predecessors or selected jump-table targets, and retain frame-presence guards.",
+    "All thirteen wrapper continuations and COARSE flag continuation have only the audited call fallthrough within the inspected dispatcher. Header EOF bypasses data and reset, and wrapper completion cleans its still-active header frame."
+  ],
+  "scope": "Bounded new property hooks only; existing unrelated hooks are not re-audited. This is static capture readiness, not runtime equivalence or proof that every possible indirect branch is absent.",
+  "continuations": [
+    {
+      "continuation": "0x14041ab19",
+      "preceding_call": "0x14041ab14",
+      "call_bytes": "e8f3cc0500",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x14041abab",
+      "preceding_call": "0x14041aba6",
+      "call_bytes": "e8c5070600",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x14041abc8",
+      "preceding_call": "0x14041abc3",
+      "call_bytes": "e840ed0500",
+      "direct_incoming_branches": [
+        {
+          "address": "0x14041a89d",
+          "bytes": "0f8e25030000",
+          "mnemonic": "jle"
+        },
+        {
+          "address": "0x14041a8b1",
+          "bytes": "e912030000",
+          "mnemonic": "jmp"
+        },
+        {
+          "address": "0x14041a93c",
+          "bytes": "e987020000",
+          "mnemonic": "jmp"
+        },
+        {
+          "address": "0x14041aa33",
+          "bytes": "e990010000",
+          "mnemonic": "jmp"
+        }
+      ]
+    },
+    {
+      "continuation": "0x14041b34f",
+      "preceding_call": "0x14041b34a",
+      "call_bytes": "e805100600",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x14041b379",
+      "preceding_call": "0x14041b374",
+      "call_bytes": "e8f748d1ff",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x14041b651",
+      "preceding_call": "0x14041b64c",
+      "call_bytes": "e8aff1ffff",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385b7a",
+      "preceding_call": "0x140385b75",
+      "call_bytes": "e866e20800",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385a46",
+      "preceding_call": "0x140385a41",
+      "call_bytes": "e82a580900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385a71",
+      "preceding_call": "0x140385a6c",
+      "call_bytes": "e8ff570900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385aa8",
+      "preceding_call": "0x140385aa3",
+      "call_bytes": "e8c8570900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385ad3",
+      "preceding_call": "0x140385ace",
+      "call_bytes": "e89d570900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385b13",
+      "preceding_call": "0x140385b0e",
+      "call_bytes": "e85d570900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385d15",
+      "preceding_call": "0x140385d10",
+      "call_bytes": "e85b550900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140388614",
+      "preceding_call": "0x14038860f",
+      "call_bytes": "e85c2c0900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x14038863f",
+      "preceding_call": "0x14038863a",
+      "call_bytes": "e8312c0900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140388687",
+      "preceding_call": "0x140388682",
+      "call_bytes": "e8e92b0900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385b52",
+      "preceding_call": "0x140385b4d",
+      "call_bytes": "e81e570900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140385bae",
+      "preceding_call": "0x140385ba9",
+      "call_bytes": "e8c2560900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140388c66",
+      "preceding_call": "0x140388c61",
+      "call_bytes": "e80a260900",
+      "direct_incoming_branches": []
+    },
+    {
+      "continuation": "0x140388cbc",
+      "preceding_call": "0x140388cb7",
+      "call_bytes": "e8b4250900",
+      "direct_incoming_branches": []
+    }
+  ],
+  "bindings": [
+    {
+      "path": "C:/Users/alext/Projects/codex-deform-rea/analysis/audit_property_table_probe_repair.py",
+      "sha256": "f368e4b870b4faecdb608f0bbc807abd0c64a92e302f76b25d517b030962e32f"
+    },
+    {
+      "path": "source/DEF_PRE_64.exe",
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    },
+    {
+      "path": "analysis/property-table-byte-audit.json",
+      "sha256": "dbe5bb52e5cd6a082081529cefd0ce3e11891a58ebf0634ea843da17b47f28a0"
+    },
+    {
+      "path": "analysis/property-table-static-contract.json",
+      "sha256": "c3e7abf7b579494510c49cea6bb8bf323c44cf2f6dc150263dae810a3ff49906"
+    },
+    {
+      "path": "tools/observe_property_table_import.js",
+      "sha256": "d53cd5d2d7697aa15bee572eedbce432e9d268f627e2e5dad7640ada003fe603"
+    },
+    {
+      "path": "analysis/property-table-readers-dumpbin.txt",
+      "sha256": "e1b0e19fb633144e97898103bb5e4709e50e4a52627ce43174cd770e5d0b63a0"
+    },
+    {
+      "path": "analysis/property-table-material-dispatch-dumpbin.txt",
+      "sha256": "e2fe458cc4060362e40462208c96a2cb6a61e1caf7265e185bd3bd80b38ae8e0"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "invalid_v1_capture_preserved_probe_repair_pending_audit",
+  "capture": {
+    "path": "analysis/relation-property-runtime-training.json",
+    "sha256": "1d493145d67a81cc242ed0813e7d7fcfa29fb7db67436d672b43b074cee05e4a",
+    "evidence_id": "ev_2282e6853525bbeec039aa31e1d538cd04b5cf499fa569ed10a4e9590ceb6258"
+  },
+  "original_probe": {
+    "path": "analysis/oracle/relation-property-probe-v1-before-reset-repair.js",
+    "sha256": "d280d44e8e7c81c368b4080e46ee68c9eafffa338cd1e568f52d4405c1331c63"
+  },
+  "corrected_probe": {
+    "path": "tools/observe_relation_property_import.js",
+    "sha256": "81f29cfa92c517a7848847be2a6c3467f1442dc572ab5bcdb0105c2f7119ec89"
+  },
+  "observed_errors": [
+    {
+      "sequence": 174,
+      "file": "03_tttd_model_1.KEY",
+      "reset_type": 45
+    },
+    {
+      "sequence": 220,
+      "file": "04_tttd_model_2.KEY",
+      "reset_type": 46
+    },
+    {
+      "sequence": 266,
+      "file": "05_tttd_model_3.KEY",
+      "reset_type": 47
+    },
+    {
+      "sequence": 1073,
+      "file": "28_rank_three_dependent_eof.KEY",
+      "reset_type": 46
+    }
+  ],
+  "evidence_limit": "The four errors follow reset-before events and lack reset-after. V1 did not log the firing hook address. The exact Frida mechanism is not established, and no candidate discrepancy is inferred.",
+  "native_control_flow": "Returns383402,383436 and383467 jump directly to383498, also the fourth reset return. This shared point precedes caller writes of width/coefficients/auxiliary fields. Unknown model reaches it without a reset frame.",
+  "repair": "Remove the first three reset continuation hooks. At383498 require a pending reset whose original completion is one of the four proven returns; preserve that completion_rva and add observation_rva. Other reset continuations remain exact. Before-events now record completion_rva for diagnosis.",
+  "scope": "Only observer reset completion bookkeeping changed. Candidate, fixture bytes, prior manifests/freezes/capture remain unchanged.",
+  "source_bindings": [
+    {
+      "path": "analysis/relation-property-byte-audit.json",
+      "sha256": "1083307ba03cc58f0292feb782825dfb4d33cdf5b58ce6cc4f532cf974788af4"
+    },
+    {
+      "path": "analysis/relation-property-static-contract.json",
+      "sha256": "5897f7ea9cdf3195467f3d29f7b3014e9f1dfd947b5aa719ccf7d8ef633cf753"
+    },
+    {
+      "path": "analysis/relation-property-input-freeze.json",
+      "sha256": "bcd73c0511eb75ff66103db188f20762e46f4e82b56b80d6577db7d0be84bc2c"
+    }
+  ]
+}

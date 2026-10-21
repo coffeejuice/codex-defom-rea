@@ -1,0 +1,28 @@
+{
+  "status": "original_only_verifier_assumptions_corrected_no_candidate_changes",
+  "bindings": [
+    {
+      "path": "analysis/dynamic-field-runtime-training.json",
+      "sha256": "846a1e4dd519a2e65b5636158ed6da36fb4b7cdeec0bd5bbd356e633e5b28fbf"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf"
+    },
+    {
+      "path": "analysis/material-reference-0x1404199a0.json",
+      "sha256": "7d91e748f40496c14778ea2db058bb3ed127f807b1bd7c72d6ff39599bde848b"
+    }
+  ],
+  "issues": [
+    {
+      "initial_assumption": "Userfieldrefresh only changes selectedwidth andMATAXI46.",
+      "source_correction": "Refresh1d0320 also copiesselectedzero root11c4/12b4/123c into34/35/63, whereasinitialconstructor leaves1. This is an established constructor-versus-refresh difference."
+    },
+    {
+      "initial_assumption": "All observedNDTMP-time calloc temporaries mustfree.",
+      "source_correction": "4199a0 scalarEOF returns1before free(local28). Trainingcase21 allocationserial192,returnRVA4199f0,16bytes isobservedunfreed rowbuffer;parentpairedtemp isfreed. Verifier requires exactreturnsite/enclosingfailedimplicitreader/scalarEOF and reportsnativeleaks explicitly.",
+      "compatibility_limit": "C++RAII neednot reproduce nativeheapleak; values/status/cursors andpersistentstate remaincomparisoncontract."
+    }
+  ]
+}

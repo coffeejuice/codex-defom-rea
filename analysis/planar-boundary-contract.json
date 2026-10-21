@@ -1,0 +1,58 @@
+{
+  "status": "implemented_internal_component_with_bounded_runtime_verification",
+  "reference_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": [
+    "analysis/keyword-parser.json",
+    "analysis/keyword-object-contract.json",
+    "analysis/mesh-0x1401fc290.json",
+    "analysis/mesh-0x14032d65e.json",
+    "analysis/mesh-0x14032da62.json",
+    "analysis/mesh-0x14017ebc0.json"
+  ],
+  "implementation": ["src/recovered/planar_boundary.hpp", "src/recovered/planar_boundary.cpp"],
+  "entry_chain": ["0x1401fc290", "0x14032d65e", "0x14032da62"],
+  "keyword_setup": {
+    "header": "* DEFORM-2D V11.0 KEYWORD FILE",
+    "dimension_selection": "The parser recognizes DEFORM-2D in a header comment, sets primary dimension to 2 and the linked root to 3.",
+    "coordinate_rows": "RZ header supplies object ID and count; each row has label, x and y.",
+    "connectivity_rows": "ELMCON header supplies object ID and element count; each row has label and four node slots. A triangle repeats its first node in the fourth slot."
+  },
+  "algorithm": [
+    "Generate directed successive edges in element and slot order, including fourth-to-first except when first and fourth node IDs coincide.",
+    "For each non-cleared edge, find the first later reversed edge. Clear that edge's first node and omit the current edge. Same-direction edges do not cancel.",
+    "Compact survivors in place without sorting.",
+    "Start a chain at each still-unused surviving edge in order. Append its starting node, then consume edges and append their endpoints.",
+    "Search each next link from the outer starting-edge index plus one. Choose the first unused edge whose start equals the current endpoint. This can revisit earlier positions relative to the previously selected edge.",
+    "Record inclusive one-based start/end ranges in the node stream. Append zero after each chain, then replace the final zero with -1.",
+    "When no boundary survives, ranges is empty and the node stream is [-1]."
+  ],
+  "object_consumer": {
+    "group_limit": 100,
+    "group_base": "object+0xbe0+0x30*index",
+    "node_count": "group+0",
+    "node_pointer": "group+8",
+    "copy": "Node slices described by the raw ranges, excluding separators.",
+    "total_at_object_0x88c": "Sum of each copied group node count minus one.",
+    "qualification": "The raw builder component returns all ranges. The original consumer's 100-group clamp is statically recovered but not exercised by these fixtures."
+  },
+  "verification": {
+    "fixture_manifest": "analysis/planar-boundary-evaluation-cases.json",
+    "freeze": "analysis/planar-candidate-freeze.json",
+    "comparison": "analysis/planar-boundary-comparison.json",
+    "provenance": "analysis/planar-observations.json",
+    "original_processes": 2,
+    "cases": 12,
+    "training": 6,
+    "held_out": 6,
+    "candidate_changed_during_evaluation": false,
+    "exact_fields": ["range pairs", "complete node stream", "separator/terminator values", "ordered object groups", "total boundary edge count"],
+    "case_families": ["quad", "closed triangle", "adjacent quads", "disconnected loops", "same/opposite-direction duplicate quads", "ring with hole"],
+    "qualification": "Cases were independently prepared by another agent in this project; this is not an externally certified or exhaustive evaluation."
+  },
+  "limitations": [
+    "Nonpositive IDs and excessive sizes are rejected outside the implemented compatibility domain.",
+    "Allocation failure, malformed chains and large object-group truncation remain untested.",
+    "Observed chains are retained in original order; the implementation does not impose a geometric canonicalization or infer closedness.",
+    "Full object lifecycle, dependent-state integration and keyword import are not implemented by this component."
+  ]
+}

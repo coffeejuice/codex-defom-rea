@@ -1,0 +1,28 @@
+{
+  "status": "implemented_and_compared_in_initial_alternate_geometry_capture",
+  "procedure": "0x140415990",
+  "evidence_id": "ev_741a68f7400a690b0e4d5401ba82939f190ae33fdd951f5c31db21378ca8f0f0",
+  "source": {
+    "path": "analysis/geometry-format-0x140415990.json",
+    "sha256": "3d7ab776fa0abbd58b2c19a870bf66571dd43c10e0bcc4d1567d28a42017bf6f"
+  },
+  "implementation": "KeywordReader::MatrixRowRead and matrix_row(), replay protocol matrix4",
+  "contract": {
+    "destinations": "One signed32 label and four binary64 values, all initialized to zero before fgets.",
+    "line": "One fgets at capacity1024; commas before first NUL become spaces. No blank-line retry.",
+    "scan": "Legacy %i %Flf %Flf %Flf %Flf; preserve successful partial assignments and zero remaining destinations.",
+    "status": "1 for fgets-null or scan-count -1; 0 for all other scan counts including zero.",
+    "stream": "Consumes the entire bounded line independently of the number of successful conversions.",
+    "matrix_commit": "Caller399e60 uses four rows in a temporary16-value matrix and commits only after all row statuses0. Earlier clear/empty-segment creation is not rolled back on row failure."
+  },
+  "validation": {
+    "capture": "analysis/geometry-segments-runtime-training.json",
+    "comparison": "analysis/geometry-segments-training-comparison.json",
+    "observed_matrix_row_calls": 22
+  },
+  "limitations": [
+    "Reader destinations are independent; aliased discarded-prefix outputs belong to coordinates3, not matrix_row.",
+    "Legacy decimal lexer and bounded finite numeric domain are shared with previously recovered readers. Overflow, nonfinite numbers, embedded NUL and changing locale remain outside compatibility claim.",
+    "Static pseudocode is recovered binary evidence, not original source."
+  ]
+}

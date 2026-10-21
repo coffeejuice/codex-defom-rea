@@ -1,0 +1,23 @@
+{
+  "created_utc": "2026-10-20T23:03:09.019192+00:00",
+  "capture": "analysis/custom-field-runtime-training.json",
+  "issues": [
+    {
+      "kind": "provenance schema projection",
+      "detail": "The manifest probe binding includes evidence_id:null. The new verifier initially compared this object literally to path/SHA binding. It now checks path/SHA exactly and removes only the informational null evidence ID for the unchanged prior provenance validator."
+    },
+    {
+      "kind": "invalid native capture",
+      "detail": "Original-only audit rejects v1 for 71 probe errors before any custom behavior validation. Positive-row 4199a0 return frames are absent. No compatibility PASS report generated."
+    },
+    {
+      "kind": "verifier local variable shadowing",
+      "detail": "First v2 semantic pass reached a typed DYNARY row, then lookup-store comparison used the overwritten row endpoint variable. A dedicated lookup_store local fixed this KeyError; no native behavior expectation changed."
+    },
+    {
+      "kind": "run provenance selection",
+      "detail": "Default run record now selects successful v2c PID4084. Earlier v2 gate_timeout and v2b process_error are preserved and fail provenance."
+    }
+  ],
+  "candidate_modified": false
+}

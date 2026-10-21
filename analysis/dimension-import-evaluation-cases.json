@@ -1,0 +1,48 @@
+{
+  "purpose": "Dimension-import integration sequence declared before its original capture. Expected dimensions/generations are scenario expectations, while captured arrays are the numerical oracle. The geometry uses previously exercised cube/quad shapes; this is new integration coverage, not wholly unseen geometry.",
+  "candidate_freeze": "analysis/dimension-import-candidate-freeze.json",
+  "cases": [
+    {
+      "path": "tests/fixtures/dimension_import/01_spatial_mesh.KEY",
+      "sha256": "f4b20087f5a3716b8370c82ca0e88ae9b41008f9cb8149f6b2a2496cc0f68a92",
+      "expected_dimension": 3,
+      "expected_generation": 0,
+      "purpose": "initial spatial mesh"
+    },
+    {
+      "path": "tests/fixtures/dimension_import/02_same_spatial.KEY",
+      "sha256": "c0facb97603ef5286dd2429263a80bbd4690a8d906376828b33e83ce9ca32a0e",
+      "expected_dimension": 3,
+      "expected_generation": 0,
+      "purpose": "same dimension preserves mesh"
+    },
+    {
+      "path": "tests/fixtures/dimension_import/03_planar_mesh.KEY",
+      "sha256": "7d978241da28354bc5f4da2b0b11f3b43dd7cd73decdf96e36d2288412947a5d",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "purpose": "switch clears spatial mesh then loads planar mesh"
+    },
+    {
+      "path": "tests/fixtures/dimension_import/04_same_planar.KEY",
+      "sha256": "4cdffcd6a8226df23bc327f62729e374b4198a9dd2cb35f87eebe3aea67fb354",
+      "expected_dimension": 2,
+      "expected_generation": 1,
+      "purpose": "same dimension preserves planar mesh"
+    },
+    {
+      "path": "tests/fixtures/dimension_import/05_spatial_reset.KEY",
+      "sha256": "591be7dd1bfb56a283c2946f066d6b16489fe3abb20ee80fba8b88eea9a8e7c4",
+      "expected_dimension": 3,
+      "expected_generation": 2,
+      "purpose": "switch clears planar mesh"
+    },
+    {
+      "path": "tests/fixtures/dimension_import/06_late_header.KEY",
+      "sha256": "5f20d86e656d5c2b245dfabbfb3de455446239dbd8f070be0d6597f5284d4e9b",
+      "expected_dimension": 2,
+      "expected_generation": 3,
+      "purpose": "late first recognized header clears preheader objects; second header ignored"
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "status": "source_backed_selected_contract_runtime_pending",
+  "created_utc": "2026-10-20T23:23:12.028493+00:00",
+  "scope": "Four reachable keyword paths: SIZEMD127, TXTURE128, SIZESH210 and TXTODF211. Root13f4 relation producer is a separate contract; these use components54/55, not51/52.",
+  "material_properties": {
+    "constructor": {
+      "size_mode_0x2150": 0,
+      "texture_0x2154": [
+        0,
+        1,
+        1
+      ],
+      "evidence": "28c6f0 calls28c500 at2154;28cdc0 writes int[854]=0.28c500 initializes0,1,1;28c540 destructor is empty."
+    },
+    "selection": "Category4 shared selector fscanf %i; only -1 fails. Exact signed ID29c2c0; missing ID appends default material, storesID/root1320, refreshes1d0fc0(root,1) BEFORE reading property, then restores list mode. Zero conversions use uninitialized selector and remain excluded.",
+    "SIZEMD": {
+      "id": 127,
+      "category": 4,
+      "case": 35,
+      "entry": "0x140388b2d",
+      "reader": "413de0(FILE,material+2150,skip_empty=0)",
+      "behavior": "Reader zeros destination, single1024 fgets, comma normalization, base0 %i. Zero/partial conversion stores zero/value; failure also leaves zero. Helper1 maps handler2, otherwise0. No post-property refresh."
+    },
+    "TXTURE": {
+      "id": 128,
+      "category": 4,
+      "case": 36,
+      "entry": "0x140388b55",
+      "reader": "413fb0(FILE,material+2154,material+2158,material+215c,conversion_count_pointer=NULL)",
+      "behavior": "All three ints zeroed before one1024 fgets; comma normalized; %i %i %i. Partial/zero matching returns0 with zero tail; EOF/-1 returns1 and handler2. No post-property refresh."
+    },
+    "refresh_order": "Existing material property edits leave live component table and allocated object arrays unchanged until another proved global refresh. New material creation refreshes using constructor defaults before its property value is parsed. Finalization1d7f40 does not regenerate component layout."
+  },
+  "queries": {
+    "54": {
+      "helper": "1d6c60",
+      "formula": "Sum contribution of every material in positional list order, independently of reference mode/graph.",
+      "mapping": {
+        "1": 1,
+        "2": 4,
+        "3": 3,
+        "4": 2,
+        "5": 4,
+        "6": 1
+      },
+      "other_mode_contribution": 0,
+      "field": "material2150"
+    },
+    "55": {
+      "helper": "1d6b30\u219229b300\u219228c5a0",
+      "formula": "For each material: if1cc8==0 use own texture contribution; otherwise iterate logical1ccc IDs in1cd0 and add each found exact-ID material texture contribution. No recursive substitution or deduplication; missing IDs contribute zero.",
+      "mapping": {
+        "first_1_or_2_second_1": {
+          "third1": 10,
+          "third2": 76,
+          "third3": 600,
+          "third4": 4784
+        },
+        "first_3_second_1": {
+          "third1": 7,
+          "third2": 50,
+          "third3": 388,
+          "third4": 3080
+        }
+      },
+      "other": "First0 returns0. Unsupported second/third returns0. Other first values print TEXTURE_DATA countNumODFs error and return0."
+    },
+    "feature_wrapper": "1d64f0 query54/55 returnsfalse for sum<1 without writing optional output; positive sum writes optional output and returnstrue. Layout initializes outputlocal0 before query and stores54/55 as positive sum or0."
+  },
+  "consumers": {
+    "210": {
+      "name": "SIZESH",
+      "component": 54,
+      "root_width": "0x16d0",
+      "slot": "object+0xa80",
+      "getter": "1845b0",
+      "saved_width": "element_container+0xfc = object+0xadc",
+      "call": "0x14039354a",
+      "return": "0x14039354f"
+    },
+    "211": {
+      "name": "TXTODF",
+      "component": 55,
+      "root_width": "0x16d4",
+      "slot": "object+0xa88",
+      "getter": "184640",
+      "saved_width": "element_container+0x100 = object+0xae0",
+      "call": "0x14039359b",
+      "return": "0x1403935a0"
+    },
+    "shared_abi": "417c80(FILE, selected_object, component_ID, object.header_element_count_884, root_width_pointer, 4). Shared object selector and creation precede this call. No dimension-specific branch inside these case bodies."
+  },
+  "reader417c80": {
+    "initialization": "Snapshots old width; zeroes declared rows, selector, requested width and ten-double default local array. Single fgets1024; no comma replacement.",
+    "header_format": "%i %i %i %Flf",
+    "header_fields": [
+      "declared_rows",
+      "selector",
+      "requested_width",
+      "default"
+    ],
+    "failure_order": [
+      "fgetsNULL returns1 before width mutation.",
+      "requested_width<=0 returns1 before width mutation, regardless conversions.",
+      "Positive requested width stored to root_width immediately.",
+      "For components54/55, selector0 proceeds; selector1 or any other nonzero selector returns1 after root width mutation and before selected allocation/default/rows.",
+      "Selector0 calls183840 then selected getter. Fourth conversion present fills all header_element_count*requested_width values with default; without fourth conversion resized/preserved data remain.",
+      "Calls419b90 with FILE,destination,declared_rows,header_element_count,*root_width,requested_width. For these paths both widths are the same positive integer.",
+      "Helper status maps handler0/2; partial array writes and root width remain on failure."
+    ],
+    "explicit_rows": "419b90 allocates zeroed scratch of explicit width, scans rowID%i then every scalar%Flf. Only -1 aborts. First rowID matching failure is undefined; later matching failure reuses initialized prior rowID/scalars. Commit only after a whole row read and only1<=ID<=rowcount. Early EOF preserves prior/default rows and skips scratch free. Normal completion frees scratch, returns0 and performs NO trailing fgets; count<=0 still allocates/frees scratch but consumes no row payload.",
+    "nested_call": "0x140418897",
+    "nested_return": "0x14041889c",
+    "nonselected_branches": "Selector1 supports only components35/63, not54/55. Full generic helper behavior for other IDs is retained in dossier but not implemented by this slice."
+  },
+  "storage": {
+    "setter183840": "If stored element allocation count+e8>0, requested argument>=0 and root+f0 nonnull:329e60 iterates descriptor collection and dispatches virtual selected allocation using stored count and live root table. Then component54 stores root16d0 to+fc, or55 stores root16d4 to+100. Passed requestedwidth is only a nonnegative guard; actual width comes from root table.",
+    "getters": "1845b0/184640 retrieve root table through182980, then1836c0(stored_count,table,stored_arity,selectedID). Positive count triggers a second selected allocation; nonpositive count skips it. Getter returns slot+a0/+a8. If rootnonnull,1d48d0 property guard runs; in established profile1d2b70 constanttrue makes cleanup a no-op.",
+    "descriptor": "Existing recovered StateVariable allocation updates count/width previous/current history on each matching call and preserves linear physical prefix with zero growth. Both setter and getter calls must be represented; same-size allocation is not permission to skip history stores. Multiplicity remains1.",
+    "saved_width_lifecycle": "Constructor182880\u21921829c0 and objectreset15f0b0\u21921829c0 initializefc/100=0. Free/deactivate182a50, global preserving183770, replacement1836c0 and copy183900 do not write these fields. They persist through deactivation/global refresh; selected183840 updates only under its guard.",
+    "zero_count": "With zero stored allocation count, setter/getter leave descriptor storage and saved width unchanged; root width may still change. Header/default/rows that would write beyond actual allocated extent are excluded from safe fixtures."
+  },
+  "safe_fixture_domain": [
+    "Finite small values; nonnegative counts; selected unit multiplicity; signed32 products/sums within range; no allocation failure or arbitrary COW aliases.",
+    "Use smallest nonzero texture contributions7/10 and bounded material/element counts.",
+    "For unknown selector, positive width changes root table but no selected array; capture physical descriptor extent independently.",
+    "To test omitted default, begin with a known initialized physical buffer. To test row matching failure, first initialize every reused row local.",
+    "No payload beyond physical capacity; zero-element tests use zero declared rows and avoid nonzero default loops."
+  ],
+  "remaining_limits": [
+    "No claim of full scientific material behavior, texture interpretation, higher native array sizes, OOM, borrowed pointers, or arbitrary invalid state.",
+    "Native signed32 multiplication/addition overflow must be rejected in the reconstruction rather than invoking C++ undefined behavior.",
+    "Relation-based51/52 positive width remains separately scoped in volume-fraction-width-static-contract."
+  ],
+  "source_bindings": [
+    {
+      "path": "source/DEF_PRE_64.exe",
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    },
+    {
+      "path": "analysis/material-shape-callsite-byte-audit.json",
+      "sha256": "3ad9d925fe8da3c63964e118a9f99a47e6f9c45d2b425c8802cc5c4ecef404ad"
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "analysis/material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/root-reset-0x1401d6c60.json",
+      "sha256": "d2a02009fb90154a68823a335d715954157c887ac572bdf6f7f12e997431ba1d",
+      "evidence_id": "ev_a4f1aa1a76ddce2a7d4a17d84a7fc65ae0d2b887b72af2f09df6bef7732161ce"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf",
+      "evidence_id": "ev_d57d0d56722651d21c5770e910854bfcb471bf40c332fe736e5ed2f3c591ec8e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d09c0.json",
+      "sha256": "de1b0e50ccd3575f04a8f37f07d607370fc30a95c4c2c3d642e5603a675c1181",
+      "evidence_id": "ev_77968f14dcb6435fff0e9d95a018214f389629fbb600ce664abc73f959fb230f"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140329e60.json",
+      "sha256": "18168ce654986c4ec906e50a478fb71db4da24877752a7a0b636724d0ec3fd11",
+      "evidence_id": "ev_ce854fb47478a043433f91758a658590bd628115d09dbc18c51d7e2654c17f92"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401836c0.json",
+      "sha256": "7d9e4a4c9df93979b065d182eb1e1a9c32a81c49e7afef8782ed0c34665ac92e",
+      "evidence_id": "ev_3891c0de0bd80902ce5b7537843f8af3088ca37dd381100623377af288d6d30c"
+    },
+    {
+      "path": "analysis/dynamic-field-0x140182980.json",
+      "sha256": "bf7057ffd280fa3c17b6fefb5d34f2a610880df99a90afc601069d63d132a5e2",
+      "evidence_id": "ev_032d46eb7688cd7c9508b5c5f9f4c22ec3b187275ad511e1857689700c765920"
+    },
+    {
+      "path": "analysis/dynamic-field-0x1401d48d0.json",
+      "sha256": "638a791477079a6995623bd56ae60521bbaab62d8b1b3bb1d23950b6f5cbbfab",
+      "evidence_id": "ev_0a6e6310fb89b19bf9955539cabc6260851120d91b392ddde20e4e96ae384b1b"
+    },
+    {
+      "path": "analysis/material-reference-0x140419b90.json",
+      "sha256": "6a08f5571d4af4c6249c27ad036db24f5e40b5bdd9feb2843298a979d01158ca",
+      "evidence_id": "ev_30af2cb46d162fb4fa0f33fce2015ed2255c4e61d331f8464df397cbc4ff158c"
+    },
+    {
+      "path": "analysis/material-reference-0x1404199a0.json",
+      "sha256": "7d91e748f40496c14778ea2db058bb3ed127f807b1bd7c72d6ff39599bde848b",
+      "evidence_id": "ev_6ff468f9099d81912b0402c2ceec8a600df6d7e8cff9ffd3d79020970e1f5424"
+    },
+    {
+      "path": "analysis/mesh-0x140182880.json",
+      "sha256": "f4b6566fc1b8a29b69f8ae29cbf026f215434d67de04bb2555fbc39e4264e40c",
+      "evidence_id": "ev_7c28f62eeed2725289ada6b13daac3caa74c615f69bdd39f3291e9eacebf5fc2"
+    },
+    {
+      "path": "analysis/mesh-field-dispatch-dumpbin.txt",
+      "sha256": "3ec94125693ed491598335353668649983474b555be85647e28405262c9b9704"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c500.json",
+      "sha256": "dc7a9820e218bda49e045c35ff6e229a214c7d9ca47d0c00dc3b2ef0f43a7595",
+      "evidence_id": "ev_edb988be7a6c1f069539688449d4fd5d993f0d0b49fb01bffba78532e425adcc"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c540.json",
+      "sha256": "51ec6100c826666a307b653160ea0763041b6d85baf3dcaa93e722b71c34ba7f",
+      "evidence_id": "ev_3fe3c3b07e835de9722be910fd658e55d640f31ad9f953257124e64d6cbc0e74"
+    },
+    {
+      "path": "analysis/volume-width-0x14028c5a0.json",
+      "sha256": "82fed73bc5ca0b3bbad197f3a566c2b2c34e0b5e8f9acf4ea7e9131148fd3d3e",
+      "evidence_id": "ev_bd7afe47df4b3fd0613383bf107f73ca22b4e4a12395adeb3af336e59e63367c"
+    },
+    {
+      "path": "analysis/volume-width-0x14029b300.json",
+      "sha256": "4ba505c1931c7267b95f49d0c3ab63a187d103786b66fca2e9dba3b310efb020",
+      "evidence_id": "ev_0a245261a7a3965ad7c1c3987fa95364c5f568335086cc07ea6a7cce2462c16a"
+    },
+    {
+      "path": "analysis/volume-width-0x1401d6b30.json",
+      "sha256": "070a72ad0b4596537c8dd05ae1f463c9990a9ca677fc906c59252de8737e6311",
+      "evidence_id": "ev_8c930fbb0f8c5a865b8c8271b54fc22c3f33b02be527c4fc8e3cee08dcfae771"
+    },
+    {
+      "path": "analysis/volume-width-0x140417c80.json",
+      "sha256": "9648dc34222d4d1911af7be0209c1d85fe010bbcd26fb0ebf64149d423bad58e",
+      "evidence_id": "ev_b4a879957c58a3dbc9a0676a467d8a92b943d9307cc05b2559ca8bbc309f95cf"
+    },
+    {
+      "path": "analysis/volume-width-0x140183840.json",
+      "sha256": "1de49f5dd63dfec615a268d56e9ef120cf23055e7a432362b3baf279105f47da",
+      "evidence_id": "ev_b93ec790fcbedb569943cb0afef710333a1d5c62298c4cd8ca2e28b42625be22"
+    },
+    {
+      "path": "analysis/volume-width-0x1401845b0.json",
+      "sha256": "915813b7d0a98bf7c2fe9f8bbe3ed936c2b5431b6f8af48d84ad59143369cd36",
+      "evidence_id": "ev_a7467f924c5f5574e1dc8aa16a26ef0a31af0d6312cfdc43e0dc12d050233c59"
+    },
+    {
+      "path": "analysis/volume-width-0x140184640.json",
+      "sha256": "39e93b617ac1ad2d4e55a88a4803cb9f22caf8c1db3186f12a45bd0769b90d6c",
+      "evidence_id": "ev_fab4ebed0a78ee515e158d97ae76fe87e04dc26454bacef98c8cd0948b2378a1"
+    },
+    {
+      "path": "analysis/volume-width-0x14019a410.json",
+      "sha256": "1487abc828767061c58e1effa4278bab152d5895ca37464e098d3fd2e192e796",
+      "evidence_id": "ev_0ce51f562bb149446926b0bd91c7259ecce7ea990c6056c9d0320007e9ffa3ca"
+    },
+    {
+      "path": "analysis/volume-width-0x14019a430.json",
+      "sha256": "c5ea318b93901f5509fd7d8c4bc736364308863079febd73e10087518c9aca68",
+      "evidence_id": "ev_9b162ec9abe4c980df530a43f00a4f9849915bbaaf4e79c63a71a6d0cb8017d0"
+    },
+    {
+      "path": "analysis/volume-width-0x1401829c0.json",
+      "sha256": "ae093aabdab9dd963345018bfcb5c3beb19a3ec8bc710a4476e6c236c905f61f",
+      "evidence_id": "ev_9a1262aa0807cb91e48bb7341c8f9a8ee859de5e72f944ead6a8de4aec63bcdc"
+    },
+    {
+      "path": "analysis/volume-width-0x140182a50.json",
+      "sha256": "684b5014fcf47e40c679ccc6e0348ff4cfb72c439df3c7b5b17f5107a11e2910",
+      "evidence_id": "ev_f402d7d68a248bb4278e845f1749c318e4bf9eb85722c43c92acf6c5c7564218"
+    },
+    {
+      "path": "analysis/volume-width-0x140183770.json",
+      "sha256": "174ceff55e98fe97d008004e959bd7e917b710c0ec940eb389e3aabe6a7dd28f",
+      "evidence_id": "ev_ef1f3ce0146f60fccbba6e6e27c812b861df95f814fcf03e159acfc91190781f"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x14039354a.json",
+      "sha256": "d796b42124d975fc39c1fa6c938d0be3ec89a3d34b963631b07274ef812cde77",
+      "evidence_id": "ev_372a393c59b6a9a31e7390865f05c640eb72e1d8881fec41de9384f29b27dcab"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x14039359b.json",
+      "sha256": "aef87286727f2a2adcfaf1f729e800fc932e7f0df028974098eab52e12ecff27",
+      "evidence_id": "ev_ebfcb97debf93af28602534382d67f1c5ce87ed2a299666f3d3e329eed438b11"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x140418897.json",
+      "sha256": "8253c3ee49328111ae7725bd674243190ea83a8f2c6a83187ae8a761c5d5d72a",
+      "evidence_id": "ev_c0887d926d42c4de8c14420e3a614f5b5efe40613f4279e4e39ff5a0948285f5"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x140388b2d.json",
+      "sha256": "6e686623778db9f6e837ce0f0d87abcd79e86a7dea94f862323f2aa800e72e02",
+      "evidence_id": "ev_7ed088d3ecc6d0a63488983e872c216ea2c13cdec738e3ad9ac10115b4782ae3"
+    },
+    {
+      "path": "analysis/volume-width-bytes-0x140417db4.json",
+      "sha256": "38f1f0a97009c7008593f8c4e5668910556bf41a282b13a2048ee367bcaf0510",
+      "evidence_id": "ev_231974eb8963d6cf1c9fb48515044e68bed6ac27a7d0a96579406b363123a664"
+    }
+  ]
+}

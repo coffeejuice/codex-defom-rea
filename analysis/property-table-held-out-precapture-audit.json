@@ -1,0 +1,165 @@
+{
+  "status": "PASS_bounded_held_out_static_capture_ready",
+  "cases": 32,
+  "fixture_bytes": 1352,
+  "bindings": [
+    {
+      "path": "analysis\\property-table-held-out-cases.json",
+      "sha256": "0fdd0b1cfa4d2e5df12790185d9abe406256a53672933fa98d2bbcb927de6dea"
+    },
+    {
+      "path": "tools/observe_property_table_import.js",
+      "sha256": "d53cd5d2d7697aa15bee572eedbce432e9d268f627e2e5dad7640ada003fe603"
+    },
+    {
+      "path": "analysis/property-table-probe-v2-repair-audit.json",
+      "sha256": "8ae3880b83e2f2c526b509ad148523308e5ee40db76543d59db5bc4bb92e988b"
+    },
+    {
+      "path": "analysis/property-table-static-contract.json",
+      "sha256": "c3e7abf7b579494510c49cea6bb8bf323c44cf2f6dc150263dae810a3ff49906"
+    }
+  ],
+  "review": [
+    "All32 source files read independently; rank<=2, width1, each axis<=3, dependent<=4; one object4nodes1tet, at most2materials.",
+    "All scanf material selectors assign defined signed32 values, including INT_MIN. Header partial and matching failures use initialized destinations.",
+    "Rank2 EOF during axes or staging cannot trigger uninitialized scratch memcpy. No rank2 staged matching-failure cases.",
+    "Zero-product cases retain defined axes and do not discard trailing keywords; positive-product same-line keyword is intentionally discarded.",
+    "HEATCP EOF preserves table but clears auxiliary integer through initialized local0; COARSE EOF/blank preserve existing bounded table according status/order.",
+    "Repaired common continuation guard covers rank0/rank1 bypass and rank2 zero-product temporary lifetime; all physical payloads fit probe bound16."
+  ],
+  "limitations": [
+    "Static safety/readiness only; no original or replacement outputs consulted.",
+    "Out-of-range counts, OOM, cache/borrowed storage, staged matching failures and higher ranks are excluded."
+  ],
+  "fixture_bindings": [
+    {
+      "path": "tests/fixtures/property_tables/held_out/01_planar_all_scalar_fields.KEY",
+      "sha256": "7036f6a3f783cd96c32c5076ab7d6eb4707683a283ba343d16450d78273d9bf7"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/02_three_point_mode_two.KEY",
+      "sha256": "c6fa7506da2fea32cb6c416c66d2d3e0841fbdc56b783cd62e5910cf51864385"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/03_one_point_mode_three.KEY",
+      "sha256": "bb3210559b9785571de7f11733099cd016a964c787f2b23702a5492abe8f1c3d"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/04_expand_negative_zero_aux.KEY",
+      "sha256": "4a1a2f3310f6e9fb3364cdd176dabaa9474b8b4c65ceda33330a390ce053c868"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/05_heat_capacity_asymmetric.KEY",
+      "sha256": "5047ebae4701f156daf064d2a1772efe7cad464ee18469ca4703ab3eec321300"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/06_conductivity_three_by_one.KEY",
+      "sha256": "811722906b1342871518743318ffee4af126753f1ddda1deee8086e37cc56773"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/07_emissivity_mode_seven.KEY",
+      "sha256": "092f220dff9c04a04e1c820e6a47bac73913b73ad3b4390a45a9f20905832699"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/08_resistivity_mode_six.KEY",
+      "sha256": "43d85d3e48b41462a2ae87a30e316bc3e16b9ba2d689851c5df94bfc0f2cc804"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/09_permeability_asymmetric.KEY",
+      "sha256": "57e9ca69f1d2d3b300c313e8805581a7c1be108875b06188a2257c1c4000589f"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/10_permittivity_two_axes.KEY",
+      "sha256": "7557e97f98a43ea7d8717cfe6906ad74de1b23957b09b6fd861bb80372bef5c2"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/11_zero_count_no_discard.KEY",
+      "sha256": "03610dbf760681a181208afbe3e10597fc5cd714b4e5ca5a26ae1508b40a51f6"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/12_zero_first_axis.KEY",
+      "sha256": "3b03cfc7f984c4e4c09e334813815124a5ba3d93dc5b3fb2aa8a07f5dd751682"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/13_fractional_negative_count.KEY",
+      "sha256": "e3cff72d1342c6a1f3ea8564a5facd23f6cefc70c40c8f96a9221fbada77560c"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/14_negative_unknown_mode.KEY",
+      "sha256": "61f2cd4eb63307b3217e3a4ce236d080367932d2323d00f03479931e8aca8f1b"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/15_mode_six_ignores_aux.KEY",
+      "sha256": "db82a085785e565cb0a8aa3b0a47026d2fdf2c86aa66451f5d5cb2e7947b4871"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/16_mode_five_ignores_aux.KEY",
+      "sha256": "925908428ded380c333f84a18c0d8e0d03ac1cd833c3a0196c89b33e6cdf4c73"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/17_heat_capacity_negative_aux.KEY",
+      "sha256": "464f24881b01ec9e178f4cb27fefb1f839bdb66349d1e41e491c23a10bade778"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/18_heat_capacity_eof.KEY",
+      "sha256": "f2064d48ce6c463e6979dd35136a2f8b987af76a4b53955d53d0cf82c989d16c"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/19_permeability_axis_eof.KEY",
+      "sha256": "4548923366bd29c67303967661262d89e4c45ef4c9a89a8619e2c52c557eb73f"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/20_permeability_temporary_eof.KEY",
+      "sha256": "566191aec05fdd77bb05b10211eb5307d946600d5e2f3a1c599e72e4f5cc7cb4"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/21_complete_row_no_newline.KEY",
+      "sha256": "2b9cb9dfb362a9b217b3f3ccaec313311fbdff981b98437e6d544c52b437f9d6"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/22_trailing_keyword_discard.KEY",
+      "sha256": "041873046f26c15cf383cf711786623f58a5d9691759a3d620f23e1c5d38a1f5"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/23_zero_second_axis_no_discard.KEY",
+      "sha256": "6c43ec401d04bf07d27afa17990b1cc8905d88605499eb4f23c5e224492a7768"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/24_coarse_enable_eof.KEY",
+      "sha256": "45c64a358093f94206c7d087def8ee222ddd90f2dda06b533bcbbfa4c62e21f9"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/25_coarse_enabled_blank_table.KEY",
+      "sha256": "242e5788d2abeed64d71ab488b14f1b0f3f8491e1fae3122d250e0d41b83c93c"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/26_partial_selector_header.KEY",
+      "sha256": "aec0af84644a95e8155028dc510d001768820d1d8b9b060d18b6fd1aa4cb691e"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/27_partial_count_float.KEY",
+      "sha256": "d744adb3b3bbd24c8128be941c80f9cb2cbbae80f7fa622d96a1833a071c3c9d"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/28_matching_header_and_signed_zero.KEY",
+      "sha256": "abefcc3ea2e56031001d0787db5418b53163967ff4e66e83f27cf8a8dcc26828"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/29_spatial_reset_all_fields.KEY",
+      "sha256": "0053923ea7ac0ca6cae7f08bb6e502fad2989254757c0526651e1c068c50293f"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/30_populated_three_point_replacement.KEY",
+      "sha256": "0e48f4ccb98c9d8e9abbcb97f592dae60b453cce81779a10e226b01709fa18de"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/31_second_material_extreme_id.KEY",
+      "sha256": "bd7d46502161f67345bd4dbb19f2ad49918201ffd94240ad87f9e2bafe5fd6ec"
+    },
+    {
+      "path": "tests/fixtures/property_tables/held_out/32_planar_reset_fresh_tables.KEY",
+      "sha256": "52a8a7d2a6197fb5802bf655a70299c3c078bf2c76ef88f83231bfffa4b272ea"
+    }
+  ]
+}

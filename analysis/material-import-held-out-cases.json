@@ -1,0 +1,215 @@
+{
+  "status": "predeclared_before_original_capture",
+  "purpose": "Independent held-out name-only MTNAME numeric syntax, whitespace, capacity, failure timing and reset observations. Inputs were chosen without running or reading candidate outputs. Execute all24 files in order in one fresh process.",
+  "cases": [
+    {
+      "path": "tests/fixtures/material_import/held_out/01_zero_long_name.KEY",
+      "sha256": "f4dc77bbff827c635f1e7bb92e9ab2853c238135e2b54c49e6335037b8c4934a",
+      "bytes": 102,
+      "hypothesis": "Does numeric ID0 append one material, with an80-byte input name bounded to capacity65?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/02_negative_whitespace.KEY",
+      "sha256": "48af9186ea8b57c3263f3334c20daa19e85b19151b64052e3f69feaf99c49f31",
+      "bytes": 47,
+      "hypothesis": "Does negative ID-2 append without placeholders, preserving leading and terminal tabs while trimming spaces/CR?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/03_hex_no_newline.KEY",
+      "sha256": "4d5d4a544ea0ecfdee63e3837acf5229ec284d931bef6a010e66e7878414d6cb",
+      "bytes": 28,
+      "hypothesis": "Does hexadecimal ID16 accept a successful non-LF-terminated name read?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/04_octal_name63.KEY",
+      "sha256": "cb3b173a717be4a169e7507d857d52044cbca8bd13f5ce0feaead06a5c5ff68a",
+      "bytes": 75,
+      "hypothesis": "Does octal ID8 append as the fourth record and retain a63-byte name?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/05_signed_octal_name65.KEY",
+      "sha256": "dce9abf9ac7e8ceb5c5d8fa1d96cd862dd2103729f11456aabec55293b768bac",
+      "bytes": 78,
+      "hypothesis": "Does signed octal16 find the existing record and truncate65 input bytes without creation?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/06_negative_octal_tab.KEY",
+      "sha256": "66752ca7d048b0316e869f8f34e5b77d8ddf6846e8814514d381acd0e0ec9790",
+      "bytes": 13,
+      "hypothesis": "Does negative octal-2 reuse identity and preserve a name consisting only of a tab?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/07_first_name_eof.KEY",
+      "sha256": "73c196de35a742e4d60474533096a680739cdd66162fa65e3c7c4860ab8b4fec",
+      "bytes": 8,
+      "hypothesis": "Does EOF immediately after the selector fail the first name fgets and preserve the prior long name?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/08_second_name_eof.KEY",
+      "sha256": "254c1b7739910fe1b075392d08323fcd2b13c16520656f3c6e30ef0a4992dc9b",
+      "bytes": 9,
+      "hypothesis": "Does EOF on the second name fgets preserve the same existing record?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/09_blank_negative_name.KEY",
+      "sha256": "343e8941abf8bbebd9a30ddb8350ce68a539f5bdb103cfbad50483f7d80fe789",
+      "bytes": 11,
+      "hypothesis": "Does an actual blank line clear the existing negative-ID name?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/10_selector_whitespace_eof.KEY",
+      "sha256": "eaf482ddf4088f3e5d30563c94e8259ad103260fc199f9c27b47252fff3c7146",
+      "bytes": 10,
+      "hypothesis": "Does selector EOF after whitespace return before lookup/creation?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/11_same_dimension.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12,
+      "hypothesis": "Does the same-dimension header preserve four IDs in insertion order and their names?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/12_reset_max_int.KEY",
+      "sha256": "ef94d753215d76f37666fdf2151a523ea9a41eefdb746fd9ef033a1d231eb798",
+      "bytes": 44,
+      "hypothesis": "Does a dimension reset destroy old records before appending the largest signed32 numeric ID?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/13_minimum_int.KEY",
+      "sha256": "f80432edf8b72769d38a9083ce21e773c9090085ebb71fb37110bcf83d737225",
+      "bytes": 37,
+      "hypothesis": "Does the minimum signed32 decimal ID append without overflow or placeholders?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/14_signed_hex.KEY",
+      "sha256": "d019d2cc57970bc487176acb3b982d5d297723030cdb7e8ebcf6d8f29077000b",
+      "bytes": 16,
+      "hypothesis": "Does positive signed hexadecimal syntax append ID2 in insertion order?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/15_octal63.KEY",
+      "sha256": "2fa4390aff3a85fd4353fae8f92756b362130521b5b64c171257b66f386ab6ec",
+      "bytes": 23,
+      "hypothesis": "Does octal077 append decimal63 as the fourth record?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/16_max_hex_name64.KEY",
+      "sha256": "7d9af42b71ff36439fd9b803fd86da96db13bfffa602bb32db7ac57ff2dd560f",
+      "bytes": 85,
+      "hypothesis": "Does equivalent hexadecimal max-ID lookup preserve identity and store exactly64 bytes plus terminator with CRLF input?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/17_minimum_hex_trim.KEY",
+      "sha256": "69b16740a3c2ca66d096c8904bfb3d05a0fdd2a5d703cae413ac04de326615c3",
+      "bytes": 36,
+      "hypothesis": "Does equivalent negative hexadecimal minimum-ID lookup trim trailing spaces/CR while retaining the initial tab?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/18_blank_spaces.KEY",
+      "sha256": "5d25102257ebaafe69251e3e52f127e8433021556c127b4fdfd75d56ca7b5cae",
+      "bytes": 76,
+      "hypothesis": "Does a64-space name become empty, and signed octal+02 resolve the existing ID2?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/19_truncate_then_trim.KEY",
+      "sha256": "3b8d3dc766d8acec7791b0b531a8ce036f08c02fbf25456d8eeeaa242045e0f6",
+      "bytes": 92,
+      "hypothesis": "Is a trailing space at byte64 trimmed after truncation, excluding the later non-space suffix?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/20_second_reset.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12,
+      "hypothesis": "Does the second dimension reset destroy all four sparse/extreme IDs and realign the linked root?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/21_new_first_name_eof.KEY",
+      "sha256": "b502d6ee55040e304074025f53617478f5b0c08fe7981b716a7cebba7bd70344",
+      "bytes": 8,
+      "hypothesis": "Does a new record survive refresh followed by first-fgets EOF?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/22_new_second_name_eof.KEY",
+      "sha256": "9496f8f3d97bf7e064def598350f4c85631bee18d4d191b47513b73af75e9998",
+      "bytes": 9,
+      "hypothesis": "Does a second newly appended record survive second-fgets EOF?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/23_multiple_renames_crlf.KEY",
+      "sha256": "b17074ee654921e6aaaba24660cac979e3c2295f0ddb0a7167f5211d662f36e0",
+      "bytes": 50,
+      "hypothesis": "Does one import rename an existing failed-name record then append another ID, preserving independent handler results?",
+      "split": "held_out",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/material_import/held_out/24_final_name_no_newline.KEY",
+      "sha256": "29af90e8fabe18a62b78a32d642749133a278c81575d6c5ad785633299eb4ade",
+      "bytes": 40,
+      "hypothesis": "Does same-dimension import retain identity while a non-LF name trims CR/space but retains the terminal tab?",
+      "split": "held_out",
+      "expected_output": null
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_material_import.js",
+    "sha256": "ea75f2484738f55f9adc9b6742be372c1938105905d670eb57e427127ebe2fac"
+  },
+  "contract": {
+    "path": "analysis/material-import-next-contract.json",
+    "sha256": "76cb3d1013ab8b0bb29365c8eea1192dc2c0ffafeff3dc245f1a7c754d2a428c"
+  },
+  "bounds": {
+    "maximum_imports": 24,
+    "maximum_materials": 4,
+    "maximum_fixture_bytes": 102,
+    "objects": 0,
+    "reference_count": 0,
+    "maximum_stored_name_bytes": 64
+  },
+  "domain": "ASCII names, finite signed32 IDs including zero/negative/hex/octal; scanf matching failures and numeric overflow excluded. No material properties, objects, meshes or reference graphs."
+}

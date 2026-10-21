@@ -1,0 +1,39 @@
+{
+  "status": "PASS_passive_probe_repair_review",
+  "created_utc": "2026-10-20T23:05:03.138706+00:00",
+  "bindings": [
+    {
+      "path": "tools/observe_custom_field_import.js",
+      "sha256": "ada61e2564d2206f966c1b753be8be60dd6e4f9984875ee39fa4ebc2d4aeef2a"
+    },
+    {
+      "path": "analysis/custom-field-callsite-audit.json",
+      "sha256": "6fb8b5e3d7962c5e65d1740396edce96f592d18c8d833581ba444bd62df7dc2a"
+    },
+    {
+      "path": "analysis/custom-field-static-contract.json",
+      "sha256": "b5cce43adf8f1fd4f061e086fe0618adc1de47f083916da3b9c38113163f927e"
+    },
+    {
+      "path": "analysis/custom-field-runtime-training.json",
+      "sha256": "095f16aac2b5b4bfe8b8feec81e4ed7b570c2fc36939a9f1933fb52ccaa2bf7d"
+    },
+    {
+      "path": "analysis/custom-field-precapture-audit.json",
+      "sha256": "08e7d75d1f3cd9af1db6bc06834aed28fa2fd5f282d392976046e9e11cf553ff"
+    }
+  ],
+  "established_failure": "Training v1 has 71 probe errors. Thirteen positive-row helper invocations lack completion events; three zero-row invocations complete. The precise Frida onLeave omission mechanism is not asserted.",
+  "repair": [
+    "Preserve helper-entry argument and bounded physical snapshot capture. Keep invocation frames in a per-thread map.",
+    "Observe completion at native caller continuation 0x140397e46 for CUSVAR and 0x140397760 for DYNARY. Both begin MOV dword ptr [rsp+0x10c],EAX (8984240c010000), immediately after the byte-verified CALL to 0x1404199a0.",
+    "Read context RAX low32 before the native status store; emit unchanged row-return schema plus completion_rva. No native call, register write, or data mutation is introduced.",
+    "Pop both frame registries in finally; absent frame, wrong handler, nesting mismatch and a nonempty stack at handler return remain explicit probe errors.",
+    "All prior list, pointer, initialized physical range and scalar-format checks remain active."
+  ],
+  "limitations": [
+    "The repair still requires a fresh original capture with no probe errors and complete paired row events.",
+    "The failed v1 capture is not accepted as equivalence evidence.",
+    "Selected imports execute on one native thread; the global scalar-frame classifier is not claimed safe for concurrent imports."
+  ]
+}

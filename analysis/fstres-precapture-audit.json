@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "status": "READY_FOR_BOUNDED_PASSIVE_NATIVE_CAPTURE",
+  "scope": "CompleteFSTRES94 importfamily plus retainedGRNDAT108 regressions; fourcohorts independentlybounded. This is staticobserver/fixtureaudit, not nativeparity validation.",
+  "checks": [
+    {
+      "name": "Complete native callsite map and hook windows",
+      "result": "PASS",
+      "detail": "All36 probe pairs equal PE-audited helper/return RVAs. Return instructions MOV or CMP; no direct incoming edge into any five-byte patch window. Constructor/reset/data calls have distinct phase frames. No short-JMP return hook introduced."
+    },
+    {
+      "name": "Exact constructor/allocation scope",
+      "result": "PASS",
+      "detail": "288ae0 receives material+50; authorize only10 owned table addresses.12fad0 exactscope guard precedes metadata. Constructor snapshots only initialized FSTRES subset afterreturn, never unfinished material. Initialtype0 and typedallocations tracked; type51 deferredallocation is permitted."
+    },
+    {
+      "name": "Physical buffer bounds and lifecycle",
+      "result": "PASS",
+      "detail": "Observed capacities+matching pointer required for nonnull reads; cap32,rank<=3,metadata widths-4..16/counts-4..3. Logical derivedwidth changes do not resize observer reads.12f480 invalidates; a6physical1axis+2dependent and a7/a8physical1 retained evenwidth0/negative are accounted for."
+    },
+    {
+      "name": "Helper live/local pointer ABI",
+      "result": "PASS",
+      "detail": "All initialized int1/int3/real2/4/5/7 pointers copied; exactliveoffsets checked before reads. Mode10 lastpointer is required initializedlocal and recorded asreaderoutput, not persistentfield. No uninitialized prereads. Optionalint3conversionpointer null and int1flag0 checked."
+    },
+    {
+      "name": "Shared stream staging paths",
+      "result": "PASS",
+      "detail": "Direct41a800 frames excluded from genericwrapper/time-reader hooks. Active selector prefersproperphase; inherited41abc8 guard requiresactualtemp. Scalarreads onlyassigned values; mallocstaging snapshot masktracks assignments and permitsEOF withoutreadingunknownscratch."
+    },
+    {
+      "name": "Four independent fixture batches",
+      "result": "PASS",
+      "detail": "96 ASCII inputs,32+16 eachcohort. Eachbatchexplicitrootdimension. Manually traced all stream shapes and stagedEOF cases; everyrank2/3 successful dependentconversion assigned beforecommit. No uninitialized stagedmatching0. Maxaxiscount3,width6,dependent6,temp3,linkedcount3,sum6/product6; finitecheckedconversion and safe int32arithmetic. INT_MIN onlynegativeouter negation withnopayload."
+    },
+    {
+      "name": "Integration/default startup",
+      "result": "PASS",
+      "detail": "At most2materials/1meshobject perroot;4nodes1tet orquad. Only the source-bound material FSTRES constructor is tracked. Existing inactive/geometry/material-copy instrumentation unchanged; startupempty material lists and gate864zero remain nativeobserved preconditions. No targetcall/memorywrite injection added."
+    }
+  ],
+  "bindings": [
+    {
+      "path": "tools/observe_fstres_import.js",
+      "sha256": "3dd23830057e5685d4a9ffec3d90a8a07dc30d802f78a3e7a54d696fb9baea48"
+    },
+    {
+      "path": "analysis/fstres-static-contract.json",
+      "sha256": "535bc76c17275fd043f8fbce2be65b026e20cad5359245738de343803f40a4b1"
+    },
+    {
+      "path": "analysis/fstres-byte-audit.json",
+      "sha256": "ec0a250115349bcb8b7f31670de25145bb9341b2bc49b25a7ff36942348b9f74"
+    },
+    {
+      "path": "analysis/nested-material-precapture-audit.json",
+      "sha256": "a0d04552a5d51d0c78c197d3190df69b9ea8ad3d0b60450e7b144dba44c7228a"
+    },
+    {
+      "path": "analysis/property-table-probe-v3-scope-audit.json",
+      "sha256": "af03588d735e81c3bcd9dbd1e5bd62b8f559fc3d1990bff7d6019f549fe02602"
+    }
+  ],
+  "cohorts": [
+    {
+      "cohort": "training-a",
+      "fixture_count": 32,
+      "fixture_bytes": 1197,
+      "fixture_bindings": [
+        {
+          "path": "tests/fixtures/fstres/training_a/01_mode_one_new_material.KEY",
+          "sha256": "f3f7da61613d43594568b76b13c5c72edbed6f7ed6e21cda7e2714ca0d208045"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/02_mode_two_rank_three.KEY",
+          "sha256": "ccaddcc8a7222dbbdb0a81bca3bc04f5471be35efe8b65fc0767b69ede8a803a"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/03_mode_three_rank_three.KEY",
+          "sha256": "11e9157a0ea35907141506afdac548a50fd6e0feb8b97f459516ffbba98d4d85"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/04_mode_four_five_coefficients.KEY",
+          "sha256": "74e138b9fb79f97d8d6abdafebbacc59a9ff989c985c12b5daa14d0c10bf0eb8"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/05_mode_five_four_coefficients.KEY",
+          "sha256": "e5984b447c9ae66f85a08a7c1910f0e5bac1fa3ea2602840a44f1be8c537bc68"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/06_mode_six_scalar_pair.KEY",
+          "sha256": "17ce723fd774e63523f760d979e53ed800bcf7a753128cd099d59a6e6ed35f5a"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/07_mode_six_axis_three_twelve.KEY",
+          "sha256": "3ee1952e31fa8e583eeb8b931403a5b664d6c789578695e2bc7de3f3419d7a62"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/08_mode_six_both_rank_two.KEY",
+          "sha256": "628297d32b5aaab4d74efc7a304da8ddeec8d67f7d93abd3a408d8d0a4163798"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/09_mode_six_unknown_selectors.KEY",
+          "sha256": "d39c3d0b87e8e3a66ec6f0e2a1213ae036aca766d6adca76d8701082d1bf37c8"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/10_mode_seven_rank_three.KEY",
+          "sha256": "e2846575c781b8f41237c43ff3ca986345df14d452fb679b9e022cd05be69b39"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/11_mode_eight_rank_three.KEY",
+          "sha256": "89d75eddfb03206962772e988de5c63b944dd0efa3dfa2af81de8be7a2ddfba3"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/12_mode_nine_two_seven_rows.KEY",
+          "sha256": "4f3a49f1f01a23e15504170a57afa602f550fa48a25650be8c61f254dd450fbe"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/13_mode_ten_discarded_seventh.KEY",
+          "sha256": "6daa121991b9216894ff012cc670fc5491aad1b8e833bf133f551a1cafd9857d"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/14_mode_eleven_five_coefficients.KEY",
+          "sha256": "66635358c000ac60e9b2f7cfe4f1791a7e8aa26b41e865793b595ab870bab09e"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/15_mode_twelve_scalar.KEY",
+          "sha256": "ca394030b999efc8cd4342f8a9dd365022cc5f8f078d499ee997fce02561f8a4"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/16_mode_twelve_axis_three.KEY",
+          "sha256": "e213989de5318d736f376ad93782e0a6b1be88c719a0e66f55b8c91e15acc4e0"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/17_mode_twelve_axis_eight.KEY",
+          "sha256": "6e754bc4443f4b5d454ab2482d384d627eb711060e6ea01dfee6b678753e870b"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/18_mode_twelve_rank_two.KEY",
+          "sha256": "b9e1e07dfe94a0dcf3ba45cd97f1cc6e56f34599a84f9d7bcf42f1306c20459e"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/19_mode_twelve_unknown.KEY",
+          "sha256": "78bfb0a0cf6e265314e1bec3ba8119697ccc618394402a4d158a142a13760e2f"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/20_mode_thirteen_derived_vectors.KEY",
+          "sha256": "3b06d20568d5a859713aaa1c02de17dd0e880477426753d21fbbea77a52aea96"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/21_mode_fifteen_derived_vectors.KEY",
+          "sha256": "f874a2abe3feb8d02045cdd7259decddda51352a50b83b0ae6d3d016782f8924"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/22_mode_thirteen_fraction_to_zero.KEY",
+          "sha256": "7f7ff3074a6f844a7d2e9928cfa33686c525fa899f6707e7dfe95e3dc318cbf1"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/23_mode_fifteen_empty_rows.KEY",
+          "sha256": "d44daed2c4f33e0a2dd4d3692d628a13fec99cbdac5fe775cc75d931ac8803e1"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/24_mode_fourteen_regression_anchor.KEY",
+          "sha256": "cde33151fd391ceb28d1ac152e2a440a6c8d970a83fdb062eb173b2548917fa1"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/25_mode_sixteen_width_two.KEY",
+          "sha256": "630de70f6aae0bbb74da50520b63bb9862167d9821380a8c37865fb08c5e175f"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/26_mode_sixteen_width_clamp.KEY",
+          "sha256": "99c9b65e9243f04c38338a9123d64ab0f7e019253db099798b32d67c87e75e82"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/27_mode_zero.KEY",
+          "sha256": "c1917740686df6a2566ee6c6d26e62a1010edfe86647a0b4ddd4a54738b90c78"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/28_negative_mode.KEY",
+          "sha256": "a19f8d8cb001c6f40520d74199b7257b973ebd584c9f44eaafefe92203a43bc1"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/29_negative_int_min.KEY",
+          "sha256": "9344c597d8e1d3adfe2813a19f7dafd287ab4f8a172ef7856a09025ce83c808d"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/30_unknown_positive_mode.KEY",
+          "sha256": "0c25ea49cef52b58ecfa778bb62879082d7123fc0d29d029b38141b196da9271"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/31_zero_conversion_outer_header.KEY",
+          "sha256": "b30fda272324d224fd29547c30500b83b05286d061b93b192d06d4780b184d82"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_a/32_populated_refresh_and_new_zero_material.KEY",
+          "sha256": "649c68372336496cfae6b91a869d5a0f45f5baf85d45435e07f461a251f38ad0"
+        }
+      ]
+    },
+    {
+      "cohort": "training-b",
+      "fixture_count": 16,
+      "fixture_bytes": 509,
+      "fixture_bindings": [
+        {
+          "path": "tests/fixtures/fstres/training_b/33_mode_six_first_header_failure.KEY",
+          "sha256": "f79adba971549b34ed077075f3d8053c5ceb4385b0b5ae15e238debb3bfe7616"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/34_mode_six_first_payload_eof.KEY",
+          "sha256": "acb0ce1d25bd70e26283c54505813b47cfcbeffdab1aaa50a41273232be72022"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/35_mode_six_second_header_eof.KEY",
+          "sha256": "647a099f72d198b41bfe80a3667e844c4d7bc12ed7c4e424dd4bce89dbd37a9a"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/36_mode_six_second_payload_eof.KEY",
+          "sha256": "15a335741550d3e81323bec535aa785704bb929531d08b567d31977e1fba1642"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/37_mode_two_count_blank.KEY",
+          "sha256": "b59f218ad4f338462405f431c56066b0940b75fc4fd0f37a0dc79f8df865a5e4"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/38_mode_two_payload_eof.KEY",
+          "sha256": "969bc3ce29c896246e56f1700dbb4bd37d2a625683608e55b5ffdf71a748ace9"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/39_mode_seven_count_eof.KEY",
+          "sha256": "f8d51fbd8862d46788d0fce5b7aeed3ce943c9cfab059cac650d005b7a7005db"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/40_mode_seven_payload_eof.KEY",
+          "sha256": "bb22410579f570fe0f0365e97761643c198e7dd1746b9b6333c7e7466a4bf811"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/41_mode_nine_first_blank_second_success.KEY",
+          "sha256": "e9f47a3e47ea39bf170191811f8f192c08c2413930d683e5d93a56f105194e61"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/42_mode_nine_second_eof.KEY",
+          "sha256": "9285b47963e59c8bb662bb61328bbdcb8f75f8ee04411027aa18a03dedbf7fdd"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/43_mode_ten_partial_eof.KEY",
+          "sha256": "cffd17a75fd40d93c96d65262ab3d911faf2bb57a3d4f221c025198e70092370"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/44_coefficient_and_local_blank_partitions.KEY",
+          "sha256": "4138a54456932f1a4f612c073082105a38e40406b2c255cbba248427af4c317a"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/45_mode_thirteen_first_payload_eof.KEY",
+          "sha256": "5b862d76258038e654527825e90d26cf16d3430112890f03323d31773bc7fd56"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/46_mode_fifteen_sum_vector_eof.KEY",
+          "sha256": "2cbc5952b0bad3756799ea4a78fa183ad981542f5cdb1a14fdae96261cf89017"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/47_mode_sixteen_width_eof.KEY",
+          "sha256": "69a427e317ef8a6175e112e6841a62bda1931c0e91ecab76488863eb4f2983d3"
+        },
+        {
+          "path": "tests/fixtures/fstres/training_b/48_mode_sixteen_count_blank.KEY",
+          "sha256": "b7101e8b649bb65376d084bd371544930b26c23736454a499256563edb3aa268"
+        }
+      ]
+    },
+    {
+      "cohort": "held-out-a",
+      "fixture_count": 32,
+      "fixture_bytes": 1228,
+      "fixture_bindings": [
+        {
+          "path": "tests/fixtures/fstres/held_out_a/01_new_material_outer_eof.KEY",
+          "sha256": "cc5cb7d13c74b071bbc7b6b69b400d5eab60609a4a8b1bae7d53bc1444583336"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/02_mode_one_commas_no_lf.KEY",
+          "sha256": "cd537de75a3a7d84b4b7567eaa4af9d023a06cfe166e6a76cea4f87ad68c55b6"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/03_mode_two_alternate_shape.KEY",
+          "sha256": "539413b7fb3b11e77998cb2dceff7dce2337a89bf043907f5b13cbfb4abf047b"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/04_mode_three_single_point.KEY",
+          "sha256": "c0a482cefa78987fc73e13e3c29d4af87e30baa74fc37d88a3941abfb5e51a99"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/05_mode_four_no_lf.KEY",
+          "sha256": "7c3237f34b179d2691a619a0811d9fd62170ebad25584cd47f3c8a5cb53dbb6c"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/06_mode_five_zero_conversions.KEY",
+          "sha256": "54410faefa4352238fbbad38d3b21fa6e3500a9d5520017f723a6928aaf3b025"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/07_mode_six_opposite_axes.KEY",
+          "sha256": "8f72cf6bd4ab8ff46ba9fcd4dd3683c9a140e19cc47291ce5176486153ae4180"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/08_mode_six_rank_two_then_scalar.KEY",
+          "sha256": "25459493aeaf07b0b9fbc2825242e406e6e7b49f5389f1856d11ca7264425931"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/09_mode_six_scalar_then_rank_two.KEY",
+          "sha256": "90973137b10cdebbf752365dcdf00e4e1cefebb86982af94425844fadfb03dcc"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/10_mode_six_unknown_then_axis.KEY",
+          "sha256": "679ff813ab13f56a8caa5480f0e5504a5117958b7f4541af19d97c4a660880ea"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/11_mode_seven_alternate_shape.KEY",
+          "sha256": "1af0329f1cea3219ed80e3aa87af8110668b1dcd57e653cdf30b6e6433aec35f"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/12_mode_eight_alternate_shape.KEY",
+          "sha256": "7a55430a36d9fa83b0ef32dc3edd1e3e4723f8004c1ecb994bd756b3d02b8dbf"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/13_mode_nine_partial_first_success_second.KEY",
+          "sha256": "89a7c6302b53254a3da4a98ac737e744927637d121bf73b95bb9e0f74a402f3c"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/14_mode_ten_negative_zero_and_discard.KEY",
+          "sha256": "e9080d7db2054558b4abacbc1d93dd3ee642d1895d9a168134b8812fb79bf3b8"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/15_mode_eleven_comma_row.KEY",
+          "sha256": "aa00aa71d2b51f96b7d01f5fe6737182ad707430127ca2578ff7724a1eab763f"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/16_mode_twelve_axis_eight_three.KEY",
+          "sha256": "d901bc50e25b9f0019773aa4dc8a11cb7976b298f7b4833614879bce550621e2"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/17_mode_twelve_three_by_one.KEY",
+          "sha256": "b515242d446636f6da8207403f739d24efc01bde47048b0827837ae0e0efc18c"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/18_mode_twelve_axis_three_one.KEY",
+          "sha256": "32e257ba61e50ce4e3f52fd3b74355360a73f827350c95bdf7db7d7ef140831d"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/19_mode_twelve_signed_zero_scalar.KEY",
+          "sha256": "b2554d636ff13e9a66a4233d56ec9208c1bde095fb88f4313d89799ca4a02573"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/20_mode_twelve_negative_option.KEY",
+          "sha256": "d440be6eec5fe78c15bbe06a2469139b168ec03b9f26f50ca9bec8a806a14206"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/21_mode_thirteen_fractional_axes.KEY",
+          "sha256": "8760fed312a6da396d150b802f87950a40b8cb100269f3bd987e18ee2a83a6f9"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/22_mode_fifteen_one_extent.KEY",
+          "sha256": "d10b83c810957f2f1576bf6978883866d7798529d5ea86fc5f8b8a672e88ec67"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/23_mode_thirteen_negative_extents.KEY",
+          "sha256": "9e8bc0645219af6865894e50a6e1ec80370427306204a9a7df810752854adaf3"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/24_mode_fifteen_zero_product.KEY",
+          "sha256": "fd73b215e53c269fa103f343ea4b8ae069a5fb07bd8ddba7db0ca0598d4c1a6d"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/25_mode_fourteen_blank_coefficients.KEY",
+          "sha256": "3793c6fa680c938c5ba170bc90583115a1c8a84e64b97d41ec4ed1e894f7ea0a"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/26_mode_sixteen_width_three.KEY",
+          "sha256": "c44f371ef5aa6be19748567e4771e5d2ef81d6074acc711fff7c08695109c24c"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/27_mode_sixteen_negative_width_clamp.KEY",
+          "sha256": "d8ba9b5ea01ac6b58b94fa0f0272292865295efa66e8c9586884d83c91796cd6"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/28_zero_then_unknown_positive.KEY",
+          "sha256": "33c4c3e3ee65a3588d9458b27e83f68c14826afbd501ef491e923db5cf1ee3a4"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/29_negative_near_limit.KEY",
+          "sha256": "f05d18b744d5657cc11db67fed49682d438a950449cf1a10bee435544ad4c6d7"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/30_partial_outer_mode_fourteen.KEY",
+          "sha256": "3c8a57c6872d6c5261ecbd3df69d8fdb3a5d4db0a9e24ffae9b7a4e60de764f6"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/31_new_zero_material_three_axes.KEY",
+          "sha256": "d7f5145da1fdb2548bc33553e6b6cb8aafee10d8842a4811418cd069897af2cf"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_a/32_planar_mesh_existing_material_refresh.KEY",
+          "sha256": "5ea8764ff17ab7dde0be170a6e96b47b5bd47023e0ab61723474395ce8532b8d"
+        }
+      ]
+    },
+    {
+      "cohort": "held-out-b",
+      "fixture_count": 16,
+      "fixture_bytes": 638,
+      "fixture_bindings": [
+        {
+          "path": "tests/fixtures/fstres/held_out_b/33_linked_product_vector_eof.KEY",
+          "sha256": "83259f3be890538b48b8a88b328bb0544f6990b1b568626ebad803b90cfbc663"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/34_linked_count_eof.KEY",
+          "sha256": "cc578ba46427b047e01a861d690a52284a6673761f3cdd7d39dac358c42c30e2"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/35_linked_count_blank.KEY",
+          "sha256": "0ce6695f6cc515b19bcbe372021a823e9291153c7b3514e85344a6ca94267ad3"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/36_linked_negative_count.KEY",
+          "sha256": "60f61dd59a3864b2b3b2d35fa078d85272cb83c683ccbd67aa4c13f57de991e2"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/37_mode_six_first_header_sign_eof.KEY",
+          "sha256": "00810df8ba26e90764994d24f51bf173b9d5a68ddec8a922b7d16e89dc42ebf3"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/38_mode_six_first_temp_eof.KEY",
+          "sha256": "3568ee35b905590caa8af959eef09b3df87f1f81ec9accdf8dd13f10d86a49e5"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/39_mode_six_second_header_blank.KEY",
+          "sha256": "049a618dd22e3130a794af4583536efbed21bc97f0077c9c495a2e619a212e94"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/40_mode_six_second_direct_eof.KEY",
+          "sha256": "b1579b10e68b1ced989a1753c35e2f90b8b9b7437a5dc9013c2d1a85e2a9ce52"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/41_mode_three_count_eof.KEY",
+          "sha256": "b993e5daf6f247556eca584c60b52ccae4ccb60aa75018cd97f5a7dee3079fc1"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/42_mode_eight_payload_eof.KEY",
+          "sha256": "d90af4087e069e89168fcd3fd6a5425829c1c2386f47f1864cbd6808719d8efc"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/43_mode_sixteen_dependent_eof.KEY",
+          "sha256": "2dee73d501464cc538ae2a8d7d5670f8ded17eb2e2654dd87b805c34438042f4"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/44_mode_sixteen_partial_counts_eof.KEY",
+          "sha256": "658e4e60e4eb5358edbff2be4db0e34bde1a3ac78ea8e8832a402c6c121fd6f1"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/45_mode_two_dependent_eof.KEY",
+          "sha256": "6986a5d45aa58d5e309ab5573f80a745856edd3a495256fba36274e22969df02"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/46_seven_real_second_blank_and_local_blank.KEY",
+          "sha256": "ed9bdc8af9cf71cf380ac92f63f6df58b64e5741e9d023f642b06c6f645588d3"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/47_live_helpers_and_final_eof.KEY",
+          "sha256": "653909f3a3df29abbb7cbea9f94d87156051fa42e517c319272cabacc20af9b0"
+        },
+        {
+          "path": "tests/fixtures/fstres/held_out_b/48_new_material_deferred_width_blank.KEY",
+          "sha256": "eb476f6dbafbfc77f926da032aa6c58a2aac16285ab7c40fde7978a9dfc50d33"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "No scientific evaluation/interpolation or enabled root864 feature claim.",
+    "Fresh constructor allocation telemetry beforeimports is outside orderedfixture receipt; startupempty materiallist mustbeconfirmed bycapture.",
+    "Native rank2/3 EOF temporary leaks may remain observable; originalresource behavior is not hidden.",
+    "Nonfinite/overflowing extents, allocationfailure and uninitialized stagedmatchingfailure excluded."
+  ],
+  "provenance_note": "Audit binds immutable probe/static/fixturebytes directly; no mutablemanifestbinding or circularhash dependency."
+}

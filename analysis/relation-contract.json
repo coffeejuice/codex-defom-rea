@@ -1,0 +1,173 @@
+{
+  "status": "selected_relation_import_and_nonzero_field_profile_verified_with_independent_captures",
+  "created_utc": "2026-10-20T23:59:20.946892+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": {
+    "keyword_ids": [
+      134,
+      206,
+      207
+    ],
+    "keywords": [
+      "PHASTF",
+      "DVOLF",
+      "TICF"
+    ],
+    "profile": "Exact ordered signed pairs, root-owned relation list, cached active count, material gate, nonzero element field imports and flat-prefix resize across2D/3D; one object, two materials, three relations, two elements, widths<=3."
+  },
+  "behavior": [
+    "PHASTF scans two stream integers. Exact ordered signed keys select a stable insertion-order record; missing pairs append before payload read. Keys need not identify existing materials. Reversed keys identify another record.",
+    "Mode reader zeroes its local and applies zero/partial output even on failure. Nonzero mode sets active=1, recounts records whose active is exactly1, then refreshes with option0. Zero mode sets active=0 without recount or refresh; cached root13f4 can remain stale and differs from list count.",
+    "Component51(DVOLF) and52(TICF) use cached13f4 only when feature49 is enabled by root85c or a material mode1cc8==1. Root85c stayszero in these captures; MSTMTR supplies the exercised gate. Refresh can occur while the gate is off, yielding zero widths.",
+    "PHASTF option0 performs no material-rank or relation-key permutation. Active objects use ordinary descriptor resize with previous/current shape history. Existing flat prefix survives; growth appends zero values and shrink discards suffix. For two rows, width1 [11,22] becomes width2 [11,22,0,0].",
+    "DVOLF/TICF mode1 uses live root width and explicit or implicit input width. Default fill, min(input,destination) row copies, retained complete rows before failure, scalar bytes and stream positions match the original. Explicit wider input consumes every scalar before bounded destination copies.",
+    "Dimension reset clears relation ownership and cachedcount; same dimension preserves them. Material gate changes and failed payloads preserve the exact observed ordering. Constructor selected scalar fields are zero and name starts space,NUL; the full0x780 record contains twelve scientific tables and is not modeled as allzero."
+  ],
+  "verification": {
+    "original_imports": 62,
+    "training_imports": 32,
+    "independent_held_out_imports": 30,
+    "selected_keywords": 3,
+    "all_selected_keywords_observed_in_both_dimensions": true,
+    "complete_handler_snapshots": 106,
+    "selected_handlers": 73,
+    "PHASTF_handlers": 48,
+    "relation_reader_calls": 96,
+    "field_reader_calls": 25,
+    "field_scalar_scan_calls": 140,
+    "relation_descriptor_preservation_checks": 46,
+    "failed_selected_handlers": 9,
+    "final_standard_descriptor_snapshots": 2332,
+    "independent_tamper_rejections": 78,
+    "independent_tamper_checks_skipped": 0,
+    "tests_verified": 46,
+    "frozen_runtime_files_unchanged": 29
+  },
+  "candidate_changed_after_freeze": false,
+  "public_database_loader_api_changed": false,
+  "test_order": "All44 existing CTests passed before the29-file candidate freeze. Both new relation CTests then passed on those same unchanged runtime files. Not a single46-test invocation.",
+  "captures": [
+    {
+      "path": "analysis/relation-runtime-training.json",
+      "sha256": "ce0285fe39693b754841be2a1af7bff3d97679fab9f2d010b3fd754948e5e3b8",
+      "evidence_id": "ev_2751c388ef2692dd76aa0206f30058c291ce53709a879e6cb3cf9bfb48b3381f",
+      "messages": 1582,
+      "run_record": {
+        "path": "analysis/oracle/relation-training-b/run.json",
+        "sha256": "d67ee8854e17fd5df037b62c3878da0d8d1e9e1ad9f5f676dcc4a2e3d8d550fe"
+      },
+      "status": "verified_original_normal_exit_0"
+    },
+    {
+      "path": "analysis/relation-runtime-held-out.json",
+      "sha256": "7d011e63502fcbd37f85a01b0972c46b3890933c77101ef07b5fdc79ffa77462",
+      "evidence_id": "ev_d0d69604cd4237b75cb6a50772c3c6df72b8cf52355b09ced7480088ec10d0a0",
+      "messages": 1587,
+      "run_record": {
+        "path": "analysis/oracle/relation-held-out/run.json",
+        "sha256": "5dd5abc2a7c62f25256460c581dd9dd25a1867b020bb0278e4b53939ae3b4829"
+      },
+      "status": "verified_original_normal_exit_0"
+    }
+  ],
+  "execution_recovery": "Initial sandbox process creation failed with WinError623 and no PID. Bounded authorized retry outside sandbox completed normally. Failed launch/run retained; no original capture was repeated because of transport size limits. Full retained evidence exported for both valid captures.",
+  "checker_history": "Comparator behavior passed on first training and unchanged held-out runs. Its default run path was corrected to successful relation-training-b; prior checker/report retained. Independent verifier finalized source-binding checks and valid-run default during training, then ran both cohorts unchanged. No candidate, probe or fixture correction followed either capture.",
+  "limitations": [
+    "Bounded initialized owned-storage profile and finite ASCII numeric inputs; not complete application equivalence.",
+    "Twelve relation scientific tables, their nine other category5 handlers, complete material property tables, broad relation copy/deserialization and scientific consumers remain incomplete.",
+    "Native first selector matching failures or partial selector assignment use uninitialized keys and remain explicitly unsupported. Overflowing extents, OOM, unsafe writes, arbitrary sharing, nonfinite inputs and extreme numeric conversions remain unverified.",
+    "Root85c nonzero gate is source-backed and represented but not exercised by these KEY fixtures; tested material mode supplies the gate.",
+    "Original pointer identities and list ownership are validated within native lifetimes; replacement memory addresses and intentional native scratch leaks are not compatibility requirements.",
+    "Complete DB application-state import/export, remaining model fields, scientific operations and console integration remain required work."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/relation-import-static-contract.json",
+      "sha256": "67166ea827c447bd8628074f0deac8deede498b6bcedb8d1376ebf978e325b9c"
+    },
+    {
+      "path": "analysis/relation-import-byte-audit.json",
+      "sha256": "56560e988ae97b59f17973ae8a854d370a0cf45809f3df61b1a54b8de6f11c74"
+    },
+    {
+      "path": "analysis/relation-constructor-static-review.json",
+      "sha256": "c59665a365173bb03c7e8ff471ca6dc8319f8aa366da65e9be1c66f278ce7d12"
+    },
+    {
+      "path": "analysis/relation-precapture-audit.json",
+      "sha256": "b09d837420ac847d99be453e9f625853ce929cd0f17793901118ab952d36c999"
+    },
+    {
+      "path": "analysis/relation-candidate-freeze.json",
+      "sha256": "9d7cf0b6c3fc3c79cd2c995278adeac4113b5717a20d180290939762776e1a16"
+    },
+    {
+      "path": "analysis/relation-input-freeze.json",
+      "sha256": "bc0f11fca324ac6818cd8e0714fb73ba808ef9daf586bd9bc225b723ec7de725"
+    },
+    {
+      "path": "analysis/relation-held-out-input-freeze.json",
+      "sha256": "43dece00a0416028601916435dbda60786532c5bb08ceeb847b44d9b4c15a3f2"
+    },
+    {
+      "path": "analysis/relation-evaluation-cases.json",
+      "sha256": "5316f06eee7b46edf387303c59cdd4fc2a87aef9040e742156efd7aa8fa7812c"
+    },
+    {
+      "path": "analysis/relation-held-out-cases.json",
+      "sha256": "e709406be7118f830f857238c4c95b43a8398345691c6079b9e26934128f5a81"
+    },
+    {
+      "path": "analysis/relation-training-comparison.json",
+      "sha256": "961928a8a1a89dd5b4337f241c42c2dc165640e5342aced182beccbc5712156d"
+    },
+    {
+      "path": "analysis/relation-held-out-comparison.json",
+      "sha256": "cf610470f4e22f0d69e74e62aead7fc22995bb954b2b46fdf46333e252a36d88"
+    },
+    {
+      "path": "analysis/relation-observations.json",
+      "sha256": "c1d1c005e11f147ec084dde3076c9fa6cee51a942fa41dda201816977590ad8b"
+    },
+    {
+      "path": "analysis/relation-held-out-observations.json",
+      "sha256": "e1a6244e153fb1338314c70c8b1edca7bb732face2bb31b1a8e040800a1c5c98"
+    },
+    {
+      "path": "analysis/relation-test-registration.json",
+      "sha256": "2b6bb5ebf142b5d8a4573c906d1684da45d83f4eeadd62d8e22a27758a7e439b"
+    },
+    {
+      "path": "analysis/relation-launch-diagnostic.json",
+      "sha256": "5a5c33b81a3d2cd4bac393212e0acb49e47ce9498bc6b0334559aa53838785a9"
+    },
+    {
+      "path": "analysis/relation-training-transport-response.json",
+      "sha256": "135bf887f5af507e5fda0ea648a46b987bd1760293e00f77d405cd6cb19faad3"
+    },
+    {
+      "path": "analysis/relation-held-out-transport-response.json",
+      "sha256": "41dcb8cb24549074f1868d62f28bb15599a0ae9867d46e3f9bc594e721ab7ce3"
+    },
+    {
+      "path": "analysis/relation-comparator-default-path-update.json",
+      "sha256": "b88f8daf78d76fb18c4ed2f6de3121851525ca79c5e2b8c4db197bc13ff1060d"
+    },
+    {
+      "path": "tools/observe_relation_import.js",
+      "sha256": "9f104ad8e011ea6bb3f7b1cd5da992ecd4c3c04f13fb0cbddebd584f511c4774"
+    },
+    {
+      "path": "tools/compare_relation_import.py",
+      "sha256": "44c239b87f100e99888ffb505c5f504daa7fb6f38dbfa5a0dcaf65e6691e5205"
+    },
+    {
+      "path": "tools/verify_relation_observations.py",
+      "sha256": "61d81e0cd26048cceaf4038de6c277ab10321e629fbfa34b964ee0f5b56cd1f0"
+    },
+    {
+      "path": "analysis/oracle/relation-baseline-ctest.log",
+      "sha256": "59b9b3effe93b5c0fe58297fc1e7898c6c0a6358e734b0beaed8a862521b4f71"
+    }
+  ]
+}

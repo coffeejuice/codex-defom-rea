@@ -1,0 +1,10 @@
+{
+  "issue": "JSON numeric output does not preserve binary64 negative zero when serialized as -0 and parsed as an integer.",
+  "command": "materialcolumns 0 0 302030202d300a 1:1\n",
+  "raw_stdout": "{\"kind\":\"materialcolumns\",\"status\":0,\"cursor\":7,\"consumed_hex\":\"302030202d300a\",\"conversions\":3,\"declared_rows\":0,\"explicit_width\":0,\"default_value\":-0,\"default_assigned\":true,\"completed_rows\":0,\"row_id_initialized\":false,\"row_id\":null,\"values\":[-0],\"row_buffer\":[],\"lines\":[{\"offset\":0,\"cursor\":7,\"hex\":\"302030202d300a\",\"status\":0}]}\n",
+  "raw_stderr": "",
+  "parsed_value_type": "int",
+  "status": "resolved_no_changes_required",
+  "impact": "No driver, runtime implementation, comparator, or freeze change required.",
+  "resolution": "The production comparison harness already decodes JSON integer-form token -0 as binary64 -0.0 using parse_int. The standalone diagnostic used default json.loads; it did not expose a comparator or C++ arithmetic defect."
+}

@@ -1,0 +1,69 @@
+{
+  "status": "preserved_comparator_failure_before_held_out_correction",
+  "initial_error": "column buffer numeric/raw identity",
+  "initial_comparator": {
+    "path": "analysis/oracle/material-column-comparator-before-held-out.py",
+    "sha256": "e9319a59ba4f5956338bad0160f019ea9cb2cda828544da89cb5aba5c38fb3bf"
+  },
+  "capture": {
+    "path": "analysis/material-column-runtime-held-out.json",
+    "sha256": "4b65ff859372e7892c81db812b415a429e0ee39f62d83dea76fd82f8adfc1713"
+  },
+  "diagnosis": "Frida JSON.stringify serializes numeric negative zero as0; independent raw values_hex remains IEEE754 negative zero. Existing replacement replay decoder already preserves lexical -0.",
+  "examples": [
+    {
+      "path": "sequence445.values[0]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence445.values[3]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence446.values[0]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence446.values[3]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence447.values[0]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence447.values[5]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence448.state.objects[0].descriptors[39].values[0]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence448.state.objects[0].descriptors[39].values[5]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence451.state.objects[0].descriptors[39].values[0]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    },
+    {
+      "path": "sequence451.state.objects[0].descriptors[39].values[5]",
+      "numeric": 0,
+      "raw_hex": "0000000000000080"
+    }
+  ],
+  "observed_redundant_numeric_zero_sign_losses": 292,
+  "correction": "Permit only equal numerical zeros to differ in sign in redundant probe numeric buffers; raw binary64 remains authoritative and replacement comparison remains bit-exact.",
+  "candidate_changed": false,
+  "probe_or_fixture_changed": false
+}

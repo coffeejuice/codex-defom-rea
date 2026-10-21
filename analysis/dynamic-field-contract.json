@@ -1,0 +1,214 @@
+{
+  "status": "selected_dynamic_field_profile_verified_with_training_and_independent_captures",
+  "created_utc": "2026-10-20T22:43:01.883009+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": {
+    "keyword_ids": [
+      170,
+      196,
+      197,
+      254,
+      255,
+      263
+    ],
+    "keywords": [
+      "NDTMP",
+      "USRNOD",
+      "USRELM",
+      "MATAXI",
+      "NWEAR",
+      "DRMESH"
+    ],
+    "profile": "Bounded initialized owned arrays in 2D/3D; two-object global refresh, repeated/growing/shrinking/zero user widths, metadata reset, partial reads and physical allocation tails."
+  },
+  "behavior": [
+    "NDTMP 2D mixed header parses row count/default/selector. Selector 2 reads a temporary pair array and copies second value to temperature and second-minus-first to gradient even after partial row failure. Other selectors use scalar fallback; 3D uses the ordinary real-column reader.",
+    "USRNOD/USRELM width changes resize opaque 64-byte metadata records, preserve existing records and zero new records, then refresh all objects. Equal widths are no-ops. USRELM selector 0 substitutes 2; node width 0 clears. Each default scalar and final row reader invokes the selected getter, preserving shape history.",
+    "MATAXI sets dimension-dependent width before selected allocation, then mode 2 mutates root width without resizing the allocated descriptor. Physical tails and root/descriptor width divergence are retained.",
+    "NWEAR sets width 5 and selects its allocation; null storage skips payload. DRMESH consumes payload only in 3D.",
+    "Property guard 1d2b70 returns 1 on both native paths, so the observed selected-getter property cleanup branch remains inactive."
+  ],
+  "verification": {
+    "original_imports": 64,
+    "training_imports": 32,
+    "independent_held_out_imports": 32,
+    "selected_keywords": 6,
+    "all_selected_keywords_observed_in_both_dimensions": true,
+    "tokens": 99,
+    "complete_handler_snapshots": 99,
+    "dynamic_handlers": 69,
+    "dynamic_reader_calls": 105,
+    "scalar_scan_calls": 212,
+    "ordinary_reader_calls": 268,
+    "getter_observations": 259,
+    "width_setter_observations": 29,
+    "metadata_resizes": 24,
+    "failed_dynamic_handlers": 10,
+    "final_descriptor_snapshots": 6572,
+    "independent_tamper_rejections": 76,
+    "tests_verified": 40,
+    "frozen_runtime_files_unchanged": 27
+  },
+  "candidate_changed_after_first_freeze": false,
+  "public_database_loader_api_changed": false,
+  "test_order": "All 38 existing CTests passed before candidate freeze; both newly registered replay tests passed on the same unchanged candidate. This is not a claim of a single 40-test invocation.",
+  "captures": [
+    {
+      "path": "analysis/dynamic-field-runtime-training.json",
+      "evidence_id": "ev_e02aac01498f29815136de6d7b605caeae584cc2db25b9dddb66a45f79d28ffb",
+      "status": "verified",
+      "imports": 32
+    },
+    {
+      "path": "analysis/dynamic-field-runtime-held-out.json",
+      "evidence_id": "ev_b8f9ad6d027a2557bca85103487d11d249c6b1b0cdf89d6b0aebe7d397aa35ec",
+      "status": "verified",
+      "imports": 32
+    }
+  ],
+  "checker_corrections": {
+    "candidate_comparator": "Training checker initially required a serial for a single property-guard event; corrected event pairing, retained guard check, archived diagnostic. Held-out passed unchanged checker. No C++ changes.",
+    "independent_audit": "Corrected constructor-versus-refresh component defaults and explicitly classified native row-buffer EOF leaks from source and training observations. Held-out passed unchanged verifier; 38 applied corruption checks per cohort.",
+    "input_manifest": "Two late audit bindings briefly changed the training manifest after freeze. Original bytes were restored before capture; probe and fixtures never changed. Restoration and all hashes are retained."
+  },
+  "native_resource_observation": {
+    "description": "Both runs observe an unfreed 16-byte implicit-reader row buffer on scalar EOF at 4199f0. The outer paired temperature temporary is freed. C++ uses RAII; heap leakage is not reproduced. Values, statuses, stream cursors and persistent state remain compatibility requirements.",
+    "instances": [
+      {
+        "bytes": 16,
+        "count": 2,
+        "file": "21_planar_temperature_pair_partial.KEY",
+        "object": "0x248dff0",
+        "operation": "dynamic-allocation",
+        "pointer": "0x2448a00",
+        "return_rva": 4299248,
+        "sequence": 1325,
+        "serial": 192,
+        "size": 8
+      },
+      {
+        "bytes": 16,
+        "count": 2,
+        "file": "17_temperature_pair_partial_eof.KEY",
+        "object": "0x24094b0",
+        "operation": "dynamic-allocation",
+        "pointer": "0x243cc40",
+        "return_rva": 4299248,
+        "sequence": 1313,
+        "serial": 245,
+        "size": 8
+      }
+    ]
+  },
+  "limitations": [
+    "Finite ASCII/finite numeric owned-storage profile; no claim of full application equivalence.",
+    "Metadata records remain opaque 64-byte values; named property editing, custom CUSVAR/DYNARY stores and their ownership are unresolved.",
+    "Negative widths, unsafe mode 2 capacity growth, allocation failure, undefined locals, uninitialized direct-buffer tails and externally shared storage remain outside this profile.",
+    "Native pointer identities are checked within original lifetimes; replacement addresses and native heap leakage are not ABI requirements.",
+    "DVOLF/TICF positive root13f4 width producer, remaining material properties, full DB state import/export, scientific operations and console integration remain required work."
+  ],
+  "bindings": [
+    {
+      "path": "analysis/dynamic-field-static-contract.json",
+      "sha256": "dcbdc4b4a9fdf26d4ffb42596c81aba1cbb065dcaa1c75d19dc4072369cb807e"
+    },
+    {
+      "path": "analysis/dynamic-field-callsite-audit.json",
+      "sha256": "bdc5837c3de3dbac4b228633d16c72c6a60009330fc6318bde5f5a63aea64213"
+    },
+    {
+      "path": "analysis/dynamic-field-precapture-audit.json",
+      "sha256": "52e8d35db39e0ecb3208a0effc8bd03f4241d070ff129521ff90df98d51f2db9"
+    },
+    {
+      "path": "analysis/dynamic-field-candidate-freeze.json",
+      "sha256": "54b7b738173d376f8c708e59cf034f4f98d04ab5f3e7d8e96247f51335d2d022"
+    },
+    {
+      "path": "analysis/dynamic-field-evaluation-cases.json",
+      "sha256": "46b3b419e0248b8ac8913d5acaabf278e60c30dd39a551aa91f0a845a5c37147"
+    },
+    {
+      "path": "analysis/dynamic-field-input-freeze.json",
+      "sha256": "b4a2f0dfc536cea638a8e65f6028d3789b8d1eda64c0543c1e37d756bf0fa96b"
+    },
+    {
+      "path": "analysis/dynamic-field-runtime-training.json",
+      "sha256": "846a1e4dd519a2e65b5636158ed6da36fb4b7cdeec0bd5bbd356e633e5b28fbf"
+    },
+    {
+      "path": "analysis/dynamic-field-training-comparison.json",
+      "sha256": "9cc385d7e3662cd54066306796fa69f493a11b8052693bf0a569975669be9bf1"
+    },
+    {
+      "path": "analysis/dynamic-field-observations.json",
+      "sha256": "e58ea9d8350afaa4af42458f1d202fbef6b48280de455e741872216c77835018"
+    },
+    {
+      "path": "analysis/dynamic-field-held-out-cases.json",
+      "sha256": "4eed6c50ecd3c6f638f34342c5efcd2e0aa0e8e0bc5320a3c60a7fc0d4263032"
+    },
+    {
+      "path": "analysis/dynamic-field-held-out-input-freeze.json",
+      "sha256": "7a760c4ce9cbc32a50f68d98a4e96af057b28e814a752afb874c88be4e6caddd"
+    },
+    {
+      "path": "analysis/dynamic-field-runtime-held-out.json",
+      "sha256": "a0a63a8df868673544bb188a8348debef9c69bcf718f82052c198063ccfff49e"
+    },
+    {
+      "path": "analysis/dynamic-field-held-out-comparison.json",
+      "sha256": "8705bc7b8b132528238c00421eb55b137f2f486af5b2b4568f597ba15dc9452b"
+    },
+    {
+      "path": "analysis/dynamic-field-held-out-observations.json",
+      "sha256": "771b481e583e34b9da8dabfa1ccf5c1a3f57bb3f066012a5da7e3efe8e555979"
+    },
+    {
+      "path": "analysis/dynamic-field-test-registration.json",
+      "sha256": "ba59b445260cc86b0bd23ed3be370b843394541cf0163a6d823ecc5c1bd244e5"
+    },
+    {
+      "path": "analysis/dynamic-field-manifest-restoration.json",
+      "sha256": "e6eacc2c55fd97b60143e5a728823a5710062bf8e6a4f3257713636161e8c6f0"
+    },
+    {
+      "path": "analysis/dynamic-field-comparator-diagnostic.json",
+      "sha256": "2b4919e88cc9178a921d6ff48c03a245860138434b6ecac4f9df385603fa8caf"
+    },
+    {
+      "path": "analysis/dynamic-field-verifier-development-diagnostic.json",
+      "sha256": "912d0389b861ea62b96ecc893471d2c39020d25d8c3114e8a94cf233411a326c"
+    },
+    {
+      "path": "analysis/dynamic-field-transport-response.json",
+      "sha256": "2abbf4b238db4cfcb07dc39dad1a1c0cd042f903a19f96d72f240da3cbd65ddf"
+    },
+    {
+      "path": "analysis/dynamic-field-held-out-transport-response.json",
+      "sha256": "a02b88164a0d7d255c1d458eb57002227d31c37be18e4be0ed86ea3406c085e0"
+    },
+    {
+      "path": "analysis/oracle/dynamic-field-baseline-ctest.log",
+      "sha256": "81d32d81f9bc4d94bffd892212361d3a8e28355925d711ffa50385a6d2c7fb6e"
+    },
+    {
+      "path": "analysis/oracle/dynamic-field-ctest.log",
+      "sha256": "4930a92c0849d48576117d1aee261417ca3c11394b19d0aa515d181b4b09db0f"
+    },
+    {
+      "path": "tools/compare_dynamic_field_import.py",
+      "sha256": "2044cbb2429a74693d23d991dced551459eb801a08313e69ddc464c9a57f2cb4"
+    },
+    {
+      "path": "tools/verify_dynamic_field_observations.py",
+      "sha256": "d1ed6a7084150442ed2cd9aa16f048ab6abd69552219de8de986aaacb5cdee76"
+    },
+    {
+      "path": "tools/observe_dynamic_field_import.js",
+      "sha256": "30c58ab51f2e2abeecc3cf9a08df75251486a0e7af58c3aa1d81ec2d9dd2429b"
+    }
+  ],
+  "next_action": "Recover CUSVAR198/DYNARY266 backing storage and lifecycle from REA before choosing a C++ representation; continue remaining width producers, properties and complete application workflows.",
+  "full_application_status": "incomplete_active"
+}

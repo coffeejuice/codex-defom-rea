@@ -1,0 +1,18 @@
+--- frozen/CMakeLists.txt
++++ current/CMakeLists.txt
+@@ -186,4 +186,15 @@
+       --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-import-runtime-held-out.json"
+       --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-import-held-out/run.json"
+       --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-import-held-out-cases.json")
++  add_test(NAME material_object_reference_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_object_import.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
++  add_test(NAME material_object_held_out_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_object_import.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
++      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-object-runtime-held-out.json"
++      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-object-held-out/run.json"
++      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-object-held-out-cases.json")
+ endif()

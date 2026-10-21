@@ -1,0 +1,460 @@
+{
+  "status": "prepared_not_executed",
+  "purpose": "Static-evidence-authored training for25 fixed-layout mesh-field keyword imports. No candidate outputs used; observations remain pending.",
+  "cases": [
+    {
+      "path": "tests/fixtures/mesh_fields/01_spatial_two_tets.KEY",
+      "sha256": "e000c947ade37d1343d0300e1606a6deb10d7c49291ea3898590d4358663fa34",
+      "bytes": 106,
+      "hypothesis": "Create five nodes and two valid tetrahedra sharing one face, with known initialized node/element extents.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/02_spatial_vector_defaults.KEY",
+      "sha256": "73b077ad35476422212602e73e71aab05f4c3b2dbb86f715fcb2c5106ec3d4bf",
+      "bytes": 29,
+      "hypothesis": "Mode6 defaults have exactly three components; preserve negativezero in vector default.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/03_spatial_integer_defaults.KEY",
+      "sha256": "245efcaeb34e9b85efd2b700ed8b05f04f17e7b271c66a2a3134a84546304e0d",
+      "bytes": 84,
+      "hypothesis": "Exercise all six integer node fields with actual3D widths; BCCDEF negativeequal triples transform.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/04_spatial_real_defaults.KEY",
+      "sha256": "cac7db606032bfa463189eeab555bf434f843e61459d4da1e4c6d336022c1b1d",
+      "bytes": 105,
+      "hypothesis": "Exercise all eight mode0 node real fields with distinct scalar defaults and native widths.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/05_spatial_element_defaults.KEY",
+      "sha256": "96db0af703f11fa15723c20fd000c86844c93eb4d71a19eb6ca4e30b2e9fcc48",
+      "bytes": 123,
+      "hypothesis": "Exercise all nine element fields, including explicitly zero-width DVOLF/TICF under default profile.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/06_spatial_vector_broadcast.KEY",
+      "sha256": "dd25cf9a9147bf96435b5ba4c10eb029070e918c2cb6544c42536ee6dad77168",
+      "bytes": 27,
+      "hypothesis": "Mode6 assigned-count mismatch broadcasts first value; one-value negativezero broadcasts to every component.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/07_spatial_vector_sparse.KEY",
+      "sha256": "70aa93f81b6678ac49d2cc7f50794be836016a2890ef77e82c79a27164f6fae4",
+      "bytes": 30,
+      "hypothesis": "Mode6 without defaults changes two sparse rows and preserves remaining rows; implicit tail consumption.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/08_spatial_force_sparse.KEY",
+      "sha256": "9ea449677aefc3283a2fda868b50be6f6764df25b0a1b1a9d5312515f7504a9a",
+      "bytes": 30,
+      "hypothesis": "Mode0 sparse updates to first/last node while leaving middle rows unchanged.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/09_spatial_explicit_short.KEY",
+      "sha256": "35c016e0e8e243c04a4380cb8b9ce860895b6c018dbb80d118da769b30dc07f8",
+      "bytes": 43,
+      "hypothesis": "Mode1 explicitwidth3 copies into six-component rows; remaining three components retain header default7.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/10_spatial_explicit_long.KEY",
+      "sha256": "dab135f13468eae92c1e32a8ad256b793b8b9e15c03838e8dd915547a686ca76",
+      "bytes": 81,
+      "hypothesis": "Consume eight explicit values per row but copy only six allocated components.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/11_spatial_boundary_wrap.KEY",
+      "sha256": "54c98ad69ed3d606f597d5815dec44d2d3e34fe4a3067d4360aaf3f7b73aa6d0",
+      "bytes": 82,
+      "hypothesis": "Negativeequal triples transform, unequal/positive triples remain, and INT_MIN subtraction wraps as proven machine instruction.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/12_spatial_boundary_failure_wrap.KEY",
+      "sha256": "58117a6f790e9d05a7783e7b74987b7d196c352d002411e92ad807ecb8d63587",
+      "bytes": 30,
+      "hypothesis": "Header default mutates every node before incomplete rowEOF; unconditional3D postprocess wraps default triples after failure.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/13_spatial_real_partial_eof.KEY",
+      "sha256": "bd9dd894da485c7e9421e9efe49a10140b60a618535c9e9765c1b822a2f86a00",
+      "bytes": 30,
+      "hypothesis": "Direct real destination retains negativezero defaults and completed first row when the second row fails atEOF.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/14_spatial_integer_partial_eof.KEY",
+      "sha256": "b66aa3e5a596cde2e826514eb5da9ba86633272079dcdaee8c021976d9fc26ea",
+      "bytes": 25,
+      "hypothesis": "Direct integer destination keeps default23 and completed first row after partial second-rowEOF.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/15_spatial_implicit_tail_eof.KEY",
+      "sha256": "213e97eef78d71fae6a83aa5bbfab52c2d187783b1519e1a5d2e3574fe32d3fc",
+      "bytes": 15,
+      "hypothesis": "Completed direct row survives absent trailing fgets line, although helper returns failure.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/16_spatial_explicit_tail_eof.KEY",
+      "sha256": "e5d92ba0546eaf75eb2cfc3877e8c035ea1d1343c07d9acefeb45fc8ca657c40",
+      "bytes": 21,
+      "hypothesis": "Explicit-width row completes at physicalEOF without final fgets; copy two components and preserve the rest.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/17_spatial_zero_width_records.KEY",
+      "sha256": "b7988045b2654ea73c47f9201e3912d454de23b50f033e3ee46b1ca4578c02cb",
+      "bytes": 37,
+      "hypothesis": "Explicit positive width consumes values without writing zero-width storage; implicit zero width consumes row IDs and final line only.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/18_planar_three_quads.KEY",
+      "sha256": "1f54a0e40c9d649106967e6b2fbe6ebe90bfb8f47e3998359a9a000112b8d685",
+      "bytes": 121,
+      "hypothesis": "Reset to eight nodes and three adjacent quads with fresh initialized allocations.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/19_planar_vector_defaults.KEY",
+      "sha256": "87ff2543953253970c59196f3136e098c4279c15a201a5beb7c0e50e600fcba4",
+      "bytes": 31,
+      "hypothesis": "Mode6 exact-width vectors use native two-component profile.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/20_planar_integer_defaults.KEY",
+      "sha256": "32d7204f8394adab55bd8d095a1be5174ab0ff9881cb0b460bf953f9468f7661",
+      "bytes": 89,
+      "hypothesis": "All six integer keywords in2D; negativeequal BCCDEF pairs remain untransformed.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/21_planar_real_defaults.KEY",
+      "sha256": "14ea810ede07992f62e10c18ed19320ed862da6d525f8fc5db9eda2be9e0225d",
+      "bytes": 113,
+      "hypothesis": "All eight mode0 node real keywords in2D with actual scalar/vector widths.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/22_planar_element_defaults.KEY",
+      "sha256": "c8f5c3bb5a10fd8e86c555c78f50ee58e8e589ec2370f74f00d7261cd52fae9f",
+      "bytes": 132,
+      "hypothesis": "All nine element fields in2D, including zero-width material-dependent fields.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/23_planar_vector_mismatch.KEY",
+      "sha256": "07e585b5ff88e156523824bad6ed42907f61dd94c6286651cfc45fb87097eb91",
+      "bytes": 35,
+      "hypothesis": "Three defaults for width2 broadcast the first; exact-width URZ keeps its negativezero component.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/24_planar_explicit_long.KEY",
+      "sha256": "6ad8f08f904d9d55dcabb95f458a357f3094ebec53cc783a44f8618b684fb4a9",
+      "bytes": 91,
+      "hypothesis": "Distinct three-row values; explicitwidth6 is truncated to four allocated components.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/25_planar_boundary_sparse.KEY",
+      "sha256": "859806f1724714eec97c48140320e287c2a284f67c5e6d039edfdfd439648f11",
+      "bytes": 56,
+      "hypothesis": "Sparse integer updates/defaults including INT_MIN remain unchanged by3D-only postprocessing.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/26_planar_implicit_keyword_discard.KEY",
+      "sha256": "6226b0cb9e1c3ade24bb1968103171393cd29513c6973968328b1ee63582ab86",
+      "bytes": 48,
+      "hypothesis": "Implicit final line read discards same-line NDHEAT; next-line NDHEAT remains parseable.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/27_planar_explicit_keyword_kept.KEY",
+      "sha256": "7a0bff5eecd3a81bbf5040b7931f382aaa6c62b7c59c5eaa27ab1fafdf6efc4e",
+      "bytes": 34,
+      "hypothesis": "Explicit reader leaves same-line DENSTY for the parser after partial-width row commit.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/28_planar_blank_then_success.KEY",
+      "sha256": "accb164bf44a604515b2c884ee9dc4174378b480637bc8eb3a1972c4ff7964b3",
+      "bytes": 21,
+      "hypothesis": "Blank header returns failure without array mutation, then following keyword succeeds with retained parser error status.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/29_planar_geometry_three_reallocate.KEY",
+      "sha256": "47c66f696f16a0c1974ac5196fde12e3038769bdd78421656ba96d5bb0784bcf",
+      "bytes": 105,
+      "hypothesis": "Change2D geometry mode to3 then replace node/element arrays, establishing fully initialized grown direct integer extents.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/30_planar_three_component_fields.KEY",
+      "sha256": "d2b0a9f8f5897476171bfe5c58148e8f3c60c17d5db0d63b4f6666b959dafd86",
+      "bytes": 92,
+      "hypothesis": "Mixed profile widths: URZ/BCCDEF3 but DRZ/PRZ2; dimension remains2 so equal negative triples are not transformed.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/31_planar_vector_partial_eof.KEY",
+      "sha256": "328022de97b66edb4f5d47948b1cbb5ccb133b26f7211f659966098d08800321",
+      "bytes": 39,
+      "hypothesis": "Exact three-component vector defaults and completed first row remain after late partialEOF.",
+      "split": "training",
+      "expected_output": null
+    },
+    {
+      "path": "tests/fixtures/mesh_fields/32_final_spatial_reset.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12,
+      "hypothesis": "Destroy the populated planar model and restore empty roots after all25 field paths.",
+      "split": "training",
+      "expected_output": null
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_mesh_field_import.js",
+    "sha256": "f2449d2fefb0b3947983424af9ce9def12c97a43c899fa756ff538e047bad777"
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/array-keyword-next-inventory.json",
+      "sha256": "cfe64415fc8abc76aa0d686e13ed845c3bfaaa495fd8629cd3e243eb507c26f4"
+    },
+    {
+      "path": "analysis/mesh-field-callsite-audit.json",
+      "sha256": "b43b80fc9ee089016b68b57298dd9070d14a0a079b38a6fb185048d25584c235"
+    },
+    {
+      "path": "analysis/mesh-field-dispatch-dumpbin.txt",
+      "sha256": "3ec94125693ed491598335353668649983474b555be85647e28405262c9b9704"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d09c0.json",
+      "sha256": "de1b0e50ccd3575f04a8f37f07d607370fc30a95c4c2c3d642e5603a675c1181"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf"
+    },
+    {
+      "path": "analysis/geometry-import-0x14038b8a0.json",
+      "sha256": "76d86a332755c224b4539b295b190f5b40d7da5ac239f25396eda4cbafbfcff0"
+    },
+    {
+      "path": "analysis/geometry-import-0x14038b8a0-assembly.json",
+      "sha256": "8f714501d220e8ad0962660a982341bd5fe07039f7c259d22e07147b0d0fdc32"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612"
+    },
+    {
+      "path": "analysis/material-reference-0x140416c90.json",
+      "sha256": "b8b241404689a00a28fd62cfe13268a5a49bc7ab9a8c658f87f57b1642593651"
+    },
+    {
+      "path": "analysis/material-reference-0x1404199a0.json",
+      "sha256": "7d91e748f40496c14778ea2db058bb3ed127f807b1bd7c72d6ff39599bde848b"
+    },
+    {
+      "path": "analysis/material-reference-0x140419b90.json",
+      "sha256": "6a08f5571d4af4c6249c27ad036db24f5e40b5bdd9feb2843298a979d01158ca"
+    },
+    {
+      "path": "analysis/material-columns-0x140419d40.json",
+      "sha256": "4b5c61bf99fd3551a8f35ba662111ab59b3d013d8c24fe098f3d31a8b42e0b6f"
+    },
+    {
+      "path": "analysis/material-columns-0x140419ea0.json",
+      "sha256": "1c3978b8a81fc0cca950709f095e2c12f295f9921e9d8abd1bebe8e4692b4775"
+    },
+    {
+      "path": "analysis/mesh-0x1400015e0.json",
+      "sha256": "2362de99fa91533d49fa7a17df87f649def43ec2749aab6c425b0e4cb15acc66"
+    },
+    {
+      "path": "analysis/root-layout-0x1400015f0.json",
+      "sha256": "c4b830a4abbfaaf1740ee0f55bb05e45d5378861438c484af339ad63ea2697e9"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d21c0.json",
+      "sha256": "64349922e6b0c9524ae06a8279fda219745776713c03f63636a9d60e5e49372e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d2090.json",
+      "sha256": "b6bf81006fbe8d95e8e9ac874f59abcb961488107502c2da1f95f61b70b5ec64"
+    },
+    {
+      "path": "analysis/material-column-producer-static-contract.json",
+      "sha256": "eb56bc8c0d4dfd0d5fc9fdef3e7ff32edbf7b6a913b55e8d1e0119d1c9ca2c18"
+    }
+  ],
+  "keyword_ids": [
+    160,
+    162,
+    163,
+    165,
+    166,
+    167,
+    168,
+    169,
+    171,
+    172,
+    176,
+    177,
+    206,
+    207,
+    213,
+    214,
+    217,
+    219,
+    220,
+    221,
+    222,
+    233,
+    237,
+    238,
+    239
+  ],
+  "keywords": [
+    "DRZ",
+    "BCCDEF",
+    "BCCDFN",
+    "URZ",
+    "FRZ",
+    "PRZ",
+    "BCCTMP",
+    "BCCTFN",
+    "NDHEAT",
+    "NDFLUX",
+    "STNCMP",
+    "DENSTY",
+    "DVOLF",
+    "TICF",
+    "VOTAGE",
+    "DATOM",
+    "HDNOBJ",
+    "BCCCRB",
+    "BCCRHT",
+    "CRBFLX",
+    "RHTFLX",
+    "YLDS",
+    "ZEFI",
+    "ZMFI",
+    "CURRNT"
+  ],
+  "bounds": {
+    "imports": 32,
+    "materials": 0,
+    "objects": 1,
+    "nodes_per_object": 8,
+    "elements_per_object": 3,
+    "actual_width": 6,
+    "explicit_record_width": 8,
+    "declared_rows": 4,
+    "maximum_fixture_bytes": 132
+  },
+  "handler_scope": {
+    "category1": [
+      28
+    ],
+    "category2": [
+      145,
+      159,
+      160,
+      162,
+      163,
+      165,
+      166,
+      167,
+      168,
+      169,
+      171,
+      172,
+      173,
+      176,
+      177,
+      206,
+      207,
+      213,
+      214,
+      217,
+      219,
+      220,
+      221,
+      222,
+      233,
+      237,
+      238,
+      239
+    ],
+    "category4": []
+  },
+  "predeclared_coverage": [
+    "Every selected keyword invoked in both3D and2D, with actual native reset widths.",
+    "Mode6 exact vector and broadcast defaults; mode0 scalar defaults and sparse rows; mode1 mincopy and explicitwidth truncation.",
+    "Direct destinations preserve defaults and completed rows on failure; implicit versus explicit EOF and same-line cursor differences.",
+    "Negativezero defaults/rows, zero-width DVOLF/TICF including detailed record consumption.",
+    "BCCDEF equalnegative/unequal/positive triples,2D no transform, INT_MIN wraparound, and unconditional postprocess after reader failure.",
+    "GEOTYP3 in2D with fresh replacement allocations avoids treating unknown realloc tails as initialized."
+  ],
+  "declared_gaps": [
+    "Positive DVOLF/TICF width remains unavailable under recovered supported controls: root13f4 stays0. No unsupported control is invented.",
+    "Mode6 width>10 early-rejection is not exercised because current supported profiles have bounded widths2/3.",
+    "No first row-ID matching failure, uninitialized integer header, native allocation failure, negative allocation extent or float overflow/nonfinite values.",
+    "No shared-buffer/COW alias profile or complete scientific meaning of imported fields is claimed."
+  ],
+  "bccdef_wrap_evidence": "The previous inventory underflow exclusion is superseded by actual SUB EDX,0xc8 machine-instruction recovery in mesh-field callsite audit; fixtures11/12 use representable INT_MIN inputs to observe modulo32bit subtraction."
+}

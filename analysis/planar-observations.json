@@ -1,0 +1,1057 @@
+{
+  "result": "PASS",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "method": "Read-only original-capture provenance and structural consistency checks; no original or replacement execution and no replacement-generated expected arrays.",
+  "fixture_manifest": {
+    "path": "analysis/planar-boundary-evaluation-cases.json",
+    "sha256": "5a8900b0299289cd49cc36cf3b4241faa000cc014f77d595c2ee98f8787176f1"
+  },
+  "static_evidence": [
+    {
+      "path": "analysis/mesh-0x14032da62.json",
+      "sha256": "69e1b46a6cfa80d1bade611e8d35085a833f2ed0b195c4cb09078104db172674",
+      "evidence_id": "ev_abf01926157d848d3d73501162b578b016ebb5ebc69790272ea3365f778e4fe0"
+    },
+    {
+      "path": "analysis/mesh-0x14032d65e.json",
+      "sha256": "2662218a6dd587b8712659693ea429d3e4b1d8fa0fe77d50bfa8864ca71ca1e6",
+      "evidence_id": "ev_ac9b939fcea3402bd4e5ebee3dcada4b0f7ae26b440af6b25326d6208090ac26"
+    },
+    {
+      "path": "analysis/mesh-0x1401fc290.json",
+      "sha256": "81f31832634c033f016c53995587fea8f52f8e2c004f8c99dab787797febb6c3",
+      "evidence_id": "ev_90e6b2a97d661e89fa225875423bbf58c0b7c011ad3939e4af339354bdc8b2d7"
+    },
+    {
+      "path": "analysis/mesh-0x14017ebc0.json",
+      "sha256": "1b3fcd27beafe4d086f4082666348307272ff3cbed5b9718cae8be69706033c7",
+      "evidence_id": "ev_8e30d905db919925250b3caa42ea320dbd721000782292c510ed586c2bef86d3"
+    }
+  ],
+  "process_runs": 2,
+  "imports": 12,
+  "ordered_events": 60,
+  "runs": [
+    {
+      "split": "training",
+      "pid": 10720,
+      "evidence": {
+        "path": "analysis/planar-runtime-training.json",
+        "sha256": "4c5d2382102942e2a411c0b97b338d5315ba1bb1a2cbbaaecada6866adf14bad"
+      },
+      "evidence_id": "ev_ef5364608d116dd82eafab8ce3050900008efbbed4e4cdb76bfbe4e7e4dfc41c",
+      "run_record": {
+        "path": "analysis/oracle/planar-boundary-training/run.json",
+        "sha256": "684c7861b5ac332d1043c4554a0451f7deb1b6213dc952a75721bfcd2ef5417e"
+      },
+      "probe": {
+        "path": "analysis/oracle/planar-boundary-training.js",
+        "sha256": "4692c6ce55c6ca519de7d348ee9ccbddde63e540c4852aa22cd7c6353dc06c16"
+      },
+      "probe_template": {
+        "path": "tools/observe_planar_boundary.js",
+        "sha256": "1170b0f823a2a06fac9bf733852176afc1ed9a8a30a8b75bde9657c28d75fec9"
+      },
+      "event_count": 30,
+      "imports": [
+        {
+          "case_id": "training/01_single_quad",
+          "classification": "valid_quad",
+          "fixture": "tests/fixtures/planar_boundary/training/01_single_quad.KEY",
+          "fixture_sha256": "c4fa21157cbeefa131c3bc87491d32b184c2729c35d075455e52ba55978b61d5",
+          "sequence_range": [
+            1,
+            5
+          ],
+          "status": 0,
+          "dimension_before": 3,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 1,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                5
+              ]
+            ],
+            "nodes": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 4,
+            "groups": [
+              [
+                1,
+                2,
+                3,
+                4,
+                1
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "training/02_closed_triangle",
+          "classification": "triangle_encoded_by_repeated_first_slot",
+          "fixture": "tests/fixtures/planar_boundary/training/02_closed_triangle.KEY",
+          "fixture_sha256": "81502fac9729434c530f3dde454b1741deac3408e048fad3af757c310a6343d4",
+          "sequence_range": [
+            6,
+            10
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 1,
+            "connectivity": [
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                4
+              ]
+            ],
+            "nodes": [
+              1,
+              2,
+              3,
+              1,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 3,
+            "groups": [
+              [
+                1,
+                2,
+                3,
+                1
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "training/03_adjacent_quads",
+          "classification": "two_valid_adjacent_quads",
+          "fixture": "tests/fixtures/planar_boundary/training/03_adjacent_quads.KEY",
+          "fixture_sha256": "51fedbf0209f28a4497e826beba12968225ba57fdeb0c03704b01d8060957957",
+          "sequence_range": [
+            11,
+            15
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 2,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              2,
+              5,
+              6,
+              3
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                7
+              ]
+            ],
+            "nodes": [
+              1,
+              2,
+              5,
+              6,
+              3,
+              4,
+              1,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 6,
+            "groups": [
+              [
+                1,
+                2,
+                5,
+                6,
+                3,
+                4,
+                1
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "training/04_disconnected_loops",
+          "classification": "two_disjoint_valid_quads",
+          "fixture": "tests/fixtures/planar_boundary/training/04_disconnected_loops.KEY",
+          "fixture_sha256": "51c1c090fd9c8cd874ac0faeda7b6d2d14879add0bf3358ba40df0556e4ea9f3",
+          "sequence_range": [
+            16,
+            20
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 2,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "builder_output": {
+            "count": 2,
+            "ranges": [
+              [
+                1,
+                5
+              ],
+              [
+                7,
+                11
+              ]
+            ],
+            "nodes": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              0,
+              5,
+              6,
+              7,
+              8,
+              5,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 8,
+            "groups": [
+              [
+                1,
+                2,
+                3,
+                4,
+                1
+              ],
+              [
+                5,
+                6,
+                7,
+                8,
+                5
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "training/05_duplicate_quads",
+          "classification": "nonphysical_duplicate_same_orientation",
+          "fixture": "tests/fixtures/planar_boundary/training/05_duplicate_quads.KEY",
+          "fixture_sha256": "b9e051b6292dc3ccefbfd4951aff2f1241d529cc00c9e7bff8e9256c2efaf2bc",
+          "sequence_range": [
+            21,
+            25
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 2,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                9
+              ]
+            ],
+            "nodes": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              2,
+              3,
+              4,
+              1,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 8,
+            "groups": [
+              [
+                1,
+                2,
+                3,
+                4,
+                1,
+                2,
+                3,
+                4,
+                1
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "training/06_ring_with_hole",
+          "classification": "valid_eight_quad_ring_with_hole",
+          "fixture": "tests/fixtures/planar_boundary/training/06_ring_with_hole.KEY",
+          "fixture_sha256": "f84028c47abd9f6b153f85d289307b9067cfd45d023a08ff9d03bb0397b6d93e",
+          "sequence_range": [
+            26,
+            30
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 8,
+            "connectivity": [
+              1,
+              2,
+              6,
+              5,
+              2,
+              3,
+              7,
+              6,
+              3,
+              4,
+              8,
+              7,
+              5,
+              6,
+              10,
+              9,
+              7,
+              8,
+              12,
+              11,
+              9,
+              10,
+              14,
+              13,
+              10,
+              11,
+              15,
+              14,
+              11,
+              12,
+              16,
+              15
+            ]
+          },
+          "builder_output": {
+            "count": 2,
+            "ranges": [
+              [
+                1,
+                13
+              ],
+              [
+                15,
+                19
+              ]
+            ],
+            "nodes": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              12,
+              16,
+              15,
+              14,
+              13,
+              9,
+              5,
+              1,
+              0,
+              7,
+              6,
+              10,
+              11,
+              7,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 16,
+            "groups": [
+              [
+                1,
+                2,
+                3,
+                4,
+                8,
+                12,
+                16,
+                15,
+                14,
+                13,
+                9,
+                5,
+                1
+              ],
+              [
+                7,
+                6,
+                10,
+                11,
+                7
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "split": "held_out",
+      "pid": 23132,
+      "evidence": {
+        "path": "analysis/planar-runtime-held-out.json",
+        "sha256": "f9397a6dfa520cd6ead2ae5b5240cf987903f587deb46b6386964cb3ee7a676e"
+      },
+      "evidence_id": "ev_b3d676b3f8176bd3df7860b20f04387e6c5c106a5e35b1f1f11d5292f5f22fcb",
+      "run_record": {
+        "path": "analysis/oracle/planar-boundary-held-out/run.json",
+        "sha256": "46a84f010488ac1c6c48a5e1fe52b965d47897a16ff9285ec265e893ccd55972"
+      },
+      "probe": {
+        "path": "analysis/oracle/planar-boundary-held-out.js",
+        "sha256": "5d04f16f96b21c07abce9c2a5c927be13654ceaf09c3ddc71f2f1870e2b5ee99"
+      },
+      "probe_template": {
+        "path": "tools/observe_planar_boundary.js",
+        "sha256": "1170b0f823a2a06fac9bf733852176afc1ed9a8a30a8b75bde9657c28d75fec9"
+      },
+      "event_count": 30,
+      "imports": [
+        {
+          "case_id": "held_out/01_single_quad",
+          "classification": "valid_quad_reversed_orientation",
+          "fixture": "tests/fixtures/planar_boundary/held_out/01_single_quad.KEY",
+          "fixture_sha256": "20050018e7dd003bea4eb3e7853e8bfe6fbfa3d7ae5436a49eabf42ef592906e",
+          "sequence_range": [
+            1,
+            5
+          ],
+          "status": 0,
+          "dimension_before": 3,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 1,
+            "connectivity": [
+              2,
+              1,
+              4,
+              3
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                5
+              ]
+            ],
+            "nodes": [
+              2,
+              1,
+              4,
+              3,
+              2,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 4,
+            "groups": [
+              [
+                2,
+                1,
+                4,
+                3,
+                2
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "held_out/02_closed_triangle",
+          "classification": "triangle_encoded_by_repeated_first_slot",
+          "fixture": "tests/fixtures/planar_boundary/held_out/02_closed_triangle.KEY",
+          "fixture_sha256": "a37eb2ef483ad8327b8a3b81410486bc9920233916666681c46545f20d5571cb",
+          "sequence_range": [
+            6,
+            10
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 1,
+            "connectivity": [
+              2,
+              1,
+              3,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                4
+              ]
+            ],
+            "nodes": [
+              2,
+              1,
+              3,
+              2,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 3,
+            "groups": [
+              [
+                2,
+                1,
+                3,
+                2
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "held_out/03_adjacent_quads",
+          "classification": "two_valid_adjacent_quads_reordered_and_reversed",
+          "fixture": "tests/fixtures/planar_boundary/held_out/03_adjacent_quads.KEY",
+          "fixture_sha256": "df0370f484cb2a44bb3b79d11965e90a236988c4e9b356ca616121429722cc4b",
+          "sequence_range": [
+            11,
+            15
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 2,
+            "connectivity": [
+              5,
+              2,
+              3,
+              6,
+              2,
+              1,
+              4,
+              3
+            ]
+          },
+          "builder_output": {
+            "count": 1,
+            "ranges": [
+              [
+                1,
+                7
+              ]
+            ],
+            "nodes": [
+              5,
+              2,
+              1,
+              4,
+              3,
+              6,
+              5,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 6,
+            "groups": [
+              [
+                5,
+                2,
+                1,
+                4,
+                3,
+                6,
+                5
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "held_out/04_disconnected_loops",
+          "classification": "two_disjoint_valid_quads",
+          "fixture": "tests/fixtures/planar_boundary/held_out/04_disconnected_loops.KEY",
+          "fixture_sha256": "68f95e1e01a27484b52ef3d9c87dc12fb20cc476b7f9fd256ed540455a12b424",
+          "sequence_range": [
+            16,
+            20
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 2,
+            "connectivity": [
+              6,
+              5,
+              8,
+              7,
+              2,
+              1,
+              4,
+              3
+            ]
+          },
+          "builder_output": {
+            "count": 2,
+            "ranges": [
+              [
+                1,
+                5
+              ],
+              [
+                7,
+                11
+              ]
+            ],
+            "nodes": [
+              6,
+              5,
+              8,
+              7,
+              6,
+              0,
+              2,
+              1,
+              4,
+              3,
+              2,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 8,
+            "groups": [
+              [
+                6,
+                5,
+                8,
+                7,
+                6
+              ],
+              [
+                2,
+                1,
+                4,
+                3,
+                2
+              ]
+            ]
+          }
+        },
+        {
+          "case_id": "held_out/05_duplicate_quads",
+          "classification": "nonphysical_duplicate_opposite_orientation",
+          "fixture": "tests/fixtures/planar_boundary/held_out/05_duplicate_quads.KEY",
+          "fixture_sha256": "0905659f6d55cd97bd16850cd91a33495e0f042ab5429b834e108061457d5d33",
+          "sequence_range": [
+            21,
+            25
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 2,
+            "connectivity": [
+              1,
+              2,
+              3,
+              4,
+              1,
+              4,
+              3,
+              2
+            ]
+          },
+          "builder_output": {
+            "count": 0,
+            "ranges": [],
+            "nodes": [
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 0,
+            "groups": []
+          }
+        },
+        {
+          "case_id": "held_out/06_ring_with_hole",
+          "classification": "valid_eight_quad_ring_with_hole",
+          "fixture": "tests/fixtures/planar_boundary/held_out/06_ring_with_hole.KEY",
+          "fixture_sha256": "b6646f85d0967fa13d164cc7bad9692377f45b2a5fabb42b5135c3283602cb1d",
+          "sequence_range": [
+            26,
+            30
+          ],
+          "status": 0,
+          "dimension_before": 2,
+          "dimension_after": 2,
+          "builder_input": {
+            "elements": 8,
+            "connectivity": [
+              12,
+              11,
+              15,
+              16,
+              11,
+              10,
+              14,
+              15,
+              10,
+              9,
+              13,
+              14,
+              8,
+              7,
+              11,
+              12,
+              6,
+              5,
+              9,
+              10,
+              4,
+              3,
+              7,
+              8,
+              3,
+              2,
+              6,
+              7,
+              2,
+              1,
+              5,
+              6
+            ]
+          },
+          "builder_output": {
+            "count": 2,
+            "ranges": [
+              [
+                1,
+                13
+              ],
+              [
+                15,
+                19
+              ]
+            ],
+            "nodes": [
+              15,
+              16,
+              12,
+              8,
+              4,
+              3,
+              2,
+              1,
+              5,
+              9,
+              13,
+              14,
+              15,
+              0,
+              11,
+              10,
+              6,
+              7,
+              11,
+              -1
+            ]
+          },
+          "object_output": {
+            "id": 1,
+            "dimension": 2,
+            "arity": 4,
+            "total": 16,
+            "groups": [
+              [
+                15,
+                16,
+                12,
+                8,
+                4,
+                3,
+                2,
+                1,
+                5,
+                9,
+                13,
+                14,
+                15
+              ],
+              [
+                11,
+                10,
+                6,
+                7,
+                11
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "candidate_freeze": {
+    "record": {
+      "path": "analysis/planar-candidate-freeze.json",
+      "sha256": "f0348a38d98ca259d2df26788f84e8cc5a1c53879f70746ddf84d345ea836356"
+    },
+    "declared_stage": "before planar training and held-out capture",
+    "files": [
+      {
+        "path": "src/recovered/planar_boundary.cpp",
+        "sha256": "6703d5f1995a8698bffbc65cf89aa8e53ff535344478015c9809e2ad58af7a70",
+        "current_sha256": "6703d5f1995a8698bffbc65cf89aa8e53ff535344478015c9809e2ad58af7a70",
+        "current_matches": true
+      },
+      {
+        "path": "src/recovered/planar_boundary.hpp",
+        "sha256": "4d8fa45ab0ad51160fcf1b315cf166cbf1eb97ea895b0957cac54bd9826c24bf",
+        "current_sha256": "4d8fa45ab0ad51160fcf1b315cf166cbf1eb97ea895b0957cac54bd9826c24bf",
+        "current_matches": true
+      },
+      {
+        "path": "tests/planar_boundary_replay.cpp",
+        "sha256": "55a8eefca3ade79b64b758fa988c5db793b75133e851aa1c9c214971b111a07b",
+        "current_sha256": "55a8eefca3ade79b64b758fa988c5db793b75133e851aa1c9c214971b111a07b",
+        "current_matches": true
+      },
+      {
+        "path": "build/Release/planar_boundary_replay.exe",
+        "sha256": "234d58007d896d74df0842f96f572d7c9f158e0d2f9e81d4d0820f984a97f6e9",
+        "current_sha256": "234d58007d896d74df0842f96f572d7c9f158e0d2f9e81d4d0820f984a97f6e9",
+        "current_matches": true
+      }
+    ],
+    "qualification": "Current matches are informational and do not determine original-capture provenance. Stage wording is not an independently trusted timestamp."
+  },
+  "static_review": {
+    "source": "src/recovered/planar_boundary.cpp",
+    "reviewed_source_sha256": "6703d5f1995a8698bffbc65cf89aa8e53ff535344478015c9809e2ad58af7a70",
+    "current_source_matches_review": true,
+    "conclusion": "No discrepancy found within the positive-node bounded-size domain.",
+    "checked": [
+      "Closed-triangle fourth-edge suppression",
+      "First later reverse-directed edge cancellation and in-place compaction",
+      "Chain lookup restarts at outer starting edge plus one",
+      "Inclusive one-based ranges, zero separators, final -1 and empty [-1]"
+    ],
+    "limitation": "Nonpositive node IDs and out-of-domain sizes are rejected rather than reproducing native invalid-input behavior."
+  },
+  "tampering_checks": [
+    {
+      "mutation": "PID",
+      "result": "REJECTED",
+      "reason": "PID mismatch"
+    },
+    {
+      "mutation": "sequence",
+      "result": "REJECTED",
+      "reason": "noncontiguous sequence"
+    },
+    {
+      "mutation": "range_start",
+      "result": "REJECTED",
+      "reason": "range is not contiguous with exactly one separator"
+    },
+    {
+      "mutation": "terminal",
+      "result": "REJECTED",
+      "reason": "separator/sentinel mismatch"
+    },
+    {
+      "mutation": "separator",
+      "result": "REJECTED",
+      "reason": "separator/sentinel mismatch"
+    },
+    {
+      "mutation": "consumer_group",
+      "result": "REJECTED",
+      "reason": "consumer groups differ from builder"
+    },
+    {
+      "mutation": "consumer_total",
+      "result": "REJECTED",
+      "reason": "consumer total differs from sum of chain lengths minus one"
+    },
+    {
+      "mutation": "dimension",
+      "result": "REJECTED",
+      "reason": "dimension/arity mismatch"
+    },
+    {
+      "mutation": "arity",
+      "result": "REJECTED",
+      "reason": "dimension/arity mismatch"
+    },
+    {
+      "mutation": "status",
+      "result": "REJECTED",
+      "reason": "nonzero import status"
+    },
+    {
+      "mutation": "truncation",
+      "result": "REJECTED",
+      "reason": "capture truncated or cleanup failed"
+    },
+    {
+      "mutation": "missing_event",
+      "result": "REJECTED",
+      "reason": "missing/extra events"
+    },
+    {
+      "mutation": "empty_has_extra_data",
+      "result": "REJECTED",
+      "reason": "empty boundary must contain only terminal -1"
+    }
+  ],
+  "observations": {
+    "group_counts_by_split": {
+      "training": [
+        1,
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      "held_out": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        2
+      ]
+    },
+    "ring_cases": [
+      {
+        "case_id": "training/06_ring_with_hole",
+        "observed_groups": 2
+      },
+      {
+        "case_id": "held_out/06_ring_with_hole",
+        "observed_groups": 2
+      }
+    ]
+  },
+  "limitations": [
+    "Exact original ordering and orientation are preserved; structural validation does not reconstruct cancellation or predict expected chains.",
+    "The probe observes dimension3 before the first header import and dimension2 afterward. Later imports retain dimension2; consumer arity is4.",
+    "Reordered and reversed-orientation held-out inputs, duplicate stress cases, and two-group rings are bounded observations, not universal planar compatibility.",
+    "Current fixture-manifest not-run fields describe preparation time; this report records later captures without modifying the manifest.",
+    "Replacement agreement is assessed separately. Source review is bound to its recorded hash and is not a proof of complete application equivalence."
+  ]
+}

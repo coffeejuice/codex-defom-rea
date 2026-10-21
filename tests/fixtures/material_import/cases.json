@@ -1,0 +1,109 @@
+{
+  "status": "prepared_not_executed",
+  "purpose": "Ten ordered zero-object MTNAME imports, generated exactly from retained static contract before original observation. No expected native outputs.",
+  "cases": [
+    {
+      "path": "tests/fixtures/material_import/01_sparse_first.KEY",
+      "sha256": "ec293aee19fd250d7645d4e353fd645e357e519d6c060c5e5e59c17f63053c43",
+      "bytes": 28,
+      "hypothesis": "Creates one defaultmaterial ID3;refresh occursbefore name;first append doesnotcreate IDs1/2."
+    },
+    {
+      "path": "tests/fixtures/material_import/02_out_of_order.KEY",
+      "sha256": "90d0f9eee383b37898743a83b8ad5af732cf75353b3f59e119ac45eb643465c9",
+      "bytes": 16,
+      "hypothesis": "Appends ID1 afterID3, count2; saved oldID/rank map is observable duringrefresh,clearedafterward."
+    },
+    {
+      "path": "tests/fixtures/material_import/03_rename_trim.KEY",
+      "sha256": "0a0dc2187d0c32ddd9f482916402f9d29f140ca2b209eb1a57f69f54e9f24ddc",
+      "bytes": 52,
+      "hypothesis": "ExistingID rename preserves leading spaces,trims trailing spaces,and doesnotrefresh."
+    },
+    {
+      "path": "tests/fixtures/material_import/04_blank_new.KEY",
+      "sha256": "d875daf76f521ced758c9757e3f11ac460487ec026ac3273100365803289023b",
+      "bytes": 10,
+      "hypothesis": "NewID7 with emptyname; mode/count/reference defaultsremainzero."
+    },
+    {
+      "path": "tests/fixtures/material_import/05_existing_name_eof.KEY",
+      "sha256": "8e1d8e8ecec6d4d00a8936302899e0a2774454c189b83dd734acc1030e773d98",
+      "bytes": 9,
+      "hypothesis": "Existingrecord secondfgets EOF returns2,preservesname andcount."
+    },
+    {
+      "path": "tests/fixtures/material_import/06_new_name_eof.KEY",
+      "sha256": "d23b0c78c6549201fbf8a05f11b20de060d5bafcd3be935911acac61fb95369f",
+      "bytes": 9,
+      "hypothesis": "NewID9 appendedandrefresh completed before nameEOF; record persists empty,count4."
+    },
+    {
+      "path": "tests/fixtures/material_import/07_selector_eof.KEY",
+      "sha256": "b470a8cace9fabbc377dd6c87aec5376fecb3381d02575b53a12b54d99b0aca6",
+      "bytes": 6,
+      "hypothesis": "Selector EOF returns2 without creation;avoid malformedselector0-conversion."
+    },
+    {
+      "path": "tests/fixtures/material_import/08_same_dimension.KEY",
+      "sha256": "b20e0cac1f9f1cfab56b6c35b3ce5fc15a6940bcc1119fc5d0679ee56bc9102a",
+      "bytes": 12,
+      "hypothesis": "Samedimension preservesmateriallist and IDs/names."
+    },
+    {
+      "path": "tests/fixtures/material_import/09_dimension_reset.KEY",
+      "sha256": "80cb460724ba998042f89a6eebe4dd1fac79c0f03a501d1399fd623904a964de",
+      "bytes": 12,
+      "hypothesis": "Changed dimension destroys allmaterials andclearsroot/listcounts; observeboth primary/linkedroots."
+    },
+    {
+      "path": "tests/fixtures/material_import/10_name_capacity64.KEY",
+      "sha256": "4090c55a3f63820131a43a3970fded848acf638b2c5e4d38e3e8de03b44f1448",
+      "bytes": 74,
+      "hypothesis": "Newplanar ID5 stores exactly64namebytes plusNUL; defaultmaterialfeaturefieldsremainzero."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_material_import.js",
+    "sha256": "ea75f2484738f55f9adc9b6742be372c1938105905d670eb57e427127ebe2fac"
+  },
+  "contract": {
+    "path": "analysis/material-import-next-contract.json",
+    "sha256": "76cb3d1013ab8b0bb29365c8eea1192dc2c0ffafeff3dc245f1a7c754d2a428c"
+  },
+  "bounds": {
+    "maximum_imports": 10,
+    "maximum_materials": 4,
+    "maximum_name_bytes": 64,
+    "objects": 0,
+    "reference_count": 0
+  },
+  "domain": "ASCII names; small positive material selectors or physical EOF; mode0/default feature records and no reference arrays. No objects, malformed selector matching failure, nonempty references, or property keyword imports.",
+  "capture_fields": "Primary/linked root snapshots include full existing tracked fields plus material_list; record names read only through first NUL, selected int32 fields and owner/next pointers, scratch arrays read only within observed old allocation count.",
+  "events": [
+    "material-selector",
+    "material-name",
+    "material-lookup",
+    "material-append-before",
+    "material-append-after",
+    "material-scratch-before",
+    "material-scratch-after",
+    "material-refresh-before",
+    "material-refresh-after",
+    "material-layout-before",
+    "material-layout-after",
+    "material-clear-before",
+    "material-clear-after",
+    "material-destroy-before",
+    "material-destroy-after"
+  ],
+  "static_audit": {
+    "name_reads": "Byte scan bounded65; return prefix plus terminating00, no padding read.",
+    "scratch_reads": "mode0 onLeave records pre-callcount and returned pointers; snapshots use recorded count even after append. Zero-count arrays read no bytes regardless pointer identity.",
+    "intermediate_list": "root_count and list count captured independently; append recordID0 is allowed before handler stores requestedID.",
+    "selector_reads": "Only conversions1 read int32 destination;0/-1 emit null output.",
+    "destruction_reads": "Record captured before28cb70 only; after event contains saved address only.",
+    "component_reads": "79 established root int32 slots; layout snapshots restricted to nested1d0fc0 refresh.",
+    "references": "Require count0 and record pointer provenance; no reference buffer reads."
+  }
+}

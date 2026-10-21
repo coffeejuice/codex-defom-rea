@@ -1,0 +1,25 @@
+{
+  "status": "preserved_comparator_failure_before_correction",
+  "failure": "verify_handler: selector lookup then old-ID rank-map lookups",
+  "initial_comparator": {
+    "path": "analysis/oracle/material-reference-comparator-initial.py",
+    "sha256": "c259d7bf8fce3266fc017f7525127cb43c8394985a1273eda546b1d21a35a80a"
+  },
+  "capture": {
+    "path": "analysis/material-reference-runtime-training.json",
+    "sha256": "76bc2abc53bd7d809e9a9a1cbd1de451c834b6f1965b67282af62fac4e5fa20e"
+  },
+  "candidate_modified": false,
+  "diagnosis": "The old assertion counted all MTNAME lookups as selector/rank-snapshot calls. Captured material-aware layout and remapping add exact-ID lookups inside refresh: case03 [20,999,20], case09 [10,20,30], case18 [3].",
+  "correction": "Keep exact selector plus old-ID prefix before refresh; require every additional lookup inside the paired refresh and validate its result against the current material list. Full material/table/mesh snapshots remain exact.",
+  "static_sources": [
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f"
+    },
+    {
+      "path": "analysis/material-import-0x14029c870.json",
+      "sha256": "d69e9d2443e3c20d0be14aec26b35301fcdf69dbb44737e3f527cbbc6d57a75f"
+    }
+  ]
+}

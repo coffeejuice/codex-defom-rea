@@ -1,0 +1,197 @@
+{
+  "status": "static_recovery_runtime_validation_and_implementation_pending",
+  "purpose": "Recover the producer and mutation order needed to extend default materials to reference graphs without inventing model semantics.",
+  "catalog_entry": {
+    "slot": 130,
+    "id": 116,
+    "category": 4,
+    "name": "MSTMTR",
+    "address": "0x140543ebc"
+  },
+  "entry": {
+    "handler": "0x140384a50",
+    "switch_index": 24,
+    "case_range": [
+      "0x140388341",
+      "0x140388540"
+    ],
+    "common_prefix": "Exact signed material selector and find-or-create including refresh happen before this case, as for MTNAME."
+  },
+  "storage": {
+    "mode": "signed int32 at material+0x1cc8; selected producer uses1, clear uses0, finalizer assigns2 to resolved targets.",
+    "logical_count": "signed int32 at+0x1ccc, written directly by integer line helper, may be zero or negative.",
+    "allocation": "int32 buffer at+0x1cd0; logical count and retained allocation MUST be represented separately.",
+    "reason": "Successful nonpositive count imports can retain an old nonnull buffer. Count-helper failure zeros count but returns before changing mode or allocation."
+  },
+  "positive_count": [
+    "Save previous count before calling413de0(FILE,&count,0). Any nonzero helper status returns2 after its direct count mutation.",
+    "For count>0, set mode1, free any previous nonnull allocation, null pointer, calloc(count,4), then scan references in order.",
+    "Each reference uses stream %Flf into the same uninitialized local double; only return-1 is tested. Successful conversion is truncated toward zero with CVTTSD2SI to int32.",
+    "On EOF return2 without undoing mode/count/allocation or already-written IDs. Unwritten calloc entries remain zero.",
+    "No terminal fgets or component refresh occurs at the end of this case. The shared tail maps nonzero helper status to2."
+  ],
+  "nonpositive_count": [
+    "Only if mode==1 AND old pointer nonnull AND saved previous count>0, visit exactly the saved previous count IDs from retained storage.",
+    "Resolve each old ID by exact material lookup; if found, write target mode0, regardless of its previous mode.",
+    "After the loop, write source mode0. Do not free/null the old reference allocation and do not replace its contents.",
+    "If the guard fails, leave mode and old allocation as they were. Retain the helper-written zero/negative logical count."
+  ],
+  "count_reader": {
+    "address": "0x140413de0",
+    "behavior": "Zero destination before one fgets1024. Replace commas with spaces; sscanf %i. Null fgets or scan-1 returns1, while matching failure0 returns0 with destination zero. skipblank argument is0 here."
+  },
+  "finalization": {
+    "address": "0x1401d6250",
+    "order": "Visit material insertion positions1..root1320. For each current mode1 source, re-read its current logical count at every loop test.",
+    "target_mutation": "For each resolved target whose mode!=2: if target count>0, free its nonnull reference pointer, null it, set count0; then set mode2. For count<=0, retain target allocation/count and set mode2.",
+    "aliasing": "Mutations are immediate and order-dependent. A self-reference can clear the source count and end its own loop. A preceding source can change a later source to mode2 before it is visited.",
+    "missing_id": "Unresolved reference IDs are ignored.",
+    "not_equivalent_to": "A graph reachability traversal, topological pass, or snapshot-based batch update."
+  },
+  "layout_dependency": "1d64f0 queries49..52 return true when root85c!=0 or any material has mode1. This invalidates the current immutable default-name-only feature assumptions. Recover actual refresh timing rather than refreshing eagerly after MSTMTR.",
+  "next_validation": [
+    "Positive references to existing and missing IDs, duplicate references, fractional finite IDs truncating to signed32.",
+    "Zero and negative counts after populated reference allocation; observe allocation extent separately from logical count.",
+    "Blank/EOF count helper versus matching-failure count, and EOF at each reference position.",
+    "Self-reference, cycles, chains and insertion-order reversals with intermediate handler and finalization snapshots.",
+    "A subsequent material append or configuration refresh after reference-mode changes, then populated-object remapping."
+  ],
+  "limits": [
+    "Static REA evidence only; no claim that current C++ implements this contract.",
+    "Reference matching failure can use uninitialized/prior local double; do not invent a zero value. Numeric overflow/nonfinite conversion and allocation failure need separate evidence.",
+    "Native scientific meaning of modes0/1/2 is not inferred from these field writes.",
+    "The current material probe rejects positive reference counts; extend it with observed-allocation bounds before graph runtime capture."
+  ],
+  "sources": [
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce",
+      "evidence_id": "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078"
+    },
+    {
+      "path": "analysis/model-0x140413de0.json",
+      "sha256": "132da8ef32c9a5a46739641430046f49ba635f1b02a0d651d8a74cd104fe038a",
+      "evidence_id": "ev_89797bd9d526735a04c1d510f836868cfa21abe38429ed3944d4a3741ecc7ecc"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/material-import-0x14029c2c0.json",
+      "sha256": "d55f5e114a2d6f3ff8c3b231bf248224401254c78fe75f8c0afbbb688df685f9",
+      "evidence_id": "ev_322633bd11d53f354da900f4df36a32133449d77d9161e5076e8c08bcba48bad"
+    },
+    {
+      "path": "analysis/material-import-0x14029c260.json",
+      "sha256": "b77a6197fa077c76c1394e841d440680c45124c35ab07eeb5e07ba901c86a448",
+      "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda"
+    },
+    {
+      "path": "analysis/keyword-catalog.json",
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e",
+      "evidence_id": null
+    }
+  ],
+  "case_assembly": [
+    "0x140388341: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x140388346: MOV EAX, dword ptr [RAX + 0x1ccc]",
+    "0x14038834c: MOV dword ptr [RSP + 0x60], EAX",
+    "0x140388350: MOV RDX, qword ptr [RSP + 0x50]",
+    "0x140388355: ADD RDX, 0x1ccc",
+    "0x14038835c: XOR R8D, R8D",
+    "0x14038835f: MOV RCX, qword ptr [RSP + 0x1c8]",
+    "0x140388367: CALL 0x140413de0",
+    "0x14038836c: MOV dword ptr [RSP + 0x100], EAX",
+    "0x140388373: CMP dword ptr [RSP + 0x100], 0x0",
+    "0x14038837b: JZ 0x140388387",
+    "0x14038837d: MOV EAX, 0x2",
+    "0x140388382: JMP 0x140388cdf",
+    "0x140388387: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x14038838c: CMP dword ptr [RAX + 0x1ccc], 0x0",
+    "0x140388393: JLE 0x140388472",
+    "0x140388399: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x14038839e: MOV dword ptr [RAX + 0x1cc8], 0x1",
+    "0x1403883a8: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x1403883ad: CMP qword ptr [RAX + 0x1cd0], 0x0",
+    "0x1403883b5: JZ 0x1403883c8",
+    "0x1403883b7: MOV RCX, qword ptr [RSP + 0x50]",
+    "0x1403883bc: MOV RCX, qword ptr [RCX + 0x1cd0]",
+    "0x1403883c3: CALL 0x140479910",
+    "0x1403883c8: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x1403883cd: MOV qword ptr [RAX + 0x1cd0], 0x0",
+    "0x1403883d8: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x1403883dd: MOVSXD RCX, dword ptr [RAX + 0x1ccc]",
+    "0x1403883e4: MOV EDX, 0x4",
+    "0x1403883e9: CALL 0x140480e14",
+    "0x1403883ee: MOV R11, RAX",
+    "0x1403883f1: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x1403883f6: MOV qword ptr [RAX + 0x1cd0], R11",
+    "0x1403883fd: MOV dword ptr [RSP + 0x64], 0x0",
+    "0x140388405: JMP 0x140388412",
+    "0x140388407: MOV EAX, dword ptr [RSP + 0x64]",
+    "0x14038840b: ADD EAX, 0x1",
+    "0x14038840e: MOV dword ptr [RSP + 0x64], EAX",
+    "0x140388412: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x140388417: MOV EAX, dword ptr [RAX + 0x1ccc]",
+    "0x14038841d: CMP dword ptr [RSP + 0x64], EAX",
+    "0x140388421: JGE 0x14038846d",
+    "0x140388423: LEA R8, [RSP + 0x108]",
+    "0x14038842b: LEA RDX, [0x1405583f0]",
+    "0x140388432: MOV RCX, qword ptr [RSP + 0x1c8]",
+    "0x14038843a: CALL 0x140484924",
+    "0x14038843f: CMP EAX, -0x1",
+    "0x140388442: JNZ 0x14038844e",
+    "0x140388444: MOV EAX, 0x2",
+    "0x140388449: JMP 0x140388cdf",
+    "0x14038844e: CVTTSD2SI EDX, qword ptr [RSP + 0x108]",
+    "0x140388457: MOVSXD RCX, dword ptr [RSP + 0x64]",
+    "0x14038845c: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x140388461: MOV RAX, qword ptr [RAX + 0x1cd0]",
+    "0x140388468: MOV dword ptr [RAX + RCX*0x4], EDX",
+    "0x14038846b: JMP 0x140388407",
+    "0x14038846d: JMP 0x14038853b",
+    "0x140388472: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x140388477: MOV EAX, dword ptr [RAX + 0x1cc8]",
+    "0x14038847d: MOV dword ptr [RSP + 0x16c], EAX",
+    "0x140388484: CMP dword ptr [RSP + 0x16c], 0x1",
+    "0x14038848c: JNZ 0x14038853b",
+    "0x140388492: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x140388497: CMP qword ptr [RAX + 0x1cd0], 0x0",
+    "0x14038849f: JZ 0x14038853b",
+    "0x1403884a5: CMP dword ptr [RSP + 0x60], 0x0",
+    "0x1403884aa: JLE 0x14038853b",
+    "0x1403884b0: MOV dword ptr [RSP + 0x64], 0x0",
+    "0x1403884b8: JMP 0x1403884c5",
+    "0x1403884ba: MOV EAX, dword ptr [RSP + 0x64]",
+    "0x1403884be: ADD EAX, 0x1",
+    "0x1403884c1: MOV dword ptr [RSP + 0x64], EAX",
+    "0x1403884c5: MOV EAX, dword ptr [RSP + 0x60]",
+    "0x1403884c9: CMP dword ptr [RSP + 0x64], EAX",
+    "0x1403884cd: JGE 0x14038852c",
+    "0x1403884cf: MOVSXD RCX, dword ptr [RSP + 0x64]",
+    "0x1403884d4: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x1403884d9: MOV RAX, qword ptr [RAX + 0x1cd0]",
+    "0x1403884e0: MOV EAX, dword ptr [RAX + RCX*0x4]",
+    "0x1403884e3: MOV dword ptr [RSP + 0x170], EAX",
+    "0x1403884ea: MOV RCX, qword ptr [RSP + 0x1c0]",
+    "0x1403884f2: ADD RCX, 0x1328",
+    "0x1403884f9: MOV EDX, dword ptr [RSP + 0x170]",
+    "0x140388500: CALL 0x14029c2c0",
+    "0x140388505: MOV qword ptr [RSP + 0x178], RAX",
+    "0x14038850d: CMP qword ptr [RSP + 0x178], 0x0",
+    "0x140388516: JZ 0x14038852a",
+    "0x140388518: MOV RAX, qword ptr [RSP + 0x178]",
+    "0x140388520: MOV dword ptr [RAX + 0x1cc8], 0x0",
+    "0x14038852a: JMP 0x1403884ba",
+    "0x14038852c: MOV RAX, qword ptr [RSP + 0x50]",
+    "0x140388531: MOV dword ptr [RAX + 0x1cc8], 0x0",
+    "0x14038853b: JMP 0x140388ccc"
+  ]
+}

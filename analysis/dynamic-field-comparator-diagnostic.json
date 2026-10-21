@@ -1,0 +1,22 @@
+{
+  "status": "checker_error_before_candidate_comparison",
+  "created_utc": "2026-10-20T22:34:23.421774+00:00",
+  "checker_archive": "analysis/oracle/dynamic-field-comparator-initial.py",
+  "checker_sha256": "e6ab587b00d3ed124faea1580d4c70a458001612d7c5ad321b3b08cf9c10bb97",
+  "capture": "analysis/dynamic-field-runtime-training.json",
+  "failures": [
+    {
+      "exception": "KeyError: 'serial'",
+      "location": "verify_dynamic_lifecycle",
+      "cause": "Event base-name classification includes dynamic-property-guard, which is an unpaired guard observation and has no serial. Restrict paired branch to before/after suffix; retain explicit guard value check."
+    }
+  ],
+  "runtime_changed": false,
+  "candidate_comparison_reached": false,
+  "corrected_checker_sha256": "2044cbb2429a74693d23d991dced551459eb801a08313e69ddc464c9a57f2cb4",
+  "result": "strict_frozen_comparison_pass_after_single_checker_event_classification_fix",
+  "comparison_report": {
+    "path": "analysis/dynamic-field-training-comparison.json",
+    "sha256": "9cc385d7e3662cd54066306796fa69f493a11b8052693bf0a569975669be9bf1"
+  }
+}

@@ -1,0 +1,1762 @@
+{
+  "schema_version": 1,
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "status": "Static partial contract with bounded runtime corroboration of all 53 descriptor mappings and the tested 3D bulk-replacement paths; complete mesh lifecycle remains unresolved.",
+  "method": "Parse descriptor registration calls from saved REA/Ghidra constructor pseudocode, cross-check registration counts/order and allocation sizes, bind constructors to retained vtable bytes, and read saved allocation/free helpers. No target execution or provider query in this pass.",
+  "offset_convention": "All offsets are bytes in the reference Windows x64 executable. These offsets and recovered class names are evidence labels, not a proposed portable C++ layout or established scientific terminology.",
+  "evidence": {
+    "0x14032a990": {
+      "file": "analysis/mesh-0x14032a990.json",
+      "evidence_id": "ev_71479c7aaa5d24a44f852cdde8dce591e95a6c3b233ce7486776779cc17f16f7",
+      "file_sha256": "de8dfcea4e05bad357227aac329ed63edaab6178471da646ee5481f83b1c60a0",
+      "procedure": "0x14032a990"
+    },
+    "0x14032aa20": {
+      "file": "analysis/mesh-0x14032aa20.json",
+      "evidence_id": "ev_7f94d4be45222adab7f377f2d75e7a5a6f6c98e9b16884d735151991a04946aa",
+      "file_sha256": "0e6a620da27c1f5f6634aff449d028d9342a46a3f17067919c4d3e03cad6d52f",
+      "procedure": "0x14032aa20"
+    },
+    "0x14032c8c0": {
+      "file": "analysis/mesh-0x14032c8c0.json",
+      "evidence_id": "ev_515647259844ee2d0fcedee7ab056780fe747c5a7d8873242d2c9a48beeec21b",
+      "file_sha256": "5ad3bcb243c967f9dec7571bebc3beea4926368d00b754b08927c72e9de58840",
+      "procedure": "0x14032c8c0"
+    },
+    "0x14032c950": {
+      "file": "analysis/mesh-0x14032c950.json",
+      "evidence_id": "ev_889c9404765ab9a4893cc85332ec36876c1c11a7a9f9e5f610d98d73d9105b3a",
+      "file_sha256": "8efb962ee0165251e26362757017d84cb94d4d60f6c6efd279998246a26af634",
+      "procedure": "0x14032c950"
+    },
+    "0x14032ca80": {
+      "file": "analysis/mesh-0x14032ca80.json",
+      "evidence_id": "ev_4ffd1304d8cb1fa38a7133c825e21ddcc9afa0e1de15bda2e39a329e7230edb3",
+      "file_sha256": "1f7d29a0406b28a1c1f414e9263fd030a3968871e2e62e70eb56105c2a9164e0",
+      "procedure": "0x14032ca80"
+    },
+    "0x14032cbb0": {
+      "file": "analysis/mesh-0x14032cbb0.json",
+      "evidence_id": "ev_1eebd75970a93f0266b9420dbfbc151afb894ca95c209a786d3237c272a09d02",
+      "file_sha256": "90b496941f991456141dc33a9788364afa8641736a0008a1f1c9deeda9cc12a6",
+      "procedure": "0x14032cbb0"
+    },
+    "0x14032ccd0": {
+      "file": "analysis/mesh-0x14032ccd0.json",
+      "evidence_id": "ev_689dc280fc754665d001aac624635d3772c658b74c1442ffad34f05e626bfaab",
+      "file_sha256": "72b43f92b59a2787642b628116249ad01c704d9881b1ab6bc5c6140d8920422f",
+      "procedure": "0x14032ccd0"
+    },
+    "0x14032ceb0": {
+      "file": "analysis/mesh-0x14032ceb0.json",
+      "evidence_id": "ev_c35b655ad4cad247eb0cbc677c0cf0a28055296ea7c7fa3f69997c2f3582e190",
+      "file_sha256": "84954dc4c865552fde216e288a2df7d59d89eb60cdbea09a402ae8b0ebaf439c",
+      "procedure": "0x14032ceb0"
+    },
+    "0x14017f2f0": {
+      "file": "analysis/mesh-0x14017f2f0.json",
+      "evidence_id": "ev_d2ba4b62c34cef67a0ac06d4ca35be1beac25d7dd9d8eec10bc1dcac5b2a3547",
+      "file_sha256": "db188fb34008d0a6d5f26269d0abe70c0aa555f1102a0a7f901824b47ee4cef4",
+      "procedure": "0x14017f2f0"
+    },
+    "0x140182b10": {
+      "file": "analysis/mesh-0x140182b10.json",
+      "evidence_id": "ev_a5b0ef32096c8bbd8defaf907ab7d97bb1c06cbf6c2a22646e7ec3de40e36919",
+      "file_sha256": "675272ee5226a0f37a2d52c177150e183f2a9f22c7199ea74ce6955082a3bb13",
+      "procedure": "0x140182b10"
+    },
+    "0x14017ef20": {
+      "file": "analysis/mesh-0x14017ef20.json",
+      "evidence_id": "ev_2d21b9ef2f0ba53f524cdec89d3a4e449f97911a6aebafa3784ccf1a786701e1",
+      "file_sha256": "aa8f1c11200e1457dabf3893011e5251069488ed3dedf8cc3c82d8ab4379b45e",
+      "procedure": "0x14017ef20"
+    },
+    "0x14017efc0": {
+      "file": "analysis/mesh-0x14017efc0.json",
+      "evidence_id": "ev_a635f55850ddfc3bb657dfe7266b8ea86fb38933f5b23e6202f54e2344217439",
+      "file_sha256": "c798012b307b643e7f982773f2e346f215215a84bb4f1170e7308d4c9a91ed39",
+      "procedure": "0x14017efc0"
+    },
+    "0x14017f060": {
+      "file": "analysis/mesh-0x14017f060.json",
+      "evidence_id": "ev_f3c5b301767c551e8012e5b47e84d953641c640d912f46131dc77df7778eee09",
+      "file_sha256": "27a99af91f65fb55f0effdf7529fce688c32026ac65c386a34123527fe35f90b",
+      "procedure": "0x14017f060"
+    },
+    "0x140182880": {
+      "file": "analysis/mesh-0x140182880.json",
+      "evidence_id": "ev_7c28f62eeed2725289ada6b13daac3caa74c615f69bdd39f3291e9eacebf5fc2",
+      "file_sha256": "f4b6566fc1b8a29b69f8ae29cbf026f215434d67de04bb2555fbc39e4264e40c",
+      "procedure": "0x140182880"
+    },
+    "0x140182920": {
+      "file": "analysis/mesh-0x140182920.json",
+      "evidence_id": "ev_c87adc72d2aa70e5af36c2acc046510c4b272c316bce99df057d390159f96ee0",
+      "file_sha256": "ea6672bae5ab6b0f89ed0c441c22d118159f1e424f3e58f3d39d738279dbc089",
+      "procedure": "0x140182920"
+    },
+    "0x1401829c0": {
+      "file": "analysis/mesh-0x1401829c0.json",
+      "evidence_id": "ev_57a1e3e71456ce9fb4adcd66f27dc4366d2f8854f5d9f731e4d7af899579d8ee",
+      "file_sha256": "82be4660fcd9ba4503ac4be9e7575ea4d567299cb7fdc602cbb8024d1bf6c99f",
+      "procedure": "0x1401829c0"
+    },
+    "0x140329c70": {
+      "file": "analysis/mesh-0x140329c70.json",
+      "evidence_id": "ev_72d1c2370a55150c8a583c4720afd05c67654d07d584b966cfaf645317e12d11",
+      "file_sha256": "d75456729768de3197f3efebf1fa73f7c739399245d1f337661df1ea68084fcf",
+      "procedure": "0x140329c70"
+    },
+    "0x140329dc0": {
+      "file": "analysis/mesh-0x140329dc0.json",
+      "evidence_id": "ev_09d46118f6976e71c8706d42345e7f72a2f0ad4fdc47995af733b511b05c8a4c",
+      "file_sha256": "7b15adca26e75122271d9497854007314032e7f344be73a74f4f76eb5496c836",
+      "procedure": "0x140329dc0"
+    },
+    "0x140329e60": {
+      "file": "analysis/mesh-0x140329e60.json",
+      "evidence_id": "ev_d1e37851f5a38dfdcabe4eb7a39c6a2a89c1ada0382333cdd7e8f1cf3b378887",
+      "file_sha256": "9b454532cc13bc9d071f5a67588dda0518e97c6dca1343144808f8dfe8187dd4",
+      "procedure": "0x140329e60"
+    },
+    "0x14032a140": {
+      "file": "analysis/mesh-0x14032a140.json",
+      "evidence_id": "ev_b424e6320c1f5d88e61d72c3c08f858acb2c275375cde645f23c376f301c12f9",
+      "file_sha256": "276482dcac50f3297b32e7275820dc11c569e705af0fca2c80c13793718b6ff8",
+      "procedure": "0x14032a140"
+    },
+    "0x14032a4c0": {
+      "file": "analysis/mesh-0x14032a4c0.json",
+      "evidence_id": "ev_763a7b416707f6d7e043a263bb36c531f41be5ce1aee8c50f9278103e2715b94",
+      "file_sha256": "46fa57f3f9ec4e5753cdd3ab1b057c0888ec3cf46b875bb22063db41fb2b980d",
+      "procedure": "0x14032a4c0"
+    },
+    "0x140300c90": {
+      "file": "analysis/mesh-0x140300c90.json",
+      "evidence_id": "ev_43b3a0a332850bc9cba1c3d746f91ea9ef5cdd4e6baeac13260d1e7c620c39d0",
+      "file_sha256": "4100825e8813a1e4e8e20d405a6c6e37cf68521c9118a035ebb06482630c9ae6",
+      "procedure": "0x140300c90"
+    },
+    "0x140300da0": {
+      "file": "analysis/mesh-0x140300da0.json",
+      "evidence_id": "ev_38f763c6c889aa7b34199e505917219eb03464ee33162950905172121f9e8d8f",
+      "file_sha256": "3fef5d5a618739d951a3bd77a10aa95af15c9fd81373d76ef12c615ea13137e4",
+      "procedure": "0x140300da0"
+    },
+    "0x140300e30": {
+      "file": "analysis/mesh-0x140300e30.json",
+      "evidence_id": "ev_ce710e619ee77485d476dd3935f1453989dd880d6d7f30b32dca62ca91fd240e",
+      "file_sha256": "b95e2246541ca1dccd206fab61db1e923db01f95b8cc2da3adb36552ae3a2571",
+      "procedure": "0x140300e30"
+    },
+    "0x140300f00": {
+      "file": "analysis/mesh-0x140300f00.json",
+      "evidence_id": "ev_ba1c4c2f8cc4e3a434021d063c17b9b244ffa610cfdd39c4edb8c2e5b016f034",
+      "file_sha256": "6538a828296da4a39d2d6e783054b9e48c3dc42c94bc7e4b7422861bb45e01dd",
+      "procedure": "0x140300f00"
+    },
+    "0x140300f30": {
+      "file": "analysis/mesh-0x140300f30.json",
+      "evidence_id": "ev_7cb43bff22f744210eabe6539e5f74a78ea7d61e90d4ef2eee02cfc5d91f7df2",
+      "file_sha256": "ec65e00a1990660639ec95dadec5ec7b83d97e4bb17f58e177f0576c6618d6b1",
+      "procedure": "0x140300f30"
+    },
+    "0x140300f90": {
+      "file": "analysis/mesh-0x140300f90.json",
+      "evidence_id": "ev_3688e10725d80d602b0c986fc238daf98cb726acbc5415d35c1fb4bc5f582f87",
+      "file_sha256": "74312ffa89d940521b56365b10a1ee37630e7d87bf576b678fb72b340e9df78a",
+      "procedure": "0x140300f90"
+    },
+    "0x140300ff0": {
+      "file": "analysis/mesh-0x140300ff0.json",
+      "evidence_id": "ev_0672e36ce06ff7a821c64dcde75ea62060c9bc0909296ff07fbd905e10b106aa",
+      "file_sha256": "547eca578a56c070701e2c56c677e3d4a00c2f2d1dd850cd8c2702a0270282a5",
+      "procedure": "0x140300ff0"
+    },
+    "0x140301020": {
+      "file": "analysis/mesh-0x140301020.json",
+      "evidence_id": "ev_8bef88c707ef441dda19bb18cd1215b65cb590e117bd71eb150e14c30185cc11",
+      "file_sha256": "9a8584c4038bf69ccaa01b6a597885456c8f3d5746337b24f0309ad6bab24b41",
+      "procedure": "0x140301020"
+    },
+    "0x140301050": {
+      "file": "analysis/mesh-0x140301050.json",
+      "evidence_id": "ev_54a9a74761e29afd4867df50e8b25fef52b4ac971d0815debb6c9b983dd4406f",
+      "file_sha256": "18ffa2ee995adf44734873476eaa5ebc0603b28b5a9d212f07b88372b3cb928a",
+      "procedure": "0x140301050"
+    },
+    "0x140301380": {
+      "file": "analysis/mesh-0x140301380.json",
+      "evidence_id": "ev_fb642f6a6123650b499d8c4dfee7d8e06719da5d386afbb370ff32f9f0a7c381",
+      "file_sha256": "de2367fad5cca61c047c1c17606a5dd4589b765802becff74e7e8e66ddd25fd5",
+      "procedure": "0x140301380"
+    },
+    "0x140301690": {
+      "file": "analysis/mesh-0x140301690.json",
+      "evidence_id": "ev_0bc484cedfa54487bbd164d7ebf2aeeba2b4a2052b48fef9e72c8f0a03e75daf",
+      "file_sha256": "7f2ae15ad5454cc154b664d3574b752d87bfcae9d579e11f880daeafcd240267",
+      "procedure": "0x140301690"
+    },
+    "0x14032aaa0": {
+      "file": "analysis/mesh-0x14032aaa0.json",
+      "evidence_id": "ev_a6ef0e2c80186be6a94a712a125b002db4809afafc8e00e3a9aa451b3649d869",
+      "file_sha256": "efab58dc7618c86cf70925172c76f78357c9dbef4d669381cf47ca7d2c0dfb4d",
+      "procedure": "0x14032aaa0"
+    },
+    "0x14032c9b0": {
+      "file": "analysis/mesh-0x14032c9b0.json",
+      "evidence_id": "ev_2168e15fa6394773de6d4153faada17c8640e55c09883253ac09e8046ccf0b2a",
+      "file_sha256": "ba91f04f1ade495a82d7b57fe0d95b2c9ff67a755c87922af19c5b782183a3dc",
+      "procedure": "0x14032c9b0"
+    },
+    "0x14032cb10": {
+      "file": "analysis/mesh-0x14032cb10.json",
+      "evidence_id": "ev_7694c8a1ebc60b20cdbff46a3a3c6455fcd69e89d6fc7b3bb57e9e1b23dafe35",
+      "file_sha256": "121b937b5382b5093f221c5f2565993862e1b7e9b76d42d28fcfe8c7150cf3fd",
+      "procedure": "0x14032cb10"
+    },
+    "0x14032cc40": {
+      "file": "analysis/mesh-0x14032cc40.json",
+      "evidence_id": "ev_2622fcc3067436bb956ddd7d00a03ee5cd5df2fb7620d2622fc84713d6f6dd8b",
+      "file_sha256": "7a4593864f162939ea787e302cdad5b9f4d4777af511b80d53786183914a9529",
+      "procedure": "0x14032cc40"
+    },
+    "0x14032cd50": {
+      "file": "analysis/mesh-0x14032cd50.json",
+      "evidence_id": "ev_db74c4aad8a75fbe9ccd2f116e76f50da1397f974def90787076b42d593db7fa",
+      "file_sha256": "9104eaab88df80af049efa57d7848ae88d88e30a85ba34a413d3b50e3fe7800a",
+      "procedure": "0x14032cd50"
+    },
+    "0x14032cf40": {
+      "file": "analysis/mesh-0x14032cf40.json",
+      "evidence_id": "ev_77289eec2f23fd2ca0a766de01557d37bf4cf4c4f4f6fa33995b8ff5293b0cb9",
+      "file_sha256": "51904faeebe59bdfaf427db1548e6569109c04fd7eea300c79cb2fbc443224aa",
+      "procedure": "0x14032cf40"
+    },
+    "0x140183c20": {
+      "file": "analysis/mesh-0x140183c20.json",
+      "evidence_id": "ev_ed3e140a026e3036be7570f9dfe94e6c45f91a24fc19362f9aba0c8536855905",
+      "file_sha256": "911d760ecc1284edfddb75509c82867c042dab3ca8858173ed995cc83ed05ea9",
+      "procedure": "0x140183c20"
+    },
+    "0x14019a450": {
+      "file": "analysis/mesh-0x14019a450.json",
+      "evidence_id": "ev_6be1f27cffc3e163a05d28210a483fc9cfff672a75628d2cc448a4c9c79b234a",
+      "file_sha256": "96c770318ba64c89634ef0d17b7e8f0b2baa8cbec43d61e31d5fa4052e380c4d",
+      "procedure": "0x14019a450"
+    },
+    "0x1402568b0": {
+      "file": "analysis/mesh-0x1402568b0.json",
+      "evidence_id": "ev_a8e4d6ebcb74414c2d236cfe51d12a994edd661b5bf9b2b246ab6cf77f54b00f",
+      "file_sha256": "b0510e4f33af9e5d8cb7ffcd9f2017af21c85e292c556105fa63178e54af58e8",
+      "procedure": "0x1402568b0"
+    },
+    "0x140256900": {
+      "file": "analysis/mesh-0x140256900.json",
+      "evidence_id": "ev_132c41f58766482faf54c6d8c489a901ba570c1909a40fdd8d3b9f532864f1f3",
+      "file_sha256": "cb079050cadcd6c2c49687c06ec30145b50be2353a7f0cd1318e2fb291e7780e",
+      "procedure": "0x140256900"
+    },
+    "0x14019a740": {
+      "file": "analysis/mesh-0x14019a740.json",
+      "evidence_id": "ev_581dfcdd24219d7a4393531a77879fdaadb9bf2693a22122c8e8e8de44dd5a54",
+      "file_sha256": "5b00c2fd1940cd837f704255248cb58099941086a3be1ef81d0c5cf5b425a530",
+      "procedure": "0x14019a740"
+    },
+    "0x14019a6b0": {
+      "file": "analysis/mesh-0x14019a6b0.json",
+      "evidence_id": "ev_727d5b067ac1a6a0f699d5a9421bcf6bca746e29ce6729a9d485c176a0ed77df",
+      "file_sha256": "5b277cd4d99b362b85adafd851e1117535a731f5b39962449ad238fbb213650d",
+      "procedure": "0x14019a6b0"
+    },
+    "0x14019a860": {
+      "file": "analysis/mesh-0x14019a860.json",
+      "evidence_id": "ev_6c88603f324c3fbbaadc7ec63baca265fecf2a89f6983a0dd79d4da454401500",
+      "file_sha256": "e8b47dd97ee341fa880de1245a380938ec1e60a40b43e1397d9c4c8462ef610d",
+      "procedure": "0x14019a860"
+    },
+    "0x1400051a0": {
+      "file": "analysis/mesh-0x1400051a0.json",
+      "evidence_id": "ev_9c316dc2854ab76afb05b4df5f3e8bb7cb5d369fef170c67583b86f1afd5241f",
+      "file_sha256": "62c782431f7250bfe56e1d38e8ae2f4d45c69b0d737cb4a13a384f36c583a286",
+      "procedure": "0x1400051a0"
+    },
+    "0x1400033f0": {
+      "file": "analysis/mesh-0x1400033f0.json",
+      "evidence_id": "ev_f6cb2938372ce6aa81f3eca6f48bc057ae39c492ac2419ffb27c07afed4b8a2d",
+      "file_sha256": "30877a32aa758e58ef8a86cf1420163f647d170871d6de0ad90c09a75ee4724f",
+      "procedure": "0x1400033f0"
+    },
+    "0x14015ec80": {
+      "file": "analysis/model-0x14015ec80.json",
+      "evidence_id": "ev_51331d59a54c58d3ed091f7a62c9b90d24f8d21f4333e2318413d42e920ef912",
+      "file_sha256": "8349b62fdf6f37a542b9c51f5568317e54fa6b75840d774ca56567f712d62d73",
+      "procedure": "0x14015ec80"
+    },
+    "0x140163270": {
+      "file": "analysis/model-0x140163270.json",
+      "evidence_id": "ev_43068d8205edb572ea4364d872e78063b57a08f0d0aee0e6a8e5c37eedcc51dd",
+      "file_sha256": "8cbd338821c6472d1b7b8db3fa09672194b2b6c90398d2bd1e5ca794923c3a55",
+      "procedure": "0x140163270"
+    },
+    "0x1401632a0": {
+      "file": "analysis/model-0x1401632a0.json",
+      "evidence_id": "ev_18ec050530f4b57945a38c4b536b28bb81feeff216aead14d7dc0d729b8ccf66",
+      "file_sha256": "91be56215a7d1227c0357d6ecdf83c49daf09e0d8b5938d03c08744a7c0ae4bc",
+      "procedure": "0x1401632a0"
+    },
+    "0x140162ff0": {
+      "file": "analysis/model-0x140162ff0.json",
+      "evidence_id": "ev_63b9a3acd0e5afa061c4f0c321307787e7cdab2abee4082dd30f0b9820f72ccc",
+      "file_sha256": "d70657ee4a900728ef4cf47b7ebe39d0e5229db0886b79157f9ba3c7db046e2d",
+      "procedure": "0x140162ff0"
+    },
+    "0x140163090": {
+      "file": "analysis/model-0x140163090.json",
+      "evidence_id": "ev_69311701daacd9016453c19ade2919ae6b5aed486aa2d910459c7bedb975a5a4",
+      "file_sha256": "d4cda0e332a30db916db834b3e5dbbee896760318f1c1f56cd434bdb34f8b33e",
+      "procedure": "0x140163090"
+    },
+    "0x14017f130": {
+      "file": "analysis/model-0x14017f130.json",
+      "evidence_id": "ev_8897441021922aa2ffdcc3b1bab032c0404729f75be581003f77a1aa269f3efc",
+      "file_sha256": "a6dce727ddb1adb5ff3eeb0989e24d332d1f407625aefabb22dbbf103e475c1d",
+      "procedure": "0x14017f130"
+    },
+    "0x14017ffe0": {
+      "file": "analysis/model-0x14017ffe0.json",
+      "evidence_id": "ev_6d9bdd05c0820fd6d2989e65e9c351c21c994f65dee945cb099b7e20b3289068",
+      "file_sha256": "cc7c6429254f562a1bd4912a78e92d555dea361e079fd4ebe0b10447855a2367",
+      "procedure": "0x14017ffe0"
+    },
+    "0x140182a50": {
+      "file": "analysis/model-0x140182a50.json",
+      "evidence_id": "ev_3490f6d60275543f75eb48754851e287ab5b09691b77f52488eb68d34f4e1792",
+      "file_sha256": "9b068d9c493d7ba256c045368446777866f8a571a6c9bbe64c3bd99c5e436083",
+      "procedure": "0x140182a50"
+    },
+    "0x1401836c0": {
+      "file": "analysis/model-0x1401836c0.json",
+      "evidence_id": "ev_aec4816c037bbdca81cb232e5dd63c1f8845463dc3c2faf1055652c69f082520",
+      "file_sha256": "43f97d9f9fca9d5055fb36c5e4903ffc8270502d1b9e1caaabc98491310327a6",
+      "procedure": "0x1401836c0"
+    },
+    "0x1401652b0": {
+      "file": "analysis/model-0x1401652b0.json",
+      "evidence_id": "ev_02404e2fda0f68b6a3b875011777376c00638af10fe95dc995f1078d56b12e7d",
+      "file_sha256": "24b7ff751a1463336658978c9ccd478dd7742b68cdf0f392f31261c2022fc452",
+      "procedure": "0x1401652b0"
+    },
+    "0x1401653b0": {
+      "file": "analysis/model-0x1401653b0.json",
+      "evidence_id": "ev_dd2726186f631c4d2b1cad13abe6fbd0334b1ce4da088aea24db932821b6f195",
+      "file_sha256": "7c1e3c999b1ae7a069ec85eb159dc497edf984ae991eeb7e031a14f7bcca25e9",
+      "procedure": "0x1401653b0"
+    },
+    "0x140256dc0": {
+      "file": "analysis/model-0x140256dc0.json",
+      "evidence_id": "ev_84efdc803a8ad751b6baf80784572498416a2512bad265c6f303d34137ba433f",
+      "file_sha256": "f07a4cfe409a84d920e7bfa368c4c25ebc2c8c0ee29a1af0eaa7b65ba8ffd426",
+      "procedure": "0x140256dc0"
+    },
+    "0x140257150": {
+      "file": "analysis/model-0x140257150.json",
+      "evidence_id": "ev_a8ba70ca34958996c893b5c45ac8be85414f7e4aa1fe627e725f5f34e13d7224",
+      "file_sha256": "78e56851ce26c3ad7a6780e1afc86ba6672f61bf04dbd138698a4f544e7e0c81",
+      "procedure": "0x140257150"
+    },
+    "0x1401d09c0": {
+      "file": "analysis/startup-0x1401d09c0.json",
+      "evidence_id": "ev_77968f14dcb6435fff0e9d95a018214f389629fbb600ce664abc73f959fb230f",
+      "file_sha256": "beb205a6737481d8029292f4ccd79ffc4352d99714a6e544f43cde64d59726ca",
+      "procedure": "0x1401d09c0"
+    }
+  },
+  "vtable_evidence": {
+    "file": "analysis/mesh-state-variable-vtables.json",
+    "sha256": "d75b49d526c0bdbd2bf401f9e22cd7c063b0e6ca454f1a7e19c2e4dc8564d9ff",
+    "tables": [
+      {
+        "constructor": "0x14032a990",
+        "constructor_evidence_id": "ev_71479c7aaa5d24a44f852cdde8dce591e95a6c3b233ce7486776779cc17f16f7",
+        "read_evidence_id": "ev_d57a978237124a5705634eca4da969fea23bc707a198866885a3cf668e24febb",
+        "vtable_address": "0x14054d1e0",
+        "recovered_name": "StateVarNode::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x140301690"
+      },
+      {
+        "constructor": "0x14032aa20",
+        "constructor_evidence_id": "ev_7f94d4be45222adab7f377f2d75e7a5a6f6c98e9b16884d735151991a04946aa",
+        "read_evidence_id": "ev_659118e9e88fedff19648756d65287a1f0cddbb135fd9db6e9a78ee68db3a993",
+        "vtable_address": "0x14054d210",
+        "recovered_name": "StateVarNodePost::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x14032aaa0"
+      },
+      {
+        "constructor": "0x14032c8c0",
+        "constructor_evidence_id": "ev_515647259844ee2d0fcedee7ab056780fe747c5a7d8873242d2c9a48beeec21b",
+        "read_evidence_id": "ev_e7f4048c07e297dde530c5aee1e78e1e13db49caef3ec49ab612210702c920d2",
+        "vtable_address": "0x14054df68",
+        "recovered_name": "StateVarElem::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x140301690"
+      },
+      {
+        "constructor": "0x14032c950",
+        "constructor_evidence_id": "ev_889c9404765ab9a4893cc85332ec36876c1c11a7a9f9e5f610d98d73d9105b3a",
+        "read_evidence_id": "ev_0d3b2f952bc71f9514ddc46e755e097336964d6296e49d9b270bda075226937d",
+        "vtable_address": "0x14054df98",
+        "recovered_name": "StateVarElemSTS::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x14032c9b0"
+      },
+      {
+        "constructor": "0x14032ca80",
+        "constructor_evidence_id": "ev_4ffd1304d8cb1fa38a7133c825e21ddcc9afa0e1de15bda2e39a329e7230edb3",
+        "read_evidence_id": "ev_0c820a22476431972a155142deea0b0dad1a550366f5cf2f4f2c75aafdc8065a",
+        "vtable_address": "0x14054dfc8",
+        "recovered_name": "StateVarElemTEPS::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x14032cb10"
+      },
+      {
+        "constructor": "0x14032cbb0",
+        "constructor_evidence_id": "ev_1eebd75970a93f0266b9420dbfbc151afb894ca95c209a786d3237c272a09d02",
+        "read_evidence_id": "ev_42c3b4729c7e85c9e9cb9153efbdb0746202b295caab0b64ad8b656ebe1055ef",
+        "vtable_address": "0x14054dff8",
+        "recovered_name": "StateVarElemDAMAG::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x14032cc40"
+      },
+      {
+        "constructor": "0x14032ccd0",
+        "constructor_evidence_id": "ev_689dc280fc754665d001aac624635d3772c658b74c1442ffad34f05e626bfaab",
+        "read_evidence_id": "ev_b7af569b7cf6108629b42dc6b8b7464fc4156380f041259139ae0808cd35d9f1",
+        "vtable_address": "0x14054e028",
+        "recovered_name": "StateVarElemMATAXI::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x14032cd50"
+      },
+      {
+        "constructor": "0x14032ceb0",
+        "constructor_evidence_id": "ev_c35b655ad4cad247eb0cbc677c0cf0a28055296ea7c7fa3f69997c2f3582e190",
+        "read_evidence_id": "ev_aef246a75ab073261f4ecd60f0b419f99e3857f80dda9895f1305d8ea627594f",
+        "vtable_address": "0x14054e058",
+        "recovered_name": "StateVarElemCURRNT::vftable",
+        "allocation_slot": "0x10",
+        "allocation_procedure": "0x14032cf40"
+      }
+    ]
+  },
+  "registration_verification": {
+    "node_count": 28,
+    "element_count": 25,
+    "node_state_ids_in_order": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      25,
+      27,
+      28,
+      26,
+      29,
+      34,
+      35,
+      17,
+      30,
+      31,
+      32,
+      33
+    ],
+    "element_state_ids_in_order": [
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      62,
+      63,
+      60
+    ],
+    "checks": [
+      "Each parsed constructor call is followed by registration of the same local descriptor variable.",
+      "Each descriptor constructor has a matching recovered vtable name in its pseudocode.",
+      "The most recent allocation call establishes descriptor size 0x38 or 0x40 for each constructor branch.",
+      "IDs and pointer-slot offsets are unique within each container.",
+      "Node slots are contiguous from +0x10 through +0xe8; element state slots from +0x20 through +0xe0.",
+      "Allocation function is decoded from the complete third eight-byte vtable slot and agrees with the retained slot list."
+    ],
+    "limits": [
+      "These checks validate the saved decompiler representation and table linkage; they are not independent runtime allocation observations.",
+      "Null descriptor registration is present after allocation failure branches. Failure behavior is not characterized or claimed safe."
+    ]
+  },
+  "containers": {
+    "node": {
+      "object_offset": "0x8a0",
+      "constructor": "0x14017ef20",
+      "registration": "0x14017f2f0",
+      "object_constructor_evidence": "0x14015ec80",
+      "owner_binding": "0x14017efc0",
+      "owner_pointer_offset": "0x130",
+      "dimension_offset": "0x138",
+      "constructor_dimension": 3,
+      "free": "0x14017f130",
+      "allocate": "0x14017ffe0",
+      "descriptors": [
+        {
+          "registration_index": 0,
+          "state_id": 1,
+          "state_id_hex": "0x1",
+          "slot_relative_to_container": "0x10",
+          "slot_relative_to_object": "0x8b0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 1,
+          "state_id": 2,
+          "state_id_hex": "0x2",
+          "slot_relative_to_container": "0x18",
+          "slot_relative_to_object": "0x8b8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 2,
+          "state_id": 3,
+          "state_id_hex": "0x3",
+          "slot_relative_to_container": "0x20",
+          "slot_relative_to_object": "0x8c0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 3,
+          "state_id": 4,
+          "state_id_hex": "0x4",
+          "slot_relative_to_container": "0x28",
+          "slot_relative_to_object": "0x8c8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 4,
+          "state_id": 5,
+          "state_id_hex": "0x5",
+          "slot_relative_to_container": "0x30",
+          "slot_relative_to_object": "0x8d0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 5,
+          "state_id": 6,
+          "state_id_hex": "0x6",
+          "slot_relative_to_container": "0x38",
+          "slot_relative_to_object": "0x8d8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 6,
+          "state_id": 8,
+          "state_id_hex": "0x8",
+          "slot_relative_to_container": "0x40",
+          "slot_relative_to_object": "0x8e0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 7,
+          "state_id": 9,
+          "state_id_hex": "0x9",
+          "slot_relative_to_container": "0x48",
+          "slot_relative_to_object": "0x8e8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 8,
+          "state_id": 10,
+          "state_id_hex": "0xa",
+          "slot_relative_to_container": "0x50",
+          "slot_relative_to_object": "0x8f0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 9,
+          "state_id": 11,
+          "state_id_hex": "0xb",
+          "slot_relative_to_container": "0x58",
+          "slot_relative_to_object": "0x8f8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 10,
+          "state_id": 12,
+          "state_id_hex": "0xc",
+          "slot_relative_to_container": "0x60",
+          "slot_relative_to_object": "0x900",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 11,
+          "state_id": 13,
+          "state_id_hex": "0xd",
+          "slot_relative_to_container": "0x68",
+          "slot_relative_to_object": "0x908",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 12,
+          "state_id": 14,
+          "state_id_hex": "0xe",
+          "slot_relative_to_container": "0x70",
+          "slot_relative_to_object": "0x910",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 13,
+          "state_id": 15,
+          "state_id_hex": "0xf",
+          "slot_relative_to_container": "0x78",
+          "slot_relative_to_object": "0x918",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 14,
+          "state_id": 16,
+          "state_id_hex": "0x10",
+          "slot_relative_to_container": "0x80",
+          "slot_relative_to_object": "0x920",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 15,
+          "state_id": 24,
+          "state_id_hex": "0x18",
+          "slot_relative_to_container": "0x88",
+          "slot_relative_to_object": "0x928",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 16,
+          "state_id": 25,
+          "state_id_hex": "0x19",
+          "slot_relative_to_container": "0x90",
+          "slot_relative_to_object": "0x930",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 17,
+          "state_id": 27,
+          "state_id_hex": "0x1b",
+          "slot_relative_to_container": "0x98",
+          "slot_relative_to_object": "0x938",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 18,
+          "state_id": 28,
+          "state_id_hex": "0x1c",
+          "slot_relative_to_container": "0xa0",
+          "slot_relative_to_object": "0x940",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 19,
+          "state_id": 26,
+          "state_id_hex": "0x1a",
+          "slot_relative_to_container": "0xa8",
+          "slot_relative_to_object": "0x948",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 20,
+          "state_id": 29,
+          "state_id_hex": "0x1d",
+          "slot_relative_to_container": "0xb0",
+          "slot_relative_to_object": "0x950",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 21,
+          "state_id": 34,
+          "state_id_hex": "0x22",
+          "slot_relative_to_container": "0xb8",
+          "slot_relative_to_object": "0x958",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 22,
+          "state_id": 35,
+          "state_id_hex": "0x23",
+          "slot_relative_to_container": "0xc0",
+          "slot_relative_to_object": "0x960",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 23,
+          "state_id": 17,
+          "state_id_hex": "0x11",
+          "slot_relative_to_container": "0xc8",
+          "slot_relative_to_object": "0x968",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032a990",
+          "recovered_class_name": "StateVarNode",
+          "vtable_address": "0x14054d1e0",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 24,
+          "state_id": 30,
+          "state_id_hex": "0x1e",
+          "slot_relative_to_container": "0xd0",
+          "slot_relative_to_object": "0x970",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032aa20",
+          "recovered_class_name": "StateVarNodePost",
+          "vtable_address": "0x14054d210",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032aaa0",
+          "owner_container_argument": false,
+          "selector_minus_one_included": false,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 25,
+          "state_id": 31,
+          "state_id_hex": "0x1f",
+          "slot_relative_to_container": "0xd8",
+          "slot_relative_to_object": "0x978",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032aa20",
+          "recovered_class_name": "StateVarNodePost",
+          "vtable_address": "0x14054d210",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032aaa0",
+          "owner_container_argument": false,
+          "selector_minus_one_included": false,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 26,
+          "state_id": 32,
+          "state_id_hex": "0x20",
+          "slot_relative_to_container": "0xe0",
+          "slot_relative_to_object": "0x980",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032aa20",
+          "recovered_class_name": "StateVarNodePost",
+          "vtable_address": "0x14054d210",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032aaa0",
+          "owner_container_argument": false,
+          "selector_minus_one_included": false,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 27,
+          "state_id": 33,
+          "state_id_hex": "0x21",
+          "slot_relative_to_container": "0xe8",
+          "slot_relative_to_object": "0x988",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032aa20",
+          "recovered_class_name": "StateVarNodePost",
+          "vtable_address": "0x14054d210",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032aaa0",
+          "owner_container_argument": false,
+          "selector_minus_one_included": false,
+          "domain_semantics": "unassigned"
+        }
+      ]
+    },
+    "element": {
+      "object_offset": "0x9e0",
+      "constructor": "0x140182880",
+      "registration": "0x140182b10",
+      "object_constructor_evidence": "0x14015ec80",
+      "owner_binding": "0x140182920",
+      "owner_pointer_offset": "0xf0",
+      "dimension_offset": "0xf8",
+      "constructor_dimension": 3,
+      "free": "0x140182a50",
+      "allocate": "0x1401836c0",
+      "descriptors": [
+        {
+          "registration_index": 0,
+          "state_id": 38,
+          "state_id_hex": "0x26",
+          "slot_relative_to_container": "0x20",
+          "slot_relative_to_object": "0xa00",
+          "descriptor_allocation_bytes": 64,
+          "descriptor_constructor": "0x14032c950",
+          "recovered_class_name": "StateVarElemSTS",
+          "vtable_address": "0x14054df98",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032c9b0",
+          "owner_container_argument": true,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 1,
+          "state_id": 39,
+          "state_id_hex": "0x27",
+          "slot_relative_to_container": "0x28",
+          "slot_relative_to_object": "0xa08",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 2,
+          "state_id": 40,
+          "state_id_hex": "0x28",
+          "slot_relative_to_container": "0x30",
+          "slot_relative_to_object": "0xa10",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 3,
+          "state_id": 41,
+          "state_id_hex": "0x29",
+          "slot_relative_to_container": "0x38",
+          "slot_relative_to_object": "0xa18",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 4,
+          "state_id": 42,
+          "state_id_hex": "0x2a",
+          "slot_relative_to_container": "0x40",
+          "slot_relative_to_object": "0xa20",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 5,
+          "state_id": 43,
+          "state_id_hex": "0x2b",
+          "slot_relative_to_container": "0x48",
+          "slot_relative_to_object": "0xa28",
+          "descriptor_allocation_bytes": 64,
+          "descriptor_constructor": "0x14032ca80",
+          "recovered_class_name": "StateVarElemTEPS",
+          "vtable_address": "0x14054dfc8",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032cb10",
+          "owner_container_argument": true,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 6,
+          "state_id": 44,
+          "state_id_hex": "0x2c",
+          "slot_relative_to_container": "0x50",
+          "slot_relative_to_object": "0xa30",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 7,
+          "state_id": 45,
+          "state_id_hex": "0x2d",
+          "slot_relative_to_container": "0x58",
+          "slot_relative_to_object": "0xa38",
+          "descriptor_allocation_bytes": 64,
+          "descriptor_constructor": "0x14032cbb0",
+          "recovered_class_name": "StateVarElemDAMAG",
+          "vtable_address": "0x14054dff8",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032cc40",
+          "owner_container_argument": true,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 8,
+          "state_id": 46,
+          "state_id_hex": "0x2e",
+          "slot_relative_to_container": "0x60",
+          "slot_relative_to_object": "0xa40",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032ccd0",
+          "recovered_class_name": "StateVarElemMATAXI",
+          "vtable_address": "0x14054e028",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032cd50",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 9,
+          "state_id": 47,
+          "state_id_hex": "0x2f",
+          "slot_relative_to_container": "0x68",
+          "slot_relative_to_object": "0xa48",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 10,
+          "state_id": 48,
+          "state_id_hex": "0x30",
+          "slot_relative_to_container": "0x70",
+          "slot_relative_to_object": "0xa50",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 11,
+          "state_id": 49,
+          "state_id_hex": "0x31",
+          "slot_relative_to_container": "0x78",
+          "slot_relative_to_object": "0xa58",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 12,
+          "state_id": 50,
+          "state_id_hex": "0x32",
+          "slot_relative_to_container": "0x80",
+          "slot_relative_to_object": "0xa60",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 13,
+          "state_id": 51,
+          "state_id_hex": "0x33",
+          "slot_relative_to_container": "0x88",
+          "slot_relative_to_object": "0xa68",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 14,
+          "state_id": 52,
+          "state_id_hex": "0x34",
+          "slot_relative_to_container": "0x90",
+          "slot_relative_to_object": "0xa70",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 15,
+          "state_id": 53,
+          "state_id_hex": "0x35",
+          "slot_relative_to_container": "0x98",
+          "slot_relative_to_object": "0xa78",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 16,
+          "state_id": 54,
+          "state_id_hex": "0x36",
+          "slot_relative_to_container": "0xa0",
+          "slot_relative_to_object": "0xa80",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 17,
+          "state_id": 55,
+          "state_id_hex": "0x37",
+          "slot_relative_to_container": "0xa8",
+          "slot_relative_to_object": "0xa88",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 18,
+          "state_id": 56,
+          "state_id_hex": "0x38",
+          "slot_relative_to_container": "0xb0",
+          "slot_relative_to_object": "0xa90",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 19,
+          "state_id": 57,
+          "state_id_hex": "0x39",
+          "slot_relative_to_container": "0xb8",
+          "slot_relative_to_object": "0xa98",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 20,
+          "state_id": 58,
+          "state_id_hex": "0x3a",
+          "slot_relative_to_container": "0xc0",
+          "slot_relative_to_object": "0xaa0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 21,
+          "state_id": 59,
+          "state_id_hex": "0x3b",
+          "slot_relative_to_container": "0xc8",
+          "slot_relative_to_object": "0xaa8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 22,
+          "state_id": 62,
+          "state_id_hex": "0x3e",
+          "slot_relative_to_container": "0xd0",
+          "slot_relative_to_object": "0xab0",
+          "descriptor_allocation_bytes": 64,
+          "descriptor_constructor": "0x14032ceb0",
+          "recovered_class_name": "StateVarElemCURRNT",
+          "vtable_address": "0x14054e058",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x14032cf40",
+          "owner_container_argument": true,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 23,
+          "state_id": 63,
+          "state_id_hex": "0x3f",
+          "slot_relative_to_container": "0xd8",
+          "slot_relative_to_object": "0xab8",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        },
+        {
+          "registration_index": 24,
+          "state_id": 60,
+          "state_id_hex": "0x3c",
+          "slot_relative_to_container": "0xe0",
+          "slot_relative_to_object": "0xac0",
+          "descriptor_allocation_bytes": 56,
+          "descriptor_constructor": "0x14032c8c0",
+          "recovered_class_name": "StateVarElem",
+          "vtable_address": "0x14054df68",
+          "allocation_virtual_slot": "0x10",
+          "allocation_procedure": "0x140301690",
+          "owner_container_argument": false,
+          "selector_minus_one_included": true,
+          "domain_semantics": "unassigned"
+        }
+      ]
+    }
+  },
+  "descriptor_layout": {
+    "constructor": "0x140300c90",
+    "base_size_from_allocations": 56,
+    "fields": [
+      {
+        "offset": "0x0",
+        "storage": "pointer",
+        "role": "virtual table"
+      },
+      {
+        "offset": "0x8",
+        "storage": "int32",
+        "role": "constructor-supplied state ID"
+      },
+      {
+        "offset": "0x10",
+        "storage": "int32",
+        "role": "current item count",
+        "constructor_value": 0
+      },
+      {
+        "offset": "0x14",
+        "storage": "int32",
+        "role": "current component count",
+        "constructor_value": 1
+      },
+      {
+        "offset": "0x18",
+        "storage": "int32",
+        "role": "current extra multiplicity",
+        "constructor_value": 1
+      },
+      {
+        "offset": "0x1c",
+        "storage": "int32",
+        "role": "previous item count",
+        "constructor_value": 0
+      },
+      {
+        "offset": "0x20",
+        "storage": "int32",
+        "role": "previous component count",
+        "constructor_value": 1
+      },
+      {
+        "offset": "0x24",
+        "storage": "int32",
+        "role": "previous extra multiplicity",
+        "constructor_value": 1
+      },
+      {
+        "offset": "0x28",
+        "storage": "pointer-bearing storage wrapper",
+        "role": "owned/shared eight-byte-value storage handle"
+      },
+      {
+        "offset": "0x30",
+        "storage": "pointer to pointer slot",
+        "role": "bound container slot updated to expose storage data"
+      },
+      {
+        "offset": "0x38",
+        "storage": "pointer, specialized 0x40-byte descriptors only",
+        "role": "owner element container for STS/TEPS/DAMAG/CURRNT classes"
+      }
+    ],
+    "state_updates": [
+      "0x140300f30 shifts current count +0x10 to previous +0x1c, then writes new count.",
+      "0x140300f90 shifts +0x14 to +0x20, then writes new component count.",
+      "0x140300ff0 shifts +0x18 to +0x24, then writes new multiplicity.",
+      "Constructor/reset calls 0x140300ec0 with 0, node constructor calls it with 1 and element constructor with 2. Setter storage offset and broader meaning are not established by the selected saved functions."
+    ],
+    "limits": [
+      "Eight-byte elements are established by storage copy/resize paths. Individual physical meanings and units remain unassigned.",
+      "Recovered class abbreviations are retained verbatim and are not expanded into scientific names."
+    ]
+  },
+  "component_table": {
+    "root_offset": "0x15f8",
+    "entries": 79,
+    "entry_bytes": 4,
+    "initializer": "0x1401d09c0",
+    "lookup": "component_table[state_id]",
+    "facts": [
+      "Initializer first writes 1 to every entry, then applies dimension, controls and conditional feature overrides.",
+      "Dimension and later state changes can alter components. The registration map alone does not determine array size.",
+      "IDs 0,18..23 and61 are used by direct buffers outside the state-variable descriptor list."
+    ],
+    "limits": [
+      "Full control-predicate semantics and every configuration of this component table remain unresolved."
+    ]
+  },
+  "generic_allocation": {
+    "container_dispatch": "0x140329e60",
+    "descriptor_iteration": [
+      "Count read through 0x14032a140 -> 0x14032a4c0.",
+      "Descriptor list item retrieved through 0x14019a860.",
+      "Allocation invoked indirectly through descriptor vtable+0x10 with requested count, component-table pointer and selector."
+    ],
+    "ordinary_descriptor": "0x140301690",
+    "ordinary_selection": "selector == state_id or selector == -1",
+    "post_descriptor": "0x14032aaa0",
+    "post_selection": "selector == state_id only",
+    "post_only_state_ids": [
+      30,
+      31,
+      32,
+      33
+    ],
+    "facts": [
+      "Selected descriptors update count and component count before resize.",
+      "Ordinary bulk selector -1 includes all ordinary node/element descriptors but excludes StateVarNodePost descriptors.",
+      "Selector -2 can allocate direct buffers but fails every positive-ID descriptor selection condition; this is not synonymous with selector -1.",
+      "Count <= 0 bypasses both node/element outer allocation functions. Existing buffers are only cleared if the caller executes a free path."
+    ],
+    "resize": {
+      "procedure": "0x140301380",
+      "requested_elements": "current_item_count * current_component_count * current_multiplicity",
+      "element_bytes": 8,
+      "facts": [
+        "Resize body executes only when requested product differs from existing storage element count.",
+        "It copies the old storage to temporary memory, calls 0x14019a740 with new size and an eight-byte zero fill value, then updates the bound pointer slot.",
+        "If the preserve argument is nonzero, the shown overlap loops use old/new item and component counts; no explicit third-multiplicity loop appears.",
+        "All mapped allocation overrides call this helper with preserve=0.",
+        "Return value is true only when the shown resize body executes. MATAXI default writes are conditional on this return value.",
+        "No-size-change skips the body, so preserve=0 does not itself clear existing same-size data. Ordinary mesh replacement clears storage first through separate free wrappers."
+      ],
+      "limits": [
+        "0x14019a740 routes shrinking to erase and growth to insert helpers; the full storage insertion/capacity implementation is not established by the selected evidence.",
+        "A zero fill argument does not prove that retained prefixes are zeroed on every direct resize; replacement free-before-resize is a separate fact.",
+        "Arithmetic is decompiled signed-int multiplication; overflow/allocation failure behavior is not validated."
+      ]
+    }
+  },
+  "special_allocators": [
+    {
+      "state_id": 38,
+      "recovered_class_name": "StateVarElemSTS",
+      "procedure": "0x14032c9b0",
+      "extra_multiplicity": "0x140183c20(owner_container,2)"
+    },
+    {
+      "state_id": 43,
+      "recovered_class_name": "StateVarElemTEPS",
+      "procedure": "0x14032cb10",
+      "extra_multiplicity": "0x140183c20(owner_container,1)"
+    },
+    {
+      "state_id": 45,
+      "recovered_class_name": "StateVarElemDAMAG",
+      "procedure": "0x14032cc40",
+      "extra_multiplicity": "0x140183c20(owner_container,0)"
+    },
+    {
+      "state_id": 46,
+      "recovered_class_name": "StateVarElemMATAXI",
+      "procedure": "0x14032cd50",
+      "default": "If resize occurred and components[state_id] == 9, writes IEEE-754 1.0 bit pattern at indices item*9 + 0, +4 and +8. Other values follow underlying storage behavior."
+    },
+    {
+      "state_id": 62,
+      "recovered_class_name": "StateVarElemCURRNT",
+      "procedure": "0x14032cf40",
+      "extra_multiplicity": "No special multiplicity update in this override; ordinary count/components/resize sequence despite owner pointer stored by constructor."
+    }
+  ],
+  "multiplicity_rule": {
+    "procedure": "0x140183c20",
+    "dimension_predicate": "0x14019a450 tests element_container+0xf8 == 3",
+    "rules": [
+      "Start with multiplicity 1.",
+      "If element_container+0xf0 owner is null, return 1.",
+      "If int32(owner_object+0x888+selector*4) != 3, return 1.",
+      "Otherwise, if container dimension is not 3, return 4.",
+      "Otherwise, return 8 if container+0xec == 8; return 1 in other cases."
+    ],
+    "qualification": "This supplies extra storage multiplicity. Its integration-point/physical interpretation is not established here."
+  },
+  "direct_buffers": {
+    "node": [
+      {
+        "slot_relative_to_container": "0x8",
+        "slot_relative_to_object": "0x8a8",
+        "element_bytes": 8,
+        "elements": "node_count * components[0]",
+        "role": "coordinate buffer established by importer evidence",
+        "allocate_when": "count > 0, selector in {0,-2,-1}, existing pointer null"
+      },
+      {
+        "slot_relative_to_container": "0xf0",
+        "slot_relative_to_object": "0x990",
+        "element_bytes": 4,
+        "elements": "node_count * components[18]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0xf8",
+        "slot_relative_to_object": "0x998",
+        "element_bytes": 4,
+        "elements": "node_count * components[19]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x100",
+        "slot_relative_to_object": "0x9a0",
+        "element_bytes": 4,
+        "elements": "node_count * components[20]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x108",
+        "slot_relative_to_object": "0x9a8",
+        "element_bytes": 4,
+        "elements": "node_count * components[21]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x110",
+        "slot_relative_to_object": "0x9b0",
+        "element_bytes": 4,
+        "elements": "node_count * components[22]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x118",
+        "slot_relative_to_object": "0x9b8",
+        "element_bytes": 4,
+        "elements": "node_count * components[23]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x120",
+        "slot_relative_to_object": "0x9c0",
+        "role": "freed and nulled by node free routine; allocation path not established here"
+      }
+    ],
+    "element": [
+      {
+        "slot_relative_to_container": "0x8",
+        "slot_relative_to_object": "0x9e8",
+        "element_bytes": 4,
+        "elements": "element_count * supplied_connectivity_width",
+        "role": "connectivity buffer established by importer evidence",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x18",
+        "slot_relative_to_object": "0x9f8",
+        "element_bytes": 4,
+        "elements": "element_count * components[61]",
+        "role": "unassigned",
+        "allocate_when": "count > 0, selector in {-2,-1}"
+      },
+      {
+        "slot_relative_to_container": "0x10",
+        "slot_relative_to_object": "0x9f0",
+        "role": "freed and nulled by element free routine; allocation path not established here"
+      }
+    ],
+    "metadata": [
+      "Node bulk direct allocation stores count at container+0x12c.",
+      "Element bulk direct allocation stores element count at container+0xe8 and supplied connectivity width at +0xec.",
+      "Object-level element wrapper usually supplies object+0x894; a separate conditional path supplies 4. Predicate semantics remain unresolved."
+    ]
+  },
+  "free_and_ownership": {
+    "container_descriptor_free": "0x140329dc0 loops all descriptors and invokes 0x140300e30 directly, including post-only descriptors.",
+    "descriptor_free": [
+      "0x140300e30 sets current item count to zero through history-shifting setter.",
+      "Clears backing storage through 0x1402568b0, then nulls the bound container pointer if binding exists.",
+      "Component count and multiplicity are not reset by this free function."
+    ],
+    "backing_storage": [
+      "0x1402568b0 first invokes 0x1400051a0 on the wrapper.",
+      "When backing record reference count > 1, 0x1400051a0 decrements it and substitutes a new 0x20-byte record copied by 0x1400033f0.",
+      "0x140256900 then frees backing-record+8 and zeroes pointers +8,+0x10,+0x18.",
+      "0x1400033f0 initializes reference count 1 and copies existing eight-byte elements into separate storage, or nulls all three pointers when the computed count is below one."
+    ],
+    "limits": [
+      "These functions establish reference-count-aware detachment before clearing, not every copy/assignment/destructor path.",
+      "Descriptor registration/removal and complete object destruction still require separate recovery."
+    ]
+  },
+  "mesh_replacement_defaults": [
+    {
+      "procedure": "0x1401652b0",
+      "facts": [
+        "Stores object node count at +0x880.",
+        "0x140162ff0 calls node free before bulk selector -1 allocation.",
+        "When component table exists, fills object+0x8e0 buffer (node state ID 8) for node_count*components[8] entries with 20.0 if 0x140235c10 returns 1, otherwise 68.0."
+      ],
+      "meaning": "Numeric behavior established; scientific field name and unit predicate semantics are not assigned here."
+    },
+    {
+      "procedure": "0x1401653b0",
+      "facts": [
+        "Stores object element count at +0x884.",
+        "0x140163090 calls element free before allocation.",
+        "If object+0x3980 > 0, fills direct buffer object+0x9f8 for count*components[61] integers with that value.",
+        "Fills state ID 44 at object+0xa30 for count*components[44] entries with 1.0.",
+        "Fills state ID 45 at object+0xa38 for count*components[45] entries with 0.0. The shown fill length does not multiply by the extra multiplicity; remaining storage depends on the allocation path."
+      ],
+      "meaning": "Do not infer domain labels from these defaults alone."
+    }
+  ],
+  "remaining_questions": [
+    "Extend the validated descriptor IDs, slots, shapes and pointer relationships beyond the tested default 3D replacement paths.",
+    "Validate post-only exclusion and targeted allocation on the actual caller paths.",
+    "Recover complete backing-storage resize/insertion semantics and all ownership aliases.",
+    "Recover component-table feature predicates and configuration-dependent multiplicity branches.",
+    "Recover derived geometry and full reset/destruction behavior before declaring the mesh lifecycle complete.",
+    "Treat unsafe negative counts, overflow, malformed connectivity and allocation failures as unresolved unless separately characterized."
+  ],
+  "runtime_validation": {
+    "status": "tested_bounded",
+    "verifier": "tools/verify_mesh_array_observations.py",
+    "normalized_report": "analysis/mesh-array-observations.json",
+    "captures": [
+      {
+        "file": "analysis/mesh-arrays-runtime-1.json",
+        "evidence_id": "ev_975d65e8cdf8d4bd4d49a5bd632f99b9a050383aa415f1229e6f8685a050b96f",
+        "file_sha256": "1061d040e5cbeef24c65022c170a1c0617e87924392a1a9a02d8bcd7c18630b3",
+        "pid": 6312,
+        "manifest": "analysis/oracle/mesh-arrays-1/run.json",
+        "manifest_sha256": "d2c880e6ff208eedb1c9c7c3cf8f76379f4c4efd14e61ceb2d10a5876b27f389"
+      },
+      {
+        "file": "analysis/mesh-arrays-runtime-2.json",
+        "evidence_id": "ev_9d0f774e88aed087d7dd6d325c85c02c0bc1061578e70f30ed684cac69da52d0",
+        "file_sha256": "ddaebf58eda58154d4dca8111b8432f7aa4698af253b37e3e26cb403ad3324ff",
+        "pid": 31936,
+        "manifest": "analysis/oracle/mesh-arrays-2/run.json",
+        "manifest_sha256": "eaa135502b376be62134e60908d33606435ed1a8edc34c124ff111d1a2b35964"
+      }
+    ],
+    "observations": [
+      "Two process runs contain seven imports, twenty object snapshots and 1060 descriptor observations.",
+      "All 28 node and 25 element descriptor IDs, object-relative slots and vtable RVAs match the static map.",
+      "Shape/history values, count*width*multiplicity storage lengths, descriptor identity and bound/storage pointer equality were checked.",
+      "Post-only IDs30..33 remain unallocated during these bulk replacements; all observed extra multiplicities remain1.",
+      "Repeated replacement and counts4/1 ->5/2 ->4/1 are observed. Node descriptor8 receives20 and element descriptor44 receives1; other captured descriptor values remain0.",
+      "Truncated-coordinate import status2 preserves existing connectivity while replacing coordinates and their dependent arrays."
+    ],
+    "limits": [
+      "No 2D or alternate-unit fixture, targeted post-only allocation, nonunit extra multiplicity, nine-component MATAXI initialization, shared-storage detachment, overflow or allocation failure was exercised.",
+      "The probe captures allocation wrapper returns and import returns, not every intermediate write or complete process memory.",
+      "The verifier validates retained evidence and fixtures; replacement equivalence is a separate step."
+    ]
+  }
+}

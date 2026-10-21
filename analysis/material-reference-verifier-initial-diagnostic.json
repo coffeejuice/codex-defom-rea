@@ -1,0 +1,9 @@
+{
+  "issue": "Verifier initially required root_count to be list count or one less at every intermediate callback.",
+  "observed": "material-clear-after reports empty linked list while the independent root count remains old until caller updates it.",
+  "resolution": "Permit bounded independent count at intermediate callbacks; require equality at import/handler/finalizer boundaries. No probe/candidate/capture modified.",
+  "additional_harness_corrections": [
+    "Empty descriptor values can be null and are normalized to an empty vector for coverage counting.",
+    "Unknown keyword sentinel305 warns without replacing accumulated handler status, already established in keyword-object-contract; case20 therefore returns0. Initial verifier assumption of status3 was incorrect."
+  ]
+}

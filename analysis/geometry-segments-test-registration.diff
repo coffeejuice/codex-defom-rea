@@ -1,0 +1,22 @@
+--- frozen/CMakeLists.txt
+
++++ CMakeLists.txt
+
+@@ -163,4 +163,16 @@
+
+       --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/geometry-import-lifecycle/run.json"
+       --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-import-lifecycle-cases.json"
+       --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/geometry_import/lifecycle")
++  add_test(NAME geometry_segments_reference_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_segments.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>")
++  add_test(NAME geometry_segments_held_out_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_geometry_segments.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
++      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-segments-runtime-held-out.json"
++      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/geometry-segments-held-out/run.json"
++      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/geometry-segments-held-out-cases.json"
++      --fixtures "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/geometry_segments/held_out")
+ endif()

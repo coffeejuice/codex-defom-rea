@@ -1,0 +1,572 @@
+{
+  "schema_version": 1,
+  "status": "static_selected_default_material_object_integration_ready_for_candidate_and_runtime_validation",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": "Current owned ObjectModel objects and immutable default-name-only materials, with reset/selected simulation controls. This removes the two artificial cross-domain exclusions; it does not reconstruct general material properties, reference graphs, borrowed storage or allocation-failure behavior.",
+  "implementation_recommendation": [
+    "Remove the any-object rejection from find_or_create_material and the any-material rejection from find_or_create(object). Keep the asserted selected simulation profile and immutable material defaults.",
+    "For a missing material ID retain native ordering: scan selector; allocate/append default record; assign ID; update material count; regenerate root layout; refresh every active object; release scratch mappings; read material name. Name failure preserves creation and refresh. Existing-ID rename does not refresh.",
+    "Reuse ObjectModel::refresh_components: assign refreshed root table BEFORE iterating objects; skip type7; invoke MeshStorage::refresh_components using allocation counts/arity and existing StateVariable allocation semantics. Do not replace/reset geometry, names, STROKE, IDs, object identity, boundaries or default-fill mesh arrays.",
+    "Do not implement material-column permutation for this immutable default-name-only profile: feature49 is false and native1d0fc0 does not execute that branch. Do not generalize this rule to MSTMTR/mode1 materials.",
+    "New objects after materials use the existing constructor and placeholder ordering. Material presence alone does not change represented constructor defaults or selected geometry finalization. Keep the original positive object-ID rule, distinct from material IDs."
+  ],
+  "native_sequence": {
+    "entry": "MTNAME384a50 missing exactID:29ca10(list,0) snapshots old IDs/ranks;29c060 appends;recordID assigned;root1320=199c50;1d0fc0(root,1);29ca10(list,1);413ab0 name.",
+    "temporary_copy": "1d0fc0 copies79 old component integers; creates temporary object list owned by same root. If both scratch pointers are nonnull, each active source(type!=7) is copied to a new temporary object before1d0320. Scratch calloc(0) nullness is CRT-dependent, so do not assume first-material copies never happen.",
+    "copy_signature": {
+      "procedure": "0x1401613a0",
+      "parameters": [
+        "destination object",
+        "source object",
+        "old component table int[79]",
+        "flag4 byte*",
+        "flag5 byte*",
+        "flag6 byte*",
+        "flag7 byte*",
+        "flag8 byte*",
+        "flag9 byte*"
+      ],
+      "flag_values": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "flags": "flag8 controls initial ID copy and is0; caller writes destID immediately afterward. flag7 copies name; flag5 node copy inclusion of17; flags4/6/9 element exclusions. All inclusion flags here are1."
+    },
+    "refresh": "1d0320 refreshes root table. Every nonnull active live object receives199650(object,newtable,oldtable); its actual signature uses only first2 arguments.199650 gets node allocation count via182840 and element allocation count/arity via1854f0/185530, then180150/183770.",
+    "remap": "Only after refresh, and only when maps nonnull, temporary object found by exactID, and1d64f0(root,49,null) true: zero both live double arrays object+a58/a60 for header elementcount * new root16bc, then copy columns by old rank\u00e2\u2020\u2019new rank using29c870/29c7f0. This branch is unreachable with immutable mode1cc8=0 material records and reset root85c.",
+    "cleanup": "17ab70 deletes temporary list objects through19a290\u00e2\u2020\u201915f790\u00e2\u2020\u201915fbf0; temporary list metadata cleared. Scratch mappings later freed by29ca10(mode1). Native allocation identities and failure paths are not reproduced."
+  },
+  "copy_effects": [
+    {
+      "path": "1618b0\u00e2\u2020\u2019virtual+20 at _OBJ_GEO3D vtable548d18 =2f9dc0\u00e2\u2020\u20192f9b60",
+      "effect": "Clears destination spatial slots, copies flag3990 and slot selector, then copies all100 geometry slots. Destination coordinate/connectivity/classification buffers and plane lists are distinct. Source coordinate/connectivity accessors26a3c0/2fe9d0/2fe9f0 end in pure buffer pointer getters26a4d0/2ff1a0."
+    },
+    {
+      "path": "1619c0\u00e2\u2020\u20193019d0\u00e2\u2020\u2019280490\u00e2\u2020\u2019276140",
+      "effect": "Clears and recreates destination alternate container list; copies segment payloads, matrix and flag.2D dispatch invokes1619c0 and1613a0 invokes it again later. These are destination copies, not a transfer. Raw native source list accessor can COW-detach when shared; see storage qualifications."
+    },
+    {
+      "path": "180390\u00e2\u2020\u2019180150 and183900\u00e2\u2020\u2019183770\u00e2\u2020\u2019329ef0\u00e2\u2020\u2019virtual+18=301770",
+      "effect": "Allocates destination node/element direct arrays using source header counts and old root component table, then copies registered descriptor values and direct arrays. StateVar virtual+18 calls destination allocation via virtual+8=301710, copies source dimensions and values. No live source metadata assignment in these functions. Temporary descriptor allocation history need not equal source history."
+    },
+    {
+      "path": "17ec20,185a10",
+      "effect": "Allocate destination boundary groups/property buffers and memcpy from source.165170 may recompute temporary object's boundary total after copied groups; it does not receive the live source."
+    },
+    {
+      "path": "186590,18bd30\u00e2\u2020\u201918beb0,189b70,195c80,161ac0",
+      "effect": "Copy destination scalar/property/table fields, including STROKE. Table copier12eff0 allocates destination axes/dependent storage and reads source. Nested list/property families are empty/default in the selected modeled profile; arbitrary nondefault scientific families remain outside this reduction."
+    },
+    {
+      "path": "15f790\u00e2\u2020\u201915fbf0 and197ec0",
+      "effect": "Destroy destination-owned mesh, geometry, nested fields and alternate list.162070/199b10/199b60 free destination auxiliary fields. No material-list mutation is present in the selected copy/cleanup chain."
+    }
+  ],
+  "storage_qualifications": [
+    "301050(source descriptor)\u00e2\u2020\u20191d9050(source+28)\u00e2\u2020\u20190051a0 can decrement a shared backing refcount and replace the source backing with a deep clone when refcount>1. Fresh independent descriptor storage in the selected API is unshared; semantic values are preserved even when native sharing causes pointer changes.",
+    "301b40(source alternate list)\u00e2\u2020\u2019301f50\u00e2\u2020\u2019302090 similarly detaches only when backing refcount>1. The reconstructed GeometrySegments has owned value storage and no aliasing API.",
+    "Native direct arrays use realloc on refresh even with unchanged extents. Pointer movement is not evidence of a value change, and preservation of pointer identity is not promised.",
+    "Do not assert unknown grown direct tails equal zero. Preserve initialized-prefix metadata already implemented in MeshStorage. Temporary copies can read those native bytes but do not feed them back while remap is disabled.",
+    "Current selected source structures have valid count/buffer relationships. Corrupt counts, partially constructed allocation failure, external shared aliases and unsupported scientific subobjects require additional evidence rather than silent generalization."
+  ],
+  "inverse_creation": {
+    "chain": "17a880\u00e2\u2020\u201915ec80\u00e2\u2020\u201915ef60\u00e2\u2020\u201915f0b0",
+    "findings": [
+      "15f0b0 initializes represented ID/type/counts/mesh flags/STROKE/default geometry independently of root material count/list. Node17f060 and element1829c0 reset allocation counts and register descriptors without material lookup.",
+      "15f9a0(object,0) resolves owner units via1c8f40 and sets object1eb8/1ec0 defaults; it does not consult material records.",
+      "186200 initializes property scalars/tables and dimension-dependent values;189790/195980 initialize empty owned lists; the examined defaults depend on owner dimension/units, not material presence.",
+      "2059a0 finalizes object geometry only;1d6250 scans material references but does nothing for all default mode1cc8=0 records. These defaults do not justify skipping the existing normal geometry finalizer.",
+      "Nonempty default materials continue to have feature49/53/29/54/55 off and query46 dimensional default; root count is supplied to the layout recipe but gated widths remain zero. Root output flags and other already modeled controls retain their effects."
+    ]
+  },
+  "runtime_plan": [
+    "Create populated active mesh before first/second missing materials; compare all selected state before/after1d0fc0 and1613a0, root table ordering, descriptors, known direct prefixes, names and stable object identities.",
+    "Include inactive(type7) objects and verify no refresh/copy of their containers; add materials after deactivation, then reactivate/create mesh.",
+    "Create materials before objects, including placeholder-producing IDs; verify constructor defaults, mesh allocation/replacement and geometry finalization.",
+    "Include both dimensions, same-dimension header preservation and changed-dimension destruction of both lists.",
+    "Include direct3D geometry and alternate containers/nonidentity matrix alongside mesh; compare source values across temporary copy and cleanup.",
+    "Rename existing materials among objects and fail a new material name read; verify rename skips refresh and failed name retains append/refresh.",
+    "Capture scratch-map nullness, source StateVar/list refcounts if safely readable, temp descriptor registration and bounded allocation extents. Do not read temporary geometry arrays without independent extent proof."
+  ],
+  "evidence_limitations": [
+    "Static decompiler pseudocode is recovered non-source. Some signatures omit forwarded return-register parameters (for example257c80\u00e2\u2020\u20192573c0); full callee dossiers establish copy direction.",
+    "Static conclusion covers represented owned/default subobjects, not a complete proof for all possible native object states or all scientific material handlers.",
+    "No original execution or candidate edits performed in this recovery task. Parent owns freeze, implementation and independent original comparison."
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/geometry-finalize-static-audit.json",
+      "sha256": "6a83b5433b73fbc15e263635e7a710673ae7eba4560551f4c0b1d9cd818f8c3b"
+    },
+    {
+      "path": "analysis/geometry-segments-integration-contract.json",
+      "sha256": "09b0b7355e239c2f2bf287cde401f262172ed15ca62cdfbb12d1a3fbfdf4b914"
+    },
+    {
+      "path": "analysis/material-import-implementation-contract.json",
+      "sha256": "361fa2f5fbfa05091ce2916a773156da6dcfa6309e7accad9909cda172eba256"
+    },
+    {
+      "path": "analysis/material-import-next-contract.json",
+      "sha256": "76cb3d1013ab8b0bb29365c8eea1192dc2c0ffafeff3dc245f1a7c754d2a428c"
+    },
+    {
+      "path": "analysis/material-object-0x1400051a0.json",
+      "sha256": "a440a50d094572c8750e1e698911c1fb18a42c09f379acb384a00bf2a300d968",
+      "evidence_id": "ev_445075a06c29e171f8b23018b9eb3c337d0402dc57e055e4365a2ffce0024f18"
+    },
+    {
+      "path": "analysis/material-object-0x14012eff0.json",
+      "sha256": "836e1d6151cdfb4bd7743b3f43039f0a45fbb506fcc8c243037d24e22978d658",
+      "evidence_id": "ev_5090af42d2078dd5f68c65fcbd0ee851cd89ac4411c398bdb75c707ed1f4048d"
+    },
+    {
+      "path": "analysis/material-object-0x1401364d0.json",
+      "sha256": "8c477d2dd88f1df9c64baf6dbeb2c9d3838b6873a6caff07ae60f62b9884aa47",
+      "evidence_id": "ev_bd2e333e692028c8caea32f6bef930887ff099f48591b9668b062521555209e9"
+    },
+    {
+      "path": "analysis/material-object-0x140158ec0.json",
+      "sha256": "4fbfa53c29010055eee5fbee01a9da95125814633e8aff1d15ae95d3c572ffc4",
+      "evidence_id": "ev_12f2f2a18d126449cd9909e5a623a8c3c4c2f6a07378783db6533d9b15d51734"
+    },
+    {
+      "path": "analysis/material-object-0x140158f50.json",
+      "sha256": "087737b364181db489c91f9ccfc4a05ff1e0f59be87e1e2b0ecbf67fc87ade78",
+      "evidence_id": "ev_9567700d8f10903f2649504eff99bc66f11a33ecb12b621b92aef03fd4554db0"
+    },
+    {
+      "path": "analysis/material-object-0x140159190.json",
+      "sha256": "885363655d7eb579ce49012b0ee201482b7c827b2a98c48594d7c7bafb2feab2",
+      "evidence_id": "ev_d1bcf6f035e8f1e730b01382fcefce22b2999eced3f01c515ef6717d64911367"
+    },
+    {
+      "path": "analysis/material-object-0x140159c40.json",
+      "sha256": "0500466228c1701d7341a186227d76e038b164366867d39c0b34f9ec3c2778cf",
+      "evidence_id": "ev_8927af43089a14fc7aa77430a279f023aee3e5e6b136b4e51d0b9b896346250f"
+    },
+    {
+      "path": "analysis/material-object-0x14015f790.json",
+      "sha256": "1fa920763d25d08c16e08d949724c3a254de730691167ae098d24c1d9ce802e9",
+      "evidence_id": "ev_20b95f9dd56a34d53f8c2a10a30b462611ba8f32ed166113dbf16c73b20cc32b"
+    },
+    {
+      "path": "analysis/material-object-0x14015f9a0.json",
+      "sha256": "72bfb5aa2acd553962222a9cc2f1bf3cfbe30219478eb4dc4c8ba67817216473",
+      "evidence_id": "ev_cef9c778f5bb2aa046c766fe6d59122f5c2fd0a754994e8bbf46c1b380903155"
+    },
+    {
+      "path": "analysis/material-object-0x14015fbf0.json",
+      "sha256": "63b1e94de194b8d8f9b1c66295a909c33a4dda319a40f42dfc6ce43eb7ad1c9a",
+      "evidence_id": "ev_8d2976707044a34d083247a0bc7c8bfa1fc876bfdf1547ebbb47c3aeb4354945"
+    },
+    {
+      "path": "analysis/material-object-0x1401618b0.json",
+      "sha256": "674d7a73ef2065372412475747369cf4b43e3edbd5b1995c895642a38e8236c0",
+      "evidence_id": "ev_2ec3d32aea3c67afb0445f9336378710510ea3ad056177b4d6fd9223a9492c17"
+    },
+    {
+      "path": "analysis/material-object-0x140162070.json",
+      "sha256": "54ebac7f8e571ca1189b94d95f6e46f65175c16d79e1bb279e28b69e8886b9f2",
+      "evidence_id": "ev_9b48c624cbf3c7d4cc77d61eb7f44ea4a951c535acd2e47fe37126965e0d158b"
+    },
+    {
+      "path": "analysis/material-object-0x140163300.json",
+      "sha256": "6379758d3015d04b3faf97f2a95fea333b528e7afb5724910cca62b8c1cc5ac5",
+      "evidence_id": "ev_111ccc12f111ae4c8c944a7b39a6b977c6192af8a5c7f29b3f4d8a376fb7d981"
+    },
+    {
+      "path": "analysis/material-object-0x140165170.json",
+      "sha256": "06dd3e0a903c112db1c7c06bde15cc62d133861f4b5ab89858f096bfbbe47279",
+      "evidence_id": "ev_e2d7125a08c57a805ac4a7c1518be50ccd97990c61d496489995935dd85ba4b8"
+    },
+    {
+      "path": "analysis/material-object-0x140165500.json",
+      "sha256": "53f02f3e55284966777f826d944e1ed254470d14c94de198ba2e091273d03e88",
+      "evidence_id": "ev_cd98c84077950f31f46d8ea2b51bbea4694e1a8633b25909214ccb08d8e4a3e1"
+    },
+    {
+      "path": "analysis/material-object-0x14017ec20.json",
+      "sha256": "67d89df6dba6c6d0690a45bb1288f82a89395a35de388372f22af28d34c87d99",
+      "evidence_id": "ev_aed6e7a22ba096b7f68e75ab303e77a348e172c09a0073f351b84f79f7c4469c"
+    },
+    {
+      "path": "analysis/material-object-0x14017f060.json",
+      "sha256": "b2c824e849d9b9223198add37b25ae700fd3a777956a56809151a689176d394a",
+      "evidence_id": "ev_728bcb080f104619e726ecdb0c73152acfb6b1bb018f1b23386b5698a5244b03"
+    },
+    {
+      "path": "analysis/material-object-0x140180390.json",
+      "sha256": "ec5a11279a94084ff27f9ddc08bb3539428cc45ef43d33f301c5bf8cf11fcc2a",
+      "evidence_id": "ev_73b3a6d6168565789d8366d258d9b848e2342840f6e713ce540bf2d9cb76e9c9"
+    },
+    {
+      "path": "analysis/material-object-0x1401829c0.json",
+      "sha256": "ae093aabdab9dd963345018bfcb5c3beb19a3ec8bc710a4476e6c236c905f61f",
+      "evidence_id": "ev_9a1262aa0807cb91e48bb7341c8f9a8ee859de5e72f944ead6a8de4aec63bcdc"
+    },
+    {
+      "path": "analysis/material-object-0x140183900.json",
+      "sha256": "62f9a01ab948f40381759b23d6130385429d87aa50199451e66b6c5115cfaf44",
+      "evidence_id": "ev_8dc433f9a6eff4000d76890eda010ec7a9d5145f9af187c98a1ce7ba23a06ed9"
+    },
+    {
+      "path": "analysis/material-object-0x140185a10.json",
+      "sha256": "ccfa47ddf28b854a27e84e6926f2887bd4d88a6118e10eb7d0f18068d62e4c5b",
+      "evidence_id": "ev_3a74b7157cd328c875bdabfc0dccf5e4cc011830f8225d66dc46a4103510f2cf"
+    },
+    {
+      "path": "analysis/material-object-0x140186200.json",
+      "sha256": "e64f3c7b34ecbaaedda94fc404b4e74fb109482079fa992aaa4a68f2dfad88cd",
+      "evidence_id": "ev_522a932571935a54c4fc5f5849bcdc5769ef8f90f36562cfad52ae1d4570fc71"
+    },
+    {
+      "path": "analysis/material-object-0x140186590.json",
+      "sha256": "a544f927ee117dbc0bf357c82452aa6e8df9a855c42e2389f04797548ddea915",
+      "evidence_id": "ev_ea1199da21439ec604f240a324699bb81ef899f26cb546f0936a2e464f569c80"
+    },
+    {
+      "path": "analysis/material-object-0x140189790.json",
+      "sha256": "3c44ed8f4e45640cf82ae2304919c93f9f3b71d4762752f35c7631a657e24ea1",
+      "evidence_id": "ev_221801a4986390233b5e37df70779b4c9cfd0230d30f92b31452bb374e5c1d33"
+    },
+    {
+      "path": "analysis/material-object-0x140189b70.json",
+      "sha256": "10f8c97417431245826cac04de4ee9128269f62e9f67555ecb2ce425a332de58",
+      "evidence_id": "ev_ba103abdfa1bc38f5cf4af4412bf521ed64802be1742d6a87840bfe89a75d0f0"
+    },
+    {
+      "path": "analysis/material-object-0x14018bd30.json",
+      "sha256": "36f3d599b8c4aa1fc43e65dcc7fd1d17e038711d4249bc2e52671bb2d36184ba",
+      "evidence_id": "ev_f692d6de4180ce9e80554d1139c083e92f0de62d0701f958923e93e5d18e4956"
+    },
+    {
+      "path": "analysis/material-object-0x14018beb0.json",
+      "sha256": "acca22fcf46d647abc6068084b07e9b591d5c0637ccd9f7af3cf7cc21b1ce820",
+      "evidence_id": "ev_726f50aceeb18b5ffd19d80e99ff56fb9efa02f4b142efc1eecdbfd1e87df4fb"
+    },
+    {
+      "path": "analysis/material-object-0x140195980.json",
+      "sha256": "9533c9d9d228694b44fd8c25ef3dcabd3198b3125e1f5fbcbee05bf5f2ae9057",
+      "evidence_id": "ev_54c69e62d77f15ba69f3cf2ae323e7c2de3e9cb54bb3646bcf861d94e86a1e3b"
+    },
+    {
+      "path": "analysis/material-object-0x140195c80.json",
+      "sha256": "c3d51e7ad4c2d82a4308e5c8f063c1243d0990154f4c7f209c53ff5beeed7c91",
+      "evidence_id": "ev_bcad8a20ec55735d29a6282696b056c14b7cea855223911f00fe058ce830d490"
+    },
+    {
+      "path": "analysis/material-object-0x140197ec0.json",
+      "sha256": "fcf4242ac18654a13d0ee6c2cd760e5e9368da54db571c9070424d0b7cb77aa8",
+      "evidence_id": "ev_9d8fc06f25bcc28a605ebd1c19a040970cc4dc2a5c1bc3324635db5dfc61bf1a"
+    },
+    {
+      "path": "analysis/material-object-0x140198650.json",
+      "sha256": "2be101349f33ec4eaa7004707cad703d16a1226fad2c9c38b238412447a0deef",
+      "evidence_id": "ev_4c70ccacd68227515f5a3a12fa26cd041dc41d105b0b5ff8b837bd114e64e4ec"
+    },
+    {
+      "path": "analysis/material-object-0x1401999d0.json",
+      "sha256": "f50fceb1ab0089c3fa548cbb95f04e7529f36ba6003f2dbcf6b1db2f469c2a2a",
+      "evidence_id": "ev_9277900a91367f6eb25320361bd69e82de6ea2171eb21fa80b99422fd4005632"
+    },
+    {
+      "path": "analysis/material-object-0x140199a00.json",
+      "sha256": "02f113808e434503ad60e4087a835dd9b5bd7fa2ce663b5a81071db65e56101e",
+      "evidence_id": "ev_8363f601406d2aed446254166820a362f346e7a4576e3f4fcaa0423345e3015f"
+    },
+    {
+      "path": "analysis/material-object-0x140199b10.json",
+      "sha256": "98a4cdc793a6db9260d210819e0350acadab919264e73de723210c7258a1f29b",
+      "evidence_id": "ev_565a4805767ca3e7380077eeb08211e3e63795d0ca532ac80c1b9324a6cd2433"
+    },
+    {
+      "path": "analysis/material-object-0x140199b60.json",
+      "sha256": "50203674376c4cdc01a6241de0754b96534ca2e894f471a4cda632ef08a41ffc",
+      "evidence_id": "ev_25e926971ac59a78fac451c40817e1bf8ec3bc20cefd228474f289018fcc8684"
+    },
+    {
+      "path": "analysis/material-object-0x140199c20.json",
+      "sha256": "4184453f96bcc518f5cb2a8dee6dc8c1a7d14894455d0ddb996ee9336cd0c4d7",
+      "evidence_id": "ev_8b43dbed6334cbc79254ed7b3f38b0aa97876ecbefdd96aa1d6cea430753e743"
+    },
+    {
+      "path": "analysis/material-object-0x14019a500.json",
+      "sha256": "b673f6f987166a01798c5f14dae437795dbe901020ecfdc98b84d5eed7871c27",
+      "evidence_id": "ev_aa70196cc93e75e22fb9f09e11588e2133d14da7599a10879804fc07a1e4c903"
+    },
+    {
+      "path": "analysis/material-object-0x1401d9050.json",
+      "sha256": "e1e1d465633531a5f6686963eaf005f78018731f9734044452eb30fdeac0654f",
+      "evidence_id": "ev_c2d646f263b8b2b326d4b1b07ff9cf46166305f0afb055f769847c1ef55f175f"
+    },
+    {
+      "path": "analysis/material-object-0x1402573c0.json",
+      "sha256": "cbebc6519b4ac8b724c42c9dbb09787bf31514307d391706b717b9c7c01d5c32",
+      "evidence_id": "ev_ef610e9298d4e76e23d4dc75eca05ccc0e04c6541297a2a9603a99ea254dcf55"
+    },
+    {
+      "path": "analysis/material-object-0x140257c80.json",
+      "sha256": "5e13b7d761236b5aeae56fb288bc9a751b44539e66a6858f29fa754c49af396b",
+      "evidence_id": "ev_f6e31a83497065e3e08ac02771c7573f770dfa4198a147e7269b275c3a4db998"
+    },
+    {
+      "path": "analysis/material-object-0x1402598c0.json",
+      "sha256": "9fd71895eb1c073df7ab8c89bf2b57bfb4654b0434de7be1ec591afb7828f1ba",
+      "evidence_id": "ev_3033a4b9e9d9e424cdc45f9efb023af876b29242fc9313098fdc496fda96659b"
+    },
+    {
+      "path": "analysis/material-object-0x14025a730.json",
+      "sha256": "534a82b04ef87b05e26f3540fa27556105cc41ca0b929318431557662e01e7b9",
+      "evidence_id": "ev_7603e6e38c489e35b505f978ff6b3d142cbfc588c487989b3980d03caa396a03"
+    },
+    {
+      "path": "analysis/material-object-0x140269340.json",
+      "sha256": "9b7c6a709d4faf944a87aecb7beaa38dd070009651abce82cf12afe7a96c1f55",
+      "evidence_id": "ev_706c13d6cbb584b499c52028f223f6a37a0d3ce609a17af0e17783e7cc43940b"
+    },
+    {
+      "path": "analysis/material-object-0x14026a3c0.json",
+      "sha256": "2b846ef5031093b023078c71b24d74abac896d7b41f76ab97d353e1c620c7745",
+      "evidence_id": "ev_2b5668d48686bbc636587623d130b4530e134a0c539925d4e59d64f1338d9ddf"
+    },
+    {
+      "path": "analysis/material-object-0x14026a470.json",
+      "sha256": "af4293097d753f71d909bd5eb739a436ad36143c156bccb50a6a3d90e0ae82c1",
+      "evidence_id": "ev_96a11fbc6d834513c64515b1df79e1969fa23dab084666e4c94186850e74c272"
+    },
+    {
+      "path": "analysis/material-object-0x14026a4d0.json",
+      "sha256": "942beb46e468ba9e5c46bfba3d9a23eb99a18df10652226e9b7c70a2f3ac8b49",
+      "evidence_id": "ev_92a6ec34b632e034d38c33197e175c311e3047dd7f85f529570793411accb903"
+    },
+    {
+      "path": "analysis/material-object-0x140276140.json",
+      "sha256": "30437990a6e75193ab24a02c9a71055976c0015189152ea64b2ac27216cad2c3",
+      "evidence_id": "ev_7935cf2a736cb15cd9782517f00338dc8dc3f2410ff76c68aca65466e4f958ea"
+    },
+    {
+      "path": "analysis/material-object-0x14027ffe0.json",
+      "sha256": "f9d04c2250ea54c50c4c0973a7b7af127339e689ea90c2c2dbc8c4f5993772ee",
+      "evidence_id": "ev_cbc2e3bf433873aa88ed3548216fa0f8cbf9c0068994163a839893546a589c1e"
+    },
+    {
+      "path": "analysis/material-object-0x140280490.json",
+      "sha256": "f83dd6a11b1a9f6ef6637a2399e168b7735ffede2e20591b55977d59d8e7354b",
+      "evidence_id": "ev_b9ea4ec66f61e786f8a20972d41a575e2578ee925689d809ca304a4504066f93"
+    },
+    {
+      "path": "analysis/material-object-0x140280760.json",
+      "sha256": "b6bc0ea1a7ffab5989e956068c66e5cebed520eda3a4e3aaada24d518223c8a7",
+      "evidence_id": "ev_7595471019c84589c7354699ea4ef20e958b00299d8dd66c8d88e93bdf669e97"
+    },
+    {
+      "path": "analysis/material-object-0x140285040.json",
+      "sha256": "caf12cc422b12ac2b7fff49f5c4a058e7d39166b7b7efb5598805a240d0603e5",
+      "evidence_id": "ev_c98c5a33c6a78669f461ca0548812fa2e2a4d4de9230d792566a5bbcf583f45b"
+    },
+    {
+      "path": "analysis/material-object-0x1402f9020.json",
+      "sha256": "98662b94e13a772f847aaa9adb3245e61eb31005b6e7c5f980abef45b1494c64",
+      "evidence_id": "ev_328c9cc5d306306f5285a063c4924e9f0d45669495e7ff41a0576da58ed5bdeb"
+    },
+    {
+      "path": "analysis/material-object-0x1402f9b60.json",
+      "sha256": "64a4d2b66585c45fbd6dc8a55c899a9236352547eb91097f5117ebde35892413",
+      "evidence_id": "ev_54d408b237568f6a07ac47a6605e6a64faa3b8203159a7658d9c27e11de2e189"
+    },
+    {
+      "path": "analysis/material-object-0x1402f9dc0.json",
+      "sha256": "2f3f042306ad2712dac00c5c7f290cd5961e9cc8d39ee2d4ac28f1af3c12365b",
+      "evidence_id": "ev_c66bc60a40628c50e80ae787bdcc184de49ff0dc5d2e8d03cd9ee51b4b361edf"
+    },
+    {
+      "path": "analysis/material-object-0x1402f9e50.json",
+      "sha256": "7b1bf1961412b777e9efda17e416d988cfc68794c4fc48d34928be57ba3dad4f",
+      "evidence_id": "ev_021deaae2d5f474193071f2e7952549bd2c1999f6ccc41f03eb7a940274e8fa7"
+    },
+    {
+      "path": "analysis/material-object-0x1402fe9d0.json",
+      "sha256": "6915636ee74c8547722677553cee07204cea27b027eb0045f5f4e0c902c28715",
+      "evidence_id": "ev_ece4ac213d567e82d673f38a9b165ac1f0eed5807790b572c0618ac79cc14f6d"
+    },
+    {
+      "path": "analysis/material-object-0x1402fe9f0.json",
+      "sha256": "e5102241bc5e4aa7b0d8e4fbc9649271bf1ffb6c4d11b959f5ea7af94d8296fa",
+      "evidence_id": "ev_94d53e0a65a1c4eb9270e55de3b485321f9b0692e136eddcf8788e83614987cd"
+    },
+    {
+      "path": "analysis/material-object-0x1402feb90.json",
+      "sha256": "3b7a0d2fc479404ff264efafb52ae93655b86a207e9e685ae6dc571b22191c49",
+      "evidence_id": "ev_5509692d856571d4056631bd6cc7566bf37a9c260daedb7c03196c27f88e89ed"
+    },
+    {
+      "path": "analysis/material-object-0x1402ff1a0.json",
+      "sha256": "cb8dc0143af18f4d1f9cac33dd980638e5ad50285d07d2219f7736055aaddd5c",
+      "evidence_id": "ev_185d159682574cd8697bedf61809432fd9c126decb9c0c3ad54e17fbecd36c48"
+    },
+    {
+      "path": "analysis/material-object-0x140300f60.json",
+      "sha256": "27b7bbf3e5673cdca1686b80c9b6dff4933baae6fd0b99b5597229a1df891496",
+      "evidence_id": "ev_2bf183be9eceeae5607a4d66b0b9456a361982ddbc17e90713ff96925406348c"
+    },
+    {
+      "path": "analysis/material-object-0x140300fc0.json",
+      "sha256": "eeef5c0d3aca7885d3d1faadce1c559d320ab8936388c8c2c0ad8f8cd58eeda8",
+      "evidence_id": "ev_a918421d8f9efce68588f5b72252c8826f81024cc500c941834a48a26cbc9412"
+    },
+    {
+      "path": "analysis/material-object-0x140301050.json",
+      "sha256": "6adb244f58b8590f973def5df214d9fdafc05bd5187814fdbe6247091a82e341",
+      "evidence_id": "ev_7d884838a25287259c825932ed1b1cd05345d793b53cef9ababa778051f9e8b8"
+    },
+    {
+      "path": "analysis/material-object-0x140301710.json",
+      "sha256": "01c149ff5d4734bf438cc1a0e3632dd39831c97a8a5a07a3a699cc25e6bb33a2",
+      "evidence_id": "ev_b010b15bdd590936f0737fed9b25417e573f1972bc0052f7e0757efc4e9841e5"
+    },
+    {
+      "path": "analysis/material-object-0x140301770.json",
+      "sha256": "11adeb0679c9e47983e5a5cd84f5f2b6a776c0d432b5aa0c24648d0a3897e3a6",
+      "evidence_id": "ev_06a8335a35824d347f26e8d0bc0ec7070c2f86b5f9180fd972493c5c84d23c41"
+    },
+    {
+      "path": "analysis/material-object-0x1403019d0.json",
+      "sha256": "8948cf2dcba26ca08a05b719925e11db60bfb0daac5c1f6f78e26d13ae3a9278",
+      "evidence_id": "ev_28d77d2d01d16b94019b35da7f9fa1c56b019325e964f609eb9a3017403da0f9"
+    },
+    {
+      "path": "analysis/material-object-0x140301b40.json",
+      "sha256": "7b433c10a282cd454f68482b7a64eb29e46335a72e94552c43cba12503147f0a",
+      "evidence_id": "ev_5db60d536cff8345da13e2ff9a7ad0043ecf113190aa8edaab8707eab9788fd2"
+    },
+    {
+      "path": "analysis/material-object-0x140301f50.json",
+      "sha256": "05a8fd795300c603ebfc0b8ffd7768aab5d46fe107338b0455c10a18d377e7f5",
+      "evidence_id": "ev_c72f86f5d5f51593063d95cb9060f3435b962e8897e7d27a665794b447e8a686"
+    },
+    {
+      "path": "analysis/material-object-0x140302090.json",
+      "sha256": "8d6245dff74eda221acf781c82e0de99af7a8313c98f000a004de1dfbc35115a",
+      "evidence_id": "ev_71d68ffe5389a657c9e416f5fd5df6687936cc17d5c41eba9bf320e0db6ba4da"
+    },
+    {
+      "path": "analysis/material-object-0x140329ef0.json",
+      "sha256": "c6f3e440fb5c8833b85ed86691f6bff43f11c2a3fa1beff4f24cdb8cade7b620",
+      "evidence_id": "ev_b5e3093800d39369258112e944ab858465768aee4a10ab7cabe1e0bb52576a09"
+    },
+    {
+      "path": "analysis/material-object-0x140484f90.json",
+      "sha256": "81a2f80d0021a29436677952cceae46aa65176d2606d1f0d7ea9c9c1f0de8a8c",
+      "evidence_id": "ev_9e83a223237466cac88aeff662a3dc23f53b691b9c430a22985b781b832683b5"
+    },
+    {
+      "path": "analysis/material-object-geometry-vtable.json",
+      "sha256": "831f5231bd50da08a810f813ffece9283be636710729d739b0ec187fd8e541b9",
+      "evidence_id": "ev_5330117fa88ab59562a42e9d53e2b3a71edb287794526920be17bd1d7b9db89f"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401613a0.json",
+      "sha256": "8921fe4e0a6b09e9c37991984d5da975d0bb83eb3c3d5b1db9680ab7f64906a5",
+      "evidence_id": "ev_2917643009755cc73f22c787e56ef285edce5e8667688614b6cbed23072cb6ff"
+    },
+    {
+      "path": "analysis/material-refresh-0x140161840.json",
+      "sha256": "fefef2b8e0b1ca7d809b144812c8d54c1d5fc1e829e995428e0fa4d6049244bb",
+      "evidence_id": "ev_b9aa7662cf9088d68e68f279f376050ad310a7646f71e6ce90730ab0b1a72e84"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401619c0.json",
+      "sha256": "8df71340b3c043c1aa41a363386b489cdad633a5175b5d0c3cd4306783aa4279",
+      "evidence_id": "ev_03a5b54c31bebfaae91be576905905de54fb2b41e8dc2fd60096676b23c6df03"
+    },
+    {
+      "path": "analysis/material-refresh-0x140161ac0.json",
+      "sha256": "e5196e130d614f4c79a855d0b55f4b5e7a008f0e31f303a397d0ebb01c2c8a83",
+      "evidence_id": "ev_360116ee3ad6ab3fc8a7af90f9de0a5acc3c03d3fd65aa702b9ebdea641dbc61"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401d8fa0.json",
+      "sha256": "70a3d25b1c91f8e28b1f5d1487a1a991add21412d36765f07b3c1c3bda40bf57",
+      "evidence_id": "ev_db0bc36664f43cb989310fabefec8a7737bb6b733797c59ad0ce45e8fd08ea05"
+    },
+    {
+      "path": "analysis/material-refresh-0x1401d8fb0.json",
+      "sha256": "98ac22ad29c526479351613771c8d79c72413a0d70971cf34421a225c1cb189c",
+      "evidence_id": "ev_fc590e59006f14e6edf09f5f238562f6cfd5976993e3f8de843f343d0b847aab"
+    },
+    {
+      "path": "analysis/mesh-state-variable-vtables.json",
+      "sha256": "d75b49d526c0bdbd2bf401f9e22cd7c063b0e6ca454f1a7e19c2e4dc8564d9ff"
+    },
+    {
+      "path": "analysis/model-0x14015ec80.json",
+      "sha256": "8349b62fdf6f37a542b9c51f5568317e54fa6b75840d774ca56567f712d62d73",
+      "evidence_id": "ev_51331d59a54c58d3ed091f7a62c9b90d24f8d21f4333e2318413d42e920ef912"
+    },
+    {
+      "path": "analysis/model-0x14015ef60.json",
+      "sha256": "574e766554f368c581458645b4fe0f4958f6313da41dfd526199f42ac5fa8ada",
+      "evidence_id": "ev_d7636bc5a78a176ba89b9a3ebb031125c13d05f525a8d63879243faa9fd48458"
+    },
+    {
+      "path": "analysis/model-0x14015f0b0.json",
+      "sha256": "a57609aff1c31df575595ff67566260a8e811607679168e97528651833c0ab33",
+      "evidence_id": "ev_b94cc249f14926e5dff04b7eb77fa84ad4712e322c2e005147f1680410af3510"
+    },
+    {
+      "path": "analysis/model-0x14017a880.json",
+      "sha256": "a0f1c7daa2d0993a8bd099a24c02a80b8e0ac6221cd93b80764ebea6408b234b",
+      "evidence_id": "ev_3b8d7245c953edba3f468dd770ed3f7f78087fe70b189eaf89dbb0e43737afa4"
+    },
+    {
+      "path": "analysis/root-layout-0x140160f10.json",
+      "sha256": "6b38b04649b191a55a24a3f90848d8bdbb3e96a877777602b72d219ad097ac26",
+      "evidence_id": "ev_5b60a0909cb78f784ddb69b9a85884ef32905064787bbda31c1380c6d8dfcd25"
+    },
+    {
+      "path": "analysis/root-layout-0x14017ab70.json",
+      "sha256": "716ea1d5e5d0a83f1136d9d6e1025daf01ff2f9f713ca76fd2079c2a638a7eab",
+      "evidence_id": "ev_77a6eef4df6cbdcaae1c669cae2001bc238fa6ff96d601a2e5ad634ffb599dbe"
+    },
+    {
+      "path": "analysis/root-layout-0x140180150.json",
+      "sha256": "93759325d507370ef09bb62215781fd3b32e5181f003d72f9772a14dabe4f2d8",
+      "evidence_id": "ev_51baa2454fdb7b9bf33114d35cc4f32851d6ca6ac627ada17231f8c06477362c"
+    },
+    {
+      "path": "analysis/root-layout-0x140183770.json",
+      "sha256": "7b694aa7bd447234d6e3d0722d053da232d0cad6ad6846a80e0c56aaabb45cec",
+      "evidence_id": "ev_0c4a4da0f9a0da3de0ac8cd81267f1dd970676d4c06ad491c3081f9008bb5925"
+    },
+    {
+      "path": "analysis/root-layout-0x140199650.json",
+      "sha256": "805d41025bed160a792f6795cdbc664be76553a99ba26bcdf92b66ea8558502b",
+      "evidence_id": "ev_7d1f0ad5e095a53059671c82cbb581e81334f30bcecde17677cc3634f07ce00f"
+    },
+    {
+      "path": "analysis/root-layout-0x14019a290.json",
+      "sha256": "1247da7c7630ae85c0d3b7eb693b6677a5ba5ece2b8b6302166b41f03159b75a",
+      "evidence_id": "ev_bcf6c986f2bfc4a5a1b3fde7e1cb994b6c2c23794bbb243d57fdcb81cbd39bbb"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0320.json",
+      "sha256": "a3a7f0b228b378b736ca1ccf0191a5a9cc3b84daebb2be276f4b53925b383edf",
+      "evidence_id": "ev_d57d0d56722651d21c5770e910854bfcb471bf40c332fe736e5ed2f3c591ec8e"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f",
+      "evidence_id": "ev_dd14a08f618ea92599ee067ee52c77920b12b87ef68522e734ab03d476c14ab9"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    }
+  ]
+}

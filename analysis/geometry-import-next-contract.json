@@ -1,0 +1,33 @@
+{
+  "status": "direct_spatial_verified_alternate_segments_ready_for_integration",
+  "keyword": {
+    "name": "DIEGEO",
+    "id": 158,
+    "category": 2
+  },
+  "sources": [
+    "analysis/keyword-handlers-evidence.json",
+    "analysis/model-0x1402059a0.json",
+    "analysis/geometry-import-0x1401985e0.json",
+    "analysis/geometry-import-0x140198600.json",
+    "analysis/geometry-import-0x140198620.json",
+    "analysis/geometry-import-0x1402fcd90.json",
+    "analysis/geometry-import-direct-contract.json",
+    "analysis/geometry-finalize-static-audit.json",
+    "analysis/geometry-format-static-audit.json",
+    "analysis/geometry-storage-implementation-contract.json"
+  ],
+  "facts": [
+    "DIEGEO has a three-integer header plus optional output conversion count; exactly two conversions selects planar format even in3D. Supplemental Microsoft disassembly verifies differing error propagation.",
+    "Selected spatial direct branch invokes2fcd90 geometry allocation, coordinate/connectivity readers, then198600(object,1) and1985e0(object,1).",
+    "198600 writes int32 object3994;1985e0 writes byte3990, enabling the currently unsupported geometry stage of2059a0.",
+    "198620 accesses geometry object pointer array atobject3c00 indexed by supplied integer.",
+    "2fcd90 invokes count setters2f9600/2f96a0 and allocation helpers2f9970/2f9a50.",
+    "2059a0 normalizes oriented triangle normals, groups by squared normal distance<.01 and point-plane distance<.001*bbox diagonal, then assigns plane identifiers+600."
+  ],
+  "next": [
+    "Alternate 2D/3D segmented/matrix formats require integration and original comparisons. NewGeometrySegments component and30fixtures/probe are prepared but unbuilt/unexecuted.",
+    "Add KeywordReader::MatrixRowRead and matrix_row for415990, then integrate alternate dispatch andsegmentstate observation."
+  ],
+  "completed_contract": "analysis/geometry-import-contract.json"
+}

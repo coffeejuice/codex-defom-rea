@@ -1,0 +1,48 @@
+{
+  "status": "invalid_native_capture_preserved_observer_scope_repair_pending_audit",
+  "evidence_id": "ev_cb3ec42004b7a999f51401c92115359a0d76396500f1492c5cb4d02163c3c8fc",
+  "errors": [
+    {
+      "sequence": 1112,
+      "file": "31_planar_reset_all_fields.KEY",
+      "error": "property rank/width bound"
+    },
+    {
+      "sequence": 1126,
+      "file": "31_planar_reset_all_fields.KEY",
+      "error": "property rank/width bound"
+    }
+  ],
+  "root_cause": "The global12fad0 return observer evaluated propertyTotal and its selected-table metadata bounds before checking whether the allocation belonged to the active41b270 frame. Dimension-reset allocations outside that selected family triggered the bounds guard. Capture did not record the rejected table addresses/metadata, so no exact unselected table identity is asserted.",
+  "repair": "Resolve active property frame and exacttable pointer before any metadata read or capacity registration. Preserve selected allocation tracking and strict pointer/extent checks. Constructor selected13tables have nullbuffers, so no constructor allocation registration is needed.",
+  "scope_limit": "Other selected-property allocation entry points are not claimed; a later non-null unobserved buffer still fails the snapshot guard.",
+  "preserved": {
+    "original_probe": {
+      "path": "analysis/oracle/property-table-probe-v2-before-scope-repair.js",
+      "sha256": "d53cd5d2d7697aa15bee572eedbce432e9d268f627e2e5dad7640ada003fe603"
+    },
+    "frozen_probe": {
+      "path": "analysis/oracle/frozen-property-table-v3-inputs/tools/observe_property_table_import.js",
+      "sha256": "d53cd5d2d7697aa15bee572eedbce432e9d268f627e2e5dad7640ada003fe603"
+    },
+    "original_manifest": {
+      "path": "analysis/property-table-evaluation-cases-v2.json",
+      "sha256": "e734f78a332e0bd399fa9ee410f8397fbbed9cadb282e72f9f96f5a67ec17dbf"
+    },
+    "capture": {
+      "path": "analysis/property-table-runtime-training.json",
+      "sha256": "ff71e26bb092c7a937d0e1334d8e2b065d92683e5a8b9a16a78dacd2af9d04e8"
+    },
+    "input_freeze": {
+      "path": "analysis/property-table-v3-input-freeze.json",
+      "sha256": "631d6885770decfa47f783d1c2d0edb905c25dc7b600d2c8c5132c61fe37c600"
+    }
+  },
+  "corrected_probe": {
+    "path": "tools/observe_property_table_import.js",
+    "sha256": "3c0c296f6b062610edf2341303495971f6572da1738bbae5aabd4b2f8014b362"
+  },
+  "fixture_bytes_changed": false,
+  "candidate_changed": false,
+  "native_rerun": false
+}

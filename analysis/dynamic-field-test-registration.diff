@@ -1,0 +1,25 @@
+--- CMakeLists.txt.before
++++ CMakeLists.txt.after
+@@ -232,4 +232,22 @@
+       --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-held-out-cases.json"
+       --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-candidate-freeze.json"
+       --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/mesh-field-held-out-input-freeze.json")
++  add_test(NAME dynamic_field_reference_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_dynamic_field_import.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
++      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-runtime-training.json"
++      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/dynamic-field-training/run.json"
++      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-evaluation-cases.json"
++      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-candidate-freeze.json"
++      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-input-freeze.json")
++  add_test(NAME dynamic_field_held_out_replay
++    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_dynamic_field_import.py"
++      --driver "$<TARGET_FILE:keyword_import_replay>"
++      --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
++      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-runtime-held-out.json"
++      --run-record "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/dynamic-field-held-out/run.json"
++      --cases "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-held-out-cases.json"
++      --freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-candidate-freeze.json"
++      --input-freeze "${CMAKE_CURRENT_SOURCE_DIR}/analysis/dynamic-field-held-out-input-freeze.json")
+ endif()

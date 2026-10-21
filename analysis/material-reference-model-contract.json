@@ -1,0 +1,101 @@
+{
+  "status": "implemented_model_and_remap_runtime_validation_owned_by_parent",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": "Selected reset scientific material properties with mutable reference mode/count/allocation; active populated objects included. No universal material/scientific model claim.",
+  "implementation_files": [
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/mesh_storage.hpp",
+    "src/recovered/mesh_storage.cpp"
+  ],
+  "api": {
+    "begin_material_reference_count": "Require owned record and selected simulation profile; save old logical count, zero current count before reader.",
+    "apply_material_reference_count": "Store parsed count even on failure. Failure leaves mode/allocation. Positive success sets mode1, frees old allocation then allocates zeroed int32 storage. Nonpositive success uses native guarded old-reference mode clearing and retains storage.",
+    "write_material_reference": "Write one existing logical/allocated slot; reject out-of-range ownership or extent.",
+    "reference_ids": "Logical positive prefix; empty for nonpositive count. Invalid positive extent rejected.",
+    "retained_reference_ids": "Full owned retained allocation, independent of current signed logical count.",
+    "has_reference_allocation": "Whether owned positive calloc-equivalent storage remains."
+  },
+  "mutation_rules": [
+    "MSTMTR common prefix may create a material and refresh objects before reading its count; importer owns that ordering.",
+    "Nonpositive successful count: only mode1 AND retained allocation AND previous count>0 visits exactly previous count IDs, exact-lookup targets setmode0, then source mode0. Guard failure leaves mode unchanged.",
+    "Finalizer1d6250 visits insertion order and reads source current count on each loop test. Resolved target mode!=2 with count>0 loses allocation/count, then mode2; count<=0 retains allocation/count and becomes mode2. Self/cycle effects are immediate.",
+    "MSTMTR mutation and reference finalization do not eagerly refresh components.",
+    "Feature49 is any material mode1 in selected root85c=0 reset profile; default remaining scientific flags remain zero.",
+    "Dimension reset destroys materials/reference allocations through existing owned-root reset."
+  ],
+  "remap": {
+    "sources": [
+      "1d0fc0",
+      "29ca10",
+      "29c870",
+      "29c7f0",
+      "1613a0"
+    ],
+    "mapping": "Before append save insertion-order old IDs; old rank is count of old IDs strictly less. New rank is count of current IDs strictly less, provided exact ID exists. 29c7f0 returns 1-based insertion position or-1; caller uses existence only.",
+    "sequence": "For option1 append with active feature49, capture old arrays49/50 before root layout; update root components; refresh each type!=7 object's storage then immediately zero/remap its arrays49/50. Configuration option0 only preserving refresh.",
+    "storage": "Native a58/a60 map to element descriptors49/50. Capture/remap uses header element count884 and root width49; allocation extents are checked separately.",
+    "equation": "For old-map column c<oldwidth: if ID survives, new[row*newwidth+newrank(ID[c])] = old[row*oldwidth+oldrank(ID[c])]. New destination prefixes are zeroed first.",
+    "temporary_copy": "Implementation snapshots just49/50 required values. Broader native temporary object copies are deep and observationally source-preserving in the owned profile established by material-object integration evidence. No temporary native pointer identity is promised.",
+    "inactive": "Type7 objects skip copy/resize/remap and retain their existing storage."
+  },
+  "boundaries": [
+    "Allocation failure and native signed extent arithmetic overflow are not emulated; checked owned extents and standard allocation exceptions avoid undefined C++ behavior.",
+    "Malformed external logical counts exceeding retained allocations, rank/width inconsistencies, and arbitrary shared/borrowed native pointers are rejected or excluded.",
+    "Importer owns finite double-to-int32 truncation and explicit unsupported first matching failure. Native nonfinite/out-of-range CVTTSD2SI and uninitialized local values are not assigned invented meanings.",
+    "Selected root85c remains reset0; nondefault material scientific properties and feature families remain outside this model.",
+    "Producer VOLFC/VOLFS is recovered separately, not implemented by this change. Nonzero original-array remap validation remains the next increment."
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/material-reference-next-contract.json",
+      "sha256": "0b2674acf6050dfa4b1997d78447333dc1a7ed21ccdb453f9f99fb60f9d24f5a",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-import-0x140384a50.json",
+      "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+      "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108"
+    },
+    {
+      "path": "analysis/material-import-0x14029ca10.json",
+      "sha256": "a453ced99f1ad15103df086268ffa6a893d2f2965efbaf8842d7cb0ea67153f7",
+      "evidence_id": "ev_82dbf8f2a991c88f22b1b2b98ed35ea8419b540c69309393281962c862894c97"
+    },
+    {
+      "path": "analysis/material-import-0x14029c870.json",
+      "sha256": "d69e9d2443e3c20d0be14aec26b35301fcdf69dbb44737e3f527cbbc6d57a75f",
+      "evidence_id": "ev_92ca60819b33a7e4f8079737335a898bd53f7bb3eb7f34ba2c37378e64bad9c1"
+    },
+    {
+      "path": "analysis/finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce",
+      "evidence_id": "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d64f0.json",
+      "sha256": "424009de5855c8730880262896afccc82ccc3724d969ade16d6b57cf3b780f91",
+      "evidence_id": "ev_3f1b300f8336ebda947544a0fa6bbb3960adb46497a4c9be5b337e5caa95c68f"
+    },
+    {
+      "path": "analysis/root-layout-0x1401d0fc0.json",
+      "sha256": "3d0d02c797a359e2a409cabd798b713e305452c08b7859e2b1d276a23c49642f",
+      "evidence_id": "ev_dd14a08f618ea92599ee067ee52c77920b12b87ef68522e734ab03d476c14ab9"
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-object-integration-contract.json",
+      "sha256": "ca5dd365c26ddf7470c653be78bcaabbb38672c3dc8f52955cb41755f3222228",
+      "evidence_id": null
+    },
+    {
+      "path": "analysis/material-reference-0x14029c7f0.json",
+      "sha256": "90c1b7361bca6dfb2b5bf5f02f609c9a876d0ff7046c63e1086b7dc5bd47f80d",
+      "evidence_id": "ev_e111e743c8de66b5a9de1678f6b3188ae344f8a376d94b3363d16260d20be50a"
+    }
+  ]
+}

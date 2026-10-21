@@ -1,0 +1,487 @@
+{
+  "status": "historical_gap_assessment_partly_resolved_by_followup",
+  "followup": {
+    "resolved_subset": "2D and 3D row readers, legacy decimal grammar, bounded populated-object mesh deactivation and the boundary-suppression getter are now recovered and compared where applicable.",
+    "current_records": [
+      "analysis/keyword-reader-contract.json",
+      "analysis/object-deactivation-observations.json",
+      "analysis/model-0x14039aa20.json",
+      "analysis/recovery-plan.json"
+    ],
+    "qualification": "The original assessment and its source hashes below are retained as historical context. Full token dispatch, object-ID cursor behavior, suppression-flag writers, root configuration and scientific finalization remain open."
+  },
+  "target": {
+    "path": "source/DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "purpose": "Identify the smallest evidence-backed path from MeshStorage to a selected OBJNAM/OBJTYP/RZ/ELMCON importer, without claiming full application reconstruction.",
+  "conclusion": {
+    "ready": "A bounded byte-stream scanner and selected-handler adapter can be specified substantially from retained code. MeshStorage supplies the tested default-control 3D allocation and boundary subset.",
+    "not_ready": "A production-equivalent importer cannot yet be claimed: exact legacy numeric/text-stream behavior, the 2D coordinate row reader, type-7 cleanup, root/configuration transitions and post-import effects remain incomplete.",
+    "separation": "Scanner acceptance and stream position are independent contracts from object mutation, cleanup, boundary generation and derived scientific geometry. Passing array replay comparisons does not establish scanner or complete import equivalence.",
+    "implementation_scope_proposal": "First establish scanner/helper parity on bounded inputs, then implement the four-handler subset against explicit dimension/component/default controls and stable object identity. Expose unsupported recognized keywords and incomplete finalization explicitly; do not silently treat them as unknown or successful full import."
+  },
+  "established_rules": [
+    {
+      "topic": "Tokenization and comments",
+      "source": [
+        "analysis/keyword-parser.json"
+      ],
+      "addresses": [
+        "0x1401b6520",
+        "0x140484924"
+      ],
+      "rules": [
+        "The parser uses fscanf(\"%39s\") into a 40-byte token buffer. It is a token stream, not one keyword per physical line. A longer token leaves unread bytes for subsequent reads.",
+        "Any token whose first byte is '*' takes the comment path; one fgets(buffer,1024) consumes at most 1023 following bytes. It does not drain an arbitrarily long physical line.",
+        "The first recognized dimension-bearing comment in each parser invocation sets dimensions; later comments cannot change them in that invocation. Recognition is not restricted to the beginning of the file.",
+        "Recognized forms in the comment remainder include DEFORM followed by 3D/F3 or 2D/F2; DEFORM-3D/F3; DEFORM-2D/F2; and DEFORM-MACH2, DEFORM-DIESTRESS2, DEFORM-MACHDIST2, DEFORM-MICROSTRUCTURE2.",
+        "The primary root is set to 2 or 3 through virtual slot zero; an available linked root is explicitly set to the complementary dimension in this parser branch.",
+        "Comment parsing uses unchecked sscanf(\"%s %s\") into local buffers. Oversized or incomplete comments are not a safe, fully characterized compatibility domain."
+      ]
+    },
+    {
+      "topic": "Lookup, dispatch and status",
+      "source": [
+        "analysis/keyword-parser.json",
+        "analysis/keyword-detail-2.json",
+        "analysis/model-0x1402f78d0.json",
+        "analysis/keyword-table-selected.json"
+      ],
+      "addresses": [
+        "0x1402f76c0",
+        "0x1402f78d0",
+        "0x1401d81b0"
+      ],
+      "rules": [
+        "Lookup scans 304 table rows with case-sensitive strcmp. OBJNAM/OBJTYP/RZ/ELMCON are category 2, IDs 144/145/159/173.",
+        "Unknown lookup returns ID 305/category 0, consumes one bounded fgets remainder, and warns except for exact token SRFNRG. Unknown lookup does not itself update the remembered import error.",
+        "Recognized category 2 dispatches to 0x14038b8a0 after current/alternate root selection by 0x1401d81b0. Other recognized categories are not unknown keywords.",
+        "Handler status 0 continues; 2 prints Reading Error and continues; 3 prints Data Error and continues; another nonzero status exits immediately.",
+        "The remembered status is overwritten by each nonzero handler status. EOF returns the LAST nonzero status, or zero if none; later successful records do not erase it.",
+        "No general resynchronization or rollback follows handler errors. Parsing resumes from the exact stream position left by the handler."
+      ]
+    },
+    {
+      "topic": "Object selection and identity",
+      "source": [
+        "analysis/keyword-handlers-evidence.json",
+        "analysis/model-0x14019ccc0.json",
+        "analysis/model-0x14017aaf0.json",
+        "analysis/keyword-observations.json"
+      ],
+      "addresses": [
+        "0x14038b8a0",
+        "0x14019ccc0",
+        "0x14017a880"
+      ],
+      "rules": [
+        "For these four handlers, the object-ID local is initialized to zero before fscanf(\"%i\"). Only return -1 is immediately rejected; a zero-conversion result leaves ID zero, and lookup returns null/status 2.",
+        "This initialized local is visible in the saved handler and narrows the older contract's uncertainty about malformed object-ID locals. Failed-conversion stream consumption still needs observation.",
+        "Selection occurs before reading name/type/count/arity payloads. A valid missing positive ID can therefore create an object even when its later payload fails.",
+        "Existing positive IDs retain identity; missing positive IDs append intermediate type-7 placeholders, then the requested constructor-default object. Nonpositive IDs yield null/status 2.",
+        "The tested 3D requested-object subset initializes empty name, type 0, no mesh, zero counts and kind 2/arity 4. This is not the complete constructor."
+      ]
+    },
+    {
+      "topic": "OBJNAM",
+      "source": [
+        "analysis/keyword-handlers-evidence.json",
+        "analysis/model-0x140413ab0.json"
+      ],
+      "addresses": [
+        "0x140413ab0"
+      ],
+      "rules": [
+        "After object-ID fscanf, consume one bounded fgets remainder, then read a second bounded fgets as the name. EOF in either read fails without copying the name.",
+        "Replace the first LF with NUL; copy at most 80 bytes; trim trailing NUL, space, CR and LF by backward scan; terminate after the last retained byte.",
+        "Preserve leading whitespace and trailing tabs. Interpret bytes through the first NUL, without inventing Unicode decoding or the DB loader's different name limit.",
+        "A name longer than the fgets bound leaves unread input; an 81-byte-to-1023-byte name is truncated to the 80-byte stored name while its already-read suffix is consumed."
+      ]
+    },
+    {
+      "topic": "Shared integer and row helpers",
+      "source": [
+        "analysis/model-0x140413de0.json",
+        "analysis/model-0x140413ee0.json",
+        "analysis/model-0x140414200.json",
+        "analysis/model-0x140415880.json",
+        "analysis/model-0x140414600.json"
+      ],
+      "addresses": [
+        "0x140413de0",
+        "0x140413ee0",
+        "0x140414200",
+        "0x140415880",
+        "0x140323970",
+        "0x14047c354",
+        "0x140414600"
+      ],
+      "rules": [
+        "Helpers initialize destination values to zero, read at most 1023 bytes with fgets, replace commas with spaces, then scan the buffer.",
+        "Only sscanf return -1 is a reader failure. A nonblank malformed token causing zero conversions, or a short row causing fewer conversions than fields, is accepted with untouched outputs left zero.",
+        "413de0 scans %i; 413ee0 scans %i %i; 414200 scans label plus four %i values; 415880 scans %i plus three %Flf values.",
+        "413de0 can skip one LF-only blank line when its option is nonzero; 414200 can loop over LF-only blank lines when its option is nonzero. The selected RZ/ELMCON call sites pass zero.",
+        "The existing code establishes format strings and control flow, not full equivalence between the embedded legacy CRT and modern C++ numeric conversion routines.",
+        "Fresh parent-supplied REA evidence ev_4f99c41662703985b0ba14f4f334e9a5d69f12302acafa0bf85d0429837b8af2 establishes 414600: zero all nine integer outputs; fgets with size 1024; optional loop over LF-only blank lines; comma replacement; nine %i conversions; failure only read EOF or sscanf -1. The ELMCON call passes skip-blank zero. Numeric edge-case runtime parity remains unresolved."
+      ]
+    },
+    {
+      "topic": "OBJTYP",
+      "source": [
+        "analysis/keyword-handlers-evidence.json",
+        "analysis/model-0x140413ee0.json",
+        "analysis/model-0x140161260.json",
+        "analysis/keyword-observations.json"
+      ],
+      "addresses": [
+        "0x14038b8a0",
+        "0x140161260"
+      ],
+      "rules": [
+        "Read two integers from the current remainder via 413ee0. File codes 1..5 map to internal 0..4; 7 maps to 6; 6 preserves prior type; every other code maps to 7.",
+        "Store the second integer at object+0x2154, then invoke deactivation if the resulting type is 7, including code 6 applied to an already inactive object.",
+        "Deactivation clears name, mesh flag, node/element counts and fields +0x888/+0x88c after deeper cleanup, and resets 100 boundary/subobject records. The complete cleanup effects are unresolved.",
+        "The malformed type fixture produced status zero and type 7; this is not evidence that inactive cleanup can safely be replaced with assigning a fresh MeshStorage."
+      ]
+    },
+    {
+      "topic": "RZ and ELMCON mutation order",
+      "source": [
+        "analysis/keyword-handlers-evidence.json",
+        "analysis/mesh-array-contract.json",
+        "analysis/mesh-storage-contract.json",
+        "analysis/mesh-storage-comparison.json"
+      ],
+      "addresses": [
+        "0x1401652b0",
+        "0x1401653b0",
+        "0x140165500",
+        "0x14039aa20",
+        "0x1401fc290"
+      ],
+      "rules": [
+        "RZ reads count, writes count, clears/reallocates node arrays and defaults, then reads rows directly into sequential destination slots. Parsed row labels do not choose storage slots. It does not set mesh-present.",
+        "3D ELMCON reads count and arity; rejects arities other than 4/8 before changing the count; accepted arity updates kind and topology fields before clearing/reallocating element arrays.",
+        "2D ELMCON reads count only and uses the four-integer row helper. Its allocation wrapper can force width 4 depending on object+0x39c0; selected object arity and allocated width must not be conflated.",
+        "Row failure returns status 2 with already-applied count/type/array writes and successful prefixes retained. A failed row helper also zeroes its own output destinations before attempting the read.",
+        "After all ELMCON rows succeed, mesh-present is set even if count is zero. Boundary construction occurs only when 39aa20 returns zero.",
+        "MeshStorage matches 31 recorded 3D snapshots with explicit default controls, including 1643 descriptor snapshots and 11 direct-buffer/boundary snapshots. This validates its bounded storage composition, not scanner return codes or every full-import side effect."
+      ]
+    },
+    {
+      "topic": "File wrapper and post-import lifecycle",
+      "source": [
+        "analysis/keyword-reader.json",
+        "analysis/keyword-detail-0.json",
+        "analysis/keyword-detail-1.json",
+        "analysis/keyword-handlers-evidence.json",
+        "analysis/model-0x1402059a0.json"
+      ],
+      "addresses": [
+        "0x1401b5f00",
+        "0x1401d7f10",
+        "0x1401d7f40",
+        "0x1401ee510",
+        "0x1401d6250",
+        "0x1401d63c0",
+        "0x1402059a0"
+      ],
+      "rules": [
+        "When enabled, reset two per-import flags before opening; record filename; open; set import option field; parse; reset option; close; clear filename; finalize; return parser status.",
+        "Open failure returns 1 without entering the parse/close/finalization branch. Filename cleanup on this branch is not shown.",
+        "Finalization is called when enabled even after parser error. It runs simulation-control handling, material-reference processing, active-object geometry handling, then conditional step updates.",
+        "Boundary construction at successful ELMCON and the wrapper's end-of-file finalization are different operations. Current MeshStorage implements neither the entire latter nor all boundary-dependent arrays."
+      ]
+    }
+  ],
+  "required_gaps": [
+    {
+      "priority": 1,
+      "area": "Scanner portability and stream consumption",
+      "addresses": [
+        "0x140484924",
+        "0x14047c354",
+        "0x14047b934",
+        "0x14047f898",
+        "0x140323970"
+      ],
+      "question": "Confirm embedded fscanf/sscanf, file-open mode at 0x14052553c, fgets text translation and comma replacement semantics. Characterize %i and %Flf for bounded valid/short/malformed inputs before substituting a modern scanner.",
+      "minimum_next_action": "Use saved assembly/callee references first; inspect missing helper 323970 and fopen mode bytes. Then passively observe row-reader status and destination bytes for decimal/octal/hex integers, exponent forms, commas, tabs, CRLF/LF, trailing junk and short rows.",
+      "qualification": "Overflow, nonfinite values, embedded NUL/Ctrl-Z, locale and overlong physical lines require either explicit exclusions or separate characterization. Do not reproduce memory-unsafe unchecked buffer behavior as a production requirement."
+    },
+    {
+      "priority": 1,
+      "area": "Missing 2D coordinate row reader",
+      "addresses": [
+        "0x140415680"
+      ],
+      "question": "Recover exact 2D coordinate helper initialization, formats, buffer length, return rules and write order. Eight-node connectivity helper 414600 is now statically recovered in the parent checkpoint.",
+      "minimum_next_action": "One static function dossier for 415680, then valid and incomplete 2D rows. Validate short/malformed eight-node rows against the newly recovered static 414600 contract without repeating its static analysis."
+    },
+    {
+      "priority": 1,
+      "area": "OBJTYP inactive cleanup",
+      "addresses": [
+        "0x14015fbf0",
+        "0x140161260",
+        "0x14017e7b0",
+        "0x14017e770",
+        "0x140158f50"
+      ],
+      "question": "Which allocated arrays, descriptor histories, defaults, arity, secondary type and boundary records survive deactivation and later reactivation?",
+      "minimum_next_action": "Inspect 15fbf0 and its direct cleanup callees before implementation; observe a populated object followed by invalid OBJTYP, code 6 while inactive, then valid OBJTYP and a name-only patch.",
+      "qualification": "Assigning a new default object or MeshStorage would guess retained fields and history. Existing captures confirm only a selected subset."
+    },
+    {
+      "priority": 2,
+      "area": "Dimension, routing and allocation controls",
+      "addresses": [
+        "0x1401d81b0",
+        "0x1401d8120",
+        "0x1401d8140",
+        "0x1401d8050",
+        "0x140163090",
+        "0x140183c20",
+        "0x140235c10"
+      ],
+      "question": "Resolve virtual dimension setter targets, resulting component-table updates, alternate-root routing, unit default selection, object+0x3980 direct default and the three element multiplicity control fields.",
+      "minimum_next_action": "Follow root vtable slot zero from saved constructors and call sites; inspect missing predicates/default readers. Compare empty 2D allocation and a bounded dimension change with pre-existing mesh only after establishing its cleanup path.",
+      "qualification": "Current API requires explicit controls and unit multiplicity. A header alone does not prove all 79 component widths, allocation defaults or safe dimension conversion of an existing object."
+    },
+    {
+      "priority": 2,
+      "area": "Successful connectivity versus boundary work",
+      "addresses": [
+        "0x14039aa20",
+        "0x1401fc290",
+        "0x1401631e0",
+        "0x1401632d0",
+        "0x140165170",
+        "0x1401858d0"
+      ],
+      "question": "Recover the boundary-suppression predicate and boundary-dependent array cleanup/allocation that follows boundary total calculation.",
+      "minimum_next_action": "Inspect 39aa20 first; then the dependency chain from 1631e0. Record mesh-present and boundary state separately when the predicate suppresses building.",
+      "qualification": "Current MeshStorage finalize_connectivity combines mesh marking and the supported builder path. Production adapter must separate or extend that operation if suppression is reachable; successful ELMCON must not be treated as unconditional boundary reconstruction."
+    },
+    {
+      "priority": 3,
+      "area": "End-of-file scientific finalization",
+      "addresses": [
+        "0x1401ee510",
+        "0x140160d90",
+        "0x140198620",
+        "0x1402059a0",
+        "0x1402581b0",
+        "0x140158e60"
+      ],
+      "question": "Determine which finalization branches are reachable for the supported four-keyword subset and what derived geometry or simulation-control state they change.",
+      "minimum_next_action": "Inspect the entry predicates and simulation routine before deeper geometry. Observe their entry/exit and selected writes on one valid mesh and one interrupted coordinate import.",
+      "qualification": "Do not block isolated scanner tests on full geometry recovery, but do not declare a production-equivalent complete import while omitting these reachable effects."
+    }
+  ],
+  "smallest_runtime_matrix_after_static_recovery": [
+    "Four independent row-helper cases: complete row, short numeric row, malformed first token and LF-only row/EOF; compare return code, exact destination bytes and next dispatched token. Use safe bounded counts and fresh private run directories.",
+    "Object ID malformed versus absent versus zero: verify initialized-zero behavior, object creation timing, parser continuation and final returned status.",
+    "Names: leading spaces, trailing tab, empty line, 80/81-byte values and EOF after header; compare exact stored bytes. Treat long physical-line splitting as a separate bounded test.",
+    "Parser recovery: unknown keyword then valid OBJNAM; row error then valid OBJNAM; two distinct handler error statuses where obtainable within the authorized subset. Compare token sequence and last-error return.",
+    "Only after cleanup recovery: populated mesh -> invalid OBJTYP -> code 6 -> valid type. Compare identity, descriptor history, arity, direct buffers, boundaries and name before/after each stage."
+  ],
+  "ordering_constraints": [
+    "Retain byte-oriented input and exact cursor position across token reads and bounded line reads; do not preprocess the entire file into clean lines or normalize case.",
+    "Apply the first recognized per-file dimension header before subsequent dispatch; select the appropriate current/alternate root for each recognized data keyword.",
+    "Select/create the object before consuming the payload, so later failure does not erase created identity or placeholders.",
+    "For OBJTYP, scan values, map type, write secondary field, then perform type-7 cleanup.",
+    "For RZ, read count, replace storage/defaults, then stream rows into their final sequential destinations.",
+    "For ELMCON, validate 3D arity and update kind before count/allocation, stream rows, mark mesh only after successful completion, then conditionally build boundary and dependent state.",
+    "Preserve completed mutations on reader error and resume tokenization from the actual cursor. Do not assume transactional import or skip a whole malformed block.",
+    "After parsing, perform wrapper teardown before optional end-of-file finalization, including error returns. Keep parser status distinct from finalization observations.",
+    "Freeze scanner/adapter candidates before comparing retained or fresh independent fixtures. Storage snapshots and scanner acceptance/status must be compared separately."
+  ],
+  "scope_exclusions": [
+    "No execution of the original, new REA session, source implementation or commit was performed for this assessment.",
+    "DBREAD, KFREAD, GENDB and other command-category behavior are outside this selected importer research scope.",
+    "A four-keyword implementation cannot infer safe payload skipping for all other recognized keywords; full-file compatibility needs their actual handlers or an explicit unsupported result.",
+    "Negative counts, signed overflow, failed allocation, malformed connectivity outside recovered builder domains, sharing and arbitrary dimensions remain unsupported unless separately characterized."
+  ],
+  "source_manifest": [
+    {
+      "path": "analysis/keyword-detail-0.json",
+      "sha256": "3cce4b251aa08cfc589fb33fbd160c110ec274b429f79997cf54c87ec66f0572",
+      "evidence_ids": [
+        "ev_7dc7949710c4a3d7da782a7e3c48c242558a6032bd8900f95afb85f2d7f5a922"
+      ]
+    },
+    {
+      "path": "analysis/keyword-detail-1.json",
+      "sha256": "8098f62c76063fb6c088dec1f05ce747e5c7242fc9fb6302979543ce213aa78a",
+      "evidence_ids": [
+        "ev_0af1745626c3f71b86ae4a376f0cc75c50969c4d9a1102b850644e3aaf2f0fab"
+      ]
+    },
+    {
+      "path": "analysis/keyword-detail-2.json",
+      "sha256": "0fdace26fdcdc54a3671f27966878f8428b70a7ecf38dc22745e122c6b110518",
+      "evidence_ids": [
+        "ev_0968a3cff6b317637849b5ce9f9f960ed1657bd91dc8cb774eedbba603f665f4"
+      ]
+    },
+    {
+      "path": "analysis/keyword-handlers-evidence.json",
+      "sha256": "77a33290e256a1db6a526d86a4572ad57c071ff51ac8e7c560abf7e5affb5550",
+      "evidence_ids": [
+        "ev_244ddc31f118de343342c6537e2952500548d6d19db44f31ce86f65b6e1cc451",
+        "ev_6513c088ecb9ec49bb29c4cd07545192e2daca1fb8c486b32b13450a3418c2e4",
+        "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108",
+        "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+        "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+        "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078",
+        "ev_d03941c0fea54e1002b165756ea3c5ce7e3b2fb37d15a08b0e325178bbfd6c5f",
+        "ev_ee137353e8e7af83a905cfca7056341401c12a3e30241ae8193a3079439d3380"
+      ]
+    },
+    {
+      "path": "analysis/keyword-object-contract.json",
+      "sha256": "6092182f1cda1bf21ece2addce0bf95eb6b0a21dbdabf25728b51652ce883a8f",
+      "evidence_ids": []
+    },
+    {
+      "path": "analysis/keyword-observations.json",
+      "sha256": "9a6b12179b0c28c496a514e076ad2c5bddaf61659d4915bf1b3cc637c8aa3a2f",
+      "evidence_ids": []
+    },
+    {
+      "path": "analysis/keyword-parser.json",
+      "sha256": "3a7445dfe4e7a131767b7a5fc65edfde052b7e5d94280e69775e9988109474e7",
+      "evidence_ids": [
+        "ev_aefdab7cc5bacd20219db5946789b42596854134a4eb31098b26448449930416"
+      ]
+    },
+    {
+      "path": "analysis/keyword-reader.json",
+      "sha256": "4d26756d8a14e3fb3d08e132d31bf26d80763a6b20b3db7c6b59847724034cb5",
+      "evidence_ids": [
+        "ev_bf855ce11b4915b6be4ef2e2a91b1324766ebba712a1af30d9f8223eaf4ba65e"
+      ]
+    },
+    {
+      "path": "analysis/keyword-table-selected.json",
+      "sha256": "e357cda835856ec3e4a1f8e0585b23ef105cdbefeb1f841c4b45de833774d933",
+      "evidence_ids": [
+        "ev_95e7b9181fc3326c058a90c14a41cd431d65de21cf1cfe423ac621156b1b0c97"
+      ]
+    },
+    {
+      "path": "analysis/mesh-array-contract.json",
+      "sha256": "6717edc1db7da253a71d5e4a92661cc6b743ec1ea63756a8e150ced0c7c5a612",
+      "evidence_ids": []
+    },
+    {
+      "path": "analysis/mesh-storage-comparison.json",
+      "sha256": "ae4e964f24a4979b44043a014994a639dd698294126afd12454c323453b5f8da",
+      "evidence_ids": []
+    },
+    {
+      "path": "analysis/mesh-storage-contract.json",
+      "sha256": "81ede65f36843d2059e2d8d7951aa32644dba21d35e0d935b6bcc24a70c73146",
+      "evidence_ids": []
+    },
+    {
+      "path": "analysis/model-0x140161260.json",
+      "sha256": "a87d8493dee4ba61ba461061ac3cb6d3bedec90b9904447dcee2e81b7d599b21",
+      "evidence_ids": [
+        "ev_4ccd90427b0548c0ec9fbe2276bdcdb37c34317093f220e2d304ddb93bcedf93"
+      ]
+    },
+    {
+      "path": "analysis/model-0x14017aaf0.json",
+      "sha256": "9186de43e0a4a967337fa6d2975707af7172e349b6a036072c635fc0a36ac24c",
+      "evidence_ids": [
+        "ev_f8afd8539ac4b40849f0187de29596c153c2288dac1cce70ea2f1d0cc0aa1ab1"
+      ]
+    },
+    {
+      "path": "analysis/model-0x14019ccc0.json",
+      "sha256": "8e63559e860a81eb9b18b55bb3b6bcf8a5dffce1444f2ef3b673edd138ddaef5",
+      "evidence_ids": [
+        "ev_3129d0049272981eb0eff39f068e2e9ea6f10d6f1b7662c16f94f5ffe0ebec0c"
+      ]
+    },
+    {
+      "path": "analysis/model-0x1402059a0.json",
+      "sha256": "70fda111646ad92308aee83e2f708c4d3b230523391794df77b1e971c0c8cbc9",
+      "evidence_ids": [
+        "ev_fdc50ece7fa2a610fa0a0bd728b4f59c673c6c47edb5b74317402fb5c6813d9c"
+      ]
+    },
+    {
+      "path": "analysis/model-0x1402f78d0.json",
+      "sha256": "dc3f73ee285b8f8af1d282463081bc31d96842cf1baea196eafae9cf07f14046",
+      "evidence_ids": [
+        "ev_7957b7b9dbe99d9194157c1d81e4497eea08a8220653e7e3c26dbe8a0690eed5"
+      ]
+    },
+    {
+      "path": "analysis/model-0x140413ab0.json",
+      "sha256": "62010e15380276eb9795add79024728eb4f31134cdeae2a1ba815d9ac0ddfc05",
+      "evidence_ids": [
+        "ev_26b41e6c40cefe32bb3d2fdc86fcba9fce8bf2dbacffe3347cde1092b954c372"
+      ]
+    },
+    {
+      "path": "analysis/model-0x140413de0.json",
+      "sha256": "132da8ef32c9a5a46739641430046f49ba635f1b02a0d651d8a74cd104fe038a",
+      "evidence_ids": [
+        "ev_89797bd9d526735a04c1d510f836868cfa21abe38429ed3944d4a3741ecc7ecc"
+      ]
+    },
+    {
+      "path": "analysis/model-0x140413ee0.json",
+      "sha256": "936d6e16e7e7da5b17b60c836a14833220e9cf6fd6d076d9ee7d4eb78e8706ba",
+      "evidence_ids": [
+        "ev_425990d83131876d26c5ceb1d48d0c798a4cc95ec500ae132fb87860ca1cc628"
+      ]
+    },
+    {
+      "path": "analysis/model-0x140414200.json",
+      "sha256": "91375e62eeefe7d7e1e76a8916bb5bdee5b7ec852cf48c3128aad18474028bfe",
+      "evidence_ids": [
+        "ev_70e5ed90b125b2c6987e331e1d7d45029e56e13f9c3d22a96cca9222e7b84678"
+      ]
+    },
+    {
+      "path": "analysis/model-0x140414600.json",
+      "sha256": "d2cb26a760c8b4e3667b2ccab6f2221c8668f7afd79e36247b9ee66ca6c2df02",
+      "evidence_ids": [
+        "ev_4f99c41662703985b0ba14f4f334e9a5d69f12302acafa0bf85d0429837b8af2"
+      ]
+    },
+    {
+      "path": "analysis/model-0x140415880.json",
+      "sha256": "3f68bfb0646f1cc41962d51d538ccc921acd117805493dc617d27579dc402ea3",
+      "evidence_ids": [
+        "ev_a0a812e68ee0597f3770782b8c9f226cbb540851691c4383f36614de23a22b6d"
+      ]
+    },
+    {
+      "path": "analysis/model-lifecycle-specification.json",
+      "sha256": "dcb38a5bd3a29b8da8f4f91f6b5f705443fd4593e608207ba59ba7c3e391f152",
+      "evidence_ids": []
+    }
+  ],
+  "superseded_by_checkpoint": {
+    "contract": "analysis/keyword-import-contract.json",
+    "resolved": [
+      "Bounded token/object-ID stream behavior",
+      "Complete304-row recognition catalog",
+      "Four selected handlers connected to stable model",
+      "Normal boundary-suppression default and temporary-root setter route"
+    ],
+    "remaining": [
+      "Complete EOF finalization",
+      "Remaining keyword handlers",
+      "Dimension/alternate-root changes",
+      "Complete model and file I/O behavior"
+    ]
+  }
+}

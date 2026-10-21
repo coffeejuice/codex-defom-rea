@@ -1,0 +1,28 @@
+{
+  "status": "initial_static_checkpoint_superseded_by_verified_component",
+  "current_contract": "analysis/planar-boundary-contract.json",
+  "evidence": [
+    "analysis/mesh-0x1401fc290.json",
+    "analysis/mesh-0x14032d65e.json",
+    "analysis/mesh-0x14032da62.json"
+  ],
+  "entry_chain": ["0x1401fc290", "0x14032d65e", "0x14032da62"],
+  "static_observations": [
+    "Connectivity uses four integer slots per element.",
+    "Generate directed successive edges, including fourth-to-first. Skip that last edge when the first and fourth node IDs coincide.",
+    "Pair an edge only with a later edge of reversed direction. Clear the matched edge's first node and omit the current edge.",
+    "Compact surviving edges in original order.",
+    "Walk unused edges in order. Start each output chain at the first unused edge and repeatedly choose the first later edge whose start equals the current endpoint.",
+    "Chain lookup always begins after the outer starting-edge index, not after the most recently followed edge.",
+    "Store one-based start/end ranges for each chain and zero separators in the node stream; replace the final separator with -1. An empty result writes -1 into the first stream slot.",
+    "The object consumer copies at most 100 chains into boundary groups and stores node counts at group+0, node pointers at group+8.",
+    "The object then updates total boundary counts and dependent arrays through 0x140165d30 and 0x1401631e0."
+  ],
+  "next_checks": [
+    "Prepare 2D keyword fixtures with explicit dimension and four-slot quad/closed-triangle connectivity.",
+    "Capture wrapper ranges/node stream and resulting object groups before implementing against observations.",
+    "Exercise adjacent cells, reversed orientation, disconnected loops, repeated directed edges and holes.",
+    "Establish malformed chains and group limits without assuming every chain is geometrically closed."
+  ],
+  "qualification": "Derived from retained Ghidra pseudocode. Runtime must corroborate the contract before claiming compatibility."
+}

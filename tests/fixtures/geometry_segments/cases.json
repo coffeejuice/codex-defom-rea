@@ -1,0 +1,171 @@
+{
+  "status": "prepared_not_executed",
+  "purpose": "Bounded ordered alternate DIEGEO import sequence, independent of the frozen direct spatial candidate. All30 files must run in listed order within one fresh harness process.",
+  "cases": [
+    {
+      "path": "tests/fixtures/geometry_segments/01_planar_seed.KEY",
+      "sha256": "31af5d6a7e1c7bf2c366ae28b4a9c4b9f5f633eda826c6f272f6be96015b4a5a",
+      "hypothesis": "Two format2 segments establish ordered IDs, flags and radians."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/02_planar_retain.KEY",
+      "sha256": "826d7b3b803e4e80cc2ca2ca2411717a3d2a5dbe5176bf666da796cd24226357",
+      "hypothesis": "Overwrite first segment; untouched trailing format2 segment undergoes angle conversion again."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/03_planar_zero2.KEY",
+      "sha256": "48382deb47ca09a2cb744b5a9cfb7142647799d33e8703d7f57905a5ce2c8503",
+      "hypothesis": "Zero rows consume no payload but reconvert every retained format2 sixth value."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/04_planar_narrow.KEY",
+      "sha256": "ec3b8dd3447614ba22cbe6a349ba351018155901795a540bcade0d45801b15c0",
+      "hypothesis": "Format1 replacement retains trailing format2 segment without conversion."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/05_planar_empty.KEY",
+      "sha256": "e31a061406da0c056ceaf47531f7e920ac4229246c9e649f03c2d22f0564ebaa",
+      "hypothesis": "Initial and consecutive separators create empty segments; advertised count excludes separators."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/06_planar_partial.KEY",
+      "sha256": "5ea6ce7641a72e6fae0beb4a246f059cf6dae160ec6185da05a628da7c1b5418",
+      "hypothesis": "First group commits; EOF within next group preserves prior trailing segments and returns2."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/07_planar_badlabel.KEY",
+      "sha256": "066daadd2614466f9319250e598f14ff1bfc5a28bc5c099f751c586f6aa44c30",
+      "hypothesis": "Integer matching failure returns3 internally and2 from planar handler."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/08_planar_comma.KEY",
+      "sha256": "0d41ca38ddbc6c2af1d046eaf946e4c7b3165a7d9df9cd863d53ccb57d7f5883",
+      "hypothesis": "Stream real scanner does not normalize commas; fails after first assignment."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/09_planar_eoflabel.KEY",
+      "sha256": "2e659f7741caa4bbc3c5c36efca68ee5fe2d3f717fb856527d579d503988b004",
+      "hypothesis": "EOF before label returns2 without payload mutation."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/10_planar_eofreal.KEY",
+      "sha256": "11ca6040442bff00a916c7158bfb75603734f8bb3a04f0bce99c05ca56a66a52",
+      "hypothesis": "EOF before third value returns2 and does not commit current group."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/11_planar_zero1.KEY",
+      "sha256": "b54b451de74788150ba7907ecb18baa77f7bfbab82ff49544dc8f4259b9b6c35",
+      "hypothesis": "Format1 zero count preserves all prior segments."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/12_planar_partialhead.KEY",
+      "sha256": "2955f846e7dcf0cb601af619ad960c33b9112dcf7c4ff217138a39b3aac82fe8",
+      "hypothesis": "One header conversion leaves zero count and succeeds without payload."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/13_spatial_seed.KEY",
+      "sha256": "f0a5f4245b1758dd7fbb783fc817eb2691c667d5ff54596c10fb8cdc5e764cda",
+      "hypothesis": "Dimension reset then exactly two header conversions select alternate format2."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/14_spatial_replace.KEY",
+      "sha256": "4d9b00d26392f45ecc6a3e0ea1e22f0e24733ef7cf4e3db68cdf6daacbf708bd",
+      "hypothesis": "Spatial alternate dispatch clears prior two segments before replacement."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/15_spatial_badlabel.KEY",
+      "sha256": "7a862a24a2c6db74d35a2a53c7ac3648b567235f781f8e27b35d443a6717d55e",
+      "hypothesis": "Spatial dispatch clears then ignores helper matching-failure return; observe subsequent parser result separately."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/16_spatial_partial.KEY",
+      "sha256": "9d28a0b8d0bb844aadc18aba374107d94a4779c2de631e305c1fa6cec00315a1",
+      "hypothesis": "Spatial dispatch ignores EOF helper return while committed first group survives."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/17_spatial_zero.KEY",
+      "sha256": "503f41985c136f3ce3435268db4e2c55000f15bdac3752a8c156e8d9a7190962",
+      "hypothesis": "Spatial zero count clears nonempty container before no-read helper."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/18_spatial_empty.KEY",
+      "sha256": "5f96ca86508cbf6a0d1268cd73a62512145a77f4c40b3276cd4a6210734f86d5",
+      "hypothesis": "Initial/consecutive separators create empty ordered segments in spatial alternate branch."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/19_prefix2.KEY",
+      "sha256": "ab4f23239c9b0af613a831f5e2a9e20a4a961176e3276a030b709b862b66c507",
+      "hypothesis": "Two discarded coordinate lines then clear and one format1 payload; matrix retained."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/20_prefix4.KEY",
+      "sha256": "6aebd529792d1cdfb3275c306e3c5569d525b018568fd84e4d8fa7970cca05d5",
+      "hypothesis": "Four labelled matrix rows commit before one format1 payload."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/21_prefix6.KEY",
+      "sha256": "9f0a7d304943bc71a7fee4c9df041e6dc1790e855db0eb438ea859fc87286648",
+      "hypothesis": "Two discarded prefix rows plus four matrix rows."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/22_prefix_other.KEY",
+      "sha256": "ae20711dec611261f52c19614130f5901a28af6c8a47909b5b325b0e890f99b1",
+      "hypothesis": "Other positive prefix value subtracts from total but consumes no prefix lines."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/23_prefix_blank.KEY",
+      "sha256": "b4978dd61780c8fb3e3d1a5d3a1020602024e2e7bdbc775131b3833616159f4d",
+      "hypothesis": "First prefix line scan EOF failure preserves existing container and matrix."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/24_prefix_eof.KEY",
+      "sha256": "edbc9d5171ce463040167a3a51630cfd1315b6ba1548ce8d71be8f354db630e5",
+      "hypothesis": "Second prefix fgets failure preserves existing container and matrix."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/25_matrix_partial.KEY",
+      "sha256": "547b4fef4f1564558f92254910345711927ad81dc05f8594cb6ad04b5e72621d",
+      "hypothesis": "Partial matrix-row conversions succeed; missing destinations zeroed, all four rows commit."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/26_matrix_eof.KEY",
+      "sha256": "f50c569c79a3e585168ead3c1bd1d207ca16bec2776bcb85950b36cd9f01f012",
+      "hypothesis": "Second matrix row fails; old matrix retained but collection cleared with one empty format0 segment."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/27_matrix_tailfail.KEY",
+      "sha256": "aef41dc47990ec167ed3b7b19c5c81367eb2e54ccbd34b7219c9016cb5cb2452",
+      "hypothesis": "All matrix rows commit; tail EOF returns2 while new empty segment remains."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/28_matrix_mismatch.KEY",
+      "sha256": "32df887ad3d63db00c97be5df7c9b1a99ba4d40b299679f5ebdceab6a2b99294",
+      "hypothesis": "Zero-conversion matrix rows return success and commit all-zero matrix."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/29_prefix_invalid.KEY",
+      "sha256": "4ded3fd53d40918a6fa6677b41e8f587c702a8d1e4e15089f7b304740ab621d0",
+      "hypothesis": "Prefix equals total rejected before clear or reads."
+    },
+    {
+      "path": "tests/fixtures/geometry_segments/30_spatial_zero2.KEY",
+      "sha256": "84e4a70bfc41340f6fb307895c85a63fe00ca521860c60acb6006cfdbe8d3497",
+      "hypothesis": "Spatial zero-format2 clears existing format1 collection before conversion, avoiding mixed-width hazard."
+    }
+  ],
+  "probe": {
+    "path": "tools/observe_geometry_segments.js",
+    "sha256": "15d5ad9ec692f98e93010e6e36e052520bed16f4a01052e537d257a511280894"
+  },
+  "bounds": {
+    "imports": 30,
+    "objects": 1,
+    "maximum_segments": 3,
+    "maximum_count_per_segment": 2,
+    "maximum_numeric_values_per_segment": 12,
+    "maximum_input_rows_including_separators": 3,
+    "matrix_values": 16,
+    "maximum_fixture_bytes": 100
+  },
+  "numeric_scope": "Finite simple decimal values; radians postconversion retained as binary64 raw bits. No negative counts, nonfinite values, allocation overflow, missing objects, or mixed-width format2 trailing access."
+}
