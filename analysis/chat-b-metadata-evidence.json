@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "status": "selected_retained_evidence_extract_not_new_analysis",
+  "source": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\fstres-snapshot.json",
+    "sha256": "5f6f305aa6afc77a20eb41bf92309548ee52f4f8853e20e62a92555ac8c3ef59",
+    "json_pointer": "/entries/501/execution/raw_result/value"
+  },
+  "target": {
+    "architecture": "x86_64",
+    "format": "pe",
+    "kind": "executable",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+  },
+  "record_bindings": [
+    {
+      "evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+      "operation": "analyze_function",
+      "parameters": {
+        "procedure": "0x14039aa90"
+      }
+    },
+    {
+      "evidence_id": "ev_bef5357654ac809bc7cc7ac6a6233dde84502baf3a623a2d4da82a04d5579c1a",
+      "operation": "procedure_assembly",
+      "parameters": {
+        "procedure": "0x14039aa90"
+      }
+    }
+  ],
+  "selection": "Selected first14 switch cases plus common return; assembly windows for string/CURSIM/SMODE/UNIT calls. No live REA request.",
+  "pseudocode_dispatch": "local_60 = param_3 + -0x16; switch(local_60)",
+  "pseudocode_early_cases": "  case 0:\r\n    local_5e8 = FUN_140413ab0(param_2,param_1 + 0x750,0x51);\r\n    break;\r\n  case 1:\r\n    local_6c8 = (double *)0x0;\r\n    local_5e8 = FUN_140413fb0(param_2,param_1 + 0x834,param_1 + 0x838,param_1 + 0x83c);\r\n    break;\r\n  case 2:\r\n    local_5e8 = FUN_140413ab0(param_2,param_1 + 0x7a1,0x41);\r\n    break;\r\n  case 3:\r\n    local_5e8 = FUN_140413ab0(param_2,param_1 + 0x7e2,0x51);\r\n    break;\r\n  case 4:\r\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0x848,0);\r\n    break;\r\n  case 5:\r\n    local_5e8 = FUN_140413de0(param_2,&local_624,0);\r\n    FUN_1401f3ff0(param_1 + 0x750,local_624);\r\n    break;\r\n  case 6:\r\n    cVar3 = FUN_1400015e0(param_1);\r\n    if (cVar3 != '\\0') {\r\n      local_5e8 = FUN_140413de0(param_2,param_1 + 0x850,0);\r\n      FUN_1401d0fc0(param_1,0);\r\n    }\r\n    break;\r\n  case 7:\r\n    if ((*(uint *)(param_1 + 0x1740) & 2) == 0) {\r\n      local_5e8 = FUN_140413de0(param_2,param_1 + 0x840,0);\r\n    }\r\n    else {\r\n      local_5e8 = FUN_140413de0(param_2,local_5f8,0);\r\n    }\r\n    break;\r\n  case 8:\r\n    local_5e8 = FUN_140413de0(param_2,local_620,0);\r\n    if ((local_620[0] != *(uint *)(param_1 + 0x84c)) && ((local_620[0] == 1 || (local_620[0] == 2)))\r\n       ) {\r\n      *(uint *)(param_1 + 0x84c) = local_620[0];\r\n      FUN_1401f4100(param_1 + 0x750);\r\n      FUN_140235c30(*(undefined4 *)(param_1 + 0x84c));\r\n    }\r\n    break;\r\n  case 9:\r\n    local_6c8 = local_660;\r\n    local_5e8 = FUN_140414e40(param_2,&local_678,&local_670,&local_668);\r\n    if (-1e+20 < local_678) {\r\n      *(double *)(param_1 + 0xd90) = local_678;\r\n    }\r\n    if (-1e+20 < local_670) {\r\n      *(double *)(param_1 + 0xd98) = local_670;\r\n    }\r\n    *(int *)(param_1 + 0xda0) = (int)local_668;\r\n    if (-1e+20 < local_660[0]) {\r\n      *(double *)(param_1 + 0xda8) = local_660[0];\r\n    }\r\n    break;\r\n  case 10:\r\n    local_6c0 = local_620 + 4;\r\n    local_6c8 = (double *)(local_620 + 3);\r\n    local_6b8 = local_6b8 & 0xffffffffffffff00;\r\n    local_5e8 = FUN_140414200(param_2,local_620,local_620 + 1,local_620 + 2);\r\n    if (local_5e8 == 0) {\r\n      for (local_684 = 0; local_684 < 5; local_684 = local_684 + 1) {\r\n        if (-1 < (int)local_620[local_684]) {\r\n          *(uint *)(param_1 + 0x854 + (longlong)local_684 * 4) = local_620[local_684];\r\n        }\r\n      }\r\n    }\r\n    break;\r\n  case 0xb:\r\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0x868,0);\r\n    break;\r\n  case 0xc:\r\n    local_6a0 = local_620 + 1;\r\n    local_6b0 = param_1 + 0x884;\r\n    local_6b8 = param_1 + 0x880;\r\n    local_6c0 = (uint *)(param_1 + 0x87c);\r\n    local_6c8 = (double *)(param_1 + 0x878);\r\n    local_698 = 0;\r\n    local_6a8 = local_620;\r\n    local_5e8 = FUN_140414600(param_2,param_1 + 0x86c,param_1 + 0x870,param_1 + 0x874);\r\n    FUN_1401d0fc0(param_1,0);\r\n    break;\r\n  case 0xd:\r\n    local_5e8 = FUN_140413de0(param_2,&local_688,0);\r\n    FUN_1404147e0(param_2,param_1 + 0x888,&local_688);\r\n    FUN_1401d0fc0(param_1,0);\r\n    break;\r\n",
+  "pseudocode_return": "    return 2;\r\n      }\r\n      FUN_1400066a0(local_90,local_118);\r\n      uVar8 = FUN_14019a4e0(param_1);\r\n      FUN_14032f5f0(uVar8,local_d4,local_90);\r\n      std::basic_string<char,std::char_traits<char>,std::allocator<char>_>::\r\n      ~basic_string<char,std::char_traits<char>,std::allocator<char>_>(local_90);\r\n    }\r\n    break;\r\n  case 0x45:\r\n    local_5e8 = FUN_140413ee0(param_2,local_620,local_620 + 1);\r\n    if ((0 < (int)local_620[0]) && (0 < (int)local_620[1])) {\r\n      *(uint *)(param_1 + 0xa78) = local_620[0];\r\n      *(uint *)(param_1 + 0xa7c) = local_620[1];\r\n      *(uint *)(param_1 + 0xac0) = local_620[0] * local_620[1];\r\n      local_5e8 = FUN_14041a800(param_2,param_1 + 0xa80,0);\r\n    }\r\n    break;\r\n  default:\r\n    return 2;\r\n  }\r\n  if (local_5e8 == 0) {\r\n    uVar8 = 0;\r\n  }\r\n  else {\r\n    uVar8 = 2;\r\n  }\r\n  return uVar8;\r\n}\r\n\r\n",
+  "assembly_call_windows": [
+    [
+      "0x14039ab4a: MOV EAX, dword ptr [RCX + RAX*0x4 + 0x39d184]",
+      "0x14039ab51: ADD RAX, RCX",
+      "0x14039ab54: JMP RAX",
+      "0x14039ab56: MOV RDX, qword ptr [RSP + 0x6f0]",
+      "0x14039ab5e: ADD RDX, 0x750",
+      "0x14039ab65: MOV R8D, 0x51",
+      "0x14039ab6b: MOV RCX, qword ptr [RSP + 0x6f8]",
+      "0x14039ab73: CALL 0x140413ab0",
+      "0x14039ab78: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039ab7f: JMP 0x14039d14b",
+      "0x14039ab84: MOV R9, qword ptr [RSP + 0x6f0]"
+    ],
+    [
+      "0x14039ab8c: ADD R9, 0x83c",
+      "0x14039ab93: MOV R8, qword ptr [RSP + 0x6f0]",
+      "0x14039ab9b: ADD R8, 0x838",
+      "0x14039aba2: MOV RDX, qword ptr [RSP + 0x6f0]",
+      "0x14039abaa: ADD RDX, 0x834",
+      "0x14039abb1: MOV qword ptr [RSP + 0x20], 0x0",
+      "0x14039abba: MOV RCX, qword ptr [RSP + 0x6f8]",
+      "0x14039abc2: CALL 0x140413fb0",
+      "0x14039abc7: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039abce: JMP 0x14039d14b",
+      "0x14039abd3: MOV RDX, qword ptr [RSP + 0x6f0]"
+    ],
+    [
+      "0x14039abc2: CALL 0x140413fb0",
+      "0x14039abc7: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039abce: JMP 0x14039d14b",
+      "0x14039abd3: MOV RDX, qword ptr [RSP + 0x6f0]",
+      "0x14039abdb: ADD RDX, 0x7a1",
+      "0x14039abe2: MOV R8D, 0x41",
+      "0x14039abe8: MOV RCX, qword ptr [RSP + 0x6f8]",
+      "0x14039abf0: CALL 0x140413ab0",
+      "0x14039abf5: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039abfc: JMP 0x14039d14b",
+      "0x14039ac01: MOV RDX, qword ptr [RSP + 0x6f0]"
+    ],
+    [
+      "0x14039abf0: CALL 0x140413ab0",
+      "0x14039abf5: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039abfc: JMP 0x14039d14b",
+      "0x14039ac01: MOV RDX, qword ptr [RSP + 0x6f0]",
+      "0x14039ac09: ADD RDX, 0x7e2",
+      "0x14039ac10: MOV R8D, 0x51",
+      "0x14039ac16: MOV RCX, qword ptr [RSP + 0x6f8]",
+      "0x14039ac1e: CALL 0x140413ab0",
+      "0x14039ac23: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039ac2a: JMP 0x14039d14b",
+      "0x14039ac2f: MOV RDX, qword ptr [RSP + 0x6f0]"
+    ],
+    [
+      "0x14039ac5d: LEA RDX, [RSP + 0xc4]",
+      "0x14039ac65: MOV RCX, qword ptr [RSP + 0x6f8]",
+      "0x14039ac6d: CALL 0x140413de0",
+      "0x14039ac72: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039ac79: MOV RCX, qword ptr [RSP + 0x6f0]",
+      "0x14039ac81: ADD RCX, 0x750",
+      "0x14039ac88: MOV EDX, dword ptr [RSP + 0xc4]",
+      "0x14039ac8f: CALL 0x1401f3ff0",
+      "0x14039ac94: JMP 0x14039d14b",
+      "0x14039ac99: MOV RCX, qword ptr [RSP + 0x6f0]",
+      "0x14039aca1: CALL 0x1400015e0"
+    ],
+    [
+      "0x14039ad95: JZ 0x14039ad9c",
+      "0x14039ad97: JMP 0x14039d14b",
+      "0x14039ad9c: MOV RCX, qword ptr [RSP + 0x6f0]",
+      "0x14039ada4: MOV EAX, dword ptr [RSP + 0xc8]",
+      "0x14039adab: MOV dword ptr [RCX + 0x84c], EAX",
+      "0x14039adb1: MOV RCX, qword ptr [RSP + 0x6f0]",
+      "0x14039adb9: ADD RCX, 0x750",
+      "0x14039adc0: CALL 0x1401f4100",
+      "0x14039adc5: MOV R11, qword ptr [RSP + 0x6f0]",
+      "0x14039adcd: MOV ECX, dword ptr [R11 + 0x84c]",
+      "0x14039add4: CALL 0x140235c30"
+    ],
+    [
+      "0x14039ada4: MOV EAX, dword ptr [RSP + 0xc8]",
+      "0x14039adab: MOV dword ptr [RCX + 0x84c], EAX",
+      "0x14039adb1: MOV RCX, qword ptr [RSP + 0x6f0]",
+      "0x14039adb9: ADD RCX, 0x750",
+      "0x14039adc0: CALL 0x1401f4100",
+      "0x14039adc5: MOV R11, qword ptr [RSP + 0x6f0]",
+      "0x14039adcd: MOV ECX, dword ptr [R11 + 0x84c]",
+      "0x14039add4: CALL 0x140235c30",
+      "0x14039add9: JMP 0x14039d14b",
+      "0x14039adde: LEA RAX, [RSP + 0x88]",
+      "0x14039ade6: LEA R9, [RSP + 0x80]"
+    ],
+    [
+      "0x14039c5c3: CALL 0x14041ace0",
+      "0x14039c5c8: JMP 0x14039c50b",
+      "0x14039c5cd: JMP 0x14039d14b",
+      "0x14039c5d2: MOV RDX, qword ptr [RSP + 0x6f0]",
+      "0x14039c5da: ADD RDX, 0xb90",
+      "0x14039c5e1: MOV R8D, 0x40",
+      "0x14039c5e7: MOV RCX, qword ptr [RSP + 0x6f8]",
+      "0x14039c5ef: CALL 0x140413ab0",
+      "0x14039c5f4: MOV dword ptr [RSP + 0x100], EAX",
+      "0x14039c5fb: JMP 0x14039d14b",
+      "0x14039c600: MOV RDX, qword ptr [RSP + 0x6f0]"
+    ]
+  ],
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+    "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+    "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+    "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+    "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+    "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+    "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+    "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+    "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+  ]
+}

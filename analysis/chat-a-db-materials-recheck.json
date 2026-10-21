@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "task_id": "recheck-db-materials-lookup-1",
+  "reviewer": "Chat A",
+  "date": "2026-10-21",
+  "verdict": "ACCEPT",
+  "scope": "Focused independent recheck of A-G2-01 resolution, edge qualification, exact correction scope and dependent hashes. No expanded audit or runtime-equivalence claim.",
+  "summary": "The corrected lookup sentence now agrees with retained code: 29c260 accepts a one-based insertion position and returns a material-node pointer or null; a nonempty list returns its head for requested positions <=1. 1d7090 forwards the pointer in RAX. Only this contract string and its dependent validation byte count/hash changed. A-G2-01 is resolved.",
+  "worktree": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "reviewed_root": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea",
+  "bindings": {
+    "correction": {
+      "path": "analysis/chat-c-db-materials-correction.json",
+      "bytes": 11462,
+      "sha256": "94217b71f4a46c84c3d5de3e69af69d9dde7a538cc03ceb046729e406b6f35c5"
+    },
+    "contract": {
+      "path": "analysis/chat-c-db-materials-contract.json",
+      "bytes": 54630,
+      "sha256": "3774cbe87c77c352bb18dd6e453375a176180bc3cefaf8fae0de7489b14a63f1"
+    },
+    "validation": {
+      "path": "analysis/chat-c-db-materials-validation.json",
+      "bytes": 101703,
+      "sha256": "8bcf97e4e80e1aedf87832ee679cc20a8d2b0aeca91ebc51573a20bbe10d298f"
+    },
+    "prior_review": {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-db-materials-review.json",
+      "sha256": "99ca7a9c2ca0f8c750c3fe16e83e9c13112fce29de7442b69a5a131a4396b686",
+      "unchanged": true
+    }
+  },
+  "finding_resolution": {
+    "id": "A-G2-01",
+    "status": "RESOLVED",
+    "contract_pointer": "/identity_and_lifecycle/material/lookup",
+    "checked_semantics": [
+      "Input is a requested insertion position; output is a node pointer or null, not an ordinal or material ID.",
+      "Empty list returns null. Exhausted traversal returns null.",
+      "For a nonempty list, requested positions <=1 return the head; no general position validation is implied.",
+      "Normal DB material/relation traversal loops start at0, test against n and pass i+1, hence positions1..n when entered.",
+      "1d7090 forwards the pointer in RAX with no overwrite between the call and return.",
+      "Relation callers null-check and dereference node pointers to obtain relation-key IDs.",
+      "The separate exact-ID lookup and its first-match behavior are not conflated with positional lookup."
+    ],
+    "source_file": "analysis/chat-c-db-materials-evidence.json",
+    "source_anchors": [
+      {
+        "pointer": "/retained/6/pseudocode",
+        "procedure": "0x14029c260",
+        "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda",
+        "lines_after_CR_removal": [8, 13],
+        "support": "Initializes local_10 from head, increments traversal counter in the loop condition, follows next+0x2200, and returns local_10."
+      },
+      {
+        "pointer": "/fresh/21/assembly",
+        "procedure": "0x1401d7090",
+        "evidence_id": "ev_e3bc827bb3bb9482ae4d6fdf9e1312c6d6c2a6a3b55d4d31b714e2e919b1b203",
+        "instructions": [
+          "0x1401d70ad: CALL 0x14029c260",
+          "0x1401d70b2: ADD RSP, 0x28",
+          "0x1401d70b6: RET"
+        ]
+      },
+      {
+        "pointer": "/fresh/19/pseudocode",
+        "procedure": "0x1401d0180",
+        "evidence_id": "ev_c952097310df040fb0505ae0c07f11a8658773ea38360616732e43aac72c5286",
+        "lines_after_CR_removal": [18, 26]
+      },
+      {
+        "pointer": "/fresh/4/pseudocode",
+        "procedure": "0x1401cff20",
+        "evidence_id": "ev_1f3fee23ffb06b675549583e191de44e53db3f7ec1bed686bdbea16572994fed",
+        "lines_after_CR_removal": [39, 41]
+      }
+    ]
+  },
+  "byte_scope_verification": {
+    "result": "PASS",
+    "method": "Read current raw bytes. Reverse the receipt's exact escaped lookup-string replacement once; compare resulting length and SHA256 with the previously reviewed contract. Reverse only the corrected contract length/hash tokens in validation once each; compare resulting SHA256 with the previously reviewed validation. No JSON reserialization was used for the byte-scope proof.",
+    "reconstructed_prior_contract": {
+      "bytes": 54271,
+      "sha256": "3a5a99aa7205fc1918e2fc7ffb7596bdc07c917a23b4e354c477c73ada05637b"
+    },
+    "reconstructed_prior_validation_sha256": "2717e3e655fca2e01bdbfb4cedc8af3d7a9a6443197e0d48d7e0c4d1bce43191",
+    "implication": "All other contract content, including ordering rules and runtime/prestate gaps, is byte-identical. The historical842-check record remains unchanged; only its dependent contract identity was updated.",
+    "receipt_after_artifact_bindings_verified": 7,
+    "unchanged_dependencies": [
+      {
+        "path": "analysis/chat-c-build-db-materials.py",
+        "bytes": 10819,
+        "sha256": "a040ced6a2b6dc40e17664ed9dcc5eb13013070c460887ae8275b9eba48b1cfb"
+      },
+      {
+        "path": "analysis/chat-c-db-materials-evidence.json",
+        "bytes": 1072505,
+        "sha256": "5dfb487b6580eee1da604e28bbfd9a6bd1eccf1834c6078914e1baea73c87e2d"
+      },
+      {
+        "path": "analysis/chat-c-db-materials-field-map.json",
+        "bytes": 486853,
+        "sha256": "8a6b6a30960b4464f2640724b651c9044aa2428e3b5e3c5a4bacc1f03a2b1b95"
+      },
+      {
+        "path": "analysis/chat-c-db-materials-session.json",
+        "bytes": 690,
+        "sha256": "b253b288b169e5fc704955523ff7a4a8d8cf14e19aa1184b5d29372c6870c444"
+      },
+      {
+        "path": "analysis/oracle/chat-c-db-materials-evidence-bundle.json",
+        "bytes": 15240831,
+        "sha256": "c27428bcc3369852398874f6dc8a08036e55be8bfa7130b88455a5b2c678489b"
+      }
+    ]
+  },
+  "validation_claims": {
+    "correction_author_reported_focused_checks": 17,
+    "independent_method": "Focused source/assembly inspection and byte/hash checks described above; no execution of C's generator or test runner.",
+    "historical_842_checks_rerun": false,
+    "original_runs": 0,
+    "candidate_runs": 0,
+    "rea_calls": 0,
+    "proposed_lookup_tests": "Remain NOT_RUN. Position1/2/3, nonempty positions0/-1, empty-list and wrapper-pointer comparisons are source-derived expectations only."
+  },
+  "preserved_limits": [
+    "No DB runtime or scientific equivalence established.",
+    "Full3D address-profile restriction remains; no promotion of2D/legacy/partial support.",
+    "Constructor-dependent descriptor/skip-byte state and direct-entry pre-populated-list behavior remain explicit prestate gaps.",
+    "No new safe rejection, allocation-failure, overflow, reference-bounds or rollback policy is inferred.",
+    "Reference reconciliation ordering, relation matrix order, inactive/self pairs, cached counts and field-map coverage were not broadened or re-audited.",
+    "All runtime/prestate gaps in the prior A review and corrected C contract remain in force."
+  ],
+  "new_findings": [],
+  "tooling_adoption": "Deferred; direct reads of known retained files were sufficient. No benchmark or research-base change.",
+  "resource_and_scope": {
+    "reviewed_files_mutated": false,
+    "production_edits": false,
+    "commit_merge_push": false,
+    "native_resource_held": false,
+    "writes": "Only this Chat A recheck artifact."
+  },
+  "next_step": "Coordinator may mark A-G2-01 resolved and accept the corrected bounded static contract. Runtime validation and implementation require separate authorization. Report completion and stop."
+}

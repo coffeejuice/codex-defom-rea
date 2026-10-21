@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "task_id": "recheck-index-alias-1",
+  "reviewer": "Chat A",
+  "date": "2026-10-21",
+  "verdict": "ACCEPT",
+  "verdict_scope": "A-INDEX-01 correction and focused regressions in the exact review2 freeze; accept for Coordinator integration decision. No runtime-compatibility or end-to-end performance validation implied.",
+  "worktree": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "reviewed_root": "C:\\Users\\alext\\Projects\\codex-deform-rea",
+  "freeze": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\bottleneck-pilot-freeze-v1-review2.json",
+    "sha256": "53ea36287ddc3497fc54fd4ab965d499f16e6ff53e2d9a893911d4065a780cde",
+    "watermark_sha256": "294824b7963a2334c02ee88cc3524414e31aa0bcf13467e6a2f639c323c68f3f",
+    "files": [
+      {
+        "path": "tools/evidence_slice.py",
+        "bytes": 5566,
+        "sha256": "96d759dd95659180467124cedcffb383d4763e44003dff03a0c3591e645e4758"
+      },
+      {
+        "path": "tools/benchmark_evidence_slice.py",
+        "bytes": 2887,
+        "sha256": "7901d373b9013ba21e42a103c8ff3d6030038086d0e20dbf33b7aecf5491a891"
+      },
+      {
+        "path": "tests/test_evidence_slice.py",
+        "bytes": 3595,
+        "sha256": "425480d78a4d2193523e47aa47e508275ed7c3ccadf47a86d11957f29eb13e7f"
+      },
+      {
+        "path": "analysis/bottleneck-pilot-benchmark.json",
+        "bytes": 2035,
+        "sha256": "70377f9145472aea9c7542a7b1478e259dc0611d0c2558228b84af6d9e588c4d"
+      },
+      {
+        "path": "analysis/bottleneck-register.json",
+        "bytes": 8659,
+        "sha256": "e90a5539ee9c9312ca524564c050deeddc245d4846d3647cdcc93769adff8019"
+      },
+      {
+        "path": "analysis/evidence-workflow.md",
+        "bytes": 13755,
+        "sha256": "967255ad1a5744ed73c88632f8af803374e15d0772bf03bae74d278b0090bfff"
+      },
+      {
+        "path": "tools/evidence_index.py",
+        "bytes": 7259,
+        "sha256": "d13c21d1052441dd8acac761ca7fd79f43dd40450622bf6b2e0eeb5532d1b242"
+      },
+      {
+        "path": "tools/benchmark_evidence_index.py",
+        "bytes": 8479,
+        "sha256": "5b967a90e82e1526a9960186cf440fc9248ccca63d8e24e5575c9769fc23beb6"
+      },
+      {
+        "path": "tests/test_evidence_index.py",
+        "bytes": 7771,
+        "sha256": "b34ae6ed3c1cbbc54decdd1c07d20a6394aea94cd7130d02fcb59f66310c0ebf"
+      },
+      {
+        "path": "analysis/bottleneck-index-benchmark.json",
+        "bytes": 12916,
+        "sha256": "647805061be45bdb5ca3a8dd20b8249aecc21906c29e011d87f3341a94960f5a"
+      }
+    ],
+    "verified_before_and_after": true
+  },
+  "prior_review": {
+    "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-index-review.json",
+    "sha256": "cc34eb2f2f42980fdd00151a0d596b28cfbdefb12cc4ef1c7898fa53ea168b61",
+    "unchanged": true
+  },
+  "original_freeze": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\bottleneck-pilot-freeze.json",
+    "sha256": "f150c71bc09da570a3cd737352d4b103a8096bc82467b050e2dfb1637242c527",
+    "unchanged": true
+  },
+  "changed_rollout_files": [
+    "analysis/bottleneck-register.json",
+    "analysis/evidence-workflow.md",
+    "tools/evidence_index.py",
+    "tools/benchmark_evidence_index.py",
+    "tests/test_evidence_index.py"
+  ],
+  "finding_disposition": {
+    "id": "A-INDEX-01",
+    "status": "RESOLVED",
+    "source": "tools/evidence_index.py",
+    "lines": [
+      124,
+      138
+    ],
+    "source_sha256": "d13c21d1052441dd8acac761ca7fd79f43dd40450622bf6b2e0eeb5532d1b242",
+    "reason": "The builder rejects every existing final path using lexists, without resolving away final-component links. It then opens with xb, so a hard link or independent output created after the preflight causes exclusive creation to fail rather than truncate an existing inode. The failure path returns2 and emits no success receipt. Fresh output creation remains supported.",
+    "policy": "Existing outputs, including unrelated caches, must be rejected. Rebuild to a fresh path.",
+    "tests": [
+      {
+        "case": "Preexisting real hard-link alias",
+        "result": "PASS",
+        "observed": "Exit2, empty stdout, exact source and alias bytes preserved."
+      },
+      {
+        "case": "Source itself as output",
+        "result": "PASS",
+        "observed": "Exit2, empty stdout, exact source bytes preserved."
+      },
+      {
+        "case": "Existing independent cache",
+        "result": "PASS",
+        "observed": "Exit2, empty stdout, source and cache preserved."
+      },
+      {
+        "case": "Fresh independent output",
+        "result": "PASS",
+        "observed": "Exit0; output matches expected index bytes; receipt hash valid; query succeeds; source unchanged."
+      },
+      {
+        "case": "Hard link created after preflight",
+        "result": "PASS",
+        "observed": "Deterministic interleaving at build return; exclusive open fails, status2, no stdout receipt, source/alias bytes preserved."
+      },
+      {
+        "case": "Independent file created after preflight",
+        "result": "PASS",
+        "observed": "Deterministic interleaving at build return; exclusive open fails, status2, no stdout receipt, concurrent writer bytes preserved."
+      }
+    ]
+  },
+  "regressions": {
+    "existing_tests_passed": 17,
+    "skipped": 0,
+    "exit_code": 0,
+    "command": [
+      "C:\\Program Files\\Python312\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\build\\chat-a-index-recheck\\tests",
+      "-p",
+      "test_evidence_*.py",
+      "-v"
+    ],
+    "method": "Byte-identical frozen tool/test copies under own scratch; test paths resolve to own synthetic-data tree. No real source JSON was passed to either tool.",
+    "log": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\build\\chat-a-index-recheck\\tests.stderr.txt",
+    "log_sha256": "595475d0ad151e603e7e431a59c66cd0fd3370cccc7a1edcfd1a862865f2ac97",
+    "unchanged_index_function_ASTs": [
+      "sha256",
+      "encode",
+      "address",
+      "records",
+      "body_pointers",
+      "build",
+      "query"
+    ],
+    "coverage": "All prior six index and six slice tests remain; five added tests cover six output cases through two deterministic interleaving subtests."
+  },
+  "commands_and_runner": {
+    "assessment": "PASS for revised usage. Workflow allocates a GUID-suffixed index path, uses its returned path/digest for querying, retains target filtering and pins source digests for extraction. Benchmark defaults allocate separate UUID-suffixed index and report paths; report preflight rejects existing paths, and final x mode prevents truncating a path created meanwhile.",
+    "existing_report_rejection_smoke": {
+      "result": "PASS",
+      "exit_code": 2,
+      "stdout_bytes": 0,
+      "report_preserved": true,
+      "real_sources_present": false,
+      "stderr": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\build\\chat-a-index-recheck\\benchmark-rejection.stderr.txt",
+      "stderr_sha256": "c211753529e733b791fd8797810875d2d9b5a754b0580617605809f74d3d5d36"
+    },
+    "benchmark_rerun": false,
+    "limits": "No full benchmark or race test for the benchmark report writer was run; its final exclusive mode was inspected. A late report collision may surface a FileExistsError traceback after work completes, but the existing report is preserved."
+  },
+  "historical_timing_caveats": {
+    "result": "PASS",
+    "report": "analysis/bottleneck-index-benchmark.json",
+    "sha256": "647805061be45bdb5ca3a8dd20b8249aecc21906c29e011d87f3341a94960f5a",
+    "assessment": "The historical report and original freeze remain byte-for-byte unchanged. Its three recorded code hashes match the preserved pre-correction code, not this revision. Workflow explicitly labels timings pre-correction and says the benchmark was not rerun. Historical approximately8.3x fixed-file discovery and two-query amortization must not be represented as measurements of review2 or overall recovery work.",
+    "retained_limits": [
+      "Likely warm cache",
+      "Fixed explicit three-source scope",
+      "Full source hashes per query",
+      "No agent-token/tool-roundtrip/end-to-end measurement",
+      "Known-record direct extraction remains an alternative"
+    ]
+  },
+  "remaining_limits": [
+    "No protection claim against concurrent replacement of parent directories or changing source contents; output-file creation interleavings are the tested boundary.",
+    "An I/O failure after creating a fresh file may leave an incomplete output; no success receipt is emitted. A subsequent retry must choose a fresh path.",
+    "No symlink or dangling-link creation test was executed; lexists and exclusive-create handling of those names was inspected.",
+    "Prior review scope limitations for schema coverage, qualification selection and bounded misses remain."
+  ],
+  "new_blocking_findings": [],
+  "validation_artifact": {
+    "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-index-recheck-audit.py",
+    "sha256": "f532f69e2ece8d89934361a06af7f08f63c63eab1e5676e00c1dad4cf3d81392"
+  },
+  "scope_and_release": {
+    "shared_files_mutated": false,
+    "real_evidence_passed_to_helpers": false,
+    "rea_sessions": 0,
+    "original_app_runs": 0,
+    "production_changes": false,
+    "merge_or_push": false,
+    "writes": "Own review artifact and disposable scratch only",
+    "resource_held": false
+  },
+  "next_action": "Coordinator may accept this exact revision for the separately authorized tooling integration workflow. Report delivered; stop."
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scope": "Chat B keyword-export contract feedback only; no shared tooling edits.",
+  "ranking_basis": "Largest practical delays in this pass; end-to-end elapsed attribution was not instrumented, so these are not statistically ranked timings.",
+  "bottlenecks": [
+    {
+      "operation": "Retained snapshot lookup and excessive transport output",
+      "example": "Get-Content oracle/startup-snapshot.json -TotalCount 45 read a minified single-line JSON; rg context around 0x14000ac60 also returned many duplicate references.",
+      "measured_elapsed_seconds": 0.8750639,
+      "timing_scope": "Shell execution reported by tool for oversized combined call; model/transport recovery time unknown.",
+      "repeated_calls_or_output": "Tool reported original_token_count 7102905 and roughly27MB omitted bytes. Later at least6 focused calls reparsed the291739865-byte fstres snapshot; individual shell times about2.5-3.4seconds. Final bounded negative search read22 snapshots totaling3956574698bytes.",
+      "cause": "No small procedure/operation index; minified JSON makes line-based limits ineffective; snapshots repeat inherited evidence.",
+      "proposed_fix": "Precompute a read-only index keyed by target hash,procedure,operation and evidence ID. Return existence/count/path plus bounded JSON pointer extracts. Cache a parsed snapshot per analysis process. Provide byte/output caps and never dump whole records by default.",
+      "benchmark": {
+        "source": "C:/Users/alext/Projects/codex-deform-rea/analysis/oracle/fstres-snapshot.json",
+        "source_bytes": 291739865,
+        "question": "Does any entries[*].parameters.procedure or evidence_bundle.records[*].parameters.procedure equal 0x14000ac60? Return counts and matching operations only.",
+        "expected": "0 entries and0 records. Caller references and callee body metadata must not be mistaken for a seed analysis.",
+        "positive_control": "Extract the3 assembly instructions at0x14001b083/0x14001b086/0x14001b08b from entries[98].execution.raw_result.value.assembly."
+      }
+    },
+    {
+      "operation": "Isolated worktree filesystem admission",
+      "example": "Managed worktree created at C:/Users/alext/.codex/worktrees/chat-b/codex-deform-rea, outside declared writable roots. Normal Git reported cannot come back to cwd:Permission denied; read-only status succeeded with escalation. Writing own analysis files also required escalation.",
+      "measured_elapsed_seconds": null,
+      "timing_scope": "End-to-end approval delay unknown. One audit-launch approval review timed out; a single retry succeeded. Initial exec yielded after31.0seconds before later timeout.",
+      "repeated_calls_or_output": "One Git retry;one audit launch retry;multiple separate escalated writes for user-authorized deliverables.",
+      "cause": "App-created worktree was not added to task sandbox writable roots; approval-review timeout compounded it.",
+      "proposed_fix": "Atomically register new managed worktree path with task read/write roots after successful creation. Retain scoped authorization to own worktree;do not expand access to other workers."
+    },
+    {
+      "operation": "Writing a large contract through a Windows shell command",
+      "example": "Single Python here-string assembling contract failed before process creation with Windows error206:filename or extension too long.",
+      "measured_elapsed_seconds": null,
+      "timing_scope": "Failed tool returned after3.5seconds;re-authoring/splitting delay not measured.",
+      "repeated_calls_or_output": "One failed large command;rewritten as3 smaller JSON construction/update calls. No partial file from failed invocation.",
+      "cause": "CreateProcess command-line limit,amplified by shell transport encoding;contract payload should not be transported as one long command.",
+      "proposed_fix": "Use a file-write/patch API admitted to the isolated worktree,or stream bounded chunks into a script/data file and invoke it with a short command. Detect encoded command length before dispatch."
+    }
+  ],
+  "feedback_status": "Recorded after contract generation; no REA operation was active or interrupted."
+}

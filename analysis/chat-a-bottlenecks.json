@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "Feedback from Chat A GRNDAT contract pass only; no shared-tool changes or runtime experiments.",
+  "delays": [
+    {
+      "operation": "Reading the entire README, feature ledger and skill in a single initial command; printing the full binary_session response",
+      "elapsed_seconds": null,
+      "elapsed_note": "Wall time of individual shell read was0.575s; total recovery/reread delay unknown.",
+      "repeated_calls_or_size": "Initial output46,352 tokens was truncated; subsequent broad read12,032 tokens also exceeded outer tool budget. binary_session produced about38,180 tokens, most unrelated capability inventory. Several follow-up reads were needed.",
+      "cause": "Combined unbounded file output and nested tool-output budgets hid needed sections; full session inventory was much broader than ownership check.",
+      "proposed_fix": "Use structured field projection before printing: README headings/relevant section, ledger component/checkpoint fields, and binary_session open/cleanup_pending/target/provider only. Preserve full result privately and avoid repeating producers."
+    },
+    {
+      "operation": "Opening the reference with matching retained snapshot, then first seven focused pseudocode queries",
+      "elapsed_seconds": null,
+      "elapsed_note": "First open initially yielded at31s and ultimately returned automatic permission-review timeout; retry succeeded in27.0s. Initial seven-query cell yielded at31s; full completion time unknown.",
+      "repeated_calls_or_size": "One identical open retry, explicitly permitted by timeout response. First batch contained seven distinct addresses; later cached focused batches completed in about0.1s. Snapshot291,739,865 bytes; loaded retained history need not be printed or re-exported in full.",
+      "cause": "Initial approval-review timeout and cold/native-session initialization; exact split between approval, snapshot parsing and provider work is unknown.",
+      "proposed_fix": "Keep one explicitly owned session per assigned native worker, check ownership once, reuse cached analysis. Instrument lifecycle and per-query durations separately; retain only new focused evidence in deliverables."
+    },
+    {
+      "operation": "Using managed worktree outside original shell writable roots and trying Git status",
+      "elapsed_seconds": null,
+      "elapsed_note": "Total delay unknown. A scoped escalated write/audit completed in4.4s, and scoped dumpbin export in2.7s. These include operation/review overhead and are not isolated approval timings.",
+      "repeated_calls_or_size": "Two status failures: 'must be run in a work tree' and 'cannot come back to cwd: Permission denied'; then targeted writes used explicit requested worktree paths. Small outputs.",
+      "cause": "Worktree was created and registered by app tool, but ordinary shell execution did not initially have the same filesystem context/access.",
+      "proposed_fix": "Propagate newly created managed-worktree access consistently to shell/file tools; verify HEAD/cwd/status once from exact returned path. Keep writes confined to worker analysis artifacts."
+    }
+  ],
+  "retained_evidence_benchmark": {
+    "source_file": "C:/Users/alext/Projects/codex-deform-rea/analysis/material-import-0x140384a50.json",
+    "source_sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+    "source_bytes": 14368119,
+    "question": "For GRNDAT ID108 case0x10 in0x140384a50, list selector2's five list offsets in input order, the ignored count-reader calls, and which record failures bypass0x1401d0fc0(root,0).",
+    "selection": "normalized_result.pseudocode substring from 'case 0x10:' up to 'case 0x11:'; corroborate with assembly entries0x14038753d..0x1403879e1.",
+    "expected_answer": "Initial record M+14d8, then lists16f8,16e0,16c8,1710,1728. Each clears before413de0(skip1); its status ignored. Any41bed0 failure immediately returns2; successful completion refreshes at1403879dc.",
+    "benchmark_rule": "Read-only exact extraction, preserve source SHA/Evidence ID and offsets. Compare elapsed time and emitted bytes against whole-file printing; do not treat a small excerpt as exhaustive function coverage."
+  }
+}

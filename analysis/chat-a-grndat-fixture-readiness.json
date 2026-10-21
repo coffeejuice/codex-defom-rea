@@ -1,0 +1,83 @@
+{
+  "status": "STATIC_PACKAGE_CHECKS_PASS_RUNTIME_NOT_RUN",
+  "files": 131,
+  "cases": 123,
+  "discovery": 112,
+  "held_out_reserved": 11,
+  "total_fixture_bytes": 17523,
+  "max_fixture_bytes": 729,
+  "test_groups_with_candidates": 19,
+  "checks": [
+    "JSON parses",
+    "Contract hash bound",
+    "All19 test groups mapped",
+    "Source JSON pointers resolve",
+    "Every setup path resolves without self-reference",
+    "Fixture SHA256/size matches",
+    "All stage slices match declared bytes",
+    "ASCII/LF only",
+    "Bounded fixture sizes",
+    "Unique case IDs",
+    "Reserved action bytes disjoint from discovery",
+    "Reserved setup sequences reference no discovery cases"
+  ],
+  "not_checked": [
+    "Native behavior",
+    "Candidate behavior",
+    "Runtime cursor encodings",
+    "Whole-import/finalization status"
+  ],
+  "coordinator_gate": "Review semantic assertions and qualified setup before implementation/runtime capture.",
+  "readiness_gaps": [
+    {
+      "groups": [
+        "T14"
+      ],
+      "case": "Matching failure in rank2 uninitialized scratch",
+      "reason": "Cannot assert deterministic bytes; no executable input supplied for this domain."
+    },
+    {
+      "groups": [
+        "T02"
+      ],
+      "case": "Malformed first material-ID scan",
+      "reason": "Uninitialized material-selection local; excluded."
+    },
+    {
+      "groups": [
+        "T12"
+      ],
+      "case": "Nonfinite/out-of-range floating-to-int, overflowing table products",
+      "reason": "No deterministic bounded compatibility assertion; excluded."
+    },
+    {
+      "groups": [
+        "T18"
+      ],
+      "case": "Arbitrary material-removal command and explicit root-destruction API",
+      "reason": "Contract supplies destructor chain but not a proven public command transcript; no invented command. Dimension-reset fixture covers a documented teardown route."
+    },
+    {
+      "groups": [
+        "T19"
+      ],
+      "case": "Enabled root864 and scientific feature29/53 widths",
+      "reason": "Unproved producer/consumer behavior; do not force gate enabled."
+    },
+    {
+      "groups": [
+        "T01",
+        "T09",
+        "T10",
+        "T18"
+      ],
+      "case": "OOM, constructor exceptions, corrupted lists, shared/borrowed buffers and nonnull cache",
+      "reason": "Normal returned-status contract does not establish these domains."
+    }
+  ],
+  "plan_sha256": "e8e1219f4d5576d6b5da8f3ae10ef4426c0e970bca375e3c400bc9a130e869fb",
+  "generator_sha256": "53792c81c17e13207483dec0ea1a671325326218e5066846afa97f453ac55ea6",
+  "original_runs": 0,
+  "candidate_runs": 0,
+  "native_session_opened": false
+}

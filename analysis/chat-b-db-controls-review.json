@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "task": "review-db-controls-1",
+  "reviewer": "Chat B",
+  "created_utc": "2026-10-21T05:45:31.078626+00:00",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "verdict": "ACCEPT_AS_BOUNDED_STATIC_CONTRACT",
+  "blocking_findings": [],
+  "accept_scope": "G1 field-transfer, branch effects, storage-clear distinction, property-reader semantics and local unit ABI for the cited binary. Acceptance is not proof of runtime equivalence, complete DB loader support, safe adapter implementation, scientific meanings, or all transitive effects.",
+  "sources": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-controls-contract.json",
+      "sha256": "eb65624a7e2ddc27592a744d3c890ab771f5bc67e470d8bdd1a9bc1ee0269ea2"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-controls-evidence.json",
+      "sha256": "f21247667026cc300f76e3dc210031a62b45bbae507f9ebda0cdc837b2441066"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-controls-validation.json",
+      "sha256": "f5363da3d461cf36e91724fc8b798dc57d91dd5df4827863de353584aea6f016"
+    }
+  ],
+  "target": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\source\\DEF_PRE_64.exe",
+    "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+    "platform": "Windows x64"
+  },
+  "method": "Independent manual semantic review of both 1eb870 branches and retained helper pseudocode, with assembly review of coordinator unit flow. Reviewed conditional stores, prestate, table layout/read paths, text transformation and scope. Did not rerun C 219 self-consistency checks or execute original/candidate.",
+  "accepted_contracts": [
+    {
+      "area": "Record mapping and conditional stores",
+      "contract_pointers": [
+        "/notation",
+        "/direct_record_writes",
+        "/additional_scalar_writes",
+        "/post_copy_rules"
+      ],
+      "assessment": "No branch/index/offset or conversion mismatch identified in reviewed mapping. C=root+750; 3D unit S18 and 2D S25 reach C+fc/root84c. 3D S49 clamps f8 to1 while 2D S1 does not. Mode2 signed-int-to-double and mode6 raw64 coefficients preserve old count/data for other modes. All-zero seven flags force only12c. The T42/T36 value-slot property-key asymmetry is preserved.",
+      "evidence_ids": [
+        "ev_3e84c04c2fc60a52fe7e92eafd25ff55c98de012fad96ca62cc978f827012ee4",
+        "ev_47f3cd2088c477869284f1d0f7b46772b0f87adcf246604e7b00cc63b496698c",
+        "ev_062d7ae83fe8af7bda419aad5087e9c6c012b89c804345950cc99fb54469da99"
+      ],
+      "qualification": "201 direct store records are not a standalone execution program: use surrounding branch rules, post-copy rules and call ordering. Full-array I/R constants remain restricted to the established 3D v11000 profile."
+    },
+    {
+      "area": "Reset and prestate",
+      "contract_pointers": [
+        "/reset_and_defaults",
+        "/entry_and_order"
+      ],
+      "assessment": "1e7da0 clears owned table backing/nested list and zeros extents328/32c, without clearing all scalar/table metadata. 12f480 nulls four array pointers but retains rank/counts/constant/width/type/mode; zero-count nonnull axis suppresses all frees, and negative-axis counts do not trigger axis free. Same-dimension setter no-op allows omitted bytes to survive; dimension change runs a broader initializer chain. Contract correctly supersedes the earlier complete-reset wording.",
+      "evidence_ids": [
+        "ev_a1be477b574801eb69c1e26d59baa691f444cfc5ba28b77f0dfa3894e41865b4",
+        "ev_2f99be66d40810a8814de1e7660ea38642e89bfba153467f4314e2d8d04fc463",
+        "ev_fe5894be8463ce95af6c012687aff06a7570af678fb8ec29172fb15663622c2d",
+        "ev_bd33bc267eb062111163c55ab1389312f7f5fd34302be716ef13f2625497f0cc",
+        "ev_23cf05829f88681d3bd6925746f9c3bdf89dae0ec41f9e58175d5d6da4624ee7",
+        "ev_c612172584323633dfe153218c10f7dc5fdad875b6cefa1f93e7928847842ff3"
+      ],
+      "qualification": "Do not equate storage clear with zero-value tables. The term borrowed is an ownership interpretation of free-suppression evidence; producer/alias provenance is not independently established here."
+    },
+    {
+      "area": "Imported unit ABI",
+      "contract_pointers": [
+        "/units/abi_audit",
+        "/units/model_boundary"
+      ],
+      "assessment": "Coordinator assembly confirms SUB RSP48, getter result store at post-prologue RSP20, ReadSimCtrl call, then ECX loaded from root84c for235c30. No subsequent local getter reload/restoring setter is present. Entry R9B store uses a different physical stack slot. Setter normalizes two globals to1 only for selector2 while retaining imported raw C+fc. Setter refresh does not perform arithmetic conversion on imported S/T quantities.",
+      "evidence_ids": [
+        "ev_a0b3cf1d900355a77957f0b801b459d0765e43e8d9d4689ddea8cd807f838d5f",
+        "ev_d21aeffedd30caf63d398cf2b6ce0e377a1515deabfd66fc597a115abcf5af5e",
+        "ev_cf7ad80c48a170335a4db58f57207631d92d5ac7f5ced19f102ece372becb0ce",
+        "ev_d5e39ea6ba0f6e3b5934360f4bb4a7325ed7e758daf135429dbbae7e404ded73",
+        "ev_bb19c9a86c7ccc4ead8c40028a7a2935c704fb0444fb7b7d3325d3f59c953805"
+      ],
+      "qualification": "This establishes the local call flow only, not absence of unit-related side effects in every later DB phase. Exact formatted strings and physical interpretation remain unresolved."
+    },
+    {
+      "area": "Conditional property tables",
+      "contract_pointers": [
+        "/table_imports",
+        "/property_reader_contracts"
+      ],
+      "assessment": "Time selector0 rank/constant writes and nonzero reader path match, including rank0 ee510 mode adjustment. Optional9e0 width is copied before its load gate; a skipped reader does not normalize that new width. C3c8 selector10 nested branch, other-selector retention, 2D unwritten3c0 flag, C538 key-from-value and C5b0 selector axes all agree. Positive-only typed reads do not reset metadata on skipped keys.",
+      "evidence_ids": [
+        "ev_3e84c04c2fc60a52fe7e92eafd25ff55c98de012fad96ca62cc978f827012ee4",
+        "ev_a8b182d4ff131609ef9d4b5774771a2345dca82ca3b01ec16ee96d06d3f35667",
+        "ev_832caefff36e2f3c480acdef00145e6659295aa74e6accc4792335432002aca3",
+        "ev_c8097addf849879841247640766701a62dc7fde5e8961d96f509f2335fbf28ed",
+        "ev_881d3d04701c2bb1f13531cfb022a4057e124676e3e3563104633001378c8d6f"
+      ],
+      "qualification": "1309b0 normalizes before its gate; rejected input can therefore mutate metadata. Its rank0 width1 gate rejects even typeb5, despite12ff20 supporting that type. Do not infer allocation solely from dependent-count helper behavior."
+    },
+    {
+      "area": "Nested directory and typed payloads",
+      "contract_pointers": [
+        "/property_reader_contracts/1",
+        "/property_reader_contracts/2"
+      ],
+      "assessment": "Typed marker10 rank0 allocation/constant, rank1 zero-count no-allocation case, and rank2 consecutive axes agree. Nested marker20 validates marker before list clear and constructs at least21 entries8e..a2, with later a3 entries. Count-forwarding ABI and one-based child key progression are correctly separated from misleading decompiler void signatures.",
+      "evidence_ids": [
+        "ev_832caefff36e2f3c480acdef00145e6659295aa74e6accc4792335432002aca3",
+        "ev_b16055d3ac76b26131bcda076371078b7b4788f7f32f672c22a232ee0b0e9cbb",
+        "ev_808039be3e62ba5a528ec9c7136cbb05835f02cd70b31656cda5dfe7c5e0c3ab",
+        "ev_9adb92f8593647a9c83213db3f6915ee10abab11d6b562155315a41dec0ccf8e",
+        "ev_b583571beb6e459f4a43c6ca7098e7a5012f156a11ac9396a6c165adfdf31f85",
+        "ev_f5845f65154d5eb5a4640d23e86c2c90d14dce3b5c380b8170e89a6c64625307",
+        "ev_2cc3f6df1dd84b07abb866c0e4db2619fbfbf3afdc5aef2f6ed0481419463c87",
+        "ev_ba5548b75d18c77154e59dd49cbaf60cd4345ab74eaaa13b32d08b8b6ccdfd35",
+        "ev_35b475de85a5d4c34a2283d84a9737932d2ccc761fac187b5fe52015f6f823f1"
+      ],
+      "qualification": "Requested count below21 still requires safe directory/payload availability for the actual21 traversals. Wrong marker preserves state at helper entry; whole DB import may already have cleared that state."
+    },
+    {
+      "area": "Control text",
+      "contract_pointers": [
+        "/text_contract"
+      ],
+      "assessment": "Both branches copy10 rows of80 bytes into81-byte destinations via strncpy, transform with arg4=1, then trim and scan for all-space text. Retained324020/323e50 establish four-byte group reversal only for its accepted mode combinations. All-trim backward scan leaves byte0 and writes NUL at1; following all-space logic empties a space row but a tab row retains one tab. No leading-space removal or encoding conversion is established.",
+      "evidence_ids": [
+        "ev_3e84c04c2fc60a52fe7e92eafd25ff55c98de012fad96ca62cc978f827012ee4",
+        "ev_23241f3199be4322ad23f11993edd116083d6a4171301a106af0c24c27f52983",
+        "ev_495d009ac1b11ebfcba381208ca3f29ac0410f72d4c58c4ccb8859197417cb6d",
+        "ev_2839f5948c2bfcaf410f5397230a0b0cb248780b0c4c24553c5aa171b17f39bc",
+        "ev_99926d7e28881be9477ff3f515e85d12239c1ab3c6df40fe3c928e06cac3f561",
+        "ev_707e8996ea925c326a86e1a90463d26a28353349ca1c291a4890f7ebe8a529f7"
+      ],
+      "qualification": "Embedded-NUL fixtures must model strncpy zero-padding before byte transformation, not memcpy followed by truncation. The transform can move the first NUL."
+    },
+    {
+      "area": "Supported domain and claims",
+      "contract_pointers": [
+        "/scope",
+        "/notation/dimension",
+        "/unresolved_questions",
+        "/proposed_tests"
+      ],
+      "assessment": "No original-runtime pass or complete2D loader claim is made. Unknown scientific names, transitive defaults, malformed data and ownership integration remain explicit. Proposed safe rejection before mutation is labeled a new API policy; it is not attributed to unchecked native behavior.",
+      "evidence_ids": [],
+      "qualification": "Only bounded finite conversion inputs, valid pointer/key extents and explicitly selected prestate should enter future differential fixtures. 2D helper-level mappings do not validate2D DB record addressing."
+    }
+  ],
+  "nonblocking_observations": [
+    {
+      "id": "B-DB-01",
+      "title": "Preserve the distinction between outer success and controls transfer",
+      "source": [
+        "ev_d21aeffedd30caf63d398cf2b6ce0e377a1515deabfd66fc597a115abcf5af5e"
+      ],
+      "contract_pointer": "/entry_and_order",
+      "detail": "After array import,1cc71e calls1d83b0. Nonzero AL takes the1cc72a success return without reaching ReadSimCtrl or the unit setter. Earlier errors also return before transfer, sometimes after storage clear. The contract is acceptable as G1 transfer semantics, but success of1cc420 must not be used as evidence that G1 ran.",
+      "followup": "Capture helper entry/exit and setter occurrence separately from outer return. Document/resolve the1d83b0 gate when integrating the outer pipeline; no need to broaden this static review."
+    },
+    {
+      "id": "B-DB-02",
+      "title": "Make prestate and read extents explicit in future fixtures",
+      "source": [
+        "ev_a8b182d4ff131609ef9d4b5774771a2345dca82ca3b01ec16ee96d06d3f35667",
+        "ev_832caefff36e2f3c480acdef00145e6659295aa74e6accc4792335432002aca3",
+        "ev_b16055d3ac76b26131bcda076371078b7b4788f7f32f672c22a232ee0b0e9cbb",
+        "ev_808039be3e62ba5a528ec9c7136cbb05835f02cd70b31656cda5dfe7c5e0c3ab"
+      ],
+      "contract_pointer": "/proposed_tests",
+      "detail": "G1-T10 type7c needs an allocated axis element under its inherited shape; G1-T12 count0/1 still traverses21 child keys. A positive directory length alone does not bound the bytes consumed. Existing U2/U4 acknowledge this; fixture authors must convert those qualifications into concrete preconditions.",
+      "followup": "Use distinct seeded metadata/scalars and payload markers; provide directory terminators and payload extents for actual traversal/shape, not merely requested count. Keep malformed-memory behavior excluded."
+    }
+  ],
+  "runtime_gaps": [
+    "No differential snapshots yet at pre-clear, post-clear, post-initialization, post-G1 and post-unit-setter boundaries.",
+    "Need same-dimension repeated imports versus changed-dimension initialization with different prior and imported unit selectors; defaults may depend on pre-import C+fc.",
+    "Need unique sentinels for conditional metadata retention, skipped optional widths, wrong tags and zero-count typed branches; compare known field bits and lifetimes, not pointer addresses.",
+    "Need source-mode text cases including embedded NUL before four-byte reversal, full80-byte row, all-space and all-tab rows.",
+    "Need complete support-profile validation for2D, partial arrays and other DB versions; raw field map alone is insufficient.",
+    "Unknown unit format strings, downstream global effects, nested constructor/destructor internals and allocation-failure policies remain outside acceptance.",
+    "No scientific field names, physical conversions or end-to-end application equivalence established."
+  ],
+  "execution": {
+    "native_runs": 0,
+    "candidate_runs": 0,
+    "rea_calls": 0,
+    "builds": 0,
+    "structural_219_checks_repeated": false,
+    "tests": "No runtime/implementation tests run; source identity and review-reference validation only."
+  },
+  "resources": {
+    "native_slot": "not acquired; C remains owner",
+    "original_process": "none",
+    "production_or_shared_changes": false
+  },
+  "next_step": "Coordinator may accept G1 as a bounded static input to planning. Before implementation/runtime evaluation, define prestate/admissible profile and concrete fixture/capture boundaries. No G1 correction is required by this review.",
+  "efficiency_observations": [
+    "The compact evidence projection supported cross-function review without reopening REA or large snapshot exports.",
+    "Manual review concentrated on ordering and conditional prestate beyond the existing direct-store checks."
+  ]
+}

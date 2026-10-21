@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "task": "review-grndat-fixtures-1",
+  "reviewer": "Chat B",
+  "created_utc": "2026-10-21T05:27:36.780933+00:00",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "status": "COMPLETE_STATIC_SEMANTIC_REVIEW",
+  "verdict": "REVISE_BEFORE_EXPECTATION_FREEZE_OR_RUNTIME_CAPTURE",
+  "verdict_scope": "Two local fixture/expectation revisions. No static contradiction found in reviewed handler status, refresh branching, or line/stream framing. This is not native compatibility validation.",
+  "review_scope": [
+    "Semantic setup and retention preconditions",
+    "Discriminating field markers",
+    "Failure, partial mutation, refresh and cursor expectations",
+    "Explicit unsupported domains",
+    "112 discovery versus 11 held-out-reserved cases"
+  ],
+  "sources": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixture-plan.json",
+      "sha256": "bde33f088d429b6d95a4509d48043e15c9aba740e8255fe8f4f522b6310587fe"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixture-readiness.json",
+      "sha256": "2a89c7d832a8f5a14f6ec57d6dd0d98bea9facb00dee0126e33fabe2c13b6a7c"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-contract.json",
+      "sha256": "c96a7ae5d006c782921d397278a0dead9c9a1683f631cac532d0e51919c39b37"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-native-evidence.json",
+      "sha256": "345341673163c6a2ebf508e40d31ff3d2616b9d10f7defb79aa7214090456bbd"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-build-grndat-fixtures.py",
+      "sha256": "37bbcffe47661cc1bfe2cdb3f0f7ece0c4f0320212c65c4b3e76266bc36f1637"
+    }
+  ],
+  "additional_retained_sources": [
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x140384a50.json",
+      "binding": "GRNDAT case0x10; nine headers then nine payloads; selector2 clear/count/append order; common refresh"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\model-0x140413de0.json",
+      "binding": "Zero destination, skip at most one exact LF when enabled; return status ignored by GRNDAT list loop"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\model-0x140413ee0.json",
+      "binding": "Zero two locals; comma normalization; only scan-1 rejected"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\dimension-import-contract.json",
+      "binding": "Same-dimension preservation and changed-dimension reset; first recognized header per import; qualified linked-root coverage"
+    }
+  ],
+  "findings": [
+    {
+      "id": "B-GRNDAT-01",
+      "priority": "P2",
+      "category": "insufficient_discrimination",
+      "title": "Give the in-place scalar-pair update a value distinct from setup",
+      "location": {
+        "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-build-grndat-fixtures.py",
+        "line": 87
+      },
+      "cases": [
+        {
+          "case_id": "embedded_pair_eof",
+          "plan_pointer": "/cases/48",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\embedded_pair_eof.KEY",
+          "sha256": "b6bdd1a9b9d7e308438e1cc7201394abda5bcce39d57c8b85cab5d8f31389525"
+        },
+        {
+          "case_id": "record_count_0",
+          "plan_pointer": "/cases/42",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\record_count_0.KEY",
+          "sha256": "5199efe4884e6a97d81defa3aab66299f593f391fde06143aaee6352e975514c"
+        },
+        {
+          "case_id": "h_lists_replacement",
+          "plan_pointer": "/cases/113",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\held_out_reserved\\h_lists_replacement.KEY",
+          "sha256": "cc5e25fd38cbfc444d9b64a497a5fbec24f280f71f362288d89c78be90775a67"
+        }
+      ],
+      "observed": "All 180 complete count_inline_scalar_pair action stages end in 7 8.5. Both discovery and reserved seeds also use 7 8.5. embedded_pair_eof supplies integer7 after a setup that already stored integer7.",
+      "native_contract": "0x14041bed0 scans int to record+0x70 then double to+0x68 directly, without zeroing; a one-conversion pair is success and retains the old double. Its following table-header EOF causes the eventual handler2.",
+      "evidence_ids": [
+        "ev_233fda79e9620ba154873a2f1e8b6aa2d3e189a315018bc02f8c6d4f2c487653",
+        "ev_101d33d2d5a67517c4b970c53d21d4a80e7b3e7787ae453a682ce1861475766a"
+      ],
+      "contract_pointer": "/record_reader/steps/4",
+      "impact": "A candidate that consumes the new integer but omits its store on reused records can produce the same observed pair, handler status, and cursor in the partial-pair fixture. Successful reused records likewise cannot establish that both scalar fields were replaced. Other inline/table markers do not distinguish this omission.",
+      "requested_revision": "Parameterize scalar and real values through selector2/record, using distinct bounded values for seed and action. At minimum make embedded_pair_eof integer differ from its seeded integer and explicitly assert the new integer plus old double. Give a successful reused-record action two new scalar values; preserve cohort separation when adding reserved variants.",
+      "proposed_check": "For a concrete discovery example, seed pair7/8.5 then partial pair19 followed by EOF: record+0x70=19, record+0x68=8.5, pair scan result1, following nested-header EOF, handler2, no list clear and no refresh0. A successful later pair23/24.5 should replace both. Values are proposals, not captured native output."
+    },
+    {
+      "id": "B-GRNDAT-02",
+      "priority": "P2",
+      "category": "incorrect_case_assertion",
+      "title": "Restrict the twelve-value clamp assertion to the count13 case",
+      "location": {
+        "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-build-grndat-fixtures.py",
+        "line": 284
+      },
+      "cases": [
+        {
+          "case_id": "record_count_minus1",
+          "plan_pointer": "/cases/41",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\record_count_minus1.KEY",
+          "sha256": "e70a5fe763624445ea49c1afdfbe89b164df2188ca34d3fdfc5921a435d4ed98"
+        },
+        {
+          "case_id": "record_count_0",
+          "plan_pointer": "/cases/42",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\record_count_0.KEY",
+          "sha256": "5199efe4884e6a97d81defa3aab66299f593f391fde06143aaee6352e975514c"
+        },
+        {
+          "case_id": "record_count_1",
+          "plan_pointer": "/cases/43",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\record_count_1.KEY",
+          "sha256": "5f17c508224a800682161014f4dca5e3a9b0e16ce2217092449cf283f63a81ae"
+        },
+        {
+          "case_id": "record_count_12",
+          "plan_pointer": "/cases/44",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\record_count_12.KEY",
+          "sha256": "bf32a45c5a35dd7b0d5dd391b7ff8eab16dac59754bdf8e37f7be83079eb167d"
+        },
+        {
+          "case_id": "record_count_13",
+          "plan_pointer": "/cases/45",
+          "input": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixtures\\discovery\\record_count_13.KEY",
+          "sha256": "6de654d6cfbd023c1a4d9b34dc6f598e95bf1c63052773b1a903fe30fd479fbd"
+        }
+      ],
+      "observed": "The loop attaches the same expected assertion to all five cases: Declared13 emits clamp diagnostic and consumes12 values; this fixture supplies only12 inline values. Actual inline payload counts are respectively0,0,1,12,12.",
+      "native_contract": "0x14029ccd0 emits its diagnostic and overwrites the count with12 only when the signed input count is greater than12. 0x14041bed0 then loops over that count; negative values perform no inline scans.",
+      "evidence_ids": [
+        "ev_b94d2589ec7a42b6fcbcf29e180ec5e5c1edc761e3bb436dcfe30daa1876606c",
+        "ev_7622eac084cb71a63ec36958666bc8e147badc5c6f4de36127a2bff4040b3a54",
+        "ev_233fda79e9620ba154873a2f1e8b6aa2d3e189a315018bc02f8c6d4f2c487653"
+      ],
+      "contract_pointer": "/record_reader/steps/2",
+      "impact": "The expected assertions are contradictory for counts-1/0/1 and leave diagnostic presence ambiguous for all non-clamped cases. A future harness must not turn this boilerplate into an incorrect oracle.",
+      "requested_revision": "Generate case-specific expected declared count, stored count, inline conversion count, and diagnostic presence. Require the clamp diagnostic only for13; require no clamp diagnostic for-1/0/1/12. Keep the existing correct handler-status and refresh expectations.",
+      "proposed_check": "Expected tuples (declared,stored,inline,clamp diagnostic) are (-1,-1,0,false),(0,0,0,false),(1,1,1,false),(12,12,12,false),(13,12,12,true)."
+    }
+  ],
+  "accepted_semantics": [
+    {
+      "area": "Framing and setup",
+      "conclusion": "Separate setup imports preserve same-dimension state; changed-dimension action is explicitly separate and recreates material20. Unique table/inline/list-node markers distinguish ordering and partial replacement, except the scalar-pair gap above. Dimension and mesh setup are qualified retained grammar, not new original-run evidence."
+    },
+    {
+      "area": "Selector1",
+      "conclusion": "Nine headers precede payloads; failed header preserves target/later seeded tables, failed payload follows all resets. Widths4/6/7/6/7/6/9/6/3 and row marker shapes agree with static contract. Final-pair failure still reaches refresh; header/payload failure does not."
+    },
+    {
+      "area": "Selector2",
+      "conclusion": "Initial record precedes every list clear. List order16f8/16e0/16c8/1710/1728 is preserved. Failed appended node remains linked/counted; later lists remain seeded. Ignored count EOF eventually clears remaining lists and can return0/refresh0."
+    },
+    {
+      "area": "Nested readers",
+      "conclusion": "Embedded flag1 skips two tables; node flag0 reads three. 41c070 differs from selector4 41b270. Constant transition retains physical arrays/counts; unknown-positive reuses old shape. Rank2 scratch EOF is not mislabeled as a committed dependent prefix."
+    },
+    {
+      "area": "Stream positions",
+      "conclusion": "Reviewed direct-scan handoff to fgets, one-LF skip, zero-count payload, completed positive payload discard, and EOF-stage cases agree with proposed lexical terminal positions. Stage byte ranges are input annotations, not independent runtime cursor observations. Runtime ftell/text translation remains unresolved."
+    },
+    {
+      "area": "Other routes",
+      "conclusion": "Selector5 zeros before parsing and refreshes even on failure. Selector4 refreshes even on failure. Negative route stores modulo32 negation, selector=-1; later positive route retains negation field."
+    },
+    {
+      "area": "Cohorts",
+      "conclusion": "112 discovery and11 reserved actions are accurately labeled NOT_RUN; reserved policy explicitly requires a future freeze and does not claim independently validated held-out evidence. Shared generator/contract and shared scalar literals limit independence; no output-derived expectations were observed."
+    },
+    {
+      "area": "Unsupported domains",
+      "conclusion": "Uninitialized rank2 scratch on matching failure, malformed material ID, out-of-range counts, enabled864 scientific features, OOM/corrupt ownership, and arbitrary removal commands are properly excluded."
+    }
+  ],
+  "nonblocking_coverage_gaps": [
+    "Finite fractional nested counts are not exercised: existing selector1/2/3 nested fixtures use integer counts. Add e.g.2.75/1.75 to distinguish truncation from rounding before claiming that conversion behavior validated.",
+    "T05 includes axis EOF and one dependent prefix per table, not every first/middle/last dependent failure. T10 samples second-node failures, not every node. Keep group coverage explicitly partial.",
+    "Dimension reset seed gives selector1 allocated tables but list-node nested tables are constants with null arrays. It covers nested destructor traversal, not freeing allocated node-table payloads. Populated linked-root destruction remains outside established coverage.",
+    "No malformed direct record scalar/inline scan fixture establishes all matching-failure paths. Do not generalize the deterministic EOF cases to those paths."
+  ],
+  "execution": {
+    "native_runs": 0,
+    "candidate_runs": 0,
+    "rea_sessions_opened": 0,
+    "compatibility_tests_passed": null,
+    "method": "Read-only semantic inspection of generator, selected actual fixture bytes, contract, retained pseudocode and assembly evidence. Structural readiness checks were not re-run. Source identities were verified before and at delivery."
+  },
+  "resource_release": {
+    "native_slot": "never acquired",
+    "runtime_process": "none",
+    "ready_for_coordinator": true
+  },
+  "next_step": "Coordinator may ask A to revise B-GRNDAT-01 and02, regenerate its package, and return changed hashes for focused review. Do not start runtime capture or implementation from this review alone.",
+  "efficiency_observations": [
+    "The compact per-function evidence bundle avoided reopening REA or repeatedly loading a large snapshot.",
+    "Shared assertion boilerplate introduced a per-case semantic error despite passing structural checks."
+  ]
+}

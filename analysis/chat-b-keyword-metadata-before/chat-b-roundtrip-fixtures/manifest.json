@@ -1,0 +1,444 @@
+{
+  "schema_version": 1,
+  "purpose": "Small private proposed inputs for metadata/header slice;not runtime captures or current passing regression tests.",
+  "source_contract": "../chat-b-roundtrip-blockers.json",
+  "evidence_refs": "Resolve each key through source_contract.evidence.",
+  "execution": "No original or replacement execution performed. For import_translated tests,translateCRLF toLF explicitly;native fileI/O tests require separate authorization/capture. Assert immediate handler state and corresponding parser phase;full scientific finalization is not a metadata assertion.",
+  "cases": [
+    {
+      "file": "01-export-prefix.KEY",
+      "bytes": 163,
+      "sha256": "6d74440ea7e4ec172c72547c29fb1bf55d07da006b9f5de62f9d4f0b9cb249fe",
+      "kind": "exact_retained_prefix",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "SIMULATION",
+        "cursim": [
+          7,
+          5,
+          0
+        ],
+        "operation_name": "CogABC",
+        "simulation_name": "RH1-PS1-BHT1",
+        "handler_statuses": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "consumed": "All4 metadata records;not a complete export."
+      },
+      "evidence_refs": [
+        "metadata_extract",
+        "string_helper",
+        "integer3_helper",
+        "export_index"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests.",
+      "source_span": {
+        "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\interactive\\rea-step25\\output.key",
+        "start_byte": 0,
+        "end_byte_exclusive": 163,
+        "lines_1based": [
+          1,
+          13
+        ]
+      }
+    },
+    {
+      "file": "02-repeated-values.KEY",
+      "bytes": 89,
+      "sha256": "fc43795315e7b54bf990d02863bbee155152c681ba7ca6f5aae2b9edd2015907",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "Second",
+        "operation_name": " Last \t",
+        "simulation_name": " Simulation X",
+        "handler_statuses": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reason": "Overwrite,leading spaces retained,trailing spaces removed,trailing tab retained."
+      },
+      "evidence_refs": [
+        "metadata_extract",
+        "string_helper"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "03-inline-remainder.KEY",
+      "bytes": 119,
+      "sha256": "6a551fe706323662d436d0683a5e7fbf4eb837a31ec5db47f0f22004abea1059",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "Actual title",
+        "operation_name": "Actual operation",
+        "simulation_name": "Actual simulation",
+        "handler_statuses": [
+          0,
+          0,
+          0
+        ],
+        "reason": "First fgets discards inline remainder;following line is payload."
+      },
+      "evidence_refs": [
+        "metadata_extract",
+        "string_helper"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "04-title-first-read-eof.KEY",
+      "bytes": 19,
+      "sha256": "ef5d1d03da5094420b75939a1caf099287ea07bc65ed6672e18eadb16d5c962a",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "Prior",
+        "helper_statuses": [
+          0,
+          1
+        ],
+        "handler_statuses": [
+          0,
+          2
+        ],
+        "parser_final_status": 2,
+        "reason": "Last TITLE token ends atEOF;first fgets fails without replacing prior value."
+      },
+      "evidence_refs": [
+        "string_helper",
+        "metadata_extract",
+        "parser"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "05-title-second-read-eof.KEY",
+      "bytes": 21,
+      "sha256": "bc4b15cdf2449123e05580c73be968f0f7173dee0a443d4cc398078654d97995",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "Prior",
+        "helper_statuses": [
+          0,
+          1
+        ],
+        "handler_statuses": [
+          0,
+          2
+        ],
+        "parser_final_status": 2,
+        "reason": "First remainder read succeeds;second payload readEOF preserves prior."
+      },
+      "evidence_refs": [
+        "string_helper",
+        "metadata_extract",
+        "parser"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "06-blank-and-tabs.KEY",
+      "bytes": 49,
+      "sha256": "cd5ad6685cb085a9e52c0444a1d760d5fea44e93363d1364c6ae684b2eaa0804",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "",
+        "operation_name": "",
+        "simulation_name": "\t",
+        "handler_statuses": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "reason": "Blank line succeeds;tabs excluded from native trailing-trim set."
+      },
+      "evidence_refs": [
+        "string_helper",
+        "metadata_extract"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "07-capacity-boundaries.KEY",
+      "bytes": 256,
+      "sha256": "3762ceb959cbc5330d11630b3af07c7dbf926685af8246c7e9bda5b902cc16de",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "operation_name": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "simulation_name": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "handler_statuses": [
+          0,
+          0,
+          0
+        ],
+        "reason": "All input lines below1024-byte fgets bound;entire lines consumed,stored strings truncated to capacity-1."
+      },
+      "evidence_refs": [
+        "string_helper",
+        "metadata_extract"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "08-keyword-looking-payload.KEY",
+      "bytes": 29,
+      "sha256": "5482901b06b261ccb751cab9b084b7815187b24bf0aab24afadc349401c4a514",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "CURSIM",
+        "cursim": [
+          7,
+          5,
+          0
+        ],
+        "handler_sequence": [
+          "TITLE",
+          "CURSIM"
+        ],
+        "handler_statuses": [
+          0,
+          0
+        ],
+        "reason": "Payload spelling is not redispatched as a keyword."
+      },
+      "evidence_refs": [
+        "string_helper",
+        "integer3_helper",
+        "parser"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "09-cursim-partial.KEY",
+      "bytes": 33,
+      "sha256": "0a4fe0158bfb10a2ee7dce55ca8951db8be2c6d5ef00b9b1f9c70851aa050e30",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "cursim_after_each": [
+          [
+            7,
+            5,
+            0
+          ],
+          [
+            7,
+            0,
+            0
+          ]
+        ],
+        "handler_statuses": [
+          0,
+          0
+        ],
+        "reason": "Base0 ints,comma replacement,zeroed suffix and accepted partial conversions."
+      },
+      "evidence_refs": [
+        "integer3_helper",
+        "metadata_extract"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "10-cursim-eof.KEY",
+      "bytes": 20,
+      "sha256": "be5b5d363042bb700154dfc430ed0ce5ba05b822de90a2c36988063efb28993e",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "cursim_after_each": [
+          [
+            9,
+            8,
+            7
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "handler_statuses": [
+          0,
+          2
+        ],
+        "parser_final_status": 2,
+        "reason": "Destinations zeroed before EOF;unlike string reader preservation."
+      },
+      "evidence_refs": [
+        "integer3_helper",
+        "metadata_extract",
+        "parser"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "11-title-final-line.KEY",
+      "bytes": 18,
+      "sha256": "b1240ecaef1ed5ad949067dd0cf50e148cc3f5a29413ae4e6e86f8bbaedb9a78",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "title": "Final value",
+        "handler_statuses": [
+          0
+        ],
+        "parser_final_status": 0,
+        "reason": "fgets returns nonempty last partial line even without newline."
+      },
+      "evidence_refs": [
+        "string_helper",
+        "metadata_extract",
+        "parser"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "12-dimension-resets-metadata.KEY",
+      "bytes": 67,
+      "sha256": "77320c0a2e027eb044bff6e2e267c2d0db2d9247d110622ac8adbb58b0c4c00d",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "primary_dimension": 2,
+        "linked_dimension_if_present": 3,
+        "title": "SIMULATION",
+        "operation_name": "OPERATION 1",
+        "simulation_name": "SIMULATION 1",
+        "cursim": [
+          1,
+          0,
+          0
+        ],
+        "reason": "First recognized header changes3->2;dimension setter clears/reinitializes through proven constructor chain."
+      },
+      "evidence_refs": [
+        "parser",
+        "dimension_setter",
+        "root_init",
+        "controls_init",
+        "defaults"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "13-first-header-wins.KEY",
+      "bytes": 115,
+      "sha256": "e5c25acf4175a378e9f4f638ff435f5eee0d9879eab1f7ec03640af0e009fff2",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "primary_dimension": 2,
+        "linked_dimension_if_present": 3,
+        "title": "Retained after second header",
+        "cursim": [
+          7,
+          5,
+          0
+        ],
+        "reason": "Later recognized header in same import does not trigger reset."
+      },
+      "evidence_refs": [
+        "parser",
+        "dimension",
+        "metadata_extract"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "14-unknown-versus-known.KEY",
+      "bytes": 29,
+      "sha256": "d1cf22e6128c2ebf9aa950458ba03566b315052d9b6e3b07bb115133be96bdbb",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "unknown_tokens": [
+          "title",
+          "ignored"
+        ],
+        "unknown_warning_count": 2,
+        "title": "Kept",
+        "parser_final_status": 0,
+        "reason": "Unknown line skipping differs from consuming recognized TITLE next-line payload;case-sensitive lookup."
+      },
+      "evidence_refs": [
+        "parser",
+        "catalog",
+        "string_helper"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    },
+    {
+      "file": "15-sticky-read-error.KEY",
+      "bytes": 43,
+      "sha256": "9872e8a13e7ad8f869c3734df6bb6460e1ebd8b4c36ecf2c0643d07da5323ef3",
+      "kind": "synthetic_source_bound",
+      "input_encoding": "ASCII;CRLF except intentionally absent final newline",
+      "initial_state": "Fresh initialized primary dimension3,normal parser option0;linked root if tested is dimension2. Constructor metadata defaults.",
+      "expected_after_future_metadata_implementation": {
+        "cursim": [
+          0,
+          0,
+          0
+        ],
+        "title": "After error",
+        "handler_statuses": [
+          0,
+          2,
+          0
+        ],
+        "parser_final_status": 2,
+        "reason": "Whitespace-only CURSIM line fails afterzeroing;native parsercontinues andretains earliererror."
+      },
+      "evidence_refs": [
+        "integer3_helper",
+        "metadata_extract",
+        "parser"
+      ],
+      "assertion_status": "proposed_from_retained_static_evidence_not_runtime_executed",
+      "current_replacement": "Stops at first recognized unsupported metadata keyword;these are not passing current implementation tests."
+    }
+  ]
+}

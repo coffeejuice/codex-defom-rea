@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "task_id": "review-db-materials-1",
+  "reviewer": "Chat A",
+  "date": "2026-10-21",
+  "verdict": "REVISE",
+  "verdict_scope": "One narrow contract-interface correction before acceptance. The reviewed stride, relation traversal, reference reconciliation, gates and rank-dispatch rules are otherwise supported within the stated full3D/static/prestate limits. This is not an exhaustive validation of every field-map row or runtime equivalence.",
+  "summary": "29c260 takes a one-based insertion position and returns a material-node pointer (or null), not a position. The contract's lookup sentence reverses that interface. Its callers, retained body and 1d7090 assembly agree on pointer semantics. Correct this sentence; do not change the accepted position-to-ID translation or matrix-order rules.",
+  "worktree": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "tooling_adoption": {
+    "status": "DEFERRED_FOR_THIS_TASK",
+    "reason": "Known retained files and function records were read directly. No repeated discovery workload justified an index. Existing research base preserved; no cherry-pick or benchmark."
+  },
+  "sources": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-contract.json",
+      "sha256": "3a5a99aa7205fc1918e2fc7ffb7596bdc07c917a23b4e354c477c73ada05637b",
+      "bytes": 54271
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-evidence.json",
+      "sha256": "5dfb487b6580eee1da604e28bbfd9a6bd1eccf1834c6078914e1baea73c87e2d",
+      "bytes": 1072505
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-field-map.json",
+      "sha256": "8a6b6a30960b4464f2640724b651c9044aa2428e3b5e3c5a4bacc1f03a2b1b95",
+      "bytes": 486853
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-validation.json",
+      "sha256": "2717e3e655fca2e01bdbfb4cedc8af3d7a9a6443197e0d48d7e0c4d1bce43191",
+      "bytes": 101703
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\oracle\\chat-c-db-materials-evidence-bundle.json",
+      "sha256": "c27428bcc3369852398874f6dc8a08036e55be8bfa7130b88455a5b2c678489b",
+      "bytes": 15240831,
+      "purpose": "Verified validation-manifest binding only; compact retained pseudocode/assembly used for semantic review."
+    }
+  ],
+  "citation_convention": "Evidence pointers below refer to chat-c-db-materials-evidence.json bound above. Pseudocode lines are one-based after CR removal. Contract locations are JSON pointers. Assembly addresses refer to saved instruction strings; no REA session was used.",
+  "findings": [
+    {
+      "id": "A-G2-01",
+      "priority": "P2",
+      "category": "incorrect_lookup_interface",
+      "title": "Describe 29c260 as position-to-node lookup, not a position return",
+      "contract_pointer": "/identity_and_lifecycle/material/lookup",
+      "observed": "29c260 returns a one-based insertion position;1d7090 forwards its RAX return despite the decompiler's void signature.",
+      "established": "29c260's second argument is the insertion position. It initializes local_10 from the list head, walks next+0x2200 while the traversal counter remains below the requested position, and returns local_10. The result is a node address or null. 1d7090 forwards that address in RAX; its callers dereference the address to read the ID.",
+      "evidence": [
+        {
+          "pointer": "/retained/6/pseudocode",
+          "procedure": "0x14029c260",
+          "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda",
+          "lines": [
+            2,
+            13
+          ],
+          "key_statements": [
+            "local_10 = *param_1;",
+            "local_10 = *(longlong *)(local_10 + 0x2200);",
+            "return local_10;"
+          ]
+        },
+        {
+          "pointer": "/fresh/21/assembly",
+          "procedure": "0x1401d7090",
+          "evidence_id": "ev_e3bc827bb3bb9482ae4d6fdf9e1312c6d6c2a6a3b55d4d31b714e2e919b1b203",
+          "instructions": [
+            "0x1401d70ad: CALL 0x14029c260",
+            "0x1401d70b2: ADD RSP, 0x28",
+            "0x1401d70b6: RET"
+          ],
+          "interpretation": "No RAX overwrite occurs between callee return and wrapper return."
+        },
+        {
+          "pointer": "/fresh/19/pseudocode",
+          "procedure": "0x1401d0180",
+          "evidence_id": "ev_c952097310df040fb0505ae0c07f11a8658773ea38360616732e43aac72c5286",
+          "lines": [
+            19,
+            26
+          ],
+          "interpretation": "Calls with i+1 and j+1; null-checks returned pointers; dereferences each pointer for the relation key."
+        }
+      ],
+      "impact": "An implementation using this sentence as the API contract could return an ordinal or ID where the callers need a material node, confusing positions, identities and addresses. The detailed reference/matrix summaries already use the correct direction; retain them.",
+      "requested_revision": "Replace the sentence with: 29c260 accepts a one-based insertion position and returns the corresponding material-node pointer, or null when traversal exhausts the list; 1d7090 forwards that pointer in RAX. State that normal DB callers pass positions 1..n. Do not imply this helper performs exact-ID lookup, inverse ranking, or general position validation.",
+      "edge_qualification": "For a nonempty list the retained loop returns the head for requested positions <=1, including zero/negative values. DB loops here pass i+1 for nonnegative i. Safe public-API rejection remains a separate policy.",
+      "proposed_test": "With two nodes whose IDs are 17 and 90, position1 returns the first node, position2 the second, and position3 null. Dereference returned nodes to obtain IDs. Verify the wrapper returns the same pointers. Compare exact-ID lookup separately, including duplicates.",
+      "status": "STATIC_SOURCE_CONFIRMED; proposed test NOT_RUN"
+    }
+  ],
+  "accepted_semantics": [
+    {
+      "area": "Full3D record bases and stored strides",
+      "conclusion": "Material i uses A[R[1]-1+i*R[141]]. Relation traversal (i,j) reads A[R[2]-1+(j*n+i)*R[142]]. The initializer binds the required globals to 1,2,141,142. These are real-slot strides; multiplying by8 converts to byte addresses. The arithmetic is supported for bounded non-overflowing inputs, not arbitrary mathematical integers.",
+      "evidence": [
+        {
+          "pointer": "/retained/0/pseudocode",
+          "lines": [
+            6,
+            7
+          ],
+          "additional_lines": [
+            65,
+            66
+          ]
+        },
+        {
+          "pointer": "/fresh/4/pseudocode",
+          "lines": [
+            21,
+            36
+          ]
+        },
+        {
+          "pointer": "/fresh/19/pseudocode",
+          "lines": [
+            16,
+            31
+          ]
+        }
+      ],
+      "limits": "The contract correctly restricts address-profile support to full3D. A fixed maximum slot read is a minimum extent, not proof that record stride is constant."
+    },
+    {
+      "area": "Relation storage order, append order, identities and cached counts",
+      "conclusion": "The outer i loop and inner j loop append in i*n+j order on an initially empty relation list when all material lookups succeed. Input record selection uses j*n+i. Keys are dereferenced material IDs, with no sorting or pair deduplication. Self-pairs are appended. The reader uses root+0x1320 for both loops and does not use/recompute root+0x13f4.",
+      "evidence": [
+        {
+          "pointer": "/fresh/19/pseudocode",
+          "lines": [
+            18,
+            35
+          ]
+        }
+      ],
+      "example": "For IDs [17,-4,90], relation list order reads storage ordinals [0,3,6,1,4,7,2,5,8]. This is a source-derived expectation, not an executed test.",
+      "limits": "Null ordinal lookups skip pairs. An already-populated relation list would add an existing-list-length offset to absolute list ordinal; the normal coordinator path clears it first."
+    },
+    {
+      "area": "Two-pass position translation before reconciliation",
+      "conclusion": "Each material is appended and decoded before its ID enters the temporary array. Only after the append pass completes are mode1 reference positions r replaced by tempIDs[r-1]. Temporary IDs are then freed, and 1d6250 reconciles IDs. References cannot be interpreted as direct IDs or sorted ranks during initial decode.",
+      "evidence": [
+        {
+          "pointer": "/fresh/4/pseudocode",
+          "lines": [
+            31,
+            53
+          ]
+        },
+        {
+          "pointer": "/fresh/15/pseudocode",
+          "lines": [
+            1079,
+            1088
+          ]
+        }
+      ],
+      "limits": "There is no range validation for reference positions. Negative counts and failed allocations are not supported safe-input cases. Q93 with truncated value0 skips reference mutation."
+    },
+    {
+      "area": "Order-sensitive reference reconciliation",
+      "conclusion": "1d6250 walks insertion positions, selects sources whose mode is1, resolves each referenced ID to the first matching node, and changes targets whose mode is not2. A positive target reference count causes its pointer/count to be cleared before its mode becomes2. Later source turns therefore see prior mutations. A self-reference can zero the live source count and end its own loop.",
+      "evidence": [
+        {
+          "pointer": "/retained/20/pseudocode",
+          "lines": [
+            10,
+            28
+          ]
+        },
+        {
+          "pointer": "/retained/7/pseudocode",
+          "lines": [
+            7,
+            10
+          ]
+        }
+      ],
+      "examples": [
+        "Two mode1 nodes A->B and B->A: visiting A first clears B's outgoing references and sets B mode2, so B's later source turn is skipped.",
+        "A references [A,B]: if A has a positive reference count, the first self-reference clears A's count; the later B reference is not visited."
+      ],
+      "qualification": "Examples are deductions from retained control flow. No graph simulation or original run was performed."
+    },
+    {
+      "area": "Inactive relation entries and optional gates",
+      "conclusion": "1d0180 appends and assigns keys before 336740. 336740 always stores int(Z0) at E+8, sets E+c=0 for truncated zero, and otherwise enters the active branch with E+c=1. Inactive entries are retained in the list. Zero Z14/Z37 gates clear only their flags; their associated table/scalar storage remains inherited. Z33 values0/4 select the scalar path; unknown nonzero selectors can retain descriptors and still call the generic reader.",
+      "evidence": [
+        {
+          "pointer": "/fresh/19/pseudocode",
+          "lines": [
+            24,
+            31
+          ]
+        },
+        {
+          "pointer": "/fresh/14/pseudocode",
+          "lines": [
+            31,
+            36
+          ],
+          "additional_ranges": [
+            [
+              91,
+              148
+            ],
+            [
+              334,
+              354
+            ]
+          ]
+        }
+      ],
+      "limits": "Negative fractional Z0 in (-1,0) truncates to zero; the active/negative-mode rule concerns the converted integer. Null and default state must not be replaced by a blanket zero-initialization assumption."
+    },
+    {
+      "area": "Material rank dispatch and version/key guards",
+      "conclusion": "Q139 and Q141/143/145 set descriptors, then dispatch on the resulting rank. Rank1 passes false and rank2/3 pass true where present; invalid selectors emit a diagnostic but leave inherited rank available to the dispatch. Q65 requires a positive converted key before temporary-table decoding. Version>=11000 typed tail calls lack positive-key guards. Q11 case14 instead has a nonzero Q16 guard: zero takes its scalar branch; negative Q16 can still enter the typed reader.",
+      "evidence": [
+        {
+          "pointer": "/fresh/15/pseudocode",
+          "lines": [
+            933,
+            1077
+          ],
+          "additional_ranges": [
+            [
+              340,
+              346
+            ],
+            [
+              556,
+              580
+            ],
+            [
+              1336,
+              1350
+            ]
+          ]
+        },
+        {
+          "pointer": "/reused_g1/3/pseudocode",
+          "lines": [
+            8,
+            16
+          ]
+        }
+      ],
+      "field_map_spot_checks": "Checked selected destination offsets, enclosing branches and read-flag aliases at material lines318/345/563/979/983/987/1013/1017/1341/1347/1350 and relation lines118/148/184/291/350. These were semantic navigation checks, not a rerun of all map rows."
+    },
+    {
+      "area": "Generic property reader gates and inherited descriptors",
+      "conclusion": "1309b0 first normalizes descriptor counts/width, then requires rank>=0, (rank!=0 or width>1), positive key, and positive directory length. A call site alone does not prove a payload copy. True flags consume leading counts only for ranks2/3. Ordinary rank1 width1 derives count from length/2; wider rank1 uses prior count; type124 is special. 131e30 acts only on nonnull payload with rank1/2, so rank0/3 do not copy through that dispatcher.",
+      "evidence": [
+        {
+          "pointer": "/reused_g1/2/pseudocode",
+          "lines": [
+            13,
+            70
+          ]
+        },
+        {
+          "pointer": "/reused_g1/5/pseudocode",
+          "lines": [
+            5,
+            11
+          ]
+        }
+      ],
+      "limits": "Positive length is not an extent proof. Constructor type/rank/width and normalization order remain necessary prestate."
+    },
+    {
+      "area": "Nested material cursor rules",
+      "conclusion": "28a740 reads fixed scalar slots W23/W24, starts nested payload at W37, respects the skip byte, and advances first/second table payloads with130290. 28a950 always calls131e30 after selector handling. The rank1 cursor helper is 2*count except type124; rank2 uses count sums plus factors clamped to at least1; rank3 omits width in its product. The contract correctly avoids replacing these with a generic width-aware formula.",
+      "evidence": [
+        {
+          "pointer": "/fresh/13/pseudocode",
+          "lines": [
+            11,
+            32
+          ]
+        },
+        {
+          "pointer": "/fresh/9/pseudocode",
+          "lines": [
+            8,
+            30
+          ]
+        },
+        {
+          "pointer": "/fresh/16/pseudocode",
+          "lines": [
+            8,
+            24
+          ]
+        },
+        {
+          "pointer": "/fresh/7/pseudocode",
+          "lines": [
+            7,
+            13
+          ]
+        },
+        {
+          "pointer": "/fresh/18/pseudocode",
+          "lines": [
+            9,
+            27
+          ]
+        },
+        {
+          "pointer": "/fresh/5/pseudocode",
+          "lines": [
+            9,
+            28
+          ]
+        }
+      ]
+    }
+  ],
+  "runtime_and_prestate_gaps": [
+    {
+      "area": "Entry-point isolation",
+      "gap": "Normal DB coordination clears lists first, while these entry points append. If called with a pre-populated material list, second-pass ordinal lookups start at the existing head even though temporary IDs came from newly appended records. Do not generalize the fresh-list reference contract to direct re-entry without defining the precondition.",
+      "source": "/fresh/4/pseudocode lines31-46; /retained/21/pseudocode lines37-38"
+    },
+    {
+      "area": "Constructor-dependent tables",
+      "gap": "G2-U3 is substantive: transitive constructors and embedded primary skip-byte/descriptor state are not fully expanded. Unknown selectors, zero-key skips and inactive records require captured or separately source-bound prestate; zero-filled aggregate assumptions are unsupported."
+    },
+    {
+      "area": "Post-read versus pre-read descriptors",
+      "gap": "Generic reads normalize widths/counts. Relation case1/9 mirrors width to E+6c before the read, but tests width at the table descriptor after the read before scalar/trailer selection. Preserve this order in fixtures, especially width0 normalization.",
+      "source": "/fresh/14/pseudocode lines177-194 and284-300"
+    },
+    {
+      "area": "Text bytes",
+      "gap": "Both name paths call bounded strncpy, then transformation, then trimming. For embedded NUL, bytes after it are padded before transformation; a raw memcpy expectation would be wrong. Fixtures should spell out that operation order rather than relying on the shorthand 'copy64/80 bytes'.",
+      "source": "/fresh/15/pseudocode lines133-135; /fresh/14/pseudocode lines47-49"
+    },
+    {
+      "area": "Numeric and unsafe domains",
+      "gap": "Counts, products, real-to-int conversion, keys, references and allocation failure require an adapter policy. No native fault/overflow behavior or rollback guarantee was validated. Distinguish converted integer guards from real-valued negative tests."
+    },
+    {
+      "area": "DB profiles and finalization",
+      "gap": "No complete 2D/legacy/partial address-map support or later cached-counter reconciliation is established. Imported root+13f4 is separate from G2 append count and must remain so until later behavior is sourced."
+    },
+    {
+      "area": "Runtime validation",
+      "gap": "No DB snapshots, native runs, candidate runs, byte-level output comparisons, unit-state experiments or destruction/failure observations were performed. KEY-route evidence and 842 structural checks do not supply DB equivalence."
+    }
+  ],
+  "proposed_focused_tests": [
+    {
+      "id": "A-G2-T01",
+      "purpose": "Disambiguate lookup position, pointer and ID",
+      "expectation": "Two nonsequential-ID nodes: position1/2 yields their pointers, position3 null; wrapper preserves pointer result; duplicate-ID search returns first matching node.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "A-G2-T02",
+      "purpose": "Detect a relation-matrix transpose or missing self/inactive entries",
+      "expectation": "Use n=3, unequal IDs, distinct nine record sentinels, mixed Z0 values and deliberately unrelated imported13f4. Verify storage order0,3,6,1,4,7,2,5,8, all nine keys and unchanged cache.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "A-G2-T03",
+      "purpose": "Detect direct-ID or simultaneous-graph substitutions",
+      "expectation": "Use forward, backward, self, cycle and duplicate-ID references. Inspect raw positions, translated IDs, then reconciliation state at separate boundaries. Self first in a multi-reference list must suppress later visits when its count is cleared.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "A-G2-T04",
+      "purpose": "Distinguish retained descriptors from zero defaults",
+      "expectation": "Bind explicit constructor/prestate, then exercise invalid selectors and disabled optional gates. Check reader call versus actual copy separately; include generic rank0 width1/width2 and131e30 rank3 no-op.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "A-G2-T05",
+      "purpose": "Pin key/rank/version guard distinctions",
+      "expectation": "Exercise positive/zero/negative keys at the Q65 gate, Q11 case14 Q16 guard and v11000 typed tails under a safe bounded harness. Check false versus true count-header flags and width normalization before relation trailers.",
+      "status": "NOT_RUN"
+    }
+  ],
+  "validation": {
+    "method": "Independent semantic reading of retained pseudocode, selected saved assembly and selected field-map guard contexts. Verified requested contract hash and six adjacent artifact identities from the validation manifest. Reviewed the validation summary and scope, without executing its842 checks.",
+    "structural_checks_rerun": 0,
+    "native_runs": 0,
+    "candidate_runs": 0,
+    "rea_sessions_opened": 0,
+    "full_field_map_revalidated": false,
+    "source_identity_recheck_at_delivery": "Pending final receipt validation",
+    "artifact_changes": "Only Chat A's review JSON; reviewed artifacts remain read-only.",
+    "efficiency_observations": [
+      "Known function records were accessible directly in the compact evidence file, so index adoption and a new REA session were unnecessary.",
+      "An initial whole-contract print was truncated; subsequent reads selected sections and function bodies."
+    ]
+  },
+  "next_step": "Coordinator should ask C to correct A-G2-01 and return changed contract/validation hashes for a focused recheck. Preserve the otherwise accepted ordering/gate semantics and runtime/prestate gaps. No broader evidence recovery or implementation is required for this correction.",
+  "resource_release": {
+    "native_slot": "never acquired",
+    "runtime_process": "none",
+    "merge_or_push": false,
+    "production_or_shared_header_changes": false,
+    "status": "Stop after reporting."
+  }
+}
