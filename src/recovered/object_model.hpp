@@ -17,6 +17,15 @@
 
 namespace deform::recovered {
 
+// 1e7e90 defaults, reached by root initialization and changed-dimension reset.
+// Native offsets 750/7a1/7e2/834 are evidence anchors, not a binary layout.
+struct RootMetadata {
+    std::string title = "SIMULATION";
+    std::string operation_name = "OPERATION 1";
+    std::string simulation_name = "SIMULATION 1";
+    std::array<int, 3> cursim{1, 0, 0};
+};
+
 // Owned type0x80 table subset at root938. Rank and mode are deliberately not
 // duplicated here: they alias SimulationControls::control_0x93c/mode_0x990.
 // Supports only the fresh/reset rank0/1 allocation domain. Higher ranks,
@@ -231,6 +240,8 @@ public:
     ObjectModel& operator=(ObjectModel&&) = delete;
 
     [[nodiscard]] const RootControls& controls() const noexcept { return controls_; }
+    [[nodiscard]] const RootMetadata& metadata() const noexcept { return metadata_; }
+    [[nodiscard]] RootMetadata& metadata() noexcept { return metadata_; }
     // 1c8ba0: a changed dimension destroys existing objects and resets controls.
     // Same dimension is a no-op, including object identity and component counts.
     void set_dimension(int dimension);
@@ -346,6 +357,7 @@ public:
 
 private:
     RootControls controls_;
+    RootMetadata metadata_;
     std::vector<std::unique_ptr<ObjectRecord>> objects_;
     std::vector<std::unique_ptr<MaterialRecord>> materials_;
     std::vector<std::unique_ptr<RelationRecord>> relations_;

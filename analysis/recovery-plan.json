@@ -523,7 +523,7 @@
     "provider": "ghidra",
     "snapshot": "analysis/oracle/recovery-snapshot.json",
     "full_evidence_bundle": "analysis/oracle/recovery-evidence.json",
-    "next_action": "After explicit user resumption, implement the reviewed bounded handlers and model updates using existing reader APIs; replay17 prepared action cases and compare against the original before compatibility claims. Preserve loader API.",
+    "next_action": "Reuse integrated contract to implement remaining branches and validate123 proposed cases against original. Do not repeat completed static recovery.",
     "material_evidence_bundle": "analysis/oracle/material-import-evidence.json",
     "material_snapshot": "analysis/oracle/material-import-snapshot.json",
     "material_next_contract": {
@@ -623,13 +623,12 @@
     "A blocker or exhausted execution budget is not project completion."
   ],
   "current_work": {
-    "component": "Keyword metadata importer TITLE/CURSIM/OPRNAM/SIMNAM",
-    "status": "implementation_in_progress",
-    "contract": "analysis/chat-b-roundtrip-blockers.json",
-    "fixtures": "analysis/chat-b-roundtrip-fixtures/manifest.json",
-    "accepted_review": "analysis/chat-c-keyword-metadata-recheck.json",
-    "next": "After explicit user resumption, implement the reviewed bounded handlers and model updates using existing reader APIs; replay17 prepared action cases and compare against the original before compatibility claims. Preserve loader API.",
-    "follow_on": "Remaining GRNDAT implementation and DB-to-model mapping implementation remain backlog; reuse integrated contracts instead of repeating recovery."
+    "component": "Remaining GRNDAT import family",
+    "status": "ready_after_metadata_checkpoint",
+    "contract": "analysis/chat-a-grndat-contract.json",
+    "fixtures": "analysis/chat-a-grndat-fixture-plan.json",
+    "accepted_review": "analysis/chat-b-grndat-fixture-recheck.json",
+    "next": "Reuse integrated contract to implement remaining branches and validate123 proposed cases against original. Do not repeat completed static recovery."
   },
   "pause": {
     "requested_by": "user",
@@ -692,5 +691,12 @@
     "standing_workers": "archived",
     "periodic_worker_checks": false,
     "new_delegation": "Only a separately authorized bounded review; no standing worker dispatch"
+  },
+  "metadata_import_checkpoint": {
+    "status": "implemented_subset",
+    "contract": "analysis/metadata-import-contract.json",
+    "validation": "51 original imports including setup/reset,82 metadata handlers;17 static fixture actions,980 replacement assertions; held-out candidate unchanged except cited-address comment correction",
+    "limitations": "Bounded initialized ASCII and representable integer domain; linked nondefault seeds static/replacement only; absolute EOF cursor unobserved after native buffer reset",
+    "loader_api": "unchanged"
   }
 }

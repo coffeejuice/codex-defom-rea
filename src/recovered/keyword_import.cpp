@@ -125,13 +125,31 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && (id == 28 || id == 34 || id == 36 || id == 38 || id == 48 || id == 49 || id == 50 || id == 51)) ||
+    return (category == 1 && ((id >= 22 && id <= 25) || id == 28 || id == 34 || id == 36 || id == 38 || id == 48 || id == 49 || id == 50 || id == 51)) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
 }
 
 int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& reader) {
+    if (id >= 22 && id <= 25) {
+        auto& metadata = model.metadata();
+        if (id == 23) {
+            // 39aa90 passes live destinations to 413fb0, which zeros them
+            // before fgets. Matching failure0 and partial assignments succeed.
+            metadata.cursim = {};
+            const auto read = reader.integer_triple();
+            std::copy_n(read.values.begin(), 3, metadata.cursim.begin());
+            return read.status == 0 ? 0 : 2;
+        }
+        auto& destination = id == 22 ? metadata.title
+            : id == 24 ? metadata.operation_name : metadata.simulation_name;
+        const auto read = id == 24 ? reader.material_name(destination)
+                                   : reader.name(destination);
+        // The helper retains the previous string on either failed line read.
+        destination = read.bytes;
+        return read.status == 0 ? 0 : 2;
+    }
     // 39aa90: GEOTYP is ignored in3D, leaving the remainder for token scanning.
     if (id == 28 && model.controls().dimension == 3) return 0;
     if (!model.controls().simulation)

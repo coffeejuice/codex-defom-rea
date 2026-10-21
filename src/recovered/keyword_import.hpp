@@ -62,7 +62,8 @@ public:
 
     // Already text-translated bytes, using KeywordReader's bounded numeric
     // compatibility domain. Normal wrapper option0 only. Supported handlers:
-    // GEOTYP, STNOUT, NSTART, PDIE, DSMAX, DSMAX_NSTEP, DTMAX, DTTYPE,
+    // TITLE, CURSIM, OPRNAM, SIMNAM; GEOTYP, STNOUT, NSTART, PDIE,
+    // DSMAX, DSMAX_NSTEP, DTMAX, DTTYPE,
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

@@ -153,6 +153,7 @@ void ObjectModel::set_dimension(int dimension) {
     relation_count_ = 0;
     objects_.clear();
     controls_ = std::move(reset);
+    metadata_ = RootMetadata{};
     ++generation_;
 }
 

@@ -1320,18 +1320,20 @@ and console workflows remain separate recovery work.
 
 ## Paused checkpoint and local evidence
 
-Recovery remains paused. The latest runtime-validated implementation checkpoint
-is FSTRES; the subsequent A/B/C research and independent reviews are integrated
+The user resumed recovery after reconciling the single-chat checkpoint.
+The subsequent A/B/C research and independent reviews are integrated
 and pushed at c6388aa. GRNDAT, keyword metadata and DB mapping research is
 recorded separately from implementation in `analysis/recovery-feature-ledger.json`.
-The 123 GRNDAT and 17 keyword action cases remain NOT_RUN. Reviewed evidence
+The 123 GRNDAT cases remain pending. The 17 keyword metadata actions now
+pass replacement replay, and bounded native metadata comparisons pass (below). Reviewed evidence
 lookup tooling is also integrated; it does not establish whole-task speedup.
 
 This chat is the sole owner of recovery, implementation, tests and integration.
 Chat A, Chat B, Chat C and Bottleneck are archived; both schedules are paused.
 No regular checks or dispatch to those chats are required. The full-app goal is
-unchanged. Resume requires a new user instruction; the planned next increment
-is TITLE/CURSIM/OPRNAM/SIMNAM, as recorded in `analysis/recovery-plan.json`.
+unchanged and the user has requested continuation. The goal tracker still
+reports paused because its available API has no active/resume setter.
+Implementation follows `analysis/recovery-plan.json` under the resume instruction.
 
 This Git checkpoint includes the recovered C++ sources, replay programs,
 synthetic keyword fixtures, observer/comparison tools, compact contracts and
@@ -1349,3 +1351,24 @@ by the corresponding test. The published repository alone is not a complete
 standalone reproduction of all 56 local tests. On this machine, use the
 original checkout as the evidence source when preparing isolated worktrees;
 do not copy its `.git` directory or mutate its evidence files.
+
+## Root keyword metadata checkpoint
+
+TITLE, CURSIM, OPRNAM and SIMNAM now populate owned root metadata. Changed
+dimension headers reset their defaults; same-dimension and later headers retain
+values. The existing bounded readers preserve string EOF state and CURSIM partial
+assignments. The database-loader API is unchanged.
+
+All 17 reviewed action cases pass replacement replay with 49 handler snapshots
+and 980 assertions. Passive REA observations cover 51 original console imports
+(including setup/reset imports) and 82 metadata handlers across three processes.
+The held-out batch adds 11 imports and 13 handlers within those totals.
+`analysis/metadata-import-contract.json` records digests, comparisons and gaps.
+Linked nondefault seeds remain static/replacement coverage; absolute native
+stream positions are unknown after EOF resets its CRT buffer pointer.
+The retained full export stops explicitly at unsupported SMODE.
+
+Run `ctest --test-dir build -C Release -R metadata --output-on-failure`.
+The static fixture test uses tracked data; three native replay tests require
+local ignored captures and run records named in the contract. No original
+application process runs during these replay tests.

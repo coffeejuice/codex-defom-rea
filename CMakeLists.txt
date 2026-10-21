@@ -53,10 +53,27 @@ add_executable(keyword_reader_replay tests/keyword_reader_replay.cpp)
 target_link_libraries(keyword_reader_replay PRIVATE deform_recovered_state)
 add_executable(keyword_import_replay tests/keyword_import_replay.cpp)
 target_link_libraries(keyword_import_replay PRIVATE deform_recovered_state)
+add_executable(metadata_import_replay tests/metadata_import_replay.cpp)
+target_link_libraries(metadata_import_replay PRIVATE deform_recovered_state)
 add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME metadata_import_static_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_metadata_import.py"
+      --driver "$<TARGET_FILE:metadata_import_replay>")
+  foreach(metadata_suffix training-a training-b held-out)
+    if(metadata_suffix STREQUAL "training-a")
+      set(metadata_run_dir "metadata-training-a-v2")
+    else()
+      set(metadata_run_dir "metadata-${metadata_suffix}")
+    endif()
+    add_test(NAME "metadata_${metadata_suffix}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_metadata_native.py"
+        --driver "$<TARGET_FILE:metadata_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/metadata-runtime-${metadata_suffix}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/${metadata_run_dir}/run.json")
+  endforeach()
   add_test(NAME state_variable_reference_replay
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_state_variables.py"
       --driver "$<TARGET_FILE:state_variable_replay>")

@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_bounded_native_comparison_passed",
+  "keywords": [
+    "TITLE",
+    "CURSIM",
+    "OPRNAM",
+    "SIMNAM"
+  ],
+  "replacement_static_replay": {
+    "status": "PASS_REPLACEMENT_AGAINST_STATIC_EXPECTATIONS",
+    "cases": 17,
+    "handlers": 49,
+    "helper_line_attempts": 83,
+    "checks": 980,
+    "native_runtime_comparison": "not performed by this test",
+    "manifest_sha256": "b291dd920d8c4928f09bef3df3a0d7d561881fee200b33bb86b49ef0babd1270"
+  },
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_METADATA_COMPARISON",
+      "imports": 17,
+      "handlers": 39,
+      "checks": 557,
+      "eof_absolute_cursor_unavailable": 2,
+      "entry_absolute_cursor_unavailable": 1,
+      "evidence_id": "ev_4a0e8e1817326d8ed629c513f2880eddaf5c39c4af64d95cf34cff46c0ad0f30",
+      "capture_sha256": "815844143e484f3424d3f5f12d4e9a61236597ac0f644738a8a8d9547f38000d",
+      "run_sha256": "cbb4dabfa1fbcde2e0da2479083e26b13130a5b617c2517ee32aa9d5d7aebcdb",
+      "limitations": [
+        "Console path seeds primary only; linked nondefault seeds remain replacement/static coverage.",
+        "Stream positions are bounded translated CRT buffer offsets, not physical ftell.",
+        "Absolute EOF cursor is unobserved when a scanner/fgets EOF attempt resets the native buffer pointer to its base, including a successful final partial line.",
+        "Initialized ASCII and representable integer fixture domain only; no binary ABI or full-app equivalence claim."
+      ]
+    },
+    {
+      "status": "PASS_NATIVE_METADATA_COMPARISON",
+      "imports": 23,
+      "handlers": 30,
+      "checks": 527,
+      "eof_absolute_cursor_unavailable": 2,
+      "entry_absolute_cursor_unavailable": 1,
+      "evidence_id": "ev_577a8d37ffcbcbc25166b92a182dc5f84e8c834391cab35b1e2f86fde39a6c9d",
+      "capture_sha256": "afd744632d526645689f15f56a35585c5c47d9aca496fa157e22411b82d2dc24",
+      "run_sha256": "29d9626c770f3fd2a33462c0b373d5d0e706f17b318cb18fc0041d1c873a948b",
+      "limitations": [
+        "Console path seeds primary only; linked nondefault seeds remain replacement/static coverage.",
+        "Stream positions are bounded translated CRT buffer offsets, not physical ftell.",
+        "Absolute EOF cursor is unobserved when a scanner/fgets EOF attempt resets the native buffer pointer to its base, including a successful final partial line.",
+        "Initialized ASCII and representable integer fixture domain only; no binary ABI or full-app equivalence claim."
+      ]
+    },
+    {
+      "status": "PASS_NATIVE_METADATA_COMPARISON",
+      "imports": 11,
+      "handlers": 13,
+      "checks": 237,
+      "eof_absolute_cursor_unavailable": 2,
+      "entry_absolute_cursor_unavailable": 1,
+      "evidence_id": "ev_a6915d02d3777aab9e18538511fec62dcfa781396ba2283e2400eb80a82f85a1",
+      "capture_sha256": "2c307ca5936a8344804339c56a622fe89b0dafa64eb4b8d2affbff1661459b4a",
+      "run_sha256": "62332a13ee9eca1df5a449815958ae80f358d3c33b2d548f48223465d03e4f68",
+      "limitations": [
+        "Console path seeds primary only; linked nondefault seeds remain replacement/static coverage.",
+        "Stream positions are bounded translated CRT buffer offsets, not physical ftell.",
+        "Absolute EOF cursor is unobserved when a scanner/fgets EOF attempt resets the native buffer pointer to its base, including a successful final partial line.",
+        "Initialized ASCII and representable integer fixture domain only; no binary ABI or full-app equivalence claim."
+      ]
+    }
+  ],
+  "native_totals": {
+    "imports": 51,
+    "handlers": 82,
+    "assertions": 1321
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/metadata-runtime-training-a.json",
+      "bytes": 205494,
+      "sha256": "815844143e484f3424d3f5f12d4e9a61236597ac0f644738a8a8d9547f38000d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/metadata-runtime-training-b.json",
+      "bytes": 171723,
+      "sha256": "afd744632d526645689f15f56a35585c5c47d9aca496fa157e22411b82d2dc24",
+      "local_only": true
+    },
+    {
+      "path": "analysis/metadata-runtime-held-out.json",
+      "bytes": 75998,
+      "sha256": "2c307ca5936a8344804339c56a622fe89b0dafa64eb4b8d2affbff1661459b4a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/metadata-training-a-v2/run.json",
+      "bytes": 21848,
+      "sha256": "cbb4dabfa1fbcde2e0da2479083e26b13130a5b617c2517ee32aa9d5d7aebcdb",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/metadata-training-b/run.json",
+      "bytes": 26563,
+      "sha256": "29d9626c770f3fd2a33462c0b373d5d0e706f17b318cb18fc0041d1c873a948b",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/metadata-held-out/run.json",
+      "bytes": 16772,
+      "sha256": "62332a13ee9eca1df5a449815958ae80f358d3c33b2d548f48223465d03e4f68",
+      "local_only": true
+    },
+    {
+      "path": "analysis/chat-b-roundtrip-fixtures/manifest.json",
+      "bytes": 245539,
+      "sha256": "b291dd920d8c4928f09bef3df3a0d7d561881fee200b33bb86b49ef0babd1270",
+      "local_only": false
+    },
+    {
+      "path": "tools/compare_metadata_native.py",
+      "bytes": 6500,
+      "sha256": "d4ad511cea6dfc868e298b49ef13c90c42f7bfd713b4d82169b086e8c412b556",
+      "local_only": false
+    },
+    {
+      "path": "tools/compare_metadata_import.py",
+      "bytes": 6203,
+      "sha256": "a05e30ef585ea942b7d87b79874946cdb10c04065eb9110b4d3a21eff06c1063",
+      "local_only": false
+    }
+  ],
+  "original_target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "limitations": [
+    "51 includes resets/setup imports, not51 independent action cases. Native training executes all17 reviewed actions under console-accessible setup; held-out adds new literals and separate dimension-reset imports.",
+    "Training reset.KEY contains two headers in one import; only the first applies. Comparisons replay the exact sequence; held-out uses separate reset2/reset3 imports.",
+    "Linked nondefault metadata seeds are replacement/static coverage only. Console imports observe initialized linked roots and dimension reset/retention.",
+    "No absolute cursor equivalence is claimed for six handler exits and three entries whose native buffer pointer resets to base at EOF. Other recorded handler buffer cursors match.",
+    "These are ASCII, initialized, bounded-line and representable-integer comparisons; malformed numeric prefixes, overflow, locale changes, ABI equivalence and full keyword export remain outside scope."
+  ],
+  "capture_diagnostic": {
+    "path": "analysis/oracle/metadata-training-a/run.json",
+    "status": "process_error_before_import",
+    "reason": "Windows623 DLL relocation under sandbox; scoped external launch succeeded. No failed launch classified as import evidence."
+  },
+  "next": "Implement remaining GRNDAT using integrated static contract and123 prepared cases; metadata broader domains remain future work.",
+  "regression": {
+    "command": "ctest --test-dir build -C Release --output-on-failure -j4",
+    "registered": 60,
+    "passed": 60,
+    "failed": 0,
+    "seconds": 38.02
+  },
+  "full_export_boundary": {
+    "status": "PASS",
+    "source": "analysis/oracle/interactive/rea-step25/output.key",
+    "source_sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "result": "four metadata callbacks then explicit unsupported SMODE; no full-export/roundtrip claim"
+  }
+}
