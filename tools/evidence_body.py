@@ -56,7 +56,9 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('source',type=Path);p.add_argument('--procedure',required=True)
     p.add_argument('--start',type=int,default=0);p.add_argument('--count',type=int,default=40)
     p.add_argument('--max-output-bytes',type=int,default=16000)
-    a=p.parse_args();result=select(a.source,a.procedure,a.start,a.count);out=json.dumps(result,ensure_ascii=True,indent=2)
+    p.add_argument('--compact',action='store_true',help='Emit the same complete selection as compact JSON')
+    a=p.parse_args();result=select(a.source,a.procedure,a.start,a.count)
+    out=json.dumps(result,ensure_ascii=True,**({'separators':(',',':')}if a.compact else{'indent':2}))
     if len(out.encode())>a.max_output_bytes:
         print(json.dumps(dict(status='output_budget_exceeded',procedure=a.procedure,matches=len(result['matches']),hint='Use fewer lines or select a compact source; no body was printed.')));return 2
     print(out);return 0

@@ -39,6 +39,9 @@ useful after setup costs; revert a regression through a normal reviewed patch.
 - For unknown evidence schemas, use `tools/evidence_body.py FILE --procedure ADDR`.
   It supports standalone, worker and bundle records. Check target identity and
   source qualifications; an absent selected record is not global absence.
+- Prefer `tools/evidence_body.py --compact` for bounded body selections. This
+  changes JSON whitespace only; identity, qualification pointers and all selected
+  lines remain present. Validation records output bytes, not token/time savings.
 - For one known field, direct JSON selection remains appropriate. Do not force a
   helper when the exact path is already known. Do not use rg on giant one-line
   pseudocode fields or print whole native session/capability objects.

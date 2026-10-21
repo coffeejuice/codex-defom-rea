@@ -2,8 +2,8 @@
   "schema_version": 1,
   "enabled": true,
   "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
-  "last_review_utc": "2026-10-21T18:29:18.264564+00:00",
-  "last_review_head": "a4e9ad00ba097aaa0ebad017f1f9f4136ebb5d34",
+  "last_review_utc": "2026-10-21T19:17:22.836023+00:00",
+  "last_review_head": "09ecffb69053179c17289792eb952a7d61ec350c",
   "cadence": {
     "recovery_checkpoints": 3,
     "minutes": 60,
@@ -23,24 +23,26 @@
     "no_redundant_reverification",
     "single_owner_safe_checkpoint_reviews",
     "positive_runtime_effect_expectations",
-    "incremental_complete_evidence_release"
+    "incremental_complete_evidence_release",
+    "complete_compact_source_views"
   ],
   "pending_measurement": "Compare similar future phase timings and usage with baseline; no end-to-end speedup claimed yet.",
   "automation_status": "ACTIVE",
   "latest_checkpoint_observation": {
-    "checkpoint": "analysis/iteration-controls-import-contract.json",
-    "scope": "Current completed checkpoint in worktree; completed-turn timing above covers prior turns, not current whole turn.",
+    "checkpoint": "analysis/root-fields-import-contract.json",
+    "scope": "Current verified checkpoint; completed-turn metadata covers prior turns.",
     "native_imports": 64,
-    "native_handlers": 198,
-    "full_regression_seconds": 30.32,
-    "tests_passed": 120,
+    "native_handlers": 226,
+    "full_regression_seconds": 30.96,
+    "tests_passed": 124,
     "capture_retry_count": 0,
     "candidate_corrections_after_native_training": 0,
-    "qualification": "Different workloads and uncontrolled host conditions prevent total wall-time or token speedup claims. Apply the existing rule to stop speculative rechecking after concrete gates pass."
+    "qualification": "Uncontrolled host/different work; no total-speed claim."
   },
-  "latest_review": "analysis/efficiency-review-20261021-iteration-controls.json",
-  "latest_review_checkpoint": "analysis/iteration-controls-import-contract.json",
-  "latest_review_qualification": "Safe review at third recovery checkpoint in worktree and after hourly gate. One measured retention workflow adopted; no total-speed or token-saving claim.",
+  "latest_review": "analysis/efficiency-review-20261021-root-fields.json",
+  "latest_review_checkpoint": "analysis/root-fields-import-contract.json",
+  "latest_review_qualification": "Safe review after third recovery checkpoint since preceding review. One bounded output-format improvement measured with complete JSON payload equality; no total time/token speedup asserted.",
   "latest_guard_validation": "analysis/trans-coverage-guard-validation.json",
-  "latest_retention_validation": "analysis/iteration-evidence-retention-validation.json"
+  "latest_retention_validation": "analysis/root-fields-evidence-retention-validation.json",
+  "latest_compact_view_validation": "analysis/evidence-body-compact-validation.json"
 }

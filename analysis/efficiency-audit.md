@@ -120,3 +120,20 @@ complete record retained and hashed; otherwise preserve a snapshot. These are
 artifact bytes and one uncontrolled close time, not total-speed or token savings.
 Use the existing no-redundant-rechecking rule after passing concrete gates. See
 `analysis/efficiency-review-20261021-iteration-controls.json`.
+
+### Root-field checkpoint review
+
+The third recovery checkpoint triggers this safe review. The latest two completed
+turn records took 746.934s and 734.329s; tool interval unions were 12.983s and 164.938s,
+reasoning item unions 442.622s and 137.215s, with 153.924s compaction in the first.
+Unattributed intervals 128.216s/452.811s are not assigned a cause. Four reported
+failures and two truncated outputs in the latter record remain reasons to use
+bounded views and preflight checks, rather than repeat successful native work.
+
+The current nine-field checkpoint passed 64 native imports and 124 regression tests
+in 30.96s, without capture retries or candidate changes after training. The single
+new measured improvement is optional compact JSON for evidence_body: 4926 to 3770
+stdout bytes across the same three selections, with identical parsed payloads.
+This 23.5% output reduction does not establish end-to-end time or token savings.
+See `efficiency-review-20261021-root-fields.json` and
+`evidence-body-compact-validation.json`. Standing workers remain archived.

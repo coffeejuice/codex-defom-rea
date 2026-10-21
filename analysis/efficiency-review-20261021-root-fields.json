@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 378404058,
+    "tail_mib": 32,
+    "start_offset": 344887627,
+    "end_offset": 378404058,
+    "window_sha256": "92a4bb0d1c5c45d85114e8f28cd8c85d0a3e5be8f4cf2ce91da9da959597adef"
+  },
+  "turns": [
+    {
+      "turn_id": "01a15fbb-2ded-7180-b973-d6bfad0b8237",
+      "started_at": "2026-10-21T18:31:04.957Z",
+      "completed_at": "2026-10-21T18:43:31.891Z",
+      "elapsed_seconds": 746.934,
+      "tool_active_union_seconds": 12.983,
+      "reasoning_item_union_seconds": 442.622,
+      "tool_reasoning_overlap_seconds": 0.0,
+      "compaction_seconds": 153.924,
+      "unattributed_seconds": 128.216,
+      "tool_items": {
+        "CommandExecution": 11,
+        "FileChange": 2
+      },
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 2393008,
+        "cached_input_tokens": 2333824,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 18120,
+        "reasoning_output_tokens": 14559,
+        "total_tokens": 2411128,
+        "uncached_input_tokens": 59184
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 6.353,
+          "item_id": "exec-6bd7bed8-a22d-49bd-ac46-eba92f50f2d8"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 2.565,
+          "item_id": "exec-c21e66bc-621d-4d88-81c1-0206346c4b0b"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.574,
+          "item_id": "exec-5632ab74-a416-4eea-97ca-a2c4f34c53db"
+        },
+        {
+          "kind": "FileChange",
+          "name": "FileChange",
+          "seconds": 0.567,
+          "item_id": "exec-4b7cddc8-a451-4c1c-9d4b-c1904bd4e7d9"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.561,
+          "item_id": "exec-5d5fd939-419d-4c56-ab3e-983989c95009"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a15fc6-93c0-7803-adc8-2ff44b4a45ca",
+      "started_at": "2026-10-21T18:43:31.935Z",
+      "completed_at": "2026-10-21T18:55:46.264Z",
+      "elapsed_seconds": 734.329,
+      "tool_active_union_seconds": 164.938,
+      "reasoning_item_union_seconds": 137.215,
+      "tool_reasoning_overlap_seconds": 26.602,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 452.811,
+      "tool_items": {
+        "CommandExecution": 36,
+        "FileChange": 7,
+        "instrument_with_frida": 2
+      },
+      "failed_tool_items": 4,
+      "truncated_command_outputs": 2,
+      "usage_delta": {
+        "input_tokens": 4610691,
+        "cached_input_tokens": 4531072,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 21991,
+        "reasoning_output_tokens": 4602,
+        "total_tokens": 4632682,
+        "uncached_input_tokens": 79619
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.385,
+          "item_id": "exec-51af2070-b2a1-45ac-9759-f266b70ba471"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 33.596,
+          "item_id": "exec-82bb5137-b756-457d-9d0f-cc4ba4b43713"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 30.547,
+          "item_id": "exec-c019b801-585c-497b-98c3-f3a0fbaa6765"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 22.333,
+          "item_id": "exec-e1993100-2c33-4d50-be98-291aabcbe90a"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 22.012,
+          "item_id": "exec-f2e6344b-fcc0-4228-a53c-b2766134b857"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "checkpoint_review": {
+    "checkpoint": "analysis/root-fields-import-contract.json",
+    "native_imports": 64,
+    "native_handlers": 226,
+    "checks": 11650,
+    "tests_passed": 124,
+    "full_regression_seconds": 30.96,
+    "capture_retries": 0,
+    "candidate_corrections_after_native_training": 0,
+    "pre_capture_issues": [
+      "Fixed a replay JSON output typo during focused build.",
+      "Recorded the existing embedded-NUL importer guard and corrected an unfrozen positive-path fixture before any original capture."
+    ],
+    "observations": [
+      "Two completed turn records have substantial reasoning/compaction/unattributed intervals. Do not assign unattributed time to a cause.",
+      "No new runtime retries or post-training candidate changes. Do not repeat passing captures or full regression without a new relevant concern.",
+      "Source text was reused wherever available; four new complete pseudocode Evidence records total20326 bytes, with immutable293019164-byte baseline retained and no cumulative snapshot rewrite."
+    ],
+    "one_measured_change": {
+      "change": "Optional --compact for tools/evidence_body.py; default output unchanged.",
+      "validation": "analysis/evidence-body-compact-validation.json",
+      "old_stdout_bytes": 4926,
+      "compact_stdout_bytes": 3770,
+      "reduction_percent": 23.47,
+      "all_parsed_payloads_equal": true
+    },
+    "limitations": "Measurements concern two prior completed turns and one current checkpoint, with different workloads. Compact-output comparison proves bytes and payload identity only; no causal total-speed/token reduction claim.",
+    "pending": "Continue bounded same-owner audits. Larger reductions in fixture/comparator authoring need a measured reusable harness proposal; do not restructure frozen or passing pipelines merely to claim speed."
+  }
+}
