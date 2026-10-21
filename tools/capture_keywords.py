@@ -47,6 +47,8 @@ def main() -> None:
     parser.add_argument("--gate-timeout", type=float, default=120)
     parser.add_argument("--prepare-only", action="store_true",
                         help="copy fixtures and save transcript without launching")
+    parser.add_argument("--compact", action="store_true",
+                        help="print short receipts; retain complete PID and run records")
     args = parser.parse_args()
     if not 0 < args.timeout <= 60 or not 0 < args.gate_timeout <= 120:
         parser.error("timeout must be in (0,60]; gate-timeout must be in (0,120]")
@@ -124,7 +126,10 @@ def main() -> None:
                         "cwd": str(root), "ready_gate": str(ready), "inputs": inputs,
                     }
                     pid_file.write_text(json.dumps(identity, indent=2), encoding="utf-8")
-                    print(json.dumps({"observer_waiting": identity}), flush=True)
+                    receipt = ({"pid": proc.pid, "pid_file": str(pid_file),
+                                "ready_gate": str(ready), "imports": len(args.keys)}
+                               if args.compact else identity)
+                    print(json.dumps({"observer_waiting": receipt}), flush=True)
                     gate_start = time.monotonic()
                     while not ready.exists() and proc.poll() is None:
                         if time.monotonic() - gate_start >= args.gate_timeout:
@@ -166,9 +171,14 @@ def main() -> None:
         for path in sorted(root.iterdir()) if path.is_file()
     ]
     (root / "run.json").write_text(json.dumps(record, indent=2), encoding="utf-8")
-    print(json.dumps({key: record[key] for key in (
-        "status", "exit_code", "pid", "elapsed_seconds", "inputs", "files"
-    )}, indent=2))
+    if args.compact:
+        print(json.dumps({key: record[key] for key in (
+            "status", "exit_code", "pid", "elapsed_seconds"
+        )} | {"imports": len(args.keys), "run_record": str(root / "run.json")}))
+    else:
+        print(json.dumps({key: record[key] for key in (
+            "status", "exit_code", "pid", "elapsed_seconds", "inputs", "files"
+        )}, indent=2))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,55 @@
+{
+  "capture_prepare_only": {
+    "results": [
+      {
+        "label": "before",
+        "seconds": 0.188877,
+        "stdout_bytes": 9348,
+        "stderr_bytes": 0,
+        "prepared_record": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\efficiency-prepare-99ea868d-before\\run.json"
+      },
+      {
+        "label": "after",
+        "seconds": 0.185662,
+        "stdout_bytes": 221,
+        "stderr_bytes": 0,
+        "prepared_record": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\efficiency-prepare-99ea868d-after\\run.json"
+      }
+    ],
+    "stdout_reduction_percent": 97.64,
+    "record_fidelity": "PASS normalized records equal, including all input/output digests and transcript; only directory and elapsed time normalized",
+    "original_process_launched": false
+  },
+  "evidence_view": {
+    "source_bytes": 643175,
+    "whole_selected_record_bytes": 6624,
+    "bounded_view_bytes": 1431,
+    "body_fidelity": "PASS entire selected body equal after newline normalization",
+    "qualification": "This is projection/output reduction, not measured tokenizer or end-to-end speed gain."
+  },
+  "metrics_interval_checks": "PASS overlapping intervals unioned and overlap not double-counted",
+  "evidence_schema_checks": [
+    {
+      "source": "analysis/startup-0x1401e7b10.json",
+      "procedure": "0x1401e7b10",
+      "matches": 1,
+      "status": "PASS"
+    },
+    {
+      "source": "analysis/chat-c-db-controls-evidence.json",
+      "procedure": "0x140235c30",
+      "matches": 1,
+      "status": "PASS"
+    },
+    {
+      "source": "analysis/unit-static-evidence.json",
+      "procedure": "0x1401f4100",
+      "matches": 2,
+      "status": "PASS"
+    }
+  ],
+  "budget_refusal_and_scoped_miss": "PASS",
+  "python_compile": "PASS all four changed/new Python tools",
+  "production_candidate": "Unchanged against analysis/unit-candidate-freeze.json;94-test production result retained, not re-run during tooling-only audit",
+  "capture_validation_scope": "Prepare-only before/after execution plus diff review. No original process launched; runtime waiting receipt branch was reviewed, not executed."
+}

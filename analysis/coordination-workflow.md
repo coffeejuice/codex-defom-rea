@@ -2,11 +2,13 @@
 
 The user retired standing worker coordination on 2026-10-21. This chat
 (01a158d9-cd37-70f1-bb86-4aeb4782972a) owns recovery, implementation, tests and
-integration. Chat A, Chat B, Chat C and Bottleneck are archived. Both recurring
-schedules are paused. Do not poll or dispatch those workers, and do not restart
-schedules merely because the global goal is resumed.
+integration. Chat A, Chat B, Chat C and Bottleneck are archived. Worker
+coordination schedules remain paused. Do not poll or dispatch those
+workers or restart their schedules. The separately authorized single-owner
+efficiency reviews follow analysis/efficiency-policy.md.
 
-The global full-app goal is unchanged and paused. The authoritative continuation
+The global full-app goal is unchanged; its current status is in the execution
+section of analysis/recovery-plan.json. The authoritative continuation
 is analysis/recovery-plan.json; accepted worker research is indexed by
 analysis/worker-integration-manifest.json. Any future bounded independent review
 requires separate authorization. Existing worktrees and evidence remain intact.
