@@ -1398,4 +1398,27 @@ listed in the contract, including retained observer-source.js. Replay tests
 do not run the original application. Future capture preparation uses
 `tools/prepare_grndat_batches.py` in a fresh build workspace and the bounded
 console harness `tools/run_grndat_batch.py`; it requires a passive REA observer.
-The next blocker in the retained keyword export remains SMODE.
+At this checkpoint SMODE was the next export blocker; see the newer checkpoint below.
+
+## SMODE import checkpoint
+
+SMODE now reads the raw mode into root844 and applies the setter's exact flag
+updates at root854/root858 for values1/2/3. Other values retain both flags.
+Even a failed input read calls the setter with its zeroed local; the parser
+retains status2 and continues. The setter does not refresh layout or update
+the linked root. Changed-dimension defaults are mode1, flag854=0, flag858=1.
+The flags remain named by offset without assigning an unproved scientific enum.
+
+Static REA pseudocode and setter assembly, followed by passive observations
+over25 imports and39 handlers, bind these effects. New evaluation sequences
+passed an unchanged candidate. Four EOF cursor positions remain unobserved
+after native CRT buffer resets. `analysis/smode-import-contract.json` lists
+the source identities, truth-table checks and verification limits.
+The retained full keyword export now reaches STYPE after five supported handlers.
+
+Run `ctest --test-dir build -C Release -R smode --output-on-failure`. These
+replay tests require ignored captures, run records and retained observer source
+under analysis/oracle; they do not launch the original app.
+
+The complete regression suite passes all86 registered tests. The goal is active,
+with this chat as sole owner; the current plan continues from STYPE.

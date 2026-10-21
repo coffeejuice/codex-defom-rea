@@ -175,6 +175,16 @@ void ObjectModel::set_geometry_type(int value) {
     refresh_components();
 }
 
+void ObjectModel::set_simulation_mode(std::int32_t value) {
+    require_simulation_profile(controls_);
+    auto& simulation = *controls_.simulation;
+    simulation.mode_0x844 = value;
+    if (value == 1 || value == 2 || value == 3) {
+        simulation.flag_0x858 = value == 2 ? 0 : 1;
+        simulation.flag_0x854 = value == 1 ? 0 : 1;
+    }
+}
+
 void ObjectModel::set_output_flags(const std::array<int, 7>& values) {
     require_simulation_profile(controls_);
     controls_.simulation->output_flags = values;

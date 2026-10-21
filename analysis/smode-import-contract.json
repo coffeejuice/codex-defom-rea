@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_bounded_native_comparisons_passed",
+  "keyword": "SMODE27",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": {
+    "path": "analysis\\smode-static-evidence.json",
+    "evidence_ids": [
+      "ev_6a701fcaae45ed3c0c18ca1d49f58a7727b8553f864b01e289ee22dc10c501cd",
+      "ev_48c5bb5d47dac3896c77ea5acdf8bc3c9665733728d3c73f6d791c491d97dddf",
+      "ev_845d506be6d52ecbf11dcb7dc94c0512928b0fe95f89fe6994b2cdf814d8a195",
+      "ev_319ffe669a55e2c94ede2647c027d9e5d1a78e0be60a202830c8c656b62ab7e7",
+      "ev_f7d99719a38da8bc507f47dcff2d77f471fb5f2b62cad7be4502c8cde1439507"
+    ]
+  },
+  "recovered_behavior": {
+    "reader": "413de0 zeroes local, one bounded comma-normalized integer line, only EOF/scanf-1 fails; setter still called",
+    "raw_field": "root844 stores every int32 value",
+    "flags": "mode1 writes root858=1 then854=0;mode2 writes858=0 then854=1;mode3 writes858=1 then854=1;others retain both",
+    "defaults": "1e7e90 sets844=1,854=0,858=1; changed dimension resets both linked roots according to existing lifecycle",
+    "refresh": "Setter calls only the two direct stores for recognized modes; no layout refresh, no linked-root propagation"
+  },
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_SMODE_COMPARISON",
+      "imports": 17,
+      "handlers": 27,
+      "checks": 752,
+      "eof_cursors_unobserved": 3,
+      "evidence_id": "ev_26d25d99b248da69c12719b4b340ab232200fc4532e648525b9e7bf9755fa061",
+      "capture_sha256": "d71a1797f77b0e53e9cca5109fef45830d194fac0910bb7772c8aa9ae18a9ad4",
+      "run_sha256": "8c87cf31d4c1eb78e2e3d75d5736f9dd027f6899f29457784c26db1b04d4c094",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw mode and flags; no scientific enum inference. Native setter and no-refresh checks are original observations; C++ state/flags/component tables and linked isolation compare."
+    },
+    {
+      "status": "PASS_NATIVE_SMODE_COMPARISON",
+      "imports": 8,
+      "handlers": 12,
+      "checks": 343,
+      "eof_cursors_unobserved": 1,
+      "evidence_id": "ev_154a32e0ee645ff3af3fc1263347f4ec03667db968e379fa38e597978c95294e",
+      "capture_sha256": "a202704bb043a77ece078a59cf75cb7d14b8f1d663db141704fa58bed94461ac",
+      "run_sha256": "711b49daa1a9c9dff584e63ceaa011a3c7c628deec1c079bd7343b34d9f888b2",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw mode and flags; no scientific enum inference. Native setter and no-refresh checks are original observations; C++ state/flags/component tables and linked isolation compare."
+    }
+  ],
+  "totals": {
+    "imports": 25,
+    "handlers": 39,
+    "checks": 1095,
+    "eof_cursors_unobserved": 4
+  },
+  "candidate_freeze": "analysis/smode-candidate-freeze.json",
+  "source_bindings": [
+    {
+      "path": "analysis/smode-static-evidence.json",
+      "bytes": 32316,
+      "sha256": "54be25c9a665c92f133e66cec6f78e9acd3e3229655ea1b6771365d66423a870",
+      "local_only": false
+    },
+    {
+      "path": "analysis/chat-b-metadata-evidence.json",
+      "bytes": 12162,
+      "sha256": "2fca6ad3d9ed9dd9b7b49c21ec586993c5d332ff1649c80e0a76869db6a61393",
+      "local_only": false
+    },
+    {
+      "path": "analysis/smode-runtime-training.json",
+      "bytes": 195291,
+      "sha256": "d71a1797f77b0e53e9cca5109fef45830d194fac0910bb7772c8aa9ae18a9ad4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/smode-runtime-evaluation.json",
+      "bytes": 89604,
+      "sha256": "a202704bb043a77ece078a59cf75cb7d14b8f1d663db141704fa58bed94461ac",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/smode-training/run.json",
+      "bytes": 26051,
+      "sha256": "8c87cf31d4c1eb78e2e3d75d5736f9dd027f6899f29457784c26db1b04d4c094",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/smode-evaluation/run.json",
+      "bytes": 14109,
+      "sha256": "711b49daa1a9c9dff584e63ceaa011a3c7c628deec1c079bd7343b34d9f888b2",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/smode-training/observer-source.js",
+      "bytes": 2833,
+      "sha256": "97e2a5e42c58371a63e1c976154fbd664fb4b9d2737f15b5c53586b7d50214b9",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/smode-evaluation/observer-source.js",
+      "bytes": 2835,
+      "sha256": "3e199e81214509bb7c002450a1d12bbbb91f691f5ca5416f61bd3cbbb76fd97b",
+      "local_only": true
+    }
+  ],
+  "full_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "STYPE",
+    "supported_handlers": 5
+  },
+  "limitations": [
+    "Bounded ordinary initialized-root and representable integer domain; overflow and malformed numeric-prefix CRT cases remain outside verification.",
+    "Four native cursors unobserved after CRT EOF pointer resets.",
+    "Raw flags are named by offsets; scientific interpretation and all downstream scientific consumers are not inferred from this setter.",
+    "This does not implement STYPE/MESHNO/UNIT/TRANS or full keyword round-trip."
+  ],
+  "resource_release": "Owned Ghidra session closed successfully into analysis/oracle/smode-snapshot.json; both Frida runs detached without cleanup error.",
+  "capture_diagnostic": "First evaluation launch approval review timed out before process creation; missing PID/run files verified, single authorized retry succeeded.",
+  "regression": {
+    "registered": 86,
+    "passed": 86,
+    "failed": 0,
+    "seconds": 32.22,
+    "build": "All15 explicit executable targets rebuilt"
+  }
+}

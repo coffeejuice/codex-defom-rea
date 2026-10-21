@@ -60,6 +60,18 @@ add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME smode_training_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_smode_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/smode-runtime-training.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/smode-training/run.json"
+      --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/smode-fixture-plan.json")
+  add_test(NAME smode_evaluation_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_smode_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/smode-runtime-evaluation.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/smode-evaluation/run.json"
+      --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/smode-evaluation-inputs.json")
   add_test(NAME grndat_static_replay
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_grndat_static.py"
       --driver "$<TARGET_FILE:keyword_import_replay>")

@@ -48,6 +48,9 @@ struct TimeTableControls {
 // retains default properties with the recovered reference graph below.
 // This profile is not inferred from an externally supplied component table.
 struct SimulationControls {
+    std::int32_t mode_0x844 = 1; // SMODE raw int; no implied scientific enum.
+    std::int32_t flag_0x854 = 0;
+    std::int32_t flag_0x858 = 1;
     int geometry_type = 1; // Root +0x850, GEOTYP.
     std::int32_t material_gate_0x85c = 0; // Independent feature49 gate.
     std::array<int, 7> output_flags{0, 0, 0, 0, 1, 0, 0}; // +0x86c..0x884.
@@ -278,6 +281,9 @@ public:
     // with their zero/partial results. No replacement defaults or finalization.
     // All three require reset controls and selected default material properties.
     void set_geometry_type(int value);
+    // 1f3ff0 stores every value; only modes1/2/3 replace flags854/858.
+    // It does not refresh component layout or propagate to the linked root.
+    void set_simulation_mode(std::int32_t value);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

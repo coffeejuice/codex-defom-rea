@@ -523,7 +523,7 @@
     "provider": "ghidra",
     "snapshot": "analysis/oracle/recovery-snapshot.json",
     "full_evidence_bundle": "analysis/oracle/recovery-evidence.json",
-    "next_action": "Recover1f3ff0 writes/calls and SMODE failure effects, implement and compare bounded input sequences against original. UNIT/TRANS and DB-to-model mapping remain dependent follow-on work.",
+    "next_action": "Implement source-bound STYPE scalar input; establish root1740 option provenance for MESHNO, then recover UNIT resets and process-global effects. Preserve full application scope and existing loader API.",
     "material_evidence_bundle": "analysis/oracle/material-import-evidence.json",
     "material_snapshot": "analysis/oracle/material-import-snapshot.json",
     "material_next_contract": {
@@ -623,19 +623,10 @@
     "A blocker or exhausted execution budget is not project completion."
   ],
   "current_work": {
-    "component": "SMODE and adjacent configuration setters",
-    "status": "next_recovery_ready",
+    "component": "STYPE, MESHNO and UNIT configuration path",
+    "status": "next_after_smode_checkpoint",
     "evidence": "analysis/chat-b-roundtrip-blockers.json /adjacent_control_boundaries",
-    "next": "Recover1f3ff0 writes/calls and SMODE failure effects, implement and compare bounded input sequences against original. UNIT/TRANS and DB-to-model mapping remain dependent follow-on work."
-  },
-  "pause": {
-    "requested_by": "user",
-    "checkpoint": "analysis/worker-integration-manifest.json",
-    "reason": "User retains global goal paused while checkpoint and sole ownership are reconciled; no production work resumed.",
-    "resume_requires_user_request": true,
-    "implementation_checkpoint": "analysis/fstres-contract.json",
-    "resume_requested": "2026-10-21",
-    "runtime_status_note": "Goal is active; confirmed by goal continuation after user resume."
+    "next": "Implement source-bound STYPE scalar input; establish root1740 option provenance for MESHNO, then recover UNIT resets and process-global effects. Preserve full application scope and existing loader API."
   },
   "integrated_worker_research_checkpoint": {
     "date": "2026-10-21",
@@ -701,5 +692,26 @@
   "grndat_candidate_checkpoint": {
     "path": "analysis/grndat-import-contract.json",
     "status": "implemented_subset_runtime_tested"
+  },
+  "smode_checkpoint": {
+    "status": "implemented_subset_runtime_tested",
+    "contract": "analysis/smode-import-contract.json",
+    "validation": "25 original imports,39 SMODE handlers; new native-first evaluation inputs passed unchanged candidate",
+    "next_export_boundary": "STYPE"
+  },
+  "execution": {
+    "status": "active",
+    "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
+    "standing_workers": "archived",
+    "automations": "paused; do not restart on goal continuation"
+  },
+  "pause_history": {
+    "requested_by": "user",
+    "checkpoint": "analysis/worker-integration-manifest.json",
+    "reason": "User retains global goal paused while checkpoint and sole ownership are reconciled; no production work resumed.",
+    "resume_requires_user_request": true,
+    "implementation_checkpoint": "analysis/fstres-contract.json",
+    "resume_requested": "2026-10-21",
+    "runtime_status_note": "Goal is active; confirmed by goal continuation after user resume."
   }
 }

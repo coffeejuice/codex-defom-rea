@@ -601,6 +601,11 @@ void state(const ObjectModel& model) {
               << ",\"direct61_default\":" << controls.direct61_default << ",\"components\":";
     numbers(controls.component_counts);
     std::cout << ",\"custom_last_id_0x33b8\":" << model.custom_last_id();
+    std::cout << ",\"simulation_mode\":";
+    if (!controls.simulation) std::cout << "null";
+    else std::cout << "{\"mode_0x844\":" << controls.simulation->mode_0x844
+                   << ",\"flag_0x854\":" << controls.simulation->flag_0x854
+                   << ",\"flag_0x858\":" << controls.simulation->flag_0x858 << '}';
     std::cout << ",\"geometry_mode\":";
     if (controls.simulation) std::cout << controls.simulation->geometry_type;
     else std::cout << "null";
