@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "status": "implemented_ordinary_wrapper_and_bounded_native_comparisons_passed",
+  "keyword": "MESHNO29",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": {
+    "dispatcher": {
+      "path": "analysis/chat-b-metadata-evidence.json",
+      "evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+      "selector": "pseudocode_early_cases / case7"
+    },
+    "defaults": {
+      "path": "analysis/smode-static-evidence.json",
+      "evidence_id": "ev_f7d99719a38da8bc507f47dcff2d77f471fb5f2b62cad7be4502c8cde1439507",
+      "procedure": "0x1401e7e90",
+      "store": "controls+0xf0=root+0x840=1"
+    },
+    "wrapper": {
+      "path": "analysis/keyword-reader.json",
+      "evidence_id": "ev_bf855ce11b4915b6be4ef2e2a91b1324766ebba712a1af30d9f8223eaf4ba65e",
+      "procedure": "0x1401b5f00",
+      "operation": "After successful fopen copy *param4 to root1740; parse; clear1740; close; finalize if requested."
+    }
+  },
+  "recovered_behavior": {
+    "ordinary_mask0": "Reader413de0(root840,option0) zeros live destination before line read. All representable int32 values store without positivity validation. Matching0 succeeds; blank/EOF or scan-1 gives handler2 with field0. No refresh or linked-root propagation.",
+    "mask_bit2": "If root1740&2, read into a temporary instead. Static evidence only; this existing nonzero-wrapper option is not exposed by import_translated and remains pending.",
+    "resets": "Initialization and changed dimension set mesh_number1; unchanged dimension retains it. Native before/after root and handler states compared.",
+    "mask_provenance": "All26 original-console imports observed *param4=0, parser entry/exit root1740=0, MESHNO handler root1740=0, wrapper exit root1740=0. This establishes the selected console route, not every original caller."
+  },
+  "candidate_freeze": "analysis/meshno-candidate-freeze.json",
+  "candidate_unchanged_after_verified_runs": true,
+  "observer_diagnostic": {
+    "pilot": "analysis/meshno-runtime-pilot.json",
+    "diagnostic": "Mechanical STYPE-to-MESHNO substitution left wrong JSON key and omitted import_mask snapshot; native fields read were valid, but comparison rejected missing mesh_number key. C++ candidate unchanged. Pilot not counted in validation totals.",
+    "original_observer_template_sha256": "e365d257c9c4ded83e8f635626023e16de144720a912c9de0d9e55933c0215ae"
+  },
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_MESHNO_COMPARISON",
+      "imports": 18,
+      "handlers": 30,
+      "checks": 1424,
+      "eof_cursors_unobserved": 3,
+      "evidence_id": "ev_b3e6e7bb8a2541ae5833b5c0706e47d15c09cb6a0a46ee1762bef8fe7b4cd55e",
+      "capture_sha256": "e3c6aeaca075f1a2573ffe7153de73238aac172198e3c0d355e7fc8333834e12",
+      "run_sha256": "dcd8a5af057f4e2c0d363e5e0b5b72216bf60f95537778fdad54f43bd418c01c",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw mesh number, type, mode, flags, component table and counts; no scientific enum inference. Native reader live destination and no-refresh checks are original observations; linked isolation compares."
+    },
+    {
+      "status": "PASS_NATIVE_MESHNO_COMPARISON",
+      "imports": 8,
+      "handlers": 11,
+      "checks": 570,
+      "eof_cursors_unobserved": 2,
+      "evidence_id": "ev_b827b8bec5a91ebd2c08a36f87a33f14fde1cbea8aa1c6c3e3d2055dceafd8ad",
+      "capture_sha256": "bb56b0317e63d5a87a2c98344f459abd3a11ac82f4b8de610232774b0fcfe5a5",
+      "run_sha256": "f7aa2a6c0478a8ad536179bc7d1a73bd01d67c00c87ecb51ffaee62a6dc42d4e",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw mesh number, type, mode, flags, component table and counts; no scientific enum inference. Native reader live destination and no-refresh checks are original observations; linked isolation compares."
+    }
+  ],
+  "totals": {
+    "imports": 26,
+    "handlers": 41,
+    "checks": 1994,
+    "eof_cursors_unobserved": 5
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/chat-b-metadata-evidence.json",
+      "bytes": 12162,
+      "sha256": "2fca6ad3d9ed9dd9b7b49c21ec586993c5d332ff1649c80e0a76869db6a61393",
+      "local_only": false
+    },
+    {
+      "path": "analysis/smode-static-evidence.json",
+      "bytes": 32316,
+      "sha256": "54be25c9a665c92f133e66cec6f78e9acd3e3229655ea1b6771365d66423a870",
+      "local_only": false
+    },
+    {
+      "path": "analysis/keyword-reader.json",
+      "bytes": 412167,
+      "sha256": "4d26756d8a14e3fb3d08e132d31bf26d80763a6b20b3db7c6b59847724034cb5",
+      "local_only": false
+    },
+    {
+      "path": "analysis/import-finalization-callsite-audit.json",
+      "bytes": 20009,
+      "sha256": "d9f2c6ec27ac1b714cb4e7fd1e7da0d966df61c54c0f6829798ed33d4d91dd83",
+      "local_only": false
+    },
+    {
+      "path": "analysis/meshno-fixture-plan.json",
+      "bytes": 5501,
+      "sha256": "d2e5758e549e05257740bb189c250708023ff4471771a7db1db1bcfbe1394aaf",
+      "local_only": false
+    },
+    {
+      "path": "analysis/meshno-evaluation-inputs.json",
+      "bytes": 2468,
+      "sha256": "a23df6a3f59b601aa7444832c5e5e30323c48c16826ffb3a0d5f9d5d27083608",
+      "local_only": false
+    },
+    {
+      "path": "analysis/meshno-runtime-pilot.json",
+      "bytes": 294520,
+      "sha256": "1eac27748fcbd432f0a2d4384415c03024847dc89b6eb89b664aae1e659bad10",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/meshno-training/observer-source.js",
+      "bytes": 3442,
+      "sha256": "1213a7b8703ec36a8ce84a8009b1bc5d62100e56fa7f542956432bb570e8e42a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/meshno-runtime-training.json",
+      "bytes": 304165,
+      "sha256": "e3c6aeaca075f1a2573ffe7153de73238aac172198e3c0d355e7fc8333834e12",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/meshno-training-v2/run.json",
+      "bytes": 27482,
+      "sha256": "dcd8a5af057f4e2c0d363e5e0b5b72216bf60f95537778fdad54f43bd418c01c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/meshno-training-v2/observer-source.js",
+      "bytes": 3529,
+      "sha256": "366ee8026af3ce4fe792eef6af4a2c93e1b0d309fbd73732415c8040bb7e4b3c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/meshno-runtime-evaluation.json",
+      "bytes": 125107,
+      "sha256": "bb56b0317e63d5a87a2c98344f459abd3a11ac82f4b8de610232774b0fcfe5a5",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/meshno-evaluation-v2/run.json",
+      "bytes": 14150,
+      "sha256": "f7aa2a6c0478a8ad536179bc7d1a73bd01d67c00c87ecb51ffaee62a6dc42d4e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/meshno-evaluation-v2/observer-source.js",
+      "bytes": 3531,
+      "sha256": "f4c875a41d238c7be2c14709c685210815c89079ae4d7ff331442b54943bda2a",
+      "local_only": true
+    }
+  ],
+  "full_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "UNIT",
+    "supported_handlers": 7
+  },
+  "limitations": [
+    "Ordinary initialized wrapper option0 only; nonzero import masks and the MESHNO temporary destination branch remain required future recovery/implementation work.",
+    "Bounded representable integer inputs; overflowing values, malformed prefixes, full CRT grammar and arbitrary locale behavior are not established.",
+    "Five native cursor positions are unobserved after CRT EOF buffer pointer resets.",
+    "Observed isolation covers raw mesh number/type/mode/flags, component widths, dimensions and object/material counts; complete scientific consumers and arbitrary shared storage remain outside this checkpoint.",
+    "Native replay tests require ignored local Evidence, run records and observer copies; they do not launch the original app.",
+    "UNIT and remaining keyword/application functionality remain incomplete. Existing loader API is unchanged."
+  ],
+  "resource_release": "Pilot and both verified REA Frida windows detached without truncation, probe errors or cleanup errors. Console processes completed exit0. No static native session opened.",
+  "regression": {
+    "registered": 90,
+    "passed": 90,
+    "failed": 0,
+    "seconds": 32.8,
+    "build": "All15 executable targets rebuilt"
+  }
+}

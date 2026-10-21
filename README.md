@@ -1440,3 +1440,25 @@ retained full export now reaches MESHNO after six supported handlers.
 Run `ctest --test-dir build -C Release -R stype --output-on-failure`. These
 two replay tests require ignored local captures, run records and observer
 copies under analysis/oracle; they do not launch the original application.
+
+## MESHNO import checkpoint
+
+MESHNO now reads into the raw root840 field in the ordinary option0 wrapper.
+Failed reads retain the reader's zero mutation and parser error status.
+Changed dimensions reset the value to1. No refresh or linked-root propagation
+occurs in this handler. The option mask comes from wrapper*param4 and is
+cleared after parsing; all26 observed console imports passed mask0. The
+original mask-bit2 branch consumes a temporary and remains pending alongside
+other nonzero import options.
+
+Passive REA comparisons match26 imports and41 handlers; eight separate
+evaluation imports passed an unchanged C++ candidate. All90 regression tests
+pass. The observer's initial JSON-key error was corrected before the verified
+runs and is recorded in `analysis/meshno-candidate-freeze.json`; the pilot is
+excluded from validation totals. Five EOF cursor positions remain unobserved.
+`analysis/meshno-import-contract.json` records source bindings and limitations.
+The retained full export now reaches UNIT after seven supported handlers.
+
+Run `ctest --test-dir build -C Release -R meshno --output-on-failure`. These
+replays require ignored local captures, run records and observer copies; they
+do not launch the original application.

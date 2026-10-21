@@ -48,6 +48,7 @@ struct TimeTableControls {
 // retains default properties with the recovered reference graph below.
 // This profile is not inferred from an externally supplied component table.
 struct SimulationControls {
+    std::int32_t mesh_number_0x840 = 1; // MESHNO raw integer, default from1e7e90.
     std::int32_t mode_0x844 = 1; // SMODE raw int; no implied scientific enum.
     std::int32_t type_0x848 = 1; // STYPE direct int; downstream meaning unestablished.
     std::int32_t flag_0x854 = 0;
@@ -286,6 +287,7 @@ public:
     // It does not refresh component layout or propagate to the linked root.
     void set_simulation_mode(std::int32_t value);
     void set_simulation_type(std::int32_t value);
+    void set_mesh_number(std::int32_t value);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

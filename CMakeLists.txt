@@ -60,6 +60,18 @@ add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(meshno_batch IN ITEMS training evaluation)
+    set(meshno_plan "meshno-fixture-plan.json")
+    if(meshno_batch STREQUAL "evaluation")
+      set(meshno_plan "meshno-evaluation-inputs.json")
+    endif()
+    add_test(NAME "meshno_${meshno_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_meshno_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/meshno-runtime-${meshno_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/meshno-${meshno_batch}-v2/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${meshno_plan}")
+  endforeach()
   foreach(stype_batch IN ITEMS training evaluation)
     set(stype_plan "stype-fixture-plan.json")
     if(stype_batch STREQUAL "evaluation")

@@ -190,6 +190,11 @@ void ObjectModel::set_simulation_type(std::int32_t value) {
     controls_.simulation->type_0x848 = value;
 }
 
+void ObjectModel::set_mesh_number(std::int32_t value) {
+    require_simulation_profile(controls_);
+    controls_.simulation->mesh_number_0x840 = value;
+}
+
 void ObjectModel::set_output_flags(const std::array<int, 7>& values) {
     require_simulation_profile(controls_);
     controls_.simulation->output_flags = values;
