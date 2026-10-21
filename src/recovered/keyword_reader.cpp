@@ -953,11 +953,21 @@ KeywordReader::TextRead KeywordReader::root_name(std::string_view previous_name)
     return name_with_capacity(previous_name, 64);
 }
 
+KeywordReader::TextRead KeywordReader::furnace_text_line(std::string_view previous_name) {
+    return single_name_line(previous_name, 64);
+}
+
 KeywordReader::TextRead KeywordReader::name_with_capacity(
     std::string_view previous_name, std::size_t capacity) {
     // 413ab0: discard remainder, read name, then strncpy/trim capacity-1.
     TextRead result{std::string(previous_name), 1};
     if (line().status != 0) return result;
+    return single_name_line(previous_name, capacity);
+}
+
+KeywordReader::TextRead KeywordReader::single_name_line(
+    std::string_view previous_name, std::size_t capacity) {
+    TextRead result{std::string(previous_name), 1};
     auto input = line();
     if (input.status != 0) return result;
     const auto end = input.bytes.find_first_of(std::string_view("\0\n", 2));

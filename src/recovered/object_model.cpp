@@ -106,6 +106,7 @@ RootControls initialized_root_controls(int dimension, double node8_default,
     RootControls result{};
     result.dimension = dimension;
     result.simulation.emplace();
+    result.simulation->furnace.initialize_defaults(process_unit_state().mode);
     auto& general = result.simulation->general;
     general.geometry_errors_0xdb0 = {
         std::bit_cast<double>(std::uint64_t{0x3eb0c6f7a0b5ed8d}),
@@ -460,6 +461,19 @@ void ObjectModel::set_geometry_errors(const std::array<double, 4>& values) {
 void ObjectModel::set_root_name(std::string value) {
     require_simulation_profile(controls_);
     controls_.simulation->general.frnnam_0xb90 = std::move(value);
+}
+
+PropertyTable& ObjectModel::environment_table(int keyword) {
+    require_simulation_profile(controls_);
+    const int index = keyword == 75 ? 0 : keyword - 77;
+    if (index < 0 || index >= 4 || (keyword != 75 && keyword < 78))
+        throw std::invalid_argument("unmapped environmental table");
+    return controls_.simulation->units.tables[static_cast<std::size_t>(index)];
+}
+
+FurnaceCollection& ObjectModel::furnace_collection() {
+    require_simulation_profile(controls_);
+    return controls_.simulation->furnace;
 }
 
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {

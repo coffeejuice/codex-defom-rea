@@ -6,6 +6,7 @@
 #include "custom_fields.hpp"
 #include "property_table.hpp"
 #include "unit_system.hpp"
+#include "furnace_model.hpp"
 
 #include <array>
 #include <cstdint>
@@ -119,6 +120,7 @@ struct RootGeneralFields {
 };
 
 struct SimulationControls {
+    FurnaceCollection furnace;
     RootGeneralFields general;
     RootRecordTables record_tables;
     IterationControls iteration;
@@ -405,6 +407,8 @@ public:
     void set_root_scalar(int keyword, double value);
     void set_geometry_errors(const std::array<double, 4>& values);
     void set_root_name(std::string value);
+    [[nodiscard]] PropertyTable& environment_table(int keyword);
+    [[nodiscard]] FurnaceCollection& furnace_collection();
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

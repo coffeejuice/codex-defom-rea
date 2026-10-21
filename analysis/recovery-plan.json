@@ -613,13 +613,20 @@
       "next_export_boundary": "GEOERR",
       "limitations": "Scientific consumers,nonzero preserved54/60 runtime states,large extents,24 EOF cursor positions and complete console/native ABI compatibility remain pending."
     },
-    "next_scope": "analysis/root-fields-next-scope.json",
+    "next_scope": "analysis/environment-next-scope.json",
     "root_fields_checkpoint": {
       "status": "implemented_subset_runtime_tested",
       "contract": "analysis/root-fields-import-contract.json",
       "validation": "64 original imports,226 handlers,11650 checks,26 name reads;32 original-first evaluation inputs pass unchanged candidate;124 regression tests pass.",
       "next_export_boundary": "ENVTMP",
       "limitations": "Scientific consumers,furnace collection,embedded-NUL parser behavior,20 EOF cursor positions and full console/native ABI compatibility remain pending."
+    },
+    "environment_checkpoint": {
+      "status": "implemented_subset_runtime_tested",
+      "contract": "analysis/environment-import-contract.json",
+      "validation": "67 frozen-candidate original imports,163 handlers,10568 checks,26 packed text reads,9 ignored helper errors and85 ignored parameter-header failures;129 regression tests pass.18 candidate files unchanged through training/evaluation.",
+      "next_export_boundary": "UNNAME",
+      "limitations": "Scientific consumers,unsafe/uninitialized native domains,16 EOF cursors,remaining name imports and complete application/native ABI compatibility remain pending."
     }
   },
   "decision_record": [
@@ -638,10 +645,10 @@
     "A blocker or exhausted execution budget is not project completion."
   ],
   "current_work": {
-    "component": "Environmental tables and remaining root names",
-    "status": "next_after_nine_root_fields",
-    "evidence": "analysis/root-fields-next-scope.json",
-    "next": "Recover every ENVTMP75/CNVCOF78/ENVATM79/ACVCOF80 branch and dependencies, reusing existing unit-owned tables. Preserve USRDEF/UENAME/UNNAME/CVNAME and the embedded-NUL parser gap as required work. Keep full application scope and loader API."
+    "component": "Remaining root names and shared variable collections",
+    "status": "next_after_environment_checkpoint",
+    "evidence": "analysis/environment-next-scope.json",
+    "next": "Recover all USRDEF87,UENAME88,UNNAME89,CVNAME90 ownership, defaults, resizing and failure order, starting with measured UNNAME export boundary and reusing existing custom-field/name state. Preserve full goal and loader API."
   },
   "integrated_worker_research_checkpoint": {
     "date": "2026-10-21",
@@ -864,5 +871,18 @@
     "validation": "64 original imports,226 handlers,11650 checks,26 name reads;32 original-first evaluation inputs pass unchanged candidate;124 regression tests pass.",
     "next_export_boundary": "ENVTMP",
     "limitations": "Scientific consumers,furnace collection,embedded-NUL parser behavior,20 EOF cursor positions and full console/native ABI compatibility remain pending."
+  },
+  "environment_prototype_checkpoint": {
+    "status": "development_only",
+    "comparison": "analysis/environment-prototype-comparison.json",
+    "validation": "4 original imports,6 handlers,392 exact state checks; full22-parameter startup model and linked topology match. Two source branch-label corrections retained before freeze.",
+    "limitations": "Not an accepted full environmental checkpoint; packed text, failure and unit/dimension branches and full frozen evaluation remain pending."
+  },
+  "environment_checkpoint": {
+    "status": "implemented_subset_runtime_tested",
+    "contract": "analysis/environment-import-contract.json",
+    "validation": "67 frozen-candidate original imports,163 handlers,10568 checks,26 packed text reads,9 ignored helper errors and85 ignored parameter-header failures;129 regression tests pass.18 candidate files unchanged through training/evaluation.",
+    "next_export_boundary": "UNNAME",
+    "limitations": "Scientific consumers,unsafe/uninitialized native domains,16 EOF cursors,remaining name imports and complete application/native ABI compatibility remain pending."
   }
 }

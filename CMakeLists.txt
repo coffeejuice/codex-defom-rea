@@ -30,6 +30,7 @@ target_sources(deform_recovered_state PRIVATE src/recovered/component_layout.cpp
 target_sources(deform_recovered_state PRIVATE src/recovered/geometry_segments.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/custom_fields.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/property_table.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/furnace_model.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/relation_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/fstres_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/grndat_properties.cpp)
@@ -67,6 +68,21 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME environment_prototype_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_environment_prototype.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --report "${CMAKE_CURRENT_BINARY_DIR}/environment-prototype-regression.json")
+  set_tests_properties(environment_prototype_reference_replay PROPERTIES
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  foreach(environment_cohort IN ITEMS training-a training-b evaluation-a evaluation-b)
+    add_test(NAME "environment_${environment_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_environment.py"
+        --cohort "${environment_cohort}"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/environment-${environment_cohort}-regression.json")
+    set_tests_properties("environment_${environment_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   foreach(root_fields_batch IN ITEMS training evaluation)
     set(root_fields_plan "root-fields-fixture-plan.json")
     if(root_fields_batch STREQUAL "evaluation")

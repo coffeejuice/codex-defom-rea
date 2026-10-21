@@ -382,7 +382,7 @@ void property_table(const PropertyTable& table) {
     std::cout << "}}";
 }
 
-void root_table_state(const PropertyTable& table) {
+void root_table_state(const PropertyTable& table, int next_index = -1) {
     // Metadata order: type,rank,selectors[3],counts[3],width,flag50,field54,mode58.
     const std::array<int, 12> metadata{table.type_0x00, table.rank_0x04,
         table.selectors_0x10[0], table.selectors_0x10[1], table.selectors_0x10[2],
@@ -392,8 +392,10 @@ void root_table_state(const PropertyTable& table) {
     numbers(metadata);
     std::cout << ",\"constant_hex\":";
     raw_values(std::span(&table.constant_0x08, 1));
-    std::cout << ",\"preserved60_hex\":";
-    raw_values(std::span(&table.preserved_0x60, 1));
+    if (next_index < 0) {
+        std::cout << ",\"preserved60_hex\":";
+        raw_values(std::span(&table.preserved_0x60, 1));
+    } else std::cout << ",\"next_index\":" << next_index;
     std::cout << ",\"axes_hex\":[";
     for (std::size_t i = 0; i < 3; ++i) {
         if (i) std::cout << ',';
@@ -750,6 +752,30 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"environment\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& simulation = *controls.simulation;
+        std::cout << "{\"enabled\":" << (simulation.furnace.enabled_0xb10 ? 1 : 0)
+                  << ",\"tables\":[";
+        for (std::size_t i = 0; i < simulation.units.tables.size(); ++i) {
+            if (i) std::cout << ',';
+            root_table_state(simulation.units.tables[i]);
+        }
+        std::cout << "],\"parameters\":[";
+        const auto& parameters = simulation.furnace.parameters;
+        for (std::size_t i = 0; i < parameters.size(); ++i) {
+            if (i) std::cout << ',';
+            std::cout << "{\"table\":";
+            root_table_state(parameters[i].table,
+                i + 1 == parameters.size() ? 0 : static_cast<int>(i + 2));
+            std::cout << ",\"known_bytes_hex\":";
+            const auto& known = parameters[i].known_dependent_bytes;
+            emit_quoted(hex(std::string(known.begin(), known.end())));
+            std::cout << '}';
+        }
+        std::cout << "]}";
+    }
     std::cout << ",\"root_fields\":";
     if (!controls.simulation) std::cout << "null";
     else {

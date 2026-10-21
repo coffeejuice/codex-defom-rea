@@ -129,8 +129,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 74) || id == 76 || id == 77 ||
-            (id >= 81 && id <= 86) || id == 91)) ||
+    return (category == 1 && ((id >= 22 && id <= 86) || id == 91)) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -174,6 +173,41 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
         const auto read = reader.real_quad();
         model.set_geometry_errors(read.values);
         return read.status == 0 ? 0 : 2;
+    }
+    if (id == 75 || (id >= 78 && id <= 80)) {
+        const auto header = reader.integer_real();
+        if (header.status != 0) return 2;
+        auto& table = model.environment_table(id);
+        table.reset_type(id == 75 ? 2 : id == 78 ? 1 : id == 79 ? 0x1e : 0x1d);
+        const int selector = header.integer_value;
+        const double value = header.real_value;
+        if (id == 75) {
+            auto& furnace = model.furnace_collection();
+            furnace.enabled_0xb10 = false;
+            if (selector == 10) {
+                furnace.enabled_0xb10 = true;
+                const int requested = native_furnace_integer(value);
+                furnace.reset_entries(requested);
+                for (int index = 1; index <= requested; ++index) {
+                    auto* parameter = furnace.lookup(index);
+                    if (!parameter) continue;
+                    if (index == 21) (void)read_furnace_text(reader, *parameter);
+                    else (void)read_furnace_parameter(reader, *parameter);
+                }
+                return 0; //Parent deliberately ignores every parameter status.
+            }
+        }
+        if (selector == 0) {
+            table.rank_0x04 = 0;
+            table.constant_0x08 = value;
+        } else if (selector == 1 || (id == 80 && (selector == 2 || selector == 3))) {
+            table.rank_0x04 = 1;
+            table.selectors_0x10[0] = (id == 78 || id == 80) ? 3 : 1;
+            if (id == 80 && selector == 2) table.selectors_0x10[0] = 12;
+            if (id == 80 && selector == 3) table.selectors_0x10[0] = 1;
+            table.counts_0x1c[0] = native_furnace_integer(value);
+        } else if (id == 75) return 0;
+        return read_property_values(reader, table) == 0 ? 0 : 2;
     }
     if (id == 72 || id == 73 || id == 74 || id == 77 ||
         id == 81 || id == 82 || id == 83) {

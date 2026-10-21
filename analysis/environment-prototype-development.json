@@ -1,0 +1,26 @@
+{
+  "status": "prototype_failure_retained_before_correction",
+  "candidate_frozen": false,
+  "first_difference": [
+    "initial.KEY/before/environment/parameters/9/table/constant_hex",
+    "cd0f8b9481a73bc0",
+    "0000000000000000"
+  ],
+  "source_sha256_before": "80d123226fbb841301ba1c50ff69b42b002a771f504e53cb9917653c19430f80",
+  "failed_cpp_observation_sha256": "f485474ff5b4b5bea130812e41d7388e0a30208c3e9922e9396c025c34399ace",
+  "evidence": "analysis/environment-0x1403769f0.json",
+  "cause": "Manual condensation assigned the temperature-conversion branch to parameter10. Exclusive else-block extraction proves this branch belongs to parameter11 (0xb);10 has no such branch.",
+  "action": "Correct source case label, rebuild and replay the same retained native capture. Do not rerun the original or claim independent evaluation.",
+  "second_difference": [
+    "initial.KEY/before/environment/parameters/10/table/metadata/2",
+    0,
+    1
+  ],
+  "second_source_sha256_before": "278dc8d84e2ff4dc7d7609b6061a9c5a25c59c74cb487a0ffcf1127a34d5574c",
+  "second_cpp_sha256": "0c17260e478141cd585e23d7573deae6d84fcbcca8fe8b0abcfc49fbc7b67a4c",
+  "second_cause": "375e90 selector1 belongs to parameter11 (hex0xb), not parameter13; the generated layout row11 also records selector1.",
+  "current_status": "PASS_RETAINED_NATIVE_PROTOTYPE_AFTER_SOURCE_CORRECTIONS",
+  "current_candidate_sha256": "272d73512405bc56660cfd295b60ac981f84c2b72bb033f4bac5511f6096876c",
+  "passing_comparison": "analysis/environment-prototype-comparison.json",
+  "remaining": "Freeze only after complete source-planned training fixture/probe preflight. Full packed-text/error/selector/unit/dimension validation and separately prepared original-first evaluation remain required."
+}

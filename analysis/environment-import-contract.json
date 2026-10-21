@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "ENVTMP": 75,
+    "CNVCOF": 78,
+    "ENVATM": 79,
+    "ACVCOF": 80
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/environment-static-evidence.json",
+  "source_data": "analysis/furnace-source-extraction.json",
+  "contract": {
+    "root_tables": "The four handlers reuse RootUnitControls.tables at b18/c10/c88/d00.4154c0 reads one zeroed integer and double. Failed header returns2 before mutation. Successful header resets through12fc70 to type2/1/1e/1d, retaining54/60. Mode0 stores a scalar; mode1 selects rank1; ACVCOF2/3 select axis12/1 rather than3. Row counts use legacy CVTT truncation and12fad0 clamps negatives.41a800 reads interleaved axes/dependents, preserves direct partial values and consumes a completed positive-dependent line remainder.",
+    "unknown_selectors": "ENVTMP clears mode flagb10 after every successful header; unknown selectors leave a reset type2 table and skip the payload helper. Other unknown selectors invoke41a800 on the reset rank0 width1 table, which reads nothing. These paths succeed and retain the dormant furnace collection.",
+    "furnace_collection": "ENVTMP mode10 setsb10 and375600 recreates at least21 entries. Entries1..21 use types8e..a2; additional entries usea3.39d2a0 returns fixed21, making entry21 the packed text reader even when count22/23 is requested.136860 maps every index<=1 to the first node. Native intrusive next pointers at table+60 are represented by ordered ownership and projected to next indices in comparisons, not fabricated addresses.",
+    "constructor_defaults": "1ea6b0 requests22 entries, then375e90 applies20 layout records,40 literal writes, the parameter11 selector and conditional allocation.3769f0 normalizes the default profiles when process unit mode0; it is skipped for mode1. Retained data supplies44 factor pairs and33 axis-unit mappings. Setter130800 keeps only magnitudes strictly between1e-30 and1e30, and bounds130530 are preserved. The repeated writes/discarded conversion in the source are retained, including parameter11 double temperature conversion.",
+    "numeric_parameter_reader": "41ace0 ignores4165e0 header status, uses rank/third integer and two doubles to assign scalar/vector/rank1 profiles, and directly retains zero/partial payloads. Rank1 row0 treats the second real as a constant; negative rows clamp to0 during allocation. Invalid ranks return1 after storing rank without allocation. Completed positive-dependent reads consume a trailing line. Labels are read but not validated.",
+    "packed_parameter_reader": "41b060 uses the same header. Rank0 returns without allocation or assigning the scalar/header width. Rank1 allocates axes and dependent storage, but writes text into the dependent buffer at a fixed64-byte stride independent of declared width.413c60 trims/copies at most63 bytes;323bf0/323b90 space-pad each64-byte record. Reader EOF after a successful record reuses the known prior scratch text. First-read EOF leaves original stack bytes uninitialized; C++ marks those bytes unknown through known_dependent_bytes rather than asserting native zeros.",
+    "failure_order": "The ENVTMP mode10 parent ignores every numeric/text helper status and continues. Failed parameter headers zero local fields but do not propagate failure either.67 accepted imports verify9 ignored helper return failures and85 ignored parameter-header failures; partial data and subsequent parameter stores survive.",
+    "unit_and_dimension_lifecycle": "UNIT resets the four unit-owned tables when its valid selector changes; dormant/active furnace entries and flag remain. Dimension reset rebuilds default tables and22 furnace parameters under the process unit context while retaining the furnace name. Unchanged selectors retain imported shared table data. Both primary/linked roots, populated meshes and neighboring controls are compared."
+  },
+  "implementation": [
+    "src/recovered/furnace_model.hpp",
+    "src/recovered/furnace_model.cpp",
+    "src/recovered/furnace_source_data.inc",
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_reader.hpp",
+    "src/recovered/keyword_reader.cpp",
+    "src/recovered/keyword_import.hpp",
+    "src/recovered/keyword_import.cpp",
+    "tests/keyword_import_replay.cpp"
+  ],
+  "candidate_freeze": "analysis/environment-candidate-freeze.json",
+  "candidate_byte_identical_after_independent_evaluation": true,
+  "chronology": "Prototype source/plans precede4 original imports. Two manual source-branch condensation errors were corrected and retained in development history before freeze.32 source-planned C++ training imports precede18-file freeze. Both native training cohorts pass; separate original-first evaluation is then prepared, including3 new boundary cases. No frozen candidate changes after training.",
+  "prototype": {
+    "plan": "analysis/environment-prototype-plan.json",
+    "comparison": "analysis/environment-prototype-comparison.json",
+    "history": "analysis/environment-prototype-development.json",
+    "imports": 4,
+    "handlers": 6,
+    "checks": 392,
+    "qualification": "Development observations are separate from frozen67-import totals; original prototype capture reused for source corrections without rerunning target."
+  },
+  "native_comparisons": [
+    "analysis/environment-training-a-comparison.json",
+    "analysis/environment-training-b-comparison.json",
+    "analysis/environment-evaluation-a-comparison.json",
+    "analysis/environment-evaluation-b-comparison.json"
+  ],
+  "inputs": [
+    "analysis/environment-training-a-inputs.json",
+    "analysis/environment-training-b-inputs.json",
+    "analysis/environment-evaluation-a-inputs.json",
+    "analysis/environment-evaluation-b-inputs.json"
+  ],
+  "supplemental_preparation": "analysis/environment-boundary-preparation.json",
+  "totals": {
+    "imports": 67,
+    "handlers": 163,
+    "checks": 10568,
+    "allocations": 1193,
+    "ignored_inner_errors": 9,
+    "packed_text_lines": 26,
+    "retained_text_lines": 4,
+    "lookup_tokens": 187,
+    "eof_cursors_unobserved": 16,
+    "ignored_parameter_header_failures": 85
+  },
+  "coverage": [
+    "All four keywords and both dimensions in every cohort; finite nonzero scalar/curve effects, comma parsing, partial/matching/blank/EOF and fractional/negative counts.",
+    "All22 startup parameter tables, exact metadata/value bytes, and linked-chain projections.",
+    "Furnace requests-1,0,1,2,21,22,23; constructors and all supplied entry ordering, including scalar/vector/rank1/invalid-rank profiles.",
+    "Packed64-byte records with widths8/9,63-byte truncation, leading spaces, trailing tabs/CR/spaces, empty strings, known text retention after EOF and positive ignored rank0 fields.",
+    "Exact4154c0/4165e0 outputs, header/reset/release/entry creation/allocation/read order and propagated versus ignored statuses.",
+    "Shared UNIT storage, unchanged-selector retention, dimension/global-unit reset, dormant collection/name retention and populated mesh contexts.",
+    "Complete outer keyword lookup order and selected neighboring root/linked state."
+  ],
+  "limitations": [
+    "This recovers state/storage/import behavior, not general furnace scientific evaluation or all post-import unit conversions. The private default-conversion path is established for startup profiles.",
+    "Initialized owned rank0/1 parameter arrays are the tested data domain; invalid-rank storage/status is observed without evaluating it scientifically. Nonzero preserved54/60 in root tables and broader borrowed/cache/native ABI profiles remain unproven.",
+    "Packed writes that exceed the native dependent allocation, e.g. widths below8 for nonempty rows, are undefined in the original and rejected rather than reproduced as memory corruption.",
+    "First packed-text read EOF is source-backed unknown data, not claimed deterministic runtime equality. Unknown bytes are explicitly marked; consumers must check that metadata.",
+    "Sixteen EOF cursor positions are unobserved. First-source label errors are retained rather than removed from history.",
+    "Global application completeness, remaining root-name families, embedded-NUL parser compatibility, external workflows and scientific consumers remain required."
+  ],
+  "resource_release": {
+    "static": "analysis/environment-static-release-receipt.json",
+    "retention": "analysis/environment-evidence-retention.json",
+    "runtime": "All5 private original processes (prototype+4 cohorts) exited0. Passive Frida sessions detached with cleanup_error null, no probe errors or truncation. No static session remains open."
+  },
+  "retained_export_boundary": {
+    "artifact": "analysis/oracle/interactive/rea-step25/output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "status": 0,
+    "next_token": "UNNAME",
+    "handlers": 56
+  },
+  "regression": {
+    "status": "PASS",
+    "tests": 129,
+    "targets": 17,
+    "elapsed_seconds": 31.49,
+    "build_log": "build/environment-final-build.log",
+    "test_log": "build/environment-ctest.log"
+  },
+  "next_scope": "analysis/environment-next-scope.json",
+  "loader_api": "include/deform unchanged",
+  "artifact_policy": "Raw captures/runs/comparison receipts and individual query records remain local under ignore rules; compact source selections, required source byte records, generated constants, contracts, plans, probes, comparators and small KEY fixtures are versioned."
+}

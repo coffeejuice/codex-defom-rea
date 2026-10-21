@@ -247,6 +247,8 @@ public:
     [[nodiscard]] TextRead material_name(std::string_view previous_name = {});
     // FRNNAM uses413ab0 with capacity64: at most63 stored name bytes.
     [[nodiscard]] TextRead root_name(std::string_view previous_name = {});
+    //413c60: one line only; capacity64 with the same bounded trim semantics.
+    [[nodiscard]] TextRead furnace_text_line(std::string_view previous_name = {});
 
     [[nodiscard]] std::size_t cursor() const noexcept { return cursor_; }
     [[nodiscard]] const std::vector<LineRead>& line_reads() const noexcept { return line_reads_; }
@@ -258,6 +260,7 @@ private:
     CoordinateRead coordinates(std::size_t dimensions);
     FloatRead reals(std::size_t count);
     TextRead name_with_capacity(std::string_view previous_name, std::size_t capacity);
+    TextRead single_name_line(std::string_view previous_name, std::size_t capacity);
     MaterialColumnRead real_rows_impl(std::span<double> destination,
         int declared_rows, int row_count, int width, bool trailing_line);
 

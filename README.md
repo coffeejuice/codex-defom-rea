@@ -1872,3 +1872,32 @@ gap; it is not counted as recovered name-import support.
 See `analysis/root-fields-import-contract.json` and `analysis/root-fields-next-scope.json`.
 The database-loader API is unchanged, and complete application recovery remains
 active and incomplete.
+
+## Environmental tables and furnace storage
+
+ENVTMP75, CNVCOF78, ENVATM79 and ACVCOF80 now use the existing unit-owned
+tables. Scalar, curve and alternate ACVCOF axes preserve the original reset,
+partial-read, zeroing and error rules. ENVTMP mode10 recreates at least 21 typed
+furnace parameters; entry 21 is always the packed-text entry, including when
+extra parameters are present. Named collection links are represented by ordered
+ownership, while the furnace name remains in its existing canonical field.
+
+The startup model now contains all 22 furnace parameters, using source-derived
+layout, constants and default unit conversions. Numeric parameter headers and
+payloads preserve their original failure behavior. Text records use a 64-byte
+stride, 63-byte trimming/truncation and space padding. A failed text read after
+a successful one reuses the preceding scratch text. First-read uninitialized
+bytes remain explicitly unknown; unsafe native buffer overruns are rejected.
+
+The unchanged frozen candidate passes 67 original imports across four training
+and original-first evaluation cohorts: 163 handlers, 10,568 checks, 26 text reads,
+9 ignored helper return failures and 85 ignored parameter-header failures.
+A separate four-import prototype established the rich startup defaults; its two
+source branch-label corrections remain recorded before freeze. All 129 regression
+tests pass in 31.49s after rebuilding all seventeen executable targets.
+
+See `analysis/environment-import-contract.json` for chronology, source bindings
+and limits. General furnace scientific evaluation remains pending. The retained
+full export reaches UNNAME after 56 supported handlers, and the next scope keeps
+all four remaining root-name families. The database-loader API is unchanged;
+complete application recovery remains active and incomplete.
