@@ -237,6 +237,21 @@ void replay(std::string_view command) {
         fields << ",\"conversions\":null,\"values\":[],\""
                << (kind == "token" ? "token_hex" : "name_hex")
                << "\":\"" << hex(result.bytes) << '"';
+    } else if (kind == "real4") {
+        const auto result = reader.real_quad();
+        status = result.status;
+        fields << ",\"conversions\":" << result.conversions << ",\"values\":[";
+        std::string raw;
+        for (std::size_t i = 0; i < result.count; ++i) {
+            if (i) fields << ',';
+            if (!std::isfinite(result.values[i]))
+                throw std::runtime_error("nonfinite replay value outside compatibility domain");
+            fields << result.values[i];
+            const auto bits = std::bit_cast<std::uint64_t>(result.values[i]);
+            for (std::size_t byte = 0; byte < 8; ++byte)
+                raw.push_back(static_cast<char>((bits >> (byte * 8)) & 0xff));
+        }
+        fields << "],\"values_hex\":\"" << hex(raw) << '\"';
     } else if (kind == "real3") {
         const auto result = reader.real_triple();
         status = result.status;
@@ -368,7 +383,7 @@ void replay(std::string_view command) {
 
 // Independent requests, one line each:
 // KIND SKIP OFFSET INPUT_HEX PREVIOUS_NAME_HEX
-// KIND = token|selector|int1|int2|int3|int4|int5|int9|real1|real2|real3|realint|intrealint|customheader|dynamicheader|streamreal|coord2|coord3|matrix4|name|materialname
+// KIND = token|selector|int1|int2|int3|int4|int5|int9|real1|real2|real3|real4|realint|intrealint|customheader|dynamicheader|streamreal|coord2|coord3|matrix4|name|materialname
 // SKIP = 0|1 (only int1/int5/int9 use it); OFFSET = initial byte cursor;
 // '-' means empty hex. Previous name is used only by name; streamreal instead
 // uses that slot for eight little-endian binary64 bytes ('-' means +0).

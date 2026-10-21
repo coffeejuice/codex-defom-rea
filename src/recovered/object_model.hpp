@@ -68,6 +68,10 @@ struct SimulationControls {
     std::int32_t control_0x93c = 0;
     std::int32_t mode_0x990 = 1;
     TimeTableControls time_table;
+    double field_0xd90 = 0.0; // TNOW; scientific consumers remain unrecovered.
+    double field_0xd98 = 0.0;
+    std::int32_t field_0xda0 = 0;
+    double field_0xda8 = 0.0;
     // 1d21c0/1d2090 retain root-wide user-field definitions. The observed
     // records are64-byte calloc blocks; their contents remain opaque here.
     std::int32_t user_node_width_0x3398 = 0;
@@ -292,6 +296,7 @@ public:
     void set_simulation_type(std::int32_t value);
     void set_mesh_number(std::int32_t value);
     void set_unit(std::int32_t value);
+    void set_tnow(const std::array<double, 4>& values);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

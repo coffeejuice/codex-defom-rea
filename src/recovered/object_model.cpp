@@ -213,6 +213,19 @@ void ObjectModel::set_unit(std::int32_t value) {
     select_process_unit(value);
 }
 
+void ObjectModel::set_tnow(const std::array<double, 4>& values) {
+    require_simulation_profile(controls_);
+    auto& simulation = *controls_.simulation;
+    if (values[0] > -1e20) simulation.field_0xd90 = values[0];
+    if (values[1] > -1e20) simulation.field_0xd98 = values[1];
+    // CVTTSD2SI ECX: truncation toward zero, INT_MIN for invalid conversion.
+    // Avoid C++ undefined behavior at finite out-of-range values.
+    const auto v = values[2];
+    simulation.field_0xda0 = !std::isfinite(v) || v < -2147483648.0 || v >= 2147483648.0
+        ? std::numeric_limits<std::int32_t>::min() : static_cast<std::int32_t>(v);
+    if (values[3] > -1e20) simulation.field_0xda8 = values[3];
+}
+
 void ObjectModel::set_output_flags(const std::array<int, 7>& values) {
     require_simulation_profile(controls_);
     controls_.simulation->output_flags = values;

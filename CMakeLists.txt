@@ -64,6 +64,19 @@ target_link_libraries(unit_system_test PRIVATE deform_recovered_state)
 add_test(NAME unit_owned_state_contract COMMAND unit_system_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(tnow_batch IN ITEMS training evaluation)
+    set(tnow_plan "tnow-fixture-plan.json")
+    if(tnow_batch STREQUAL "evaluation")
+      set(tnow_plan "tnow-evaluation-inputs.json")
+    endif()
+    add_test(NAME "tnow_${tnow_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_tnow_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/tnow-runtime-${tnow_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/tnow-${tnow_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${tnow_plan}")
+  endforeach()
   add_test(NAME unit_discovery_cpp_reference_replay
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_unit_import.py"
       --driver "$<TARGET_FILE:keyword_import_replay>"

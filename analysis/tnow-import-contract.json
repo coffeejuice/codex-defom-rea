@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_bounded_native_comparisons_passed",
+  "keyword": "TNOW31",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/tnow-static-evidence.json",
+  "recovered_contract": {
+    "dispatcher": "0x14039aa90 case9",
+    "reader": "0x140414e40",
+    "defaults": "0x1401ead60",
+    "abi": "RCX=FILE,RDX=out0,R8=out1,R9=out2,[caller RSP+20]=out3; four separate double outputs initialized to+0 before fgets.",
+    "grammar": "One fgets1024 line; commas become spaces; four legacy %Flf conversions. EOF or scanf-1 returns1; zero or partial conversions otherwise return0. No blank retry. Unassigned outputs retain initialized zero.",
+    "mutations": "Apply after reader success or failure in source order: output0>-1e20 stores rootd90; output1>-1e20 stores rootd98; output2 always truncates toward zero to signed32 at rootda0; output3>-1e20 stores rootda8. x64 invalid/out-of-range integer conversion yields INT_MIN.",
+    "status": "Reader0 maps handler0; reader1 maps handler2. Later successful handlers do not erase the wrapper sticky error.",
+    "initialization": "All four fields default to zero. Changed dimension resets them; unchanged dimension retains them. No handler refresh or linked-root propagation.",
+    "naming": "Raw offsets retained; downstream scientific meanings are not inferred."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/keyword_reader.hpp",
+      "src/recovered/keyword_reader.cpp",
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "api": "Existing include/deform loader API unchanged. Internal C++ state is not a claim of binary layout compatibility."
+  },
+  "candidate_freeze": "analysis/tnow-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "Implementation and observer frozen before both new native runs. Separately recorded evaluation sequence executed on original before replacement. Existing setup grammar and some scalar values reused; new state sequences, sentinel boundary combinations and partial-input cases were not pre-executed on replacement.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_TNOW_COMPARISON",
+      "imports": 18,
+      "handlers": 27,
+      "checks": 1053,
+      "eof_cursors_unobserved": 1,
+      "evidence_id": "ev_b582cd8fba6e2a8a2fb94a74ded98b042c6f424a1a4a1dca70a8d9e0eb76aea2",
+      "capture_sha256": "afcea77b84677c99d0188a6ed967962ffdca0d7b47dd690c714b5675ab4aa45f",
+      "run_sha256": "607c41589af2ab13eb72a5c597e0f489fe8c7596498d4968a71be0a6ae135726",
+      "scope": "Initialized ordinary roots, finite real inputs, source-derived thresholds and x64 truncation. Four raw helper outputs, full selected handler state and linked isolation compare. Scientific consumers and general decimal rounding remain pending."
+    },
+    {
+      "status": "PASS_NATIVE_TNOW_COMPARISON",
+      "imports": 10,
+      "handlers": 12,
+      "checks": 520,
+      "eof_cursors_unobserved": 2,
+      "evidence_id": "ev_faab1da82684233e34801a44cf9ce20e3ebec30667c51136085505bc4b6e20ad",
+      "capture_sha256": "14419a7bc1a89baa6207fdf85e7b090f10660b2b9e79e2215109eaa928f78f6a",
+      "run_sha256": "f7d4be3f3098e2adf3bfb784da5e7e8df2ea7640fff135a2a6f9ee976c60ec9e",
+      "scope": "Initialized ordinary roots, finite real inputs, source-derived thresholds and x64 truncation. Four raw helper outputs, full selected handler state and linked isolation compare. Scientific consumers and general decimal rounding remain pending."
+    }
+  ],
+  "totals": {
+    "imports": 28,
+    "handlers": 39,
+    "checks": 1573,
+    "eof_cursors_unobserved": 3
+  },
+  "inputs": [
+    "analysis/tnow-fixture-plan.json",
+    "analysis/tnow-evaluation-inputs.json"
+  ],
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "TRANS",
+    "supported_handlers": 9
+  },
+  "local_artifacts": [
+    {
+      "path": "analysis/tnow-runtime-training.json",
+      "bytes": 230953,
+      "sha256": "afcea77b84677c99d0188a6ed967962ffdca0d7b47dd690c714b5675ab4aa45f",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/tnow-training/run.json",
+      "bytes": 27125,
+      "sha256": "607c41589af2ab13eb72a5c597e0f489fe8c7596498d4968a71be0a6ae135726",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/tnow-training/observer-source.js",
+      "bytes": 3197,
+      "sha256": "6aa0036899429e8c6a5bd10c43ba2f439bb53a7dc6d4ef44d9c741ae548dcfe2",
+      "local_only": true
+    },
+    {
+      "path": "analysis/tnow-runtime-evaluation.json",
+      "bytes": 113408,
+      "sha256": "14419a7bc1a89baa6207fdf85e7b090f10660b2b9e79e2215109eaa928f78f6a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/tnow-evaluation/run.json",
+      "bytes": 16692,
+      "sha256": "f7d4be3f3098e2adf3bfb784da5e7e8df2ea7640fff135a2a6f9ee976c60ec9e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/tnow-evaluation/observer-source.js",
+      "bytes": 3199,
+      "sha256": "b80d9af9284d4f794d2044fb18d966d5ff9715fc87cbb813353d81c80e247be9",
+      "local_only": true
+    }
+  ],
+  "limitations": [
+    "Native comparison covers initialized ordinary console roots and bounded finite representable numeric fixtures. General decimal rounding, nonfinite text, allocation failure and scientific consumers remain unverified.",
+    "Three EOF cursor positions were unavailable after native CRT buffer reset. Observed nonzero positions compare exactly.",
+    "Linked TNOW state and selected configuration/component/global state compare; the passive probe is not a proof that no other memory changed.",
+    "Reference replay tests require ignored local captures/run records/observer copies; they do not launch the original.",
+    "Full export stops at TRANS after nine supported handlers. Full application reconstruction remains active and incomplete."
+  ],
+  "resource_release": "Both REA Frida runs detached without probe error, message truncation or cleanup error; both original processes exited0. No native static session opened during this checkpoint.",
+  "regression": {
+    "registered": 96,
+    "passed": 96,
+    "failed": 0,
+    "seconds": 76.79,
+    "build": "All16 executable targets built; complete regression passed."
+  }
+}

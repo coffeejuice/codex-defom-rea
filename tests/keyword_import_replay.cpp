@@ -676,6 +676,15 @@ void state(const ObjectModel& model) {
     else std::cout << "null";
     std::cout << ",\"global_units\":";
     global_units();
+    std::cout << ",\"tnow\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& s = *controls.simulation;
+        std::cout << "{\"field_0xd90_hex\":"; raw_values(std::span(&s.field_0xd90, 1));
+        std::cout << ",\"field_0xd98_hex\":"; raw_values(std::span(&s.field_0xd98, 1));
+        std::cout << ",\"field_0xda0\":" << s.field_0xda0 << ",\"field_0xda8_hex\":";
+        raw_values(std::span(&s.field_0xda8, 1)); std::cout << '}';
+    }
     std::cout << ",\"custom_last_id_0x33b8\":" << model.custom_last_id();
     std::cout << ",\"simulation_mode\":";
     if (!controls.simulation) std::cout << "null";

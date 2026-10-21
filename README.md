@@ -1513,3 +1513,23 @@ after eight supported handlers; the loader API is unchanged.
 Run `ctest --test-dir build -C Release -R unit --output-on-failure`. The owned
 state test uses tracked sources; original reference replays need ignored local
 captures, run records and observer copies. They do not launch the original app.
+
+## TNOW implementation checkpoint
+
+TNOW now reproduces the four-output reader and source-ordered mutations. Three
+double fields retain their prior values at or below the original -1e20 sentinel;
+the third input always truncates to signed32 with the original x64 out-of-range
+result. Partial and failed reads still apply the reader's initialized outputs.
+Changed dimensions reset these controls; the handler does not refresh or modify
+the linked root. Raw field names remain until scientific consumers are recovered.
+
+The unchanged candidate matches28 original imports,39 handlers and1573 checks,
+including10 separately recorded evaluation imports. Three EOF cursor positions
+remain unobserved. `analysis/tnow-import-contract.json` binds the retained REA
+evidence, exact threshold bytes, fixtures, candidate and native runs. The full
+export now reaches TRANS after nine supported handlers; the loader API is unchanged.
+All96 regression tests pass.
+
+Run `ctest --test-dir build -C Release -R tnow --output-on-failure`. These reference
+replays require ignored local capture/run/observer files and do not launch the
+original app. General numeric rounding and scientific consumers remain pending.

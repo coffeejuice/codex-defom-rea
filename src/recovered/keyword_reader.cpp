@@ -319,6 +319,18 @@ KeywordReader::FloatTripleRead KeywordReader::real_triple() {
     return result;
 }
 
+KeywordReader::FloatQuadRead KeywordReader::real_quad() {
+    require_c_locale();
+    FloatQuadRead result;
+    auto input = line();
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    result.conversions = decimal_conversions(
+        std::string_view(input.bytes.c_str()), result.values);
+    result.status = result.conversions == -1 ? 1 : 0;
+    return result;
+}
+
 KeywordReader::RealIntegerRead KeywordReader::real_integer() {
     require_c_locale();
     RealIntegerRead result;

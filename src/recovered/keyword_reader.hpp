@@ -93,6 +93,12 @@ public:
         int status = 1;
         int conversions = -1;
     };
+    struct FloatQuadRead {
+        std::array<double, 4> values{};
+        std::size_t count = 4;
+        int status = 1;
+        int conversions = -1;
+    };
     struct TextRead {
         std::string bytes;
         int status = 1;
@@ -153,6 +159,7 @@ public:
     [[nodiscard]] FloatRead real();
     [[nodiscard]] FloatRead real_pair();
     [[nodiscard]] FloatTripleRead real_triple(); // 414c20, three real destinations.
+    [[nodiscard]] FloatQuadRead real_quad(); // 414e40, four zeroed destinations.
     // 416aa0: one line, comma replacement, then legacy %Flf %i. Both
     // destinations start at zero; successful partial assignments survive.
     [[nodiscard]] RealIntegerRead real_integer();
