@@ -331,6 +331,27 @@ KeywordReader::FloatQuadRead KeywordReader::real_quad() {
     return result;
 }
 
+KeywordReader::IntegerArrayRead KeywordReader::integer_array10() {
+    require_c_locale();
+    IntegerArrayRead result;
+    auto input = line(); // Consumed even when the caller requests no copies.
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    auto& v = result.values;
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4996)
+#endif
+    result.conversions = std::sscanf(input.bytes.c_str(),
+        "%i %i %i %i %i %i %i %i %i %i", &v[0], &v[1], &v[2], &v[3], &v[4],
+        &v[5], &v[6], &v[7], &v[8], &v[9]);
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+    result.status = 0; // Conversion failure is ignored by the original helper.
+    return result;
+}
+
 KeywordReader::RealIntegerRead KeywordReader::real_integer() {
     require_c_locale();
     RealIntegerRead result;

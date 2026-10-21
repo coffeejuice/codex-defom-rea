@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "status": "implemented_defined_input_subset_runtime_tested",
+  "keyword": "ELMNOD35",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/elmnod-static-evidence.json",
+  "reader_contract": {
+    "dispatcher": "39aa90 case13 always calls413de0(FILE,&count,skip0), then4147e0(FILE,root888,&count), then1d0fc0(root,0). Only initial header status contributes to handler result.",
+    "payload": "Always fgets1024 one line. EOF returns1 without writing fields. Any present line replaces commas and scans ten base0 integers into uninitialized locals. Copy at most10 requested positive fields, without modifying the input count pointer. Zero or negative requested count still consumes the payload line but copies nothing. Conversion-count failure is ignored by original.",
+    "defined_domain": "All requested copied entries must have assigned scan values, unless fgets EOF prevents copying. Non-copied temporary values can be uninitialized without affecting fields.",
+    "initialization": "1e7e90 zeros controls138..15c, corresponding to ten root888..8ac fields. Same-dimension headers retain; changed dimensions reconstruct defaults."
+  },
+  "implementation": {
+    "storage": "One ten-int array. grain_mode_0x898 accessor aliases slot4; no duplicate grain state. Prefix copies retain the tail. Grain queries53/29 can overwrite slot4 during the mandatory refresh.",
+    "layout": "Route first three raw fields into existing1d0320 layout: root888 gates component28; root88c gates27; root890 gates26. Values0/3 suppress these widths. Existing asserted unit-multiplicity profile is retained; no guessed element-multiplicity conversion.",
+    "status": "Header0 gives handler0; header1 gives handler2. Payload EOF alone gives no handler error. Refresh runs after header/payload failure whenever control values remain defined.",
+    "indeterminate": "Known prefix writes are retained. Unassigned copied positions are marked unknown, rendered null with a known mask, and cause an explicit unsupported result. Further imports and refreshes reject that model until reset/reconstructed. This is not a claim that original returns an error; original copies indeterminate stack values then refreshes.",
+    "api": "Existing include/deform loader API unchanged. New internal int10 replay exposes only assigned scan values, never invented temporary contents. Native object ABI is not reconstructed."
+  },
+  "candidate_freeze": "analysis/elmnod-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "Source-derived31-input training plan ran on C++ before original as preflight. Candidate frozen before original training. Twenty new evaluation inputs were then prepared and executed on original before C++, with no candidate change. No native insufficient-assignment experiment was run.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_ELMNOD_COMPARISON",
+      "imports": 31,
+      "handlers": 22,
+      "checks": 2067,
+      "observed_grain_alias_overwrites": 2,
+      "eof_cursors_unobserved": 4,
+      "evidence_id": "ev_e5a7a85a2ed9f60d8f99486c7d1d6a794ddfe7e9676cf61a6491f09c6d631efb",
+      "capture_sha256": "a1e684d78392fc38d5f0c24684b12a76cffee4d550c2d4fe268cbf96abf5a8f6",
+      "run_sha256": "3fe4a94a590788f88443a9c236a15fe77b183ba08bf53df1eadccf033add7970",
+      "scope": "Defined copied prefixes, ordinary initialized roots. Header/payload status, count clamp, exact ten fields, aliasing, all79 widths, refresh order and linked state. Native indeterminate-stack payloads and full scientific buffers excluded."
+    },
+    {
+      "status": "PASS_NATIVE_ELMNOD_COMPARISON",
+      "imports": 20,
+      "handlers": 14,
+      "checks": 1323,
+      "observed_grain_alias_overwrites": 2,
+      "eof_cursors_unobserved": 4,
+      "evidence_id": "ev_9e6d32e0b80d0d383c1ec3b50a9f76f0e74d67f9a85a5a8e659a57abe5b0239b",
+      "capture_sha256": "efd820ba4e8306f6e3c20b6493c6d89001ffa97a7290ecd33eab836c5d1e56b4",
+      "run_sha256": "a4b791f5810d5722a45e7988779987934974375a4be853c4522d301e93e4eb99",
+      "scope": "Defined copied prefixes, ordinary initialized roots. Header/payload status, count clamp, exact ten fields, aliasing, all79 widths, refresh order and linked state. Native indeterminate-stack payloads and full scientific buffers excluded."
+    }
+  ],
+  "totals": {
+    "imports": 51,
+    "handlers": 36,
+    "checks": 3390,
+    "observed_grain_alias_overwrites": 4,
+    "eof_cursors_unobserved": 8
+  },
+  "inputs": [
+    "analysis/elmnod-fixture-plan.json",
+    "analysis/elmnod-evaluation-inputs.json"
+  ],
+  "source_guard": {
+    "tool": "tools/check_elmnod_unknown_controls.py",
+    "status": "PASS_ELMNOD_UNKNOWN_CONTROL_GUARD",
+    "qualification": "Replacement/source-only guard: indeterminate copied fields become unknown, follow-up imports blocked, fresh model restores known state. No original stack contents claimed."
+  },
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "STPINC",
+    "supported_handlers": 14
+  },
+  "local_artifacts": [
+    {
+      "path": "analysis/elmnod-runtime-training.json",
+      "bytes": 437052,
+      "sha256": "a1e684d78392fc38d5f0c24684b12a76cffee4d550c2d4fe268cbf96abf5a8f6",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/elmnod-training/run.json",
+      "bytes": 44505,
+      "sha256": "3fe4a94a590788f88443a9c236a15fe77b183ba08bf53df1eadccf033add7970",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/elmnod-training/observer-source.js",
+      "bytes": 3774,
+      "sha256": "2102efcc8f9c0320499d4c25e42b54b83d0f0253b3381b4f26829cb4c8216eff",
+      "local_only": true
+    },
+    {
+      "path": "analysis/elmnod-runtime-evaluation.json",
+      "bytes": 280513,
+      "sha256": "efd820ba4e8306f6e3c20b6493c6d89001ffa97a7290ecd33eab836c5d1e56b4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/elmnod-evaluation/run.json",
+      "bytes": 30199,
+      "sha256": "a4b791f5810d5722a45e7988779987934974375a4be853c4522d301e93e4eb99",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/elmnod-evaluation/observer-source.js",
+      "bytes": 3776,
+      "sha256": "9df5e8f0c2eb754c17c22a0b2193833907b46b413242e978a6eedce02986cb91",
+      "local_only": true
+    }
+  ],
+  "regression": {
+    "registered": 108,
+    "passed": 108,
+    "failed": 0,
+    "seconds": 60.44,
+    "build": "All17 executable targets rebuilt; full regression once after implementation."
+  },
+  "limitations": [
+    "Indeterminate copied native stack values are recorded as unknown, not reproduced. The guarded C++ unsupported/reset workflow is explicit and differs from undefined original continuation.",
+    "First-three layout effects and selected raw controls/79 widths compare; complete scientific buffer contents, arbitrary ownership/sharing and downstream consumers remain pending.",
+    "Eight native EOF cursor positions unavailable; observed nonzero cursors match.",
+    "Bounded signed32 inputs and existing numeric reader compatibility domain; overflowing conversions and allocation failure not validated.",
+    "Reference replays need ignored local capture/run/observer files and do not launch the original.",
+    "Retained export stops at STPINC after fourteen supported handlers; full application recovery remains active and incomplete."
+  ],
+  "resource_release": "One new static REA function analyzed, session closed to elmnod-reader-snapshot.json. Both passive Frida runs detached with no probe error, truncation or cleanup error; original processes exited0.",
+  "efficiency_review": "analysis/efficiency-review-20261021-elmnod.json"
+}

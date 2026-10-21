@@ -62,3 +62,29 @@ new speed proposals remain subordinate to evidence and fidelity.
 
 Evidence: `analysis/efficiency-review-20261021-trans.json`,
 `analysis/trans-coverage-guard-validation.json`, `analysis/trans-import-contract.json`.
+
+
+## Safe-checkpoint review after ELMNOD, 2026-10-21
+
+The third completed recovery checkpoint since the prior review is included before
+commit. The bounded report covers the preceding TRANS and HTMTHD turns, not this
+still-active ELMNOD turn. TRANS took41m18s and HTMTHD14m03s; different scopes prevent
+a speed comparison. Tool interval unions were552.8s and161.3s; observed reasoning
+822.4s and337.8s; unattributed1225.3s and365.8s. No cause is assigned to unattributed
+time. Largest timed tool items were a119.4s native analysis request and a47.3s
+command respectively. Cached/uncached input and output usage remain separate in
+the JSON report; no cost estimate is inferred.
+
+Source reuse, local preflight and explicit effect checks remain useful: ELMNOD
+needed one new static function, two original cohorts and no runtime retry. Both
+cohorts verified intended array/refresh/alias effects on the first original run.
+Two local authoring/protocol mistakes were corrected before native execution.
+All108 regression tests passed in60.44s. Variation from46.61s or53.95s is not a
+measured tooling regression under uncontrolled load.
+
+No new tooling change is justified in this review. Keep the existing bounded
+workflow. Capture gate waits are recorded in efficiency-state for future analysis;
+gate time alone does not identify a model/client/approval cause.
+
+Evidence: `analysis/efficiency-review-20261021-elmnod.json`,
+`analysis/elmnod-import-contract.json`, `analysis/efficiency-state.json`.

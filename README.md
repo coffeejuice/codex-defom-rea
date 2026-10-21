@@ -1603,3 +1603,29 @@ is unchanged.
 
 Run `ctest --test-dir build -C Release -R htmthd --output-on-failure`. Reference
 replays need ignored local capture/run/observer files and do not launch the original.
+
+## ELMNOD implementation checkpoint
+
+ELMNOD reads a count and always consumes one payload line, including zero or
+negative counts. It copies at most ten integers and retains the remaining fields.
+The payload reader's return status is ignored; refresh follows even after header
+or payload EOF. The handler error depends on the initial count read.
+
+The ten fields now share storage with the grain-mode alias in slot four. Their
+first three entries feed the recovered component-layout gates. Known values and
+unknown values are distinguished: insufficient assignments for a copied prefix
+would make the original copy uninitialized stack words. C++ preserves the known
+prefix, marks the rest unknown and reports unsupported state until a model reset.
+This guard is source-tested and is not an invented original Reading Error.
+
+The unchanged candidate matches 51 original imports, 36 handlers and 3,390 checks,
+including four grain-mode alias overwrites and 20 new original-first evaluation
+imports. All 108 regression tests pass. Eight EOF cursor positions remain
+unavailable. Full scientific buffers and consumers remain pending.
+
+`analysis/elmnod-import-contract.json` records source evidence, the defined input
+domain and guard limitations. The retained export now reaches STPINC after fourteen
+supported handlers. The loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R elmnod --output-on-failure`. Native reference
+replays need ignored local captures; the unknown-control guard uses only C++.

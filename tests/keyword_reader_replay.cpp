@@ -237,6 +237,17 @@ void replay(std::string_view command) {
         fields << ",\"conversions\":null,\"values\":[],\""
                << (kind == "token" ? "token_hex" : "name_hex")
                << "\":\"" << hex(result.bytes) << '"';
+    } else if (kind == "int10") {
+        if (skip != 0 || previous != "-")
+            throw std::runtime_error("int10 requires SKIP0 and no prior state");
+        const auto result = reader.integer_array10();
+        status = result.status;
+        fields << ",\"conversions\":" << result.conversions << ",\"values\":[";
+        for (int i = 0; i < result.conversions; ++i) {
+            if (i) fields << ',';
+            fields << result.values[i];
+        }
+        fields << ']'; // Unassigned native temporary words are not guessed.
     } else if (kind == "real4") {
         const auto result = reader.real_quad();
         status = result.status;
@@ -383,7 +394,7 @@ void replay(std::string_view command) {
 
 // Independent requests, one line each:
 // KIND SKIP OFFSET INPUT_HEX PREVIOUS_NAME_HEX
-// KIND = token|selector|int1|int2|int3|int4|int5|int9|real1|real2|real3|real4|realint|intrealint|customheader|dynamicheader|streamreal|coord2|coord3|matrix4|name|materialname
+// KIND = token|selector|int1|int2|int3|int4|int5|int9|int10|real1|real2|real3|real4|realint|intrealint|customheader|dynamicheader|streamreal|coord2|coord3|matrix4|name|materialname
 // SKIP = 0|1 (only int1/int5/int9 use it); OFFSET = initial byte cursor;
 // '-' means empty hex. Previous name is used only by name; streamreal instead
 // uses that slot for eight little-endian binary64 bytes ('-' means +0).

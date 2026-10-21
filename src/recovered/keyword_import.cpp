@@ -58,6 +58,9 @@ std::string unsupported_controls(const RootControls& controls) {
         return "root dimension must be 2 or 3";
     if (controls.alternate_root_enabled)
         return "alternate-root dispatch is not implemented";
+    if (controls.simulation && std::any_of(controls.simulation->element_layout_known.begin(),
+            controls.simulation->element_layout_known.end(), [](bool known) { return !known; }))
+        return "ELMNOD control state contains indeterminate native values; reset the model before importing";
     if (controls.element_multiplicities != std::array<int, 3>{1, 1, 1})
         return "nonunit element multiplicities are not implemented";
     if (controls.component_counts[0] != controls.dimension)
@@ -126,7 +129,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 34) || id == 36 || id == 38 || id == 48 || id == 49 || id == 50 || id == 51)) ||
+    return (category == 1 && ((id >= 22 && id <= 36) || id == 38 || id == 48 || id == 49 || id == 50 || id == 51)) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -203,6 +206,21 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
         const auto read = reader.integer(); // 413de0 skip0, live root868.
         model.set_heat_method(read.values[0]); // Zero is stored even on failure.
         return read.status == 0 ? 0 : 2;
+    }
+    if (id == 35) {
+        const auto header = reader.integer();
+        const auto payload = reader.integer_array10(); // Runs even after header failure.
+        if (payload.status == 0) {
+            const int copied = std::clamp(header.values[0], 0, 10);
+            const int known = std::min(copied, std::max(payload.conversions, 0));
+            model.set_element_layout_prefix(std::span(payload.values).first(known));
+            if (known != copied) {
+                model.mark_element_layout_indeterminate(known, copied);
+                throw std::runtime_error("ELMNOD copies uninitialized native payload values outside the compatibility domain");
+            }
+        }
+        model.refresh_components(); // Payload return status is deliberately ignored.
+        return header.status == 0 ? 0 : 2;
     }
     if (id == 34) {
         // 414600: nine base0 integers, no blank-line retry. Only seven are

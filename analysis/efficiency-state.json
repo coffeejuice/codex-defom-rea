@@ -2,8 +2,8 @@
   "schema_version": 1,
   "enabled": true,
   "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
-  "last_review_utc": "2026-10-21T14:25:43.908743+00:00",
-  "last_review_head": "5acf38769e1ce4456fdc254f48f867f42b5ae192",
+  "last_review_utc": "2026-10-21T15:21:32.746904+00:00",
+  "last_review_head": "b1c66c41af45cd1e5d29869f013626265d1663b8",
   "cadence": {
     "recovery_checkpoints": 3,
     "minutes": 60,
@@ -27,19 +27,27 @@
   "pending_measurement": "Compare similar future phase timings and usage with baseline; no end-to-end speedup claimed yet.",
   "automation_status": "ACTIVE",
   "latest_checkpoint_observation": {
-    "checkpoint": "analysis/htmthd-import-contract.json",
-    "full_regression_seconds": 46.61,
-    "tests_passed": 105,
-    "previous_samples_seconds": [
-      29.19,
-      76.79,
-      53.95
+    "checkpoint": "analysis/elmnod-import-contract.json",
+    "full_regression_seconds": 60.44,
+    "tests_passed": 108,
+    "native_cohorts": 2,
+    "native_retries": 0,
+    "capture_windows": [
+      {
+        "batch": "training",
+        "elapsed_seconds": 41.234,
+        "gate_wait_seconds": 41.094
+      },
+      {
+        "batch": "evaluation",
+        "elapsed_seconds": 23.546,
+        "gate_wait_seconds": 23.453
+      }
     ],
-    "qualification": "Uncontrolled load and different test counts; no total speedup inferred. Retained REA sources reused, no new static cold session.",
-    "positive_effect_expectations": "Every import asserts planned native wrapper status and final raw method; handlers also assert original reader outputs, preventing matching error-state claims."
+    "qualification": "No fair total speed comparison; tasks/counts/load differ. Current native intended effects passed on first run after local preflight."
   },
-  "latest_review": "analysis/efficiency-review-20261021-trans.json",
-  "latest_review_checkpoint": "analysis/trans-import-contract.json",
-  "latest_review_qualification": "Timing report covers completed turns only; current implementation turn is not included. Capture run elapsed includes gate waits; no total-speedup claim.",
+  "latest_review": "analysis/efficiency-review-20261021-elmnod.json",
+  "latest_review_checkpoint": "analysis/elmnod-import-contract.json",
+  "latest_review_qualification": "Review includes the third completed checkpoint in working tree before commit. Timing audit covers two previously completed turns, not current implementation turn. No new tooling change justified.",
   "latest_guard_validation": "analysis/trans-coverage-guard-validation.json"
 }

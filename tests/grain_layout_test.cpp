@@ -24,11 +24,11 @@ int main() {
         model.refresh_components();
         require(model.controls().component_counts[29] == (dimension == 2 ? 7 : 11),
                 "query29 must use its dimension-selected positive fallback");
-        require(model.controls().simulation->grain_mode_0x898 == 1, "query29 mode side effect");
+        require(model.controls().simulation->grain_mode_0x898() == 1, "query29 mode side effect");
         model.set_trans({-1, -1, -1, -1, 0});
         model.refresh_components();
         require(model.controls().component_counts[29] == 0, "disabled query must clear width");
-        require(model.controls().simulation->grain_mode_0x898 == 1, "disabled query retains898");
+        require(model.controls().simulation->grain_mode_0x898() == 1, "disabled query retains898");
         model.set_dimension(dimension == 2 ? 3 : 2);
         require(model.controls().raw_0x1dc0[185] == 0 && model.controls().raw_0x1dc0[186] == 0,
                 "changed-dimension construction must zero fallback table");

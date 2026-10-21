@@ -19,6 +19,9 @@ ComponentLayoutInputs default_material_layout(int dimension,
     ComponentLayoutInputs input{};
     input.dimension = dimension;
     input.root_0x850 = simulation.geometry_type;
+    input.root_0x888 = simulation.element_layout_0x888[0];
+    input.root_0x88c = simulation.element_layout_0x888[1];
+    input.root_0x890 = simulation.element_layout_0x888[2];
     input.root_0x1320 = material_count;
     input.root_0x13f4 = relation_count;
     input.root_0x3398 = simulation.user_node_width_0x3398;
@@ -250,6 +253,20 @@ void ObjectModel::set_heat_method(std::int32_t value) {
     controls_.simulation->method_0x868 = value;
 }
 
+void ObjectModel::set_element_layout_prefix(std::span<const int> values) {
+    require_simulation_profile(controls_);
+    if (values.size() > 10) throw std::invalid_argument("ELMNOD prefix exceeds ten fields");
+    std::copy(values.begin(), values.end(), controls_.simulation->element_layout_0x888.begin());
+    std::fill_n(controls_.simulation->element_layout_known.begin(), values.size(), true);
+}
+
+void ObjectModel::mark_element_layout_indeterminate(std::size_t known, std::size_t copied) {
+    require_simulation_profile(controls_);
+    if (known > copied || copied > 10) throw std::invalid_argument("invalid ELMNOD unknown range");
+    std::fill(controls_.simulation->element_layout_known.begin() + known,
+        controls_.simulation->element_layout_known.begin() + copied, false);
+}
+
 void ObjectModel::refresh_components() {
     refresh_components_impl({}, false);
 }
@@ -317,14 +334,14 @@ std::array<int, 2> ObjectModel::grain_component_widths() {
         const int selector = material->feature_0x17e8;
         if (selector == 1 || selector == 4 || selector == 5) {
             widths[0] = 16;
-            simulation.grain_mode_0x898 = 0;
+            simulation.grain_mode_0x898() = 0;
             break;
         }
     }
     if (std::none_of(materials_.begin(), materials_.end(), [](const auto& material) {
             return material->feature_0x17e8 == 2;
         })) return widths;
-    simulation.grain_mode_0x898 = 1;
+    simulation.grain_mode_0x898() = 1;
     const auto count = [](const MaterialRecord& material) -> std::int64_t {
         if (material.feature_0x17e8 != 2) return 0;
         std::int64_t result = 1; // 28b780 includes the embedded record once.
@@ -390,6 +407,9 @@ void ObjectModel::apply_relation_mode(RelationRecord& relation, std::int32_t mod
 void ObjectModel::refresh_components_impl(std::span<const int> old_material_ids,
     bool remap_materials) {
     require_simulation_profile(controls_);
+    if (std::any_of(controls_.simulation->element_layout_known.begin(),
+            controls_.simulation->element_layout_known.end(), [](bool known) { return !known; }))
+        throw std::invalid_argument("component refresh requires defined ELMNOD controls");
     const bool enabled = material_columns_enabled();
     const bool remap = remap_materials && enabled && !old_material_ids.empty();
     const int old_width = controls_.component_counts[49];

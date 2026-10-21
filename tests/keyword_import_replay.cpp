@@ -694,8 +694,31 @@ void state(const ObjectModel& model) {
             s.material_gate_0x85c, s.flag_0x860, s.grain_gate_0x864};
         numbers(fields);
     }
+    std::cout << ",\"element_layout_0x888\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        std::cout << '[';
+        for (std::size_t i = 0; i < 10; ++i) {
+            if (i) std::cout << ',';
+            if (controls.simulation->element_layout_known[i])
+                std::cout << controls.simulation->element_layout_0x888[i];
+            else std::cout << "null";
+        }
+        std::cout << ']';
+    }
+    std::cout << ",\"element_layout_known\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        std::cout << '[';
+        for (std::size_t i = 0; i < 10; ++i) {
+            if (i) std::cout << ',';
+            std::cout << (controls.simulation->element_layout_known[i] ? "true" : "false");
+        }
+        std::cout << ']';
+    }
     std::cout << ",\"grain_mode_0x898\":";
-    if (controls.simulation) std::cout << controls.simulation->grain_mode_0x898;
+    if (controls.simulation && controls.simulation->element_layout_known[4])
+        std::cout << controls.simulation->grain_mode_0x898();
     else std::cout << "null";
     std::cout << ",\"simulation_mode\":";
     if (!controls.simulation) std::cout << "null";

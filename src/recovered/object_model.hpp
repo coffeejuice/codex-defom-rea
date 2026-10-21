@@ -60,7 +60,10 @@ struct SimulationControls {
     std::int32_t flag_0x860 = 0;
     std::int32_t grain_gate_0x864 = 0;
     std::int32_t method_0x868 = 0; // HTMTHD raw int; scientific consumers pending.
-    std::int32_t grain_mode_0x898 = 0; // Mutated by queries53 then29, not TRANS.
+    std::array<int, 10> element_layout_0x888{}; // ELMNOD; initialized by1e7e90.
+    std::array<bool, 10> element_layout_known{true,true,true,true,true,true,true,true,true,true};
+    int& grain_mode_0x898() noexcept { return element_layout_0x888[4]; }
+    const int& grain_mode_0x898() const noexcept { return element_layout_0x888[4]; }
     std::array<int, 7> output_flags{0, 0, 0, 0, 1, 0, 0}; // +0x86c..0x884.
     std::int32_t step_number_0x8b0 = -1; // NSTART.
     std::int32_t saved_step_0x744 = -1;
@@ -306,6 +309,8 @@ public:
     void set_tnow(const std::array<double, 4>& values);
     void set_trans(const std::array<int, 5>& values);
     void set_heat_method(std::int32_t value);
+    void set_element_layout_prefix(std::span<const int> values);
+    void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

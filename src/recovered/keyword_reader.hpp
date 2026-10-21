@@ -33,6 +33,11 @@ public:
         int status = 1;
         int conversions = -1; // -1 also used when no scan occurs at EOF.
     };
+    struct IntegerArrayRead {
+        std::array<int, 10> values{};
+        int status = 1; // 4147e0: only fgets EOF is failure.
+        int conversions = -1; // Only this prefix has defined native values.
+    };
     struct CoordinateRead {
         int label = 0;
         std::array<double, 3> values{};
@@ -160,6 +165,7 @@ public:
     [[nodiscard]] FloatRead real_pair();
     [[nodiscard]] FloatTripleRead real_triple(); // 414c20, three real destinations.
     [[nodiscard]] FloatQuadRead real_quad(); // 414e40, four zeroed destinations.
+    [[nodiscard]] IntegerArrayRead integer_array10(); // 4147e0 temporary scan.
     // 416aa0: one line, comma replacement, then legacy %Flf %i. Both
     // destinations start at zero; successful partial assignments survive.
     [[nodiscard]] RealIntegerRead real_integer();

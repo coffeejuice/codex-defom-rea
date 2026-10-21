@@ -67,6 +67,22 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME elmnod_unknown_control_source_guard
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/check_elmnod_unknown_controls.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>")
+  foreach(elmnod_batch IN ITEMS training evaluation)
+    set(elmnod_plan "elmnod-fixture-plan.json")
+    if(elmnod_batch STREQUAL "evaluation")
+      set(elmnod_plan "elmnod-evaluation-inputs.json")
+    endif()
+    add_test(NAME "elmnod_${elmnod_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_elmnod_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/elmnod-runtime-${elmnod_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/elmnod-${elmnod_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${elmnod_plan}")
+  endforeach()
   foreach(htmthd_batch IN ITEMS training evaluation)
     set(htmthd_plan "htmthd-fixture-plan.json")
     if(htmthd_batch STREQUAL "evaluation")
