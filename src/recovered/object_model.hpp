@@ -49,6 +49,7 @@ struct TimeTableControls {
 // This profile is not inferred from an externally supplied component table.
 struct SimulationControls {
     std::int32_t mode_0x844 = 1; // SMODE raw int; no implied scientific enum.
+    std::int32_t type_0x848 = 1; // STYPE direct int; downstream meaning unestablished.
     std::int32_t flag_0x854 = 0;
     std::int32_t flag_0x858 = 1;
     int geometry_type = 1; // Root +0x850, GEOTYP.
@@ -284,6 +285,7 @@ public:
     // 1f3ff0 stores every value; only modes1/2/3 replace flags854/858.
     // It does not refresh component layout or propagate to the linked root.
     void set_simulation_mode(std::int32_t value);
+    void set_simulation_type(std::int32_t value);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

@@ -60,6 +60,18 @@ add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(stype_batch IN ITEMS training evaluation)
+    set(stype_plan "stype-fixture-plan.json")
+    if(stype_batch STREQUAL "evaluation")
+      set(stype_plan "stype-evaluation-inputs.json")
+    endif()
+    add_test(NAME "stype_${stype_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_stype_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/stype-runtime-${stype_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/stype-${stype_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${stype_plan}")
+  endforeach()
   add_test(NAME smode_training_reference_replay
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_smode_import.py"
       --driver "$<TARGET_FILE:keyword_import_replay>"

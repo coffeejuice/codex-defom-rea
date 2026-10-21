@@ -1365,7 +1365,7 @@ The held-out batch adds 11 imports and 13 handlers within those totals.
 `analysis/metadata-import-contract.json` records digests, comparisons and gaps.
 Linked nondefault seeds remain static/replacement coverage; absolute native
 stream positions are unknown after EOF resets its CRT buffer pointer.
-The retained full export stops explicitly at unsupported SMODE.
+At that checkpoint the retained full export stopped at SMODE; later checkpoints below supersede this boundary.
 
 Run `ctest --test-dir build -C Release -R metadata --output-on-failure`.
 The static fixture test uses tracked data; three native replay tests require
@@ -1422,3 +1422,21 @@ under analysis/oracle; they do not launch the original app.
 
 The complete regression suite passes all86 registered tests. The goal is active,
 with this chat as sole owner; the current plan continues from STYPE.
+
+## STYPE import checkpoint
+
+STYPE stores the raw integer at root848. Its reader zeroes the live field even
+on blank or EOF failure, and the parser retains status2 while continuing.
+No layout refresh or linked-root propagation occurs. Changed dimensions reset
+the field to1; an unchanged dimension retains it. The raw value does not imply
+a recovered scientific enum.
+
+Passive REA observations match26 imports and40 handlers against the unchanged
+C++ candidate, including eight separately frozen evaluation imports. The full
+regression suite passes88 tests. Five EOF cursor positions remain unobserved.
+`analysis/stype-import-contract.json` records bindings and limitations. The
+retained full export now reaches MESHNO after six supported handlers.
+
+Run `ctest --test-dir build -C Release -R stype --output-on-failure`. These
+two replay tests require ignored local captures, run records and observer
+copies under analysis/oracle; they do not launch the original application.

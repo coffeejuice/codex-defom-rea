@@ -1,6 +1,6 @@
 {
   "objective": "Recover and reconstruct the complete DEF_PRE_64.exe application in modern C++, preserving established external interfaces and observable workflows.",
-  "status": "paused",
+  "status": "active",
   "reference": {
     "path": "source/DEF_PRE_64.exe",
     "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
@@ -46,7 +46,7 @@
     {
       "id": "remaining_model",
       "state": "in_progress",
-      "result": "Material and relation table imports, the complete bounded FSTRES import family and selected GRNDAT4 are verified. Continue with remaining GRNDAT branches, object/material lifecycle and scientific consumers."
+      "result": "Bounded FSTRES and all GRNDAT selectors in the disabled-grain profile are implemented and compared. Root metadata, SMODE and STYPE now pass native comparisons. Continue remaining lifecycle, scientific consumers and configuration paths."
     },
     {
       "id": "io",
@@ -523,7 +523,7 @@
     "provider": "ghidra",
     "snapshot": "analysis/oracle/recovery-snapshot.json",
     "full_evidence_bundle": "analysis/oracle/recovery-evidence.json",
-    "next_action": "Implement source-bound STYPE scalar input; establish root1740 option provenance for MESHNO, then recover UNIT resets and process-global effects. Preserve full application scope and existing loader API.",
+    "next_action": "Recover MESHNO from the ordinary wrapper option0 path, confirming root1740 source and handler observations; retain unsupported option-bit2 boundary. Then recover UNIT resets and process-global effects without changing the loader API.",
     "material_evidence_bundle": "analysis/oracle/material-import-evidence.json",
     "material_snapshot": "analysis/oracle/material-import-snapshot.json",
     "material_next_contract": {
@@ -623,10 +623,14 @@
     "A blocker or exhausted execution budget is not project completion."
   ],
   "current_work": {
-    "component": "STYPE, MESHNO and UNIT configuration path",
-    "status": "next_after_smode_checkpoint",
-    "evidence": "analysis/chat-b-roundtrip-blockers.json /adjacent_control_boundaries",
-    "next": "Implement source-bound STYPE scalar input; establish root1740 option provenance for MESHNO, then recover UNIT resets and process-global effects. Preserve full application scope and existing loader API."
+    "component": "MESHNO and UNIT configuration path",
+    "status": "next_after_stype_checkpoint",
+    "evidence": [
+      "analysis/chat-b-roundtrip-blockers.json /adjacent_control_boundaries",
+      "analysis/import-finalization-contract.json /wrapper/ordering",
+      "analysis/import-finalization-callsite-audit.json"
+    ],
+    "next": "Recover MESHNO from the ordinary wrapper option0 path, confirming root1740 source and handler observations; retain unsupported option-bit2 boundary. Then recover UNIT resets and process-global effects without changing the loader API."
   },
   "integrated_worker_research_checkpoint": {
     "date": "2026-10-21",
@@ -713,5 +717,11 @@
     "implementation_checkpoint": "analysis/fstres-contract.json",
     "resume_requested": "2026-10-21",
     "runtime_status_note": "Goal is active; confirmed by goal continuation after user resume."
+  },
+  "stype_checkpoint": {
+    "status": "implemented_subset_runtime_tested",
+    "contract": "analysis/stype-import-contract.json",
+    "validation": "26 original imports,40 STYPE handlers,1533 comparison checks;8 new evaluation imports passed unchanged candidate",
+    "next_export_boundary": "MESHNO"
   }
 }

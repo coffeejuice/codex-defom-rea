@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_bounded_native_comparisons_passed",
+  "keyword": "STYPE26",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": {
+    "dispatcher": {
+      "path": "analysis/chat-b-metadata-evidence.json",
+      "evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+      "selector": "pseudocode_early_cases / case4"
+    },
+    "defaults": {
+      "path": "analysis/smode-static-evidence.json",
+      "evidence_id": "ev_f7d99719a38da8bc507f47dcff2d77f471fb5f2b62cad7be4502c8cde1439507",
+      "procedure": "0x1401e7e90",
+      "store": "controls+0xf8=root+0x848=1"
+    }
+  },
+  "recovered_behavior": {
+    "reader": "39aa90 passes root+848 directly to413de0 with option0. Reader zeroes destination before line read; matching0 succeeds, blank/EOF or scan-1 fails. Handler returns0 on success,2 on failure; partial live mutation remains.",
+    "state": "Every representable int32 is retained as raw type_0x848; no guessed enum validation. No setter call, refresh or linked-root propagation in this case.",
+    "resets": "Startup and changed dimension set type1; same dimension retains state. Existing linked-root opposite-dimension reset behavior remains."
+  },
+  "candidate_freeze": "analysis/stype-candidate-freeze.json",
+  "candidate_unchanged_after_both_runs": true,
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_STYPE_COMPARISON",
+      "imports": 18,
+      "handlers": 29,
+      "checks": 1090,
+      "eof_cursors_unobserved": 3,
+      "evidence_id": "ev_15043c32cda70f8fac70389a1eb85ff12057de0e532ef61e5026a75cb7d85d86",
+      "capture_sha256": "fb23022bc266af87bf91716fcf99778a501b3a23c55b216a7fae91a364408fdf",
+      "run_sha256": "72865cecc0c5fe58e8643b3a66082404e709281ed3f007ee9e14436d5a242015",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw type, mode, flags, component table and counts; no scientific enum inference. Native reader live destination and no-refresh checks are original observations; linked isolation compares."
+    },
+    {
+      "status": "PASS_NATIVE_STYPE_COMPARISON",
+      "imports": 8,
+      "handlers": 11,
+      "checks": 443,
+      "eof_cursors_unobserved": 2,
+      "evidence_id": "ev_1eec7cdbb977a017615b9f7e3e1cfcca1217f15f0b671b26790566dd8e4cc453",
+      "capture_sha256": "020ccff95032484e2ce7a1016333fafbd736626233f364d332098f4682e07305",
+      "run_sha256": "750a1b470d96b5f5fe753fcdab42bfa77cdfd5e45aa35fe9a0e6b700d2d409b2",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw type, mode, flags, component table and counts; no scientific enum inference. Native reader live destination and no-refresh checks are original observations; linked isolation compares."
+    }
+  ],
+  "totals": {
+    "imports": 26,
+    "handlers": 40,
+    "checks": 1533,
+    "eof_cursors_unobserved": 5
+  },
+  "source_bindings": [
+    {
+      "path": "analysis/chat-b-metadata-evidence.json",
+      "bytes": 12162,
+      "sha256": "2fca6ad3d9ed9dd9b7b49c21ec586993c5d332ff1649c80e0a76869db6a61393",
+      "local_only": false
+    },
+    {
+      "path": "analysis/smode-static-evidence.json",
+      "bytes": 32316,
+      "sha256": "54be25c9a665c92f133e66cec6f78e9acd3e3229655ea1b6771365d66423a870",
+      "local_only": false
+    },
+    {
+      "path": "analysis/stype-fixture-plan.json",
+      "bytes": 5451,
+      "sha256": "981e08907c5a7dc5b5f02e7fc66aa1231eced9a548b318fd746ffe8f04fec0fd",
+      "local_only": false
+    },
+    {
+      "path": "analysis/stype-evaluation-inputs.json",
+      "bytes": 2463,
+      "sha256": "6fdff3fce48f90fcf8720c29c3b1084b7343bbddb9160678ae269c4378348700",
+      "local_only": false
+    },
+    {
+      "path": "analysis/stype-runtime-training.json",
+      "bytes": 208556,
+      "sha256": "fb23022bc266af87bf91716fcf99778a501b3a23c55b216a7fae91a364408fdf",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stype-training/run.json",
+      "bytes": 27379,
+      "sha256": "72865cecc0c5fe58e8643b3a66082404e709281ed3f007ee9e14436d5a242015",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stype-training/observer-source.js",
+      "bytes": 3037,
+      "sha256": "a66664aaf306082496c61b1804228f39d5e6ba4ae12334c9a176724cc1ad10cc",
+      "local_only": true
+    },
+    {
+      "path": "analysis/stype-runtime-evaluation.json",
+      "bytes": 85113,
+      "sha256": "020ccff95032484e2ce7a1016333fafbd736626233f364d332098f4682e07305",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stype-evaluation/run.json",
+      "bytes": 14100,
+      "sha256": "750a1b470d96b5f5fe753fcdab42bfa77cdfd5e45aa35fe9a0e6b700d2d409b2",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stype-evaluation/observer-source.js",
+      "bytes": 3039,
+      "sha256": "20bdf535c89a67005c88bce76fbd71511b4c70f04d1c5d3ed93ab982c22f89f6",
+      "local_only": true
+    }
+  ],
+  "full_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "MESHNO",
+    "supported_handlers": 6
+  },
+  "limitations": [
+    "Bounded initialized ordinary wrapper profile and representable integer inputs. Integer overflow, malformed prefixes, all locales and complete CRT grammar are not established here.",
+    "Five native cursor positions are unobserved after CRT EOF buffer pointer resets; these are not claimed as matching absolute ftell positions.",
+    "Observed isolation covers raw mode/type/flags, component widths, dimensions and object/material counts; full scientific consumers and arbitrary shared storage remain outside this checkpoint.",
+    "No complete keyword round-trip or full application equivalence; MESHNO, UNIT and other required features remain.",
+    "Native replay tests require ignored local Evidence, run records and observer copies. They do not launch the original app."
+  ],
+  "resource_release": "Both REA Frida windows detached without truncation, probe errors or cleanup errors; both console runs completed exit0. No native analysis session opened.",
+  "regression": {
+    "registered": 88,
+    "passed": 88,
+    "failed": 0,
+    "seconds": 31.66,
+    "build": "All15 executable targets rebuilt; strengthened input identity comparisons then replayed successfully."
+  }
+}

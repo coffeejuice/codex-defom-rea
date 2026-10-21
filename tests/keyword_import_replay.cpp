@@ -606,6 +606,9 @@ void state(const ObjectModel& model) {
     else std::cout << "{\"mode_0x844\":" << controls.simulation->mode_0x844
                    << ",\"flag_0x854\":" << controls.simulation->flag_0x854
                    << ",\"flag_0x858\":" << controls.simulation->flag_0x858 << '}';
+    std::cout << ",\"simulation_type_0x848\":";
+    if (controls.simulation) std::cout << controls.simulation->type_0x848;
+    else std::cout << "null";
     std::cout << ",\"geometry_mode\":";
     if (controls.simulation) std::cout << controls.simulation->geometry_type;
     else std::cout << "null";

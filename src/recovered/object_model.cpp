@@ -185,6 +185,11 @@ void ObjectModel::set_simulation_mode(std::int32_t value) {
     }
 }
 
+void ObjectModel::set_simulation_type(std::int32_t value) {
+    require_simulation_profile(controls_);
+    controls_.simulation->type_0x848 = value;
+}
+
 void ObjectModel::set_output_flags(const std::array<int, 7>& values) {
     require_simulation_profile(controls_);
     controls_.simulation->output_flags = values;
