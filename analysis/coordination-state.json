@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "coordinator_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
+  "host": "local",
+  "policy": "analysis/coordination-workflow.md",
+  "scope": "Coordinate bounded recovery research, fixtures, independent review and workflow optimizations. Full-app production implementation remains paused.",
+  "coordination_enabled": false,
+  "automations": {
+    "coordination": {
+      "id": "rea-recovery-coordination",
+      "interval_minutes": 1,
+      "status": "PAUSED"
+    },
+    "optimization": {
+      "id": "rea-workflow-improvement-review",
+      "interval_minutes": 60,
+      "status": "PAUSED"
+    }
+  },
+  "rea_owner": null,
+  "rea_rule": "Reassign only after confirmed release; no runtime experiments in current queue.",
+  "workers": {
+    "A": {
+      "thread_id": "01a15cc4-c169-7e93-aac2-e40a4241d096",
+      "worktree": "C:/Users/alext/.codex/worktrees/chat-a-contract/codex-deform-rea",
+      "current_task": "recheck-db-materials-lookup-1",
+      "last_seen_turn": "01a15d4c-b44d-7672-90ce-5e6060dc97f6",
+      "cursor": "bfa05552-f856-41ac-bece-a5fd367fe162:1",
+      "status": "idle",
+      "completion_processed": true
+    },
+    "B": {
+      "thread_id": "01a15cc5-0810-7781-844a-5d1979ba490e",
+      "worktree": "C:/Users/alext/.codex/worktrees/chat-b/codex-deform-rea",
+      "current_task": "fix-keyword-metadata-fixtures-1",
+      "last_seen_turn": "01a15d32-5b7b-74a0-9e06-2ae9c64cbd85",
+      "cursor": "f34519b6-d0f0-4c72-b798-08335bdd32ea:1",
+      "status": "idle",
+      "completion_processed": true
+    },
+    "C": {
+      "thread_id": "01a15cc5-34cd-7e03-ba62-5c5cc53ebca4",
+      "worktree": "C:/Users/alext/.codex/worktrees/chat-c-recovery/codex-deform-rea",
+      "current_task": "recheck-keyword-metadata-1",
+      "last_seen_turn": "01a15d57-e185-71d1-8457-0fed3c98df65",
+      "cursor": "3bf685e1-da89-4762-824e-89d148a0e389:1",
+      "status": "idle",
+      "completion_processed": true,
+      "last_turn_outcome": "Capacity failure after review artifact saved; coordinator verified saved ACCEPT report and all30 source bindings; no additional retry"
+    },
+    "Bottleneck": {
+      "thread_id": "01a15cd6-f7e7-7151-926c-76a3ecbd03f6",
+      "worktree": "C:/Users/alext/Projects/codex-deform-rea",
+      "current_task": "scheduled-improvement-review",
+      "last_seen_turn": "01a15d4f-2bc0-74c3-93ac-28d46d84b2f8",
+      "cursor": "ae5d0233-649e-42f6-ab3a-46785c8b84ec:1",
+      "status": "idle",
+      "completion_processed": true
+    }
+  },
+  "ready_queue": [
+    {
+      "id": "review-index-1",
+      "preferred_worker": "A",
+      "requires": [
+        "A current fixture task completed"
+      ],
+      "task": "Independently review the ten-file evidence-index/slice rollout in main checkout read-only. Check digest/cache failure behavior, exact address/target selection, skipped-record limits, benchmark fairness and12 existing tests. Write analysis/chat-a-index-review.json in A worktree with source hashes, findings and accept/revise verdict. No production changes, new original execution or REA access.",
+      "status": "completed_accept"
+    },
+    {
+      "id": "review-grndat-fixtures-1",
+      "preferred_worker": "B",
+      "requires": [
+        "B current metadata task completed",
+        "A GRNDAT fixtures delivered"
+      ],
+      "task": "Independently audit A's GRNDAT fixture plan against its static contract and cited retained evidence, read-only. Check framing, setup, discriminating markers, exact error/mutation assertions, unsupported domains and held-out separation. Write analysis/chat-b-grndat-fixture-review.json in B worktree. Do not alter A artifacts or run original processes.",
+      "status": "completed_accept_static"
+    },
+    {
+      "id": "db-materials-g2",
+      "preferred_worker": "C",
+      "requires": [
+        "C G1 contract delivered",
+        "C confirms closed session or exclusive retained ownership"
+      ],
+      "task": "Recover DB materials/inter-material relations G2 from0x1401cff20 and0x1401d0180 with required direct deserializers. Map record bases/strides, IDs versus ranks, ordered relation keys and ownership/error mutations. Preserve loader API. Deliver source-bound analysis/chat-c-db-materials-contract.json and proposed tests; no production changes or runtime experiments. Reuse evidence and use native REA only under confirmed exclusive ownership; close owned session at completion.",
+      "status": "completed_accept_static"
+    },
+    {
+      "id": "fix-grndat-fixtures-1",
+      "preferred_worker": "A",
+      "requires": [
+        "review-index-1 completed"
+      ],
+      "status": "completed_accept_static",
+      "task": "Fix only B-GRNDAT-01 and02 from B review484c83ed81ba870fa0b67e75e1f15edef67e2138b7e69bfea660ee19872ad76f in A fixture generator/plan. Distinguish seed/action scalar pair markers; assert changed integer with retained double on partial scan and both new fields on success. Generate case-specific declared/stored/inline/diagnostic tuples for counts-1/0/1/12/13. Regenerate private fixtures and hashes, preserve discovery/reserved separation and NOT_RUN, issue correction receipt. No production changes, runtime or REA."
+    },
+    {
+      "id": "review-db-controls-1",
+      "preferred_worker": "B",
+      "requires": [
+        "C G1 delivered"
+      ],
+      "status": "completed_accept_static",
+      "task": "Independent semantic review of C DB controls G1 contract using retained evidence; assess reset/prestate, index mappings, unit ABI and safe supported domain. No runtime/REA/production edits. Write analysis/chat-b-db-controls-review.json."
+    },
+    {
+      "id": "recheck-grndat-fixtures-1",
+      "preferred_worker": "B",
+      "requires": [
+        "fix-grndat-fixtures-1 delivered",
+        "review-db-controls-1 completed"
+      ],
+      "status": "completed_accept_static",
+      "task": "Focused independent recheck of B-GRNDAT-01/02 repairs and changed fixture hashes, no runtime. Write analysis/chat-b-grndat-fixture-recheck.json."
+    },
+    {
+      "id": "fix-index-alias-1",
+      "preferred_worker": "Bottleneck",
+      "requires": [
+        "review-index-1 delivered"
+      ],
+      "status": "completed_accept",
+      "task": "Fix A-INDEX-01 filesystem alias source overwrite, add synthetic regression, preserve source bytes, refreeze and report for independent recheck. No rollout until accepted."
+    },
+    {
+      "id": "recheck-index-alias-1",
+      "preferred_worker": "A",
+      "requires": [
+        "fix-grndat-fixtures-1 delivered",
+        "fix-index-alias-1 delivered"
+      ],
+      "status": "completed_accept",
+      "task": "Independently recheck A-INDEX-01 against main analysis/bottleneck-pilot-freeze-v1-review2.json receipt SHA25653ea36287ddc3497fc54fd4ab965d499f16e6ff53e2d9a893911d4065a780cde and watermark294824b7963a2334c02ee88cc3524414e31aa0bcf13467e6a2f639c323c68f3f. Verify ten-file hashes, reject existing output/hard-link aliases, exclusive-create race behavior, normal fresh-output behavior and17 tests on disposable own-worktree data. Check updated adoption commands and stale timing caveats. Write analysis/chat-a-index-recheck.json with accept/revise verdict and exact source identities. No real-evidence mutation, REA, production changes, merge or push."
+    },
+    {
+      "id": "review-keyword-metadata-1",
+      "preferred_worker": "C",
+      "requires": [
+        "db-materials-g2 delivered",
+        "B metadata package delivered"
+      ],
+      "status": "completed_accept_static",
+      "task": "Independently review B TITLE/CURSIM/OPRNAM/SIMNAM retained-evidence contract and15 fixtures. Check line framing, defaults, partial writes, EOF/retention, bounds and safe admission boundary against current model API. Write analysis/chat-c-keyword-metadata-review.json. No runtime, REA or production edits."
+    },
+    {
+      "id": "review-db-materials-1",
+      "preferred_worker": "A",
+      "requires": [
+        "recheck-index-alias-1 completed",
+        "db-materials-g2 delivered"
+      ],
+      "status": "completed_accept_static",
+      "task": "Independent semantic review of C G2 materials/relations contract and field maps: storage versus traversal indices, positions/IDs, pair order/self/inactive inclusion, post-read reconciliation, table guards/ranks and reset/prestate. Retained evidence only. Write analysis/chat-a-db-materials-review.json with accept/revise and runtime gaps; no production/REA/runtime changes."
+    },
+    {
+      "id": "fix-keyword-metadata-fixtures-1",
+      "preferred_worker": "B",
+      "requires": [
+        "independent review delivered and hash verified"
+      ],
+      "task": "Resolve C review R1-R5 in private metadata fixture package and plan, preserving NOT_RUN. R6 remains deferred runtime gate. Deliver correction receipt and hashes for C recheck.",
+      "status": "completed_accept_static"
+    },
+    {
+      "id": "fix-db-materials-lookup-1",
+      "preferred_worker": "C",
+      "requires": [
+        "independent review delivered and hash verified"
+      ],
+      "task": "Correct A-G2-01 lookup interface sentence and directly dependent validation metadata; receipt and hashes for A recheck. No expanded research.",
+      "status": "completed_accept_static"
+    },
+    {
+      "id": "recheck-keyword-metadata-1",
+      "preferred_worker": "C",
+      "requires": [
+        "fix-db-materials-lookup-1 completed",
+        "fix-keyword-metadata-fixtures-1 delivered"
+      ],
+      "status": "completed_accept_static",
+      "task": "Focused independent review of B correction receipt 4b68c6eec163f3a168d84218ffc8a73b6f9b5cbc990e54e009bef75e1bc3431e: verify R1-R5 discrimination, numeric cursor/read stages, before/after hashes and unchanged expectations. Write analysis/chat-c-keyword-metadata-recheck.json. R6 remains deferred runtime gate. No runtime, REA or production edits."
+    },
+    {
+      "id": "recheck-db-materials-lookup-1",
+      "preferred_worker": "A",
+      "requires": [
+        "fix-db-materials-lookup-1 delivered"
+      ],
+      "task": "Focused independent recheck A-G2-01 correction, exact scope and dependent hashes; static only. Write analysis/chat-a-db-materials-recheck.json.",
+      "status": "completed_accept_static"
+    }
+  ],
+  "dispatch_log": [
+    {
+      "task_id": "review-index-1",
+      "worker": "A",
+      "status": "confirmed",
+      "trigger": "Completion report received and primary artifact SHA256 verified",
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "review-grndat-fixtures-1",
+      "worker": "B",
+      "status": "confirmed",
+      "trigger": "Completion report received and primary artifact SHA256 verified",
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "db-materials-g2",
+      "worker": "C",
+      "status": "confirmed",
+      "prior_completed_at_unix": 1792560441,
+      "trigger": "G1 artifact hashes and released session verified",
+      "confirmed_at_unix": 1792560504.264665,
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "review-db-controls-1",
+      "worker": "B",
+      "status": "confirmed",
+      "prior_completed_at_unix": 1792560524,
+      "confirmed_at_unix": 1792560930.809519,
+      "receipt": "single retry returned destination threadId"
+    },
+    {
+      "task_id": "fix-grndat-fixtures-1",
+      "worker": "A",
+      "status": "confirmed",
+      "confirmed_at_unix": 1792561138.3751497,
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "fix-index-alias-1",
+      "worker": "Bottleneck",
+      "status": "confirmed",
+      "confirmed_at_unix": 1792561138.3751497,
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "recheck-index-alias-1",
+      "worker": "A",
+      "status": "confirmed",
+      "prior_completed_at_unix": 1792561447,
+      "confirmed_at_unix": 1792561627.1687603,
+      "receipt": "single retry returned threadId",
+      "approval_timeout_retries": 1
+    },
+    {
+      "task_id": "recheck-grndat-fixtures-1",
+      "worker": "B",
+      "status": "confirmed",
+      "confirmed_at_unix": 1792562324.2328086,
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "review-keyword-metadata-1",
+      "worker": "C",
+      "status": "confirmed",
+      "confirmed_at_unix": 1792562324.2328086,
+      "receipt": "send_message_to_thread returned destination threadId"
+    },
+    {
+      "task_id": "review-db-materials-1",
+      "worker": "A",
+      "status": "confirmed",
+      "confirmed_at_unix": 1792562673.0428393,
+      "receipt": "send_message_to_thread returned threadId"
+    },
+    {
+      "task_id": "fix-keyword-metadata-fixtures-1",
+      "worker": "B",
+      "status": "confirmed",
+      "trigger": "review receipt verified",
+      "confirmed_at_unix": 1792565328.4891293,
+      "receipt": "send_message_to_thread returned destination threadId",
+      "approval_timeout_retries": 0
+    },
+    {
+      "task_id": "fix-db-materials-lookup-1",
+      "worker": "C",
+      "status": "confirmed",
+      "trigger": "review receipt verified",
+      "confirmed_at_unix": 1792565328.4891293,
+      "receipt": "send_message_to_thread returned destination threadId",
+      "approval_timeout_retries": 1
+    },
+    {
+      "task_id": "recheck-db-materials-lookup-1",
+      "worker": "A",
+      "status": "confirmed",
+      "trigger": "correction receipt hashes verified",
+      "confirmed_at_unix": 1792566688.373745,
+      "receipt": "send_message_to_thread returned destination threadId",
+      "approval_timeout_retries": 1
+    },
+    {
+      "task_id": "recheck-keyword-metadata-1",
+      "worker": "C",
+      "status": "confirmed",
+      "trigger": "correction receipt hashes verified",
+      "confirmed_at_unix": 1792566688.373745,
+      "receipt": "send_message_to_thread returned destination threadId",
+      "approval_timeout_retries": 0
+    },
+    {
+      "task_id": "recheck-keyword-metadata-1",
+      "attempt": "capacity_retry_1",
+      "worker": "C",
+      "status": "confirmed",
+      "trigger": "Turn failed: selected model at capacity",
+      "prior_completed_at_unix": 1792567040,
+      "confirmed_at_unix": 1792567427.5662541,
+      "receipt": "send_message_to_thread returned destination threadId"
+    }
+  ],
+  "measurements": {
+    "completion_to_dispatch_seconds": [
+      {
+        "task_id": "db-materials-g2",
+        "seconds": 63.265,
+        "scope": "reported worker turn completion to confirmed tool dispatch; host clock"
+      },
+      {
+        "task_id": "review-db-controls-1",
+        "seconds": 406.81,
+        "scope": "prior completion to confirmed dispatch, includes approval timeout"
+      },
+      {
+        "task_id": "recheck-index-alias-1",
+        "seconds": 180.169,
+        "scope": "completion to dispatch including approval timeout"
+      },
+      {
+        "task_id": "fix-keyword-metadata-fixtures-1",
+        "seconds": 609.489,
+        "scope": "Upper bound: dependency C review completion to confirmation recorded after both sends; includes permission-review delay. B prior completion1792563122."
+      },
+      {
+        "task_id": "recheck-keyword-metadata-1",
+        "seconds": 957.374,
+        "scope": "Upper bound from B completion to recorded confirmation after both sends; includes reviewer availability and approval timeout."
+      }
+    ],
+    "note": "Measure only from observed completion timestamp to confirmed dispatch. Do not infer token counts or reasoning time."
+  },
+  "optimization": {
+    "review_interval_minutes": 60,
+    "owner": "Bottleneck",
+    "adoption_gate": "Independent review, immutable revision, exact opt-in instructions; do not claim global acceleration from local benchmark",
+    "pending_rollout": "ten files enumerated in analysis/evidence-workflow.md",
+    "last_evidence": "analysis/bottleneck-index-benchmark.json",
+    "freeze": "analysis/bottleneck-pilot-freeze-v1-review2.json",
+    "aggregate_watermark": "294824b7963a2334c02ee88cc3524414e31aa0bcf13467e6a2f639c323c68f3f",
+    "status": "accepted_committed_opt_in_rollout",
+    "freeze_sha256": "53ea36287ddc3497fc54fd4ab965d499f16e6ff53e2d9a893911d4065a780cde",
+    "commit": "f05c1eb2bb9898442e330633b74c0647044ae512",
+    "review_sha256": "1fd212c62ba58066f894564897eafb0af7aaec5714aca448d17d95b31f34baa6",
+    "adoption": {
+      "A": "deferred_for_known_file_review; direct reads selected",
+      "B": "deferred_for_known_file_recheck; pinned prior snapshot and direct extraction sufficient",
+      "C": "deferred_for_known_record_review; direct extraction sufficient"
+    },
+    "rollout_receipt": "analysis/bottleneck-rollout-v1-review2.json",
+    "rollout_receipt_sha256": "59c38953b56da7182ef472169ae75cf841565b4c5a853f5cab06dd7231ec5590",
+    "last_scheduled_review": "2026-10-21T07:13:52.063Z",
+    "scheduled_review_result": "No new actionable bounded optimization; no pilot started"
+  },
+  "rea_reserved_next": null,
+  "rea_last_release": "C G2: full export132 records/15240831 bytes; owned close_binary succeeded. Two status readbacks timed out in automatic approval review. Verify session status before assigning another opener; no further C REA calls planned.",
+  "last_coordination_check": "2026-10-21T07:30:22.317Z",
+  "grndat_fixture_review": {
+    "verdict": "ACCEPT_CORRECTIONS_STATIC_ONLY",
+    "path": "C:/Users/alext/.codex/worktrees/chat-b/codex-deform-rea/analysis/chat-b-grndat-fixture-review.json",
+    "sha256": "484c83ed81ba870fa0b67e75e1f15edef67e2138b7e69bfea660ee19872ad76f",
+    "capture_ready": false,
+    "correction": {
+      "path": "C:/Users/alext/.codex/worktrees/chat-a-contract/codex-deform-rea/analysis/chat-a-grndat-fixture-correction.json",
+      "sha256": "b0138af809d1fc9ad393db8b38c7ec1c15774793b742e1507859b9db1ad813f3",
+      "plan_sha256": "e8e1219f4d5576d6b5da8f3ae10ef4426c0e970bca375e3c400bc9a130e869fb",
+      "status": "accepted_static"
+    },
+    "recheck_path": "C:/Users/alext/.codex/worktrees/chat-b/codex-deform-rea/analysis/chat-b-grndat-fixture-recheck.json",
+    "recheck_sha256": "cd694b5db4fd81ec986be106310c1432d9871863d396dfb8fb8e78422fabfb39",
+    "qualification": "Both findings resolved;123 cases NOT_RUN; runtime authorization and candidate/expectation freeze outstanding"
+  },
+  "rea_status": "close_succeeded_readback_unavailable",
+  "rea_requires_status_verification_before_open": true,
+  "accepted_static_contracts": [
+    {
+      "id": "db-controls-g1",
+      "contract_sha256": "eb65624a7e2ddc27592a744d3c890ab771f5bc67e470d8bdd1a9bc1ee0269ea2",
+      "review_sha256": "fb00f8de7b249e5bc899122a8588d927822525cb13684c72fa3de0893b7d3fd3",
+      "qualification": "Static planning only; outer success need not invoke G1; prestate/profile and runtime comparison remain open"
+    }
+  ],
+  "db_materials_g2": {
+    "contract_sha256": "3a5a99aa7205fc1918e2fc7ffb7596bdc07c917a23b4e354c477c73ada05637b",
+    "validation_sha256": "2717e3e655fca2e01bdbfb4cedc8af3d7a9a6443197e0d48d7e0c4d1bce43191",
+    "review": "accepted_static",
+    "runtime": "not_run",
+    "review_sha256": "99ca7a9c2ca0f8c750c3fe16e83e9c13112fce29de7442b69a5a131a4396b686",
+    "correction": {
+      "sha256": "94217b71f4a46c84c3d5de3e69af69d9dde7a538cc03ceb046729e406b6f35c5",
+      "contract_sha256": "3774cbe87c77c352bb18dd6e453375a176180bc3cefaf8fae0de7489b14a63f1",
+      "validation_sha256": "8bcf97e4e80e1aedf87832ee679cc20a8d2b0aeca91ebc51573a20bbe10d298f"
+    },
+    "recheck_path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-db-materials-recheck.json",
+    "recheck_sha256": "6e59b59b6ddd27d1768c6960e7930df0091d90cad4245ec8df4849aaeb141549"
+  },
+  "keyword_metadata_review": {
+    "path": "C:/Users/alext/.codex/worktrees/chat-c-recovery/codex-deform-rea/analysis/chat-c-keyword-metadata-review.json",
+    "sha256": "356a172d932418578c93bf9343daf1ad7282060651364e9ad9b8ec324597971c",
+    "verdict": "ACCEPT_STATIC_R1_R5; R6 runtime outstanding",
+    "correction": {
+      "path": "C:/Users/alext/.codex/worktrees/chat-b/codex-deform-rea/analysis/chat-b-keyword-metadata-correction.json",
+      "sha256": "4b68c6eec163f3a168d84218ffc8a73b6f9b5cbc990e54e009bef75e1bc3431e",
+      "manifest_sha256": "b291dd920d8c4928f09bef3df3a0d7d561881fee200b33bb86b49ef0babd1270",
+      "plan_sha256": "65f012fa885c58dcb3113103dfb08d71bee4a340580f0a9349cb0abd0816a507",
+      "completed_at_unix": 1792565731
+    },
+    "recheck_path": "C:/Users/alext/.codex/worktrees/chat-c-recovery/codex-deform-rea/analysis/chat-c-keyword-metadata-recheck.json",
+    "recheck_sha256": "329795b7344776a024ce0ab3f00ef26ee02699fc0f41a7a075e3920bf6370a0d",
+    "coordinator_verification": "Saved report parsed; all30 source bindings hashes and byte counts match;746 checks reported static only;17 actions NOT_RUN"
+  },
+  "stop_reason": "Bounded queue exhausted; all corrections independently accepted static only",
+  "queue_exhausted_reported": true
+}

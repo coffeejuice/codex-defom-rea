@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "pilot_id": "B02-address-index",
+  "version": "1-review2",
+  "date": "2026-10-21",
+  "task_id": "fix-index-alias-1",
+  "status": "correction_complete_pending_independent_recheck_rollout_blocked",
+  "root": "C:\\Users\\alext\\Projects\\codex-deform-rea",
+  "watermark_sha256": "294824b7963a2334c02ee88cc3524414e31aa0bcf13467e6a2f639c323c68f3f",
+  "watermark_encoding": "SHA256 of files array encoded UTF-8 with json.dumps(sort_keys=True,separators=(comma,colon))",
+  "files": [
+    {
+      "path": "tools/evidence_slice.py",
+      "bytes": 5566,
+      "sha256": "96d759dd95659180467124cedcffb383d4763e44003dff03a0c3591e645e4758"
+    },
+    {
+      "path": "tools/benchmark_evidence_slice.py",
+      "bytes": 2887,
+      "sha256": "7901d373b9013ba21e42a103c8ff3d6030038086d0e20dbf33b7aecf5491a891"
+    },
+    {
+      "path": "tests/test_evidence_slice.py",
+      "bytes": 3595,
+      "sha256": "425480d78a4d2193523e47aa47e508275ed7c3ccadf47a86d11957f29eb13e7f"
+    },
+    {
+      "path": "analysis/bottleneck-pilot-benchmark.json",
+      "bytes": 2035,
+      "sha256": "70377f9145472aea9c7542a7b1478e259dc0611d0c2558228b84af6d9e588c4d"
+    },
+    {
+      "path": "analysis/bottleneck-register.json",
+      "bytes": 8659,
+      "sha256": "e90a5539ee9c9312ca524564c050deeddc245d4846d3647cdcc93769adff8019"
+    },
+    {
+      "path": "analysis/evidence-workflow.md",
+      "bytes": 13755,
+      "sha256": "967255ad1a5744ed73c88632f8af803374e15d0772bf03bae74d278b0090bfff"
+    },
+    {
+      "path": "tools/evidence_index.py",
+      "bytes": 7259,
+      "sha256": "d13c21d1052441dd8acac761ca7fd79f43dd40450622bf6b2e0eeb5532d1b242"
+    },
+    {
+      "path": "tools/benchmark_evidence_index.py",
+      "bytes": 8479,
+      "sha256": "5b967a90e82e1526a9960186cf440fc9248ccca63d8e24e5575c9769fc23beb6"
+    },
+    {
+      "path": "tests/test_evidence_index.py",
+      "bytes": 7771,
+      "sha256": "b34ae6ed3c1cbbc54decdd1c07d20a6394aea94cd7130d02fcb59f66310c0ebf"
+    },
+    {
+      "path": "analysis/bottleneck-index-benchmark.json",
+      "bytes": 12916,
+      "sha256": "647805061be45bdb5ca3a8dd20b8249aecc21906c29e011d87f3341a94960f5a"
+    }
+  ],
+  "provenance": {
+    "original_freeze": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\bottleneck-pilot-freeze.json",
+    "original_freeze_sha256": "f150c71bc09da570a3cd737352d4b103a8096bc82467b050e2dfb1637242c527",
+    "original_watermark_sha256": "4a79b16c13226599b3f9e1f038a42466826d358de69f3f81339c0027c0ef35dc",
+    "independent_review": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-index-review.json",
+    "independent_review_sha256": "cc34eb2f2f42980fdd00151a0d596b28cfbdefb12cc4ef1c7898fa53ea168b61",
+    "finding": "A-INDEX-01"
+  },
+  "correction": {
+    "policy": "Reject every existing index output, including unrelated caches and aliases. lexists preflight plus exclusive xb creation prevents check/write-race truncation; fresh output remains supported.",
+    "runner": "Unique default index and report filenames; existing report preflight rejection plus exclusive report creation.",
+    "changed_rollout_files": [
+      "analysis/bottleneck-register.json",
+      "analysis/evidence-workflow.md",
+      "tools/evidence_index.py",
+      "tools/benchmark_evidence_index.py",
+      "tests/test_evidence_index.py"
+    ]
+  },
+  "validation": {
+    "command": "& \"C:\\Program Files\\Python312\\python.exe\" -B -m unittest discover -s tests -p \"test_evidence_*.py\" -v",
+    "result": "PASS",
+    "tests": 17,
+    "reported_unittest_seconds": 0.263,
+    "initial_sandbox_attempt": "Hard-link creation denied; scoped escalated rerun passed all17 tests. No test was skipped.",
+    "new_regressions": [
+      "Preexisting hard-link alias: exit2, empty stdout, exact bytes preserved through both names",
+      "Source-as-output rejected and preserved",
+      "Existing independent cache rejected and preserved",
+      "Fresh output succeeds, receipt hash and query verified",
+      "Deterministic output-after-preflight interleavings: hard link and independent file preserved; exclusive create fails with exit2 and no receipt"
+    ],
+    "data_scope": "Disposable synthetic files under build/evidence-slice-tests only; no retained evidence or REA access.",
+    "additional_checks": [
+      "Corrected Python sources parsed successfully",
+      "Benchmark existing-report rejection exits2 before evidence access; historical report bytes unchanged",
+      "Original freeze SHA256 and review SHA256 verified"
+    ],
+    "limits": "Output-file creation race covered; no claim of general protection against concurrent parent-directory replacement or mutable source contents."
+  },
+  "measurements": {
+    "new_benchmark_run": false,
+    "historical_benchmark": "analysis/bottleneck-index-benchmark.json",
+    "historical_benchmark_sha256": "647805061be45bdb5ca3a8dd20b8249aecc21906c29e011d87f3341a94960f5a",
+    "qualification": "Historical samples measure original pre-correction code only; its recorded code hashes remain unchanged."
+  },
+  "scope_note": "Audit sidecar outside the ten-file rollout; not self-hashed. Original freeze and reviewer artifacts preserved. No production, central coordination, worker-contract, real-evidence or REA changes; no merge or push.",
+  "next_action": "Coordinator requests independent recheck of this exact freeze; no adoption before acceptance."
+}
