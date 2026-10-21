@@ -1,0 +1,150 @@
+{
+  "status": "implemented_subset_runtime_tested",
+  "created_utc": "2026-10-21T22:05:52.919179+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "Complete FRCMOD105 dispatcher paths in the defined owned/finite input domain.",
+    "28c040 defaults for mode1ad0,inline1ad8..1b00,reference1b08,three tables1b10/1b90/1c08,scalar1b88,and nine doubles1c80..1cc0.",
+    "415ac0 int/five-real header and415320 nine-real payload via the existing aggregate-reader component."
+  ],
+  "behavior": {
+    "defaults": "Mode/reference and every inline/nine-value double initialize to zero. Three independent table types1B/1C/B4 are constructed; the first is not changed by this importer. Constructor initialization is distinct from import selector changes.",
+    "common": "After a successful header, its first real always writes1b00 and fifth always writes1b88, including unknown selectors. A failed header preserves prior fields. Material creation/count/mode1 refresh happen first and survive a failed header.",
+    "selectors": "0..10 store the same mode.2/4/5 write the second real to1ad8/1ae0/1ae8;7 writes second/third to1af0/1af8.15 writes1ae8 and mode15;16 stores mode16. Negative inputs store mode11 and negated reference without clearing unrelated fields. Unknown positive inputs,including13/14,retain prior mode/inline state after common writes.",
+    "nine_values": "Input11 stores mode12 before415320. All nine live destinations are zeroed before fgets; partial/matching/blank/EOF reads commit zeros and assigned prefixes in helper argument order. Physical destinations are1c80,1c88,1ca0,1ca8,1cb0,1cb8,1cc0,1c90,1c98; the owned array remains physically ascending. Helper error becomes handler2 after mode/common/zeroing changes.",
+    "tables": "Input12 stores mode13, forces1b88 to100,sets table1b90 rank1/axis31/row count,then41a800. Input17 stores mode17,sets only table1c08 count,then41a800. Neither path resets the table or clears inactive tables. Zero/negative row counts allocate empty storage and consume no payload; EOF preserves calloc zeros and direct prefixes.",
+    "lifecycle": "Same-dimension/UNIT operations retain observed fields; changed dimension destroys materials and new creation reinstates defaults. Linked roots remain isolated except established dimension propagation."
+  },
+  "implementation": [
+    "New FrcmodProperties and read_frcmod operate on the existing canonical MaterialRecord.",
+    "Existing PropertyTable payload reader reused. Aggregate header reader extended with int/five-real and nine-real kinds; old kinds retain their declared output lengths.",
+    "Existing public database-loader headers/API unchanged. This is not a native ABI layout mirror or scientific evaluation implementation."
+  ],
+  "source": {
+    "dispatch": "analysis/frcmod-source-selection.json",
+    "bundle": "analysis/frcmod-static-evidence.json",
+    "new_complete_inline_records": 3,
+    "prior_qualified_bodies": 4,
+    "release": "analysis/frcmod-static-release-receipt.json",
+    "qualification": "All new inline Evidence complete. Prior projections retain target identity,body and qualifications at hashed local source paths; no cumulative snapshot rewrite."
+  },
+  "verification": {
+    "status": "PASS_FROZEN_ORIGINAL_COMPARISONS",
+    "imports": 62,
+    "handlers": 192,
+    "checks": 44076,
+    "unobserved_eof_cursors": 20,
+    "frozen_files": 51,
+    "successful_header_selector_outputs": {
+      "0": 8,
+      "1": 4,
+      "2": 8,
+      "3": 4,
+      "4": 4,
+      "5": 4,
+      "6": 4,
+      "7": 8,
+      "8": 4,
+      "9": 4,
+      "10": 4,
+      "11": 60,
+      "12": 16,
+      "17": 16,
+      "-17": 2,
+      "13": 8,
+      "14": 4,
+      "99": 4,
+      "15": 4,
+      "16": 4,
+      "-18": 2
+    },
+    "by_dimension": {
+      "3": 96,
+      "2": 96
+    },
+    "observations": {
+      "lookup_tokens": 244,
+      "handler_errors": 32,
+      "header_calls": 188,
+      "payload_calls": 32,
+      "coefficient_calls": 60,
+      "refresh_calls": 8,
+      "coefficient_errors": 8,
+      "payload_errors": 8
+    },
+    "reports": [
+      {
+        "status": "PASS_NATIVE_FRCMOD",
+        "imports": 31,
+        "handlers": 96,
+        "checks": 22038,
+        "unobserved_eof_cursors": 10,
+        "evidence_id": "ev_f923b434e1d544f4a9a4fc64c807a3f932f6dd03b15d01bf0c353baccb9e7aef",
+        "evidence_sha256": "9931d37516710e2d0137c6bd2cd7cd8f7dd0630cb5fd008f8661e6f96bb0ca23",
+        "frozen_files": 51,
+        "qualification": "All FRCMOD selector paths in the defined finite signed32, owned normal-wrapper profile. Numeric extremes, arbitrary aliases, scientific evaluation and complete app/native ABI remain pending."
+      },
+      {
+        "status": "PASS_NATIVE_FRCMOD",
+        "imports": 31,
+        "handlers": 96,
+        "checks": 22038,
+        "unobserved_eof_cursors": 10,
+        "evidence_id": "ev_394f32dc57ce95babc21e6c658ef7dab8e8fa2e7b3813accf35e36e8897c95ab",
+        "evidence_sha256": "68cfaf673a0458bcb218fb992a1461b78cddce24c42bb8befe351f5b57194475",
+        "frozen_files": 51,
+        "qualification": "All FRCMOD selector paths in the defined finite signed32, owned normal-wrapper profile. Numeric extremes, arbitrary aliases, scientific evaluation and complete app/native ABI remain pending."
+      }
+    ],
+    "prototype": "analysis/frcmod-prototype-comparison.json"
+  },
+  "chronology": [
+    "Six-import,twelve-handler prototype passed2087 checks with no candidate correction.",
+    "The low PID from the first harness was invisible in the default sandbox; an authorized read in the capture context confirmed DEF_PRE_64.exe before attachment. No process restart.",
+    "Generator syntax corrected and31-import C++ preflight passed before freeze.",
+    "51 source/helper/observer/comparison/API and both replay-driver files frozen before original training.",
+    "31 new evaluation imports prepared after training PASS; original ran before C++ with changed IDs/values,larger tables,reversed selector/coefficient-prefix and dimension order. All51 files unchanged."
+  ],
+  "regression": {
+    "targets_built": 17,
+    "tests_passed": 137,
+    "seconds": 33.52,
+    "log": "build/frcmod-full-ctest.log"
+  },
+  "boundary": {
+    "input": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": "unsupported",
+    "reason": "recognized keyword is not implemented: HDNPHA",
+    "supported_handlers": 72,
+    "last_events": [
+      {
+        "token": "COARSE",
+        "id": 126,
+        "category": 4
+      },
+      {
+        "token": "DIFBND",
+        "id": 129,
+        "category": 4
+      },
+      {
+        "token": "EMSVTY",
+        "id": 100,
+        "category": 4
+      },
+      {
+        "token": "HDNPHA",
+        "id": 114,
+        "category": 4
+      }
+    ]
+  },
+  "limitations": [
+    "Finite signed32 table conversion domain; invalid/large casts and INT_MIN negation remain explicit unsupported cases requiring instruction-level follow-up.",
+    "20 EOF cursor positions remain unobserved; helper values,statuses,consumed lines,destination mapping and states are compared.",
+    "Nonzero preserved table metadata,nonnull caches,arbitrary borrowed/shared aliases,allocation failure and original pointer ABI remain unproven.",
+    "Neighboring existing material stores are checked through the observer profile; their broader existing regression coverage remains separate.",
+    "Scientific FRCMOD evaluation,remaining material/object handlers,complete KEY/DB output and full console/application workflows remain required unfinished work."
+  ]
+}

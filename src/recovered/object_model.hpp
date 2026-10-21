@@ -308,6 +308,16 @@ struct MaterialCurveImports {
     }
 };
 
+struct FrcmodProperties {
+    std::int32_t mode_0x1ad0 = 0;
+    std::array<double, 6> scalars_0x1ad8{}; //Five inline coefficients plus1b00.
+    std::int32_t reference_0x1b08 = 0;
+    std::array<PropertyTable, 3> tables{PropertyTable{0x1b}, PropertyTable{0x1c},
+        PropertyTable{0xb4}}; //1b10/1b90/1c08; the first is not changed by FRCMOD.
+    double scalar_0x1b88 = 0.0;
+    std::array<double, 9> coefficients_0x1c80{}; //Physical ascending order, not read order.
+};
+
 struct MaterialRecord {
     enum class Profile { default_properties, default_name_only = default_properties };
     explicit MaterialRecord(int material_id);
@@ -333,6 +343,7 @@ struct MaterialRecord {
     std::int32_t coarsening_enabled_0x20d0 = 0;
     MaterialDirectFields direct;
     MaterialCurveImports curves;
+    FrcmodProperties frcmod;
     FstresProperties fstres;
     GrndatProperties grndat;
     // 29b300/28c5a0: count only; no inferred scientific interpretation.

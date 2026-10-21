@@ -57,14 +57,16 @@ void replay(std::string_view command) {
     int status = 0;
     std::ostringstream fields;
     fields << std::setprecision(17);
-    if (kind == "relation1i2r" || kind == "relation2i2r" || kind == "relation4r" || kind == "relation5r" || kind == "relation7r") {
+    if (kind == "relation1i2r" || kind == "relation2i2r" || kind == "relation4r" || kind == "relation5r" || kind == "relation7r" || kind == "relation1i5r" || kind == "relation9r") {
         if (skip != 0 || previous != "-")
             throw std::runtime_error("relation headers require SKIP0 and no prior state");
         using deform::recovered::RelationHeaderKind;
         const auto header_kind = kind == "relation1i2r" ? RelationHeaderKind::integer_two_reals
             : kind == "relation2i2r" ? RelationHeaderKind::two_integers_two_reals
             : kind == "relation4r" ? RelationHeaderKind::four_reals
-            : kind == "relation5r" ? RelationHeaderKind::five_reals : RelationHeaderKind::seven_reals;
+            : kind == "relation5r" ? RelationHeaderKind::five_reals
+            : kind == "relation1i5r" ? RelationHeaderKind::integer_five_reals
+            : kind == "relation9r" ? RelationHeaderKind::nine_reals : RelationHeaderKind::seven_reals;
         const auto result = deform::recovered::read_relation_header(reader, header_kind);
         status = result.status;
         fields << ",\"conversions\":" << result.conversions << ",\"integers\":[";

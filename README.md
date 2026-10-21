@@ -1994,3 +1994,32 @@ workflows remain unfinished. The retained full export now reaches FRCMOD after
 
 Run `ctest --test-dir build -C Release -R material_curves --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## FRCMOD material import
+
+FRCMOD now covers every source selector in the defined owned/finite input domain.
+Common header stores happen before selector handling, including unknown selectors.
+Input 11 stores mode 12 and reads nine doubles into the original reordered
+destinations. Input 12 stores mode 13, forces its separate scalar to 100 and reads
+its existing table. Input 17 updates a different table. Negative selectors retain
+the original reference behavior; inactive tables and unrelated coefficients survive.
+
+All three constructor-owned tables and every initialized scalar/coefficient are
+represented in the existing material record. The aggregate reader now supports
+the original int/five-real and nine-real formats. Partial, matching, blank and EOF
+reads preserve the original zeroing and mutation order. Existing reader formats
+and the public database-loader API are unchanged.
+
+The unchanged frozen candidate matches 62 original imports, 192 handler calls and
+44,076 checks, including 31 original-first evaluation imports with larger tables,
+changed IDs/values and reversed selector, prefix and dimension order. All 137
+regression tests pass in 33.52s after building all seventeen executable targets.
+Twenty EOF cursor positions remain unobserved.
+
+See `analysis/frcmod-import-contract.json` for source bindings and numerical/alias
+limits. Scientific evaluation and complete application workflows remain unfinished.
+The retained full export now reaches HDNPHA after 72 supported handlers; thirteen
+material catalog entries remain to implement.
+
+Run `ctest --test-dir build -C Release -R frcmod --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

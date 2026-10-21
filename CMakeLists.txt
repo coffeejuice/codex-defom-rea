@@ -34,6 +34,7 @@ target_sources(deform_recovered_state PRIVATE src/recovered/furnace_model.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/relation_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/fstres_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/grndat_properties.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/frcmod_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/unit_system.cpp)
 target_include_directories(deform_recovered_state PUBLIC src)
 target_compile_features(deform_recovered_state PUBLIC cxx_std_20)
@@ -68,6 +69,17 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(frcmod_cohort IN ITEMS training evaluation)
+    add_test(NAME "frcmod_${frcmod_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_frcmod.py"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/frcmod-${frcmod_cohort}-inputs.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/frcmod-${frcmod_cohort}"
+        --evidence "${CMAKE_CURRENT_SOURCE_DIR}/analysis/frcmod-runtime-${frcmod_cohort}.json"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/frcmod-${frcmod_cohort}-regression.json")
+    set_tests_properties("frcmod_${frcmod_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   foreach(material_curves_cohort IN ITEMS training evaluation)
     add_test(NAME "material_curves_${material_curves_cohort}_reference_replay"
       COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_curves.py"

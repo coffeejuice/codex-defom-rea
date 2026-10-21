@@ -605,6 +605,19 @@ void material_fields(const MaterialRecord& material) {
     curve("0x9d0", material.curves.difcoe[1]);
     curve("0xa48", material.curves.difcoe[2]);
     curve("0x2160", material.curves.difbnd_0x2160);
+    std::cout << "}},\"frcmod\":{\"mode_0x1ad0\":" << material.frcmod.mode_0x1ad0
+              << ",\"reference_0x1b08\":" << material.frcmod.reference_0x1b08
+              << ",\"scalars_0x1ad8_hex\":";
+    raw_values(std::span(material.frcmod.scalars_0x1ad8));
+    std::cout << ",\"scalar_0x1b88_hex\":";
+    raw_values(std::span(&material.frcmod.scalar_0x1b88, 1));
+    std::cout << ",\"coefficients_0x1c80_hex\":";
+    raw_values(std::span(material.frcmod.coefficients_0x1c80));
+    std::cout << ",\"tables\":{";
+    first_curve = true;
+    curve("0x1b10", material.frcmod.tables[0]);
+    curve("0x1b90", material.frcmod.tables[1]);
+    curve("0x1c08", material.frcmod.tables[2]);
     std::cout << "}},\"property_tables\":{";
     bool first_table = true;
     for (const auto& [id, table] : material.property_tables) {

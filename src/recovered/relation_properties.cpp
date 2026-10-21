@@ -190,6 +190,8 @@ RelationHeaderRead read_relation_header(KeywordReader& reader, RelationHeaderKin
     case RelationHeaderKind::five_reals: result.real_count = 5; break;
     case RelationHeaderKind::six_reals: result.real_count = 6; break;
     case RelationHeaderKind::seven_reals: result.real_count = 7; break;
+    case RelationHeaderKind::integer_five_reals: result.integer_count = 1; result.real_count = 5; break;
+    case RelationHeaderKind::nine_reals: result.real_count = 9; break;
     }
     auto line = reader.line();
     if (line.status != 0) return result;

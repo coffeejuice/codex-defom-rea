@@ -8,19 +8,20 @@
 namespace deform::recovered {
 
 enum class RelationHeaderKind {
-    integer_two_reals, two_integers_two_reals, four_reals, five_reals, six_reals, seven_reals
+    integer_two_reals, two_integers_two_reals, four_reals, five_reals, six_reals, seven_reals,
+    integer_five_reals, nine_reals
 };
 
 struct RelationHeaderRead {
     std::array<int, 2> integers{};
-    std::array<double, 7> reals{};
+    std::array<double, 9> reals{};
     int integer_count = 0;
     int real_count = 0;
     int conversions = -1;
     int status = 1;
 };
 
-// 415680/415ff0/414e40/414f50/415080/4151c0: one bounded line, comma normalization,
+// 415680/415ff0/414e40/414f50/415080/4151c0/415ac0/415320: one bounded line, comma normalization,
 // zeroed destinations, and failure only for fgets EOF or aggregate scanf -1.
 [[nodiscard]] RelationHeaderRead read_relation_header(
     KeywordReader& reader, RelationHeaderKind kind);

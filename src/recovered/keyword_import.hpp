@@ -75,6 +75,7 @@ public:
     // USRDEF, UENAME, UNNAME and CVNAME use the original shared name stores.
     // FRAE2H, LTHEAT (discarded integer), TMPSOL, TMPLIQ, MATDEN, GBMOBI;
     // FPERV, DIFCOE and DIFBND preserve their distinct owned table stores.
+    // FRCMOD includes every source selector and its reordered nine-value payload.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,
