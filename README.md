@@ -1311,17 +1311,27 @@ with `ctest --test-dir build -C Release -R fstres --output-on-failure`.
 `analysis/fstres-contract.json` binds all comparisons, independent audits,
 inputs, diagnostics and test receipts. The public database-loader API is unchanged.
 
-The full application remains incomplete. Next is the remaining `GRNDAT`
-import family: its nine-table branch, owned record lists, six-coefficient
-branch and refresh ordering, described in `analysis/fstres-follow-on-scope.json`.
+The full application remains incomplete. The remaining `GRNDAT` import
+branches now have reviewed static contracts and proposed fixtures from Chat A;
+implementation and runtime validation remain pending. See
+`analysis/chat-a-grndat-contract.json` and `analysis/worker-integration.md`.
 Scientific evaluation, enabled grain features, complete DB state import/export
 and console workflows remain separate recovery work.
 
 ## Paused checkpoint and local evidence
 
-Recovery is paused at the verified FSTRES checkpoint at the user's request.
-The remaining GRNDAT work and proposed workflow improvements have not started.
-Resume requires a new user instruction.
+Recovery remains paused. The latest runtime-validated implementation checkpoint
+is FSTRES; the subsequent A/B/C research and independent reviews are integrated
+and pushed at c6388aa. GRNDAT, keyword metadata and DB mapping research is
+recorded separately from implementation in `analysis/recovery-feature-ledger.json`.
+The 123 GRNDAT and 17 keyword action cases remain NOT_RUN. Reviewed evidence
+lookup tooling is also integrated; it does not establish whole-task speedup.
+
+This chat is the sole owner of recovery, implementation, tests and integration.
+Chat A, Chat B, Chat C and Bottleneck are archived; both schedules are paused.
+No regular checks or dispatch to those chats are required. The full-app goal is
+unchanged. Resume requires a new user instruction; the planned next increment
+is TITLE/CURSIM/OPRNAM/SIMNAM, as recorded in `analysis/recovery-plan.json`.
 
 This Git checkpoint includes the recovered C++ sources, replay programs,
 synthetic keyword fixtures, observer/comparison tools, compact contracts and

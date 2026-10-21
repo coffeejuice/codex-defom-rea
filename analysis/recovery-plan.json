@@ -523,7 +523,7 @@
     "provider": "ghidra",
     "snapshot": "analysis/oracle/recovery-snapshot.json",
     "full_evidence_bundle": "analysis/oracle/recovery-evidence.json",
-    "next_action": "Recover the remaining GRNDAT108 import family and its owned record/list readers, following analysis/fstres-follow-on-scope.json; scientific evaluation remains separate.",
+    "next_action": "After explicit user resumption, implement the reviewed bounded handlers and model updates using existing reader APIs; replay17 prepared action cases and compare against the original before compatibility claims. Preserve loader API.",
     "material_evidence_bundle": "analysis/oracle/material-import-evidence.json",
     "material_snapshot": "analysis/oracle/material-import-snapshot.json",
     "material_next_contract": {
@@ -623,16 +623,74 @@
     "A blocker or exhausted execution budget is not project completion."
   ],
   "current_work": {
-    "component": "Remaining GRNDAT import family",
-    "status": "next_recovery_planned",
-    "plan": "analysis/fstres-follow-on-scope.json",
-    "next": "Prove the 41bed0 record grammar/ownership, all nine-table headers and payloads, selector 2 list clearing/appending, six-real coefficients and exact refresh timing before implementation.",
-    "updated_utc": "2026-10-21T03:33:55.390197+00:00"
+    "component": "Keyword metadata importer TITLE/CURSIM/OPRNAM/SIMNAM",
+    "status": "implementation_in_progress",
+    "contract": "analysis/chat-b-roundtrip-blockers.json",
+    "fixtures": "analysis/chat-b-roundtrip-fixtures/manifest.json",
+    "accepted_review": "analysis/chat-c-keyword-metadata-recheck.json",
+    "next": "After explicit user resumption, implement the reviewed bounded handlers and model updates using existing reader APIs; replay17 prepared action cases and compare against the original before compatibility claims. Preserve loader API.",
+    "follow_on": "Remaining GRNDAT implementation and DB-to-model mapping implementation remain backlog; reuse integrated contracts instead of repeating recovery."
   },
   "pause": {
     "requested_by": "user",
-    "checkpoint": "analysis/fstres-contract.json",
-    "reason": "Stop after the safe checkpoint, commit and push, then report progress and propose speed improvements without implementing them.",
-    "resume_requires_user_request": true
+    "checkpoint": "analysis/worker-integration-manifest.json",
+    "reason": "User retains global goal paused while checkpoint and sole ownership are reconciled; no production work resumed.",
+    "resume_requires_user_request": true,
+    "implementation_checkpoint": "analysis/fstres-contract.json",
+    "resume_requested": "2026-10-21",
+    "runtime_status_note": "User explicitly resumed; goal tool still reports paused and exposes no active setter."
+  },
+  "integrated_worker_research_checkpoint": {
+    "date": "2026-10-21",
+    "integrated_commit": "c6388aae219be3ce552738666a464eb999d5ec3d",
+    "manifest": "analysis/worker-integration-manifest.json",
+    "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
+    "operating_mode": "single_primary_chat",
+    "goal_status": "resumption_requested_by_user",
+    "research": [
+      {
+        "component": "Remaining GRNDAT import branches",
+        "recovered": "bounded static contract independently reviewed",
+        "implemented": "not implemented by worker phase; existing selector4 implementation preserved",
+        "runtime_validated": "123 proposed cases NOT_RUN",
+        "contract": "analysis/chat-a-grndat-contract.json",
+        "review": "analysis/chat-b-grndat-fixture-recheck.json"
+      },
+      {
+        "component": "Keyword metadata TITLE/CURSIM/OPRNAM/SIMNAM",
+        "recovered": "bounded contract and corrected fixtures independently reviewed",
+        "implemented": "not implemented by worker phase",
+        "runtime_validated": "17 action cases NOT_RUN; R6 outstanding",
+        "contract": "analysis/chat-b-roundtrip-blockers.json",
+        "review": "analysis/chat-c-keyword-metadata-recheck.json"
+      },
+      {
+        "component": "DB controls and materials/relations mapping",
+        "recovered": "G1 and corrected G2 bounded static contracts independently reviewed",
+        "implemented": "not implemented by worker phase; existing loader API preserved",
+        "runtime_validated": "new mappings not runtime validated",
+        "contracts": [
+          "analysis/chat-c-db-controls-contract.json",
+          "analysis/chat-c-db-materials-contract.json"
+        ],
+        "reviews": [
+          "analysis/chat-b-db-controls-review.json",
+          "analysis/chat-a-db-materials-recheck.json"
+        ]
+      }
+    ],
+    "qualification": "Prior implementation and runtime checkpoints remain valid within their recorded bounds. Integrated research is not implementation or complete application compatibility."
+  },
+  "ownership": {
+    "primary_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
+    "responsibilities": [
+      "recovery",
+      "implementation",
+      "tests",
+      "integration"
+    ],
+    "standing_workers": "archived",
+    "periodic_worker_checks": false,
+    "new_delegation": "Only a separately authorized bounded review; no standing worker dispatch"
   }
 }

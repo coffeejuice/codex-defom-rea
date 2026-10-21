@@ -1,3 +1,20 @@
+# Current ownership: one primary chat
+
+The user retired standing worker coordination on 2026-10-21. This chat
+(01a158d9-cd37-70f1-bb86-4aeb4782972a) owns recovery, implementation, tests and
+integration. Chat A, Chat B, Chat C and Bottleneck are archived. Both recurring
+schedules are paused. Do not poll or dispatch those workers, and do not restart
+schedules merely because the global goal is resumed.
+
+The global full-app goal is unchanged and paused. The authoritative continuation
+is analysis/recovery-plan.json; accepted worker research is indexed by
+analysis/worker-integration-manifest.json. Any future bounded independent review
+requires separate authorization. Existing worktrees and evidence remain intact.
+
+The previous workflow below is retained as history only, not active instructions.
+
+---
+
 # Responsive coordination
 
 The user authorized recurring coordination and continuous workflow improvement.
