@@ -245,6 +245,11 @@ void ObjectModel::set_trans(const std::array<int, 5>& values) {
     // 39aa90 case10 does not refresh widths or propagate to the linked root.
 }
 
+void ObjectModel::set_heat_method(std::int32_t value) {
+    require_simulation_profile(controls_);
+    controls_.simulation->method_0x868 = value;
+}
+
 void ObjectModel::refresh_components() {
     refresh_components_impl({}, false);
 }

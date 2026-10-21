@@ -1583,3 +1583,23 @@ existing loader API is unchanged.
 Run `ctest --test-dir build -C Release -R "trans|grain_fallback" --output-on-failure`.
 The fallback test uses tracked sources; original reference replays need ignored
 local capture/run/observer files and do not launch the original app.
+
+## HTMTHD implementation checkpoint
+
+HTMTHD now reproduces the direct integer write to root868, including the reader's
+zero mutation on blank or EOF failures. Same-dimension headers retain it; changed
+dimensions reset it to zero. No handler refresh or linked-root propagation occurs.
+The stored integer is preserved without inventing scientific enum restrictions.
+
+The unchanged candidate matches 27 original imports, 38 handlers and 1,753 checks.
+Eleven new evaluation imports ran on the original before C++. Planned wrapper
+statuses and final values are checked alongside the live reader outputs and
+surrounding controls. Four EOF cursor positions remain unavailable.
+
+All 105 regression tests pass. `analysis/htmthd-import-contract.json` records the
+retained REA sources, freezes and limitations. Scientific consumers remain pending;
+the full export now reaches ELMNOD after twelve supported handlers. The loader API
+is unchanged.
+
+Run `ctest --test-dir build -C Release -R htmthd --output-on-failure`. Reference
+replays need ignored local capture/run/observer files and do not launch the original.

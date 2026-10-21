@@ -59,6 +59,7 @@ struct SimulationControls {
     std::int32_t material_gate_0x85c = 0; // Independent feature49 gate.
     std::int32_t flag_0x860 = 0;
     std::int32_t grain_gate_0x864 = 0;
+    std::int32_t method_0x868 = 0; // HTMTHD raw int; scientific consumers pending.
     std::int32_t grain_mode_0x898 = 0; // Mutated by queries53 then29, not TRANS.
     std::array<int, 7> output_flags{0, 0, 0, 0, 1, 0, 0}; // +0x86c..0x884.
     std::int32_t step_number_0x8b0 = -1; // NSTART.
@@ -304,6 +305,7 @@ public:
     void set_unit(std::int32_t value);
     void set_tnow(const std::array<double, 4>& values);
     void set_trans(const std::array<int, 5>& values);
+    void set_heat_method(std::int32_t value);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

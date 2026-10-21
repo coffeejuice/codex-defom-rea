@@ -67,6 +67,18 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(htmthd_batch IN ITEMS training evaluation)
+    set(htmthd_plan "htmthd-fixture-plan.json")
+    if(htmthd_batch STREQUAL "evaluation")
+      set(htmthd_plan "htmthd-evaluation-inputs.json")
+    endif()
+    add_test(NAME "htmthd_${htmthd_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_htmthd_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/htmthd-runtime-${htmthd_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/htmthd-${htmthd_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${htmthd_plan}")
+  endforeach()
   foreach(trans_batch IN ITEMS positive evaluation positive-v2 evaluation-v2 selector-transitions)
     string(REPLACE "-" "_" trans_suffix "${trans_batch}")
     if(trans_batch STREQUAL "positive" OR trans_batch STREQUAL "evaluation")
