@@ -1901,3 +1901,34 @@ and limits. General furnace scientific evaluation remains pending. The retained
 full export reaches UNNAME after 56 supported handlers, and the next scope keeps
 all four remaining root-name families. The database-loader API is unchanged;
 complete application recovery remains active and incomplete.
+
+## Root names and shared user-field definitions
+
+USRDEF, UENAME, UNNAME and CVNAME are now implemented. Node and element names
+use the existing user-field definition records, so resizing updates the same
+widths and component layouts as their field imports. Empty names preserve old
+records; shorter names retain bytes beyond the new terminator. Flags of two or
+more consume the current number of rows while retaining names and widths.
+
+USRDEF writes at most ten 80-byte text prefixes. Its constructor initializes
+only the first byte of each slot; known-prefix metadata preserves that distinction.
+Dimension changes clear the first byte while retaining previously written tails.
+CVNAME owns an ordered signed-ID catalog with names and label lists. It sets the
+name, clears labels and appends rows in the original order, retaining partial
+changes on failure. This catalog survives dimension changes and leaves the
+separate selected custom-variable ID unchanged.
+
+The unchanged frozen candidate matches 62 original imports, 128 handler calls
+and 6,608 checks, including 31 independently varied original-first evaluation
+imports. All 131 regression tests pass in 32.01s after building all seventeen
+executable targets. Twenty-two EOF cursor positions remain unobserved. A separate
+nine-import prototype passed before freeze without candidate corrections.
+
+See `analysis/root-names-import-contract.json` for source evidence and limits.
+The retained full export now reaches FRAE2H after 59 supported handlers. Complete
+export, scientific consumers, remaining imports and application workflows remain
+unfinished; the public database-loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R root_names --output-on-failure`.
+Reference replays require the ignored local capture/run/observer files and do
+not launch the original executable.

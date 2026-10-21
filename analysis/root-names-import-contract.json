@@ -1,0 +1,132 @@
+{
+  "status": "implemented_subset_runtime_tested",
+  "created_utc": "2026-10-21T20:51:09.805166+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "USRDEF87 fixed text records at rootdd8, stride81, bounded strncpy80 writes.",
+    "UENAME88 and UNNAME89 share canonical element/node user-field counts and zero-initialized64-byte definitions.",
+    "CVNAME90 signed-ID ordered name/label collection at root33c0, independent of selected custom ID at root33b8."
+  ],
+  "behavior": {
+    "USRDEF": "Failed integer header returns2 before mutation. At most10 rows are read with fgets1024; nonpositive counts read none. Trim removes trailing spaces/CR/LF, preserving leading bytes and tabs. Each successful row fills exactly80 bytes, truncating or NUL-padding; partial EOF retains committed prefix rows.",
+    "user_names": "Flag<2 resizes the existing definition array; only a changed width invokes mode0 component refresh. Each row uses fgets64, including discard mode flag>=2. Discard mode consumes the current width and ignores the declared new count. Empty trimmed names preserve the complete existing64-byte record; nonempty strcpy replaces only prefix+NUL and retains old suffix. EOF after resize retains the new width and written prefix.",
+    "custom_names": "Read name first with413c60: fgets1024 consumes a line, truncates to63 then trims trailing spaces/CR/LF. Successful name read finds/creates an exact signed-ID record, sets even an empty name, clears its labels, then appends each successful label. Failed initial name leaves the catalog unchanged; failed later label retains new name and prefix labels. Negative label count sets name and clears labels without reading labels. IDs have no positional placeholder semantics.",
+    "lifecycle": "Dimension changes clear node/element definitions. USRDEF reset writes each first NUL only, retaining already-known tails. The custom name/label catalog and selected custom ID survive dimension resets. UNIT preserves observed name stores. Linked roots remain isolated except previously recovered dimension propagation."
+  },
+  "source": {
+    "bundle": "analysis/root-names-static-evidence.json",
+    "new_complete_evidence_records": 26,
+    "retained_dependency_records": 9,
+    "release": "analysis/root-names-static-release-receipt.json",
+    "primitive_qualifications": "Each complete retained Evidence record preserves target identity, limitations and relationship coverage. Selected dispatcher branches and older constructors/setters are included with source hashes.",
+    "layout": "Original MSVC string objects are40 bytes, with data/inline buffer at+8,length+18h,capacity+20h. Custom-name nodes are48h bytes and label nodes38h bytes. Passive observer validates exact list count and bidirectional sentinel topology."
+  },
+  "verification": {
+    "status": "PASS_FROZEN_ORIGINAL_COMPARISONS",
+    "imports": 62,
+    "handlers": 128,
+    "checks": 6608,
+    "unobserved_eof_cursors": 22,
+    "frozen_files": 47,
+    "by_id": {
+      "87": 24,
+      "88": 34,
+      "89": 34,
+      "90": 36
+    },
+    "by_dimension": {
+      "3": 64,
+      "2": 64
+    },
+    "observations": {
+      "lookup_tokens": 167,
+      "headers": 128,
+      "refresh_calls": 43,
+      "handler_errors": 24,
+      "line_reads": 418,
+      "fgets1024_reads": 254,
+      "eof_reads": 22,
+      "trim_calls": 188,
+      "fgets64_reads": 164,
+      "resize_calls": 60,
+      "name_calls": 30,
+      "clear_calls": 30,
+      "append_calls": 24
+    },
+    "reports": [
+      {
+        "status": "PASS_NATIVE_ROOT_NAMES",
+        "imports": 31,
+        "handlers": 64,
+        "checks": 3304,
+        "unobserved_eof_cursors": 11,
+        "evidence_id": "ev_1f5f0a2359bf6ac690296a8c37c517a245cbcb3e5fd9391aa9724642a0f12b06",
+        "evidence_sha256": "8f71abe2ea99888983a000238c774dd7b843fce4187c4701cc853f6dcda812ce",
+        "frozen_files": 47,
+        "qualification": "Bounded defined ASCII name imports, normal wrapper option0, owned storage in both dimensions. Complete app/scientific consumers, arbitrary COW aliases, allocation failures and unsafe native negative resize remain pending."
+      },
+      {
+        "status": "PASS_NATIVE_ROOT_NAMES",
+        "imports": 31,
+        "handlers": 64,
+        "checks": 3304,
+        "unobserved_eof_cursors": 11,
+        "evidence_id": "ev_954bacab9a81e88fb0ae90ab5e2de232bbe7e0cb9b3c5d1cc246a60603e3f3c5",
+        "evidence_sha256": "ba5a442dc75bfe0d019919358203ec6cb35b7542a261d440478557261f4575ec",
+        "frozen_files": 47,
+        "qualification": "Bounded defined ASCII name imports, normal wrapper option0, owned storage in both dimensions. Complete app/scientific consumers, arbitrary COW aliases, allocation failures and unsafe native negative resize remain pending."
+      }
+    ],
+    "prototype": "analysis/root-names-prototype-comparison.json"
+  },
+  "chronology": [
+    "Nine-import,15-handler prototype passed653 checks with no candidate corrections.",
+    "47 candidate/source/observer/comparison/API files frozen before31 training imports.",
+    "After training PASS,31 independently varied evaluation imports prepared; original executed before C++ on those inputs. Candidate unchanged through both cohorts.",
+    "Evaluation reverses dimension order, changes values/IDs/extents and repopulates the spatial mesh before name resizing. Extension source/hash recorded in evaluation plan."
+  ],
+  "regression": {
+    "targets_built": 17,
+    "tests_passed": 131,
+    "seconds": 32.01,
+    "log": "build/root-names-full-ctest.log"
+  },
+  "boundary": {
+    "input": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": "unsupported",
+    "reason": "recognized keyword is not implemented: FRAE2H",
+    "supported_handlers": 59,
+    "last_events": [
+      {
+        "token": "UNNAME",
+        "id": 89,
+        "category": 1
+      },
+      {
+        "token": "UENAME",
+        "id": 88,
+        "category": 1
+      },
+      {
+        "token": "MTNAME",
+        "id": 92,
+        "category": 4
+      },
+      {
+        "token": "FRAE2H",
+        "id": 93,
+        "category": 4
+      }
+    ]
+  },
+  "public_loader_api": "include/deform unchanged; original API preserved.",
+  "limitations": [
+    "Defined ASCII, normal wrapper option0, owned imports and finite bounded fixture extents only; not universal compatibility.",
+    "USRDEF81st slot byte and unwritten constructor tails remain unknown. The model exposes only known prefixes and never fabricates an original sentinel.",
+    "22 EOF cursor positions remain unobserved; statuses, mutation order, row reads and final states are compared.",
+    "Negative requested resize with flag<2 reaches unsafe native behavior; C++ rejects it as unsupported. Negative declared counts in discard mode are covered safely.",
+    "Arbitrary shared/COW aliases, allocation failure, original native pointer ABI and embedded-NUL outer parsing remain required unresolved work.",
+    "Full keyword export, scientific consumers, remaining handlers, complete DB-to-model import and application workflows remain incomplete."
+  ]
+}

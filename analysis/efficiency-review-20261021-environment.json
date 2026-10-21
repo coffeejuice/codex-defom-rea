@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 393373845,
+    "tail_mib": 32,
+    "start_offset": 359870856,
+    "end_offset": 393373845,
+    "window_sha256": "9af39f64b162a7ee42176e387abde254b9513a88739ceca3cc2bd43ca6c4e1ff"
+  },
+  "turns": [
+    {
+      "turn_id": "01a15fe6-84be-7af2-970d-b87fdd7447bb",
+      "started_at": "2026-10-21T19:18:25.232Z",
+      "completed_at": "2026-10-21T19:47:53.202Z",
+      "elapsed_seconds": 1767.97,
+      "tool_active_union_seconds": 221.842,
+      "reasoning_item_union_seconds": 1043.211,
+      "tool_reasoning_overlap_seconds": 87.533,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 583.755,
+      "tool_items": {
+        "CommandExecution": 38,
+        "open_binary": 1,
+        "procedure_pseudo_code": 22,
+        "FileChange": 41,
+        "read_bytes": 3,
+        "procedure_assembly": 1,
+        "close_binary": 1,
+        "instrument_with_frida": 1
+      },
+      "failed_tool_items": 5,
+      "truncated_command_outputs": 0,
+      "usage_delta": {
+        "input_tokens": 13285184,
+        "cached_input_tokens": 13170688,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 59064,
+        "reasoning_output_tokens": 36392,
+        "total_tokens": 13344248,
+        "uncached_input_tokens": 114496
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "procedure_pseudo_code",
+          "seconds": 81.444,
+          "item_id": "exec-4dcd6b19-f378-4dd0-ada1-e7e515b1883d"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.388,
+          "item_id": "exec-d954aadb-6f38-48b9-8bce-defa323e4e39"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "open_binary",
+          "seconds": 29.414,
+          "item_id": "exec-04080dae-5bed-4833-8f28-d62b40fcf4e2"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 22.098,
+          "item_id": "exec-a0e41d50-22f4-4d5c-8f35-533c3caf2ea5"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 13.04,
+          "item_id": "exec-cdcc23e5-85e2-46f0-9b0d-26cb2a115acf"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a16001-7efa-7c71-b7d7-854539b71afe",
+      "started_at": "2026-10-21T19:47:53.228Z",
+      "completed_at": "2026-10-21T20:17:08.777Z",
+      "elapsed_seconds": 1755.549,
+      "tool_active_union_seconds": 270.4,
+      "reasoning_item_union_seconds": 1079.557,
+      "tool_reasoning_overlap_seconds": 115.523,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 512.698,
+      "tool_items": {
+        "CommandExecution": 33,
+        "FileChange": 9,
+        "instrument_with_frida": 4
+      },
+      "failed_tool_items": 2,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 12712607,
+        "cached_input_tokens": 12638336,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 56462,
+        "reasoning_output_tokens": 35381,
+        "total_tokens": 12769069,
+        "uncached_input_tokens": 74271
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.913,
+          "item_id": "exec-74c299f2-90ab-4bd5-9a47-b71ebdce9ddc"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.674,
+          "item_id": "exec-3689b0af-78f6-4266-aa87-90a5de6782e5"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.39,
+          "item_id": "exec-4e8c0542-9a59-43d8-9b61-521640e7819d"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.234,
+          "item_id": "exec-c6e0abc0-439a-45d8-a990-1142d95acbc5"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 31.874,
+          "item_id": "exec-4960a7ed-bc31-4091-99fd-e45b57efad66"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "safe_checkpoint_review": {
+    "checkpoint": "analysis/environment-import-contract.json",
+    "native_imports": 67,
+    "native_handlers": 163,
+    "checks": 10568,
+    "tests_passed": 129,
+    "full_regression_seconds": 31.49,
+    "capture_retries": 0,
+    "post_freeze_candidate_corrections": 0,
+    "observed_time_consumer": "Reasoning-item intervals dominate the two completed turns (1043.211s/1079.557s). This includes necessary analysis and does not prove that all of it was avoidable.",
+    "concrete_rework": "Two prototype source branch-label errors were corrected before freeze; no original-process rerun was needed.",
+    "one_workflow_change": "Before condensing nested native if/else chains, retain the exclusive condition/body selection and its source binding. Use the existing environment-exclusive-branch-audit.json pattern; do not infer a case number from indentation.",
+    "validation": "analysis/environment-exclusive-branch-audit.json and environment-prototype-development.json establish the two corrected labels; full frozen comparison subsequently passed. Prevention/time savings remain unmeasured.",
+    "existing_improvements": "Saved-source reuse, compact body views, one full regression and incremental complete Evidence retention continue. Do not add another tool/harness project or repeat passing gates.",
+    "qualification": "Prior completed-turn metadata and different workloads; no causal wall-time/token improvement percentage. Unattributed intervals remain unassigned."
+  }
+}

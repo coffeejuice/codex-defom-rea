@@ -60,6 +60,9 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   state are not retained separately. Record the release receipt and verify
   retention; `analysis/iteration-evidence-retention-validation.json` is the first
   measured check. Artifact-byte savings do not establish time or token savings.
+- Before condensing nested native branches, retain the exclusive condition/body
+  selection with source identity. Do not infer branch labels from indentation.
+  The environmental prototype caught two such errors; prevention is not timed.
 - Resolve the concrete uncertainty, run the required comparison, inspect a concise
   diff, and proceed. Do not repeatedly speculate about already-passing unchanged
   code or regenerate the same report merely to reassure yourself.

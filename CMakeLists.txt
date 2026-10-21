@@ -68,6 +68,17 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(root_names_cohort IN ITEMS training evaluation)
+    add_test(NAME "root_names_${root_names_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_root_names.py"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/root-names-${root_names_cohort}-inputs.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/root-names-${root_names_cohort}"
+        --evidence "${CMAKE_CURRENT_SOURCE_DIR}/analysis/root-names-runtime-${root_names_cohort}.json"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/root-names-${root_names_cohort}-regression.json")
+    set_tests_properties("root_names_${root_names_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   add_test(NAME environment_prototype_reference_replay
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_environment_prototype.py"
       --driver "$<TARGET_FILE:keyword_import_replay>"

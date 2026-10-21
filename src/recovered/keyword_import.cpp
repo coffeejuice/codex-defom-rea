@@ -129,7 +129,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 86) || id == 91)) ||
+    return (category == 1 && id >= 22 && id <= 91) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -168,6 +168,50 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
         if (auto* table = model.set_frequency_header(header.values[0], header.values[1]))
             status = read_property_values(reader, *table);
         return status == 0 ? 0 : 2;
+    }
+    if (id >= 87 && id <= 90) {
+        const auto trim = [](std::string value) {
+            const auto nul = value.find('\0');
+            if (nul != std::string::npos) value.resize(nul);
+            while (!value.empty() && (value.back() == ' ' || value.back() == '\r' || value.back() == '\n'))
+                value.pop_back();
+            return value;
+        };
+        if (id == 87) {
+            const auto header = reader.integer();
+            if (header.status != 0) return 2;
+            for (int i = 0; i < header.values[0] && i < 10; ++i) {
+                const auto read = reader.line();
+                if (read.status != 0) return 2;
+                model.set_user_definition(static_cast<std::size_t>(i), trim(read.bytes));
+            }
+            return 0;
+        }
+        const auto header = reader.integer_pair();
+        if (header.status != 0) return 2;
+        if (id == 90) {
+            auto text = reader.furnace_text_line(); //Same413c60 one-line helper.
+            if (text.status != 0) return 2;
+            model.set_custom_name(header.values[0], std::move(text.bytes));
+            model.clear_custom_labels(header.values[0]);
+            for (int i = 0; i < header.values[1]; ++i) {
+                text = reader.furnace_text_line();
+                if (text.status != 0) return 2;
+                model.append_custom_label(header.values[0], std::move(text.bytes));
+            }
+            return 0;
+        }
+        const bool nodes = id == 89;
+        const bool update = header.values[0] < 2;
+        if (update) model.set_user_field_width(nodes, header.values[1]);
+        const auto& simulation = *model.controls().simulation;
+        const int count = nodes ? simulation.user_node_width_0x3398 : simulation.user_element_width_0x33a8;
+        for (int i = 0; i < count; ++i) {
+            const auto read = reader.bounded_line(64);
+            if (read.status != 0) return 2;
+            if (update) model.set_user_field_name(nodes, static_cast<std::size_t>(i), trim(read.bytes));
+        }
+        return 0;
     }
     if (id == 71) {
         const auto read = reader.real_quad();

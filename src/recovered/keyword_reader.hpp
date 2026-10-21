@@ -154,6 +154,7 @@ public:
     [[nodiscard]] TextRead token();
     // Bounded fgets with size 1024, including LF if encountered.
     [[nodiscard]] LineRead line();
+    [[nodiscard]] LineRead bounded_line(std::size_t capacity); //fgets capacity.
 
     // Stream fscanf("%i") used for object selection: consumes only the numeric
     // prefix, including whitespace/sign on a failed conversion, not a line.

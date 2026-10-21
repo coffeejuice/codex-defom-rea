@@ -182,6 +182,10 @@ void ObjectModel::set_dimension(int dimension) {
         reset.simulation->units.reset_defaults();
         //1e7da0/1ea6b0 clear table entries, retaining the container's name.
         reset.simulation->general.frnnam_0xb90 = controls_.simulation->general.frnnam_0xb90;
+        reset.simulation->general.user_definitions_0xdd8 =
+            controls_.simulation->general.user_definitions_0xdd8;
+        for (auto& text : reset.simulation->general.user_definitions_0xdd8)
+            text.bytes[0] = 0; //1ead60 strcpy(empty) retains the known tail.
     }
     reset.alternate_root_enabled = controls_.alternate_root_enabled;
     // Native setter writes the dimension before clearing the lists. Internal
@@ -505,6 +509,46 @@ void ObjectModel::set_user_field_width(bool nodes, int width) {
     definitions.resize(static_cast<std::size_t>(width));
     stored = width;
     refresh_components();
+}
+
+void ObjectModel::set_user_field_name(bool nodes, std::size_t index, std::string_view name) {
+    require_simulation_profile(controls_);
+    auto& definitions = nodes ? controls_.simulation->user_node_definitions
+                              : controls_.simulation->user_element_definitions;
+    if (index >= definitions.size() || name.size() >= 64)
+        throw std::invalid_argument("user-field name outside owned fgets64 record");
+    if (name.empty()) return; //Dispatcher skips strcpy on empty trimmed text.
+    std::copy(name.begin(), name.end(), definitions[index].begin());
+    definitions[index][name.size()] = 0; //strcpy leaves the old suffix intact.
+}
+
+void ObjectModel::set_user_definition(std::size_t index, std::string_view text) {
+    require_simulation_profile(controls_);
+    if (index >= 10) throw std::out_of_range("USRDEF slot");
+    auto& record = controls_.simulation->general.user_definitions_0xdd8[index];
+    record.bytes.fill(0); //strncpy80 fills its entire short-input tail.
+    std::copy_n(text.begin(), std::min<std::size_t>(80, text.size()), record.bytes.begin());
+    record.known_prefix = 80;
+}
+
+CustomVariableNames& ObjectModel::custom_name_record(std::int32_t id) {
+    for (const auto& record : custom_names_)
+        if (record->id == id) return *record;
+    auto& record = custom_names_.emplace_back(std::make_unique<CustomVariableNames>());
+    record->id = id;
+    return *record;
+}
+
+void ObjectModel::set_custom_name(std::int32_t id, std::string name) {
+    custom_name_record(id).name = std::move(name);
+}
+
+void ObjectModel::clear_custom_labels(std::int32_t id) {
+    custom_name_record(id).labels.clear();
+}
+
+void ObjectModel::append_custom_label(std::int32_t id, std::string label) {
+    custom_name_record(id).labels.push_back(std::move(label));
 }
 
 std::span<double> ObjectModel::user_field_values(ObjectRecord& object, bool nodes) {

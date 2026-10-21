@@ -111,12 +111,26 @@ struct RootRecordTables {
         PropertyTable{0xb0}, PropertyTable{0xb1}, PropertyTable{0xb2}};
 };
 
+struct UserDefinitionText {
+    //USRDEF writes80 bytes into each81-byte slot. The untouched sentinel
+    //and initial uninitialized tail are not fabricated as native zero bytes.
+    std::array<std::uint8_t, 80> bytes{};
+    std::size_t known_prefix = 1; //1ead60 writes only the first NUL.
+};
+
+struct CustomVariableNames {
+    std::int32_t id;
+    std::string name;
+    std::vector<std::string> labels;
+};
+
 struct RootGeneralFields {
     std::array<double, 4> geometry_errors_0xdb0{};
     double peninf_0xaf8 = 0.0;
     double tintgf_0xb08 = 0.0;
     double ehrate_0xd88 = 0.0;
     std::string frnnam_0xb90 = "Furnace model"; //375470 constructor, not defaults.
+    std::array<UserDefinitionText, 10> user_definitions_0xdd8;
 };
 
 struct SimulationControls {
@@ -416,6 +430,14 @@ public:
     // Changed user widths resize their root definition table before global
     // preserving refresh. Equal widths have no allocation/refresh effects.
     void set_user_field_width(bool nodes, int width);
+    void set_user_field_name(bool nodes, std::size_t index, std::string_view name);
+    void set_user_definition(std::size_t index, std::string_view text);
+    void set_custom_name(std::int32_t id, std::string name);
+    void clear_custom_labels(std::int32_t id);
+    void append_custom_label(std::int32_t id, std::string label);
+    [[nodiscard]] std::span<const std::unique_ptr<CustomVariableNames>> custom_names() const noexcept {
+        return custom_names_;
+    }
     // Native getters use stored container counts and a single descriptor
     // selector; even an equal-size call updates descriptor shape history.
     [[nodiscard]] std::span<double> user_field_values(ObjectRecord& object, bool nodes);
@@ -518,6 +540,9 @@ private:
     std::int32_t material_count_ = 0; // Root1320, separate from list ownership.
     std::int32_t relation_count_ = 0; // Root13f4; not the relation list count.
     std::int32_t custom_last_id_0x33b8_ = 0;
+    //Adjacent33c0 collection is independent of selection and survives reset.
+    std::vector<std::unique_ptr<CustomVariableNames>> custom_names_;
+    [[nodiscard]] CustomVariableNames& custom_name_record(std::int32_t id);
     ObjectModel* linked_root_ = nullptr;
     std::uint64_t generation_ = 0;
     // Constructor1c8950 calls1d7f10 after1c8c00.

@@ -137,3 +137,16 @@ stdout bytes across the same three selections, with identical parsed payloads.
 This 23.5% output reduction does not establish end-to-end time or token savings.
 See `efficiency-review-20261021-root-fields.json` and
 `evidence-body-compact-validation.json`. Standing workers remain archived.
+
+### Environmental checkpoint review
+
+The hourly safe review covers two completed turns of 1767.970s and 1755.549s.
+Reasoning intervals were 1043.211s and 1079.557s; tool intervals were 221.842s
+and 270.400s. Unattributed intervals are not assigned a cause. Necessary source
+analysis is included, so these figures do not establish how much was avoidable.
+
+The concrete rework was two prototype branch-label mistakes, corrected against
+exclusive source bodies before freeze. Require that source selection before
+condensing nested branches. No new tooling project or speed percentage is claimed.
+The frozen implementation passed 67 imports and 129 tests without capture retries
+or post-freeze corrections. See `efficiency-review-20261021-environment.json`.

@@ -143,12 +143,18 @@ KeywordReader::TextRead KeywordReader::token() {
 }
 
 KeywordReader::LineRead KeywordReader::line() {
+    return bounded_line(1024);
+}
+
+KeywordReader::LineRead KeywordReader::bounded_line(std::size_t capacity) {
+    if (capacity < 2 || capacity > 1024)
+        throw std::invalid_argument("unrecovered fgets capacity");
     LineRead result;
     result.offset = cursor_;
     if (cursor_ == input_.size()) {
         result.status = 1;
     } else {
-        while (cursor_ < input_.size() && cursor_ - result.offset < 1023) {
+        while (cursor_ < input_.size() && cursor_ - result.offset < capacity - 1) {
             if (input_[cursor_++] == '\n') break;
         }
         result.bytes = input_.substr(result.offset, cursor_ - result.offset);

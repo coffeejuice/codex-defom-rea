@@ -710,6 +710,35 @@ void state(const ObjectModel& model) {
         raw_values(std::span(&s.field_0xda8, 1)); std::cout << '}';
     }
     std::cout << ",\"custom_last_id_0x33b8\":" << model.custom_last_id();
+    std::cout << ",\"root_names\":{\"custom\":[";
+    bool first_custom_name = true;
+    for (const auto& record : model.custom_names()) {
+        if (!first_custom_name) std::cout << ',';
+        first_custom_name = false;
+        std::cout << "{\"id\":" << record->id << ",\"name\":";
+        emit_quoted(record->name);
+        std::cout << ",\"labels\":[";
+        for (std::size_t i = 0; i < record->labels.size(); ++i) {
+            if (i) std::cout << ',';
+            emit_quoted(record->labels[i]);
+        }
+        std::cout << "]}";
+    }
+    std::cout << "],\"user_text\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        std::cout << '[';
+        const auto& records = controls.simulation->general.user_definitions_0xdd8;
+        for (std::size_t i = 0; i < records.size(); ++i) {
+            if (i) std::cout << ',';
+            std::cout << "{\"known_prefix\":" << records[i].known_prefix << ",\"bytes_hex\":";
+            emit_quoted(hex(std::string_view(reinterpret_cast<const char*>(records[i].bytes.data()),
+                records[i].known_prefix)));
+            std::cout << '}';
+        }
+        std::cout << ']';
+    }
+    std::cout << '}';
     std::cout << ",\"trans\":";
     if (!controls.simulation) std::cout << "null";
     else {
