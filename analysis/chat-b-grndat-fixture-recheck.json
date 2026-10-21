@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "task": "recheck-grndat-fixtures-1",
+  "reviewer": "Chat B",
+  "created_utc": "2026-10-21T06:09:15.971299+00:00",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "verdict": "ACCEPT_CORRECTIONS_STATIC_ONLY",
+  "findings": [],
+  "scope": "Focused repair/regression recheck of B-GRNDAT-01 and B-GRNDAT-02 only; prior review retained. No full contract review or new runtime/implementation validation.",
+  "sources": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixture-correction.json",
+      "sha256": "b0138af809d1fc9ad393db8b38c7ec1c15774793b742e1507859b9db1ad813f3"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixture-plan.json",
+      "sha256": "e8e1219f4d5576d6b5da8f3ae10ef4426c0e970bca375e3c400bc9a130e869fb"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-fixture-readiness.json",
+      "sha256": "ec23fe6e06f70a63e5571bfb704fb14219e77bd76d095f22cfdc4bcafea09f41"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-grndat-fixture-review.json",
+      "sha256": "484c83ed81ba870fa0b67e75e1f15edef67e2138b7e69bfea660ee19872ad76f"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-build-grndat-fixtures.py",
+      "sha256": "53792c81c17e13207483dec0ea1a671325326218e5066846afa97f453ac55ea6"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-grndat-contract.json",
+      "sha256": "c96a7ae5d006c782921d397278a0dead9c9a1683f631cac532d0e51919c39b37"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\build\\fix-grndat-fixtures-1\\before\\analysis\\chat-a-grndat-fixture-plan.json",
+      "sha256": "bde33f088d429b6d95a4509d48043e15c9aba740e8255fe8f4f522b6310587fe"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\build\\fix-grndat-fixtures-1\\before\\manifest.json",
+      "sha256": "1b89c878e0888d4084fa30d938fc0b4401701a9a1f1861662d4488f3fc6ba0b4"
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "B-GRNDAT-01",
+      "status": "RESOLVED",
+      "evidence": "Actual discovery seed bytes retain7/8.5; complete actions use23/24.5; embedded_pair_eof ends in19 followed by space and EOF. Its structured expectation requires before7/8.5, after19/8.5, pair scan conversions1; following nested header EOF causes handler2 with no list clear or refresh0. Reserved seed uses47/48.5 and complete actions59/60.5; h_lists_replacement explicitly asserts both fields change.",
+      "contract_pointer": "/record_reader/steps/4",
+      "evidence_ids": [
+        "ev_233fda79e9620ba154873a2f1e8b6aa2d3e189a315018bc02f8c6d4f2c487653",
+        "ev_101d33d2d5a67517c4b970c53d21d4a80e7b3e7787ae453a682ce1861475766a"
+      ],
+      "discrimination": "A consumed-but-not-stored integer now leaves7 where19 is required; a stale successful pair leaves7/8.5 where23/24.5 is required. Resetting the retained double to0 also differs from8.5."
+    },
+    {
+      "id": "B-GRNDAT-02",
+      "status": "RESOLVED",
+      "tuple_fields": [
+        "declared",
+        "stored",
+        "inline_conversions",
+        "clamp_diagnostic_present"
+      ],
+      "verified_tuples": [
+        [
+          -1,
+          -1,
+          0,
+          false
+        ],
+        [
+          0,
+          0,
+          0,
+          false
+        ],
+        [
+          1,
+          1,
+          1,
+          false
+        ],
+        [
+          12,
+          12,
+          12,
+          false
+        ],
+        [
+          13,
+          12,
+          12,
+          true
+        ]
+      ],
+      "evidence": "Each case has matching structured and prose expectations; actual embedded record arity supplies0/0/1/12/12 inline values. The unconditional twelve-value statement is removed. Only declared13 expects the clamp diagnostic.",
+      "contract_pointer": "/record_reader/steps/2",
+      "evidence_ids": [
+        "ev_b94d2589ec7a42b6fcbcf29e180ec5e5c1edc761e3bb436dcfe30daa1876606c",
+        "ev_7622eac084cb71a63ec36958666bc8e147badc5c6f4de36127a2bff4040b3a54"
+      ]
+    }
+  ],
+  "delta_checks": {
+    "result": "PASS_STATIC_DELTA_CHECKS",
+    "changed_file_hash_pairs_verified": 58,
+    "changed_KEY_files": 55,
+    "unchanged_KEY_files": 76,
+    "substitutions": {
+      "reserved_seed_complete_pairs": 6,
+      "discovery_action_complete_pairs": 171,
+      "partial_action_integer": 1,
+      "reserved_action_complete_pairs": 10
+    },
+    "exact_bytes": "Each changed KEY file equals its prior snapshot with only the selected scalar-pair token replacement, or7->19 in the partial-pair EOF fixture. No added/removed newline, delimiter, record, count, selector or non-scalar payload.",
+    "framing": "879 stage annotations in changed actions retain stage order, reader kind, line number and cursor note; actual slices and token offsets match regenerated coordinates. Changed action expected return positions equal new file lengths. Unchanged-action stream structures are identical.",
+    "preserved": "All123 case identities, cohorts, setups/order, preconditions, groups, source refs and status/oracle fields preserved. Every old expected field except revised assertion prose is identical, including handler status, refresh0, boundary and lifecycle. No cases added.",
+    "changed_assertion_cases": [
+      "record_count_minus1",
+      "record_count_0",
+      "record_count_1",
+      "record_count_12",
+      "record_count_13",
+      "embedded_count_eof",
+      "embedded_inline_eof",
+      "embedded_pair_eof",
+      "embedded_table2_eof",
+      "h_lists_replacement"
+    ],
+    "assertion_regression_review": "Non-pair embedded failures now refer to their lexical failure spans instead of carrying irrelevant pair_eof boilerplate. Existing partial-write/list-retention and status/refresh expectations remain.",
+    "cohorts": {
+      "discovery": 112,
+      "held_out_reserved": 11,
+      "action_hash_sets_disjoint": true,
+      "setup_order_unchanged": true
+    },
+    "package_scope": "Contract, prior B review, coverage definitions, unsupported domains, cohort policy, source bindings and execution declarations unchanged; generator diff is confined to pair parameterization and specific expected records."
+  },
+  "remaining_limits": [
+    "All123 cases remain NOT_RUN with null runtime oracles. No original/candidate behavior, runtime cursor encoding or whole-import/finalization status was validated.",
+    "Prior nonblocking gaps remain: finite fractional nested counts; unsampled dependent/node failure positions; allocated node-table teardown; direct matching-failure coverage.",
+    "Reserved inputs require a future fixture/candidate/expectation/capture freeze. Separate values and bytes do not establish independent held-out validation.",
+    "Accepted repairs close the two review findings only; they do not authorize implementation or original-runtime capture."
+  ],
+  "execution": {
+    "original_runs": 0,
+    "candidate_runs": 0,
+    "rea_calls": 0,
+    "builds": 0,
+    "benchmarks": 0,
+    "A_or_shared_or_production_edits": false,
+    "merge_or_push": false
+  },
+  "tooling_adoption": {
+    "evidence_index": "DEFERRED",
+    "reason": "Known-record direct extraction and preserved package snapshot answered this bounded recheck. No index invocation, cache reuse or cherry-pick; base retained."
+  },
+  "resource_release": {
+    "native_slot": "not acquired",
+    "original_process": "none"
+  },
+  "next_step": "Coordinator may close B-GRNDAT-01/02 and record static fixture acceptance at the pinned updated hashes. Stop pending another assignment."
+}
