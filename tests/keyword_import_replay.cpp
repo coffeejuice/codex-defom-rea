@@ -728,6 +728,20 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"time_step_imports\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& s = controls.simulation->time_step_imports;
+        std::array<double, 9> values{s.slderr_0x9b8};
+        std::copy(s.dtpmax.begin(), s.dtpmax.end(), values.begin() + 1);
+        std::copy(s.dvmax_0x9c8.begin(), s.dvmax_0x9c8.end(), values.begin() + 6);
+        values[8] = s.mdsobj_0x9e8;
+        std::cout << "{\"reals_hex\":";
+        raw_values(std::span(values));
+        std::cout << ",\"mdsobj\":";
+        numbers(s.mdsobj_0x9d8);
+        std::cout << '}';
+    }
     std::cout << ",\"stopping_vectors_hex\":";
     if (!controls.simulation) std::cout << "null";
     else {

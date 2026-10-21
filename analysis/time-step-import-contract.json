@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "SLDERR": 52,
+    "DTPMAX": 53,
+    "DVMAX": 54,
+    "MDSOBJ": 55
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/time-step-import-static-evidence.json",
+  "contract": {
+    "dispatch": "39aa90 cases1e..21 pass live root destinations. SLDERR uses414990 at9b8;DVMAX uses414a40 at9c8/9d0. DTPMAX uses414d10 at9c0/9f0/9f8 in3D and414f50 addinga00/a08 in2D. MDSOBJ uses4164e0 at9d8/9dc/9e0 plus stack argument9e8. Assembly and passive runtime argument checks confirm all destinations.",
+    "defaults": "1e8650 clears controls268/270/278/280/2a0/2a8/2b0/2b8;1e8fb0 clears three int32 controls288/28c/290 and double298. Controls base is root750. All typed fields initialize to positive zero or integer0; changed dimensions reset and same-dimension headers retain.",
+    "readers": "Every supplied destination is zeroed before one1024-byte fgets line. Commas become spaces. Matching failure and partial conversions return success; blank input and EOF map reader1 to handler2. MDSOBJ uses three base0 integers then one legacy double.",
+    "special_3d_dtpmax": "414d10 clears all three destinations again when sscanf returns exactly1. Zero, two or three conversions otherwise keep normal zero/prefix results.414f50 in2D keeps the first assignment after one conversion and clears only unconverted supplied destinations.",
+    "effects": "No immediate refresh or linked-root propagation observed. Selected stopping, time, step, layout, unit and populated-mesh state compares. Whole scientific consumers remain pending.",
+    "padding": "Only the three typed MDSOBJ int32 fields and its double are modeled/observed; root9e4 padding is excluded."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp",
+      "src/recovered/keyword_reader.hpp",
+      "src/recovered/keyword_reader.cpp"
+    ],
+    "api": "Existing include/deform public loader API unchanged; internal root model is not a native object ABI."
+  },
+  "candidate_freeze": "analysis/time-step-import-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "32 source-planned training imports ran on C++ before original observation.31 separately prepared evaluation imports ran on original before C++, with all nine frozen candidate files unchanged. Established grammar and mesh shapes reused; no universal numerical-domain claim.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_TIME_STEP_IMPORT_COMPARISON",
+      "imports": 32,
+      "handlers": 75,
+      "handler_counts": {
+        "52": 16,
+        "53": 24,
+        "54": 16,
+        "55": 19
+      },
+      "dimension_counts": {
+        "52/2": 8,
+        "53/2": 10,
+        "54/2": 8,
+        "55/2": 9,
+        "52/3": 8,
+        "53/3": 14,
+        "54/3": 8,
+        "55/3": 10
+      },
+      "reader_counts": {
+        "real1": 16,
+        "dtp5": 10,
+        "real2": 16,
+        "mixed": 19,
+        "dtp3": 14
+      },
+      "clear_single_cases": 2,
+      "checks": 3493,
+      "eof_cursors_unobserved": 9,
+      "evidence_id": "ev_1a50a57daad7ded106191c956146df651c0241b61b06e64fdc2cc29a81b1c409",
+      "capture_sha256": "e6a670845836ae3d7d738406c832be90afcd7d136ccfe32fa9eebb9755a0c195",
+      "run_sha256": "ee1014daed1390eabccbf7316cd33d92c3d81615bf8f0bf9fa330a2c20e3e4d3",
+      "scope": "Four typed root control handlers52..55, exact binary64 and signed32 outputs, owned2D/3D defaults, stopping/time/layout neighbors and linked isolation. Native padding excluded; scientific consumers remain pending."
+    },
+    {
+      "status": "PASS_NATIVE_TIME_STEP_IMPORT_COMPARISON",
+      "imports": 31,
+      "handlers": 70,
+      "handler_counts": {
+        "52": 16,
+        "53": 22,
+        "54": 15,
+        "55": 17
+      },
+      "dimension_counts": {
+        "52/2": 8,
+        "53/2": 10,
+        "54/2": 7,
+        "55/2": 8,
+        "52/3": 8,
+        "53/3": 12,
+        "54/3": 8,
+        "55/3": 9
+      },
+      "reader_counts": {
+        "real1": 16,
+        "dtp5": 10,
+        "real2": 15,
+        "mixed": 17,
+        "dtp3": 12
+      },
+      "clear_single_cases": 2,
+      "checks": 3307,
+      "eof_cursors_unobserved": 9,
+      "evidence_id": "ev_e9ebd0aaf40d5735bf10819b6ab523d2868ff2d7fc8b5ce17002c46a0481e551",
+      "capture_sha256": "e38920922e4dbf098878e0805d28a1a4270b90da25c9053b61539de7ff899df0",
+      "run_sha256": "c6f895c391c21cc7f92347209669db7048ce7079e51f70d14108fb5303d53998",
+      "scope": "Four typed root control handlers52..55, exact binary64 and signed32 outputs, owned2D/3D defaults, stopping/time/layout neighbors and linked isolation. Native padding excluded; scientific consumers remain pending."
+    }
+  ],
+  "totals": {
+    "imports": 63,
+    "handlers": 145,
+    "checks": 6800,
+    "eof_cursors_unobserved": 18,
+    "clear_single_cases": 4
+  },
+  "inputs": [
+    "analysis/time-step-import-fixture-plan.json",
+    "analysis/time-step-import-evaluation-inputs.json"
+  ],
+  "coverage": "All four keywords observed in2D/3D in both cohorts; live helper destinations, nonzero and signed-zero data, partial/matching/blank/EOF reads, base0 integer prefixes, mixed tuple failures, source-proven3D single-conversion clearing,2D five-real prefix retention, dimension reset/retention, populated planar/tetrahedral meshes, UNIT retention, neighboring controls and linked isolation.",
+  "limitations": [
+    "Bounded finite representable initialized ordinary console profile. General numeric rounding, overflowing conversions, nonfinite values, allocation failure and arbitrary startup configurations remain unverified.",
+    "Unused3D DTPMAX a00/a08 slots remainzero in these reset-based native fixtures. Preservation of already nonzero values is source-backed only, without a corresponding native experiment.",
+    "Eighteen native cursor positions at EOF are unavailable after CRT buffer reset; observed nonzero cursor positions compared.",
+    "Typed selected state does not establish absence of every other memory effect. Complete scientific evaluation/generation,exports andconsole workflows remain unfinished.",
+    "OSCTRL39 and control handlers56onward remain in full scope. Native replay requires ignored local Evidence/run/observer artifacts and does not launch the original."
+  ],
+  "resource_release": "The Ghidra session was closed after exporting analysis/oracle/time-step-reader-snapshot.json with651 Evidence records. Both Frida captures detached without cleanup error,truncation orprobe error; original processes exited0.",
+  "build_history": "An initial focused build found a snapshot helper identifier typo; corrected to the existing numbers helper and rebuilt successfully before candidate freeze or original observation. No C++ changes after freeze.",
+  "local_artifacts": [
+    {
+      "path": "analysis/time-step-import-runtime-training.json",
+      "bytes": 830725,
+      "sha256": "e6a670845836ae3d7d738406c832be90afcd7d136ccfe32fa9eebb9755a0c195",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/time-step-import-training/run.json",
+      "bytes": 47265,
+      "sha256": "ee1014daed1390eabccbf7316cd33d92c3d81615bf8f0bf9fa330a2c20e3e4d3",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/time-step-import-training/observer-source.js",
+      "bytes": 4554,
+      "sha256": "cb5581d82b33a830627612e2e2573bd5284f85c07d9844fccad7724019b12ca9",
+      "local_only": true
+    },
+    {
+      "path": "analysis/time-step-import-runtime-evaluation.json",
+      "bytes": 783842,
+      "sha256": "e38920922e4dbf098878e0805d28a1a4270b90da25c9053b61539de7ff899df0",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/time-step-import-evaluation/run.json",
+      "bytes": 45911,
+      "sha256": "c6f895c391c21cc7f92347209669db7048ce7079e51f70d14108fb5303d53998",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/time-step-import-evaluation/observer-source.js",
+      "bytes": 4556,
+      "sha256": "2080c5b6d2bc00faa9d9fde297715aa36a65ed9767fa6fed9bb8bb48cb93224b",
+      "local_only": true
+    },
+    {
+      "path": "analysis/time-step-0x140414d10.json",
+      "bytes": 244123,
+      "sha256": "e8c6e6be176494165b4c7008758eab0143e4728b9b5d4bcac4308662d4c4848e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/time-step-0x1404164e0.json",
+      "bytes": 227687,
+      "sha256": "d786e247fdb108890efadd457e6b526a8735406d4389f98fb46eb8f5c8e8dd3e",
+      "local_only": true
+    }
+  ],
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "VFACTR",
+    "supported_handlers": 30
+  },
+  "next_scope": "analysis/dimensional-step-controls-next-scope.json",
+  "regression": {
+    "registered": 116,
+    "passed": 116,
+    "failed": 0,
+    "seconds": 33.24,
+    "build": "All17 executable targets rebuilt; complete regression once after implementation."
+  }
+}

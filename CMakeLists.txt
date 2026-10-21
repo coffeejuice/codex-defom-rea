@@ -67,6 +67,18 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(time_step_batch IN ITEMS training evaluation)
+    set(time_step_plan "time-step-import-fixture-plan.json")
+    if(time_step_batch STREQUAL "evaluation")
+      set(time_step_plan "time-step-import-evaluation-inputs.json")
+    endif()
+    add_test(NAME "time_step_import_${time_step_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_time_step_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/time-step-import-runtime-${time_step_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/time-step-import-${time_step_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${time_step_plan}")
+  endforeach()
   foreach(stopping_vector_batch IN ITEMS training evaluation)
     set(stopping_vector_plan "stopping-vectors-fixture-plan.json")
     if(stopping_vector_batch STREQUAL "evaluation")

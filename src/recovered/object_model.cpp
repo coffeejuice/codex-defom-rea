@@ -290,6 +290,24 @@ void ObjectModel::set_stopping_vector(int keyword, std::span<const double> value
     std::copy(values.begin(), values.end(), destination.begin());
 }
 
+void ObjectModel::set_time_step_real(int keyword, std::span<const double> values) {
+    require_simulation_profile(controls_);
+    auto& s = controls_.simulation->time_step_imports;
+    if (keyword == 52 && values.size() == 1) s.slderr_0x9b8 = values[0];
+    else if (keyword == 53 && values.size() == (controls_.dimension == 3 ? 3u : 5u))
+        std::copy(values.begin(), values.end(), s.dtpmax.begin());
+    else if (keyword == 54 && values.size() == 2)
+        std::copy(values.begin(), values.end(), s.dvmax_0x9c8.begin());
+    else throw std::invalid_argument("unmapped time-step control or reader width");
+}
+
+void ObjectModel::set_mdsobj(const std::array<int, 3>& integers, double value) {
+    require_simulation_profile(controls_);
+    auto& s = controls_.simulation->time_step_imports;
+    s.mdsobj_0x9d8 = integers;
+    s.mdsobj_0x9e8 = value;
+}
+
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {
     require_simulation_profile(controls_);
     if (values.size() > 10) throw std::invalid_argument("ELMNOD prefix exceeds ten fields");

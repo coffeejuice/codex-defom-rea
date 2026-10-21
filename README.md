@@ -1706,6 +1706,39 @@ limits. Scientific evaluation, general numerical-domain equivalence and complete
 application workflows remain unfinished. The retained full export now reaches
 SLDERR after twenty-six supported handlers. OSCTRL and later control handlers
 remain required recovery work; the public database-loader API is unchanged.
+
+## Typed time-step control imports
+
+The importer now supports `SLDERR52`, `DTPMAX53`, `DVMAX54` and `MDSOBJ55`.
+SLDERR stores one double and DVMAX stores two. DTPMAX uses three separate double
+destinations in 3D and five in 2D. MDSOBJ stores three base-0 integers followed
+by a double; the native padding between its fields is not treated as data.
+All typed fields initialize to zero and follow the recovered dimension-reset
+and same-dimension retention behavior.
+
+REA recovered a distinct rule in the 3D DTPMAX reader: exactly one successful
+conversion clears all three supplied destinations again. Two or three
+conversions retain the converted prefix. The 2D five-real reader retains a
+single assignment normally. Both readers zero supplied destinations before
+reading; matching failures succeed with zeros, while blank input and EOF
+produce the original reading error. MDSOBJ retains partial integer/real
+assignments with the same source-defined status rules.
+
+The frozen candidate passes 32 training imports and 31 separately prepared
+original-first evaluation imports: 145 selected handlers and 6,800 checks,
+including four checks of the 3D single-conversion clearing rule. Both dimensions,
+signed zero, nonzero values, partial/matching/blank/EOF input, integer prefixes,
+mixed tuples, linked isolation, neighboring controls, UNIT retention and
+populated meshes are covered. Eighteen native cursor positions at EOF remain
+unobserved. Unused 3D DTPMAX slots remain zero in these reset-based fixtures;
+retention of already nonzero values follows from source only.
+All 116 regression tests pass after rebuilding all seventeen executable targets.
+
+See `analysis/time-step-import-contract.json` for evidence, build history and
+limits. Complete scientific consumers and application workflows remain pending.
+The retained full export now reaches VFACTR after thirty supported handlers.
+OSCTRL and the remaining dimensional controls stay in scope; the public
+database-loader API is unchanged.
 The next scope records adjacent stopping controls for dependency-aware batching.
 
 Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference

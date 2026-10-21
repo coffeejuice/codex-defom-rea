@@ -98,3 +98,14 @@ passed a fresh longer observation after the original process exited and the reta
 session was confirmed missing. Existing compact-view and positive-expectation rules
 remain sufficient; no new tooling or controlled time/token speedup claim. See
 `analysis/efficiency-review-20261021-stopping-scalars.json`.
+
+## Typed time-step controls review
+
+The third checkpoint passes63 original imports/145 handlers and all116 tests in
+33.24s. Recent full-suite times range from33.24s to245.71s with different test
+counts and uncontrolled host conditions; no causal speedup claim. Two missing
+reader bodies were recovered in one Ghidra session and retained before closing.
+One pre-freeze snapshot-driver identifier error was corrected; no C++ correction
+after native training or evaluation. Existing bounded views and positive native
+expectations remain sufficient; no new tooling change. See
+`analysis/efficiency-review-20261021-time-step-import.json`.

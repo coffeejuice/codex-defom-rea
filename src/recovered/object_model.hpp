@@ -59,7 +59,17 @@ struct StoppingControls {
     double demax_0x9b0 = 0.0; // Factory supplies owner-dimension default.
 };
 
+struct TimeStepImportControls {
+    double slderr_0x9b8 = 0.0;
+    // DTPMAX destinations: 9c0,9f0,9f8,a00,a08; only the first three in3D.
+    std::array<double, 5> dtpmax{};
+    std::array<double, 2> dvmax_0x9c8{};
+    std::array<int, 3> mdsobj_0x9d8{};
+    double mdsobj_0x9e8 = 0.0;
+};
+
 struct SimulationControls {
+    TimeStepImportControls time_step_imports;
     StoppingControls stopping;
     RootUnitControls units;
     std::int32_t mesh_number_0x840 = 1; // MESHNO raw integer, default from1e7e90.
@@ -326,6 +336,8 @@ public:
     void set_stopping_integer(int keyword, std::int32_t value);
     void set_stopping_real(int keyword, double value);
     void set_stopping_vector(int keyword, std::span<const double> values);
+    void set_time_step_real(int keyword, std::span<const double> values);
+    void set_mdsobj(const std::array<int, 3>& integers, double value);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

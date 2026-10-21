@@ -319,6 +319,53 @@ KeywordReader::FloatTripleRead KeywordReader::real_triple() {
     return result;
 }
 
+KeywordReader::FloatTripleRead KeywordReader::real_triple_clear_single() {
+    auto result = real_triple();
+    // 414d10 clears all three destinations after exactly one conversion.
+    if (result.conversions == 1) result.values.fill(0.0);
+    return result;
+}
+
+KeywordReader::FloatFiveRead KeywordReader::real_five() {
+    require_c_locale();
+    FloatFiveRead result;
+    auto input = line();
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    result.conversions = decimal_conversions(
+        std::string_view(input.bytes.c_str()), result.values);
+    result.status = result.conversions == -1 ? 1 : 0;
+    return result;
+}
+
+KeywordReader::IntegerTripleRealRead KeywordReader::integer_triple_real() {
+    require_c_locale();
+    IntegerTripleRealRead result;
+    auto input = line();
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    KeywordReader fields(std::string_view(input.bytes.c_str()));
+    result.conversions = 0;
+    for (auto& destination : result.integers) {
+        const auto value = fields.selector_integer();
+        if (value.conversions != 1) {
+            if (result.conversions == 0 && value.conversions == -1)
+                result.conversions = -1;
+            result.status = result.conversions == -1 ? 1 : 0;
+            return result;
+        }
+        destination = value.values[0];
+        ++result.conversions;
+    }
+    const auto value = fields.stream_real();
+    if (value.conversions == 1) {
+        result.real_value = value.values[0];
+        ++result.conversions;
+    }
+    result.status = 0;
+    return result;
+}
+
 KeywordReader::FloatQuadRead KeywordReader::real_quad() {
     require_c_locale();
     FloatQuadRead result;

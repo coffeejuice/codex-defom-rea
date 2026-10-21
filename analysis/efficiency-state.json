@@ -2,8 +2,8 @@
   "schema_version": 1,
   "enabled": true,
   "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
-  "last_review_utc": "2026-10-21T16:29:15.309816+00:00",
-  "last_review_head": "c0221bd847426d4feea9fee805e63c1ca1c5863c",
+  "last_review_utc": "2026-10-21T17:16:07.130590+00:00",
+  "last_review_head": "8a84a0b92ba99b47b2298c26a3147153614795dc",
   "cadence": {
     "recovery_checkpoints": 3,
     "minutes": 60,
@@ -27,21 +27,24 @@
   "pending_measurement": "Compare similar future phase timings and usage with baseline; no end-to-end speedup claimed yet.",
   "automation_status": "ACTIVE",
   "latest_checkpoint_observation": {
-    "checkpoint": "analysis/stopping-vectors-import-contract.json",
-    "full_regression_seconds": 229.42,
-    "tests_passed": 114,
-    "previous_samples_seconds": [
+    "checkpoint": "analysis/time-step-import-contract.json",
+    "scope": "Current completed checkpoint in worktree; completed-turn audit above covers prior turns, not current whole turn.",
+    "native_imports": 63,
+    "native_handlers": 145,
+    "full_regression_seconds": 33.24,
+    "tests_passed": 116,
+    "previous_full_regressions_seconds": [
       167.81,
-      245.71
+      245.71,
+      229.42
     ],
-    "native_imports": 51,
-    "native_handlers": 102,
+    "static_work": "Reused saved dispatcher, defaults and existing reader evidence; queried two missing reader bodies in one Ghidra session and closed after snapshot export. Source found exactly-one-conversion clearing in3D DTPMAX.",
     "capture_retry_count": 0,
-    "qualification": "Both native cohorts completed on their first30000ms observation windows; grouping used established pair/triple readers. Different workloads and uncontrolled host conditions prevent a wall-time or token speedup claim.",
-    "next_review": "Normal safe-checkpoint gate; no new full audit or tooling change at this checkpoint."
+    "build_retry": "One focused snapshot-driver identifier typo corrected before freeze; no C++ correction after native training or evaluation.",
+    "qualification": "Regression time varies widely with changed test counts and uncontrolled host conditions. No causal wall-time or token speedup inferred."
   },
-  "latest_review": "analysis/efficiency-review-20261021-stopping-scalars.json",
-  "latest_review_checkpoint": "analysis/stopping-scalars-import-contract.json",
-  "latest_review_qualification": "Safe review after third recovery checkpoint in worktree. Completed-turn audit does not measure current full implementation turn; no new tooling or speedup claim.",
+  "latest_review": "analysis/efficiency-review-20261021-time-step-import.json",
+  "latest_review_checkpoint": "analysis/time-step-import-contract.json",
+  "latest_review_qualification": "Safe review after third recovery checkpoint in worktree. Timing audit covers two previously completed turns; no new tooling or controlled speedup claim.",
   "latest_guard_validation": "analysis/trans-coverage-guard-validation.json"
 }

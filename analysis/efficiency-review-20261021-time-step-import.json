@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 359273537,
+    "tail_mib": 32,
+    "start_offset": 329660857,
+    "end_offset": 359273537,
+    "window_sha256": "df7f2f09679cbb030ee73608157425e705d4399d5b0ebfe64b6daa193fe0db46"
+  },
+  "turns": [
+    {
+      "turn_id": "01a15f3d-c64f-7db2-a732-324d4b051b3c",
+      "started_at": "2026-10-21T16:14:07.111Z",
+      "completed_at": "2026-10-21T16:32:20.989Z",
+      "elapsed_seconds": 1093.878,
+      "tool_active_union_seconds": 661.8,
+      "reasoning_item_union_seconds": 124.597,
+      "tool_reasoning_overlap_seconds": 77.361,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 377.196,
+      "tool_items": {
+        "CommandExecution": 40,
+        "frida_session_status": 1,
+        "instrument_with_frida": 2,
+        "FileChange": 5,
+        "Extension": 3
+      },
+      "failed_tool_items": 2,
+      "truncated_command_outputs": 3,
+      "usage_delta": {
+        "input_tokens": 6062467,
+        "cached_input_tokens": 5998976,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 15283,
+        "reasoning_output_tokens": 3721,
+        "total_tokens": 6077750,
+        "uncached_input_tokens": 63491
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 251.748,
+          "item_id": "exec-7f514e69-cdb3-4708-84d9-3bb900d83885"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 96.689,
+          "item_id": "exec-c68b01da-7b23-44a0-99ac-102b9f7d8b8a"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 80.734,
+          "item_id": "exec-b28a1078-a253-4cce-9560-8d809862e56c"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 64.005,
+          "item_id": "exec-90dea788-23ef-499f-aebd-feb4e91ad25a"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.137,
+          "item_id": "exec-4897f9a9-c289-4ac4-a3e6-825aa60873e7"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a15f4e-7a1f-7a31-8103-a66fd28291e9",
+      "started_at": "2026-10-21T16:32:21.221Z",
+      "completed_at": "2026-10-21T16:49:59.485Z",
+      "elapsed_seconds": 1058.264,
+      "tool_active_union_seconds": 457.771,
+      "reasoning_item_union_seconds": 268.446,
+      "tool_reasoning_overlap_seconds": 124.403,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 447.697,
+      "tool_items": {
+        "CommandExecution": 36,
+        "FileChange": 9,
+        "instrument_with_frida": 2,
+        "Extension": 2
+      },
+      "failed_tool_items": 1,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 6159833,
+        "cached_input_tokens": 6103040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 25087,
+        "reasoning_output_tokens": 8056,
+        "total_tokens": 6184920,
+        "uncached_input_tokens": 56793
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 240.197,
+          "item_id": "exec-70c0bb35-b5f5-4ea1-84b4-951d9ac89396"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 34.486,
+          "item_id": "exec-b872ef81-8e99-41dc-a56e-fab874ecb309"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.347,
+          "item_id": "exec-63f87040-e73f-4715-87cc-b1b157e58302"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.002,
+          "item_id": "exec-eabc9288-65b0-4bba-89f9-da922fddd228"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 25.462,
+          "item_id": "exec-941872bb-edfb-4a76-b5ee-1671a553da23"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "checkpoint_observation": {
+    "checkpoint": "analysis/time-step-import-contract.json",
+    "scope": "Current completed checkpoint in worktree; completed-turn audit above covers prior turns, not current whole turn.",
+    "native_imports": 63,
+    "native_handlers": 145,
+    "full_regression_seconds": 33.24,
+    "tests_passed": 116,
+    "previous_full_regressions_seconds": [
+      167.81,
+      245.71,
+      229.42
+    ],
+    "static_work": "Reused saved dispatcher, defaults and existing reader evidence; queried two missing reader bodies in one Ghidra session and closed after snapshot export. Source found exactly-one-conversion clearing in3D DTPMAX.",
+    "capture_retry_count": 0,
+    "build_retry": "One focused snapshot-driver identifier typo corrected before freeze; no C++ correction after native training or evaluation.",
+    "qualification": "Regression time varies widely with changed test counts and uncontrolled host conditions. No causal wall-time or token speedup inferred."
+  },
+  "decision": {
+    "new_tooling_changes": 0,
+    "reason": "Existing bounded source selection, compact receipts and positive native expectations remain sufficient. Preserve those rules and avoid a new optimization project.",
+    "validation_retained": "All nine frozen files unchanged through original-first evaluation;116 regression tests pass.",
+    "blockers": "No external blocker; remaining scientific and full application work remains substantial."
+  }
+}

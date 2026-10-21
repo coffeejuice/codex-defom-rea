@@ -104,6 +104,17 @@ public:
         int status = 1;
         int conversions = -1;
     };
+    struct FloatFiveRead {
+        std::array<double, 5> values{};
+        int status = 1;
+        int conversions = -1;
+    };
+    struct IntegerTripleRealRead {
+        std::array<int, 3> integers{};
+        double real_value = 0.0;
+        int status = 1;
+        int conversions = -1;
+    };
     struct TextRead {
         std::string bytes;
         int status = 1;
@@ -164,6 +175,9 @@ public:
     [[nodiscard]] FloatRead real();
     [[nodiscard]] FloatRead real_pair();
     [[nodiscard]] FloatTripleRead real_triple(); // 414c20, three real destinations.
+    [[nodiscard]] FloatTripleRead real_triple_clear_single(); // 414d10.
+    [[nodiscard]] FloatFiveRead real_five(); // 414f50, five zeroed destinations.
+    [[nodiscard]] IntegerTripleRealRead integer_triple_real(); // 4164e0.
     [[nodiscard]] FloatQuadRead real_quad(); // 414e40, four zeroed destinations.
     [[nodiscard]] IntegerArrayRead integer_array10(); // 4147e0 temporary scan.
     // 416aa0: one line, comma replacement, then legacy %Flf %i. Both
