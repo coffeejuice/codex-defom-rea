@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "task_id": "fix-db-materials-lookup-1",
+  "author": "Chat C",
+  "date": "2026-10-21",
+  "status": "A-G2-01 corrected; focused static checks passed; independent A recheck pending",
+  "scope": "Only A-G2-01: material insertion-position lookup input/output direction, <=1/head qualification, wrapper RAX forwarding and normal DB traversal caller range.",
+  "review_source": {
+    "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-db-materials-review.json",
+    "sha256": "99ca7a9c2ca0f8c750c3fe16e83e9c13112fce29de7442b69a5a131a4396b686",
+    "finding": "A-G2-01",
+    "saved_status_note": "Coordinator reports A's final source recheck passed; the saved review note remains pending because of an approval-review timeout. A's file was not edited."
+  },
+  "base_commit_recorded_in_contract": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "changes": [
+    {
+      "path": "analysis/chat-c-db-materials-contract.json",
+      "pointer": "/identity_and_lifecycle/material/lookup",
+      "before": "29c260 returns a one-based insertion position;1d7090 forwards its RAX return despite the decompiler's void signature.29c2c0 exact-ID lookup used later returns the first matching insertion-order record.",
+      "after": "29c260 accepts a one-based insertion position and returns the corresponding material-node pointer, or null when traversal exhausts the list. For a nonempty list, requested positions <=1 return the head; this helper does not perform general position validation. Normal DB traversal callers pass positions 1..n. 1d7090 forwards the node pointer in RAX despite the decompiler's void signature. This is position-to-node lookup, not exact-ID lookup or inverse ranking. The separate29c2c0 exact-ID lookup used later returns the first matching insertion-order record."
+    },
+    {
+      "path": "analysis/chat-c-db-materials-validation.json",
+      "pointer": "/artifacts/0",
+      "change": "Refresh only the corrected contract byte count and SHA256. Existing842-check record and counts remain historical; the full generator was not rerun."
+    }
+  ],
+  "semantics": {
+    "input": "29c260 accepts the requested one-based insertion position.",
+    "output": "Corresponding material-node pointer, or null if traversal exhausts the list. Empty list yields null.",
+    "edge": "For a nonempty list, requested positions <=1 return the head. This retained behavior is not general position validation.",
+    "wrapper": "1d7090 forwards the node pointer in RAX; retained assembly has CALL29c260, ADD RSP, RET with no intervening RAX overwrite.",
+    "callers": "Normal DB material and relation traversal loops pass positions1..n. Relation callers null-check the returned pointers, then dereference them to obtain IDs.",
+    "boundary": "This is neither exact-ID lookup nor inverse ranking. The separate29c2c0 statement already in the contract is preserved without expanding its claims."
+  },
+  "evidence_file": "analysis/chat-c-db-materials-evidence.json",
+  "source_anchors": [
+    {
+      "pointer": "/retained/6",
+      "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda"
+    },
+    {
+      "pointer": "/fresh/21",
+      "evidence_id": "ev_e3bc827bb3bb9482ae4d6fdf9e1312c6d6c2a6a3b55d4d31b714e2e919b1b203"
+    },
+    {
+      "pointer": "/fresh/19",
+      "evidence_id": "ev_c952097310df040fb0505ae0c07f11a8658773ea38360616732e43aac72c5286"
+    }
+  ],
+  "additional_source_anchor": {
+    "procedure": "0x1401cff20",
+    "location": "/fresh entry whose pseudocode declares FUN_1401cff20",
+    "statement": "FUN_14029c260(param_1 + 0x1328,local_50 + 1)",
+    "range": "local_50 starts0 and remains below root+0x1320"
+  },
+  "before": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-contract.json",
+      "bytes": 54271,
+      "sha256": "3a5a99aa7205fc1918e2fc7ffb7596bdc07c917a23b4e354c477c73ada05637b"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-validation.json",
+      "bytes": 101703,
+      "sha256": "2717e3e655fca2e01bdbfb4cedc8af3d7a9a6443197e0d48d7e0c4d1bce43191"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-build-db-materials.py",
+      "bytes": 10819,
+      "sha256": "a040ced6a2b6dc40e17664ed9dcc5eb13013070c460887ae8275b9eba48b1cfb"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-evidence.json",
+      "bytes": 1072505,
+      "sha256": "5dfb487b6580eee1da604e28bbfd9a6bd1eccf1834c6078914e1baea73c87e2d"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-field-map.json",
+      "bytes": 486853,
+      "sha256": "8a6b6a30960b4464f2640724b651c9044aa2428e3b5e3c5a4bacc1f03a2b1b95"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-session.json",
+      "bytes": 690,
+      "sha256": "b253b288b169e5fc704955523ff7a4a8d8cf14e19aa1184b5d29372c6870c444"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\oracle\\chat-c-db-materials-evidence-bundle.json",
+      "bytes": 15240831,
+      "sha256": "c27428bcc3369852398874f6dc8a08036e55be8bfa7130b88455a5b2c678489b"
+    }
+  ],
+  "after": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-contract.json",
+      "bytes": 54630,
+      "sha256": "3774cbe87c77c352bb18dd6e453375a176180bc3cefaf8fae0de7489b14a63f1"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-validation.json",
+      "bytes": 101703,
+      "sha256": "8bcf97e4e80e1aedf87832ee679cc20a8d2b0aeca91ebc51573a20bbe10d298f"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-build-db-materials.py",
+      "bytes": 10819,
+      "sha256": "a040ced6a2b6dc40e17664ed9dcc5eb13013070c460887ae8275b9eba48b1cfb"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-evidence.json",
+      "bytes": 1072505,
+      "sha256": "5dfb487b6580eee1da604e28bbfd9a6bd1eccf1834c6078914e1baea73c87e2d"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-field-map.json",
+      "bytes": 486853,
+      "sha256": "8a6b6a30960b4464f2640724b651c9044aa2428e3b5e3c5a4bacc1f03a2b1b95"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-materials-session.json",
+      "bytes": 690,
+      "sha256": "b253b288b169e5fc704955523ff7a4a8d8cf14e19aa1184b5d29372c6870c444"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\oracle\\chat-c-db-materials-evidence-bundle.json",
+      "bytes": 15240831,
+      "sha256": "c27428bcc3369852398874f6dc8a08036e55be8bfa7130b88455a5b2c678489b"
+    }
+  ],
+  "validation": {
+    "focused_check_count": 17,
+    "checks": [
+      {
+        "check": "contract changed only lookup string",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "validation changed only contract byte count and hash",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "validation artifact hashes and byte counts match",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "29c260 input is position and output is live node",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "head or null initialized before traversal",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "less than or equal to one returns nonempty head without advancing",
+        "result": "pass",
+        "detail": "Retained loop condition establishes the qualification; no native execution."
+      },
+      {
+        "check": "1d7090 forwards RAX unchanged",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "normal material traversal passes one through n",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "normal relation traversal passes one through n",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "relation callers null-check and dereference returned nodes",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "corrected text preserves boundaries",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "chat-c-build-db-materials.py unchanged",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "chat-c-db-materials-evidence.json unchanged",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "chat-c-db-materials-field-map.json unchanged",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "chat-c-db-materials-session.json unchanged",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "oracle/chat-c-db-materials-evidence-bundle.json unchanged",
+        "result": "pass",
+        "detail": null
+      },
+      {
+        "check": "A review pinned digest",
+        "result": "pass",
+        "detail": null
+      }
+    ],
+    "method": "Read retained evidence and compare source statements/assembly; rehash artifacts; reverse the two narrowly scoped edits and compare exact prior hashes.",
+    "claim_limit": "These17 checks establish correction scope and static source support. No original/replacement runtime or new behavior test was executed. Historical842 checks were not rerun.",
+    "unchanged": "Evidence projection, field map, full evidence bundle, session receipt and generator are byte-identical to their before hashes."
+  },
+  "proposed_tests": [
+    {
+      "status": "NOT_RUN",
+      "case": "Two nodes in insertion order with IDs17 and90",
+      "expected": "Position1 returns first node pointer, position2 second pointer, position3 null; dereferencing returned nodes yields17 and90. Wrapper returns identical pointers."
+    },
+    {
+      "status": "NOT_RUN",
+      "case": "Nonempty list and requested position1,0,-1",
+      "expected": "All return head under the retained loop; do not add validation or exact-ID behavior."
+    },
+    {
+      "status": "NOT_RUN",
+      "case": "Empty list",
+      "expected": "Returns null for the selected positions because head is null."
+    }
+  ],
+  "resource_and_scope": {
+    "REA_calls": 0,
+    "native_runs": 0,
+    "replacement_runs": 0,
+    "builds": 0,
+    "generator_runs": 0,
+    "production_changes": 0,
+    "worker_files_changed": 0,
+    "merge": false,
+    "push": false,
+    "expanded_research": false,
+    "session_note": "No native session access; prior G2 post-close readback limitation is unchanged."
+  },
+  "next_step": "A independently rechecks the correction. Report completion to Coordinator chat, ask for the next bounded task and stop."
+}

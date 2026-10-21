@@ -1,0 +1,1349 @@
+{
+  "schema_version": 1,
+  "task": "review-keyword-metadata-1",
+  "reviewer": "Chat C",
+  "date": "2026-10-21",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "worktree": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "Independent readiness review of TITLE22,CURSIM23,OPRNAM24,SIMNAM25 and B's15 fixtures.",
+    "Retained evidence and current d546058 source only; no native/replacement execution, REA, build or implementation."
+  ],
+  "verdict": {
+    "overall": "REVISE",
+    "behavior_contract": "ACCEPT_IN_STATED_BOUNDED_DOMAIN",
+    "fixture_expectations": "All15 expected outcomes agree with the inspected retained source; no contradictory expected value identified.",
+    "readiness": "Revise test discrimination and implementation plan before claiming implementation readiness or compatibility. These are coverage and plan corrections, not rejection of the four recovered handlers.",
+    "implementation_authorized": false
+  },
+  "summary": "The source supports three bounded byte-string fields and three int32 CURSIM slots, with next-line string payloads but same-line CURSIM values. String EOF preserves the previous value; CURSIM zeroes all slots even on failure. Changed dimension resets these fields, while same dimension and later recognized headers do not. The current importer can add four category1 handlers without changing its public loading method, but shared-model edits require separate authorization.",
+  "source_bindings": [
+    {
+      "key": "B_contract",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-blockers.json",
+      "bytes": 193558,
+      "sha256": "c06bf5f52f4d00f6626ecd2de4e5f17a85f907e90251c5ceedbdcc085f25582c"
+    },
+    {
+      "key": "B_manifest",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\manifest.json",
+      "bytes": 18521,
+      "sha256": "39856cc53aa3b4cf2871307127a7c1fd9991a214bbaa010e885f5d54a281bc42"
+    },
+    {
+      "key": "parser",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\keyword-parser.json",
+      "bytes": 4209683,
+      "sha256": "3a7445dfe4e7a131767b7a5fc65edfde052b7e5d94280e69775e9988109474e7"
+    },
+    {
+      "key": "string_helper",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\model-0x140413ab0.json",
+      "bytes": 8117,
+      "sha256": "62010e15380276eb9795add79024728eb4f31134cdeae2a1ba815d9ac0ddfc05"
+    },
+    {
+      "key": "integer3_helper",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\geometry-import-0x140413fb0.json",
+      "bytes": 399441,
+      "sha256": "efd89cb299085aa0cee2f5d7d7e113b65df791dcdca53726ab7f1242d5ca321b"
+    },
+    {
+      "key": "defaults",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\startup-0x1401e7e90.json",
+      "bytes": 7202,
+      "sha256": "e749f0621a0fc73d1e08ef77ec1af5e0a16e4bf191ee177162de25bbe33a34cc"
+    },
+    {
+      "key": "controls_init",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\startup-0x1401e7c50.json",
+      "bytes": 6138,
+      "sha256": "ad2acb43ee25c57c65fe6afd997bef078a79472b3f74402d771f028843b77281"
+    },
+    {
+      "key": "root_init",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\model-0x1401c8c00.json",
+      "bytes": 8571,
+      "sha256": "d9b27ac6e94cf2eec3e118bba1abb97b839e7a60d04df55d29882842b64cc689"
+    },
+    {
+      "key": "dimension_setter",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\root-layout-0x1401c8ba0.json",
+      "bytes": 103673,
+      "sha256": "d243dc14a27c87a8d48487803bb797ddf96c7a4116df307e30a46617ca0ddd0c"
+    },
+    {
+      "key": "dimension",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\dimension-import-contract.json",
+      "bytes": 6271,
+      "sha256": "54b99676e220c78c66fae140c7c90729c2a7d78545bd2d7e49de4fca41f4e5b2"
+    },
+    {
+      "key": "wrapper",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-finalization-contract.json",
+      "bytes": 6686,
+      "sha256": "9d3626326cc6fe8e4e0262231c30bc354a216eed08bff671e1123172a39214e7"
+    },
+    {
+      "key": "catalog",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\keyword-catalog.json",
+      "bytes": 40159,
+      "sha256": "e1bdcddfa5c966d8b04d05fd049f5c49b3fc6b75f4afa8bab1975c3cd702398e"
+    },
+    {
+      "key": "object_names",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\keyword-object-contract.json",
+      "bytes": 29844,
+      "sha256": "6092182f1cda1bf21ece2addce0bf95eb6b0a21dbdabf25728b51652ce883a8f"
+    },
+    {
+      "key": "metadata_extract",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-metadata-evidence.json",
+      "bytes": 12162,
+      "sha256": "2fca6ad3d9ed9dd9b7b49c21ec586993c5d332ff1649c80e0a76869db6a61393"
+    },
+    {
+      "key": "export_contract",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-keyword-export-contract.json",
+      "bytes": 157784,
+      "sha256": "612dc9f625d06ed4c4fc81e42395ef3b5cc618dd2c67023e3d0b17c97f324dbb"
+    },
+    {
+      "key": "export_index",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-keyword-export-observed-index.json",
+      "bytes": 575746,
+      "sha256": "94f03f3f048d87f15842a2ff8ec93157c97fe68b88e6448766edcef7eca6a6a7"
+    },
+    {
+      "key": "export_audit",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-keyword-export-evidence-audit.json",
+      "bytes": 21452,
+      "sha256": "7b7dd9ce15a42407f1ff1e6b92802d71cc6960035606aaf6024086f45a692cd5"
+    },
+    {
+      "key": "model",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\src\\recovered\\object_model.hpp",
+      "bytes": 18497,
+      "sha256": "6bd11e40ec8659f56db4a495d9fa6a787bea9b2a606e2eb96336689c9c093f12"
+    },
+    {
+      "key": "importer",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\src\\recovered\\keyword_import.cpp",
+      "bytes": 39219,
+      "sha256": "8ef211507b6631afebae065db5ea002cbfd644bbc2df9ab7c71c8f84aca4008c"
+    },
+    {
+      "key": "reader",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\src\\recovered\\keyword_reader.cpp",
+      "bytes": 36918,
+      "sha256": "04f6a02e6636efe0c6c62d2f57dda82848a059caeafea258ce5a7b3201f7e335"
+    },
+    {
+      "key": "C_object_model.hpp",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\src\\recovered\\object_model.hpp",
+      "bytes": 18497,
+      "sha256": "6bd11e40ec8659f56db4a495d9fa6a787bea9b2a606e2eb96336689c9c093f12"
+    },
+    {
+      "key": "C_keyword_import.cpp",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\src\\recovered\\keyword_import.cpp",
+      "bytes": 39219,
+      "sha256": "8ef211507b6631afebae065db5ea002cbfd644bbc2df9ab7c71c8f84aca4008c"
+    },
+    {
+      "key": "C_keyword_reader.cpp",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\src\\recovered\\keyword_reader.cpp",
+      "bytes": 36918,
+      "sha256": "04f6a02e6636efe0c6c62d2f57dda82848a059caeafea258ce5a7b3201f7e335"
+    },
+    {
+      "key": "C_object_model.cpp",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\src\\recovered\\object_model.cpp",
+      "bytes": 31591,
+      "sha256": "27898e2e35a72072d16375b6c3243f9da88b68db794ab056def95752c4f51ba7"
+    },
+    {
+      "key": "C_keyword_reader.hpp",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\src\\recovered\\keyword_reader.hpp",
+      "bytes": 11492,
+      "sha256": "86f680ce7a2333e25735ae1bb37ee44c81e952b619074687c064f352711f0a59"
+    },
+    {
+      "key": "C_keyword_import.hpp",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\src\\recovered\\keyword_import.hpp",
+      "bytes": 3937,
+      "sha256": "cb6a4aa8559cc156c27078bc3027c8fff4addffccbe91f557405b3772fb1f819"
+    },
+    {
+      "key": "model-0x1402f78d0.json",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\model-0x1402f78d0.json",
+      "bytes": 6546,
+      "sha256": "dc3f73ee285b8f8af1d282463081bc31d96842cf1baea196eafae9cf07f14046"
+    },
+    {
+      "key": "keyword-detail-2.json",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\keyword-detail-2.json",
+      "bytes": 116073,
+      "sha256": "0fdace26fdcdc54a3671f27966878f8428b70a7ecf38dc22745e122c6b110518"
+    },
+    {
+      "key": "original_dispatch_snapshot",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\fstres-snapshot.json",
+      "bytes": 291739865,
+      "sha256": "5f6f305aa6afc77a20eb41bf92309548ee52f4f8853e20e62a92555ac8c3ef59"
+    },
+    {
+      "key": "01-export-prefix.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\01-export-prefix.KEY",
+      "bytes": 163,
+      "sha256": "6d74440ea7e4ec172c72547c29fb1bf55d07da006b9f5de62f9d4f0b9cb249fe"
+    },
+    {
+      "key": "02-repeated-values.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\02-repeated-values.KEY",
+      "bytes": 89,
+      "sha256": "fc43795315e7b54bf990d02863bbee155152c681ba7ca6f5aae2b9edd2015907"
+    },
+    {
+      "key": "03-inline-remainder.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\03-inline-remainder.KEY",
+      "bytes": 119,
+      "sha256": "6a551fe706323662d436d0683a5e7fbf4eb837a31ec5db47f0f22004abea1059"
+    },
+    {
+      "key": "04-title-first-read-eof.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\04-title-first-read-eof.KEY",
+      "bytes": 19,
+      "sha256": "ef5d1d03da5094420b75939a1caf099287ea07bc65ed6672e18eadb16d5c962a"
+    },
+    {
+      "key": "05-title-second-read-eof.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\05-title-second-read-eof.KEY",
+      "bytes": 21,
+      "sha256": "bc4b15cdf2449123e05580c73be968f0f7173dee0a443d4cc398078654d97995"
+    },
+    {
+      "key": "06-blank-and-tabs.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\06-blank-and-tabs.KEY",
+      "bytes": 49,
+      "sha256": "cd5ad6685cb085a9e52c0444a1d760d5fea44e93363d1364c6ae684b2eaa0804"
+    },
+    {
+      "key": "07-capacity-boundaries.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\07-capacity-boundaries.KEY",
+      "bytes": 256,
+      "sha256": "3762ceb959cbc5330d11630b3af07c7dbf926685af8246c7e9bda5b902cc16de"
+    },
+    {
+      "key": "08-keyword-looking-payload.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\08-keyword-looking-payload.KEY",
+      "bytes": 29,
+      "sha256": "5482901b06b261ccb751cab9b084b7815187b24bf0aab24afadc349401c4a514"
+    },
+    {
+      "key": "09-cursim-partial.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\09-cursim-partial.KEY",
+      "bytes": 33,
+      "sha256": "0a4fe0158bfb10a2ee7dce55ca8951db8be2c6d5ef00b9b1f9c70851aa050e30"
+    },
+    {
+      "key": "10-cursim-eof.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\10-cursim-eof.KEY",
+      "bytes": 20,
+      "sha256": "be5b5d363042bb700154dfc430ed0ce5ba05b822de90a2c36988063efb28993e"
+    },
+    {
+      "key": "11-title-final-line.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\11-title-final-line.KEY",
+      "bytes": 18,
+      "sha256": "b1240ecaef1ed5ad949067dd0cf50e148cc3f5a29413ae4e6e86f8bbaedb9a78"
+    },
+    {
+      "key": "12-dimension-resets-metadata.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\12-dimension-resets-metadata.KEY",
+      "bytes": 67,
+      "sha256": "77320c0a2e027eb044bff6e2e267c2d0db2d9247d110622ac8adbb58b0c4c00d"
+    },
+    {
+      "key": "13-first-header-wins.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\13-first-header-wins.KEY",
+      "bytes": 115,
+      "sha256": "e5c25acf4175a378e9f4f638ff435f5eee0d9879eab1f7ec03640af0e009fff2"
+    },
+    {
+      "key": "14-unknown-versus-known.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\14-unknown-versus-known.KEY",
+      "bytes": 29,
+      "sha256": "d1cf22e6128c2ebf9aa950458ba03566b315052d9b6e3b07bb115133be96bdbb"
+    },
+    {
+      "key": "15-sticky-read-error.KEY",
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-roundtrip-fixtures\\15-sticky-read-error.KEY",
+      "bytes": 43,
+      "sha256": "9872e8a13e7ad8f869c3734df6bb6460e1ebd8b4c36ecf2c0643d07da5323ef3"
+    },
+    {
+      "key": "original_export",
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\interactive\\rea-step25\\output.key",
+      "bytes": 2845589,
+      "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856"
+    }
+  ],
+  "source_locations": [
+    {
+      "key": "metadata_extract",
+      "pointer": "/pseudocode_early_cases and /assembly_call_windows/0..3",
+      "procedure": "0x14039aa90",
+      "original": "original_dispatch_snapshot /entries/501/execution/raw_result/value",
+      "anchors": [
+        "0x14039ab73 TITLE",
+        "0x14039abc2 CURSIM",
+        "0x14039abf0 OPRNAM",
+        "0x14039ac1e SIMNAM",
+        "0x14039abb1 fifth argument set to zero"
+      ],
+      "verified": "Extracted early cases, common return and every retained assembly-window instruction checked against original snapshot."
+    },
+    {
+      "key": "string_helper",
+      "pointer": "/pseudocode",
+      "procedure": "0x140413ab0"
+    },
+    {
+      "key": "integer3_helper",
+      "pointer": "/normalized_result/pseudocode",
+      "procedure": "0x140413fb0"
+    },
+    {
+      "key": "parser",
+      "pointer": "/normalized_result/pseudocode",
+      "procedure": "0x1401b6520"
+    },
+    {
+      "key": "defaults",
+      "pointer": "/pseudocode",
+      "procedure": "0x1401e7e90"
+    },
+    {
+      "key": "controls_init",
+      "pointer": "/pseudocode",
+      "procedure": "0x1401e7c50"
+    },
+    {
+      "key": "root_init",
+      "pointer": "/pseudocode",
+      "procedure": "0x1401c8c00"
+    },
+    {
+      "key": "dimension_setter",
+      "pointer": "/normalized_result/pseudocode",
+      "procedure": "0x1401c8ba0"
+    },
+    {
+      "key": "model-0x1402f78d0.json",
+      "pointer": "/pseudocode",
+      "procedure": "0x1402f78d0",
+      "fact": "Explicit strcmp loop establishes case-sensitive lookup independently of replacement code."
+    },
+    {
+      "key": "keyword-detail-2.json",
+      "pointer": "/normalized_result/pseudocode",
+      "procedure": "0x1402f76c0",
+      "fact": "Absent lookup yields id0x131 and category0."
+    }
+  ],
+  "contracts": [
+    {
+      "id": "M1",
+      "subject": "storage and defaults",
+      "evidence": [
+        "metadata_extract",
+        "defaults",
+        "controls_init",
+        "root_init"
+      ],
+      "fields": [
+        {
+          "keyword": "TITLE",
+          "id": 22,
+          "category": 1,
+          "native_offset": "root+0x750",
+          "capacity_including_NUL": 81,
+          "max_payload_bytes": 80,
+          "default": "SIMULATION"
+        },
+        {
+          "keyword": "CURSIM",
+          "id": 23,
+          "category": 1,
+          "native_offsets": [
+            "root+0x834",
+            "root+0x838",
+            "root+0x83c"
+          ],
+          "type": "three int32 slots",
+          "default": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "keyword": "OPRNAM",
+          "id": 24,
+          "category": 1,
+          "native_offset": "root+0x7a1",
+          "capacity_including_NUL": 65,
+          "max_payload_bytes": 64,
+          "default": "OPERATION 1"
+        },
+        {
+          "keyword": "SIMNAM",
+          "id": 25,
+          "category": 1,
+          "native_offset": "root+0x7e2",
+          "capacity_including_NUL": 81,
+          "max_payload_bytes": 80,
+          "default": "SIMULATION 1"
+        }
+      ],
+      "distinction": "TITLE is not console problem ID at root+0x340. Native offsets are evidence anchors, not a requested C++ binary layout."
+    },
+    {
+      "id": "M2",
+      "subject": "string framing and mutation",
+      "evidence": [
+        "string_helper",
+        "metadata_extract"
+      ],
+      "steps": [
+        "After scanner consumes keyword, first fgets(max1024) discards remaining keyword-line bytes.",
+        "Second fgets(max1024) supplies payload, including keyword-looking text or an empty line.",
+        "Failure of either read returns1 before any destination write.",
+        "Success removes first LF, copies capacity-1 bytes with strncpy semantics, scans that bounded destination backward past NUL/space/LF/CR, then writes terminator.",
+        "Leading whitespace and trailing tab survive; trim occurs after truncation. Successful blank payload overwrites with empty string. Nonempty final partial line succeeds."
+      ],
+      "status": "Helper0->handler0;helper1->handler2. Prior string retained only on read failure, not on successful blank input.",
+      "bounds": "ASCII, no embedded NUL, initialized prior strings. For the approved fixture domain, each translated line including LF fits in1023 bytes; keyword-line remainder must fit too. Longer reads may leave fragments and are not covered here."
+    },
+    {
+      "id": "M3",
+      "subject": "CURSIM parse and partial assignments",
+      "evidence": [
+        "integer3_helper",
+        "metadata_extract"
+      ],
+      "steps": [
+        "Zero three live destinations before reading.",
+        "Read one fgets line starting at scanner cursor: CURSIM's remainder, not the next physical line.",
+        "Replace commas with spaces; scan %i %i %i. Caller passes null optional conversion-count pointer, established by retained assembly.",
+        "EOF/no line and scanf EOF(-1), including whitespace-only remainder, return helper1 after zeroing.",
+        "Matching failure0 and partial counts1/2 succeed, retaining converted prefix and zero suffix; count3 succeeds."
+      ],
+      "status": "Map helper0 to0, other helper status to2. Do not require exactly3 conversions or commit only on success.",
+      "bounds": "Signed32 representable ordinary numeric inputs; overflow and malformed prefix/sign CRT behavior remain excluded."
+    },
+    {
+      "id": "M4",
+      "subject": "header and reset lifecycle",
+      "evidence": [
+        "parser",
+        "dimension_setter",
+        "root_init",
+        "controls_init",
+        "defaults"
+      ],
+      "rules": [
+        "Asterisk-leading token triggers one bounded line read; only the first recognized dimension header in one import is applied.",
+        "Earlier ordinary comments do not consume the first-recognized-header opportunity.",
+        "Changed dimension calls clear plus root initialization, which resets metadata through1e7c50->1e7e90. Same dimension is a no-op.",
+        "First recognized header also applies complementary dimension to the linked root if present. Later headers in that import cannot reset either root.",
+        "Malformed incomplete DEFORM header is not assigned deterministic native behavior; replacement's explicit unsupported result should remain."
+      ]
+    },
+    {
+      "id": "M5",
+      "subject": "parser continuation and unknown tokens",
+      "evidence": [
+        "parser",
+        "model-0x1402f78d0.json",
+        "keyword-detail-2.json",
+        "metadata_extract"
+      ],
+      "rules": [
+        "Lookup is case-sensitive. Unknown token causes current-line remainder skip and warning except SRFNRG suppression.",
+        "A string payload is not rescanned as a keyword.",
+        "Handler2 logs reading error and scanning continues. Later successful handlers do not erase accumulated status2; EOF returns it.",
+        "Recognized but unimplemented entries remain an explicit replacement limitation. Do not convert them to unknown/ignored entries."
+      ]
+    }
+  ],
+  "fixture_review": [
+    {
+      "file": "01-export-prefix.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Exact bytes 0..163 of retained output.key; first recognized 3D header matches initial 3D and four metadata handlers have the stated values.",
+      "discrimination_limit_or_requirement": "TITLE payload equals its constructor default, so TITLE storage cannot be proved by this fixture alone. Pair with case02. Does not establish complete export loading; SMODE follows outside the prefix.",
+      "expected": {
+        "title": "SIMULATION",
+        "cursim": [
+          7,
+          5,
+          0
+        ],
+        "operation_name": "CogABC",
+        "simulation_name": "RH1-PS1-BHT1",
+        "handler_statuses": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "consumed": "All4 metadata records;not a complete export."
+      }
+    },
+    {
+      "file": "02-repeated-values.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Second TITLE and OPRNAM overwrite prior values; leading spaces survive; trailing spaces/CR/LF are trimmed while tab survives.",
+      "discrimination_limit_or_requirement": "SIMNAM has one assignment only. Add repeated SIMNAM and distinct sentinels in neighboring fields to detect incorrect target storage.",
+      "expected": {
+        "title": "Second",
+        "operation_name": " Last \t",
+        "simulation_name": " Simulation X",
+        "handler_statuses": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reason": "Overwrite,leading spaces retained,trailing spaces removed,trailing tab retained."
+      }
+    },
+    {
+      "file": "03-inline-remainder.KEY",
+      "verdict": "ACCEPT",
+      "supported": "All three string helpers consume one keyword-line remainder and then one payload line.",
+      "discrimination_limit_or_requirement": "Assert event cursor/line-read count to distinguish value coincidence from correct framing.",
+      "expected": {
+        "title": "Actual title",
+        "operation_name": "Actual operation",
+        "simulation_name": "Actual simulation",
+        "handler_statuses": [
+          0,
+          0,
+          0
+        ],
+        "reason": "First fgets discards inline remainder;following line is payload."
+      }
+    },
+    {
+      "file": "04-title-first-read-eof.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Last token reaches EOF; first fgets fails and prior TITLE survives, helper1 maps to handler2.",
+      "discrimination_limit_or_requirement": "At handler-state level it shares case05's outcome. Reader line-read traces distinguish the failed first read from failed second read.",
+      "expected": {
+        "title": "Prior",
+        "helper_statuses": [
+          0,
+          1
+        ],
+        "handler_statuses": [
+          0,
+          2
+        ],
+        "parser_final_status": 2,
+        "reason": "Last TITLE token ends atEOF;first fgets fails without replacing prior value."
+      }
+    },
+    {
+      "file": "05-title-second-read-eof.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Keyword remainder exists, payload does not; second fgets fails without replacing TITLE.",
+      "discrimination_limit_or_requirement": "Assert two attempted line reads for the failing handler. Add analogous EOF tests for OPRNAM/SIMNAM if their adapters do not share one implementation.",
+      "expected": {
+        "title": "Prior",
+        "helper_statuses": [
+          0,
+          1
+        ],
+        "handler_statuses": [
+          0,
+          2
+        ],
+        "parser_final_status": 2,
+        "reason": "First remainder read succeeds;second payload readEOF preserves prior."
+      }
+    },
+    {
+      "file": "06-blank-and-tabs.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Successful blank TITLE erases Prior, space-only OPRNAM becomes empty, tab plus spaces SIMNAM becomes tab.",
+      "discrimination_limit_or_requirement": "This helper's trim set excludes tabs; do not reuse DB text-helper trimming. Tab result distinguishes general whitespace trimming.",
+      "expected": {
+        "title": "",
+        "operation_name": "",
+        "simulation_name": "\t",
+        "handler_statuses": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "reason": "Blank line succeeds;tabs excluded from native trailing-trim set."
+      }
+    },
+    {
+      "file": "07-capacity-boundaries.KEY",
+      "verdict": "ACCEPT_WITH_COVERAGE_REVISION",
+      "supported": "Payload lengths are81/65/81; retained capacities81/65/81 produce80/64/80 stored bytes while consuming whole bounded lines.",
+      "discrimination_limit_or_requirement": "Only max_payload+1 is covered. Add max_payload-1 and max_payload, truncation-before-trim, explicit NUL termination where native storage is captured, and immediate next-token cursor assertions.",
+      "expected": {
+        "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "operation_name": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "simulation_name": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "handler_statuses": [
+          0,
+          0,
+          0
+        ],
+        "reason": "All input lines below1024-byte fgets bound;entire lines consumed,stored strings truncated to capacity-1."
+      }
+    },
+    {
+      "file": "08-keyword-looking-payload.KEY",
+      "verdict": "ACCEPT",
+      "supported": "TITLE consumes literal CURSIM as payload; only the later CURSIM is dispatched.",
+      "discrimination_limit_or_requirement": "Assert exact handler sequence [TITLE,CURSIM], not just final values.",
+      "expected": {
+        "title": "CURSIM",
+        "cursim": [
+          7,
+          5,
+          0
+        ],
+        "handler_sequence": [
+          "TITLE",
+          "CURSIM"
+        ],
+        "handler_statuses": [
+          0,
+          0
+        ],
+        "reason": "Payload spelling is not redispatched as a keyword."
+      }
+    },
+    {
+      "file": "09-cursim-partial.KEY",
+      "verdict": "ACCEPT_WITH_COVERAGE_REVISION",
+      "supported": "Comma replacement and hex input yield[7,5,0]; subsequent one-conversion input leaves[7,0,0] with success.",
+      "discrimination_limit_or_requirement": "07 has the same value in octal and decimal. Use010 to discriminate base0; add zero-conversion nonblank and two-conversion inputs. Do not claim full partial-conversion partition coverage.",
+      "expected": {
+        "cursim_after_each": [
+          [
+            7,
+            5,
+            0
+          ],
+          [
+            7,
+            0,
+            0
+          ]
+        ],
+        "handler_statuses": [
+          0,
+          0
+        ],
+        "reason": "Base0 ints,comma replacement,zeroed suffix and accepted partial conversions."
+      }
+    },
+    {
+      "file": "10-cursim-eof.KEY",
+      "verdict": "ACCEPT",
+      "supported": "CURSIM with no remaining bytes zeroes all destinations before returning helper1/handler2.",
+      "discrimination_limit_or_requirement": "Together with cases04/05 distinguishes numeric zeroing from string EOF retention.",
+      "expected": {
+        "cursim_after_each": [
+          [
+            9,
+            8,
+            7
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "handler_statuses": [
+          0,
+          2
+        ],
+        "parser_final_status": 2,
+        "reason": "Destinations zeroed before EOF;unlike string reader preservation."
+      }
+    },
+    {
+      "file": "11-title-final-line.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Nonempty payload at EOF is a successful fgets even without final LF.",
+      "discrimination_limit_or_requirement": "Add equivalent final-line tests for OPRNAM/SIMNAM only if their storage adapters differ.",
+      "expected": {
+        "title": "Final value",
+        "handler_statuses": [
+          0
+        ],
+        "parser_final_status": 0,
+        "reason": "fgets returns nonempty last partial line even without newline."
+      }
+    },
+    {
+      "file": "12-dimension-resets-metadata.KEY",
+      "verdict": "ACCEPT_WITH_COVERAGE_REVISION",
+      "supported": "First recognized header changes primary3->2 and linked2->3; TITLE and CURSIM return to constructor defaults.",
+      "discrimination_limit_or_requirement": "OPRNAM/SIMNAM are never made nondefault, so this fixture cannot detect failures to reset them. Linked metadata state is not asserted. Prepopulate all fields on both roots before changed-dimension header.",
+      "expected": {
+        "primary_dimension": 2,
+        "linked_dimension_if_present": 3,
+        "title": "SIMULATION",
+        "operation_name": "OPERATION 1",
+        "simulation_name": "SIMULATION 1",
+        "cursim": [
+          1,
+          0,
+          0
+        ],
+        "reason": "First recognized header changes3->2;dimension setter clears/reinitializes through proven constructor chain."
+      }
+    },
+    {
+      "file": "13-first-header-wins.KEY",
+      "verdict": "ACCEPT_WITH_COVERAGE_REVISION",
+      "supported": "First header changes3->2; later3D header is ignored and the intervening TITLE survives.",
+      "discrimination_limit_or_requirement": "CURSIM is assigned after the second header, so it cannot detect CURSIM resetting there. Set all fields before second header. Also test a first recognized header whose dimension is already current.",
+      "expected": {
+        "primary_dimension": 2,
+        "linked_dimension_if_present": 3,
+        "title": "Retained after second header",
+        "cursim": [
+          7,
+          5,
+          0
+        ],
+        "reason": "Later recognized header in same import does not trigger reset."
+      }
+    },
+    {
+      "file": "14-unknown-versus-known.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Native strcmp lookup is case-sensitive; title and ignored are separate unknown tokens whose line remainders are skipped. TITLE consumes Kept on next line.",
+      "discrimination_limit_or_requirement": "Assert two warning events and no metadata write for either unknown token. This is not permission to skip recognized unsupported keywords.",
+      "expected": {
+        "unknown_tokens": [
+          "title",
+          "ignored"
+        ],
+        "unknown_warning_count": 2,
+        "title": "Kept",
+        "parser_final_status": 0,
+        "reason": "Unknown line skipping differs from consuming recognized TITLE next-line payload;case-sensitive lookup."
+      }
+    },
+    {
+      "file": "15-sticky-read-error.KEY",
+      "verdict": "ACCEPT",
+      "supported": "Whitespace-only CURSIM zeroes destinations and fails; TITLE still executes; parser retains status2 at EOF.",
+      "discrimination_limit_or_requirement": "Assert intermediate state immediately after failing CURSIM, then TITLE event and final parser status. A transactional or early-stop parser must fail this test.",
+      "expected": {
+        "cursim": [
+          0,
+          0,
+          0
+        ],
+        "title": "After error",
+        "handler_statuses": [
+          0,
+          2,
+          0
+        ],
+        "parser_final_status": 2,
+        "reason": "Whitespace-only CURSIM line fails afterzeroing;native parsercontinues andretains earliererror."
+      }
+    }
+  ],
+  "required_revisions": [
+    {
+      "id": "R1",
+      "priority": "before_implementation_acceptance",
+      "finding": "Reset and header fixtures can pass when some metadata fields reset incorrectly.",
+      "required": "Prepopulate TITLE,OPRNAM,SIMNAM,CURSIM with distinct nondefaults on primary and linked roots. Assert all defaults after changed dimension; all values retained after same dimension and after a later header. Test a new import gets a fresh first-header opportunity.",
+      "source": "M1,M4;fixtures12,13"
+    },
+    {
+      "id": "R2",
+      "priority": "before_implementation_acceptance",
+      "finding": "CURSIM fixture09 does not cover scan-count0 or2, and07 does not distinguish octal from decimal.",
+      "required": "Add CURSIM junk->[0,0,0]/status0; CURSIM 7 5 bad->[7,5,0]/status0; CURSIM 010,0x10,-3->[8,16,-3]/status0. Keep EOF and whitespace-only failures with zeroed state. Assert cursor after one remainder line.",
+      "source": "M3;fixtures09,10,15"
+    },
+    {
+      "id": "R3",
+      "priority": "before_implementation_acceptance",
+      "finding": "Capacity fixture07 covers only one byte beyond each maximum payload.",
+      "required": "For capacities81/65/81, test payload lengths maximum-1,maximum,maximum+1 with distinct final bytes. Add a boundary space followed by an out-of-capacity nonspace to distinguish truncate-then-trim from trim-then-truncate. Verify next record starts at the expected cursor and no adjacent field changes.",
+      "source": "M2;fixture07"
+    },
+    {
+      "id": "R4",
+      "priority": "before_implementation_acceptance",
+      "finding": "Most manifest assertions specify values/status but lack numeric event cursors and read-stage traces.",
+      "required": "Pin translated-byte event offsets/cursors and helper line-read counts. Cases04/05 must distinguish first/second failed read;03/08 must prove proper payload consumption;15 must observe post-failure zeroing before later TITLE. Preserve physical-source and translated-cursor coordinate systems separately.",
+      "source": "M2,M3,M5;current KeywordReader::line_reads and KeywordImporter::HandlerObserver"
+    },
+    {
+      "id": "R5",
+      "priority": "plan_correction",
+      "finding": "B recommends a three-output integer route as if still needed; it already exists at d546058.",
+      "required": "Reuse integer_triple(). Public name() and material_name() already provide capacities81 and65 with no object/material mutation. A generic capacity API is optional, not required. Preserve existing helper behavior and callers.",
+      "source": "C_keyword_reader.hpp:143,216,218;C_keyword_reader.cpp:236,252,839"
+    },
+    {
+      "id": "R6",
+      "priority": "before_acceptance_claim",
+      "finding": "No fixture execution or native comparison establishes compatibility yet.",
+      "required": "Run an authorized replacement replay suite and separately authorized native comparison, recording target hash, CRT/file mode, locale, per-handler state, status and cursor/read position. Keep full wrapper finalization outside the metadata-only assertion.",
+      "source": "B_manifest /execution;M2..M5"
+    }
+  ],
+  "implementation_fit": {
+    "assessment": "Small source change is feasible after separate implementation authorization; no public loading-signature change is required.",
+    "model_option": "Add explicit byte-string metadata and array<int32_t,3> to SimulationControls with M1 defaults; expose narrow ObjectModel mutation methods. initialized_root_controls constructs SimulationControls, and set_dimension already replaces controls only when dimension changes. This fits the existing optional reset-profile model. Do not add scientific interpretations or rename problem ID into TITLE.",
+    "missing_profile_policy": "Current category1 handler rejects missing controls.simulation. Keep this explicit unsupported boundary unless a broader model contract is separately authorized. Do not silently fabricate full simulation controls just to accept metadata.",
+    "handler_plan": [
+      "Add ids22..25 to category1 implemented().",
+      "TITLE/SIMNAM: reader.name(previous); OPRNAM: reader.material_name(previous). Preserve previous field on either failed read. Keep capacities by keyword.",
+      "CURSIM: reader.integer_triple(); store all three values even when helper fails. Map helper status to0/2 without exact-conversion-count validation.",
+      "Preserve import_translated(std::string_view,bool), catalog loading, event observer, sticky errors, unknown-token skip and requested finalization behavior."
+    ],
+    "api": "Existing loader API can remain source-compatible. The metadata-only harness can use import_translated(bytes,false) to inspect parser/handler behavior without claiming wrapper finalization; any requested-finalization tests are separate.",
+    "abi": "Adding members to public C++ structs changes layout and can require rebuilding consumers. No binary ABI compatibility with old libraries or original DEFORM is proved or promised. Native addresses and capacities specify behavior, not reconstruction offsets.",
+    "current_code_anchors": [
+      {
+        "key": "C_object_model.hpp",
+        "lines": [
+          41,
+          65,
+          73
+        ],
+        "fact": "SimulationControls profile and optional RootControls.simulation"
+      },
+      {
+        "key": "C_object_model.cpp",
+        "lines": [
+          95,
+          103,
+          139,
+          142,
+          155,
+          165
+        ],
+        "fact": "Initialization, changed/same dimension, linked header application"
+      },
+      {
+        "key": "C_keyword_reader.cpp",
+        "lines": [
+          145,
+          236,
+          252,
+          281,
+          300,
+          839,
+          843,
+          847
+        ],
+        "fact": "Bounded read, three-int helper, status, public string adapters"
+      },
+      {
+        "key": "C_keyword_import.cpp",
+        "lines": [
+          128,
+          134,
+          137,
+          707,
+          720,
+          742,
+          771,
+          784,
+          785
+        ],
+        "fact": "Dispatch support, profile guard, public loading path, header state and continuation"
+      },
+      {
+        "key": "C_keyword_import.hpp",
+        "lines": [
+          79,
+          81
+        ],
+        "fact": "Existing import API and wrapper/finalization distinction"
+      }
+    ],
+    "progress_bound": "Only first four exported metadata occurrences become newly dispatchable. SMODE at physical line14 remains the next known blocker. No complete KEY round-trip, material recovery or DB functionality follows."
+  },
+  "unresolved_questions": [
+    {
+      "id": "U1",
+      "question": "Which native FILE text mode, CRT and locale should the future differential harness pin?",
+      "why": "CRLF translation, Ctrl-Z, BOM, high bytes and stream read positions are outside import_translated's byte contract.",
+      "required_evidence": "Authorized native file-I/O capture separate from translated-text tests."
+    },
+    {
+      "id": "U2",
+      "question": "Is support beyond bounded ASCII lines intended?",
+      "why": "1023-byte fgets fragments, embedded NUL and non-ASCII encoding can alter framing and storage. These15 fixtures do not characterize them.",
+      "required_evidence": "Dedicated boundary contract before expanding the supported domain."
+    },
+    {
+      "id": "U3",
+      "question": "Is binary ABI preservation a deployment requirement, or only unchanged loader signatures?",
+      "why": "The suggested model additions preserve loading methods but change C++ structure layout.",
+      "required_evidence": "Implementation owner's build/consumer contract; no native session needed."
+    },
+    {
+      "id": "U4",
+      "question": "Should metadata work with externally supplied RootControls lacking simulation?",
+      "why": "Existing category1 profile guard rejects that context. Native fields exist, but the reconstruction does not model their initialization there.",
+      "required_evidence": "Explicit ownership/initialization decision; default remains unsupported."
+    },
+    {
+      "id": "U5",
+      "question": "What is intended for numeric overflow and malformed base0 prefixes/sign-only inputs?",
+      "why": "The native CRT scanner and replacement host CRT can differ outside current safe numeric scope.",
+      "required_evidence": "Separate authorized ABI/CRT edge-case study; ordinary representable numeric cases suffice for this slice."
+    }
+  ],
+  "runtime_requirements": [
+    {
+      "id": "T1",
+      "type": "future_replacement_tests",
+      "requirement": "Replay all15 pinned fixtures after explicit CRLF->LF normalization. Assert byte strings, int32 triplet, dimensions, helper/handler status, exact event order and translated cursors; separate EOF reached from finalization."
+    },
+    {
+      "id": "T2",
+      "type": "future_replacement_tests",
+      "requirement": "Add R1-R4 discrimination cases and fresh/nondefault initial states. Test successful repeats for all three strings; test EOF retention for all storage adapters and zero-on-failure CURSIM."
+    },
+    {
+      "id": "T3",
+      "type": "future_regression_tests",
+      "requirement": "Retain existing OBJNAM/MTNAME reader tests and int3 replay behavior, plus changed/same-dimension and current recognized-unsupported stopping tests. Limit build/test work to authorized implementation iteration."
+    },
+    {
+      "id": "T4",
+      "type": "future_native_differential",
+      "requirement": "Under separate authorization and exclusively owned session, compare same bounded fixtures against target f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794. Capture root750/7a1/7e2 terminated byte arrays and834/838/83c int32 slots after each handler, statuses, dimensions and stream position. No new native work was performed here."
+    },
+    {
+      "id": "T5",
+      "type": "future_integration_boundary",
+      "requirement": "Verify four-case support ends explicitly at SMODE on the full retained export. Do not report full round-trip success. Verify request_finalization=false isolates metadata; true follows existing supported wrapper behavior."
+    }
+  ],
+  "verification": {
+    "automated_static_checks": {
+      "check_count": 92,
+      "passed": 92,
+      "fixture_count": 15
+    },
+    "checks": [
+      {
+        "check": "B_contract sha256",
+        "passed": true
+      },
+      {
+        "check": "B_manifest sha256",
+        "passed": true
+      },
+      {
+        "check": "parser sha256",
+        "passed": true
+      },
+      {
+        "check": "parser byte count",
+        "passed": true
+      },
+      {
+        "check": "string_helper sha256",
+        "passed": true
+      },
+      {
+        "check": "string_helper byte count",
+        "passed": true
+      },
+      {
+        "check": "integer3_helper sha256",
+        "passed": true
+      },
+      {
+        "check": "integer3_helper byte count",
+        "passed": true
+      },
+      {
+        "check": "defaults sha256",
+        "passed": true
+      },
+      {
+        "check": "defaults byte count",
+        "passed": true
+      },
+      {
+        "check": "controls_init sha256",
+        "passed": true
+      },
+      {
+        "check": "controls_init byte count",
+        "passed": true
+      },
+      {
+        "check": "root_init sha256",
+        "passed": true
+      },
+      {
+        "check": "root_init byte count",
+        "passed": true
+      },
+      {
+        "check": "dimension_setter sha256",
+        "passed": true
+      },
+      {
+        "check": "dimension_setter byte count",
+        "passed": true
+      },
+      {
+        "check": "dimension sha256",
+        "passed": true
+      },
+      {
+        "check": "dimension byte count",
+        "passed": true
+      },
+      {
+        "check": "wrapper sha256",
+        "passed": true
+      },
+      {
+        "check": "wrapper byte count",
+        "passed": true
+      },
+      {
+        "check": "catalog sha256",
+        "passed": true
+      },
+      {
+        "check": "catalog byte count",
+        "passed": true
+      },
+      {
+        "check": "object_names sha256",
+        "passed": true
+      },
+      {
+        "check": "object_names byte count",
+        "passed": true
+      },
+      {
+        "check": "metadata_extract sha256",
+        "passed": true
+      },
+      {
+        "check": "metadata_extract byte count",
+        "passed": true
+      },
+      {
+        "check": "export_contract sha256",
+        "passed": true
+      },
+      {
+        "check": "export_contract byte count",
+        "passed": true
+      },
+      {
+        "check": "export_index sha256",
+        "passed": true
+      },
+      {
+        "check": "export_index byte count",
+        "passed": true
+      },
+      {
+        "check": "export_audit sha256",
+        "passed": true
+      },
+      {
+        "check": "export_audit byte count",
+        "passed": true
+      },
+      {
+        "check": "model sha256",
+        "passed": true
+      },
+      {
+        "check": "model byte count",
+        "passed": true
+      },
+      {
+        "check": "importer sha256",
+        "passed": true
+      },
+      {
+        "check": "importer byte count",
+        "passed": true
+      },
+      {
+        "check": "reader sha256",
+        "passed": true
+      },
+      {
+        "check": "reader byte count",
+        "passed": true
+      },
+      {
+        "check": "B/C same object_model.hpp",
+        "passed": true
+      },
+      {
+        "check": "B/C same keyword_import.cpp",
+        "passed": true
+      },
+      {
+        "check": "B/C same keyword_reader.cpp",
+        "passed": true
+      },
+      {
+        "check": "original_dispatch_snapshot sha256",
+        "passed": true
+      },
+      {
+        "check": "dispatch extract early cases occur verbatim in original",
+        "passed": true
+      },
+      {
+        "check": "dispatch extract common return occurs verbatim in original",
+        "passed": true
+      },
+      {
+        "check": "every retained assembly window is in original",
+        "passed": true
+      },
+      {
+        "check": "01-export-prefix.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "01-export-prefix.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "01-export-prefix.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "02-repeated-values.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "02-repeated-values.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "02-repeated-values.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "03-inline-remainder.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "03-inline-remainder.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "03-inline-remainder.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "04-title-first-read-eof.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "04-title-first-read-eof.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "04-title-first-read-eof.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "05-title-second-read-eof.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "05-title-second-read-eof.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "05-title-second-read-eof.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "06-blank-and-tabs.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "06-blank-and-tabs.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "06-blank-and-tabs.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "07-capacity-boundaries.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "07-capacity-boundaries.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "07-capacity-boundaries.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "08-keyword-looking-payload.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "08-keyword-looking-payload.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "08-keyword-looking-payload.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "09-cursim-partial.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "09-cursim-partial.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "09-cursim-partial.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "10-cursim-eof.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "10-cursim-eof.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "10-cursim-eof.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "11-title-final-line.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "11-title-final-line.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "11-title-final-line.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "12-dimension-resets-metadata.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "12-dimension-resets-metadata.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "12-dimension-resets-metadata.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "13-first-header-wins.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "13-first-header-wins.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "13-first-header-wins.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "14-unknown-versus-known.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "14-unknown-versus-known.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "14-unknown-versus-known.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "15-sticky-read-error.KEY sha256",
+        "passed": true
+      },
+      {
+        "check": "15-sticky-read-error.KEY byte count",
+        "passed": true
+      },
+      {
+        "check": "15-sticky-read-error.KEY ASCII bounded no NUL",
+        "passed": true
+      },
+      {
+        "check": "fixture01 byte-identical retained prefix",
+        "passed": true
+      },
+      {
+        "check": "fixture count",
+        "passed": true
+      }
+    ],
+    "manual_review": "Inspected native string/int helpers, original dispatch extract and assembly windows, parser, lookup, constructor/reset chain, all15 raw fixture byte sequences and expectations, and current reader/importer/model source. This is static reasoning, not executing either implementation.",
+    "git": "HEAD d546058bde8c7c245485959dca8608b507be5ce4 verified; tracked-file status clean before writing review.",
+    "execution_counts": {
+      "REA_calls": 0,
+      "original_runs": 0,
+      "replacement_runs": 0,
+      "builds": 0
+    },
+    "limitations": "Hash/substring checks establish provenance and fixture identity, not runtime correctness. The92 static checks are not92 behavior tests."
+  },
+  "tooling_adoption": {
+    "decision": "DEFERRED",
+    "reason": "Direct extraction from known record paths and snapshot entry501 was sufficient; no repeated discovery index needed. No cherry-pick, base change or benchmark. Coordinator's new read-only index helper was not invoked."
+  },
+  "delivery": {
+    "artifact": "analysis/chat-c-keyword-metadata-review.json",
+    "report_to": "Coordinator chat",
+    "stop_after_report": true
+  }
+}

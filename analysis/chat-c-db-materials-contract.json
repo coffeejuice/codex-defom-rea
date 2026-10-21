@@ -1,0 +1,934 @@
+{
+  "schema_version": 1,
+  "title": "Chat C — G2 DB materials and inter-material relations",
+  "status": "Bounded static contract; no DB runtime equivalence claim",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": {
+    "entry_points": [
+      "0x1401cff20",
+      "0x1401d0180"
+    ],
+    "primary_deserializers": [
+      "0x14028f300",
+      "0x140336740"
+    ],
+    "included": "Record selection/stride, append ordering, IDs versus one-based positions, ordered relation keys, raw scalar and table transfers, direct nested deserializers, reset ownership and partial mutations.",
+    "excluded": [
+      "datarm23 loader changes",
+      "production or shared-header edits",
+      "central ledger changes",
+      "builds",
+      "runtime experiments",
+      "merge/push",
+      "scientific interpretation or interpolation"
+    ],
+    "existing_evidence": "Retained material/relation KEY contracts supply structural ownership and table storage facts only. Their runtime comparisons are not DB-import validation."
+  },
+  "source_navigation": {
+    "evidence": "analysis/chat-c-db-materials-evidence.json",
+    "field_map": "analysis/chat-c-db-materials-field-map.json",
+    "full_bundle": "analysis/oracle/chat-c-db-materials-evidence-bundle.json",
+    "validation": "analysis/chat-c-db-materials-validation.json",
+    "session": "analysis/chat-c-db-materials-session.json",
+    "rules": [
+      "The field map preserves506 material and160 relation write occurrences, including constants and repeated conditional destinations, plus80 material/15 relation deserializer call sites. Counts are statement occurrences, not unique semantic fields.",
+      "Every row binds a parent evidence ID, exact pseudocode statement and one-based line after CR removal. Destination offsets are bytes. Guard context and nearest aliases are navigation aids; full saved pseudocode governs branching and order.",
+      "Material param_1 is int*: param_1[index] and param_1+index use4-byte strides, including casted double stores. Relation param_1 is a byte address. Do not copy decompiler indices directly into model byte offsets.",
+      "Material reader dossier body spans14028f300..140294a03,22,276 bytes; complete39,776-code-unit pseudocode and3,301 assembly rows retained. High p-code is truncated, so cross-operation value-flow completeness is not claimed.",
+      "Relation reader has provider-reported noncontiguous ranges140336740..1403367a3 and1403367a6..140337ef7. Preserve the two-byte gap and provider body scope; don't claim recovered original source."
+    ]
+  },
+  "notation": {
+    "A": "Expanded real array at root+0x1b78; float64 slots, including text and raw numeric slots.",
+    "M": "Expanded int32 array at root+0x1b88.",
+    "I": "Int32 address table at root+0x1b90.",
+    "R": "Int32 real-address/size table at root+0x1dc0; values remain one-based for record starts, but size slots are lengths.",
+    "P": "Shared property directory root+0x2220, established as M+(I[2]-1)*4 in full3D v11000.",
+    "V": "Shared property real payload root+0x2228, established as A+(R[0]-1)*8 in full3D v11000.",
+    "n": "signed root+0x1320 material count, populated by ReadSimCtrl;3D S[22],2D S[29].",
+    "Q": "float64 slots of one material record; Q[k] is zero-based.",
+    "Z": "float64 slots of one ordered relation record.",
+    "B": "one material object base; byte offsets used in this contract.",
+    "E": "one relation object base; byte offsets used in this contract.",
+    "D": "one generic embedded property-table base.",
+    "index_policy": "Record ordinals in formulas below are zero-based; property keys and reference positions are one-based. Numerical IDs are separate from positions and ranks."
+  },
+  "upstream_contracts": {
+    "sources": [
+      "chat-c-db-model-contract.json",
+      "chat-c-db-controls-contract.json",
+      "material-import-0x1401cb440.json"
+    ],
+    "rules": [
+      "DB coordinator clears collections before controls/materials/relations, even when dimension is unchanged. Material and relation entry points themselves append; they do not clear existing lists.",
+      "Carry G1 correction:1e7da0 only clears control-table backing/nested storage and two extents; omitted scalar/descriptor metadata can survive same-dimension imports.",
+      "Carry G1 unit correction:235c30 receives imported root+0x84c after controls and before materials. It does not restore235c10's prior selector. Raw selector2 normalizes toglobal1, other selectors toglobal0; scientific unit names/conversions remain unknown.",
+      "Fresh material defaults28cdc0 consult process235c10 then a nonzero owner unit selector through1c8f40/1f4090. Preserve the ordering; don't replace raw record copies with assumed physical conversions.",
+      "ReadSimCtrl assigns root+0x13f4 separately (3D S[33],2D S[37]). G2 relation generation does not use it as a loop bound or recompute it."
+    ]
+  },
+  "records": {
+    "material": {
+      "sources": [
+        "0x1401cff20",
+        "import-0x1401c77c0.json",
+        "import-0x1401c7d10.json"
+      ],
+      "formula": "In full3D: material record i begins A+(R[1]-1+i*R[141])*8, i=0..n-1. R[141] is the stored per-material real-slot stride, not a hardcoded structure size.",
+      "version": "1cc180 returns root+0x1b64, passed as fifth int argument to28f300. Version>=11000 reads through Q[162], so a proposed safe profile needs at least163 fixed slots plus referenced payloads; this is a derived minimum, not an observed fixed stride.",
+      "profile_boundary": "1c7d40 dispatches the address-map initializer based on dimension. The retained3D initializer assigns82d4=1,82d8=2,83c0=141,83c4=142. Full2D/legacy/partial address bindings are not promoted to support."
+    },
+    "relation": {
+      "sources": [
+        "0x1401d0180",
+        "import-0x1401c77c0.json"
+      ],
+      "formula": "For outer material ordinal i and inner ordinal j: record=A+(R[2]-1+(j*n+i)*R[142])*8. Appended relation list ordinal is i*n+j when all n material lookups succeed. Thus storage order differs from traversal order.",
+      "pairs": "Keys are material[i].ID then material[j].ID, not i/j, not sorted IDs and not canonicalized unordered pairs. All ordered pairs, including self-pairs, are appended. No exact-key lookup/deduplication is called here.",
+      "count": "Normal fresh valid list yields n*n records including inactive records. root+0x13f4 is neither the list count nor recomputed active count in1d0180. Null material ordinal lookup skips affected pairs.",
+      "minimum_fixed_slots": "336740 reads through Z[49] and text Z[18..27]: at least50 real slots are required for active-record branches. Native code does not validate record stride against this minimum."
+    }
+  },
+  "identity_and_lifecycle": {
+    "material": {
+      "append": "29c060 allocates0x2218 bytes, initializes28c6f0 with list owner, links next+0x2200, increments list count before DB payload read. Requested ID is not used for lookup before append.28f300 writes ID=int(Q0). Duplicate,zero,negative IDs are not rejected by this path.",
+      "container": "root+1328:head0,tail8,count10,old-ID scratch18,old-rank scratch20,owner28. Root+1320 is a distinct count, already assigned before this reader.",
+      "lookup": "29c260 accepts a one-based insertion position and returns the corresponding material-node pointer, or null when traversal exhausts the list. For a nonempty list, requested positions <=1 return the head; this helper does not perform general position validation. Normal DB traversal callers pass positions 1..n. 1d7090 forwards the node pointer in RAX despite the decompiler's void signature. This is position-to-node lookup, not exact-ID lookup or inverse ranking. The separate29c2c0 exact-ID lookup used later returns the first matching insertion-order record.",
+      "clear": "1cb440->29c310 traverses next+2200;29e210 calls28cb70 and frees. Owned reference array and embedded properties are destroyed. List head/tail/count zero; owner remains. Initialization-only29b500 must not substitute for destruction."
+    },
+    "relation": {
+      "append": "339df0 allocates0x780, calls333f60(owner), links next770, increments list count.1d0180 then stores key0/key1 at0/4 and calls336740. Mode/active at8/c are decoded from Z0.",
+      "container": "root+1358:head0,tail8,count10,owner18. Exact ordered-pair lookup33a040 exists for other callers; DB append does not invoke it.",
+      "clear": "1cb440->33a120 traverses next770;33a990->334490 destroys twelve embedded tables then frees. Head/tail/count zero, owner retained.",
+      "fresh_defaults": "333f60 initializes mode/active and selected scalars; twelve table types and initialized bytes are retained in relation-property-static-contract.json and constructor evidence. This is not equivalent to memset of all0x780 bytes."
+    },
+    "allocation_failure": "Append helpers increment count and may install null when allocation fails; callers can then dereference null. No rollback or safe failure-status contract is recovered. Proposed adapter must reject oversized data/preflight allocation independently rather than reproduce native faults."
+  },
+  "material_reference_contract": {
+    "sources": [
+      "0x14028f300",
+      "0x1401cff20",
+      "finalization-0x1401d6250.json"
+    ],
+    "rules": [
+      "When int(Q93)!=0,28f300 sets B+1cc8=1, B+1ccc=int(Q93), allocates count*4 zeroed bytes at1cd0, then reads count float64 values from property key int(Q94) and truncates each to int32 reference position. There is no positive-count/key/bounds validation; Q93==0 leaves constructor/prestate reference fields unchanged.",
+      "First pass appends/deserializes all n materials and records each resulting ID in temporary n-int32 array. Second pass obtains material ordinal i+1; for mode exactly1, replaces each reference position r with tempIDs[r-1]. No range check is visible.",
+      "After freeing temporary IDs,1d6250 visits materials by insertion position. For each source still in mode1, it searches each referenced ID. If target exists and target mode!=2, it frees/zeros target refs only when target count>0, then sets target mode2.",
+      "This pass is order-sensitive: a target can lose its own outgoing references before its turn. Self-reference can clear the source count during its loop. Duplicate IDs make later exact-ID reconciliation target the first matching ID, despite earlier positional translation.",
+      "Do not implement references as direct IDs at initial decode, a sorted-ID rank, a simultaneous graph closure, or a deduplicated material dictionary without an explicit integration decision."
+    ]
+  },
+  "material_reader_contract": {
+    "identity_and_text": "ID=int(Q0). Name copies64 bytes from Q2..Q9 to B+c, transforms324020(...,8,0) using owner+748, then3239f0(...,64). Unlike control text, fourth argument0 performs full8-byte reversal when transform mode matches. No post-trim all-space-empty pass here; all trim bytes can leave byte0 and NUL at1.",
+    "mode_Q11": {
+      "output_mode": "B+0x50",
+      "map": "Q11 truncated cases0..16 map to -1,0,1,1,2,3,4,5,5,6,7,8,9,10,11,12,13. Default sets mode1 and B+c8=0; afterwards any real Q11<0 overrides mode14 and B+660=-int(Q11).",
+      "branches": [
+        "Case1 copies Q12..15 to B+58..70. Cases2/3 fill table B+78 counts Q12..14, keyQ15, and B+c8=1/0.",
+        "Case4 copies Q12..16 to B+f0..110; case5 copies Q12..15 to B+118..130.",
+        "Case6 sets two scalar/table shapes at B+1b0 and B+138 using selectorsQ12/Q13, counts/constantsQ14..17 and keysQ18/Q19; rank!=0 gates reads.",
+        "Cases7/8 fill B+228 with countsQ12..14, keyQ15 and B+278 flag1/0.",
+        "Case9 copies Q12..22 to B+2a0..2f0 and Q78..80 to B+2f8/+300/+308. Case10 copies Q12..17 to B+310..338; case11 copies Q12..16 to B+340..360. No scientific equations are inferred.",
+        "Case12 sets scalar/rank1/rank2 table B+400 with selectorQ12, counts/valueQ14..15 and keyQ18.",
+        "Cases13/15 fill B+480/B+4f8/B+570 using Q12..14 for widths/counts and Q15..17 for keys, with distinct mode outputs10/12.",
+        "Case14 copies coefficients Q12..15 to B+368..380 and sets B+388 scalar fromQ17 when intQ16==0; otherwise typed130dc0 uses keyintQ16.",
+        "Case16 fills table B+5e8 with countsQ12..14, widthQ15 and keyQ16, then clears B+638."
+      ]
+    },
+    "common_tables": {
+      "rule": "Each block's exact stores, inherited descriptor fields, keys and guards are in field_map.material. 1309b0 uses prior type/rank/width/counts except fields explicitly written; skipped/unknown selectors may retain defaults and still attempt a read.",
+      "groups": [
+        {
+          "tables": [
+            "0x670",
+            "0x6e8",
+            "0x760"
+          ],
+          "key_slots": [
+            33,
+            35,
+            37
+          ],
+          "constant_slots": [
+            32,
+            34,
+            36
+          ],
+          "selector_slots": [
+            23,
+            26,
+            29
+          ],
+          "selector_map": "0/1/2 =>rank1 axes3/9/12;3=>rank2 axes3,12 with adjacent counts. key0 takes scalar path."
+        },
+        {
+          "tables": [
+            "0x7e0",
+            "0x858"
+          ],
+          "key_slots": [
+            39,
+            41
+          ],
+          "constant_slots": [
+            38,
+            40
+          ],
+          "selector_slots": [
+            47,
+            48
+          ],
+          "selector_map": "0/1/2 =>rank1 axes3/9/12;3=>rank2 axes3,12, countsQ84..87."
+        },
+        {
+          "table": "0x1fe0",
+          "key_slot": 82,
+          "constant_slot": 81,
+          "selector_slot": 83,
+          "selector_map": "0/1/2 =>rank1 axes3/9/12; unknown selector leaves shape, then reader still called."
+        },
+        {
+          "table": "0x8d8",
+          "key_slot": 46,
+          "constant_slot": 45,
+          "selector_map": "key0 scalar; otherwise rank1 axis3."
+        },
+        {
+          "table": "0xf10",
+          "selector_slot": 89,
+          "key_or_constant_slot": 90,
+          "selector_map": "0scalar;1/2/3 rank1 axes12/3/9;4 rank2 axes3,12 countsQ91,Q92. Any nonzero selector calls reader."
+        },
+        {
+          "table": "0xf88",
+          "key_slot": 95,
+          "selector_map": "Unconditional1309b0 using constructor descriptor."
+        },
+        {
+          "table": "0x1000",
+          "key_slot": 98,
+          "counts_slots": [
+            96,
+            97
+          ],
+          "selector_map": "Unconditional1309b0 after count writes."
+        },
+        {
+          "tables": [
+            "0x1ef0",
+            "0x1f68"
+          ],
+          "selector_slots": [
+            50,
+            148
+          ],
+          "key_or_constant_slots": [
+            49,
+            147
+          ],
+          "selector_map": "0scalar;1rank1 axis1; other nonzero selectors retain shape then call reader."
+        },
+        {
+          "table": "0x1cd8",
+          "selector_slot": 51,
+          "key_or_constant_slot": 52,
+          "selector_map": "0scalar;2rank1 axis9; all other nonzero rank1 axis3."
+        },
+        {
+          "table": "0x1d50",
+          "selector_slot": 100,
+          "key_or_constant_slot": 101,
+          "selector_map": "0scalar;1/2rank1 axes3/9;4rank2 axes3,20 countsQ137,Q138 for non2D, Q131,Q132 for2D; other nonzero retain shape then read."
+        },
+        {
+          "table": "0x1dc8",
+          "selector_slot": 102,
+          "key_or_constant_slot": 103,
+          "selector_map": "0scalar;1/2rank1 axes3/9; other nonzero retain shape then read."
+        }
+      ]
+    },
+    "additional_modes": [
+      {
+        "selector": "int(Q53)",
+        "destination": "B+950",
+        "rule": "Negative =>mode4 and abs(intQ53) atB+ac0. Cases0..3 choose scalar B958 or tablesB958/B9d0/Ba48. Counts fromQ54,Q55; keyQ56. Unknown nonnegative leaves prior mode/metadata."
+      },
+      {
+        "selector": "int(Q57)",
+        "destination": "B+ac8",
+        "rule": "Negative=>mode9 and abs(intQ57) atB+da0. Cases0..8 select no payload, one ofBbc0/Bc38/Bcb0/Bd28/Bb48/Bad0, or tripleBda8/Be20/Be98. Q58..60 counts/widths; keysQ64 orQ61..63. Field map retains every case."
+      },
+      {
+        "selector": "int(Q65)",
+        "destination": "B+20d0/B+20d8",
+        "rule": "key<1 sets modeB20d0=0. Else read temporary default table with width20 through1309b0(false); inspect dependent[2]. Tag0 copies modeint(payload0),rank0,constantpayload3. Tag5 copies modeint(payload0),rank2 axes3/8,countsint(payload3/4),nested keyint(payload1). Other tag leaves destination prior state. Temporary table is destroyed afterwards. Missing payload can fault before cleanup."
+      },
+      {
+        "selector": "int(Q139)",
+        "destination": "B+18f0",
+        "rule": "0scalar Q140;1/2/3rank1 axes3/6/24;4/5/6rank2 axes(3,6)/(3,24)/(6,24);7rank3 axes3,6,24. Rank1 reader flagfalse;rank2/3 flagtrue to consume counts from payload. Invalid selector prints diagnostic then dispatches using retained rank."
+      },
+      {
+        "selector": "int(Q141/143/145)",
+        "destination": "B+1968/B+19e0/B+1a58",
+        "rule": "Each0scalar fromQ142/144/146;1rank1 axis3;2rank1 axis8;3rank2 axes3,8. Rank1 false/rank2 true read flag. Unknown prints diagnostic and may still load according to prior rank."
+      },
+      {
+        "selector": "int(Q70)",
+        "destination": "B+1ad0",
+        "rule": "Negative stores mode11 and signed selector atB1b08. Cases0..10,11,12,15,16,17 select scalar coefficients or nested payload;11=>mode12 and28c420 from positive keyQ72;12=>mode13 rank1 axis31 tableB1b90 keyQ71;17=>mode17 tableB1c08 countQ71,keyQ72. Unknown modes retain prior state. B1b00=Q74 andB1b88=Q149 are always copied."
+      },
+      {
+        "selector": "int(Q107)",
+        "destination": "B+1b10",
+        "rule": "0scalarQ108;nonzero rank1 axis3 and keyintQ108."
+      },
+      {
+        "selector": "int(Q[base])",
+        "destination": "B+1e40/B+1e48",
+        "rule": "base131 when dimension==3,else133. Selector0mode0;1/2/3/4 mode1/2/3/4 and12fc70 types104/105/103/101 respectively;other mode5 with B1ec0=-int(selector). Positive resulting mode writes widthQ[base+2], shape selectorQ[base+1], countsQ[base+3/+4],keyQ[base+5]. Shape1axis3/count+4;2axis7/count+3;3rank2axes7,3;4rank2axes3,30.12fc70 reinitializes type while preserving table+54/+60."
+      }
+    ],
+    "version_and_direct_tail": [
+      "B+668=bool(intQ104!=0). B+7d8=Q88 only for non2D version>=5000 or2D version>=8000.",
+      "Direct Q10/Q44/Q42/Q43/Q1 copy toB1ec8/B1ed0/B1ed8/B1ee0/B1ee8; B8d0=intQ99.",
+      "Version>=11000: B2150=intQ66; B2154/2158/215c=intQ150/151/152; typedB2160 keyQ153; B21d8=intQ154; B21e0/21e8/21f0/21f8=Q155..158; typedB17f0 keyQ159; B1868/B1870=Q160/Q161; typedB1878 keyQ162.",
+      "Unlike G1 optional typed reads, these typed calls and case14 Q16 are not guarded by a positive-key test. Their raw directory access can precede a marker/length gate; zero keys are not automatically safe."
+    ]
+  },
+  "nested_material_contract": {
+    "sources": [
+      "0x14028a740",
+      "0x14028b3b0",
+      "0x14028a950",
+      "0x14028b780",
+      "0x14028c420"
+    ],
+    "selector": "int(Q109) writes B+17e8 for selected branches",
+    "branches": [
+      {
+        "case": "0",
+        "rule": "Write mode0 only."
+      },
+      {
+        "case": "1",
+        "rule": "Write mode1; direct property start at keyint(Q130), no length/tag gate. Sequential131ea0 reads nine tables atB1088,1100,1178,11f0,1268,12e0,1358,13d0,1448. Count slots are Q111,113,115,117,119,121,123,125,127. Adjacent selector slots set axes3/8, sometimes33, and flags for optional groups. Advance payload by count*(width+1) after each table, using post-normalization descriptor values. Copy Q128 toB14c8,Q129 toB14c0."
+      },
+      {
+        "case": "2",
+        "rule": "Write mode2 and B14d0=intQ110.28a740(B14d8,payload at keyQ112). Call five28b3b0 list reads in order B16f8(countQ113,keyQ114),B16e0(Q115,Q116),B16c8(Q117,Q118),B1710(Q119,Q120),B1728(Q121,Q122). Compare28b780(B14d0) againstintQ111; mismatch only prints diagnostic, no rollback/status."
+      },
+      {
+        "case": "4",
+        "rule": "Write mode4; B1740 rank2 axes3,8;countsQ110,Q111;1309b0(false) keyQ112."
+      },
+      {
+        "case": "5",
+        "rule": "Write mode5; copy Q110..115 toB17b8..17e0."
+      },
+      {
+        "case": "negative",
+        "rule": "Write mode-1; B17ec=abs(intQ109)."
+      },
+      {
+        "case": "3 or other positive",
+        "rule": "No branch writes; prior constructor/prestate remains."
+      }
+    ],
+    "subrecord28a740": [
+      "At subrecord H, payload W: first int(W0) is clamped only above12 by29ccd0 (diagnostic), storedH0. Negative count remains negative. Copy count coefficients W1... toH8 onward. H68=W23;H70=intW24.",
+      "Payload cursor startsW37. If H1e0 byte==0, decode tableH78 using selectorW25,value/countW28,secondcountW29; advance by130290(H78). ThenHf0 using selectorW26,value/countW31,secondcountW32; advance by130290(Hf0). Always decodeH168 using selectorW27,value/countW34,secondcountW35.",
+      "28a950 selector0rank0 constant=*value;1rank1 axis3;2rank1 axis23;3rank2 axes3,23. Counts come from value/count arguments. It always calls131e30 on the payload, including scalar/unknown-selector branches.131e30 does nothing for rank0,rank3 or null payload.",
+      "Fresh separately allocated nested nodes are0x1f0 bytes, next1e8.28a4c0->28a580 initializes three tables types94/95/96, count12,coefficientszero,H68=0,H70=0,H1e0=0. Embedded primary-subrecord constructor chain is not fully expanded here; its omitted-byte defaults remain a gap.",
+      "130290 cursor increment is not a generic width-aware serialization formula: rank0 selected types returnwidth else0;rank1 type124 returnswidth else2*count0;rank2 returns count0+count1+max(count0,1)*max(count1,1)*max(width,1);rank3 returns sumcounts+product(max(count,1)) without width. Preserve this helper behavior."
+    ],
+    "lists28b3b0": "First derive property directory start for key, then clear list through28b240; loop requested count, append node28b050, and if nonnull decode28a740 from the property key found in the list payload. Count may increment even on null allocation. Clear walksnext1e8;29cd60 destroys three tables via28a530 then frees, and zeroshead/tail/count.",
+    "count28b780": "Returns1 + five list counts at its relative offsets228,210,1f8,240,258. Caller compares to stored expected count, prints inconsistency only.",
+    "mode28c420": "Nine raw64 payload values copy to subobject(relative B1ad0)+1b0,1b8,1d0,1d8,1e0,1e8,1f0,1c0,1c8 respectively."
+  },
+  "relation_reader_contract": {
+    "entry_gate": "E8=int(Z0). If zero, Ec=0 and return without reading name or other data. Otherwise Ec=1, including negative modes, and continue. KeysE0/E4 were already assigned by1d0180.",
+    "text": "Copy80 bytes from Z18..27 toE18, transform324020(...,10,0) from owner+748, trim80. Name bytes remain byte strings; no Unicode/scientific meaning inferred.",
+    "simple_tables": [
+      {
+        "table": "0x478",
+        "selector": "intZ2",
+        "value_or_key": "Z3",
+        "rule": "0scalar;1rank1axis3;2rank1axis12;unknown nonzero retains shape and still reads(false)."
+      },
+      {
+        "table": "0x4f0",
+        "selector": "intZ4",
+        "value_or_key": "Z5",
+        "rule": "0scalar;1rank1axis3;2rank1axis12;3rank2axes3,12 countsZ28,Z29;other nonzero retained shape then read(false)."
+      },
+      {
+        "table": "0x5e8",
+        "selector": "intZ15",
+        "value_or_key": "Z16",
+        "rule": "Only ifintZ14!=0,whichsetsE5e4=1;zero gate setsflag0 only. Shape0scalar;1/2rank1 axes3/12;3rank2axes3,12 countsZ31,Z32;nonzero selector then read(false)."
+      },
+      {
+        "table": "0x568",
+        "selector": "intZ33 ->E5e0",
+        "value_or_key": "Z34",
+        "rule": "0/4scalar;1/5rank1axis3;2/6rank1axis12;3/7rank2axes3,12 countsZ35,Z36. Any other selector also attempts read with retained metadata(false)."
+      },
+      {
+        "table": "0x678",
+        "selector": "intZ38",
+        "value_or_key": "Z41",
+        "rule": "Only ifintZ37!=0,setsE660=1;zero gate setsflag0 only.0scalar;1rank1axis3;other nonzero retained shape then read(false). CopyE668=Z42,E670=Z43 undergate."
+      },
+      {
+        "table": "0x6f0",
+        "selector": "intZ44",
+        "value_or_key": "Z47",
+        "rule": "0scalar;1rank1axis3;2rank1axis23;3rank2axes3,23 countsZ45,Z46;other nonzero retain shape then read(false)."
+      }
+    ],
+    "selector_Z6": [
+      {
+        "case": 1,
+        "rule": "Z13=0/1/2/3 maps E14=0/1/2/3 and tableE78 axes(12,6,3)/(3,7,14)/(12,6,3)/(3,7,14). Width=intZ8 mirrored toE6c;countsintZ9..11,keyZ7. SetEf0=intZ49. width1copiesE70=Z12; width2 reads final two property values via V[P[2*key]-3] andnext toE170,E178."
+      },
+      {
+        "case": 2,
+        "rule": "E14=4; tableE1f8 widthZ8,countsZ9..11,keyZ7."
+      },
+      {
+        "case": 3,
+        "rule": "E14=5; copy11 raw payload values at keyZ7 toE270..2c0."
+      },
+      {
+        "case": 4,
+        "rule": "E14=6; copy4 payload values toE340..358; tableE2c8 count0=(intZ8-4)/2,131ea0 on payload+4."
+      },
+      {
+        "case": 5,
+        "rule": "E14=7; copy6 payload values toE360..388."
+      },
+      {
+        "case": 6,
+        "rule": "E14=8; copy4 payload values toE390..3a8."
+      },
+      {
+        "case": 7,
+        "rule": "E14=9; copy7 payload values toE3b0..3e0."
+      },
+      {
+        "case": 8,
+        "rule": "E14=10; tableE3f8 count0=intZ8/2;131ea0 on payloadatkeyZ7."
+      },
+      {
+        "case": 9,
+        "rule": "IfintZ13==0 setE14=11 andtableEf8 axes12,6,3;otherwise retain mode/axes. WidthintZ8 mirroredE6c;countsZ9..11,keyZ7. Width1copiesE70=Z12;width2 copies lasttwo property values toE3e8,E3f0. Unlikecase1, does notwriteEf0."
+      },
+      {
+        "case": "10/11/12/13",
+        "rule": "E14=12/13/14/15;tableE180 width=intZ7,read keyintZ8(false)."
+      },
+      {
+        "case": "default",
+        "rule": "Only negative realZ6 setsE14=16 andE470=abs(intZ6); other values retain default/current state."
+      }
+    ],
+    "other_fields": "intZ1=0/1/2 writesE10 respectively;other valuesretain. At end of active branch E768=intZ48.",
+    "failure_policy": "No status returned. Scalar writes,flags and names commit before later table/index failure. Unknown selectors can leave initialized shape and still enter generic reads. Direct property copies and end-of-table trailer reads bypass generic key/length gates."
+  },
+  "shared_property_contract": {
+    "sources": [
+      "G1:0x1401309b0",
+      "G1:0x140130dc0",
+      "G1:0x140131ea0",
+      "G1:0x140131e30",
+      "configuration/property-table retained lifecycle"
+    ],
+    "layout": "D+0type,+4rank,+8constant,+10/+14/+18 axis codes,+1c/+20/+24 counts,+28/+30/+38 axis pointers,+40 width,+48 dependent pointer,+54 metadata,+58mode,+60opaque,+68cache. Codes are raw identifiers.",
+    "directory": "For positive key k, start=P[2k-2], length=P[2k]-start, payload=V[start-1]. Generic1309b0 checks positive key/length after normalizing counts/width;130dc0 dereferences directory before checking length/tag and does not guard key positivity itself.",
+    "reads": [
+      "1309b0: rank1 ordinary width1 infers count0=length/2, interleaved axis +width dependents; width>1 uses priorcount. Type124 special copies width dependents andaxis0zero. Other ranks use sequential axes then dependents. True flag forrank2/3 consumes leading counts, used by G2 multi-axis tables although G1 directcallswerefalse.",
+      "130dc0 marker10: rank0 widthpayload2,allocate,constantpayload3;rank1 selector/countpayload2/3, count0 branchconstantpayload4 withoutallocate, elsewidthpayload4 andinterleaved data at+10;rank2 selectors2/3,counts4/5,width6,consecutive payload+10. Unsupported rank still stores rank. Negative/zero keys require external validation.",
+      "131ea0 normalizes/allocates and copies interleaved rows.131e30 acts only when payload is nonnull and existing rank is1 or2, dispatching131ea0 or131fa0 respectively. Rank0,rank3 and other ranks are no-ops in this dispatcher.131fa0 copies consecutive axes then dependent values.",
+      "12fc00 clampsnegativecounts0,width<1to1;12fad0 frees/normalizes/allocates. Types,width andconstructorstate affect copies; do not treat every table as a newlyzeroed scalar.12fc70 saves+54/+60 aroundtypeinitialization."
+    ],
+    "bounds": "Original readers perform unchecked directory/payload accesses. Positive length alone does not prove sufficient data for the chosen rank/count/width or fixed coefficient runs. Safe preflight and rejection semantics must be designed, not falsely attributed to the original."
+  },
+  "gaps": [
+    {
+      "id": "G2-U1",
+      "question": "Which physical properties, units, interpolation rules and scientific meanings belong to these offset/code fields?",
+      "impact": "Keep raw IDs,codes,bit patterns andbranches; no semantic names or unit conversions invented."
+    },
+    {
+      "id": "G2-U2",
+      "question": "What complete2D/legacy/partial-array record-base/stride profiles are supported?",
+      "impact": "Full3D v11000 indexbindings only; dimension/version branches recorded but not a support claim."
+    },
+    {
+      "id": "G2-U3",
+      "question": "What explicit constructor state is required for all inherited material tables and the embedded primary nested subrecord?",
+      "impact": "Selected constructors and prior typed profiles are bound; transitive constructors289930/289b80/28bcc0/28c040/28b640 etc are not fullyexpanded. Skippedbranches/defaultdependenttabledecoding cannot be flattened into a stateless zero-default API."
+    },
+    {
+      "id": "G2-U4",
+      "question": "Which valid native profiles make the nested payload cursor formulas consistent with stored widths and counts?",
+      "impact": "The recovered130290 rank1 formula ignores width except type124; rank2 clamps factors to at least1. Preserve these static rules and validate supported domains before replacing them with a generic serialization formula."
+    },
+    {
+      "id": "G2-U5",
+      "question": "What safe API rejection policy applies tobad counts,strides,keys,reference positions,duplicates,NaN/Inf,signed overflow and allocation failures?",
+      "impact": "Original faults/unchecked accesses are not an acceptable replacementerror contract. No rollback promise."
+    },
+    {
+      "id": "G2-U6",
+      "question": "What controlled DB snapshots verify orderedn²pairs,post-reference-reconciliation modes,typed tables,constructorunits,and repeatedimports?",
+      "impact": "Staticchecks do not establish runtime or scientific equivalence. Proposed tests require a separatelyassigned runtime slot."
+    },
+    {
+      "id": "G2-U7",
+      "question": "When should cached root13f4 be recounted relative to inactive relation records and laterfinalization?",
+      "impact": "G2 reader preserves importedcounter; no inferred recount orcomponentrefresh."
+    }
+  ],
+  "proposed_tests": [
+    {
+      "id": "T01",
+      "scenario": "Nonsequential material IDs [17,-4,90] and distinct record sentinels",
+      "expected": "Verify stored strides and material order. Nine relation list entries must read matrix positions [0,3,6,1,4,7,2,5,8], including self-pairs.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T02",
+      "scenario": "Duplicate, zero and negative material IDs",
+      "expected": "Every DB record appends. Position-to-ID translation preserves duplicates; later exact-ID lookup finds the first match.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T03",
+      "scenario": "Forward, backward, self and cyclic references",
+      "expected": "Translate every position before reconciliation. Verify target reference clearing and order-sensitive source modes, including self-reference loop termination.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T04",
+      "scenario": "Reference count zero or positive; valid and invalid keys/positions",
+      "expected": "Zero count preserves constructor state. Define safe adapter rejection for invalid keys or positions separately from native faults.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T05",
+      "scenario": "Material counts 0,1,3 and unrelated cached relation counts",
+      "expected": "Iteration uses n*n, retains inactive entries and preserves the imported cached counter.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T06",
+      "scenario": "Relation Z0 zero, positive and negative",
+      "expected": "Zero writes mode/active only. Nonzero, including negative, enters the active branch and preserves mutation order.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T07",
+      "scenario": "Material Q11 modes0..16, unknown positives and negative fractions",
+      "expected": "Check mode mapping, coefficient copies, table keys and the negative-real override after the truncated switch.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T08",
+      "scenario": "Common material table selectors0,1,2,3 and unknown values",
+      "expected": "Check constants, keys, axes and counts. Unknown selectors can retain constructor shape and still invoke a reader.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T09",
+      "scenario": "Material Q53, Q57 and Q70 mode branches",
+      "expected": "Verify negative codes, coefficient runs and table shape/key sources without assigning scientific meanings.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T10",
+      "scenario": "Version boundaries4999/5000,7999/8000,10999/11000",
+      "expected": "Check B+7d8 and version-tail gates in both dimensions, including safe handling of unguarded typed-table keys.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T11",
+      "scenario": "Multi-axis tables selected by Q139,Q141,Q143,Q145",
+      "expected": "True read flags consume leading counts; false flags do not. Diagnostics do not imply rollback.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T12",
+      "scenario": "Q65 indirect width20 record, tags0,5 and other",
+      "expected": "Check mode, constant, nested key/count fields and temporary cleanup. Reject invalid payloads under the proposed adapter policy.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T13",
+      "scenario": "Nested material Q109 modes0,1,2,3,4,5 and negative",
+      "expected": "Verify nine concatenated tables, five ordered lists, cursor advances and diagnostic-only count mismatch.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T14",
+      "scenario": "Nested coefficient counts-1,0,12,13 and table shapes0..3",
+      "expected": "Only upper count clamps to12. Verify W23/W24/W37, skip-byte state and130290 cursor formulas; scalar131e30 calls are no-ops.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T15",
+      "scenario": "Relation Z6 modes1..13/default and Z13 submodes",
+      "expected": "Verify widths, shapes, trailer reads, direct coefficient runs, count formulas and mode aliases.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T16",
+      "scenario": "Relation optional flags and simple table selectors",
+      "expected": "Skipped subobjects retain defaults; verify scalar0/4 special case and exact two-axis count slots.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T17",
+      "scenario": "64-byte material names and80-byte relation names",
+      "expected": "Verify full eight-byte transformation, trailing trim, embedded NUL, leading spaces and all-space behavior; no G1 blank-row normalization.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T18",
+      "scenario": "Typed marker10 and legacy table ranks0,1,2,3",
+      "expected": "Verify header offsets, key gates and ownership.131e30 handles only ranks1/2; rank3 copying occurs through other readers, not this dispatcher.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T19",
+      "scenario": "Repeated imports A->A and A->B->A, same/changed dimension",
+      "expected": "Collections are destroyed before each DB import. New materials use ordered unit initialization; G1 scalar-control retention remains separate.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T20",
+      "scenario": "Failure after initial material/reference/relation mutations",
+      "expected": "Record partial native state. Adapter rejection and atomicity are separate design decisions.",
+      "status": "Proposed; not executed."
+    },
+    {
+      "id": "T21",
+      "scenario": "Candidate freeze followed by independent held-out DB fixtures",
+      "expected": "Compare IDs,modes,counts,table contents and raw64 bits, not heap addresses. Report branch coverage and exclude scientific claims.",
+      "status": "Proposed; not executed."
+    }
+  ],
+  "delivery_limits": "No implementation, build, original-runtime experiments, central changes, merge or push.25 fresh static dossiers and retained structural evidence support this contract. Query/response pagination and high-pcode limits are preserved. Static consistency checks do not validate runtime equivalence.",
+  "source_bindings": [
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x1401c77c0.json",
+      "sha256": "42fa588aaed5ece27edc7ab9fb4cf876fe21d7936247475f48f2949d72fa6545",
+      "bytes": 11884,
+      "evidence_id": "ev_720175eeae4fab22add92494348fa3336bfc93181c3d7a9f692e8adc5c6d0a99"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x1401c7d40.json",
+      "sha256": "fc0bfe3d592f0cd7e8f245123b38e2b66e81c7fbf52da364444ac58536edbbe7",
+      "bytes": 5186,
+      "evidence_id": "ev_dd37f2a09b168c104783a03f3d5b0d7b7650060678918d50e54616b481b80ad4"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x1401c7d10.json",
+      "sha256": "4bfc20e195d38a3b7fbc6bd075838887e99f96ebdb74822c8f04f800a346d5c3",
+      "bytes": 5194,
+      "evidence_id": "ev_6fb55ec1f31eb7030a6725286e890cbee22c958a128c9fcc7205f9254b906dcd"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\mesh-0x1400015e0.json",
+      "sha256": "2362de99fa91533d49fa7a17df87f649def43ec2749aab6c425b0e4cb15acc66",
+      "bytes": 5828,
+      "evidence_id": "ev_3ed3751ee4431f460fd32f010ab8a7cc8abf30c777f3be1e1ef14cf15fd639b1"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\root-layout-0x1400015f0.json",
+      "sha256": "c4b830a4abbfaaf1740ee0f55bb05e45d5378861438c484af339ad63ea2697e9",
+      "bytes": 1261091,
+      "evidence_id": "ev_efb7e11f010b48088f13f669a3838abb69edad2bc0c08ae944f2139e1fb2c80a"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14029c060.json",
+      "sha256": "3547749a4ed6f85a2cd8b47e060bd372f83aab8bcdc850ed36cb06941bb8957b",
+      "bytes": 238749,
+      "evidence_id": "ev_82235543dc243ce814750e631f0fffece5b80d56867e5c4e4f57fe6d514017ea"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14029c260.json",
+      "sha256": "b77a6197fa077c76c1394e841d440680c45124c35ab07eeb5e07ba901c86a448",
+      "bytes": 281729,
+      "evidence_id": "ev_5672349d1ded71d94455da561910af3ee2b4b728ac60fa23b2beadfd00fdceda"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14029c2c0.json",
+      "sha256": "d55f5e114a2d6f3ff8c3b231bf248224401254c78fe75f8c0afbbb688df685f9",
+      "bytes": 602575,
+      "evidence_id": "ev_322633bd11d53f354da900f4df36a32133449d77d9161e5076e8c08bcba48bad"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14029c310.json",
+      "sha256": "43977f55ea8d9e1c341f46934743f66434bc176cb0a6fba05004f7a796933a61",
+      "bytes": 160835,
+      "evidence_id": "ev_1db6e50c7001f385c097c0992f249e27bc7eaace780fd7f57fb6bd7c03c15f47"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14029e210.json",
+      "sha256": "b9381422276e2f82038e97da4d8eb5407d224b4bad9a87a50514b33fc5d75e3e",
+      "bytes": 81175,
+      "evidence_id": "ev_ded640d49b9e66e96d673bad20b58c85b2a68b9786a1ece0b9a807b1f5520d3b"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14028cb70.json",
+      "sha256": "3d100243681513140e916f4611a071757571466c2f595682c4f255604c9c2142",
+      "bytes": 489579,
+      "evidence_id": "ev_7df799febc47cbb09d6a4c2efac41bce07538aff9a8bcc3cb32062c3dbef5801"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14028c6f0.json",
+      "sha256": "8883ae7c3bce5dc2733fb50ef28bccd41cbc93251af9868d2fe4a706289339af",
+      "bytes": 491691,
+      "evidence_id": "ev_7a333b7c5da1a5804935f5b736744562760befd0d3f9fab625bc5caf6251206c"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14028cdc0.json",
+      "sha256": "40d1954a28165d99b3a8adb2198bcdd8d8e9128317149b7c2c450467a4d1a030",
+      "bytes": 436401,
+      "evidence_id": "ev_d021c06f8a882dc918acd92efe7f5073cc602edfd8ea3f6221c7cef1e448cbce"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x14028b850.json",
+      "sha256": "a16675f3d8e52cd884ea8b9c5d0161465c6112df5eb114d683957590ccf2096a",
+      "bytes": 124243,
+      "evidence_id": "ev_479f740335baefae6e3482a4d3942b61f4f1c5c5a00c1cfd51851e07336807b5"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x140339df0.json",
+      "sha256": "cb641b21c0003c4fb794612d3acaf06f5a1762438ceef2e3b1d670c6bc88e367",
+      "bytes": 221811,
+      "evidence_id": "ev_62a05604cea7544ce05a7aad4cb1299a75999b78275f2da5981ab49285c662de"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x140333f60.json",
+      "sha256": "64fe723a9b840b083c380df6a55f2e523f7f5b8d22c22b14e9587bece92350d1",
+      "bytes": 810983,
+      "evidence_id": "ev_943aa5c905fc4b6cefda2b83ffb19435d67c9154fa5c125582197e1754769422"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x14033a120.json",
+      "sha256": "1f049421907e5dba5b41db819096bf6785d6c6875675ba7f7561ec4469d3a865",
+      "bytes": 160821,
+      "evidence_id": "ev_4c5feeca49efb8b7749ff43fc70d8fdafecb066c4172c5a8161b1422b84145b7"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x14033a990.json",
+      "sha256": "1ef669ecb582079c066dffea95235b68b56a715f4cd1515a29fafea98e2d94f1",
+      "bytes": 81175,
+      "evidence_id": "ev_30272402595c69463f702fad7029707d2a9499a81027ba826c7ccce391623442"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x140334490.json",
+      "sha256": "bf660cb7fa2640e9cbc7da67447ce02d74536c643a2fd7136377fa35b6b11873",
+      "bytes": 208769,
+      "evidence_id": "ev_faae2fd20177613714f0ca547441071fb0fc5f11838f8956171265d3f1c24a55"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x14033a040.json",
+      "sha256": "4efcfd0c837c2e56a8d0d11bded2c83d5d3446b4df60771f86b4d6de2e646bd7",
+      "bytes": 143901,
+      "evidence_id": "ev_5c0d3ff196a81a082cfc10b6c74e7a0172e6fe7006520196b9d0d26dfe660ff9"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\finalization-0x1401d6250.json",
+      "sha256": "eb75c8589670d62bcd5f5e6a5f5218f403dda25bd8808d2e157081f79b839cce",
+      "bytes": 344167,
+      "evidence_id": "ev_bdd88dd410f25e89126d41af5db7f40f34c2fbc93a0ea2b81b16c8b4e6568078"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x1401cb440.json",
+      "sha256": "82a6860f75180a5f541bbc66692269c309a6d464c7fe8fe47c8d0afdcd121e16",
+      "bytes": 463966,
+      "evidence_id": "ev_f4de621586db9104ce6082024ffff50ce681b1f5bfae4c5f2a200f59c6cadae1"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\volume-width-0x1401cf4a0.json",
+      "sha256": "545d71ed5e3e7eb47d7cb2772332acdee7f93ef3446568142a04db182dc27043",
+      "bytes": 1906133,
+      "evidence_id": "ev_062d7ae83fe8af7bda419aad5087e9c6c012b89c804345950cc99fb54469da99"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x1401c8f40.json",
+      "sha256": "a8cf3169175b036247c1cd7920f2ea867c39c741818ed885d6416ceef8b77a3b",
+      "bytes": 52671,
+      "evidence_id": "ev_67c9561aa2c548b464630666f7a3d512e6e625b4f8201d435a3ed19cdc2f28f2"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x1401f4090.json",
+      "sha256": "dc497f6c1b7d2b8ceeb0fe4282a7b4d66d1c59cae887ccf6cfb94e2b077fbf5d",
+      "bytes": 38135,
+      "evidence_id": "ev_cc02aff64ad031eaa41edfeaf0299ea300848ad6c6bba6e42fe22e16df8a1c88"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\time-table-0x14012fc70.json",
+      "sha256": "3a24ec1a732a3c00385ce9b2dd3d70a3d3f7683901b2f807e4731eb7e3b4b713",
+      "bytes": 422097,
+      "evidence_id": "ev_c837c107be791a89166a181c7b3c6d92754fa17ca6f6cbf36e57d544cf6e7c71"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\relation-import-0x14012d050.json",
+      "sha256": "203cff8021292c0902989416d8472b97d4f36beb43e399e3c8f1c1f1d2eb3f94",
+      "bytes": 978743,
+      "evidence_id": "ev_d96f6fb8a792c1716ab12b1ee41e7177137ff43b677700d0151c5912b8cbd7b7"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\property-table-0x14012f410.json",
+      "sha256": "d51acf0d1b147c7e67903c21b2b76fc9c1c85f13d2e602984b12165e7ca47efb",
+      "bytes": 2294185,
+      "evidence_id": "ev_895d58904114c274ef52ba517609167406dd688c5e43960e85284a42a3520f42"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\configuration-0x14012d2a0.json",
+      "sha256": "3f9748aacea2b6df1d83cc34f5bdd68c0ce469b5e476f0e0d03db94cedbca943",
+      "bytes": 3883047,
+      "evidence_id": "ev_3ff9cf1ffae6a3f6c6d3766d3eea9d2976727c994c2497bb6c269026f034378c"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\relation-property-0x140484ab8.json",
+      "sha256": "aed1ca33c2f44c697bc812991ef30b39c21f3fef39401bcfce296a6811fb47c0",
+      "bytes": 656627,
+      "evidence_id": "ev_a2364d3654122e1e8c0e19027ca5b72dea7809068afd03970df7fb41b2e29f6d"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x140324020.json",
+      "sha256": "616acacea0590badb8729883656283ea6b7067d8dae5a8c9e201a51f7c39b93a",
+      "bytes": 6140,
+      "evidence_id": "ev_707e8996ea925c326a86e1a90463d26a28353349ca1c291a4890f7ebe8a529f7"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x140324000.json",
+      "sha256": "de224b74e250d35f66b387bddb3cdb17af353bf173e91bf6049c1e12391b996a",
+      "bytes": 4986,
+      "evidence_id": "ev_99926d7e28881be9477ff3f515e85d12239c1ab3c6df40fe3c928e06cac3f561"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x140323e50.json",
+      "sha256": "e85f399d8c0f1a632c282a044539e4e98eea4da9ffd3032eb9e1257994ad6681",
+      "bytes": 5336,
+      "evidence_id": "ev_2839f5948c2bfcaf410f5397230a0b0cb248780b0c4c24553c5aa171b17f39bc"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x140323de0.json",
+      "sha256": "83bfcbdbf621c00d3fc6d398ab923802c941224f47d2b6c3535d97d5d573f950",
+      "bytes": 5370,
+      "evidence_id": "ev_495d009ac1b11ebfcba381208ca3f29ac0410f72d4c58c4ccb8859197417cb6d"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x140323ec0.json",
+      "sha256": "e3842245f420b07d66fb61e277cc28d3f3dff15e26c5467414212772a9961c94",
+      "bytes": 6430,
+      "evidence_id": "ev_1c314f84ed79501194aabb48514a7fff497b02cb50311efee50cee3d4422b5d9"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\import-0x1403239f0.json",
+      "sha256": "c456296fe8b52c979ef10cad563467cde9a31403dcb864fbb3436ed964a1b747",
+      "bytes": 6692,
+      "evidence_id": "ev_23241f3199be4322ad23f11993edd116083d6a4171301a106af0c24c27f52983"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-next-contract.json",
+      "sha256": "76cb3d1013ab8b0bb29365c8eea1192dc2c0ffafeff3dc245f1a7c754d2a428c",
+      "bytes": 22974,
+      "kind": "retained contract; KEY runtime claims do not validate DB"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\relation-import-static-contract.json",
+      "sha256": "67166ea827c447bd8628074f0deac8deede498b6bcedb8d1376ebf978e325b9c",
+      "bytes": 26190,
+      "kind": "retained contract; KEY runtime claims do not validate DB"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\relation-property-static-contract.json",
+      "sha256": "5897f7ea9cdf3195467f3d29f7b3014e9f1dfd947b5aa719ccf7d8ef633cf753",
+      "bytes": 49393,
+      "kind": "retained contract; KEY runtime claims do not validate DB"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\nested-material-static-contract.json",
+      "sha256": "40bf7406ce78223d5b56a9093cd3b1b5e872ef914bb0d021f6f2bf5bb1892d1c",
+      "bytes": 35001,
+      "kind": "retained contract; KEY runtime claims do not validate DB"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-controls-evidence.json",
+      "sha256": "f21247667026cc300f76e3dc210031a62b45bbae507f9ebda0cdc837b2441066",
+      "bytes": 643175,
+      "kind": "G1 retained evidence"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-controls-contract.json",
+      "sha256": "eb65624a7e2ddc27592a744d3c890ab771f5bc67e470d8bdd1a9bc1ee0269ea2",
+      "bytes": 143811,
+      "kind": "prior contract or project scope"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\analysis\\chat-c-db-model-contract.json",
+      "sha256": "482bb2149cd6248fe90a116c1c06ee7d8c192e5ed1b327e93aceaf9fcc21cd6b",
+      "bytes": 63366,
+      "kind": "prior contract or project scope"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-c-recovery\\codex-deform-rea\\README.md",
+      "sha256": "21d068fe4e2b655c615ee814a2c0b343bca833e5bfb97441b18e034f34261fef",
+      "bytes": 79674,
+      "kind": "prior contract or project scope"
+    }
+  ],
+  "evidence_ids": {
+    "28b240": "ev_034d7a2408f0a5a7eb2032765d81f2c60f2be67e54e69b76d6f432539a853475",
+    "29cd20": "ev_0b44a92f9e9434bcb43c0a81fdca75eb1b8672bb01a6fe9e379f73e74c1ee5ce",
+    "28a530": "ev_18040cf432b139441f703729dccd22cee28ad62580b34fee721252989e808dda",
+    "1cc180": "ev_1ddd5ec8274bf04a5be998e6294193f09d4c6af468dc629a4549d657e227254f",
+    "1cff20": "ev_1f3fee23ffb06b675549583e191de44e53db3f7ec1bed686bdbea16572994fed",
+    "12fff0": "ev_25182e9ce57de74509db0d6296746d7d4713303b1aac044957f24aefcb279227",
+    "28b3b0": "ev_30b510bf115a0291ba8933cb8dacde8f8b6878036eb59b34c5c2a9817eb67f36",
+    "130200": "ev_34831412f47087256d4ae71b3d08db42f9085ec5c2839032f5574304077fc288",
+    "28a580": "ev_54ab2864bd98382edcb02b7a018a3b89ca2800d74e2c14f0c1310ea2153d4f69",
+    "28a950": "ev_7c3779786d433514f10cd58700e4012aeef0ba85369708fd88ac1c14af073f6f",
+    "29cd60": "ev_8627034f782a86db1f0c328f8327db3130dd05a865d3fc91f5e9492066bfc433",
+    "29ccd0": "ev_8b6e32e6c182144ac7905805d3be080522561194ee9fd60b37b9052011159b73",
+    "28c420": "ev_8fc98f3e0bbb8fb60c21a3ec2700ce8cf52ab61d64028e3cb3c0f7c84d17d16c",
+    "28a740": "ev_91db49693a928197248658fbf6a2bfe981c2fb511a8d4f76629e862d12f93730",
+    "336740": "ev_9983588b724d223fd468e5a4894f9ab400e1a7e5aadafdb818b2672c280836be",
+    "28f300": "ev_9e614bb965773892ecb0d438f8b142f89527c0f6c234a9206f890277efec9ec6",
+    "130290": "ev_aa301a0328a2b81fd5be38c1efa5e945bb01b5aa3680d056609628095471fa60",
+    "28a4c0": "ev_af1ab3d48b63af5b2dc3648c20f7b54116e1a2bc2561894aac532e0cee9a0b4d",
+    "130160": "ev_b80e81ed9c36351fa2ea0d4d0ce640aabe64070bd5909e17423a550ebfeb5efe",
+    "1d0180": "ev_c952097310df040fb0505ae0c07f11a8658773ea38360616732e43aac72c5286",
+    "28b050": "ev_d8bd989046816f1469de533fc073726a6478a874391dee6c6759a67ee2c53d35",
+    "1d7090": "ev_e3bc827bb3bb9482ae4d6fdf9e1312c6d6c2a6a3b55d4d31b714e2e919b1b203",
+    "29cd30": "ev_e9dde82dd72d5304b791e82c99bec2423ec3ff512890ae15f7bd2aca950e5c37",
+    "29cd50": "ev_f66b05b2aeb5d868ad5dde2780d79ec05f7309dd1ff801f68f66e0b3a51aae53",
+    "28b780": "ev_ffa83bebe3c843e9650d0b5aa3f001db96608641a63a5def3639fe59de8bfb3d"
+  },
+  "validation_summary": {
+    "static_checks": 842,
+    "fresh_dossiers": 25,
+    "retained_functions": 36,
+    "maps": {
+      "material": {
+        "writes": 506,
+        "calls": 80
+      },
+      "relation": {
+        "writes": 160,
+        "calls": 15
+      }
+    },
+    "runtime_runs": 0
+  }
+}

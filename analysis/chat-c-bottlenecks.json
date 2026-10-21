@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "chat": "Chat C",
+  "baseline_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "scope": "Feedback on completed retained-evidence DB-model contract recovery only. No tooling changes or benchmark execution.",
+  "measurement_note": "These are the three largest observed workflow frictions by judgment, not a timed ranking. Command/tool durations below are recorded execution times; total reasoning, reading and recovery elapsed time is unknown.",
+  "bottlenecks": [
+    {
+      "id": "B1",
+      "operation": "Reading evidence without selecting the relevant JSON fields",
+      "example": "Initial combined README.md/recovery-feature-ledger.json read emitted40382 tokens and was truncated. Later inspection serialized whole raw_result.value objects rather than only pseudocode, emitting28601 tokens before truncation.",
+      "measured_elapsed": {
+        "total_seconds": null,
+        "total_status": "unknown",
+        "examples": [
+          {
+            "operation": "Initial combined read, shell execution",
+            "seconds": 0.5250591
+          },
+          {
+            "operation": "Whole dossier object serialization, shell execution",
+            "seconds": 0.5731289
+          }
+        ]
+      },
+      "repeated_calls_or_output": "Both examples required focused follow-up reads. The dossier follow-up selected raw_result.value.pseudocode and returned3878 tokens for six relevant records, rather than assembly/reference arrays. These counts describe observed examples, not a complete call census.",
+      "cause": "Large files, nested result schemas, and broad serialization caused useful fields to be displaced by irrelevant metadata and duplicate assembly/reference content.",
+      "proposed_fix": "Provide a local read-only extractor that reports identity and available field names first, then returns explicitly requested pseudocode, selected assembly spans or contract sections with a hard output budget. Normalize raw_result.value string versus raw_result.value.pseudocode versus top-level pseudocode without dumping the complete object.",
+      "expected_benefit": "Reduce truncated reads and repeated schema-discovery calls; retain evidence identity and coverage warnings."
+    },
+    {
+      "id": "B2",
+      "operation": "Finding retained function bodies across top-level files and cumulative bundles",
+      "example": "A filename search did not locate all functions. Inspecting oracle/import-snapshot.json found0x1401dc3f0 only as a retained record; a later scan of oracle/fstres-static-evidence.json found retained bodies for0x1401cf930,0x1401cfc30 and0x140235c10 but not the requested main material/mesh population bodies.",
+      "measured_elapsed": {
+        "total_seconds": null,
+        "total_status": "unknown",
+        "examples": [
+          {
+            "operation": "Combined import-snapshot body extraction and150534258-byte latest-bundle JSON scan, shell execution",
+            "seconds": 1.7191887,
+            "qualification": "Not an isolated benchmark of either lookup."
+          }
+        ]
+      },
+      "repeated_calls_or_output": "Used top-level filename inventory, snapshot key/record discovery,103-record snapshot enumeration,625-record cumulative bundle scan, then reads of three discovered top-level dossiers. Snapshot enumeration returned3147 tokens; the combined body/bundle scan returned2958 tokens.",
+      "cause": "No compact address-to-evidence index was consulted. Git-ignored local evidence was omitted by ordinary rg --files, while bundles nested records differently from standalone evidence files.",
+      "proposed_fix": "Build a read-only cached inventory keyed by target SHA256, procedure address, operation and evidence ID, recording source path and JSON pointer. Bind the cache to file size/mtime and content digest; distinguish a missing body in the indexed scope from a globally missing body. Enumerate ignored local evidence intentionally and report search boundaries.",
+      "expected_benefit": "Find exact existing bodies quickly and avoid both duplicate native queries and broad evidence dumps."
+    },
+    {
+      "id": "B3",
+      "operation": "Writing and validating a large contract in an isolated worktree outside the original writable root",
+      "example": "Passing the complete contract as a PowerShell command failed with Windows error206 (filename or extension too long). apply_patch then created it successfully. Earlier read-only Git checks in that worktree failed under the original sandbox; an escalated read-only check succeeded.",
+      "measured_elapsed": {
+        "total_seconds": null,
+        "total_status": "unknown",
+        "examples": [
+          {
+            "operation": "Oversized exec call to create contract, tool elapsed",
+            "seconds": 2.4,
+            "outcome": "failed before process creation"
+          },
+          {
+            "operation": "apply_patch creation, tool elapsed",
+            "seconds": 2,
+            "outcome": "succeeded"
+          },
+          {
+            "operation": "Read-only escalated Git verification, tool elapsed",
+            "seconds": 7.8,
+            "outcome": "succeeded",
+            "qualification": "Not solely Git CPU/runtime."
+          }
+        ]
+      },
+      "repeated_calls_or_output": "One oversized write attempt followed by one apply_patch call. Initial validation also needed one retry because parameters was null in an evidence record; final contract size63366 bytes. Git verification was repeated using the authorized worktree context.",
+      "cause": "Artifact content was transported through a Windows command line; worktree creation did not make ordinary sandbox Git access behave like the original checkout; evidence-schema optional fields were not normalized.",
+      "proposed_fix": "Use apply_patch or a dedicated file writer for large artifacts, never command-line payloads. Resolve worktree execution permissions once with a minimal read-only check. Reuse a null-safe evidence identity/schema normalizer for validation.",
+      "expected_benefit": "Avoid process creation limits, permission-related diagnostic loops and trivial validation retries."
+    }
+  ],
+  "benchmark_candidate": {
+    "source_file": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\import-snapshot.json",
+    "source_size_bytes_observed": 1162308,
+    "exact_question": "Return the retained procedure_pseudo_code body and target identity for0x1401dc3f0. Does its native step-table construction set row+0x24 to1 exactly when the stored integer-length field at row+0xc is positive, and otherwise set0?",
+    "procedure": "0x1401dc3f0",
+    "operation": "procedure_pseudo_code",
+    "expected_evidence_id": "ev_21be4ee898e13ae98226277db8ccdb25807a427a0c786abdaecf4e178656428d",
+    "record_container": "evidence_bundle.records",
+    "body_field": "raw_result.value",
+    "expected_target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+    "expected_answer": "Yes in the retained pseudocode: row+0xc<1 sets availability row+0x24=0; otherwise sets1 and increments helper+0xacc.",
+    "benchmark_plan": "Compare a direct JSON parse/filter against the proposed indexed lookup with identical source bytes. Measure cold and warm wall time, peak memory if available, output bytes and number of calls. Verify identical evidence ID, target digest and relevant statement; include a missing-address query that reports its bounded search scope.",
+    "executed": false
+  },
+  "completion": {
+    "contract": "analysis/chat-c-db-model-contract.json",
+    "validation": "analysis/chat-c-db-model-validation.json",
+    "feedback": "analysis/chat-c-bottlenecks.json",
+    "recovery_complete_for_assigned_contract": true,
+    "next_action": "Report completion to Coordinator chat and request a new bounded task."
+  }
+}

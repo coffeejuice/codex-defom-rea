@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "status": "PASS_WITH_LIMITATIONS",
+  "scope": "One independent read-only evidence_slice pilot; not DB recovery or rollout authorization.",
+  "helper": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\tools\\evidence_slice.py",
+    "sha256": "96d759dd95659180467124cedcffb383d4763e44003dff03a0c3591e645e4758",
+    "unchanged_after": true
+  },
+  "source": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\oracle\\import-snapshot.json",
+    "sha256": "2f7f66e01d4be040fb30237d78426d712e93c00a3f6225ec9c5b46b4caaa02a3",
+    "bytes": 1162308,
+    "unchanged_after": true
+  },
+  "selection": {
+    "record_pointer": "/evidence_bundle/records/9",
+    "pointer": "/raw_result/value",
+    "count": 200,
+    "record_index_bound_to_source_digest": true
+  },
+  "identity": {
+    "evidence_id": "ev_21be4ee898e13ae98226277db8ccdb25807a427a0c786abdaecf4e178656428d",
+    "subject": {
+      "architecture": "x86_64",
+      "digest": {
+        "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+      },
+      "format": "pe",
+      "local_path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\source\\DEF_PRE_64.exe",
+      "name": "DEF_PRE_64.exe"
+    },
+    "operation": "procedure_pseudo_code",
+    "parameters": {
+      "procedure": "0x1401dc3f0"
+    }
+  },
+  "fidelity": {
+    "independent_parser": "stdlib json.loads(source.read_bytes()), direct dict/list access; no helper pointer code reused",
+    "all_identity_fields_equal": true,
+    "all_pseudocode_pages_equal": true,
+    "all_source_line_indices_exact": true,
+    "full_pseudocode_utf8_sha256": "243c5a8649b02efff72b4ad62457f41f8b294e2a8bc573281aac085283cc9385",
+    "full_pseudocode_utf8_bytes": 11019,
+    "source_lines": 299,
+    "page_count": 2
+  },
+  "availability_question": {
+    "question": "Does native row+0x24 become1 exactly when stored integer-length row+0xc is positive, otherwise0?",
+    "answer": "Yes in this retained pseudocode. row+0xc<1 sets row+0x24=0; the else branch sets1 and increments helper+0xacc.",
+    "evidence_type": "retained_static_pseudocode; not new runtime observation",
+    "surrounding_source_lines": [
+      {
+        "index": 252,
+        "value": "                       *(undefined4 *)((longlong)local_520 + (longlong)(local_80 + 6) * 4);\r\n"
+      },
+      {
+        "index": 253,
+        "value": "                }\r\n"
+      },
+      {
+        "index": 254,
+        "value": "                if (*(int *)(*(longlong *)(param_1 + 0xad8) + 0xc + (longlong)local_518 * 0x28) < 1)\r\n"
+      },
+      {
+        "index": 255,
+        "value": "                {\r\n"
+      },
+      {
+        "index": 256,
+        "value": "                  *(undefined4 *)\r\n"
+      },
+      {
+        "index": 257,
+        "value": "                   (*(longlong *)(param_1 + 0xad8) + 0x24 + (longlong)local_518 * 0x28) = 0;\r\n"
+      },
+      {
+        "index": 258,
+        "value": "                }\r\n"
+      },
+      {
+        "index": 259,
+        "value": "                else {\r\n"
+      },
+      {
+        "index": 260,
+        "value": "                  *(undefined4 *)\r\n"
+      },
+      {
+        "index": 261,
+        "value": "                   (*(longlong *)(param_1 + 0xad8) + 0x24 + (longlong)local_518 * 0x28) = 1;\r\n"
+      },
+      {
+        "index": 262,
+        "value": "                  *(int *)(param_1 + 0xacc) = *(int *)(param_1 + 0xacc) + 1;\r\n"
+      },
+      {
+        "index": 263,
+        "value": "                }\r\n"
+      },
+      {
+        "index": 264,
+        "value": "              }\r\n"
+      }
+    ]
+  },
+  "measurements": {
+    "clock": "time.perf_counter; seconds",
+    "cli_wall_time_includes_process_startup": true,
+    "process_startup_separately_measured": false,
+    "process_startup_seconds": null,
+    "startup_note": "Warm measurements exclude process/interpreter/module startup. CLI minus warm is not a controlled measurement of startup alone.",
+    "helper_complete_pages": [
+      {
+        "start": 0,
+        "elapsed_wall_seconds": 0.05814159999135882,
+        "stdout_bytes": 22922,
+        "stderr_bytes": 0,
+        "exit_code": 0,
+        "selected_lines": 200,
+        "source_lines": 299,
+        "omitted_items": 99,
+        "next_start": 200
+      },
+      {
+        "start": 200,
+        "elapsed_wall_seconds": 0.05819280000287108,
+        "stdout_bytes": 14959,
+        "stderr_bytes": 0,
+        "exit_code": 0,
+        "selected_lines": 99,
+        "source_lines": 299,
+        "omitted_items": 200,
+        "next_start": null
+      }
+    ],
+    "helper_complete_total_seconds": 0.1163343999942299,
+    "helper_complete_stdout_bytes": 37881,
+    "helper_first_page_samples": [
+      {
+        "start": 0,
+        "elapsed_wall_seconds": 0.05814159999135882,
+        "stdout_bytes": 22922,
+        "stderr_bytes": 0,
+        "exit_code": 0,
+        "selected_lines": 200,
+        "source_lines": 299,
+        "omitted_items": 99,
+        "next_start": 200
+      },
+      {
+        "elapsed_wall_seconds": 0.05318210000405088,
+        "stdout_bytes": 22922,
+        "stderr_bytes": 0,
+        "exit_code": 0
+      },
+      {
+        "elapsed_wall_seconds": 0.05251819999830332,
+        "stdout_bytes": 22922,
+        "stderr_bytes": 0,
+        "exit_code": 0
+      }
+    ],
+    "helper_first_page_median_seconds": 0.05318210000405088,
+    "direct_focused_samples": [
+      {
+        "elapsed_wall_seconds": 0.04016439999395516,
+        "stdout_bytes": 11019,
+        "stderr_bytes": 0,
+        "exit_code": 0
+      },
+      {
+        "elapsed_wall_seconds": 0.037145199996302836,
+        "stdout_bytes": 11019,
+        "stderr_bytes": 0,
+        "exit_code": 0
+      },
+      {
+        "elapsed_wall_seconds": 0.036508799996227026,
+        "stdout_bytes": 11019,
+        "stderr_bytes": 0,
+        "exit_code": 0
+      }
+    ],
+    "direct_focused_median_seconds": 0.037145199996302836,
+    "direct_focused_description": "Same direct JSON parse/extract approach used during recovery, fixed to known record9 and raw UTF-8 body output for exact byte measurement. Does not emit identity/qualifications or hash source; therefore payload-size and time are not feature-equivalent.",
+    "warm_direct_parse_samples_seconds": [
+      0.002634900010889396,
+      0.00292539999645669,
+      0.002800400005071424,
+      0.0025969000125769526,
+      0.0024028000043472275,
+      0.0026178999978583306,
+      0.002592799995909445,
+      0.0026668000064091757,
+      0.002726299993810244,
+      0.0027147999935550615
+    ],
+    "warm_direct_parse_median_seconds": 0.002650850008649286,
+    "warm_helper_extract_samples_seconds": [
+      0.004017500003101304,
+      0.0030855000077281147,
+      0.0030900999990990385,
+      0.0031236000068020076,
+      0.0029375999874901026,
+      0.0031817999988561496,
+      0.00345440000819508,
+      0.00330470000335481,
+      0.003608600003644824,
+      0.003414100006921217
+    ],
+    "warm_helper_extract_median_seconds": 0.00324325000110548,
+    "warm_note": "Ten in-process repeats with read_bytes+parse; OS file cache likely warm. Helper includes source hashing, pointer resolution and result assembly but no JSON serialization. Direct includes parse/extract only. First CLI call is first invocation in this pilot, not guaranteed cold disk/cache."
+  },
+  "negative_tests": [
+    {
+      "case": "nonexistent_pointer",
+      "elapsed_wall_seconds": 0.05611569999018684,
+      "stdout_bytes": 0,
+      "stderr_bytes": 41,
+      "exit_code": 2,
+      "error": "'nonexistent_chat_c_field'",
+      "passed": true
+    },
+    {
+      "case": "wrong_digest",
+      "elapsed_wall_seconds": 0.0499372000049334,
+      "stdout_bytes": 0,
+      "stderr_bytes": 38,
+      "exit_code": 2,
+      "error": "Source SHA-256 mismatch",
+      "passed": true
+    }
+  ],
+  "findings": [
+    "Exact record identity and pseudocode survived source-bound paging.",
+    "The first200-line page is insufficient: the relevant conditional is at zero-based source line254 in a299-line body. A second page supplies both assignments and their context. The source contains299 CRLF separators and no CR/CR/LF sequences; line endings are preserved exactly.",
+    "The helper preserves source identity and qualifications, but its JSON envelope and per-line entries are larger than raw focused pseudocode output.",
+    "Explicit pointer extraction is useful once the record index is known; it does not remove address discovery/indexing work."
+  ],
+  "recommendation": "Suitable for opt-in source-bound slices with mandatory pagination/omission checks. Do not claim a speed or output-size improvement over a known focused raw-pseudocode extraction. Address indexing remains separate.",
+  "limitations": [
+    "One small1.16MB bundle and one known record only; no large-bundle scaling claim.",
+    "Three CLI first-page/direct samples and ten warm samples are descriptive, not statistically controlled benchmarking.",
+    "No peak-memory measurement; no separate process-startup or cold-disk measurement.",
+    "Only nonexistent-pointer and wrong-digest failures exercised here; no claim of exhaustive helper correctness.",
+    "No helper/shared-file changes, REA access, original execution, build, merge or push."
+  ]
+}
