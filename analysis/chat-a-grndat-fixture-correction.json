@@ -1,0 +1,565 @@
+{
+  "schema_version": 1,
+  "task_id": "fix-grndat-fixtures-1",
+  "status": "CORRECTED_PENDING_B_FOCUSED_RECHECK",
+  "scope": [
+    "B-GRNDAT-01",
+    "B-GRNDAT-02"
+  ],
+  "worktree": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "prior_review": {
+    "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-b\\codex-deform-rea\\analysis\\chat-b-grndat-fixture-review.json",
+    "sha256": "484c83ed81ba870fa0b67e75e1f15edef67e2138b7e69bfea660ee19872ad76f",
+    "unchanged": true
+  },
+  "prior_package_snapshot": {
+    "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\build\\fix-grndat-fixtures-1\\before",
+    "manifest_sha256": "1b89c878e0888d4084fa30d938fc0b4401701a9a1f1861662d4488f3fc6ba0b4",
+    "preserved_files": 134
+  },
+  "corrections": [
+    {
+      "finding": "B-GRNDAT-01",
+      "discovery_seed": [
+        7,
+        8.5
+      ],
+      "discovery_complete_action": [
+        23,
+        24.5
+      ],
+      "partial_action_integer": 19,
+      "partial_expected_pair": [
+        19,
+        8.5
+      ],
+      "pair_scan_conversions": 1,
+      "following_failure": "nested table header EOF",
+      "handler_status": 2,
+      "list_clear": false,
+      "refresh0": false,
+      "reserved_seed": [
+        47,
+        48.5
+      ],
+      "reserved_complete_action": [
+        59,
+        60.5
+      ],
+      "expectation_cases": [
+        "embedded_pair_eof",
+        "record_count_minus1",
+        "record_count_0",
+        "record_count_1",
+        "record_count_12",
+        "record_count_13",
+        "h_lists_replacement"
+      ],
+      "source_pointer": "/record_reader/steps/4",
+      "evidence_ids": [
+        "ev_233fda79e9620ba154873a2f1e8b6aa2d3e189a315018bc02f8c6d4f2c487653",
+        "ev_101d33d2d5a67517c4b970c53d21d4a80e7b3e7787ae453a682ce1861475766a"
+      ]
+    },
+    {
+      "finding": "B-GRNDAT-02",
+      "tuple_fields": [
+        "declared",
+        "stored",
+        "inline_conversions",
+        "clamp_diagnostic_present"
+      ],
+      "expected_tuples": [
+        [
+          -1,
+          -1,
+          0,
+          false
+        ],
+        [
+          0,
+          0,
+          0,
+          false
+        ],
+        [
+          1,
+          1,
+          1,
+          false
+        ],
+        [
+          12,
+          12,
+          12,
+          false
+        ],
+        [
+          13,
+          12,
+          12,
+          true
+        ]
+      ],
+      "source_pointer": "/record_reader/steps/2",
+      "evidence_ids": [
+        "ev_b94d2589ec7a42b6fcbcf29e180ec5e5c1edc761e3bb436dcfe30daa1876606c",
+        "ev_7622eac084cb71a63ec36958666bc8e147badc5c6f4de36127a2bff4040b3a54"
+      ]
+    }
+  ],
+  "contract": {
+    "path": "analysis/chat-a-grndat-contract.json",
+    "sha256": "c96a7ae5d006c782921d397278a0dead9c9a1683f631cac532d0e51919c39b37"
+  },
+  "changed_files": [
+    {
+      "path": "analysis/chat-a-build-grndat-fixtures.py",
+      "before_sha256": "37bbcffe47661cc1bfe2cdb3f0f7ece0c4f0320212c65c4b3e76266bc36f1637",
+      "after_sha256": "53792c81c17e13207483dec0ea1a671325326218e5066846afa97f453ac55ea6",
+      "before_bytes": 32130,
+      "after_bytes": 34401
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixture-plan.json",
+      "before_sha256": "bde33f088d429b6d95a4509d48043e15c9aba740e8255fe8f4f522b6310587fe",
+      "after_sha256": "e8e1219f4d5576d6b5da8f3ae10ef4426c0e970bca375e3c400bc9a130e869fb",
+      "before_bytes": 1222549,
+      "after_bytes": 1232148
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixture-readiness.json",
+      "before_sha256": "2a89c7d832a8f5a14f6ec57d6dd0d98bea9facb00dee0126e33fabe2c13b6a7c",
+      "after_sha256": "ec23fe6e06f70a63e5571bfb704fb14219e77bd76d095f22cfdc4bcafea09f41",
+      "before_bytes": 2726,
+      "after_bytes": 2726
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/setup/held_out_seed.KEY",
+      "before_sha256": "5c30002a558a4b6177e1113204ff5591d13e3a7161523b3fc19bbf2ccfcae39b",
+      "after_sha256": "fca08a0d92764741135950eec550752187540e951414de0b4c6523f4368343bb",
+      "before_bytes": 667,
+      "after_bytes": 679
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/fresh_2d.KEY",
+      "before_sha256": "5c095655e0e21d481a97d239ce2ad746c7b6223af71a0e589adcaf8f882028df",
+      "after_sha256": "61e61698b5691c32abf92021375aff664cb6a38033a93013e4b2bb01b7b119d7",
+      "before_bytes": 58,
+      "after_bytes": 60
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_count_minus1.KEY",
+      "before_sha256": "e70a5fe763624445ea49c1afdfbe89b164df2188ca34d3fdfc5921a435d4ed98",
+      "after_sha256": "3b4796fc47eafa395315e158889ecd16d2230721f4399c81f9d442a25e054b71",
+      "before_bytes": 43,
+      "after_bytes": 45
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_count_0.KEY",
+      "before_sha256": "5199efe4884e6a97d81defa3aab66299f593f391fde06143aaee6352e975514c",
+      "after_sha256": "339b9c26d80c2e50b3e2404e58c74cc0250d6a69751aa2ac73cfed05f19f524a",
+      "before_bytes": 42,
+      "after_bytes": 44
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_count_1.KEY",
+      "before_sha256": "5f17c508224a800682161014f4dca5e3a9b0e16ce2217092449cf283f63a81ae",
+      "after_sha256": "b502f24c2a2879cd0102216c458513fffad41acb185eb1cfae6bec627d6a2aa1",
+      "before_bytes": 50,
+      "after_bytes": 52
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_count_12.KEY",
+      "before_sha256": "bf32a45c5a35dd7b0d5dd391b7ff8eab16dac59754bdf8e37f7be83079eb167d",
+      "after_sha256": "ab107948cfede7216837407dba10369a7917ad854d5de84a31fabfbc859d04e5",
+      "before_bytes": 139,
+      "after_bytes": 141
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_count_13.KEY",
+      "before_sha256": "6de654d6cfbd023c1a4d9b34dc6f598e95bf1c63052773b1a903fe30fd479fbd",
+      "after_sha256": "eecd48079e75702d9323564fbcb427c4f1ee421b887b774596d1e3846dcb282e",
+      "before_bytes": 139,
+      "after_bytes": 141
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/embedded_pair_eof.KEY",
+      "before_sha256": "b6bdd1a9b9d7e308438e1cc7201394abda5bcce39d57c8b85cab5d8f31389525",
+      "after_sha256": "1ca77ede04d9418d1b731e113c73fec38207cbd903a45c011d51090e526bbefa",
+      "before_bytes": 37,
+      "after_bytes": 38
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/embedded_table2_eof.KEY",
+      "before_sha256": "087715023ba0df9d9b913dbd24c52a061aa14967dc1af31a9a418ca28c0f0a6b",
+      "after_sha256": "b02062a76679448733fb389b83c96eddfe050aad9cd875c12dd78f73e3107757",
+      "before_bytes": 41,
+      "after_bytes": 43
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/lists_mixed.KEY",
+      "before_sha256": "238307310e145d6325c8668e8f952eaf60e1be1d814a582083281762bef7cbb5",
+      "after_sha256": "b5d0c4f9f9317742490deb47083fe1defd7867986a028a9c8ab1733435c2eb23",
+      "before_bytes": 328,
+      "after_bytes": 342
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list0_failed_node_count_eof.KEY",
+      "before_sha256": "28283ca37baf6dcc56caeffe8dcc0179ab53c32c81e82c775b5e8efdea391418",
+      "after_sha256": "c2eb1edc7c1feca3bb63aba520a71f0dc0b5577c1b933e0c868b4eb23fcd7736",
+      "before_bytes": 104,
+      "after_bytes": 108
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list0_failed_node_table0_eof.KEY",
+      "before_sha256": "a89870b27be566c1d8f612551826be885a5bde9d5731f24bfc94f0a564d7bff8",
+      "after_sha256": "b87770af9614d8e622af250eb6b251a8a53e73aa02a0f6595b973f64135cfb99",
+      "before_bytes": 130,
+      "after_bytes": 136
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list0_failed_node_table1_eof.KEY",
+      "before_sha256": "b29350461123c0f764a2d3bdfe11431573b1f69076fe85ab044ae7079c01bfe4",
+      "after_sha256": "a8207c1345698926e3868483104de6e0009326925981ee7107ca0dd67715fe5c",
+      "before_bytes": 138,
+      "after_bytes": 144
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list0_failed_node_table2_eof.KEY",
+      "before_sha256": "74e2db5e9137c6b7f1133464b78f4e1db7f1823aae3c3571e6f74e7179fa2ecd",
+      "after_sha256": "01e61773a34550a974507fbd984b135e144cfc402422766f672922d7b71e2568",
+      "before_bytes": 146,
+      "after_bytes": 152
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list1_failed_node_count_eof.KEY",
+      "before_sha256": "4f8d4ae92d5dadb512e8cc8a34d305c3f91b06b2f96b1098f6b722ea57bbe23f",
+      "after_sha256": "6c3884c9043b370e19ccd076e07f19b51f4e8d26827ee004b24176ac4cf901fd",
+      "before_bytes": 206,
+      "after_bytes": 214
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list1_failed_node_table0_eof.KEY",
+      "before_sha256": "32c3a4bc7bec34985c79b46c495885c5b94fe311dd4b8cc8df770070dc259a65",
+      "after_sha256": "9fd65ef9435fb957844ef391365fa61f839e040df485dea3e22ac66a6ec4863e",
+      "before_bytes": 232,
+      "after_bytes": 242
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list1_failed_node_table1_eof.KEY",
+      "before_sha256": "fcadd3bcd681aa343afe213d436de01fd77cb26118225d91741e45d23baed7b0",
+      "after_sha256": "7c9b25958b5b8ba10d603ac34531088f334d45aa7da8f67dde844ec01e0ab38f",
+      "before_bytes": 240,
+      "after_bytes": 250
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list1_failed_node_table2_eof.KEY",
+      "before_sha256": "8ebef726f3c1e8ad9ca2f8e01dfa13d6ffa5488ea7996db251c3d565005e8fa5",
+      "after_sha256": "d2192f872ec2ccd397accfab0f1a427b483a6862d12944f8fff8724722405d43",
+      "before_bytes": 248,
+      "after_bytes": 258
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list2_failed_node_count_eof.KEY",
+      "before_sha256": "652cd4c772397463552a84ce86348d66fbf3225d292518838daa90e65550cbfa",
+      "after_sha256": "442346886ded0e4c4f9da7b5d218529b73cc8a41785c4096aaec46c97f88ec9a",
+      "before_bytes": 308,
+      "after_bytes": 320
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list2_failed_node_table0_eof.KEY",
+      "before_sha256": "03e438a45104d5935e78f902369c81e3d3744b00988809ad36f34c6ef6be780b",
+      "after_sha256": "bb0e92268a2a1aa6678fe794c1f0a103e59edffcb78008d34266c5f7ad68362a",
+      "before_bytes": 334,
+      "after_bytes": 348
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list2_failed_node_table1_eof.KEY",
+      "before_sha256": "8f26c4f1d61cd244d6985b90a343ccd692506f9d58f83cc6b977ac3b9133437f",
+      "after_sha256": "724ec016626a61a6e0d69e5530a7af15056aa5207f377ba2891f2d02313dc9a3",
+      "before_bytes": 342,
+      "after_bytes": 356
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list2_failed_node_table2_eof.KEY",
+      "before_sha256": "cabfc2a47bdc71b3656aff50776d7c26be9d7e32694b7cd41628b6b0f486ec9a",
+      "after_sha256": "c75e2be1b3779b3308c71ecee71162888dc914b7af95d21dc55c2a2b6b7d6880",
+      "before_bytes": 350,
+      "after_bytes": 364
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list3_failed_node_count_eof.KEY",
+      "before_sha256": "a8243f927d350d4ffea88bf2d6c74248a4d64dfef4b0af0e57a1ed23b3dc9dd0",
+      "after_sha256": "c84673d41825c4fb360895584126276f3826b9ca93db07103a832f87fd947bca",
+      "before_bytes": 410,
+      "after_bytes": 426
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list3_failed_node_table0_eof.KEY",
+      "before_sha256": "bd09a18e064b26ba825d23001fad32a0cf4e2050c6fc9a467218d4ff4286b036",
+      "after_sha256": "a49a02cc514f4defe8f4c622782d8a0482fc816d02574fd1836e0efe67c82b8b",
+      "before_bytes": 436,
+      "after_bytes": 454
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list3_failed_node_table1_eof.KEY",
+      "before_sha256": "6163fb740231df69e0930060b7495a90192e0923798148791693b917d2569fe8",
+      "after_sha256": "af0b5e7fd36c853cbc20ae91c0b483ddd8a3583e88b55b574f8aa126448687df",
+      "before_bytes": 444,
+      "after_bytes": 462
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list3_failed_node_table2_eof.KEY",
+      "before_sha256": "b7e50e570a682d8f00dac462358a80a13a0e50ad9bcc8d52aba6fc9de5d3e71b",
+      "after_sha256": "98c890bb89fa7890672df6c63f9bd7e98f7d8b9a73e39c624d43c55097c69b82",
+      "before_bytes": 452,
+      "after_bytes": 470
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list4_failed_node_count_eof.KEY",
+      "before_sha256": "d7a3d4483feedb84a7866556f87acf94b9863e90c59af6e74b3974f421c651e0",
+      "after_sha256": "8e6cdd80ea20b262c8d1c4dae3134f0f4fdde80c3ca658ed82a2cec56245d979",
+      "before_bytes": 512,
+      "after_bytes": 532
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list4_failed_node_table0_eof.KEY",
+      "before_sha256": "97679940320d21a49de862d59f738ab54175ba9cf0c8aeb821f6e1d12345eb04",
+      "after_sha256": "db458b0f37021406e6c789589b9a8d7e1dc94ede852425382c98d48faa64229f",
+      "before_bytes": 538,
+      "after_bytes": 560
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list4_failed_node_table1_eof.KEY",
+      "before_sha256": "6bd4d88b4f42a9a7fb2df05fd50de1c960b5ff95c9d1b33761effae7be369414",
+      "after_sha256": "1aa5bbcb51175cfb20304e4a9199969ab7420a1581c6ad147d95dd410e1c1b34",
+      "before_bytes": 546,
+      "after_bytes": 568
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list4_failed_node_table2_eof.KEY",
+      "before_sha256": "2f8919f0e0335320c37d6f1d750e2d20d571cd0e2d1d5874d4b426b2bd95de3f",
+      "after_sha256": "960b0fa2e87c1ce454b0a066e7bb4dcf8fd0988b65aaab05e00853216b51ac3e",
+      "before_bytes": 554,
+      "after_bytes": 576
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list0_count_eof.KEY",
+      "before_sha256": "9aac49ca9f095071a02d1cef95aa8f181e6a2357146a2eb20ed9e934d0537720",
+      "after_sha256": "800c59bdecc7d78b02bc6859d30f0dc7bd6a1834ff3f3729ae0abc45b4d16564",
+      "before_bytes": 52,
+      "after_bytes": 54
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list1_count_eof.KEY",
+      "before_sha256": "ffa43da7b62f9fb3f79ac5f119fb4ab48d790620506d97a5b1377803f2ccb051",
+      "after_sha256": "eda45f6308264d519735e028472410da62e2ba03c6fa1611c8884973227dc2cb",
+      "before_bytes": 54,
+      "after_bytes": 56
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list2_count_eof.KEY",
+      "before_sha256": "e377e017bcb97c14b959820e1c6c8e3627390aeef3bfd302aa3b26e14c578f04",
+      "after_sha256": "350a7a9513950e81d831508972a9ea0f61cd802139596eff95781a83070cb2fa",
+      "before_bytes": 56,
+      "after_bytes": 58
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list3_count_eof.KEY",
+      "before_sha256": "cd29c08cbec5603ebfaba2faace208165c901f6a89c1982e8e7f7486a811019f",
+      "after_sha256": "4884e3f80c2edbe93f39370c1609d55bf24a31ddf10828aeaed4be75ae0d57c3",
+      "before_bytes": 58,
+      "after_bytes": 60
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/list4_count_eof.KEY",
+      "before_sha256": "992001e859d4ae53513c683b87e57f6f50e59ca4cb16221b7a60895323fbdd3d",
+      "after_sha256": "e4684bb4f7abb651301249cc5083eea1a9b375308913dbb94f1d48cfa6860c06",
+      "before_bytes": 60,
+      "after_bytes": 62
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/count_bad.KEY",
+      "before_sha256": "7a35ac84ea4de806b9e4e5630594141b1fe44296b0a58253a7113c6e44b6d371",
+      "after_sha256": "641dbd48681cf4053a9ffac46ef4ff88e81e815cb939896760e261d5cb08b818",
+      "before_bytes": 64,
+      "after_bytes": 66
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/count_negative.KEY",
+      "before_sha256": "30a1e4715279d760f2e83635bc9a3c1b6bb12ac1147c3203d32b9064281e482d",
+      "after_sha256": "a9908f442e883302fbd6cf92b292620dc5cfa69eaa5d75da05b4593d0127ee0f",
+      "before_bytes": 63,
+      "after_bytes": 65
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/count_spaces.KEY",
+      "before_sha256": "327461a8a3abb6aa9fadbc4d274b7451bd99de599a31b5b20d7aab7c76925f32",
+      "after_sha256": "fa3d94e29aed848bda925e1fefb2e7277e3dd123782bd97fc4978bf82656f5c9",
+      "before_bytes": 64,
+      "after_bytes": 66
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/count_two_lf.KEY",
+      "before_sha256": "c69016996fa88e54c6bfa7ae57a3c06f503f30f510aeebd8e35790d9511394b8",
+      "after_sha256": "b85459921676a195f151934299f034c8ebc8622d0350a807ff81e5f836d77102",
+      "before_bytes": 62,
+      "after_bytes": 64
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/count_one_lf_then_zero.KEY",
+      "before_sha256": "b96749d3005efaadb1029f8e1bdd3636e904cb27fb377aac15b7912728e51dde",
+      "after_sha256": "97e6b7cee8db1c0e3783b3d3feeed4dbed2914018969e28d0e0aee16f2aebd24",
+      "before_bytes": 63,
+      "after_bytes": 65
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_table_selector0.KEY",
+      "before_sha256": "1e70cc04f9f078b831a55f84a49420fd1eb1901d5e40cf3c8da67db644a35736",
+      "after_sha256": "c8cffa67cc099262c6ef393bac0a9b376da4ce8ccd451cf5bf4d0f265910ddd5",
+      "before_bytes": 62,
+      "after_bytes": 64
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_table_selector1.KEY",
+      "before_sha256": "6484296daed2912f965cfda3583f375cc09369c0a8dfd6b8a789f17c58fb4c1e",
+      "after_sha256": "5b98f37e847656e544248fb055e33db84017e3d4f82ded21f6cc2c1f335efa92",
+      "before_bytes": 82,
+      "after_bytes": 84
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_table_selector2.KEY",
+      "before_sha256": "3a932cc6d93313a318074b1ef6b625ce7066e2821cea9e4cbdd2863dc90a55fa",
+      "after_sha256": "885505dd072344cf363d590b6c478111b65677bf90a4c61ec5ea7e948daa001c",
+      "before_bytes": 82,
+      "after_bytes": 84
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_table_selector3.KEY",
+      "before_sha256": "6509a9fc2d6527f71e1b7ae1513e97939814d30ae46a31d4bf411b32e9b12f6d",
+      "after_sha256": "6b5d1d2128414aef6d401d8d1cea318a8d27e1ef17df97dc67359f07d27b9897",
+      "before_bytes": 90,
+      "after_bytes": 92
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_table_to_constant.KEY",
+      "before_sha256": "b9f36b72e32db60b0ab0d2a5c6c63fc90f17a447ba57cabcaa8378bf2ae56192",
+      "after_sha256": "069d9b4c459ba7e4f7a540d04afb6f06b1c1a3acdcd0b489c2567443add27ab6",
+      "before_bytes": 62,
+      "after_bytes": 64
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_header_negative.KEY",
+      "before_sha256": "24b037f23c382da4582bd824db752017577593aa94af7a202bae034e881265fe",
+      "after_sha256": "1b79eef5769c35d1696e70465726c59beccaab7458371ec1afecce9646aaf8db",
+      "before_bytes": 36,
+      "after_bytes": 38
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_header_bad.KEY",
+      "before_sha256": "5d39f88e700c5cea1646ca9098e194b51e3f4c75a9afc211690abb1c779fbb01",
+      "after_sha256": "11f6f2118636ccca2981f68125dc7246b0925bddf2f81ff3d9aaa2142c55add8",
+      "before_bytes": 37,
+      "after_bytes": 39
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_header_spaces.KEY",
+      "before_sha256": "c56bf627c6662a23a965f822d789fbd4e33c475cfa8273be660199bff36fd9f0",
+      "after_sha256": "48a5723d86d1279ec92831cebc81f7520ceab3bb714496b2dd05bd78b4f8cd72",
+      "before_bytes": 37,
+      "after_bytes": 39
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_header_two_lf.KEY",
+      "before_sha256": "262e7b10645f1ca51e23ce8ec52acf834124ff8505b439af6e73dbbc4cbf755c",
+      "after_sha256": "e3c7331281fed10c66ab2ae763cf45ad95186319c282cd56924753c003051a58",
+      "before_bytes": 35,
+      "after_bytes": 37
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_unknown_positive_rank0.KEY",
+      "before_sha256": "b3fa9f1c908b038b95fe668ba402acd3725667964f99dfb89607c09bc61d7bbc",
+      "after_sha256": "9fb908a24247247da45804680e0be0de1924944e2dd5dd8e9f268f7773fb5b72",
+      "before_bytes": 56,
+      "after_bytes": 58
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/record_unknown_positive_rank1.KEY",
+      "before_sha256": "0803e3e3e1bc27ec4af371f38a338a627d46c1ebdc174baca66ff70721474b66",
+      "after_sha256": "162514363a679bc54e9b3a3322d58a6716fc330cedf763d2bb9b1a4a568cc97a",
+      "before_bytes": 47,
+      "after_bytes": 49
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/discovery/rank2_scratch_eof.KEY",
+      "before_sha256": "ae95bf57bb12bd158d01ba47b6568e78a5292e125d59829521aba789bce0c526",
+      "after_sha256": "2b939a031136eb34897ae23c1793fba7ce9b76f768beb464ee29688c0ddf84e2",
+      "before_bytes": 74,
+      "after_bytes": 76
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/held_out_reserved/h_lists_replacement.KEY",
+      "before_sha256": "cc5e25fd38cbfc444d9b64a497a5fbec24f280f71f362288d89c78be90775a67",
+      "after_sha256": "aab9874adc0c02fc31169c66470416b4b475615629978bbd00c8854dfb02c444",
+      "before_bytes": 312,
+      "after_bytes": 324
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/held_out_reserved/h_last_list_eof.KEY",
+      "before_sha256": "d2808fbef1e973d9195dce930448b4566f0561317723b6b97aec1c4cf78873e3",
+      "after_sha256": "a95b2de5447aee5b07262b3856982f0660b224b4cdaa429f89096ceffe8129c2",
+      "before_bytes": 60,
+      "after_bytes": 62
+    },
+    {
+      "path": "analysis/chat-a-grndat-fixtures/held_out_reserved/h_sequence2.KEY",
+      "before_sha256": "aa004c1a70d30834835d81e1181657d57ce14200583da2d9ae71efbb33392080",
+      "after_sha256": "4707c61b841ee6ee86c3c41b2c4a8a63ef84da6a16a893e2bba550c50cb10bb3",
+      "before_bytes": 162,
+      "after_bytes": 168
+    }
+  ],
+  "changed_file_count": 58,
+  "unchanged_prior_package_files": 76,
+  "additional_artifact": {
+    "path": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea\\analysis\\chat-a-check-grndat-fixture-correction.py",
+    "sha256": "2c4a49d73766d4023f70648c2af9192fd28f458eaeda6bc78c1993e443243d85"
+  },
+  "validation": {
+    "result": "PASS_STATIC_ONLY",
+    "cases": 123,
+    "discovery": 112,
+    "held_out_reserved": 11,
+    "fixture_files": 131,
+    "complete_action_pair_stages_checked": 181,
+    "checks": [
+      "All package bytes/hashes and lexical spans/token offsets match",
+      "Exact five count tuples agree with actual input arity",
+      "Distinct seed/action scalar markers in actual bytes",
+      "Partial pair new integer and retained old double explicitly asserted",
+      "Complete reused pair replaces both fields in discovery and reserved cases",
+      "All prior handler/refresh expectations unchanged",
+      "Case IDs, cohorts, setup ordering, group assignments, unsupported domains and source bindings unchanged",
+      "All cases NOT_RUN, all runtime oracles null, discovery/reserved bytes disjoint",
+      "Prior package snapshot and B review receipt unchanged"
+    ],
+    "not_validated": [
+      "Original behavior",
+      "Candidate behavior",
+      "Runtime stream positions",
+      "Whole-import status"
+    ]
+  },
+  "execution": {
+    "original_runs": 0,
+    "candidate_runs": 0,
+    "rea_sessions": 0,
+    "production_changes": false,
+    "shared_tooling_changes": false,
+    "merge_or_push": false
+  },
+  "remaining_limits": "B review nonblocking coverage gaps remain; no new cases or claims added. Reserved inputs still require a future freeze before evaluation.",
+  "next_action": "B focused recheck of B-GRNDAT-01/02; no runtime or implementation authorization inferred."
+}

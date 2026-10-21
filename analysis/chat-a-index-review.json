@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "task_id": "review-index-1",
+  "reviewer": "Chat A",
+  "date": "2026-10-21",
+  "verdict": "REVISE",
+  "summary": "The frozen rollout passes all 12 existing tests, exact real-source index reproduction, identity/pointer checks, pagination checks and recorded benchmark arithmetic. One reproduced source-preservation defect blocks acceptance: an existing hard-link output alias bypasses the index builder's path-only overwrite guard and truncates the source evidence. Correct that guard/write path and add a regression before refreezing.",
+  "worktree": "C:\\Users\\alext\\.codex\\worktrees\\chat-a-contract\\codex-deform-rea",
+  "base_commit": "d546058bde8c7c245485959dca8608b507be5ce4",
+  "reviewed_root": "C:\\Users\\alext\\Projects\\codex-deform-rea",
+  "freeze": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\bottleneck-pilot-freeze.json",
+    "manifest_sha256": "f150c71bc09da570a3cd737352d4b103a8096bc82467b050e2dfb1637242c527",
+    "watermark_sha256": "4a79b16c13226599b3f9e1f038a42466826d358de69f3f81339c0027c0ef35dc",
+    "verification": "All ten exact byte lengths and hashes verified before copying/running any frozen code and again after review. Recomputed watermark matches. Manifest bytes unchanged.",
+    "files": [
+      {"path":"tools/evidence_slice.py","bytes":5566,"sha256":"96d759dd95659180467124cedcffb383d4763e44003dff03a0c3591e645e4758"},
+      {"path":"tools/benchmark_evidence_slice.py","bytes":2887,"sha256":"7901d373b9013ba21e42a103c8ff3d6030038086d0e20dbf33b7aecf5491a891"},
+      {"path":"tests/test_evidence_slice.py","bytes":3595,"sha256":"425480d78a4d2193523e47aa47e508275ed7c3ccadf47a86d11957f29eb13e7f"},
+      {"path":"analysis/bottleneck-pilot-benchmark.json","bytes":2035,"sha256":"70377f9145472aea9c7542a7b1478e259dc0611d0c2558228b84af6d9e588c4d"},
+      {"path":"analysis/bottleneck-register.json","bytes":7925,"sha256":"b70029b0288a6b3e90525e51b4a90f2dd0944bf6c962fcdda75f53edb14485fb"},
+      {"path":"analysis/evidence-workflow.md","bytes":11569,"sha256":"2491e0cf53f0a28d8cc2ef0d327f12925b930ddcdaccacf9184d1e53660981db"},
+      {"path":"tools/evidence_index.py","bytes":6849,"sha256":"fca3bc8579597cbaac09e98ba59930ad2934eb798f07c8a0ea830a45281cf40b"},
+      {"path":"tools/benchmark_evidence_index.py","bytes":8186,"sha256":"9e171590da2707b61d71b507e09ef109484701084de83c7e9a0dacc38fcafacd"},
+      {"path":"tests/test_evidence_index.py","bytes":4201,"sha256":"1aeadf7b15df000d4927a4daaddf0141d4b1488189c6adca3a1b34685387592b"},
+      {"path":"analysis/bottleneck-index-benchmark.json","bytes":12916,"sha256":"647805061be45bdb5ca3a8dd20b8249aecc21906c29e011d87f3341a94960f5a"}
+    ]
+  },
+  "findings": [
+    {
+      "id": "A-INDEX-01",
+      "priority": "P2",
+      "title": "Reject output aliases of source evidence before opening the output for truncation",
+      "blocking_acceptance": true,
+      "source": {"path":"tools/evidence_index.py","sha256":"fca3bc8579597cbaac09e98ba59930ad2934eb798f07c8a0ea830a45281cf40b","start_line":125,"end_line":130},
+      "trigger": "The explicitly supplied --output path already exists as a filesystem hard link to one of the explicitly supplied evidence sources. No adversarial content or concurrent race is required.",
+      "cause": "Path.resolve() produces different paths for hard links. The set-membership check accepts the output, then output.write_bytes(raw) opens the shared underlying file for truncation.",
+      "actual": "The CLI exits 0 and emits an index receipt, while both the output path and original evidence path now contain index JSON. The receipt's source digest refers to the evidence bytes that were destroyed, so subsequent digest validation can detect the loss but cannot recover those bytes.",
+      "reproduction": {
+        "scope": "Disposable synthetic files only, under Chat A build/chat-a-index-review; no retained source evidence altered.",
+        "steps": ["Create a valid synthetic evidence JSON source.","Create a second path with os.link(source, output). Verify source.samefile(output) is true and resolved paths differ.","Invoke the exact frozen copied tool: python -B tools/evidence_index.py build SOURCE --output OUTPUT.","Observe exit 0 and changed bytes through the original source path."],
+        "exit_code": 0,
+        "source_sha256_before": "741eb884cbb8743c60cdcae2e94bdadfd92cef87e2788270d0a2f42378760176",
+        "source_sha256_after": "c620b914c47da44d611099905b57c7fada48dcb20aa09159876ce6baf578d97d",
+        "receipt": "build/chat-a-index-review/hardlink.stdout.json",
+        "receipt_sha256": "416939eda4654f4bc8fab45714afd03b85f41deee5e8a0399df7fe7dad70dc09"
+      },
+      "requested_change": "Make source preservation hold for filesystem aliases, not only resolved pathname equality. Check existing output identity against sources with samefile or an equivalent identity check before writing. Prefer a write strategy that never truncates an existing source inode; define whether existing cache outputs are rejected or atomically replaced. Keep the change bounded to the helper and regression tests.",
+      "proposed_regression": "Build with a disposable hard-link output alias, require a controlled nonzero rejection with no success receipt, and assert exact original bytes/hash remain unchanged through both names. Also cover output equal to source and successful output to a fresh independent path. If ordinary cache replacement remains supported, test it preserves all input bytes."
+    }
+  ],
+  "contract_assessment": {
+    "digest_and_cache_failure": "PASS for tested read/query paths. Index digest checked before parsing; every listed source rehashed on every query, including misses. Existing tests demonstrate same-size/same-mtime edits, missing source, index tampering and wrong slice digest rejection. Hashes bind bytes, not authenticity; validation is not a lock. Extraction must repin the returned source digest. Build output preservation is the exception in A-INDEX-01.",
+    "address_and_target_selection": "PASS within supported schemas. Hex address canonicalization handles uppercase prefix and leading zeros; target digest is case-insensitive; optional operation filtering is exact. Synthetic records sharing address 0x10 but different target digests return only the selected target. Duplicate evidence in separate source records remains explicitly represented.",
+    "skipped_record_limits": "PASS with documented limitation. Reproduced 729 seen / 659 indexed / 70 skipped across the three retained sources. Misses mean not_found_in_indexed_scope only. Skipped records and files outside scope remain unknown; unsupported containers fail. Additional synthetic null/empty/malformed records yield an explicit skipped count of three.",
+    "pagination": "PASS. Independently traversed nine filtered/unfiltered cases over 403 mixed-line-ending text lines, using page sizes 1, 40 and 200. Concatenated pages match direct source indices and text exactly; next_start indexes the matching sequence; omitted_items includes filtered plus unpaged items. Existing array/Unicode/escaped-pointer/nested-identity tests also pass.",
+    "size_and_qualification_limits": "Documented and acceptable for opt-in use: count bounds items, not bytes; inventories, individual values and metadata can be large. Each slice reparses the full file. Only enumerated qualification paths are carried automatically; deeper limits and surrounding control flow require source review."
+  },
+  "validation": {
+    "existing_tests": {"result":"PASS","count":12,"reported_unittest_seconds":0.097,"method":"Unmodified, hash-verified copies of all frozen Python tools/tests in own build/chat-a-index-review mirror; python -B -m unittest discover -s tests -p test_evidence_*.py -v. Their relative scratch directories resolve inside that mirror.","log":"build/chat-a-index-review/existing-tests.stderr.txt","log_sha256":"e0e51f7754e24a7a3623ed3b47d34a5dd85c305afb259b5afe87badd88bb4d69"},
+    "real_source_index": {"result":"PASS","index_sha256":"c27bb162a0cefee6114fe46b04b53315a115a07c212950582af5fa5e3f646086","index_bytes":348733,"entries":659,"body_pointers_walked":1296,"method":"Rebuild to own scratch and reproduce retained index bytes exactly; independently walk each JSON record/body pointer and compare address, target, operation, evidence ID and source hash. Re-execute the three recorded queries and compare matches, status and scope."},
+    "real_sources": [
+      {"path":"analysis/material-import-0x140384a50.json","bytes":14368119,"sha256":"7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10"},
+      {"path":"analysis/oracle/fstres-static-evidence.json","bytes":150534258,"sha256":"2840bdfb8834e952d49d204ac9a68b1c3f11c0cbdcec98721b90291313ef22f5"},
+      {"path":"analysis/oracle/import-snapshot.json","bytes":1162308,"sha256":"2f7f66e01d4be040fb30237d78426d712e93c00a3f6225ec9c5b46b4caaa02a3"}
+    ],
+    "real_source_root": "C:\\Users\\alext\\Projects\\codex-deform-rea",
+    "audit_script": "analysis/chat-a-index-review-audit.py",
+    "audit_script_sha256": "6c0632b1e69cbf6672e3f00216923d8d0794fa597dbd2ae157b61b0578a204e9",
+    "audit_results": "build/chat-a-index-review/audit-results.json",
+    "audit_results_sha256": "d87f399917d7f587c3046580f89c64b45a5967781e43e380a9b25fd4bf476973",
+    "frozen_files_and_real_evidence_unchanged_after": true
+  },
+  "benchmark_review": {
+    "verdict": "Fair for the explicitly measured fixed-file discovery workload; no general recovery-speed claim established.",
+    "verified": ["All 30 recorded query samples have exit 0, no stderr, five samples per mode per query. Recomputed medians, savings, ratios and setup amortization match the report.","Frozen benchmark code independently parses and hashes the same three files, returns compact identities/pointers, alternates subprocess order and checks output equivalence each pair. Index setup and Python startup are included where documented.","Retained index setup is 1.229717 seconds; measured query medians are about 1.17-1.19 seconds direct versus 0.140-0.143 seconds indexed. The recorded two-query amortization arithmetic is correct.","Slice benchmark seven-sample medians and tool hash match. Bound slicing is about 5 ms slower than focused pseudocode extraction in that measurement; documentation correctly avoids a speedup claim."],
+    "limits": ["No timing benchmark rerun for this review; historical raw samples and code were audited, and result fidelity was rerun separately.","Warm OS cache is likely; cold-cache, peak-memory, agent tokens, tool roundtrips and end-to-end recovery were not measured.","The direct discovery baseline implements the body forms present in measured matches, not every body form supported by the index helper. Equivalence is established for the measured queries, not a universal cross-schema oracle.","The direct discovery baseline emits less wrapper metadata, slightly favoring it on output volume. Slice timing compares unequal payloads and is not a pure algorithm-speed comparison.","Every indexed query still reads roughly 166 MB for digest validation. Known-record direct extraction and optimized prefilter/persistent alternatives were not benchmarked."],
+    "recommendation": "After A-INDEX-01 is fixed and reviewed, retain opt-in use for repeated discovery over explicit fixed scope. Preserve the documented known-record direct-extraction alternative and do not extrapolate the 8.3x timing ratio to whole recovery tasks."
+  },
+  "unresolved_questions": [
+    {"question":"Should an already-existing cache output be rejected or atomically replaced?","owner":"Bottleneck/Coordinator","impact":"Needed to choose and test the bounded write-path fix; either policy must preserve source file identity aliases."},
+    {"question":"Will the pilot improve total recovery effort for actual worker tasks?","owner":"Coordinator","impact":"Still unmeasured and not required for this limited correctness review. Avoid additional benchmarks solely to fill the gap; assess at natural adoption checkpoints."}
+  ],
+  "next_action": "Coordinator should return A-INDEX-01 to the Bottleneck owner for a bounded fix and regression, refreeze changed artifacts, then request independent review of that revision. Do not accept this frozen revision for integration.",
+  "scope_and_release": {"main_checkout_edits":false,"production_or_shared_header_edits":false,"original_application_run":false,"rea_session_used":false,"build_of_dmo_or_candidate":false,"merge_or_push":false,"writes":"Only own review artifacts and own build scratch; destructive reproduction was confined to synthetic scratch files.","status":"Delivered; stop after reporting to Coordinator."}
+}
