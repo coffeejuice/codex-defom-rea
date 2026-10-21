@@ -8,6 +8,7 @@
 #include "hardening_import.hpp"
 #include "creep_properties.hpp"
 #include "retained_material_import.hpp"
+#include "object_direct_import.hpp"
 
 #include <algorithm>
 #include <array>
@@ -213,7 +214,7 @@ int read_material_curve(int id, MaterialRecord& material, KeywordReader& reader)
 
 bool implemented(int id, int category) {
     return (category == 1 && id >= 22 && id <= 91) ||
-           (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
+           (category == 2 && (field_keyword(id) || (id >= 144 && id <= 150) || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 105 || id == 106 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id) || material_direct_keyword(id) || material_curve_keyword(id) || hardening_keyword(id) || retained_material_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
 }
@@ -742,6 +743,8 @@ int handle_object_keyword(int id, ObjectModel& model, KeywordReader& reader) {
     ObjectRecord* object = model.find_or_create(selector.values[0]);
     if (!object) return 2;
     const auto& controls = model.controls();
+
+    if (id >= 146 && id <= 150) return read_object_direct(id, object->direct, reader);
 
     if (id == 210 || id == 211) {
         const auto header = reader.shape_header();

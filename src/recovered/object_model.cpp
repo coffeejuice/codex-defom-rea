@@ -143,6 +143,9 @@ ObjectRecord::ObjectRecord(int object_id, int dimension)
     if (object_id < 1) throw std::invalid_argument("object ID must be positive");
     if (dimension != 2 && dimension != 3)
         throw std::invalid_argument("unsupported object dimension");
+    //235c10 maps raw process mode0 to1 and all other modes to2.
+    direct.scalars_0x1ea0[3] = process_unit_state().mode == 0 ? 20.0 : 68.0;
+    if (dimension == 2) direct.planar.emplace();
     // 15f0b0: 2D initializes kind 0/arity 4; 3D calls 165500(kind 2).
 }
 

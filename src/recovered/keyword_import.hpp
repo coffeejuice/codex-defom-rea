@@ -79,6 +79,7 @@ public:
     // HDNPHA, HDNTIM, JOMINY, UTSDAT(shared1b10), HDNRUL and discarded GRNMDL.
     // CREEP covers all source selectors, owned tables and derived width imports.
     // BURGRS, ALPHA, NDISFM and RECVRY retain inactive dimensions and scalar buffers.
+    // AVGSTR,LMTSTR,ZSTR,PENVOL,REFTMP include planar gating and live read failures.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

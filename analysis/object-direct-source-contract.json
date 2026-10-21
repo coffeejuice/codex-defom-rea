@@ -1,0 +1,30 @@
+{
+  "status": "source_derived_before_original_prototype",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "source_bundle_sha256": "60d009bb17645c6cd0582b61ab3db69bf10bc1255072226cc4bafc7a043f5435",
+  "keywords": {
+    "146": "AVGSTR",
+    "147": "LMTSTR",
+    "148": "ZSTR",
+    "149": "PENVOL",
+    "150": "REFTMP"
+  },
+  "defaults": {
+    "1ea0": "binary64 0x3f847ae147ae147b",
+    "1ea8": 1.0,
+    "1eb0": 1000000.0,
+    "1eb8": "20 when raw process mode0 (235c10 returns1),otherwise68",
+    "planar": "1f20=1,1f28=0,1f30=0; uninitialized fields not read or fabricated in3D"
+  },
+  "branches": {
+    "146/147/150": "414990 directly zeroes then reads live double",
+    "148": "2D:4154c0 live integer1f30/real1f28;3D:success without any payload read",
+    "149": "3D:414990 live1eb0;2D:414a40 live1eb0 plus zeroed local temporary;truncated temporary always stored1f20 including failed read"
+  },
+  "failure": "Blank/EOF helpers return1 mapped2 and live zeroing survives. Matching failure0 succeeds with zeroed outputs; partial planar data stores defined prefix. Nonpositive object ID2 without helper; selector EOF2 before creation. Selector matching failure/uninitialized ID excluded.",
+  "lifecycle": "19ccc0 creates contiguous positive-ID placeholders before helper,without deactivation.186510 cleanup leaves these scalar/planar fields untouched. Same-dimension header/UNIT and object deactivation/reactivation retain them; changed dimension destroys records. Defaults of new objects follow current shared process units.",
+  "limits": [
+    "Finite signed32 planar mode conversion; scientific evaluation and general numeric domains remain pending.",
+    "Only normal owned wrappers and bounded positive IDs; allocation failure,arbitrary aliases/native ABI excluded."
+  ]
+}

@@ -1042,6 +1042,19 @@ void state(const ObjectModel& model) {
                   << ",\"flag_0x3990\":" << (object->flag_0x3990 ? 1 : 0)
                   << ",\"element_kind\":" << object->element_kind << ",\"name_hex\":";
         emit_quoted(hex(object->name));
+        std::cout << ",\"direct_imports\":{\"scalars_0x1ea0_hex\":";
+        raw_values(std::span(object->direct.scalars_0x1ea0));
+        std::cout << ",\"planar\":";
+        if (!object->direct.planar) std::cout << "null";
+        else {
+            const auto& p = *object->direct.planar;
+            std::cout << "{\"penvol_mode_0x1f20\":" << p.penvol_mode_0x1f20
+                      << ",\"zstr_mode_0x1f30\":" << p.zstr_mode_0x1f30
+                      << ",\"zstr_0x1f28_hex\":";
+            raw_values(std::span(&p.zstr_0x1f28, 1));
+            std::cout << '}';
+        }
+        std::cout << '}';
         std::cout << ',';
         stroke_fields(object->stroke_0x22d0);
         std::cout << ",\"geometry\":";

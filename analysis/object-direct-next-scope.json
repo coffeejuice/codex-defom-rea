@@ -1,0 +1,112 @@
+{
+  "status": "next_after_object_direct",
+  "full_objective_unchanged": true,
+  "first": {
+    "id": 202,
+    "name": "TMPLMT",
+    "category": 2
+  },
+  "boundary": "analysis/object-direct-full-export-boundary.json",
+  "source": {
+    "path": "analysis/geometry-import-0x14038b8a0.json",
+    "sha256": "76d86a332755c224b4539b295b190f5b40d7da5ac239f25396eda4cbafbfcff0",
+    "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+    "start_line": 2138,
+    "end_line": 2140,
+    "pseudocode": "    case 0x3a:\n      iVar2 = FUN_140414990(param_2,local_1080 + 0x1f10);\n      break;",
+    "selection": "param3-0x90;case0x3a.414990 writes object1f10 directly.186200 initializes its relative70 double to0;186510 preserves it.",
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+      "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+      "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+      "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+      "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+      "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+      "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+      "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+      "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+    ],
+    "relationship_coverage": {
+      "status": "complete",
+      "diagnostics": [
+        "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+      ]
+    }
+  },
+  "candidate_related_scalar_imports": [
+    {
+      "id": 180,
+      "name": "RMDPTH",
+      "offset": "0x2dc8",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 181,
+      "name": "RMSTRK",
+      "offset": "0x2dd0",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 182,
+      "name": "RMTIME",
+      "offset": "0x2de0",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 183,
+      "name": "RMSTEP",
+      "offset": "0x2dd8",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 186,
+      "name": "MGSIZR",
+      "offset": "0x2d20",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 187,
+      "name": "MGWCUV",
+      "offset": "0x2d48",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 188,
+      "name": "MGWTMP",
+      "offset": "0x2d28",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 189,
+      "name": "MGWSTN",
+      "offset": "0x2d30",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    },
+    {
+      "id": 190,
+      "name": "MGWSTR",
+      "offset": "0x2d38",
+      "status": "reader_pattern_confirmed_ownership_defaults_to_recover"
+    }
+  ],
+  "questions": [
+    "Recover TMPLMT202 through existing186200 constructor/186510 cleanup and414990 live read contract.",
+    "Inspect189790 remeshing constructor at object2d10 and189ad0 cleanup before grouping the nine other unconditional reader-pattern candidates. Same reader alone does not establish defaults/ownership/reset equivalence.",
+    "Preserve creation/failure/deactivation ordering,existing public loader interfaces and full application objective."
+  ],
+  "remaining_material_entries": [
+    {
+      "id": 123,
+      "name": "ANISO"
+    },
+    {
+      "id": 130,
+      "name": "SINTER"
+    }
+  ],
+  "remaining_scope": "Complete object/relation model,scientific operations,DB/model mapping,KEY/DB export,console workflows and independent end-to-end evaluation remain required."
+}

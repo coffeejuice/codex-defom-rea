@@ -38,6 +38,7 @@ target_sources(deform_recovered_state PRIVATE src/recovered/frcmod_properties.cp
 target_sources(deform_recovered_state PRIVATE src/recovered/hardening_import.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/creep_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/retained_material_import.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/object_direct_import.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/unit_system.cpp)
 target_include_directories(deform_recovered_state PUBLIC src)
 target_compile_features(deform_recovered_state PUBLIC cxx_std_20)
@@ -72,6 +73,17 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(object_direct_cohort IN ITEMS training evaluation)
+    add_test(NAME "object_direct_${object_direct_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_object_direct.py"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/object-direct-${object_direct_cohort}-inputs.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/object-direct-${object_direct_cohort}"
+        --evidence "${CMAKE_CURRENT_SOURCE_DIR}/analysis/object-direct-runtime-${object_direct_cohort}.json"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/object-direct-${object_direct_cohort}-regression.json")
+    set_tests_properties("object_direct_${object_direct_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   foreach(retained_cohort IN ITEMS training evaluation)
     add_test(NAME "retained_material_${retained_cohort}_reference_replay"
       COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_retained_material.py"

@@ -201,6 +201,19 @@ struct RootControls {
 [[nodiscard]] RootControls initialized_root_controls(int dimension, double node8_default,
     bool suppress_boundaries = false);
 
+struct PlanarObjectDirectImports {
+    std::int32_t penvol_mode_0x1f20 = 1;
+    double zstr_0x1f28 = 0.0;
+    std::int32_t zstr_mode_0x1f30 = 0;
+};
+
+struct ObjectDirectImports {
+    //186200: LMTSTR,AVGSTR,PENVOL,REFTMP. Last value follows process units.
+    std::array<double, 4> scalars_0x1ea0{0.01, 1.0, 1000000.0, 68.0};
+    //The constructor leaves these native fields uninitialized in3D.
+    std::optional<PlanarObjectDirectImports> planar;
+};
+
 struct ObjectRecord {
     explicit ObjectRecord(int object_id, int dimension);
 
@@ -209,6 +222,7 @@ struct ObjectRecord {
     int type = 0;
     int secondary = 0;
     std::string name; // Original name bytes, not decoded Unicode.
+    ObjectDirectImports direct;
     bool flag_0x3990 = false; // Constructor15f0b0; gates2059a0 geometry work.
     int flag_0x3994 = 0;
     GeometryStorage geometry; // Slot0 at3c00; other slots remain unrecovered.

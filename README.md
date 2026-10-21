@@ -2111,3 +2111,35 @@ remain unfinished. The public database-loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R retained_material --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## AVGSTR, LMTSTR, ZSTR, PENVOL and REFTMP imports
+
+Object records now retain their original four direct scalar defaults and the
+separate planar fields. REFTMP defaults to 20 or 68 according to the process-unit
+mode when an object is created. A UNIT change preserves existing objects; newly
+created objects use the current mode. Native planar-only fields are uninitialized
+in 3D and are represented as absent, without reading or inventing their values.
+
+AVGSTR, LMTSTR and REFTMP reproduce the direct scalar reader, including live
+zeroing on blank/EOF and successful zeroing on numeric matching failure. PENVOL
+reads one scalar in 3D and a scalar plus a truncated mode in 2D. ZSTR writes a
+live integer/real pair in 2D and consumes no payload line in 3D. Object creation,
+ID-gap placeholders, failed reads and wrapper error ordering are compared.
+Deactivation/reactivation and same-dimension headers retain these fields;
+dimension changes destroy the old records.
+
+The frozen candidate matches 64 original imports, 168 handler calls and 17,736
+checks, including 32 independently varied original-first evaluation imports.
+Nine saved source bodies were reused without new static provider queries. No
+candidate/probe/input correction or capture retry was needed after the prototype.
+All 64 frozen files remain unchanged after building all seventeen targets and
+passing all 145 regression tests in 34.71s. Twenty-eight EOF cursor positions
+remain unobserved.
+
+See `analysis/object-direct-import-contract.json` for evidence, chronology and
+numerical/ownership limits. The retained export now reaches TMPLMT after 131
+supported handlers. Remaining imports, scientific consumers, complete exports
+and application workflows remain unfinished. The public loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R object_direct --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.
