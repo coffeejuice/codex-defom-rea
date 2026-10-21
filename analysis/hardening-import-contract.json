@@ -1,0 +1,136 @@
+{
+  "status": "implemented_subset_runtime_tested",
+  "created_utc": "2026-10-21T22:27:26.652129+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "HDNPHA114 tablef10; HDNTIM117 tablef88; JOMINY118 table1000.",
+    "UTSDAT119 aliases existing FrcmodProperties.tables[0] at1b10.",
+    "HDNRUL120 live integer668 and discarded GRNMDL109 integer."
+  ],
+  "behavior": {
+    "defaults": "28c6f0 constructs generic f10/f88/1000 tables.28cdc0 initializes f88 type53(rank1,axis1),1000 type52(rank2,axes13/12),and integer668=0. Existing28c040 owns table1b10,type1B. No duplicate UTSDAT table.",
+    "HDNPHA": "Failed int/two-real header preserves prior table. Successful header resets type23 before selector processing.0 stores scalar;1/2/3 select rank1 axes12/3/9;4 rank2 axes3/12. Other selectors return3 after reset,without payload. Accepted modes always invoke41a800,including scalar/empty cases.",
+    "HDNTIM": "Failed integer header preserves table. Successful header resets type53,stores signed row count and invokes41a800,including zero/negative counts.",
+    "JOMINY": "Failed integer-triple header preserves table. Successful header always resets type52. Only mode1 stores two counts and reads payload; all other modes succeed with reset state and no payload.",
+    "UTSDAT": "Failed int/real header preserves existing1b10 table. Successful header resets type1B.0 stores scalar;1 selects rank1,axis3 and truncated row count,then payload. Other selectors succeed with reset state. FRCMOD imports retain this same shared table.",
+    "HDNRUL": "Live integer helper zeroes668 before reading; matching/blank/EOF results are committed,including zero on failure. No enum restrictions invented.",
+    "GRNMDL": "Consumes one integer temporary,does not update GRNDAT selector or another material field. Header failure still returns2 after any common material creation.",
+    "ordering": "Common material creation/count/mode1 refresh precedes header read. Header errors return2; HDNPHA invalid selector returns3 after reset. Wrapper returns last nonzero status,verified in both2-to3 and3-to2 order.",
+    "payloads": "Existing allocation/direct/staged reader reused. Zero dependent product can still consume a nonempty axis; rank2 dependent prefix is not committed on EOF. Same-dimension/UNIT retain observed stores; dimension change destroys materials; linked roots retain established isolation."
+  },
+  "implementation": "MaterialHardeningImports adds three canonical stores and live scalar. UTSDAT uses the preexisting FRCMOD-owned table. Existing aggregate/property readers and public loader API preserved.",
+  "source": {
+    "dispatch": "analysis/hardening-source-selection.json",
+    "bundle": "analysis/hardening-static-evidence.json",
+    "prior_qualified_bodies": 10,
+    "new_static_queries": 0,
+    "qualification": "Reused qualified native source evidence,not reconstructed original source. New passive REA captures establish the runtime comparisons."
+  },
+  "verification": {
+    "status": "PASS_FROZEN_ORIGINAL_COMPARISONS",
+    "imports": 64,
+    "handlers": 220,
+    "checks": 40782,
+    "unobserved_eof_cursors": 24,
+    "frozen_files": 54,
+    "by_id": {
+      "120": 32,
+      "109": 28,
+      "114": 56,
+      "117": 28,
+      "118": 36,
+      "119": 40
+    },
+    "by_dimension": {
+      "3": 110,
+      "2": 110
+    },
+    "observations": {
+      "lookup_tokens": 276,
+      "header_calls": 216,
+      "payload_calls": 96,
+      "refresh_calls": 8,
+      "handler_errors": 72,
+      "status_0": 148,
+      "payload_errors": 16,
+      "reset-preserve_events": 136,
+      "reset-direct_events": 136,
+      "allocate_events": 228,
+      "status_3": 16,
+      "status_2": 56
+    },
+    "reports": [
+      {
+        "status": "PASS_NATIVE_HARDENING",
+        "imports": 32,
+        "handlers": 110,
+        "checks": 20391,
+        "unobserved_eof_cursors": 12,
+        "evidence_id": "ev_20fd3377c9e68f767ca0f830c44e4bffdb45c9b07be85eacde90f71c83849ccc",
+        "evidence_sha256": "1327ab6c5329717eb4bd5dfca9fd18c234baff83cb96c513042f2e5c3d40276c",
+        "frozen_files": 54,
+        "qualification": "Six hardening/ignored/direct material handlers in the finite signed32,owned normal-wrapper profile. UTSDAT shares existing1b10 storage. General numerical domains,scientific evaluation and arbitrary aliases/native ABI remain pending."
+      },
+      {
+        "status": "PASS_NATIVE_HARDENING",
+        "imports": 32,
+        "handlers": 110,
+        "checks": 20391,
+        "unobserved_eof_cursors": 12,
+        "evidence_id": "ev_c942e6247f4b06b51f74ed5422df4b12912f7df8cff4028bf1651f66f5ff5586",
+        "evidence_sha256": "a3acc4b9a70bf433b310ed6fed4572ccd4c4b38e6ac7588133645deec7d17cf9",
+        "frozen_files": 54,
+        "qualification": "Six hardening/ignored/direct material handlers in the finite signed32,owned normal-wrapper profile. UTSDAT shares existing1b10 storage. General numerical domains,scientific evaluation and arbitrary aliases/native ABI remain pending."
+      }
+    ],
+    "prototype": "analysis/hardening-prototype-comparison.json"
+  },
+  "chronology": [
+    "Seven-import,fourteen-handler prototype passed2576 checks without candidate correction.",
+    "32-import C++ preflight passed before54-file freeze.",
+    "Independent32-import evaluation prepared after training PASS; original executed before C++ with changed values/IDs/extents and reversed HDNPHA selector/dimension order.",
+    "All54 files unchanged through original training/evaluation. Frozen executables retained before broad rebuild; unused reader driver relinked afterward. Importer/all frozen sources remain byte-identical; current full regression passes."
+  ],
+  "regression": {
+    "targets_built": 17,
+    "tests_passed": 139,
+    "seconds": 33.18,
+    "log": "build/hardening-full-ctest.log"
+  },
+  "retention": "analysis/hardening-evidence-retention.json",
+  "boundary": {
+    "input": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": "unsupported",
+    "reason": "recognized keyword is not implemented: CREEP",
+    "supported_handlers": 74,
+    "last_events": [
+      {
+        "token": "EMSVTY",
+        "id": 100,
+        "category": 4
+      },
+      {
+        "token": "HDNPHA",
+        "id": 114,
+        "category": 4
+      },
+      {
+        "token": "MSTMTR",
+        "id": 116,
+        "category": 4
+      },
+      {
+        "token": "CREEP",
+        "id": 106,
+        "category": 4
+      }
+    ]
+  },
+  "limitations": [
+    "Finite signed32 numeric conversion and defined owned normal-wrapper profiles only; numeric extremes,overflow/underflow,uninitialized staged matching failures remain unresolved.",
+    "24 EOF cursor positions unobserved; states,helper values,read statuses,consumed lines,reset and last-error ordering compared.",
+    "Nonzero preserved metadata,caches,arbitrary shared/borrowed aliases,allocation failure and original pointer ABI remain unproven.",
+    "Scientific evaluation,remaining seven material families,object imports,complete KEY/DB output and console/application workflows remain required unfinished work."
+  ]
+}

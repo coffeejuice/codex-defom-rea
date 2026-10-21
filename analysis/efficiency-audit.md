@@ -163,3 +163,13 @@ Use established collection ownership/order contracts when adding probe guards.
 Keep exact sequence comparison and all freezes/evaluation gates. Prevention
 and overall time/token savings remain unmeasured. The metadata-only report is
 `analysis/efficiency-review-20261021-material-curves.json`. No workers restarted.
+
+## Hardening safe checkpoint review
+
+The last two completed turns took1,546.27s and1,661.77s. Reasoning item unions
+were838.13s/823.24s versus351.97s/424.28s of tool activity. Unattributed
+time remains separate; neither category is automatically waste. Close verified
+phases using their retained receipts and move directly to integration, reopening
+only for new evidence or a concrete missing requirement. No verification gate
+is removed. Future speed/token effects remain unmeasured. See
+`analysis/efficiency-review-20261021-hardening.json`. No workers restarted.

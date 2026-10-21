@@ -313,9 +313,16 @@ struct FrcmodProperties {
     std::array<double, 6> scalars_0x1ad8{}; //Five inline coefficients plus1b00.
     std::int32_t reference_0x1b08 = 0;
     std::array<PropertyTable, 3> tables{PropertyTable{0x1b}, PropertyTable{0x1c},
-        PropertyTable{0xb4}}; //1b10/1b90/1c08; the first is not changed by FRCMOD.
+        PropertyTable{0xb4}}; //1b10/1b90/1c08; first shared with UTSDAT119.
     double scalar_0x1b88 = 0.0;
     std::array<double, 9> coefficients_0x1c80{}; //Physical ascending order, not read order.
+};
+
+struct MaterialHardeningImports {
+    std::int32_t hdnrul_0x668 = 0; //28cdc0, live integer destination.
+    PropertyTable hdnpha_0xf10{0};
+    PropertyTable hdntim_0xf88{0x53};
+    PropertyTable jominy_0x1000{0x52};
 };
 
 struct MaterialRecord {
@@ -344,6 +351,7 @@ struct MaterialRecord {
     MaterialDirectFields direct;
     MaterialCurveImports curves;
     FrcmodProperties frcmod;
+    MaterialHardeningImports hardening;
     FstresProperties fstres;
     GrndatProperties grndat;
     // 29b300/28c5a0: count only; no inferred scientific interpretation.

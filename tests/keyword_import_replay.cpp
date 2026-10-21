@@ -618,6 +618,12 @@ void material_fields(const MaterialRecord& material) {
     curve("0x1b10", material.frcmod.tables[0]);
     curve("0x1b90", material.frcmod.tables[1]);
     curve("0x1c08", material.frcmod.tables[2]);
+    std::cout << "}},\"hardening_imports\":{\"hdnrul_0x668\":"
+              << material.hardening.hdnrul_0x668 << ",\"tables\":{";
+    first_curve = true;
+    curve("0xf10", material.hardening.hdnpha_0xf10);
+    curve("0xf88", material.hardening.hdntim_0xf88);
+    curve("0x1000", material.hardening.jominy_0x1000);
     std::cout << "}},\"property_tables\":{";
     bool first_table = true;
     for (const auto& [id, table] : material.property_tables) {

@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 416768306,
+    "tail_mib": 32,
+    "start_offset": 384291525,
+    "end_offset": 416768306,
+    "window_sha256": "8fab588b607faa1b866a3698957e28a57f4f237cd2c05b329eabce8eea97f6d5"
+  },
+  "turns": [
+    {
+      "turn_id": "01a16050-b15a-7ea0-89b2-4abebac70485",
+      "started_at": "2026-10-21T21:14:23.466Z",
+      "completed_at": "2026-10-21T21:40:09.740Z",
+      "elapsed_seconds": 1546.274,
+      "tool_active_union_seconds": 351.974,
+      "reasoning_item_union_seconds": 838.134,
+      "tool_reasoning_overlap_seconds": 134.873,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 482.117,
+      "tool_items": {
+        "CommandExecution": 36,
+        "open_binary": 1,
+        "procedure_pseudo_code": 1,
+        "FileChange": 11,
+        "close_binary": 1,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 2,
+      "truncated_command_outputs": 2,
+      "usage_delta": {
+        "input_tokens": 13180632,
+        "cached_input_tokens": 13090048,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 51395,
+        "reasoning_output_tokens": 28252,
+        "total_tokens": 13232027,
+        "uncached_input_tokens": 90584
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "procedure_pseudo_code",
+          "seconds": 84.02,
+          "item_id": "exec-09c975a5-eb49-4d2b-9b2d-a3b1a2f2430f"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.621,
+          "item_id": "exec-764af68e-c41c-4e48-8663-d0e27418414d"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.591,
+          "item_id": "exec-ab92b860-a1b8-4c16-9e77-f27ebd394865"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.165,
+          "item_id": "exec-075025de-d62b-4492-b20b-11ff0dcd0f5d"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 33.27,
+          "item_id": "exec-7eb6ce65-430f-4c0f-81e0-68005c9b5a40"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a16068-4994-75e1-a881-de7f188b4b75",
+      "started_at": "2026-10-21T21:40:09.764Z",
+      "completed_at": "2026-10-21T22:07:51.535Z",
+      "elapsed_seconds": 1661.771,
+      "tool_active_union_seconds": 424.282,
+      "reasoning_item_union_seconds": 823.235,
+      "tool_reasoning_overlap_seconds": 184.381,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 591.466,
+      "tool_items": {
+        "CommandExecution": 32,
+        "open_binary": 1,
+        "procedure_pseudo_code": 3,
+        "FileChange": 12,
+        "close_binary": 1,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 3,
+      "truncated_command_outputs": 0,
+      "usage_delta": {
+        "input_tokens": 14495811,
+        "cached_input_tokens": 14422272,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 48479,
+        "reasoning_output_tokens": 28855,
+        "total_tokens": 14544290,
+        "uncached_input_tokens": 73539
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 85.89,
+          "item_id": "exec-651691a7-7b29-4c20-bde4-554006552901"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "procedure_pseudo_code",
+          "seconds": 84.453,
+          "item_id": "exec-19195e81-82be-43fd-84d8-43f96490b17f"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.472,
+          "item_id": "exec-0e06de41-cc64-4f41-b4bd-ba5f565cf3b3"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 34.486,
+          "item_id": "exec-f1fb9a84-3611-45aa-9972-3b3368bf1c9c"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.389,
+          "item_id": "exec-0aa842df-4e34-4615-8ea7-0eb0948cfbb3"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "safe_checkpoint": "Original evaluation,all17 target builds and139 regressions complete; no live capture/build/comparison.",
+  "finding": "Reasoning item unions838.134s/823.235s exceed tool unions351.974s/424.282s in the two completed turns. Not all reasoning is avoidable; unattributed intervals are not assigned to any cause.",
+  "adoption": {
+    "name": "close_verified_phase_without_reanalysis",
+    "change": "Once required comparisons/retention/regression pass, reuse their receipts and proceed directly to documentation/integration. Reopen only on new contrary evidence or an explicit uncovered requirement.",
+    "effect": "Future elapsed/usage effect unmeasured; no causal speed/token saving claimed.",
+    "limits": "No tests,source coverage,freezes,original-first evaluation or API checks removed."
+  },
+  "operational_retention": "Frozen executable copies retained before broad rebuild. Only the unused standalone reader later relinked; importer and all frozen sources unchanged. See analysis/hardening-binary-archive.json."
+}

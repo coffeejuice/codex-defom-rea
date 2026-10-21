@@ -69,6 +69,9 @@ useful after setup costs; revert a regression through a normal reviewed patch.
 - Resolve the concrete uncertainty, run the required comparison, inspect a concise
   diff, and proceed. Do not repeatedly speculate about already-passing unchanged
   code or regenerate the same report merely to reassure yourself.
+- Close a verified phase immediately: reuse its source selection, comparison and
+  retention receipts, then document and integrate. Reopen settled branch/model
+  reasoning only for a new mismatch, source fact or explicit uncovered requirement.
 - Run focused checks while editing and the required full regression once per
   completed implementation. Do not weaken tests, freezes, held-out chronology,
   source bindings or API compatibility for speed. Repeat only for a relevant new

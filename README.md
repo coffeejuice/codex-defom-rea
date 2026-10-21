@@ -2023,3 +2023,28 @@ material catalog entries remain to implement.
 
 Run `ctest --test-dir build -C Release -R frcmod --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## Hardening material imports
+
+HDNPHA, HDNTIM and JOMINY now reproduce their table resets, selector branches
+and partial-read behavior. UTSDAT uses the existing FRCMOD-owned table at 0x1B10;
+it does not allocate a duplicate property. HDNRUL writes its live integer,
+including zeroing on a failed read. GRNMDL consumes an ignored integer temporary.
+Material creation, refresh and failure ordering preserve the observed behavior.
+
+The frozen candidate matches 64 original imports, 220 handler calls and 40,782
+checks, including 32 independently varied original-first evaluation imports.
+All 54 frozen files remained unchanged through those comparisons. Both frozen
+executables were retained before the full rebuild; the unused standalone reader
+then relinked, while the importer and all frozen sources remained unchanged.
+All 139 regression tests pass in 33.18s after building all seventeen targets.
+Twenty-four EOF cursor positions remain unobserved.
+
+See `analysis/hardening-import-contract.json` for source bindings and numerical,
+ownership and evaluation limits. The retained export now reaches CREEP after 74
+supported handlers; seven material catalog entries remain. Scientific consumers,
+complete imports/exports and application workflows remain unfinished. The public
+database-loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R hardening --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

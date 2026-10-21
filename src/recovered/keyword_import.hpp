@@ -76,6 +76,7 @@ public:
     // FRAE2H, LTHEAT (discarded integer), TMPSOL, TMPLIQ, MATDEN, GBMOBI;
     // FPERV, DIFCOE and DIFBND preserve their distinct owned table stores.
     // FRCMOD includes every source selector and its reordered nine-value payload.
+    // HDNPHA, HDNTIM, JOMINY, UTSDAT(shared1b10), HDNRUL and discarded GRNMDL.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,
