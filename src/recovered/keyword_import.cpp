@@ -6,6 +6,7 @@
 #include "grndat_properties.hpp"
 #include "frcmod_properties.hpp"
 #include "hardening_import.hpp"
+#include "creep_properties.hpp"
 
 #include <algorithm>
 #include <array>
@@ -212,7 +213,7 @@ int read_material_curve(int id, MaterialRecord& material, KeywordReader& reader)
 bool implemented(int id, int category) {
     return (category == 1 && id >= 22 && id <= 91) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
-           (category == 4 && (id == 92 || id == 94 || id == 105 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id) || material_direct_keyword(id) || material_curve_keyword(id) || hardening_keyword(id))) ||
+           (category == 4 && (id == 92 || id == 94 || id == 105 || id == 106 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id) || material_direct_keyword(id) || material_curve_keyword(id) || hardening_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
 }
 
@@ -608,7 +609,7 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
 }
 
 int handle_material_keyword(int id, ObjectModel& model, KeywordReader& reader) {
-    if (id != 92 && id != 94 && id != 105 && id != 108 && id != 116 && id != 127 && id != 128 && !property_table_keyword(id) && !material_direct_keyword(id) && !material_curve_keyword(id) && !hardening_keyword(id))
+    if (id != 92 && id != 94 && id != 105 && id != 106 && id != 108 && id != 116 && id != 127 && id != 128 && !property_table_keyword(id) && !material_direct_keyword(id) && !material_curve_keyword(id) && !hardening_keyword(id))
         throw std::logic_error("unimplemented material keyword reached dispatch");
     const auto selector = reader.selector_integer();
     if (selector.conversions == -1) return 2;
@@ -616,6 +617,7 @@ int handle_material_keyword(int id, ObjectModel& model, KeywordReader& reader) {
         throw std::invalid_argument(
             "material selector matching failure uses an uninitialized native ID and is unsupported");
     auto* material = model.find_or_create_material(selector.values[0]);
+    if (id == 106) return read_creep(material->creep, reader);
     if (hardening_keyword(id)) return read_hardening(id, *material, reader);
     if (id == 105) return read_frcmod(material->frcmod, reader);
     if (material_curve_keyword(id)) return read_material_curve(id, *material, reader);

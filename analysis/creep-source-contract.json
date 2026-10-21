@@ -1,0 +1,44 @@
+{
+  "status": "source_derived_before_original_prototype",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "source_bundle_sha256": "91db6cc795a7a616a51aea00152858ad25a2db4a00cf3884b2572fe96e13f2eb",
+  "keyword": {
+    "id": 106,
+    "category": 4,
+    "name": "CREEP"
+  },
+  "constructor": {
+    "procedure": "0x140289b80",
+    "evidence_id": "ev_3b062492c4281606760637c163f3a2a48edada4f537ee2b2c2f149a49b9cdbe6",
+    "material_offset": "0xac8",
+    "mode": 0,
+    "reference": 0,
+    "axis_count": -1,
+    "tables": [
+      "0xad0:43",
+      "0xb48:44",
+      "0xbc0:45",
+      "0xc38:46",
+      "0xcb0:47",
+      "0xd28:48",
+      "0xda8:A9",
+      "0xe20:AA",
+      "0xe98:AB"
+    ]
+  },
+  "branches": {
+    "0": "mode0;retain tables/reference/count",
+    "1..4": "mode assigned;reset45..48;header second integer becomes row count;41a800",
+    "5..6": "mode assigned before second int triple;failure preserves table;reset44/43;three counts;41a800",
+    "7..8": "mode assigned;live integer da4 zeroes on failed read;reset/readA9;sum/product truncated A9 axis values;reset/readAA then AB;stop immediately on each failure",
+    "negative": "mode9,reference=-selector;retain tables/count",
+    "unknown_positive": "success;complete prior state preserved"
+  },
+  "payload": "Existing41a800: rank1 interleaving,direct prefixes,rank3 staged dependent commit; ranks0/width<=1 skip reallocation/reads including AA/AB constructor buffer retained. Signed32 conversion/derived overflow explicitly uncharacterized.",
+  "lifecycle": "Creation/mode1 refresh precedes header. Linked root isolated. Same-dimension/UNIT retains; changed dimensions destroy material records.",
+  "limits": [
+    "Scientific evaluation remains required separately.",
+    "Finite signed32,nonoverflowing derived widths; INT_MIN negation,uninitialized header destination domains excluded.",
+    "Owned tables only; nonzero metadata/shared aliases/cache/allocation failure/native pointer ABI unproven."
+  ]
+}

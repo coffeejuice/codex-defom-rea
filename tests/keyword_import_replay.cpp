@@ -624,6 +624,15 @@ void material_fields(const MaterialRecord& material) {
     curve("0xf10", material.hardening.hdnpha_0xf10);
     curve("0xf88", material.hardening.hdntim_0xf88);
     curve("0x1000", material.hardening.jominy_0x1000);
+    std::cout << "}},\"creep\":{\"mode_0xac8\":" << material.creep.mode_0xac8
+              << ",\"reference_0xda0\":" << material.creep.reference_0xda0
+              << ",\"axis_count_0xda4\":" << material.creep.axis_count_0xda4
+              << ",\"tables\":{";
+    first_curve = true;
+    constexpr std::array<const char*, 9> creep_slots{
+        "0xad0", "0xb48", "0xbc0", "0xc38", "0xcb0", "0xd28", "0xda8", "0xe20", "0xe98"};
+    for (std::size_t i = 0; i < creep_slots.size(); ++i)
+        curve(creep_slots[i], material.creep.tables[i]);
     std::cout << "}},\"property_tables\":{";
     bool first_table = true;
     for (const auto& [id, table] : material.property_tables) {

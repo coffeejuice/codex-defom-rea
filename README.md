@@ -2048,3 +2048,35 @@ database-loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R hardening --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## CREEP material import
+
+CREEP now retains its nine constructor-owned tables and reproduces every source
+selector in the defined input domain. Modes one through four read interleaved
+tables; modes five and six read three-dimensional tables. Modes seven and eight
+derive two vector widths from the sum and product of truncated axis values in an
+earlier table. Their live count, resets and early failures preserve the original
+mutation order. Negative selectors store a reference; unknown positive selectors
+preserve the prior state.
+
+The existing table reader preserves partial direct input and commits staged
+three-dimensional dependent values only after complete reads. Derived widths
+zero or one skip payload reads and retain the reset table's allocated buffer.
+Importing a property does not implement its scientific evaluation.
+
+The frozen candidate matches 64 original imports, 152 handler calls and 36,482
+checks, including 32 independently varied original-first evaluation imports.
+One evaluation source-plan extent correction was recorded before running either
+original or C++ evaluation. No runtime-driven candidate correction or capture
+retry was needed. All 60 frozen files remain unchanged after building all seventeen
+targets and passing all 141 regression tests in 33.76s. Thirty-two EOF cursor
+positions remain unobserved.
+
+See `analysis/creep-import-contract.json` for source evidence, preparation history
+and numerical/ownership limits. The retained export now reaches BURGRS after 83
+supported handlers; six material catalog entries remain. Complete imports/exports,
+scientific consumers and application workflows remain unfinished. The public
+database-loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R creep --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

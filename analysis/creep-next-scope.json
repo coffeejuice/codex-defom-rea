@@ -1,0 +1,70 @@
+{
+  "status": "next_after_creep",
+  "full_objective_unchanged": true,
+  "first": {
+    "id": 110,
+    "name": "BURGRS",
+    "category": 4
+  },
+  "source": {
+    "path": "analysis/material-import-0x140384a50.json",
+    "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+    "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108",
+    "start_line": 883,
+    "end_line": 949,
+    "pseudocode": "  case 0x12:\n    puVar3 = puVar3 + 0x63c;\n    local_b8 = FUN_140415680(param_2,local_f8,&local_148,&local_140);\n    if (local_b8 != 0) {\n      return 2;\n    }\n    local_28 = local_f8[0];\n    switch(local_f8[0]) {\n    case 0:\n      puVar3[1] = 0;\n      *(double *)(puVar3 + 2) = local_148;\n      break;\n    case 1:\n      puVar3[1] = 1;\n      puVar3[4] = 3;\n      puVar3[7] = (int)local_148;\n      break;\n    case 2:\n      puVar3[1] = 1;\n      puVar3[4] = 6;\n      puVar3[7] = (int)local_148;\n      break;\n    case 3:\n      puVar3[1] = 1;\n      puVar3[4] = 0x18;\n      puVar3[7] = (int)local_148;\n      break;\n    case 4:\n      puVar3[1] = 2;\n      puVar3[4] = 3;\n      puVar3[5] = 6;\n      puVar3[7] = (int)local_148;\n      puVar3[8] = (int)local_140;\n      break;\n    case 5:\n      puVar3[1] = 2;\n      puVar3[4] = 3;\n      puVar3[5] = 0x18;\n      puVar3[7] = (int)local_148;\n      puVar3[8] = (int)local_140;\n      break;\n    case 6:\n      puVar3[1] = 2;\n      puVar3[4] = 6;\n      puVar3[5] = 0x18;\n      puVar3[7] = (int)local_148;\n      puVar3[8] = (int)local_140;\n      break;\n    case 7:\n      iVar1 = FUN_140413fb0(param_2,&local_f0,&local_ec,local_e8,0);\n      if (iVar1 != 0) {\n        return 2;\n      }\n      puVar3[1] = 3;\n      puVar3[4] = 3;\n      puVar3[5] = 6;\n      puVar3[6] = 0x18;\n      puVar3[7] = local_f0;\n      puVar3[8] = local_ec;\n      puVar3[9] = local_e8[0];\n      break;\n    default:\n      return 2;\n    }\n    local_b8 = 0;\n    local_b8 = FUN_14041a800(param_2,puVar3,0);\n    break;",
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+      "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+      "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+      "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+      "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+      "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+      "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+      "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+      "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+    ],
+    "relationship_coverage": {
+      "diagnostics": [
+        "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+      ],
+      "status": "complete"
+    }
+  },
+  "questions": [
+    "Recover constructor type/defaults at material18f0. This handler mutates the table without a reset; preserve stale inactive dimensions/counts and buffers.",
+    "Selectors0..7,axis semantics3/6/24,extra triple before rank3 updates,invalid-selector2 and numeric conversion limits.",
+    "Inspect adjacent ALPHA111,NDISFM112,RECVRY113 for a shared source-backed implementation; do not infer identical behavior solely from nearby cases."
+  ],
+  "remaining_material_entries": [
+    {
+      "id": 110,
+      "name": "BURGRS"
+    },
+    {
+      "id": 111,
+      "name": "ALPHA"
+    },
+    {
+      "id": 112,
+      "name": "NDISFM"
+    },
+    {
+      "id": 113,
+      "name": "RECVRY"
+    },
+    {
+      "id": 123,
+      "name": "ANISO"
+    },
+    {
+      "id": 130,
+      "name": "SINTER"
+    }
+  ],
+  "boundary": "analysis/creep-full-export-boundary.json"
+}

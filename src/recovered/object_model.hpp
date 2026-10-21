@@ -325,6 +325,17 @@ struct MaterialHardeningImports {
     PropertyTable jominy_0x1000{0x52};
 };
 
+struct CreepProperties {
+    std::int32_t mode_0xac8 = 0;
+    std::int32_t reference_0xda0 = 0;
+    std::int32_t axis_count_0xda4 = -1;
+    //289b80: ad0/b48/bc0/c38/cb0/d28/da8/e20/e98, in physical order.
+    std::array<PropertyTable, 9> tables{PropertyTable{0x43}, PropertyTable{0x44},
+        PropertyTable{0x45}, PropertyTable{0x46}, PropertyTable{0x47},
+        PropertyTable{0x48}, PropertyTable{0xa9}, PropertyTable{0xaa},
+        PropertyTable{0xab}};
+};
+
 struct MaterialRecord {
     enum class Profile { default_properties, default_name_only = default_properties };
     explicit MaterialRecord(int material_id);
@@ -352,6 +363,7 @@ struct MaterialRecord {
     MaterialCurveImports curves;
     FrcmodProperties frcmod;
     MaterialHardeningImports hardening;
+    CreepProperties creep;
     FstresProperties fstres;
     GrndatProperties grndat;
     // 29b300/28c5a0: count only; no inferred scientific interpretation.
