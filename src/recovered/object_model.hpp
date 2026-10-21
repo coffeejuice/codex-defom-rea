@@ -210,8 +210,15 @@ struct PlanarObjectDirectImports {
 struct ObjectDirectImports {
     //186200: LMTSTR,AVGSTR,PENVOL,REFTMP. Last value follows process units.
     std::array<double, 4> scalars_0x1ea0{0.01, 1.0, 1000000.0, 68.0};
+    double temperature_limit_0x1f10 = 0.0; //186200 relative70.
     //The constructor leaves these native fields uninitialized in3D.
     std::optional<PlanarObjectDirectImports> planar;
+};
+
+struct RemeshingScalarImports {
+    //189790:2d20,2d28,2d30,2d38,2d48,2dc8,2dd0,2dd8,2de0.
+    //Dimension-dependent defaults are selected by ObjectRecord construction.
+    std::array<double, 9> values{2.0, 0.0, 0.25, 0.25, 0.5, -0.7, 0.0, 0.0, 0.0};
 };
 
 struct ObjectRecord {
@@ -223,6 +230,7 @@ struct ObjectRecord {
     int secondary = 0;
     std::string name; // Original name bytes, not decoded Unicode.
     ObjectDirectImports direct;
+    RemeshingScalarImports remeshing_scalars;
     bool flag_0x3990 = false; // Constructor15f0b0; gates2059a0 geometry work.
     int flag_0x3994 = 0;
     GeometryStorage geometry; // Slot0 at3c00; other slots remain unrecovered.

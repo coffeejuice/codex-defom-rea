@@ -146,6 +146,8 @@ ObjectRecord::ObjectRecord(int object_id, int dimension)
     //235c10 maps raw process mode0 to1 and all other modes to2.
     direct.scalars_0x1ea0[3] = process_unit_state().mode == 0 ? 20.0 : 68.0;
     if (dimension == 2) direct.planar.emplace();
+    if (dimension == 2)
+        remeshing_scalars.values = {3.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0};
     // 15f0b0: 2D initializes kind 0/arity 4; 3D calls 165500(kind 2).
 }
 

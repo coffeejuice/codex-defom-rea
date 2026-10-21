@@ -1,0 +1,56 @@
+{
+  "status": "next_after_remesh_scalars",
+  "full_objective_unchanged": true,
+  "first": {
+    "id": 258,
+    "name": "ROTSYM",
+    "category": 2
+  },
+  "boundary": "analysis/remesh-scalars-full-export-boundary.json",
+  "source": {
+    "path": "analysis/geometry-import-0x14038b8a0.json",
+    "sha256": "76d86a332755c224b4539b295b190f5b40d7da5ac239f25396eda4cbafbfcff0",
+    "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+    "start_line": 3242,
+    "end_line": 3257,
+    "pseudocode": "    case 0x72:\n      cVar1 = FUN_1400015f0(param_1);\n      iVar2 = local_108c;\n      if (cVar1 != '\\0') {\n        local_108c = FUN_140414990(param_2,local_1080 + 0x2058);\n        if (local_108c != 0) {\n          return 2;\n        }\n        local_108c = FUN_140414c20(param_2,local_1080 + 0x2078,local_1080 + 0x2080,\n                                   local_1080 + 0x2088);\n        if (local_108c != 0) {\n          return 2;\n        }\n        iVar2 = FUN_140414c20(param_2,local_1080 + 0x2060,local_1080 + 0x2068,local_1080 + 0x2070);\n      }\n      break;",
+    "selection": "param3-0x90;case0x72.0015f0 gate,414990 live2058,then414c20 live2078/2080/2088,then414c20 live2060/2068/2070; early failure after first/second read.",
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+      "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+      "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+      "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+      "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+      "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+      "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+      "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+      "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+    ],
+    "relationship_coverage": {
+      "status": "complete",
+      "diagnostics": [
+        "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+      ]
+    }
+  },
+  "questions": [
+    "Establish0015f0 dimension gate and186200 conditional defaults before representing fields; do not fabricate uninitialized opposite-dimension state.",
+    "Reuse414990 and414c20 live zeroing/partial-read contracts; recover early failure ordering across all three reads.",
+    "Verify186510 cleanup,mesh/UNIT/repeated-header/linked-root behavior and check adjacent keyword ownership before grouping."
+  ],
+  "remaining_material_entries": [
+    {
+      "id": 123,
+      "name": "ANISO"
+    },
+    {
+      "id": 130,
+      "name": "SINTER"
+    }
+  ],
+  "remaining_scope": "Full object/relation model,scientific operations,DB/model mapping,KEY/DB export,console workflows and independent end-to-end evaluation remain required."
+}

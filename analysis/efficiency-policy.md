@@ -76,6 +76,10 @@ useful after setup costs; revert a regression through a normal reviewed patch.
 - Close a verified phase immediately: reuse its source selection, comparison and
   retention receipts, then document and integrate. Reopen settled branch/model
   reasoning only for a new mismatch, source fact or explicit uncovered requirement.
+- During a verified tool wait, keep the same handle and limit analysis to the
+  concrete unresolved question and next evidence needed. Do not re-derive settled
+  paths while a capture/query runs. Resume with its result or independent required
+  work when safe; an observation timeout is not a reason to restart the producer.
 - Run focused checks while editing and the required full regression once per
   completed implementation. Do not weaken tests, freezes, held-out chronology,
   source bindings or API compatibility for speed. Repeat only for a relevant new

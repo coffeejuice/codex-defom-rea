@@ -2143,3 +2143,34 @@ and application workflows remain unfinished. The public loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R object_direct --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## TMPLMT and remeshing scalar imports
+
+TMPLMT now owns its separate temperature-limit double. RMDPTH, RMSTRK, RMTIME,
+RMSTEP, MGSIZR, MGWCUV, MGWTMP, MGWSTN and MGWSTR use nine separate remeshing
+doubles. Their constructor defaults follow the original dimension branches:
+for example, RMDPTH starts at the exact binary64 value of -0.7 in 3D and zero in
+2D. Other remeshing members and scientific mesh-generation algorithms are not
+implied by these scalar imports.
+
+All ten handlers use the live scalar reader. Blank/EOF commits zero and returns
+handler status two; numeric matching failure commits zero and succeeds. Created
+objects and ID-gap placeholders survive failed reads. Cleanup source and native
+comparisons establish that deactivation, mesh replacement, UNIT changes and
+same-dimension headers preserve these doubles. Changed dimensions destroy them.
+
+The frozen candidate matches 64 original imports, 364 handler calls and 34,954
+checks, including 32 independently varied original-first evaluation imports.
+Complementary cohorts verify EOF for all twenty keyword/dimension subjects.
+Nonzero values are seeded before deactivation and EOF checks. No candidate,
+probe or input correction or capture retry was needed. All 66 frozen files remain
+unchanged after building all seventeen targets and passing all 147 tests in
+34.95s. Twenty-eight EOF cursor positions remain unobserved.
+
+See `analysis/remesh-scalars-import-contract.json` for qualified source evidence,
+chronology and numeric/ownership limits. The retained export now reaches ROTSYM
+after 132 supported handlers. Complete imports, scientific consumers, exports
+and application workflows remain unfinished. The public loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R remesh_scalars --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

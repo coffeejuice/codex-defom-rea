@@ -1055,6 +1055,10 @@ void state(const ObjectModel& model) {
             std::cout << '}';
         }
         std::cout << '}';
+        std::cout << ",\"temperature_limit_0x1f10_hex\":";
+        raw_values(std::span(&object->direct.temperature_limit_0x1f10, 1));
+        std::cout << ",\"remeshing_scalars_hex\":";
+        raw_values(std::span(object->remeshing_scalars.values));
         std::cout << ',';
         stroke_fields(object->stroke_0x22d0);
         std::cout << ",\"geometry\":";

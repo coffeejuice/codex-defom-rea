@@ -189,3 +189,18 @@ preserving all evaluation gates. No controlled wall-time or token saving is
 claimed. The initial 16MiB audit tail lacked completed-turn starts; a bounded
 128MiB tail recovered them. See
 `analysis/efficiency-review-20261021-retained-material.json`. No workers restarted.
+
+## TMPLMT/remeshing scalar safe checkpoint review
+
+The last two completed turns took 1,078.86s and 1,096.87s. Tool unions decreased
+from 380.91s to 241.74s while reasoning item unions increased from 293.20s to
+451.36s. Unattributed time remains separate. These different tasks do not establish
+a causal regression or improvement. The slowest native query took 84.34s.
+
+Keep source-backed batching: this checkpoint covered ten handlers with one new
+cleanup query, ten saved bodies and three captures. Add one narrow default:
+while waiting on a verified handle, address only the unresolved question rather
+than rehearsing settled paths. All source, freeze, held-out and regression gates
+remain. Future time/token effects are unmeasured. The bounded 64MiB metadata scan
+found both completed turns; no worker restarted. See
+`analysis/efficiency-review-20261021-remesh-scalars.json`.
