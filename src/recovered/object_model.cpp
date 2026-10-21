@@ -106,6 +106,12 @@ RootControls initialized_root_controls(int dimension, double node8_default,
     RootControls result{};
     result.dimension = dimension;
     result.simulation.emplace();
+    auto& general = result.simulation->general;
+    general.geometry_errors_0xdb0 = {
+        std::bit_cast<double>(std::uint64_t{0x3eb0c6f7a0b5ed8d}),
+        std::bit_cast<double>(std::uint64_t{0x3f1a36e2eb1c432d}), 0.0, 0.0};
+    general.peninf_0xaf8 = std::bit_cast<double>(std::uint64_t{0x41cdcd6500000000});
+    general.tintgf_0xb08 = std::bit_cast<double>(std::uint64_t{0x3fe8000000000000});
     auto& frequency = result.simulation->record_tables.frequency_0xa80;
     frequency.values_per_point_0x40 = 6;
     frequency.allocate_zeroed();
@@ -173,6 +179,8 @@ void ObjectModel::set_dimension(int dimension) {
     if (controls_.simulation) {
         reset.simulation->units.selector_0x84c = controls_.simulation->units.selector_0x84c;
         reset.simulation->units.reset_defaults();
+        //1e7da0/1ea6b0 clear table entries, retaining the container's name.
+        reset.simulation->general.frnnam_0xb90 = controls_.simulation->general.frnnam_0xb90;
     }
     reset.alternate_root_enabled = controls_.alternate_root_enabled;
     // Native setter writes the dimension before clearing the lists. Internal
@@ -427,6 +435,31 @@ PropertyTable* ObjectModel::reset_record_table(int keyword, int rows, int column
     table.values_per_point_0x40 = columns;
     table.allocate_zeroed(); // Parent allocates;41a800 allocates again.
     return &table;
+}
+
+void ObjectModel::set_root_scalar(int keyword, double value) {
+    require_simulation_profile(controls_);
+    auto& simulation = *controls_.simulation;
+    switch (keyword) {
+    case 72: simulation.general.peninf_0xaf8 = value; break;
+    case 73: simulation.units.scalars[0] = value; break; // Existing rootb00.
+    case 74: simulation.general.tintgf_0xb08 = value; break;
+    case 77: simulation.units.scalars[1] = value; break; // Existing rootc08.
+    case 81: simulation.units.scalars[2] = value; break; // Existing rootd78.
+    case 82: simulation.units.scalars[3] = value; break; // Existing rootd80.
+    case 83: simulation.general.ehrate_0xd88 = value; break;
+    default: throw std::invalid_argument("unmapped direct root scalar");
+    }
+}
+
+void ObjectModel::set_geometry_errors(const std::array<double, 4>& values) {
+    require_simulation_profile(controls_);
+    controls_.simulation->general.geometry_errors_0xdb0 = values;
+}
+
+void ObjectModel::set_root_name(std::string value) {
+    require_simulation_profile(controls_);
+    controls_.simulation->general.frnnam_0xb90 = std::move(value);
 }
 
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {

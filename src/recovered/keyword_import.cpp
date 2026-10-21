@@ -129,7 +129,8 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 70) || (id >= 84 && id <= 86) || id == 91)) ||
+    return (category == 1 && ((id >= 22 && id <= 74) || id == 76 || id == 77 ||
+            (id >= 81 && id <= 86) || id == 91)) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -168,6 +169,22 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
         if (auto* table = model.set_frequency_header(header.values[0], header.values[1]))
             status = read_property_values(reader, *table);
         return status == 0 ? 0 : 2;
+    }
+    if (id == 71) {
+        const auto read = reader.real_quad();
+        model.set_geometry_errors(read.values);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 72 || id == 73 || id == 74 || id == 77 ||
+        id == 81 || id == 82 || id == 83) {
+        const auto read = reader.real();
+        model.set_root_scalar(id, read.values[0]);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 76) {
+        const auto read = reader.root_name(model.controls().simulation->general.frnnam_0xb90);
+        model.set_root_name(read.bytes);
+        return read.status == 0 ? 0 : 2;
     }
     if (id >= 84 && id <= 86) {
         const auto header = reader.integer_pair();

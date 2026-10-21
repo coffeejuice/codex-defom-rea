@@ -110,7 +110,16 @@ struct RootRecordTables {
         PropertyTable{0xb0}, PropertyTable{0xb1}, PropertyTable{0xb2}};
 };
 
+struct RootGeneralFields {
+    std::array<double, 4> geometry_errors_0xdb0{};
+    double peninf_0xaf8 = 0.0;
+    double tintgf_0xb08 = 0.0;
+    double ehrate_0xd88 = 0.0;
+    std::string frnnam_0xb90 = "Furnace model"; //375470 constructor, not defaults.
+};
+
 struct SimulationControls {
+    RootGeneralFields general;
     RootRecordTables record_tables;
     IterationControls iteration;
     DimensionalStepControls dimensional;
@@ -393,6 +402,9 @@ public:
     void set_solver_parameters(const std::array<double, 4>& values);
     [[nodiscard]] PropertyTable* set_frequency_header(int rows, int columns);
     [[nodiscard]] PropertyTable* reset_record_table(int keyword, int rows, int columns);
+    void set_root_scalar(int keyword, double value);
+    void set_geometry_errors(const std::array<double, 4>& values);
+    void set_root_name(std::string value);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

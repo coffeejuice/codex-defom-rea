@@ -750,6 +750,22 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"root_fields\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& g = controls.simulation->general;
+        const auto& u = controls.simulation->units;
+        const std::array<double, 11> reals{
+            g.geometry_errors_0xdb0[0], g.geometry_errors_0xdb0[1],
+            g.geometry_errors_0xdb0[2], g.geometry_errors_0xdb0[3],
+            g.peninf_0xaf8, u.scalars[0], g.tintgf_0xb08, u.scalars[1],
+            u.scalars[2], u.scalars[3], g.ehrate_0xd88};
+        std::cout << "{\"reals_hex\":";
+        raw_values(std::span(reals));
+        std::cout << ",\"name\":";
+        emit_quoted(g.frnnam_0xb90);
+        std::cout << ",\"unit_selector\":" << u.selector_0x84c << '}';
+    }
     std::cout << ",\"root_record_tables\":";
     if (!controls.simulation) std::cout << "null";
     else {

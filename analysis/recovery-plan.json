@@ -613,7 +613,14 @@
       "next_export_boundary": "GEOERR",
       "limitations": "Scientific consumers,nonzero preserved54/60 runtime states,large extents,24 EOF cursor positions and complete console/native ABI compatibility remain pending."
     },
-    "next_scope": "analysis/root-tables-next-scope.json"
+    "next_scope": "analysis/root-fields-next-scope.json",
+    "root_fields_checkpoint": {
+      "status": "implemented_subset_runtime_tested",
+      "contract": "analysis/root-fields-import-contract.json",
+      "validation": "64 original imports,226 handlers,11650 checks,26 name reads;32 original-first evaluation inputs pass unchanged candidate;124 regression tests pass.",
+      "next_export_boundary": "ENVTMP",
+      "limitations": "Scientific consumers,furnace collection,embedded-NUL parser behavior,20 EOF cursor positions and full console/native ABI compatibility remain pending."
+    }
   },
   "decision_record": [
     {
@@ -631,10 +638,10 @@
     "A blocker or exhausted execution budget is not project completion."
   ],
   "current_work": {
-    "component": "Remaining root fields and environmental tables",
-    "status": "next_after_root_tables_checkpoint",
-    "evidence": "analysis/root-tables-next-scope.json",
-    "next": "Recover GEOERR71,PENINF72,UNTE2H73,TINTGF74 and FRNNAM76 with source-proven defaults/readers; preserve all environmental/table and user-name branches in the remaining queue. Keep full application scope and loader API."
+    "component": "Environmental tables and remaining root names",
+    "status": "next_after_nine_root_fields",
+    "evidence": "analysis/root-fields-next-scope.json",
+    "next": "Recover every ENVTMP75/CNVCOF78/ENVATM79/ACVCOF80 branch and dependencies, reusing existing unit-owned tables. Preserve USRDEF/UENAME/UNNAME/CVNAME and the embedded-NUL parser gap as required work. Keep full application scope and loader API."
   },
   "integrated_worker_research_checkpoint": {
     "date": "2026-10-21",
@@ -850,5 +857,12 @@
     "validation": "64 original imports,146 handlers,8928 checks,194 observed allocations,4 retained-buffer cases;32 original-first evaluation inputs pass unchanged candidate;122 regression tests pass.",
     "next_export_boundary": "GEOERR",
     "limitations": "Scientific consumers,nonzero preserved54/60 runtime states,large extents,24 EOF cursor positions and complete console/native ABI compatibility remain pending."
+  },
+  "root_fields_checkpoint": {
+    "status": "implemented_subset_runtime_tested",
+    "contract": "analysis/root-fields-import-contract.json",
+    "validation": "64 original imports,226 handlers,11650 checks,26 name reads;32 original-first evaluation inputs pass unchanged candidate;124 regression tests pass.",
+    "next_export_boundary": "ENVTMP",
+    "limitations": "Scientific consumers,furnace collection,embedded-NUL parser behavior,20 EOF cursor positions and full console/native ABI compatibility remain pending."
   }
 }

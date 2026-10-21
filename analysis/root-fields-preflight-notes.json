@@ -1,0 +1,7 @@
+{
+  "status": "pre_capture_fixture_correction",
+  "initial_plan_sha256": "9905154bf730956ed83f89c862c9d8ef457cf8862df85c4e2544e9ec11cdbcc3",
+  "finding": "The initial names3.KEY contained embedded NUL. C++ preflight rejected it with the existing importer-domain guard before handling any keyword; no original capture or candidate freeze existed.",
+  "action": "Replace that pre-capture positive-path fixture with an ASCII name case. Do not relax the global parser guard without recovering outer token and string semantics.",
+  "remaining_required_work": "Embedded-NUL KEY parsing remains a named full-application compatibility gap; source413ab0 string behavior alone does not recover outer parser behavior."
+}

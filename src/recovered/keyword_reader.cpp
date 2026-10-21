@@ -949,6 +949,10 @@ KeywordReader::TextRead KeywordReader::material_name(std::string_view previous_n
     return name_with_capacity(previous_name, 65);
 }
 
+KeywordReader::TextRead KeywordReader::root_name(std::string_view previous_name) {
+    return name_with_capacity(previous_name, 64);
+}
+
 KeywordReader::TextRead KeywordReader::name_with_capacity(
     std::string_view previous_name, std::size_t capacity) {
     // 413ab0: discard remainder, read name, then strncpy/trim capacity-1.

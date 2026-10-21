@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "GEOERR": 71,
+    "PENINF": 72,
+    "UNTE2H": 73,
+    "TINTGF": 74,
+    "FRNNAM": 76,
+    "BLZMAN": 77,
+    "ENVMPR": 81,
+    "ENVMPT": 82,
+    "EHRATE": 83
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/root-fields-static-evidence.json",
+  "contract": {
+    "layout": "GEOERR spans rootdb0/db8/dc0/dc8; PENINFaf8,TINTGFb08,EHRATEd88 are separate. UNTE2Hb00,BLZMANc08,ENVMPRd78,ENVMPTd80 alias existing RootUnitControls scalars[0..3], rather than duplicate fields. FRNNAM is the first64 bytes of the named furnace collection at b90.",
+    "defaults": "1ead60 sets GEOERR exact bit patterns3eb0c6f7a0b5ed8d/3f1a36e2eb1c432d/0/0.1ea6b0 sets PENINF bits41cdcd6500000000,TINTGF3fe8000000000000,EHRATE0 and unit-dependent shared defaults. Unit profiles remain owned by existing unit_system implementation.",
+    "direct_reads": "414990 zeroes one live double before fgets/sscanf;414e40 zeroes four. Partial and matching-failure conversions succeed with zero tails; blank/EOF returns1 and dispatcher maps2. Entire input line is consumed, including trailing tokens. Native helper ABI confirms all four GEOERR destination pointers, including stack-passed rootdc8 omitted from the displayed caller argument list.",
+    "name_reader": "413ab0 first discards the keyword-line remainder, then reads one line. It copies at most63 bytes, strips trailing NUL/space/CR/LF, retains leading spaces and trailing tabs, and terminates within64 bytes. Either failed fgets preserves the old name and returns1/dispatcher2.",
+    "name_lifecycle": "1e7b10 constructs3753f0, which invokes375470 and sets Furnace model.1e7da0 and1ea6b0 call375520, which clears collection entries through136910 at collection+40 without resetting its name. C++ dimension reset therefore retains the old name while resetting the selected numeric fields; both native cohorts verify retention.",
+    "units": "A valid changed UNIT selector resets existing b00/c08/d78/d80 and unit-owned tables. An unchanged/invalid selector leaves their imported values. PENINF,TINTGF,EHRATE,GEOERR and FRNNAM are unaffected by UNIT. Dimension reset retains selector, installs its default numeric profile and retains the furnace name.",
+    "neighbor_state": "Selected root tables, time/iteration/stopping controls, component widths, object/material counts, linked roots and full outer lookup order are compared at wrapper/handler boundaries."
+  },
+  "implementation": [
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_reader.hpp",
+    "src/recovered/keyword_reader.cpp",
+    "src/recovered/keyword_import.hpp",
+    "src/recovered/keyword_import.cpp",
+    "tests/keyword_import_replay.cpp"
+  ],
+  "candidate_freeze": "analysis/root-fields-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "32 source-planned C++ training imports precede freeze. Original training passes, then separate evaluation inputs are prepared and run original-first. Ten frozen source/probe/comparator/generator files remain unchanged after evaluation.",
+  "native_comparisons": [
+    "analysis/root-fields-training-comparison.json",
+    "analysis/root-fields-evaluation-comparison.json"
+  ],
+  "totals": {
+    "imports": 64,
+    "handlers": 226,
+    "name_reads": 26,
+    "checks": 11650,
+    "lookup_tokens": 244,
+    "eof_cursors_unobserved": 20
+  },
+  "inputs": [
+    "analysis/root-fields-fixture-plan.json",
+    "analysis/root-fields-evaluation-inputs.json"
+  ],
+  "coverage": [
+    "All nine keywords in both dimensions in both cohorts.",
+    "Exact default and nonzero finite values, signed zero, comma input, partial/matching/blank/EOF cases.",
+    "Name leading/trailing whitespace, empty names,63-byte truncation, discarded inline text, first/second line EOF and previous-name retention.",
+    "Shared unit aliases, valid changes, same selector and invalid selector, numeric default reset versus name retention.",
+    "Populated meshes, linked isolation, dimension changes, neighboring fields and complete token lookup order."
+  ],
+  "limitations": [
+    "This recovers storage and imports, not scientific consumers or full interactive editing.",
+    "Twenty EOF cursor positions unobserved. Finite numeric values and short ASCII text lines are the tested domain; extended encodings, overlong fgets chunks and undefined conversion cases require separate characterization.",
+    "Embedded-NUL input is still rejected by the pre-existing outer importer guard. The initial preflight fixture correction is retained in analysis/root-fields-preflight-notes.json; full parser recovery remains required.",
+    "The furnace collection name is represented here; its complete ENVTMP mode10 collection and scientific behavior remain in the next required scope.",
+    "Logical selected state equivalence does not establish native pointer ABI, uninitialized padding or whole-application compatibility."
+  ],
+  "resource_release": "New static Evidence retained individually; REA closed without rewriting the immutable baseline. Both passive captures detached with no cleanup/probe errors or truncation; both normal original processes exited0.",
+  "retention_validation": "analysis/root-fields-evidence-retention-validation.json",
+  "static_release_receipt": "analysis/root-fields-static-release-receipt.json",
+  "retained_export_boundary": {
+    "artifact": "analysis/oracle/interactive/rea-step25/output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "status": 0,
+    "next_token": "ENVTMP",
+    "handlers": 49
+  },
+  "next_scope": "analysis/root-fields-next-scope.json",
+  "regression": {
+    "status": "PASS",
+    "tests": 124,
+    "targets": 17,
+    "elapsed_seconds": 30.96,
+    "build_log": "build/root-fields-build.log",
+    "test_log": "build/root-fields-ctest.log"
+  },
+  "loader_api": "include/deform unchanged",
+  "artifact_policy": "Complete raw capture/run files and comparison receipts stay local under existing ignore rules. Selected source evidence, contracts, plans, probes, comparators and small KEY fixtures are versioned. Replays require local retained captures and do not launch the original."
+}

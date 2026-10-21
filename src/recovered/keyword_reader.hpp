@@ -245,6 +245,8 @@ public:
     [[nodiscard]] TextRead name(std::string_view previous_name = {});
     // Same 413ab0 helper with MTNAME capacity65: at most64 name bytes.
     [[nodiscard]] TextRead material_name(std::string_view previous_name = {});
+    // FRNNAM uses413ab0 with capacity64: at most63 stored name bytes.
+    [[nodiscard]] TextRead root_name(std::string_view previous_name = {});
 
     [[nodiscard]] std::size_t cursor() const noexcept { return cursor_; }
     [[nodiscard]] const std::vector<LineRead>& line_reads() const noexcept { return line_reads_; }

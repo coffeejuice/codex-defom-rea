@@ -1846,3 +1846,29 @@ handlers. The database-loader API is unchanged. Full application recovery remain
 active; `analysis/root-tables-next-scope.json` preserves the remaining root work.
 Raw capture/run files and comparison receipts remain local under existing ignore
 rules; the reference tests require those retained files.
+
+## Geometry errors, environmental scalars and furnace name
+
+Nine more root keywords are implemented: GEOERR71, PENINF72, UNTE2H73,
+TINTGF74, FRNNAM76, BLZMAN77, ENVMPR81, ENVMPT82 and EHRATE83. The four
+unit-dependent scalars reuse existing unit-system storage, so changed UNIT
+selectors reset the same values that their keyword imports modify.
+
+GEOERR reads four doubles, and the scalar readers read one. They preserve the
+original zeroing, partial-conversion and failure status rules. FRNNAM discards
+the keyword-line remainder, reads the next line, truncates to 63 bytes and trims
+trailing spaces/CR/LF while retaining tabs. Failed line reads preserve the name.
+Construction initializes `Furnace model`; dimension changes retain the name even
+while resetting numeric fields and clearing collection entries.
+
+The unchanged frozen candidate passes 32 training and 32 separately prepared
+original-first evaluation imports: 226 handlers, 11,650 checks and 26 name reads.
+All 124 regression tests pass after rebuilding all seventeen executable targets.
+The retained full export now reaches ENVTMP after 49 supported handlers. Twenty
+EOF cursor positions, full furnace/environmental table behavior and scientific
+consumers remain pending. Embedded-NUL input remains an explicit outer-parser
+gap; it is not counted as recovered name-import support.
+
+See `analysis/root-fields-import-contract.json` and `analysis/root-fields-next-scope.json`.
+The database-loader API is unchanged, and complete application recovery remains
+active and incomplete.
