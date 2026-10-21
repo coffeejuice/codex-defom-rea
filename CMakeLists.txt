@@ -64,6 +64,11 @@ target_link_libraries(unit_system_test PRIVATE deform_recovered_state)
 add_test(NAME unit_owned_state_contract COMMAND unit_system_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME trans_original_source_audit
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/audit_trans_discovery.py"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/trans-runtime-discovery.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/trans-discovery/run.json"
+      --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/trans-discovery-inputs.json")
   foreach(tnow_batch IN ITEMS training evaluation)
     set(tnow_plan "tnow-fixture-plan.json")
     if(tnow_batch STREQUAL "evaluation")

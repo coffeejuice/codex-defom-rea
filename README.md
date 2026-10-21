@@ -1533,3 +1533,27 @@ All96 regression tests pass.
 Run `ctest --test-dir build -C Release -R tnow --output-on-failure`. These reference
 replays require ignored local capture/run/observer files and do not launch the
 original app. General numeric rounding and scientific consumers remain pending.
+
+## TRANS research checkpoint
+
+TRANS reads five base0 integers into initialized temporaries. A successful
+reader applies nonnegative values to root854..864; negative values retain the
+old fields. Partial and matching failures count as reader success, while blank
+and EOF failures preserve the five fields. TRANS itself performs no refresh.
+Later SMODE writes can replace its first two flags.
+
+The enabled grain flag reaches component queries29/53. REA recovered the fixed
+width16 path and the object/direct61/material/list-count chain for mode2. Its
+fallback table and positive object-to-material sizing cases remain unresolved.
+C++ implementation stays pending until that connected contract is established.
+
+`analysis/trans-next-contract.json` records25 original imports,17 TRANS handlers,
+42 natural feature queries and367 source-derived checks. This validates original
+observations against recovered stores, not a replacement or held-out candidate.
+The initial mesh fixture did not establish a positive material assignment; that
+limitation and the MTNAME fixture error are preserved explicitly. Full export
+still stops at TRANS. Production C++ and the loader API are unchanged.
+
+Run `ctest --test-dir build -C Release -R trans_original_source_audit --output-on-failure`.
+The audit requires ignored local captures, run records and observer copies; it
+does not launch the original application.

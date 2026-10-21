@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "status": "source_and_original_discovery_verified_cpp_pending",
+  "keyword": "TRANS32",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/trans-static-evidence.json",
+  "reader": {
+    "address": "0x140414200",
+    "abi": "FILE in RCX; five int32 output pointers in RDX,R8,R9,caller stack20/28; skip byte caller stack30=0. Dispatcher temporaries contiguous4-byte at caller stackc8..d8.",
+    "initialization": "Five outputs zeroed before fgets1024. Commas become spaces; five %i conversions use base0. With skip0, blank lines are not retried.",
+    "status": "fgets EOF or scanf-1 returns1; zero or partial conversion returns0."
+  },
+  "handler": {
+    "dispatcher": "0x14039aa90 case10",
+    "mutations": "Only reader0 enters five-field loop. In order, each nonnegative temporary stores root854,858,85c,860,864 respectively. Negative values preserve the corresponding field. Reader1 preserves all five fields.",
+    "return_status": "Reader0 =>handler0, reader1 =>handler2. Wrapper error is sticky across later successful handlers.",
+    "side_effects": "No immediate1d0fc0 refresh or linked-root propagation in17 observed handlers, consistent with selected dispatcher assembly.",
+    "defaults": "1e7e90(controls=root750) zeros six ints104..118 then sets108=1, giving root854..864={0,1,0,0,0}. Same-dimension header preserves; changed dimension resets.",
+    "mode_interaction": "SMODE recognized1/2/3 later rewrites flags854/858; TRANS does not rewrite mode844.",
+    "grain_query_state": "root898 defaults0 through1e7e90 zero loop138..15c. Queries29/53 can mutate it later."
+  },
+  "dependent_feature_graph": {
+    "feature49": "1d64f0 query49 returns true for nonzero root85c or an existing qualifying material flag1cc8==1; this dependency is already represented in C++ material_columns_enabled.",
+    "feature53": "Nonzero root864 and a material selector17e8 in1,4,5 enable the query. First match yields width16 through1d70c0 and changes nonzero root898 to0.",
+    "feature29": "Nonzero root864 and any material selector17e8==2 enable the query and force root898=1. Width1d70c0(selector2)=13*1d71b0 result+2*output counter. When resulting width0, a positive root table entry1dc0+4*DAT1406e8464 replaces it.",
+    "object_material_chain": "1d71b0 visits object positions until1d7250 returns nonzero. 1d7250 uses1fc040: absent mesh flag87c or absent direct61 pointer9f8 yields materialID0; otherwise first direct61 value. 1d72a0 forwards to29bcd0, which resolves material references and sums29b2c0 counts.",
+    "grndat_count": "29b2c0 returns0 unless selector17e8==2. Otherwise28b780 returns1 plus all five GRNDAT list counts; record scalar count is not used for this result.",
+    "source_cautions": "Decompiler void forwarder return signatures require assembly qualification. The fallback table/index, branch predicate28d0a0 and concrete positive object/material cases must be resolved before the connected C++ implementation."
+  },
+  "native_discovery": {
+    "status": "PASS_ORIGINAL_TRANS_SOURCE_AUDIT",
+    "imports": 25,
+    "handlers": 17,
+    "checks": 367,
+    "failed_read_handlers": 3,
+    "partial_or_matching_handlers": 3,
+    "feature_queries": 42,
+    "eof_cursors_unobserved": 1,
+    "evidence_id": "ev_7fb47f7c3b808206faa93f7deda1fd430742e3e8381588376c1d4f2680d22bc5",
+    "capture_sha256": "605953e2f9560d2d725ae08ed94c19e4ff98f06fe7c9b34b4961185fbc07e316",
+    "run_sha256": "5acb220ac9144664dfdfbf1b3994cae995440c50ad4ec744c5f316be7c8b9b8c",
+    "scope": "Original observation versus source-derived TRANS stores only. No C++ comparison or held-out evaluation. Grain positive object-to-material mapping, fallback and scientific consumers remain pending."
+  },
+  "inputs": "analysis/trans-discovery-inputs.json",
+  "observer": "tools/observe_trans_import.js",
+  "local_artifacts": [
+    {
+      "path": "analysis/trans-runtime-discovery.json",
+      "bytes": 286167,
+      "sha256": "605953e2f9560d2d725ae08ed94c19e4ff98f06fe7c9b34b4961185fbc07e316",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/trans-discovery/run.json",
+      "bytes": 36904,
+      "sha256": "5acb220ac9144664dfdfbf1b3994cae995440c50ad4ec744c5f316be7c8b9b8c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/trans-discovery/observer-source.js",
+      "bytes": 3318,
+      "sha256": "934ddc2cb357283891ac49f3dd9f95add94c94ea487f0cce837e2c19e85cf4fd",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/trans-grain-snapshot.json",
+      "bytes": 1051600,
+      "sha256": "fcaa5329dc829c108508007bc2406afc2b5a40c59c9b6d4ec9d9bad4999da2d7",
+      "local_only": true
+    }
+  ],
+  "validation": {
+    "focused_ctest": "trans_original_source_audit passed0.19s",
+    "last_full_regression": "Previous adc3424 implementation checkpoint passed96 tests; this research adds one original-source audit. Full97-test suite not rerun because production C++ is unchanged."
+  },
+  "fixture_qualification": [
+    "MTNAME material.KEY returned wrapper2. GRNDAT later created/updated material31; native source audit makes no assertion that the MTNAME fixture succeeded.",
+    "mesh.KEY placed MTLGRP before mesh creation and did not establish a positive first direct61 assignment. Its natural query29 result was0. This case is not positive evidence for object-to-material grain sizing. Prepare a new correctly ordered fixture without changing these frozen inputs."
+  ],
+  "remaining": [
+    "Resolve dimension-selected DAT1406e8464 and root1dc0 fallback table initialization/producers.",
+    "Verify reused material-reference predicate28d0a0 and assembly return forwarding.",
+    "Prepare positive direct61 object/material width cases, multiple objects/references, disabling/re-enabling and populated buffers.",
+    "Implement TRANS and enabled grain component queries together; freeze candidate before separate new evaluation against original.",
+    "Scientific grain consumers, other TRANS fields consumers, complete exporter and full application remain required work."
+  ],
+  "resource_release": "Static Ghidra session closed to retained snapshot. Frida detached without probe error, truncation or cleanup error; original exited0. No active original-process capture remains.",
+  "scope": "Research checkpoint, not C++ compatibility or application completion. Existing loader API and production C++ unchanged; retained full export still stops at TRANS."
+}
