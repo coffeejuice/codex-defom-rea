@@ -15,7 +15,7 @@ namespace {
 ComponentLayoutInputs default_material_layout(int dimension,
     const SimulationControls& simulation, std::int32_t material_count = 0,
     bool material_columns = false, int size_width = 0, int texture_width = 0,
-    std::int32_t relation_count = 0) {
+    std::int32_t relation_count = 0, std::array<int, 2> grain_widths = {}) {
     ComponentLayoutInputs input{};
     input.dimension = dimension;
     input.root_0x850 = simulation.geometry_type;
@@ -30,11 +30,13 @@ ComponentLayoutInputs default_material_layout(int dimension,
     // The remaining inputs retain the reset profile, including zero
     // 11c4/123c/12b4 observed in root-reset-contract-audit.json. This recipe
     // is not an inference from an arbitrary component table or material list.
-    // 1d64f0: query24 true;49 is any material1cc8==1 (root85c stays0);
-    // 53/29 false (root864=0);54/55 are the recovered material queries.
+    // 1d64f0: query24 true;49 includes root85c and material1cc8==1.
+    // Queries53/29 run in that order before54/55.
     // Query46 is dimension2 or a material1e40 flag; those flags are allzero.
     input.feature24.enabled = true;
     input.feature49.enabled = material_columns;
+    input.feature53 = {grain_widths[0] != 0, grain_widths[0]};
+    input.feature29 = {grain_widths[1] != 0, grain_widths[1]};
     input.feature46.enabled = dimension == 2;
     input.feature54 = {size_width > 0, size_width};
     input.feature55 = {texture_width > 0, texture_width};
@@ -232,6 +234,17 @@ void ObjectModel::set_output_flags(const std::array<int, 7>& values) {
     refresh_components();
 }
 
+void ObjectModel::set_trans(const std::array<int, 5>& values) {
+    require_simulation_profile(controls_);
+    auto& s = *controls_.simulation;
+    const std::array<std::int32_t*, 5> fields{
+        &s.flag_0x854, &s.flag_0x858, &s.material_gate_0x85c,
+        &s.flag_0x860, &s.grain_gate_0x864};
+    for (std::size_t i = 0; i < fields.size(); ++i)
+        if (values[i] >= 0) *fields[i] = values[i];
+    // 39aa90 case10 does not refresh widths or propagate to the linked root.
+}
+
 void ObjectModel::refresh_components() {
     refresh_components_impl({}, false);
 }
@@ -289,6 +302,59 @@ bool ObjectModel::material_columns_enabled() const noexcept {
     return (controls_.simulation && controls_.simulation->material_gate_0x85c != 0) ||
         std::any_of(materials_.begin(), materials_.end(),
         [](const auto& material) { return material->mode_0x1cc8 == 1; });
+}
+
+std::array<int, 2> ObjectModel::grain_component_widths() {
+    auto& simulation = *controls_.simulation;
+    std::array<int, 2> widths{}; // Query53, then query29 in1d0320.
+    if (simulation.grain_gate_0x864 == 0) return widths;
+    for (const auto& material : materials_) {
+        const int selector = material->feature_0x17e8;
+        if (selector == 1 || selector == 4 || selector == 5) {
+            widths[0] = 16;
+            simulation.grain_mode_0x898 = 0;
+            break;
+        }
+    }
+    if (std::none_of(materials_.begin(), materials_.end(), [](const auto& material) {
+            return material->feature_0x17e8 == 2;
+        })) return widths;
+    simulation.grain_mode_0x898 = 1;
+    const auto count = [](const MaterialRecord& material) -> std::int64_t {
+        if (material.feature_0x17e8 != 2) return 0;
+        std::int64_t result = 1; // 28b780 includes the embedded record once.
+        for (const auto& list : material.grndat.lists)
+            result += static_cast<std::int64_t>(list.size());
+        return result;
+    };
+    std::int64_t records = 0, columns = 0;
+    // 1d71b0 stops on the first nonzero record count. The out-counter is
+    // retained across zero-returning calls; it is not the number of objects.
+    for (const auto& object : objects_) {
+        const auto ids = object->mesh.direct_integers(61);
+        if (!object->mesh.mesh_present() || ids.empty()) continue;
+        if (object->mesh.direct_integers_initialized_prefix(61) < 1)
+            throw std::invalid_argument("grain sizing needs an initialized first material ID");
+        const auto* material = find_material(ids[0]);
+        if (!material) continue;
+        if (material->mode_0x1cc8 != 1) {
+            columns = 1;
+            records = count(*material);
+        } else {
+            records = 0;
+            for (const int id : material->reference_ids())
+                if (const auto* reference = find_material(id)) records += count(*reference);
+            columns = material->count_0x1ccc;
+        }
+        if (records != 0) break;
+    }
+    const auto width = records * 13 + columns * 2;
+    if (width < std::numeric_limits<int>::min() || width > std::numeric_limits<int>::max())
+        throw std::overflow_error("grain component width exceeds native signed32 domain");
+    widths[1] = static_cast<int>(width);
+    const auto fallback = controls_.raw_0x1dc0[controls_.dimension == 2 ? 185 : 186];
+    if (widths[1] == 0 && fallback > 0) widths[1] = fallback;
+    return widths;
 }
 
 RelationRecord* ObjectModel::find_relation(int key0, int key1) noexcept {
@@ -360,7 +426,7 @@ void ObjectModel::refresh_components_impl(std::span<const int> old_material_ids,
         throw std::overflow_error("material component count exceeds native signed32 domain");
     controls_.component_counts = refresh_layout(default_material_layout(controls_.dimension,
         *controls_.simulation, material_count_, enabled, static_cast<int>(size_width),
-        static_cast<int>(texture_width), relation_count_));
+        static_cast<int>(texture_width), relation_count_, grain_component_widths()));
     for (std::size_t index = 0; index < objects_.size(); ++index) {
         const auto& object = objects_[index];
         if (object->type != 7) {

@@ -57,6 +57,9 @@ struct SimulationControls {
     std::int32_t flag_0x858 = 1;
     int geometry_type = 1; // Root +0x850, GEOTYP.
     std::int32_t material_gate_0x85c = 0; // Independent feature49 gate.
+    std::int32_t flag_0x860 = 0;
+    std::int32_t grain_gate_0x864 = 0;
+    std::int32_t grain_mode_0x898 = 0; // Mutated by queries53 then29, not TRANS.
     std::array<int, 7> output_flags{0, 0, 0, 0, 1, 0, 0}; // +0x86c..0x884.
     std::int32_t step_number_0x8b0 = -1; // NSTART.
     std::int32_t saved_step_0x744 = -1;
@@ -91,6 +94,9 @@ struct RootControls {
     std::array<int, 3> element_multiplicities{1, 1, 1};
     bool alternate_root_enabled = false;
     std::optional<SimulationControls> simulation;
+    // 1cb170 zeros all280 raw entries. DB mapping of this table remains
+    // pending; query29 reads the dimension-selected185/186 fallback entry.
+    std::array<std::int32_t, 280> raw_0x1dc0{};
 };
 
 // Recovered 1c8c00/1e7c50/1d09c0 empty-root profile. Temperature initialization
@@ -297,6 +303,7 @@ public:
     void set_mesh_number(std::int32_t value);
     void set_unit(std::int32_t value);
     void set_tnow(const std::array<double, 4>& values);
+    void set_trans(const std::array<int, 5>& values);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global
@@ -410,6 +417,7 @@ private:
     bool import_flag_0x2f88_ = false;
     bool import_flag_0x2f89_ = false;
     [[nodiscard]] bool material_columns_enabled() const noexcept;
+    [[nodiscard]] std::array<int, 2> grain_component_widths();
     void refresh_components_impl(std::span<const int> old_material_ids,
         bool remap_materials);
     void finalize_material_references();

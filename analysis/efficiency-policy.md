@@ -58,6 +58,11 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   completed implementation. Do not weaken tests, freezes, held-out chronology,
   source bindings or API compatibility for speed. Repeat only for a relevant new
   change, failure or unresolved concern.
+- For a positive runtime claim, reuse the recovered fixture grammar and record
+  the expected successful wrapper status and the intended nonzero effect before
+  capture. Compare those expectations with the original, not just C++ with the
+  original. Matching error states or zero outputs do not establish positive-path
+  coverage. Keep failed fixtures as explicitly labelled error cases.
 
 ## Reporting and persistence
 

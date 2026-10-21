@@ -62,8 +62,24 @@ target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 add_executable(unit_system_test tests/unit_system_test.cpp)
 target_link_libraries(unit_system_test PRIVATE deform_recovered_state)
 add_test(NAME unit_owned_state_contract COMMAND unit_system_test)
+add_executable(grain_layout_test tests/grain_layout_test.cpp)
+target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
+add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(trans_batch IN ITEMS positive evaluation positive-v2 evaluation-v2 selector-transitions)
+    string(REPLACE "-" "_" trans_suffix "${trans_batch}")
+    if(trans_batch STREQUAL "positive" OR trans_batch STREQUAL "evaluation")
+      string(PREPEND trans_suffix "initial_error_")
+    endif()
+    add_test(NAME "trans_${trans_suffix}_cpp_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_trans_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --reader-driver "$<TARGET_FILE:keyword_reader_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/trans-runtime-${trans_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/trans-${trans_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/trans-${trans_batch}-inputs.json")
+  endforeach()
   add_test(NAME trans_original_source_audit
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/audit_trans_discovery.py"
       --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/trans-runtime-discovery.json"

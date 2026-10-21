@@ -1,4 +1,4 @@
-# Intermediate efficiency audit — 2026-10-21
+# Intermediate efficiency audit â€” 2026-10-21
 
 No current external blocker was found. The application recovery remains active;
 archived worker coordination remains paused. The next production task is TNOW.
@@ -8,7 +8,7 @@ Four completed recovery windows were measured from bounded local timing metadata
 For the latest UNIT implementation, tool activity occupied 92.9s of 833.3s
 (11.1%). Reasoning items occupied 384.9s; 364.7s remained unattributed to measured
 items. Intervals can overlap. Unattributed time is not assigned to a cause.
-The full regression took 29.19s. Some native REA requests took 85–99s in earlier
+The full regression took 29.19s. Some native REA requests took 85â€“99s in earlier
 windows. Faster test execution is therefore not the largest present opportunity.
 
 | Consumer | Adopted improvement |
@@ -34,3 +34,31 @@ Measure the effect on comparable future work before claiming a total speedup.
 Evidence: `analysis/efficiency-baseline.json`,
 `analysis/efficiency-tooling-validation.json`, `analysis/efficiency-state.json`.
 Operating rules: `analysis/efficiency-policy.md` and project `AGENTS.md`.
+
+
+## Safe-checkpoint review after TRANS implementation, 2026-10-21
+
+The last completed TRANS research turn took17m58s. Its tool interval union was
+280.5s, observed reasoning189.7s and unattributed time626.3s; no cause is assigned
+to the unattributed portion. Its largest measured tool item was a123.7s native
+analysis request. These are different work units from UNIT, not a speed benchmark.
+The bounded report separates100,933 uncached input,7,881,856 cached input and
+20,337 output tokens for that research window; these are ledger deltas, not a
+billing estimate. Current implementation-turn timing remains outside that report.
+
+The current checkpoint exposed a more actionable retry cause: two new runtime
+cohorts reproduced matching error/zero states but did not exercise positive grain
+sizing. Their harness elapsed totals58.719s include gate waits; they are retained
+as error cases. Corrected cohorts use the recovered MTLGRP grammar, explicit
+wrapper success and expected nonzero component widths. No C++ candidate change
+was needed. The one new workflow improvement is an explicit positive-effect gate.
+A0.306s negative check against the retained zero-width capture confirms the new
+guard rejects a false positive claim without launching the original again.
+
+All103 regression tests passed in53.95s. Earlier runs took29.19s and76.79s with
+different counts/load. No total wall-time or token reduction is established yet.
+Keep warm-session dependency questions bounded and reuse saved source bodies;
+new speed proposals remain subordinate to evidence and fidelity.
+
+Evidence: `analysis/efficiency-review-20261021-trans.json`,
+`analysis/trans-coverage-guard-validation.json`, `analysis/trans-import-contract.json`.

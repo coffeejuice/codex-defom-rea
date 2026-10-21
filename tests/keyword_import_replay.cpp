@@ -686,6 +686,17 @@ void state(const ObjectModel& model) {
         raw_values(std::span(&s.field_0xda8, 1)); std::cout << '}';
     }
     std::cout << ",\"custom_last_id_0x33b8\":" << model.custom_last_id();
+    std::cout << ",\"trans\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& s = *controls.simulation;
+        const std::array<std::int32_t, 5> fields{s.flag_0x854, s.flag_0x858,
+            s.material_gate_0x85c, s.flag_0x860, s.grain_gate_0x864};
+        numbers(fields);
+    }
+    std::cout << ",\"grain_mode_0x898\":";
+    if (controls.simulation) std::cout << controls.simulation->grain_mode_0x898;
+    else std::cout << "null";
     std::cout << ",\"simulation_mode\":";
     if (!controls.simulation) std::cout << "null";
     else std::cout << "{\"mode_0x844\":" << controls.simulation->mode_0x844

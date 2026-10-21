@@ -62,12 +62,12 @@ public:
 
     // Already text-translated bytes, using KeywordReader's bounded numeric
     // compatibility domain. Normal wrapper option0 only. Supported handlers:
-    // TITLE, CURSIM, OPRNAM, SIMNAM; STYPE, SMODE, GEOTYP, MESHNO, UNIT, TNOW, STNOUT, NSTART, PDIE,
+    // TITLE, CURSIM, OPRNAM, SIMNAM; STYPE, SMODE, GEOTYP, MESHNO, UNIT, TNOW, TRANS, STNOUT, NSTART, PDIE,
     // DSMAX, DSMAX_NSTEP, DTMAX, DTTYPE,
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,
-    // FSTRES and GRNDAT (all selector branches in the disabled grain profile);
+    // FSTRES and GRNDAT (all selector branches; enabled grain widths recovered);
     // TRNSFP, PHEQVF, COARSN, IPSNRG, VARSEL; STROKE, DIEGEO, RZ, ELMCON,
     // MTLGRP, VOLFC, VOLFS; fixed mesh fields DRZ, BCCDEF, BCCDFN, URZ,
     // FRZ, PRZ, BCCTMP, BCCTFN, NDHEAT, NDFLUX, STNCMP, DENSTY, DVOLF,

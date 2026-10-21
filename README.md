@@ -1557,3 +1557,29 @@ still stops at TRANS. Production C++ and the loader API are unchanged.
 Run `ctest --test-dir build -C Release -R trans_original_source_audit --output-on-failure`.
 The audit requires ignored local captures, run records and observer copies; it
 does not launch the original application.
+
+## TRANS and enabled grain-width implementation
+
+TRANS now applies the recovered conditional stores without an immediate refresh.
+The next refresh evaluates the material gate and the grain component queries in
+source order. Fixed grain modes use width 16; mode 2 follows object material IDs,
+immediate references and GRNDAT list counts. The dimension selects fallback entry
+185 or 186 from the raw root table. Its initialized state and positive fallback
+branch have source-contract tests; native DB population remains pending.
+
+The corrected cohorts match 59 original imports, 25 TRANS handlers and 2,304 C++
+comparison checks, including nonzero widths in both dimensions and populated-mesh
+selector transitions. The candidate remained unchanged for new original-first
+evaluation. Initial fixtures that matched error states are retained as error
+regressions and excluded from those positive-coverage totals. Explicit wrapper
+and nonzero-width expectations now prevent that coverage mistake.
+
+All 103 regression tests pass. `analysis/trans-import-contract.json` records source
+bindings, candidate freezes, fixture repair and limits. Complete grain-buffer
+contents, native DB-populated fallbacks and scientific consumers remain unverified.
+The retained full export now reaches HTMTHD after ten supported handlers. The
+existing loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R "trans|grain_fallback" --output-on-failure`.
+The fallback test uses tracked sources; original reference replays need ignored
+local capture/run/observer files and do not launch the original app.

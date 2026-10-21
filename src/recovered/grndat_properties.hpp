@@ -4,7 +4,7 @@
 
 namespace deform::recovered {
 struct GrndatReadResult { int status; bool refresh; };
-// 384a50 case108 under the established root864=0 profile. Status2 keeps
+// 384a50 case108; model refresh applies the root864-dependent widths. Status2 keeps
 // prior stores/created nodes; refresh is deliberately independent of success.
 [[nodiscard]] GrndatReadResult read_grndat(MaterialRecord& material, KeywordReader& reader);
 }

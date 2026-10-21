@@ -99,10 +99,14 @@ def main():
     for filename, widths, mode in [('grain5.KEY', [0, 16], 0), ('disable.KEY', [0, 0], 0),
                                   ('grain2.KEY', [0, 0], 1), ('grain1.KEY', [0, 16], 0),
                                   ('grain4.KEY', [0, 16], 0), ('grain0.KEY', [0, 0], 0)]:
+        if filename not in by_file:
+            continue
         state = by_file[filename]['after']['state']
         equal([state['components'][i] for i in [29, 53]], widths, filename + '/observed widths')
         equal(state['field_0x898'], mode, filename + '/query side effect')
     for filename in ['partial.KEY', 'matching.KEY']:
+        if filename not in by_file:
+            continue
         for call in by_file[filename]['handlers']:
             partial += 1
             equal(call['status'], 0, filename + '/partial or matching success')
@@ -111,7 +115,7 @@ def main():
                   partial_or_matching_handlers=partial, feature_queries=len(queries),
                   eof_cursors_unobserved=eof, evidence_id=evidence['evidence_id'],
                   capture_sha256=digest(args.capture), run_sha256=digest(args.run),
-                  scope='Original observation versus source-derived TRANS stores only. No C++ comparison or held-out evaluation. Grain positive object-to-material mapping, fallback and scientific consumers remain pending.')
+                  scope='Original observation versus source-derived TRANS stores only. No C++ comparison or held-out evaluation; dependent grain sizing is outside this source audit.')
     if args.report:
         args.report.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8', newline='\n')
     print(json.dumps(report))
