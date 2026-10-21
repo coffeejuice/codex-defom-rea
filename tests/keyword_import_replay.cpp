@@ -728,6 +728,22 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"iteration\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& i = controls.simulation->iteration;
+        const std::array<int, 9> words{i.itrmth_0xa30, i.solmtd_0xa34, i.parameter_count_0xa38,
+            i.itrmxd_0xa60, i.defbwd_0xa64, i.solmtt_0xa68, i.itrmxt_0xa6c,
+            i.tmpbwd_0xa70, i.latent_0xa74};
+        std::array<double, 6> reals;
+        std::copy(i.cvgerr_0xa20.begin(), i.cvgerr_0xa20.end(), reals.begin());
+        std::copy(i.parameters_0xa40.begin(), i.parameters_0xa40.end(), reals.begin() + 2);
+        std::cout << "{\"integers\":";
+        numbers(words);
+        std::cout << ",\"reals_hex\":";
+        raw_values(std::span(reals));
+        std::cout << '}';
+    }
     std::cout << ",\"dimensional_step\":";
     if (!controls.simulation) std::cout << "null";
     else {
@@ -916,6 +932,14 @@ void result(const KeywordImportResult& value) {
         std::cout << ",\"unknown_warning\":" << (event.unknown_warning ? "true" : "false")
                   << ",\"skipped_line\":";
         emit_quoted(event.skipped_line);
+        if (!event.diagnostics.empty()) {
+            std::cout << ",\"diagnostics\":[";
+            for (std::size_t i = 0; i < event.diagnostics.size(); ++i) {
+                if (i) std::cout << ',';
+                emit_quoted(event.diagnostics[i]);
+            }
+            std::cout << ']';
+        }
         std::cout << '}';
     }
     std::cout << "]}";

@@ -109,3 +109,14 @@ One pre-freeze snapshot-driver identifier error was corrected; no C++ correction
 after native training or evaluation. Existing bounded views and positive native
 expectations remain sufficient; no new tooling change. See
 `analysis/efficiency-review-20261021-time-step-import.json`.
+
+## Iteration-control review and Evidence retention
+
+The checkpoint passes64 original imports/198 handlers and all120 tests in30.32s.
+Four new complete inline Evidence records total742,312bytes; the293,019,164-byte
+baseline snapshot remains hash-identical. Closing without another cumulative
+snapshot returned in5,242ms. Adopt this only for read-only queries with every new
+complete record retained and hashed; otherwise preserve a snapshot. These are
+artifact bytes and one uncontrolled close time, not total-speed or token savings.
+Use the existing no-redundant-rechecking rule after passing concrete gates. See
+`analysis/efficiency-review-20261021-iteration-controls.json`.

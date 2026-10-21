@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 370010915,
+    "tail_mib": 32,
+    "start_offset": 336492984,
+    "end_offset": 370010915,
+    "window_sha256": "fa7455a2e816e4aa361ed7eb14467806f4b46049b4c9a40c82185bd0402cd55f"
+  },
+  "turns": [
+    {
+      "turn_id": "01a15f5e-a0c5-77a3-8b93-5d1234e4d765",
+      "started_at": "2026-10-21T16:49:59.907Z",
+      "completed_at": "2026-10-21T17:18:16.147Z",
+      "elapsed_seconds": 1696.24,
+      "tool_active_union_seconds": 603.63,
+      "reasoning_item_union_seconds": 664.726,
+      "tool_reasoning_overlap_seconds": 185.463,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 601.062,
+      "tool_items": {
+        "CommandExecution": 39,
+        "open_binary": 1,
+        "analyze_function": 2,
+        "FileChange": 11,
+        "Extension": 1,
+        "close_binary": 1,
+        "instrument_with_frida": 2
+      },
+      "failed_tool_items": 1,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 11292498,
+        "cached_input_tokens": 11218432,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 42100,
+        "reasoning_output_tokens": 20785,
+        "total_tokens": 11334598,
+        "uncached_input_tokens": 74066
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "open_binary",
+          "seconds": 142.922,
+          "item_id": "exec-c0a1f782-0f37-4fc2-84f5-a5a843b65a2d"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "analyze_function",
+          "seconds": 99.274,
+          "item_id": "exec-4d03dda4-7d75-4be8-a571-ed0900bcfcd0"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.299,
+          "item_id": "exec-04bbb08a-0d75-4ac2-a45f-5aa909ffad46"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.062,
+          "item_id": "exec-558ec78d-df50-4d55-9b8f-de0b738bc149"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 33.611,
+          "item_id": "exec-c26325ed-5bfb-456d-8869-35d509ddeb83"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a15f78-8464-7171-83f4-6acc5c73b04f",
+      "started_at": "2026-10-21T17:18:16.192Z",
+      "completed_at": "2026-10-21T17:59:34.681Z",
+      "elapsed_seconds": 2478.489,
+      "tool_active_union_seconds": 325.724,
+      "reasoning_item_union_seconds": 1397.563,
+      "tool_reasoning_overlap_seconds": 137.271,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 875.404,
+      "tool_items": {
+        "CommandExecution": 47,
+        "open_binary": 1,
+        "analyze_function": 3,
+        "FileChange": 11,
+        "close_binary": 1,
+        "instrument_with_frida": 2
+      },
+      "failed_tool_items": 2,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 15988914,
+        "cached_input_tokens": 15868672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 71505,
+        "reasoning_output_tokens": 43714,
+        "total_tokens": 16060419,
+        "uncached_input_tokens": 120242
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "analyze_function",
+          "seconds": 81.824,
+          "item_id": "exec-5b5cfed9-971f-4cef-a0a2-89bd9ad48d6d"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.227,
+          "item_id": "exec-ebc480e5-95b6-484e-b0e3-493690149cab"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 33.917,
+          "item_id": "exec-0928bb8d-1abd-4411-acfb-455014f61eb2"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 31.53,
+          "item_id": "exec-44609d43-452a-4f74-b648-b3eacff5cce7"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "open_binary",
+          "seconds": 28.952,
+          "item_id": "exec-11c5548e-d1bd-4f89-a49d-3a27689fdc92"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "checkpoint_observation": {
+    "checkpoint": "analysis/iteration-controls-import-contract.json",
+    "scope": "Current completed checkpoint in worktree; completed-turn timing above covers prior turns, not current whole turn.",
+    "native_imports": 64,
+    "native_handlers": 198,
+    "full_regression_seconds": 30.32,
+    "tests_passed": 120,
+    "capture_retry_count": 0,
+    "candidate_corrections_after_native_training": 0,
+    "qualification": "Different workloads and uncontrolled host conditions prevent total wall-time or token speedup claims. Apply the existing rule to stop speculative rechecking after concrete gates pass."
+  },
+  "decision": {
+    "new_workflow_change": "Close read-only REA sessions without another cumulative snapshot when every new complete inline Evidence record is retained and hashed, baseline is immutable, and no required annotations/state would be lost.",
+    "validation": "analysis/iteration-evidence-retention-validation.json",
+    "new_complete_records": 4,
+    "new_complete_bytes": 742312,
+    "retained_baseline_bytes": 293019164,
+    "observed_close_ms": 5242,
+    "limits": "One uncontrolled close observation; no causal total-speed comparison. Old snapshots retained unchanged. Snapshot still required for otherwise unretained state.",
+    "validation_retained": "Seven frozen files unchanged through original-first evaluation; all120 regression tests pass.",
+    "blockers": "No external blocker. Full scientific and application recovery remains substantial."
+  }
+}

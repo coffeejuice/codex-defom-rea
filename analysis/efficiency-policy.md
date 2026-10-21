@@ -51,6 +51,12 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   previously included heap padding. Do not add an extra original run routinely.
 - Batch independent reads and hash/report preparation. Keep provider-dependent
   queries, mutations and verification ordered. Use one native REA owner.
+- After read-only function queries, retain and hash every new complete inline
+  Evidence record, keep the immutable baseline, and close REA without another
+  cumulative snapshot. Request a snapshot when annotations or other required
+  state are not retained separately. Record the release receipt and verify
+  retention; `analysis/iteration-evidence-retention-validation.json` is the first
+  measured check. Artifact-byte savings do not establish time or token savings.
 - Resolve the concrete uncertainty, run the required comparison, inspect a concise
   diff, and proceed. Do not repeatedly speculate about already-passing unchanged
   code or regenerate the same report merely to reassure yourself.

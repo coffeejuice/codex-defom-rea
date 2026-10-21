@@ -106,6 +106,14 @@ RootControls initialized_root_controls(int dimension, double node8_default,
     RootControls result{};
     result.dimension = dimension;
     result.simulation.emplace();
+    auto& iteration = result.simulation->iteration;
+    iteration.cvgerr_0xa20 = dimension == 3
+        ? std::array{std::bit_cast<double>(std::uint64_t{0x3f747ae147ae147b}),
+                     std::bit_cast<double>(std::uint64_t{0x3fa999999999999a})}
+        : std::array{std::bit_cast<double>(std::uint64_t{0x3f50624dd2f1a9fc}),
+                     std::bit_cast<double>(std::uint64_t{0x3f847ae147ae147b})};
+    iteration.itrmth_0xa30 = dimension == 3 ? 2 : 1;
+    iteration.solmtt_0xa68 = dimension == 3 ? 2 : 1;
     auto& dimensional = result.simulation->dimensional;
     dimensional.dtsub_0xa10 = dimension == 3 ? 1.0 : 0.0;
     if (dimension == 2) dimensional.planar.emplace();
@@ -352,6 +360,44 @@ void ObjectModel::set_dimensional_real(int keyword, double value) {
     else if (keyword == 59 && controls_.dimension == 3) dimensional.dplen_0xa18 = value;
     else if (keyword == 60 && controls_.dimension == 3) dimensional.odmax_0x1318 = value;
     else throw std::invalid_argument("unmapped dimensional scalar or dimension");
+}
+
+void ObjectModel::set_convergence(const std::array<double, 2>& values) {
+    require_simulation_profile(controls_);
+    controls_.simulation->iteration.cvgerr_0xa20 = values;
+}
+
+void ObjectModel::set_iteration_integer(int keyword, int value) {
+    require_simulation_profile(controls_);
+    auto& i = controls_.simulation->iteration;
+    if (keyword == 64) i.itrmxd_0xa60 = value;
+    else if (keyword == 65) i.defbwd_0xa64 = value;
+    else if (keyword == 67) i.itrmxt_0xa6c = value;
+    else if (keyword == 68) i.tmpbwd_0xa70 = value;
+    else if (keyword == 69) i.latent_0xa74 = value;
+    else throw std::invalid_argument("unmapped iteration integer");
+}
+
+bool ObjectModel::set_iteration_selector(int keyword, int value) {
+    require_simulation_profile(controls_);
+    const int maximum = keyword == 63 ? 3 : keyword == 66 ? 5 : keyword == 70 ? 6 : 0;
+    if (!maximum) throw std::invalid_argument("unmapped iteration selector");
+    if (value < 1 || value > maximum) return false;
+    auto& i = controls_.simulation->iteration;
+    if (keyword == 63) i.itrmth_0xa30 = controls_.dimension == 2 && value == 3 ? 1 : value;
+    else if (keyword == 66) i.solmtt_0xa68 = controls_.dimension == 2 && value == 2 ? 1 : value;
+    else {
+        i.solmtd_0xa34 = value;
+        i.parameter_count_0xa38 = 0; // Old parameter values are retained.
+    }
+    return true;
+}
+
+void ObjectModel::set_solver_parameters(const std::array<double, 4>& values) {
+    require_simulation_profile(controls_);
+    auto& i = controls_.simulation->iteration;
+    i.parameter_count_0xa38 = 4;
+    i.parameters_0xa40 = values;
 }
 
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {

@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "CVGERR": 61,
+    "INIGES": 62,
+    "ITRMTH": 63,
+    "ITRMXD": 64,
+    "DEFBWD": 65,
+    "SOLMTT": 66,
+    "ITRMXT": 67,
+    "TMPBWD": 68,
+    "LATENT": 69,
+    "SOLMTD": 70
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/iteration-controls-static-evidence.json",
+  "contract": {
+    "defaults": "1e96b0 supplies exact dimension-specific CVGERR doubles and ITRMTH/SOLMTT defaults. SOLMTD initializes1,count0,parameters0; direct iteration words initialize200/1/200/1/0. The called1e9850 initializes a separate table at roota80 and does not overwrite these selected fields.",
+    "direct_reads": "CVGERR reads two live doubles; ITRMXD,DEFBWD,ITRMXT,TMPBWD,LATENT read live int32 fields. INIGES consumes one temporary integer without retaining a model field. Helpers zero outputs before reading, and partial/matching/blank/EOF status follows recovered readers.",
+    "validation": "1ea4d0 accepts ITRMTH1..3;1ea610 accepts SOLMTT1..5;1ea570 accepts SOLMTD1..6 in both dimensions. Validators do not mutate inputs. The caller maps ITRMTH3 to1 and SOLMTT2 to1 in2D. Rejected requests preserve prior state and emit exact ignored diagnostics, including after failed reads of zero.",
+    "solver_state": "Accepted SOLMTD stores mode and clears count, retaining the old four parameter values. Mode2 option4 reads four temporary integers and converts to double; otherwise stores2,4,1,1 and emits two diagnostics. Mode6 option4 reads four temporary doubles; other options retain old values with count0 and emit missing-parameters diagnostic. Payload-reader status overwrites header status and failed payload zeros are committed.",
+    "warning_bug": "Assembly CVTTSD2SI at39c06c reads8 bytes at roota60, combining ITRMXD and DEFBWD, for the printed S4 default-warning value instead of reading the actual fourth parameter at a58. Reconstructed bit packing and defined legacy invalid-conversion result preserve the observed warning, including INT_MIN for NaN.",
+    "diagnostics": "KeywordEvent now retains exact logical LF diagnostic lines for later console integration. Native fprintf format and signed32 arguments are observed passively; driver serialization includes diagnostics only when nonempty. No uninitialized native temporary prestate or padding is read.",
+    "effects": "No immediate mesh refresh observed. Complete token lookup order, linked-root state, dimension resets, selected neighbor state, unit retention and populated meshes compare."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "api": "Existing include/deform loader API unchanged. Internal keyword events gain additive diagnostics; native object/stack ABI and floating environment are not claimed."
+  },
+  "candidate_freeze": "analysis/iteration-controls-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "32 source-planned training imports ran on C++ before original observation.32 separately prepared evaluation imports ran on original before C++, with seven frozen files unchanged. Accepted selector values and established grammar were necessarily reused with new ordering,payloads and retention contexts; no universal numerical-domain claim.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_ITERATION_CONTROLS_COMPARISON",
+      "imports": 32,
+      "handlers": 93,
+      "handler_counts": {
+        "61": 4,
+        "62": 4,
+        "64": 5,
+        "65": 5,
+        "67": 4,
+        "68": 4,
+        "69": 4,
+        "63": 11,
+        "66": 15,
+        "70": 37
+      },
+      "dimension_counts": {
+        "61/2": 3,
+        "62/2": 3,
+        "64/2": 4,
+        "65/2": 3,
+        "67/2": 3,
+        "68/2": 3,
+        "69/2": 3,
+        "63/2": 6,
+        "66/2": 8,
+        "70/2": 17,
+        "61/3": 1,
+        "62/3": 1,
+        "64/3": 1,
+        "65/3": 2,
+        "67/3": 1,
+        "68/3": 1,
+        "69/3": 1,
+        "63/3": 5,
+        "66/3": 7,
+        "70/3": 20
+      },
+      "accepted_validators": 53,
+      "rejected_validators": 10,
+      "solver_payloads": 17,
+      "diagnostic_lines": 20,
+      "lookup_tokens": 99,
+      "checks": 5249,
+      "eof_cursors_unobserved": 9,
+      "evidence_id": "ev_99b70cde418f9dc837a7695ad7ae5dbd9b00616e6ca05e899d3ca90da2b21949",
+      "capture_sha256": "b18c1afd6b45f5fd1697b56188c496d1e43d53a5c6a360acb73f35753e37d88f",
+      "run_sha256": "126b357e7d14f8bdded2890610eed751e27d4aff8f20b87b950848638646d98e",
+      "scope": "Ten typed controls61..70, selector validation/remapping and retained parameters, exact payload bytes/diagnostics including original S4 warning bug, token order and selected neighboring state. Uninitialized temporary prestates and scientific execution excluded."
+    },
+    {
+      "status": "PASS_NATIVE_ITERATION_CONTROLS_COMPARISON",
+      "imports": 32,
+      "handlers": 105,
+      "handler_counts": {
+        "61": 6,
+        "62": 6,
+        "64": 7,
+        "65": 8,
+        "67": 5,
+        "68": 5,
+        "69": 5,
+        "63": 11,
+        "66": 15,
+        "70": 37
+      },
+      "dimension_counts": {
+        "61/3": 4,
+        "62/3": 4,
+        "64/3": 4,
+        "65/3": 5,
+        "67/3": 3,
+        "68/3": 3,
+        "69/3": 3,
+        "63/3": 5,
+        "66/3": 7,
+        "70/3": 22,
+        "61/2": 2,
+        "62/2": 2,
+        "64/2": 3,
+        "65/2": 3,
+        "67/2": 2,
+        "68/2": 2,
+        "69/2": 2,
+        "63/2": 6,
+        "66/2": 8,
+        "70/2": 15
+      },
+      "accepted_validators": 54,
+      "rejected_validators": 9,
+      "solver_payloads": 15,
+      "diagnostic_lines": 23,
+      "lookup_tokens": 115,
+      "checks": 5689,
+      "eof_cursors_unobserved": 8,
+      "evidence_id": "ev_c4ed9c114f49c104af853ee326c5edd63dba6cfda6a783732551fabbf8a1cd0d",
+      "capture_sha256": "16cf61d6ed93681e6f69db8f835a174f564f7a9963e83910c7325bea7b1bd061",
+      "run_sha256": "b7443dd21f11695fd0bcd3d5356027d3ebb44e34343f2f261b61c97ce899e5cf",
+      "scope": "Ten typed controls61..70, selector validation/remapping and retained parameters, exact payload bytes/diagnostics including original S4 warning bug, token order and selected neighboring state. Uninitialized temporary prestates and scientific execution excluded."
+    }
+  ],
+  "totals": {
+    "imports": 64,
+    "handlers": 198,
+    "checks": 10938,
+    "accepted_validators": 107,
+    "rejected_validators": 19,
+    "solver_payloads": 32,
+    "diagnostic_lines": 43,
+    "lookup_tokens": 214,
+    "eof_cursors_unobserved": 17
+  },
+  "inputs": [
+    "analysis/iteration-controls-fixture-plan.json",
+    "analysis/iteration-controls-evaluation-inputs.json"
+  ],
+  "coverage": "All ten keywords in both dimensions in both cohorts; every accepted selector value for all three validators in each dimension/cohort, rejected values,2D remaps, retained parameters, mode2 default/integer payload,mode6 missing/real payload, full/partial/matching/blank/EOF reads, signed zero, warning bug with two NaN bit patterns, following-token consumption, linked isolation,unit retention and populated meshes.",
+  "limitations": [
+    "Finite initialized ordinary import profile. General numerical rounding, overflow, allocation failure, arbitrary startup configurations and complete scientific execution remain unverified.",
+    "Seventeen native cursor positions at EOF are unavailable after CRT buffer reset; observed nonzero cursors compared.",
+    "Uninitialized temporary prestates and paddinga3c are excluded. Exact diagnostic text is retained as library events; a complete compatible console frontend and native floating-status environment remain pending.",
+    "Separate iteration table at roota80 and all remaining application/model consumers remain required recovery work. Selected state equality does not prove absence of every other memory effect.",
+    "Replay requires ignored local Evidence/run/observer files; CTest does not execute the original. Full application goal remains active and incomplete."
+  ],
+  "resource_release": "All four new complete inline Evidence records retained individually; Ghidra closed without a new cumulative snapshot. Receipt:analysis/iteration-static-release-receipt.json. Both passive Frida sessions detached without cleanup error,truncation orprobe error; original processes exited0.",
+  "local_artifacts": [
+    {
+      "path": "analysis/iteration-controls-runtime-training.json",
+      "bytes": 1671076,
+      "sha256": "b18c1afd6b45f5fd1697b56188c496d1e43d53a5c6a360acb73f35753e37d88f",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/iteration-controls-training/run.json",
+      "bytes": 47981,
+      "sha256": "126b357e7d14f8bdded2890610eed751e27d4aff8f20b87b950848638646d98e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/iteration-controls-training/observer-source.js",
+      "bytes": 8603,
+      "sha256": "8cc139c3f897145ff3172ae3ba58c0b7712be1dc33f0e3eb6c34e9a731551fb3",
+      "local_only": true
+    },
+    {
+      "path": "analysis/iteration-controls-runtime-evaluation.json",
+      "bytes": 1833135,
+      "sha256": "16cf61d6ed93681e6f69db8f835a174f564f7a9963e83910c7325bea7b1bd061",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/iteration-controls-evaluation/run.json",
+      "bytes": 48498,
+      "sha256": "b7443dd21f11695fd0bcd3d5356027d3ebb44e34343f2f261b61c97ce899e5cf",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/iteration-controls-evaluation/observer-source.js",
+      "bytes": 8605,
+      "sha256": "adfcb7de823a63145c33f3458b4b8bff1b716631f50d2e09a206f7c537bf714c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/iteration-0x1401ea4d0.json",
+      "bytes": 180367,
+      "sha256": "148ba064643ecb41237c7a90d6ceaedc6bb844c3d6343d5862bf4741aba1b852",
+      "local_only": true
+    },
+    {
+      "path": "analysis/iteration-0x1401ea570.json",
+      "bytes": 180367,
+      "sha256": "ce3d063f5bdf8cab49d835da622112d3a9711b3b761773525222e047cafc78a0",
+      "local_only": true
+    },
+    {
+      "path": "analysis/iteration-0x1401ea610.json",
+      "bytes": 180367,
+      "sha256": "782053919f2939ba8875d1282514e9724826e4b8fbfbe17c4a6497c6d5d3c18d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/iteration-0x1401e9850.json",
+      "bytes": 201211,
+      "sha256": "b337b061a7268e5d321c55d854e52eeb2762539e46f27d54531d1b19361cef15",
+      "local_only": true
+    }
+  ],
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "FRQNCY",
+    "supported_handlers": 43
+  },
+  "next_scope": "analysis/remaining-root-controls-next-scope.json",
+  "regression": {
+    "registered": 120,
+    "passed": 120,
+    "failed": 0,
+    "seconds": 30.32,
+    "build": "All17 executable targets rebuilt; complete regression once after implementation."
+  },
+  "incremental_evidence_validation": "analysis/iteration-evidence-retention-validation.json"
+}

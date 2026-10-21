@@ -1777,6 +1777,40 @@ See `analysis/dimensional-controls-import-contract.json` for evidence and limits
 The retained full export now reaches CVGERR after thirty-four supported handlers.
 The public database-loader API is unchanged; complete application recovery remains
 active and incomplete.
+
+## Iteration controls, solver parameters and diagnostics
+
+The importer now supports the ten native-catalog keywords from CVGERR61 through
+SOLMTD70. CVGERR and the direct iteration integers retain their original partial
+read and error behavior. INIGES consumes a temporary without inventing a stored
+model field. ITRMTH accepts 1–3, SOLMTT accepts 1–5 and SOLMTD accepts 1–6; the
+caller remaps ITRMTH 3 and SOLMTT 2 to 1 in 2D. Rejected requests preserve old state.
+
+Accepted SOLMTD clears its parameter count while retaining old parameter values.
+Mode 2 reads four temporary integers when option 4 is present, otherwise installs
+2, 4, 1, 1. Mode 6 reads four doubles with option 4, otherwise retains old values with
+count 0. Payload failures commit the helper's zeroed/partial outputs and replace
+the header status. The new additive keyword-event diagnostics retain exact
+logical LF lines for later console integration.
+
+The original default-parameter warning has a bug: printed S4 is converted from
+the paired ITRMXD/DEFBWD bytes at roota60 rather than the fourth parameter. The
+replacement preserves that warning through explicit bit packing and legacy
+CVTT conversion, including the observed INT_MIN result for NaN bit patterns.
+
+The unchanged frozen candidate passes 32 training and 32 separately prepared
+original-first evaluation imports: 198 handlers, 10,938 checks, 107 accepted and 19
+rejected validator calls, 32 solver payloads and 43 exact diagnostic lines. Every
+accepted selector value is observed in both dimensions in both cohorts. The
+cases also cover partial/matching/blank/EOF input, retained values, signed zero,
+token consumption, linked roots, unit retention and populated meshes. Seventeen
+EOF cursor positions and complete scientific/console execution remain pending.
+All 120 regression tests pass after rebuilding all seventeen executable targets.
+
+See `analysis/iteration-controls-import-contract.json` for source bindings and
+limits. The constructor's separate table at roota80 remains required model work.
+The retained full export now reaches FRQNCY after 43 supported handlers. The
+public database-loader API is unchanged; full application recovery is incomplete.
 The next scope records adjacent stopping controls for dependency-aware batching.
 
 Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference

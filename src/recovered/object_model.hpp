@@ -88,7 +88,22 @@ struct DimensionalStepControls {
     double odmax_0x1318 = 0.0; //39d2b0 writes controlsbc8, not roota18.
 };
 
+struct IterationControls {
+    std::array<double, 2> cvgerr_0xa20{}; // Factory supplies exact dimension defaults.
+    int itrmth_0xa30 = 1;
+    int solmtd_0xa34 = 1;
+    int parameter_count_0xa38 = 0;
+    std::array<double, 4> parameters_0xa40{};
+    int itrmxd_0xa60 = 200;
+    int defbwd_0xa64 = 1;
+    int solmtt_0xa68 = 1;
+    int itrmxt_0xa6c = 200;
+    int tmpbwd_0xa70 = 1;
+    int latent_0xa74 = 0;
+};
+
 struct SimulationControls {
+    IterationControls iteration;
     DimensionalStepControls dimensional;
     TimeStepImportControls time_step_imports;
     StoppingControls stopping;
@@ -363,6 +378,10 @@ public:
     void set_cnterr(int value, double coefficient);
     [[nodiscard]] PropertyTable* set_vfactr_header(int mode, int count);
     void set_dimensional_real(int keyword, double value);
+    void set_convergence(const std::array<double, 2>& values);
+    void set_iteration_integer(int keyword, int value);
+    [[nodiscard]] bool set_iteration_selector(int keyword, int value);
+    void set_solver_parameters(const std::array<double, 4>& values);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

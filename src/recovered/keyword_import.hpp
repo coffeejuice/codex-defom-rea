@@ -27,6 +27,7 @@ struct KeywordEvent {
     std::optional<int> handler_status;
     bool unknown_warning = false;
     std::string skipped_line;
+    std::vector<std::string> diagnostics; // Exact logical LF lines for console integration.
 };
 
 struct KeywordImportResult {
@@ -67,6 +68,7 @@ public:
     // NSTEP, STPDEF, EMAX, TMAX, DEMAX, SMAX, VMIN, LMAX,
     // SLDERR, DTPMAX, DVMAX, MDSOBJ,
     // OSCTRL, CNTERR, VFACTR (owned typeB5 vector), DTSUB, DPLEN, ODMAX,
+    // CVGERR, INIGES, ITRMTH, ITRMXD, DEFBWD, SOLMTT, ITRMXT, TMPBWD, LATENT, SOLMTD,
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

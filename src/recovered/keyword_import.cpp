@@ -129,13 +129,14 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && id >= 22 && id <= 60) ||
+    return (category == 1 && id >= 22 && id <= 70) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
 }
 
-int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& reader) {
+int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& reader,
+                                 std::vector<std::string>& diagnostics) {
     if (id >= 22 && id <= 25) {
         auto& metadata = model.metadata();
         if (id == 23) {
@@ -161,6 +162,63 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
     if (!model.controls().simulation)
         throw std::invalid_argument(
             "configuration refresh requires explicit reset controls and recovered material properties");
+    if (id == 61) {
+        const auto read = reader.real_pair();
+        model.set_convergence(read.values);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 62) {
+        const auto read = reader.integer(); // INIGES consumes a temporary only.
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 64 || id == 65 || (id >= 67 && id <= 69)) {
+        const auto read = reader.integer();
+        model.set_iteration_integer(id, read.values[0]);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 63 || id == 66) {
+        const auto read = reader.integer();
+        if (!model.set_iteration_selector(id, read.values[0]))
+            diagnostics.push_back(std::string(id == 63 ? "ITRMTH " : "SOLMTT ") +
+                std::to_string(read.values[0]) + " - ignored\n");
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 70) {
+        const auto header = reader.integer_pair();
+        int status = header.status;
+        const int mode = header.values[0];
+        if (!model.set_iteration_selector(id, mode)) {
+            diagnostics.push_back("SOLMTD " + std::to_string(mode) + " - ignored\n");
+        } else if (mode == 2) {
+            if (header.values[1] == 4) {
+                const auto read = reader.integer_quad();
+                std::array<double, 4> values;
+                std::transform(read.values.begin(), read.values.begin() + 4, values.begin(),
+                    [](int value) { return static_cast<double>(value); });
+                model.set_solver_parameters(values);
+                status = read.status;
+            } else {
+                model.set_solver_parameters({2.0, 4.0, 1.0, 1.0});
+                diagnostics.push_back("SOLMTD 2 - parameters set to default values\n");
+                const auto& i = model.controls().simulation->iteration;
+                // Original warning CVTTSD2SI reads the paired ITRMXD/DEFBWD
+                // bytes at roota60 as a double instead of parameter S4.
+                const auto bits = std::uint64_t{std::bit_cast<std::uint32_t>(i.itrmxd_0xa60)} |
+                    (std::uint64_t{std::bit_cast<std::uint32_t>(i.defbwd_0xa64)} << 32);
+                const double value = std::bit_cast<double>(bits);
+                const int s4 = !std::isfinite(value) || value < -2147483648.0 || value >= 2147483648.0
+                    ? std::numeric_limits<int>::min() : static_cast<int>(value);
+                diagnostics.push_back("S1:2;  S2:4;  S3:1;  S4:" + std::to_string(s4) + "\n");
+            }
+        } else if (mode == 6) {
+            if (header.values[1] == 4) {
+                const auto read = reader.real_quad();
+                model.set_solver_parameters(read.values);
+                status = read.status;
+            } else diagnostics.push_back("SOLMTD 6 - missing parameters\n");
+        }
+        return status == 0 ? 0 : 2;
+    }
     if (id == 26) {
         // 39aa90 case4 passes root+848 directly to 413de0. The reader
         // zeroes the live destination, including EOF and scan-1 failures.
@@ -926,7 +984,7 @@ KeywordImportResult KeywordImporter::import_translated(
                 return result;
             }
             const int status = entry->category == 1
-                ? handle_configuration_keyword(entry->id, model_, reader)
+                ? handle_configuration_keyword(entry->id, model_, reader, observed.diagnostics)
                 : entry->category == 4
                     ? handle_material_keyword(entry->id, model_, reader)
                     : entry->category == 5

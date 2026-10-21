@@ -2,8 +2,8 @@
   "schema_version": 1,
   "enabled": true,
   "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
-  "last_review_utc": "2026-10-21T17:16:07.130590+00:00",
-  "last_review_head": "8a84a0b92ba99b47b2298c26a3147153614795dc",
+  "last_review_utc": "2026-10-21T18:29:18.264564+00:00",
+  "last_review_head": "a4e9ad00ba097aaa0ebad017f1f9f4136ebb5d34",
   "cadence": {
     "recovery_checkpoints": 3,
     "minutes": 60,
@@ -22,28 +22,25 @@
     "compact_capture_receipts",
     "no_redundant_reverification",
     "single_owner_safe_checkpoint_reviews",
-    "positive_runtime_effect_expectations"
+    "positive_runtime_effect_expectations",
+    "incremental_complete_evidence_release"
   ],
   "pending_measurement": "Compare similar future phase timings and usage with baseline; no end-to-end speedup claimed yet.",
   "automation_status": "ACTIVE",
   "latest_checkpoint_observation": {
-    "checkpoint": "analysis/dimensional-controls-import-contract.json",
-    "full_regression_seconds": 31.13,
-    "tests_passed": 118,
+    "checkpoint": "analysis/iteration-controls-import-contract.json",
+    "scope": "Current completed checkpoint in worktree; completed-turn timing above covers prior turns, not current whole turn.",
     "native_imports": 64,
-    "native_handlers": 126,
+    "native_handlers": 198,
+    "full_regression_seconds": 30.32,
+    "tests_passed": 120,
     "capture_retry_count": 0,
     "candidate_corrections_after_native_training": 0,
-    "qualification": "Six related controls and a table reader share two native cohorts and one full regression. Different workloads and uncontrolled conditions prevent a wall-time or token speedup claim.",
-    "mapping_guard": "Pending plan omitted CNTERR and shifted later names. Corrected before implementation using native catalog and direct PE jump entries; next scopes derive IDs from the catalog. Existing52..55 unaffected.",
-    "static_artifact_bytes": {
-      "cumulative_snapshot": 293019164,
-      "three_new_complete_inline_evidence_files": 475101
-    },
-    "next_review": "Normal safe-checkpoint gate. Consider avoiding redundant cumulative snapshots when all new complete Evidence is already retained separately; measure release time and preserve source-qualified history before adopting. Avoid repeated speculation after passing checks."
+    "qualification": "Different workloads and uncontrolled host conditions prevent total wall-time or token speedup claims. Apply the existing rule to stop speculative rechecking after concrete gates pass."
   },
-  "latest_review": "analysis/efficiency-review-20261021-time-step-import.json",
-  "latest_review_checkpoint": "analysis/time-step-import-contract.json",
-  "latest_review_qualification": "Safe review after third recovery checkpoint in worktree. Timing audit covers two previously completed turns; no new tooling or controlled speedup claim.",
-  "latest_guard_validation": "analysis/trans-coverage-guard-validation.json"
+  "latest_review": "analysis/efficiency-review-20261021-iteration-controls.json",
+  "latest_review_checkpoint": "analysis/iteration-controls-import-contract.json",
+  "latest_review_qualification": "Safe review at third recovery checkpoint in worktree and after hourly gate. One measured retention workflow adopted; no total-speed or token-saving claim.",
+  "latest_guard_validation": "analysis/trans-coverage-guard-validation.json",
+  "latest_retention_validation": "analysis/iteration-evidence-retention-validation.json"
 }

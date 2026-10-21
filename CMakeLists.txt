@@ -67,6 +67,18 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(iteration_batch IN ITEMS training evaluation)
+    set(iteration_plan "iteration-controls-fixture-plan.json")
+    if(iteration_batch STREQUAL "evaluation")
+      set(iteration_plan "iteration-controls-evaluation-inputs.json")
+    endif()
+    add_test(NAME "iteration_controls_${iteration_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_iteration_controls.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/iteration-controls-runtime-${iteration_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/iteration-controls-${iteration_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${iteration_plan}")
+  endforeach()
   foreach(dimensional_batch IN ITEMS training evaluation)
     set(dimensional_plan "dimensional-controls-fixture-plan.json")
     if(dimensional_batch STREQUAL "evaluation")
