@@ -102,7 +102,16 @@ struct IterationControls {
     int latent_0xa74 = 0;
 };
 
+struct RootRecordTables {
+    int frequency_rows_0xa78 = 6;
+    int frequency_columns_0xa7c = 1;
+    PropertyTable frequency_0xa80{0xb5}; // Width aliases rootac0.
+    std::array<PropertyTable, 3> records{
+        PropertyTable{0xb0}, PropertyTable{0xb1}, PropertyTable{0xb2}};
+};
+
 struct SimulationControls {
+    RootRecordTables record_tables;
     IterationControls iteration;
     DimensionalStepControls dimensional;
     TimeStepImportControls time_step_imports;
@@ -382,6 +391,8 @@ public:
     void set_iteration_integer(int keyword, int value);
     [[nodiscard]] bool set_iteration_selector(int keyword, int value);
     void set_solver_parameters(const std::array<double, 4>& values);
+    [[nodiscard]] PropertyTable* set_frequency_header(int rows, int columns);
+    [[nodiscard]] PropertyTable* reset_record_table(int keyword, int rows, int columns);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

@@ -382,6 +382,28 @@ void property_table(const PropertyTable& table) {
     std::cout << "}}";
 }
 
+void root_table_state(const PropertyTable& table) {
+    // Metadata order: type,rank,selectors[3],counts[3],width,flag50,field54,mode58.
+    const std::array<int, 12> metadata{table.type_0x00, table.rank_0x04,
+        table.selectors_0x10[0], table.selectors_0x10[1], table.selectors_0x10[2],
+        table.counts_0x1c[0], table.counts_0x1c[1], table.counts_0x1c[2],
+        table.values_per_point_0x40, table.flag_0x50, table.preserved_0x54, table.mode_0x58};
+    std::cout << "{\"metadata\":";
+    numbers(metadata);
+    std::cout << ",\"constant_hex\":";
+    raw_values(std::span(&table.constant_0x08, 1));
+    std::cout << ",\"preserved60_hex\":";
+    raw_values(std::span(&table.preserved_0x60, 1));
+    std::cout << ",\"axes_hex\":[";
+    for (std::size_t i = 0; i < 3; ++i) {
+        if (i) std::cout << ',';
+        raw_values(std::span(table.axes[i]));
+    }
+    std::cout << "],\"dependent_hex\":";
+    raw_values(std::span(table.dependent));
+    std::cout << '}';
+}
+
 void relation_property_fields(const RelationRecord& relation) {
     const auto offset_key = [](int offset) {
         std::ostringstream key;
@@ -728,6 +750,21 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"root_record_tables\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& r = controls.simulation->record_tables;
+        std::cout << "{\"frequency_rows\":" << r.frequency_rows_0xa78
+                  << ",\"frequency_columns\":" << r.frequency_columns_0xa7c
+                  << ",\"frequency\":";
+        root_table_state(r.frequency_0xa80);
+        std::cout << ",\"records\":[";
+        for (std::size_t i = 0; i < r.records.size(); ++i) {
+            if (i) std::cout << ',';
+            root_table_state(r.records[i]);
+        }
+        std::cout << "]}";
+    }
     std::cout << ",\"iteration\":";
     if (!controls.simulation) std::cout << "null";
     else {

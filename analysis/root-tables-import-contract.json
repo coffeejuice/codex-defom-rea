@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "TIMEID": 84,
+    "ERECID": 85,
+    "NRECID": 86,
+    "FRQNCY": 91
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/root-tables-static-evidence.json",
+  "contract": {
+    "defaults": "1e9850 called by1e96b0 installs FRQNCY header6/1, rank0 typeB5 width6, data[1,0,100,20,1,1]. 1ead60 installs empty typeB0/B1/B2 rank1 tables at root11a8/1220/1298. Both dimensions initialize all four tables.",
+    "frequency": "39aa90 case45 uses temporary int-pair reader413ee0. Only a positive pair replaces a78/a7c and their32-bit wrapped product at a80.width40. It invokes41a800 and maps helper failure to2. Nonpositive, partial and matching headers preserve old fields/storage. Failed blank/EOF headers return2 unchanged.",
+    "logical_versus_storage": "41a800 performs no allocation, payload conversion or trailing-line read for rank0 width<=1. FRQNCY logical width1 therefore retains the actual previous dependent vector even when its length is6. C++ owned storage is separate from logical size. The observer tracks12f480 releases and12fad0 allocations globally across imports, never reads an old allocation through its newly assigned logical extent.",
+    "records": "Cases3e/3f/40 return2 on failed header before mutation. After a successful header,12fc70 resets the selected table BEFORE positivity validation; invalid sizes return3 with an empty default table. A valid pair sets rows/count1c and width40, calls12fad0 explicitly, then41a800 calls12fad0 again. Including reset, three allocation calls and their nested releases are observed.",
+    "ownership": "12fc70 preserves54/60 across12d2a0. The initializer releases old owned arrays and performs its default allocation. C++ reset_type preserves these fields; nonzero54/60 retention is source-backed because no producer for them was invoked in these cohorts.",
+    "payload": "Rank0 values are direct dependent entries. Rank1 is row-interleaved axis coordinate followed by width dependent values. calloc zeros remain on matching conversion failures; EOF returns1 with directly assigned prefix retained. A completed positive-dependent read consumes the remainder of the current line, including any same-line keyword.",
+    "wrapper": "Outer keyword parser continues through statuses2 and3 and returns the last nonzero status. Mixed error-order fixtures assert this against the original independently of C++.",
+    "reset_lifecycle": "Changed-dimension headers reset these fields on both linked models; unchanged-dimension headers/UNIT retain them in the tested sequences. Populated mesh, selected other controls, linked roots and complete lookup order are compared."
+  },
+  "implementation": [
+    "src/recovered/object_model.hpp",
+    "src/recovered/object_model.cpp",
+    "src/recovered/keyword_import.hpp",
+    "src/recovered/keyword_import.cpp",
+    "tests/keyword_import_replay.cpp"
+  ],
+  "candidate_freeze": "analysis/root-tables-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "Source contracts and expected successful/nonzero effects prepared before native training.32 C++ training preflight imports precede freeze. Original training passed; separate evaluation generated afterwards and captured original-first before C++ execution. Eight frozen files remain unchanged.",
+  "native_comparisons": [
+    "analysis/root-tables-training-comparison.json",
+    "analysis/root-tables-evaluation-comparison.json"
+  ],
+  "totals": {
+    "imports": 64,
+    "handlers": 146,
+    "checks": 8928,
+    "allocations": 194,
+    "retained_buffers": 4,
+    "lookup_tokens": 162,
+    "eof_cursors_unobserved": 24
+  },
+  "inputs": [
+    "analysis/root-tables-fixture-plan.json",
+    "analysis/root-tables-evaluation-inputs.json"
+  ],
+  "coverage": [
+    "Both dimensions and all four handlers in each cohort.",
+    "Different positive extents and order across training and evaluation.",
+    "FRQNCY logical shrink without allocation, subsequent growth and exact signed-zero bytes.",
+    "Header partial/matching/nonpositive/blank/EOF paths and direct payload matching/partial-EOF paths.",
+    "Record reset-before-invalid validation and failed-header retention; exact calloc/release/read order.",
+    "Last nonzero wrapper status, complete outer token order and trailing-line consumption.",
+    "Dimension reset, UNIT retention, linked isolation and populated mesh contexts."
+  ],
+  "limitations": [
+    "Bounded initialized owned rank0/1 tables only; actual payload capacities<=6 and axis lengths<=3 in native cohorts.",
+    "Native uninitialized padding, pointer values/cache aliases, allocation-failure behavior and borrowed-storage profiles are not reconstructed here.",
+    "Nonzero preserved54/60 and large/wrapped positive dimension products are source-backed, not exercised in original captures. Huge record products remain outside existing safe owned-table domain.",
+    "24 EOF cursor positions unobserved; wrapper status, exact stored prefix, zeros and lookup order remain compared.",
+    "Scientific consumers and full console/application compatibility remain unfinished. This checkpoint does not narrow the full recovery goal."
+  ],
+  "resource_release": "Both passive Frida captures detached with cleanup_error null and no message truncation/probe errors; both normal original processes exited0. No static REA session was opened for this checkpoint.",
+  "local_artifacts": [
+    "analysis/root-tables-runtime-training.json",
+    "analysis/root-tables-runtime-evaluation.json",
+    "analysis/oracle/root-tables-training",
+    "analysis/oracle/root-tables-evaluation"
+  ],
+  "retained_export_boundary": {
+    "source": "analysis/oracle/interactive/rea-step25/output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "next_keyword": "GEOERR",
+    "supported_handlers": 44,
+    "scope": "One retained full export import now reaches GEOERR; this is a measured boundary, not complete file compatibility."
+  },
+  "next_scope": "analysis/root-tables-next-scope.json",
+  "regression": {
+    "status": "PASS",
+    "tests": 122,
+    "elapsed_seconds": 30.12,
+    "targets": 17,
+    "build_log": "build/root-tables-build.log",
+    "log": "build/root-tables-ctest.log"
+  },
+  "loader_api": "include/deform unchanged",
+  "artifact_policy": "Raw native Evidence, run directories and comparison reports are retained locally under existing ignore rules. Compact source contracts, source selections, fixture plans, source/probe/comparator files and KEY fixtures are versioned. Reference replays require the retained local captures and never launch the original."
+}

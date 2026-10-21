@@ -106,6 +106,10 @@ RootControls initialized_root_controls(int dimension, double node8_default,
     RootControls result{};
     result.dimension = dimension;
     result.simulation.emplace();
+    auto& frequency = result.simulation->record_tables.frequency_0xa80;
+    frequency.values_per_point_0x40 = 6;
+    frequency.allocate_zeroed();
+    frequency.dependent = {1.0, 0.0, 100.0, 20.0, 1.0, 1.0}; //1e9850.
     auto& iteration = result.simulation->iteration;
     iteration.cvgerr_0xa20 = dimension == 3
         ? std::array{std::bit_cast<double>(std::uint64_t{0x3f747ae147ae147b}),
@@ -398,6 +402,31 @@ void ObjectModel::set_solver_parameters(const std::array<double, 4>& values) {
     auto& i = controls_.simulation->iteration;
     i.parameter_count_0xa38 = 4;
     i.parameters_0xa40 = values;
+}
+
+PropertyTable* ObjectModel::set_frequency_header(int rows, int columns) {
+    require_simulation_profile(controls_);
+    if (rows <= 0 || columns <= 0) return nullptr;
+    auto& tables = controls_.simulation->record_tables;
+    tables.frequency_rows_0xa78 = rows;
+    tables.frequency_columns_0xa7c = columns;
+    // Native32-bit IMUL wraps; avoid C++ signed overflow before the reader.
+    tables.frequency_0xa80.values_per_point_0x40 = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(rows) * static_cast<std::uint32_t>(columns));
+    return &tables.frequency_0xa80;
+}
+
+PropertyTable* ObjectModel::reset_record_table(int keyword, int rows, int columns) {
+    require_simulation_profile(controls_);
+    if (keyword < 84 || keyword > 86)
+        throw std::invalid_argument("unmapped root record table");
+    auto& table = controls_.simulation->record_tables.records[static_cast<std::size_t>(keyword - 84)];
+    table.reset_type(0xb0 + keyword - 84); // Before validation; preserve54/60.
+    if (rows <= 0 || columns <= 0) return nullptr;
+    table.counts_0x1c[0] = rows;
+    table.values_per_point_0x40 = columns;
+    table.allocate_zeroed(); // Parent allocates;41a800 allocates again.
+    return &table;
 }
 
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {

@@ -129,7 +129,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && id >= 22 && id <= 70) ||
+    return (category == 1 && ((id >= 22 && id <= 70) || (id >= 84 && id <= 86) || id == 91)) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -162,6 +162,20 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
     if (!model.controls().simulation)
         throw std::invalid_argument(
             "configuration refresh requires explicit reset controls and recovered material properties");
+    if (id == 91) {
+        const auto header = reader.integer_pair();
+        int status = header.status;
+        if (auto* table = model.set_frequency_header(header.values[0], header.values[1]))
+            status = read_property_values(reader, *table);
+        return status == 0 ? 0 : 2;
+    }
+    if (id >= 84 && id <= 86) {
+        const auto header = reader.integer_pair();
+        if (header.status != 0) return 2; // Failed header preserves old table.
+        auto* table = model.reset_record_table(id, header.values[0], header.values[1]);
+        if (!table) return 3; // Reset already happened before the data error.
+        return read_property_values(reader, *table) == 0 ? 0 : 2;
+    }
     if (id == 61) {
         const auto read = reader.real_pair();
         model.set_convergence(read.values);

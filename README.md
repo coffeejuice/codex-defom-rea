@@ -1815,3 +1815,34 @@ The next scope records adjacent stopping controls for dependency-aware batching.
 
 Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference
 replays need ignored local capture/run/observer files and do not launch the original.
+
+## Root frequency and record tables
+
+FRQNCY91 now owns the separate rank-zero table at root+a80, initialized to
+`[1, 0, 100, 20, 1, 1]`. A positive header stores rows, columns and their logical
+product. When that product becomes one, the original reader skips allocation
+and payload input: the previous allocated vector remains intact. The model and
+passive observer preserve this distinction between logical size and storage.
+
+TIMEID84, ERECID85 and NRECID86 own rank-one tables. A failed header preserves the
+old table, while a successfully read invalid size resets it before returning
+status 3. Positive sizes trigger the original reset and repeated allocation
+sequence. Payloads interleave each axis coordinate with that row's dependent
+values; partial EOF retains the converted prefix and zeroed remainder. Completed
+payload reads consume the remainder of their final line.
+
+The unchanged frozen candidate passes 32 training and 32 separately prepared
+original-first evaluation imports: 146 handlers, 8,928 checks, 194 observed
+allocation calls and four retained-buffer cases. Both dimensions, linked roots,
+dimension reset, UNIT retention, populated meshes, complete token order and the
+last-nonzero wrapper status are covered. All 122 regression tests pass after
+rebuilding all seventeen executable targets. Twenty-four EOF cursor positions,
+nonzero preserved metadata and scientific consumers remain outside this runtime
+validation.
+
+See `analysis/root-tables-import-contract.json` for source bindings, chronology
+and limitations. The retained full export now reaches GEOERR after 44 supported
+handlers. The database-loader API is unchanged. Full application recovery remains
+active; `analysis/root-tables-next-scope.json` preserves the remaining root work.
+Raw capture/run files and comparison receipts remain local under existing ignore
+rules; the reference tests require those retained files.
