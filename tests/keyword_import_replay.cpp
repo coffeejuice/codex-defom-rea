@@ -728,6 +728,31 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"dimensional_step\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& d = controls.simulation->dimensional;
+        const std::array<double, 3> reals{d.dtsub_0xa10, d.dplen_0xa18, d.odmax_0x1318};
+        std::cout << "{\"vfactr_mode\":" << d.vfactr_mode_0x1128 << ",\"reals_hex\":";
+        raw_values(std::span(reals));
+        std::cout << ",\"planar\":";
+        if (!d.planar) std::cout << "null";
+        else {
+            std::cout << "{\"osctrl\":";
+            numbers(d.planar->osctrl_0x1108);
+            std::cout << ",\"cnterr_int\":" << d.planar->cnterr_0x1118 << ",\"cnterr_real_hex\":";
+            raw_values(std::span(&d.planar->cnterr_0x1120, 1));
+            std::cout << '}';
+        }
+        std::cout << ",\"spatial\":";
+        if (!d.spatial) std::cout << "null";
+        else {
+            std::cout << "{\"active_count\":" << d.spatial->active_count_0x112c << ",\"table\":";
+            property_table(d.spatial->table_0x1130);
+            std::cout << '}';
+        }
+        std::cout << '}';
+    }
     std::cout << ",\"time_step_imports\":";
     if (!controls.simulation) std::cout << "null";
     else {

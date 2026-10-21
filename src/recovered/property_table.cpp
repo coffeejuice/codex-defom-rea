@@ -588,6 +588,17 @@ PropertyHeaderRead read_property_header(KeywordReader& reader) {
     return result;
 }
 
+int read_property_vector(KeywordReader& reader, PropertyTable& table) {
+    if (table.rank_0x04 != 0 || table.values_per_point_0x40 <= 0) return 1;
+    table.allocate_zeroed();
+    for (auto& value : table.dependent) {
+        const auto parsed = reader.stream_real(value);
+        if (parsed.conversions == 1) value = parsed.values[0];
+        if (parsed.conversions == -1) return 1;
+    }
+    return 0;
+}
+
 int read_property_values(KeywordReader& reader, PropertyTable& table) {
     require_rank(table.rank_0x04);
     if (table.rank_0x04 == 0 && table.values_per_point_0x40 <= 1) return 0;

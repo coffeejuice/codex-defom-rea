@@ -241,6 +241,10 @@ KeywordReader::IntegerRead KeywordReader::connectivity3() {
     return integers(4, BlankRule::none);
 }
 
+KeywordReader::IntegerRead KeywordReader::integer_quad() {
+    return integers(4, BlankRule::none);
+}
+
 KeywordReader::IntegerRead KeywordReader::connectivity4(bool skip_empty_lines) {
     return integers(5, skip_empty_lines ? BlankRule::repeated : BlankRule::none);
 }
@@ -418,6 +422,27 @@ KeywordReader::RealIntegerRead KeywordReader::real_integer() {
         const auto integer = remaining.selector_integer();
         if (integer.conversions == 1) {
             result.integer_value = integer.values[0];
+            ++result.conversions;
+        }
+    }
+    result.status = result.conversions == -1 ? 1 : 0;
+    return result;
+}
+
+KeywordReader::RealIntegerRead KeywordReader::integer_real() {
+    require_c_locale();
+    RealIntegerRead result;
+    auto input = line();
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    KeywordReader fields(std::string_view(input.bytes.c_str()));
+    const auto integer = fields.selector_integer();
+    result.conversions = integer.conversions;
+    if (integer.conversions == 1) {
+        result.integer_value = integer.values[0];
+        const auto real = fields.stream_real();
+        if (real.conversions == 1) {
+            result.real_value = real.values[0];
             ++result.conversions;
         }
     }

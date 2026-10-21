@@ -68,7 +68,28 @@ struct TimeStepImportControls {
     double mdsobj_0x9e8 = 0.0;
 };
 
+struct PlanarStepControls {
+    std::array<int, 4> osctrl_0x1108{};
+    int cnterr_0x1118 = 0;
+    double cnterr_0x1120 = 0.0;
+};
+
+struct SpatialVfactrControls {
+    int active_count_0x112c = 0;
+    PropertyTable table_0x1130{0xb5}; // Its width aliases root1170.
+};
+
+struct DimensionalStepControls {
+    std::optional<PlanarStepControls> planar;
+    std::optional<SpatialVfactrControls> spatial;
+    int vfactr_mode_0x1128 = 0;
+    double dtsub_0xa10 = 0.0; // Factory supplies1 in3D,0 in2D.
+    double dplen_0xa18 = 0.5;
+    double odmax_0x1318 = 0.0; //39d2b0 writes controlsbc8, not roota18.
+};
+
 struct SimulationControls {
+    DimensionalStepControls dimensional;
     TimeStepImportControls time_step_imports;
     StoppingControls stopping;
     RootUnitControls units;
@@ -338,6 +359,10 @@ public:
     void set_stopping_vector(int keyword, std::span<const double> values);
     void set_time_step_real(int keyword, std::span<const double> values);
     void set_mdsobj(const std::array<int, 3>& integers, double value);
+    void set_osctrl(const std::array<int, 4>& values);
+    void set_cnterr(int value, double coefficient);
+    [[nodiscard]] PropertyTable* set_vfactr_header(int mode, int count);
+    void set_dimensional_real(int keyword, double value);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

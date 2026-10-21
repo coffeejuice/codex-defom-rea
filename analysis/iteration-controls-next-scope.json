@@ -1,0 +1,103 @@
+{
+  "evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+  "subject": {
+    "architecture": "x86_64",
+    "digest": {
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    },
+    "format": "pe",
+    "local_path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\source\\DEF_PRE_64.exe",
+    "name": "DEF_PRE_64.exe"
+  },
+  "authority": "shipped-artifact",
+  "confidence": "observed",
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+    "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+    "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+    "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+    "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+    "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+    "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+    "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+    "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+  ],
+  "relationship_coverage": {
+    "diagnostics": [
+      "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+    ],
+    "status": "complete"
+  },
+  "status": "next_source_scope_not_implemented",
+  "source": "build\\trans-dispatcher-evidence.json",
+  "source_sha256": "2bf833af5dfc0949b2c131a41dcba97e2f0e9af8bb3b0891ec50c855d0307304",
+  "catalog_source": "analysis/keyword-catalog.json",
+  "branches": [
+    {
+      "name": "CVGERR",
+      "id": 61,
+      "case": "0x27",
+      "pseudocode": "  case 0x27:\n    local_5e8 = FUN_140414a40(param_2,param_1 + 0xa20,param_1 + 0xa28);\n    break;\n"
+    },
+    {
+      "name": "INIGES",
+      "id": 62,
+      "case": "0x28",
+      "pseudocode": "  case 0x28:\n    local_5e8 = FUN_140413de0(param_2,local_620,0);\n    break;\n"
+    },
+    {
+      "name": "ITRMTH",
+      "id": 63,
+      "case": "0x29",
+      "pseudocode": "  case 0x29:\n    local_5e8 = FUN_140413de0(param_2,local_620,0);\n    cVar3 = FUN_1401ea4d0(param_1 + 0x750,local_620);\n    if (cVar3 == '\\0') {\n      lVar5 = FUN_14047903c();\n      fprintf((FILE *)(lVar5 + 0x30),\"ITRMTH %d - ignored\\n\",(ulonglong)local_620[0]);\n    }\n    else {\n      *(uint *)(param_1 + 0xa30) = local_620[0];\n      cVar3 = FUN_1400015e0(param_1);\n      if ((cVar3 != '\\0') && (*(int *)(param_1 + 0xa30) == 3)) {\n        *(undefined4 *)(param_1 + 0xa30) = 1;\n      }\n    }\n    break;\n"
+    },
+    {
+      "name": "ITRMXD",
+      "id": 64,
+      "case": "0x2a",
+      "pseudocode": "  case 0x2a:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0xa60,0);\n    break;\n"
+    },
+    {
+      "name": "DEFBWD",
+      "id": 65,
+      "case": "0x2b",
+      "pseudocode": "  case 0x2b:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0xa64,0);\n    break;\n"
+    },
+    {
+      "name": "SOLMTT",
+      "id": 66,
+      "case": "0x2c",
+      "pseudocode": "  case 0x2c:\n    local_5e8 = FUN_140413de0(param_2,local_620,0);\n    cVar3 = FUN_1401ea610(param_1 + 0x750,local_620);\n    if (cVar3 == '\\0') {\n      lVar5 = FUN_14047903c();\n      fprintf((FILE *)(lVar5 + 0x30),\"SOLMTT %d - ignored\\n\",(ulonglong)local_620[0]);\n    }\n    else {\n      *(uint *)(param_1 + 0xa68) = local_620[0];\n      cVar3 = FUN_1400015e0(param_1);\n      if ((cVar3 != '\\0') && (*(int *)(param_1 + 0xa68) == 2)) {\n        *(undefined4 *)(param_1 + 0xa68) = 1;\n      }\n    }\n    break;\n"
+    },
+    {
+      "name": "ITRMXT",
+      "id": 67,
+      "case": "0x2d",
+      "pseudocode": "  case 0x2d:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0xa6c,0);\n    break;\n"
+    },
+    {
+      "name": "TMPBWD",
+      "id": 68,
+      "case": "0x2e",
+      "pseudocode": "  case 0x2e:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0xa70,0);\n    break;\n"
+    },
+    {
+      "name": "LATENT",
+      "id": 69,
+      "case": "0x2f",
+      "pseudocode": "  case 0x2f:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0xa74,0);\n    break;\n"
+    },
+    {
+      "name": "SOLMTD",
+      "id": 70,
+      "case": "0x30",
+      "pseudocode": "  case 0x30:\n    local_5e8 = FUN_140413ee0(param_2,local_620,local_620 + 1);\n    cVar3 = FUN_1401ea570(param_1 + 0x750,local_620);\n    if (cVar3 == '\\0') {\n      lVar5 = FUN_14047903c();\n      fprintf((FILE *)(lVar5 + 0x30),\"SOLMTD %d - ignored\\n\",(ulonglong)local_620[0]);\n    }\n    else {\n      *(uint *)(param_1 + 0xa34) = local_620[0];\n      *(undefined4 *)(param_1 + 0xa38) = 0;\n      if (*(int *)(param_1 + 0xa34) == 2) {\n        if (local_620[1] == 4) {\n          *(undefined4 *)(param_1 + 0xa38) = 4;\n          local_6c8 = (double *)local_60c;\n          local_5e8 = FUN_140414100(param_2,local_620 + 2,local_620 + 3,local_620 + 4);\n          *(double *)(param_1 + 0xa40) = (double)(int)local_620[2];\n          *(double *)(param_1 + 0xa48) = (double)(int)local_620[3];\n          *(double *)(param_1 + 0xa50) = (double)(int)local_620[4];\n          *(double *)(param_1 + 0xa58) = (double)local_60c[0];\n        }\n        else {\n          *(undefined4 *)(param_1 + 0xa38) = 4;\n          *(undefined8 *)(param_1 + 0xa40) = 0x4000000000000000;\n          *(undefined8 *)(param_1 + 0xa48) = 0x4010000000000000;\n          *(undefined8 *)(param_1 + 0xa50) = 0x3ff0000000000000;\n          *(undefined8 *)(param_1 + 0xa58) = 0x3ff0000000000000;\n          lVar5 = FUN_14047903c();\n          fprintf((FILE *)(lVar5 + 0x30),\"SOLMTD %d - parameters set to default values\\n\",2);\n          dVar9 = *(double *)(param_1 + 0xa60);\n          dVar10 = *(double *)(param_1 + 0xa50);\n          dVar1 = *(double *)(param_1 + 0xa48);\n          dVar2 = *(double *)(param_1 + 0xa40);\n          lVar5 = FUN_14047903c();\n          local_6c0 = (uint *)CONCAT44(local_6c0._4_4_,(int)dVar9);\n          local_6c8 = (double *)CONCAT44(local_6c8._4_4_,(int)dVar10);\n          fprintf((FILE *)(lVar5 + 0x30),\"S1:%d;  S2:%d;  S3:%d;  S4:%d\\n\",\n                  (ulonglong)(uint)(int)dVar2,(ulonglong)(uint)(int)dVar1);\n        }\n      }\n      else if (*(int *)(param_1 + 0xa34) == 6) {\n        if (local_620[1] == 4) {\n          *(undefined4 *)(param_1 + 0xa38) = 4;\n          local_6c8 = local_660;\n          local_5e8 = FUN_140414e40(param_2,&local_678,&local_670,&local_668);\n          *(double *)(param_1 + 0xa40) = local_678;\n          *(double *)(param_1 + 0xa48) = local_670;\n          *(double *)(param_1 + 0xa50) = local_668;\n          *(double *)(param_1 + 0xa58) = local_660[0];\n        }\n        else {\n          lVar5 = FUN_14047903c();\n          fprintf((FILE *)(lVar5 + 0x30),\"SOLMTD %d - missing parameters\\n\",6);\n        }\n      }\n    }\n    break;\n"
+    }
+  ],
+  "next": "Begin CVGERR61 and recover remaining iteration controls from exact defaults, validation helpers, aliases, callbacks and failure ordering. Names and IDs are selected from the recovered native catalog; do not infer sequential names from a partial case list.",
+  "qualification": "Selected dispatcher source only. Helper contracts and scientific interpretation of later iteration controls remain pending."
+}

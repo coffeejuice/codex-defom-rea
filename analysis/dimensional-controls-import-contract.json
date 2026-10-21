@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "OSCTRL": 39,
+    "CNTERR": 56,
+    "VFACTR": 57,
+    "DTSUB": 58,
+    "DPLEN": 59,
+    "ODMAX": 60
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/dimensional-controls-static-evidence.json",
+  "dispatch_audit": "analysis/dimensional-step-dispatch-table-audit.json",
+  "contract": {
+    "dispatch": "Native catalog IDs and direct PE jump entries agree with dispatcher index=keyword_id-22. The pending plan previously omitted CNTERR56 and misnamed later branches. Implemented52..55 were unaffected; the six current IDs are bound explicitly to catalog and assembly.",
+    "dimensions": "OSCTRL39 and CNTERR56 execute only in2D. DPLEN59 and ODMAX60 execute only in3D. Ignored branches perform no helper read and leave their argument text to outer token parsing. DTSUB58 reads in both dimensions. VFACTR57 reads one integer in2D and two in3D.",
+    "active_storage": "1ead60 initializes four OSCTRL int32 fields1108..1114 and CNTERR int1118/double1120 only in2D. It initializes active count112c and typeB5 table1130 only in3D. Inactive native storage is not read or assigned invented defaults; replacement storage is optional by dimension. Shared mode1128 initializes0.",
+    "scalar_defaults": "1e8650 sets DTSUB/roota10 to1 in3D and0 in2D, and DPLEN/roota18 to0.5 in both.1e8fb0 sets ODMAX/controlsbc8/root1318 to0. Same-dimension headers retain; changed dimensions reconstruct.",
+    "vfactr_alias": "A3D header with mode1 and positive count writes active_count/root112c and table.values_per_point40/root1170. These latter names refer to one field. All other headers clear active_count only, retaining prior table metadata, width and owned buffer.",
+    "vfactr_vector": "41ac10 checks rank0 and positive width, reallocates through12fad0/release12f480, then fscanf reads each double directly into calloc storage. Width1 reads too. Conversion0 retains zero and continues; EOF stops with1 and retains the converted prefix. It does not consume the trailing line. The parent ignores this payload return and preserves header status.",
+    "odmax": "3D reads414990 into initialized stack temporary, then calls39d2b0 with owner controls and double inXMM1. The setter writes controlsbc8/root1318, including zero after a failed read. Passive probe checks owner and before/after stores rather than treating floating argument as a general register.",
+    "readers": "Four-int414100 and int/real4154c0 zero live destinations before fgets, use comma replacement and base0 integer plus legacy decimal-real scanning. Matching and partial conversions succeed; blank input/EOF map reader1 to handler2. VFACTR reuses413de0/413ee0 with corresponding direct-zero semantics.",
+    "other_effects": "No immediate mesh refresh observed during selected handlers. Linked isolation, token lookup order, neighboring controls, UNIT retention and populated meshes compare."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp",
+      "src/recovered/keyword_reader.hpp",
+      "src/recovered/keyword_reader.cpp",
+      "src/recovered/property_table.hpp",
+      "src/recovered/property_table.cpp"
+    ],
+    "api": "Existing include/deform loader API unchanged. Internal C++ state is not a native object ABI; borrowed/cache pointers and uninitialized inactive fields are not fabricated."
+  },
+  "candidate_freeze": "analysis/dimensional-controls-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "32 source-planned training imports ran on C++ before original observation.32 separately prepared evaluation imports ran on original before C++, with all eleven frozen files unchanged. Established numeric grammar and mesh shapes were reused; no universal numerical-domain claim.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_DIMENSIONAL_CONTROLS_COMPARISON",
+      "imports": 32,
+      "handlers": 59,
+      "handler_counts": {
+        "39": 9,
+        "56": 9,
+        "57": 19,
+        "58": 10,
+        "59": 6,
+        "60": 6
+      },
+      "dimension_counts": {
+        "39/2": 7,
+        "56/2": 7,
+        "57/2": 7,
+        "58/2": 6,
+        "59/2": 2,
+        "60/2": 2,
+        "39/3": 2,
+        "56/3": 2,
+        "57/3": 12,
+        "58/3": 4,
+        "59/3": 4,
+        "60/3": 4
+      },
+      "ignored_handlers": 8,
+      "table_payloads": 6,
+      "ignored_payload_eof": 1,
+      "owned_reallocations": 6,
+      "odmax_setters": 4,
+      "lookup_tokens": 83,
+      "checks": 3568,
+      "eof_cursors_unobserved": 10,
+      "evidence_id": "ev_9ff53be251bf3caf8435abef687cce41006e72aa1b7b0ea9c818dd82085225b2",
+      "capture_sha256": "2cf71dfcd2f2258b5d1cff435c0311c6271b268314aac822072ac36092e811d3",
+      "run_sha256": "50e591653e3c33f8671702f77c7a5d695ef1f6072e3cc90ed8b92fbcad2c7849",
+      "scope": "Six dimensional handlers39,56..60; typed initialized fields only, owned typeB5 vector, partial failure and ignored payload returns, allocation/setter ordering, token consumption and selected neighboring state. No scientific consumer or native object ABI claim."
+    },
+    {
+      "status": "PASS_NATIVE_DIMENSIONAL_CONTROLS_COMPARISON",
+      "imports": 32,
+      "handlers": 67,
+      "handler_counts": {
+        "39": 10,
+        "56": 9,
+        "57": 21,
+        "58": 12,
+        "59": 6,
+        "60": 9
+      },
+      "dimension_counts": {
+        "39/3": 2,
+        "56/3": 1,
+        "57/3": 13,
+        "58/3": 5,
+        "59/3": 5,
+        "60/3": 7,
+        "39/2": 8,
+        "56/2": 8,
+        "57/2": 8,
+        "58/2": 7,
+        "59/2": 1,
+        "60/2": 2
+      },
+      "ignored_handlers": 6,
+      "table_payloads": 7,
+      "ignored_payload_eof": 2,
+      "owned_reallocations": 7,
+      "odmax_setters": 7,
+      "lookup_tokens": 92,
+      "checks": 3865,
+      "eof_cursors_unobserved": 11,
+      "evidence_id": "ev_a95c91261d98b637b6a911468a1d94c246a9e0f03b9184820c9068457ed0b581",
+      "capture_sha256": "76ccea0a60532473a1f22895104d5e76b21a5403583cceb343b6163b5f125f6a",
+      "run_sha256": "00e96502a45f0451dbb1b5492354eeb96883f5eee71e160315f04e364c4527fe",
+      "scope": "Six dimensional handlers39,56..60; typed initialized fields only, owned typeB5 vector, partial failure and ignored payload returns, allocation/setter ordering, token consumption and selected neighboring state. No scientific consumer or native object ABI claim."
+    }
+  ],
+  "totals": {
+    "imports": 64,
+    "handlers": 126,
+    "checks": 7433,
+    "ignored_handlers": 14,
+    "table_payloads": 13,
+    "ignored_payload_eof": 3,
+    "owned_reallocations": 13,
+    "odmax_setters": 11,
+    "lookup_tokens": 175,
+    "eof_cursors_unobserved": 21
+  },
+  "inputs": [
+    "analysis/dimensional-controls-fixture-plan.json",
+    "analysis/dimensional-controls-evaluation-inputs.json"
+  ],
+  "coverage": "Six keywords in both dimensions in both cohorts; positive and signed-zero values, partial/matching/blank/EOF reads, ignored-branch argument reparsing, same/changed dimension headers, typeB5 default width1, growth/shrink/reuse, inactive stale-buffer retention, count/width alias, matching-zero and EOF payloads, ignored payload status, exact release/allocate order, same-line and next-line keyword preservation, linked roots, unit retention, populated meshes and ODMAX setter after failed read.",
+  "limitations": [
+    "Finite initialized owned profile, vector widths1..4 in captures. General numerical rounding, overflow/underflow, allocation failure, borrowed/cache pointers, arbitrary startup profiles and scientific consumers remain unverified.",
+    "Twenty-one native cursor positions at EOF are unavailable after CRT buffer reset; observed nonzero cursors compared.",
+    "Native allocation addresses are not compared. Reallocation ordering is observed inside selected VFACTR handlers; complete application construction/destruction and allocation-failure equivalence remain pending.",
+    "Lookup order validates selected file consumption, not complete console wording or every external workflow. Selected state equality is not a proof of absence of all other memory effects.",
+    "Replay requires ignored local Evidence/run/observer files; CTest does not execute the original. Full application recovery remains active and incomplete."
+  ],
+  "resource_release": "One Ghidra session closed after export to analysis/oracle/dimensional-controls-snapshot.json with654 Evidence records. Both passive Frida captures detached without cleanup error,truncation orprobe error; both original processes exited0.",
+  "local_artifacts": [
+    {
+      "path": "analysis/dimensional-controls-runtime-training.json",
+      "bytes": 1073753,
+      "sha256": "2cf71dfcd2f2258b5d1cff435c0311c6271b268314aac822072ac36092e811d3",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/dimensional-controls-training/run.json",
+      "bytes": 47976,
+      "sha256": "50e591653e3c33f8671702f77c7a5d695ef1f6072e3cc90ed8b92fbcad2c7849",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/dimensional-controls-training/observer-source.js",
+      "bytes": 8756,
+      "sha256": "c4603176cd5feaa84470bc1bbb9d8e918d021af08bc8a145be9db566cb341357",
+      "local_only": true
+    },
+    {
+      "path": "analysis/dimensional-controls-runtime-evaluation.json",
+      "bytes": 1172297,
+      "sha256": "76ccea0a60532473a1f22895104d5e76b21a5403583cceb343b6163b5f125f6a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/dimensional-controls-evaluation/run.json",
+      "bytes": 48010,
+      "sha256": "00e96502a45f0451dbb1b5492354eeb96883f5eee71e160315f04e364c4527fe",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/dimensional-controls-evaluation/observer-source.js",
+      "bytes": 8758,
+      "sha256": "b830116088ed09880cf791b4d94693ac9b2a86d90efbd4ee16e4330e7331a21e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/dimensional-0x1404154c0.json",
+      "bytes": 240929,
+      "sha256": "169aa0b9052bf0586f4cb11d8c342c80bbee2874c130dcc2cefc94274e7d994c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/dimensional-0x14041ac10.json",
+      "bytes": 189839,
+      "sha256": "74cfe0fa878b0b62caf67980e644ae2c101e93b9e99385f651cc877b5b3f763f",
+      "local_only": true
+    },
+    {
+      "path": "analysis/dimensional-0x14039d2b0.json",
+      "bytes": 44333,
+      "sha256": "4fda2666a152a7d39b6b332605cd10447dc216e1698427c8dbbeb5e4fec1e5e5",
+      "local_only": true
+    }
+  ],
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "CVGERR",
+    "supported_handlers": 34
+  },
+  "next_scope": "analysis/iteration-controls-next-scope.json",
+  "regression": {
+    "registered": 118,
+    "passed": 118,
+    "failed": 0,
+    "seconds": 31.13,
+    "build": "All17 executable targets rebuilt; complete regression once after implementation."
+  }
+}

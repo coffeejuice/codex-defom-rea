@@ -106,6 +106,10 @@ RootControls initialized_root_controls(int dimension, double node8_default,
     RootControls result{};
     result.dimension = dimension;
     result.simulation.emplace();
+    auto& dimensional = result.simulation->dimensional;
+    dimensional.dtsub_0xa10 = dimension == 3 ? 1.0 : 0.0;
+    if (dimension == 2) dimensional.planar.emplace();
+    else dimensional.spatial.emplace();
     result.simulation->stopping.demax_0x9b0 = dimension == 2
         ? std::bit_cast<double>(std::uint64_t{0x3fb999999999999a}) : 0.0;
     result.component_counts = initialize_layout(default_material_layout(dimension, *result.simulation));
@@ -306,6 +310,48 @@ void ObjectModel::set_mdsobj(const std::array<int, 3>& integers, double value) {
     auto& s = controls_.simulation->time_step_imports;
     s.mdsobj_0x9d8 = integers;
     s.mdsobj_0x9e8 = value;
+}
+
+void ObjectModel::set_osctrl(const std::array<int, 4>& values) {
+    require_simulation_profile(controls_);
+    if (!controls_.simulation->dimensional.planar)
+        throw std::invalid_argument("OSCTRL requires initialized planar controls");
+    controls_.simulation->dimensional.planar->osctrl_0x1108 = values;
+}
+
+void ObjectModel::set_cnterr(int value, double coefficient) {
+    require_simulation_profile(controls_);
+    if (!controls_.simulation->dimensional.planar)
+        throw std::invalid_argument("CNTERR requires initialized planar controls");
+    auto& planar = *controls_.simulation->dimensional.planar;
+    planar.cnterr_0x1118 = value;
+    planar.cnterr_0x1120 = coefficient;
+}
+
+PropertyTable* ObjectModel::set_vfactr_header(int mode, int count) {
+    require_simulation_profile(controls_);
+    auto& dimensional = controls_.simulation->dimensional;
+    dimensional.vfactr_mode_0x1128 = mode;
+    if (controls_.dimension == 2) return nullptr;
+    if (!dimensional.spatial)
+        throw std::invalid_argument("VFACTR requires initialized spatial controls");
+    auto& spatial = *dimensional.spatial;
+    if (mode == 1 && count > 0) {
+        spatial.active_count_0x112c = count;
+        spatial.table_0x1130.values_per_point_0x40 = count;
+        return &spatial.table_0x1130;
+    }
+    spatial.active_count_0x112c = 0; // The old table and its width survive.
+    return nullptr;
+}
+
+void ObjectModel::set_dimensional_real(int keyword, double value) {
+    require_simulation_profile(controls_);
+    auto& dimensional = controls_.simulation->dimensional;
+    if (keyword == 58) dimensional.dtsub_0xa10 = value;
+    else if (keyword == 59 && controls_.dimension == 3) dimensional.dplen_0xa18 = value;
+    else if (keyword == 60 && controls_.dimension == 3) dimensional.odmax_0x1318 = value;
+    else throw std::invalid_argument("unmapped dimensional scalar or dimension");
 }
 
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {

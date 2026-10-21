@@ -129,7 +129,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 38) || (id >= 40 && id <= 55))) ||
+    return (category == 1 && id >= 22 && id <= 60) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -155,7 +155,9 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
         return read.status == 0 ? 0 : 2;
     }
     // 39aa90: GEOTYP is ignored in3D, leaving the remainder for token scanning.
-    if (id == 28 && model.controls().dimension == 3) return 0;
+    if ((id == 28 || id == 39 || id == 56) && model.controls().dimension == 3)
+        return 0;
+    if ((id == 59 || id == 60) && model.controls().dimension == 2) return 0;
     if (!model.controls().simulation)
         throw std::invalid_argument(
             "configuration refresh requires explicit reset controls and recovered material properties");
@@ -210,6 +212,34 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
     if (id == 52) {
         const auto read = reader.real();
         model.set_time_step_real(id, std::span(read.values).first(1));
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 39) {
+        const auto read = reader.integer_quad();
+        std::array<int, 4> values;
+        std::copy_n(read.values.begin(), 4, values.begin());
+        model.set_osctrl(values);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 56) {
+        const auto read = reader.integer_real();
+        model.set_cnterr(read.integer_value, read.real_value);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 57) {
+        if (model.controls().dimension == 2) {
+            const auto read = reader.integer();
+            (void)model.set_vfactr_header(read.values[0], 0);
+            return read.status == 0 ? 0 : 2;
+        }
+        const auto read = reader.integer_pair();
+        if (auto* table = model.set_vfactr_header(read.values[0], read.values[1]))
+            (void)read_property_vector(reader, *table); // Parent ignores41ac10 status.
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id >= 58 && id <= 60) {
+        const auto read = reader.real();
+        model.set_dimensional_real(id, read.values[0]); // Also after failed read.
         return read.status == 0 ? 0 : 2;
     }
     if (id == 55) {

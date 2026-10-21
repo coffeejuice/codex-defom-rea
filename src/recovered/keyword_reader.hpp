@@ -165,6 +165,7 @@ public:
     // 413fb0: three zeroed integer destinations, optional native scan-count
     // output. DIEGEO uses conversions to distinguish two-field headers.
     [[nodiscard]] IntegerRead integer_triple();
+    [[nodiscard]] IntegerRead integer_quad(); //414100, four zeroed int32 outputs.
     [[nodiscard]] IntegerRead connectivity3(); // 414100: label plus three integers.
     [[nodiscard]] IntegerRead connectivity4(bool skip_empty_lines = false);
     [[nodiscard]] IntegerRead connectivity8(bool skip_empty_lines = false);
@@ -183,6 +184,7 @@ public:
     // 416aa0: one line, comma replacement, then legacy %Flf %i. Both
     // destinations start at zero; successful partial assignments survive.
     [[nodiscard]] RealIntegerRead real_integer();
+    [[nodiscard]] RealIntegerRead integer_real(); //4154c0; reverse input order.
     // 415590: one fgets, commas become spaces, zeroed %i %Flf %i destinations.
     // integers[0] is rows and integers[1] is width; real_value is the default.
     [[nodiscard]] MixedIntegerRealRead integer_pair_real();

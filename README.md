@@ -1739,6 +1739,44 @@ limits. Complete scientific consumers and application workflows remain pending.
 The retained full export now reaches VFACTR after thirty supported handlers.
 OSCTRL and the remaining dimensional controls stay in scope; the public
 database-loader API is unchanged.
+
+## Dimensional controls and owned VFACTR vector
+
+`OSCTRL39`, `CNTERR56`, `VFACTR57`, `DTSUB58`, `DPLEN59` and `ODMAX60` are now
+implemented. The pending research plan had omitted CNTERR and misnamed the
+following branches; native catalog IDs and the executable's jump table corrected
+that plan before implementation. Earlier validated handlers through MDSOBJ55
+were unaffected. See `analysis/dimensional-step-dispatch-table-audit.json`.
+
+OSCTRL and CNTERR read only in 2D; DPLEN and ODMAX read only in 3D. Ignored
+branches leave the argument text for the outer parser. DTSUB reads a double in
+both dimensions. ODMAX reads a temporary and invokes its setter even after a
+failed read; its field is root1318, distinct from DPLEN/roota18. Fields that the
+original initializes only in one dimension are represented by optional owned
+storage, without reading or inventing inactive native values.
+
+VFACTR reads one integer in 2D. In 3D, mode1 with a positive count activates an
+owned typeB5 vector. The stored count at root1170 is the table's width field,
+not a separate copy. Disabling VFACTR clears its active count but retains the
+old width and data. The reader reallocates zeroed storage and reads width1 too;
+matching failures leave zero slots, while EOF preserves the converted prefix.
+The parent ignores the payload-reader return status. The reader leaves trailing
+text unconsumed, allowing a following keyword on the same line.
+
+The unchanged frozen candidate passes 32 training and 32 separately prepared
+original-first evaluation imports: 126 handlers, 7,433 checks, 175 lookup tokens,
+13 release/reallocation sequences and 11 ODMAX setter calls. The cases cover
+dimension gates, default/reset/retention behavior, signed zero, partial and failed
+reads, stale tables, ignored payload EOF, same-line keyword preservation, linked
+roots, UNIT retention and populated meshes. Twenty-one EOF cursor positions are
+unobserved. Complete scientific consumers, native pointer ABI and whole-object
+lifetime/allocation-failure equivalence remain pending.
+All 118 regression tests pass after rebuilding all seventeen executable targets.
+
+See `analysis/dimensional-controls-import-contract.json` for evidence and limits.
+The retained full export now reaches CVGERR after thirty-four supported handlers.
+The public database-loader API is unchanged; complete application recovery remains
+active and incomplete.
 The next scope records adjacent stopping controls for dependency-aware batching.
 
 Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference

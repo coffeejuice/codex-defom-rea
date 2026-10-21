@@ -68,6 +68,9 @@ struct PropertyReadResult {
 // all conversions; conversion0 there is explicitly unsupported (native malloc
 // bytes are uninitialized). Native EOF scratch leaks are not reproduced.
 [[nodiscard]] int read_property_values(KeywordReader& reader, PropertyTable& table);
+//41ac10: allocate a rank0 positive-width vector, preserve direct partial reads,
+// and leave the trailing line unconsumed. Unlike41a800, width1 is read too.
+[[nodiscard]] int read_property_vector(KeywordReader& reader, PropertyTable& table);
 //41b270: failed header preserves table/auxiliary; otherwise reset type0 while
 // preserving54/60, set selector profile, optionally write auxiliary, read values.
 // Caller-specific HEATCP/PMEAB/COARSE side effects remain in the importer.
