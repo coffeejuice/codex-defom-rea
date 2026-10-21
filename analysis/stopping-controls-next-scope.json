@@ -1,0 +1,77 @@
+{
+  "evidence_id": "ev_7637fd0113875c571a3d3b12fe273e0e101bf9147a785612f1df5fa673e74347",
+  "subject": {
+    "architecture": "x86_64",
+    "digest": {
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    },
+    "format": "pe",
+    "local_path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\source\\DEF_PRE_64.exe",
+    "name": "DEF_PRE_64.exe"
+  },
+  "authority": "shipped-artifact",
+  "confidence": "observed",
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+    "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+    "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+    "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+    "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+    "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+    "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+    "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+    "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+  ],
+  "relationship_coverage": {
+    "diagnostics": [
+      "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+    ],
+    "status": "complete"
+  },
+  "status": "selected_retained_source_for_next_scope_not_implemented",
+  "source": "analysis/oracle/unit-snapshot.json",
+  "pseudocode": "  case 0x11:\n    cVar3 = FUN_1400015e0(param_1);\n    if (cVar3 != '\\0') {\n      local_6c8 = (double *)(param_1 + 0x1114);\n      local_5e8 = FUN_140414100(param_2,param_1 + 0x1108,param_1 + 0x110c,param_1 + 0x1110);\n    }\n    break;\n  case 0x12:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0x8bc,0);\n    break;\n  case 0x13:\n    local_5e8 = FUN_140414990(param_2,param_1 + 0x8c0);\n    break;\n  case 0x14:\n    local_5e8 = FUN_140414990(param_2,param_1 + 0x8c8);\n    break;\n  case 0x15:\n    cVar3 = FUN_1400015e0(param_1);\n    if (cVar3 == '\\0') {\n      local_5e8 = FUN_140414c20(param_2,param_1 + 0x8d0,param_1 + 0x8d8,param_1 + 0x8e0);\n    }\n    else {\n      local_5e8 = FUN_140414a40(param_2,param_1 + 0x8d0,param_1 + 0x8d8);\n    }\n    break;\n  case 0x16:\n    cVar3 = FUN_1400015e0(param_1);\n    if (cVar3 == '\\0') {\n      local_5e8 = FUN_140414c20(param_2,param_1 + 0x8e8,param_1 + 0x8f0,param_1 + 0x8f8);\n    }\n    else {\n      local_5e8 = FUN_140414a40(param_2,param_1 + 0x8e8,param_1 + 0x8f0);\n    }\n    break;\n  case 0x17:\n    cVar3 = FUN_1400015e0(param_1);\n    if (cVar3 == '\\0') {\n      local_5e8 = FUN_140414c20(param_2,param_1 + 0x900,param_1 + 0x908,param_1 + 0x910);\n    }\n    else {\n      local_5e8 = FUN_140414a40(param_2,param_1 + 0x900,param_1 + 0x908);\n    }\n    break;\n  case 0x18:\n    local_5e8 = FUN_140413de0(param_2,param_1 + 0x918,0);\n    break;\n  case 0x19:\n    local_5e8 = FUN_140414990(param_2,param_1 + 0x9b0);\n    break;",
+  "catalog": [
+    {
+      "keyword": "OSCTRL",
+      "id": 39
+    },
+    {
+      "keyword": "NSTEP",
+      "id": 40
+    },
+    {
+      "keyword": "EMAX",
+      "id": 41
+    },
+    {
+      "keyword": "TMAX",
+      "id": 42
+    },
+    {
+      "keyword": "SMAX",
+      "id": 43
+    },
+    {
+      "keyword": "VMIN",
+      "id": 44
+    },
+    {
+      "keyword": "LMAX",
+      "id": 45
+    },
+    {
+      "keyword": "STPDEF",
+      "id": 46
+    },
+    {
+      "keyword": "DEMAX",
+      "id": 47
+    }
+  ],
+  "next": "Begin NSTEP40; group other simple stopping controls only after defaults, aliasing and consumers prove independent. OSCTRL39 is dimension-gated; SMAX/VMIN/LMAX use dimension-dependent pair/triple reads."
+}

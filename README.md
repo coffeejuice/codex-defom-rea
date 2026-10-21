@@ -1629,3 +1629,23 @@ supported handlers. The loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R elmnod --output-on-failure`. Native reference
 replays need ignored local captures; the unknown-control guard uses only C++.
+
+## STPINC implementation checkpoint
+
+STPINC now reproduces the direct integer write at root8b4. Its constructor default
+is 10; blank or EOF failures leave the reader's zero mutation. Same-dimension
+headers retain it, changed dimensions reset it, and the handler does not refresh
+or propagate to the linked root. No scientific enum restriction is invented.
+
+The unchanged candidate matches 31 original imports, 42 handlers and 2,287 checks.
+Thirteen new evaluation imports ran on the original before C++. Adjacent NSTART
+finalization, clamped ELMNOD payloads and UNIT retention are checked explicitly.
+All 110 regression tests pass. Four EOF cursor positions remain unavailable.
+
+`analysis/stpinc-import-contract.json` records the source bindings and limits.
+Scientific step-generation consumers remain pending. The full export now reaches
+NSTEP after sixteen supported handlers; the existing loader API is unchanged.
+The next scope records adjacent stopping controls for dependency-aware batching.
+
+Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference
+replays need ignored local capture/run/observer files and do not launch the original.

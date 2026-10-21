@@ -67,6 +67,18 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(stpinc_batch IN ITEMS training evaluation)
+    set(stpinc_plan "stpinc-fixture-plan.json")
+    if(stpinc_batch STREQUAL "evaluation")
+      set(stpinc_plan "stpinc-evaluation-inputs.json")
+    endif()
+    add_test(NAME "stpinc_${stpinc_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_stpinc_import.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/stpinc-runtime-${stpinc_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/stpinc-${stpinc_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${stpinc_plan}")
+  endforeach()
   add_test(NAME elmnod_unknown_control_source_guard
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/check_elmnod_unknown_controls.py"
       --driver "$<TARGET_FILE:keyword_import_replay>")

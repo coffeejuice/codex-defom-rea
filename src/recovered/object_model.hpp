@@ -66,6 +66,7 @@ struct SimulationControls {
     const int& grain_mode_0x898() const noexcept { return element_layout_0x888[4]; }
     std::array<int, 7> output_flags{0, 0, 0, 0, 1, 0, 0}; // +0x86c..0x884.
     std::int32_t step_number_0x8b0 = -1; // NSTART.
+    std::int32_t stpinc_0x8b4 = 10; // 1e8490 controls164; raw STPINC integer.
     std::int32_t saved_step_0x744 = -1;
     std::int32_t selected_object_0x8b8 = 0;
     std::int32_t pdie_secondary_0x1104 = 0; // 1ead60: controls+9b4, an int32.
@@ -309,6 +310,7 @@ public:
     void set_tnow(const std::array<double, 4>& values);
     void set_trans(const std::array<int, 5>& values);
     void set_heat_method(std::int32_t value);
+    void set_stpinc(std::int32_t value);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

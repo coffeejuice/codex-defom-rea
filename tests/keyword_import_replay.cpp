@@ -728,6 +728,9 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"stpinc_0x8b4\":";
+    if (controls.simulation) std::cout << controls.simulation->stpinc_0x8b4;
+    else std::cout << "null";
     std::cout << ",\"heat_method_0x868\":";
     if (controls.simulation) std::cout << controls.simulation->method_0x868;
     else std::cout << "null";

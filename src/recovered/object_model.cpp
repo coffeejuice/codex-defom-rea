@@ -253,6 +253,11 @@ void ObjectModel::set_heat_method(std::int32_t value) {
     controls_.simulation->method_0x868 = value;
 }
 
+void ObjectModel::set_stpinc(std::int32_t value) {
+    require_simulation_profile(controls_);
+    controls_.simulation->stpinc_0x8b4 = value;
+}
+
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {
     require_simulation_profile(controls_);
     if (values.size() > 10) throw std::invalid_argument("ELMNOD prefix exceeds ten fields");

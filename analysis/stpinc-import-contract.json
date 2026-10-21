@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keyword": "STPINC37",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/stpinc-static-evidence.json",
+  "contract": {
+    "dispatcher": "39aa90 case15 passes FILE,root8b4,skip0 to413de0. Assembly verifiesRCX/RDX/R8D.",
+    "default": "1e8490 writes10 at controls164, corresponding to root8b4. Same-dimension header retains; changed dimension resets10.",
+    "reader": "Existing base0 integer reader zeroes the live field before fgets. With skip0, EOF/scanf-1 maps reader1/handler2; matching0 and successful conversion maps0. Failed reads leave0, not the default10.",
+    "effects": "No immediate refresh or linked propagation. Raw value is preserved; no scientific validation enum inferred.",
+    "adjacent": "NSTART finalization still normalizes its own field and saved value. Clamped ten-word ELMNOD payload ends at8ac and preserves STPINC8b4. UNIT retention is checked with no later STPINC overwrite."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "api": "Existing include/deform loader API unchanged; internal root data is not a native object ABI."
+  },
+  "candidate_freeze": "analysis/stpinc-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "Source-derived18-input training preflight ran on C++ before original. Thirteen separately prepared STPINC evaluation state sequences ran on original before C++ with unchanged candidate. Established direct-integer grammar and some prior scalar fixture values reused; no claim of novel general parser coverage.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_STPINC_COMPARISON",
+      "imports": 18,
+      "handlers": 25,
+      "checks": 1345,
+      "eof_cursors_unobserved": 2,
+      "evidence_id": "ev_95ad84574f0acbf0fb0924fd31b01d4229b94064119043b6adf0dcf5e4ad5c9c",
+      "capture_sha256": "2547516ee7a6c46a9aa83bbb44959ff87420bde0a0a22a9a727a2817e79f34e4",
+      "run_sha256": "0676885bed843fc74d83421f5beeda32bb6f31f2ea76346ad5c9ec3e82f1926b",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw STPINC, step controls, ELMNOD/HTMTHD, mode/flags, component table and counts; no scientific enum inference. Native reader live destination and no-refresh checks are original observations; linked isolation compares."
+    },
+    {
+      "status": "PASS_NATIVE_STPINC_COMPARISON",
+      "imports": 13,
+      "handlers": 17,
+      "checks": 942,
+      "eof_cursors_unobserved": 2,
+      "evidence_id": "ev_4749088ea9f1869973c6c719460d08eaf971d06fef445b40ca2729f491d2f03a",
+      "capture_sha256": "e7106a6f1fc888a46225aa693248dbffbf5c5caf955a7c8d6ff517dc21b3778d",
+      "run_sha256": "2454b9a6c79f9a3f7a68ae021f9061f0cb317229170b125e5c796104bd24a231",
+      "scope": "Representable integer inputs, initialized roots, ordinary wrapper. Raw STPINC, step controls, ELMNOD/HTMTHD, mode/flags, component table and counts; no scientific enum inference. Native reader live destination and no-refresh checks are original observations; linked isolation compares."
+    }
+  ],
+  "totals": {
+    "imports": 31,
+    "handlers": 42,
+    "checks": 2287,
+    "eof_cursors_unobserved": 4
+  },
+  "inputs": [
+    "analysis/stpinc-fixture-plan.json",
+    "analysis/stpinc-evaluation-inputs.json"
+  ],
+  "coverage": "Signed bounds, negatives, nonzero values, octal/hex/prefix parsing, comma/blank/EOF/matching cases, sticky errors, same/changed dimensions, populated mesh, linked isolation, NSTART/ELMNOD adjacency and unmasked UNIT retention. Every import asserts planned native wrapper status and final raw value.",
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "NSTEP",
+    "supported_handlers": 16
+  },
+  "next_scope": "analysis/stopping-controls-next-scope.json",
+  "local_artifacts": [
+    {
+      "path": "analysis/stpinc-runtime-training.json",
+      "bytes": 232101,
+      "sha256": "2547516ee7a6c46a9aa83bbb44959ff87420bde0a0a22a9a727a2817e79f34e4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stpinc-training/run.json",
+      "bytes": 27620,
+      "sha256": "0676885bed843fc74d83421f5beeda32bb6f31f2ea76346ad5c9ec3e82f1926b",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stpinc-training/observer-source.js",
+      "bytes": 3337,
+      "sha256": "954f1b6ae854b0dbea7f7637aa86b13e073df1dbece34934713c9b145d6405f3",
+      "local_only": true
+    },
+    {
+      "path": "analysis/stpinc-runtime-evaluation.json",
+      "bytes": 162337,
+      "sha256": "e7106a6f1fc888a46225aa693248dbffbf5c5caf955a7c8d6ff517dc21b3778d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stpinc-evaluation/run.json",
+      "bytes": 21040,
+      "sha256": "2454b9a6c79f9a3f7a68ae021f9061f0cb317229170b125e5c796104bd24a231",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stpinc-evaluation/observer-source.js",
+      "bytes": 3339,
+      "sha256": "924145ca545c19c10ee0ef9eef9871c0a29da3026038235b5318c51609b7b44f",
+      "local_only": true
+    }
+  ],
+  "regression": {
+    "registered": 110,
+    "passed": 110,
+    "failed": 0,
+    "seconds": 167.81,
+    "build": "All17 executable targets rebuilt; complete regression once after implementation."
+  },
+  "limitations": [
+    "Bounded initialized ordinary console profile and representable signed32 inputs; overflowing conversions, allocation failure and arbitrary startup configurations unverified.",
+    "Scientific step-generation semantics and broader consumers remain pending.",
+    "Four native EOF handler cursor positions unavailable after CRT buffer reset; observed nonzero positions match.",
+    "Selected state equality does not prove absence of all other memory effects. Reference replays require ignored local capture/run/observer files and do not launch the original.",
+    "The full export now stops at NSTEP after sixteen supported handlers. Complete application reconstruction remains active and incomplete."
+  ],
+  "resource_release": "Saved REA static evidence reused; no new static session opened. Both Frida sessions detached without probe error, message truncation or cleanup error; original processes exited0."
+}
