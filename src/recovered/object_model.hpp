@@ -207,10 +207,19 @@ struct PlanarObjectDirectImports {
     std::int32_t zstr_mode_0x1f30 = 0;
 };
 
+struct SpatialRotationSymmetry {
+    double scalar_0x2058 = 0.0;
+    std::array<double, 3> vector_0x2060{};
+    std::array<double, 3> vector_0x2078{};
+};
+
 struct ObjectDirectImports {
     //186200: LMTSTR,AVGSTR,PENVOL,REFTMP. Last value follows process units.
     std::array<double, 4> scalars_0x1ea0{0.01, 1.0, 1000000.0, 68.0};
     double temperature_limit_0x1f10 = 0.0; //186200 relative70.
+    std::optional<SpatialRotationSymmetry> rotation_symmetry;
+    double target_volume_0x2090 = 0.0;
+    std::int32_t target_volume_mode_0x2098 = -1;
     //The constructor leaves these native fields uninitialized in3D.
     std::optional<PlanarObjectDirectImports> planar;
 };

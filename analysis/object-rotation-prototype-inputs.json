@@ -1,0 +1,3269 @@
+{
+  "status": "source_planned_before_native",
+  "cohort": "prototype",
+  "ordered_imports": [
+    "00_d3_reset.KEY",
+    "01_d3_positive.KEY",
+    "02_d3_partial.KEY",
+    "03_d3_matching.KEY",
+    "04_d3_blank_first.KEY",
+    "05_d3_blank_second.KEY",
+    "06_d3_blank_third.KEY",
+    "07_d3_unit_reseed.KEY",
+    "08_d3_deactivate.KEY",
+    "09_d3_same_dimension.KEY"
+  ],
+  "inputs": [
+    {
+      "file": "00_d3_reset.KEY",
+      "sha256": "91ce771c39f2f51b061ee4fdba64725a8d82fd4a625d1ba4da95b59b335009a4",
+      "expected_handlers": [],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        }
+      },
+      "expected_nstep": 1,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "01_d3_positive.KEY",
+      "sha256": "f792948526da09dec2c915a1c3f8ac29bebb27916c23c21fdb79d358d6ee10df",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 1,
+              "after_count": 1,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 1,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 9 12.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 1,
+              "after_count": 1,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        },
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 3,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 3,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 3,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 1,
+              "after_count": 3,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 3,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 9 12.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 3,
+              "before": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "after": {
+                "integers": [
+                  0
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 0 0.0\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 3,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  -3
+                ],
+                "reals_hex": [
+                  "00000000000021c0"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " -3 -8.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -3,
+                "value_0x2090_hex": "00000000000021c0"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -3,
+            "value_0x2090_hex": "00000000000021c0"
+          }
+        }
+      },
+      "expected_nstep": 221,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "02_d3_partial.KEY",
+      "sha256": "d9dfe66d29056eb284718a3e5a44cd74ff103b4bcc9732489a67be86d6596d73",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000080"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " -0.0 trailing\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "1.25,bad,9\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000080",
+                "vector_0x2060_hex": "000000000000044000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000f43f00000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -3,
+                "value_0x2090_hex": "00000000000021c0"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 1,
+              "before": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "after": {
+                "integers": [
+                  5
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000080",
+                "vector_0x2060_hex": "000000000000044000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000f43f00000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -3,
+                "value_0x2090_hex": "00000000000021c0"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 3,
+              "before": {
+                "integers": [
+                  -3
+                ],
+                "reals_hex": [
+                  "00000000000021c0"
+                ]
+              },
+              "after": {
+                "integers": [
+                  7
+                ],
+                "reals_hex": [
+                  "0000000000000080"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 0x7,-0.0 tail\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000080",
+                "vector_0x2060_hex": "000000000000044000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000f43f00000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000080"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000080",
+            "vector_0x2060_hex": "000000000000044000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000f43f00000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000080"
+          }
+        }
+      },
+      "expected_nstep": 223,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "03_d3_matching.KEY",
+      "sha256": "2bb5ebd9644d559d9364185820030bcde594d29a8631084620b1b724348dfc6b",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000080"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " bad\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "bad\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "bad\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000080"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 3,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000080"
+                ]
+              },
+              "after": {
+                "integers": [
+                  0
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " bad\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        }
+      },
+      "expected_nstep": 225,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "04_d3_blank_first.KEY",
+      "sha256": "ac0a6d14a4567ce6882784efdd3b00dd587b8f691300c02b5b3592be87c1bf27",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 258,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "status": 1
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 1,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  0
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "status": 1
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        }
+      },
+      "expected_nstep": 227,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "05_d3_blank_second.KEY",
+      "sha256": "fa1ad08f9f06fdbfb2efb800366907b184f771075e29d49a0dc7878cd524900b",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 258,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000803240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "status": 1
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 18.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000803240",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000803240",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        }
+      },
+      "expected_nstep": 229,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "06_d3_blank_third.KEY",
+      "sha256": "f1812121a6b0629cccff148e9ab4578b2c4ec56a49ac40bfb65874d69ece793f",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000803240"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 258,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000803340"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000803440",
+                  "0000000000803540",
+                  "0000000000803640"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "status": 1
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 19.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "20.5 21.5 22.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 3,
+              "after_count": 3,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000803340",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000080344000000000008035400000000000803640"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000803340",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000080344000000000008035400000000000803640"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        }
+      },
+      "expected_nstep": 231,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "07_d3_unit_reseed.KEY",
+      "sha256": "8da5163582f6fd98d84bc76b2a14ff30382748da18c70e04ef533943399adddd",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 5,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 5,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 5,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 5,
+              "before_count": 3,
+              "after_count": 5,
+              "result_id": 5
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000803340",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000080344000000000008035400000000000803640"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 5,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 9 12.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 5,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 5
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000803340",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000080344000000000008035400000000000803640"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        },
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000803340"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000803440",
+                  "0000000000803540",
+                  "0000000000803640"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000000",
+                  "0000000000000000",
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 1,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 9 12.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "4": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "5": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        }
+      },
+      "expected_nstep": 233,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "08_d3_deactivate.KEY",
+      "sha256": "574e6c2cf02c93e6f17965d1b62737a22e3f158d232dc70fafdc32b69aa2b78c",
+      "expected_handlers": [
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 3,
+              "before": {
+                "integers": [
+                  -1
+                ],
+                "reals_hex": [
+                  "0000000000000000"
+                ]
+              },
+              "after": {
+                "integers": [
+                  13
+                ],
+                "reals_hex": [
+                  "0000000000002f40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 13 15.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 3,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 3
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 13,
+                "value_0x2090_hex": "0000000000002f40"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 13,
+            "value_0x2090_hex": "0000000000002f40"
+          }
+        },
+        "4": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "5": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        }
+      },
+      "expected_nstep": 235,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "09_d3_same_dimension.KEY",
+      "sha256": "5947114c454781d246b07635cc38fbaffe7be9d64cc0eae2ae078c3d73b0be1c",
+      "expected_handlers": [
+        {
+          "id": 258,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "real",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "000000000000f43f"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000000440",
+                  "0000000000000c40",
+                  "0000000000001240"
+                ]
+              },
+              "status": 0
+            },
+            {
+              "kind": "triple",
+              "object_id": 1,
+              "before": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "after": {
+                "integers": [],
+                "reals_hex": [
+                  "0000000000001640",
+                  "0000000000001a40",
+                  "0000000000001e40"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 1.25\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "2.5 3.5 4.5\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "5.5 6.5 7.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 13,
+                "value_0x2090_hex": "0000000000002f40"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        },
+        {
+          "id": 259,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "intreal",
+              "object_id": 1,
+              "before": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "after": {
+                "integers": [
+                  9
+                ],
+                "reals_hex": [
+                  "0000000000002940"
+                ]
+              },
+              "status": 0
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " 9 12.5\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "header-enter",
+            "fgets",
+            "header-leave"
+          ],
+          "expected_rotation": {
+            "1": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            },
+            "2": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "3": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 13,
+                "value_0x2090_hex": "0000000000002f40"
+              }
+            },
+            "4": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "0000000000000000",
+                "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+                "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+              },
+              "target_volume": {
+                "mode_0x2098": -1,
+                "value_0x2090_hex": "0000000000000000"
+              }
+            },
+            "5": {
+              "rotation_symmetry": {
+                "scalar_0x2058_hex": "000000000000f43f",
+                "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+                "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+              },
+              "target_volume": {
+                "mode_0x2098": 9,
+                "value_0x2090_hex": "0000000000002940"
+              }
+            }
+          }
+        }
+      ],
+      "expected_rotation": {
+        "1": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        },
+        "2": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "3": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 13,
+            "value_0x2090_hex": "0000000000002f40"
+          }
+        },
+        "4": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "0000000000000000",
+            "vector_0x2060_hex": "000000000000000000000000000000000000000000000000",
+            "vector_0x2078_hex": "000000000000000000000000000000000000000000000000"
+          },
+          "target_volume": {
+            "mode_0x2098": -1,
+            "value_0x2090_hex": "0000000000000000"
+          }
+        },
+        "5": {
+          "rotation_symmetry": {
+            "scalar_0x2058_hex": "000000000000f43f",
+            "vector_0x2060_hex": "00000000000016400000000000001a400000000000001e40",
+            "vector_0x2078_hex": "00000000000004400000000000000c400000000000001240"
+          },
+          "target_volume": {
+            "mode_0x2098": 9,
+            "value_0x2090_hex": "0000000000002940"
+          }
+        }
+      },
+      "expected_nstep": 237,
+      "expected_wrapper_status": 0
+    }
+  ],
+  "qualification": "Complete ROTSYM258/TRGVOL259 import cases in normal owned2D/3D wrappers and bounded signed object selectors. ROTSYM fields uninitialized in2D are neither read nor fabricated. Scientific consumers,numeric extremes,uninitialized selector matching failures,allocation failure,arbitrary aliases/native ABI and complete application remain pending."
+}

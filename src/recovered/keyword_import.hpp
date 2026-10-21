@@ -81,6 +81,7 @@ public:
     // BURGRS, ALPHA, NDISFM and RECVRY retain inactive dimensions and scalar buffers.
     // AVGSTR,LMTSTR,ZSTR,PENVOL,REFTMP include planar gating and live read failures.
     // TMPLMT and nine remeshing scalars retain dimension defaults and live zeroing.
+    // ROTSYM's3D scalar/two-vector sequence and unconditional TRGVOL zero sentinel.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

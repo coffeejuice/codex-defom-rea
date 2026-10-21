@@ -1,0 +1,23 @@
+{
+  "status": "source_derived_before_original_prototype",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "source_bundle_sha256": "889e9ce7a57152685f4ac9cb7c16ad1ddbbbb174a3a86419c5794eead401f3cf",
+  "keywords": {
+    "258": "ROTSYM",
+    "259": "TRGVOL"
+  },
+  "defaults": {
+    "ROTSYM": "Only dimension3 initializes zero2058 and zero vectors2060/2078; fields uninitialized in2D are absent from C++ and not read.",
+    "TRGVOL": "2090=positive zero,2098=-1 in both dimensions."
+  },
+  "reads": {
+    "ROTSYM3D": "414990 live2058; stop2 on failure.414c20 live2078/2080/2088; stop2 on failure.414c20 live2060/2068/2070; return mapped status. Each invoked helper zeroes its own destinations before fgets.",
+    "ROTSYM2D": "Return0 after object selection/creation; consume no payload. Numeric/unknown leftovers handled by outer parser.",
+    "TRGVOL": "4154c0 live2098 integer/2090 real in both dimensions. After any helper return,including blank/EOF,if real==0 store integer-1. Signed zero also triggers sentinel."
+  },
+  "lifecycle": "19ccc0 selection/creation precedes reading.186510 cleanup preserves these fields. UNIT,same-dimension headers and deactivation/reactivation preserve; changed dimensions destroy records.",
+  "limits": [
+    "Finite defined numeric/selector profile,owned wrappers and IDs through6. Scientific consumers,numeric extremes,allocation failure,arbitrary aliases/native ABI remain unproven.",
+    "Uninitialized2D rotation storage is neither read nor fabricated; no native layout mirror claimed."
+  ]
+}

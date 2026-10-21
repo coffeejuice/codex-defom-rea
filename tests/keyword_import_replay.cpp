@@ -1059,6 +1059,19 @@ void state(const ObjectModel& model) {
         raw_values(std::span(&object->direct.temperature_limit_0x1f10, 1));
         std::cout << ",\"remeshing_scalars_hex\":";
         raw_values(std::span(object->remeshing_scalars.values));
+        std::cout << ",\"rotation_symmetry\":";
+        if (!object->direct.rotation_symmetry) std::cout << "null";
+        else {
+            const auto& r = *object->direct.rotation_symmetry;
+            std::cout << "{\"scalar_0x2058_hex\":"; raw_values(std::span(&r.scalar_0x2058, 1));
+            std::cout << ",\"vector_0x2060_hex\":"; raw_values(std::span(r.vector_0x2060));
+            std::cout << ",\"vector_0x2078_hex\":"; raw_values(std::span(r.vector_0x2078));
+            std::cout << '}';
+        }
+        std::cout << ",\"target_volume\":{\"mode_0x2098\":"
+                  << object->direct.target_volume_mode_0x2098 << ",\"value_0x2090_hex\":";
+        raw_values(std::span(&object->direct.target_volume_0x2090, 1));
+        std::cout << '}';
         std::cout << ',';
         stroke_fields(object->stroke_0x22d0);
         std::cout << ",\"geometry\":";

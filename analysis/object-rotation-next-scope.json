@@ -1,0 +1,127 @@
+{
+  "status": "next_after_object_rotation",
+  "full_objective_unchanged": true,
+  "first": {
+    "id": 234,
+    "name": "ELPSOL",
+    "category": 2
+  },
+  "boundary": "analysis/object-rotation-full-export-boundary.json",
+  "source": {
+    "path": "analysis/geometry-import-0x14038b8a0.json",
+    "sha256": "76d86a332755c224b4539b295b190f5b40d7da5ac239f25396eda4cbafbfcff0",
+    "evidence_id": "ev_726010a8f9b6543c8d6d6f66568702d677883779127c6fb7ce13d9c1c4205b27",
+    "selections": [
+      {
+        "id": 199,
+        "start_line": 2129,
+        "end_line": 2131,
+        "pseudocode": "    case 0x37:\n      iVar2 = FUN_140413de0(param_2,local_1080 + 0x1f34,0);\n      break;"
+      },
+      {
+        "id": 200,
+        "start_line": 2132,
+        "end_line": 2134,
+        "pseudocode": "    case 0x38:\n      iVar2 = FUN_140413de0(param_2,local_1080 + 0x1f38,0);\n      break;"
+      },
+      {
+        "id": 201,
+        "start_line": 2135,
+        "end_line": 2137,
+        "pseudocode": "    case 0x39:\n      iVar2 = FUN_140413de0(param_2,local_1080 + 0x1f3c,0);\n      break;"
+      },
+      {
+        "id": 234,
+        "start_line": 3053,
+        "end_line": 3055,
+        "pseudocode": "    case 0x5a:\n      iVar2 = FUN_140413de0(param_2,local_1080 + 0x1f18,0);\n      break;"
+      },
+      {
+        "id": 253,
+        "start_line": 3209,
+        "end_line": 3211,
+        "pseudocode": "    case 0x6d:\n      iVar2 = FUN_140413de0(param_2,local_1080 + 0x2150,0);\n      break;"
+      },
+      {
+        "id": 267,
+        "start_line": 3569,
+        "end_line": 3571,
+        "pseudocode": "    case 0x7b:\n      iVar2 = FUN_140413de0(param_2,local_1080 + 0x1f1c,0);\n      break;"
+      }
+    ],
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+      "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+      "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+      "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+      "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+      "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+      "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+      "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+      "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+    ],
+    "relationship_coverage": {
+      "status": "complete",
+      "diagnostics": [
+        "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+      ]
+    }
+  },
+  "candidate_related_integer_imports": [
+    {
+      "id": 199,
+      "name": "FRCSTP",
+      "offset": "0x1f34",
+      "status": "unconditional413de0_and186200_initialization_confirmed_need_runtime"
+    },
+    {
+      "id": 200,
+      "name": "FRCNEL",
+      "offset": "0x1f38",
+      "status": "unconditional413de0_and186200_initialization_confirmed_need_runtime"
+    },
+    {
+      "id": 201,
+      "name": "FRCMTH",
+      "offset": "0x1f3c",
+      "status": "unconditional413de0_and186200_initialization_confirmed_need_runtime"
+    },
+    {
+      "id": 234,
+      "name": "ELPSOL",
+      "offset": "0x1f18",
+      "status": "unconditional413de0_and186200_initialization_confirmed_need_runtime"
+    },
+    {
+      "id": 253,
+      "name": "USRSUB",
+      "offset": "0x2150",
+      "status": "unconditional413de0_and186200_initialization_confirmed_need_runtime"
+    },
+    {
+      "id": 267,
+      "name": "OBJUPD",
+      "offset": "0x1f1c",
+      "status": "unconditional413de0_and186200_initialization_confirmed_need_runtime"
+    }
+  ],
+  "questions": [
+    "Recover six unconditional live integer destinations with existing186200 constructor,186510 cleanup and413de0 helper. ELPSOL defaults2; confirm the remaining zero defaults individually from source before implementation.",
+    "Preserve signed/base-zero scanning,matching/blank/EOF zeroing,object creation and deactivation/reset order; inspect current model to avoid duplicate aliases."
+  ],
+  "remaining_material_entries": [
+    {
+      "id": 123,
+      "name": "ANISO"
+    },
+    {
+      "id": 130,
+      "name": "SINTER"
+    }
+  ],
+  "remaining_scope": "Full object/relation model,scientific operations,DB/model mapping,KEY/DB export,console workflows and independent end-to-end evaluation remain required."
+}

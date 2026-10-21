@@ -2174,3 +2174,34 @@ and application workflows remain unfinished. The public loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R remesh_scalars --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## ROTSYM and TRGVOL imports
+
+ROTSYM now follows its original dimension gate. In 3D it reads the scalar at
+0x2058, then the vector at 0x2078, then the vector at 0x2060. Each live reader
+zeroes its own destinations, and a failed first or second read returns immediately
+while retaining unread fields. Partial matching updates the defined prefix and
+zeroes the rest. In 2D the handler consumes no payload; its uninitialized native
+rotation fields are represented as absent and are not inspected.
+
+TRGVOL reads its live integer and real in both dimensions. After any reader
+return, a zero real forces the integer to -1. This includes signed zero, blank
+input and EOF. The constructor initializes its volume to zero and mode to -1.
+Object creation, inactive placeholders, unit changes, repeated headers and
+deactivation/reactivation preserve the observed ownership and update order.
+
+The frozen candidate matches 64 original imports, 132 handler calls and 20,314
+checks, including 32 independently varied original-first evaluation imports.
+All three rotation failure stages and the 2D no-read branch are compared. Eleven
+saved source bodies were reused without new static queries. No candidate/probe/
+input correction or capture retry was needed. All 68 frozen files remain unchanged
+after building all seventeen targets and passing all 149 tests in 35.25s.
+Twenty EOF cursor positions remain unobserved.
+
+See `analysis/object-rotation-import-contract.json` for source evidence, chronology
+and numeric/ownership limits. The retained export now reaches ELPSOL after 134
+supported handlers. Scientific consumers, remaining imports/exports and complete
+application workflows remain unfinished. The public loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R object_rotation --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.
