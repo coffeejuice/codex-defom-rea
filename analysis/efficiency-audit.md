@@ -173,3 +173,19 @@ phases using their retained receipts and move directly to integration, reopening
 only for new evidence or a concrete missing requirement. No verification gate
 is removed. Future speed/token effects remain unmeasured. See
 `analysis/efficiency-review-20261021-hardening.json`. No workers restarted.
+
+## Retained material tables safe checkpoint review
+
+The last two completed turns took 1,321.63s and 1,049.86s. Recorded reasoning
+item unions were 682.95s and 199.82s; tool unions were 232.30s and 370.27s.
+The tasks differ, so these observations do not establish a causal speedup.
+Unattributed time and cached/uncached input remain separate. One native source
+query took 81.99s; bounded observation calls were about 35s.
+
+Adopt source-backed grouping of matching handlers around their shared ownership
+contract. This checkpoint recovered four handlers with one constructor query and
+three original capture sessions, while comparing every handler separately and
+preserving all evaluation gates. No controlled wall-time or token saving is
+claimed. The initial 16MiB audit tail lacked completed-turn starts; a bounded
+128MiB tail recovered them. See
+`analysis/efficiency-review-20261021-retained-material.json`. No workers restarted.

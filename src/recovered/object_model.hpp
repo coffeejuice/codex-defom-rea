@@ -364,6 +364,9 @@ struct MaterialRecord {
     FrcmodProperties frcmod;
     MaterialHardeningImports hardening;
     CreepProperties creep;
+    //28bcc0: four separately owned type0 tables, at18f0/1968/19e0/1a58.
+    std::array<PropertyTable, 4> retained_tables{
+        PropertyTable{}, PropertyTable{}, PropertyTable{}, PropertyTable{}};
     FstresProperties fstres;
     GrndatProperties grndat;
     // 29b300/28c5a0: count only; no inferred scientific interpretation.

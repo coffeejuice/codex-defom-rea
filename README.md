@@ -2080,3 +2080,34 @@ database-loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R creep --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## BURGRS, ALPHA, NDISFM and RECVRY imports
+
+These four keywords now use their separate constructor-owned type-zero tables.
+BURGRS supports scalar, three curve selectors, three surface selectors and an
+extra-header three-dimensional selector. ALPHA, NDISFM and RECVRY share their
+source-backed scalar/two-curve/surface import structure with different axes from
+BURGRS. Unknown selectors return status two without changing the table.
+
+The handlers mutate existing metadata without resetting tables. Scalar input
+changes rank and constant while retaining physical buffers and inactive metadata.
+Later curve/surface input replaces allocated storage but retains inactive logical
+counts/selectors. Failed initial or extra headers preserve the prior table;
+material creation and its refresh still precede reading. Partial direct payloads
+and staged multidimensional failures use the existing recovered table reader.
+
+The frozen candidate matches 64 original imports, 344 handler calls and 66,546
+checks, including 32 independently varied original-first evaluation imports.
+All four handlers have separate source expectations. No candidate/probe/input
+correction or capture retry was needed. All 62 frozen files remain unchanged
+after building all seventeen targets and passing all 143 tests in 34.30s.
+Thirty-two EOF cursor positions remain unobserved.
+
+See `analysis/retained-material-import-contract.json` for evidence, chronology
+and numerical/ownership limits. The retained export now reaches AVGSTR after 127
+supported handlers. ANISO and SINTER remain on the material-import backlog;
+scientific evaluation, remaining imports/exports and complete application workflows
+remain unfinished. The public database-loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R retained_material --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 476374773,
+    "tail_mib": 128,
+    "start_offset": 342157798,
+    "end_offset": 476374773,
+    "window_sha256": "78942596972f5ed37652ee6f041199f3f1abeec9e370bab9c786ddc3f4bbb29e"
+  },
+  "turns": [
+    {
+      "turn_id": "01a16081-a4f7-7bd0-b7cc-85ef9e9dd739",
+      "started_at": "2026-10-21T22:07:51.560Z",
+      "completed_at": "2026-10-21T22:29:53.192Z",
+      "elapsed_seconds": 1321.632,
+      "tool_active_union_seconds": 232.297,
+      "reasoning_item_union_seconds": 682.953,
+      "tool_reasoning_overlap_seconds": 92.868,
+      "compaction_seconds": 105.562,
+      "unattributed_seconds": 381.218,
+      "tool_items": {
+        "CommandExecution": 26,
+        "FileChange": 8,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 2,
+      "usage_delta": {
+        "input_tokens": 10902251,
+        "cached_input_tokens": 10803072,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 45606,
+        "reasoning_output_tokens": 26645,
+        "total_tokens": 10947857,
+        "uncached_input_tokens": 99179
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 46.238,
+          "item_id": "exec-7879f6e3-48b4-4a6c-993b-af77d8b1e62f"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.092,
+          "item_id": "exec-948c4d66-afcc-4de0-9e13-8f217f1fa54c"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.955,
+          "item_id": "exec-df0199a8-3fd6-4bcc-b402-e6341113daaf"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.622,
+          "item_id": "exec-2c02ec54-cafa-4c1e-8739-399e2ccee84d"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 25.203,
+          "item_id": "exec-9c0bd7ae-e0f3-494c-a5c5-b0715b471527"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a16095-cfae-7a13-a95b-2c5251ed8b46",
+      "started_at": "2026-10-21T22:29:53.216Z",
+      "completed_at": "2026-10-21T22:47:23.071Z",
+      "elapsed_seconds": 1049.855,
+      "tool_active_union_seconds": 370.265,
+      "reasoning_item_union_seconds": 199.815,
+      "tool_reasoning_overlap_seconds": 22.442,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 494.18,
+      "tool_items": {
+        "CommandExecution": 36,
+        "FileChange": 11,
+        "binary_session": 1,
+        "open_binary": 1,
+        "procedure_pseudo_code": 1,
+        "close_binary": 1,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 1,
+      "truncated_command_outputs": 3,
+      "usage_delta": {
+        "input_tokens": 6685566,
+        "cached_input_tokens": 6590336,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 30422,
+        "reasoning_output_tokens": 8320,
+        "total_tokens": 6715988,
+        "uncached_input_tokens": 95230
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "procedure_pseudo_code",
+          "seconds": 81.985,
+          "item_id": "exec-924fa660-0ad6-4f92-b88e-9d850f9ea45d"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 45.896,
+          "item_id": "exec-1d38dc56-dbc6-4625-8319-94c83de96dd8"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.59,
+          "item_id": "exec-f153b9b3-4911-4d4a-a03b-3d1edfe47352"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.508,
+          "item_id": "exec-a6c3f8a9-6006-4da6-8cb4-3832f0a79fd8"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.166,
+          "item_id": "exec-505b1aa8-b508-4be6-8e8f-cf616dffb575"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "safe_checkpoint_review": {
+    "checkpoint": "analysis/retained-material-import-contract.json",
+    "cadence": "Third completed recovery checkpoint since last review; performed after capture/freeze/build gates.",
+    "initial_16_mib_tail": "No completed-turn starts; increased bounded tail to128MiB without whole-history scan.",
+    "adopted": "source_backed_related_handler_batching",
+    "observed_checkpoint": {
+      "keywords": 4,
+      "new_static_queries": 1,
+      "original_capture_sessions": 3,
+      "training_evaluation_imports": 64,
+      "handler_comparisons": 344,
+      "tests_passed": 143
+    },
+    "qualification": "Completed turns differ in scope. Lower recent elapsed/reasoning time is not a causal benchmark of phase-closure policy. Grouping reduces repeated phase setup structurally; controlled wall-time/token savings remain unmeasured. No verification gates weakened; no workers restarted."
+  }
+}

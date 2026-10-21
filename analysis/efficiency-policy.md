@@ -57,6 +57,10 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   order directly; do not add an unsupported ordering guard to a new probe.
 - Batch independent reads and hash/report preparation. Keep provider-dependent
   queries, mutations and verification ordered. Use one native REA owner.
+- Group source-matching handlers with a shared constructor/ownership contract in
+  one bounded phase. Keep separate stores and per-keyword branch expectations;
+  names or neighboring dispatcher cases alone do not establish matching behavior.
+  Preserve prototype, freeze, original-first evaluation and full regression gates.
 - After read-only function queries, retain and hash every new complete inline
   Evidence record, keep the immutable baseline, and close REA without another
   cumulative snapshot. Request a snapshot when annotations or other required
