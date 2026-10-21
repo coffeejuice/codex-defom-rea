@@ -142,9 +142,30 @@ struct FstresProperties {
     std::int32_t field_0x660 = 0;
 };
 
+struct GrndatRecord {
+    std::int32_t count_0x00 = 12;
+    std::array<double, 12> inline_0x08{};
+    double scalar_0x68 = 0;
+    std::int32_t integer_0x70 = 0;
+    std::array<PropertyTable, 3> tables{PropertyTable{0x5e}, PropertyTable{0x5f}, PropertyTable{0x60}};
+    bool skip_first_two_0x1e0 = false;
+};
+
 struct GrndatProperties {
+    std::array<std::int32_t, 4> flags_0x1078{};
+    std::array<PropertyTable, 9> tables_0x1088{PropertyTable{0x55}, PropertyTable{0x54},
+        PropertyTable{0x56}, PropertyTable{0x57}, PropertyTable{0x58}, PropertyTable{0x59},
+        PropertyTable{0x5a}, PropertyTable{0x5b}, PropertyTable{0x5c}};
+    double scalar_0x14c0 = 0, scalar_0x14c8 = 0;
+    std::int32_t secondary_0x14d0 = 0;
+    GrndatRecord embedded_0x14d8;
+    // Layout order16c8/16e0/16f8/1710/1728. Import traversal starts at index2.
+    // Owned value copies serve observation; native pointer-sharing is unproved.
+    std::array<std::vector<GrndatRecord>, 5> lists;
+    std::array<double, 6> coefficients_0x17b8{};
     std::int32_t secondary_0x17ec = 0;
     PropertyTable table_0x1740{0xac}; // Initial rank2, selectors3/8, no arrays.
+    GrndatProperties() { embedded_0x14d8.skip_first_two_0x1e0 = true; }
 };
 
 // Selected constructor defaults from28c6f0/28cdc0, MSTMTR references and

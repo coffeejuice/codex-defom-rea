@@ -3,6 +3,7 @@
 #include "keyword_reader.hpp"
 #include "relation_properties.hpp"
 #include "fstres_properties.hpp"
+#include "grndat_properties.hpp"
 
 #include <algorithm>
 #include <array>
@@ -228,16 +229,9 @@ int handle_material_keyword(int id, ObjectModel& model, KeywordReader& reader) {
     auto* material = model.find_or_create_material(selector.values[0]);
     if (id == 94) return read_fstres(material->fstres, reader);
     if (id == 108) {
-        const auto header = reader.integer_pair();
-        if (header.status != 0) return 2;
-        if (header.values[0] != 4)
-            throw std::invalid_argument("GRNDAT selector outside the recovered selector4 branch");
-        material->feature_0x17e8 = 4;
-        const auto table = read_property(reader, material->grndat.table_0x1740, 0, nullptr);
-        // The native branch refreshes even after table failure. The explicit
-        // reset profile has root864=0, which gates both feature queries29/53.
-        model.refresh_components();
-        return table.status == 0 ? 0 : 2;
+        const auto read = read_grndat(*material, reader);
+        if (read.refresh) model.refresh_components();
+        return read.status;
     }
     if (property_table_keyword(id)) {
         auto& table = material->property_tables.at(id);

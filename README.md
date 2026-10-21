@@ -1312,8 +1312,8 @@ with `ctest --test-dir build -C Release -R fstres --output-on-failure`.
 inputs, diagnostics and test receipts. The public database-loader API is unchanged.
 
 The full application remains incomplete. The remaining `GRNDAT` import
-branches now have reviewed static contracts and proposed fixtures from Chat A;
-implementation and runtime validation remain pending. See
+branches now have reviewed static contracts from Chat A and a bounded
+implementation with native comparisons described below. See
 `analysis/chat-a-grndat-contract.json` and `analysis/worker-integration.md`.
 Scientific evaluation, enabled grain features, complete DB state import/export
 and console workflows remain separate recovery work.
@@ -1324,16 +1324,15 @@ The user resumed recovery after reconciling the single-chat checkpoint.
 The subsequent A/B/C research and independent reviews are integrated
 and pushed at c6388aa. GRNDAT, keyword metadata and DB mapping research is
 recorded separately from implementation in `analysis/recovery-feature-ledger.json`.
-The 123 GRNDAT cases remain pending. The 17 keyword metadata actions now
+The 123 GRNDAT cases now pass bounded native replay. The 17 keyword metadata actions
 pass replacement replay, and bounded native metadata comparisons pass (below). Reviewed evidence
 lookup tooling is also integrated; it does not establish whole-task speedup.
 
 This chat is the sole owner of recovery, implementation, tests and integration.
 Chat A, Chat B, Chat C and Bottleneck are archived; both schedules are paused.
 No regular checks or dispatch to those chats are required. The full-app goal is
-unchanged and the user has requested continuation. The goal tracker still
-reports paused because its available API has no active/resume setter.
-Implementation follows `analysis/recovery-plan.json` under the resume instruction.
+unchanged and active following the user's resume instruction. Implementation
+follows `analysis/recovery-plan.json`.
 
 This Git checkpoint includes the recovered C++ sources, replay programs,
 synthetic keyword fixtures, observer/comparison tools, compact contracts and
@@ -1372,3 +1371,31 @@ Run `ctest --test-dir build -C Release -R metadata --output-on-failure`.
 The static fixture test uses tracked data; three native replay tests require
 local ignored captures and run records named in the contract. No original
 application process runs during these replay tests.
+
+## GRNDAT import checkpoint
+
+The disabled-grain-profile GRNDAT importer now handles all selector branches,
+including nine-table headers/payloads, embedded and appended records, five owned
+lists, six coefficients, negative selector bit arithmetic and partial failures.
+The existing selector4 behavior remains covered. The public loader API is unchanged.
+
+All 123 prepared cases pass replacement status/cursor checks. Native comparisons
+cover those cases and six new evaluation actions across 23 processes: 636 console
+imports including resets/setup, and 720 GRNDAT handlers. Known raw fields and
+complete table/list state match. The native action refresh calls and the count-clamp
+stdout diagnostic also match the reviewed expectations. All 84 registered tests pass.
+
+`analysis/grndat-import-contract.json` records source digests, per-batch results
+and limitations. Enabled grain flags, scientific evaluation/export, allocation
+failure, pointer ABI and native scratch leaks remain unverified. Native EOF
+buffer resets leave 64 absolute handler cursor positions unobserved; state and
+status are still compared. The six new evaluation actions used the frozen
+candidate; the previously exercised reserved cases are not called held-out.
+
+Run `ctest --test-dir build -C Release -R grndat --output-on-failure`. Native
+replay tests require the ignored runtime captures and private run directories
+listed in the contract, including retained observer-source.js. Replay tests
+do not run the original application. Future capture preparation uses
+`tools/prepare_grndat_batches.py` in a fresh build workspace and the bounded
+console harness `tools/run_grndat_batch.py`; it requires a passive REA observer.
+The next blocker in the retained keyword export remains SMODE.

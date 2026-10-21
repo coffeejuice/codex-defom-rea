@@ -67,7 +67,7 @@ public:
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,
-    // FSTRES (all mode branches) and GRNDAT selector4 (other selectors unsupported);
+    // FSTRES and GRNDAT (all selector branches in the disabled grain profile);
     // TRNSFP, PHEQVF, COARSN, IPSNRG, VARSEL; STROKE, DIEGEO, RZ, ELMCON,
     // MTLGRP, VOLFC, VOLFS; fixed mesh fields DRZ, BCCDEF, BCCDFN, URZ,
     // FRZ, PRZ, BCCTMP, BCCTFN, NDHEAT, NDFLUX, STNCMP, DENSTY, DVOLF,

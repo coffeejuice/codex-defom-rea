@@ -1,0 +1,1579 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_bounded_native_comparisons_passed",
+  "keyword": "GRNDAT108",
+  "original_target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_contract": "analysis/chat-a-grndat-contract.json",
+  "implementation": "src/recovered/grndat_properties.cpp",
+  "candidate_freeze": "analysis/grndat-candidate-freeze.json",
+  "static_replay": {
+    "status": "PASS_REPLACEMENT_STATUS_CURSOR_AND_SELECTED_MUTATIONS",
+    "cases": 123,
+    "checks": 381,
+    "qualification": "All123 cases executed, including reserved cases. This is not independent held-out runtime validation or full-state native equivalence. Native capture and refresh/ownership comparisons remain outstanding."
+  },
+  "native_summary": {
+    "batches": 23,
+    "action_cases": 129,
+    "imports": 636,
+    "handlers": 720,
+    "assertions": 672610,
+    "clamp_diagnostics": 1,
+    "eof_cursors_unobserved": 64
+  },
+  "batches": [
+    {
+      "id": "grndat-batch-00",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 28,
+      "handlers": 26,
+      "checks": 24162,
+      "eof_cursor_unavailable": 1,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_d5642fe98f49520509d03087d51c01cfd45ea4a33bfd8c608f09654edbb77a3d",
+      "capture_sha256": "8a1db716e26173d4d6d8cd64725a3d824ffa7e4239752a5b3358a72a8d4fccb3",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "fresh_3d",
+          "native_refreshes": [
+            1,
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "fresh_2d",
+          "native_refreshes": [
+            1,
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "outer_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "outer_blank",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "outer_bad",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "outer_selector_only",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-01",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33150,
+      "eof_cursor_unavailable": 3,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_d10a485519fd710262fd97162425a8feb732d52374e5907ef2fdecc7ee158a6d",
+      "capture_sha256": "31bb75b1de5f7f12e62e957fe8845e9c7b371e1f55dc12daa5095c517ce6bc10",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "outer_commas",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "nine_tables_order",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "nine_mixed_subselectors",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "header_1_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_1_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_1_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-02",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33147,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_aadece8058a3b7b85dae97a513dc2e82c8cf6ab7f8eef58259feba6fd19711b2",
+      "capture_sha256": "ee2a3118df0e2ad97e2cf06f2c2003eff29012d26e5f73b23a2ef0d66f0bf647",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "header_2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_2_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_2_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "header_3_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_3_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_3_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-03",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33147,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_7aa87a35452059a8a5f39f4b5f9bafeb0966b0947f2563e8349cdf003b2d0990",
+      "capture_sha256": "37429e5d256ba8262afec0b38f4fea7860a160d586942dcab69a6ad601df2f90",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "header_4_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_4_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_4_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "header_5_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_5_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_5_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-04",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33147,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_b0e67215c428ff66c35373bbcd73bec602eb410825100e87ee992d4920c3d160",
+      "capture_sha256": "d21027ba0ba77b0d37062102705472a64e6fb1a97c53049d13cbd9bf96f25c9d",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "header_6_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_6_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_6_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "header_7_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_7_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_7_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-05",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33147,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_5d677e2f8f15be42fbf3db3290c7f2aed63789b718c2943a58f48995b8847a99",
+      "capture_sha256": "54f0bc656887961db6c7116949f8cdc38b93be557828a21ad6e7300da8eed183",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "header_8_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_8_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_8_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "header_9_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_9_axis_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "payload_9_prefix_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-06",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 32522,
+      "eof_cursor_unavailable": 1,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_a8e39acf7c885b372ad9439bc5ead056f13ec6e76d149bd945e60e45efd9efbd",
+      "capture_sha256": "80b3cba933c69493c54fadeb6ebec4e00d366f0ca80ad93208f6c7608f21c660",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "pair_full",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "pair_partial",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "pair_bad",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "pair_blank",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "pair_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_count_minus1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-07",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 29371,
+      "eof_cursor_unavailable": 2,
+      "clamp_diagnostics": 1,
+      "evidence_id": "ev_0d6cbbe445d331929cf54b49443148cdc9046324cff77a35b0080b400b1dde3f",
+      "capture_sha256": "2678956c6682d109b20e1deff38e936fa92e5d7779ba4866ab83506d05e18c0c",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "record_count_0",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_count_1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_count_12",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_count_13",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "embedded_count_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "embedded_inline_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-08",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33841,
+      "eof_cursor_unavailable": 5,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_96a3aca78d51eb1ce22493029751fab41627c5b8783b6b8033a975e26f94fc78",
+      "capture_sha256": "8f74feba7f6be90fac186a964fc152af21f5497ecf452a78562a768fff24198e",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "embedded_pair_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "embedded_table2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "lists_mixed",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "list0_failed_node_count_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list0_failed_node_table0_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list0_failed_node_table1_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-09",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 35226,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_5d57c58eacc0245a8c743c6a899f0a18f71937f26172a7897577664c9bcf852f",
+      "capture_sha256": "cfb2f291133d6f2fe21c06a12f2b6b80cf539641a7c59382d41bc3240e915d71",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "list0_failed_node_table2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list1_failed_node_count_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list1_failed_node_table0_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list1_failed_node_table1_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list1_failed_node_table2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list2_failed_node_count_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-10",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 36864,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_47f76453f556ad6c6d134dfc6edecdfc050bf96af38d19496c34af3cf7a2659a",
+      "capture_sha256": "100c78e98c0b83f4575869c79058b03950bb5e0b0a9251d528a19ad8c8bfd74c",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "list2_failed_node_table0_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list2_failed_node_table1_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list2_failed_node_table2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list3_failed_node_count_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list3_failed_node_table0_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list3_failed_node_table1_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-11",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 37053,
+      "eof_cursor_unavailable": 6,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_fdf9cea24106241abdeb1149361a2e68ef2b3411ec680806fee12e49baa51267",
+      "capture_sha256": "5228fd85b4c15846718f34509b97899220862af2b57241465c9785b637b76e09",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "list3_failed_node_table2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list4_failed_node_count_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list4_failed_node_table0_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list4_failed_node_table1_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list4_failed_node_table2_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "list0_count_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-12",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 27794,
+      "eof_cursor_unavailable": 4,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_471c321b9c623472cd4cfdf200b0d41dacea94f8f54332456b3d806e1332e63f",
+      "capture_sha256": "817d202cc3b5dcfff0505de05f29c213f43665ed12f3c8db6fed4bb3ae8b027a",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "list1_count_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "list2_count_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "list3_count_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "list4_count_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "count_bad",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "count_negative",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-13",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 27798,
+      "eof_cursor_unavailable": 0,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_364c65ceae485e265497efac9458ebf93e5cc5d35fd2c5d6a33e7e16c9055545",
+      "capture_sha256": "99efb9ff8cf973dcf339434d17c554a0ec3b0445e251ff41d288557c14ce1987",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "count_spaces",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "count_two_lf",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "count_one_lf_then_zero",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_table_selector0",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_table_selector1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_table_selector2",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-14",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 32,
+      "checks": 24804,
+      "eof_cursor_unavailable": 0,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_1ed934e947186b0a3c23fa715f0239d6ef7152a4642cc76e3962f2b16ba1a02d",
+      "capture_sha256": "cc6497295ba40ab61aba8d41e7a5d523142a56500b186bf108d513ebda315017",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "record_table_selector3",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_table_to_constant",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_header_negative",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_header_bad",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_header_spaces",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_header_two_lf",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-15",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 32,
+      "checks": 28268,
+      "eof_cursor_unavailable": 1,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_eb1e43afc00039922cb14bd65d2d9990ef6fbd3f8ac91e55870dd34ad3b60fea",
+      "capture_sha256": "d060680788b6543ea50979d1ee4fa717f68e2da2fdf2606194e6fc00370c3fdf",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "record_unknown_positive_rank0",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "record_unknown_positive_rank1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "rank2_scratch_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "six_full",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "six_partial",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "six_bad",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-16",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33152,
+      "eof_cursor_unavailable": 1,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_bfa8e5b36fad58c9af1cc885b49668ff248d119890489ec90af37e49ebeb5e71",
+      "capture_sha256": "444c4428ab12c0e90ebfb54413041107d55b5c4d471aeb329af6c46977ec480f",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "six_blank",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "six_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "six_comma",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "route_0",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "route_3",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "route_6",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-17",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 36,
+      "checks": 33152,
+      "eof_cursor_unavailable": 1,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_9eb1aeb20a42bffcad9e9f20152052c2ec68b336de8cbd5831887c3503edf775",
+      "capture_sha256": "aa87dac2bad2c64826090e3f62f707fc4228cf831900611597531561c6fadc3e",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "route_2147483647",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "route_minus1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "route_minus7",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "route_minus2147483648",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "selector4_constant",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "selector4_header_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-18",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 30,
+      "handlers": 32,
+      "checks": 33366,
+      "eof_cursor_unavailable": 0,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_0c346249c05e1e94baaf41271cad3af079c9c6fc7d467bcb136cf29375e8c214",
+      "capture_sha256": "a8d902c907819756e569efa8990ffc2663d7c997fa4baf1891cddcffa45f84f2",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "selector4_rank1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "dimension_reset_3d_to_2d",
+          "native_refreshes": [
+            1,
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "disabled_gate_populated_3d",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "disabled_gate_populated_2d",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_nine_reordered_counts",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_lists_replacement",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-19",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 26,
+      "handlers": 21,
+      "checks": 26535,
+      "eof_cursor_unavailable": 2,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_9fd4bb7c8faef8932b73060b331e32313052a80c7658b6002ede3d5c6838808c",
+      "capture_sha256": "37621d77f6c39678c80cdba461c47518670adc1729e232292015c586ccddeeda",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "h_negative_zero",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_header7_eof",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "h_last_list_eof",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_sequence1",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_sequence2",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-20",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 24,
+      "handlers": 21,
+      "checks": 24726,
+      "eof_cursor_unavailable": 0,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_58050a8a092503f699712b73007c008393f78bbfb135fc2b21e6656cefe07980",
+      "capture_sha256": "44eaf9042e104adb5936106e59b21048f80950530be2352c9d0e0597d50f0f86",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "h_sequence4",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_sequence5",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "h_sequence_negative",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-batch-21",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 10,
+      "handlers": 9,
+      "checks": 10390,
+      "eof_cursor_unavailable": 0,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_6fdda37e37063cc30dfc3ed273e8f5deb1d2f91b8c7a66cc86693f37b4c6eaa0",
+      "capture_sha256": "d3376ee78e1d1a4a10935a0722149b4ebf7e87faac8494ae50cbb44bf674ea32",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "h_sequence_positive",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        }
+      ]
+    },
+    {
+      "id": "grndat-new-runtime",
+      "status": "PASS_COMPLETE_KNOWN_GRNDAT_STATE",
+      "imports": 8,
+      "handlers": 7,
+      "checks": 7848,
+      "eof_cursor_unavailable": 1,
+      "clamp_diagnostics": 0,
+      "evidence_id": "ev_43c0602c08b3b4645058baadf6ff6b8a5b27a4ecf9685b252b5ddc93cf80b800",
+      "capture_sha256": "3a1762e34a774502cda60ebfdb8c53de58909ce338d819954861897d2958bdfb",
+      "qualification": "Table buffers read only with observed allocation extents; opaque metadata/padding, pointer ABI, allocation failure, enabled grain profile and scientific evaluation excluded. Refresh events retained for separate branch-order checks.",
+      "action_refresh_checks": [
+        {
+          "case": "new-nine.KEY",
+          "native_refreshes": [
+            1,
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "new-list.KEY",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "new-partial.KEY",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        },
+        {
+          "case": "new-six.KEY",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "new-neg.KEY",
+          "native_refreshes": [
+            0
+          ],
+          "postbranch_expected": true
+        },
+        {
+          "case": "new-headerfail.KEY",
+          "native_refreshes": [],
+          "postbranch_expected": false
+        }
+      ]
+    }
+  ],
+  "local_source_bindings": [
+    {
+      "path": "analysis/grndat-runtime-batch-00.json",
+      "bytes": 1281907,
+      "sha256": "8a1db716e26173d4d6d8cd64725a3d824ffa7e4239752a5b3358a72a8d4fccb3",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-00/run.json",
+      "bytes": 33525,
+      "sha256": "5592609a8b05b0d38682f6b6f4071f28cd094b8b28fe56c946ff27045862d8d4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-00/observer-source.js",
+      "bytes": 6691,
+      "sha256": "2cb2fe97b6b07a11ebc179de866cd3811608c5248fec373898830a6d060e56af",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-01.json",
+      "bytes": 1773277,
+      "sha256": "31bb75b1de5f7f12e62e957fe8845e9c7b371e1f55dc12daa5095c517ce6bc10",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-01/run.json",
+      "bytes": 36207,
+      "sha256": "f0ff9e3dbd1a58f04232b5bcb4ec54a9ec3b966d8de2fc9a49914f0db3442f7a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-01/observer-source.js",
+      "bytes": 6691,
+      "sha256": "a213b55665ad24305054fe0d3fe84fe92fefd887b980622b6ed452f7b5eac3d4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-02.json",
+      "bytes": 1768913,
+      "sha256": "ee2a3118df0e2ad97e2cf06f2c2003eff29012d26e5f73b23a2ef0d66f0bf647",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-02/run.json",
+      "bytes": 36328,
+      "sha256": "c81dcd533a7bcbf749464e24b1c990269995f38908257d2e3e21b51e3c5a0b84",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-02/observer-source.js",
+      "bytes": 6691,
+      "sha256": "4a839a9b00c7cb6b451c464101270ba1acc393fffc2c1b8f87b915b06e40efa4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-03.json",
+      "bytes": 1770113,
+      "sha256": "37429e5d256ba8262afec0b38f4fea7860a160d586942dcab69a6ad601df2f90",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-03/run.json",
+      "bytes": 36331,
+      "sha256": "ca600d9ed7d71739bc8edb19df8a93beee001219c1858d808fef790508fa1f73",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-03/observer-source.js",
+      "bytes": 6691,
+      "sha256": "5f82d98c1e27dd543c0ed9760b4bf3f0cf796600a7ca11bf2a4574c5e2eb4c22",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-04.json",
+      "bytes": 1771473,
+      "sha256": "d21027ba0ba77b0d37062102705472a64e6fb1a97c53049d13cbd9bf96f25c9d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-04/run.json",
+      "bytes": 36333,
+      "sha256": "58ecc42c3bebec129678f96436737eb67a084df181c5a7b9556c54b842c588f9",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-04/observer-source.js",
+      "bytes": 6691,
+      "sha256": "f18e4348d8dc881787bfedfb7cd439ad656bc53a2777ba3ae9303a9dcced8e77",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-05.json",
+      "bytes": 1772353,
+      "sha256": "54f0bc656887961db6c7116949f8cdc38b93be557828a21ad6e7300da8eed183",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-05/run.json",
+      "bytes": 36333,
+      "sha256": "4abdd88d320ad4e61476525e208de9e8f0ca480554cfcfafae3ef167372fc6dc",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-05/observer-source.js",
+      "bytes": 6691,
+      "sha256": "c5ba576adb2ab4b68ec62a71d38bce72744ee183c4b4a0f09b6d275757fc4876",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-06.json",
+      "bytes": 1727514,
+      "sha256": "80b3cba933c69493c54fadeb6ebec4e00d366f0ca80ad93208f6c7608f21c660",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-06/run.json",
+      "bytes": 36164,
+      "sha256": "eb97978ef60a2eb409e88914859f7a82f31cbfb5594797b7102b9c58f8bde094",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-06/observer-source.js",
+      "bytes": 6691,
+      "sha256": "c780323bcf1ad22341bcc990efbc0bf130d0f0fe886b5d1ba66df6c036a04523",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-07.json",
+      "bytes": 1564649,
+      "sha256": "2678956c6682d109b20e1deff38e936fa92e5d7779ba4866ab83506d05e18c0c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-07/run.json",
+      "bytes": 36207,
+      "sha256": "65b147a8d93c84ea87a1c80f25c11185c4942ae8810cb8bb1cb6957054d2e1e7",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-07/observer-source.js",
+      "bytes": 6691,
+      "sha256": "0084b91793c565e616ba4bacee1d2d34882eb4377e581e3dcd33fbd843f65ec3",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-08.json",
+      "bytes": 1817020,
+      "sha256": "8f74feba7f6be90fac186a964fc152af21f5497ecf452a78562a768fff24198e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-08/run.json",
+      "bytes": 36292,
+      "sha256": "1873cfef319f986498a6f93608114c5ae9f7b28525e7cf4ff57fe801d075f0ad",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-08/observer-source.js",
+      "bytes": 6691,
+      "sha256": "ce37b5b681a60d8ee52a43ff88306828fd7d71b183391bd555cf4704d7c6d6b5",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-09.json",
+      "bytes": 1894952,
+      "sha256": "cfb2f291133d6f2fe21c06a12f2b6b80cf539641a7c59382d41bc3240e915d71",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-09/run.json",
+      "bytes": 36335,
+      "sha256": "0f8397413d5da3da98ee288618620f8d5f59eaf8ef30938771b6f64bd54352ec",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-09/observer-source.js",
+      "bytes": 6691,
+      "sha256": "05ddf1b4f129dbf7c939e08a0edd67ae03870c0d38607125c0017763e5f2f882",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-10.json",
+      "bytes": 1987018,
+      "sha256": "100c78e98c0b83f4575869c79058b03950bb5e0b0a9251d528a19ad8c8bfd74c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-10/run.json",
+      "bytes": 36334,
+      "sha256": "887c9546a5b4f77d40f1c5dbb5d79bccc824c2ec664240eeaa7904903614c479",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-10/observer-source.js",
+      "bytes": 6691,
+      "sha256": "a9d9161b4403841572a92178089feab63a4e79af8cc0667bc02dd9ff2779db38",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-11.json",
+      "bytes": 1997486,
+      "sha256": "5228fd85b4c15846718f34509b97899220862af2b57241465c9785b637b76e09",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-11/run.json",
+      "bytes": 36291,
+      "sha256": "394c67bf94ff97ea30bceeea513f88e75a69619b61cc7b524ada0c8e89229a92",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-11/observer-source.js",
+      "bytes": 6691,
+      "sha256": "7c2254ad7b09ce58e5e52d81baac4b0a11a9886a508975f3f77704fb4cac02dd",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-12.json",
+      "bytes": 1475736,
+      "sha256": "817d202cc3b5dcfff0505de05f29c213f43665ed12f3c8db6fed4bb3ae8b027a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-12/run.json",
+      "bytes": 36083,
+      "sha256": "e374bb7bd27a81ec61e4240835a2d6deb656a3bc8614eee508e26ab18eb8828a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-12/observer-source.js",
+      "bytes": 6691,
+      "sha256": "1d1cbc99f74ec81ae2db28c311a7c93cc5d21a8e05b24e0e983ab0ceba9d316a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-13.json",
+      "bytes": 1476062,
+      "sha256": "99efb9ff8cf973dcf339434d17c554a0ec3b0445e251ff41d288557c14ce1987",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-13/run.json",
+      "bytes": 36083,
+      "sha256": "6ff849076bbbace5e98ebbc6dedaba5b6f7a13264fa5ccbd2155775519a91f5e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-13/observer-source.js",
+      "bytes": 6691,
+      "sha256": "9c5eb13e4bdb99d118cb81bddc514cfd1e3a4bc10dde845fadb8168099ed2f7d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-14.json",
+      "bytes": 1307817,
+      "sha256": "cc6497295ba40ab61aba8d41e7a5d523142a56500b186bf108d513ebda315017",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-14/run.json",
+      "bytes": 36082,
+      "sha256": "01a7aa8d192e04a306c7d90e3a3977760a7985120fdfc9899eac4971177bb59c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-14/observer-source.js",
+      "bytes": 6691,
+      "sha256": "893d48c441ab23b74f2640155be02df4b344979e6f9ff63070f25da6c3ca53fc",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-15.json",
+      "bytes": 1503250,
+      "sha256": "d060680788b6543ea50979d1ee4fa717f68e2da2fdf2606194e6fc00370c3fdf",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-15/run.json",
+      "bytes": 36122,
+      "sha256": "aaca186eb27254718c7d1fd8e5edc850a73caf773ba7d1c1f518f3b6d56e54ba",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-15/observer-source.js",
+      "bytes": 6691,
+      "sha256": "dc1d400f8cc1d6bfbafe708ba9959f0cb34c1f5fc5453f2bd4445a55f556b51f",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-16.json",
+      "bytes": 1778220,
+      "sha256": "444c4428ab12c0e90ebfb54413041107d55b5c4d471aeb329af6c46977ec480f",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-16/run.json",
+      "bytes": 36165,
+      "sha256": "26f94a885697ee7d0b231dc96758414566176b371df309c9b2fc503e5aad6be6",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-16/observer-source.js",
+      "bytes": 6691,
+      "sha256": "dfde93fe81223705ef918b56127103ddd1d5da25c4f3e68fd67015d99f42ccd6",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-17.json",
+      "bytes": 1778298,
+      "sha256": "aa87dac2bad2c64826090e3f62f707fc4228cf831900611597531561c6fadc3e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-17/run.json",
+      "bytes": 36124,
+      "sha256": "deac4b22bf8c8183a20ac5c14472828e1e0577cd9601d6c97dc8ff4c98c3db59",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-17/observer-source.js",
+      "bytes": 6691,
+      "sha256": "1f5e044f00121e8dc353c2d6c83db12ad1e3b49287a1eccb0212127ec2040f34",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-18.json",
+      "bytes": 1774083,
+      "sha256": "a8d902c907819756e569efa8990ffc2663d7c997fa4baf1891cddcffa45f84f2",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-18/run.json",
+      "bytes": 36085,
+      "sha256": "52a57ec697614611c9626a173c404a89af54cd70a30dede00d80a44692ceb61d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-18/observer-source.js",
+      "bytes": 6691,
+      "sha256": "f464d9cde0f28bd8fb3f92a0dde439edcb00f713b21db5852d99c77c7c88a05e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-19.json",
+      "bytes": 1401329,
+      "sha256": "37621d77f6c39678c80cdba461c47518670adc1729e232292015c586ccddeeda",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-19/run.json",
+      "bytes": 32263,
+      "sha256": "d4212481f1b7e9534ac1f64ca99cb5b334cd667321a6e5c0e67d56fd7ac4a162",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-19/observer-source.js",
+      "bytes": 6691,
+      "sha256": "2dc84153e85289df15d266e69529845bbf1429beb08df322e02710226a931a5c",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-20.json",
+      "bytes": 1275173,
+      "sha256": "44eaf9042e104adb5936106e59b21048f80950530be2352c9d0e0597d50f0f86",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-20/run.json",
+      "bytes": 32411,
+      "sha256": "17a35107c7cb24a53dd554c7464a42677d59d9a81be6772781a07b7c6e885fff",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-20/observer-source.js",
+      "bytes": 6691,
+      "sha256": "57bb307f36d7e1e476e6e49d891a870c777be5a274799bea659a37c239a1ae6d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-batch-21.json",
+      "bytes": 533204,
+      "sha256": "d3376ee78e1d1a4a10935a0722149b4ebf7e87faac8494ae50cbb44bf674ea32",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-21/run.json",
+      "bytes": 16778,
+      "sha256": "d45cae73475142b4674fb35101b90a86742005989f257eb9323e5249115e7fe4",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-batch-21/observer-source.js",
+      "bytes": 6691,
+      "sha256": "4581717fee54a2bffe8e20ccd4f3298814da82be09330e10e236c950fe5b04df",
+      "local_only": true
+    },
+    {
+      "path": "analysis/grndat-runtime-new.json",
+      "bytes": 414520,
+      "sha256": "3a1762e34a774502cda60ebfdb8c53de58909ce338d819954861897d2958bdfb",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-new-runtime/run.json",
+      "bytes": 14296,
+      "sha256": "8a990bc7faeb0689a2d79f5f1281f59ac80adf4a3a52f8907674aeaf598c8848",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/grndat-new-runtime/observer-source.js",
+      "bytes": 6694,
+      "sha256": "5986f02a5abc6c6ab68759c722f34e6a9bb32406053ac79dea8c8964dedbea8e",
+      "local_only": true
+    }
+  ],
+  "regression": {
+    "registered": 84,
+    "passed": 84,
+    "failed": 0,
+    "seconds": 44.32
+  },
+  "verification_scope": [
+    "All129 action cases (123 prepared, six new evaluation cases) execute through original console imports. Resets/setups account for remaining imports in total636.",
+    "Full known scalar bits, nine typed tables, embedded record and five record lists compare at each handler boundary and import before/after. C++ loader API unchanged.",
+    "Source-derived original handler statuses and postbranch refresh presence/order checked for each action. Creation option1 precedes postbranch option0 when both occur. C++ branch result determines refresh invocation; original allocation/free event ordering is not claimed.",
+    "Clamp stdout diagnostic matches the original. Type/shape/axis/dependent bytes match for observed bounded owned buffers. Opaque metadata54/60 and padding are not compared.",
+    "All candidate importer/replay hashes stayed frozen across the native corpus and six new cases. Probe added one null-cache assertion after pilot, recorded separately.",
+    "The original reserved cases had already executed against replacement and are not called untouched held-out evidence. Six new native-first evaluation actions were authored after freeze and compared with unchanged candidate."
+  ],
+  "limitations": [
+    "Initialized owned root864=0 profile only. Enabled grain features, scientific evaluation/interpolation/export, external/borrowed pointer ABI and failure of native allocation remain separate unfinished work.",
+    "C++ vectors do not reproduce native scratch leaks on EOF or every allocator/destructor order. Those resource semantics are outside current verified behavior.",
+    "64 native handler cursor offsets are unobserved after EOF resets the CRT buffer pointer. Known state/status still compared.",
+    "Malformed staged matching-failure paths that would copy uninitialized scratch bytes remain explicitly unsupported; out-of-range numeric conversions and overflow likewise.",
+    "This is a bounded import-family checkpoint, not complete application reconstruction."
+  ],
+  "next": "Recover SMODE setter and adjacent configuration semantics from retained evidence, then implement against original; continue DB-to-model integration and remaining full-app inventory."
+}

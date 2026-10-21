@@ -1,0 +1,42 @@
+{
+  "stage": "candidate_before_first_native_capture",
+  "files": [
+    {
+      "path": "src/recovered/grndat_properties.cpp",
+      "sha256": "4178ba7ce13682c2761f2e6c3fdae5f7964dbc31f9267293519f81df8bece6cc"
+    },
+    {
+      "path": "src/recovered/grndat_properties.hpp",
+      "sha256": "baa9745caa0ffb7daadaea32d60a309f0fe15d708c0645db6a0f592819b70c86"
+    },
+    {
+      "path": "src/recovered/object_model.hpp",
+      "sha256": "49705f394b64997df83f82c81c3713fc5e666bcb8f5d150b408d99c174edc480"
+    },
+    {
+      "path": "src/recovered/keyword_import.cpp",
+      "sha256": "962ab3d4afd5d6fe8b192b6dd991443d372dc90c4a38eca6ad2f76cb16047558"
+    },
+    {
+      "path": "tools/observe_grndat_import.js",
+      "sha256": "242e9ff056406b811d42084426b12266c25ab3049a355830e206ad557f4d7ca9"
+    },
+    {
+      "path": "tests/keyword_import_replay.cpp",
+      "sha256": "3fc9ef2992704b504f5f806390a572578e7cc42dc4aaf2d91e45c8b3e2c242ee"
+    }
+  ],
+  "static_replay": {
+    "status": "PASS_REPLACEMENT_STATUS_CURSOR_AND_SELECTED_MUTATIONS",
+    "cases": 123,
+    "checks": 381,
+    "qualification": "All123 cases executed, including reserved cases. This is not independent held-out runtime validation or full-state native equivalence. Native capture and refresh/ownership comparisons remain outstanding."
+  },
+  "post_pilot_probe_changes": [
+    {
+      "path": "tools/observe_grndat_import.js",
+      "after_sha256": "e347c50410954cf8693c72747a3126aa6b7387a735df4e677b11db72cde0f941",
+      "change": "Added passive assertion that observed cache68 remains null; no importer/replay change. Reverse removal matches pilot freeze exactly."
+    }
+  ]
+}

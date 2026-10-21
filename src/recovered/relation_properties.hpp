@@ -8,7 +8,7 @@
 namespace deform::recovered {
 
 enum class RelationHeaderKind {
-    integer_two_reals, two_integers_two_reals, four_reals, five_reals, seven_reals
+    integer_two_reals, two_integers_two_reals, four_reals, five_reals, six_reals, seven_reals
 };
 
 struct RelationHeaderRead {
@@ -20,7 +20,7 @@ struct RelationHeaderRead {
     int status = 1;
 };
 
-// 415680/415ff0/414e40/414f50/4151c0: one bounded line, comma normalization,
+// 415680/415ff0/414e40/414f50/415080/4151c0: one bounded line, comma normalization,
 // zeroed destinations, and failure only for fgets EOF or aggregate scanf -1.
 [[nodiscard]] RelationHeaderRead read_relation_header(
     KeywordReader& reader, RelationHeaderKind kind);

@@ -32,6 +32,7 @@ target_sources(deform_recovered_state PRIVATE src/recovered/custom_fields.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/property_table.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/relation_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/fstres_properties.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/grndat_properties.cpp)
 target_include_directories(deform_recovered_state PUBLIC src)
 target_compile_features(deform_recovered_state PUBLIC cxx_std_20)
 if(MSVC)
@@ -59,6 +60,28 @@ add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME grndat_static_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_grndat_static.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>")
+  foreach(grndat_index RANGE 0 21)
+    if(grndat_index LESS 10)
+      set(grndat_suffix "0${grndat_index}")
+    else()
+      set(grndat_suffix "${grndat_index}")
+    endif()
+    add_test(NAME "grndat_native_${grndat_suffix}_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_grndat_native.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/grndat-runtime-batch-${grndat_suffix}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/grndat-batch-${grndat_suffix}/run.json"
+        --batch-id "grndat-batch-${grndat_suffix}")
+  endforeach()
+  add_test(NAME grndat_native_new_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_grndat_native.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/grndat-runtime-new.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/grndat-new-runtime/run.json"
+      --batch-id grndat-new-runtime)
   add_test(NAME metadata_import_static_replay
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_metadata_import.py"
       --driver "$<TARGET_FILE:metadata_import_replay>")

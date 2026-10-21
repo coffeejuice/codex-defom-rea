@@ -102,8 +102,8 @@ void descriptors(std::span<const StateVariable> states) {
     std::cout << ']';
 }
 
-template<class T>
-void raw_values(std::span<T> values) {
+template<class T, std::size_t Extent>
+void raw_values(std::span<T, Extent> values) {
     using Bits = std::conditional_t<sizeof(T) == 8, std::uint64_t, std::uint32_t>;
     std::string bytes;
     bytes.reserve(values.size_bytes());
@@ -492,6 +492,48 @@ void fstres_fields(const deform::recovered::FstresProperties& state) {
     std::cout << "}}";
 }
 
+void grndat_record(const deform::recovered::GrndatRecord& record) {
+    std::cout << "{\"count_0x00\":" << record.count_0x00 << ",\"inline_0x08\":";
+    raw_values(std::span(record.inline_0x08));
+    std::cout << ",\"scalar_0x68\":";
+    raw_values(std::span(&record.scalar_0x68, 1));
+    std::cout << ",\"integer_0x70\":" << record.integer_0x70
+              << ",\"skip_first_two_0x1e0\":" << (record.skip_first_two_0x1e0 ? 1 : 0)
+              << ",\"tables\":[";
+    for (std::size_t i = 0; i < record.tables.size(); ++i) {
+        if (i) std::cout << ',';
+        property_table(record.tables[i]);
+    }
+    std::cout << "]}";
+}
+
+void grndat_fields(const deform::recovered::GrndatProperties& p) {
+    std::cout << "{\"flags_0x1078\":"; numbers(p.flags_0x1078);
+    std::cout << ",\"tables_0x1088\":[";
+    for (std::size_t i = 0; i < p.tables_0x1088.size(); ++i) {
+        if (i) std::cout << ',';
+        property_table(p.tables_0x1088[i]);
+    }
+    const std::array<double, 2> scalars{p.scalar_0x14c0, p.scalar_0x14c8};
+    std::cout << "],\"scalars_0x14c0\":"; raw_values(std::span(scalars));
+    std::cout << ",\"secondary_0x14d0\":" << p.secondary_0x14d0 << ",\"embedded\":";
+    grndat_record(p.embedded_0x14d8);
+    std::cout << ",\"lists\":[";
+    for (std::size_t i = 0; i < p.lists.size(); ++i) {
+        if (i) std::cout << ',';
+        std::cout << '[';
+        bool first = true;
+        for (const auto& record : p.lists[i]) {
+            if (!first) std::cout << ',';
+            first = false;
+            grndat_record(record);
+        }
+        std::cout << ']';
+    }
+    std::cout << "],\"coefficients_0x17b8\":"; raw_values(std::span(p.coefficients_0x17b8));
+    std::cout << ",\"secondary_0x17ec\":" << p.secondary_0x17ec << '}';
+}
+
 void material_fields(const MaterialRecord& material) {
     std::cout << "{\"id\":" << material.id << ",\"name_hex\":";
     emit_quoted(hex(material.name));
@@ -532,7 +574,9 @@ void material_fields(const MaterialRecord& material) {
               << ",\"secondary_0x17ec\":" << material.grndat.secondary_0x17ec
               << ",\"property_tables\":{\"0x1740\":";
     property_table(material.grndat.table_0x1740);
-    std::cout << "}}}";
+    std::cout << "}},\"grndat_extended\":";
+    grndat_fields(material.grndat);
+    std::cout << '}';
 }
 
 template<class Range>
