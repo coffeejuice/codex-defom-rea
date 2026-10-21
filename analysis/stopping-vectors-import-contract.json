@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "SMAX": 43,
+    "VMIN": 44,
+    "LMAX": 45
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/stopping-vectors-static-evidence.json",
+  "contract": {
+    "dispatch": "39aa90 cases15/16/17 use414a40 for2D and414c20 for3D. Live destinations are root8d0/8d8/8e0,8e8/8f0/8f8,900/908/910 respectively. Assembly confirms RCX=FILE,RDX=first,R8=second,R9=third in3D.",
+    "defaults": "1e8fb0 zeroes all nine doubles at controls180..1c0; controls base is root750. Changed dimensions reset all nine values; a same-dimension header retains them.",
+    "readers": "Both helpers zero every supplied live destination before fgets. They read one1024-byte line, replace commas with spaces and scan two or three legacy real values. Matching0 or any partial nonnegative conversion count returns0. Blank input and EOF return1, mapped to handler2. Converted prefixes survive; unconverted supplied destinations remain zero. In2D the third slot is not a helper destination.",
+    "effects": "No immediate refresh or linked-root propagation observed in the selected initialized import profile. Adjacent scalar stopping/time/step/layout state compares; whole scientific consumers remain pending."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "api": "Existing include/deform loader API unchanged; internal model is not native object ABI."
+  },
+  "candidate_freeze": "analysis/stopping-vectors-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "27 source-planned training imports ran on C++ before original observation.24 separately prepared evaluation imports ran on original before C++, with all seven frozen candidate files unchanged. Established numeric grammar and mesh shapes were reused; no universal numerical-domain claim.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_STOPPING_VECTORS_COMPARISON",
+      "imports": 27,
+      "handlers": 54,
+      "handler_counts": {
+        "43": 19,
+        "44": 17,
+        "45": 18
+      },
+      "dimension_counts": {
+        "43/2": 9,
+        "44/2": 9,
+        "45/2": 9,
+        "43/3": 10,
+        "44/3": 8,
+        "45/3": 9
+      },
+      "checks": 2458,
+      "eof_cursors_unobserved": 7,
+      "evidence_id": "ev_76ec5a01875a35bb18b64ebd5ac8021b1a4bd1379e8e3e1565d832b0ff102287",
+      "capture_sha256": "01a70ebd5c3328efb4c56d56c6c7b0c51d737875d69268f6792e7a95de54985a",
+      "run_sha256": "da4c2914bdbc6d9873a43a9a3341d21966971879634d6ddd3bf1d3d5d6bef6b6",
+      "scope": "Three raw dimension-dependent vectors, exact binary64, owned2D/3D defaults, scalar stopping/time/step/layout neighbors and linked isolation. Finite initialized input domain; scientific generation consumers remain pending."
+    },
+    {
+      "status": "PASS_NATIVE_STOPPING_VECTORS_COMPARISON",
+      "imports": 24,
+      "handlers": 48,
+      "handler_counts": {
+        "43": 15,
+        "44": 16,
+        "45": 17
+      },
+      "dimension_counts": {
+        "43/2": 8,
+        "44/2": 9,
+        "45/2": 10,
+        "43/3": 7,
+        "44/3": 7,
+        "45/3": 7
+      },
+      "checks": 2185,
+      "eof_cursors_unobserved": 7,
+      "evidence_id": "ev_e41ffaa9b1d549ca46fce0a328ad0f1fc6a3e44c8fe35868f0bd2b4ef4bd67e3",
+      "capture_sha256": "abde6e6f894f961795034068e81ab7f52b1c6c55bd903698fdebbaf0445928da",
+      "run_sha256": "4ce7df159fb3daad0e5c8a387a5391b1e398eeb990adc581ff044697f80eaa0e",
+      "scope": "Three raw dimension-dependent vectors, exact binary64, owned2D/3D defaults, scalar stopping/time/step/layout neighbors and linked isolation. Finite initialized input domain; scientific generation consumers remain pending."
+    }
+  ],
+  "totals": {
+    "imports": 51,
+    "handlers": 102,
+    "checks": 4643,
+    "eof_cursors_unobserved": 14
+  },
+  "inputs": [
+    "analysis/stopping-vectors-fixture-plan.json",
+    "analysis/stopping-vectors-evaluation-inputs.json"
+  ],
+  "coverage": "Each keyword observed in 2D and 3D in both cohorts; nonzero and signed-zero values, partial/matching/blank/EOF reads, commas and extra 2D payload, sticky errors, dimension reset/retention, populated tetrahedral/planar meshes, neighboring scalar/time/step/layout controls, UNIT retention and linked isolation.",
+  "limitations": [
+    "Finite representable initialized ordinary console profile. General decimal rounding, over/underflow, nonfinite values, allocation failure and arbitrary startup configurations remain unverified.",
+    "In 2D, native third slots remain zero in these reset-based captures. Preservation of an already nonzero third slot follows from recovered destinations and assembly, without a native nonzero-tail experiment.",
+    "Fourteen EOF handler cursor positions unavailable after CRT buffer reset; observed nonzero cursors compared.",
+    "Selected state equality does not prove absence of every other memory effect. Complete scientific evaluation,generation,exports and console workflows remain unfinished.",
+    "OSCTRL39 and later unsupported keywords remain in full recovery scope. Native reference replay requires ignored local Evidence/run/observer files; CTest does not launch the original."
+  ],
+  "resource_release": "Saved source-qualified REA evidence reused without a new static session. Both passive Frida captures detached without cleanup error, message truncation or probe error; both original processes exited0.",
+  "local_artifacts": [
+    {
+      "path": "analysis/stopping-vectors-runtime-training.json",
+      "bytes": 514848,
+      "sha256": "01a70ebd5c3328efb4c56d56c6c7b0c51d737875d69268f6792e7a95de54985a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-vectors-training/run.json",
+      "bytes": 40286,
+      "sha256": "da4c2914bdbc6d9873a43a9a3341d21966971879634d6ddd3bf1d3d5d6bef6b6",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-vectors-training/observer-source.js",
+      "bytes": 3756,
+      "sha256": "8682bca8bacb9b124a453a13768ffb8eef0b040725f46f9b1facde3659c11529",
+      "local_only": true
+    },
+    {
+      "path": "analysis/stopping-vectors-runtime-evaluation.json",
+      "bytes": 457592,
+      "sha256": "abde6e6f894f961795034068e81ab7f52b1c6c55bd903698fdebbaf0445928da",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-vectors-evaluation/run.json",
+      "bytes": 36382,
+      "sha256": "4ce7df159fb3daad0e5c8a387a5391b1e398eeb990adc581ff044697f80eaa0e",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-vectors-evaluation/observer-source.js",
+      "bytes": 3758,
+      "sha256": "d7fa634babcc318ca80721eb9259b86caf52e3273ac71b1b57e5df8ae826232c",
+      "local_only": true
+    }
+  ],
+  "retained_export_boundary": {
+    "source": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "SLDERR",
+    "supported_handlers": 26
+  },
+  "next_scope": "analysis/time-step-controls-next-scope.json",
+  "regression": {
+    "registered": 114,
+    "passed": 114,
+    "failed": 0,
+    "seconds": 229.42,
+    "build": "All17 executable targets rebuilt; complete regression once after implementation."
+  }
+}

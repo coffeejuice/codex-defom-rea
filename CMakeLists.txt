@@ -67,6 +67,18 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(stopping_vector_batch IN ITEMS training evaluation)
+    set(stopping_vector_plan "stopping-vectors-fixture-plan.json")
+    if(stopping_vector_batch STREQUAL "evaluation")
+      set(stopping_vector_plan "stopping-vectors-evaluation-inputs.json")
+    endif()
+    add_test(NAME "stopping_vectors_${stopping_vector_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_stopping_vectors.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/stopping-vectors-runtime-${stopping_vector_batch}.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/stopping-vectors-${stopping_vector_batch}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${stopping_vector_plan}")
+  endforeach()
   foreach(stopping_batch IN ITEMS training evaluation)
     set(stopping_plan "stopping-scalars-fixture-plan.json")
     set(stopping_run "stopping-scalars-training-v2")

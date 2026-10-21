@@ -277,6 +277,19 @@ void ObjectModel::set_stopping_real(int keyword, double value) {
     else throw std::invalid_argument("unmapped stopping real control");
 }
 
+void ObjectModel::set_stopping_vector(int keyword, std::span<const double> values) {
+    require_simulation_profile(controls_);
+    const std::size_t count = controls_.dimension == 3 ? 3 : 2;
+    if (values.size() != count)
+        throw std::invalid_argument("stopping vector width must match dimension");
+    auto& s = controls_.simulation->stopping;
+    auto& destination = keyword == 43 ? s.smax_0x8d0
+        : keyword == 44 ? s.vmin_0x8e8 : s.lmax_0x900;
+    if (keyword < 43 || keyword > 45)
+        throw std::invalid_argument("unmapped stopping vector control");
+    std::copy(values.begin(), values.end(), destination.begin());
+}
+
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {
     require_simulation_profile(controls_);
     if (values.size() > 10) throw std::invalid_argument("ELMNOD prefix exceeds ten fields");

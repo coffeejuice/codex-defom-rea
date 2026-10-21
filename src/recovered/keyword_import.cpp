@@ -129,7 +129,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 38) || (id >= 40 && id <= 42) || (id >= 46 && id <= 51))) ||
+    return (category == 1 && ((id >= 22 && id <= 38) || (id >= 40 && id <= 51))) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -205,6 +205,16 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
     if (id == 40 || id == 46) {
         const auto read = reader.integer(); // Direct413de0 skip0 destinations.
         model.set_stopping_integer(id, read.values[0]);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id >= 43 && id <= 45) {
+        if (model.controls().dimension == 3) {
+            const auto read = reader.real_triple();
+            model.set_stopping_vector(id, read.values);
+            return read.status == 0 ? 0 : 2;
+        }
+        const auto read = reader.real_pair();
+        model.set_stopping_vector(id, read.values);
         return read.status == 0 ? 0 : 2;
     }
     if (id == 41 || id == 42 || id == 47) {

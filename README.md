@@ -1675,6 +1675,37 @@ capture history and validation limits. Scientific consumers and general numeric
 domain equivalence remain pending. The retained full export now reaches SMAX
 after nineteen supported handlers. OSCTRL and the three vector stopping controls
 remain required work; the public database-loader API is unchanged.
+
+## Dimension-dependent stopping vectors
+
+`SMAX43`, `VMIN44` and `LMAX45` now import into three separate owned arrays of
+three doubles. The original dispatcher supplies two live destinations in 2D and
+three in 3D. Every supplied destination is zeroed before reading; successful
+partial conversions retain their prefix, while matching failure leaves zeros
+with success status. Blank input and EOF leave zeros with the original reading
+error. The third slot is untouched by the 2D reader.
+
+All nine fields initialize to positive zero. Changed dimensions recreate them;
+same-dimension headers retain current values. Selected UNIT, time, scalar
+stopping, mesh and layout operations preserve the observed values. The vector
+handlers have no immediate mesh refresh or linked-root propagation in the
+tested profile.
+
+The unchanged frozen candidate passes 27 training imports and 24 separately
+prepared original-first evaluation imports: 102 selected handlers and 4,643
+comparison checks. Each keyword is exercised in both dimensions in both cohorts,
+including nonzero and signed-zero data, partial/blank/EOF/matching reads,
+commas, ignored extra 2D payload, sticky errors and populated meshes. Fourteen
+EOF cursor positions remain unobserved. Native 2D third slots are zero in these
+reset-based fixtures; preservation of an already nonzero third slot follows
+from the recovered destinations, without a corresponding native experiment.
+All 114 regression tests pass after rebuilding all seventeen executable targets.
+
+See `analysis/stopping-vectors-import-contract.json` for source bindings and
+limits. Scientific evaluation, general numerical-domain equivalence and complete
+application workflows remain unfinished. The retained full export now reaches
+SLDERR after twenty-six supported handlers. OSCTRL and later control handlers
+remain required recovery work; the public database-loader API is unchanged.
 The next scope records adjacent stopping controls for dependency-aware batching.
 
 Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference

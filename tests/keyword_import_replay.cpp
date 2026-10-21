@@ -728,6 +728,16 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"stopping_vectors_hex\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& s = controls.simulation->stopping;
+        std::array<double, 9> values;
+        std::copy(s.smax_0x8d0.begin(), s.smax_0x8d0.end(), values.begin());
+        std::copy(s.vmin_0x8e8.begin(), s.vmin_0x8e8.end(), values.begin() + 3);
+        std::copy(s.lmax_0x900.begin(), s.lmax_0x900.end(), values.begin() + 6);
+        raw_values(std::span(values));
+    }
     std::cout << ",\"stopping_controls\":";
     if (!controls.simulation) std::cout << "null";
     else {

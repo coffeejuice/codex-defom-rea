@@ -27,14 +27,18 @@
   "pending_measurement": "Compare similar future phase timings and usage with baseline; no end-to-end speedup claimed yet.",
   "automation_status": "ACTIVE",
   "latest_checkpoint_observation": {
-    "scope": "Current stopping scalar checkpoint; timing audit above covers previously completed turns only.",
-    "native_imports": 47,
-    "native_handlers": 128,
-    "full_regression_seconds": 245.71,
-    "tests_passed": 112,
-    "capture_retry": "First8000ms training observation incomplete; original exited0 and session missing on recheck. Identical inputs/candidate repeated with30000ms observation and complete187messages. Evaluation complete165messages.",
-    "grouping": "Five source-proven direct scalar handlers share one implementation checkpoint. No controlled wall-time or token speedup estimate.",
-    "comparison": "Prior STPINC suite110tests167.81s; workload/test count and host conditions differ. No causal regression or improvement inferred."
+    "checkpoint": "analysis/stopping-vectors-import-contract.json",
+    "full_regression_seconds": 229.42,
+    "tests_passed": 114,
+    "previous_samples_seconds": [
+      167.81,
+      245.71
+    ],
+    "native_imports": 51,
+    "native_handlers": 102,
+    "capture_retry_count": 0,
+    "qualification": "Both native cohorts completed on their first30000ms observation windows; grouping used established pair/triple readers. Different workloads and uncontrolled host conditions prevent a wall-time or token speedup claim.",
+    "next_review": "Normal safe-checkpoint gate; no new full audit or tooling change at this checkpoint."
   },
   "latest_review": "analysis/efficiency-review-20261021-stopping-scalars.json",
   "latest_review_checkpoint": "analysis/stopping-scalars-import-contract.json",
