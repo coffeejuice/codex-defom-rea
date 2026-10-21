@@ -48,7 +48,16 @@ struct TimeTableControls {
 // Asserted reset context for the selected configuration fields. Material state
 // retains default properties with the recovered reference graph below.
 // This profile is not inferred from an externally supplied component table.
+struct StoppingControls {
+    std::int32_t nstep_0x8bc = 1; // 1e8490 final controls16c store.
+    std::int32_t stpdef_0x918 = 1; // 1e8650 controls1c8.
+    double emax_0x8c0 = 0.0; // 1e8fb0 controls170.
+    double tmax_0x8c8 = 0.0; // 1e8fb0 controls178.
+    double demax_0x9b0 = 0.0; // Factory supplies owner-dimension default.
+};
+
 struct SimulationControls {
+    StoppingControls stopping;
     RootUnitControls units;
     std::int32_t mesh_number_0x840 = 1; // MESHNO raw integer, default from1e7e90.
     std::int32_t mode_0x844 = 1; // SMODE raw int; no implied scientific enum.
@@ -311,6 +320,8 @@ public:
     void set_trans(const std::array<int, 5>& values);
     void set_heat_method(std::int32_t value);
     void set_stpinc(std::int32_t value);
+    void set_stopping_integer(int keyword, std::int32_t value);
+    void set_stopping_real(int keyword, double value);
     void set_element_layout_prefix(std::span<const int> values);
     void mark_element_layout_indeterminate(std::size_t known, std::size_t copied);
     void set_output_flags(const std::array<int, 7>& values);

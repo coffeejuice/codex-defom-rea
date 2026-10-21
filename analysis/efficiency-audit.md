@@ -88,3 +88,13 @@ gate time alone does not identify a model/client/approval cause.
 
 Evidence: `analysis/efficiency-review-20261021-elmnod.json`,
 `analysis/elmnod-import-contract.json`, `analysis/efficiency-state.json`.
+
+## Stopping scalars checkpoint review
+
+Five source-proven scalar handlers were grouped into one checkpoint. Both completed
+native cohorts pass47imports/128handlers; all112tests pass in245.71s. The first
+short observation was incomplete and is retained; identical frozen training inputs
+passed a fresh longer observation after the original process exited and the retained
+session was confirmed missing. Existing compact-view and positive-expectation rules
+remain sufficient; no new tooling or controlled time/token speedup claim. See
+`analysis/efficiency-review-20261021-stopping-scalars.json`.

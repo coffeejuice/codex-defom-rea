@@ -1645,6 +1645,36 @@ All 110 regression tests pass. Four EOF cursor positions remain unavailable.
 `analysis/stpinc-import-contract.json` records the source bindings and limits.
 Scientific step-generation consumers remain pending. The full export now reaches
 NSTEP after sixteen supported handlers; the existing loader API is unchanged.
+
+## Five stopping scalar imports
+
+The importer now implements `NSTEP40`, `EMAX41`, `TMAX42`, `STPDEF46` and
+`DEMAX47` using the original direct integer and real readers. Both integer
+defaults are one. EMAX and TMAX initialize to positive zero; DEMAX initializes
+to the exact binary64 representation of 0.1 in 2D and positive zero in 3D.
+Changing dimension recreates these defaults; a same-dimension header retains
+the current values.
+
+Each reader zeroes its live destination before reading. Matching failure returns
+success with zero; blank input and EOF return the original reading error with
+zero. Successful imports preserve signed zero and the observed raw binary64
+values. The selected handlers do not immediately refresh meshes or propagate
+their values to the linked root.
+
+The frozen candidate passes 25 source-planned training imports and 22 separately
+prepared original-first evaluation imports: 128 selected handler calls and
+4,752 comparison checks. Every input asserts the intended original wrapper
+status and final stopping values. Both dimensions, populated meshes, neighboring
+time/step/layout controls and UNIT retention are covered. Thirteen EOF cursor
+positions remain unobserved. The incomplete first training observation and the
+successful repeat are retained separately; the C++ candidate was unchanged.
+All 112 regression tests pass after rebuilding all seventeen executable targets.
+
+See `analysis/stopping-scalars-import-contract.json` for source bindings,
+capture history and validation limits. Scientific consumers and general numeric
+domain equivalence remain pending. The retained full export now reaches SMAX
+after nineteen supported handlers. OSCTRL and the three vector stopping controls
+remain required work; the public database-loader API is unchanged.
 The next scope records adjacent stopping controls for dependency-aware batching.
 
 Run `ctest --test-dir build -C Release -R stpinc --output-on-failure`. Reference

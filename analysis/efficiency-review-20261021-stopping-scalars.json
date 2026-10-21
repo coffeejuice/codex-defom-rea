@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 354009680,
+    "tail_mib": 32,
+    "start_offset": 320779683,
+    "end_offset": 354009680,
+    "window_sha256": "7dac1bffb79b2db018ea4c39d070f251f4a8c74f36a78924b6c1906d259d7794"
+  },
+  "turns": [
+    {
+      "turn_id": "01a15f10-7f44-7fa2-9f50-138a9d8f14ad",
+      "started_at": "2026-10-21T15:24:39.491Z",
+      "completed_at": "2026-10-21T15:47:27.936Z",
+      "elapsed_seconds": 1368.445,
+      "tool_active_union_seconds": 407.529,
+      "reasoning_item_union_seconds": 723.143,
+      "tool_reasoning_overlap_seconds": 183.032,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 411.687,
+      "tool_items": {
+        "CommandExecution": 25,
+        "FileChange": 5,
+        "instrument_with_frida": 2
+      },
+      "failed_tool_items": 1,
+      "truncated_command_outputs": 0,
+      "usage_delta": {
+        "input_tokens": 11192427,
+        "cached_input_tokens": 11148032,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 29815,
+        "reasoning_output_tokens": 20198,
+        "total_tokens": 11222242,
+        "uncached_input_tokens": 44395
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 169.529,
+          "item_id": "exec-58d2f892-22a1-4f5d-a778-3a8f49ae7ff4"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 62.657,
+          "item_id": "exec-d1c5d058-b3ca-49a2-8c9e-66ea8991ab05"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 49.006,
+          "item_id": "exec-4e795dff-c5ae-4889-b3d7-adae4d10cdcc"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 31.774,
+          "item_id": "exec-152dadef-e061-467d-8cdb-1ac903903ed9"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 15.936,
+          "item_id": "exec-85ec5795-9e18-41d0-8877-87574f0fb46b"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a15f25-6291-7020-8ec8-f3fe686b5c88",
+      "started_at": "2026-10-21T15:47:28.381Z",
+      "completed_at": "2026-10-21T16:14:06.330Z",
+      "elapsed_seconds": 1597.949,
+      "tool_active_union_seconds": 169.567,
+      "reasoning_item_union_seconds": 844.592,
+      "tool_reasoning_overlap_seconds": 0.0,
+      "compaction_seconds": 178.158,
+      "unattributed_seconds": 389.014,
+      "tool_items": {
+        "CommandExecution": 20,
+        "FileChange": 5,
+        "instrument_with_frida": 1
+      },
+      "failed_tool_items": 2,
+      "truncated_command_outputs": 2,
+      "usage_delta": {
+        "input_tokens": 7563971,
+        "cached_input_tokens": 7473664,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 35711,
+        "reasoning_output_tokens": 24406,
+        "total_tokens": 7599682,
+        "uncached_input_tokens": 90307
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 46.344,
+          "item_id": "exec-babe8753-7728-4e67-925a-805470ae34fb"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 20.162,
+          "item_id": "exec-feabbf7a-8e9e-452b-adbf-7fd7dac90302"
+        },
+        {
+          "kind": "FileChange",
+          "name": "FileChange",
+          "seconds": 18.112,
+          "item_id": "exec-5257fd0a-fb6f-4eb0-b785-aa09b7266af9"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 15.842,
+          "item_id": "exec-056e2a2b-138e-4572-8370-e57f47584ec8"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 14.018,
+          "item_id": "exec-c75a1ee5-c3a2-497d-b58c-334f53bb392d"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "checkpoint_observation": {
+    "scope": "Current stopping scalar checkpoint; timing audit above covers previously completed turns only.",
+    "native_imports": 47,
+    "native_handlers": 128,
+    "full_regression_seconds": 245.71,
+    "tests_passed": 112,
+    "capture_retry": "First8000ms training observation incomplete; original exited0 and session missing on recheck. Identical inputs/candidate repeated with30000ms observation and complete187messages. Evaluation complete165messages.",
+    "grouping": "Five source-proven direct scalar handlers share one implementation checkpoint. No controlled wall-time or token speedup estimate.",
+    "comparison": "Prior STPINC suite110tests167.81s; workload/test count and host conditions differ. No causal regression or improvement inferred."
+  },
+  "decision": {
+    "new_tooling_changes": 0,
+    "reason": "Existing compact views and positive planned expectations are sufficient. Correct oversized reads and preserve tracked line endings using existing tools; avoid expanding efficiency work.",
+    "validation_retained": "Candidate freeze unchanged, two completed native cohorts,112 full regression tests, API unchanged.",
+    "remaining_blockers": "No external blocker. Full scientific consumers and unrecovered workflows remain substantial work."
+  }
+}

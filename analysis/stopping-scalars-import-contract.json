@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "status": "implemented_subset_runtime_tested",
+  "keywords": {
+    "NSTEP": 40,
+    "EMAX": 41,
+    "TMAX": 42,
+    "STPDEF": 46,
+    "DEMAX": 47
+  },
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "static_evidence": "analysis/stopping-scalars-static-evidence.json",
+  "contract": {
+    "dispatch": "39aa90 cases12/13/14/18/19 pass FILE and live root8bc/8c0/8c8/918/9b0 destinations respectively. Integer413de0 receives skip0; real414990 has no skip argument.",
+    "defaults": "NSTEP andSTPDEF int32 defaults1. EMAX/TMAX exact+0. DEMAX exact0x3fb999999999999a in owner dimension2, +0 in3D. Controls base is root750;1e7c10 stores owning root at controlsbc0. Same-dimension headers retain; changed dimensions recreate.",
+    "readers": "Direct destination is zeroed before fgets. Commas become spaces. Integer scan uses base0; real scan uses existing decimal compatibility reader. Matching0 returns success with zero; blank/EOF scan-1 returns reader1/handler2 with zero. Wrapper error remains sticky across later successful handlers.",
+    "effects": "No immediate refresh or linked-root propagation observed in selected imports. Exact binary64 stopping values retained across selected time,unit,layout and populated-mesh operations. This does not recover all scientific consumers."
+  },
+  "implementation": {
+    "sources": [
+      "src/recovered/object_model.hpp",
+      "src/recovered/object_model.cpp",
+      "src/recovered/keyword_import.hpp",
+      "src/recovered/keyword_import.cpp"
+    ],
+    "api": "Existing include/deform public loader API unchanged; internal C++ model is not a native object ABI."
+  },
+  "candidate_freeze": "analysis/stopping-scalars-candidate-freeze.json",
+  "candidate_byte_identical_after_new_evaluation": true,
+  "chronology": "25 source-planned training imports preflighted on C++ then observed on original. 22 separately prepared evaluation imports ran on original before C++. Candidate seven source/probe/comparator hashes unchanged across both completed captures. Established grammar and mesh fixture shapes reused; no universal numerical-domain claim.",
+  "native_comparisons": [
+    {
+      "status": "PASS_NATIVE_STOPPING_SCALARS_COMPARISON",
+      "imports": 25,
+      "handlers": 68,
+      "handler_counts": {
+        "40": 15,
+        "46": 14,
+        "41": 14,
+        "42": 12,
+        "47": 13
+      },
+      "checks": 2525,
+      "eof_cursors_unobserved": 7,
+      "evidence_id": "ev_4583760ac0949be519d1741825597f059abdf575f577cfc1e7a2d52c59265ebf",
+      "capture_sha256": "062b3e256f592755105b43feefe0379b328c932d660a77e196ae908c9f3d584a",
+      "run_sha256": "e0d28e13265b7a0328c4c3afc0baf946782209cf3987ccb442840edeb9b13d24",
+      "scope": "Five raw scalar controls, exact binary64, source defaults in owned2D/3D roots, selected step/time/layout state and linked isolation. Finite input compatibility domain; scientific generation consumers remain pending."
+    },
+    {
+      "status": "PASS_NATIVE_STOPPING_SCALARS_COMPARISON",
+      "imports": 22,
+      "handlers": 60,
+      "handler_counts": {
+        "40": 12,
+        "46": 13,
+        "41": 10,
+        "42": 12,
+        "47": 13
+      },
+      "checks": 2227,
+      "eof_cursors_unobserved": 6,
+      "evidence_id": "ev_2cf39cb9961265a3af79ecea611fe40277ed898c6409c5717474867eec8ae73d",
+      "capture_sha256": "c81ca56596c944b5be80ec70d8ce8e2ed58e06b4f4308c9d99955da8fd742572",
+      "run_sha256": "124e099165a697790c486e4ba84b26d0562b3f62ae758eedd6a91dc3b3d8bdc2",
+      "scope": "Five raw scalar controls, exact binary64, source defaults in owned2D/3D roots, selected step/time/layout state and linked isolation. Finite input compatibility domain; scientific generation consumers remain pending."
+    }
+  ],
+  "totals": {
+    "imports": 47,
+    "handlers": 128,
+    "checks": 4752,
+    "eof_cursors_unobserved": 13
+  },
+  "inputs": [
+    "analysis/stopping-scalars-fixture-plan.json",
+    "analysis/stopping-scalars-evaluation-inputs.json"
+  ],
+  "coverage": "All five keywords in both cohorts, signed32 bounds/base0/negative/prefix reads, finite decimal/scientific forms and signed zero, matching/blank/EOF, sticky errors, linked isolation, dimension reset/retention, populated tetrahedral/planar meshes, selected time/step/ELMNOD adjacency and UNIT retention.",
+  "capture_history": {
+    "initial": "analysis/stopping-scalars-runtime-training.json",
+    "diagnostic": "analysis/stopping-scalars-training-capture-diagnostic.json",
+    "qualification": "First8000ms observation ended in running state after145messages, mid-import. Original completed0; retained session later missing. Identical frozen candidate/inputs repeated in fresh training-v2 with30000ms window;187messages complete and detached. Initial capture not used as passing evidence."
+  },
+  "limitations": [
+    "Bounded initialized ordinary console import profile; finite representable input values. Overflowing integer conversion, general floating rounding, allocation failure and arbitrary startup configurations unverified.",
+    "Thirteen EOF handler cursor positions unavailable after CRT buffer reset; observed nonzero positions compared.",
+    "Selected state equality does not establish absence of every other memory effect. Complete simulation generation, scientific evaluation, exports and console workflows remain pending.",
+    "OSCTRL39 and SMAX43/VMIN44/LMAX45 are not implemented by this checkpoint.",
+    "Native replay requires ignored local Evidence/run/observer files; regression replays do not execute the original."
+  ],
+  "resource_release": "No new static session opened; saved source-qualified REA evidence reused. Both complete Frida captures detached without cleanup error,truncation orprobe error. Both original processes exited0.",
+  "local_artifacts": [
+    {
+      "path": "analysis/stopping-scalars-runtime-training-v2.json",
+      "bytes": 521211,
+      "sha256": "062b3e256f592755105b43feefe0379b328c932d660a77e196ae908c9f3d584a",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-scalars-training-v2/run.json",
+      "bytes": 37669,
+      "sha256": "e0d28e13265b7a0328c4c3afc0baf946782209cf3987ccb442840edeb9b13d24",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-scalars-training-v2/observer-source.js",
+      "bytes": 3615,
+      "sha256": "5c89cca8497af32deb262f8a3143b5604a033cd390bc7fb034682806db5b7d23",
+      "local_only": true
+    },
+    {
+      "path": "analysis/stopping-scalars-runtime-evaluation.json",
+      "bytes": 460007,
+      "sha256": "c81ca56596c944b5be80ec70d8ce8e2ed58e06b4f4308c9d99955da8fd742572",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-scalars-evaluation/run.json",
+      "bytes": 33872,
+      "sha256": "124e099165a697790c486e4ba84b26d0562b3f62ae758eedd6a91dc3b3d8bdc2",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/stopping-scalars-evaluation/observer-source.js",
+      "bytes": 3614,
+      "sha256": "d97a9432247dd4b5710f2ac0bf61152758868ec8c3f19bc8bdebec2746eedd08",
+      "local_only": true
+    }
+  ],
+  "retained_export_boundary": {
+    "source": "analysis/oracle/interactive/rea-step25/output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": 1,
+    "last_keyword": "SMAX",
+    "supported_handlers": 19
+  },
+  "next_scope": "analysis/stopping-vectors-next-scope.json",
+  "regression": {
+    "registered": 112,
+    "passed": 112,
+    "failed": 0,
+    "seconds": 245.71,
+    "build": "All17 executable targets rebuilt; complete regression once after implementation."
+  }
+}

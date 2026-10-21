@@ -67,6 +67,22 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(stopping_batch IN ITEMS training evaluation)
+    set(stopping_plan "stopping-scalars-fixture-plan.json")
+    set(stopping_run "stopping-scalars-training-v2")
+    set(stopping_capture "stopping-scalars-runtime-training-v2.json")
+    if(stopping_batch STREQUAL "evaluation")
+      set(stopping_plan "stopping-scalars-evaluation-inputs.json")
+      set(stopping_run "stopping-scalars-evaluation")
+      set(stopping_capture "stopping-scalars-runtime-evaluation.json")
+    endif()
+    add_test(NAME "stopping_scalars_${stopping_batch}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_stopping_scalars.py"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${stopping_capture}"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/${stopping_run}/run.json"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/${stopping_plan}")
+  endforeach()
   foreach(stpinc_batch IN ITEMS training evaluation)
     set(stpinc_plan "stpinc-fixture-plan.json")
     if(stpinc_batch STREQUAL "evaluation")

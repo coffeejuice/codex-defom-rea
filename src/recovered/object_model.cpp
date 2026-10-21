@@ -106,6 +106,8 @@ RootControls initialized_root_controls(int dimension, double node8_default,
     RootControls result{};
     result.dimension = dimension;
     result.simulation.emplace();
+    result.simulation->stopping.demax_0x9b0 = dimension == 2
+        ? std::bit_cast<double>(std::uint64_t{0x3fb999999999999a}) : 0.0;
     result.component_counts = initialize_layout(default_material_layout(dimension, *result.simulation));
     result.node8_default = node8_default;
     result.direct61_default = 0; // New object 15f0b0 stores3980=0.
@@ -256,6 +258,23 @@ void ObjectModel::set_heat_method(std::int32_t value) {
 void ObjectModel::set_stpinc(std::int32_t value) {
     require_simulation_profile(controls_);
     controls_.simulation->stpinc_0x8b4 = value;
+}
+
+void ObjectModel::set_stopping_integer(int keyword, std::int32_t value) {
+    require_simulation_profile(controls_);
+    auto& s = controls_.simulation->stopping;
+    if (keyword == 40) s.nstep_0x8bc = value;
+    else if (keyword == 46) s.stpdef_0x918 = value;
+    else throw std::invalid_argument("unmapped stopping integer control");
+}
+
+void ObjectModel::set_stopping_real(int keyword, double value) {
+    require_simulation_profile(controls_);
+    auto& s = controls_.simulation->stopping;
+    if (keyword == 41) s.emax_0x8c0 = value;
+    else if (keyword == 42) s.tmax_0x8c8 = value;
+    else if (keyword == 47) s.demax_0x9b0 = value;
+    else throw std::invalid_argument("unmapped stopping real control");
 }
 
 void ObjectModel::set_element_layout_prefix(std::span<const int> values) {

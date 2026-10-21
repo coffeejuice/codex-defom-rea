@@ -728,6 +728,16 @@ void state(const ObjectModel& model) {
     std::cout << ",\"mesh_number_0x840\":";
     if (controls.simulation) std::cout << controls.simulation->mesh_number_0x840;
     else std::cout << "null";
+    std::cout << ",\"stopping_controls\":";
+    if (!controls.simulation) std::cout << "null";
+    else {
+        const auto& s = controls.simulation->stopping;
+        const std::array<double, 3> reals{s.emax_0x8c0, s.tmax_0x8c8, s.demax_0x9b0};
+        std::cout << "{\"nstep\":" << s.nstep_0x8bc << ",\"stpdef\":" << s.stpdef_0x918
+                  << ",\"reals_hex\":";
+        raw_values(std::span(reals));
+        std::cout << '}';
+    }
     std::cout << ",\"stpinc_0x8b4\":";
     if (controls.simulation) std::cout << controls.simulation->stpinc_0x8b4;
     else std::cout << "null";
