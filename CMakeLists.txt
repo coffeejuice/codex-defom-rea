@@ -33,6 +33,7 @@ target_sources(deform_recovered_state PRIVATE src/recovered/property_table.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/relation_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/fstres_properties.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/grndat_properties.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/unit_system.cpp)
 target_include_directories(deform_recovered_state PUBLIC src)
 target_compile_features(deform_recovered_state PUBLIC cxx_std_20)
 if(MSVC)
@@ -58,8 +59,23 @@ add_executable(metadata_import_replay tests/metadata_import_replay.cpp)
 target_link_libraries(metadata_import_replay PRIVATE deform_recovered_state)
 add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
+add_executable(unit_system_test tests/unit_system_test.cpp)
+target_link_libraries(unit_system_test PRIVATE deform_recovered_state)
+add_test(NAME unit_owned_state_contract COMMAND unit_system_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME unit_discovery_cpp_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_unit_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-runtime-discovery.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/unit-discovery-v2/run.json"
+      --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-discovery-inputs.json")
+  add_test(NAME unit_evaluation_cpp_reference_replay
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_unit_import.py"
+      --driver "$<TARGET_FILE:keyword_import_replay>"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-runtime-evaluation.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/unit-evaluation/run.json"
+      --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-evaluation-inputs.json")
   add_test(NAME unit_original_source_audit
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/audit_unit_discovery.py"
       --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-runtime-discovery.json"

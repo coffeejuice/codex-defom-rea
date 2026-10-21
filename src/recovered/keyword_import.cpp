@@ -126,7 +126,7 @@ bool property_table_keyword(int id) {
 }
 
 bool implemented(int id, int category) {
-    return (category == 1 && ((id >= 22 && id <= 29) || id == 34 || id == 36 || id == 38 || id == 48 || id == 49 || id == 50 || id == 51)) ||
+    return (category == 1 && ((id >= 22 && id <= 30) || id == 34 || id == 36 || id == 38 || id == 48 || id == 49 || id == 50 || id == 51)) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
@@ -178,6 +178,11 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
         // into root840, including zero on failure. Mask bit2 is not exposed.
         const auto read = reader.integer();
         model.set_mesh_number(read.values[0]);
+        return read.status == 0 ? 0 : 2;
+    }
+    if (id == 30) {
+        const auto read = reader.integer(); // 39aa90 reads a temporary.
+        model.set_unit(read.values[0]); // Change condition is independent of status.
         return read.status == 0 ? 0 : 2;
     }
     if (id == 34) {
@@ -644,7 +649,7 @@ int handle_object_keyword(int id, ObjectModel& model, KeywordReader& reader) {
         const auto count = reader.integer();
         if (count.status != 0) return 2;
         object->mesh.begin_coordinate_replace(count.values[0], controls.component_counts,
-                                               controls.node8_default);
+                                               model.node8_default());
         const auto dimensions = static_cast<std::size_t>(controls.dimension);
         for (int row = 0; row < count.values[0]; ++row) {
             const auto result = controls.dimension == 2

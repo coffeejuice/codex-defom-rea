@@ -592,14 +592,90 @@ void materials(const Range& records) {
     std::cout << ']';
 }
 
+void unit_controls(const RootUnitControls& unit) {
+    std::cout << "{\"selector\":" << unit.selector_0x84c << ",\"scalar_hex\":[";
+    const auto values = unit.scalar_values();
+    for (std::size_t i = 0; i < values.size(); ++i) {
+        if (i) std::cout << ',';
+        raw_values(std::span(&values[i], 1));
+    }
+    std::cout << "],\"tables\":[";
+    bool first = true;
+    for (const auto& t : unit.tables) {
+        if (!first) std::cout << ',';
+        first = false;
+        std::cout << "{\"type\":" << t.type_0x00 << ",\"rank\":" << t.rank_0x04
+                  << ",\"constant_hex\":";
+        raw_values(std::span(&t.constant_0x08, 1));
+        std::cout << ",\"selectors\":"; numbers(t.selectors_0x10);
+        std::cout << ",\"counts\":"; numbers(t.counts_0x1c);
+        std::cout << ",\"width\":" << t.values_per_point_0x40 << ",\"flag50\":" << t.flag_0x50
+                  << ",\"metadata54\":" << t.preserved_0x54 << ",\"mode58\":" << t.mode_0x58
+                  << ",\"metadata60_hex\":";
+        raw_values(std::span(&t.preserved_0x60, 1));
+        std::cout << ",\"storage_null\":[";
+        for (const auto& axis : t.axes) std::cout << (axis.empty() ? "true," : "false,");
+        std::cout << (t.dependent.empty() ? "true,true]}" : "false,true]}");
+    }
+    std::cout << "]}";
+}
+
+void global_units() {
+    const auto& unit = process_unit_state();
+    std::cout << "{\"mode\":" << unit.mode << ",\"display_mode\":" << unit.display_mode
+              << ",\"count\":" << unit.count << ",\"limit\":" << unit.limit
+              << ",\"field90\":" << unit.field90 << ",\"field94\":" << unit.field94
+              << ",\"table_a\":";
+    if (!unit.tables) std::cout << "null";
+    else {
+        std::cout << '[';
+        bool first = true;
+        for (const auto& row : unit.tables->numeric) {
+            if (!first) std::cout << ',';
+            first = false;
+            std::cout << "{\"id\":" << row.id << ",\"text\":"; emit_quoted(row.text);
+            std::cout << ",\"raw64\":[";
+            for (std::size_t i = 0; i < row.bits.size(); ++i) {
+                if (i) std::cout << ',';
+                raw_values(std::span(&row.bits[i], 1));
+            }
+            std::cout << "]}";
+        }
+        std::cout << ']';
+    }
+    std::cout << ",\"table_b\":";
+    if (!unit.tables) std::cout << "null";
+    else {
+        std::cout << '[';
+        bool first = true;
+        for (const auto& row : unit.tables->labels) {
+            if (!first) std::cout << ',';
+            first = false;
+            std::cout << "{\"id\":" << row.id << ",\"text\":[";
+            for (std::size_t i = 0; i < row.text.size(); ++i) {
+                if (i) std::cout << ',';
+                emit_quoted(row.text[i]);
+            }
+            std::cout << "]}";
+        }
+        std::cout << ']';
+    }
+    std::cout << '}';
+}
+
 void state(const ObjectModel& model) {
     const auto& controls = model.controls();
     std::cout << "{\"dimension\":" << controls.dimension << ",\"suppress_boundaries\":"
               << (controls.suppress_boundaries ? 1 : 0)
               << ",\"alternate_enabled\":" << (controls.alternate_root_enabled ? 1 : 0)
-              << ",\"node8_default\":" << controls.node8_default
+              << ",\"node8_default\":" << model.node8_default()
               << ",\"direct61_default\":" << controls.direct61_default << ",\"components\":";
     numbers(controls.component_counts);
+    std::cout << ",\"unit\":";
+    if (controls.simulation) unit_controls(controls.simulation->units);
+    else std::cout << "null";
+    std::cout << ",\"global_units\":";
+    global_units();
     std::cout << ",\"custom_last_id_0x33b8\":" << model.custom_last_id();
     std::cout << ",\"simulation_mode\":";
     if (!controls.simulation) std::cout << "null";

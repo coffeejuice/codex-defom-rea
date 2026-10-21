@@ -1465,8 +1465,9 @@ do not launch the original application.
 
 ## UNIT recovery checkpoint
 
-UNIT is recovered for the observed console profile; C++ implementation remains
-pending. A changed recognized value1/2 stores the root selector, resets four
+At research checkpoint fa3af86, UNIT was recovered for the observed console
+profile and C++ implementation remained pending. The newer checkpoint below
+supersedes that status. A changed recognized value1/2 stores the root selector, resets four
 property tables, writes eight exact floating-point defaults and refreshes two
 process-global unit tables. Repeated or invalid values skip those effects.
 The root starts at raw selector0; the first UNIT1 therefore causes a reset.
@@ -1487,3 +1488,28 @@ reproduces the source tables from retained REA bytes. Run
 `ctest --test-dir build -C Release -R unit_original_source_audit --output-on-failure`.
 The audit requires ignored local capture/run/observer files and does not launch
 the original app. The full export still stops at UNIT.
+
+## UNIT implementation checkpoint
+
+UNIT now reproduces the conditional root reset and shared process unit state.
+The raw root selector remains separate from the normalized global mode. Four
+owned tables reset destructively, eight defaults retain their exact bits, and
+all28 presentation records reproduce the decoded source. Changed dimensions
+preserve each root's selector. Repeating the same root selector does not
+refresh global state, even when another root has selected a different mode.
+
+The implementation matches28 original imports and34 UNIT handlers. Thirteen
+new evaluation imports passed an unchanged candidate, including41 root mesh
+snapshots: existing temperatures survive unit changes, while replacement
+arrays use20 or68 from the current process mode. All94 regression tests pass.
+The populated-table reset test checks the static owned-storage contract;
+native populated buffers and scientific consumers remain unverified.
+
+`analysis/unit-import-contract.json` records the candidate freeze, exact
+source bindings and limits. `analysis/unit-next-contract.json` remains the
+immutable earlier research checkpoint. The full export now reaches TNOW
+after eight supported handlers; the loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R unit --output-on-failure`. The owned
+state test uses tracked sources; original reference replays need ignored local
+captures, run records and observer copies. They do not launch the original app.

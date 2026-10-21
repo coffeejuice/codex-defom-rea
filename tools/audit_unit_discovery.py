@@ -122,7 +122,7 @@ def main():
         equal(g['after']['state']['global_units'],global_state(global_mode,initialized),'globals retained through wrapper')
     report=dict(status='PASS_ORIGINAL_UNIT_SOURCE_AUDIT',imports=len(groups),handlers=handlers,unit_changes=changes,table_resets=4*changes,checks=checks,eof_cursors_unobserved=eof,evidence_id=e['evidence_id'],
                 capture_sha256=hashlib.sha256(args.capture.read_bytes()).hexdigest(),run_sha256=hashlib.sha256(args.run.read_bytes()).hexdigest(),
-                scope='Source-bound original discovery only. No C++ implementation/comparison or held-out evaluation. Fresh empty four-table profile, selected original-console imports; full labels/raw64 entries compare in both modes. Nonzero table storage and scientific consumers remain pending.')
+                scope='Source-bound original observation audit only; C++ comparison and input chronology are separate claims. Fresh empty four-table profile, selected original-console imports; full labels/raw64 entries compare in both modes. Populated table storage and scientific consumers remain pending.')
     if args.report:args.report.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps(report))
 

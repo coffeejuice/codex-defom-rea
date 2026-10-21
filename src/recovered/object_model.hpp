@@ -5,6 +5,7 @@
 #include "geometry_segments.hpp"
 #include "custom_fields.hpp"
 #include "property_table.hpp"
+#include "unit_system.hpp"
 
 #include <array>
 #include <cstdint>
@@ -48,6 +49,7 @@ struct TimeTableControls {
 // retains default properties with the recovered reference graph below.
 // This profile is not inferred from an externally supplied component table.
 struct SimulationControls {
+    RootUnitControls units;
     std::int32_t mesh_number_0x840 = 1; // MESHNO raw integer, default from1e7e90.
     std::int32_t mode_0x844 = 1; // SMODE raw int; no implied scientific enum.
     std::int32_t type_0x848 = 1; // STYPE direct int; downstream meaning unestablished.
@@ -266,6 +268,7 @@ public:
     ObjectModel& operator=(ObjectModel&&) = delete;
 
     [[nodiscard]] const RootControls& controls() const noexcept { return controls_; }
+    [[nodiscard]] double node8_default() const noexcept;
     [[nodiscard]] const RootMetadata& metadata() const noexcept { return metadata_; }
     [[nodiscard]] RootMetadata& metadata() noexcept { return metadata_; }
     // 1c8ba0: a changed dimension destroys existing objects and resets controls.
@@ -288,6 +291,7 @@ public:
     void set_simulation_mode(std::int32_t value);
     void set_simulation_type(std::int32_t value);
     void set_mesh_number(std::int32_t value);
+    void set_unit(std::int32_t value);
     void set_output_flags(const std::array<int, 7>& values);
     void refresh_components();
     // Changed user widths resize their root definition table before global

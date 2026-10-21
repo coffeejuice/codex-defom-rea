@@ -136,12 +136,21 @@ void ObjectRecord::apply_type(int file_type, int secondary_value) {
 
 ObjectModel::ObjectModel(RootControls controls) : controls_(std::move(controls)) {}
 
+double ObjectModel::node8_default() const noexcept {
+    const auto& units = process_unit_state();
+    return units.tables ? (units.mode == 0 ? 20.0 : 68.0) : controls_.node8_default;
+}
+
 void ObjectModel::set_dimension(int dimension) {
     if (dimension != 2 && dimension != 3)
         throw std::invalid_argument("unsupported root dimension");
     if (dimension == controls_.dimension) return;
     auto reset = initialized_root_controls(dimension, controls_.node8_default,
         controls_.suppress_boundaries);
+    if (controls_.simulation) {
+        reset.simulation->units.selector_0x84c = controls_.simulation->units.selector_0x84c;
+        reset.simulation->units.reset_defaults();
+    }
     reset.alternate_root_enabled = controls_.alternate_root_enabled;
     // Native setter writes the dimension before clearing the lists. Internal
     // ownership releases every represented mesh/descriptor with its object.
@@ -193,6 +202,15 @@ void ObjectModel::set_simulation_type(std::int32_t value) {
 void ObjectModel::set_mesh_number(std::int32_t value) {
     require_simulation_profile(controls_);
     controls_.simulation->mesh_number_0x840 = value;
+}
+
+void ObjectModel::set_unit(std::int32_t value) {
+    require_simulation_profile(controls_);
+    auto& units = controls_.simulation->units;
+    if ((value != 1 && value != 2) || units.selector_0x84c == value) return;
+    units.selector_0x84c = value;
+    units.reset_defaults();
+    select_process_unit(value);
 }
 
 void ObjectModel::set_output_flags(const std::array<int, 7>& values) {

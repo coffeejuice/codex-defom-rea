@@ -1,6 +1,7 @@
 // Passive UNIT30 discovery; target data and native arguments are never changed.
 const app=Process.getModuleByName('DEF_PRE_64.exe'),at=rva=>app.base.add(rva);
 let file=null,root=null,active=null,sequence=0;
+const nodeAllocations=new Map();
 function emit(operation,fields){send({sequence:++sequence,operation,file,...fields});}
 function safe(fn){try{fn();}catch(e){emit('probe-error',{error:String(e)});}}
 function hex(p,n){return Array.from(new Uint8Array(p.readByteArray(n)),b=>b.toString(16).padStart(2,'0')).join('');}
@@ -16,7 +17,13 @@ function globals(){const a=at(0x70ba80).readPointer(),b=at(0x70ba78).readPointer
     return {mode:at(0x6fe778).readS32(),display_mode:at(0x70ba70).readS32(),count,limit:at(0x70ba8c).readS32(),field90:at(0x70ba90).readS32(),field94:at(0x70ba94).readS32(),
         table_a:a.isNull()?null:Array.from({length:count},(_,i)=>{const r=a.add(i*0x88);return {id:r.readS32(),text:text100(r.add(4)),raw64:[0x68,0x70,0x78,0x80].map(o=>hex(r.add(o),8))};}),
         table_b:b.isNull()?null:Array.from({length:count},(_,i)=>{const r=b.add(i*0x1f8);return {id:r.readS32(),text:[4,0x68,0xcc,0x130,0x194].map(o=>text100(r.add(o)))};})};}
-function state(p){const link=p.add(0x33e8).readPointer();return {unit:units(p),linked_unit:link.isNull()?null:units(link),global_units:globals(),dimension:p.add(0x1c).readS32(),linked_dimension:link.isNull()?null:link.add(0x1c).readS32(),
+function meshSamples(p){const count=p.add(0x1378).readS32();if(count<0||count>8)throw new Error('object bound');let object=p.add(0x1380).readPointer(),rows=[];
+    for(let i=0;i<count;++i,object=object.add(0x3940).readPointer()){
+        if(object.isNull())throw new Error('short object list');const n=object.add(0x880).readS32(),temperature=object.add(0x8e0).readPointer(),coordinates=object.add(0x8a8).readPointer();
+        let t='',c='';if(n!==0){const a=nodeAllocations.get(object.toString());if(!a||a.count!==n||!temperature.equals(a.temperature)||!coordinates.equals(a.coordinates))throw new Error('unproven node buffer extent');t=hex(temperature,n*8);c=hex(coordinates,n*a.dimension*8);}
+        rows.push({id:object.add(8).readS32(),coordinates_hex:c,temperature_hex:t});
+    }return rows;}
+function state(p){const link=p.add(0x33e8).readPointer();return {unit:units(p),linked_unit:link.isNull()?null:units(link),global_units:globals(),mesh_samples:meshSamples(p),dimension:p.add(0x1c).readS32(),linked_dimension:link.isNull()?null:link.add(0x1c).readS32(),
     components:Array.from({length:79},(_,i)=>p.add(0x15f8+4*i).readS32()),object_count:p.add(0x1378).readS32(),material_count:p.add(0x1320).readS32(),
     mesh_number:p.add(0x840).readS32(),mode:p.add(0x844).readS32(),type:p.add(0x848).readS32()};}
 function cursor(p){const c=p.readPointer(),b=p.add(0x10).readPointer();if(c.isNull()||b.isNull())return 0;const n=c.sub(b).toInt32();if(n<0||n>4096)throw new Error('stream bound');return n;}
@@ -27,5 +34,11 @@ Interceptor.attach(at(0x1f4100),{onEnter(args){this.enabled=active!==null;if(!th
 Interceptor.attach(at(0x12d2a0),{onEnter(args){if(active)safe(()=>active.calls.push({call:'table-reset',offset:args[0].sub(active.root).toInt32(),type:args[1].toInt32()}));}});
 for(const [rva,name]of [[0x235c30,'global-mode'],[0x3f8b70,'display-mode'],[0x3f9f20,'display-refresh']])Interceptor.attach(at(rva),{onEnter(args){if(active)safe(()=>active.calls.push({call:name,...(name==='display-refresh'?{}:{value:args[0].toInt32()})}));else if(file)safe(()=>emit('outside-unit-call',{call:name}));}});
 Interceptor.attach(at(0x1d0fc0),{onEnter(args){if(active)active.refreshes.push(args[1].toInt32());}});
+// 17ffe0 ABI and object slots from mesh-array-contract.json. Read only buffers
+// whose count/dimension and returned pointers were observed on replacement.
+Interceptor.attach(at(0x17ffe0),{onEnter(args){this.enabled=file!==null;if(!this.enabled)return;safe(()=>{
+    this.object=ptr(args[0].sub(0x8a0).toString());this.count=args[1].toInt32();this.dimension=args[2].readS32();
+    if(this.count<0||this.count>64||![2,3].includes(this.dimension)||args[2].add(8*4).readS32()!==1||args[3].toInt32()!==-1)throw new Error('node replacement outside bounded unit fixture profile');
+});},onLeave(){if(this.enabled)safe(()=>nodeAllocations.set(this.object.toString(),{count:this.count,dimension:this.dimension,temperature:this.object.add(0x8e0).readPointer(),coordinates:this.object.add(0x8a8).readPointer()}));}});
 send({operation:'hooks-installed',pid:Process.id});
 const gate=new File('__READY_GATE__','w');gate.write('ready\n');gate.close();
