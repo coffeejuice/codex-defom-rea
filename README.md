@@ -1462,3 +1462,28 @@ The retained full export now reaches UNIT after seven supported handlers.
 Run `ctest --test-dir build -C Release -R meshno --output-on-failure`. These
 replays require ignored local captures, run records and observer copies; they
 do not launch the original application.
+
+## UNIT recovery checkpoint
+
+UNIT is recovered for the observed console profile; C++ implementation remains
+pending. A changed recognized value1/2 stores the root selector, resets four
+property tables, writes eight exact floating-point defaults and refreshes two
+process-global unit tables. Repeated or invalid values skip those effects.
+The root starts at raw selector0; the first UNIT1 therefore causes a reset.
+Changed dimensions preserve that selector. Global presentation state starts
+empty and becomes initialized on the first change, independently of linked
+roots' raw controls.
+
+Static REA evidence and15 original imports verify19 handlers, nine changes
+and36 ordered property-table resets. All28 numeric/display records in both
+unit modes match decoded source bytes. The new source audit plus90 existing
+regression tests pass. This is discovery evidence, not C++ equivalence or
+held-out evaluation. Populated property buffers, future mesh-temperature
+transitions and scientific consumers still need comparison.
+
+`analysis/unit-next-contract.json` records the exact defaults, source bindings,
+observer repair and implementation requirements. `tools/extract_unit_data.py`
+reproduces the source tables from retained REA bytes. Run
+`ctest --test-dir build -C Release -R unit_original_source_audit --output-on-failure`.
+The audit requires ignored local capture/run/observer files and does not launch
+the original app. The full export still stops at UNIT.

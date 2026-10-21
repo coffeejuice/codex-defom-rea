@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "status": "recovered_source_and_original_discovery_verified_cpp_not_implemented",
+  "keyword": "UNIT30",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "evidence": {
+    "new_static": "analysis/unit-static-evidence.json",
+    "new_static_evidence_ids": [
+      "ev_b04741315b086388032fc7a6ba4438bb50938c23b68c26de6dd78894778746bb",
+      "ev_8adcfdfde86184205c0228889eb8b862b3ece4c94b060d3c1260a280ab1bace8",
+      "ev_9cee86a457dbccabe532a926062ff3b4ef1710da7e9fbdccb6a6dcde193d984b",
+      "ev_2000bf0c813df6503cf840d5c322ae2dc02492949079fc6c2b1a7b0986b4f9bb",
+      "ev_181428efb41e3a62a903b075741391462cc13dab7af4d8ad6afddab78d7108a9",
+      "ev_ccd3c72b3ff430968b3e748bebc335cfd4b0d6294b2cd8df0b1977fd8e657586",
+      "ev_c8b75bd05beac14cc2c3a6b8c22be57cadf35a8547d2c07b01891e9797093c0d",
+      "ev_d68f71fe7a19f6fdfaafcc36462ce06d8f5564f3cbe01258527df505751ec628",
+      "ev_7829a7fcd485edc8f61493d8e1e317c165ce35a460c2cc715f1c6a596b1aeee6",
+      "ev_1d57ae5daeb4f37241dfd82eb00e514d274b82d721ecdb2cc00a0506a4f30311",
+      "ev_78a51d7d5b532add0fb3c75cad6cb142e475df4482fbd8dd09489a639d6193ab",
+      "ev_1a320f52d7c0c8331edd69d9eb4a38e1fae1d01d6987a6464e0e38fc84d201e8",
+      "ev_81e1466937006b14fbe377610ee8411135028c5d9c84f5977b1b5d98c6d78d45",
+      "ev_b7e87e7407bfe61202c3fa9cdbb549076c5893fb6e23f00f14e506bace355274",
+      "ev_dbc508a09aa3e7099c9ed22a23c5c3a2b7f95a63ddb05878a17bcca34fb142b9",
+      "ev_ac34283b92199cce554f1962204de6419185850369bb7af22cec45fe64c788f9",
+      "ev_f114061912bed456074b6d15a3f8502e3e2da12939bf27860bdf5229969d754b",
+      "ev_e6c290a5e1d622aad2f46d8315ac03e8a001bca8e06b70ade505450059b7f0e5",
+      "ev_06f0666cc499b85f75aa104222d41972d21ad1c0ca2884191d21775ff7b0e020"
+    ],
+    "dispatcher": "analysis/chat-b-metadata-evidence.json case8",
+    "global_chain": "analysis/chat-c-db-controls-evidence.json records1/4/5"
+  },
+  "behavior": {
+    "reader": "Read413de0(FILE,temporary,0); zero-initialized temporary. Matching0 succeeds; blank/EOF or scan-1 gives handler2. Reader status does not gate the conditional change.",
+    "condition": "Only values1/2 unequal to raw root84c trigger mutation; invalid and repeated values leave root fields and globals untouched.",
+    "ordering": [
+      "Store root84c first.",
+      "Call1f4100(root750).",
+      "Reset tables at rootb18,c10,c88,d00 in this order via12d2a0(type0).",
+      "Write eight exact scalar defaults, including the four reset-table constants.",
+      "Call235c30(unit), which changes global6fe778, then3f8b70(unit), which changes global70ba70, then3f9f20."
+    ],
+    "layout": "No1d0fc0 layout refresh or linked-root control propagation observed. Existing objects are not converted by this setter chain.",
+    "initial_and_reset": "Observed console roots start raw unit0, while process mode0 and numeric defaults are profile1. Global unit presentation tables initially absent/count0. First UNIT1 is a change; repeated UNIT1 is a no-op. Dimension reset preserves root unit and reinitializes its numerical controls from1ea6b0; linked root unit remains0 in discovery.",
+    "globals": "235c30/3f8b70 normalize selector2 to1, every other selector to0. KEY invokes them only for changed recognized1/2. 3f9f20 sets6000/28/4/0 header values and lazily allocates two global tables.",
+    "table_a": "28 stride88 records. Copy ID, string and four raw64 fields, then overwrite destination80 from source68. Effective raw64 fields are source68/70/78/68.",
+    "table_b": "28 stride1f8 records. All ten formatting literals are %s. Copy five source strings; overwrite columns68 and194 from column130 in mode0 or columncc in mode1. Exact source labels include quirks; preserve bytes rather than modernizing text."
+  },
+  "exact_scalar_default_profiles": {
+    "1": {
+      "0xb00": "000000000000f03f",
+      "0xc08": "aaf0c480682acf3d",
+      "0xb20": "0000000000003440",
+      "0xc18": "7b14ae47e17a943f",
+      "0xc90": "0ad7a3703d0afb3f",
+      "0xd08": "fca9f1d24d62303f",
+      "0xd78": "037ff3e189a5153e",
+      "0xd80": "b1de64c8dad0033d"
+    },
+    "2": {
+      "0xb00": "3108ac1c5a64bb3f",
+      "0xc08": "bdabf4f21dc7ed3c",
+      "0xb20": "0000000000005140",
+      "0xc18": "728115f1e725e03e",
+      "0xc90": "0ad7a3703d0afb3f",
+      "0xd08": "f168e388b5f8e43e",
+      "0xd78": "b6ea39784d20613e",
+      "0xd80": "52a552b57aaa4f3d"
+    }
+  },
+  "property_table_reset": "Use existing PropertyTable::initialize(0), not metadata-preserving reset_type. Type/rank/selectors/counts/mode/flags/metadata zero, width1; old owned arrays are released before scalar defaults are stored.",
+  "native_audit": {
+    "status": "PASS_ORIGINAL_UNIT_SOURCE_AUDIT",
+    "imports": 15,
+    "handlers": 19,
+    "unit_changes": 9,
+    "table_resets": 36,
+    "checks": 529,
+    "eof_cursors_unobserved": 2,
+    "evidence_id": "ev_5ac8457d5f03699da0b62ae5f2de1774768950607f4dfa7d2ad16c2b78af203b",
+    "capture_sha256": "1e9b8e7e5f3b92f6b6c4f3bf6239fe45848094460d0a70f2596f2c61e66f972d",
+    "run_sha256": "17738329ac723204eef4cf64fb5d246c7b3d8c6efc4e26523a296edc765e14eb",
+    "scope": "Source-bound original discovery only. No C++ implementation/comparison or held-out evaluation. Fresh empty four-table profile, selected original-console imports; full labels/raw64 entries compare in both modes. Nonzero table storage and scientific consumers remain pending."
+  },
+  "implementation_requirements": [
+    "Represent raw per-root unit0/1/2 separately from process-global normalized unit mode and lazy presentation state.",
+    "Add four owned root property tables and four separate scalar fields. The setter writes eight scalar locations: four independent values and four table constants.",
+    "Preserve raw unit across changed-dimension reset; apply1ea6b0 defaults with selector==2 selecting profile2 and all other values selecting profile1. Do not reset unit to1 automatically.",
+    "Model global state shared by all application roots, preserving lazy allocation and repeated-value no-op behavior; avoid per-root presentation copies.",
+    "Integrate new mesh ID8 default selection with process units. Prior root-reset evidence shows1652b0 queries235c10 and returns20/68; UNIT itself does not rewrite existing node values. Native transition/mesh comparisons are still required.",
+    "Freeze implementation before new original-console evaluation, compare complete table/default/global state and linked-root isolation, then run full regression. Preserve existing include/deform loader API."
+  ],
+  "limitations": [
+    "No C++ UNIT implementation or equivalence comparison at this checkpoint.",
+    "Discovery inputs are not held-out evaluation.",
+    "Four scientific property records were fresh and empty. Populated buffer release, cache ownership, allocation failure and all scientific consumers are not runtime validated.",
+    "Observed startup raw selector0 is bounded to the tested console profile; complete source proof of every constructor/allocation initialization path is pending.",
+    "Two native handler cursor positions remain unobserved after CRT EOF buffer resets.",
+    "Global flags need not equal raw root selector. Resetting a root can leave a linked root with different unit controls but shared process mode.",
+    "Original-process experiments stayed within private fixture directories; no target argument or memory mutations."
+  ],
+  "source_bindings": [
+    {
+      "path": "analysis/unit-static-evidence.json",
+      "bytes": 228721,
+      "sha256": "cb1f157dc7aa7523f508f352d168d7b093416a0f6087857dc97043f6209900e4",
+      "local_only": false
+    },
+    {
+      "path": "analysis/unit-static-data.json",
+      "bytes": 10425,
+      "sha256": "bcdb44becb181cbc7fd9531b1ff80346c4265cf7720eaeb9e2618a4ec7ae907e",
+      "local_only": false
+    },
+    {
+      "path": "analysis/unit-discovery-inputs.json",
+      "bytes": 4102,
+      "sha256": "d3bb3a7f9f8088510e938d4f440fe19321eee2cf048464a1679fa28f55593631",
+      "local_only": false
+    },
+    {
+      "path": "analysis/chat-b-metadata-evidence.json",
+      "bytes": 12162,
+      "sha256": "2fca6ad3d9ed9dd9b7b49c21ec586993c5d332ff1649c80e0a76869db6a61393",
+      "local_only": false
+    },
+    {
+      "path": "analysis/chat-c-db-controls-evidence.json",
+      "bytes": 643175,
+      "sha256": "f21247667026cc300f76e3dc210031a62b45bbae507f9ebda0cdc837b2441066",
+      "local_only": false
+    },
+    {
+      "path": "analysis/root-reset-contract-audit.json",
+      "bytes": 62618,
+      "sha256": "3abaa495730770dd3c0e81123f98a9bb4ca09c45529b64f915ffc0fc09532c25",
+      "local_only": false
+    },
+    {
+      "path": "analysis/unit-runtime-discovery.json",
+      "bytes": 1731003,
+      "sha256": "1e9b8e7e5f3b92f6b6c4f3bf6239fe45848094460d0a70f2596f2c61e66f972d",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/unit-discovery-v2/run.json",
+      "bytes": 23273,
+      "sha256": "17738329ac723204eef4cf64fb5d246c7b3d8c6efc4e26523a296edc765e14eb",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/unit-discovery-v2/observer-source.js",
+      "bytes": 5345,
+      "sha256": "c5f951d32164bc83c09fd4687cb29b95a289044504b3ecb146649c6f9af652d7",
+      "local_only": true
+    },
+    {
+      "path": "analysis/unit-runtime-discovery-v1.json",
+      "bytes": 4737760,
+      "sha256": "81022fcba29c7ae0d1a71b03f47bfbd59928f6921df591d8462c06247ce69dc8",
+      "local_only": true
+    },
+    {
+      "path": "analysis/oracle/unit-discovery/observer-source.js",
+      "bytes": 5079,
+      "sha256": "e16e70b51c9840fcbba1df352fe560c82b19e9e1a46b88a68f102f4e7f5545d6",
+      "local_only": true
+    }
+  ],
+  "observer_diagnostic": "Initial capture used fixed-length Frida readCString(100), which included heap padding in label decoding. Replaced by byte-bounded explicit NUL/ASCII decoding and repeated all15 imports. Initial capture retained locally as v1; only v2 counts in audit.",
+  "resource_release": "Owned Ghidra session closed into analysis/oracle/unit-snapshot.json (291969962 bytes,649 Evidence records). Both Frida windows detached without cleanup error; both console processes completed exit0.",
+  "regression": {
+    "registered": 91,
+    "passed": 91,
+    "failed": 0,
+    "seconds": 28.68,
+    "qualification": "90 existing regression tests plus original UNIT source audit; production C++ was unchanged."
+  }
+}

@@ -60,6 +60,13 @@ add_executable(component_layout_replay tests/component_layout_replay.cpp)
 target_link_libraries(component_layout_replay PRIVATE deform_recovered_state)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  add_test(NAME unit_original_source_audit
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/audit_unit_discovery.py"
+      --capture "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-runtime-discovery.json"
+      --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/unit-discovery-v2/run.json"
+      --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-discovery-inputs.json"
+      --static "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-static-evidence.json"
+      --data "${CMAKE_CURRENT_SOURCE_DIR}/analysis/unit-static-data.json")
   foreach(meshno_batch IN ITEMS training evaluation)
     set(meshno_plan "meshno-fixture-plan.json")
     if(meshno_batch STREQUAL "evaluation")
