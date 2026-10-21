@@ -68,6 +68,17 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(material_curves_cohort IN ITEMS training evaluation)
+    add_test(NAME "material_curves_${material_curves_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_curves.py"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-curves-${material_curves_cohort}-inputs.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/material-curves-${material_curves_cohort}"
+        --evidence "${CMAKE_CURRENT_SOURCE_DIR}/analysis/material-curves-runtime-${material_curves_cohort}.json"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/material-curves-${material_curves_cohort}-regression.json")
+    set_tests_properties("material_curves_${material_curves_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   foreach(material_scalars_cohort IN ITEMS training evaluation)
     add_test(NAME "material_scalars_${material_scalars_cohort}_reference_replay"
       COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_material_scalars.py"

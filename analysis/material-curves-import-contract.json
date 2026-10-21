@@ -1,0 +1,130 @@
+{
+  "status": "implemented_subset_runtime_tested",
+  "created_utc": "2026-10-21T21:37:59.157085+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "FPERV104: independent owned tables at material1ef0/1f68.",
+    "DIFCOE107: mode950, tables958/9d0/a48, referenceac0; inactive tables retain state.",
+    "DIFBND129: owned typeAF table2160; existing width2 and stale physical storage remain distinct from logical counts."
+  ],
+  "behavior": {
+    "defaults": "28c6f0/28cdc0 construct/reset FPERV tables to type0. Complete289930 source proves DIFCOE mode0, reference0, table types29/27/28; after type29 initialization its rank alone becomes0, retaining selectors3/12. DIFBND typeAF initializes rank0,width2 and two zero dependent values.",
+    "FPERV": "A failed four-real header preserves both old tables. A successful header resets both before processing either selector. Truncated selector0 stores the paired scalar;1 sets rank1,axis1 and truncated row count, then calls41a800. Other selector values leave the reset state and consume no payload. Processing continues after the first payload fails; a second payload replaces its status. A second scalar/unknown selector preserves the first payload status.",
+    "DIFCOE": "Successful int/four-real header:0 sets mode0 and directly initializes958 to type0 before storing its constant;1 resets958 to type29 and reads rank2 counts;2/3 reset9d0/a48 to rank1 two-value profiles27/28. Negative selectors set mode4 and the positive reference without resetting tables. Unrecognized positive selectors preserve prior state. Header failure preserves state. Mode changes do not clear inactive tables or old references.",
+    "DIFBND": "Successful int/two-real header:7 sets rank2,selectors3/4 and two counts, then reads the existing typeAF,width2 table without a type reset.0 zeroes the two counts and updates the constant while preserving rank,selectors,width and physically allocated arrays. Other selectors return2 unchanged. Header failure returns2 unchanged.",
+    "payload": "Established41a800 allocation clamps negative counts and zeroes owned arrays. Rank1 reads interleaved axis/dependent values and retains direct prefix writes on EOF. Rank2 axes retain prefixes, while dependent scratch commits only after complete reads. Final line discard follows a positive completed dependent product; zero-size payloads consume no payload text.",
+    "lifecycle": "Material creation/count/mode1 refresh precede header reading, including header failure. Same-dimension/UNIT imports retain the observed stores; changed dimensions destroy materials and fresh creation reinstates defaults. Linked roots remain isolated except established dimension propagation."
+  },
+  "implementation": "MaterialCurveImports extends canonical MaterialRecord. Reuses PropertyTable,read_property_values,real_quad,matrix_row and the established integer/two-real helper; no second keyword parser or loader API change.",
+  "source": {
+    "dispatch": "analysis/material-curves-source-selection.json",
+    "bundle": "analysis/material-curves-static-evidence.json",
+    "new_complete_inline_records": 1,
+    "prior_qualified_bodies": 8,
+    "release": "analysis/material-curves-static-release-receipt.json",
+    "qualification": "Source identities, limitations and exclusive case boundaries retained. New289930 Evidence complete; older sources are qualified projections with hashed complete/local source references. No cumulative snapshot rewrite."
+  },
+  "verification": {
+    "status": "PASS_FROZEN_ORIGINAL_COMPARISONS",
+    "imports": 64,
+    "handlers": 132,
+    "checks": 27538,
+    "unobserved_eof_cursors": 28,
+    "frozen_files": 47,
+    "by_id": {
+      "104": 44,
+      "107": 48,
+      "129": 40
+    },
+    "by_dimension": {
+      "3": 66,
+      "2": 66
+    },
+    "observations": {
+      "lookup_tokens": 180,
+      "header_calls": 128,
+      "payload_calls": 72,
+      "refresh_calls": 8,
+      "handler_errors": 40,
+      "failed_payloads": 24,
+      "masked_payload_errors": 4,
+      "reset-preserve_events": 92,
+      "reset-direct_events": 100,
+      "allocate_events": 172
+    },
+    "reports": [
+      {
+        "status": "PASS_NATIVE_MATERIAL_CURVES",
+        "imports": 32,
+        "handlers": 66,
+        "checks": 13769,
+        "unobserved_eof_cursors": 14,
+        "evidence_id": "ev_1a08c49a1aa1fa17bcb98efaffad6d4a0a9644edc3eb8e7f2964c04c018a6c97",
+        "evidence_sha256": "3d8556d90279a15c7c1080d521d2612a9926c833b4e7e8cd8cacbce0e6d4df3b",
+        "frozen_files": 47,
+        "qualification": "Three complete dispatcher cases within defined finite signed32 conversions and owned bounded rank0/1/2 table profiles. Scientific evaluation, general numerical domains, arbitrary aliases/native ABI and complete application remain pending."
+      },
+      {
+        "status": "PASS_NATIVE_MATERIAL_CURVES",
+        "imports": 32,
+        "handlers": 66,
+        "checks": 13769,
+        "unobserved_eof_cursors": 14,
+        "evidence_id": "ev_71ab06bdf43a89fee70f4565142c560860092e5a92a85724c8ee4481f13a3b7c",
+        "evidence_sha256": "42abe004a3cc046a2294f59beb164d92908318a9beed89475c90031122008670",
+        "frozen_files": 47,
+        "qualification": "Three complete dispatcher cases within defined finite signed32 conversions and owned bounded rank0/1/2 table profiles. Scientific evaluation, general numerical domains, arbitrary aliases/native ABI and complete application remain pending."
+      }
+    ],
+    "prototype": "analysis/material-curves-prototype-comparison.json"
+  },
+  "chronology": [
+    "Five-import,eight-handler prototype passed1446 checks without candidate or observer correction.",
+    "Unobserved draft had33 imports; removed only its redundant blank prelude to honor the32-import capture bound. Behavioral cases unchanged; C++ preflight passed before freeze.",
+    "47 candidate/source/observer/comparison/API files frozen before32 original training imports.",
+    "After training PASS, independent preparation changes FPERV/DIFCOE extents from two to three rows, plus values,IDs and reversed dimension order. Original evaluation runs before C++; transformation source/hashes retained in the evaluation plan. All47 frozen files unchanged."
+  ],
+  "regression": {
+    "targets_built": 17,
+    "tests_passed": 135,
+    "seconds": 32.38,
+    "log": "build/material-curves-full-ctest.log"
+  },
+  "boundary": {
+    "input": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": "unsupported",
+    "reason": "recognized keyword is not implemented: FRCMOD",
+    "supported_handlers": 61,
+    "last_events": [
+      {
+        "token": "MTNAME",
+        "id": 92,
+        "category": 4
+      },
+      {
+        "token": "FRAE2H",
+        "id": 93,
+        "category": 4
+      },
+      {
+        "token": "FPERV",
+        "id": 104,
+        "category": 4
+      },
+      {
+        "token": "FRCMOD",
+        "id": 105,
+        "category": 4
+      }
+    ]
+  },
+  "limitations": [
+    "Defined owned normal-wrapper profiles and finite signed32 table conversions only. Larger/invalid conversions and DIFCOE INT_MIN negation remain explicit unsupported domains requiring further instruction-level recovery.",
+    "28 EOF cursor positions remain unobserved; headers,payload status,consumed lines,reset order and table contents are compared.",
+    "Rank2 dependent matching failures would copy uninitialized native scratch; remain unsupported rather than invented values.",
+    "Nonzero preserved54/60,nonnull cache68,borrowed/shared table aliases,allocation failure and native pointer ABI are not established by these fixtures.",
+    "Neighboring existing material tables are compared in constant profiles; broader existing table tests remain separate.",
+    "Interpolation/scientific consumers,remaining material/object imports,complete KEY/DB output and full application workflows remain required and incomplete."
+  ]
+}

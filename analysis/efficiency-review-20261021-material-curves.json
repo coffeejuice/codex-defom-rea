@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 403951346,
+    "tail_mib": 32,
+    "start_offset": 370400497,
+    "end_offset": 403951346,
+    "window_sha256": "6f4cde371cfe267a9e6a968135b9d72d00ef565726dfb101c3fe7ffd0c701041"
+  },
+  "turns": [
+    {
+      "turn_id": "01a1602e-e5e7-7f01-aaca-850096fcdcc0",
+      "started_at": "2026-10-21T20:37:28.696Z",
+      "completed_at": "2026-10-21T20:53:29.388Z",
+      "elapsed_seconds": 960.692,
+      "tool_active_union_seconds": 216.369,
+      "reasoning_item_union_seconds": 283.589,
+      "tool_reasoning_overlap_seconds": 44.509,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 499.457,
+      "tool_items": {
+        "CommandExecution": 39,
+        "FileChange": 12,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 3,
+      "truncated_command_outputs": 3,
+      "usage_delta": {
+        "input_tokens": 6064743,
+        "cached_input_tokens": 5969920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 30102,
+        "reasoning_output_tokens": 9791,
+        "total_tokens": 6094845,
+        "uncached_input_tokens": 94823
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.283,
+          "item_id": "exec-d6e26a87-9571-499f-9a52-75869ef9b737"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 33.492,
+          "item_id": "exec-3f27f3a4-d2e6-4fb8-887a-a576000eed4f"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 33.369,
+          "item_id": "exec-7335e6b9-6c08-4dc4-afcb-8690f23ea0a1"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 32.765,
+          "item_id": "exec-bc68bc4d-76da-47a2-8810-0e9db35022ca"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 26.18,
+          "item_id": "exec-13bad36f-d1ec-4fbe-bfde-77da0aa54de0"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a1603d-8eb8-7443-a9eb-e5122c2f00e5",
+      "started_at": "2026-10-21T20:53:29.416Z",
+      "completed_at": "2026-10-21T21:14:23.443Z",
+      "elapsed_seconds": 1254.027,
+      "tool_active_union_seconds": 397.167,
+      "reasoning_item_union_seconds": 487.5,
+      "tool_reasoning_overlap_seconds": 158.099,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 520.05,
+      "tool_items": {
+        "CommandExecution": 38,
+        "open_binary": 1,
+        "procedure_pseudo_code": 1,
+        "FileChange": 12,
+        "close_binary": 1,
+        "instrument_with_frida": 4
+      },
+      "failed_tool_items": 4,
+      "truncated_command_outputs": 2,
+      "usage_delta": {
+        "input_tokens": 10913871,
+        "cached_input_tokens": 10819584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 39109,
+        "reasoning_output_tokens": 17004,
+        "total_tokens": 10952980,
+        "uncached_input_tokens": 94287
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "procedure_pseudo_code",
+          "seconds": 85.766,
+          "item_id": "exec-44eb887c-54a8-481a-8031-53aa3c3cfd35"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.357,
+          "item_id": "exec-8600eedb-b4f6-4409-b498-672b08036f6b"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.843,
+          "item_id": "exec-a4e97f78-245e-4c7b-a64b-1114363265cc"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.362,
+          "item_id": "exec-b24f753b-6712-4c82-8d22-f79294661c39"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 33.939,
+          "item_id": "exec-51cc801c-72a2-41d6-8e25-8719e925d703"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "safe_checkpoint": "Static289930 evidence retained and REA closed; no live original capture, build or frozen comparison.",
+  "concrete_rework": {
+    "source": "analysis/material-scalars-prototype-observer-correction.json",
+    "additional_original_run_elapsed_seconds": 22.796,
+    "additional_instrumentation_calls": 1,
+    "qualification": "Process elapsed and observer-call lifetime overlap; do not add them. This is incurred retry cost, not a measured prevention saving."
+  },
+  "adoption": {
+    "name": "source_bound_collection_order",
+    "change": "Use established append/ownership contracts for probe ordering constraints; retain exact native-vs-C++ physical sequence comparison.",
+    "scope": "Observer correctness and avoidable recapture; no candidate/evaluation/test/API weakening.",
+    "effect": "Future prevention unmeasured. No total time or token speedup claimed."
+  }
+}

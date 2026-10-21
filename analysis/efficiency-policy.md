@@ -52,6 +52,9 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   comparator's required fields and run an available JavaScript syntax check.
   Decode fixed-size NUL-terminated text explicitly; fixed-length readCString
   previously included heap padding. Do not add an extra original run routinely.
+- Take collection-order constraints from the established ownership contract.
+  Sorted-rank scratch does not imply sorted physical links. Compare observed
+  order directly; do not add an unsupported ordering guard to a new probe.
 - Batch independent reads and hash/report preparation. Keep provider-dependent
   queries, mutations and verification ordered. Use one native REA owner.
 - After read-only function queries, retain and hash every new complete inline

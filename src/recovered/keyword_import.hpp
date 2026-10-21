@@ -74,6 +74,7 @@ public:
     // ENVTMP (including furnace mode10), CNVCOF, ENVATM, ACVCOF,
     // USRDEF, UENAME, UNNAME and CVNAME use the original shared name stores.
     // FRAE2H, LTHEAT (discarded integer), TMPSOL, TMPLIQ, MATDEN, GBMOBI;
+    // FPERV, DIFCOE and DIFBND preserve their distinct owned table stores.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

@@ -1961,3 +1961,36 @@ and application workflows remain unfinished. The public loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R material_scalars --output-on-failure`.
 Reference replays use retained local evidence and do not launch the original.
+
+## FPERV, DIFCOE and DIFBND material tables
+
+FPERV now owns its two separate scalar/curve tables. A successful header resets
+both tables before either payload. The second payload replaces the first payload's
+status, so an empty successful second table can mask a failed first read. A failed
+header preserves both previous tables.
+
+DIFCOE retains three distinct tables, its selector and reference ID. Changing
+selectors preserves inactive tables. REA recovered a special constructor write:
+the first table keeps type 0x29 and its selectors but starts at rank zero.
+DIFBND uses a separate type-0xAF table with two dependent values per point. Its
+scalar mode changes the constant and logical counts while retaining the previous
+rank, axes and allocated buffers.
+
+The existing table reader handles allocation, interleaved curves and staged
+multidimensional payloads. Partial direct reads retain their prefix. Incomplete
+staged dependent data leaves the allocated dependent vector zeroed.
+
+The unchanged frozen candidate matches 64 original imports, 132 handler calls and
+27,538 checks, including 32 original-first evaluation imports with larger extents,
+changed values/IDs and reversed dimension order. Four first-payload errors were
+masked by successful second reads. All 135 regression tests pass in 32.38s after
+building all seventeen executable targets. Twenty-eight EOF cursor positions
+remain unobserved.
+
+See `analysis/material-curves-import-contract.json` for evidence and numerical,
+ownership and validation limits. Scientific consumers and complete application
+workflows remain unfinished. The retained full export now reaches FRCMOD after
+61 supported handlers; the public database-loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R material_curves --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

@@ -132,10 +132,85 @@ bool material_direct_keyword(int id) {
     return id == 93 || id == 101 || id == 102 || id == 103 || id == 124 || id == 132;
 }
 
+bool material_curve_keyword(int id) {
+    return id == 104 || id == 107 || id == 129;
+}
+
+int material_table_integer(double value) {
+    const auto truncated = std::trunc(value);
+    if (!std::isfinite(value) || truncated < std::numeric_limits<std::int32_t>::min() ||
+        truncated > std::numeric_limits<std::int32_t>::max())
+        throw std::invalid_argument("material table conversion outside finite signed32 domain");
+    return static_cast<int>(truncated);
+}
+
+int read_material_curve(int id, MaterialRecord& material, KeywordReader& reader) {
+    auto& fields = material.curves;
+    if (id == 104) {
+        const auto header = reader.real_quad();
+        if (header.status != 0) return 2;
+        //Both resets precede either payload, including ignored selector values.
+        for (auto& table : fields.fperv) table.reset_type(0);
+        int status = 0;
+        for (std::size_t i = 0; i < 2; ++i) {
+            auto& table = fields.fperv[i];
+            const auto value = header.values[i * 2];
+            const int mode = material_table_integer(header.values[i * 2 + 1]);
+            if (mode == 0) table.constant_0x08 = value;
+            else if (mode == 1) {
+                table.rank_0x04 = 1;
+                table.selectors_0x10[0] = 1;
+                table.counts_0x1c[0] = material_table_integer(value);
+                status = read_property_values(reader, table); //Second status replaces first.
+            }
+        }
+        return status == 0 ? 0 : 2;
+    }
+    if (id == 107) {
+        const auto header = reader.matrix_row(); //415990: int plus four reals.
+        if (header.status != 0) return 2;
+        const int mode = header.label;
+        if (mode >= 0 && mode <= 3) {
+            fields.difcoe_mode_0x950 = mode;
+            auto& table = fields.difcoe[mode < 2 ? 0 : mode - 1];
+            if (mode == 0) {
+                table.reset_type(0, false); //Direct12d2a0 does not preserve54/60.
+                table.constant_0x08 = header.values[0];
+            } else {
+                table.reset_type(mode == 1 ? 0x29 : mode == 2 ? 0x27 : 0x28);
+                table.counts_0x1c[0] = material_table_integer(header.values[0]);
+                if (mode == 1) table.counts_0x1c[1] = material_table_integer(header.values[1]);
+                return read_property_values(reader, table) == 0 ? 0 : 2;
+            }
+        } else if (mode < 0) {
+            fields.difcoe_mode_0x950 = 4;
+            if (mode == std::numeric_limits<int>::min())
+                throw std::invalid_argument("DIFCOE INT_MIN negation remains outside recovered domain");
+            fields.difcoe_reference_0xac0 = -mode;
+        }
+        return 0; //Unknown positive selectors leave previous state intact.
+    }
+    const auto header = read_relation_header(reader, RelationHeaderKind::integer_two_reals);
+    if (header.status != 0) return 2;
+    auto& table = fields.difbnd_0x2160;
+    if (header.integers[0] == 7) {
+        table.rank_0x04 = 2;
+        table.selectors_0x10[0] = 3;
+        table.selectors_0x10[1] = 4;
+        table.counts_0x1c[0] = material_table_integer(header.reals[0]);
+        table.counts_0x1c[1] = material_table_integer(header.reals[1]);
+        return read_property_values(reader, table) == 0 ? 0 : 2;
+    }
+    if (header.integers[0] != 0) return 2;
+    table.counts_0x1c[0] = table.counts_0x1c[1] = 0;
+    table.constant_0x08 = header.reals[0]; //Rank, width, axes and buffers survive.
+    return 0;
+}
+
 bool implemented(int id, int category) {
     return (category == 1 && id >= 22 && id <= 91) ||
            (category == 2 && (field_keyword(id) || id == 144 || id == 145 || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 263 || id == 266)) ||
-           (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id) || material_direct_keyword(id))) ||
+           (category == 4 && (id == 92 || id == 94 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id) || material_direct_keyword(id) || material_curve_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
 }
 
@@ -531,7 +606,7 @@ int handle_configuration_keyword(int id, ObjectModel& model, KeywordReader& read
 }
 
 int handle_material_keyword(int id, ObjectModel& model, KeywordReader& reader) {
-    if (id != 92 && id != 94 && id != 108 && id != 116 && id != 127 && id != 128 && !property_table_keyword(id) && !material_direct_keyword(id))
+    if (id != 92 && id != 94 && id != 108 && id != 116 && id != 127 && id != 128 && !property_table_keyword(id) && !material_direct_keyword(id) && !material_curve_keyword(id))
         throw std::logic_error("unimplemented material keyword reached dispatch");
     const auto selector = reader.selector_integer();
     if (selector.conversions == -1) return 2;
@@ -539,6 +614,7 @@ int handle_material_keyword(int id, ObjectModel& model, KeywordReader& reader) {
         throw std::invalid_argument(
             "material selector matching failure uses an uninitialized native ID and is unsupported");
     auto* material = model.find_or_create_material(selector.values[0]);
+    if (material_curve_keyword(id)) return read_material_curve(id, *material, reader);
     if (material_direct_keyword(id)) {
         if (id == 101) return reader.integer().status == 0 ? 0 : 2;
         auto& fields = material->direct;

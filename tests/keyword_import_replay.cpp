@@ -590,7 +590,22 @@ void material_fields(const MaterialRecord& material) {
     raw_values(std::span(scalars));
     std::cout << ",\"gbmobi_0x1868_hex\":";
     raw_values(std::span(direct.gbmobi_0x1868));
-    std::cout << "},\"property_tables\":{";
+    std::cout << "},\"curve_imports\":{\"difcoe_mode_0x950\":"
+              << material.curves.difcoe_mode_0x950 << ",\"difcoe_reference_0xac0\":"
+              << material.curves.difcoe_reference_0xac0 << ",\"tables\":{";
+    bool first_curve = true;
+    const auto curve = [&](const char* key, const PropertyTable& table) {
+        if (!first_curve) std::cout << ',';
+        first_curve = false;
+        emit_quoted(key); std::cout << ':'; property_table(table);
+    };
+    curve("0x1ef0", material.curves.fperv[0]);
+    curve("0x1f68", material.curves.fperv[1]);
+    curve("0x958", material.curves.difcoe[0]);
+    curve("0x9d0", material.curves.difcoe[1]);
+    curve("0xa48", material.curves.difcoe[2]);
+    curve("0x2160", material.curves.difbnd_0x2160);
+    std::cout << "}},\"property_tables\":{";
     bool first_table = true;
     for (const auto& [id, table] : material.property_tables) {
         if (!first_table) std::cout << ',';

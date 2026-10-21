@@ -150,3 +150,16 @@ exclusive source bodies before freeze. Require that source selection before
 condensing nested branches. No new tooling project or speed percentage is claimed.
 The frozen implementation passed 67 imports and 129 tests without capture retries
 or post-freeze corrections. See `efficiency-review-20261021-environment.json`.
+
+## Material-curve safe checkpoint review
+
+Reviewed the last two completed turns: 960.69s and 1,254.03s elapsed, with
+216.37s and 397.17s of unioned tool activity. Remaining time is not attributed
+to a single cause. One new Ghidra query took 85.77s; bounded observation calls
+were about 33–35s. A mistaken physical-order guard required one prototype
+repeat (22.796s original-process elapsed); overlapping observer time is separate.
+
+Use established collection ownership/order contracts when adding probe guards.
+Keep exact sequence comparison and all freezes/evaluation gates. Prevention
+and overall time/token savings remain unmeasured. The metadata-only report is
+`analysis/efficiency-review-20261021-material-curves.json`. No workers restarted.

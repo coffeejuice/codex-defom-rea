@@ -295,6 +295,19 @@ struct MaterialDirectFields {
     std::array<double, 2> gbmobi_0x1868{};
 };
 
+struct MaterialCurveImports {
+    std::array<PropertyTable, 2> fperv{PropertyTable{0}, PropertyTable{0}}; //1ef0/1f68.
+    std::int32_t difcoe_mode_0x950 = 0;
+    std::array<PropertyTable, 3> difcoe{PropertyTable{0x29}, PropertyTable{0x27},
+        PropertyTable{0x28}}; //958/9d0/a48; inactive tables retain their storage.
+    std::int32_t difcoe_reference_0xac0 = 0;
+    PropertyTable difbnd_0x2160{0xaf};
+    MaterialCurveImports() {
+        //289930 resets only rank after initializing the first type29 table.
+        difcoe[0].rank_0x04 = 0;
+    }
+};
+
 struct MaterialRecord {
     enum class Profile { default_properties, default_name_only = default_properties };
     explicit MaterialRecord(int material_id);
@@ -319,6 +332,7 @@ struct MaterialRecord {
     std::int32_t heat_capacity_mode_0x8d0 = 0;
     std::int32_t coarsening_enabled_0x20d0 = 0;
     MaterialDirectFields direct;
+    MaterialCurveImports curves;
     FstresProperties fstres;
     GrndatProperties grndat;
     // 29b300/28c5a0: count only; no inferred scientific interpretation.
