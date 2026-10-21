@@ -1,0 +1,61 @@
+{
+  "status": "next_after_material_scalars",
+  "full_objective_unchanged": true,
+  "boundary": "analysis/material-scalars-full-export-boundary.json",
+  "first": {
+    "name": "FPERV",
+    "id": 104,
+    "category": 4
+  },
+  "source": {
+    "path": "analysis\\material-import-0x140384a50.json",
+    "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+    "evidence_id": "ev_6f3e6ee18dd7e9657e2a7e88aa200b296bce3a1a61bb29aa0deedd512aabc108",
+    "start": 341,
+    "end": 375,
+    "pseudocode": "  case 0xc:\n    local_130 = 0.0;\n    local_138 = 0.0;\n    local_140 = 0.0;\n    local_148 = 0.0;\n    local_b8 = FUN_140414e40(param_2,&local_148,&local_140,&local_138,&local_130);\n    if (local_b8 != 0) {\n      return 2;\n    }\n    FUN_14012fc70(puVar3 + 0x7bc,0);\n    FUN_14012fc70(puVar3 + 0x7da,0);\n    local_30 = (int)local_140;\n    if (local_30 == 0) {\n      puVar3[0x7bd] = 0;\n      *(double *)(puVar3 + 0x7be) = local_148;\n    }\n    else if (local_30 == 1) {\n      puVar3[0x7bd] = 1;\n      puVar3[0x7c0] = 1;\n      puVar3[0x7c3] = (int)local_148;\n      local_b8 = FUN_14041a800(param_2,puVar3 + 0x7bc,0);\n    }\n    local_2c = (int)local_130;\n    if (local_2c == 0) {\n      puVar3[0x7db] = 0;\n      *(double *)(puVar3 + 0x7dc) = local_138;\n    }\n    else if (local_2c == 1) {\n      puVar3[0x7db] = 1;\n      puVar3[0x7de] = 1;\n      puVar3[0x7e1] = (int)local_138;\n      local_b8 = FUN_14041a800(param_2,puVar3 + 0x7da,0);\n    }\n    break;",
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "References cover the complete Ghidra function-body AddressSet and exact entry. Dossier incoming edges omit sources owned by that function; procedure_references also retains those internal edges.",
+      "The dossier combines Ghidra FunctionManager, Listing, ReferenceManager, BasicBlockModel, and decompiler observations; provider-specific pseudocode and assembly are not cross-provider text invariants.",
+      "Resolved reference metadata identifies computed, indirect, external, call, jump, and data edges; unresolved targetless flows remain unknown, and function classifications distinguish thunks and externals.",
+      "Synthetic Ghidra entry-point references without actionable memory sources are omitted.",
+      "The Java bridge serializes one function request per Program and lets each decompilation run until it completes or the caller cancels.",
+      "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+      "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+      "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+      "The Ghidra Program references PDB DEF_PRE.pdb (GUID 41712df1-5c7b-440b-9c7c-b14a4ebb9bc9, age (hex) 1, signature unknown, version RSDS); Ghidra reports load state unknown. Original names and types may be missing; an empty name search does not prove a procedure is absent. Use list_procedures and address-based analysis to inspect recovered functions. REA does not admit a caller-selected PDB companion."
+    ],
+    "relationship_coverage": {
+      "diagnostics": [
+        "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+      ],
+      "status": "complete"
+    }
+  },
+  "storage": [
+    "material+1ef0 (puVar3+7bc)",
+    "material+1f68 (puVar3+7da)"
+  ],
+  "tasks": [
+    "Confirm both table constructors/default reset and every alias before adding model fields.",
+    "Recover successful header/reset ordering, integer casts, selector0/1/other behavior, dual payload consumption and status overwrite rules.",
+    "Reuse existing PropertyTable and41a800 reader where exact source profiles match; retain source-exclusive branch selection.",
+    "Prepare nonzero/partial/error cases in both dimensions, freeze, original-first evaluation and full regression.",
+    "Keep remaining material handlers, scientific consumers, export/DB mapping and complete app workflows required."
+  ],
+  "candidate_adjacent_families": [
+    {
+      "name": "DIFCOE",
+      "id": 107
+    },
+    {
+      "name": "DIFBND",
+      "id": 129
+    }
+  ],
+  "qualification": "Source-selected next scope only. Adjacent-family batching depends on their actual storage and helper contracts, not proximity in the keyword table."
+}

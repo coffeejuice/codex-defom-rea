@@ -1,0 +1,136 @@
+{
+  "status": "implemented_subset_runtime_tested",
+  "created_utc": "2026-10-21T21:12:48.356993+00:00",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "scope": [
+    "FRAE2H93 -> material1ec8, TMPSOL102 ->1ed8, TMPLIQ103 ->1ee0, MATDEN124 ->1ee8.",
+    "GBMOBI132 -> two live doubles at1868/1870.",
+    "LTHEAT101 -> integer temporary only; no material latent-heat write."
+  ],
+  "behavior": {
+    "defaults": "28cdc0 initializes1ec8 to exact binary64 bits3feccccccccccccd (0.9),1ed0/1ed8/1ee0/1ee8 and1868/1870 to positive zero. Its28d030 tail only zeros material4/8; constructor and source qualifiers retained.",
+    "selection": "The common material dispatcher scans a signed/base0 ID first. EOF before an ID returns2 without lookup or mutation. A new ID appends a canonical owned material, increments counts and refreshes mode1 before reading payload; allocation/name/default state persists if payload fails. Physical storage order is insertion order; sorted-rank scratch is separate.",
+    "direct_reads": "Single/pair helpers zero every live destination before their fgets1024. Matching failures return success with zeros; partial conversions preserve their converted prefix and zeroed suffix. Blank/EOF reads return handler2 with zeroed fields. No scientific enum/range restriction is invented.",
+    "ignored_integer": "LTHEAT consumes one base0 integer with the same helper status behavior, but stores no output. The adjacent field1ed0 remains its separately initialized double; the importer does not conflate the temporary with that slot.",
+    "lifecycle": "Same-dimension headers and UNIT retain the observed material fields and neighboring tables. Changed dimension destroys the material list and fresh creation reinstates defaults. Linked roots remain isolated, except established dimension propagation."
+  },
+  "model": "MaterialDirectFields extends existing canonical MaterialRecord; MASDEN remains its independent property table, distinct from direct MATDEN. Existing public loader API unchanged.",
+  "source": {
+    "dispatch": "analysis/material-scalars-source-selection.json",
+    "bundle": "analysis/material-scalars-static-evidence.json",
+    "release": "analysis/material-scalars-static-release-receipt.json",
+    "new_complete_inline_records": 1,
+    "prior_qualified_source_projections": 5,
+    "qualification": "Complete new28d030 Evidence retained; source-bound older dispatcher/constructor/helper bodies and their limitations reused. Older complete dossiers remain at hashed local paths; no cumulative snapshot rewrite."
+  },
+  "verification": {
+    "status": "PASS_FROZEN_ORIGINAL_COMPARISONS",
+    "imports": 62,
+    "handlers": 152,
+    "checks": 79058,
+    "unobserved_eof_cursors": 32,
+    "frozen_files": 47,
+    "by_id": {
+      "93": 24,
+      "102": 28,
+      "103": 24,
+      "124": 28,
+      "132": 24,
+      "101": 24
+    },
+    "by_dimension": {
+      "3": 76,
+      "2": 76
+    },
+    "observations": {
+      "lookup_tokens": 204,
+      "handler_errors": 56,
+      "refresh_calls": 20,
+      "reader_calls": 148,
+      "line_reads": 148,
+      "eof_line_reads": 28,
+      "real_calls": 100,
+      "pair_calls": 24,
+      "integer_calls": 24
+    },
+    "reports": [
+      {
+        "status": "PASS_NATIVE_MATERIAL_SCALARS",
+        "imports": 31,
+        "handlers": 76,
+        "checks": 39391,
+        "unobserved_eof_cursors": 16,
+        "evidence_id": "ev_8d676b6640639cc935b222907dac5f18a23a84adab151ac18ae34491ac96d8f1",
+        "evidence_sha256": "ebb12675504c4f75f87dda21fb060a2e980aa9dea345048d5f050f6d02d208cc",
+        "frozen_files": 47,
+        "qualification": "Six material dispatcher cases, normal wrapper option0, defined bounded decimals/integers, owned material records and constant neighboring tables. General numerical/alias/native ABI domains and scientific consumers remain pending."
+      },
+      {
+        "status": "PASS_NATIVE_MATERIAL_SCALARS",
+        "imports": 31,
+        "handlers": 76,
+        "checks": 39667,
+        "unobserved_eof_cursors": 16,
+        "evidence_id": "ev_2b16edb7e2f1a0cc916fe5c740a5007a9af0df3bc86994bf4b3478e8f0abe3f2",
+        "evidence_sha256": "6ccc51dbb2dbddc81849e93692cf3d5bb3c3918064376f83ed651aec6f4455c4",
+        "frozen_files": 47,
+        "qualification": "Six material dispatcher cases, normal wrapper option0, defined bounded decimals/integers, owned material records and constant neighboring tables. General numerical/alias/native ABI domains and scientific consumers remain pending."
+      }
+    ],
+    "prototype": "analysis/material-scalars-prototype-comparison.json",
+    "history": [
+      "analysis/material-scalars-prototype-observer-correction.json",
+      "analysis/material-scalars-preflight-fixture-correction.json"
+    ]
+  },
+  "chronology": [
+    "First five-import original prototype completed but its observer rejected insertion order; retained as incomplete, not a passing comparison.",
+    "Corrected observer repeats the same inputs under a new process/run identity. Five imports,nine handlers,1842 checks PASS; no C++ change.",
+    "A planar connectivity fixture was rejected during C++ preflight and corrected to established four-slot quad grammar before original training or freeze.",
+    "47 source,observer,comparison,driver/API and candidate files frozen before31 original training imports.",
+    "After training PASS,31 changed evaluation imports prepared; original executed before C++ with changed values,signed/base0 IDs,operation order and reversed dimension order. All47 files remain unchanged."
+  ],
+  "regression": {
+    "targets_built": 17,
+    "tests_passed": 133,
+    "seconds": 32.35,
+    "log": "build/material-scalars-full-ctest.log"
+  },
+  "boundary": {
+    "input": "analysis\\oracle\\interactive\\rea-step25\\output.key",
+    "sha256": "04daa7b176774c5598fc5cff7b2817389091e410d8ceaa1803102fc2472d3856",
+    "outcome": "unsupported",
+    "reason": "recognized keyword is not implemented: FPERV",
+    "supported_handlers": 60,
+    "last_events": [
+      {
+        "token": "UENAME",
+        "id": 88,
+        "category": 1
+      },
+      {
+        "token": "MTNAME",
+        "id": 92,
+        "category": 4
+      },
+      {
+        "token": "FRAE2H",
+        "id": 93,
+        "category": 4
+      },
+      {
+        "token": "FPERV",
+        "id": 104,
+        "category": 4
+      }
+    ]
+  },
+  "limitations": [
+    "Normal wrapper option0 and bounded defined numeric/ASCII input only. Full legacy rounding, overflow/underflow, nonfinite values and embedded-NUL parsing remain unresolved.",
+    "32 EOF cursor positions remain unobserved; reader outputs,statuses,consumed lines,mutation order and states are compared.",
+    "Matching failure of the material ID itself uses an uninitialized native temporary; C++ reports unsupported rather than guessing a material ID.",
+    "General reference graphs, shared/COW aliases, allocation failures, native pointer ABI and scientific consumers remain required work.",
+    "Neighboring table comparisons here cover constant owned profiles; previously recovered broader table tests remain separate.",
+    "Complete keyword/DB import/export, numerical operations and application workflows remain incomplete."
+  ]
+}

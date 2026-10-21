@@ -1932,3 +1932,32 @@ unfinished; the public database-loader API is unchanged.
 Run `ctest --test-dir build -C Release -R root_names --output-on-failure`.
 Reference replays require the ignored local capture/run/observer files and do
 not launch the original executable.
+
+## Direct material fields and ignored LTHEAT input
+
+FRAE2H, TMPSOL, TMPLIQ and MATDEN now write their original separate material
+doubles. GBMOBI writes two more. MATDEN remains distinct from the MASDEN table.
+FRAE2H initializes to the exact binary64 value of 0.9; the other recovered direct
+fields initialize to positive zero. LTHEAT reads an integer temporary and stores
+no material value, including in the adjacent separately initialized double.
+
+New material creation and its mode-one refresh happen before payload reading.
+Reader failures preserve the created record and zeroed or partially assigned
+fields. Same-dimension headers and UNIT retain the observed fields; changed
+dimensions destroy the material list and reinstate defaults on fresh creation.
+Physical material storage preserves insertion order, independently of rank sorting.
+
+The unchanged frozen candidate matches 62 original imports, 152 handler calls and
+79,058 checks, including 31 independently varied original-first evaluation imports.
+Both dimensions, populated meshes, signed/base-zero IDs, signed zero, partial and
+failed reads, ignored values and neighboring constant tables are covered. All 133
+regression tests pass in 32.35s after building all seventeen executable targets.
+Thirty-two EOF cursor positions remain unobserved.
+
+See `analysis/material-scalars-import-contract.json` for evidence, prototype
+observer correction and validation limits. The retained full export now reaches
+FPERV after 60 supported handlers. Scientific consumers, complete imports/exports
+and application workflows remain unfinished. The public loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R material_scalars --output-on-failure`.
+Reference replays use retained local evidence and do not launch the original.

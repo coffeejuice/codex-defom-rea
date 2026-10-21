@@ -286,6 +286,15 @@ struct GrndatProperties {
 // SIZEMD/TXTURE controls and thirteen shared property-table import destinations.
 // Other scientific properties and table consumers remain unrecovered.
 // Logical count may be nonpositive while the previous allocation is retained.
+struct MaterialDirectFields {
+    double frae2h_0x1ec8 = 0.9; //28cdc0: binary64 3feccccccccccccd.
+    double field_0x1ed0 = 0.0; //LTHEAT reads a temporary, not this field.
+    double tmpsol_0x1ed8 = 0.0;
+    double tmpliq_0x1ee0 = 0.0;
+    double matden_0x1ee8 = 0.0; //Distinct from MASDEN's owned table.
+    std::array<double, 2> gbmobi_0x1868{};
+};
+
 struct MaterialRecord {
     enum class Profile { default_properties, default_name_only = default_properties };
     explicit MaterialRecord(int material_id);
@@ -309,6 +318,7 @@ struct MaterialRecord {
     double expansion_reference_0x7d8 = 0.0;
     std::int32_t heat_capacity_mode_0x8d0 = 0;
     std::int32_t coarsening_enabled_0x20d0 = 0;
+    MaterialDirectFields direct;
     FstresProperties fstres;
     GrndatProperties grndat;
     // 29b300/28c5a0: count only; no inferred scientific interpretation.

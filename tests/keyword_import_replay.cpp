@@ -583,7 +583,14 @@ void material_fields(const MaterialRecord& material) {
     raw_values(std::span(&material.expansion_reference_0x7d8, 1));
     std::cout << ",\"heat_capacity_mode_0x8d0\":" << material.heat_capacity_mode_0x8d0
               << ",\"coarsening_enabled_0x20d0\":" << material.coarsening_enabled_0x20d0
-              << ",\"property_tables\":{";
+              << ",\"direct_fields\":{\"scalars_0x1ec8_hex\":";
+    const auto& direct = material.direct;
+    const std::array scalars{direct.frae2h_0x1ec8, direct.field_0x1ed0,
+        direct.tmpsol_0x1ed8, direct.tmpliq_0x1ee0, direct.matden_0x1ee8};
+    raw_values(std::span(scalars));
+    std::cout << ",\"gbmobi_0x1868_hex\":";
+    raw_values(std::span(direct.gbmobi_0x1868));
+    std::cout << "},\"property_tables\":{";
     bool first_table = true;
     for (const auto& [id, table] : material.property_tables) {
         if (!first_table) std::cout << ',';
