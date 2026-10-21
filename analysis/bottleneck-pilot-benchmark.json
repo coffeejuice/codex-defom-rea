@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "source": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\material-import-0x140384a50.json",
+    "bytes": 14368119,
+    "sha256": "7fc3d818bb4662238deda2e049602139f1dd40e15f92745c819ddc4491951d10",
+    "record_pointer": ""
+  },
+  "query": "41bed0",
+  "runs": 7,
+  "timing_scope": "warm process; file read/parse/selection only; excludes tool latency and agent reasoning",
+  "seconds": {
+    "whole_json_read": {
+      "samples": [
+        0.002344200009247288,
+        0.002593700002762489,
+        0.0027525000041350722,
+        0.0028602999955182895,
+        0.0028842999890912324,
+        0.0027547999925445765,
+        0.0030870000045979396
+      ],
+      "median": 0.0027547999925445765
+    },
+    "focused_pseudocode_read": {
+      "samples": [
+        0.04621939999924507,
+        0.04589559999294579,
+        0.04428429999097716,
+        0.04449889999523293,
+        0.04118230000312906,
+        0.041828900008113123,
+        0.040894600009778515
+      ],
+      "median": 0.04428429999097716
+    },
+    "bound_slice": {
+      "samples": [
+        0.05047250000643544,
+        0.05046739999670535,
+        0.04930359999707434,
+        0.050033999999868684,
+        0.04835760001151357,
+        0.04783270000189077,
+        0.04843170000822283
+      ],
+      "median": 0.04930359999707434
+    }
+  },
+  "output_bytes": {
+    "whole_json": 14368119,
+    "focused_pseudocode": 37480,
+    "bound_slice": 6493
+  },
+  "matches": 6,
+  "fidelity_check": "PASS: direct-parser selection, source hash, unchanged bytes",
+  "limits": [
+    "Output bytes are not measured tokens.",
+    "Whole-file output is a wasteful baseline; focused extraction is the stronger baseline.",
+    "Smaller output does not prove end-to-end time savings.",
+    "Parsing still reads the complete source; selected lines do not establish control-flow context."
+  ],
+  "tool_sha256": "96d759dd95659180467124cedcffb383d4763e44003dff03a0c3591e645e4758"
+}

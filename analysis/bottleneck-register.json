@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "owner": "Dedicated Bottleneck chat; Coordinator integrates and assigns worker work",
+  "scope": "Bounded retained-evidence workflow optimization only; no full-app recovery.",
+  "status": "A-INDEX-01 corrected under fix-index-alias-1; frozen pending independent recheck. Rollout blocked; no new optimization or benchmark rerun.",
+  "pilot_watermark": {
+    "pilot_id": "B02-address-index",
+    "version": "1-review2",
+    "date": "2026-10-21",
+    "review_task": "review-index-1",
+    "correction_task": "fix-index-alias-1",
+    "hash_receipt": "analysis/bottleneck-pilot-freeze-v1-review2.json",
+    "previous_hash_receipt": "analysis/bottleneck-pilot-freeze.json",
+    "receipt_scope": "Exact ten-file rollout hashes; receipt is a separate audit sidecar, not an eleventh rollout file",
+    "cycle_gate": "Read coordination-state.json before each hourly cycle; skip if disabled/paused, queue exhausted, evidence unchanged, or pilot/review pending. At most one bounded pilot on new evidence; no peer assignments or REA access."
+  },
+  "feedback": {
+    "chat_a": "Read analysis/chat-a-bottlenecks.json in chat-a-contract worktree: broad/truncated reads, initial native-session/approval overhead, and worktree access retries. No new work assigned.",
+    "chat_b": "analysis/chat-b-bottlenecks.json was absent in the specified chat-b worktree at inspection; no inference about B performance.",
+    "chat_c": "Read analysis/chat-c-bottlenecks.json and completed chat-c-evidence-slice-pilot.json in chat-c-recovery worktree. Provenance/pagination passed; known-record direct extraction was faster and smaller."
+  },
+  "measurement_policy": "Separate command runtime, tool latency, agent reading/reasoning and complete task elapsed time. Unknown intervals stay unknown. Output bytes are not tokens.",
+  "items": [
+    {
+      "id": "B01",
+      "problem": "Large and truncated retained-evidence reads require repeated schema inspection and focused follow-ups.",
+      "evidence": "Chat C feedback reports initial 40382-token combined read and 28601-token dossier output; source: C:/Users/alext/.codex/worktrees/chat-c-recovery/codex-deform-rea/analysis/chat-c-bottlenecks.json",
+      "priority": 1,
+      "change": "Read-only explicit JSON pointer selection with original indices, paging, source digest, record identity and qualifications.",
+      "artifacts": ["tools/evidence_slice.py", "tests/test_evidence_slice.py", "tools/benchmark_evidence_slice.py", "analysis/bottleneck-pilot-benchmark.json"],
+      "verified": "Six tests pass; six real dispatcher line matches equal independent direct parsing; source bytes unchanged.",
+      "local_measurement": "37480-byte full pseudocode versus 6493-byte selected view. Median warm extraction 49.3ms versus direct full-pseudocode parse 44.3ms. Seven repeats; excludes tool/agent time.",
+      "status": "PASS_WITH_LIMITATIONS: Chat C verified identity, exact pages, wrong-hash and missing-pointer failures. Two pages emitted37881 bytes in0.1163s versus focused direct11019 bytes and median0.0371s; different provenance payloads. Opt-in only, mandatory pagination; no speedup claim.",
+      "independent_pilot": "C:/Users/alext/.codex/worktrees/chat-c-recovery/codex-deform-rea/analysis/chat-c-evidence-slice-pilot.json"
+    },
+    {
+      "id": "B02",
+      "problem": "Function bodies are scattered across ignored standalone files and nested evidence bundles.",
+      "priority": 2,
+      "evidence": "Chat C found 0x1401dc3f0 inside a 103-record snapshot; a later 625-record bundle scan found additional bodies. Total search time is unknown.",
+      "proposal": "A bounded address-to-record inventory keyed by target digest, operation, evidence ID, source path and JSON pointer. Validate source digest before reuse; record exact search scope.",
+      "status": "Historical pilot passed with limitations; A review blocked rollout on output-alias overwrite. Exclusive fresh-output correction passes17 synthetic tests and awaits independent recheck.",
+      "correction": "Reject all existing index outputs using lexists preflight and exclusive xb creation. Preserve normal fresh builds; tests cover real hard links, source-as-output, independent caches and deterministic output creation between check/write. Benchmark runner uses unique index/report filenames and exclusive report creation. No real evidence writes or benchmark rerun.",
+      "artifacts": ["tools/evidence_index.py", "tools/benchmark_evidence_index.py", "tests/test_evidence_index.py", "analysis/bottleneck-index-benchmark.json"],
+      "scope": "Three ignored local files totaling166064685 bytes: analysis/material-import-0x140384a50.json, analysis/oracle/fstres-static-evidence.json, analysis/oracle/import-snapshot.json.729 records seen,659 indexed,70 skipped for absent/non-address/incomplete identity. No recursive/global absence claim.",
+      "validation": "12 tests passed across both helpers. All659 cached identities and body pointers independently resolved against source JSON. Two real-address queries and one missing-address query matched the independent baseline on every repeat. All source hashes unchanged after the benchmark. Index hash pinned from build receipt; every query hashes every scoped source, including misses.",
+      "measurement": "Historical pre-correction code only; unchanged report preserves original code hashes. Five alternating CLI repeats per query. Setup1.2297s; direct medians1.1832/1.1689/1.1872s; indexed0.1423/0.1404/0.1425s. About8.3x for that discovery workload, setup amortized after2 queries. Direct output1302/1827/783B; indexed1646/2171/1153B. Each query uses one CLI command; index adds one setup command. No new-code timing, tool-roundtrip, agent-time, token or end-to-end recovery benefit measured.",
+      "baseline": "Independent focused stdlib JSON scan/filter of the same explicit files, source hashing, exact target/address selection and compact identity/pointer output; no whole-file/body printing. Known-file/index lookup, optimized byte-prefilter search and persistent in-memory parsers were not benchmarked.",
+      "limitations": "Metadata discovery only; body extraction and qualifications remain separate. A known record should use direct extraction or source-bound slices. Hashing still reads166MB per query; new files are outside scope until rebuilt. Timings likely use warm OS cache. Local index under build is disposable and must be rebuilt per checkout."
+    },
+    {
+      "id": "B03",
+      "problem": "Windows command-line limits and worktree permissions cause avoidable retries.",
+      "priority": 3,
+      "evidence": "Chat C reports Windows error206 for a large contract passed as command text; apply_patch succeeded. This coordinator's initial tests could not write the sandbox default temp directory.",
+      "change": "Use apply_patch for large artifacts; place test temporary files under the active checkout build directory. Verify worktree access once instead of repeating failing operations.",
+      "status": "Applied to this helper and documented; no permission or configuration changes"
+    },
+    {
+      "id": "B04",
+      "problem": "Shared REA native session ownership can serialize or interfere with research.",
+      "priority": 4,
+      "proposal": "Keep one declared owner; reuse retained evidence for other workers; queue precise missing address queries. Consider independent servers only after measuring contention and resource cost.",
+      "status": "Resolve current owner from analysis/coordination-state.json under analysis/coordination-workflow.md; this subtask uses no live REA session"
+    },
+    {
+      "id": "B05",
+      "problem": "Original-process readiness can expire between launch and attach.",
+      "priority": 5,
+      "evidence": "analysis/fstres-launch-diagnostic.json records prior failures; historical FSTRES work reported about7.77 minutes including failed readiness waits, not a current benchmark.",
+      "proposal": "Measure and test an atomic launch/PID/attach workflow separately when runtime work resumes.",
+      "status": "Deferred; current contracts need no new original runtime experiments"
+    }
+  ],
+  "rollout_gate": "Coordinator reviews the explicit10-file list in analysis/evidence-workflow.md, chooses whether to commit the tooling/docs/tests and benchmark reports, and distributes an immutable revision with opt-in commands at worker checkpoints. No staging, commit, push, merge or worker messages were performed by this subtask.",
+  "excluded": ["Production model or loader changes", "Central recovery ledger changes", "Whole-app resumption", "Unmeasured claims of2x acceleration"]
+}
