@@ -1072,6 +1072,8 @@ void state(const ObjectModel& model) {
                   << object->direct.target_volume_mode_0x2098 << ",\"value_0x2090_hex\":";
         raw_values(std::span(&object->direct.target_volume_0x2090, 1));
         std::cout << '}';
+        std::cout << ",\"direct_integer_imports\":";
+        numbers(object->direct.integers);
         std::cout << ',';
         stroke_fields(object->stroke_0x22d0);
         std::cout << ",\"geometry\":";

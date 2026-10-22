@@ -84,6 +84,12 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   completed implementation. Do not weaken tests, freezes, held-out chronology,
   source bindings or API compatibility for speed. Repeat only for a relevant new
   change, failure or unresolved concern.
+- Before the full reference regression, run `python tools/recovery_resources.py`.
+  Use its recommended CTest jobs: 8 only with at least 16 available logical CPUs
+  and 32 GiB free memory, otherwise 4. The unchanged 151-test 4/8/4 benchmark took
+  35.95s/22.67s/35.57s with all tests passing. Revisit for materially larger
+  workloads or resource pressure; this is a suite-stage result, not total recovery
+  or token savings. Build parallelism remains unchanged.
 - For a positive runtime claim, reuse the recovered fixture grammar and record
   the expected successful wrapper status and the intended nonzero effect before
   capture. Compare those expectations with the original, not just C++ with the

@@ -204,3 +204,18 @@ than rehearsing settled paths. All source, freeze, held-out and regression gates
 remain. Future time/token effects are unmeasured. The bounded 64MiB metadata scan
 found both completed turns; no worker restarted. See
 `analysis/efficiency-review-20261021-remesh-scalars.json`.
+
+## Direct object integers safe checkpoint review
+
+The last two completed turns took 1,058.19s and 954.67s; their tool unions were
+364.82s/241.53s and reasoning item unions 441.51s/400.85s. Unattributed time stays
+separate; different scopes prevent causal whole-task speed claims.
+
+Measured the unchanged 151-test suite at 4/8/4 workers: 35.95s/22.67s/35.57s, all
+passing and all 70 frozen files unchanged. Eight workers reduced suite time by
+36.27% against the warm four-worker control. Adopt the resource-guarded8-worker
+setting with a 4-worker fallback, using `tools/recovery_resources.py`. No original
+process was launched for this benchmark. Scheduling/variance remain limitations;
+no total recovery or token saving is claimed. See
+`analysis/efficiency-regression-parallelism-20261021.json` and
+`analysis/efficiency-review-20261021-object-integers.json`. No workers restarted.

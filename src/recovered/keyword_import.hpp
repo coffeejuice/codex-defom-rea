@@ -82,6 +82,7 @@ public:
     // AVGSTR,LMTSTR,ZSTR,PENVOL,REFTMP include planar gating and live read failures.
     // TMPLMT and nine remeshing scalars retain dimension defaults and live zeroing.
     // ROTSYM's3D scalar/two-vector sequence and unconditional TRGVOL zero sentinel.
+    // ELPSOL/OBJUPD/FRCSTP/FRCNEL/FRCMTH/USRSUB preserve exact signed integers.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

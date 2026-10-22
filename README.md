@@ -2205,3 +2205,37 @@ application workflows remain unfinished. The public loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R object_rotation --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+## ELPSOL and direct object integer imports
+
+ELPSOL, OBJUPD, FRCSTP, FRCNEL, FRCMTH and USRSUB now use their separate signed
+32-bit stores. ELPSOL initializes to two; the other five initialize to zero.
+USRSUB at object offset 0x2150 remains distinct from the material field with the
+same offset and preserves the adjacent object secondary word at 0x2154.
+
+All six handlers use the original skip-zero integer reader. It accepts signed,
+hexadecimal and octal prefixes, commits zero on numeric matching failure and
+commits zero with handler status two on blank/EOF. Created records and inactive
+ID-gap placeholders survive failed reads. UNIT changes, same-dimension headers,
+mesh replacement and deactivation/reactivation preserve the observed fields;
+dimension changes destroy the old records.
+
+The frozen candidate matches 64 original imports, 216 handler calls and 29,146
+checks, including 32 independently varied original-first evaluation imports.
+All twelve keyword/dimension EOF subjects are compared. Nonzero values are seeded
+before deactivation/EOF, and adjacent secondary values 71/73 remain intact during
+USRSUB updates. No candidate/probe/input correction or capture retry was needed.
+
+All seventeen targets build and all 151 tests pass. A controlled 4/8/4-worker run
+on the unchanged build took 35.95s/22.67s/35.57s with all 70 frozen files unchanged.
+The resource-guarded eight-worker setting reduces this suite stage by about 36%;
+total recovery time and token savings are not established. Thirty-two EOF cursor
+positions remain unobserved.
+
+See `analysis/object-integers-import-contract.json` for evidence and limits.
+The retained export now reaches OTPRNG after 135 supported handlers. Remaining
+imports, scientific consumers, exports and complete application workflows remain
+unfinished. The public loader API is unchanged.
+
+Run `ctest --test-dir build -C Release -R object_integers --output-on-failure`.
+Reference replays require retained local evidence and do not launch the original.

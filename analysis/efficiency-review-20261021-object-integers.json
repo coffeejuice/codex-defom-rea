@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-20T05-27-11-01a158d9-cd37-70f1-bb86-4aeb4782972a.jsonl",
+    "bytes_at_scan": 504199223,
+    "tail_mib": 64,
+    "start_offset": 442014398,
+    "end_offset": 504199223,
+    "window_sha256": "1213c83de41dffa6255692002a18421b30673b240dfd2d1ea4a6d63daaa8d090"
+  },
+  "turns": [
+    {
+      "turn_id": "01a160c7-07e9-7790-a670-f608d67836cb",
+      "started_at": "2026-10-21T23:23:38.873Z",
+      "completed_at": "2026-10-21T23:41:17.066Z",
+      "elapsed_seconds": 1058.193,
+      "tool_active_union_seconds": 364.823,
+      "reasoning_item_union_seconds": 441.508,
+      "tool_reasoning_overlap_seconds": 115.064,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 355.251,
+      "tool_items": {
+        "CommandExecution": 21,
+        "binary_session": 1,
+        "open_binary": 1,
+        "procedure_pseudo_code": 1,
+        "FileChange": 9,
+        "close_binary": 1,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 10543560,
+        "cached_input_tokens": 10491136,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 34020,
+        "reasoning_output_tokens": 17312,
+        "total_tokens": 10577580,
+        "uncached_input_tokens": 52424
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "procedure_pseudo_code",
+          "seconds": 86.068,
+          "item_id": "exec-e308e971-2fe3-495b-8a81-6e0c6f7832ae"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 47.352,
+          "item_id": "exec-e4fcbcde-e0e7-46b7-b175-8808d95d9c45"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 36.797,
+          "item_id": "exec-a75cf2c6-7a1c-4e52-979b-b09cc83a34b4"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.418,
+          "item_id": "exec-5a648add-159e-4946-939c-522dd8a8a422"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.634,
+          "item_id": "exec-04999732-7356-48f5-b2f1-057ecc737ec9"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a160d7-2d91-7b82-ab97-0d3c216f0de0",
+      "started_at": "2026-10-21T23:41:17.089Z",
+      "completed_at": "2026-10-21T23:57:11.759Z",
+      "elapsed_seconds": 954.67,
+      "tool_active_union_seconds": 241.532,
+      "reasoning_item_union_seconds": 400.85,
+      "tool_reasoning_overlap_seconds": 29.109,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 333.337,
+      "tool_items": {
+        "CommandExecution": 19,
+        "FileChange": 8,
+        "instrument_with_frida": 3
+      },
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 0,
+      "usage_delta": {
+        "input_tokens": 10054735,
+        "cached_input_tokens": 10009216,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 30969,
+        "reasoning_output_tokens": 15284,
+        "total_tokens": 10085704,
+        "uncached_input_tokens": 45519
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 47.798,
+          "item_id": "exec-13375af2-e5a8-4b51-93cc-1aefd83a25cb"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 36.242,
+          "item_id": "exec-eb5d5fa1-9d76-4a03-ab52-fc4a672a35b2"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 35.555,
+          "item_id": "exec-af22612b-4b1d-4874-a035-3418e28a7c2f"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "instrument_with_frida",
+          "seconds": 34.802,
+          "item_id": "exec-b3c77f20-854f-4daf-834c-9612dee5cd6d"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 27.793,
+          "item_id": "exec-f6abd943-75d8-4d9d-b130-5ace1a2356d6"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ],
+  "safe_checkpoint_review": {
+    "checkpoint": "analysis/object-integers-import-contract.json",
+    "cadence": "Third completed checkpoint;after capture/freeze/build gates.",
+    "adopted": "measured_resource_guarded_j8_reference_regression",
+    "benchmark": "analysis/efficiency-regression-parallelism-20261021.json",
+    "observed_checkpoint": {
+      "keywords": 6,
+      "new_static_queries": 0,
+      "original_capture_sessions": 3,
+      "imports": 64,
+      "handlers": 216,
+      "tests_passed": 151
+    },
+    "qualification": "4/8/4 unchanged-suite measurement supports resource-guarded8-worker default on this host.Warm control mitigates cache effects;variance remains.No whole-recovery/token saving or weaker verification.No workers restarted."
+  }
+}

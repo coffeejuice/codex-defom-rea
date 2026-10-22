@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "tests": 151,
+  "baseline_parallelism": 4,
+  "candidate_parallelism": 8,
+  "baseline_ctest_seconds": 35.95,
+  "candidate_ctest_seconds": 22.67,
+  "candidate_process_wall_seconds": 22.709,
+  "reduction_percent": 36.94,
+  "unchanged_frozen_files": 70,
+  "resources": {
+    "logical_processors": 16,
+    "total_memory_gib": 63.1,
+    "available_memory_gib_at_precheck": 41.5,
+    "source": "os.cpu_count/GlobalMemoryStatusEx;CIM unavailable"
+  },
+  "baseline_log": "build/object-integers-full-ctest.log",
+  "candidate_log": "build/object-integers-ctest-j8.log",
+  "qualification": "Same unchanged151-test build and frozen inputs throughout4/8/4 sequence. Warm four-worker control mitigates first-run cache effects; scheduling and runtime variability remain. Measurements concern regression runtime,not total recovery turnaround or token savings.",
+  "warm_control_status": "PASS",
+  "warm_control_ctest_seconds": 35.57,
+  "warm_control_process_wall_seconds": 35.615,
+  "warm_control_log": "build/object-integers-ctest-j4-control.log",
+  "warm_control_reduction_percent": 36.27,
+  "order": [
+    4,
+    8,
+    4
+  ]
+}

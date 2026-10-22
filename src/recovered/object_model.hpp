@@ -220,6 +220,8 @@ struct ObjectDirectImports {
     std::optional<SpatialRotationSymmetry> rotation_symmetry;
     double target_volume_0x2090 = 0.0;
     std::int32_t target_volume_mode_0x2098 = -1;
+    //186200:1f18/1f1c/1f34/1f38/1f3c/2150; separate from secondary2154.
+    std::array<std::int32_t, 6> integers{2, 0, 0, 0, 0, 0};
     //The constructor leaves these native fields uninitialized in3D.
     std::optional<PlanarObjectDirectImports> planar;
 };
