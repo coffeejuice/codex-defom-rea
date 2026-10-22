@@ -84,6 +84,10 @@ useful after setup costs; revert a regression through a normal reviewed patch.
   completed implementation. Do not weaken tests, freezes, held-out chronology,
   source bindings or API compatibility for speed. Repeat only for a relevant new
   change, failure or unresolved concern.
+- Capture full build/CTest stdout in an ignored build log and return a compact
+  exit-code/log-path receipt. Verify the retained final test summary; print
+  failure details when needed. This preserves diagnostics while avoiding large
+  streaming outputs. Recorded byte reduction is not a runtime/token saving.
 - Before the full reference regression, run `python tools/recovery_resources.py`.
   Use its recommended CTest jobs: 8 only with at least 16 available logical CPUs
   and 32 GiB free memory, otherwise 4. The unchanged 151-test 4/8/4 benchmark took

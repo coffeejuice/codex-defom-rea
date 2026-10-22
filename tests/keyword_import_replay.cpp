@@ -1042,6 +1042,8 @@ void state(const ObjectModel& model) {
                   << ",\"flag_0x3990\":" << (object->flag_0x3990 ? 1 : 0)
                   << ",\"element_kind\":" << object->element_kind << ",\"name_hex\":";
         emit_quoted(hex(object->name));
+        std::cout << ",\"prsnam_0x2160_hex\":";
+        emit_quoted(hex(object->prsnam_0x2160));
         std::cout << ",\"direct_imports\":{\"scalars_0x1ea0_hex\":";
         raw_values(std::span(object->direct.scalars_0x1ea0));
         std::cout << ",\"planar\":";

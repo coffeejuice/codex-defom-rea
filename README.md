@@ -2263,3 +2263,23 @@ loader API is unchanged. The saved full KEY export now reaches PRSNAM257 after
 136 supported handler calls; complete-file import remains unfinished.
 
 All 17 build targets and all 153 regression tests passed for this checkpoint.
+
+### PRSNAM object string import
+
+PRSNAM257 now has an independent byte string at object offset 0x2160, separate from
+OBJNAM. Its capacity-80 reader discards the keyword-line remainder, reads the
+next bounded line, stores at most 79 bytes and trims trailing space/CR/LF/NUL.
+Leading whitespace, commas, tabs, vertical tabs, form feeds and high bytes are
+preserved. Either fgets EOF leaves the string unchanged; object creation occurs
+before the read. Deactivation, UNIT, mesh replacement and repeated dimension
+headers preserve the established string. A dimension change creates fresh state.
+
+Training and independent original-first evaluation passed 64 imports, 116 handler
+calls and 23,758 checks with 70 frozen files unchanged. Adjacent 0x21b0 fields stayed
+unchanged. Both EOF positions, new/existing owners, 79/80/81-byte truncation and
+1023-byte fgets boundaries are covered. Native padding after NUL and excluded
+text-mode/control-byte cases are explicit limitations in
+[the contract](analysis/prsnam-import-contract.json). All 17 targets built and
+all 155 regression tests passed. The public DB loader API is unchanged. The saved
+full export reaches MOVCTL151 after 137 supported calls; complete-file import
+and scientific consumers remain unfinished.

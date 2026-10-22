@@ -1,0 +1,29 @@
+{
+  "status": "bounded_review_complete",
+  "utc": "2026-10-22T01:13:21.438800+00:00",
+  "head": "9b00ad412ca49b7f3b493df9174de1168ab0fc6d",
+  "checkpoint": "analysis/prsnam-import-contract.json",
+  "trigger": "Third recovery checkpoint since prior review,including current verified uncommitted PRSNAM.",
+  "timing": "analysis/efficiency-prsnam-timing-20261022.json",
+  "observations": [
+    "Prior completed recovery turn:1208.317s elapsed,758.91s tool-item union,100.503s reasoning-item union and412.407s unattributed;overlaps prevent addition. Longest observed command item320.199s;no CPU/approval attribution inferred from UI lifetimes.",
+    "Current phase native comparisons passed without retries/corrections and reused all static sources without new provider queries. Current active turn is excluded by completed-turn timing tool.",
+    "Resource-sensitive regression remains a material time consumer:prior153-test suite305.45s during100%CPU snapshot and memory-threshold crossing;current155-test suite62.68s at4workers chosen with30063042560 free bytes. Workload/host differ;no worker-count causal claim."
+  ],
+  "one_improvement": {
+    "name": "Capture full CTest stdout locally and return a compact execution receipt",
+    "adopted_in_current_phase": true,
+    "full_stdout_bytes": 23105,
+    "producer_receipt_bytes": 55,
+    "full_stdout_sha256": "80ede70c899a16b05a556a647a1e446c4eb67f85a3b5647adc1f2f6741f772c1",
+    "validation": "Producer exit0 followed by selected final summary confirms155/155 passed;complete log retained. No test omitted,changed or repeated.",
+    "qualification": "Output-format byte accounting only;subsequent selected verification bytes are additional. Not a measured whole-turn/token/runtime saving."
+  },
+  "decisions": [
+    "Retain existing resource-aware4/8-worker policy and check it immediately before each full suite;do not retune from uncontrolled timing.",
+    "Keep complete cached source reuse,exact candidate freezes and original-first evaluation;nextMOVCTL case preserved with outer indentation to avoid inner-case truncation.",
+    "Existing single-owner workflow retained;no new workers,permission changes,model changes or benchmark run needed."
+  ],
+  "remaining_time_unknown": true,
+  "qualification": "Completed-turn bounded metadata only. Cached and uncached input and generated/reasoning tokens remain separate in timing artifact;no total token savings or completion-time forecast."
+}

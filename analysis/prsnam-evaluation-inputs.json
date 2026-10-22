@@ -1,0 +1,3010 @@
+{
+  "status": "source_planned_before_native",
+  "cohort": "evaluation",
+  "ordered_imports": [
+    "00_d2_reset.KEY",
+    "01_d2_positive.KEY",
+    "02_d2_limits.KEY",
+    "03_d2_whitespace.KEY",
+    "04_d2_ignored_header.KEY",
+    "05_d2_unit_reseed.KEY",
+    "06_d2_deactivate.KEY",
+    "07_d2_same_dimension.KEY",
+    "08_d2_long_names.KEY",
+    "09_d2_long_header.KEY",
+    "10_d2_unterminated.KEY",
+    "11_d2_header_eof.KEY",
+    "12_d2_name_eof.KEY",
+    "13_d2_new_header_eof.KEY",
+    "14_d2_new_name_eof.KEY",
+    "15_d2_selector_failures.KEY",
+    "16_d3_reset.KEY",
+    "17_d3_positive.KEY",
+    "18_d3_limits.KEY",
+    "19_d3_whitespace.KEY",
+    "20_d3_ignored_header.KEY",
+    "21_d3_unit_reseed.KEY",
+    "22_d3_deactivate.KEY",
+    "23_d3_same_dimension.KEY",
+    "24_d3_long_names.KEY",
+    "25_d3_long_header.KEY",
+    "26_d3_unterminated.KEY",
+    "27_d3_header_eof.KEY",
+    "28_d3_name_eof.KEY",
+    "29_d3_new_header_eof.KEY",
+    "30_d3_new_name_eof.KEY",
+    "31_d3_selector_failures.KEY"
+  ],
+  "inputs": [
+    {
+      "file": "00_d2_reset.KEY",
+      "sha256": "7f77ef55edae70cd90af97c01539fff9a0ab57150822618e4be1c255a98c1831",
+      "expected_handlers": [],
+      "expected_names": {
+        "1": ""
+      },
+      "expected_nstep": 1,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "01_d2_positive.KEY",
+      "sha256": "580767eb3436705ff187d9f3ce65104489959bd971b9192b397c908f483eb958",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "20206576616c756174696f6e31206f626a6563742034"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "  evaluation1 object 4  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 4,
+              "before_count": 1,
+              "after_count": 4,
+              "result_id": 4
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "20206576616c756174696f6e31206f626a6563742031"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "  evaluation1 object 1  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "20206576616c756174696f6e31206f626a6563742031",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "20206576616c756174696f6e31206f626a6563742031",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 302,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "02_d2_limits.KEY",
+      "sha256": "679e0daf467be85c48269c5e45ef7c279d8785a47cacb7344c9853510597fe11",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "20206576616c756174696f6e31206f626a6563742031",
+              "status": 0,
+              "after_hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+              "status": 0,
+              "after_hex": "42424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "42424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "42424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242",
+              "status": 0,
+              "after_hex": "43434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "43434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "43434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343",
+              "status": 0,
+              "after_hex": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD ignored\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 304,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "03_d2_whitespace.KEY",
+      "sha256": "2bec91f074644c5c3aa3d1b538cca0ae393d0d04e0815ce705b1eeccf86ba7db",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+              "status": 0,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "   \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "206c656164696e672c2070756e6374756174696f6e"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": " leading, punctuation  \r  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "206c656164696e672c2070756e6374756174696f6e",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "206c656164696e672c2070756e6374756174696f6e",
+              "status": 0,
+              "after_hex": "74616209"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "tab\t   \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "74616209",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "74616209",
+              "status": 0,
+              "after_hex": "766572746963616c0b0c"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "vertical\u000b\f  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "766572746963616c0b0c",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "766572746963616c0b0c",
+              "status": 0,
+              "after_hex": "6869676880ff206279746573"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "high\u0080\u00ff bytes\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "6869676880ff206279746573",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "6869676880ff206279746573",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 306,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "04_d2_ignored_header.KEY",
+      "sha256": "acd83f0ae095af8582fab391ec59b0719fb50793f4e8eacc62b8f67cd5306e45",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "6869676880ff206279746573",
+              "status": 0,
+              "after_hex": "4e5354455020393939"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " discarded inline name\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "NSTEP 999\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4e5354455020393939",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4e5354455020393939",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 308,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "05_d2_unit_reseed.KEY",
+      "sha256": "fe76d006d957efb45678c13ad652d018d38ce68d6c9ef3f50903d45dc4555ff3",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "4f74686572206f776e6572206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Other owner evaluation1\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 5,
+              "before_count": 4,
+              "after_count": 5,
+              "result_id": 5
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4e5354455020393939",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4e5354455020393939",
+              "status": 0,
+              "after_hex": "4265666f726520636c65616e7570206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Before cleanup evaluation1\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 310,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "06_d2_deactivate.KEY",
+      "sha256": "ed8091b2732890ed3bccf1bfe397aebb122994a419034687348a7d1f26e91665",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "20206576616c756174696f6e31206f626a6563742034",
+              "status": 0,
+              "after_hex": "4368616e676564207365706172617465206f776e6572"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Changed separate owner\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 4,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 4
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 312,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "07_d2_same_dimension.KEY",
+      "sha256": "f8a0227cc8383fc6860ac418608bb8cd872461b479cf4e2053f7ce12ea343143",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4265666f726520636c65616e7570206576616c756174696f6e31",
+              "status": 0,
+              "after_hex": "4166746572206d657368206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "After mesh evaluation1\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4166746572206d657368206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4166746572206d657368206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 314,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "08_d2_long_names.KEY",
+      "sha256": "671c850275a234f3c617f26a044a0c4c099e8ce637e581b44306b811b2a50fed",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4166746572206d657368206576616c756174696f6e31",
+              "status": 0,
+              "after_hex": "4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c",
+              "status": 0,
+              "after_hex": "4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d",
+              "status": 0,
+              "after_hex": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 316,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "09_d2_long_header.KEY",
+      "sha256": "6ae242079fb883686b9bcf7ff907a9c9009830c12203d39485037e32b521b6c2",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151",
+              "status": 0,
+              "after_hex": "585858585858585858585858585858585858"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            },
+            {
+              "capacity": 1024,
+              "value": "XXXXXXXXXXXXXXXXXX\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "585858585858585858585858585858585858",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "585858585858585858585858585858585858",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "10_d2_unterminated.KEY",
+      "sha256": "de5c6a4aed47c6dd57db99ef6a68ab58b64d9489bf292761985374ca3cbc54ee",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "585858585858585858585858585858585858",
+              "status": 0,
+              "after_hex": "4c617374206c696e65206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Last line evaluation1"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "11_d2_header_eof.KEY",
+      "sha256": "38f830ca50eb9df443b1614a38494fe65af6bfd39b0dff175392a2d994bef653",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4c617374206c696e65206576616c756174696f6e31",
+              "status": 1,
+              "after_hex": "4c617374206c696e65206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "12_d2_name_eof.KEY",
+      "sha256": "855490613531bb83d4179a142b641ae80b74327bbbbdfd14eb7f572fbfd2a140",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4c617374206c696e65206576616c756174696f6e31",
+              "status": 1,
+              "after_hex": "4c617374206c696e65206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "13_d2_new_header_eof.KEY",
+      "sha256": "59b060aa3172e1aed6da4e2e6ad419f924b1c3214d9e9bd54abf8d222f9ae380",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 1,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 6,
+              "before_count": 5,
+              "after_count": 6,
+              "result_id": 6
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": ""
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31",
+        "6": ""
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "14_d2_new_name_eof.KEY",
+      "sha256": "c99df5998c0e998cab135ebda70822b753197f480fade8027132d181cd14479c",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 1,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 7,
+              "before_count": 6,
+              "after_count": 7,
+              "result_id": 7
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31",
+        "6": "",
+        "7": ""
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "15_d2_selector_failures.KEY",
+      "sha256": "0707b13b73271f6d502fd79d822c978a058ead53d3ee6665a78552c296fba6d0",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [],
+          "reads": [],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 0,
+              "before_count": 7,
+              "after_count": 7,
+              "result_id": null
+            }
+          ],
+          "order": [
+            "selection"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        },
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [],
+          "reads": [],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": -3,
+              "before_count": 7,
+              "after_count": 7,
+              "result_id": null
+            }
+          ],
+          "order": [
+            "selection"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        },
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [],
+          "reads": [],
+          "refreshes": [],
+          "selections": [],
+          "order": [],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31",
+        "6": "",
+        "7": ""
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "16_d3_reset.KEY",
+      "sha256": "6c975cd2fe945ba4a588af3012788bf193e659e38ad4a66f05ebe789cb2b6484",
+      "expected_handlers": [],
+      "expected_names": {
+        "1": ""
+      },
+      "expected_nstep": 1,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "17_d3_positive.KEY",
+      "sha256": "580767eb3436705ff187d9f3ce65104489959bd971b9192b397c908f483eb958",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "20206576616c756174696f6e31206f626a6563742034"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "  evaluation1 object 4  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 4,
+              "before_count": 1,
+              "after_count": 4,
+              "result_id": 4
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "20206576616c756174696f6e31206f626a6563742031"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "  evaluation1 object 1  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "20206576616c756174696f6e31206f626a6563742031",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "20206576616c756174696f6e31206f626a6563742031",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 302,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "18_d3_limits.KEY",
+      "sha256": "679e0daf467be85c48269c5e45ef7c279d8785a47cacb7344c9853510597fe11",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "20206576616c756174696f6e31206f626a6563742031",
+              "status": 0,
+              "after_hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+              "status": 0,
+              "after_hex": "42424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "42424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "42424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242",
+              "status": 0,
+              "after_hex": "43434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "43434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "43434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343",
+              "status": 0,
+              "after_hex": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD ignored\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 304,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "19_d3_whitespace.KEY",
+      "sha256": "2bec91f074644c5c3aa3d1b538cca0ae393d0d04e0815ce705b1eeccf86ba7db",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+              "status": 0,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "   \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "206c656164696e672c2070756e6374756174696f6e"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": " leading, punctuation  \r  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "206c656164696e672c2070756e6374756174696f6e",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "206c656164696e672c2070756e6374756174696f6e",
+              "status": 0,
+              "after_hex": "74616209"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "tab\t   \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "74616209",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "74616209",
+              "status": 0,
+              "after_hex": "766572746963616c0b0c"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "vertical\u000b\f  \n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "766572746963616c0b0c",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "766572746963616c0b0c",
+              "status": 0,
+              "after_hex": "6869676880ff206279746573"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "high\u0080\u00ff bytes\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "6869676880ff206279746573",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "6869676880ff206279746573",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 306,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "20_d3_ignored_header.KEY",
+      "sha256": "acd83f0ae095af8582fab391ec59b0719fb50793f4e8eacc62b8f67cd5306e45",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "6869676880ff206279746573",
+              "status": 0,
+              "after_hex": "4e5354455020393939"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " discarded inline name\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "NSTEP 999\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 4,
+              "after_count": 4,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4e5354455020393939",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4e5354455020393939",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034"
+      },
+      "expected_nstep": 308,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "21_d3_unit_reseed.KEY",
+      "sha256": "fe76d006d957efb45678c13ad652d018d38ce68d6c9ef3f50903d45dc4555ff3",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 0,
+              "after_hex": "4f74686572206f776e6572206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Other owner evaluation1\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 5,
+              "before_count": 4,
+              "after_count": 5,
+              "result_id": 5
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4e5354455020393939",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4e5354455020393939",
+              "status": 0,
+              "after_hex": "4265666f726520636c65616e7570206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Before cleanup evaluation1\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "20206576616c756174696f6e31206f626a6563742034",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "20206576616c756174696f6e31206f626a6563742034",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 310,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "22_d3_deactivate.KEY",
+      "sha256": "ed8091b2732890ed3bccf1bfe397aebb122994a419034687348a7d1f26e91665",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "20206576616c756174696f6e31206f626a6563742034",
+              "status": 0,
+              "after_hex": "4368616e676564207365706172617465206f776e6572"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Changed separate owner\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 4,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 4
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4265666f726520636c65616e7570206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 312,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "23_d3_same_dimension.KEY",
+      "sha256": "53bfd7b89a2d583a35877ebe0d6c508599dba1edd2c22407c373d81dbe0e8a4e",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4265666f726520636c65616e7570206576616c756174696f6e31",
+              "status": 0,
+              "after_hex": "4166746572206d657368206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "After mesh evaluation1\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4166746572206d657368206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4166746572206d657368206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 314,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "24_d3_long_names.KEY",
+      "sha256": "671c850275a234f3c617f26a044a0c4c099e8ce637e581b44306b811b2a50fed",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4166746572206d657368206576616c756174696f6e31",
+              "status": 0,
+              "after_hex": "4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c4c",
+              "status": 0,
+              "after_hex": "4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        },
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d",
+              "status": 0,
+              "after_hex": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 316,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "25_d3_long_header.KEY",
+      "sha256": "6ae242079fb883686b9bcf7ff907a9c9009830c12203d39485037e32b521b6c2",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "51515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151515151",
+              "status": 0,
+              "after_hex": "585858585858585858585858585858585858"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            },
+            {
+              "capacity": 1024,
+              "value": "XXXXXXXXXXXXXXXXXX\n"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "585858585858585858585858585858585858",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "585858585858585858585858585858585858",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "26_d3_unterminated.KEY",
+      "sha256": "de5c6a4aed47c6dd57db99ef6a68ab58b64d9489bf292761985374ca3cbc54ee",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 0,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "585858585858585858585858585858585858",
+              "status": 0,
+              "after_hex": "4c617374206c696e65206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": "Last line evaluation1"
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 0
+    },
+    {
+      "file": "27_d3_header_eof.KEY",
+      "sha256": "38f830ca50eb9df443b1614a38494fe65af6bfd39b0dff175392a2d994bef653",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4c617374206c696e65206576616c756174696f6e31",
+              "status": 1,
+              "after_hex": "4c617374206c696e65206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "28_d3_name_eof.KEY",
+      "sha256": "855490613531bb83d4179a142b641ae80b74327bbbbdfd14eb7f572fbfd2a140",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "4c617374206c696e65206576616c756174696f6e31",
+              "status": 1,
+              "after_hex": "4c617374206c696e65206576616c756174696f6e31"
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 1,
+              "before_count": 5,
+              "after_count": 5,
+              "result_id": 1
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31"
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31"
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "29_d3_new_header_eof.KEY",
+      "sha256": "59b060aa3172e1aed6da4e2e6ad419f924b1c3214d9e9bd54abf8d222f9ae380",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 1,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 6,
+              "before_count": 5,
+              "after_count": 6,
+              "result_id": 6
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": ""
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31",
+        "6": ""
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "30_d3_new_name_eof.KEY",
+      "sha256": "c99df5998c0e998cab135ebda70822b753197f480fade8027132d181cd14479c",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [
+            {
+              "kind": "text",
+              "capacity": 80,
+              "before_hex": "",
+              "status": 1,
+              "after_hex": ""
+            }
+          ],
+          "reads": [
+            {
+              "capacity": 1024,
+              "value": "\n"
+            },
+            {
+              "capacity": 1024,
+              "value": null
+            }
+          ],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 7,
+              "before_count": 6,
+              "after_count": 7,
+              "result_id": 7
+            }
+          ],
+          "order": [
+            "selection",
+            "text-enter",
+            "fgets",
+            "fgets",
+            "text-leave"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31",
+        "6": "",
+        "7": ""
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    },
+    {
+      "file": "31_d3_selector_failures.KEY",
+      "sha256": "0707b13b73271f6d502fd79d822c978a058ead53d3ee6665a78552c296fba6d0",
+      "expected_handlers": [
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [],
+          "reads": [],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": 0,
+              "before_count": 7,
+              "after_count": 7,
+              "result_id": null
+            }
+          ],
+          "order": [
+            "selection"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        },
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [],
+          "reads": [],
+          "refreshes": [],
+          "selections": [
+            {
+              "id": -3,
+              "before_count": 7,
+              "after_count": 7,
+              "result_id": null
+            }
+          ],
+          "order": [
+            "selection"
+          ],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        },
+        {
+          "id": 257,
+          "status": 2,
+          "headers": [],
+          "reads": [],
+          "refreshes": [],
+          "selections": [],
+          "order": [],
+          "expected_names": {
+            "1": "4c617374206c696e65206576616c756174696f6e31",
+            "2": "",
+            "3": "",
+            "4": "4368616e676564207365706172617465206f776e6572",
+            "5": "4f74686572206f776e6572206576616c756174696f6e31",
+            "6": "",
+            "7": ""
+          }
+        }
+      ],
+      "expected_names": {
+        "1": "4c617374206c696e65206576616c756174696f6e31",
+        "2": "",
+        "3": "",
+        "4": "4368616e676564207365706172617465206f776e6572",
+        "5": "4f74686572206f776e6572206576616c756174696f6e31",
+        "6": "",
+        "7": ""
+      },
+      "expected_nstep": 318,
+      "expected_wrapper_status": 2
+    }
+  ],
+  "qualification": "PRSNAM257 owned2D/3D string import,capacity80,defined signed selectors,logical byte strings and bounded1023-byte fgets chunks. Includes truncation,whitespace,high bytes,long header/name spill,EOF and lifecycle. Uninitialized padding,embedded NUL/control-Z/text-mode CRLF offsets,allocation failure,arbitrary aliases/native ABI,scientific consumers and complete application remain pending.",
+  "chronology": "Prepared after training PASS;original runs before C++ with changed IDs/text and reversed dimension/selected object order."
+}

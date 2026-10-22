@@ -979,6 +979,10 @@ KeywordReader::TextRead KeywordReader::material_name(std::string_view previous_n
     return name_with_capacity(previous_name, 65);
 }
 
+KeywordReader::TextRead KeywordReader::prsnam(std::string_view previous_name) {
+    return name_with_capacity(previous_name, 80);
+}
+
 KeywordReader::TextRead KeywordReader::root_name(std::string_view previous_name) {
     return name_with_capacity(previous_name, 64);
 }

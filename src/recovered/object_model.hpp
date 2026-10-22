@@ -261,6 +261,7 @@ struct ObjectRecord {
     // does not destroy its entries. Object destruction releases owned records.
     CustomFields custom_fields;
     DynamicArrays dynamic_arrays; // Independent positional list at object+ba8.
+    std::string prsnam_0x2160; // 18b500 initializes empty;18bc30 preserves.
     std::array<double, 3> stroke_0x22d0{}; // 18b500 zeros;18bc30 preserves.
     std::int32_t material_group_0x3980 = 0; // Constructor0; deactivation preserves.
     int element_kind;

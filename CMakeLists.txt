@@ -77,6 +77,17 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(prsnam_cohort IN ITEMS training evaluation)
+    add_test(NAME "prsnam_${prsnam_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_prsnam.py"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/prsnam-${prsnam_cohort}-inputs.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/prsnam-${prsnam_cohort}"
+        --evidence "${CMAKE_CURRENT_SOURCE_DIR}/analysis/prsnam-runtime-${prsnam_cohort}.json"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/prsnam-${prsnam_cohort}-regression.json")
+    set_tests_properties("prsnam_${prsnam_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   foreach(output_range_cohort IN ITEMS training evaluation)
     add_test(NAME "output_range_${output_range_cohort}_reference_replay"
       COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_output_range.py"

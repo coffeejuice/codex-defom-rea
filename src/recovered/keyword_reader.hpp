@@ -254,6 +254,8 @@ public:
     // 413ab0 at the OBJNAM call's capacity 81. On either line-read failure,
     // preserve the supplied previous name; no reset or object mutation implied.
     [[nodiscard]] TextRead name(std::string_view previous_name = {});
+    // PRSNAM uses413ab0 with capacity80: at most79 stored bytes.
+    [[nodiscard]] TextRead prsnam(std::string_view previous_name = {});
     // Same 413ab0 helper with MTNAME capacity65: at most64 name bytes.
     [[nodiscard]] TextRead material_name(std::string_view previous_name = {});
     // FRNNAM uses413ab0 with capacity64: at most63 stored name bytes.
