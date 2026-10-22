@@ -2239,3 +2239,27 @@ unfinished. The public loader API is unchanged.
 
 Run `ctest --test-dir build -C Release -R object_integers --output-on-failure`.
 Reference replays require retained local evidence and do not launch the original.
+
+### OTPRNG object output-range import
+
+The recovered OTPRNG240 handler now owns the five fields at object offsets
+`1eec`, `1ef0`, `1ef8`, `1f00` and `1f08`, with constructor defaults preserved.
+Its six-token reader shares the established DYNARY token backend. Decimal
+integer prefixes, legacy real conversion, blank/missing tokens, optional fourth
+values and ignored excess tokens follow the recovered caller and readers.
+Negative selectors set mode3 and a positive reference; later nonnegative
+selectors preserve that reference. EOF preserves existing fields, including on
+new objects created before reading. UNIT, repeated dimension headers, mesh
+replacement and object deactivation preserve the established owned fields.
+
+Training and independent original-first evaluation passed 64 imports, 136
+handler calls and 23,658 checks with 72 frozen files unchanged. Twelve EOF cursors
+were unavailable and are explicitly excluded from cursor comparison. Numeric
+extremes, INT_MIN reference negation, embedded NUL and scientific consumers
+remain outside this verified scope. See
+[the contract](analysis/output-range-import-contract.json) and
+[validation](analysis/output-range-validation.json). The existing public database
+loader API is unchanged. The saved full KEY export now reaches PRSNAM257 after
+136 supported handler calls; complete-file import remains unfinished.
+
+All 17 build targets and all 153 regression tests passed for this checkpoint.

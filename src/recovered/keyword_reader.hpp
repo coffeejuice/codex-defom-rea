@@ -92,6 +92,11 @@ public:
         int token_count = 0;
         int status = 1;
     };
+    struct TokenHeaderRead {
+        std::vector<std::string> tokens;
+        int token_count = 0;
+        int status = 1;
+    };
     struct FloatTripleRead {
         std::array<double, 3> values{};
         std::size_t count = 3;
@@ -198,6 +203,11 @@ public:
     // DYNARY's413900(limit10)/413a50 token header, then base10 integer and
     // finite legacy atof conversions. Delimiters are space, comma, LF, TAB, CR.
     [[nodiscard]] DynamicHeaderRead dynamic_array_header();
+    //413900/413a50 owned token profile; empty successful input has one empty
+    //fallback token. Established callers use limits6/10; no global pointer ABI.
+    [[nodiscard]] TokenHeaderRead token_header(std::size_t maximum_tokens);
+    [[nodiscard]] static int decimal_token_integer(std::string_view text);
+    [[nodiscard]] static double legacy_token_real(std::string_view text);
     // Stream fscanf("%Flf"): no comma replacement or line boundary. Failed
     // assignment preserves previous_value. Cursor/EOF behavior is restricted
     // to the recovered decimal scanner; nonfinite values remain unsupported.

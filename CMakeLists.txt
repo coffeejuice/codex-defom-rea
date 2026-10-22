@@ -42,6 +42,7 @@ target_sources(deform_recovered_state PRIVATE src/recovered/object_direct_import
 target_sources(deform_recovered_state PRIVATE src/recovered/remesh_scalar_import.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/object_rotation_import.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/object_integer_import.cpp)
+target_sources(deform_recovered_state PRIVATE src/recovered/object_output_range_import.cpp)
 target_sources(deform_recovered_state PRIVATE src/recovered/unit_system.cpp)
 target_include_directories(deform_recovered_state PUBLIC src)
 target_compile_features(deform_recovered_state PUBLIC cxx_std_20)
@@ -76,6 +77,17 @@ target_link_libraries(grain_layout_test PRIVATE deform_recovered_state)
 add_test(NAME grain_fallback_source_contract COMMAND grain_layout_test)
 find_package(Python3 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+  foreach(output_range_cohort IN ITEMS training evaluation)
+    add_test(NAME "output_range_${output_range_cohort}_reference_replay"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_output_range.py"
+        --plan "${CMAKE_CURRENT_SOURCE_DIR}/analysis/output-range-${output_range_cohort}-inputs.json"
+        --run "${CMAKE_CURRENT_SOURCE_DIR}/analysis/oracle/output-range-${output_range_cohort}"
+        --evidence "${CMAKE_CURRENT_SOURCE_DIR}/analysis/output-range-runtime-${output_range_cohort}.json"
+        --driver "$<TARGET_FILE:keyword_import_replay>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/output-range-${output_range_cohort}-regression.json")
+    set_tests_properties("output_range_${output_range_cohort}_reference_replay" PROPERTIES
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  endforeach()
   foreach(object_integer_cohort IN ITEMS training evaluation)
     add_test(NAME "object_integers_${object_integer_cohort}_reference_replay"
       COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/compare_object_integers.py"

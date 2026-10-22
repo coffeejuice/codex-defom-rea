@@ -83,6 +83,7 @@ public:
     // TMPLMT and nine remeshing scalars retain dimension defaults and live zeroing.
     // ROTSYM's3D scalar/two-vector sequence and unconditional TRGVOL zero sentinel.
     // ELPSOL/OBJUPD/FRCSTP/FRCNEL/FRCMTH/USRSUB preserve exact signed integers.
+    // OTPRNG uses six-token decimal/legacy-real conversions and stale references.
     // MTNAME, MSTMTR, SIZEMD, TXTURE, SIZESH, TXTODF, OBJNAM, OBJTYP,
     // YOUNG, POISON, EXPAND, THRCND, HEATCP, EMSVTY, ELRST, PMEAB, PMITT,
     // MASDEN, COARSE, GBENGY, NUCSIZ; PHASTF, TTTD, TTTN, PHASLH, PHASVL,

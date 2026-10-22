@@ -1074,6 +1074,12 @@ void state(const ObjectModel& model) {
         std::cout << '}';
         std::cout << ",\"direct_integer_imports\":";
         numbers(object->direct.integers);
+        const auto& range = object->direct.output_range;
+        std::cout << ",\"output_range\":{\"mode_0x1eec\":" << range.mode_0x1eec
+                  << ",\"reference_0x1ef0\":" << range.reference_0x1ef0
+                  << ",\"option_0x1f08\":" << range.option_0x1f08 << ",\"values_0x1ef8_hex\":";
+        raw_values(std::span(range.values_0x1ef8));
+        std::cout << '}';
         std::cout << ',';
         stroke_fields(object->stroke_0x22d0);
         std::cout << ",\"geometry\":";

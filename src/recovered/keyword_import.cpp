@@ -12,6 +12,7 @@
 #include "remesh_scalar_import.hpp"
 #include "object_rotation_import.hpp"
 #include "object_integer_import.hpp"
+#include "object_output_range_import.hpp"
 
 #include <algorithm>
 #include <array>
@@ -217,7 +218,7 @@ int read_material_curve(int id, MaterialRecord& material, KeywordReader& reader)
 
 bool implemented(int id, int category) {
     return (category == 1 && id >= 22 && id <= 91) ||
-           (category == 2 && (field_keyword(id) || remesh_scalar_keyword(id) || object_integer_keyword(id) || (id >= 144 && id <= 150) || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 254 || id == 255 || id == 258 || id == 259 || id == 263 || id == 266)) ||
+           (category == 2 && (field_keyword(id) || remesh_scalar_keyword(id) || object_integer_keyword(id) || (id >= 144 && id <= 150) || id == 153 || id == 158 || id == 159 || id == 170 || id == 173 || id == 174 || id == 196 || id == 197 || id == 198 || id == 205 || id == 210 || id == 211 || id == 216 || id == 240 || id == 254 || id == 255 || id == 258 || id == 259 || id == 263 || id == 266)) ||
            (category == 4 && (id == 92 || id == 94 || id == 105 || id == 106 || id == 108 || id == 116 || id == 127 || id == 128 || property_table_keyword(id) || material_direct_keyword(id) || material_curve_keyword(id) || hardening_keyword(id) || retained_material_keyword(id))) ||
            (category == 5 && id >= 134 && id <= 143);
 }
@@ -751,6 +752,7 @@ int handle_object_keyword(int id, ObjectModel& model, KeywordReader& reader) {
     if (remesh_scalar_keyword(id)) return read_remesh_scalar(id, *object, reader);
     if (id == 258 || id == 259) return read_object_rotation(id, object->direct, reader);
     if (object_integer_keyword(id)) return read_object_integer(id, object->direct, reader);
+    if (id == 240) return read_object_output_range(object->direct.output_range, reader);
 
     if (id == 210 || id == 211) {
         const auto header = reader.shape_header();

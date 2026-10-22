@@ -1,0 +1,126 @@
+{
+  "status": "implemented_and_compared_with_explicit_limits",
+  "source_contract": "analysis/output-range-source-contract.json",
+  "source_evidence": "analysis/output-range-static-evidence.json",
+  "implementation": [
+    "src/recovered/object_output_range_import.hpp",
+    "src/recovered/object_output_range_import.cpp",
+    "src/recovered/object_model.hpp",
+    "src/recovered/keyword_reader.cpp",
+    "src/recovered/keyword_import.cpp"
+  ],
+  "verification": {
+    "status": "PASS_FROZEN_ORIGINAL_COMPARISONS",
+    "imports": 64,
+    "handlers": 136,
+    "checks": 23658,
+    "unobserved_eof_cursors": 12,
+    "frozen_files": 72,
+    "reports": [
+      {
+        "status": "PASS_NATIVE_OUTPUT_RANGE",
+        "imports": 32,
+        "handlers": 68,
+        "checks": 11349,
+        "unobserved_eof_cursors": 6,
+        "evidence_id": "ev_8eb948e12ced4d28718b95f5fc56288bc4595ed02a990eaca2c6582199088ce9",
+        "evidence_sha256": "366f2ea8c6c85a21d287a47f36fd27453236de498d1d00aec66b69d1edb976e3",
+        "frozen_files": 72,
+        "qualification": "Complete OTPRNG240 caller within owned2D/3D wrappers,at most six logical tokens and defined decimal/finite legacy-real conversions. Header token cap,blank/missing fallbacks,optional fourth token and stale reference compared. Numeric extremes/INT_MIN,embedded NUL,uninitialized selector matching failures,allocation failure,arbitrary aliases/native ABI and full application remain pending."
+      },
+      {
+        "status": "PASS_NATIVE_OUTPUT_RANGE",
+        "imports": 32,
+        "handlers": 68,
+        "checks": 12309,
+        "unobserved_eof_cursors": 6,
+        "evidence_id": "ev_2241a4592b607ffcc0408a2429661b4c6a7da371fc06805feb56199efe74ace6",
+        "evidence_sha256": "ed542c7439850484cc140a2e1792641cbc9e7b2b0ee24aabe53accccc5c05c66",
+        "frozen_files": 72,
+        "qualification": "Complete OTPRNG240 caller within owned2D/3D wrappers,at most six logical tokens and defined decimal/finite legacy-real conversions. Header token cap,blank/missing fallbacks,optional fourth token and stale reference compared. Numeric extremes/INT_MIN,embedded NUL,uninitialized selector matching failures,allocation failure,arbitrary aliases/native ABI and full application remain pending."
+      }
+    ],
+    "by_dimension": {
+      "3": 68,
+      "2": 68
+    },
+    "observations": {
+      "status_0": 116,
+      "headers": 124,
+      "token_gets": 432,
+      "conversions": 432,
+      "reads": 124,
+      "selections": 132,
+      "refreshes": 0,
+      "status_2": 20
+    },
+    "header_eof_cases": [
+      {
+        "dimension": 3,
+        "file": "12_d3_header_eof.KEY"
+      },
+      {
+        "dimension": 3,
+        "file": "13_d3_new_header_eof.KEY"
+      },
+      {
+        "dimension": 2,
+        "file": "28_d2_header_eof.KEY"
+      },
+      {
+        "dimension": 2,
+        "file": "29_d2_new_header_eof.KEY"
+      },
+      {
+        "dimension": 2,
+        "file": "12_d2_header_eof.KEY"
+      },
+      {
+        "dimension": 2,
+        "file": "13_d2_new_header_eof.KEY"
+      },
+      {
+        "dimension": 3,
+        "file": "28_d3_header_eof.KEY"
+      },
+      {
+        "dimension": 3,
+        "file": "29_d3_new_header_eof.KEY"
+      }
+    ],
+    "prototype": {
+      "status": "PASS_NATIVE_OUTPUT_RANGE",
+      "imports": 10,
+      "handlers": 22,
+      "checks": 3074,
+      "unobserved_eof_cursors": 0,
+      "evidence_id": "ev_429a18e4be7f1980220837f1836aaec43567482c578ded96f505ea937a8c96b0",
+      "evidence_sha256": "349aeb3810c8db64632c8133208180562fbdb6971b74436ec4be76fc109de53c",
+      "frozen_files": 0,
+      "qualification": "Complete OTPRNG240 caller within owned2D/3D wrappers,at most six logical tokens and defined decimal/finite legacy-real conversions. Header token cap,blank/missing fallbacks,optional fourth token and stale reference compared. Numeric extremes/INT_MIN,embedded NUL,uninitialized selector matching failures,allocation failure,arbitrary aliases/native ABI and full application remain pending."
+    }
+  },
+  "chronology": [
+    "Source contract and ten-import prototype prepared before original observation;prototype passed3074 checks across22 calls without native-driven correction.",
+    "32-import source-plan C++ preflight passed before72-file freeze.",
+    "Evaluation prepared after training PASS;original executed before C++ with changed values/IDs and reversed dimension/selected operation order.",
+    "Tokenizer/conversion entry states prove live assignment order;binary64 values compared through destination bits,not a fabricated Frida RAX double return.",
+    "Both dimensions include seeded headerEOF existing/new objects and selectorEOF/nonpositive selection. Blank/missing tokens and ignored fifth/sixth/excess tokens compared.",
+    "All72 frozen files remained unchanged through original-first evaluation,17-target build and153-test full regression."
+  ],
+  "regression": {
+    "targets_built": 17,
+    "tests_passed": 153,
+    "ctest_jobs": 8,
+    "seconds": 305.45,
+    "log": "build/output-range-full-ctest.log",
+    "qualification": "Successful required regression under observed resource pressure. Not a controlled repeat of the earlier151-test parallelism benchmark; no current speedup or causal attribution claimed."
+  },
+  "retention": "analysis/output-range-evidence-retention.json",
+  "remaining": [
+    "Defined bounded signed32 selectors excluding INT_MIN; finite normal/prefix legacy-real cases, no overflow/underflow extremes, embedded NUL or uninitialized selector matching failure.",
+    "Owned2D/3D wrappers only; arbitrary aliases/native ABI, allocation failure, scientific output consumers and complete app remain pending."
+  ],
+  "loader_api": "Existing public loader API unchanged; no public headers edited.",
+  "next": "analysis/output-range-next-scope.json"
+}

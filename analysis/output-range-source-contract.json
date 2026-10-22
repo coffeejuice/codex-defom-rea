@@ -1,0 +1,32 @@
+{
+  "status": "source_derived_before_original_prototype",
+  "target_sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794",
+  "source_bundle_sha256": "c85462e6af26b61cda0fda0cbfee11b5e44c41779560d0f65b9f2ac2d78d561c",
+  "keyword": {
+    "name": "OTPRNG",
+    "id": 240,
+    "category": 2,
+    "dispatcher": "0x14038b8a0",
+    "case": "0x60"
+  },
+  "fields": {
+    "mode": "signed32 object1eec",
+    "reference": "signed32 object1ef0",
+    "values": "two binary64 object1ef8/1f00",
+    "option": "signed32 object1f08"
+  },
+  "defaults": "186200 sets all five fields to positive zero in2D/3D.",
+  "reader": "413900 fgets1024, delimiters space/comma/LF/TAB/CR, cap6; blank produces count1/null slot;413a50 supplies empty missing tokens. Header EOF maps2 without field writes. 47b6c0 decimal strtol and48754c legacy atof support bounded tested prefix/D-exponent grammar.",
+  "assignment_order": [
+    "selector converted before writes",
+    "first real assigned",
+    "second real assigned",
+    "fourth token decimal option if count>=4 else0",
+    "negative selector mode3/reference abs; nonnegative mode selector, reference preserved"
+  ],
+  "lifecycle": "19ccc0 creates placeholders before header; nonpositive returns2 without token read, selectorEOF before creation.186510 cleanup preserves these fields; verify UNIT/repeated-header/mesh/deactivation/dimension reset with original.",
+  "limits": [
+    "Defined bounded signed32 selectors excluding INT_MIN; finite normal/prefix legacy-real cases, no overflow/underflow extremes, embedded NUL or uninitialized selector matching failure.",
+    "Owned2D/3D wrappers only; arbitrary aliases/native ABI, allocation failure, scientific output consumers and complete app remain pending."
+  ]
+}

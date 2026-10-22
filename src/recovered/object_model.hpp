@@ -213,6 +213,13 @@ struct SpatialRotationSymmetry {
     std::array<double, 3> vector_0x2078{};
 };
 
+struct ObjectOutputRange {
+    std::int32_t mode_0x1eec = 0;
+    std::int32_t reference_0x1ef0 = 0;
+    std::array<double, 2> values_0x1ef8{};
+    std::int32_t option_0x1f08 = 0;
+};
+
 struct ObjectDirectImports {
     //186200: LMTSTR,AVGSTR,PENVOL,REFTMP. Last value follows process units.
     std::array<double, 4> scalars_0x1ea0{0.01, 1.0, 1000000.0, 68.0};
@@ -222,6 +229,7 @@ struct ObjectDirectImports {
     std::int32_t target_volume_mode_0x2098 = -1;
     //186200:1f18/1f1c/1f34/1f38/1f3c/2150; separate from secondary2154.
     std::array<std::int32_t, 6> integers{2, 0, 0, 0, 0, 0};
+    ObjectOutputRange output_range;
     //The constructor leaves these native fields uninitialized in3D.
     std::optional<PlanarObjectDirectImports> planar;
 };

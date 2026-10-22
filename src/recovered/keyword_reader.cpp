@@ -540,9 +540,11 @@ KeywordReader::ShapeHeaderRead KeywordReader::shape_header() {
     return result;
 }
 
-KeywordReader::DynamicHeaderRead KeywordReader::dynamic_array_header() {
+KeywordReader::TokenHeaderRead KeywordReader::token_header(std::size_t maximum_tokens) {
     require_c_locale();
-    DynamicHeaderRead result;
+    if (maximum_tokens < 1 || maximum_tokens > 128)
+        throw std::invalid_argument("token limit outside recovered owned profile");
+    TokenHeaderRead result;
     const auto input = line();
     if (input.status != 0) return result;
     if (input.bytes.find('\0') != std::string::npos)
@@ -551,7 +553,7 @@ KeywordReader::DynamicHeaderRead KeywordReader::dynamic_array_header() {
         return value == ' ' || value == ',' || value == '\n' || value == '\t' || value == '\r';
     };
     std::size_t cursor = 0;
-    while (result.tokens.size() < 10) {
+    while (result.tokens.size() < maximum_tokens) {
         while (cursor < input.bytes.size() && delimiter(input.bytes[cursor])) ++cursor;
         if (cursor == input.bytes.size()) break;
         const auto start = cursor;
@@ -562,6 +564,34 @@ KeywordReader::DynamicHeaderRead KeywordReader::dynamic_array_header() {
     // 413a50 supplies an empty string for that and all missing token slots.
     if (result.tokens.empty()) result.tokens.emplace_back();
     result.token_count = static_cast<int>(result.tokens.size());
+    result.status = 0;
+    return result;
+}
+
+int KeywordReader::decimal_token_integer(std::string_view text) {
+    require_c_locale();
+    return decimal_integer_prefix(text);
+}
+
+double KeywordReader::legacy_token_real(std::string_view text) {
+    require_c_locale();
+    auto normalized = std::string(text);
+    for (auto& value : normalized) {
+        if (value == 'D') value = 'E';
+        else if (value == 'd') value = 'e';
+    }
+    double result = 0.0;
+    std::size_t numeric_cursor = 0;
+    (void)decimal(normalized, numeric_cursor, result);
+    return result;
+}
+
+KeywordReader::DynamicHeaderRead KeywordReader::dynamic_array_header() {
+    auto header = token_header(10);
+    DynamicHeaderRead result;
+    if (header.status != 0) return result;
+    result.tokens = std::move(header.tokens);
+    result.token_count = header.token_count;
     for (std::size_t index = 0; index < 5; ++index)
         result.integers[index] = decimal_integer_prefix(index < result.tokens.size()
             ? std::string_view(result.tokens[index]) : std::string_view{});
@@ -571,13 +601,7 @@ KeywordReader::DynamicHeaderRead KeywordReader::dynamic_array_header() {
         // __strgtold12_l accepts D/d as well as E/e and falls back to the
         // significand for an incomplete exponent. Its invalid initial token
         // produces positive zero. No modern hexadecimal/INF/NAN grammar.
-        auto normalized = result.tokens[6];
-        for (auto& value : normalized) {
-            if (value == 'D') value = 'E';
-            else if (value == 'd') value = 'e';
-        }
-        std::size_t numeric_cursor = 0;
-        (void)decimal(normalized, numeric_cursor, result.default_value);
+        result.default_value = legacy_token_real(result.tokens[6]);
     }
     result.status = 0;
     return result;
