@@ -1,0 +1,13 @@
+# CP247 Forming success-order implementation review
+
+## Verdict: PASS, within the documented successful-add boundary
+
+The implementation matches the reviewed prefix/final split. `beginEquipmentCreation` performs the existing name generation, first KEY serialization, manager add, movement-name copy, and first manager-path lookup, returning only an ID and path value. In `formingPostLoad`, the existing creation gate and preceding `opModel`, nullable `simCtl`, PDIE read, `object`, and `objEntryN` lookups remain unchanged. It stores `slot->equipmentId` and then `op.equipmentId` before reacquiring `m->step`, querying the manager path again, and attempting the final KEY append. No new `simCtl` or object guard, catch, rollback, or synthetic throw seam was added. The conditional step reacquisition is the specific post-store reacquisition required by the design; if the step is absent it skips only the final append.
+
+`appendFinalEquipmentKey` preserves the prior nonempty-path test and `equipmentBytes` write expression. The second manager query occurs after both scalar ID stores. The retained `createEquipment` wrapper still runs prefix, final append using the first path, then returns the ID, so the separate `equipmentSync` route retains its previous sequence. This bounded change does not close the broader native alias boundary.
+
+The extended positive-path test checks the selected PDIE slot and operation IDs, one new row with expected smallest-free ID, name and path, and exactly two writes selected by destination. It checks their order through the blank initial PRSNAM and renamed final KEY bytes, plus the live movement name. The expected item name follows the manager's `rows.size() + 1` behavior; the expected ID follows `firstFreeId`. Test effects remain in the existing copied-corpus scratch setup. The final-state test is not treated as proof of the intermediate ordering; that ordering is established by direct source inspection.
+
+The focused receipt `analysis/cp247-forming-order-focused-build.json` records a successful `m2m_mdt_engine_l3` build with source fingerprints stable before and after. The implementation report records focused CTest `m2m.mdt.engine_l3` passing (one registered test, eight cases), Testkit binding preflight and `git diff --check` passing. No full suite or freeze is claimed.
+
+Failure limitations remain explicit: converter manager add still cannot represent native copy failure/`-1`, filesystem temporary-source behavior and final writer outcomes are unresolved, and no fresh original execution was performed. No defect found within the approved success-order scope.

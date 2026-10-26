@@ -98,6 +98,12 @@ void installLoaderSlotsL2();
 // MDT L4 (DB-5): the Express family's vt+0x2c0 / vt+0x2b8 bodies (express_sync.cpp)
 void installLoaderSlotsL4();
 struct FileEffects;
+// Forming stores the two equipment IDs between this value-only prefix and final KEY write.
+struct EquipmentCreationPrefix { int id; String pathBeforeIdStores; };
+EquipmentCreationPrefix beginEquipmentCreation(Project&, def::model::DB_STEP_DATA&,
+                                               def::model::LLOBJ_DATA*, FileEffects&);
+void appendFinalEquipmentKey(def::model::DB_STEP_DATA&, def::model::LLOBJ_DATA*,
+                             const String& path, FileEffects&);
 // packet S (postload_views.cpp): create "Equipment (n)" from an engine object's movement (the
 // common part of 0x140c06130 and the vt+0x230 bodies); returns the new equipment id
 int createEquipment(Project& p, def::model::DB_STEP_DATA& step, def::model::LLOBJ_DATA* obj, FileEffects& fx);

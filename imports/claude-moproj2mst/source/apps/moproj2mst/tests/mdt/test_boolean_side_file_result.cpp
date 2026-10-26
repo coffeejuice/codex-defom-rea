@@ -3,6 +3,7 @@
 // Native result algebra and disposable candidate I/O; no original timing claim.
 #include <testkit/check.hpp>
 #include <process.h>
+#include <chrono>
 #include <filesystem>
 #include <fstream>
 #include <initializer_list>
@@ -58,7 +59,9 @@ struct DiskFixture : Fixture {
     {
         static unsigned serial = 0;
         root = m2m_test::scratchOutput(m2m_test::scratchRoot() /
-            ("b89_" + std::to_string(_getpid()) + "_" + std::to_string(++serial)));
+            ("b89_" + std::to_string(_getpid()) + "_" +
+             std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()) +
+             "_" + std::to_string(++serial)));
         REQUIRE(!fs::exists(root));
         fs::create_directories(root);
         project.path = qt::String((root / "test.moproj").u16string());

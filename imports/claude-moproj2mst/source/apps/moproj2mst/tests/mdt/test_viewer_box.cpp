@@ -57,6 +57,7 @@
 
 #include "m2m/engine.hpp"
 #include "m2m/engine/simcontrol300.hpp"
+#include "m2m/engine/simcontrol300_owner.hpp"
 #include "m2m/engine_scene.hpp"
 #include "m2m/doe_property_table.hpp"
 #include "m2m/model.hpp"
@@ -2286,6 +2287,68 @@ struct GeometryDirectoryCandidate {
     }
 };
 
+TEST_CASE(geometry_parked_reaction_callback_projects_controls_before_model_guard)
+{
+    using namespace engine::simcontrol300;
+    struct Io final : Extra3DIo {
+        Io() : Extra3DIo(1252) {}
+        bool readDoubles(const qt::String&, std::span<double>) override { return false; }
+        bool readInts(const qt::String&, std::span<int>) override { return false; }
+        bool readSprings(std::vector<SpringRecord>&) override { return false; }
+        bool removeIfReadable(const qt::String&) override { return true; }
+        void nbcRemoveWarning() override {}
+        std::unique_ptr<mst::OutputDevice> openWrite(const qt::String&) override { return nullptr; }
+    } io;
+    RestoreGeometryTimers restoreTimers; RestoreGeometryIndexTables restoreTables;
+    GeometryDirectoryFixture directory("reaction_park");
+    GeometryDirectoryCandidate candidate(directory.handle());
+    auto& model = candidate.model;
+    Operation operation; RemeshState remesh;
+    operation.project = &directory.project;
+    operation.engineModel = std::shared_ptr<engine::GuiModel>(&model, [](engine::GuiModel*) {});
+    auto* liveControl = model.simCtl(); REQUIRE(liveControl);
+    liveControl->unit = 1; liveControl->nstart = 7; liveControl->nstep = 23;
+    liveControl->trans[0] = liveControl->trans[1] = 1;
+    Editor300Binding binding{directory.project, operation, model, remesh};
+    StagedEditor300 owner(binding);
+    MoInitialObservations features;
+    features.generalFills[0] = MoFeatureAvailability{1, std::nullopt, {1, 1, 1}};
+    features.generalFills[1] = MoFeatureAvailability{1, std::nullopt, {1, 1, 1}};
+    features.startupHeating = {0, 1};
+    InitialEditorContext context{generalContextForMo(directory.project, 3, {true, true}),
+        {5, {}, MoStepCountContext{&operation}}, NumericLocale::KnownC, true, features};
+    owner.constructPageState(binding, io, context);
+    auto* session = owner.pageState(); REQUIRE(session);
+    auto& page = session->pages.environment; // retain before parking; pageState() is noexcept
+    auto& temporary = *session->environmentCurves.curves[3];
+    temporary.var[0] = 77; temporary.ndim = 2;
+    liveControl->acvcof.var[0] = 66; liveControl->acvcof.ndim = 5;
+    session->environmentCurves.currentCurveIndex = 1;
+
+    directory.records()[0].version = 5999;
+    model.step->step_version = 11000;
+    auto* object = model.object(1); REQUIRE(object);
+    object->u87c[0] = 1; // keep the low-version reader continuation parked
+    GeometryGetterTrace trace{&candidate.saved.nodes, {}, model.step.get()};
+    { ScopedGeometryGetterTrace scope(trace); engine::viewerRefresh(model); }
+    REQUIRE(trace.dispatches.size() == 1u);
+    bool caught = false;
+    try { (void)owner.reactionRateClicked(binding, 2); }
+    catch (const Error& error) {
+        caught = error.code == M2M_E_UNSUPPORTED &&
+            std::string(error.what()).find("geometry query is parked") != std::string::npos;
+    }
+    CHECK(caught);
+    CHECK_EQ(page.acvcofControls.selection, 2);
+    CHECK(!page.acvcofControls.constantInputEnabled);
+    CHECK(!page.acvcofControls.constantUnitEnabled);
+    CHECK(page.acvcofControls.definitionEnabled);
+    REQUIRE(session->environmentCurves.currentCurveIndex);
+    CHECK_EQ(*session->environmentCurves.currentCurveIndex, 1);
+    CHECK_EQ(liveControl->acvcof.ndim, 5); CHECK_EQ(liveControl->acvcof.var[0], 66);
+    CHECK_EQ(temporary.ndim, 2); CHECK_EQ(temporary.var[0], 77);
+}
+
 void checkGeometryDirectoryOutcome(GeometryDirectoryCandidate& candidate, std::int32_t expectedVersion,
                                    bool lowRecord = false, bool nodeSkipLoop = true, bool preselectedTables = false)
 {
@@ -2859,6 +2922,13 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     refused([&] { (void)model.applyEditorFrequencyIndexIfControlMatches(nullptr, 0, 2); });
     refused([&] { (void)model.applyEditorFrequencyTextIfControlMatches(nullptr, 0, qt::L("1")); });
     refused([&] { (void)pendingModel.object(1); });
+    engine::simcontrol300::MeshObjectSnapshot parkedMeshingObject{};
+    parkedMeshingObject.number = 1;
+    parkedMeshingObject.interference = 913.25;
+    parkedMeshingObject.sizeRatio = 914.5;
+    parkedMeshingObject.tolerance = 915.75;
+    parkedMeshingObject.nodeCount = 916.125;
+    refused([&] { model.copyEditorMeshingObjectValues(parkedMeshingObject); });
     refused([&] { (void)pendingModel.objectAt(1); });
     refused([&] { (void)pendingModel.material(1); });
     refused([&] { (void)model.objectWrap(requestedNumber, true, true); });
@@ -2869,6 +2939,18 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     refused([&] { (void)model.loadObjectKeyGeometry(keyPath, &requestedNumber, &mark5); });
     refused([&] { (void)model.beginPickingConstructionPrefix(); });
     refused([&] { model.setPdie(777); });
+    const std::array<int, 3> heatTreatWords{0x108, 0x110, 0x10c};
+    std::array<std::int32_t, 3> heatTreatBefore{};
+    for (std::size_t i = 0; i < heatTreatWords.size(); ++i)
+        std::memcpy(&heatTreatBefore[i], reinterpret_cast<const std::byte*>(&model.step->sim_ctrl) + heatTreatWords[i], sizeof(std::int32_t));
+    refused([&] { model.setHeatTreatPropertyDeformation(true); });
+    refused([&] { model.setHeatTreatPropertyDiffusion(true); });
+    refused([&] { model.setHeatTreatPropertyPhaseTransformation(true); });
+    for (std::size_t i = 0; i < heatTreatWords.size(); ++i) {
+        std::int32_t after{};
+        std::memcpy(&after, reinterpret_cast<const std::byte*>(&model.step->sim_ctrl) + heatTreatWords[i], sizeof(after));
+        CHECK_EQ(after, heatTreatBefore[i]);
+    }
     int dbIndex = 0; const int dbStep = fixture.records()[dbIndex].step;
     refused([&] { (void)engine::modelDbReader(model); });
     for (const bool resetViewer : {false, true}) {

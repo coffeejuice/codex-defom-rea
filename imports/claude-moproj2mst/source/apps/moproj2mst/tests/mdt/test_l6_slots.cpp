@@ -15,6 +15,7 @@
 #include <testkit/check.hpp>
 
 #include <cstdlib>
+#include <array>
 #include <cstring>
 #include <filesystem>
 #include <string>
@@ -143,7 +144,7 @@ TEST_CASE(heattreat_engine_defaults)
     CHECK_EQ(hp->block->stpdef, 0);                // SC+0x1c8 = 1
 }
 
-// The HeatTreat slots borrow the admitted owner's control only during each word write.
+// HeatTreat Mode and STEPDEF slots synchronize through the admitted owner.
 TEST_CASE(heattreat_property_simcontrol_writes_and_null_step)
 {
     Project p;
@@ -162,6 +163,38 @@ TEST_CASE(heattreat_property_simcontrol_writes_and_null_step)
     REQUIRE(model->step != nullptr);
     PropNode mode;
     mode.name = qt::L("Deformation");
+    struct ModeCase { const char16_t* name; bool data::HTPropsBlock::*flag; int offset; };
+    const std::array<ModeCase, 3> modes{{
+        {u"Deformation", &data::HTPropsBlock::b0, 0x108},
+        {u"Diffusion", &data::HTPropsBlock::b1, 0x110},
+        {u"PhaseTransformation", &data::HTPropsBlock::b2, 0x10c},
+    }};
+    CHECK(hp->data->schedule.engineDefaults);
+    for (std::size_t selected = 0; selected < modes.size(); ++selected) {
+        const auto& entry = modes[selected];
+        PropNode named; named.name = qt::String(entry.name);
+        for (bool enabled : {true, false}) {
+            const std::array<std::int32_t, 3> sentinels{31, 37, 41};
+            for (std::size_t i = 0; i < modes.size(); ++i)
+                *at<std::int32_t>(sc(*op), modes[i].offset) = sentinels[i];
+            hp->applyValue(named, {}, pv::vBool(enabled));
+            CHECK_EQ((*hp->block).*(entry.flag), enabled);
+            for (std::size_t i = 0; i < modes.size(); ++i)
+                CHECK_EQ(scInt(*op, modes[i].offset), i == selected ? (enabled ? 1 : 0) : sentinels[i]);
+
+            (*hp->block).*(entry.flag) = !enabled;
+            const std::int32_t getterSentinel = 53 + static_cast<std::int32_t>(selected);
+            *at<std::int32_t>(sc(*op), entry.offset) = getterSentinel;
+            (*hp->block).*(entry.flag) = enabled;
+            qt::Variant modeOut;
+            REQUIRE(hp->getValue(named, {}, modeOut));
+            CHECK_EQ(modeOut.kind, qt::Variant::Bool);
+            CHECK_EQ(modeOut.i, enabled ? 1 : 0);
+            CHECK_EQ(scInt(*op, entry.offset), enabled ? 1 : 0);
+            for (std::size_t i = 0; i < modes.size(); ++i)
+                if (i != selected) CHECK_EQ(scInt(*op, modes[i].offset), sentinels[i]);
+        }
+    }
     PropNode stepdef;
     stepdef.name = qt::L("STEPDEF");
     qt::Variant out;
@@ -194,28 +227,33 @@ TEST_CASE(heattreat_property_simcontrol_writes_and_null_step)
     CHECK_EQ(hp->block->stpdef, -4);
     CHECK_EQ(scInt(*op, 0x1c8), 3);
 
-    *at<std::int32_t>(sc(*op), 0x108) = 37;
+    const std::array<std::int32_t, 3> detachedSentinels{37, 43, 47};
+    for (std::size_t i = 0; i < modes.size(); ++i)
+        *at<std::int32_t>(sc(*op), modes[i].offset) = detachedSentinels[i];
     sc(*op)->stpdef = 41;
     auto savedStep = std::move(model->step);
     try {
-        hp->block->b0 = true;
-        REQUIRE(hp->getValue(mode, {}, out));
-        CHECK_EQ(out.kind, qt::Variant::Bool);
-        CHECK_EQ(out.i, 1);
-        CHECK(hp->block->b0);
+        for (const auto& entry : modes) {
+            (*hp->block).*(entry.flag) = true;
+            REQUIRE(hp->getValue(PropNode{.name = qt::String(entry.name)}, {}, out));
+            CHECK_EQ(out.kind, qt::Variant::Bool);
+            CHECK_EQ(out.i, 1);
+        }
         hp->applyValue(stepdef, {}, pv::vInt(7));
         CHECK_EQ(hp->block->stpdef, 7);
         REQUIRE(hp->getValue(stepdef, {}, out));
         CHECK_EQ(out.kind, qt::Variant::Int);
         CHECK_EQ(out.i, 7);
-        CHECK_EQ(*at<std::int32_t>(&savedStep->sim_ctrl, 0x108), 37);
+        for (std::size_t i = 0; i < modes.size(); ++i)
+            CHECK_EQ(*at<std::int32_t>(&savedStep->sim_ctrl, modes[i].offset), detachedSentinels[i]);
         CHECK_EQ(savedStep->sim_ctrl.stpdef, 41);
     } catch (...) {
         model->step = std::move(savedStep);
         throw;
     }
     model->step = std::move(savedStep);
-    CHECK_EQ(scInt(*op, 0x108), 37);
+    for (std::size_t i = 0; i < modes.size(); ++i)
+        CHECK_EQ(scInt(*op, modes[i].offset), detachedSentinels[i]);
     CHECK_EQ(scInt(*op, 0x1c8), 41);
 }
 

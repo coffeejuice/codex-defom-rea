@@ -1285,16 +1285,6 @@ std::optional<MeshingPage> fillMeshing3D(GuiModel& model, const RemeshState& sta
 }
 
 namespace {
-void copyMeshingObject(GuiModel& model, const MeshObjectSnapshot& value)
-{
-    if (auto* object = model.object(value.number)) {
-        objectField<double>(object, 0x2dc8) = value.interference;
-        objectField<double>(object, 0x2dd0) = value.sizeRatio;
-        objectField<double>(object, 0x2de0) = value.tolerance;
-        objectField<double>(object, 0x2dd8) = value.nodeCount;
-    }
-}
-
 void applyRemeshPageControls(RemeshState& state, const MeshingPage& form)
 {
     state.enabled = form.remeshEnabled;
@@ -1328,7 +1318,7 @@ ApplyResult applyMeshing3D(GuiModel& model, RemeshState& state, const MeshingPag
             value.tolerance = std::fabs(qt::toDouble(form.firstTolerance));
             value.nodeCount = static_cast<double>(form.firstNodeCount);
         }
-        copyMeshingObject(model, value);
+        model.copyEditorMeshingObjectValues(value);
     }
     applyRemeshPageControls(state, form);
     return ApplyResult::Completed;
@@ -1345,7 +1335,7 @@ ApplyResult applyMeshingSelection3D(GuiModel& model, RemeshState& state, Meshing
     if (transition.outcome != ApplyResult::Completed) return ApplyResult::UnsupportedSnapshot;
     // Save copies committed temporaries, without converting the freshly loaded
     // target a second time. Missing live objects skip only their own copy.
-    for (const auto& value : form.objects) copyMeshingObject(model, value);
+    for (const auto& value : form.objects) model.copyEditorMeshingObjectValues(value);
     applyRemeshPageControls(state, form);
     return ApplyResult::Completed;
 }

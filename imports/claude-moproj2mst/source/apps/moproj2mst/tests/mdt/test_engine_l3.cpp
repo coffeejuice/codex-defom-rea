@@ -12,10 +12,12 @@
 #include <testkit/check.hpp>
 
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <filesystem>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <defmodel/layout/cls_1401e7b10.hpp>
 #include <defmodel/layout/db_step_data.hpp>
@@ -366,6 +368,14 @@ TEST_CASE(forming_without_equipment_creates_one)
     REQUIRE(openCorpus(p, ctx, "56_Multiple_Operations_Example1", "Multiple_Operations_Example1.moproj") != nullptr);
     Operation* op = operationById(p, 1);
     REQUIRE(op != nullptr);
+    const auto rowsBefore = p.equipment.rows.size();
+    int expectedId = 1;
+    while (p.equipment.find(expectedId)) ++expectedId;
+    const auto expectedName = qt::L("Equipment (") + qt::number(static_cast<int>(rowsBefore) + 1) + qt::L(")");
+    char fileName[64];
+    std::snprintf(fileName, sizeof fileName, "Equipment%05d.KEY", expectedId);
+    const auto expectedPath = qt::cleanPath(projectDir(p) + qt::kSep + qt::L("Equipments")) +
+                              qt::kSep + qt::L(fileName);
     op->equipmentId = -1;                          // 0x140c06130 then creates an equipment item
     engine::FileEffects fx;
     int code = 0;
@@ -375,7 +385,44 @@ TEST_CASE(forming_without_equipment_creates_one)
         code = e.code;
     }
     CHECK_EQ(code, 0);
-    CHECK(op->equipmentId > 0);
+    CHECK_EQ(op->equipmentId, expectedId);
+    auto* model = engine::opModel(p, *op);
+    REQUIRE(model != nullptr && model->simCtl() != nullptr);
+    auto* slot = objEntryN(*op, model->simCtl()->pdie1);
+    REQUIRE(slot != nullptr);
+    CHECK_EQ(slot->equipmentId, expectedId);
+    CHECK_EQ(p.equipment.rows.size(), rowsBefore + 1);
+    const auto* row = p.equipment.find(expectedId);
+    REQUIRE(row != nullptr);
+    CHECK_EQ(row->name.utf8(), expectedName.utf8());
+    CHECK_EQ(row->keyPath.utf8(), expectedPath.utf8());
+    int matchingRows = 0;
+    for (const auto& item : p.equipment.rows)
+        if (item && item->id == expectedId) ++matchingRows;
+    CHECK_EQ(matchingRows, 1);
+
+    // Select by equipment destination: unrelated loader writes need not be absent.
+    std::vector<const engine::FileEffects::Write*> equipmentWrites;
+    for (const auto& write : fx.writes)
+        if (qt::cleanPath(write.path) == qt::cleanPath(expectedPath))
+            equipmentWrites.push_back(&write);
+    REQUIRE(equipmentWrites.size() == 2);
+    const auto movementName = [](const std::string& bytes) {
+        const auto keyword = bytes.find("PRSNAM");
+        REQUIRE(keyword != std::string::npos);
+        const auto newline = bytes.find('\n', keyword);
+        REQUIRE(newline != std::string::npos);
+        const auto end = bytes.find('\n', newline + 1);
+        auto name = bytes.substr(newline + 1, end - newline - 1);
+        if (!name.empty() && name.back() == '\r') name.pop_back();
+        return name;
+    };
+    // First manager copy has the corpus's blank movement name; final KEY has the new name.
+    CHECK_EQ(movementName(equipmentWrites[0]->bytes), std::string());
+    CHECK_EQ(movementName(equipmentWrites[1]->bytes), expectedName.utf8());
+    auto* object = model->object(model->simCtl()->pdie1);
+    REQUIRE(object != nullptr);
+    CHECK_EQ(std::string(engine::at<char>(object, 0x2160)), expectedName.utf8());
 }
 
 int main()

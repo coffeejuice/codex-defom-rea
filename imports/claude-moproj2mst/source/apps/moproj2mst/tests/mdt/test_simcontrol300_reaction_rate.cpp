@@ -86,6 +86,12 @@ void preflight(const EnvironmentReactionReport& report)
     CHECK(report.stage == EnvironmentReactionStage::Preflight);
     CHECK(!report.controlsProjected); CHECK(!report.modelUpdated);
 }
+void projectedRefusal(const EnvironmentReactionReport& report)
+{
+    CHECK(report.outcome == ApplyResult::UnsupportedSnapshot);
+    CHECK(report.stage == EnvironmentReactionStage::ControlsProjected);
+    CHECK(report.controlsProjected); CHECK(!report.modelUpdated);
+}
 }
 
 TEST_CASE(reaction_clicked_all_choices_update_actual_live_and_temporary_variable_only)
@@ -155,19 +161,33 @@ TEST_CASE(reaction_missing_or_replaced_sc_keeps_controls_before_guard_without_cu
 {
     for (bool replace : {false, true}) {
         Fixture f; auto& session = f.open(); auto& page = session.pages.environment;
-        auto& temporary = *session.environmentCurves.curves[3]; temporary.var[0] = 77;
+        auto& temporary = *session.environmentCurves.curves[3]; table(temporary);
+        temporary.var[0] = 77; temporary.ndim = 4;
+        const auto* temporaryAxis = temporary.axis[0];
+        const auto* temporaryValues = temporary.values;
         session.environmentCurves.currentCurveIndex = 1;
-        auto oldStep = std::move(f.operation.engineModel->step); oldStep->sim_ctrl.acvcof.var[0] = 66;
+        auto oldStep = std::move(f.operation.engineModel->step);
+        auto& oldLive = oldStep->sim_ctrl.acvcof; table(oldLive);
+        oldLive.ndim = 5; oldLive.var[0] = 66;
+        const auto* oldAxis = oldLive.axis[0]; const auto* oldValues = oldLive.values;
         if (replace) f.operation.engineModel->step = std::make_unique<def::model::DB_STEP_DATA>(3);
         auto* replacement = f.operation.engineModel->simCtl();
-        if (replacement) replacement->acvcof.var[0] = 55;
+        if (replacement) { table(replacement->acvcof); replacement->acvcof.ndim = 6;
+            replacement->acvcof.var[0] = 55; }
+        const auto* replacementAxis = replacement ? replacement->acvcof.axis[0] : nullptr;
+        const auto* replacementValues = replacement ? replacement->acvcof.values : nullptr;
         const auto report = f.owner->reactionRateClicked(f.binding(), 3);
-        CHECK(report.outcome == ApplyResult::UnsupportedSnapshot);
-        CHECK(report.stage == EnvironmentReactionStage::ControlsProjected);
-        CHECK(report.controlsProjected); CHECK(!report.modelUpdated); controls(page.acvcofControls, 3);
+        projectedRefusal(report); controls(page.acvcofControls, 3);
         CHECK_EQ(*session.environmentCurves.currentCurveIndex, 1);
-        CHECK_EQ(temporary.var[0], 77); CHECK_EQ(oldStep->sim_ctrl.acvcof.var[0], 66);
-        if (replacement) CHECK_EQ(replacement->acvcof.var[0], 55);
+        CHECK_EQ(temporary.var[0], 77); CHECK_EQ(temporary.ndim, 4);
+        CHECK(temporary.axis[0] == temporaryAxis); CHECK(temporary.values == temporaryValues);
+        CHECK_EQ(oldLive.var[0], 66); CHECK_EQ(oldLive.ndim, 5);
+        CHECK(oldLive.axis[0] == oldAxis); CHECK(oldLive.values == oldValues);
+        if (replacement) {
+            CHECK_EQ(replacement->acvcof.var[0], 55); CHECK_EQ(replacement->acvcof.ndim, 6);
+            CHECK(replacement->acvcof.axis[0] == replacementAxis);
+            CHECK(replacement->acvcof.values == replacementValues);
+        }
     }
 }
 
@@ -200,16 +220,19 @@ TEST_CASE(reaction_changed_temporary_or_page_alias_refuses_before_control_projec
 TEST_CASE(reaction_live_curve_alias_guard_retains_only_prior_controls)
 {
     Fixture f; auto& session = f.open(); auto model = f.operation.engineModel;
-    auto& live = model->simCtl()->acvcof; live.var[0] = 99;
+    auto& live = model->simCtl()->acvcof; table(live);
+    live.ndim = 5; live.var[0] = 99;
+    const auto* axis = live.axis[0]; const auto* values = live.values;
     // Alias the actual model lease, never create a second deleting owner.
     session.environmentCurves.curves[3] = std::shared_ptr<def::model::DYNARY>(model, &live);
     session.pages.environment.curves[3] = session.environmentCurves.curves[3];
     session.environmentCurves.currentCurveIndex = 1;
     const auto report = f.owner->reactionRateClicked(f.binding(), 2);
-    CHECK(report.stage == EnvironmentReactionStage::ControlsProjected);
-    CHECK(report.outcome == ApplyResult::UnsupportedSnapshot); CHECK(!report.modelUpdated);
+    projectedRefusal(report);
     controls(session.pages.environment.acvcofControls, 2);
-    CHECK_EQ(live.var[0], 99); CHECK_EQ(*session.environmentCurves.currentCurveIndex, 1);
+    CHECK_EQ(live.var[0], 99); CHECK_EQ(live.ndim, 5);
+    CHECK(live.axis[0] == axis); CHECK(live.values == values);
+    CHECK_EQ(*session.environmentCurves.currentCurveIndex, 1);
 }
 
 TEST_CASE(reaction_partial_unconstructed_or_expired_opi_cannot_advance_public_factory)

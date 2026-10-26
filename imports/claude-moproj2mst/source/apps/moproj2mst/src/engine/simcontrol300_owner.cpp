@@ -321,23 +321,35 @@ EnvironmentReactionReport StagedEditor300::reactionRateClicked(Editor300Binding 
     report.controlsProjected = true;
     // Native current-SC lookup follows the radio/enabled setters. Do not use
     // pageState() above and move this prerequisite ahead of those effects.
-    auto* control = binding.model.simCtl();
-    if (!control || control != pages_->sourceControl) return report;
-    const std::array<const def::model::DYNARY*, 4> live{
-        &control->envtmp, &control->cnvcof, &control->envatm, &control->acvcof};
-    for (const auto* curve : live) if (curve == temporary.get()) return report;
-
-    owners.currentCurveIndex = 3;
-    constexpr int variables[]{0, 3, 12, 1};
-    if (selection == 0) control->acvcof.ndim = 0;
-    control->acvcof.var[0] = variables[selection];
-    // The native callback changes the temporary variable, never its ndim or
-    // table storage, even when switching the live curve to constant mode.
-    temporary->var[0] = variables[selection];
+    if (commitReactionRateSelection(binding.model, selection) != ReactionRateCommit::Complete)
+        return report;
     report.stage = EnvironmentReactionStage::Complete;
     report.modelUpdated = true;
     report.outcome = ApplyResult::Completed;
     return report;
+}
+
+StagedEditor300::ReactionRateCommit StagedEditor300::commitReactionRateSelection(
+    GuiModel& model, int selection)
+{
+    // The caller has checked page and temporary ownership and projected the
+    // cached controls. This single lookup keeps the geometry barrier first.
+    auto* control = model.simCtl();
+    if (!control || control != pages_->sourceControl)
+        return ReactionRateCommit::MissingOrReplacedControl;
+    auto& temporaries = pages_->environmentCurves;
+    auto* temporary = temporaries.curves[3].get();
+    if (temporary == &control->envtmp || temporary == &control->cnvcof ||
+        temporary == &control->envatm || temporary == &control->acvcof)
+        return ReactionRateCommit::LiveCurveAlias;
+
+    temporaries.currentCurveIndex = 3;
+    constexpr int variables[]{0, 3, 12, 1};
+    if (selection == 0) control->acvcof.ndim = 0;
+    control->acvcof.var[0] = variables[selection];
+    // Native changes the temporary variable, never its dimension or table.
+    temporary->var[0] = variables[selection];
+    return ReactionRateCommit::Complete;
 }
 
 // @src 0x140eccb50/ccc90/cdd0: clicked constant/table controls only.

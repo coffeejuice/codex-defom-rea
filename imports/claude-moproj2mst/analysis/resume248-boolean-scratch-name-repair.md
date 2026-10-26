@@ -1,0 +1,7 @@
+# CP248 full-suite Boolean scratch-name repair
+
+The first CP248 full-suite run had one failed test, `m2m.mdt.boolean_side_file_result`, with four cases reporting `FAILED !fs::exists(root)` at the `DiskFixture` constructor. The fixture used `b89_<pid>_<per-process serial>` beneath CTest's stable per-test scratch directory. A later isolated CTest process passed without any production change. Reuse of a PID across runs can therefore address an existing test directory; the failure was at fixture setup, before the Boolean result behavior under test.
+
+The test-only root name now also contains `std::chrono::steady_clock::now().time_since_epoch().count()`. It still resolves through `scratchOutput` under `M2M_TEST_SCRATCH`, preserves the no-existing-root assertion, and does not delete retained scratch data or alter product behavior. The extra value prevents ordinary process-ID reuse across suite runs from selecting the same path.
+
+Focused `m2m_mdt_boolean_side_file_result` build and CTest passed; `check_new_cpp_bindings.py` passed. The source-stable full build `cp248-meshing-writeback-repaired-full` and complete 369-test launcher passed with 362 clean, six logged gaps, one logged difference, zero failures/skips/incomplete outputs and no fixture changes. This is a test-environment repair; no original-app parity follows from it. The initial failed receipt remains in `build/cp248-meshing-writeback-full-suite-console.json` and its test-run log; the successful bound receipt is `analysis/cp248-meshing-writeback-repaired-full-tests.json`.

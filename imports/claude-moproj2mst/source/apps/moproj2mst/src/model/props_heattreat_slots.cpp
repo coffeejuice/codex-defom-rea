@@ -9,9 +9,6 @@
 // signal 0x1402cea00.
 #include <cstddef>
 #include <cstdint>
-#include <functional>
-#include <type_traits>
-#include <utility>
 
 #include <defmodel/layout/cls_1401e7b10.hpp>
 
@@ -27,8 +24,9 @@ namespace m2m {
 
 namespace {
 
-using def::model::Cls_1401e7b10;
 using qt::Variant;
+
+enum class HeatTreatMode { Deformation, Diffusion, PhaseTransformation };
 
 [[noreturn]] void unsupported(const std::string& what)
 {
@@ -41,19 +39,16 @@ data::HTPropsBlock& B(HeatTreatProps& hp)
     return *hp.block;
 }
 
-// 0x1405f8d90 -> 0x14005f7e0: synchronously borrow the owner's sim control, or null.
-// Callers must not retain the pointer or queue work. simCtl preserves geometry refusal.
-template<class F>
-    requires std::is_invocable_v<F, Cls_1401e7b10*> &&
-             std::is_same_v<std::invoke_result_t<F, Cls_1401e7b10*>, void>
-void withOwnerSimCtl(HeatTreatProps& hp, F&& callback)
+void syncOwnerMode(HeatTreatProps& hp, HeatTreatMode mode, bool enabled)
 {
-    if (!hp.owner || !hp.owner->project) {
-        std::invoke(std::forward<F>(callback), nullptr);
-        return;
-    }
+    if (!hp.owner || !hp.owner->project) return;
     engine::GuiModel* m = engine::opModel(*hp.owner->project, *hp.owner);
-    std::invoke(std::forward<F>(callback), m ? m->simCtl() : nullptr);
+    if (!m) return;
+    switch (mode) {
+    case HeatTreatMode::Deformation: m->setHeatTreatPropertyDeformation(enabled); break;
+    case HeatTreatMode::Diffusion: m->setHeatTreatPropertyDiffusion(enabled); break;
+    case HeatTreatMode::PhaseTransformation: m->setHeatTreatPropertyPhaseTransformation(enabled); break;
+    }
 }
 
 void syncOwnerStepDefinition(HeatTreatProps& hp, const data::HTPropsBlock& block)
@@ -67,11 +62,6 @@ Project& ownerProject(HeatTreatProps& hp)
 {
     if (!hp.owner || !hp.owner->project) unsupported("without an owner operation (props vt+0x58 needs it)");
     return *hp.owner->project;
-}
-
-void setScWord(Cls_1401e7b10* sc, int off, bool v)       // 0x1408e0000 / 0x1408e0040 / 0x1408e0020
-{
-    *reinterpret_cast<std::int32_t*>(reinterpret_cast<std::byte*>(sc) + off) = v ? 1 : 0;
 }
 
 // QList::at after the 0 <= idx < size test the slots make
@@ -143,22 +133,19 @@ void setNoMedia(HeatTreatProps& hp, int n)
 
 // The Mode setters 0x1411c1c30 / 0x1411c1dc0 / 0x1411c1f50: the schedule's engine defaults when
 // not applied yet (0x14172d790, 0x1411b3540), the flag, the sim control word, then props vt+0x58
-void setMode(HeatTreatProps& hp, bool& flag, int scOff, const Variant& v)
+void setMode(HeatTreatProps& hp, bool& flag, HeatTreatMode mode, const Variant& v)
 {
     if (hp.data && !hp.data->schedule.engineDefaults) ht::engineDefaults(ownerProject(hp), hp.data->schedule);
     flag = pv::toBool(v);
-    withOwnerSimCtl(hp, [scOff, flag](Cls_1401e7b10* sc) -> void {
-        if (sc) setScWord(sc, scOff, flag);
-    });
+    const bool enabled = flag;
+    syncOwnerMode(hp, mode, enabled);
     ht::propsRefresh(ownerProject(hp), hp);                        // vt+0x58 = 0x1411bfd60
 }
 
 // The Mode getters 0x1411c1d20 / 0x1411c1eb0 / 0x1411c2040 write the sim control word as well
-Variant getMode(HeatTreatProps& hp, bool flag, int scOff)
+Variant getMode(HeatTreatProps& hp, bool flag, HeatTreatMode mode)
 {
-    withOwnerSimCtl(hp, [scOff, flag](Cls_1401e7b10* sc) -> void {
-        if (sc) setScWord(sc, scOff, flag);
-    });
+    syncOwnerMode(hp, mode, flag);
     return pv::vBool(flag);
 }
 
@@ -213,9 +200,9 @@ void HeatTreatProps::applyValue(PropNode& node, const std::vector<PropNode*>& an
     auto setD = [&](std::vector<double>& l) {
         if (inRange(l, idx)) l[static_cast<std::size_t>(idx)] = pv::toDouble(v);
     };
-    if (n == u"Deformation") setMode(*this, b.b0, 0x108, v);
-    else if (n == u"Diffusion") setMode(*this, b.b1, 0x110, v);
-    else if (n == u"PhaseTransformation") setMode(*this, b.b2, 0x10c, v);
+    if (n == u"Deformation") setMode(*this, b.b0, HeatTreatMode::Deformation, v);
+    else if (n == u"Diffusion") setMode(*this, b.b1, HeatTreatMode::Diffusion, v);
+    else if (n == u"PhaseTransformation") setMode(*this, b.b2, HeatTreatMode::PhaseTransformation, v);
     else if (n == u"NO_MEDIA") setNoMedia(*this, pv::toInt(v));
     else if (n == u"ENVTMP") setD(b.t3);
     else if (n == u"TMAX") setD(b.time);
@@ -251,9 +238,9 @@ bool HeatTreatProps::getValue(const PropNode& node, const std::vector<PropNode*>
     auto dbl = [&](const std::vector<double>& l) {
         return pv::vDouble(inRange(l, idx) ? l[static_cast<std::size_t>(idx)] : 0.0);
     };
-    if (n == u"Deformation") out = getMode(*this, b.b0, 0x108);
-    else if (n == u"Diffusion") out = getMode(*this, b.b1, 0x110);
-    else if (n == u"PhaseTransformation") out = getMode(*this, b.b2, 0x10c);
+    if (n == u"Deformation") out = getMode(*this, b.b0, HeatTreatMode::Deformation);
+    else if (n == u"Diffusion") out = getMode(*this, b.b1, HeatTreatMode::Diffusion);
+    else if (n == u"PhaseTransformation") out = getMode(*this, b.b2, HeatTreatMode::PhaseTransformation);
     else if (n == u"NO_MEDIA") out = pv::vInt(b.stepCount);
     else if (n == u"ENVTMP") out = dbl(b.t3);
     else if (n == u"TMAX") out = dbl(b.time);

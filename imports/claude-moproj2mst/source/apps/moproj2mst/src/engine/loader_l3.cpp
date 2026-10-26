@@ -122,7 +122,7 @@ void formingLoadPrologue(mst::OpClass& c, Project& p, Operation& op)
 // equipment (OPI+0x4c < 1) and the PDIE object and its GUI slot exist, the GUI writes the PDIE
 // object's movement as an equipment KEY ("<temp>/Equipment (<n+1>).KEY", 0x140358190), adds it to
 // the equipment manager (0x1400bf510 -> SfMoEqpManager vt+0x160), copies the name into the movement,
-// writes the KEY again at the item's path and sets the slot's and the operation's equipment id.
+// sets the slot's and the operation's equipment id, then writes the KEY again at the item's path.
 void formingPostLoad(mst::OpClass&, Project& p, Operation& op, Ctx&, FileEffects& fx)
 {
     GuiModel* m = opModel(p, op);                          // 0x14005f770
@@ -135,10 +135,13 @@ void formingPostLoad(mst::OpClass&, Project& p, Operation& op, Ctx&, FileEffects
     ObjEntry* slot = objEntryN(op, pdie);                  // 0x1400612d0
     // 0x1400a5970: the equipment manager (P+0x19e0) always exists in the converter's model
     if (eq < 1 && o && slot) {
-        // packet S: createEquipment (postload_views.cpp), then 0x14004deb0 and 0x14004ca30
-        const int id = createEquipment(p, *m->step, o, fx);
-        slot->equipmentId = id;
-        op.equipmentId = id;
+        const auto prefix = beginEquipmentCreation(p, *m->step, o, fx);
+        slot->equipmentId = prefix.id;                    // 0x14004deb0
+        op.equipmentId = prefix.id;                      // 0x14004ca30
+        // Reacquire the step and manager path after both stores, as 0x140c06130 does.
+        // Native add/copy failure and physical temp-file effects remain unresolved.
+        if (auto* step = m->step.get())
+            appendFinalEquipmentKey(*step, o, managerFile(p.equipment, prefix.id), fx);
     }
 }
 

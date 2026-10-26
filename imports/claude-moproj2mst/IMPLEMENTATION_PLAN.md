@@ -3696,3 +3696,59 @@ lookup, collision refusal before index/data stores, and then index, optional
 live dimension, live variable and temporary variable writes in native order.
 The coordinator remains synchronous and does not retain raw control aliases.
 
+Checkpoint245 is independently reviewed and frozen in
+`build/wave3-checkpoint245-verified/`. The parked geometry callback regression
+confirms controls projection before guard refusal; focused reaction-rate,
+Stopping and viewer targets passed 78 cases. The bound 369-test suite passed
+with 362 clean, six logged gaps, one diagnostic difference, no fixture changes
+and historical 93 SAME/five DIFF. This does not establish physical Qt delivery
+or complete editor/cache1 behavior.
+
+Checkpoint246 has started the reviewed HeatTreat Mode property owner commands.
+Preserve the mode flag captured before lazy model lookup and the established
+defaults, flag, native word and refresh order. A separate Forming post-load
+review found that current success-path equipment IDs are written after the
+second KEY, while retained original code writes them before it; a bounded
+repair contract is under investigation. Native add/copy failure remains a
+distinct evidence gap and must not be claimed solved by an ordering fix.
+
+Checkpoint246 is independently reviewed and frozen in
+`build/wave3-checkpoint246-verified/`. The focused L6, viewer, HeatTreat and
+Stopping targets passed 83 cases. The bound 369-test suite passed with 362
+clean, six logged gaps, one diagnostic difference, no fixture changes and
+historical 93 SAME/five DIFF. This closes the local Mode callback seam, not
+the broader HeatTreat lifecycle or fresh-original acceptance.
+
+Checkpoint247 has started the reviewed success-path Forming equipment order
+repair. Split the engine-local creation helper after the first manager path
+lookup, store the selected slot and operation IDs, then reacquire the step and
+attempt the final KEY at the second manager path. Preserve `equipmentSync`'s
+existing wrapper sequence. Native add/copy failure and physical temporary-file
+effects remain queued separately under the qualified CP247 static audit.
+
+Checkpoint247 is independently reviewed and frozen in
+`build/wave3-checkpoint247-verified/`. Its actual L3 caller fixture passed all
+eight cases. The bound 369-test suite passed with 362 clean, six logged gaps,
+one diagnostic difference, no fixture changes and historical 93 SAME/five
+DIFF. Source review establishes the corrected intermediate order; final-state
+tests alone do not establish its exception prefixes or native `-1` behavior.
+
+Checkpoint248 has started the independently reviewed finite editor meshing
+object writeback migration. Preserve by-number current-object lookup and the
+four writes in interference, size-ratio, tolerance, node-count order; both
+Apply callers retain their existing preflight and later singleton effects.
+CP165's broader-field and lifetime evidence boundary remains in force.
+
+Checkpoint248 is independently reviewed and frozen in
+`build/wave3-checkpoint248-verified/`. Its first full-suite run hit a stale
+Boolean test scratch-directory name before product assertions; a test-only
+unique-name repair passed focused validation and the source-bound full rerun.
+The verified 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The native by-number behavior remains; broader meshing state is still queued.
+
+Checkpoint249 has started the reviewed heating-time property unit-read leaf.
+Preserve one explicit-project owner-model provider lookup, a nullable unguarded
+unit read, then unit formatting before the property block assignment. Do not
+substitute `simCtl()` geometry admission or claim native null-owner policy.
+

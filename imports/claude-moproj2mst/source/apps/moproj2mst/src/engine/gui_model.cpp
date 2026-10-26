@@ -246,6 +246,16 @@ bool GuiModel::refillEditorStepCountIfControlMatches(
     return true;
 }
 
+void GuiModel::copyEditorMeshingObjectValues(const simcontrol300::MeshObjectSnapshot& value)
+{
+    auto* object = this->object(value.number);
+    if (!object) return;
+    *at<double>(object, 0x2dc8) = value.interference;
+    *at<double>(object, 0x2dd0) = value.sizeRatio;
+    *at<double>(object, 0x2de0) = value.tolerance;
+    *at<double>(object, 0x2dd8) = value.nodeCount;
+}
+
 void GuiModel::setFurnaceLoadTnow3()
 {
     if (step) step->sim_ctrl.tnow3 = 1;
@@ -601,6 +611,21 @@ void GuiModel::setHeatTreatPropertyStepDefinition(int selection)
 {
     if (auto* control = simCtl())
         control->stpdef = selection == 0 ? 1 : 3;
+}
+
+void GuiModel::setHeatTreatPropertyDeformation(bool enabled)
+{
+    if (auto* control = simCtl()) control->trans[1] = enabled ? 1 : 0;
+}
+
+void GuiModel::setHeatTreatPropertyDiffusion(bool enabled)
+{
+    if (auto* control = simCtl()) control->trans[3] = enabled ? 1 : 0;
+}
+
+void GuiModel::setHeatTreatPropertyPhaseTransformation(bool enabled)
+{
+    if (auto* control = simCtl()) control->trans[2] = enabled ? 1 : 0;
 }
 
 }  // namespace m2m::engine

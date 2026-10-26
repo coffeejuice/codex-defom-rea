@@ -162,15 +162,29 @@ void equipmentSync(Project& p, Operation& op, bool multiBlow, FileEffects& fx)
 // before and after, so it leaves no trace), added through 0x1400bf510, the movement name
 // (obj+0x2160) set to the name (strncpy 0x50), and the KEY written again at the item's project
 // path (vt+0x208(id)), now with that name. Returns the new id (-1 when the add fails).
-int createEquipment(Project& p, def::model::DB_STEP_DATA& step, def::model::LLOBJ_DATA* obj, FileEffects& fx)
+EquipmentCreationPrefix beginEquipmentCreation(Project& p, def::model::DB_STEP_DATA& step,
+                                               def::model::LLOBJ_DATA* obj, FileEffects& fx)
 {
     const String name = L("Equipment (") + qt::number(static_cast<int>(p.equipment.rows.size()) + 1) + L(")");
     const std::string bytes = equipmentBytes(step, obj);
     const int id = addEquipment(p, name, &bytes, fx);         // 0x1400bf510
     std::strncpy(at<char>(obj, 0x2160), local8(name).c_str(), 0x50);   // 0x141470020
     const String file = managerFile(p.equipment, id);
+    return {id, file};
+}
+
+void appendFinalEquipmentKey(def::model::DB_STEP_DATA& step, def::model::LLOBJ_DATA* obj,
+                             const String& file, FileEffects& fx)
+{
     if (!file.isEmpty()) fx.writes.push_back({equipmentKeyTarget(file), equipmentBytes(step, obj)});   // 0x140358190
-    return id;
+}
+
+// Keep the vt+0x230 caller's existing prefix/final-write/return sequence.
+int createEquipment(Project& p, def::model::DB_STEP_DATA& step, def::model::LLOBJ_DATA* obj, FileEffects& fx)
+{
+    const auto prefix = beginEquipmentCreation(p, step, obj, fx);
+    appendFinalEquipmentKey(step, obj, prefix.pathBeforeIdStores, fx);
+    return prefix.id;
 }
 
 namespace {

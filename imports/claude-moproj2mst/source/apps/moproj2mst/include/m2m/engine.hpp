@@ -33,7 +33,7 @@ namespace m2m::doe { struct StepDataState; class SlicePlaneStore; class StudyXml
 
 namespace m2m::engine {
 
-namespace simcontrol300 { struct StepCountContext; struct StepCountPage; }
+namespace simcontrol300 { struct StepCountContext; struct StepCountPage; struct MeshObjectSnapshot; }
 
 using def::model::DB_STEP_DATA;
 using def::model::LLOBJ_DATA;
@@ -222,6 +222,8 @@ public:
     // Applies one admitted editor frequency-text event; conversion stays between shape and storage reads.
     bool applyEditorFrequencyTextIfControlMatches(
         const def::model::Cls_1401e7b10* expected, int row, const String& deliveredText);
+    // Apply the finite four-field editor meshing projection to the current object number.
+    void copyEditorMeshingObjectValues(const simcontrol300::MeshObjectSnapshot& value);
     // @src 0x140822210 (GUI twin of DEF_PRE 0x1401c8f70): set UNIT and reset defaults on change.
     void setModelUnit(std::int32_t unit, bool reset);
     // @src 0x140c7b370  viewer geometry type; 0 without a 2D step/control
@@ -271,6 +273,9 @@ public:
     void setPdie(int v);
     // HeatTreat STEPDEF property dispatch; missing step remains a guarded no-op.
     void setHeatTreatPropertyStepDefinition(int selection);
+    void setHeatTreatPropertyDeformation(bool enabled);
+    void setHeatTreatPropertyDiffusion(bool enabled);
+    void setHeatTreatPropertyPhaseTransformation(bool enabled);
 };
 
 // Original viewer-list count, independent of DB object count; never allocates a viewer.

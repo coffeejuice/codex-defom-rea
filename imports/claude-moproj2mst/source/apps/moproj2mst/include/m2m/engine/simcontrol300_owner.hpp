@@ -122,6 +122,8 @@ public:
     ApplyResult explicitSolverToggled(Editor300Binding, bool checked);
     static constexpr bool completeForPublicSave = false;
 private:
+    enum class ReactionRateCommit { MissingOrReplacedControl, LiveCurveAlias, Complete };
+    ReactionRateCommit commitReactionRateSelection(GuiModel& model, int selection);
     // Diagnostic identity snapshots do not own Operation/GuiModel allocations.
     // The OPI generation is independent of the possibly borrowed model guard.
     // Capturing it does not execute native130857's editor+38 assignment or
