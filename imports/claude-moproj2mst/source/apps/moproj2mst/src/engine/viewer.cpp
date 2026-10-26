@@ -1668,9 +1668,13 @@ void bind(GuiModel& m, View& view, LLOBJ_DATA* obj)
     else bind2D(view);
     if (GeometrySyncAccess::pending(m)) return;
     // 1fdd30 consumes the existing Slice collection after actual object/reps
-    // rebinding, before viewerSync refresh. Never silently retain stale binding.
-    if (view.slice)
-        throw Error(M2M_E_UNSUPPORTED, "DOE Slice object-rebind adaptation remains unsupported");
+    // rebinding, before viewerSync refresh. A live 2D canonical owner exits
+    // before the native adaptation body touches the collection.
+    if (view.slice) {
+        GuiModel* const owner = view.ownerModel.get();
+        if (owner != &m || !owner->step || modelDim(*owner) != 2)
+            throw Error(M2M_E_UNSUPPORTED, "DOE Slice object-rebind adaptation remains unsupported");
+    }
     // Remaining 0x1411f28f0 colours / 0x1411fc900 node display remain qualified.
 }
 

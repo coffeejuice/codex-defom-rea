@@ -4012,3 +4012,21 @@ live 2D owner after binding, leaving the collection untouched; foreign/parked
 owners and 3D adaptation remain guarded. Root will integrate them on one
 source-stable candidate after exclusive source ownership is released.
 
+Checkpoint272 is independently reviewed and frozen in
+`build/wave3-checkpoint272-verified/`. Save's single-admission name commit is
+exercised by actual 93/93D/94 MultiBlow Save callers. Canonical live-2D Slice
+rebind keeps the constructor-only collection and continues the outer bind;
+other represented adaptation profiles remain guarded. Independent reviews
+found test-safety gaps, which were repaired and focused-retested. The final
+bound 369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. These are
+implementation and regression receipts, not fresh original lifecycle parity.
+
+Checkpoint273 retained Boolean evidence audit did not admit a constructor or
+first-Open Apply witness; the inspected Editor004 input is a Forming capture.
+Active DOE and editor300 scans likewise found no public leaf that clears its
+same-occurrence evidence gate. The next reviewed internal leaf consolidates
+the three HeatTreat mode writes behind one private GuiModel implementation,
+keeping all three named commands and their existing caller order. This is an
+architecture cleanup only; the original lifecycle gaps remain queued.
+

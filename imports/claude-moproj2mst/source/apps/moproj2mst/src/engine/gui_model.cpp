@@ -299,6 +299,18 @@ void GuiModel::setMultiBlowPrimaryDie(int primary)
     control->pdie1 = primary;
 }
 
+// @src 0x140054540: finite Save tuple; conversions remain after admission and between stores.
+void GuiModel::storeOperationSimulationNames(const String& operationName, int flow,
+    const String& simulationName, int simulation)
+{
+    auto* sc = simCtl();
+    if (!sc) return;
+    std::strncpy(sc->oprnam, local8(operationName).c_str(), 0x40);
+    sc->cursim[1] = flow;
+    std::strncpy(sc->simnam, local8(simulationName).c_str(), 0x50);
+    sc->cursim[0] = simulation;
+}
+
 bool GuiModel::copyEditorTitleIfControlMatches(const Cls_1401e7b10* expected,
     std::string_view ascii)
 {

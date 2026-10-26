@@ -1,0 +1,26 @@
+# CP273 editor300 next-leaf scan
+
+## Result
+
+No new editor300 behavior leaf is ready to promote from the reviewed CP253–271 scope. The bounded CP268–271 work exhausted the directly evidenced meshing/stopping dimension-owner substitutions: transition meshing, `fillMeshing3D`, `applyStopping3D`, and `fillStopping3DInto` now use `GuiModel::dimension()` while retaining the following object-access barriers and their source-ordered effects. Their checkpoint reports retain actual caller tests and the full 369-target suite, but explicitly do not establish public editor reachability.
+
+The smallest remaining candidate-looking guards are `advancedApplyProfile` and `fillAdvanced3D` in `source/apps/moproj2mst/src/engine/simcontrol300.cpp` (currently direct `model.step` presence/dimension expressions). They are not promoted: they fall into the Advanced alias HOLD the request excludes. No evidence in the examined checkpoint trail upgrades them to an independently observed public action, and substituting the same scalar query would repeat the already completed dimension-migration class rather than recover new behavior. Reaction is likewise excluded by the standing alias HOLD.
+
+## Evidence reviewed
+
+- Subtree `AGENTS.md`, `TAKEOVER.md`, current `analysis/takeover-state.json`, plan, and recovery status establish this is converter-only recovery with user-authorized implementation, but require source-bound evidence and actual callers; public GUI lifecycle occurrence gates remain outstanding.
+- `analysis/wave3-checkpoint253-validation.json` through `...263...`, and `...268...` through `...271...` show CP253 initial editor admission, CP254 SPRING labels, CP255 labels, CP256 MultiBlow Save, CP257–258 scene refresh/Advanced remap, CP259 scene-box union, CP260–263 and CP268–271 the dimension-query and scene-owner work. The reports show successful targeted suites and 369 registered tests, while their qualifications state historical comparisons are not fresh original-session acceptance, no original executable is launched, and public editor reachability is not established.
+- `analysis/resume253-editor-next-leaf-review.md` and `analysis/resume254-editor-next-leaf.md` constrain those source-ready internal owner migrations and explicitly preserve separate cached controls, Save boundaries, object identity and public lifecycle witnesses.
+- `analysis/resume260-editor-next-leaf.md`, `analysis/resume268-model-alias-next-leaf.md`, `analysis/resume269-fill-meshing-owner-implementation-review.md`, `analysis/resume270-stopping-next-leaf-review.md`, and `analysis/resume271-fill-stopping-next-leaf.md` specify exact guards, downstream order, caller tests and qualification. The last three migrations preserve `model.object(0)` checks, widget/scale validation, and partial page/control effects.
+- `analysis/resume272-scene-owner-next-leaf-review.md` confirms the Slice rebind proposal is a distinct source-ready candidate, but its tests establish a constructed converter caller, not natural original reachability. The next-leaf task here is editor300-only, so that viewer leaf is not appropriated as an editor feature.
+- Current `simcontrol300.cpp` shows remaining direct step/dimension checks at `advancedApplyProfile` and `fillAdvanced3D`; remaining dimension checks elsewhere in those lines take already-computed arguments or concern environment/view-factor contracts, not the just-recovered owner-query cuts.
+
+## Exact missing witness / next qualification
+
+To promote a new actual public editor behavior, the missing witness is a retained, source-qualified original occurrence tying a specific editor300 control/action to its native handler and effect prefix, plus a reconstructed caller test that reaches that handler and distinguishes the proposed behavior from the current guard. The outstanding lifecycle record should include the original completed Open/creator invocation (and, for Save/Close claims, their actual occurrences); the retained CP264 report says no qualified replacement exists for the interrupted observer, and CP265's KEY/STL child route is a different DEF_PRE console menu path. No original GUI process was run in this scan.
+
+For the Advanced guards specifically, the smallest technically finite next investigation is not another edit: qualify whether an original editor300 Advanced Fill or Apply invocation reaches these checks and whether its handler is genuinely public in the selected lifecycle. Until that callback/occurrence witness and actual reconstructed caller are available, retain the HOLD. Do not change source, tests, build artifacts, GUI state, or original processes based on this scan.
+
+## Caller/test plan if a distinct witness arrives
+
+Bind the real public caller and callback before selecting a branch. At that caller, capture a normal supported 3D success case and the precise refusal case while snapshotting all fields read or mutated up to the refusal. Preserve the observed short-circuit sequence and partial stores; test the real caller entry, not only `GuiModel::dimension()` or a helper. Then add a changed-case discriminator and unchanged downstream regression in the existing Editor300 caller target, run that focused target plus lifecycle integration, and let the root owner perform the source-stable full suite/freeze. No test is proposed or run now because no leaf cleared the evidence gate.

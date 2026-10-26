@@ -12,8 +12,10 @@
 // ctest-labels: m2m-s
 #include <testkit/check.hpp>
 
+#include <algorithm>
 #include <array>
 #include <cstdio>
+#include <cstring>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
@@ -499,6 +501,53 @@ TEST_CASE(base_default_pairs_step_scope)
     CHECK(m->objectAt(1) == first && m->objectAt(2) == second);
     CHECK_EQ(m->step->inter_obj.count, savedCount);
     CHECK(fx.writes.empty() && fx.deletes.empty());
+}
+
+// Owner command writes exactly the bounded regions and two integers, retaining all other bytes.
+TEST_CASE(store_operation_simulation_names_owner)
+{
+    engine::GuiModel model(nullptr, 3);
+    REQUIRE(model.step);
+    auto* const step = model.step.get();
+    auto& sc = step->sim_ctrl;
+    for (const auto lengths : {std::pair<std::size_t, std::size_t>{7, 9},
+                              {0x40, 0x50}, {0x49, 0x5b}}) {
+        std::fill(std::begin(sc.oprnam), std::end(sc.oprnam), 'O');
+        std::fill(std::begin(sc.simnam), std::end(sc.simnam), 'S');
+        sc.cursim[0] = -501; sc.cursim[1] = -502;
+        const qt::String operationName{std::u16string(lengths.first, u'A')};
+        const qt::String simulationName{std::u16string(lengths.second, u'B')};
+        std::vector<unsigned char> expected(sizeof *step);
+        std::memcpy(expected.data(), step, expected.size());
+        const auto expectedRegion = [&](const void* destination, std::size_t bound,
+                                        std::size_t length, unsigned char value) {
+            const auto offset = static_cast<const unsigned char*>(destination) -
+                reinterpret_cast<const unsigned char*>(step);
+            for (std::size_t i = 0; i < bound; ++i)
+                expected[offset + i] = i < length ? value : 0;
+        };
+        expectedRegion(sc.oprnam, 0x40, lengths.first, 'A');
+        expectedRegion(sc.simnam, 0x50, lengths.second, 'B');
+        const int flow = 31, simulation = 47;
+        const auto expectedInteger = [&](const void* destination, const int& value) {
+            const auto offset = static_cast<const unsigned char*>(destination) -
+                reinterpret_cast<const unsigned char*>(step);
+            std::memcpy(expected.data() + offset, &value, sizeof value);
+        };
+        expectedInteger(&sc.cursim[1], flow);
+        expectedInteger(&sc.cursim[0], simulation);
+        model.storeOperationSimulationNames(operationName, flow, simulationName, simulation);
+        CHECK(model.step.get() == step);
+        CHECK(std::memcmp(expected.data(), step, expected.size()) == 0);
+        CHECK_EQ(sc.oprnam[0x40], 'O'); CHECK_EQ(sc.simnam[0x50], 'S');
+    }
+    auto detached = std::move(model.step);
+    std::vector<unsigned char> before(sizeof *step);
+    std::memcpy(before.data(), step, before.size());
+    model.storeOperationSimulationNames(qt::L("absent-op"), 99, qt::L("absent-sim"), 101);
+    CHECK(model.step == nullptr);
+    CHECK(std::memcmp(before.data(), detached.get(), before.size()) == 0);
+    model.step = std::move(detached);
 }
 
 // Direct storeSimNames mechanics only; no public Save dispatch or native byte claim.

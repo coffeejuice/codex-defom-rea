@@ -2666,6 +2666,35 @@ struct GeometryDirectoryCandidate {
     }
 };
 
+TEST_CASE(store_operation_simulation_names_parked_owner_preserves_step)
+{
+    RestoreGeometryTimers restoreTimers; RestoreGeometryIndexTables restoreTables;
+    GeometryDirectoryFixture directory("save_names_park");
+    GeometryDirectoryCandidate candidate(directory.handle());
+    auto& model = candidate.model;
+    auto* const step = model.step.get(); REQUIRE(step);
+    auto* object = model.object(1); REQUIRE(object);
+    directory.records()[0].version = 5999;
+    step->step_version = 11000;
+    object->u87c[0] = 1; // established low-reader continuation fixture
+    GeometryGetterTrace trace{&candidate.saved.nodes, {}, step};
+    { ScopedGeometryGetterTrace scope(trace); engine::viewerRefresh(model); }
+    REQUIRE(trace.dispatches.size() == 1u);
+    std::vector<unsigned char> before(sizeof *step);
+    std::memcpy(before.data(), step, before.size());
+    bool refused = false;
+    try {
+        model.storeOperationSimulationNames(qt::L("parked-operation"), 31,
+            qt::L("parked-simulation"), 47);
+    } catch (const Error& error) {
+        refused = error.code == M2M_E_UNSUPPORTED && std::string(error.what()) ==
+            "geometry query is parked before unrecovered reader continuation";
+    }
+    REQUIRE(refused);
+    REQUIRE(model.step.get() == step);
+    CHECK(std::memcmp(before.data(), step, before.size()) == 0);
+}
+
 TEST_CASE(geometry_parked_reaction_callback_projects_controls_before_model_guard)
 {
     using namespace engine::simcontrol300;
@@ -3289,6 +3318,8 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     refused([&] { model.initializeMultiBlowLoadControl(); });
     refused([&] { model.setMultiBlowPrimaryDie(777); });
     refused([&] { model.setHeatTreatPropertyStepDefinition(0); });
+    refused([&] { model.storeOperationSimulationNames(qt::L("parked-op"), 17,
+        qt::L("parked-sim"), 23); });
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
     engine::simcontrol300::StepCountContext parkedStepContext{5, {},
         engine::simcontrol300::MoStepCountContext{nullptr}};
@@ -3301,6 +3332,8 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     REQUIRE(parkedStepPage.mo); CHECK(parkedStepPage.mo->operation == nullptr);
     CHECK(parkedStepPage.nstartChecked);
     auto heldParkedStep = std::move(model.step);
+    refused([&] { model.storeOperationSimulationNames(qt::L("parked-op"), 17,
+        qt::L("parked-sim"), 23); });
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
     model.step = std::move(heldParkedStep);
     refused([&] { (void)pendingModel.simGeometryTypeIf2D(); });

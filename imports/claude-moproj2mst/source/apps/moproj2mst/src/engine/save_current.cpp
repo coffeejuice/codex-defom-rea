@@ -232,13 +232,7 @@ void storeSimNames(Project& p, Operation& op)
     if (!first) return;
     if (!first->named) notPorted(op, "simulation entry name (vt+0x298 of this class)");
     GuiModel* m = opModel(p, op);
-    [&](Cls_1401e7b10* sc) -> void {
-        if (!sc) return;
-        std::strncpy(sc->oprnam, local8(name).c_str(), 0x40);    // 0x141470020
-        sc->cursim[1] = no;                                      // +0xe8
-        std::strncpy(sc->simnam, local8(first->name).c_str(), 0x50);
-        sc->cursim[0] = first->sim;                              // +0xe4 (0x140cbc680, +0xc)
-    }(m ? m->simCtl() : nullptr);                              // 0x140c7b2d0
+    if (m) m->storeOperationSimulationNames(name, no, first->name, first->sim);
 }
 
 // @src 0x1405f22e0  SfOprBase vt+0xd8: ProcType (0x143d766b8+0xc) is 5 after opening a .moproj, so

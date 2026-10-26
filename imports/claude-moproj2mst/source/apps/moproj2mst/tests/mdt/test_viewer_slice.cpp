@@ -211,7 +211,7 @@ TEST_CASE(slice_study_io_borrows_session_runtime_without_replacement_or_lifetime
     CHECK(refuses([&] { io->bindSliceConstructorRuntime(std::make_shared<doe::SliceConstructorRuntime>()); }, "replacement"));
 }
 
-TEST_CASE(slice_rebind_reaches_adaptation_guard_without_replacing_collection)
+TEST_CASE(slice_rebind_for_canonical_2d_owner_preserves_constructor_only_collection)
 {
     doe::SliceConstructorRuntime runtime;
     engine::GuiModel model(nullptr, 2);
@@ -220,9 +220,54 @@ TEST_CASE(slice_rebind_reaches_adaptation_guard_without_replacing_collection)
     engine::viewerSync(model, object, true);
     engine::readViewerSlice(model, 0, unitPlane(), &runtime);
     const auto* collection = engine::viewerSliceState(model, 0);
+    REQUIRE(collection != nullptr);
+    const void* const viewIdentity = collection->viewIdentity;
+    REQUIRE(viewIdentity != nullptr);
+    const auto scratch = runtime.colorScratchBits;
+    REQUIRE(scratch.has_value());
+    engine::viewerSync(model, object, false);
+    REQUIRE(engine::viewerSliceState(model, 0) == collection);
+    REQUIRE(collection->viewIdentity == viewIdentity);
+    CHECK(!collection->model.has_value());
+    CHECK(collection->boundObject == nullptr);
+    CHECK(collection->backendKnownNull);
+    CHECK(collection->graphicCount == 0);
+    CHECK(collection->opaqueMembersConstructorOnly);
+    CHECK(runtime.colorScratchBits == scratch);
+    engine::viewerSync(model, object, false);
+    REQUIRE(engine::viewerSliceState(model, 0) == collection);
+    REQUIRE(collection->viewIdentity == viewIdentity);
+    CHECK(!collection->model.has_value());
+    CHECK(collection->boundObject == nullptr);
+    CHECK(collection->backendKnownNull && collection->graphicCount == 0);
+    CHECK(collection->opaqueMembersConstructorOnly);
+    CHECK(runtime.colorScratchBits == scratch);
+}
+
+TEST_CASE(slice_rebind_for_canonical_3d_owner_still_refuses_and_preserves_collection)
+{
+    doe::SliceConstructorRuntime runtime;
+    engine::GuiModel model(nullptr, 3);
+    auto* object = model.objectWrap(1, true, false);
+    REQUIRE(object != nullptr);
+    engine::viewerSync(model, object, true);
+    engine::readViewerSlice(model, 0, unitPlane(), &runtime);
+    const auto* collection = engine::viewerSliceState(model, 0);
+    REQUIRE(collection != nullptr);
+    const void* const viewIdentity = collection->viewIdentity;
+    REQUIRE(viewIdentity != nullptr);
+    const auto scratch = runtime.colorScratchBits;
+    REQUIRE(scratch.has_value());
+
     CHECK(refuses([&] { engine::viewerSync(model, object, false); }, "object-rebind"));
-    CHECK(engine::viewerSliceState(model, 0) == collection);
-    CHECK(!collection->model.has_value()); //no DB factory binding was reached
+    REQUIRE(engine::viewerSliceState(model, 0) == collection);
+    REQUIRE(collection->viewIdentity == viewIdentity);
+    CHECK(!collection->model.has_value());
+    CHECK(collection->boundObject == nullptr);
+    CHECK(collection->backendKnownNull);
+    CHECK(collection->graphicCount == 0);
+    CHECK(collection->opaqueMembersConstructorOnly);
+    CHECK(runtime.colorScratchBits == scratch);
 }
 
 TEST_CASE(slice_escaped_model_manager_cannot_bind_a_child_through_expired_session)

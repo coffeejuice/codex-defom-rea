@@ -216,6 +216,9 @@ public:
     void initializeMultiBlowLoadControl();
     // MultiBlow save value command: one simCtl admission; absent control is a no-op.
     void setMultiBlowPrimaryDie(int primary);
+    // Save names: one admission, preserving native conversion and partial-store order.
+    void storeOperationSimulationNames(const String& operationName, int flow,
+        const String& simulationName, int simulation);
     // Editor title event: reject non-ASCII/oversize input, then barrier, identity check and copy.
     // expected is the legacy raw pointer identity token; the command never dereferences it.
     bool copyEditorTitleIfControlMatches(const def::model::Cls_1401e7b10* expected,

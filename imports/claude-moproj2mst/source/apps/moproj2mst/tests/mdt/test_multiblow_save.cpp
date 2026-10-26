@@ -13,12 +13,14 @@
 #include <filesystem>
 #include <fstream>
 #include <iterator>
+#include <algorithm>
 #include <array>
 #include <cstring>
 #include <defmodel/layout/db_step_data.hpp>
 #include <set>
 #include <string>
 
+#include "../../src/engine/engine_internal.hpp"
 #include "m2m/engine.hpp"
 #include "m2m/engine_multiblow.hpp"
 #include "m2m/model.hpp"
@@ -105,10 +107,39 @@ Result runCase(const char* caseB, const char* moproj, const std::set<std::string
         auto* model = engine::opModel(p, *op);
         REQUIRE(model);
         REQUIRE(model->simCtl());
+        SubProject* sub = activeSubProject(p);
+        REQUIRE(sub);
+        const int expectedFlow = flowNumber(*op);
+        const auto entries = mst::simEntries(p, *sub);
+        const mst::SimEntry* first = nullptr;
+        for (const auto& entry : entries)
+            if (entry.pos == expectedFlow) { first = &entry; break; }
+        REQUIRE(first);
+        REQUIRE(first->named);
+        auto* const control = model->simCtl();
+        std::fill(std::begin(control->oprnam), std::end(control->oprnam), 'O');
+        std::fill(std::begin(control->simnam), std::end(control->simnam), 'S');
+        control->cursim[0] = -801; control->cursim[1] = -802;
+        const auto expectedName = [](std::size_t size, std::size_t bound,
+                                     char seed, const qt::String& value) {
+            std::string expected(size, seed);
+            const auto encoded = engine::local8(value);
+            for (std::size_t i = 0; i < bound; ++i)
+                expected[i] = i < encoded.size() ? encoded[i] : '\0';
+            return expected;
+        };
+        const auto expectedOperationName = expectedName(sizeof control->oprnam, 0x40, 'O', op->name);
+        const auto expectedSimulationName = expectedName(sizeof control->simnam, 0x50, 'S', first->name);
+        const int expectedSimulation = first->sim;
         model->simCtl()->pdie1 = 73; // Save must restore the class's pure v120() == 2.
         engine::saveCurrentOperation(p, *op, ctx, save);
-        REQUIRE(model->simCtl());
+        REQUIRE(model->simCtl() == control);
         CHECK_EQ(model->simCtl()->pdie1, 2);
+        CHECK_EQ(std::string(control->oprnam, sizeof control->oprnam), expectedOperationName);
+        CHECK_EQ(std::string(control->simnam, sizeof control->simnam), expectedSimulationName);
+        CHECK_EQ(control->cursim[1], expectedFlow);
+        CHECK_EQ(control->cursim[0], expectedSimulation);
+        std::printf("SAVE_NAMES %s: operation/flow/simulation/number asserted\n", caseB);
     } catch (const Error& e) {
         if (e.code != M2M_E_UNSUPPORTED) throw;
         std::printf("SKIP %s: %s\n", caseB, e.what());
@@ -214,19 +245,19 @@ TEST_CASE(multiblow_save_names_counted_provider_without_oracle_files)
 TEST_CASE(save_multiblow3d_93)
 {
     CHECK(runCase("93_B_MB3ACT", "Gear_blank.moproj",
-                  {}) != Result::Fail);
+                  {}) == Result::Pass);
 }
 
 // 93 with Dwell "0.2 sec" / "2.0 N/sec/mm/C" before the open (oracle B probe 93D)
 TEST_CASE(save_multiblow3d_93d)
 {
-    CHECK(runCase("93D_B_MB3ACT_DWELL", "Gear_blank.moproj", {}) != Result::Fail);
+    CHECK(runCase("93D_B_MB3ACT_DWELL", "Gear_blank.moproj", {}) == Result::Pass);
 }
 
 TEST_CASE(save_multiblow2d_94)
 {
     CHECK(runCase("94_B_MB2ACT", "MO2_Operation_Cycles2.moproj",
-                  {}) != Result::Fail);
+                  {}) == Result::Pass);
 }
 
 int main()
