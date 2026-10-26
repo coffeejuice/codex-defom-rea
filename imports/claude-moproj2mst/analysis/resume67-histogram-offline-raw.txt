@@ -1,0 +1,16 @@
+CP67 offline PE relative-data scan
+Target: evidence/original-binaries/DEF_GUI_MO_64.exe
+SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+Size: 67,611,136 bytes
+
+PE sections selected for aligned relative-pointer search (name, RVA, raw offset, raw size):
+.rdata  0x01e03000  0x001e01800  0x01748800
+.data   0x0354c000  0x00354a000  0x01b09344
+data    0x0528f000  0x003fabe00  0x00003e70
+.rodata 0x05282000  0x003fa0000  0x0000a3a0
+
+Method: parse PE section headers; at each 4-byte-aligned position in each selected non-code section, interpret the little-endian dword as signed rel32 and test (section RVA + byte index + 4 + rel32) against the target RVA. Targets tested: manager wrapper c15910 (RVA 0x00c15910), factory virtual wrapper c36b80 (RVA 0x00c36b80), histogram factory routine c36bd0 (RVA 0x00c36bd0).
+
+Results: zero matches for all three targets in selected sections.
+
+This supplements, but does not extend, the earlier literal-VA/RVA and common RIP-relative scans recorded in resume64-histogram-caller-raw.txt. It checks aligned signed-relative dword entries only; it does not establish absence of unaligned, encoded, dynamically generated, or external-module references.

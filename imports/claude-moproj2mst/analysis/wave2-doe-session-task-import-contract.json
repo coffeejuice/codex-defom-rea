@@ -1,0 +1,69 @@
+{
+  "schema": "m2m-doe-session-task-import-v1",
+  "scope": "Actual Type2 document/part/Session factory/append and ordered task-list import prefix; architecture remains incomplete",
+  "source_hashes": {
+    "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "61195f4ab9dbcd8e83c46116935e3d9083f5d5b0741a89211c16fcdeb70c407d",
+    "source/apps/moproj2mst/include/m2m/doe_session.hpp": "4f5aec906b08c922324f28a1c8a872e3f31ea42bd8be8ce6fd9b8d2b277d892a",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "8909641470c6519affbeaddb797d669a73f06fa37abc547043c28249ce35371d",
+    "source/apps/moproj2mst/src/doe/session.cpp": "8850d2a82172bcf7cbade662419a33fc7580ff934a96246384ed0decd3bb7150",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "ade865efc0471228ada9d7d41d102245713a30963adf129eeeb2336cff22b8bd"
+  },
+  "evidence_hashes": {
+    "analysis/wave2-doe-session-task-factory-handler-decompile.json": "9c5058b2c36cb06f588a9ef6e19fb5c40c99ea3c747986c2cb29a4a6934e023d",
+    "analysis/wave2-doe-session-task-registry-create-decompile.json": "4ee1c25053f2b28733b048b4fdd6561a67ceb209dc280d2d389f77ee4099c346",
+    "analysis/wave2-doe-session-task-registry-owner-decompile.json": "b5b1d0510a380949b0c0f1a1bab916f92807285ea2bfb5829336ae937c95d702",
+    "analysis/wave2-doe-session-task-registry-content-decompile.json": "c7c14861013ef85e57c7741ef3980990db9bbeffffe42fc0b1a3896057fdd08b",
+    "analysis/wave2-doe-session-task-preference-getters-decompile.json": "2baea04073223b8970e12874b5762b58c319c8abd3906f125507b5d39f3bb510",
+    "analysis/wave2-doe-session-task-payload-entry-decompile.json": "ed5205a9142040bb4cacb28d68b6351175f3f0f1a300bbca30408fe9c99ecef5",
+    "analysis/wave2-doe-active-doe-minimal-contract-decompile.json": "3e1bfd7593571ef9949c87c79ca57b3c6703747ac8b38ae510645bdff97f40cc",
+    "analysis/wave2-doe-session-valid-existing-input-decompile.json": "e1e3598d484e64e286ab36a5fa11d11aa598a6d25efcd316a671d2e38a743c54",
+    "analysis/wave2-doe-session-record-creation-order-decompile.json": "d56b406a1eb639641f5b9db36776e27c54fee60f6d5682a28414665e7efef342",
+    "analysis/wave2-doe-task-factory-static-metacall-receipt.json": "391b6cd0d8cac1fcbedb386fb0d687d63b515b49a76a472489288b068560d17f",
+    "analysis/wave2-doe-task-registry-leaves-receipt.json": "397f21af6b041ebb76f81bcd8b5298523c8b79a456112d8339959872c1daea9c",
+    "analysis/wave2-save-diffs-300-support-141403210.c": "c84affe819260d7befbd4318772dcf76f67d95e886b6cca00c486d8e5f4b7ab3",
+    "analysis/wave2-doe-task-list-implementation.json": "1ede7d91d4eefe956e1f46a968a866256c49347f2a8c0196df792c4bb21aaa30",
+    "analysis/wave2-doe-session-task-import-literals.json": "c7ef948d5b795b1adfe6e2b7640a09b467c06bc20862ed5550aba002e66763a7"
+  },
+  "queue": "analysis/wave2-doe-session-task-import-queue.json",
+  "queue_sha256": "f2985c7024d99dff20b07f3a2ab5227b697e832c077927306a935d0b2c63faba",
+  "factory_chain": "SfMoMainWindow Qt method18 slotCreateTaskBase(QString), staticmetacall db1a0 case db573\u21923c6b0\u2192lazy01d960\u21927c7d90. Internal1375d0 vtable1421b09e8 has registration+8=137610, create+10=137ca0.",
+  "factory_contract": "Missing key returns null. Known SfTaskDoe branch137ca0 removes existing metadata/task keys, allocates fresh0xc0 via741460, registers through7c8140, then returns stored task. No global Task reuse. Other known registered classes guard before constructor.",
+  "projection": "SessionTask represents only recovered list-state consumers: fresh Opr empty, Obj{0}, no Output payload, known DOE discriminator true. executionPreferencesRecovered=false. This is not complete QObject/Task/registry/runner construction; QSettings preferences/profile and global registry lifetime remain unrecovered.",
+  "ordered_contract": [
+    "Session metadata, first Image helper and first UserDefinedStepList precede658130/factory. Any Image guards before record creation; even empty Image is not assumed warning-free.",
+    "UserDefinedStepList first direct matching child only; comma KeepEmptyParts, each toInt, duplicates retained; absent\u2192empty, present empty\u2192{0}.",
+    "Type/Subtype/DB_ID/Steps toShort failure/overflow0. StepNumber/Objects/EntityNo toInt. Objects then truncates signed16 storage:40000\u2192-25536; this differs from toShort.",
+    "DOE Task discriminator true matches Type2 flag28; null Task also appends. Append and current index assignment precede653be0.",
+    "653be0 unconditionally clears/deletes display named models+1d8 throughcfa790. Reuse existing DisplayModels::named ownership; explicit callback permits testing append-before-clear order.",
+    "Actual644440(doc,1,0,0) false payload route: SfTask vt218 with Task; StepData without LayerName vt248 with Task; LayerName cd5d90 independent of Task. Required model paths guard at encounter.",
+    "SfDispView/GraphicsItems/Image/SfPtrk/SfFNet/ROIs/Coupons payload imports require true and skip in actual false route. True-route effects remain unresolved.",
+    "Repeated SfTask children apply in order; populated OutputList guard retains appended Session/prior list changes. No later Session/part after guard.",
+    "Next read deletes owned parsed Tasks, clears Session records and old retained-root children. Global Task replacement remains guarded and needs separate ownership/QPointer representation.",
+    "Fallback6469d0/selection/notifications remain guarded after represented records; no default part or current selection fabricated."
+  ],
+  "tests": {
+    "status": "Source frozen for parent combined build; worker did not build",
+    "session_cases": 21,
+    "new_cases": 7,
+    "coverage": [
+      "distinct fresh Tasks/null key, append-before-entry",
+      "metadata overflow and Objects wrap",
+      "ordered task effects before StepData and false-route camera/graphics skip",
+      "null Task skips task/model payload, known other type guards",
+      "Image pre-append guard and first UserDefinedStepList empty/duplicates",
+      "populated OutputList retains prior state",
+      "production bridge deletes two named models before StepData guard, preserving main model"
+    ],
+    "checks": [
+      "git diff --check passed"
+    ]
+  },
+  "qualifications": [
+    "No fresh original runtime comparison or study execution",
+    "QSettings constructor preferences explicitly queued even though current projection has no consumer",
+    "Existing engine named-model representation reused; exact Qt holder multiplicity/GUI callbacks outside represented state remain qualified",
+    "Historical120-122 remain scope-mismatched; current120 Image/StepData still guarded",
+    "No full active DOE load, DS Save byte parity, sampler, global Task replacement, selection or architecture-completion claim"
+  ],
+  "app_control_used": false
+}

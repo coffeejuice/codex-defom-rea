@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:53:18.270728+00:00",
+  "status": "frozen_after_canonical_protocol_default_repair",
+  "owner": "validation_fixtures",
+  "owned_files": [
+    "tools/check_gui_trial_preflight.py",
+    "tests/test_gui_trial_preflight.py",
+    "analysis/gui-trial-preflight.json",
+    "analysis/gui-fixture-handoff.json"
+  ],
+  "file_sha256": {
+    "tools/check_gui_trial_preflight.py": "f4c6a724b03757cd6387442c681cb20458b593fae6b404b00f2a05ecfa20d460",
+    "tests/test_gui_trial_preflight.py": "49a8cf0a33443a59d5aaa811127709e26024bdfca902e9774715c2413118d586",
+    "analysis/gui-trial-preflight.json": "68d82d5cec6bd21dac9e9b7a7ca789d272aefbda554b0b6144915ec1fc763406"
+  },
+  "summary": "Read-only fixture preflight implemented; R4 prepared inputs pass. No GUI, solver, preprocessor, build or original replay executed.",
+  "tests": {
+    "command": "python -m unittest discover -s tests -p test_gui_trial_preflight.py",
+    "passed": 16,
+    "failed": 0,
+    "elapsed_seconds": 0.25,
+    "scope": "Temporary synthetic fixtures only; adverse manifests, stale MPI, step overrides, XML references, path boundaries, remeshing, duplicate worker settings, deadline and false-acceptance guard; duplicate XML control properties rejected in both orders and when equal; multiple Value elements rejected"
+  },
+  "preflight": {
+    "command": "python tools/check_gui_trial_preflight.py --output analysis/gui-trial-preflight.json",
+    "root": "C:\\PROBLEM\\R4",
+    "status": "prepared_not_runtime_validated",
+    "source_unchanged": true,
+    "pair_equality": {
+      "O3/C3": true,
+      "OS/CS": true,
+      "O2/C2": true
+    },
+    "elapsed_seconds": 0.1668,
+    "files_hashed": 250,
+    "case_bytes_hashed": 42461178,
+    "max_current_known_generated_path": 60
+  },
+  "found_and_resolved_by_orchestrator": {
+    "issue": "R3 OS/CS retained DEF_MPIp4penv.DAT specifying SIM2 4; frozen-manifest equality alone would miss this unsafe preparation condition.",
+    "reproduction": "check_case against preserved R3 manifest rejects OS and CS for DEF_MPIp4penv.DAT",
+    "fix": "Orchestrator added this filename to preparer archival list and prepared fresh R4 copies. R3 remains unchanged and excluded from the corrected trial.",
+    "qualification": "Conservative no-MPI preflight requirement; no claim the selected serial code path would consume the stale MPI file."
+  },
+  "large_fixture": {
+    "source": "C:\\PROBLEM\\TEST_REA\\Inc718_D420_GFM_V_DIES_Angle2_18",
+    "status": "metadata_only_not_copied_not_runtime_validated",
+    "file_count": 58,
+    "source_bytes": 5041941387,
+    "two_copy_bytes": 10083882774,
+    "free_bytes": 3339369091072,
+    "space_for_two_copies_only": true,
+    "space_qualification": "Output growth and runtime scratch not reserved; recheck before copying/running.",
+    "projected_max_path": 65,
+    "overlong_paths": [],
+    "large_file_content_read": false,
+    "runtime_acceptance": false
+  },
+  "integration_handoff": [
+    "Review owned files, run the 16 offline tests, then rerun read-only preflight on the current frozen manifest.",
+    "Keep baseline DB/message/log/.p4p_tmp files and JobId separate from freshly captured results.",
+    "Before running OS/CS, perform fresh GUI loading and generation, capture rewritten controls, and revalidate final effective inputs against one operation/one step/one local worker/no MPI/no remeshing.",
+    "Use an actual runtime supervisor with a 120-second deadline and cleanup restricted to trial-owned PIDs; metadata records a requirement and cannot enforce it.",
+    "Runtime invocation, version/hash attribution, reference comparisons and correct GUI reopen remain independent acceptance gates.",
+    "Known generated names are checked. Enforce the same strict path limit on every captured or newly planned dynamic name before launch.",
+    "Do not copy the large source yet; recheck free space including expected DB growth before later independent OL/CL preparation."
+  ],
+  "limitations": [
+    "Static O2/C2 DEFORM-2D/GEOTYP1 evidence only, not GUI verification.",
+    "Existing large source is metadata-only inventory: 58 files, no content reads or large DB hashes.",
+    "No claim of runtime no-remesh behavior from preparation alone.",
+    "No end-to-end or token speedup measured; elapsed time is this local preflight invocation only."
+  ],
+  "runtime_acceptance": false,
+  "execution_authorized_by_preflight": false,
+  "independent_review_repair": {
+    "finding": "XML Property dictionary discarded duplicate DTMAX/HeatingTime entries, allowing invalid-before-valid control ambiguity.",
+    "correction": "Require exactly one matching property and exactly one Value for each DTMAX=0.1 and HeatingTime=0.1 sec. Reject duplicate properties regardless of ordering or equality.",
+    "regression_tests": [
+      "test_duplicate_xml_control_rejected_regardless_of_order_or_value (six subcases)",
+      "test_multiple_values_in_one_xml_control_rejected (two subcases)"
+    ],
+    "reproduced_before_fix": true,
+    "focused_suite_after_fix": "16 tests pass",
+    "r4_preflight": "prepared_not_runtime_validated",
+    "fixture_or_source_edits": false
+  },
+  "reproducibility_repair": {
+    "change": "Default --protocol now resolves analysis/gui-validation-comparator-contract.json, the retained canonical artifact.",
+    "canonical_sha256": "61034ec2f9947e0b3f9deaa6dc498e7217e786b2cb2df7235789615f6798c76f",
+    "byte_identical_to_previous_ignored_protocol": true,
+    "protocol_masks_changed": false,
+    "verified_command": "python tools/check_gui_trial_preflight.py --output analysis/gui-trial-preflight.json",
+    "explicit_protocol_argument_used": false,
+    "default_invocation_result": "prepared_not_runtime_validated",
+    "test_result": "16 focused tests passed once after repair; tests contain no old default-path reference.",
+    "runtime_acceptance": false
+  }
+}

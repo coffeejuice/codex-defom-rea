@@ -1,0 +1,61 @@
+{
+  "scope": "Actual equipment removal ordering through existing public equipmentSync path",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/file_effects.hpp",
+      "sha256": "e67c1f34b7a22568a6cd068e07951d49763411150c324521723023c837ddbd0e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/loader.cpp",
+      "sha256": "e9d5462b9f1151f4910b683d62f975e421b13af25a1217e5f2cc87123bba2de8"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/postload_views.cpp",
+      "sha256": "c157ae9b96a47ba136f838d79aa72ae0880e59e594a1fd5a6305a201ee601651"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/s/test_save_io.cpp",
+      "sha256": "d0572866be3affcddc372c81a174e813752839176d38e22bc3bf13076b952342"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-equipment-remove-wrapper-static.json",
+      "sha256": "40feed4adf39982d7aa4daddfbbfd9b9fa332dccb27566898569faccd090b77f"
+    },
+    {
+      "path": "analysis/wave2-doe-equipment-manager-mutation-decompile.json",
+      "sha256": "29bd2ae96f9139eb28c54316e47a781f71f67606f7ac7e7315ec5c4cd6be84dd"
+    },
+    {
+      "path": "analysis/wave3-equipment-notification-literals.json",
+      "sha256": "b9c713beacc3b63d561152f17aca15cf6a84785497551000375a501537e87b86"
+    },
+    {
+      "path": "analysis/wave2-doe-session-empty-dispatch-contract.json",
+      "sha256": "b0aa2ab8a2c1932cdb1724d047ec05cee9ffdefa5853c97eb85b5b6162c3371e"
+    },
+    {
+      "path": "analysis/wave3-open-removal-increment.json",
+      "sha256": "90552381a90a21e33bdaed3bdc799cdd78be485fe0bb102eee71fd55689dd4bd"
+    }
+  ],
+  "contract": [
+    "0bff90 always calls06ca50 then emits global2cf3c0 signalMoEquipManagerChanged, passing id-1 including absent row.",
+    "06ca50 looks up row, calls vt1a8 removal before takeRow and row item destruction; OS deletion failure does not cancel row removal.",
+    "Native equipmentSync now reuses already-validated81a6e0 native removal contract, drops actual row, then observes empty-list notifier through the same Project StudyIo owner.",
+    "Caller equipmentId=-1 is after wrapper notification; unavailable binding guard retains preceding file/row effects and previous record ID.",
+    "Recorded legacy path remains queued and omits global projection; full Save already carries nativeRemovals and actual shared notifier."
+  ],
+  "validation_cases": [
+    "Successful and denied removal retain exact file/row/notifier/record ordering and no deferred retry.",
+    "Missing row leaves orphan file untouched but still notifies with id-1.",
+    "Missing notifier refuses after file/row changes but before caller record assignment."
+  ],
+  "qualifications": [
+    "Original row can contain several Qt item columns; current Item projection and framework row-removal callbacks remain architecture qualifications.",
+    "No claim of entire equipment create/copy fidelity; native temporary/copy/append branch remains separate investigation.",
+    "No fresh original execution in increment."
+  ],
+  "validation": "pending next combined build"
+}

@@ -1,0 +1,67 @@
+{
+  "method": "Bounded shipped PE instruction and retained decompilation review; no original execution",
+  "evidence": [
+    {
+      "path": "analysis/wave3-wizard-save-static.json",
+      "sha256": "138b839181f11983fd75d4391a6b5cae9d822b3d45c683923189398b19daf97b"
+    },
+    {
+      "path": "analysis/wave3-wizard-save-1411b3b20.asm",
+      "sha256": "a58081521cc9e30252c0ee887f7d3040c11c3259fdd628497e34130c1827ebf6"
+    },
+    {
+      "path": "analysis/wave3-wizard-save-1411b3c40.asm",
+      "sha256": "087e9161b27406f5575f0b5e0039dc040be96c60a4519f68c262126a05c2e6c5"
+    },
+    {
+      "path": "analysis/wave3-ht-path-local8.asm",
+      "sha256": "5f1e9ea444ded2359ada520ac09c96093439201583f50c91e95b406b68f391a5"
+    },
+    {
+      "path": "analysis/wave3-cogging-native-io-contract.json",
+      "sha256": "dbf5e6aa0fd00ca155ba174ed28e16a887c4966d3822f22b2674d759c7418b85"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L6/s1.c",
+      "sha256": "f5ff02930ed36713e45040acd6c4e023c965e7683b80faff7d9aa142e6c24499"
+    }
+  ],
+  "contracts": [
+    {
+      "address": "1411b3b20",
+      "behavior": "Owner checks and task-directory lookup precede fillFromModel(mode1), which precedes HTWZ open. Failed open retains those model/schedule mutations."
+    },
+    {
+      "address": "1411b3d87..1411b3dbd",
+      "behavior": "HeatTreatWizard.HTWZ path uses QString::toLocal8Bit then fopen wt; failed open returns0 and skips printf body. Successful open emits the existing schedule fragments, ignores printf/fclose results and returns1."
+    },
+    {
+      "address": "6706e4b0..6706e50b",
+      "behavior": "QString::toLocal8Bit uses codecForLocale/fromUnicode when configured; null codec falls back to Latin1. Retained capture includes following function bytes which are not attributed to this method."
+    },
+    {
+      "address": "1411b3c40",
+      "behavior": "Media names use local8Bit; userKey explicitly uses Latin1. Preserve separate encoding decisions and first-NUL printf string termination."
+    }
+  ],
+  "implementation": [
+    "Native property HeatTreat calls fillFromModel before opening byte-path CRT output",
+    "Shared CoggingFile accepts explicit path bytes; original Cogging constructor still uses toAscii",
+    "Ctx codepage supplies the explicit locale-codec profile for HeatTreat path and media names",
+    "Native property effects are immediate and omitted from deferred replay; output-alias adapter check remains before mutation"
+  ],
+  "focused_cases": [
+    "Failed open preserves 2D preopen schedule fill and prior file",
+    "No-delete-sharing permits direct write; UTF8 locale media versus Latin1 userKey; closed handle",
+    "Byte-range-locked output retains ignored flush failure without replay",
+    "Public output-alias rejection preserves project and existing HTWZ bytes"
+  ],
+  "qualifications": [
+    "No fresh original injected-failure capture; source-derived contract tests are not independent acceptance",
+    "Earlier Save-current HeatTreat MOKEY/HTWZ remains recording/deferred and queued separately",
+    "Full process locale-codec discovery and null-codec fallback profile remain separate dependencies",
+    "CRT buffer allocation fallback, descriptor exhaustion and full static-CRT partial-write internals retain Cogging contract qualifications",
+    "Existing schedule arithmetic, legacy printf formatting and table payload reconstruction are reused, not newly accepted here"
+  ],
+  "next": "Validate combined candidate, then remove earlier Save-current deferred effects and integrate evidence-qualified Boolean event delivery"
+}

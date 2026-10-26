@@ -1,0 +1,93 @@
+address	status	note
+0x14008c3c0	ported	topo/ptr_ops.hpp noop (folded helper)
+0x14008c3d0	ported	topo/ptr_ops.hpp ptr_reset
+0x14008c3e0	ported	topo/ptr_ops.hpp ptr_assign
+0x14008c400	ported	topo/ptr_ops.hpp ptr_equal
+0x14008c410	ported	topo/ptr_ops.hpp ptr_nonnull
+0x140412010	ported	src/topo/def_loop.cpp DEF_LOOP ctor
+0x140412080	ported	def_loop.cpp DEF_LOOP dtor
+0x1404120d0	ported	def_loop.cpp slot 0 (empty)
+0x1404120f0	ported	def_loop.cpp slot 1 (empty)
+0x140412100	ported	def_loop.cpp slot 2 (empty)
+0x140412120	ported	def_loop.cpp edge_count (slot 3)
+0x140412150	ported	def_loop.cpp edge_at
+0x1404121e0	ported	def_loop.cpp add_edge
+0x1404123b0	ported	def_loop.cpp face_at
+0x140412440	ported	def_loop.cpp add_face
+0x1404125e0	ported	def_loop.cpp face_count
+0x140412610	ported	topo/loop_geo2d.hpp loop_inside_bbox<G> (slot 4); tested on a mock curve, runs on OBJ_GEO2D when p1-07 lands
+0x1404126d0	ported	topo/loop_geo2d.hpp loop_to_geo2d<G>; tested on a mock curve, runs on OBJ_GEO2D when p1-07 lands
+0x140412da0	ported	def_loop.cpp order_edges
+0x1404133a0	ported	def_loop.cpp find_unvisited_edge
+0x1404136d0	ported	def_loop.cpp scalar deleting dtor (virtual ~DEF_LOOP)
+0x140413710	ported	layout/def_loop.hpp ILoop ctor (default)
+0x140413790	ported	topo/ptr_list.hpp list_push_front
+0x14041c300	ported	src/topo/def_edge.cpp DEF_EDGE ctor
+0x14041c3a0	ported	def_edge.cpp DEF_EDGE dtor (deletes the curve)
+0x14041c430	ported	def_edge.cpp slot 0 (empty)
+0x14041c450	ported	def_edge.cpp slot 1 (empty)
+0x14041c460	ported	def_edge.cpp slot 2 u28_vector
+0x14041c480	ported	def_edge.cpp slot 4 (empty)
+0x14041c4a0	ported	def_edge.cpp set_geo
+0x14041c590	ported	def_edge.cpp vertex
+0x14041c5c0	ported	def_edge.cpp loop_count
+0x14041c5f0	ported	def_edge.cpp set_id
+0x14041c610	ported	def_edge.cpp get_id
+0x14041c630	ported	def_edge.cpp loop_at
+0x14041c6c0	ported	def_edge.cpp add_loop
+0x14041cc10	ported	def_edge.cpp fun_14041cc10 (cast, returns false)
+0x14041cc70	ported	def_edge.cpp fun_14041cc70 (cast only)
+0x14041ccd0	ported	def_edge.cpp curve_flag28
+0x14041cd40	ported	def_edge.cpp set_curve_flag28
+0x14041cdb0	ported	def_edge.cpp slot 3 (-1)
+0x14041cdc0	ported	def_edge.cpp scalar deleting dtor (virtual ~DEF_EDGE)
+0x14041ce00	ported	layout/def_edge.hpp IEdge ctor (default)
+0x14041ce20	ported	def_edge.cpp OBJ_GEO2D::get_flag28 (method of the p1-07 class; its header must declare it)
+0x14041ce30	ported	src/topo/def_vertex.cpp DEF_VERTEX ctor
+0x14041cea0	ported	def_vertex.cpp DEF_VERTEX dtor
+0x14041cee0	ported	def_vertex.cpp collect_edges (slot 0)
+0x14041cf70	ported	def_vertex.cpp slot 1 (empty)
+0x14041cf80	ported	def_vertex.cpp set_xy
+0x14041d000	ported	def_vertex.cpp get_xy
+0x14041d020	ported	def_vertex.cpp edge_at
+0x14041d0b0	ported	def_vertex.cpp add_edge
+0x14041d7b0	ported	def_vertex.cpp edge_count (slot 2)
+0x14041d7d0	ported	def_vertex.cpp scalar deleting dtor (virtual ~DEF_VERTEX)
+0x14041d810	ported	layout/def_vertex.hpp IVertex ctor (default)
+0x14041d830	ported	topo/ptr_list.hpp CowPtrVector::push_back
+0x14041d8d0	ported	topo/ptr_list.hpp CowPtrVector::clear
+0x14041d900	ported	topo/ptr_list.hpp CowPtrVector::size
+0x14041d920	ported	topo/ptr_list.hpp CowPtrVector::detach_if_shared
+0x14041d950	ported	topo/ptr_list.hpp Rep::release_buffer
+0x14041d9a0	ported	topo/ptr_list.hpp Rep::count
+0x14041d9c0	ported	topo/ptr_list.hpp CowPtrVector::detach
+0x14041da40	ported	topo/ptr_list.hpp Rep::reserve
+0x14041dad0	ported	topo/ptr_list.hpp Rep::copy_of
+0x14041dbc0	ported	topo/ptr_list.hpp Rep::reallocate
+0x14041dc40	ported	topo/ptr_list.hpp Rep::copy_range
+0x14041dcc0	ported	src/topo/obj_geo2d_digitized.cpp ctor
+0x14041deb0	ported	obj_geo2d_digitized.cpp reset (slot 2)
+0x14041df30	ported	obj_geo2d_digitized.cpp free_points_wrap
+0x14041df50	ported	obj_geo2d_digitized.cpp free_points
+0x14041dfa0	ported	obj_geo2d_digitized.cpp alloc_points
+0x14041e050	ported	obj_geo2d_digitized.cpp clear_data (slot 3)
+0x14041e090	ported	obj_geo2d_digitized.cpp copy_points
+0x14041e130	ported	obj_geo2d_digitized.cpp copy_from (slot 4)
+0x14041e160	ported	obj_geo2d_digitized.cpp copy_point_buffer
+0x14041ef20	ported	obj_geo2d_digitized.cpp notify (slot 10)
+0x14041ef50	ported	obj_geo2d_digitized.cpp hook_ef50
+0x14041ef60	ported	obj_geo2d_digitized.cpp hook_ef60
+0x14041ef70	ported	obj_geo2d_digitized.cpp reverse (slot 5, prints to be implemented)
+0x14041efa0	ported	obj_geo2d_digitized.cpp char_length (slot 9)
+0x14041efd0	ported	obj_geo2d_digitized.cpp scale (slot 6)
+0x14041f010	ported	obj_geo2d_digitized.cpp translate (slot 7)
+0x14041f050	ported	obj_geo2d_digitized.cpp rotate (slot 8)
+0x14041f090	ported	obj_geo2d_digitized.cpp class_name (slot 1)
+0x14041f0a0	ported	obj_geo2d_digitized.cpp is_extension (slot 11)
+0x14041f590	ported	src/topo/ftn_geom.cpp reverse_point_rows; local copies of p1-12 140437fc0, 14043658f, 14045a140 and of 1404b3b30 inside; sin/cos via CRT (libm core 1404b3960 not ported)
+0x1404cf5c0	ported	ftn_geom.cpp direction_matrix
+0x1404d71d7	ported	ftn_geom.cpp rotate_2d (sin/cos via CRT, see 14041f590)
+0x1404ded0c	ported	ftn_geom.cpp transform_points
+0x14041f0b0	ported	OBJ_GEO2D_DIGITIZED scalar deleting dtor, vtable 0x1405681d8 slot 0; missing from the ledger
+0x14041de60	ported	OBJ_GEO2D_DIGITIZED dtor (called by 14041f0b0); missing from the Phase 1 list
+0x14041dd80	ported	OBJ_GEO2D_DIGITIZED copy ctor; missing from the Phase 1 list

@@ -1,0 +1,57 @@
+{
+  "scope": "Observed VistaStyle virtual subElementRect argument53 only; whole QFrame constructor remains qualified",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-probe004-constructor-tail-reconciliation.json",
+      "sha256": "11b8d10f0e09f89c2555d15c11dc2cba3d0c837070a3ec2c9db0e63757f24dd6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-subelement53-style-static.json",
+      "sha256": "fa3d89dd6ee564ea9a565762087f22abf5db10302c9e7d0f6d36bdcb35f7a130"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-theme-gate-static.json",
+      "sha256": "afb9aa3a2f8b7a7d16def4ae76760f435d1874b01e55c38cd91713d5c3a6fbad"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-xp-subelement53-static.json",
+      "sha256": "9ee4c9727da61dab9c83c0048e3234318dda4b4299560a84c5ca87e6ddddc1cd"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-windows-subelement53-static.json",
+      "sha256": "7116e486379ad6e9a140fc9abf814e466de8f9ab2e8a8c2e2dff58c75d3080aa"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-common-subelement53-prefix-static.json",
+      "sha256": "7de1ba1fbb20c200d106454d71caf89bcd0331535b287b72028942117c34cd87"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-common-subelement53-return-static.json",
+      "sha256": "51f08f525d24d38e9506adb03829a4938a2b58cae4f4d9d8cda6ac849d07e80b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6700b230.asm",
+      "sha256": "b0e77706e1d4476675b428de74b61647f08ee7fda7cfe2695f5bb65b70d0186a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-qrect-default-return-leaf-static.json",
+      "sha256": "f8959dce1cc87208bf72c6a7b1c73b5a28bc5a49f63c5f15e2736c83bd9d59a4"
+    }
+  ],
+  "route": [
+    "65300790 calls6530b770(false): exact false branch reads cached byte659ccaa8, no setter/native call.",
+    "Themefalse or unsupported OS callsWindows65359090; theme/OS true callsXP6530ede0 before Vista switch.",
+    "Vista53 tablebyte65300f49=6 ->65300e8e copies XP result unchanged.",
+    "XP53 >0x27 routes6530f349 ->Windows65359090 regardless theme flag.",
+    "Windows53 not0x0b/0x0e/0x19/0x28 ->Common652bce60 thencopy65359251.",
+    "Common53 tablebyte652c03c5=32 ->652c02c8 defaultreturn; only local default QRect andcopies on selectedbranch.",
+    "QRect6700b230 stores x1=y1=0,x2=y2=-1; tail6700b245 returns this."
+  ],
+  "effect": "Exact style virtual returns default QRect without changing widget/style/global state. Theme/OS predicates do not affect this result/effect for argument53.",
+  "remaining": [
+    "Earlier QStyleOption constructor652a9630/initFrom652ab5b0 and later destructor652a9460 remain ownership dependencies.",
+    "Actual style selection must resolve same observed style identity; different style guarded.",
+    "Early observed frame/policy bytes are not initialized-state proof."
+  ],
+  "rework": "Attempt to recapture QRect at existing artifact address refused immutable-file assertion because prior capture stops mid-return instruction. Prior unchanged; only missing return tail captured separately."
+}

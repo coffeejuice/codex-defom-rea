@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES 124 mirror transform",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nXF124.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "XF124.IGS",
+      "source": "data/xform124.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Mirror x->-x+5 applied to an arc and two lines (DE field 7 = 1); the mirrored arc gets start/end swapped. DIEGEO 1 2 3: arc start (4,0) centre (5,0) -90; line (5,1)-(5,0); line (5,0)-(4,0)."
+  }
+}

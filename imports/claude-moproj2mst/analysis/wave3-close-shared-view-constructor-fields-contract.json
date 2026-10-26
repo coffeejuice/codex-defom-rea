@@ -1,0 +1,47 @@
+{
+  "scope": "Exact source fields needed by shared ViewManager/SfGraphicsView projection",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-140d34730.asm",
+      "sha256": "50f0234e6bf6a3fec0a0d61687df85d38fb4ec93155836fe5f4a19836071882b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d34850.asm",
+      "sha256": "2cec5842ed6d50fedc89a723f42b0d8d5eef364519e4cc2b51f665951361b89a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d34920.asm",
+      "sha256": "38d5530d9f69d05fdac339cc5381e8bd300df45747e7049327ee351723476982"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d8a020.asm",
+      "sha256": "37ac824b3caca5915b1f2cd002af040aecc3ed00e2fca3afe0c9925bc830483a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-shared-view-guard-null-init-static.json",
+      "sha256": "6b60bc84fcf0b5909885f14a7a623802af36c682546508563ba6f4b3371ed40a"
+    },
+    {
+      "path": "analysis/wave3-close-secondary-view-attachment-contract.json",
+      "sha256": "4029335a1c0bb05c91a66b76271c41707af93311930d3a8a719377a38fd236c1"
+    }
+  ],
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "ViewManager": [
+    "d34730 QWidget(parent,rawflags0), installs SfViewManager vtable142a06d98.",
+    "+28 guarded layout initialized by15d170: qword0 then return, exact leaf through15d186.",
+    "+30 layout name uses QString default constructor.",
+    "d34850 calls d34920; layout guard is null on this fresh path, so explicit deletion skips. d34870 registers its four signals afterward.",
+    "The later View_Default request belongs to SfMoMainView constructor0e9400, not d34730 itself."
+  ],
+  "GraphicsView": [
+    "d8a020 QWidget-derived concrete type SfGraphicsView(vtable142a4f928), calls QGraphicsView(parent) base constructor.",
+    "Guarded scene+28 qword0 through15d170; QString+30 default empty.",
+    "Sets translated window title literal142a4f8b0 Graphics view; setRenderHints gets helper031680 result with raw inputs1 and4. Helper arithmetic/enum spelling is not asserted here.",
+    "Primary ca5fd0 allocates0x38 and constructs with null QWidget parent, caches guarded window+138, assigns QGLWidget viewport, applies policy/attribute setup, attaches primary scene, then cd7410. Secondary ca6110 has separate+140 cache and attaches secondary scene, without the primary cd7410 call."
+  ],
+  "qualification": "These fields do not establish current widget parent/visibility, live scene item completeness, Qt callbacks or derived scene geometry."
+}

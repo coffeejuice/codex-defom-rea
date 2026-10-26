@@ -1,0 +1,41 @@
+{
+  "scope": "Read-only exact post-event record append and event-address removal successors; no queue implementation or target execution.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-append-remove-static.json",
+      "sha256": "3e848c48661e894390cd82daa4b5d76e367b8ba756c5245d805066eb99161b4e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-event-list-insert-static.json",
+      "sha256": "38a08406570ee944e4049436247d034e132036c909324828536cef9780b1fd77"
+    },
+    {
+      "path": "analysis/wave3-editor-property-event-dtor-static.json",
+      "sha256": "77dc5a1cff77a692acffdd44e530e573d489a5a5735f46afc4810d881b34b379"
+    }
+  ],
+  "append": {
+    "entry": "6711a200",
+    "order": [
+      "If QList data ref!=1, helper67118dc0 obtains a detached/new end slot. If unique, QListData append67048b90 obtains the end slot.",
+      "Allocate0x18 record, copy receiver0/event8/priority-and-padding+10 from incoming record, then store record pointer into obtained slot.",
+      "Record allocation and ownership are distinct from the QEvent allocation. Underlying QList storage copy/detach must not clone the QEvent object."
+    ],
+    "qualification": "Backing QList allocation helpers not re-expanded; exact record value copy and pointer ownership are bound. Original allocation failure branch stores null if allocator returns null; no safer rollback introduced."
+  },
+  "remove_exact_event": {
+    "entry": "67119970",
+    "thread_owner": "Uses current threadData from6702aca0, NOT a receiver-selected thread. Guard exact thread ownership; do not scan an arbitrary session queue.",
+    "prefix": "Null event or event.posted bitclear returns. Otherwise lock current threadData+48 mutex and scan ordered queue at+30 for first record whose event pointer equals argument.",
+    "match_order": [
+      "Decrement actual receiver QObjectPrivate+24 posted count.",
+      "Clear actual event posted bit0.",
+      "Invoke actual event virtual deleting destructor with flag1 when nonnull.",
+      "Set only matched record.event pointer to null. Receiver, priority, list size and relative order remain; this is a tombstone, not physical erase.",
+      "Unlock and return after first match."
+    ],
+    "no_match": "Unlock/return without clearing supplied event.posted flag. Do not silently repair inconsistent state.",
+    "qualification": "This helper is distinct from QObject-wide removePostedEvents(receiver,type) and does not establish that other cleanup path. The stack property event has postedfalse and does not enter it."
+  },
+  "next": "For actual QObject teardown, identify removePostedEvents(receiver,type) caller/order before implementing queue cleanup; original event-address removal is not a substitute. Root approved one shared queue owner and captured-state observation remains pending."
+}

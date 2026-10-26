@@ -1,0 +1,21 @@
+# CP206 null-owner runner static release review — HOLD
+
+Reviewed `admin/original_null_owner_probe.mjs` at SHA-256 `7d8bdfc7a3958f3e9a096947448c2cb4011fe52133887d15a99e12b57e16f8e1` against `analysis/resume206-null-owner-hook-spec.md`, `analysis/resume206-null-owner-runner-implementation.md`, and the qualified CP205 raw capture. This was a static review only: no original process, Frida session, GUI, build, or probe execution.
+
+## Release blocker
+
+**HOLD — undefined `stamp` prevents any reviewed run.** Line 189 interpolates `stamp` when constructing the output directory, but `stamp` is never declared or assigned in the module (its only occurrence is line 189). If the two intentional launch guards are later satisfied, `run()` throws `ReferenceError` before directory creation, fixed preflight, helper launch, or evidence retention. The final `.catch()` can print only `PRELAUNCH_FAILURE`. Define a stable timestamp before this use, then repeat the static review of the changed SHA. The implementation report's syntax checks cannot detect this runtime name error.
+
+## Checked contract
+
+- The default guard remains `false` and the exact `--execute-reviewed-probe` argument is additionally required before the output path is evaluated. The script has not authorized or performed a run.
+- The installed original v11.0.2 image hash, helper hash (independently rehashed), project hash, `C:\PROBLEM\p202a` cwd, `Gear_blank.moproj` command, source location, 27-file count, and fixture manifest pin match the CP205 qualified capture and hook spec. The disposable fixture is checked before attach and compared afterward. The source and fixture manifest must both match the retained digest.
+- The four RVA/byte pairs are `eb00f/4c895838`, `eb013/c744245400000000`, `eb1e3/488b4938`, and `eb1e7/e804c3fbff`. The injected script verifies each against the loaded module before attaching. Its operands align with the spec: `R11` producer result at the write and post-write sites, `RCX` holder at the pre-load site, and `RCX` consumed value at the call site. It preserves `O`, `H`, frame `RSP`, TID, loop index, field address, and guarded field-read status. It does not substitute the diagnostic reread for the call operand.
+- Pointer reads are locally caught and retain an explicit unreadable result. The four interceptors observe pre-instruction state; they do not assign application data, registers, or return values. The first access-violation handler returns `false` and retains RIP, accessed address, registers, module descriptions, and an accurate backtrace. Hooks are capped at 16 records per site and 64 total; overflow and hook errors disqualify `captureComplete` when observed.
+- The runner requests one helper `resume` after identity and handler-ready validation. The helper enforces its own single-resume state. The host waits five seconds for natural exit before fallback cleanup, then checks the helper cleanup receipt, Windows and Frida process absence, detach state, and fixture equality. Termination prevents `captureComplete`. Output files use exclusive creation once the directory exists.
+
+## Evidence interpretation limit
+
+The runner deliberately leaves `causalClassification` indeterminate. Its `captureComplete` checks the presence and shape of an access-violation receipt and coverage at all four sites, but does not itself prove that the first AV is the CP205 `a74f0`/Qt fault or pair a particular consumer with its immediately preceding load and same-frame completed store. A later reviewer must select that fault and pair by PID, exact creation-filetime string, TID, frame, `O`, `H`, index, and sequence before concluding producer-null, later field transition, or holder change. An unrelated first AV, address reuse, intervening writer, or ambiguous recursion must not be turned into a producer-versus-field claim. The four hooks cannot name a later writer or prove object lifetime.
+
+The exact creation-filetime text is extracted from the helper's raw JSON line, avoiding the rounded JavaScript numeric receipt; raw helper lines are retained. CP205's successful raw line demonstrates why this distinction matters. This static review cannot establish Frida runtime delivery or cleanup behavior.

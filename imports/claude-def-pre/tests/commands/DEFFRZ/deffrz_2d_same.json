@@ -1,0 +1,21 @@
+{
+  "label": "DEFFRZ 1 1 0.0 2D (DEF_FRZ)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nHAMMER_SI.DB\nDEFFRZ 1 1 0.0\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAMMER_SI.DB",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "2D FUN_140157890: FRZ1.INI (DB, step, 1, '         1          1  ', '0.000000'), DMESH.DAT ('%10d\n' nnodes, '%10d %5d\n' nelem 4); runs 'DEF_FRZ > DEF_FRZ2.OUT' (2D folder); reads DEF_FRZI.KEY (FUN_1401573c0 clears nodal arrays first), then DEF_FRZI.TMP. stdout 'Force interpolating...HAMMER_SI.DB'."
+  }
+}

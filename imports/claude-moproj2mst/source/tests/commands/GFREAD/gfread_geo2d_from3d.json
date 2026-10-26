@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD 3D-format GEO into a 2D object",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nIN.GEO\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "IN.GEO",
+      "source": "data/geo3d_small.geo"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "2D table: pass 1 (3D reader) succeeds but FUN_14024bb30 needs the curve-start array +0x10, which only the 2D reader allocates -> returns 0, nothing changed; pass 2: 2D pre-check needs 2 tokens on line 2 (has 4) -> fails. Object 1 keeps its KEY geometry, 'Loading geometry - Done'."
+  }
+}

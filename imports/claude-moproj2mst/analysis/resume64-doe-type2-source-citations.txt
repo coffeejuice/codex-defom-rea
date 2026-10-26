@@ -1,0 +1,345 @@
+source/apps/moproj2mst/include/m2m/model.hpp:270-273 SHA256 084075fefce8572de158c8dbe4d926d693e8e19ecee8f85771ef7958789d4e5e
+270:     int id = 0;                    // +0x1c
+271:     doe::Model* doe = nullptr;     // +0x20 alias of ownedDoeStudy for recovered Type2
+272:     std::shared_ptr<doe::Study> ownedDoeStudy; // manager ownership; existing writers use the alias
+273:     String dbName;                 // +0x38 Subproject_DbName DbName
+
+source/apps/moproj2mst/include/m2m/doe_study.hpp:35-49 SHA256 5c732df88170c190364447577395537edf6c729ae209607fb782864cbeba425f
+35: struct Study : Model {
+36:     SubProject* sub = nullptr;        // +0x90 (0x1400b5c40: its project's folder)
+37:     String name;                      // +0x98 (0x1400ab770), "DoeStudy<n>"
+38:     bool doPositioning = false;       // +0x78 (0x1400bc690)
+39:     int roiType = 0;                  // +0x7c (0x1408e0550)
+40:     String commonMeshPath;            // +0x80 (0x1400bc640)
+41:     String commonMeshOrigName;        // +0x88 (0x140917060)
+42:     std::vector<String> regions;      // vt+0xc0 0x1400d7ee0 count, vt+0xd8 0x14091f380 name
+43:     int constraints = 0;              // vt+0x28 0x140159d00 count
+44:     int objNo = 0;                    // 0x14091e0f0
+45:     int oprNo = 0;                    // 0x14091e0b0
+46:     SampleState samples;
+47:     std::shared_ptr<SessionDocument> outputDocument; // Type2 SP+30 document, lazily created
+48:     // Explicit run multiplicities supplied by the caller of writeDefDoeIni. This legacy
+49:     // seam is not evidence that the manager groups duplicate rows; the sampler is unported.
+
+source/apps/moproj2mst/src/model/subproject.cpp:301-308 SHA256 187ac92f56cc1ce9a4e1c08d3037c90fe98e1e17a8885340a78ca5901863977c
+301:     s->type = type;
+302:     s->id = id;
+303:     s->doe = nullptr;
+304:     if (type == 2) {
+305:         s->ownedDoeStudy = doe::makeStudy(*s, p.doeIo.get());
+306:         s->doe = s->ownedDoeStudy.get();
+307:     }
+308:     s->dbName = String();
+
+source/apps/moproj2mst/src/model/subproject.cpp:384-389 SHA256 187ac92f56cc1ce9a4e1c08d3037c90fe98e1e17a8885340a78ca5901863977c
+384:         } else if (c->tag == L("SfDoeStudy") && sub.type == 2) {
+385:             if (!sub.ownedDoeStudy || sub.doe != sub.ownedDoeStudy.get() || !p.doeIo)
+386:                 throw Error(M2M_E_UNSUPPORTED, "DOE lazy parsing requires owned study and configured I/O");
+387:             doe::readLazyStudy(*sub.ownedDoeStudy, *c,
+388:                               projectDir(p) + qt::kSep + L("DoeStudies"), *p.doeIo);
+389:         } else if (c->tag == L("SfDoeStudy") && sub.type == 3) {
+
+source/apps/moproj2mst/src/moproj/read.cpp:141-145 SHA256 da7bb6b87bd70c771c5b0fa25a9eaec2ef6a0139684d00ce503ce0270bc5e145
+141:     // Sub-project 0 exists from the ctor and keeps type 0 / id 0.
+142:     for (int i = 0; i < nSub - 1; i++)
+143:         p.subs.push_back(makeSubProject(p, subType[static_cast<size_t>(i) + 1], subId[static_cast<size_t>(i) + 1]));
+144:     for (int i = 1; i < nSub; i++) {
+145:         SubProject* sub = p.subs[static_cast<size_t>(i)].get();
+
+source/apps/moproj2mst/src/core/convert.cpp:188-200 SHA256 ea57d098969ab37d498314662dd8cd5829f200e73c97b3ceab191beaa05c21d5
+188:         // 0x14001ca30: data root for changeSuffix(file, ".DB"), then the project ctor with its dir/base.
+189:         const qt::String db = app::changeSuffix(file, qt::L(".DB"));
+190:         if (ctx.session) session.prepareProjectModel(db);
+191:         initProject(p, qt::absolutePath(db), qt::completeBaseName(db));
+192:         if (ctx.session) session.commitProjectModelConstruction();
+193:         p.doeIo = writeFile && (flags & M2M_FLAG_WRITE_SAVE)
+194:                       ? doe::makeNativeStudyIo() : doe::makeRecordingStudyIo();
+195:         p.doeIo->bindSessionNotificationState(session.sessionNotificationStateOwner());
+196:         p.doeIo->bindSliceConstructorRuntime(session.sliceConstructorRuntimeOwner());
+197:         p.doeIo->bindTaskAllocationStore(session.taskAllocationStoreOwner());
+198:         p.doeIo->bindTaskFactoryRuntime(session.taskFactoryRuntimeOwner());
+199:         if (ctx.session) p.doeIo->bindModelManager(session.modelManagerOwner());
+200:         p.doeIo->setQtWarningSink([&ctx](const std::string& text) {
+
+source/apps/moproj2mst/src/core/convert.cpp:221-224 SHA256 ea57d098969ab37d498314662dd8cd5829f200e73c97b3ceab191beaa05c21d5
+221:             throw Error(M2M_E_PARSE, "Error on reading project file!");
+222:         if (ctx.session) session.commitProjectModelSelection();
+223:         activateSubProject(p, 0, ctx);
+224: 
+
+source/apps/moproj2mst/src/core/convert.cpp:321-330 SHA256 ea57d098969ab37d498314662dd8cd5829f200e73c97b3ceab191beaa05c21d5
+321:                 if (!engine::saveCurrent(p, ctx, saved)) throw Error(M2M_E_PARSE, "Error on reading project file!");
+322:                 checkOutputAlias(saved.step2);
+323:                 applyEffects(saved.step2);
+324:                 // Original0x1400980d0 ignores this false until after properties
+325:                 // and MST. Keep DOM mutation behind the actual project-file open.
+326:                 saved.call.projectWriteAttempted = true;
+327:                 saved.call.projectWriteSucceeded = moproj::saveProjectFileNative(p, false, *views, {&opened, &saved.step2});
+328:                 saved.call.projectWriteReturned = true;
+329:             } else if (!engine::saveProject(p, ctx, *views, opened, saved)) {
+330:                 throw Error(M2M_E_PARSE, "Error on reading project file!");
+
+source/apps/moproj2mst/src/engine/save_project.cpp:71-79 SHA256 caad315ee609c5da39eee35e6728c32e39cc0f3a31fe3b89fffbaf4c3f5339c9
+71: bool saveProject(Project& p, Ctx& ctx, moproj::DiagramViews& views, const FileEffects& open, SaveEffects& out)
+72: {
+73:     if (!saveCurrent(p, ctx, out)) return false;
+74:     out.call.projectWriteAttempted = true;
+75:     out.call.projectWriteSucceeded = moproj::saveProjectFile(
+76:         p, false, views, {&open, &out.step2}, out.project);           // 0x1400983c0(P, 0)
+77:     out.call.projectWriteReturned = true;
+78:     return out.call.projectWriteSucceeded;
+79: }
+
+source/apps/moproj2mst/include/m2m/moproj_write.hpp:83-95 SHA256 e194acf4eecf7ce4162de868bbe1dd381d2c6f06bc96ef66b35fa415f987b286
+83: // DOM is edited and written. Returns false when the original returns 0 (empty path; the "Project
+84: // file can't be saved" case cannot happen here: the bytes go to fx).
+85: bool saveProjectFile(Project& p, bool withBlobs, DiagramViews& views,
+86:                      const std::vector<const engine::FileEffects*>& earlier, engine::FileEffects& fx);
+87: 
+88: // Same DOM writer with original QFile mode2 opened before any DOM update. A
+89: // failed open returns false with the old DOM intact. Success writes UTF-8 via
+90: // QTextStream and closes before testing QFile.error (not Stream status).
+91: // The Save coordinator must continue later stages even when this returns false.
+92: bool saveProjectFileNative(Project& p, bool withBlobs, DiagramViews& views,
+93:                            const std::vector<const engine::FileEffects*>& earlier);
+94: 
+95: }  // namespace m2m::moproj
+
+source/apps/moproj2mst/src/moproj/write.cpp:112-143 SHA256 6df9a21b4dd9847b50ad17ddc3af48252ed49ce11369b36267abbc6f614d3299
+112: NodePtr subProjectElement(Project& p, SubProject& sub, DiagramViews& views)
+113: {
+114:     NodePtr e = element("Sub_Project");
+115:     {
+116:         // @src 0x14009a640
+117:         double x = 0, y = 0;
+118:         views.viewCentre(sub, x, y);
+119:         NodePtr vt = element("ViewTransform");
+120:         append(*vt, textElement("CenterX", qt::number(x, 'g', 6)));
+121:         append(*vt, textElement("CenterY", qt::number(y, 'g', 6)));
+122:         append(*e, vt);
+123:     }
+124:     append(*e, views.dispView(sub));                              // 0x140cd57b0
+125:     const int n = static_cast<int>(sub.flow.items.size());
+126:     attr(*e, "Number", qt::number(n));
+127:     attr(*e, "Active", qt::number(sub.flow.activeItem));          // index of the view's current item, -1
+128:     attr(*e, "Type", qt::number(sub.type));
+129:     const int id = subProjectId(p, p.activeSub);                  // 0x1400a7760
+130:     if (id > -1) attrInt(*e, "Id", id);
+131:     for (int i = 0; i < n; ++i) append(*e, diagramItem(sub, views, i));
+132:     if (sub.type == 2 || sub.type == 3)
+133:         throw Error(M2M_E_UNSUPPORTED, "project file: DOE / optimisation study elements (0x1400d29d0, 0x140907a10)");
+134:     // Subproject_DbName (0x1400b9e80: own DB name for type 4, else 0x1400b9df0)
+135:     if (sub.type == 4) throw Error(M2M_E_UNSUPPORTED, "project file: Subproject_DbName of a die-stress sub-project (0x1400bbee0)");
+136:     NodePtr db = element("Subproject_DbName");
+137:     // 0x1400b9df0 -> 0x1400a4f60(P, 0): changeSuffix(completeBaseName(P+0x18) (0x14008a500), ".DB")
+138:     attr(*db, "DbName", sub.project ? app::changeSuffix(projectBaseName(*sub.project), L(".DB")) : String());
+139:     append(*e, db);
+140:     return e;
+141: }
+142: 
+143: std::string readAll(const std::filesystem::path& f)
+
+source/apps/moproj2mst/src/moproj/write.cpp:495-519 SHA256 6df9a21b4dd9847b50ad17ddc3af48252ed49ce11369b36267abbc6f614d3299
+495: static bool saveProjectFileBody(Project& p, bool withBlobs, DiagramViews& views,
+496:                      const std::vector<const engine::FileEffects*>& earlier, engine::FileEffects& fx,
+497:                      mst::OutputDevice* output)
+498: {
+499:     if (!p.dom || !p.dom->root) throw Error(M2M_E_UNSUPPORTED, "project file: no document read at open");
+500:     xml::Document& doc = *p.dom;
+501:     // Native caller has already passed the QFile open gate; recording caller
+502:     // explicitly simulates it. Failed native open never reaches these mutations.
+503:     NodePtr title = rootChild(doc, "Title", true);
+504:     attr(*title, "Name", p.title);                                 // P+0x28
+505:     NodePtr unit = rootChild(doc, "Unit", true);
+506:     attr(*unit, "Name", p.unit == 1 ? L("SI") : L("English"));    // P+0x20
+507:     NodePtr db = rootChild(doc, "Primary_DB_Name", true);
+508:     attr(*db, "Name", relativeToProject(p, primaryDbPath(p)));    // 0x1400a4ee0, 0x1400a42c0
+509:     operationList(doc, p, earlier, withBlobs);                     // 0x14009cfd0
+510:     itemLists(doc, p, earlier, withBlobs);                         // 0x1400a1110 .. 0x1400a14d0
+511:     SubProject* sub = activeSubProject(p);
+512:     if (!sub) throw Error(M2M_E_UNSUPPORTED, "project file: no active sub-project");
+513:     NodePtr ns = subProjectElement(p, *sub, views);                // 0x140099040(P, doc, "", type, 0)
+514:     // @src 0x1400a88a0 / appendChild
+515:     int k = 0;
+516:     NodePtr old;
+517:     for (const NodePtr& c : doc.root->children)
+518:         if (c->kind == Node::Element && c->tag == L("Sub_Project")) {
+519:             if (k == p.activeSub) {
+
+source/apps/moproj2mst/src/moproj/write.cpp:551-565 SHA256 6df9a21b4dd9847b50ad17ddc3af48252ed49ce11369b36267abbc6f614d3299
+551: bool saveProjectFileNative(Project& p, bool withBlobs, DiagramViews& views,
+552:                            const std::vector<const engine::FileEffects*>& earlier)
+553: {
+554:     if (p.path.isNull() || p.path.isEmpty()) return false;
+555:     p.path = app::appendSuffix(p.path, L("moproj"));
+556:     mst::FileDevice file(p.path);
+557:     if (!file.opened()) return false;                             // information dialog's sole OK answer
+558:     engine::FileEffects unused;
+559:     (void)saveProjectFileBody(p, withBlobs, views, earlier, unused, &file);
+560:     // 0x140098dd3 queries QFile.error AFTER close, which can clear an earlier
+561:     // error even when QTextStream remains failed. Do not substitute stream status.
+562:     return file.error() == 0;
+563: }
+564: 
+565: }  // namespace m2m::moproj
+
+source/apps/moproj2mst/src/doe/doe_study.cpp:137-162 SHA256 988b9599de5d47426bef8fd34554b436636e0af2932ecbd1f43e1458629532e4
+137: bool writeSampleTable(int mode, const SampleTable& rows, const String& path, engine::FileEffects& fx)
+138: {
+139:     std::string bytes = qt::formatInt(mode) + "\r\n";
+140:     int rowNo = 0;
+141:     for (const auto& row : rows) {
+142:         bytes += qt::formatInt(++rowNo) + '\t';
+143:         for (double value : row) bytes += qt::formatDouble(value) + '\t';
+144:         bytes += "\r\n";
+145:     }
+146:     fx.writes.push_back({path, bytes});
+147:     return true;
+148: }
+149: 
+150: bool saveSampleTable(const Study& s, int mode, const String& path, engine::FileEffects& fx)
+151: {
+152:     if (mode < 0 || mode >= 3 || s.samples.invalid[mode]) return false;
+153:     return writeSampleTable(mode, s.samples.tables[mode], path, fx);
+154: }
+155: 
+156: bool saveCurrentSamples(const Study& s, const String& doeStudiesDir, engine::FileEffects& fx)
+157: {
+158:     const int mode = s.samples.mode;
+159:     if (mode < 0 || mode >= 3) unsupported("current sample mode outside manager storage (0x1400d75a0)");
+160:     const String sep = String(std::u16string(1, qt::kSep));
+161:     return saveSampleTable(s, mode, doeStudiesDir + sep + s.name + sep + L("Control") + sep + L("DEF_DOE.PAR"), fx);
+162: }
+
+source/apps/moproj2mst/src/doe/doe_study.cpp:280-288 SHA256 988b9599de5d47426bef8fd34554b436636e0af2932ecbd1f43e1458629532e4
+280: bool writeInputTable(const String& path, Study& s, engine::FileEffects& fx)
+281: {
+282:     // 0x14091c820: variables with no samples and no geometry files are removed first
+283:     if (!s.vars.empty())
+284:         unsupported("DoeInputTable.XML with variables (0x14090a550 variable part) has no oracle case yet");
+285:     if (s.constraints > 0)
+286:         unsupported("DoeInputTable.XML with constraints (0x14090a550 vt+0x28 part) has no oracle case yet");
+287:     xml::Document doc;                                       // QDomDocument("DoeInputTableFile")
+288:     doc.doctypeName = L("DoeInputTableFile");
+
+source/apps/moproj2mst/src/doe/doe_study.cpp:322-329 SHA256 988b9599de5d47426bef8fd34554b436636e0af2932ecbd1f43e1458629532e4
+322: bool saveInputTable(Study& s, const String& dir, engine::FileEffects& fx)
+323: {
+324:     // 0x1400d2b60: the variables' operation numbers follow the flow chart
+325:     if (!s.vars.empty()) unsupported("0x1400d2b60 with variables has no oracle case yet");
+326:     const String sep = String(std::u16string(1, qt::kSep));
+327:     const String path = dir + sep + s.name + sep + L("Control") + sep + L("DoeInputTable.XML");   // @0x142166b78
+328:     return writeInputTable(path, s, fx);
+329: }
+
+source/apps/moproj2mst/src/doe/doe_study.cpp:495-500 SHA256 988b9599de5d47426bef8fd34554b436636e0af2932ecbd1f43e1458629532e4
+495: xml::NodePtr studyElement(const Study& s)
+496: {
+497:     xml::NodePtr e = xml::createElement(L("SfDoeStudy"));   // @0x142166b58
+498:     xml::setAttribute(*e, L("name"), s.name);               // +0x98
+499:     return e;
+500: }
+
+source/apps/moproj2mst/include/m2m/doe_io.hpp:62-73 SHA256 3207aaa840a4774ac2323fcef675363c08eeca75c8baec2e9b84a7bceff69192
+62:     virtual bool ensureDirectory(const qt::String& path) = 0;
+63:     // Returns open success, not write/close success (0x140915360). No mkdir,
+64:     // temporary replacement or rollback. Directory-only custom sinks must opt in.
+65:     virtual bool writeTextFile(const qt::String& path, const std::string& bytes);
+66:     // Raw bytes for ReadOnly|Text consumers, which apply their own decoding. Return
+67:     // open success; later read errors retain partial bytes for the original parser.
+68:     virtual bool readFile(const qt::String& path, std::string& bytes);
+69:     // Separate open/size/read permits the .DS caller to discard old DOM before
+70:     // a nonempty file read, and to skip reading a genuinely zero-size file.
+71:     virtual std::unique_ptr<StudyReadFile> openReadFile(const qt::String& path);
+72:     IoMode mode() const { return mode_; }
+73:     const std::vector<DirectoryAttempt>& directories() const { return directories_; }
+
+source/apps/moproj2mst/include/m2m/doe_io.hpp:91-101 SHA256 3207aaa840a4774ac2323fcef675363c08eeca75c8baec2e9b84a7bceff69192
+91:     //Bind before first observation; never silently discard an existing owner.
+92:     void bindSessionNotificationState(std::shared_ptr<SessionNotificationState> owner);
+93:     SessionNotificationState& sessionNotificationState();
+94:     const SessionNotificationState* observedSessionNotificationState() const
+95:     { return sessionNotificationState_.get(); }
+96:     const StateVarRuntime* observedStateVarRuntime() const { return stateVarRuntime_.get(); }
+97:     // The actual session/main-window manager, shared with other consumers.
+98:     // Null means unavailable; never create an isolated manager or copy its ID.
+99:     void bindModelManager(std::shared_ptr<engine::ModelManager> owner);
+100:     engine::ModelManager* modelManager() const noexcept { return modelManager_.get(); }
+101:     // Borrow the actual fresh-process context even for models without a DB.
+
+source/apps/moproj2mst/src/doe/io.cpp:115-129 SHA256 4a9574161317572c651a3df0757138c3cceb8bb252a376d360c5bbbb77e63db2
+115:         // retroactively turn a successful creation into a reported failure.
+116:         return recordDirectory(path, false, true, !ec);
+117:     }
+118:     bool writeTextFile(const qt::String& path, const std::string& bytes) override
+119:     {
+120:         // The caller supplies Text-mode bytes. Binary mode avoids a second CRLF
+121:         // conversion. Opening truncates in place, so later failure keeps its effects.
+122:         std::ofstream out(osPath(path), std::ios::binary | std::ios::trunc);
+123:         if (!out.is_open()) return recordTextWrite(path, bytes, false, false, false);
+124:         out.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+125:         out.flush();                                       // QTextStream::endl boundary
+126:         const bool written = out.good();
+127:         out.close();
+128:         return recordTextWrite(path, bytes, true, written, !out.fail());
+129:     }
+
+source/apps/moproj2mst/src/doe/io.cpp:148-164 SHA256 4a9574161317572c651a3df0757138c3cceb8bb252a376d360c5bbbb77e63db2
+148:         return recordDirectory(path, existed, !existed, true); // simulated, never a native result
+149:     }
+150:     bool writeTextFile(const qt::String& path, const std::string& bytes) override
+151:     {
+152:         // Preserve the caller's spelling in the observation, but recognize the
+153:         // separator and dot-component aliases that refer to one simulated file.
+154:         writes_[qt::cleanPath(path)] = bytes;
+155:         return recordTextWrite(path, bytes, true, true, true); // explicitly simulated
+156:     }
+157:     bool readFile(const qt::String& path, std::string& bytes) override
+158:     {
+159:         const auto found = writes_.find(qt::cleanPath(path));
+160:         if (found != writes_.end()) {
+161:             bytes = found->second;
+162:             return recordRead(path, bytes, true, true); // simulated earlier write
+163:         }
+164:         bool succeeded = false;
+
+source/apps/moproj2mst/src/doe/session_notifications.cpp:45-61 SHA256 066eb200da45c48a0efc0a96c5093eaf5236946eab2abc929b0d89f07072c09d
+45:     if (!sessionNotificationState_)
+46:         sessionNotificationState_ = std::make_shared<SessionNotificationState>();
+47:     return *sessionNotificationState_;
+48: }
+49: 
+50: void observeEmptySessionNotification(StudyIo& io, const std::string& signal,
+51:     std::optional<std::size_t> currentPart, std::optional<int> currentSession,
+52:     std::optional<int> argument)
+53: {
+54:     if (signal != "2signalChangeStepRange()" && signal != "2signalOpenSession()" &&
+55:         signal != "2signalChapterChanged()" && signal != "2signalNumChaptersChanged()" &&
+56:         signal != "2signalGetCurrentStepViewInfo()" && signal != "2signalMoEquipManagerChanged()")
+57:         throw Error(M2M_E_UNSUPPORTED, "DOE notifier key has no recovered empty binding contract");
+58:     auto& state = io.sessionNotificationState();
+59:     SessionNotificationAttempt attempt{signal, state.suppressed, false,
+60:         currentPart, currentSession, argument};
+61:     if (!state.suppressed) {
+
+source/apps/moproj2mst/include/m2m/mst/file_device.hpp:16-35 SHA256 ed23e5f70cc45d03e850223f09cc006ecbf65aaababe095b075c55864c1bf769
+16: class FileDevice final : public OutputDevice {
+17: public:
+18:     explicit FileDevice(const qt::String& path);
+19:     ~FileDevice() override;
+20:     FileDevice(const FileDevice&) = delete;
+21:     FileDevice& operator=(const FileDevice&) = delete;
+22: 
+23:     std::int64_t write(std::string_view bytes) override;
+24:     bool flush() override;
+25:     void close() override;
+26:     bool opened() const override;
+27:     // QFile::error (private+0x120), separate from QTextStream's sticky status.
+28:     int error() const;
+29: 
+30: private:
+31:     struct Impl;
+32:     std::unique_ptr<Impl> impl_;
+33: };
+34: 
+35: } // namespace m2m::mst

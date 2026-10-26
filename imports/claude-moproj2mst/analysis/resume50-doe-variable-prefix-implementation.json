@@ -1,0 +1,81 @@
+{
+  "utc": "2026-10-24T18:50:43.784836+00:00",
+  "owner": "distortion_rea",
+  "status": "bounded_prefix_implemented; public_guard_retained; pending_parent_build_tests",
+  "evidence": "analysis/resume50-doe-variable-body-pe.md",
+  "api": {
+    "type": "m2m::doe::B121ScalarVariablePrefix",
+    "constructor": "explicit B121ScalarVariablePrefix(std::shared_ptr<Study> study);",
+    "entry": "[[noreturn]] void read(const xml::Node& doeVariables);",
+    "ownership": "Requires actual active Type2 sub.ownedDoeStudy, same sub.doe alias, same Project.doeIo binding. Caller retains prefix through refusal; project/sub/IObinding lifetime must cover reads.",
+    "retained_projection": "Typed ScalarVariablePrefixRecord derives legacy Var and is published in actual Study.vars; prefix owns it. Native scalar keywords retained in typed keywords, not coerced into legacy geometry Item projection.",
+    "disposal": "Adapter destructor removes only its borrowed Var alias to prevent dangling; not native Close parity."
+  },
+  "owned_files": [
+    {
+      "path": "source/apps/moproj2mst/src/doe/variable_prefix.hpp",
+      "bytes": 3249,
+      "sha256": "ba842abe9634f91ab49f925e2cc616ee27b2456285f357152971707b88d1ebbf"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/doe/variable_prefix.cpp",
+      "bytes": 7830,
+      "sha256": "648f27d48011d18a467806da90ceaab045811ff4998db8fe80e37926b47e759e"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/doe/test_variable_prefix.cpp",
+      "bytes": 7688,
+      "sha256": "5bebd38d792982b9d6bdd1d1c8f9fd868a1b1f4497a3560a12e556440e259881"
+    }
+  ],
+  "valid_branch": [
+    "Fresh empty mode0 manager and empty design rows",
+    "One reached 3D valid positive-ID variable; named TLOC/unit0/scalar-double keyword with empty parameterName",
+    "Append variable then assign name, selectedIndex0, dirty three sample flags, ID/dimension headers",
+    "Collect keyword attributes/text/positive operation IDs in XML order; first-child NominalData rule",
+    "Append keyword ID8/unit0/numerical nominal with constructor selector/flags/text/bounds; merge Var.ops uniquely",
+    "Retain pending booltrue/int-first-operation signal and parsed locals; throw M2M_E_UNSUPPORTED before delivery, selector/type/text setters or reindex"
+  ],
+  "public_integration": "No readInputTable, activation or public active DOE guard changed. Helper does not claim complete parse or successful B121 conversion. Root must keep public guard until actual state ownership and notification binding are qualified.",
+  "unproven_guards": [
+    "Wrong owner/alias/active sub/IObinding",
+    "Existing variables/prefix replay/preexisting samples",
+    "Mode1/2 design state",
+    "Missing/invalid required B121 headers or dimension!=3",
+    "LinkTo, Geometry, function/enum, non-ASCII parameter type, non-TLOC/unit0 keyword, nonempty parameterName",
+    "Enum/bounds/entity child data, empty/nonpositive operation IDs",
+    "Unresolved signalSetOprHasDoe delivery"
+  ],
+  "tests": {
+    "cases": 7,
+    "target": "m2m_doe_variable_prefix",
+    "ctest": "m2m.doe.variable_prefix",
+    "parent_reconfigure_required": "New tests/doe packet directory requires parent CMake reconfigure; no CMake edit.",
+    "run": false,
+    "coverage": [
+      "Retained headers, constructor fields, actual Var alias, sample dirty flags, selectedIndex",
+      "Keyword data committed but nominal text empty/index-1 at stop",
+      "No scalar temp.KWD/StudyIo read/write/directory/notification state effects",
+      "Parsed parameter7 deferred while constructor selector stays-1",
+      "NominalData first-child comment skips later string",
+      "Unrecovered function/enum retains prior variable headers only",
+      "Owner/alias/IObinding failures before mutation",
+      "Mode/retry guards and retained pointer identity",
+      "Public readInputTable guard unchanged"
+    ]
+  },
+  "checks_performed": [
+    "Source review against complete native body and verified helper/vtable fields",
+    "Test literal XML parsed with Python standard library to verify actual tab",
+    "Exact7test declarations and public unsupported guard presence checked",
+    "Only3announced newsource/test files written; no shared source/CMake/build/plan/GUI"
+  ],
+  "checks_not_performed": [
+    "Compilation",
+    "CTest execution",
+    "Fresh original run",
+    "Actual messenger delivery",
+    "Full callee/lifecycle/Save parity"
+  ],
+  "token_measurement": "unavailable"
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "m2m-doe-shared-view-pointer-contract-v1",
+  "status": "source-bound design/evidence; no source edits since checkpoint29 writer freeze",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence_sha256": {
+    "analysis/wave2-doe-output-default-task-serialize-decompile.json": "ee06f99d6c4e6ab13e4c675707ae2640b0ac9bcd2a80d90fd91a69cac88b5f49",
+    "analysis/wave2-doe-default-session-mainwindow-hook-decompile.json": "bc30465a8010070628e0e854341e9e0280cb576589e91ca0110871bc66f1006f",
+    "analysis/wave2-doe-default-session-mainwindow-hook-tail.asm": "0b84309ed97d6b92f3c4fd3adb2045b2a74d0407f33c7d7c465ef2aa8cdec9a6",
+    "analysis/wave3-closure-next-1400e9400.asm": "7594bf4f140da1b4fb6933b144aef569d508b1af8c43985773e0f48dfd994234",
+    "analysis/wave3-close-default-splitter-ownership-contract.json": "d623bef49c31e9de10434cbaed642ca4b4f72b2cce29d94c4db82b74b4370e05",
+    "analysis/wave3-close-secondary-splitview-contract.json": "7d3a50ae6b050fc57eb4b434fbc728154742d3fc180c506a827eec0163b05229",
+    "analysis/wave3-close-hide-widget-factory-contract.json": "e5ff7b3b06ab097deb20c52f51a58c4427618aad41632f99d3ea6d05d8b8a5b7",
+    "analysis/wave3-close-shared-view-owner-api-proposal.json": "85437bfdc3558a6347875919f0a23b85bc0d8bae72987e9cbfa06a2d7f597c5b",
+    "analysis/wave3-close-scene-initial-text-items-contract.json": "d78480d69e7ee013a55149e4efdd53f5a4a5e9c6d8b8280a82f35aede7dd83b2",
+    "analysis/wave3-closure-next-close-qt-widget-visibility-leaves-static.json": "4182523c9ad198c97079c4543bec0f65fda6c4c8b6372ecb8ccd88b68ae17142"
+  },
+  "distinct_objects": {
+    "mainwindow+250": "SfMoMainView allocation0e9400(this,mainwindow,parentnull)",
+    "SfMoMainView+30": "pointer to a separately allocated private implementation object (PIMPL), not manager",
+    "PIMPL+30": "raw pointer to separate SfViewManager allocation",
+    "mainwindow+148": "QPointer alias to SAME SfViewManager, not MainView nor its PIMPL",
+    "SfViewManager": "separate0x38 QWidget, constructor parent=SfMoMainView",
+    "mainwindow+138": "guarded Primary widget cache, distinct from primary scene cache+120",
+    "scene": "same actual PostGraphSceneState with Display at native scene+10; same text objects, no duplicate DOE scene"
+  },
+  "operand_proof": [
+    "0e9bbb allocates0x38;0e9be8 callsd34730 with parent=this SfMoMainView; manager result is kept in rsp+60.",
+    "0e9cd8 loadsRDX=rsp+60,0e9cdd loadsRCX=mainwindow,0e9ce5 callswindow vt+7c0=ca6240. ca6240 directly assigns second argument to guarded+148.",
+    "0e9cf3 loads[MainView+30] to PIMPL;0e9cf7 loads SAME manager rsp+60;0e9cfc stores[PIMPL+30]=manager.",
+    "64fc30 gets window657870, invokesvt+7b8=ca6210 resolving+148. Nonnull result goes DIRECTLY asd37ea0 arg1: no extra+30 dereference."
+  ],
+  "corrections": [
+    "0e9400 is actual MainView constructor, not Qtstaticmetacall; prior candidate-only label superseded by operand proof.",
+    "d34bd0/d34cd0 already bound; default-splitter remaining-list entry explicitly refined in hide-widget-factory contract.",
+    "SfTextItemDbName/StepNo snapshot strings classify pointer identity of existing SfGraphicsTextItem; they are not distinct allocated C++ types."
+  ],
+  "shared_snapshot_requirements": [
+    "Same actual manager/layout/named SplitView_Main ownership; execute d34d50 lazy layout prefix and retain unguarded missing(0,0) layout-item boundary.",
+    "Actual ordered weak splitter children0/1, qualified CURRENT isVisible flag (Qt655dfaf0 private bit15), graphicsView and scene/cast outcomes. Unavailable differs qualified null/type mismatch.",
+    "Same scene/text owners; current item population coverage and Qt items() stacking order are separate from allocation/ownership vector order.",
+    "Write GraphicsItems/Number from ALL items count before visible/type filters; SceneRect width/height consumed next.",
+    "Current geometry is not default0: cca680 callsccb980(scene,0,0,inputWidth,inputHeight) before caching dimensions. Resize/history andccb980 effects require source coverage.",
+    "Visible item geometry/font/payload remain guarded at consumption; hidden owned text still contributes to Number."
+  ],
+  "minimal_api": [
+    "Session owns actual MainView/PIMPL and its parented ViewManager; mainwindow+148 is a weak alias, shared by DOE and Close.",
+    "Root manager resolver supplies actual widget/view/scene identities and source-ordered field operations. No parallel registry, scene, copied receiver state or guessed geometry.",
+    "Root scene exposes qualified CURRENT geometry and Qt-order query on existing items.",
+    "A root-owned writeGraphicsItemsSnapshot(actualManager,xml::Node&) seam can execute d37ea0 at exact call. Unknown owner knowledge guards; qualified expired/null weak alias skips nativeifnonnull."
+  ],
+  "lifetime_queue": [
+    "Original010490/0111c0/012040/012ea0/0e9400 default-view/Primary construction precedes any Project. Primary scene/view cache and registry are mainwindow lifetime.",
+    "Current lazy Project.display is an adapter projection. Root should own actual primary Scene/Display in Session/mainwindow construction and alias Project.display to it, without DOE/per-project duplication.",
+    "MainView constructor parentnull versus later UI parent assignment remains distinct; only manager parent=MainView is operand-bound here.",
+    "No process-global teardown/cross-project/Qt parent destructor parity claimed by shared_ptr lifetime projection."
+  ],
+  "qualification": "Static retained PE/DUMPBIN/Ghidra plus agreed typed-source projections; no runtime/GUI/build. Does not prove CURRENT visibility, geometry, full item population or original acceptance."
+}

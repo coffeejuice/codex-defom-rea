@@ -1,0 +1,21 @@
+{
+ "label": "DEFAMG obj1 2D mesh only (no DIEGEO)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 600,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nDEFAMG       1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/viewfactor/Viewfactor1_SI.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "stdout lines: INFO   : Generating mesh - Object 1.... Object 1 has RZ/ELMCON but no DIEGEO: FUN_140144620 builds the boundary curve from the mesh (FUN_1401fc730) before DEF_AMG runs; OUT.KEY should gain a DIEGEO for object 1 and a new mesh (MGNELM 1 -> very coarse). If the single derived curve has no region/loop topology, FUN_140198520 builds it."
+ }
+}

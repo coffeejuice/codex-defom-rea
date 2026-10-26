@@ -1,0 +1,73 @@
+{
+  "scope": "Ptrk XML mutations relevant to enabled ChangePtrkGraph; no claim actual public Open reaches XML import",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "method": "Retained original PE and bounded offline disassembly only",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-ptrk-flag-writer-upstream-candidates.json",
+      "sha256": "2954b7d99f3ce2509bdeab6830d22107e304620666e8506d07b8403e8310db48"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-flag-lifetime-qualification.json",
+      "sha256": "4c73b212f5f3eb47bdedf42c9bfa8bed619306e25db5338526ac4af056516fb3"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-xml-flag-owner-static.json",
+      "sha256": "e51a302945acfc08ec2f0481e90b52aa5cbe4ad5b30769f4802299972e15c906"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-xml-graph-bit-static.json",
+      "sha256": "10a63cb4a33d6bce2432be8c6a74a386c8562778f50dbfdb44c50cb5c806278d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-filename-leaf-static.json",
+      "sha256": "bd7c857879e3a5ad976cfb42ae865db07224acdd87c8d4fd5d371d5fae73d028"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-graph-constructor-contract.json",
+      "sha256": "f7fc594fb2083450c9896bec0fd8510368ea01106230c9cf7181bd214abea166"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14030e570.asm",
+      "sha256": "048c2bb182831c1d81d618de4351db9397905abb9c3fa7cc678e7f15c4367c98"
+    }
+  ],
+  "literals": {
+    "0x1429e9bdc": {
+      "text": "SfPtrk",
+      "file_offset": 43942876
+    },
+    "0x14230c768": {
+      "text": "StepNo",
+      "file_offset": 36745064
+    },
+    "0x14230c770": {
+      "text": "GraphOn",
+      "file_offset": 36745072
+    },
+    "0x14230c778": {
+      "text": "DEF_PTR.DAT",
+      "file_offset": 36745080
+    }
+  },
+  "source_order": [
+    "cddd00 tests DOM tag SfPtrk, obtains lazy manager cdd980 on the given data root, then calls30e570 if nonnull. 7ae210 has another instruction-verified direct call30e570. Reachability of either path from the selected public Open remains distinct.",
+    "30e570 iterates child elements in XML encounter order. StepNo text.toInt(nullptr,10) writes manager+488 and sets a local presence marker.",
+    "GraphOn text.toInt(nullptr,10)!=0 calls3216a0, which calls lazy31fab0 then3d7520 on its graph. This writes graph+f1, not manager+4d0. A GraphOn element can therefore allocate/register a graph even when value is0.",
+    "After child traversal and path setup, absent StepNo marker skips the later +4d0 decision. With marker present,30a2b0 must yield a model; a null model also skips the decision.",
+    "Before the enable decision there is optional StepNo-dependent314ac0->3dcc10 work when local+28>0. This does not establish a complete parser implementation.",
+    "Then QDir(empty).exists(30f6a0(manager)) is tested. 30f6a0 is a pure address return of QString atmanager+490. If the file exists,30ad90 executes; true writes manager+4d0=true then31fbb0, false writes+4d0=false then3200d0. If it does not exist,3200d0 precedes+4d0=false.",
+    "30ad90 has nontrivial native data work and early false conditions including emptyfilename and nullmainwindow; it is not a pure predicate and remains unprojected.",
+    "Other verified setter writers311df0/312de0 invoke point tracking process signals and then set the manager flag from their load result. They remain separate from XML and are not asserted reachable in this headless conversion."
+  ],
+  "integration_consequence": [
+    "Two flags must remain separate in any future manager/graph projection.",
+    "Neither XML GraphOn nor constructor defaults alone establish manager enabled state at accepted Close.",
+    "Current CloseEffects implementation correctly guards enabled managers before lazygraph mutation; no guard relaxation follows from this receipt."
+  ],
+  "remaining": [
+    "Selected Open reachability and actual manager lifetime/population.",
+    "Path resolution,314ac0,31fbb0,3200d0 and30ad90 native payload effects.",
+    "All indirect flag writes and dynamic registrations; direct byte-pattern candidates are not exhaustive."
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "status": "isolated_helpers_ready_public_save_still_refused",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "bytes": 7531,
+      "sha256": "2e5498f83d7dff0929d8692259672e92981dbbea931cfea2d91cdf4bfffa0d62"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "bytes": 17429,
+      "sha256": "0f6224678f8eeaa3d5a2f17fdc6bcbccccb5d349a8976496773c3d3c9377b61b"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "bytes": 17428,
+      "sha256": "37fe91cbb238deed7f5651886c32f668cc9789239ce22f6684955b1a392e8aef"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-sim300-pages3-4-root-review.json",
+      "bytes": 6688,
+      "sha256": "59f33783f0ee70505d04aa405c2fcf9734c233f30cf049bfb7c7445ccd6f9fc8"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ebb950.c",
+      "bytes": 8115,
+      "sha256": "567c123c4b97312875eb0d145b82b40d78d95df0f9bf4200b17a031218727671"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebc1f0.c",
+      "bytes": 16374,
+      "sha256": "7623760b1104c3ace3c5ed06262e6af119b92a3061a307f6b88038cef73480de"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecc770.c",
+      "bytes": 3020,
+      "sha256": "b1edcf2bba6cd285e55f348e204839f0d3fa90609c09e911b6bf9703ef79d71f"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eccaa0.c",
+      "bytes": 607,
+      "sha256": "3aefcef8636c90a836f2168e531679e4845fb755036afd7d73d50ad5719aa882"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecc540.c",
+      "bytes": 2343,
+      "sha256": "e6ae27a2fa05d3f4ae6fb64c09d718500928309358911d78c24ea9996ac5a104"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecb340.c",
+      "bytes": 2509,
+      "sha256": "84eb3c518d394e7c9c16abb6ae49927ff8d57e5e2d092ab9de40c8d1b2d821b5"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ebd180.c",
+      "bytes": 11682,
+      "sha256": "2e4e10bb9a30ae74ccdcae56654fe63a276c338fd1567ae3bd0aa32dbbee0ea8"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebf8f0.c",
+      "bytes": 16147,
+      "sha256": "cd54c007bad3cedbc1ca34c918bd61942ac5ee1d197c5b7f3dd7b3544805764b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6310.c",
+      "bytes": 874,
+      "sha256": "c00f4d565bdd8fc2109b7fc39d1c3c0fc96e4726437046517b5260a9417d1da3"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ebe800.c",
+      "bytes": 3593,
+      "sha256": "e973900848216e617054da3eb058030385f514104a6165eba47bc0617b526848"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb71e0.c",
+      "bytes": 3305,
+      "sha256": "31c63046d9a9df0d7f0cf45ae3c7db3781565f39531195c5408b3d0d44e2d708"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-step-stop-formats.json",
+      "bytes": 2285,
+      "sha256": "8158addfcd2131f5f86239225783137412da2eb939981a4a99b0e106538cbe03"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-rotation-formats.json",
+      "bytes": 1640,
+      "sha256": "066d3a269bd2c59ff9f1774e6b07d0b69246c9e6109ac152ac7e70fb44b16856"
+    },
+    {
+      "path": "source/port/defmodel/src/window/inter_object_ops.cpp",
+      "bytes": 5466,
+      "sha256": "7743de56231c2c0626fc78a2f7dc824a34606fa1563a919b003ccb641ba7721b"
+    }
+  ],
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Retained original static decompiles from the byte-verified private project. No new Ghidra export or target runtime. Evidence contains source addresses; source completeness is bounded to the explicit guards below.",
+  "step_size": {
+    "fill": "eb b950 -> ecc770/eccaa0/ecc540; constructor final ecb340 copies model DTTYPE into editor+e8 before refilling step size",
+    "guards": [
+      "dimension3",
+      "explicit KnownC numeric locale",
+      "DTTYPE type0x80 / ndim0 / no owned object / no table pointers or counts / ncomp0or1",
+      "DTTYPE mode0or1 and STPDEF1,2,3",
+      "finite filled scalar text inputs"
+    ],
+    "snapshot": "Each line edit retains Qt g6 text. The temporary DYNARY is deep-copied through the existing recovered dynary_copy and held const; no shallow owning copy.",
+    "open_effect": "ecc770 writes model DTTYPE mode before any Save; STPDEF3 radio2 stores mode1",
+    "apply_order": [
+      "DTTYPE mode",
+      "DTMAX1 then zero DSMAX, or DSMAX then zero DTMAX1",
+      "STPDEF",
+      "DEMAX",
+      "DPLEN",
+      "DTSUB",
+      "radio2 alternate DTMAX1",
+      "DTPMAX1,2,3 from selected page",
+      "SLDERR",
+      "temporary DTTYPE curve deep-copy then restore mode"
+    ],
+    "partial_validation": "Only Invalid stops. Each preceding write survives. Invalid before final curve copy leaves that copy unapplied. Intermediate text is converted using the same QString numeric seam.",
+    "excluded": "2D fields, tabulated curves and unrecovered curve-form callbacks are explicit unsupported profiles, not defaulted."
+  },
+  "stopping": {
+    "guards": [
+      "model dimension3",
+      "explicit KnownC numeric locale",
+      "object0 absent",
+      "neither stored MDS selector names an eligible existing object (kind!=7)",
+      "finite filled scalar and selected rotation-vector values"
+    ],
+    "snapshot": "TMAX, SMAX, VMIN, LMAX, EMAX use Qt g6 text; MDSOBJ4 uses width10/fixed5. Absent/undefined MDS selections become none; invalid mode index becomes-1. Rotation vector/center text is retained from the fill-time selector.",
+    "apply_order": [
+      "TMAX",
+      "SMAX1,2,3",
+      "PDIE movement warning predicate",
+      "VMIN1,2,3",
+      "LMAX1,2,3",
+      "EMAX",
+      "MDSOBJ4 (Invalid only logs; still converts)",
+      "MDSOBJ1,2 from none and mode from combo",
+      "both eb6da0 no-ops because selected object0 absent",
+      "ec09a0(&0) no-op",
+      "fresh rotation selector then vector and center writes"
+    ],
+    "rotation": "eb6310 scans object positions1..count for the first nonzero vector, returns position+1, fallback1; the caller then looks up that number. Apply deliberately repeats the scan against current model state. Initial editor+11c0 does not mean object0 or no writes.",
+    "prompt_boundary": "If current PDIE movement kind3,4,7,8,9,10 and any VMIN/LMAX parsed difference>1e-6, helper returns UnsupportedSnapshot at that point after TMAX/SMAX changes. No dialog answer is invented.",
+    "excluded": "Existing selected MDS objects, their node/spin callbacks, and PDIE warning answers remain unsupported."
+  },
+  "constructor_contract_correction": {
+    "immediate_repeat": "eb50f0 first repeats stopping and meshing",
+    "then": "ecb340(0) backs up SC; refills general, step count; copies DTTYPE to editor+e8; refills step size, iteration; copies environment temporary curves and VFACTR; refills environment, advanced; restores SC from backup",
+    "consequence": "Final widget and curve snapshots must reflect this complete order. The original two-element repeat array alone was not the complete constructor tail; the new constructorBackedUpRefreshOrder records the extra six page fills."
+  },
+  "tests": {
+    "status": "not_run_by_worker_root_builds_and_executes",
+    "all_snapshot_cases": [
+      "general_applies_remembered_controls_and_explicit_enable_state",
+      "general_preserved_process_branch_and_mesh_visibility",
+      "general_rejects_unrecovered_radio_dimension_mode_and_codec_branches",
+      "step_count_exact_spin_clamps_and_remembered_primary_die",
+      "iteration_remembers_cg_text_combo_and_validation_state",
+      "iteration_invalid_convergence_preserves_original_partial_write_order",
+      "iteration_intermediate_is_not_invalid_and_integer_invalid_defaults200",
+      "iteration_guards_are_explicit_and_other_solver_parameters_stay_unwritten",
+      "step_size_preserves_temporary_curve_and_remembered_text",
+      "step_size_time_and_variable_modes_follow_original_overwrites",
+      "step_size_partial_validation_keeps_prior_stores_and_defers_curve_copy",
+      "step_size_profile_guards_do_not_mutate_rejected_input",
+      "stopping_snapshots_scalars_but_reselects_rotation_at_save",
+      "stopping_invalid_threshold_still_executes_rotation_tail",
+      "stopping_partial_validation_and_pdie_warning_boundary",
+      "stopping_existing_mds_and_locale_profiles_are_explicitly_guarded"
+    ],
+    "new_cases": 8,
+    "prior_validation": "Root reported combined103 CTests passed before this increment, including snapshot8/8; analysis/wave2-snapshot-tasklists-validation.json"
+  },
+  "successor_started": "Retained meshing ec0a40/ec1350 review started: deep per-object forms and first selected form's text/spin roundtrip, separately from global remesh singleton. No meshing implementation claim yet.",
+  "not_claimed": [
+    "Public mode300 Save integration",
+    "Fresh original acceptance or RS55 equality",
+    "Complete model/license/locale settings binding",
+    "Token efficiency gain; token usage unavailable"
+  ]
+}

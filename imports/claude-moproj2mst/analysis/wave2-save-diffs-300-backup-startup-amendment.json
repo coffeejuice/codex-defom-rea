@@ -1,0 +1,72 @@
+{
+  "status": "gui_startup_backup_amendment_frozen_for_root_build",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "bytes": 8101,
+      "sha256": "bde128696195eaea0d58ad9dd377fd897d3550048991a76f83381a5d27b55270"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "bytes": 13027,
+      "sha256": "5efbcc5106da63a29645e6b97427f09fe5e5072f5ecfd53ad15221d8c1974fd5"
+    }
+  ],
+  "lineage": [
+    {
+      "path": "analysis/wave2-save-diffs-300-backup-unit-repair.json",
+      "bytes": 7097,
+      "sha256": "33d39e32ecde69da480953cfa02d381a3134ad1c7b943fd25809514774379449"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-gui-unit-ctor-contract.json",
+      "bytes": 6863,
+      "sha256": "ba68ec3115724242bdc65de76364a475c3b837597e8f88779c5e198708796c95"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-gui-unit-setter-qualification.json",
+      "bytes": 1405,
+      "sha256": "8e5a0f4735b56abdce679e92f9039a55b9d12aaeef3ba596f1c1a8a38be79072"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-observed-composition-increment.json",
+      "bytes": 6452,
+      "sha256": "d301246be4f948997a054996ebf7f3051399543d688ccc8410c749b76ce3bb66"
+    }
+  ],
+  "root_interface_at_handoff": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/p17.hpp",
+      "bytes": 5839,
+      "sha256": "688c911b8c30354366a0a2be2d7c0579328be00d2e14d696b3baa19eeea3278e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/model/units.cpp",
+      "bytes": 6562,
+      "sha256": "4a55b37b657545a00d6dab1cd639efc56a57a5dfc5b219e1906ad0e133820059"
+    },
+    {
+      "path": "source/port/defmodel/include/defmodel/step/db_step.hpp",
+      "bytes": 8973,
+      "sha256": "eef902dcb1eb68aa864a361e7098c5370ee1e8d3fab40e4edd737c53c0bbccaa"
+    },
+    {
+      "path": "source/port/defmodel/src/step/sim_ctrl.cpp",
+      "bytes": 8994,
+      "sha256": "8b66ec42396604281bf4619d78bce141ff2e1ab90b3a7dd863ec5f6331313ebd"
+    }
+  ],
+  "original": "GUI1408d3bc0 stores global143d79724 toUNIT beforeowner/init. GUI backup constructor in140ecb340 uses that same global, then owner/init, then loadedSC field-awarecopy. Fresh global0 is loader-zero-filled, distinct from later loadedUNIT1/2; prior UI sessions can change global. No original heap-value assumption remains for GUIUNIT.",
+  "amendment": "Replace backup.unit=sc.unit with backup.unit=guiStartupUnit() before owner/init, using root's per-call thread_local startup seam. Root's GUI-only native constructor seed now establishes the same value; explicit local seed also documents the original boundary. Preserve later sim_ctrl_copy in both directions and original omissions. No DEF_PRE source changes made by worker.",
+  "test": "Existing lifecycle unit case now runs six startup/loaded pairs:startup0/1/2 xloaded1/2. Assert actualGuiModel constructorUNIT equals startup before loadedfixture setup, verify customloaded environment/snapshots survive Open and remembered text applies, and assert applying loadedUNIT neverchanges startupglobal. Scope restores prior startup state after each pair. No existing assertions weakened; lifecycle casecount remains7.",
+  "checks": {
+    "original_startup_seed_before_owner_copy": true,
+    "removed_loaded_seed": true,
+    "declaring_headers": true,
+    "scope_and_getter_declarations": true,
+    "test_main": true,
+    "no_trailing_whitespace": true
+  },
+  "validation": "Cheap API/header/main/source-order/whitespace inspection only. No workerbuild/test/runtime/fixturewrites. Parent119 checkpoint predates current amendment/composition/rootGUIseed and is not acceptance evidence for them. Source is frozen immediately after receipt.",
+  "limits": "Root owns shared GUI startup scope and native variant initialization; their policy/validation is separate. Public300 guard remains, remesh source not started, whole application recovery incomplete."
+}

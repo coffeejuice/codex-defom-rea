@@ -1,0 +1,149 @@
+{
+  "scope": "Source-bound Qt splitter owner/record prefixes and exact next constructor dependencies; read-only after grid continuation freeze",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-default-splitter-owner-cursor-correction.json",
+      "sha256": "87ca0d8d8f828ff3ae871c18fa313c6c66178a57ea7b2721e6b238d8dc41a813"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-widget-base-constructor-static.json",
+      "sha256": "695d040ca3f9b02d1399aa4e5b5779bd8fec236ca4f2cd9e50352fa078eff60c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-private-frame-prefix-static.json",
+      "sha256": "fa763b67b9e0d0b45ee14c7246d01b78808cf0ca455db305310baa52bc5b2aa4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-parent-event-and-insert-static.json",
+      "sha256": "416dc83d572d1123ef986fc98efbcb2d4029495cafa2aec1c745b5d6e0710e58"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-insert-complete-tails-static.json",
+      "sha256": "7d935466e9d640fe195402fbf86fc3c05be9d9d84cd22abcc0886583932faeee"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-private-insert-static.json",
+      "sha256": "12dd77760f861d75cbc85f43ae20dcb2a668be714ef5c37eb8ca4179f7da059a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-size-record-construction-static.json",
+      "sha256": "f02354debb6d4cb2f5ef5e06472cdc2b13f2f62cc98aa3daa4e8dd0fdfaf30d8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506dbd0.asm",
+      "sha256": "732491d42b26315e65e0039309e70d98d72f7d37c7e576e25d83408e2ca02ff8"
+    },
+    {
+      "path": "analysis/wave3-close-grid-constructor-create-event-contract.json",
+      "sha256": "9e2096aca2736bc69b648a9090a71afd70a9779d1cc510498f3c12a666b55174"
+    }
+  ],
+  "rtti_bindings": [
+    {
+      "vtable": "0x1420fbde8",
+      "col": "0x1430d4ca0",
+      "col_bytes_sha256": "2673b16761ce77551e28620b38946c8f42a6bb25ebbb3331ca62c4d87e46c372",
+      "type_descriptor": "0x143567558",
+      "rtti": ".?AVQWidget@@",
+      "slots": [
+        {
+          "offset": "0x20",
+          "thunk": "0x14013898e",
+          "bytes": "ff25c430cd01",
+          "iat": "0x141e0ba58",
+          "import": "?event@QWidget@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "offset": "0x38",
+          "thunk": "0x140138634",
+          "bytes": "ff25d6bdcc01",
+          "iat": "0x141e04410",
+          "import": "?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z"
+        }
+      ]
+    },
+    {
+      "vtable": "0x1421872a8",
+      "col": "0x1430d75f8",
+      "col_bytes_sha256": "ecd780a500a95babe5a994382ef80b0ec552acb43d91f1595d657794098cde6e",
+      "type_descriptor": "0x1435a2978",
+      "rtti": ".?AVSfMoMainView@@",
+      "slots": [
+        {
+          "offset": "0x20",
+          "thunk": "0x140138c40",
+          "bytes": "ff2502e5cc01",
+          "iat": "0x141e07148",
+          "import": "?event@QTabWidget@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "offset": "0x38",
+          "thunk": "0x140138634",
+          "bytes": "ff25d6bdcc01",
+          "iat": "0x141e04410",
+          "import": "?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z"
+        }
+      ]
+    },
+    {
+      "vtable": "0x142a5a638",
+      "col": "0x1430f5870",
+      "col_bytes_sha256": "810f2389997d0b91bd4321edb115415fb1f9a49b7bccd691748c60b22eab0383",
+      "type_descriptor": "0x1439965e8",
+      "rtti": ".?AVSfSplitView@@",
+      "slots": [
+        {
+          "offset": "0x20",
+          "thunk": "0x1401394e0",
+          "bytes": "ff2562c6cc01",
+          "iat": "0x141e05b48",
+          "import": "?event@QSplitter@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "offset": "0x38",
+          "thunk": "0x1401394e6",
+          "bytes": "ff2564c6cc01",
+          "iat": "0x141e05b50",
+          "import": "?childEvent@QSplitter@@MEAAXPEAVQChildEvent@@@Z"
+        }
+      ]
+    }
+  ],
+  "base_constructor": [
+    "QSplitter65403210 allocates private0x228, constructs65402a70, then QFrame653b2470(private,actual MainView,flags0). Only after that returns does it install QSplitter vtables6570b4d8/6570b498, store orientation at private+218, set size policy6506db20, and set attribute0x44 false65068fe0.",
+    "QSplitterPrivate65402a70 calls QFramePrivate653b20e0->QWidgetPrivate6505e780. It initializes guarded member+208, empty QList+210, bytes+21c/+21d/+21e=1,+21f=0,int+220=0,byte+224=0. Orientation+218 is assigned only after QWidget/QFrame constructors.",
+    "QFrame653b2470 forwards private/parent/flags to QWidget65070f00. QWidget constructs QObject with supplied private and parentnull, installs QWidget base vtables, then calls already-retained QWidgetPrivate6506e4d0(actual MainView,flags0).",
+    "Thus QObject/QWidget parent setup uses the concrete MainView parent before SfSplitView derived identity/name/notifier registration. Do not give early actual QObject ownership to manager."
+  ],
+  "mainview_event44": [
+    "SfMoMainView vtable1421872a8 slot20 thunk140138c40 binds QTabWidget::event65411b40. It only handles raw0x4c specially; raw0x44 forwards to QWidget6506c950.",
+    "Retained QWidget raw44 route forwards QObject::event to actual MainView slot38, imported QObject::childEvent pure RET. This closes receiver body only.",
+    "QWidget::setParent6506dbd0 emits ChildAdded raw44 at6506e082->6506e09b when applicable, AFTER nativeparent commit. Unlike the already-completed nonwidget-grid parent helper, this QWidget path then checks parent private+68 pending-child vector and may post raw0x43 at6506e0f3, append a guarded child to+68 at6506e11c, and later emit raw0x45/0x15 according to widget state.",
+    "The fresh grid observation covers its own parent/event/profile point; it is not direct evidence for MainView object filters, pending-child vector, constructor raw0x0f gesture contexts or this different QWidget event sequence."
+  ],
+  "explicit_insert_prefix": [
+    "QSplitter::addWidget65405710 obtains current logical record count at private+210 and tail-calls65404d00(private,count,widget,true). insertWidget65404f70 forwards explicit index with true to the same function.",
+    "65404d00 saves private+224 and sets it true before visibility tests, QWidget reparent65070a60, optional show, logical record insertion654039a0, and recalculation65404920. It restores original+224 only after normal return.",
+    "QSplitter::childEvent65404f80 checks child QWidget type; raw added path calls implicit insertion only if +224=false, child is not window and no matching record. Thus explicit-add reentrant raw44 sees+224=true and does not perform that recursive insertion. Other event predicates and raw0x47 removal still have real effects.",
+    "654039a0 finds a record by widget identity+18. Existing identity is moved to normalized index, not duplicated. For new identity it allocates0x28 record: rect ctor, size+10=-1, flags+14 lowbits cleared then bit4 set, widget+18=null, handle+20=null.",
+    "It invokes actual splitter virtual+190 for a concrete handle, sets handle object name, stores handle+20 and widget+18, applies child effect650688f0, then inserts record at private+210 via65050c10. Actual handle creation, child effects and recalculation remain separate dependencies.",
+    "Two logical placeholder records do not imply only two QObject children: handles are distinct native QWidget children, and pending event/other child ownership must remain qualified."
+  ],
+  "implementation_direction": [
+    "Preserve current ViewManager cursor after cached grid; do not replay earlier clear calls.",
+    "Next actual SplitView projection needs pending allocation/construction separate from native QObject liveness and parent identity. Initial parent is actual MainView; later grid add reparents to manager before layout-item insertion.",
+    "Keep actual two placeholder identities and per-record handle identities; a count or copied scene registry cannot implement ownership.",
+    "Only after dab900 completes are five actual weak splitter registrations inserted into shared SessionNotificationState. Name+28 and manager layoutName+30 occur later in their separate source order.",
+    "No concrete splitter is added in production yet; do not prematurely advance nativeLayoutResolved or commit aliases."
+  ],
+  "remaining_smallest": [
+    "Qualify QWidgetPrivate6506e4d0 parent/event prefix for the existing MainView (receiver raw44 leaf now closed; app/object filters, child bookkeeping and raw0x0f gesture path still input-dependent).",
+    "Recover actual createHandle virtual+190 target and minimum handle constructor ownership if future insertion reaches it."
+  ],
+  "capture_qualification": [
+    "Initial short addWidget/insertWidget captures ended in partial instructions. Separate6540571d..6540574c and65404f77..65404f7c capture complete instruction tails; no truncated pseudo-op supports a claim.",
+    "QSplitter::childEvent spans multiple unwind records; initial prefix plus explicit65404fb1..654051a2 completes the body.",
+    "No target runtime, GUI, builds, shared Ghidra, or production source edits in this successor investigation."
+  ]
+}

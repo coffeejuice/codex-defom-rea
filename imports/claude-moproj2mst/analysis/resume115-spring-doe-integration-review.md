@@ -1,0 +1,21 @@
+# CP115 deferred Spring ordering and DOE correspondence review
+
+## Spring callback order
+
+The previously identified ordering deviation is corrected. `fillExtra3DImpl` reads NBC, SW2SP, STRETCH (integer then doubles), B_WEIGHT and STRAIN_DST at lines 119-143, invokes the deferred combo-ID provider at 144-148, and only then calls `readSprings` at 149-150. This matches retained `FUN_140ec8110`: the final scalar/zero-count STRAIN_DST read precedes `FUN_140ec8b00` and `FUN_140ec8e70`, and the `FUN_1410dab40` Spring reader follows them (`analysis/wave2-save-diffs-300-support-140ec8110.c:125-140`). The lifecycle now passes a deferred lambda (`simcontrol300_lifecycle.cpp:142-145`), so the `GuiModel::object` scan cannot preempt the earlier scalar sidecar reads.
+
+The ID list itself remains source-qualified against retained `FUN_140ec8b00` (`analysis/wave2-save-diffs-300-support-140ec8b00.c`, original SHA recorded in `resume114-spring-positive-count-static.md`): seed item-data ID 0, visit one-based object numbers in order, omit objects whose `+0xC` kind is 7, and use object `+8` as item data for both combos. Candidate `GuiModel::objectCount/object(i)` implement the corresponding count and object-list lookup (`src/engine/gui_model.cpp:210-226`); kind 7 is independently identified by retained `FUN_140834fa0` usage in `src/engine/db_load.cpp:582-583`. Null objects/cap overflow remain guarded; on unavailable IDs, empty spans prevent admitting a positive Spring row. The callback computes a value projection rather than constructing Qt widgets, so this closes the row-membership bridge but does not claim native widget events, full palette, or public Save admission.
+
+No new side-effect ordering blocker found in this Spring change. Actual combo construction/insertion remains represented only as item-data values; the admitted profile uses that list to qualify the unchanged row selection. Public `completeForPublicSave=false` guards are not changed by this callback.
+
+## DOE point-pair receiver
+
+`appendGeometryCorrespondencePair` targets the existing `HeaderVariableRecord::files[rowIndex]` owner and appends one ordered pair into the selected GeoFile side (`variable_record.cpp:78-89`). This matches the retained native contract summarized in `resume115-doe-correspondence-owner-plan.md`: receiver index is independent of the row-prefix tail, each side stores 32-byte pairs, signed invalid indexes return before append, and normal calls have no native status branch. It snapshots both input points before vector append, which handles aliased inputs such as the test's existing-pair reversal case. It does not require row keys or mutate path/flags/MorphMethod, consistent with the receiver evidence.
+
+The focused test constructs the real `Study`/header owner and verifies explicit row-zero placement even when prefix mutation targets a later tail, ordered repeated appends, independent upper/lower lists, invalid-index no-op, exact double preservation, and that public Geometry still refuses before creating file payload (`tests/doe/test_geometry_correspondence_prefix.cpp:23-45,60-120`). This is a private already-converted receiver test, not an XML `PointPair` parser, QFileInfo/path resolver, public DOE Geometry success, notification, or native runtime test; the file's own final test preserves that refusal.
+
+One small defensive boundary remains: an invalid cast value of `GeometryCorrespondenceSide` falls through the ternary to the Lower list (`variable_record.cpp:86-87`). The enum is private and all current call sites/tests use its two declared values, so this is not a blocker for the claimed source-qualified callers. If the helper is intended to accept untrusted/internal generic enum inputs, add an explicit guard and a test; do not describe arbitrary enum values as native behavior.
+
+## Qualification
+
+Read-only static review. No source/test edits, build, test execution, GUI control or mutable REA operation performed. Spring integration now matches the retained scalar→combo-population→Spring-reader order at the adapter boundary. DOE correspondence remains a candidate private receiver edge; original parser-level Geometry acceptance and runtime parity are not established.

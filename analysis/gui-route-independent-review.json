@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:38:24.044425+00:00",
+  "reviewer": "validation_fixtures",
+  "status": "approved_with_existing_static_only_qualifications",
+  "artifact_sha256": {
+    "analysis/gui-invocation-route-map.json": "77a0f5eff910ffe223cc152175bf6d21ccea2ab1b5bdf87703d5d0b722559a07",
+    "analysis/gui-invocation-route-map.md": "41691fc38e38da1d26e62f4d9f65bff33a208084eab79c9c35e15b081f8e9907"
+  },
+  "candidate_context": {
+    "version": "0.2.1",
+    "sha256": "7e9d043f19d453d9f1d3cae217b17eaaf0bd70f55a29979741729ab2a1f7c9c5",
+    "identity_qualification": "Copied from frozen route contract; this review did not re-census deployment."
+  },
+  "checks": [
+    {
+      "id": "four_callers_are_not_four_PRE64_routes",
+      "result": "pass",
+      "evidence": [
+        "build/gui-validation/mo-callsite-arguments.txt: call sites 0x14012c233, 0x1401caf9c, 0x140e29346, 0x140eaf4dd",
+        "build/gui-validation/mo-launch-focused.c:278-318,682-685"
+      ],
+      "finding": "The common helper selects the marker-based Qt process path only for param4==0 or param5!=0. The contract explicitly distinguishes caller count from PRE64 selection."
+    },
+    {
+      "id": "runsim_and_copymirror_flags",
+      "result": "pass",
+      "evidence": [
+        "build/gui-validation/mo-callsite-arguments.txt:0x14012c215/0x14012c21a",
+        "build/gui-validation/mo-callsite-arguments.txt:0x140e2932f/0x140e29334"
+      ],
+      "finding": "Each sets stack fifth argument to0 and R9B fourth argument to1. The retained callee consumes byte flags. Both take alternate dispatch."
+    },
+    {
+      "id": "conversion_marker_branch",
+      "result": "pass",
+      "evidence": [
+        "build/gui-validation/mo-callsite-arguments.txt:0x1401caf79-0x1401caf9c",
+        "build/gui-validation/mo-launch-focused.c:278-318",
+        "analysis/gui-invocation-route-map.json:/raw_pe_bindings/strings"
+      ],
+      "finding": "Conversion sets fifth argument1, independent of virtual fourth flag. Retained marker literals and choice bindings support requesting DEF_PRE_64.EXE when marker exists."
+    },
+    {
+      "id": "alternate_command_resolution",
+      "result": "pass",
+      "evidence": [
+        "build/gui-validation/mo-alternate-dispatch-inner.c:45-189",
+        "build/gui-validation/mo-shell-dispatch.c:22-54",
+        "analysis/gui-invocation-route-map.json:/raw_pe_bindings/strings"
+      ],
+      "finding": "The selected mode consults DEFORM_PC_PATH, probes bare token/.EXE/.COM, assembles command, and reaches COMSPEC/cmd.exe with /c. No _64 substitution is shown in this selected path. Contract correctly leaves resolved child path to runtime capture."
+    },
+    {
+      "id": "generate_database_conditional",
+      "result": "pass",
+      "evidence": [
+        "build/gui-validation/mo-launch-focused.c:1112-1193",
+        "build/gui-validation/mo-callsite-arguments.txt:0x140eaf4a9-0x140eaf4dd"
+      ],
+      "finding": "Validation/state bypasses and virtual flags gate the call. Fifth flag is0; virtual+0x110 supplies fourth flag. Contract does not equate every Generate Database action with PRE64 execution."
+    },
+    {
+      "id": "controller_direct_request_vs_driver_marker_selection",
+      "result": "pass",
+      "evidence": [
+        "analysis/controller-invocation-rea-evidence.json:/code/structuredContent/normalized_result lines301-325",
+        "analysis/controller-launch-helper-rea-evidence.json:/0x401170/structuredContent/normalized_result line83",
+        "analysis/arm-invocation-rea-evidence.json:/code/0x40681a/structuredContent/normalized_result lines131-132,880-947,1605-1648",
+        "analysis/arm-launch-helper-rea-evidence.json:/structuredContent/normalized_result line83"
+      ],
+      "finding": "Master controller constructs literal DEF_PRE.EXE. ARM separately tests64bit.DAT and selects PRE64 in mode7 continuation and post-interpolation branches. Missing REMESH.SCR or mode other than3/7 can follow normal completion. Contract preserves distinctions and does not infer descendants of the32-bit request."
+    },
+    {
+      "id": "acceptance_and_scope_qualifications",
+      "result": "pass",
+      "evidence": [
+        "analysis/gui-invocation-route-map.json:/counts,/solver_scope,/next_runtime_checks,/global_qualifications",
+        "analysis/gui-invocation-route-map.md"
+      ],
+      "finding": "Zero observed candidate invocations and accepted cases remain explicit. Full solver analysis is not claimed; static decompilation and bounded ASCII inventory are distinguished. Remeshing remains out of scope; a one-operation/one-step/local-worker/120-second run is not expanded to force PRE coverage."
+    }
+  ],
+  "corrective_findings": [],
+  "acceptance": {
+    "static_route_contract_review": "pass",
+    "runtime_GUI_or_backend_acceptance": false,
+    "solver_complete_analysis_claim": false
+  },
+  "review_limits": [
+    "Constructor/RTTI discovery and all25 source bindings were not repeated; root integration owns full source-hash validation.",
+    "Focused decompilation retains inferred types/names and is not original source or runtime proof.",
+    "No GUI, native REA, app launch, build, fixture modification or other-owner edit."
+  ],
+  "measurement": {
+    "elapsed_seconds_before_report_write": 109.177,
+    "claim": "Elapsed duration for this bounded independent review only; no parallel speed or token savings claim."
+  },
+  "freeze": "Only this new review artifact was written. Previously owned files and reviewed route artifacts remain unchanged."
+}

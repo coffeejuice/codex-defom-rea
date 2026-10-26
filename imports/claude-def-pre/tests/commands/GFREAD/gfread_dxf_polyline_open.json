@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF POLYLINE 70=1 (closed flag ignored)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nPLO.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "PLO.DXF",
+      "source": "data/dxf_polyline_open.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Code 70 ignored by POLYLINE: open chain, output reversed v3->v2->v1. Prediction (DXF_READER.md model) = observed 2026-10-21: status 0, DIEGEO 1 2 2; segment 1: 1 1 8.0000000000E+000 6.0000000000E+000 8.0000000000E+000 0.0000000000E+000 0.0000000000E+000"
+  }
+}

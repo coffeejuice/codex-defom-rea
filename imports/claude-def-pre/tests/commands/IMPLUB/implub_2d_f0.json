@@ -1,0 +1,25 @@
+{
+  "label": "IMPLUB 1 2 0 (2D)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nIMPLUB 1 2 0\nLUB.KEY\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "LUB.KEY",
+      "text": "*\n*  DEFORM-2D V11.0 KEYWORD FILE (Qt)\n*\nCNTACT       1       2       1\nFRCFAC       1       2       1       0    1.2340000000E-001\nIHTCOF       1       2       0    5.6700000000E+000\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Pairs (1,2,2) and (2,1,1) get FRCFAC 0.1234, IHTCOF 5.67 (found pairs overwritten, others kept). BCCDEF of object 2: duplicate -1 per node cleared (RING rows hold one code -> unchanged)."
+  }
+}

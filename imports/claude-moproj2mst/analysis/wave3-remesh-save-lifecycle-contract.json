@@ -1,0 +1,56 @@
+{
+  "schema": "wave3-remesh-save-lifecycle-v1",
+  "created_utc": "2026-10-24T04:16:10.306748+00:00",
+  "status": "static_writer_order_and_conditional_failure_contract_root_integration_pending",
+  "evidence": [
+    {
+      "path": "analysis/wave3-boolean-save-io-1400980d0.asm",
+      "sha256": "0e5a4d4bc4873a90aa00768679f5778a68aba5147809b5402db0c717b3e1c1ce",
+      "bytes": 8031
+    },
+    {
+      "path": "analysis/wave3-remesh-save-writer-static.json",
+      "sha256": "3e12333df68f839013026e01eebdc45d83b24fd7e4113d2bb907abb7296cb577",
+      "bytes": 1613
+    },
+    {
+      "path": "analysis/wave3-remesh-save-invalid-static.json",
+      "sha256": "63bdcbc4b38ea8824b6f6241e1aa9d8e3e5926fca097756f97248f5802417359",
+      "bytes": 979
+    },
+    {
+      "path": "analysis/wave3-remesh-default-invalid-static.json",
+      "sha256": "a1ce41fe604ee453609e70b07356a4ef34bd18088608ce9c836b58689ebc533f",
+      "bytes": 982
+    },
+    {
+      "path": "analysis/wave3-remesh-save-literals.json",
+      "sha256": "3898dd4f2e6bcd6429f3c70d67abb6915e1ccd94ffa1a271a7d0674408f28b5f",
+      "bytes": 4664
+    },
+    {
+      "path": "source/port/defrt/include/defrt/stdlib/legacy_printf.hpp",
+      "sha256": "425e3089115bb445a5268c345d97cca148debf7ed123655359ba056046c1dc3e",
+      "bytes": 3757
+    },
+    {
+      "path": "source/port/defrt/include/defrt/stdlib/crt_emulation.hpp",
+      "sha256": "be4a04737801ee3cd5d393bdfce590488e2eff11d0d3a629232eb078f545db7e",
+      "bytes": 1388
+    }
+  ],
+  "order": "Save0980d0 calls currentoperation052ec0, projectwrite0983c0, properties0982e0 andMST0a20d0; combines filebooleanslocally; then09823e gets processremeshsingleton and09824d reads enabled. The tail is reached even when project/MSTreturnedfalse, but not if an earlier guarded/dialog path returned. Same sessionremeshowner must supply this decision aftereditorApply.",
+  "disabled": "09826c constructs QString LOCAL_REMESH.DAT, calls import141e04160 (QFile::remove per retained Save contract), ignoresreturn. This is Qt file removal, not nativeCRT _unlink or a delayed atomicFileEffectsdelete. Resolve current working directory at that sourcepoint; do not assume it is stillprojectroot afteroperationSave.",
+  "enabled": "098265 calls0abcc0(singleton,narrowliteral LOCAL_REMESH.DAT). Writerfopen14146fcd8(modewt), then31 fprintfcalls14146da0c in preserved order, thenfclose14146fb28. No nullopencheck and nofprintf/closeresultcheck. It prints constantcomments/KEYWORD_DRIVEN thenmethod,internalchangeable,filter,uniform,contact,scaling,surfacechangeable. It does not emitDONE; EOFterminatesreader. Constants retained exactly in31-literalreceipt; %s %lf newline uses defaultfixed6.",
+  "null_open": "Firstfprintf at0abcf0 receivesnull. Original14146da0c sets errno22 andcalls141470568. Dispatcherdecodes global1446ffb40: nonnull calls customhandler; null calls1414834f0(2), then141470440. This is NOT equivalent to othernativeKEY writers returningfalseandcontinuing.",
+  "default_invalid": "141470440 builds status0xC0000417, invokes exception-filter path, then calls GetCurrentProcess/TerminateProcess imports with0xC0000417. This conditionaldefaultpath is established byinstructionbody; freshstartup invalidparameterhandler initialization/customsetters stillneedqualification beforeclaiming itis the actual application-defaultoutcome. No targetcrash was invoked.",
+  "implementation_direction": "Use native ordinarynarrow CRT writer with original4KiBtextbuffer and existingqualified legacyprintf seam forfixednumericformat. Keep writesat sourcepoint,ignorewrite/flushresults asoriginal. Failedopen must preserve an explicitoriginalabnormal-boundary result/guard untilhandlerprofile isbound; do notintroduceignoredfailureor actualnullFILEundefinedbehavior. Sessionownedremeshstate sharedwithOpen/editor; rootowns afterMSTplacement,aliaschecksandABI mapping.",
+  "pending": [
+    "Decode/qualify141e04160 importagainstoriginalmetadata if needed; exact QFile::remove failure behavior alreadyexistsinrootQtdevicework but must be selectedfor thisstage.",
+    "Prove currentdirectory sourceat Save tail foractiveoperation families; originalrelativefilenamecan targettaskdir ratherthanprojectroot.",
+    "Bind freshinvalidparameterhandler beforeemulatingabnormalexit; scalarIEEE NaN/Inf and oldCRTnumericformat equivalence needrelevantfocusedchecks.",
+    "No fullSave-remesh integrationyet; no freshoriginalruntimeacceptance."
+  ],
+  "limits": "No worker sourcechanges afterfreeze, builds/tests, appcontrol, originalprocess or fixturemutations.",
+  "next": "Rootcombine ownerbindingwithOpen; then addSave-tail remeshdecision/writer/deletion usingexactsameowner. Independentdefault-handler/CWD investigation cancontinue duringbuild."
+}

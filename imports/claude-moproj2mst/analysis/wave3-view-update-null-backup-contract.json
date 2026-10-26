@@ -1,0 +1,45 @@
+{
+  "claim": "c80560 current-view loop has a source-closed no-backup branch even with multiple remaining Views",
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-stepdata-object-slice-empty-cleanup-decompile.json",
+      "sha256": "d2d4cd35b6da03d4af1718feab506c2dd3d8576dc962ec71d0148a622cbc7e06"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-constructor-head.asm",
+      "sha256": "fa78eb347b1c55236384d373b3b07cfa501c31260304709ce03a6f542edfcdf0"
+    },
+    {
+      "path": "analysis/wave3-view-update-dirty-1411f4df0.asm",
+      "sha256": "edb258f6c4fc9df9bd3c560b723e3f254bccd26883ec384a6d1c2711657d5ca2"
+    },
+    {
+      "path": "analysis/wave3-view-update-state-access-1411f4f00.asm",
+      "sha256": "382617b8f12cfb8fde5103a016878f7d8ef83cfdaae50846b34e291539fbb872"
+    },
+    {
+      "path": "analysis/wave3-view-update-state-access-1411ee730.asm",
+      "sha256": "1f6bfb786a4fb593f67f57d573d24a9815b60d9142f9d33d79ce969281d9828c"
+    },
+    {
+      "path": "analysis/wave3-view-settings-backup-init-1411f0a50.asm",
+      "sha256": "9f81dc378782b3bd86d2cff19965306d86fc04aa85f6ecaa65dded0be0fbdd1e"
+    },
+    {
+      "path": "analysis/wave3-view-settings-backup-null-1411f4e60.asm",
+      "sha256": "d0fcace137b43787a7ee54c5ac6d773b39d2c4b027dc82a09d2bbffb52439e75"
+    }
+  ],
+  "steps": [
+    "1f07d0 constructor invokes1f0a50 which invokes1f4e60;1f4e60 storesView+90=null",
+    "c80560 visits the actual current model viewlist, calling1f4df0(view,true)",
+    "1f4df0 calls1f4f00, an exact View+90 getter RET1f4f11; null branches toRET withoutSettingslookup",
+    "Non-null backup path requiresactualSettings lookup, copiesi4+46flags via1ee730, then1f4e80 deletesbackup whentrue; that later creator/restore domain staysguarded",
+    "1fdc40 storesactualView.owner beforecleanup and calls c80560 iff ownernonnull, also whenSlice absent"
+  ],
+  "qualifications": [
+    "Leaf capture1f4f00 includes bytes afterRET1f4f11; adjacent1f4f20 partialbody is not used ascompleteevidence",
+    "Proof is originalstatic source/disassembly, not fresh execution",
+    "No claim about unreconstructed backup-populated paths or broader full Close"
+  ]
+}

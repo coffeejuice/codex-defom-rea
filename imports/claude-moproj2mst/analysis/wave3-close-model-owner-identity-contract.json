@@ -1,0 +1,116 @@
+{
+  "scope": "Disambiguate actual model/DB child graph owner from outer SfModelManager and Project",
+  "method": "Original retained and newly bounded instruction-verified PE/DUMPBIN; no source change or execution",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-140043fe0.asm",
+      "sha256": "a73364f9c29ef398d48d6bfaa37f7ec18d6dae0b86365b4934702ab626e9b008"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140cda460.asm",
+      "sha256": "2c49e354137f6a259bef840239396e03ee497c2a6ff296ef275b34c76c2d4609"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-modelbase-manager-owner-static.json",
+      "sha256": "75a2f02bf6e9b913aa48e5f8005a031c72b77a590457004970cfbd060ba470a8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-mo-current-project-chain-static.json",
+      "sha256": "01af71a565dfdb4217b3cb40bb578e8779df39e10bd7bb6b9839603458d05768"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-project-backlink-static.json",
+      "sha256": "e66850860dfe4eb2ca3c378badd895ac98278e2825ace14b9742b81226fb4403"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14001d440.asm",
+      "sha256": "99466f2526e9f289c3655c2162ddb5c6b43416e8ee100d923d6a80215f9a26fa"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14001d510.asm",
+      "sha256": "da71426de732f0f2522ee1afcb02562c19d48f3edcbab69d66069fe89d19746a"
+    },
+    {
+      "path": "analysis/wave3-boolean-close-1400133a0.asm",
+      "sha256": "9bf506363b515b7d28fdfae83d7c5979f3d3a535de737f4d6fa789a2b1742359"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140045780.asm",
+      "sha256": "7215cb05bfab0dd09cadefe52cf35a902a4998884e60f7ba4b9f218c6cc9be05"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140cdd8e0.asm",
+      "sha256": "1f6f8695721bea012e8e9d316e7d74769758c1fb6fa59a03065542122a35db65"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "7a9b66f4050c857fb189356670366bb319f31305d7159f73edd6bff82f67e295"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/db_load.cpp",
+      "sha256": "1ba4c2483cc2e0274b528e32f2e91262e9615f04f0981898f08157613353fecf"
+    }
+  ],
+  "native_types": [
+    {
+      "vtable": "0x1429ea128",
+      "rtti": ".?AVSfModelBase@@",
+      "ctor": "0x140cda460",
+      "graph_factory_slot58": "0x140cdd930"
+    },
+    {
+      "vtable": "0x142112878",
+      "rtti": ".?AVSfMoModel@@",
+      "ctor": "0x140043fe0",
+      "graph_factory_slot58": "0x140045260"
+    }
+  ],
+  "dynamic_cast_types": [
+    {
+      "type_descriptor": "0x1435693f8",
+      "name": ".?AVSfModelManager@@"
+    },
+    {
+      "type_descriptor": "0x143569420",
+      "name": ".?AVSfMoModelManager@@"
+    },
+    {
+      "type_descriptor": "0x143569448",
+      "name": ".?AVSfModelBase@@"
+    },
+    {
+      "type_descriptor": "0x143569470",
+      "name": ".?AVSfMoModel@@"
+    }
+  ],
+  "same_object_layout": [
+    "043fe0 passes unchanged this into cda460, then changes the SAME object vtable from SfModelBase1429ea128 to SfMoModel142112878. There is no offset adjustment or separately allocated DB child in that inheritance call.",
+    "cda460 constructs the path QString at+28, the DB reader at+40 with owner=this, and lists at+18,+1960,+19b0,+19b8. It then calls cda5d0.",
+    "cda5d0 sets model ID int+30=0, pathSet byte+20=false, loaded byte+38=false, graph manager+1970=null and Ptrk manager+1978=null (plus other manager slots).",
+    "Thus the DB fields and graph managers are parts of one native SfModelBase identity. The modern DbHandle class is explicitly a partial DB projection of that identity, not the outer ModelManager itself.",
+    "SfMoModel+19c0 is a separate raw Project pointer.043fe0\u2192044090\u2192044bd0 initializes it null."
+  ],
+  "project_and_selection_chain": [
+    "Actual Mo mainwindow virtual+238 is01d440. It calls01d510 to obtain the current Project, returns null if absent, calls0a7390 to obtain current subproject, returns null if absent, then0b9cd0 for the model/DB owner.",
+    "01d510 calls0133a0: dynamic_cast mainwindow+50 from SfModelManager to SfMoModelManager.045780 then calls c78ad0 to obtain the current model child; null returns, failed cast from SfModelBase to SfMoModel returns, otherwise calls044a90.",
+    "044a90 returns existing model+19c0 unchanged. If absent, it allocates0x1500, computes two QString arguments via cdd620/cdd4f0, calls089880 with model as second argument, and stores returned Project only after construction.",
+    "089880 stores its second argument into Project+8 at08992d.0a5890 is exactly a pure Project+8 qword getter. This binds current Project.dataDb to the same native model identity on the represented normal path.",
+    "0a7390 reads Project+50 activeSub via pure0a73c0 then0a74f0;0a74f0 checks index against subproject count and returns the Project+58 list element or null.",
+    "0b9cd0 first obtains parent Project from subproject+10 via pure0b5c40; null returns. It reads Project+8. For subproject type!=4 (pure010320 loads+18), returns that model.",
+    "For type4,0b9cd0 instead uses guarded subproject+48. Missing handle allocates0x19c0 and calls BASE cda460, sets the guard and path, then returns this separate SfModelBase. Its graph factory virtual+58 is cdd930, not the SfMoModel045260 factory."
+  ],
+  "shared_projection_requirements": [
+    "Retain one model/DB child identity. DbHandle can be documented/extended as that partial same-object SfModelBase projection; do not invent a second duplicate child merely to carry manager caches.",
+    "Outer SfModelManager collection/current pointer remain a separate shared owner projection coordinated with DOE. Peer evidence identifies an ordered QList of model pointers at+18 and guarded current+20, not a map.",
+    "Attach graph-manager+1970 to the model/DB child, and bind lookup through the actual current model/current Project/active subproject chain. Do not attach it to the outer ModelManager or assume currentProject implies correct global selection.",
+    "Distinguish native child kind SfMoModel versus base SfModelBase; factory dispatch differs. A minimal Mo factory prefix must retain guards for base/type4 or missing Project construction until those paths are represented.",
+    "Shared Project link and current-child identity should reuse actual Project and dataDb, with lifetime clearing handled by the parent lifecycle integration. This receipt does not assert existing adapter destruction order matches the native owner graph."
+  ],
+  "qualification_correction": "Earlier Close receipts use generic data-root/root wording for the cda460-derived owner. Those references mean the SfModelBase/SfMoModel child carrying+1970/+1978, not outer SfModelManager. Their instruction-level offsets and call order remain valid; this receipt supplies the missing identity qualification.",
+  "unresolved": [
+    "Outer collection ownership/current setter implementation belongs to reference_harness/root.",
+    "Missing Project construction and type4 base factory require their own full effects before enabling those paths.",
+    "No runtime fresh-selection provenance, native normal-Close teardown or exact QObject destruction parity asserted."
+  ]
+}

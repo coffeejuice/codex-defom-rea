@@ -1,0 +1,61 @@
+{
+  "schema": "editor300-mds-mode0-contract-v1",
+  "created_utc": "2026-10-24T08:54:28.306809+00:00",
+  "status": "authorized source-closed successor after checkpoint36",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-contract.json",
+      "sha256": "e662f17838820d9451027ba7c7a7c408184bf6604f549dc2a49a080cd18eae5c"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-fill-branch-order-static.json",
+      "sha256": "1b0a54990bf3b904a9bdc1eb20d6d436ea14995f9db9051ba08bdc93d78d2993"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-radio-state-hook.json",
+      "sha256": "fbaa6500ba62dc9cf499064e50b85e3031bfec5363eaa21bfdf41d3755b086d0"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-radio-selection-static.json",
+      "sha256": "8b80c99416bfda5c445971342c7eaf38273771d4786e38ef428dad552b15235a"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-radio-peer-autoexclusive-static.json",
+      "sha256": "dd9841cb1b53c967b25ba0260bc794386d19d3991d67187399b0ce84caecddca"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6440.c",
+      "sha256": "45473fa52ed9be66fd8c5c2afaa5dfbf144c789155ee39b2d40f842f2ef1bf37"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6da0.c",
+      "sha256": "4fd84cdf9f4152ebc7813b30a77d7b223a7954fd3a3b89d143fe3c0e9f927a7a"
+    }
+  ],
+  "original_mode0": [
+    "At140ebe1f1/205 the first mode0/2 branches share node.setChecked(true) at140ebe221; second modes0/2 share140ebe53e.",
+    "Only mode2 executes nodeSpin.setValue at140ebe27e or140ebe59b; compare+branch140ebe25a/25e and140ebe577/57b skip those calls for mode0. Thus mode0 has no slotRefNodeChanged/geometry dependency.",
+    "QAbstractButton::setChecked65373430 tests checkable and checked bits, but has no isEnabled rejection. Native QRadioButton vtable1421a09d8+198 resolves140138c10->IAT141e07188->QtGui checkStateSet6509f2b0, whose entire body is RET0. Equal setters do not emit toggled.",
+    "For an unmeshed ordinary object, eb6440 first checks coordinate and disables node; ebe100(mode0) then checks that disabled node, unchecking coordinate. Final nodeEnabled=false, nodeChecked=true, nodeSpinEnabled=true and coordinate group disabled. Preserve this unusual state.",
+    "Save eb6da0 checks node first and writes mode2, so loaded mode0 becomes2 at Save even when its node radio is disabled. The old stored node+1ee8 is never loaded in mode0; its remembered widget spin remains, initially0. Coordinates still round through %.3f."
+  ],
+  "implementation_scope": [
+    "Accept mode0 and mode1 only, preserving all coordinate-profile bounds and explicit label qualification. Add node radio selection with source-ordered peer state changes. Keep mode2 and invalid modes guarded.",
+    "Add trailing InitialEditorContext::stoppingLabelProfile default Unknown. A supplied known profile binds retained widgets before original fills; Unknown preserves an already explicitly seeded retained state. StagedEditor300 already forwards this same context, so no owner/shared Session edit is needed.",
+    "Mode0 must not mutate source mode/node/coordinates during Open. Apply keeps scalar failure order and current-object lookup."
+  ],
+  "files": [
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp"
+  ],
+  "validation_plan": [
+    "Fresh mode0 with and without mesh, final radio/enabled states, source mode0 retention at Open and mode2 at Save.",
+    "Coordinate-to-node repeated fill, retained nonzero spin, firstNone/secondSelected double fill and rounded text.",
+    "Context-provided profile reaches factory-created InitialEditorSession; existing Unknown refusal and explicitly seeded retained-state tests remain.",
+    "Run focused and full validation in root only; no worker build."
+  ]
+}

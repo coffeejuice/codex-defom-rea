@@ -1,0 +1,49 @@
+# CP190 R300 equipment borrow successor
+
+## Decision and owner files
+
+GO for the equipment loop's lexical confinement in `syncOperationFiles`; NO-GO for a writer-only closure that leaves `eo` outside, another operation-model lookup, an early null-step return, or changes to the equipment serializer. Assign exactly:
+
+- `source/apps/moproj2mst/src/engine/save_current.cpp`
+- `source/apps/moproj2mst/tests/s/test_save_io.cpp`
+
+Root owns independent review, focused build/tests, complete regression and source freeze. Reconcile these files against the selected CP189 freeze before assigning their exclusive writer. Read-only inspected hashes match the CP189 restart implementation release: save_current.cpp `1f7a02ece2e6f240cf5ade0339d460432e8804ba908438922a5591823b0d0298`; test_save_io.cpp `61405f012034b143d8d25d15ab7fb18c595bf868faa5388dcee103991f0185a9`. The CP189 restart callback is already present and must remain unchanged.
+
+## Smallest faithful boundary
+
+Use an immediately invoked, nonstored void callback for each equipment-loop iteration. Put `m->object(s + 1)` acquisition inside it, followed by the existing record lookup, filters, manager lookup, path expression and equipment call. Replace the iteration's `continue` exits with callback-local `return`. No `eo`, step pointer/reference, or object-derived reference may be returned, retained or stored outside this invocation. A no-argument local callback is sufficient: its body may retain the existing `saveEquipment(p, *m->step, eo, ... , fx)` expression, so the raw step use is inside the same boundary as object acquisition. If an explicit local `step = m->step.get()` is preferred, acquire it only at the admitted writer slot after manager lookup, then immediately invoke the writer. Do not acquire a step-parameter callback before object lookup just to imitate the restart syntax; that moves the explicit step acquisition ahead of the existing lookups. No additional helper/API is needed.
+
+Preserve this exact reconstructed sequence:
+
+1. Use cached `m` acquired at function entry; `n` is the existing earlier slot count. For each ascending `s`, call `m->object(s + 1)` before `objEntry(op, s)`, even when no record exists or its equipment ID will be rejected.
+2. Skip when either record or engine object is absent. For admitted records, read `equipmentId`; skip zero and negative IDs.
+3. Find that ID in `p.equipment`; a missing manager item still calls `saveEquipment` with an empty `String`. A present item supplies `qt::cleanPath(it->keyPath)`.
+4. The same cached model supplies the step at the writer slot. Pass the existing object pointer, preserve ignored writer status, then visit the next slot. Finish all equipment before `saveMaterials`, restart and NSTART copying. Preserve the existing return `r` from object saves.
+
+`GuiModel::object` at gui_model.cpp:210 first calls `requireGeometrySyncAvailable()`, then returns null if `step` is absent, otherwise looks up by object number. Preserve that existing guard and lookup, including its position before record admission. Do not substitute direct `object_list_find`, `withOpStep` (another model lookup), or `GuiModelAccess::withStep` (additional admission/guard behavior). A null-step sync fixture is inappropriate: other stages of the full helper still require the step. Model admission at function entry does not establish lifetime safety across destructive callbacks. This is lexical confinement, not ownership pinning, callback non-reentry enforcement, or the complete R300 barrier. Cached `m` and the later simCtl borrow remain open.
+
+## Retained native basis and qualification
+
+Read `source/docs/re/moproj2mst/s/spec.md` section 1 and section 2. The retained Packet S annotation identifies caller `0x140057370`, model getter `0x14005f770`, equipment wrapper `0x140358190`, writer `0x140896840` and twin `0x1401c6d00`. It records ascending slots, engine object s+1 then OBJ record, both-present/positive-ID admission, equipment-manager vt+0x208 path lookup, overwrite true, equipment before materials, restart and NSTART. The wrapper appends `.KEY` unless the upper-cased name ends with it, normalizes absolute/native path components, skips the overwrite question, and serializes by the object's integer at +8. The wrapper's annotated return is 1; the caller ignores it.
+
+The Packet S document names historical decompiles `deform-rea-work/gui_mo/out_s/s1c.c` through `s9c.c`; the prior qualified restart review reports these unavailable in this checkout. This investigation used retained annotations and current source, not newly recovered exact caller assembly, a fresh native trace, or an original-runtime equivalence test. `source/port/defkey/src/item_writers/equipment_key.cpp:92` is reconstructed writer evidence: file open failure returns 3; stream writer looks up the supplied object number, writes banner/movement/optional related block and final equipment body. Do not silently upgrade those port annotations to a newly verified native proof. No REA database was opened.
+
+## Focused direct fixture
+
+Add a sync-level equipment test beside `native_equipment_denial_and_failed_flush_are_not_replayed` in test_save_io.cpp. Reuse `TaskKeyRig` (line 1188), which actually copies configured corpus49 `49_MO2_Boolean_Oprations`, loads `MO2_Boolean_Oprations.moproj`, Task00001. Its old R46-adjacent commentary is not fixture identity. `EquipmentRemovalRig` demonstrates manager-row construction but tests `equipmentSync` removal/notifier behavior; do not invoke or repurpose that helper as serialization evidence.
+
+On a disposable TaskKeyRig, require loaded model, step, selected positive object slot, nonnull object and slot record. Keep the owning project alive. Set other extant records' equipment IDs negative, seed the selected record with a positive ID such as 7, and construct an `ItemKind::Equipment` manager row for that ID using `equipment.rows` and a path beneath `r.files.root/Equipments`. Create the parent directory. Use a path with a normalization segment and without `.KEY` to exercise the caller cleanPath and wrapper extension; compute expected target using `equipmentKeyTarget`. Avoid modifying engine object numbers: the wrapper selects by `eo+8`, and the loaded object's serializer already provides a viable direct writer fixture.
+
+Call `syncOperationFiles` with recording effects, then native effects. Filter both effects by the expected equipment target; other task writes are expected. Require exactly one equipment write/attempt and nonempty recorded equipment bytes; compare native bytes with recording bytes. Require stable model/step/object identity after the calls, unchanged record ID and manager row, and empty native deferred `writes`. Seed a project overlay entry at the equipment target; native success must remove it. A native before-write hook filtered to this target should check those identities while owners remain alive and record order. Require equipment after ObjProperties and before a known material write (if this loaded fixture actually supplies one); enabling a disposable restart gives a reliable following boundary. Do not make a no-material fixture pass a vacuous material-order assertion. Existing CP189 restart test already checks its position before NSTART.
+
+Exercise equipment ID zero and negative in fresh fixtures or reset recording-effect instances; require no equipment-target write while normal sync continues. The code's missing-record/missing-engine-object skips also need source review. Add direct sync cases only when those mutations are admitted by earlier Save stages; do not manufacture detached-step sync or change other stages to enable them. A missing manager row is expressly NOT a skipped-entry case: use recording effects to require the `equipmentKeyTarget(String())` target is still recorded. That target becomes an absolute `.KEY` under the process cwd; do not issue a native missing-row write in an uncontrolled cwd. Recording capture uses its disposable temporary KEY rather than writing the recorded destination. All actual positive native destinations and missing-file probes must stay beneath M2M_TEST_SCRATCH.
+
+Static review proves callback-local nonescape; identity assertions alone do not. None of these checks claims fresh original bytes or public GUI Save acceptance.
+
+## File effects and exclusions
+
+Keep `saveEquipment`, `equipmentKeyTarget`, `writeTaskKey` and equipment writer internals unchanged. Native `writeTaskKey` invokes beforeNativeKeyWrite before direct open, preserves existing target/overlay on denied open, erases overlay only after successful open, streams directly, ignores close/flush status and defers no replay. Equipment failed-open mapping stays 3 and the sync caller ignores it. Existing `native_equipment_denial_and_failed_flush_are_not_replayed` already covers retained denied-open contents, successful recorded/native byte consistency, locked-range failed-flush empty output and empty deferred writes. Keep that test intact. If adding sync denial, require subsequent restart/material boundary and unchanged overall object-result behavior rather than asserting error propagation.
+
+Exclude material/restart callback rewrites, writer format changes, equipment removal/notifier synchronization, manager refresh, public C ABI changes, broader model ownership, null-policy redesign, geometry access rewrites, original execution, GUI, REA mutation and builds from this owner investigation. Root should confirm actual registered `m2m.s.save_io` and `m2m.s.save_current` targets before execution, preflight Testkit entry/includes/macros (no REQUIRE_EQ/C assert), run the focused pair and required full regression once source is stable, then freeze.
+
+This read-only pass wrote only this report. No source, test, build, shared plan/state, executable, installed application, GUI/app-control session or REA database was changed.

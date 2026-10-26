@@ -1,0 +1,134 @@
+{
+  "schema": "wave3-editor-timeid-fill-contract-v1",
+  "created_utc": "2026-10-24T05:09:00.028419+00:00",
+  "status": "next_task_after_furnace_source_frozen",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-timeid-literals.json",
+      "sha256": "e9a7f2445916fc45081f00b71bc6cec5a5f85cac585a1cd845ab7944db93cdc0",
+      "bytes": 666
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-fill-callback-static.json",
+      "sha256": "586c536255d4df8775cfbcbab553692d4098cfcbd069f52c973ad206f09fb0fa",
+      "bytes": 1631
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-fill-apply-static.json",
+      "sha256": "1c065a5b4403e19515ab53e312a64532448cab6b5ba6e04215e66eaf9c5b9eb1",
+      "bytes": 1634
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-qcheckbox-ctor-static.json",
+      "sha256": "25a55498615a03e78efa992715283b088cc1d6781ce8dbbbfa29b7007e10ae84",
+      "bytes": 789
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-button-defaults-static.json",
+      "sha256": "025f2fb234cc86f72533c332a46ba592cdb593385fe7d7dabdd972cfb1b30333",
+      "bytes": 2563
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-button-init-static.json",
+      "sha256": "73c63147cfd11ea38e10b1e8296d6127459fb305cb1c989e77e15710fc3ae971",
+      "bytes": 566
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-save-tail-leaf.asm",
+      "sha256": "d59335861867d389f2d22e6c3b28ef87b00cde4ab416b323f5381e88a2866560",
+      "bytes": 1481
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec4970.c",
+      "sha256": "7cef8fb776657de0a903bc935f77a63d566f7b6300cfe910e5528363db6e2fed",
+      "bytes": 6860
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecf980.c",
+      "sha256": "86c015c7b18f6cec7bfc6b51d40f51ba57140a4b4bb9b5e4dbfb46a84542a9c6",
+      "bytes": 965
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-setupui.c",
+      "sha256": "1217ddfefe72fc52f4a963f01cb4f7d10bc3a468d00e7ef1139736979483b8a7",
+      "bytes": 2004314
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140f21eb0.c",
+      "sha256": "84a711be81a6e352febee49c3ac8dc34370d8e3dcaf0145412fe4506fa43102c",
+      "bytes": 547758
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb26f0.c",
+      "sha256": "9f708926ec67808b7af7e8bd4a56725ee679e2b09cf464558ad9f091822f995c",
+      "bytes": 13068
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eca080.c",
+      "sha256": "f24120bfb69c5b267e9affbeccd54733ad92987500597cb64329ced95315018e",
+      "bytes": 1555
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-slot-map.json",
+      "sha256": "9bbf83751e7f7606f039392b6e775f9a20cf3984fb1e3654b9e32c6d4a669661",
+      "bytes": 19742
+    }
+  ],
+  "widget_names": [
+    {
+      "address": "0x142b177c8",
+      "name": "tableBetweenT"
+    },
+    {
+      "address": "0x142b17798",
+      "name": "tableBelowT"
+    },
+    {
+      "address": "0x142b17768",
+      "name": "tableAboveT"
+    },
+    {
+      "address": "0x142b17b30",
+      "name": "m_chbxDiffBnd"
+    }
+  ],
+  "initial_state": [
+    "setupUi creates UI+db8 QCheckBox, assigns m_chbxDiffBnd name, and sets layout/size properties. The only retranslate access sets its text; no explicit setChecked is present for that control.",
+    "QtGui constructor 0x65384660 calls private ctor 0x65370be0, whose +204 bit1 is cleared at 0x65370c4f. Exported isChecked0x65371230 reads exactly bit1. QCheckBox calls setCheckable(true)0x653711f0, which preserves/clears checked and does not set it. The captured normal button initialization has no direct checked-field assignment. Fresh default is unchecked under this ordinary Qt construction profile."
+  ],
+  "initial_and_repeat_fill": [
+    "0x140ec487e sets editor+160=0, then scans TIMEID.n[0] rows of axis[0]. It selects the checkbox only if axis equals1.0. The comparison includes jp/jne, so NaN is not equal.",
+    "When axis1 is reached, 0x140ec48ec stores editor+160=1, calls setChecked(true), then0x140ec4916 stores0. That suppresses the stateChanged callback 0x140ecf980: its entry branches directly to return when +160!=0, before retrieving SC or changing TIMEID.",
+    "There is no corresponding setChecked(false) when axis1 is absent. A repeat fill must retain a previously checked widget even if the newly supplied table no longer contains ID1. Initial and backed-up constructor fills cannot be modeled as independent fresh checkbox defaults.",
+    "After that scan, 0x140ec4970 clears contents and sets row count0 for all three tables, then repopulates from the current source table. Old rows never survive a later fill."
+  ],
+  "display_rows": [
+    "axis2.0 -> UI+fa0 two-column table: values[i*ncomp] and values[i*ncomp+1], each QString::number(g,6).",
+    "axis3.0 -> UI+fc0 one-column table: values[i*ncomp], same g6 conversion.",
+    "axis4.0 -> UI+fe0 one-column table: values[i*ncomp], same g6 conversion.",
+    "Rows append in input order within each table; duplicates remain. Axis1 and other values add no display rows. The three equality branches use jp/jne, so NaN axes are ignored.",
+    "Original indexing uses 32-bit imul and then sign extension; overflow/unknown memory extent must remain explicit guards. For known logical allocations, a one-component ID2 row can read the next logical value when it still lies within the allocation; do not silently replace that reached access with a two-component requirement."
+  ],
+  "save_scope": [
+    "Environment Apply0x140ec50f0/constant-copy0x140ec9b30 do not read these tables or the DiffBnd checkbox. Do not reconstruct an invented TIMEID Save from the display snapshot.",
+    "The normal outer0x140eca080 calls ignored getter0x140ecf340 after pick-mode cleanup; the aligned leaf only loads editor+48 and returns. It is not a TIMEID table writer.",
+    "Actual user stateChanged outside fill can free/replace TIMEID and call model material-state update0x14082aaa0, but user edits of that checkbox are outside the fresh Open/Save/no-interaction branch and remain a separate callback contract."
+  ],
+  "proposed_state_and_seam": "Add explicit remembered DiffBnd checked state plus ID2 pair rows and ID3/ID4 scalar display rows. Pass previous checked state into environment fill (initial false, later previous page state), clear/rebuild row vectors every fill, and leave model TIMEID untouched. Actual composer carries that state across its initial and backed-up environment fills. Apply leaves the then-current model TIMEID intact.",
+  "required_tests": [
+    "Mixed IDs1/2/3/4 plus duplicates/unknown/NaN axes: exact per-table order, g6 text, checked state and unchanged model arrays.",
+    "Repeated fill with ID1 then without it retains checked state while replacing every table row; fresh no-ID1 starts unchecked.",
+    "Later live TIMEID mutation after Open is retained by Apply, not restored from displayed rows.",
+    "One-component ID2 boundary: accept a second value only when within the known logical allocation; reject a last-row overrun before reading.",
+    "Missing reached axis/value pointers, overflow indexing and unqualified formatted nonfinite values remain explicit unsupported paths. Unknown IDs must not require a values pointer that the original never dereferences.",
+    "Full composer final fill uses the actual updated TIMEID state after earlier Open effects and preserves checkbox history through its backups/refills."
+  ],
+  "qualifications": [
+    "No source edit, test, original runtime execution or GUI control in this static investigation.",
+    "Public editor300 remains guarded. This contract concerns the no-interaction initial/repeat display path, not arbitrary TIMEID edits or corrupted allocation metadata.",
+    "No TIMEID-table itemChanged handler is identified in the retained slot map or constructor explicit connects; the mapped cellChanged handler belongs to m_tvPPVarList, a distinct control. Do not interpret absence of a decompiler known_callees field as proof.",
+    "Leaf captures are interpreted only through 0x653711f0..121a,0x65371230..123f and0x140ecf340..f34d respectively. Trailing bytes belong to padding/other functions. The unwind-only capture could not represent the last leaf; its aligned explicit capture supplies the evidence."
+  ],
+  "next_action": "Finish and validate the approved furnace correction first, then implement bounded TIMEID display state with previous-checkbox input, preserving unsupported allocation/formatting boundaries and root ownership of builds."
+}

@@ -1,0 +1,115 @@
+{
+  "schema": "shared-grid-owner-landing-v1",
+  "status": "Frozen worker sources, unbuilt pending root validation",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "sha256": "d5ae2818eafc5d75fd580cd9a93e0d31a85cf902ff99c38d22462a3fc4cd00dd"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "sha256": "13eff5ce88ef477df48643d93d13e8ec41a89fb20013207b3df603f693b398be"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "sha256": "7a3f9d2ca4e477fa09b3a02c3ebfce7d9c1cb6dccb294ed3f8bc54dfc4886e20"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp",
+      "sha256": "c419b053e8aaea51dc80cb7f061feb3384ced6937944637bab74165c30a09693"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/widget_events.cpp",
+      "sha256": "f08ff760c8f342e61a92eb309dba1551127f0956c7d6dc157bfab9d26e71cf3e"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_widget_events.cpp",
+      "sha256": "43ee414606eb7c86779847d582da75f7cafb8f34dc07aa0e938965f471591066"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-first-parented-grid-contract.json",
+      "sha256": "d7dd9c9e02cda9ac7e5a19aa1b0996a065ba01794950258dc2ae2d3c922e9dae"
+    },
+    {
+      "path": "analysis/wave3-editor-parented-grid-update-contract.json",
+      "sha256": "02494bdf9b0e79d8f74a5ca7c0fa7115c25b887a3456d796d74d305c5da600dc"
+    },
+    {
+      "path": "analysis/wave3-close-grid-layout-ownership-contract.json",
+      "sha256": "0f358f997cba4794bcafcb23c39f0f02aedefab56f58c2572ccf99cff0d7ad5e"
+    },
+    {
+      "path": "analysis/wave3-close-widget-shared-events-contract.json",
+      "sha256": "77366a6cca1b661b6d3fa3d607b5e61024369c796b75b59c62117b54c10b4746"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712e630.asm",
+      "sha256": "4ff378bfa7a1ce61b0467bb687dbc4f89fe9f0cfaad45e83718eea2870c873df"
+    }
+  ],
+  "effects": [
+    "One GridLayoutState has ManagerReady and ParentedPending construction profiles. Pending allocation does not commit parent, thread, membership or installed alias.",
+    "Parented low layout word mask0x0f/value6 and grid dirty mask0x17/value4 retain unknown native high bits. Rows/columns0 and concrete initialized margins/cache/rectangle are distinct from existing manager-ready row/column1.",
+    "WidgetState owns the only installed-layout weak alias. Manager getter delegates; manager cached alias remains after qualified callback return. Assignment precedes actual QObject parent/membership on existing manager path.",
+    "Widget and grid retain the native QThreadData reference as a shared owner until native invalidation; QObject parent remains weak. Runtime expiry cannot authorize runtime replacement.",
+    "Actual parent receivesChildEvents is optional observed state with conflict refusal; no default false. Editor cursor owns thread/parent/event source ordering through friend API.",
+    "Property dispatch reads actual WidgetState layoutPresence, refusing an installed layout even if earlier observation was null. No new event or queue completion is supplied."
+  ],
+  "preflight": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "test_cases": 0,
+      "test_mains": 0,
+      "trailing_whitespace": 0,
+      "missing_m2m_includes": []
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "test_cases": 0,
+      "test_mains": 0,
+      "trailing_whitespace": 0,
+      "missing_m2m_includes": []
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "test_cases": 68,
+      "test_mains": 1,
+      "trailing_whitespace": 0,
+      "missing_m2m_includes": []
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp",
+      "test_cases": 0,
+      "test_mains": 0,
+      "trailing_whitespace": 0,
+      "missing_m2m_includes": []
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/widget_events.cpp",
+      "test_cases": 0,
+      "test_mains": 0,
+      "trailing_whitespace": 0,
+      "missing_m2m_includes": []
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_widget_events.cpp",
+      "test_cases": 15,
+      "test_mains": 1,
+      "trailing_whitespace": 0,
+      "missing_m2m_includes": []
+    }
+  ],
+  "new_tests": {
+    "view_manager": 5,
+    "widget_events": 1
+  },
+  "qualifications": [
+    "No worker compiler/build/test/application/GUI/mutable analysis invoked. Root validates all files together.",
+    "Pending parented constructor stops in editor before ChildAdded/counter/posting until exact shared dependencies close.",
+    "Manager historical qualified callback continuation remains unchanged; this is ownership unification, not generic constructor callback proof.",
+    "Unclosed layout destruction does not invent clearing a still-live widget raw alias: expired assigned alias is unknown."
+  ],
+  "next": "Reconcile probe004 constructor tail and source-bind actual QtGui dispatcher wake wrapper; retain unresolved native effects."
+}

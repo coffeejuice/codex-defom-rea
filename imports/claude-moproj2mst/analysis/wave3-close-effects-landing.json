@@ -1,0 +1,38 @@
+{
+  "scope": "Only three exclusive new Close receiver files; parent owns shared StateVar/session/lifecycle wiring and all builds",
+  "source_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "draft": {
+    "path": "analysis/wave3-close-effects-histogram-amendment-draft.json",
+    "sha256": "4175ecf94176d5f6342f95bde1bc2d5141c7e2ed5033ee20847b4177a5ddef3c"
+  },
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp",
+      "sha256": "bc407635ef681a5038eda6678a26c073a0be8c186a79450b7e6b7601d7b664d2",
+      "draft_sha256": "bc407635ef681a5038eda6678a26c073a0be8c186a79450b7e6b7601d7b664d2"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/close_effects.cpp",
+      "sha256": "9dbbff8671964f7c42317013f9197ecb3b46abe8af8c3dc43b552ec3e3b9aaef",
+      "draft_sha256": "9dbbff8671964f7c42317013f9197ecb3b46abe8af8c3dc43b552ec3e3b9aaef"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_close_effects.cpp",
+      "sha256": "a45ceb9a134d7b18106de6937db6ccc1750dc3f24b6eb2387895ad1709fb3a80",
+      "draft_sha256": "a45ceb9a134d7b18106de6937db6ccc1750dc3f24b6eb2387895ad1709fb3a80"
+    }
+  ],
+  "review": {
+    "byte_equal_to_reviewed_amendment": true,
+    "isolated_test_cases": 12,
+    "compile_and_test_execution": "Not run by worker; root exclusive build authority"
+  },
+  "qualification": [
+    "Actual model-owned StateVar identity is checked at each hook.",
+    "Histogram dispatcher retains actual StudyIo and snapshots its live registry for each emit. Session integration supplies its correct owner; GuiModel currently has no independent StudyIo backlink.",
+    "Weak-expired registrations are skipped only in delivery; persistent registry entries remain.",
+    "Missing or unqualified registration coverage, unsupported live slots, lost Ptrk owner and enabled graph paths guard.",
+    "Suppression gates +90/+141 are external to these receiver methods and must be handled by the shared session notifier before delivery.",
+    "Source landing alone does not integrate or validate accepted Close."
+  ]
+}

@@ -1,0 +1,173 @@
+address	size	role	status
+1407520c0	0xbc	SfOprCogging +0x280: dynamic_cast props, call 140752190	spec
+140752190	0x1113	cogging block loop (reheat/pass/bite), CHKSTOP sections	spec
+1407532b0	0xf8f	PHT block (pass heat transfer)	spec
+140754250	0xf0b	PDWL block (pass dwell)	spec
+140755b90	0x2a7e	BDEF block (bite deformation)	spec
+140758fd0	0x5e3	BDCT block (decompression)	spec
+140758620	0x9a6	BDW block (dwell; TCYCLE in remaining-cycle mode)	spec
+140755170	0xa0b	BHT block (bite heat transfer; TCYCLE)	spec
+1407595c0	0x784	SHT block (adaptive reheat)	spec
+1405ef320	0x4f	props of op (op or self+0x20) -> op+0x10	spec
+1405ef2b0	0x1c	self+0x20 current op	spec
+140051230	leaf	op+0x10 properties pointer	spec
+1401cc6b0	leaf	props+0x40 CogModel	spec
+14075dcb0	leaf	model+0x540 SfOprCogData	spec
+14075dcd0	leaf	cog+0x2e20 manipulator block	spec
+14075dcf0	leaf	cog+0x1170 die block	spec
+14044b5d0	leaf	cog+0xd8 billet block	spec
+140765a10	leaf	adaptive reheat getter (+0x4cc/+0x4d0/+0x4d8/+0x4e0/+0x4e8)	spec
+14075dc20	leaf	model byte +0x504 Heat_Transfer	spec
+14075dc40	leaf	model byte +0x505 Remaining_Cycle_Time_Dwell	spec
+14075dc60	leaf	model +0x510 Dwell_Time	spec
+14075dc80	leaf	model +0x518 Decompression_Time	spec
+14075dd10	leaf	model +0x508 Cycle_Time	spec
+14075dd30	leaf	model +0x4f8 Swaging_Stroke	spec
+14075dd50	leaf	model +0x500 Num_Steps_DSMAX	spec
+14075dd70	leaf	model byte +0x538 (never set; DSMAX_NSTEP gate)	spec
+14075dca0	leaf	model byte +0x15 RotationalSymmetry	spec
+14075dc00	leaf	model byte +0x8 Use_Mandrel	spec
+14142ff20	leaf	model +4 Temperaure_Type	spec
+1413ee240	leaf	model +0 Process_Type	spec
+140765b70	leaf	model +0x520 Bottom_Fixed	spec
+140765740	0x27	number of reheats	spec
+140768d20	leaf	cog+0xcc number of reheats	spec
+140765770	0x2f	passes of reheat (wrapper)	spec
+140768d40	0x60	passes of reheat	spec
+1407657b0	0x39	bites of pass (wrapper)	spec
+140768db0	0xb9	bites of pass (pass+4)	spec
+140768c00	leaf	reheat index valid	spec
+140768c40	0x51	pass index valid	spec
+140768ca0	0x76	bite index valid	spec
+1407692b0	0x75	PASS pointer	spec
+140767bc0	0x11a	BITE pointer (auto: bite 1)	spec
+140768770	0x21c	automatic bite count	spec
+1407682a0	0x3a7	die X translation getTranslationX	spec
+140768650	0x118	billet/die/manip size selector	spec
+140765b00	0x49	die count 2/4 (die+0x14a8)	spec
+140765f30	0x64	die object id table 2,3,8,9	spec
+140765fa0	0x64	manipulator object id table 4..7	spec
+140766010	0x125	die direction table	spec
+140766140	0xab	manipulator direction table (result unused)	spec
+140765960	0x27	UseManip (wrapper)	spec
+14076b060	leaf	cog byte +0xc8 UseManip	spec
+140050bc0	0x57	first-operation test (flow chart)	spec
+140055150	0x33	op -> flow chart model (s1-01/s1-02)	out-of-scope
+140086720	0x77	flow chart row lookup (s1-01/s1-02)	out-of-scope
+140760430	0x1c	props slot +0xc0: load MDT	spec
+1407603c0	0x36	load MDT if model present	spec
+140761c90	0xfa	load MDT from op Task dir	spec
+140761d90	0x8fc	open Cogging.MDT, read body + Process Data	spec
+140761580	0x99	"Cogging.MDT" name	spec
+14076a460	0x44e	MDT body reader	spec
+14076b5c0	0x148	skip(k) lines	spec
+14076b710	0xcd	MDT header / version	spec
+1407fba10	0x3f	fgets wrapper (returns strlen)	spec
+1407fb960	0xa5	fgets implementation	spec
+140797a10	0xc2	HEAT ctor (SOLMTT=1)	spec
+1407979c0	0x42	init 5 global HEAT defaults	spec
+140797d50	0x7d	copy global HEAT default into HEAT	spec
+140797ef0	0x32a	HEAT reader	spec
+140797b90	0x7d	store HEAT default to global slot	spec
+140791580	0x159	PASS reset/ctor (allocs bites)	spec
+140791870	0x3cc	PASS array alloc with defaults	spec
+140792810	0x52a	PASS reader	spec
+140792630	0xe5	PASS + bites reader	spec
+140791c50	0x56	store PASS default to global	spec
+1407916e0	0x67	free bites of pass	spec
+1407908a0	0x29	BITE ctor	spec
+140790700	0x15c	BITE deformation ctor defaults	spec
+140790870	0x27	BITE HEAT ctor (slot 3)	spec
+140791750	0x27	PASS HEAT ctor (slot 4)	spec
+140790ca0	0x63	BITE reader (HEAT + deformation)	spec
+140790d80	0x495	BITE deformation reader	spec
+140790a50	0x3d	store BITE default to global	spec
+1407908d0	leaf	BITE dtor (empty)	spec
+1407908e0	0xae	BITE array alloc from global default	spec
+140790c60	0x2b	free wrapper	spec
+140796f90	0x5ba	BILLET reader	spec
+140795760	0x866	DIE reader	spec
+140793cc0	0xa03	MANIP reader	spec
+14076aca0	0x221	Simulation Parameters reader	spec
+14076bd70	0x35	set global unit	spec
+14076be80	0x4d	set global convergence error	spec
+14076c100	0xb3	REHEAT array alloc	spec
+14076c920	0x8a	REHEAT array free	spec
+14076c9b0	0x199	REHEAT reader	spec
+14076bfe0	0xba	REHEAT init (alloc passes, HEAT x3)	spec
+1407925a0	0x83	PASS array free	spec
+14079a900	0xf14	geometry KEY reader into globals (no MST effect)	out-of-scope
+140795260	0x13b	die names/directions into globals (no MST effect)	out-of-scope
+1407937f0	0x140	manip names/directions into globals (no MST effect)	out-of-scope
+14075df60	0x51	SfOprCoggingProperties ctor	spec
+14075e020	0x65	alloc CogModel 0x550	spec
+140761310	0x33	CogModel ctor	spec
+1407613b0	0x128	CogModel process-data defaults	spec
+1407656d0	0x68	CogModel base init (not decompiled)	out-of-scope
+1407614e0	0x93	CogModel init part (not decompiled)	out-of-scope
+140767a20	0x12a	SfOprCogData ctor	spec
+140760400	0x1c	props slot +0xb8: save MDT (operation save)	out-of-scope
+1407616d0	0x108	save MDT	out-of-scope
+1407617e0	0x4a5	MDT writer	out-of-scope
+14075b220	0xf4b	SfOprCogging +0x1c8 import MDT (UI)	out-of-scope
+140759d50	0x1027	SfOprCogging +0x298 simulation list (not MST)	out-of-scope
+1405f5340	0x375	base writer (s1-02)	out-of-scope
+1405f56c0	0x192	slot +0x288 setup lines (all classes)	spec
+1405f5860	leaf	slot +0x290 empty (all classes in scope)	spec
+1405f79b0	leaf	slot +0x200 false (Base, HTFurnace, Pre, Pre2D, DiestressBM, Cogging)	spec
+1413e5ef0	leaf	slot +0x200 true (HeatTransfer*, Forming*, ExpressBase, FormingExpressCommon)	spec
+1405f79a0	leaf	slot +0x1f8 false (not on MST path)	out-of-scope
+1405f5880	0x2e0	slot +0x298 base simulation list (not MST)	out-of-scope
+141423390	0x54c	slot +0x298 FormingExpressCommon (not MST)	out-of-scope
+14029a4b0	0x3e	slot +0x298 DiestressBM (not MST)	out-of-scope
+140046cc0	0x7c4	create op item: legacy type -> SfOprHeatTransferExpress(2D)	spec
+140050c80	0x76	op+0x120 class name setter	spec
+140050d50	0x4a	op+0x128 setter (legacy name, later SubType)	spec
+140050d00	0x42	op+0x120 class name (SIMTYP)	spec
+140050ac0	0x42	op+0x118 name (OPRNAM/SIMNAM)	spec
+140050a90	0x2a	op+0x118 name setter	spec
+140050b10	leaf	returns 0 (CURSIM 3rd)	spec
+140050b20	0x43	flow index of op (CURSIM 2nd, s1-02)	out-of-scope
+140064740	leaf	op+0x150 restart flag	spec
+1405f8d90	0x1c	props+0x548 -> op item	spec
+140050df0	0x22c	op Task directory path (s1-01)	out-of-scope
+140131c10	0xfa	SIMULATION header (s1-02)	out-of-scope
+1401343e0	0xb6	DBREAD (s1-02)	out-of-scope
+140134250	0x109	DIM/NSTART or DBREAD (s1-02)	out-of-scope
+140134bf0	0x1b5	MDSOBJ/TNOW/SimCtrl (s1-02)	out-of-scope
+140134db0	0x465	KFREAD material (s1-02)	out-of-scope
+140135220	0x44e	OBJTYP/object/MTLGRP (s1-02)	out-of-scope
+140135da0	0x166	CNTACT/InterObject (s1-02)	out-of-scope
+1401360e0	0x2c1	REMESH/KFREAD (s1-02)	out-of-scope
+1401363b0	0x23a	KFREAD per-object key (s1-02; summary in spec 2.2)	out-of-scope
+140136810	0x219	IMPEQP (s1-02)	out-of-scope
+1401365f0	0x217	KFREAD ObjProperties (s1-02)	out-of-scope
+140135fc0	0x77	TLOC (s1-02)	out-of-scope
+140136040	0x43	ActionKeywords (s1-02)	out-of-scope
+140134680	0xa9	KFREAD user key (s1-02)	out-of-scope
+140134730	0x9e	OPRNAM (s1-02)	out-of-scope
+1401347e0	0x116	SIMNAM (s1-02)	out-of-scope
+140134900	0xfb	CURSIM (s1-02)	out-of-scope
+140134a10	0x1ce	GENDB/KFWRIT (s1-02)	out-of-scope
+140041bc0	0x1c	QTextStream endl helper	library
+14146f8fc	0x19d	__RTDynamicCast	library
+141472ac8	0x35	fscanf	library
+14146dfd4	0x35	sscanf	library
+14146fcd8	leaf	fopen	library
+14146fb28	0x76	fclose	library
+1414733ac	0x1e0	fgets	library
+1414737d4	0x124	fgetc	library
+14146f040	leaf	strcmp	library
+14146fec0	leaf	strcpy	library
+141470b80	leaf	strlen	library
+1414737b8	leaf	strrchr	library
+141470a78	0xec	fabs	library
+14146eabc	0x99	operator new	library
+141473368	0x41	calloc	library
+141471b7c	0x3d	free	library
+14146da0c	0x175	fputs (stderr warning)	library
+14146db84	leaf	__iob_func	library
+14146df10	leaf	security cookie check	library
+1417f5860	0x4e	__chkstk	library
+140b2f9d0	0x63	cog error report (invalid index; not reached on valid data)	out-of-scope
+140b2f920	0x41	alloc error report	out-of-scope

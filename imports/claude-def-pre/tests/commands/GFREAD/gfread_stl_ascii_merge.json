@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD STL ASCII merge, degenerate, orientation",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.STL",
+      "source": "data/stl_ascii_merge.stl"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "ASCII STL (no byte > 0x7F, 'facet normal' found). 24 raw points (21 + 3 stale copies of the last vertex read for the 'endsolid test' line, a degenerate extra facet) -> 10 merged nodes (P4' within 1e-5 merged into P4, P1' merged into P1, P6 2e-5 away kept, C within tol of A and B maps to A = first match). T4 degenerate dropped -> 6 facets. T3 reversed by the DEF_STL.OUT orientation pass. DIEGEO 4 1 10 6, coordinates are float values widened to double. 'Loading geometry - Done'."
+  }
+}

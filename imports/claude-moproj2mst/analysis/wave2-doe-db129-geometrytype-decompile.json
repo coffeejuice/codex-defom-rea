@@ -1,0 +1,53 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "1410580a0",
+      "entry": "1410580a0",
+      "name": "FUN_1410580a0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 * FUN_1410580a0(undefined8 *param_1,undefined8 param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined1 *puVar2;\r\n  undefined1 *puStack_10;\r\n  \r\n  FUN_140130740(param_1,param_2,0);\r\n  *param_1 \u003d \u0026UNK_142b794f8;\r\n  param_1[2] \u003d \u0026UNK_142b794c0;\r\n  puStack_10 \u003d (undefined1 *)FUN_14146eabc(0xb0);\r\n  if (puStack_10 \u003d\u003d (undefined1 *)0x0) {\r\n    puStack_10 \u003d (undefined1 *)0x0;\r\n  }\r\n  else {\r\n    puVar2 \u003d puStack_10;\r\n    for (lVar1 \u003d 0xb0; lVar1 !\u003d 0; lVar1 \u003d lVar1 + -1) {\r\n      *puVar2 \u003d 0;\r\n      puVar2 \u003d puVar2 + 1;\r\n    }\r\n  }\r\n  param_1[9] \u003d puStack_10;\r\n  FUN_141058f20(param_1[9],param_1);\r\n  *(undefined4 *)(param_1 + 10) \u003d 0;\r\n  FUN_1410582d0(param_1);\r\n  return param_1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509ed74",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "141058370",
+      "entry": "141058370",
+      "name": "FUN_141058370",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_141058370(longlong *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  longlong lVar2;\r\n  \r\n  _setCurrentIndex_QStackedWidget__QEAAXH_Z(*(undefined8 *)(param_1[9] + 8),0);\r\n  lVar2 \u003d (**(code **)(*param_1 + 0x198))(param_1);\r\n  if (((lVar2 !\u003d 0) \u0026\u0026 (cVar1 \u003d FUN_140c7c0a0(lVar2), cVar1 \u003d\u003d \u0027\\0\u0027)) \u0026\u0026\r\n     (lVar2 \u003d FUN_140c7b2d0(lVar2), lVar2 !\u003d 0)) {\r\n    if (*(int *)(lVar2 + 0x100) \u003d\u003d 1) {\r\n      _setChecked_QAbstractButton__QEAAX_N_Z(*(undefined8 *)(param_1[9] + 0x28),1);\r\n    }\r\n    else if (*(int *)(lVar2 + 0x100) \u003d\u003d 2) {\r\n      _setChecked_QAbstractButton__QEAAX_N_Z(*(undefined8 *)(param_1[9] + 0x38),1);\r\n    }\r\n    else if (*(int *)(lVar2 + 0x100) \u003d\u003d 3) {\r\n      _setChecked_QAbstractButton__QEAAX_N_Z(*(undefined8 *)(param_1[9] + 0x48),1);\r\n    }\r\n    else if (*(int *)(lVar2 + 0x100) \u003d\u003d 4) {\r\n      _setChecked_QAbstractButton__QEAAX_N_Z(*(undefined8 *)(param_1[9] + 0x58),1);\r\n    }\r\n    FUN_140130af0(param_1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509edb0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "141058670",
+      "entry": "141058670",
+      "name": "FUN_141058670",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_141058670(longlong *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  longlong lVar2;\r\n  longlong lVar3;\r\n  undefined8 uVar4;\r\n  longlong lStack_30;\r\n  \r\n  lVar2 \u003d (**(code **)(*param_1 + 0x198))(param_1);\r\n  if (((lVar2 !\u003d 0) \u0026\u0026 (cVar1 \u003d FUN_140c7c0a0(lVar2), cVar1 \u003d\u003d \u0027\\0\u0027)) \u0026\u0026\r\n     (lVar2 \u003d FUN_140c7b2d0(lVar2), lVar2 !\u003d 0)) {\r\n    lVar3 \u003d FUN_140130af0(param_1);\r\n    lStack_30 \u003d 0;\r\n    if (lVar3 !\u003d 0) {\r\n      uVar4 \u003d func_0x000140051230(lVar3);\r\n      lStack_30 \u003d FUN_14146f8fc(uVar4,0,0x143579b60,0x143579bb8,0);\r\n    }\r\n    cVar1 \u003d _isChecked_QAbstractButton__QEBA_NXZ(*(undefined8 *)(param_1[9] + 0x28));\r\n    if (cVar1 \u003d\u003d \u0027\\0\u0027) {\r\n      cVar1 \u003d _isChecked_QAbstractButton__QEBA_NXZ(*(undefined8 *)(param_1[9] + 0x38));\r\n      if (cVar1 \u003d\u003d \u0027\\0\u0027) {\r\n        cVar1 \u003d _isChecked_QAbstractButton__QEBA_NXZ(*(undefined8 *)(param_1[9] + 0x48));\r\n        if (cVar1 \u003d\u003d \u0027\\0\u0027) {\r\n          cVar1 \u003d _isChecked_QAbstractButton__QEBA_NXZ(*(undefined8 *)(param_1[9] + 0x58));\r\n          if (cVar1 !\u003d \u0027\\0\u0027) {\r\n            *(undefined4 *)(lVar2 + 0x100) \u003d 4;\r\n          }\r\n        }\r\n        else {\r\n          *(undefined4 *)(lVar2 + 0x100) \u003d 3;\r\n        }\r\n      }\r\n      else {\r\n        *(undefined4 *)(lVar2 + 0x100) \u003d 2;\r\n        if (lStack_30 !\u003d 0) {\r\n          uVar4 \u003d func_0x000140025010(lStack_30);\r\n          func_0x0001413f72d0(uVar4,2);\r\n        }\r\n      }\r\n    }\r\n    else {\r\n      *(undefined4 *)(lVar2 + 0x100) \u003d 1;\r\n      if (lStack_30 !\u003d 0) {\r\n        uVar4 \u003d func_0x000140025010(lStack_30);\r\n        func_0x0001413f72d0(uVar4,1);\r\n      }\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509edd4",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

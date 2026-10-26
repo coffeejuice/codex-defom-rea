@@ -1,0 +1,59 @@
+{
+  "scope": "Source-closed empty-view, zero-variable postparse and Scene legend projection successor; implementation pending parent source freeze release",
+  "objective_complete": false,
+  "original_gui_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence_hashes": {
+    "analysis/wave2-doe-statevar-postparse-route.json": "a05a3883dcf8f53c619b606dbc4a4bb27e98639564e9429b2985a141fdb3b201",
+    "analysis/wave2-doe-stepdata-statevar-colorbar-zero-var-decompile.json": "e4163a0de9bcfd21a96bdbbba96782ebb1819261cfa8efa4f1fa44740304b29e",
+    "analysis/wave2-doe-stepdata-statevar-control-order-decompile.json": "4ef612fef7fd4aad7cd0789a369fcd4ff48c82e5b0ceb4d24dc794c3637c7fe6",
+    "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721",
+    "analysis/wave2-doe-stepdata-statevar-zero-var-display-decompile.json": "a7fd4394cd328aad9922ba6876042f3e2824c7363e3230b3985b70e64ffde24c",
+    "analysis/wave2-doe-stepdata-statevar-display-initialization-decompile.json": "86763fa816fb965d95304b4d807e5bfdf324af714960e9a59722b7701aaeda4b",
+    "analysis/wave2-doe-stepdata-statevar-legend-getters-decompile.json": "89e578bfd529b3919df3099b3771c7f0145503ac3c6efdb0763aa46d0ba8b028",
+    "analysis/wave2-doe-stepdata-statevar-legend-construction-decompile.json": "ab9af6a933565239a38a269b80ac693535249e1cdf9430f83c2dffcdb7f2428c",
+    "analysis/wave2-doe-stepdata-statevar-legend-owner-decompile.json": "ef9de3bbbb2d7b2c474f4cbe51ad4f96047e2e7f91089b0312672c0b3706e20d",
+    "analysis/wave2-doe-statevar-legend-leaves-receipt.json": "a5ebc24a3686b82507fdbe9fb3f6520598821be0b982634eb7906650a6edb03f",
+    "analysis/wave2-doe-statevar-legend-init-leaves-receipt.json": "a6bcb6c09cdb4aeca98ecc79c32e7abcebf051be14728bd3cdd825162d80f955",
+    "analysis/wave2-doe-statevar-legend-pure-leaves-receipt.json": "91a8abed8ecae2079b7405bba0bb9c6905e17600ca4814d073c50a5df8075ec8"
+  },
+  "shared_hook_hashes": {
+    "source/apps/moproj2mst/include/m2m/engine_scene.hpp": "6df200ba2bdd14fbb9fc43be0273bc336fcbbe7045c89410d1c3409029ec7331",
+    "source/apps/moproj2mst/src/engine/viewer_camera.cpp": "e9b4e639ec2f75051610e141f319ea95e7de7dc7d2e722104d61f16f52372232"
+  },
+  "ordered_var0_contract": [
+    "d328c0 calls d15b40 with local notification flag false. d15b80 sets StateVar+450=true before d16530, clears it only after normal return. Earlier constructor-false inference is superseded.",
+    "d15bf0 view normalization: empty view list has no effects. Populated views remain guarded here, with +450 true.",
+    "d302f0(state,null,var) clears an old cached data pointer and cached variable when variable differs; null input does not install a replacement. Write +4c/+50. The first direct notification is skipped because the caller flag is false.",
+    "d16ae0 for variable0 calls d16340; empty view list has no rendering-clear effects. Nonzero variables remain guarded at this call, not treated as an empty branch.",
+    "d30480 iterates model DB objects: objectCount0 has no effects; nonempty objects remain guarded. Variable20000-only d30170 is skipped for variable0.",
+    "d17b90 uses pure capability queries and82cf50. Variable0 resolves type2 irrespective of component and plot type. d267a0 assigns QObject::tr result for the literal leading-space label \" None\"; an explicit converted translation result is required. Empty view contribution then assigns min0/max1. Second direct notification is skipped.",
+    "d189b0 reads cached rectangle/box radius before checking variable0. c8e080 uses1239630/121a310, proven single double reads at+28/+58 with no mutation. The unused result can be elided; do not substitute viewerSceneBox, which creates viewer state. Variable0 then returns before visibility-loop work.",
+    "d15fb0 has no per-view effects for empty views. d16a80 calls cff380 only when owning GuiModel.display is nonnull. No display means this branch completes.",
+    "cff380 with nonnull MAIN first calls d0d1b0, then looks up property table without creation. Absent table skips population. StepData child traversal/finalization continues only after successful postparse return."
+  ],
+  "legend_contract": [
+    "d0d0a0 first queries the original global main window. Observed null yields no legend; unavailable observation guards.",
+    "With a main window, backend+230 selects alternative viewport or SfScene dynamic cast. The next component requires an explicitly observed Scene backend; alternative viewport remains guarded.",
+    "Scene legend slot+c90 is initialized null by cca680, but later lifecycle may create it. Require explicit observed absence for the first conversion-owned legend; never infer absence from constructor alone.",
+    "ccb2c0 reads Scene qreal height/width, truncates each to int. Width<121 uses signed width/5, otherwise120. Height=int(intH*0.5); x=intW-legendWidth-5; y=int(intH*0.25). Preserve negative x at the121 boundary. Inputs outside a supported finite positive safe-int geometry domain guard.",
+    "c0e470 constructs0xf0-byte legend through c1c430, binds Scene and its SfDispView+10 subobject, fixed Arial8/10 weight50 nonitalic fonts, Qt global black colors, raw constraint fields82/200, cacheMode1, plus five explicit global values. QTime/font metrics and native Qt graphics payload remain opaque and unclaimed until consumed.",
+    "Only after constructor returns does Scene+c90 receive the pointer; hide occurs before addItem. d0d0a0 then sees nonzero cache mode and update(empty QRectF) invalidates cache before the later hide/show decision.",
+    "d0d1b0 resolves active model through cfac50. Require actual display MAIN==owning model and displayMainShown=true. Property-table presence can override active selection, so an unavailable/present table guards after legend construction/cache update. Empty named list is required before scanning named models; unknown alternative model branches remain guarded.",
+    "d15920 tests actual attached view plots, not variable!=0. Empty views on the selected MAIN and no named models yields false. Therefore d0d1b0 hides legend regardless of the unconsumed display+A30 byte.",
+    "Per-StudyIo legend projection is keyed by actual Display pointer and retained within a single conversion. Scoped ownership is not proof of original process-global teardown, native allocator, QGraphicsScene event delivery or rendering parity."
+  ],
+  "required_inputs": [
+    "Explicit translated result for QObject::tr(\" None\").",
+    "For a bound display, explicit main-window availability and property-table presence observation.",
+    "For first Scene allocation, explicit backend identity, observed-absent legend slot, Scene qreal geometry and five global values143d763c8/b8/c0/bc/e8.",
+    "No current-user settings, expected-output fixture snapshots, inferred viewport dimensions or invented global defaults."
+  ],
+  "source_state": "No worker source edits since parent119 validation; shared displayMainShown getter supplied by root. Parent combined build owns the freeze.",
+  "remaining": [
+    "Nonzero variable payload/rendering and populated view/object model effects.",
+    "Alternative viewport legend, preexisting external legend import, populated property table, alternate active model, and named-model plots.",
+    "Full Session fallback/selection/global Task replacement and active DOE Save remain guarded.",
+    "Close notifyTrue and named mode2 input are separate from this parse flag=false route; registry id0 absence is not established."
+  ],
+  "runtime": "Static retained binary evidence only. No target/runtime/UI/shared REA execution."
+}

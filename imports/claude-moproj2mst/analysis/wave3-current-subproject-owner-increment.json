@@ -1,0 +1,40 @@
+{
+  "scope": "Live current subproject native model owner resolution",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/model_manager.hpp",
+      "sha256": "f6051ef0677ff91fc3bcea91ea8e5a69be7a00dc97146937ce39ce4546b21e51"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/model_manager.cpp",
+      "sha256": "cf9446000e983e119e166797d862c5afe0233706efb220b2b493c6418999b70a"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_conversion_session.cpp",
+      "sha256": "93472df4920e815701c1a93cb73e6e60e608c52f95b8836b303c5219a1ce0109"
+    }
+  ],
+  "evidence": [
+    "analysis/wave3-close-model-owner-identity-contract.json",
+    "analysis/wave2-doe-model-manager-actual-open-contract.json"
+  ],
+  "implemented": [
+    "Read actual live selected child from ModelManager; absent/currentBase returnsnull.",
+    "Follow actual MoProject backlink, current activeSub and ordinary Project.dataDb owner. Existingtype4 uses actual SubProject.ownDb.",
+    "Missing lazyProject or type4owner guards before original allocation/path effects; malformed adapter backlinks also guard.",
+    "Every invocation rereads current/sub selection, never caches model ID or emitter model."
+  ],
+  "tests": [
+    "Current changes and registered-but-unselected state",
+    "Actual distinct primary/type4 owner identities",
+    "AbsentactiveSub and Base child null results",
+    "Missing type4 refuses without allocating",
+    "Missing Project after storage release refuses lazycreation"
+  ],
+  "qualifications": [
+    "Calls after original null-global-mainwindow require caller-specific guard; this helper starts from an actual manager.",
+    "ExistingBase/type4 pointer resolves ownership only; alternate graph factory remains guarded.",
+    "Fresh original comparison and full normalClose integration pending."
+  ],
+  "validation": "pending next root combined build"
+}

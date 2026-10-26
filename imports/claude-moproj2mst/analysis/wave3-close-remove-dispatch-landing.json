@@ -1,0 +1,70 @@
+{
+  "scope": "RemoveGraphItems shared-notifier empty/expired dispatch prefix; 39 isolated Close cases",
+  "created_utc": "2026-10-24T06:03:00.457841+00:00",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp",
+      "sha256": "84f910d07ae5e77516bd732cdc36adb6ad90971d035cfb65a06dce308986c0e3"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/close_effects.cpp",
+      "sha256": "695a2cfb227cf24b1c89fc7fd77abddd860e605c969c96689e3a3cda9bd30428"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_close_effects.cpp",
+      "sha256": "9f48305a6d8a64b0222c84db2f0abe9c59330877acffc1837ca71c8e46784480"
+    }
+  ],
+  "predecessor": {
+    "path": "analysis/wave3-close-post-graph-manager-landing.json",
+    "sha256": "2dbfe4dc29308461a4ced510f835d5dd7bf2df1f1bd53490b6946988ad27d604"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-session-notifier-retained-1402cf3c0-d1c.c",
+      "sha256": "5d208d8e096036772ba21cd636e87c2394aa4de6e9bae88977f40b9ea65e2214"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    },
+    {
+      "path": "analysis/wave3-close-scene-owner-identity-contract.json",
+      "sha256": "4dd548c10f7051d871513a227deae1b93a2e1af5eec0a09430da7538b994f713"
+    },
+    {
+      "path": "analysis/wave3-close-graph-manager-constructor-contract.json",
+      "sha256": "21c58fa1f3ae77721fb0266b6151168aec14278a449fce1fc33c7f10ac397571"
+    }
+  ],
+  "implementation": [
+    "removeGraphItems uses the actual SessionNotificationState. suppressed=true returns before any map qualification or mutation. Otherwise flag90=false occurs before unknown-population refusal.",
+    "A qualified empty list establishes the existing/default-inserted empty key. Nonempty snapshot entries use weak lifetime; expired-only traversal returns without deleting persistent registrations or changing the map into an empty key.",
+    "A live receiver validates actual model/cache ownership and refuses at c0cfe0 global scene lookup. Cached constructor scene and empty manager graph list do not stand in for current primary/secondary scenes.",
+    "No diagnostic attempts or callback counters stand in for original effects. No full Close invocation, selective scene deletion or unconditional HideSecondary notification is claimed."
+  ],
+  "tests": {
+    "total": 39,
+    "new": 6,
+    "coverage": [
+      "suppression bypasses missing population and preserves flag90",
+      "unknown population refuses after flag90 reset",
+      "qualified empty key persists across repeated dispatch",
+      "expired registration retained and not inserted as an empty key",
+      "live empty manager preserves state and refuses before global scene cleanup; suppression still bypasses",
+      "externally retained orphan/cache-detached managers reject invalid lifetime projection"
+    ],
+    "status": "Not executed by worker. Parent owns focused/full build validation."
+  },
+  "verification": [
+    "git diff --check passed for all3 owned files",
+    "Manual include/declaration/ownership/control-flow review completed; no build or target execution.",
+    "Peer reference_harness confirmed shared emptyKeys versus registered-expired map semantics."
+  ],
+  "qualifications": [
+    "Isolated typed tests do not establish original runtime receiver population or public Close integration.",
+    "Unknown population is not treated as empty. Live scene and HideSecondary effects remain explicit dependency.",
+    "External shared leases can retain adapter manager beyond native QObject lifetime; identity checks reject known incomplete lifetime binding."
+  ],
+  "successor": "Root current ModelManager/Project/subproject binding is required before enabled histogram 4122f0 owner lookup. Investigate smallest remaining scene constructor/item population dependency read-only while parent validates."
+}

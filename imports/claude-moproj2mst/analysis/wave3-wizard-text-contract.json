@@ -1,0 +1,62 @@
+{
+  "method": "Bounded offline original/Qt PE instruction review; no target execution",
+  "evidence": [
+    {
+      "path": "analysis/wave3-wizard-save-static.json",
+      "sha256": "138b839181f11983fd75d4391a6b5cae9d822b3d45c683923189398b19daf97b"
+    },
+    {
+      "path": "analysis/wave3-wizard-save-qiodevice-write-extended.asm",
+      "sha256": "475fd901475e91740fd20ae0c8c02139f2ad014b6d8cee12a8dd79b5422df180"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L6/p0.c",
+      "sha256": "54c960fb71dc26a95d9e5f0d2519ce98b0afc45a028f335f0b29a016db01b71d"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L6/s1.c",
+      "sha256": "f5ff02930ed36713e45040acd6c4e023c965e7683b80faff7d9aa142e6c24499"
+    }
+  ],
+  "imports": {
+    "0x141e03fe0": "?open@QFile@@UEAA_NV?$QFlags@W4OpenModeFlag@QIODevice@@@@@Z",
+    "0x141e04010": "?write@QIODevice@@QEAA_JAEBVQByteArray@@@Z",
+    "0x141e04018": "?close@QFile@@UEAAXXZ",
+    "0x141e0c480": "?toByteArray@QDomDocument@@QEBA?AVQByteArray@@H@Z"
+  },
+  "qt_crlf": {
+    "address": "0x6722ae90",
+    "bytes": "0d0a00"
+  },
+  "contracts": [
+    {
+      "addresses": "1402b9191..919c;1402b934d..94bf;1402b94ea;1402b9504",
+      "behavior": "Diestress opens mode2|10 before DOM and payload reads; failed open logs qDebug and exits. Successful open serializes toByteArray(1), writes once through QIODevice Text, closes and ignores write/close status."
+    },
+    {
+      "addresses": "1402a16c0..1402a1ddf",
+      "behavior": "BM writer opens mode2|10 before DOM, object loop and serialization; failed open exits after qDebug. Successful open writes QByteArray then closes, ignoring statuses."
+    },
+    {
+      "addresses": "670bb827..670bb9aa",
+      "behavior": "Text branch scans to LF; writes nonempty span via writeData; then separate CRLF2-byte write. Nonpositive return stops with prior consumed count or failure if none. Positive short span is not retried; LF write proceeds and input cursor skips rest of span. Positive CRLF result counts one source byte even if1. Earlier CR bytes are retained."
+    },
+    {
+      "addresses": "670bb750..670bba2c",
+      "behavior": "Six adjacent unwind regions belong to one logical QIODevice::write. First-region-only capture is incomplete. WriteOnly fresh regular files require no seek/read-buffer replay; generic mixed read/write positions remain outside this adapter."
+    }
+  ],
+  "qualifications": [
+    "QDebug failed-open formatting/message-handler routing remains unimplemented and queued; write/order behavior is separate",
+    "BM null-data guard and object-count beyond represented fixed block are explicit incomplete paths, not original fault emulation",
+    "Existing QDom serialization is reused; successful-byte parity remains covered by historical fixtures and focused Unicode/large-document tests",
+    "Earlier Save-current BM writer remains a recorded/atomic effect until that lifecycle stage is recovered",
+    "No original injected failures; candidate tests must validate reconstructed contracts before acceptance"
+  ],
+  "implementation": [
+    "src/mst/file_device.cpp writeTextMode",
+    "src/datafiles/qdom_write.cpp documentUtf8",
+    "src/engine/save_l6.cpp native property open gates"
+  ],
+  "next": "Full regression then native HeatTreat CRT property writer and earlier Open/Save-current effects"
+}

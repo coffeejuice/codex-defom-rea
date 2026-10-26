@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-23T11:08:52.251408+00:00",
+  "scope": "Wave 2: 3D model scene rectangle fallback for empty and curve-only geometry-list items; original full Open-Save-Close fidelity remains broader.",
+  "status": "implemented; coordinator build, regression and original comparison pending",
+  "target_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qt_gui": {
+    "path": "evidence/original-binaries/QtGui4_64.dll",
+    "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+    "symbol": "?length@QVector3D@@QEBANXZ",
+    "entry": "0x655c8c60",
+    "end_exclusive": "0x655c8d00",
+    "range_kind": "bounded leaf window; tail not claimed",
+    "disassembly": "analysis/wave2-geometry-qt-vector-length-disassembly.txt"
+  },
+  "static_receipt": "analysis/wave2-geometry-static-evidence.json",
+  "method_qualification": "Read-only retained decompilation plus fresh DUMPBIN offline disassembly/PE constants/vtable/export reads. No original application or original byte execution by this worker. No source build or test execution by this worker.",
+  "original_contract": {
+    "scene_selector": {
+      "entry": "0x140c8e0f0",
+      "source": "evidence/gui_mo/s1/viewer_rect/a3.c",
+      "rules": [
+        "2D model returns rectBox(model+0x108).",
+        "Other models inspect view settings. Candidate rect is considered only if at least one view has flag1 and no flag1 view has flag3, flag2 or flag0x2d.",
+        "When candidate rect is considered: convert modelRect to a valid 3D box even if rect invalid; obtain derived radius, clear sign through original0x141470a78, compare to exact double1e-6.",
+        "Only ordered radius >1e-6 selects rectBox. Radius <=1e-6 and unordered NaN select existing modelBox at +0x148.",
+        "Otherwise return existing modelBox. No original unsupported refusal occurs in the inspected selector."
+      ],
+      "critical_sites": [
+        "0x140c8e4fd: call radius getter0x14121a310",
+        "0x140c8e502: call0x141470a78",
+        "0x140c8e507: COMISD [0x142157420]",
+        "0x140c8e50f: JBE fallback0x140c8e51e"
+      ]
+    },
+    "item_binding": {
+      "constructor": "0x14126c540",
+      "vtable": "0x142d36608",
+      "vt48": "0x14126d0c0",
+      "source": "evidence/deform-rea-work/out/mdtV/item.c",
+      "rules": [
+        "Base ctor builds invalid zero-endpoint Rect2 at item+0xb0.",
+        "Ctor init0x14126c6a0 sets item+0x188 view binding to null.",
+        "0x14126c760 binds view and geometry index at +0x188/+0x190, resets rectangle, and gathers child curve/mesh rectangles.",
+        "A fresh item created on demand by0x1411f3810 has no binding and keeps its zero rect until bound."
+      ]
+    },
+    "item_refresh": {
+      "entry": "0x14126d0c0",
+      "resolver": "0x14126cae0",
+      "sources": [
+        "evidence/deform-rea-work/out/mdtV/item2.c:1",
+        "evidence/deform-rea-work/out/mdtV/item3.c:1"
+      ],
+      "rules": [
+        "Resolver returns geometry by item view object and in-range nonnegative geometry index.",
+        "No resolved source means return without resetting cached rect.",
+        "With source, reset rect, sample each curve through0x141267410 with double tolerance0.01 and union child0x1412510a0 rectangles.",
+        "Then0x1408ee940 checks geometry mesh. No mesh pointer or node/element count below1 gives no mesh contribution. Positive counts continue to coordinate/connectivity getters and0x14124bec0, not recovered in this implementation."
+      ]
+    },
+    "model_rect_propagation": {
+      "entry": "0x140c8e640",
+      "source": "evidence/gui_mo/s1/viewer_rect/a0.c:203",
+      "rules": [
+        "3D refresh resets modelRect and modelBox.",
+        "For each non-kind7 shown view, recompute its3D box and union into modelBox.",
+        "Get/create geometry item0, execute its vt+0x48, copy item+0xb0 via0x1412510a0 and union into modelRect in view order.",
+        "Bind/reset/rebind destroys old item cache; a missing geometry source during refresh preserves that item cache."
+      ]
+    },
+    "radius_arithmetic": {
+      "derive": "0x141219af0",
+      "sum": "0x14121c260",
+      "half_sum": "0x14121c340",
+      "distance": "0x14121c200",
+      "qt_length_import": "0x141e0a758",
+      "qt_length_entry": "0x655c8c60",
+      "steps": [
+        "rect endpoints round to QVector3D float values.",
+        "Sum each pair in double then store float. Divide that float by double2 then store float centre.",
+        "Subtract centre from max as widened doubles then store float delta.",
+        "QtGui original length export multiplies float deltas, adds x squared plus y squared plus z squared as floats, widens sum, then tail-calls sqrt.",
+        "Radius nonnegative or NaN permits equivalent ordered positive comparison without an extra fabs in reconstructed selector."
+      ]
+    }
+  },
+  "implementation": {
+    "files": [
+      "source/apps/moproj2mst/src/engine/viewer.cpp",
+      "source/apps/moproj2mst/tests/mdt/test_viewer_box.cpp"
+    ],
+    "changes": [
+      "Store geometry item binding/index/cached rectangle, replacing size-only integer.",
+      "Recover empty and curve-only rectangle contributions using existing recovered curve sampler.",
+      "Track rectangle qualification: positive-count geometry mesh keeps explicit unsupported only if its unknown rectangle would be selected. Empty mesh counts are known to contribute nothing.",
+      "Propagate item0 rectangle and qualification into modelRect at original refresh point.",
+      "Restore exact ordered threshold fallback and float-rounded radius arithmetic."
+    ],
+    "compatibility": "No public header, m2m export, C ABI signature or status numeric value changed. Viewer state is private.",
+    "not_claimed": [
+      "Populated geometry-list mesh item builder or its coordinate/connectivity getter side effects.",
+      "Flag0x2b transformed geometry-item3D boxes.",
+      "Original GUI lifecycle,131/131R conversion success or complete Save output parity."
+    ]
+  },
+  "focused_cases": [
+    {
+      "test": "empty_3d_item_rect_falls_back_to_the_model_box",
+      "states": [
+        "bound empty geometry",
+        "unbound newly created item0"
+      ],
+      "expected": "No refusal; returns invalid zero modelBox rather than valid zero rectBox."
+    },
+    {
+      "test": "scene_rect_radius_uses_float_length_and_an_ordered_threshold",
+      "boundaries": [
+        {
+          "half_extent_float_bits": "0x358637bc",
+          "half_extent": 9.99999883788405e-07,
+          "float_squared_length": 9.999997791637627e-13,
+          "double_radius": 9.999998895818753e-07,
+          "use_rect": false,
+          "qualification": "Fixed arithmetic expectation from original static instructions; no original execution."
+        },
+        {
+          "half_extent_float_bits": "0x358637bd",
+          "half_extent": 9.999999974752427e-07,
+          "float_squared_length": 9.999999960041972e-13,
+          "double_radius": 9.999999980020987e-07,
+          "use_rect": false,
+          "qualification": "Fixed arithmetic expectation from original static instructions; no original execution."
+        },
+        {
+          "half_extent_float_bits": "0x358637be",
+          "half_extent": 1.0000001111620804e-06,
+          "float_squared_length": 1.0000002128446317e-12,
+          "double_radius": 1.0000001064223102e-06,
+          "use_rect": true,
+          "qualification": "Fixed arithmetic expectation from original static instructions; no original execution."
+        }
+      ],
+      "nonfinite_inputs": [
+        "symmetric infinity endpoints derive NaN radius -> fallback",
+        "quiet NaN endpoints derive NaN radius -> fallback"
+      ]
+    },
+    {
+      "test": "geometry_item_rect_refresh_and_missing_source_keep_original_state_order",
+      "expected_sequence": [
+        "curve[-2,2] selects rect",
+        "curve edited to[-4,4], refresh selects updated rect",
+        "remove source geometry without rebind retains cached[-4,4]",
+        "rebind destroys cache, new unbound item0 -> zero-radius fallback"
+      ]
+    },
+    {
+      "test": "empty_geometry_mesh_is_known_but_populated_mesh_rect_stays_refused",
+      "expected": [
+        "mesh node/element zero count leaves curve rect known",
+        "positive node and element counts mark mesh contribution unknown and scene selection explicitly refuses"
+      ]
+    }
+  ],
+  "source_identities": [
+    {
+      "path": "evidence/gui_mo/s1/viewer_rect/a0.c",
+      "sha256": "387dbb03347c46246face655923144e9a36fefc903008d1c8fecae8356a299be"
+    },
+    {
+      "path": "evidence/gui_mo/s1/viewer_rect/a3.c",
+      "sha256": "c450990a38e87f060fcbceb438da3b1a5caf882dfb22651f075df07b0fc96420"
+    },
+    {
+      "path": "evidence/deform-rea-work/out/mdtV/item.c",
+      "sha256": "60c9f7a436d82ea6535da5b6773b55f3e3ff8643aacefe6013088b69109b0d05"
+    },
+    {
+      "path": "evidence/deform-rea-work/out/mdtV/item2.c",
+      "sha256": "fe24456c812f0ff1a17d99a851aaa4c92eae53027b45cf2a177e4239e57253a8"
+    },
+    {
+      "path": "evidence/deform-rea-work/out/mdtV/item3.c",
+      "sha256": "a11f8cadadc688c5b0914c6aa016b4138f296df00a031b2bd8772a5e4f1c8b12"
+    },
+    {
+      "path": "evidence/deform-rea-work/out/mdtV/c6a0.lst",
+      "sha256": "4ac8be836e3b662a45b12deae4bb1d939597eded607f75bcfa050317e7900ebe"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/V/v2.c",
+      "sha256": "d87ccd16246234985c1a2594bf4132850ce28d5f6de1243037f1ef0d44b3bbfa"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/V/v3.c",
+      "sha256": "b0a5b9df8fa1dc5f65704f32496098e8341b331aa0e27d8a9e32917a46b6a028"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/V/v15.c",
+      "sha256": "af3b866ea1942471116a6afa0ded533f85b1e861428143869fdfe7d7b0088ce9"
+    },
+    {
+      "path": "evidence/gui_mo/s1/vtables.tsv",
+      "sha256": "b5c2274f95bebd3a0d7f16917937d0974d5f16e1840125f6e314a21787a571f4"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer.cpp",
+      "sha256": "7c845f1d29cca26ed73cc86fe8b6052a2e4770a2a973286f3f152f693fefa691"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer2d.cpp",
+      "sha256": "f0485ccb579a82883651941877d903ca9285ca8a2c1a5be445c36c6103caf1ef"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_viewer_box.cpp",
+      "sha256": "d8e619583a8f9470dff386e39db431545aa2b8cb1378f02dbd83d08bfc48f020"
+    },
+    {
+      "path": "tools/geometry_static_evidence.py",
+      "sha256": "3b4c70f4e2c87b7c72e46903000c8d1d4dfcd61616987e0c4a474ac62eb3d04c"
+    }
+  ],
+  "remaining_validation": [
+    "Coordinator build and focused mdt viewer test, then required full regression.",
+    "Run frozen copied131/131R through converter; qualify inherited original session history and evaluate refusal change separately from byte equality.",
+    "Fresh original GUI comparisons remain deferred while target acquisition is unavailable/user-owned GUI is active.",
+    "A whole0x140c8e0f0 byte probe would require many direct Qt/list/model callees; no such execution occurred. The exact Qt arithmetic prefix is static-disassembled, not a whole function runtime claim."
+  ]
+}

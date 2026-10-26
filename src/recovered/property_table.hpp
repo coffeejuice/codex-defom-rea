@@ -42,6 +42,8 @@ struct PropertyTable {
     //12fad0: release, clamp negative counts to0 and width<1 to1, then calloc.
     // Logical counts and actual vector extents remain distinct between calls.
     void allocate_zeroed();
+    //12f480 owned-buffer release only; logical metadata/scalars remain stale.
+    void clear_owned_storage() noexcept { release_owned(); }
     [[nodiscard]] std::int32_t dependent_count() const;
 
 private:

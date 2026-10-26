@@ -1,0 +1,7 @@
+# Efficiency review after checkpoints 83–85
+
+Final source-bound grouped builds took 46.541, 54.460 and 56.489 seconds for checkpoints 83, 84 and 85. Their successful complete test launchers took 13.250, 13.563 and 13.281 seconds for 246, 247 and 248 registered tests. These are observed rates across different source changes, not a matched speed experiment. CP85 also had an initial full-test failure at folder IPC case 38 before the identical-candidate retry passed; total validation time includes both attempts, and the failure remains recorded.
+
+The exact one-value Qt parser replaced repeated literal recovery work in CP84. CP85 removed only literal branches proven unreachable behind that new route; the remaining generic path is preserved. This should reduce future reconstruction effort, but no worker token or wall-time comparison isolates that benefit, so no speedup factor is claimed.
+
+The CP85 IPC audit found complete published ready frames and a generic helper failure that cannot distinguish open denial from short read. CP86 is adding a bounded pre-open retry with distinct diagnostics while preserving strict frame/identity checks. This is a reliability intervention; its impact on runtime and failure rate must be measured against identical fixtures and source-bound binaries. Continue full source/artifact/fixture hashing and historical comparisons. The 10× end-to-end target remains unestablished.

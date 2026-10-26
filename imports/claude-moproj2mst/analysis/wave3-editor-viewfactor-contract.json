@@ -1,0 +1,85 @@
+{
+  "schema": "wave3-editor-viewfactor-contract-v1",
+  "created_utc": "2026-10-24T04:48:57.636210+00:00",
+  "status": "static_contract_ready_source_frozen",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-viewfactor-fill-apply-static.json",
+      "sha256": "1c065a5b4403e19515ab53e312a64532448cab6b5ba6e04215e66eaf9c5b9eb1",
+      "bytes": 1634
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-dimension-static.json",
+      "sha256": "49022b1ed8d8f8b8ae75bbfacdfd06420b00919559aa594290e97188bddb2a01",
+      "bytes": 2273
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-dimension-owner-static.json",
+      "sha256": "176e71082ad08edf5651e865a590838b73cf89f992907a8276352895c3789279",
+      "bytes": 993
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-model-dimension-static.json",
+      "sha256": "d34109b735fe8117acf8421623fa856e119e6845c93b88dff5d978cc90ccce8d",
+      "bytes": 993
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-step-dimension.asm",
+      "sha256": "bc4d64545c1149425b82254b6c919e16cded420de22af902774a45395b4ba39d",
+      "bytes": 901
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-slot-map.json",
+      "sha256": "9bbf83751e7f7606f039392b6e775f9a20cf3984fb1e3654b9e32c6d4a669661",
+      "bytes": 19742
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecb340.c",
+      "sha256": "84eb3c518d394e7c9c16abb6ae49927ff8d57e5e2d092ab9de40c8d1b2d821b5",
+      "bytes": 2509
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ed0820.c",
+      "sha256": "cc427084d30e7699c4674936797de168e32196300bc1798282a9ae4d1e896247",
+      "bytes": 308
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-environment-contract.json",
+      "sha256": "2903cc24f464ae4f77a41b2dd29964e1ce9462d3775f9dfb293b1712350c3a76",
+      "bytes": 9142
+    }
+  ],
+  "reconciliation": "The older environment profile deliberately guarded VFACTR mode0. The composer later added real deep VFACTR temporaries at the original constructor copy points, but Apply still discards the enabled branch. That existing ownership supplies the smallest next integration seam.",
+  "fill": [
+    "0x140ec4807 tests SC+9d8 against zero; any nonzero int selects checkbox UI+d98 and enables definition button UI+da0. Zero clears/disables them.",
+    "The automatic stateChanged(int) slot is map index66 -> 0x140ed0820. Its aligned body only calls QWidget::setEnabled on UI+da0; it does not write SC or the remembered curve. The separate clicked slot index67 -> 0x140ed0880 is not invoked by a no-interaction fresh Open/Save.",
+    "Definition button visibility comes from 0x140130ea0, the dimension==2 predicate; the supported 3D branch is visible."
+  ],
+  "ownership": [
+    "Existing openInitialEditor copies SC+9e0 and +9dc into InitialEditorSession::viewFactorCurve and viewFactorDefinition after the first page dispatch.",
+    "Final constructor refresh 0x140ecb340 again deep-copies SC+9e0 to editor+f0 and SC+9dc to editor+138 before environment fill, then restores the backup SC. Current copyEnvironmentTemporaries already matches that order.",
+    "The view-factor curve is not a fifth environment constant: its retained DYNARY is copied whole, without g6 text conversion or changed ndim. Use the already owned session temporary, not a new Save-time model snapshot."
+  ],
+  "apply": [
+    "The VFACTR tail is reached only after all four environment temporary copies and seven scalar validations/stores. Any earlier Invalid scalar returns before mode, curve, or definition writes.",
+    "Unchecked: 0x140ec56c6 stores SC+9d8=0 and leaves SC+9e0/+9dc unchanged.",
+    "Checked: 0x140ec565e stores SC+9d8=1 before dimension predicate 0x140130ee0. In 3D, 0x140ec569a deep-copies editor+f0 into SC+9e0 through existing recovered dynary_copy; 0x140ec56b5 then stores editor+138 into SC+9dc.",
+    "0x140130ee0 compares getter result against3. Getter 0x140130e50 resolves the editor model, 0x140c7fee0 resolves its step, and leaf0x140100980 loads step+1c. Missing model/step defaults3 in the original; current composer already requires a real 3D model."
+  ],
+  "proposed_seam": "EnvironmentPage gains remembered viewFactorChecked. Add explicit EnvironmentViewFactorState { const DYNARY* curve; int definition; } and optional third argument to applyEnvironment3D. Actual composer supplies the exact session curve/definition. For checked input lacking that owner state, preserve the reached prefix and mode=1, then report Unsupported at the copy boundary; never silently use current SC or a default definition. Unchecked and scalar-validation-stopped paths do not require or dereference the optional state.",
+  "required_tests": [
+    "Nonzero original mode values become checked, including negative and noncanonical positive ints; checkbox/button-state fill does not mutate model mode.",
+    "Checked Save copies remembered curve values and table storage deeply, retains curve metadata, then writes remembered definition despite later SC mutation.",
+    "Unchecked Save clears only mode and preserves current curve/definition.",
+    "An invalid scalar at each of seven positions prevents all VFACTR writes while preserving prior environment writes.",
+    "Missing owner state refuses only when the checked copy boundary is reached, retaining prior model effects and mode=1.",
+    "Full composer uses its original temporary owner through repeated fills and later model mutation."
+  ],
+  "remaining_qualifications": [
+    "No public editor300 enablement: furnace, TIMEID, other variable environment curves, licensing/feature observations and other known dependencies remain separately guarded.",
+    "No original runtime capture or GUI control. Original leaf capture is interpreted only through 0x14010098d; following bytes belong to another function.",
+    "Existing dynary_copy reconstruction remains the copy implementation; this increment binds its already used operation to a newly recovered reachable branch."
+  ],
+  "next_action": "After root releases the raw-spill build freeze, implement this seam in simcontrol300.hpp/.cpp, simcontrol300_lifecycle.cpp and their snapshot/lifecycle tests, then freeze for root validation."
+}

@@ -1,0 +1,236 @@
+{
+  "schema": "resume46-boolean-startup-next-v1",
+  "utc": "2026-10-24T17:41:54.630828+00:00",
+  "status": "Static prerequisites traced; exact root capture dependency prepared; constructor PostPending guard preserved",
+  "qualification": "Retained DUMPBIN ranges for immutable SFTC11.0.2 QtCore/QtGui DLLs plus previously retained passive startup004 observation. No fresh original execution, app control, mutable REA, build or source changes. Unwind ranges do not establish entire logical function families. The earlier corrected single-event versus receiver-wide distinction remains controlling.",
+  "evidence": [
+    {
+      "path": "analysis/resume46-boolean-events.json",
+      "sha256": "bbf9d9b0064e8c616633cadee6ecdd618fe861c4f138d3dca670100874e78147"
+    },
+    {
+      "path": "analysis/wave3-close-probe004-constructor-tail-reconciliation.json",
+      "sha256": "11b8d10f0e09f89c2555d15c11dc2cba3d0c837070a3ec2c9db0e63757f24dd6"
+    },
+    {
+      "path": "analysis/wave3-close-probe004-dispatcher-gesture-corrections.json",
+      "sha256": "5e5314051d507ec9b68b029f4072ccd8348731b5da6fd58f87eb2d921cc48f2e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-constructor-post-event-static.json",
+      "sha256": "6700843966a7be135d226abff0e10944ccb091d2d75b3187e19e128234d20f13"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-event-list-insert-static.json",
+      "sha256": "38a08406570ee944e4049436247d034e132036c909324828536cef9780b1fd77"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-append-remove-static.json",
+      "sha256": "3e848c48661e894390cd82daa4b5d76e367b8ba756c5245d805066eb99161b4e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-default-wake-v2-static.json",
+      "sha256": "6736597a44520381b85e005ef9f3248f8dbb39cba92b0a40bd44a7bff6e5ea81"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-dispatcher-win32-wake-thunk-static.json",
+      "sha256": "2b477fceda4751f267f23fdf83d1bfb2f77d30e2db41827e701724d32c70be34"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6711ae90.asm",
+      "sha256": "070fb953e47536325d0987838f0502c47c43fef39851bfffaa4d990843974f90"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6711acd0.asm",
+      "sha256": "68ebe96e56ecacd48240fe5cda2abcaee95ab07570a94ff5b023784d76016aec"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6711a200.asm",
+      "sha256": "45f3b0b8d2474bf567065d693f29cb8ae0ddfc63b369b2d3faa931c257f451f4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67141b70.asm",
+      "sha256": "6949b93ac56f20790204f57351050845a6a76c7f9e4ed10866481ff61deaeddb"
+    },
+    {
+      "path": "analysis/wave3-closure-next-655e0ca0.asm",
+      "sha256": "73cd298937578e135a9cbb50466cf41806dac7d0f2c3ba248962ddb263c89955"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    },
+    {
+      "path": "build/original-splitter-probe-004/probe.js",
+      "sha256": "582b6291dc9abc631048732631bac058f8697d69049bb28a2a4c496e73f394b1"
+    }
+  ],
+  "source_trace": [
+    {
+      "site": "QtGui6506e81a..6506e857",
+      "effect": "Following synchronous rawCreate, allocate0x18 QEvent and initialize rawtype0x4a, install vt6569e350, pass same actual QWidget receiver and event to two-argument postEvent. Allocation failure is not silently transformed into success."
+    },
+    {
+      "site": "Core6711bfd0..6711bfd3",
+      "effect": "Default-priority wrapper sets R8D0 and jumps to6711ae90."
+    },
+    {
+      "site": "Core6711aedf..6711af63",
+      "effect": "Receiver+8 private -> private+40 threadData. Null threadData deletes incoming event. Nonnull threadData locks +48 mutex, then rereads receiver affinity. If affinity changed, unlock/reload/relock until matching or null. The locked RDI owner at11afc6 is authoritative; entry-cached affinity is not sufficient."
+    },
+    {
+      "site": "Core6711af6f..6711afad",
+      "effect": "Only nonzero receiver private+24 posted count with nonnull QApplication invokes compression virtual+68. Startup004 observed count0, so compression call skipped. Unknown count remains guarded; raw4c compression is a separate source path."
+    },
+    {
+      "site": "Core6711afad..6711afc6",
+      "effect": "Raw0x34 event-only current-thread depth payload path is bypassed by0x4a. This does not license general event support."
+    },
+    {
+      "site": "Core6711afc6..6711afe3",
+      "effect": "Stack record has receiver at0, event8, priority10; insertion receives address of threadData+30 queue owner and address of record."
+    },
+    {
+      "site": "Core6711acd0..6711addb",
+      "effect": "If empty queue, append. Nonempty unique queue compares last signed priority against incoming priority. Lastpriority>=incoming takes append, preserving equal-priority order. Other branch uses owner+10 insertion boundary and binary search plus insert helper; shared QList may detach. Only observed equal-priority unique append path is immediately specified."
+    },
+    {
+      "site": "Core6711a200..6711a29c",
+      "effect": "Unique QList obtains append slot, then allocates separate0x18 record and copies receiver/event/priority-and-padding. Incoming event is transferred, not copied. Record allocation null branch stores null and is not redesigned."
+    },
+    {
+      "site": "Core6711afef..6711b008",
+      "effect": "After insertion returns, set event postedbit0, increment receiver private+24 count, set locked threadData+50 canWait0, then unlock queue mutex. These mutations cannot be deferred until wake completes."
+    },
+    {
+      "site": "Core6711b015..6711b021",
+      "effect": "Resolve dispatcher from the same locked-owner threadData+20 after unlock. Null dispatcher returns; otherwise invoke dispatcher vt+98."
+    },
+    {
+      "site": "QtGui655e0ca0 / Core67141b70",
+      "effect": "Exact GUI thunk jmp [QtGui+697618] imports Core wakeUp without this adjustment. Wake resolves dispatcher+8 private, atomically increments private+a8 before checking private+98 HWND; null HWND skips CAS; nonnull attempts postedWake private+b4 CAS0->1. Successful CAS calls PostMessageW(HWND,0x401,0,0), ignored return; failed CAS returns without posting."
+    },
+    {
+      "site": "QtGui6506e85d..6506e869",
+      "effect": "Only after postEvent returns store constructor private+c8=R14, then destroy the same stack rawCreate event. Do not mark Complete or destroy Create while post/wake is pending."
+    }
+  ],
+  "closed_startup004_inputs": {
+    "source": "analysis/wave3-close-probe004-constructor-tail-reconciliation.json",
+    "receiver_posted_count": [
+      0,
+      1
+    ],
+    "queue_count": [
+      19,
+      20
+    ],
+    "queue_unique": true,
+    "queue_capacity": 253,
+    "queue_begin": 225,
+    "queue_end": [
+      244,
+      245
+    ],
+    "incoming_priority": 0,
+    "append_order": "original19 records retained, incoming20 at tail",
+    "incoming_flags": [
+      4,
+      4,
+      5
+    ],
+    "canWait": [
+      0,
+      0
+    ],
+    "limits": "These are observations from one retained fresh startup process. They establish selected branch shape; native addresses/aliases do not create live reconstructed owners or universally constant startup state. Earlier receivers may remain opaque but must retain identity/order and cannot be fabricated or destroyed."
+  },
+  "missing_dependencies": [
+    {
+      "id": "startup_same_process_dispatcher",
+      "needed": "Actual startup dispatcher private HWND/serial/postedWake values and selected wake branch. Existing script admits Core target only and therefore does not read fields for actual QtGui thunk.",
+      "smallest_fix": "Revise a new frozen passive script recognizer to admit exact loaded GUI+5e0ca0 only when its FF25 import slot resolves to Core+141b70, or admit verified direct Core target. Keep old script/evidence immutable."
+    },
+    {
+      "id": "native_queue_ownership",
+      "needed": "One shared reconstructed threadData queue retaining ordered record identities separately from event identities, receiver component ownership, actual heap event lifetime, posted count and tombstones.",
+      "constraint": "Existing WidgetEventState factories represent stack events and cannot be transferred to queue. WidgetPostEventQueue.populationKnown remains false. No separate per-editor queue, invented empty prefix or stack-event reuse."
+    },
+    {
+      "id": "post_return_side_effect",
+      "needed": "Same actual constructor frame stores private+c8 and destroys stack Create after completed post; actual constructor source may then reach QFrame/QSplitter dependencies.",
+      "constraint": "Do not cross PostPending from observed output alone or close later frame/style calls by importing their return snapshots."
+    }
+  ],
+  "exact_root_capture_dependency": {
+    "base": "Reuse original-splitter-probe-004 native CLI startup workflow and selected first SplitView post context; one root serialized owned process, no UI control or event pumping.",
+    "preflight": [
+      "Freeze a new script revision with module byte/hash guards for exact Core/GUI routes; retain old004 evidence unchanged.",
+      "Guard imported wake thunk with loaded IAT target, not module name or RTTI alone. Keep all existing bounded payload/truncation/failed-read checks."
+    ],
+    "existing_hooks_to_retain": [
+      {
+        "site": "Core+11ae90 entry",
+        "read": "Actual arguments receiver/event/priority and initial receiver-private threadData; record for diagnostics, not authoritative later owner."
+      },
+      {
+        "site": "Core+11afc6 before insertion while locked",
+        "read": "RDI actual locked threadData; R12 receiver, RSI incoming event; private affinity equals locked owner; threadData+30 queue owner/backing/bounds/refcount/order and each record+0 receiver/+8 event/+10 priority; receiver posted count and incoming type/flags/vtable."
+      },
+      {
+        "site": "Core+11afe8 after insertion while locked",
+        "read": "Same RDI/receiver/event identities and ordered queue; insertion has occurred but posted flag/count/canWait stores have not."
+      },
+      {
+        "site": "Core+11b015 after unlock/before dispatcher lookup",
+        "read": "Same RDI owner, receiver private posted count, incoming flags, threadData+50 canWait, threadData+20 actual dispatcher; qualify exact vt+98 route and private owner."
+      },
+      {
+        "site": "Core+141b70 entry/return within selected post context",
+        "read": "Actual dispatcher this/private identity; private+98 HWND,+a8 serial,+b4 postedWake before/after. Records must reference same post/queue owner. Do not infer serial delta exactly1 if other observed wake calls intervene."
+      },
+      {
+        "site": "Core+11ae90 return and existing constructor boundary",
+        "read": "Same selected receiver/event/thread plus post-return constructor frame identity. Preserve native c8-store/Create-dtor order; do not interpret raw uninitialized fields as completed semantic state."
+      }
+    ],
+    "optional_branch_disambiguation": {
+      "site": "Core+141b9b and/or +141bad",
+      "purpose": "If before/after fields do not uniquely establish branch (for example intervening wake), passively record reaching successful-CAS block or PostMessage call site, with actual RCX HWND and EDX0x401/R8/R9 zero; do not call the API. New instruction hooks need source-byte guards and script syntax review."
+    },
+    "acceptance": [
+      "No failed reads, callback errors, truncation or unmatched selected frames. Queue records intern receiver/event/record pointers separately; snapshot descriptor aliases may change with flags and are not object identities.",
+      "Authoritative locked owner, post queue, dispatcher, wake and constructor continuation belong to one process/context; no editor003 or other-process pointers seed it.",
+      "Retain complete capture Evidence, binary/script hashes, owned-process absence and supported tool cleanup receipts. No field writes or explicit native effect calls."
+    ]
+  },
+  "implementation_decision": "No bounded startup constructor transition is implementable from retained source alone without guessing live queue ownership or wake inputs. Preserve PostPending. Once root supplies source-bound same-process inputs, implement only selected raw4a unique equal-priority append and admitted wake branch on shared owners, with other allocation/affinity/insert/dynamic event paths guarded.",
+  "focused_validation": [
+    {
+      "check": "Affinity load is rechecked under queue mutex",
+      "passed": true
+    },
+    {
+      "check": "Queue insertion precedes posted flag and receiver posted count",
+      "passed": true
+    },
+    {
+      "check": "Final queue unlock precedes dispatcher lookup",
+      "passed": true
+    },
+    {
+      "check": "Wake serial always increments before HWND branch",
+      "passed": true
+    },
+    {
+      "check": "Constructor post-return store precedes stack Create destruction",
+      "passed": true
+    },
+    {
+      "check": "Current constructor remains guarded",
+      "passed": true
+    }
+  ],
+  "tests": "Six static source-order/guard assertions passed. No C++ edits/build/tests; root retains build ownership.",
+  "measurement": "Token usage unavailable; no efficiency savings claimed."
+}

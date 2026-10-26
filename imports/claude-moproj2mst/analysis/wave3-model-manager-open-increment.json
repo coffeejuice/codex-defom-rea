@@ -1,0 +1,69 @@
+{
+  "scope": "Actual fullSave Open binds shared ModelManager before read and selects after read",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "4fbea5398067b00411925b7c8b4414ce49016fa98b790aeb4cd3f50140f198ac"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/conversion_session.hpp",
+      "sha256": "a7bad98a0e6eb31698e0b701d977f8ab5c1ec367aa980e4de34e3d432331e0e8"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/conversion_session.cpp",
+      "sha256": "9ec8778da1d5da9a7bd551cfaff266eb459272f114032f0340be216b09b124f4"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/model_manager.hpp",
+      "sha256": "0460362b1585bc2c8c9dba33161e3851bf790e094f4d93dc14cf10cd762adba1"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/model_manager.cpp",
+      "sha256": "691ebf9a2bb80d6b69b222510822f084b5848c01091f3c839e52db9ad3d1075e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/core/convert.cpp",
+      "sha256": "253099cde8f47d961a642a75d7a71cc0215819e5584afcfdc9b51c3916d4d94a"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_conversion_session.cpp",
+      "sha256": "7841a3280d095689f341019a2bfbe0cd98275179432bed99d93ee8c758624090"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-model-manager-actual-open-contract.json",
+      "sha256": "29847379ac215992643348f01e6aa1f78455ade03e2e6d692eddf60a5d9ab19e"
+    },
+    {
+      "path": "analysis/wave3-close-model-owner-identity-contract.json",
+      "sha256": "27f705e0e33e609cb7d7d18bb69b627094f0dd1b3b21a0141e231d452027cae7"
+    },
+    {
+      "path": "analysis/wave2-doe-model-manager-io-binding-contract.json",
+      "sha256": "03316069d9c82a265bf59cdd1f62792884bfb2a02eea42983278e99aff7011a1"
+    }
+  ],
+  "implemented": [
+    "ConversionSession owns actual empty ModelManager with nonowning native mainwindow receiver identity.",
+    "Before initProject/read in fullSave profile, construct Mo child, set derived DB path, assign ID/list append, then store exact two weak-sender/raw3 signal bindings targeting actual session.",
+    "Bind same Project.dataDb and commit Mo+19c0 Project backlink after initProject; clear backlink after represented Project storage release.",
+    "StudyIo uses same live manager before project read. Current remains null until postOpen commit resolves actual pointer ordinal then selects before activateSubProject.",
+    "Actual signal delivery boundary guards unrecovered receiver/type3 behavior rather than silently dropping an invoked signal."
+  ],
+  "tests": [
+    "Registration ID1 while currentID=-1 during read phase",
+    "Actual receiver and sender identities",
+    "Selection by pointer ordinal despite changed native ID",
+    "Project backlink survives construction then clears after release; manager remains alive",
+    "Invalid replacement/selection-before-construction guards"
+  ],
+  "qualifications": [
+    "This is partial Open integration. Original model-signal emission sites/receiver effects and Qt type3 behavior remain under investigation.",
+    "Original accepted-suffix08a9b0 returns true independent P+55; adapter early parse error mapping remains a queued discrepancy and is not silently corrected by this increment.",
+    "Original lazy Project allocation is represented by preallocated adapter Project storage plus ordered field commits; no complete allocation/destructor callback parity asserted.",
+    "Native old-current/cross-project paths excluded by fresh single-project scope. MissingProject recreation/type4/global scene behavior remain guarded.",
+    "External shared leases can outlive native QObject parents; no teardown equivalence claimed for those profiles."
+  ],
+  "validation": "pending root build/focused/full"
+}

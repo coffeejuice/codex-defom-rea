@@ -1,0 +1,18 @@
+{
+  "schema": "wave3-boolean-lifecycle-events-terminal-amendment-v1",
+  "prior_immutable_receipt": {
+    "path": "analysis/wave3-boolean-lifecycle-events-implementation.json",
+    "sha256": "468c94520019001e9d24d5cbbaa68a6556bfdb9ac0c45d825dff657e1c206c40"
+  },
+  "source_evidence": "wave3-boolean-timer-contract.json: QObject::startTimer 0x6712b1e0 returns0 without event dispatcher.",
+  "change": "dispatcherDestroyed is terminal for this owner: clears pending, retains disconnected/live receiver identities, rejects further timer registration. A new dispatcher session requires a new owner.",
+  "test": "Replaced unsupported implicit new-dispatcher assertion with old/new receivers both failing registration after terminal teardown.",
+  "owned_source_sha256": {
+    "source/apps/moproj2mst/include/m2m/engine/lifecycle_events.hpp": "61c574811261d54da39c989f4326ca82c17613564e48f1aee2f75096c373fe09",
+    "source/apps/moproj2mst/src/engine/lifecycle_events.cpp": "ebc7758e61132b211d6713e48133e45bf5d132f99c92cb9b16d199177b5dd4e1",
+    "source/apps/moproj2mst/tests/mdt/test_lifecycle_events.cpp": "5d19be46c6f25819af88811018763eb424a96628c93b4a8c4a7f3ca2ae4dac56"
+  },
+  "validation": "Source ready and frozen; worker did not build or execute tests. Parent controls combined integration.",
+  "target_runtime": false,
+  "shared_rea_mutated": false
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:46:29.218967+00:00",
+  "owner": "validation_helper",
+  "status": "H1_failure_and_H2_configuration_fetch_correction_verified",
+  "source_sha256": {
+    "analysis/helper-H1-passive-evidence.json": "e5ff7f31e0c915e0596a8d7f61adf350ee59638212b7ad30e74808ddabdc6801",
+    "analysis/helper-H1-final-evidence.json": "3011ae900de35d81ed2c0562c78ccec37a3bb7b6172b84babbd6f6b8e35e2f78",
+    "analysis/helper-H1-supervisor.json": "34facfd811c6ff6fb5af2c7c02bb328a3f8178abad6bae07aecc872c1e6e3977",
+    "analysis/manager-selected-launch-context.json": "07a5fb3422f36118e565f896ec4f91600f7e00200edacfae3db54c400191d0dd",
+    "analysis/helper-config-fetch-rea-evidence.json": "7fcc5ace172ed28aaa5e38355d16910f8a9f974d47c6fcf8e5d63f2218e2690a",
+    "analysis/helper-H2-passive-evidence.json": "fff1f9e88a4caaf660609942c9ae3a859bca25e41fc06c827279a0f07318bd15",
+    "analysis/helper-H2-supervisor.json": "ae0ed62329b82a527f6e28eb84c92470d30b7269a235bb562e62919eabb2f085"
+  },
+  "capture_ownership": "Orchestrator performed serialized H1 native capture. This worker only reviewed retained evidence; no app launch, attachment, GUI input, probe edit or external write.",
+  "target": {
+    "image": "DEFJobGroupSetup.exe",
+    "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18",
+    "H1_pid": 32824
+  },
+  "established": [
+    {
+      "claim": "H1 inherited no DEF_CFG_DIR and checkout CWD",
+      "evidence": "Initial selected_launch_context sequence 2; API length 0/null, CWD C:\\Users\\alext\\Projects\\codex-deform-rea"
+    },
+    {
+      "claim": "The source-bound configuration fetch used an empty path and failed its file-access condition",
+      "evidence": "H1 final sequences 168-172, same active_fetch 1; directory/path empty, file_access path empty and accessible false"
+    },
+    {
+      "claim": "The failing fetch returned flag 0 and the subsequent warning branch was reached",
+      "evidence": "H1 final sequences 173-174; valid_flag 0 and warning reference RVA 0x4357d"
+    },
+    {
+      "claim": "Capture was not truncated",
+      "evidence": "Final REA messages_truncated=false; sequence 174 last retained event, below 400-event ordinary budget"
+    },
+    {
+      "claim": "Owned helper was terminated at diagnostic deadline without a survivor",
+      "evidence": "helper-H1-supervisor.json timed_out=true, termination trial-owned deadline, still_running=false. This is not natural exit or successful helper setup."
+    }
+  ],
+  "causal_confidence": {
+    "H1_proximal_empty_path_failure": "High: directly observed path failure -> configuration flag 0 -> warning branch, consistent with retained FUN00413770 / FUN00410fc0 / FUN00443510 code. The empty-path access function does not attempt fopen.",
+    "H1_missing_DEF_CFG_DIR_contribution": "Strong: selected environment absent, FUN00411000 uses getenv(DEF_CFG_DIR), observed resolved directory/path empty. Does not establish why the orchestrator/server inherited that environment.",
+    "original_GUI_warning_cause": "Unproven: no equivalent helper-child environment/fetch capture from the earlier GUI Run Options launch. Manager13628 has a different environment but that alone does not establish its child environment.",
+    "license_service_stopped": "Not supported. Prior services/TCP evidence and unscoped successful H1 traffic are compatible with a running service. The failing scoped fetch did not reach its header exchange.",
+    "H2_configuration_fetch_correction": "High: valid stock path/file access, scoped required header exchange and returned flag 1 are directly observed; H1 had an empty path/accessfalse/flag 0 and warning.",
+    "separate_CWD_change_necessary": "No evidence of necessity for the fetch: H2 succeeded with the same checkout CWD. Do not change CWD merely to match manager context."
+  },
+  "confounders": [
+    "H1 command line contained a duplicate executable token; orchestrator confirmed the REA spawn tool prepends it. Correct argv convention before further interpretation.",
+    "H1 was instrumented and timing differs from ordinary GUI launch. Warning-reference execution does not prove rendered dialog contents were observed.",
+    "Earlier network exchanges were outside active_fetch 1. Do not attribute those successes to the failed configuration fetch."
+  ],
+  "minimal_retry": {
+    "id": "H2",
+    "owner": "orchestrator",
+    "process": "New trial-owned helper; same source hash and frozen passive probe",
+    "fixture": "Fresh equivalent C:\\PROBLEM\\H2 copy, short paths; preserve H1",
+    "arguments": "Pass arguments only to REA spawn so the tool inserts one executable token. Keep intended -pp/-pid/-dim/-jt values and grouping equivalent to the captured route.",
+    "environment_change": {
+      "DEF_CFG_DIR": "C:\\Program Files\\SFTC\\DEFORM\\Configuration",
+      "scope": "New child process only; set before application startup/configuration read; no machine/user/server environment edits"
+    },
+    "cwd": "Keep inherited checkout CWD unchanged for the first retry. An explicit installed-root CWD is a separate factor to test only if evidence requires it.",
+    "preserve": [
+      "Installed config files",
+      "License/batch/sim services",
+      "Security and permissions",
+      "Network endpoints and protocol",
+      "Reconstructed DEF_PRE_64 v0.2.1 deployment",
+      "Application checks/arguments/registers/returns except explicit documented child launch context"
+    ],
+    "observations_required": [
+      "Verify exact target hash and owned PID",
+      "Capture command line proving one executable token",
+      "Capture selected Win32 DEF_CFG_DIR and CWD",
+      "Observe source-bound resolved_config_directory/path, file_access and configuration flag",
+      "If file access succeeds, inspect scoped send/receive24-byte results and warning absence/presence",
+      "Record callback errors/truncation and actual process end or trial-owned deadline cleanup"
+    ],
+    "causal_qualification": "H2 normalized argv and corrected DEF_CFG_DIR together, so it is not a strict one-variable A/B. Source-bound H1/H2 path/access/fetch transitions are directly established; another A/B is unnecessary for advancing this specific fetch-path blocker. Earlier GUI warning cause and complete helper workflow remain unproven.",
+    "outcome": "Executed by orchestrator and reviewed: configuration fetch corrected as above; future actions should use this validated child context."
+  },
+  "risks_and_unknowns": [
+    "Win32 GetEnvironmentVariableW observation alone does not prove the CRT getenv copy changed. Require resolved_config_directory/path from the application function; prepare the child environment before CRT initialization wherever supported.",
+    "If H2 reads the correct configuration but still fails exchange, investigate scoped DNS/connect/header outcomes next; do not restart services or change config based solely on the warning.",
+    "A 120-second solver bound is not exercised here; this helper diagnostic has its separate 45-second deadline.",
+    "The user-visible Run Options route and GUI testing remain blocked until supported app-control release/verification is available. Native diagnostic improvement is not a backend acceptance pass."
+  ],
+  "documentation": [
+    {
+      "url": "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/getenv-wgetenv?view=msvc-170",
+      "supports": "getenv uses the CRT _environ copy, not the OS process environment block directly."
+    }
+  ],
+  "next_action": "Orchestrator retain final H2 capture/detach receipts, use verified child launch context for subsequent native diagnostics, and keep GUI acceptance blocked until lifecycle prerequisites are resolved. No additional fetch-path A/B is required.",
+  "H2_review": {
+    "pid": 5756,
+    "snapshot": "analysis/helper-H2-passive-evidence.json",
+    "message_count": 221,
+    "probe_sequence_last": 220,
+    "messages_truncated": false,
+    "gui_control_acquired": false,
+    "argument_normalization": "One executable token, verified in supervisor command line",
+    "context_change": "SetEnvironmentVariableW applied DEF_CFG_DIR only in the newly spawned child before resume; checkout CWD unchanged",
+    "application_effect_verified": "App resolved stock Configuration directory/path itself, resolving the possible CRT-versus-Win32 environment-copy concern for this run.",
+    "fetch_id": 1,
+    "events": [
+      {
+        "sequence": [
+          185,
+          186
+        ],
+        "observation": "Application resolved C:\\Program Files\\SFTC\\DEFORM\\Configuration and DEFORM_NLM_CONF beneath it"
+      },
+      {
+        "sequence": 191,
+        "observation": "Source-bound file-access condition true"
+      },
+      {
+        "sequence": [
+          192,
+          197,
+          198
+        ],
+        "observation": "DNS Sim2 resolved; connection attempted to 10.69.1.180:34445, return -1 / 10035 pending state; later successful sends/receives show progress"
+      },
+      {
+        "sequence": [
+          201,
+          203
+        ],
+        "observation": "Required header send and receive each returned 24"
+      },
+      {
+        "sequence": 204,
+        "observation": "recv requested 474 and returned 474; count only, payload not logged"
+      },
+      {
+        "sequence": 207,
+        "observation": "Configuration fetch valid flag 1"
+      }
+    ],
+    "warning_reference_events": 0,
+    "scope": "Instrumented configuration-fetch correction only, not full helper setup, GUI Run Options or solver completion",
+    "cleanup": "Supervisor reports 45-second diagnostic deadline, trial-owned termination, still_running=false; natural success exit not observed"
+  }
+}

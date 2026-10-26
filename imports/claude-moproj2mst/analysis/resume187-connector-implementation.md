@@ -1,0 +1,15 @@
+# CP187 connector implementation
+
+The connector now admits exactly QtCore RVA `[0x13123f,0x131240)` (`c3 ret`) from the accepted CP186 state, transferring to the qualified caller RVA `0x13141c` and advancing symbolic RSP from `S` to `S+8`. `BeforeCallerXor` is the terminal phase, before executing the caller XOR, public-field publication, private backlink or QObject/base completion.
+
+`QObjectPrefix::ReturnToCaller` is prepared with the frame before publication. It retains owner/control-block, pending Report ordinal, task/private allocation identities, module hash, initializer and CALL RVAs, fixed target RVA and `[S]` displacement. Resume validates this record without repairing absent or corrupted state. The existing saved-RBX, saved-entry-RDI, flags expressions, zero prefix, roots, counters and allocation qualifications remain required. `returnBoundaryRva()` derives RIP from the accepted phase, avoiding a second mutable cursor that could diverge from phase. At CP186 it is `0x13123f`; at CP187 it is `0x13141c`.
+
+The RET transition consists only of nonthrowing symbolic RSP and phase assignments. It preserves the return-slot record and stack contents, private RAX, restored task RBX, restored incoming-RDX-origin RDI, historical expressions, references and private stores. The public continuation has no modeled instruction effect. No concrete/native stack or parent identity is claimed.
+
+The default absolute instruction stop is now 9; stops 0 through 8 remain available and 10 is the first invalid stop (maximum-size rejection remains). Terminal reentry validates the retained state even with reduced budgets, across Report, Doe and unknown keys. Explicit rewind to CP186 restores phase and RSP only; the qualified slot remains intact.
+
+The factory test file now records all return-slot fields and its owner control block in unchanged-state snapshots. Existing default-terminal expectations move to the caller boundary while CP183–186 explicit stops remain. Three CP187 tests cover 70 predecessor/terminal corruption cases, exact snapshot differences, all terminal budgets and three keys, exact CP186 rewind/resume, and all earlier flags rewinds with corrupt-slot refusal before resume. Caller publication/backlink/completion exclusions and retained zero at private+8 are asserted.
+
+Files released: `source/apps/moproj2mst/src/doe/task_factory.cpp`, `source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp`, `source/apps/moproj2mst/include/m2m/doe_task_factory.hpp`, and `source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp`.
+
+Implementation author performed source inspection only. No build, test execution, full suite, GUI, runtime, deployment, REA database or shared recovery-state mutation was performed. Focused build/tests, independent source review and integration receipts remain required. Evidence basis: `resume187-connector-next.md` and `resume187-connector-plan-review.md`, with their retained static PE/listing qualification; no fresh runtime claim is made.

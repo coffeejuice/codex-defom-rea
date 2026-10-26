@@ -1,0 +1,92 @@
+{
+  "scope": "bounded static only; no execution or mutable REA",
+  "artifacts": {
+    "DEF_GUI_MO_64.exe": {
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+      "preferred_base": "0x140000000"
+    },
+    "QtGui4_64.dll": {
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+      "preferred_base": "0x65000000"
+    }
+  },
+  "captures": [
+    {
+      "path": "analysis\\resume66-doe-refresh-delete-button.asm",
+      "artifact": "DEF_GUI_MO_64.exe",
+      "begin": "0x1400fd61a",
+      "end_exclusive": "0x1400fd714",
+      "body_sha256": "e6936aecc3efb83d2b211fd5c33aa9eb187f6d15c74d94dc58ba038bf08c6fd6",
+      "capture_sha256": "311966e95e6de55521cbb8729ba9597256acf3d8c2b6356e213efdab7e402ab6",
+      "capture_bytes": 3954,
+      "scope": "selected instruction window, not full surrounding function"
+    },
+    {
+      "path": "analysis\\resume66-doe-refresh-qt-enabled.asm",
+      "artifact": "QtGui4_64.dll",
+      "begin": "0x6506f080",
+      "end_exclusive": "0x6506f0b7",
+      "body_sha256": "7e0693d88f50edd8f6476a47c944948a1e0564b60173ec8809cbce57e27ee49a",
+      "capture_sha256": "9f0e2528a27e93eed51c0f0835c37536fe7f358f398e4de91b75530e7afc2f8c",
+      "capture_bytes": 1173,
+      "scope": "whole selected unwind body"
+    },
+    {
+      "path": "analysis\\resume66-doe-refresh-qt-attribute-prefix.asm",
+      "artifact": "QtGui4_64.dll",
+      "begin": "0x65068fe0",
+      "end_exclusive": "0x65069053",
+      "body_sha256": "9bb1efb7136105813e3bad4ff7d108cf6c49d85ece26c69c08641b758afa40b1",
+      "capture_sha256": "8d0ce92da59db9afdcfe344052d935c2f618674951a150f0e357ca50d9443983",
+      "capture_bytes": 2378,
+      "scope": "selected instruction window, not full surrounding function"
+    },
+    {
+      "path": "analysis\\resume66-doe-refresh-qt-enable-helper-prefix.asm",
+      "artifact": "QtGui4_64.dll",
+      "begin": "0x65069f00",
+      "end_exclusive": "0x65069f8f",
+      "body_sha256": "6253f92edcbb9f5282cbffb6101b6c3787fd2e167b136119a8a9b957abc8acf7",
+      "capture_sha256": "da016632f39d787f9da8b2e0992af91108c94e42f4865e354932184b59cbfc26",
+      "capture_bytes": 2949,
+      "scope": "selected instruction window, not full surrounding function"
+    },
+    {
+      "path": "analysis\\resume66-doe-refresh-qt-attribute-return.asm",
+      "artifact": "QtGui4_64.dll",
+      "begin": "0x650696f1",
+      "end_exclusive": "0x650696fe",
+      "body_sha256": "b0d004761b3a90df09ca51b13a0488db2b1156657025730961964439ee0b47e3",
+      "capture_sha256": "6f0fa80746c76378879dfd2d97cae82ae81073a44da2e54fa5b84b669502c2fb",
+      "capture_bytes": 574,
+      "scope": "selected common epilogue only; data after attribute return excluded"
+    },
+    {
+      "path": "analysis\\resume66-doe-refresh-qt-enable-helper-return.asm",
+      "artifact": "QtGui4_64.dll",
+      "begin": "0x6506a215",
+      "end_exclusive": "0x6506a21e",
+      "body_sha256": "45a945a546a9f0d2434231fb9a4ca2d697f01a3e481cc98f74bffa6ab53ad219",
+      "capture_sha256": "3bebe4be55406a4ebf88c15457c28832939ab61316eaa5eaadb501f9f684368c",
+      "capture_bytes": 554,
+      "scope": "selected common epilogue only; data after attribute return excluded"
+    }
+  ],
+  "virtual_binding": {
+    "vtable": "0x14218bd38",
+    "offset": "0x1b8",
+    "raw_slot_sha256": "0fb79267b2de9978b96a49eac5aada2b48b91da9c243188ed158ae35b2401055",
+    "target": "0x1400f47e0",
+    "first_store": "0x1400f4800: table+0x98=1",
+    "selector": "signed table+0xa0 > -1"
+  },
+  "button": {
+    "rtti": ".?AVQToolButton@@",
+    "vtable": "0x142173958",
+    "ui_pointer_offset": "0x30",
+    "object_name": "m_tbDelete",
+    "object_name_literal": "0x14218cbe8",
+    "parent_argument": "uiPayload+0x08",
+    "native_allocation_bytes": 40
+  }
+}

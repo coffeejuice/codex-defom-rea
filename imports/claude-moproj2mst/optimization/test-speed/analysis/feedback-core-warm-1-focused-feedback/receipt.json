@@ -1,0 +1,70 @@
+{
+  "mode": "focused-feedback-only",
+  "full_acceptance": false,
+  "full_suite_coverage": false,
+  "fixture_integrity_coverage": false,
+  "qualification": "Selected tests only; no before/after fixture hash gate, no full-suite equivalence claim. Full acceptance remains required.",
+  "last_full_run": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792860994043155000\\receipt.json",
+  "last_full_run_sha256": "614acf88ecd239989bfbf2c424f37d2db3587d9a78a1e501972f5143a025047d",
+  "last_full_registered_tests": 150,
+  "selected_tests": [
+    "m2m.g0.core"
+  ],
+  "targets": [
+    "m2m_g0_core",
+    "moproj2mst",
+    "moproj2mst_cli"
+  ],
+  "build_receipt": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\optimization\\test-speed\\analysis\\feedback-core-warm-1-focused-build.json",
+  "commands": [
+    [
+      "C:\\Program Files\\Python312\\python.exe",
+      "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\optimization\\test-speed\\build_isolated.py",
+      "--label",
+      "feedback-core-warm-1-focused",
+      "--skip-configure",
+      "--jobs",
+      "4",
+      "--target",
+      "m2m_g0_core",
+      "--target",
+      "moproj2mst",
+      "--target",
+      "moproj2mst_cli"
+    ],
+    [
+      "ctest",
+      "--test-dir",
+      "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-speed-candidate",
+      "-R",
+      "^(m2m\\.g0\\.core)$",
+      "--no-tests=error",
+      "--verbose",
+      "--output-on-failure",
+      "-j",
+      "1",
+      "--test-output-size-passed",
+      "33554432",
+      "--test-output-size-failed",
+      "33554432",
+      "--output-junit",
+      "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\optimization\\test-speed\\analysis\\feedback-core-warm-1-focused-feedback\\junit.xml",
+      "--output-log",
+      "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\optimization\\test-speed\\analysis\\feedback-core-warm-1-focused-feedback\\ctest.log"
+    ]
+  ],
+  "steps": [
+    {
+      "kind": "build",
+      "seconds": 1.737,
+      "exit_code": 0
+    },
+    {
+      "kind": "ctest",
+      "seconds": 1.069,
+      "exit_code": 0
+    }
+  ],
+  "status": "focused-tests-passed-not-full-acceptance",
+  "elapsed_seconds": 4.185
+}

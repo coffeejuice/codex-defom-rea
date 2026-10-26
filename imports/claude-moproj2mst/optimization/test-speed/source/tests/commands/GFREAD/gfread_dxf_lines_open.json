@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF open LINE chain",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nOPEN.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "OPEN.DXF",
+      "source": "data/dxf_lines_open.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Open chain re-ordered and re-oriented: (3,1)-(2,0), (2,0)-(1,0), (1,0)-(0,0). Prediction (DXF_READER.md model) = observed 2026-10-21: status 0, DIEGEO 1 2 3; segment 1: 1 1 3.0000000000E+000 1.0000000000E+000 2.0000000000E+000 0.0000000000E+000 0.0000000000E+000"
+  }
+}

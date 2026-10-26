@@ -1,0 +1,79 @@
+{
+  "schema": "m2m-model-manager-path-open-signals-static-v1",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "status": "bounded signal path/receiver closure; not a whole-Open no-effects or fresh-runtime acceptance claim",
+  "evidence_sha256": {
+    "analysis/wave2-doe-model-manager-signal-receiver-decompile.json": "cdebadacf7c6e4142785492dedf0e5e2592952789d256269bd7b4c9424558931",
+    "analysis/wave2-doe-model-manager-path-palette-reader-decompile.json": "20c6a01ef361346567e260d707d87735fd2d0c665f3e3f2b81c073639f774f23",
+    "analysis/wave2-doe-model-manager-native-open-leaf.asm": "b94cb90c2157e784808434bb254e83bb0cdc40712763ae099f43131741f664a4",
+    "analysis/wave2-doe-model-manager-updated-receiver-leaf.asm": "805744feacb43e47ae5904c35275a3696628b3d9133c20f25bcc91999dc90cfb",
+    "analysis/wave2-doe-model-manager-reader-constructor.asm": "5a4b548dc73bb1603713ccac991cb1edfc623fd08a89c4463c80f058690696d2",
+    "analysis/wave2-doe-model-manager-forwarding-slots.asm": "d58572ff1e4c36abf89ad07420d50a32d0fd2f0e3907232f481876a5482d8da5",
+    "analysis/wave2-doe-model-manager-mainbase-meta-init.asm": "aa591fae9bb8f79f6dcd44bb2e179f4c5cea4639d935f99e8e47a35f22fe0302",
+    "analysis/wave2-doe-model-manager-modelbase-meta-init.asm": "5aa8419e8657d7b70d40df4031457806a8ca3e91bb98568100b662ce00018c79",
+    "analysis/wave2-doe-model-manager-mainbase-model-cases.asm": "cba8b634d685fde203f6c7a7ecd2152f4d61cb1e4e32cf8ef8130be8f3ca024d",
+    "analysis/wave2-doe-model-manager-mainbase-jump-head.asm": "ada0218861dfe344bd9e55e1600080028b19fcd7d79fbf93e9e6066a4266b999",
+    "analysis/wave2-doe-model-manager-modelbase-staticmetacall.asm": "87699525af603010445cd9c740981ac355541564efc8701322abb86e9f0ac510",
+    "analysis/wave2-doe-model-manager-slotmodelchanged-dispatch.asm": "b0ff4be28336006c058295170b489ca3b7fc1fecc3de9ca880103712c86f8560",
+    "analysis/wave2-doe-model-manager-signal-producer-candidates.json": "a9da5e4e1fb04e206b84e60d0d3eb04ec13a5aa61ed62ebd17c89e206fcf7f9a",
+    "analysis/wave2-doe-model-manager-slot-producer-candidates.json": "7d2c1f77ac1c758a25e25c8d5fa23ecb14935bc383ea25a1e83424c34e7b733a",
+    "analysis/wave3-close-model-owner-identity-contract.json": "27f705e0e33e609cb7d7d18bb69b627094f0dd1b3b21a0141e231d452027cae7",
+    "evidence/gui_mo/s1/mdt/DB/d7.c": "08e5d26301e904ac6d7801b9380aff47f349e8e2c99afda3919492d97ee8181e",
+    "evidence/gui_mo/s1/mdt/L0/C/c1.c": "c67749372da93c93460b9da822756ba420976baf59bab36cdb77d967ed92b90d",
+    "source/docs/re/moproj2mst/mdt/DB/spec.md": "e80ed18eee546091a37ffc21f95b3a56d8a9a0842839669481fa8314dd1f41ed"
+  },
+  "source_qualification": "Original static PE/decompile and prior retained DB semantics; byte-pattern reference scans are candidates, not exhaustive indirect call inventory. Native port equivalence qualifications remain in source/docs DB spec.",
+  "metadata": {
+    "modelbase": {
+      "name": "SfModelBase",
+      "strings": "142a15690",
+      "data": "142a155f0",
+      "signals": {
+        "1": "signalModelChanged(SfStepData*)\u2192d4f630",
+        "2": "signalModelUpdated()\u2192d4f680"
+      },
+      "slots": {
+        "3": "slotRecordLoaded(SfStepData*)\u2192cdd890\u2192d4f630",
+        "4": "slotModelUpdated()\u2192cdd8c0\u2192d4f680"
+      }
+    },
+    "receivers": {
+      "changed": "SfMoMainWindow localmethod98 via Qtstatic db1a0/case0dc5cf\u2192vt+728\u219203cd30. Inherited SfMainWindowBase local157 also dispatches same virtual+728.",
+      "updated": "SfMainWindowBase strings142916840/data1429159f0 local160 staticcc5970/casecc6de6\u2192vt+740\u2192c9cfe0. Actual Mo handler is exact pureRET."
+    }
+  },
+  "fresh_model_prefix": [
+    "cda460 constructs empty owning view list+1960; cda5d0 initializes manager pointers null. Derived043fe0 initializes Project backlinknull through044090/044bd0.",
+    "First managerc79390 path assignment is before two mainwindow connections. Later08a9b0 path setup uses same child.",
+    "setPathcdcdc0 has no direct ModelChanged/Updated emission: path mutation, optional deletion of existing owned view list, loaded/stamp reset, suffix/clean, and global.ObjectColor.DAT load. Fresh empty view list skips native child-deletion callbacks.",
+    "Native.ObjectColor.DAT readercdeab0 reads CRT FILE via9068f0 numeric parser and updates global color table; no direct QObject connection/emission/model operand. Missing-file branch returns without parsing. Present-file parser/global palette fidelity is not implemented by this investigation.",
+    "dbOpencdc480 opens DB info throughd395c0, optional default split-part setup, calls model virtual+78, builds synchronous header cache, sets loaded. Actual Mo virtual+78=cddcf0 is moval1/ret, so it performs no GuiModel allocation/emission.",
+    "DBreaderctord394d0 constructs native80c660 state and QDateTime, stores owner+1918, clears cacheStarted via d39590. No QObject registration/emission is present there.",
+    "Existing port-backed DB info/cache/part functions have their separate source verification in DB spec; no claim that an unexamined arbitrary asynchronous/native callback cannot exist outside this selected false-async flow."
+  ],
+  "gui_model_forwarding_boundary": {
+    "function": "cdcc70 is separate view allocation, not reached by inspected dbSetPath/dbOpen wrapper bodies",
+    "order": [
+      "allocate0x278\u2192c7a5b0(ownerModel,dim3)",
+      "on nonnull connect GuiModel signalRecordLoaded(SfStepData*)\u2192ownerModel slotRecordLoaded(SfStepData*) rawtype3",
+      "connect GuiModel signalModelUpdated()\u2192ownerModel slotModelUpdated() rawtype3",
+      "append guarded GuiModel to ownerModel view list+1960"
+    ],
+    "effect": "These forwarding slots synchronously call their corresponding ModelBase signal wrappers; actual Qt ConnectionType3 delivery semantics/event timing still need shipped-Qt binding. Do not substitute signalModelChanged for the GuiModel signalRecordLoaded name.",
+    "scan_limit": "Only forwarding-slot and Qtstaticmetacall direct CALL-pattern candidates target the two ModelBase signal wrappers; only Qtstaticmetacall candidates directly target the forwarding slots. This does not prove absence of Qt/dynamic invocations."
+  },
+  "receiver_effects": {
+    "ModelUpdated": "Pure no-op handler c9cfe0 under actual Mo vtable; signal dispatch machinery/registration semantics remain independently qualified.",
+    "ModelChanged": [
+      "03cd30 unconditionally calls basec9c880(mainwindow,GuiModel).",
+      "If GuiModel nonnull and its owner DB nonnull, may query global2cb830, lazily obtain Ptrk managercdd980, test30ad90 and invoke30b1a0.",
+      "Tests GuiModelc7c0e0, then either ca04c0 or ca01d0 for fixed toolbar token. Base receiver, Ptrk branch and enable/disable helpers are pending; not harmless."
+    ]
+  },
+  "coordinator_guidance": [
+    "Store two actual weak-sender/mainwindow raw3 connection identities after manager append. Registration invokes no slot.",
+    "No direct model-signal emit call needs adding inside the inspected dbSetPath/dbOpen wrapper functions for a fresh empty-view child; this is narrower than no transitive/fullOpen effects.",
+    "Later project walk, operation loading, view/record loading, populated-view deletion, asynchronous cache or explicit Qt method invocation are separate source branches and must retain guards until their emissions/delivery are recovered.",
+    "Next bound receiver dependencies: c9c880, GuiModel signalRecordLoaded/modelUpdated actual producer sites and ConnectionType3 handling; do not promote current inspection to complete ModelManager factory/Open architecture."
+  ]
+}

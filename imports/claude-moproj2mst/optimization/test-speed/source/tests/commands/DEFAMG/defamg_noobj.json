@@ -1,0 +1,19 @@
+{
+ "label": "DEFAMG unknown object",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 120,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nDEFAMG      99\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/EN/NAFEMS_benchmarks/NAFEMS_T2_EN.KEY"
+  }
+ ],
+ "expect": {
+  "files": [],
+  "notes": "FUN_1401d6ea0 returns NULL -> case returns 2 (Reading Error printed by the KEY reader); no mesher launched, no 'Generating mesh' line. Whether KFWRIT still runs depends on the interpreter's error handling (see KEY reader spec)."
+ }
+}

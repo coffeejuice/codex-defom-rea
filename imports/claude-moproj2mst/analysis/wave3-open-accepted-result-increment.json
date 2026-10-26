@@ -1,0 +1,48 @@
+{
+  "scope": "Separate accepted-suffix Open return from Project.openedOk; preserve failed-XML Project before later Save decision",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/src/moproj/read.cpp",
+      "sha256": "da7bb6b87bd70c771c5b0fa25a9eaec2ef6a0139684d00ce503ce0270bc5e145"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/core/convert.cpp",
+      "sha256": "14d2c25bd18d1d7cc44e98bd58fa4d61aa99a2e031e4297196455dcc086eda4e"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/model.hpp",
+      "sha256": "5a7af0a1e6e6263fa72970d8f84cc18a55dd3385c46813e3be453dc61f671846"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_conversion_session.cpp",
+      "sha256": "3b34dcc9836254904241fd5b258dc86eba2a52c4a3ca388a6b0c8aeea7ecd0bc"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "evidence/gui_mo/s1/s1-01/dc/open0.c",
+      "sha256": "42a4c638ad7508addbe14e3d43c363a54f3cd24720dbda979c07deaed373703b"
+    },
+    {
+      "path": "analysis/wave2-doe-model-manager-actual-open-contract.json",
+      "sha256": "29847379ac215992643348f01e6aa1f78455ade03e2e6d692eddf60a5d9ab19e"
+    }
+  ],
+  "implemented": [
+    "08a9b0 accepts moproj suffix, sets f39/f3a before DB/XML loading, records reader result separately in openedOk, runs current-directory/remesh tail, then returns true.",
+    "01ca30 accepted native branch keeps Project; full converter selects registered model and activates subproject before later saveCurrent checks openedOk.",
+    "Legacy MST/MDT-only adapter keeps early parse error mapping; full Save maps its later rejected Save to existing M2M_E_PARSE."
+  ],
+  "validation_cases": [
+    "Malformed XML returns accepted with openedOk false, applies remesh/current-directory tail, keeps actual registered Mo/Project backlinks through selection and subproject activation; Save rejects without project writes.",
+    "Missing input helper returns accepted and performs tail; unrecognized suffix returns false before flags/path/tail mutations."
+  ],
+  "qualifications": [
+    "Public checkReadable preflight is still an adapter-only early rejection for missing/unreadable files; removing it and reproducing all native Open failure cleanup remains queued.",
+    "Feature cache registration, FOR003 prompt, Qt refresh/event delivery, normal Close remain separately queued; no full failed-project lifecycle parity claim.",
+    "Missing-input test exercises actual openProject helper, not public preflight.",
+    ".DB/.KEY accepted reader branches remain explicit unsupported.",
+    "No fresh original runtime comparison in this increment."
+  ],
+  "validation": "pending combined build"
+}

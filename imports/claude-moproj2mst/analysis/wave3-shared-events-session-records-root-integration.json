@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-24T12:57:39.805547+00:00",
+  "status": "Source integration only; build, behavioral tests and frozen candidate recorded separately",
+  "worker_receipts": {
+    "analysis/wave3-editor-shared-widget-property-increment.json": "a174b2fc4690a4079b806bc7fafa8ecdbd8897a7da88ec41c1c2f7834a302cb3",
+    "analysis/wave3-close-widget-shared-events-landing.json": "607b33dfa09ee83250216fc511d26a92a5d772708a1072d049cf268c9345cddd",
+    "analysis/wave2-doe-all-session-record-ownership-implementation.json": "82ff77bae784bfc93cd7611b84d8ee06b4d7fcfeba88f49cbb7f6d0ed97cc062"
+  },
+  "verified_worker_file_count": 18,
+  "root_sources": {
+    "source/apps/moproj2mst/src/engine/conversion_session.cpp": "880ed8314a4d0260852f209bd97f3073de747b7e5d0ea8278c3ed82705859d11",
+    "source/apps/moproj2mst/tests/mdt/test_conversion_session.cpp": "ffc2f793d5000761332fb803d36e38f5d5f5924383b128c91b45e6667e52d5c3",
+    "source/apps/moproj2mst/src/doe/output_data.cpp": "3d317966c93944f5e5b88e7a54f1914e329723f69dbc35aee63f09e207d833d8",
+    "source/apps/moproj2mst/tests/mdt/test_doe_output_data.cpp": "cba2b039447782bcc7efb69eacfeb8534f2fb87195b0b8aef0bd47b55f8cfda3",
+    "source/apps/moproj2mst/tests/mdt/test_doe_default_session.cpp": "0183cb6b405b70643c335ef15b8b0e3212a3449e21a9f8d446fd572adb22a411",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session_notifications.cpp": "fd05b0301f1fd09f12e4e06fd52d3a1482af344f04c394465d80dab4c6fc7228"
+  },
+  "integration": [
+    "ConversionSession binds actual parentless editor component to its existing WidgetRuntime immediately after factory allocation and before setup allocation. No synthetic QWidget base completion or allWidgets insertion.",
+    "Setup diagnostic access and test assertions now observe the sole live component; old objectName/event copies removed. Earlier unknown entry state remains guarded at the same public loader boundary.",
+    "Actual shared event dispatch retains application/thread/receiver/event identities, partial notification depth and exact continuation. Unknown queue population is explicit, never fabricated empty.",
+    "DOE output scans ordered nonowning SessionRecord pointers. Null pointer consumption is an explicit unresolved native invalid-access guard, never silently skipped.",
+    "External DOE fixtures use explicit allocation-store owners and pointer access. The notifier-only test now has empty SessionRoots so it tests its intended later notification boundary.",
+    "Session integration regression binds a Task to an actual store-owned record, destroys its document/list, releases Project storage and verifies the same record/backlink survives. Adapter-scope end invalidates both despite an escaped store lease."
+  ],
+  "qualifications": [
+    "No new public path is enabled merely by eliminating an unsupported result.",
+    "Adapter end cleanup is not an implementation or proof of original normal Close.",
+    "Full editor, native base/post queue, active DOE lazy factory and fresh whole-lifecycle acceptance remain incomplete."
+  ],
+  "successors_started": [
+    "Closure worker is implementing the reviewed passive constructor-tail capture script, root-only launch.",
+    "Editor worker is closing caller QVariant cleanup and parentless/parented-grid dependencies read-only.",
+    "DOE worker resumes actual lazy Task factory metadata/model/font initialization after source freeze."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-22",
+  "date_basis": "User client date, America/Chicago",
+  "head": "777c08fc7271da0050feb70fe45d895d972728bb",
+  "objective": "Complete modern C++ reconstruction of DEF_PRE_64.exe, preserving established interfaces and observable workflows",
+  "method": "Read-only audit of current sources, build targets, plan, feature ledger and retained comparison/test artifacts; this audit file is the only new deliverable. No original execution, new recovery, build or test rerun.",
+  "estimate": {
+    "completed_percent_range": [10, 20],
+    "planning_percent": 15,
+    "remaining_percent_range": [80, 90],
+    "confidence": "low",
+    "basis": "Engineering judgment about implemented and verified scope across the full objective, including unfinished integration. Retains the prior planning range after checking later checkpoints and current uncommitted work.",
+    "not_a_measurement": "No complete weighted feature specification exists. This is not a statistical confidence interval, code-size fraction, keyword fraction, elapsed-effort fraction or prediction of remaining time. Different scope weights could move it materially.",
+    "recovered_knowledge_percent": null,
+    "knowledge_qualification": "Static contracts and analysis provide useful additional progress, but cannot be converted into a defensible separate app-wide percentage or credited as completed implementation."
+  },
+  "observed_counts": {
+    "feature_ledger_records": 22,
+    "records_with_implemented_subset_status": 8,
+    "records_with_not_implemented_status": 14,
+    "plan_milestones": 9,
+    "milestone_states": {"partial": 4, "in_progress": 2, "pending": 3},
+    "fully_closed_plan_milestones": 0,
+    "latest_completed_regression_tests": 155,
+    "latest_completed_regression_seconds": 62.68,
+    "current_cmake_executable_targets": 17,
+    "qualification": "Ledger records overlap and are uneven in size; their main summaries can predate later checkpoints. Eight touched records out of twenty-two is not 36% app completion. Zero closed milestones is not zero useful work. Test count measures retained checks, not application coverage. Current uncommitted CMake adds four MOVCTL tests whose full qualification is still pending."
+  },
+  "scope_assessment": [
+    {"area": "Low-level DB loader and batch queries", "state": "Substantial bounded implementation", "evidence": ["README.md", "src/database.cpp", "src/packed_array.cpp", "tools/deform_db.cpp"], "limits": "Two supplied DBs and selected original comparisons; four batch query modes, incomplete original argument grammar, no general DB writer or full editable-state import."},
+    {"area": "KEY importer and editable model", "state": "Substantial but partial implementation with original comparisons", "evidence": ["src/recovered/keyword_import.cpp", "src/recovered/object_model.cpp", "analysis/recovery-feature-ledger.json", "analysis/recovery-plan.json"], "limits": "Selected startup/model lifecycle, geometry/mesh, controls, material, relation and field families. Initialized owned-storage profiles and numerical domains are bounded. Importing coefficients does not implement their scientific consumers."},
+    {"area": "DB to editable model", "state": "Object summaries implemented; broader static mapping research retained", "evidence": ["src/object_summary.cpp", "analysis/chat-c-db-model-contract.json", "analysis/chat-c-db-controls-contract.json", "analysis/chat-c-db-materials-contract.json"], "limits": "A source contract is not an implemented, independently verified complete adapter."},
+    {"area": "KEY export, DB writing and simulation-data generation", "state": "Partial research; complete replacement workflows not implemented", "evidence": ["analysis/chat-b-keyword-export-contract.json", "analysis/recovery-feature-ledger.json", "CMakeLists.txt"], "limits": "Retained KEY files and formatting constraints do not establish a complete serializer or round trip. Generation dependencies remain unresolved."},
+    {"area": "Scientific operations and geometry/material consumers", "state": "Selected supporting algorithms implemented; broad operation recovery pending", "evidence": ["analysis/recovery-plan.json", "analysis/recovery-feature-ledger.json"], "limits": "Do not infer that the simulation solver belongs inside this preprocessor. Recover the operations actually present, their consumers and external dependencies."},
+    {"area": "Console editing, conversion and full application integration", "state": "Dispatcher research and bounded original observations; complete application replacement pending", "evidence": ["analysis/recovery-feature-ledger.json", "analysis/recovery-plan.json", "CMakeLists.txt"], "limits": "Current executables are utilities/tests/replay drivers, not the complete original console application. Full realistic workflow evaluation and release qualification remain pending."}
+  ],
+  "current_unfinished_work": {
+    "component": "MOVCTL",
+    "state": "Uncommitted candidate; prototype passed; wider native qualification unfinished",
+    "prototype": {"path": "analysis/movctl-prototype-comparison.json", "status": "PASS_NATIVE_MOVCTL", "imports": 8, "handlers": 52, "checks": 3448},
+    "preflight": {"path": "analysis/movctl-phase-state.json", "imports": 48, "handlers": 177, "qualification": "Candidate/source preparation checks, not completed native training/evaluation."},
+    "native_training_result": {"path": "analysis/movctl-runtime-training-d3.json", "error_code": "capability_unavailable", "reported_reason": "Unable to find process with pid 44128", "qualification": "Does not prove a candidate mismatch or explain why the process was absent. No restart or capture attempted in this audit."},
+    "completion_credit": "Work in progress only; no new fully qualified milestone credited."
+  },
+  "status_discrepancy": {"actual_goal_status": "blocked", "plan_execution_status": "active", "qualification": "Status mismatch observed. Neither status proves completion; this audit does not resume or modify the goal."},
+  "latest_completed_checkpoint": {"component": "PRSNAM", "contract": "analysis/prsnam-import-contract.json", "validation": "analysis/prsnam-validation.json", "regression_log": "build/prsnam-full-ctest.log", "imports": 64, "handlers": 116, "checks": 23758, "frozen_files": 70, "qualification": "Original comparisons and saved 155/155 passing regression verified from retained artifacts; not rerun against the current uncommitted candidate."},
+  "historical_record_handling": "Worker GRNDAT/metadata NOT_RUN summaries are historical. Later grndat-import-contract.json and metadata-import-contract.json supersede those implementation gaps within their bounded profiles. Export and DB adapter research remain distinct from implementation.",
+  "denominator_rules": [
+    "Do not divide implemented keyword names by 304 catalog rows: dispatch entries are uneven and do not cover exports, editing, scientific consumers or integration.",
+    "Do not treat saved full-export prefix replay as a fraction of general importer coverage.",
+    "Do not sum fixture imports/checks across overlapping checkpoints as independent functionality.",
+    "Do not treat 214 decodable stored DB steps as 214 independent native equivalence observations.",
+    "Do not treat source contracts, proposed tests or uncommitted prototypes as completed application features."
+  ]
+}

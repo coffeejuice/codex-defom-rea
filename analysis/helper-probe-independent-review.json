@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "reviewer": "validation_routes",
+  "reviewed_utc": "2026-10-23T15:36:37.927418+00:00",
+  "review_scope": "Independent source, ABI, identity, confidentiality and documented Frida API review; no target execution and no duplicate full test run.",
+  "reviewed_files": [
+    {
+      "path": "tools/observe_job_helper.js",
+      "sha256": "8da4e3e0e6028e2173f768701eb228ddf36449614f30eac3d6509ea9739b2747"
+    },
+    {
+      "path": "tests/test_job_helper_probe.py",
+      "sha256": "72efd47fb3b6d3f9216d749713a449bf887438a56f80f3fd54b04d899545726f"
+    },
+    {
+      "path": "analysis/helper-diagnostic-handoff.json",
+      "sha256": "9c7608ba4a692c1ec509005d7f538e24af18e5c1bbc219cdcb5377c6b7c7bb36"
+    }
+  ],
+  "decision": "approved_for_orchestrator_owned_bounded_diagnostic_use",
+  "approved": true,
+  "must_fix": [],
+  "validated": [
+    {
+      "topic": "source_identity",
+      "result": "PASS",
+      "details": "Installed PE hash, size1036800 and SizeOfImage1110016 match frozen guard. All eight loaded-code patterns match read-only source PE bytes; relocatable operand wildcard positions preserved."
+    },
+    {
+      "topic": "x86_argument_semantics",
+      "result": "PASS",
+      "details": "Fetch/fileCheck ECX object use agrees with retained thiscall/fastcall decompilation; fileCheck reads inline path at+0x548 and only low return byte. Cdecl directory/path output argument is args[0]. Configuration validity byte is+0x37c."
+    },
+    {
+      "topic": "header_boundaries",
+      "result": "PASS_with_qualification",
+      "details": "Source fetch tests24-byte send/receive helper results. Boundary wrappers can return-1 before any virtual network call when their error flag is set, so count failure is not itself proof of a network operation or stopped service."
+    },
+    {
+      "topic": "identity_before_hooks",
+      "result": "PASS",
+      "details": "Name, architecture, pointer size, mapped image size, disk bytes/hash and all anchors checked before Interceptor.attach. Identity failure emits rejection and returns zero hooks."
+    },
+    {
+      "topic": "no_behavior_or_payload_bypass",
+      "result": "PASS",
+      "details": "No Interceptor.replace, argument/register/return rewrite, service/configuration edit, outbound network request, or network buffer read. Executable file read only for identity. Instrumentation and selected environment API call can affect timing; runtime remains diagnostic."
+    },
+    {
+      "topic": "failure_labels",
+      "result": "PASS",
+      "details": "Warning-reference event explicitly distinguishes reached code from rendered dialog. Invalid config flag does not claim stopped service; pending connect not final failure; lastError snapshot not separately validated Winsock error; exit API entry not actual exit."
+    },
+    {
+      "topic": "Process.getCurrentDir",
+      "result": "documented",
+      "source": "https://frida.re/docs/javascript-api/#process",
+      "details": "Current official API documents the method. Availability in installed provider still must be observed."
+    },
+    {
+      "topic": "File.readBytes",
+      "result": "documented",
+      "source": "https://frida.re/docs/javascript-api/#file",
+      "details": "Instance method and ArrayBuffer result are documented; rb handle closed in finally. Identity guard fails closed on unavailable API."
+    },
+    {
+      "topic": "Checksum.compute",
+      "result": "documented",
+      "source": "https://frida.re/docs/javascript-api/#checksum",
+      "details": "sha256 with ArrayBuffer and lowercase hexadecimal return are documented."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "name": "fetch",
+      "rva": "0x13770",
+      "pattern": "6aff68????????64a1000000",
+      "file_bytes": "6aff6806cf4a0064a1000000",
+      "pass": true
+    },
+    {
+      "name": "fileCheck",
+      "rva": "0x10fc0",
+      "pattern": "518d914805000085d274318b",
+      "file_bytes": "518d914805000085d274318b",
+      "pass": true
+    },
+    {
+      "name": "warningFunction",
+      "rva": "0x43510",
+      "pattern": "558bec6aff68????????64a1",
+      "file_bytes": "558bec6aff686dd44a0064a1",
+      "pass": true
+    },
+    {
+      "name": "warningReference",
+      "rva": "0x4357d",
+      "pattern": "68????????8d95e0f7ffff52",
+      "file_bytes": "6890b34b008d95e0f7ffff52",
+      "pass": true
+    },
+    {
+      "name": "directory",
+      "rva": "0x11000",
+      "pattern": "578b7c240868????????c607",
+      "file_bytes": "578b7c240868a4634b00c607",
+      "pass": true
+    },
+    {
+      "name": "path",
+      "rva": "0x111a0",
+      "pattern": "81ec08040000a1????????33",
+      "file_bytes": "81ec08040000a104164e0033",
+      "pass": true
+    },
+    {
+      "name": "sendHeader",
+      "rva": "0xe320",
+      "pattern": "80b97c03000000750683c8ff",
+      "file_bytes": "80b97c03000000750683c8ff",
+      "pass": true
+    },
+    {
+      "name": "recvHeader",
+      "rva": "0xe2f0",
+      "pattern": "80b97c03000000750683c8ff",
+      "file_bytes": "80b97c03000000750683c8ff",
+      "pass": true
+    }
+  ],
+  "tests_reviewed": {
+    "reported_existing_suite": "10 PASS, root independently reran",
+    "repeat_run": false,
+    "reason": "No duplicate suite needed. New instruction callback form requires a new focused test after repair."
+  },
+  "limitations": [
+    "Mocks do not establish installed Frida API/provider compatibility or original-app runtime stability.",
+    "Loaded modules added later are not auto-hooked; missing hook/callback errors/dropped events make coverage incomplete.",
+    "The current mock omits getCurrentThreadId and models only a null-key scope; it does not verify two-thread correlation. Per-thread real implementation is simple and no cross-thread claim is made.",
+    "The probe cannot establish unmodified GUI acceptance or successful reconstructed DEF_PRE_64 v0.2.1 execution.",
+    "No new GUI/control session, native capture, analysis database, build, deployment or external-directory mutation performed."
+  ],
+  "follow_up": "Root may integrate and perform authorized bounded diagnostic capture under existing lifecycle gates. No unresolved must-fix findings in reviewed probe.",
+  "initial_reviewed_files": [
+    {
+      "path": "tools/observe_job_helper.js",
+      "sha256": "5e6d98e0b560c02f056aa001cc636c10111cc808b47fc7d7ad3177c36df6743a"
+    },
+    {
+      "path": "tests/test_job_helper_probe.py",
+      "sha256": "5837c2f05a3273151b1f46dbdc46eaabfbd2ae53cf9c4d1599116f3def94b011"
+    },
+    {
+      "path": "analysis/helper-diagnostic-handoff.json",
+      "sha256": "110688220e857077ed821241c88481e0cb1568cfde2a1d5abacf9668849615ce"
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "instruction_probe_api",
+      "priority": "medium",
+      "path": "tools/observe_job_helper.js",
+      "lines": [
+        81,
+        85,
+        134,
+        136
+      ],
+      "finding": "warningReference points into FUN00443510 at instruction0x44357d, not a function entry. The generic hook helper passes a callbacks object with onEnter. Frida documents arbitrary-instruction probes by passing a function directly to Interceptor.attach. Use the documented instruction-probe form rather than relying on function-entry callback semantics at an interior instruction.",
+      "fix": "Add a separate safely wrapped instructionProbe helper that passes a function directly to Interceptor.attach at the warning reference. Retain identity/fingerprint checks. Extend the mocked Interceptor/invoker to verify function callback support and the warning-reference event.",
+      "qualification": "This is an API-contract problem identified statically; no claim that the current form was observed crashing or missing the warning.",
+      "evidence": [
+        "https://frida.re/docs/javascript-api/#interceptor",
+        "analysis/helper-warning-rea-evidence.json",
+        "analysis/helper-config-fetch-rea-evidence.json#warning"
+      ],
+      "resolution": "instructionProbe passes safe function directly to Interceptor.attach at source lines88-93 and141-143. Function-entry hooks remain callback objects. Mock invoke handles both forms; dedicated test asserts direct-function type and executes warning event without callback error.",
+      "status": "verified_fixed"
+    }
+  ],
+  "repair_verification": {
+    "utc": "2026-10-23T15:38:24.578299+00:00",
+    "scope": "Only instruction-probe repair, current file hashes and its dedicated regression; no broader re-audit.",
+    "command": "python tests/test_job_helper_probe.py HelperProbeTests.test_warning_reference_uses_instruction_callback",
+    "result": "PASS",
+    "tests_run": 1,
+    "test_elapsed_seconds": 0.036,
+    "full_suite_repeated": false,
+    "owner_reported_full_suite": "11 PASS; root integration regression remains separate."
+  },
+  "approval_conditions": [
+    "Use only verified orchestrator-owned helper process and supported REA lifecycle.",
+    "Require identity_verified and probe_ready receipts; inspect missing hooks, callback errors, dropped events and actual exit separately.",
+    "Retain app-control release gate; this approval does not authorize GUI acquisition or waive that prerequisite.",
+    "Keep observations diagnostic, preserve source and script hashes; do not infer payload success or reconstructed DEF_PRE_64 v0.2.1 acceptance."
+  ]
+}

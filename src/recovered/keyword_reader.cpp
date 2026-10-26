@@ -336,6 +336,37 @@ KeywordReader::FloatTripleRead KeywordReader::real_triple_clear_single() {
     return result;
 }
 
+KeywordReader::FloatSixRead KeywordReader::real_six() {
+    require_c_locale();
+    FloatSixRead result;
+    auto input = line();
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    result.conversions = decimal_conversions(
+        std::string_view(input.bytes.c_str()), result.values);
+    result.status = result.conversions == -1 ? 1 : 0;
+    return result;
+}
+
+KeywordReader::MotionHeaderRead KeywordReader::motion_header() {
+    require_c_locale();
+    MotionHeaderRead result;
+    auto input = line();
+    if (input.status != 0) return result;
+    replace_commas(input.bytes);
+    const std::string_view text(input.bytes.c_str());
+    KeywordReader fields(text);
+    const auto integer = fields.selector_integer();
+    result.conversions = integer.conversions;
+    if (integer.conversions == 1) {
+        result.selector = integer.values[0];
+        result.conversions += std::max(0,
+            decimal_conversions(text.substr(fields.cursor()), result.values));
+    }
+    result.status = result.conversions == -1 ? 1 : 0;
+    return result;
+}
+
 KeywordReader::FloatFiveRead KeywordReader::real_five() {
     require_c_locale();
     FloatFiveRead result;

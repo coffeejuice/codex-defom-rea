@@ -1,0 +1,70 @@
+address	status	note
+0x14013c340	verified	"[i/n] " message log (CONV_STATUS.DAT, <stem>.LOG, stdout); oracle: generator lines of 5 cached CNVT3D runs byte-equal (test status_lines_oracle); .DB stem with a 1401b1520 stand-in (p8-08)
+0x14013d7c0	ported	remove DEF_INT_3DTET.DAT; unit test
+0x14013d7e0	ported	DEF_INT_3DTET.DAT "%1d\n" lines; unit test
+0x140146050	ported	defint.cpp; tier-1 files/messages with hooks; blocked for replay by 1401563c0 (p8-08), 1402ac8a0 (p9-03a), 14013c6b0 (p9-01), 1401b1520 (p8-08 stub)
+0x140146560	ported	defint.cpp; untested: needs KEY loader 1401b5f00, 1401f3660 / 14029b630 (p8-08)
+0x140147b70	ported	per-object entry (kinds 5 / 2 / 4); remesh target m/(nsec-1) via floorf; unit tests of the dispatch; end-to-end blocked by p8-06/p8-07/p8-08 and the p9-03b merge; header defcmd/cnvt3d_build.hpp for p9-01
+0x140148960	ported	defint.cpp; untested: needs 2D remesh 140144a70 (p8-07), 14013d7e0/14013d7c0 (p9-03a)
+0x140148a20	ported	defint.cpp; untested end to end (DEF_INT chain as 140146050)
+0x140148f70	verified	port/defcmd/src/cnvt3d_sweep_b; cnvt3d_sweep_* oracle cases 9/9 (test_cnvt3d_sweepb_oracle: NBCD.OUT bytes, RZ/DRZ/NDTMP/ELMCON/MTLGRP/STRAIN/STRESS of CONV3D.KEY)
+0x14014c0a0	verified	sweep.cpp; cnvt3d_sweep_extrude_n3 (ELMCON/MTLGRP/NDTMP/STRAIN) + layer z tier-1
+0x14014c730	verified	port/defcmd/src/cnvt3d_sweep_b; cnvt3d_sweep_* oracle cases 9/9 (test_cnvt3d_sweepb_oracle: NBCD.OUT bytes, RZ/DRZ/NDTMP/ELMCON/MTLGRP/STRAIN/STRESS of CONV3D.KEY)
+0x14014d730	verified	port/defcmd/src/cnvt3d_sweep_b; cnvt3d_sweep_* oracle cases 9/9 (test_cnvt3d_sweepb_oracle: NBCD.OUT bytes, RZ/DRZ/NDTMP/ELMCON/MTLGRP/STRAIN/STRESS of CONV3D.KEY)
+0x14014fae0	verified	sv_transfer.cpp; cnvt3d_sweep_extrude_n3 records not touched by the driver rotation
+0x140151400	ported	sv_transfer.cpp; tier-1 NDTMP copy and DRZ centroid rotation
+0x140153710	ported	geometry entry; unit test (surface-flag branch); 140155340 axis snap still DEF_NOT_PORTED (p8-07)
+0x140153910	ported	extrude mesh-window z shift; unit test (NaN/compare order from the listing)
+0x140153c00	ported	GEOPRIM from loop 0 (FIXGEO clean-up, setup_revolve/extrude, builder p9-04); not run end to end (p9-05 revolve not merged)
+0x140154270	ported	GEOPRIM from the mesh boundary; T9-3: local_180 is prim+0x2518 (filled by 1402ce310), face split unit test; builder p9-04
+0x140159030	ported	floorf wrapper
+0x140159050	ported	ios_base::setf; unit test
+0x140159090	ported	ios_base::precision; unit test
+0x1401590d0	ported	digitized profile tol (+0x18)
+0x1401590f0	ported	digitized point count (+0x38)
+0x140159100	ported	digitized points (+0x40)
+0x140159110	ported	curve has a non-empty digitized profile
+0x140159150	ported	curve's digitized profile (+0x20)
+0x1401591b0	ported	GEOPRIM +0x24fc && +0x24fd
+0x1401595b0	ported	ostream << double (writes the num_put text); unit test "%.8e" with 3-digit exponents
+0x14015a260	ported	num_put::put(double) (_Ffmt / _Fput, width and fill); unit test
+0x140161fd0	verified	port/defcmd/src/cnvt3d_sweep_b; cnvt3d_sweep_* oracle cases 9/9 (test_cnvt3d_sweepb_oracle: NBCD.OUT bytes, RZ/DRZ/NDTMP/ELMCON/MTLGRP/STRAIN/STRESS of CONV3D.KEY)
+0x1401627e0	verified	port/defcmd/src/cnvt3d_sweep_b; cnvt3d_sweep_* oracle cases 9/9 (test_cnvt3d_sweepb_oracle: NBCD.OUT bytes, RZ/DRZ/NDTMP/ELMCON/MTLGRP/STRAIN/STRESS of CONV3D.KEY)
+0x140180ac0	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140180b40	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140180bc0	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140180d30	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140180db0	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140180e30	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+# 0x140180eb0	owner: p9-ac8a0.tsv (body defmodel statevar_kw.cpp); was: ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0); p9/p10 integration: forwards to the p9-ac8a0 body in defmodel statevar_kw.cpp
+0x140181010	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140181110	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140181220	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x1401813a0	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0); p9/p10 integration: forwards to the p9-ac8a0 body in defmodel statevar_kw.cpp
+0x140184270	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140184370	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+# 0x140184400	owner: p9-ac8a0.tsv (body defmodel statevar_kw.cpp); was: ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0); p9/p10 integration: forwards to the p9-ac8a0 body in defmodel statevar_kw.cpp
+# 0x140184490	owner: p9-ac8a0.tsv (body defmodel statevar_kw.cpp); was: ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0); p9/p10 integration: forwards to the p9-ac8a0 body in defmodel statevar_kw.cpp
+# 0x140184760	owner: p9-ac8a0.tsv (body defmodel statevar_kw.cpp); was: ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0); p9/p10 integration: forwards to the p9-ac8a0 body in defmodel statevar_kw.cpp
+0x1401847f0	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140184880	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x140184910	ported	accessors.cpp (SV accessor pattern; reached by the sweep cases through 1401627e0)
+0x1401cbc20	verified	accessors.cpp; called by every sweep case (name arrays / SV width remap)
+0x1401cbce0	verified	accessors.cpp; called by every sweep case (name arrays / SV width remap)
+0x1401cbd40	verified	accessors.cpp; called by every sweep case (name arrays / SV width remap)
+0x1401cbd90	verified	accessors.cpp; called by every sweep case (name arrays / SV width remap)
+0x1401d1660	verified	accessors.cpp; called by every sweep case (name arrays / SV width remap)
+0x1401d72e0	ported	accessors.cpp; tier-1 test_cnvt3d_sweepb_units
+0x140212460	ported	STNCMP offset via the owner model (1401d72e0, p9-03b)
+0x14023cdb0	ported	triangle quality; unit test bit-equal to the listing's operation order
+0x14023d410	ported	quad split into two triangles; unit tests (square, kite)
+0x1402778c0	ported	-> 14041e270(ext, 0, 1); unit test with a FIXGEO stand-in
+# 0x1402a7b60	owner: kw-g2sv.tsv (body port/defkey/src/kw_g2sv/write_sv.cpp write_phase_matrix); was: ported	STEP.DAT SV block 0x31/0x32 (1402a3690 flag 1 via the seam adapter)
+0x1402ac8a0	verified	STEP.DAT: the cached STEP.DAT of "CNVT3D two objects 1,2" parsed back and rewritten byte for byte; DEF_INT_NO_DB.DAT unit-checked
+0x14041e1f0	ported	2D distance
+0x14041e270	ported	FIXGEO on the owner curve, PNTGEO.GEO read-back, close; unit test (FIXGEO stand-in)
+0x14041e4d0	ported	read PNTGEO.GEO; unit test incl. the error codes
+0x14041ea80	ported	close the digitized polygon; unit test
+0x14041f0f0	ported	"PNTGEO.GEO"
+0x14041f100	ported	"rt"
+0x14045a040	ported	open-test and remove; unit test

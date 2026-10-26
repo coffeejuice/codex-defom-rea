@@ -1,0 +1,93 @@
+{
+  "reviewed_at_utc": "2026-10-24T05:56:15.039916+00:00",
+  "reason": "Three frozen checkpoints24,25,26 since previous review; safe boundary before next implementation build",
+  "checkpoints_reviewed": [
+    24,
+    25,
+    26
+  ],
+  "previous_tests": 127,
+  "latest_tests": 129,
+  "build_attempts": [
+    {
+      "receipt": "analysis\\wave3-display-aux-furnace-v1-build.json",
+      "steps": [
+        {
+          "step": "configure",
+          "elapsed_seconds": 1.532,
+          "exit_code": 0
+        },
+        {
+          "step": "build",
+          "elapsed_seconds": 41.453,
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "receipt": "analysis\\wave3-display-selection-timeid-v1-build.json",
+      "steps": [
+        {
+          "step": "configure",
+          "elapsed_seconds": 1.531,
+          "exit_code": 0
+        },
+        {
+          "step": "build",
+          "elapsed_seconds": 17.969,
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "receipt": "analysis\\wave3-display-selection-timeid-v2-build.json",
+      "steps": [
+        {
+          "step": "configure",
+          "elapsed_seconds": 1.5,
+          "exit_code": 0
+        },
+        {
+          "step": "build",
+          "elapsed_seconds": 2.109,
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "receipt": "analysis\\wave3-native-open-model-tables-v1-build.json",
+      "steps": [
+        {
+          "step": "configure",
+          "elapsed_seconds": 1.5,
+          "exit_code": 0
+        },
+        {
+          "step": "build",
+          "elapsed_seconds": 43.016,
+          "exit_code": 0
+        }
+      ]
+    }
+  ],
+  "configure_build_seconds": 110.61,
+  "wall_seconds_since_review": 2784.548,
+  "wall_time_qualification": "Elapsed clock time, not active work; no speedup inference",
+  "latest_ctest_seconds": 19.0,
+  "token_usage": null,
+  "token_measurement": "Unavailable; no token savings claim",
+  "observations": [
+    "One focused TIMEID test failed due to an uninitialized scalar fixture; production code unchanged, all three new fixtures corrected to actual GuiModel ownership. Full suite was withheld until focused tests passed.",
+    "Grouping model fields/native removal/shared notifier and three worker increments produced one successful43.016second build, all15focused groups passed first attempt.",
+    "Original inheritance and registration ordering were refined by cross-worker evidence before shared fields: ModelManager versus same-object ModelBase/MoModel. An inverted decompile extension branch was corrected before implementation.",
+    "Root still occasionally guessed missing paths and combined too much output despite the previous review. Bounded explicit-file reads remain necessary.",
+    "Guarded helper completion was kept separate from actual lifecycle integration; ModelManager public Open integration is next rather than falsely counted complete."
+  ],
+  "adaptations": [
+    "Bind actual Open call sites and live shared owners before further isolated expansions where possible.",
+    "Keep root-only builds, fixture hashing, diagnostic differences and source archive checks.",
+    "For source initialization tests, use actual production owner construction, not partially initialized internal structs.",
+    "Use resolved paths and narrow JSON field selections; avoid repeating complete contracts."
+  ],
+  "next_review": "After checkpoint29 or one hour, at next safe boundary"
+}

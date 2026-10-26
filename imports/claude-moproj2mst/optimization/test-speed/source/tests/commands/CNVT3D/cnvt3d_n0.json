@@ -1,0 +1,21 @@
+{
+  "label": "CNVT3D 0 (no-op)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nCNVT3D 0\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "n <= 0: no id line is read, nothing is deleted or written (CONV_STATUS.DAT not created); KFWRIT is read as the next keyword."
+  }
+}

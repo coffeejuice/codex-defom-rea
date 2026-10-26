@@ -1,0 +1,38 @@
+{
+  "scope": "Immediate Session postparse successor beyond current fallback guard; source frozen, implementation not yet applied",
+  "objective_complete": false,
+  "evidence_hashes": {
+    "analysis/wave2-doe-session-postparse-final-order-decompile.json": "f555a03ded278e63ede4a2205660f9ee62e9ab11125dc9f0526171375d4112f4",
+    "analysis/wave2-doe-session-default-part-selection-decompile.json": "3e285eb7b875a09f1c15c144c346f8aa34e4ea851f32cd26307d4331554e1f02",
+    "analysis/wave2-doe-session-record-creation-order-decompile.json": "d56b406a1eb639641f5b9db36776e27c54fee60f6d5682a28414665e7efef342",
+    "analysis/wave2-doe-session-selection-leaves-receipt.json": "21401951b0a3d718bac7773c88cf86926c79a80a8b63cc2fc6d75f6631ea019e",
+    "analysis/wave2-doe-session-final-order-literals.json": "ef64e73b1634f20fd968f5001b90a95b7f5d44ca65f694719e9e497f34e2c79d",
+    "analysis/wave2-doe-session-change-range-references.json": "e30666ef3e430da6d8daaf530232aa7d63bd2ee2a4eb825749c30edbad4e25d5",
+    "analysis/wave2-doe-session-step-range-string-candidates.json": "b57eea193fff511e5e11c97a0f3d22a5e56b5348e99225341ccf64b605c41749"
+  },
+  "source_order": [
+    "644440 finishes imported root/descendant records before6469d0(doc,0). For nonempty parts this is a pure ordinal0 lookup; empty parts call646a60 default construction, DOM and RefreshTaskTree effects.",
+    "647170(doc,0) first clears current-part QPointer unconditionally. It then searches from index0 and assigns the FIRST part whose659170 entity value equals0; no match leaves the pointer null.",
+    "647170 emits synchronous signalChangeStepRange() after selection whether a match was found or not. This occurs BEFORE fallback and BEFORE current-session reset.",
+    "Only after that event returns does647560 call647110. If current-part pointer is null,647110 gets6469d0(doc,0) and assigns ordinal0 as fallback.647560 then returns that part inner model.",
+    "656220(inner,-1) writes currentSession+2c. Actual imported sessions had set this to the last appended index, so the earlier ChangeStepRange observer can see that old value.",
+    "Actual644440 notify=true then emits signalOpenSession() with no arguments, signalChapterChanged(int656200 currentSession), signalNumChaptersChanged(int656240 list count), in that order.",
+    "Final647560 returns current inner model. The current source remains stopped before all of this successor."
+  ],
+  "closed_minimal_implementation_boundary": {
+    "files": "Owned doe_session.hpp/session_records.cpp/tests only; no shared root hook required for selection prefix.",
+    "state": "Add explicit current-part optional ordinal to SessionDocument. Clear it when prior parts are destroyed, then for existing parts select first entityNo0 after ordinal0 lookup.",
+    "guard": "Guard before unresolved signalChangeStepRange dispatch, preserving selected/null current part and imported currentSession values. No fallback-to-first before that guard; no early currentSession=-1 reset.",
+    "empty_parts": "Keep earlier guard before646a60 default-part construction and its DOM/notification effects.",
+    "callback_qualification": "An explicitly injected unit callback could test ordering but must not be bound as a production no-op or claimed equivalent to the original global registry. Full receiver/lifetime closure still required."
+  },
+  "remaining_exact_dependencies": [
+    "signalChangeStepRange global notifier registration set and Type2 receiver behavior; no receiver absence proof.",
+    "646a60 empty-document default part construction and RefreshTaskTree dispatch, if advancing the empty branch.",
+    "Post-selection OpenSession/ChapterChanged/NumChaptersChanged receiver behavior before full import completion."
+  ],
+  "candidate_search_qualification": "Main-PE ASCII substring search found only the emitted2signalChangeStepRange() literal; bounded RIP-pattern scan found one emitter reference. This does NOT establish an empty global receiver registry: dynamically computed keys, unrecognized instructions, other modules and lifecycle changes remain possible.",
+  "runtime": "Static only. No original/candidate apps, DLL execution, UI, shared REA or worker builds/tests.",
+  "private_export": "Single644440 batch19.983sec; lock released after completion.",
+  "source_state": "Zero-var legend four-file increment frozen for parent build. No Session selection changes made."
+}

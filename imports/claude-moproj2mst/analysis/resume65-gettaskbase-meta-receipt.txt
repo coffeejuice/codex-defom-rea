@@ -1,0 +1,20 @@
+# Bounded PE receipt for SfMoMainWindow GetTaskBase dispatch
+Original image SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+
+File-offset bytes are from the original PE only. DUMPBIN ranges are noted in the analysis document.
+
+- The `SfMoMainWindow` string table begins at file offset `0x216dad0`; VA mapping is `0x14216f2d0`.
+- The slot signature `slotGetTaskBase(QString)` begins at string-table-relative offset `0x27e`, file offset `0x216dd4e`.
+- The meta-data header at file offset `0x216d030` starts `06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 85 00 00 00 0e 00 00 00 ...`; method count field `0x85`, method-record offset field `0x0e`.
+- Method record 17 (zero-based; record size 5 DWORDs), file offset `0x216d1bc`, bytes `7e02000072020000660200000f0000000a000000`; first field `0x27e` selects the above slot signature.
+- Dispatch table in `FUN_1400db1a0` uses image-base-relative 32-bit targets at VA `0x1400dc900` (file offset `0xdbd00`). Entry 17 at file offset `0xdbd44` is bytes `04b50d00`, target `0x1400db504`. Entry 18 at `0xdbd48` is bytes `73b50d00`, target `0x1400db573`.
+- The metacall callback pointer associated with the adjacent main-window metaobject data is at file offset `0x216ede8`, bytes `a0b10d4001000000` => VA `0x1400db1a0`. Its prologue and method-id switch are captured in `resume65-mainwindow-metacall-head.asm`.
+- The metaobject data at file offset `0x216edf0` has successive qwords `0x1446b2670`, `0x14216f2d0` (string table), `0x14216e830` (metadata), and `0x1421705e0`.
+
+Selected capture SHA-256:
+- `resume65-mainwindow-metacall-head.asm`: `f77b0cd0f9c8e642389b602f6981e8299b3d2a19fc773d5d4b3d65d2d33449f3`
+- `resume65-metacall-slot17-exact.asm`: `b264924816ccb2ad292a9de3799f1280c29891448b41fab18b91202aaf3e7bff`
+- `resume65-gettaskbase-getter-exact.asm`: `72711a66979d9aee57294eac216b1a875d5e9d42395b3bcad1836aa7655f43f9`
+- `resume65-gettaskbase-map-lookup-exact.asm`: `13463b392089c60cb504da6daa0092ae3e601dbff8d47ffafa0bb7a11f1555d7`
+- `resume65-gettaskbase-map-owner-exact.asm`: `f1f3b051a8c0e6bb1cbaaf7e45a490c213bfd3bb6fd14f8a4f1d9801f2ba896e`
+

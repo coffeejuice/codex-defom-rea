@@ -1,0 +1,110 @@
+{
+  "status": "Completed owned startup capture; process absence verified and Frida session closed",
+  "utc": "2026-10-24T10:49:38.457110+00:00",
+  "evidence_id": "ev_11e75d85f9e9d12b02b934911e7fd0bec47d39476954fee0663f8d1011a9e6c2",
+  "pid": 300,
+  "session_id": "390520b4-8f44-430f-abed-ee875d87ced1",
+  "modules": [
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+      "base": "0x7ff7c94b0000",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtCore4_64.dll",
+      "base": "0x54570000",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    },
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtGui4_64.dll",
+      "base": "0x53b00000",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    }
+  ],
+  "script": {
+    "path": "build/original-splitter-probe-002/probe-reviewed-v2.js",
+    "sha256": "39bf80ba3928c626ca798743c945c4a94f2f08ee0ed76e3ee0ffa916b3af3dfc"
+  },
+  "counts": {
+    "records": 100,
+    "states": 43,
+    "failedReads": 0,
+    "callbackErrors": 0,
+    "parent": 6,
+    "focus": 6,
+    "font": 6,
+    "palette": 6,
+    "locale": 6,
+    "fontEqual": 6,
+    "paletteEqual": 6,
+    "localeEqual": 6,
+    "gridAdd": 1,
+    "gridFactory": 1
+  },
+  "messages": 175,
+  "errors": [],
+  "truncations": [],
+  "coverage": {
+    "endpoint": "d35a80 return",
+    "noPrimaryExtension": true,
+    "noEventTrace": true,
+    "gridAddSelected": 1,
+    "gridFactorySelected": 1,
+    "openValueContexts": []
+  },
+  "codepages": [
+    {
+      "kind": "codepages",
+      "acp": 1252,
+      "oemcp": 437,
+      "getACP": {
+        "address": "0x7ffc7dd0b180",
+        "module": {
+          "name": "KERNEL32.DLL",
+          "base": "0x7ffc7dcd0000",
+          "rva": "0x3b180"
+        }
+      },
+      "getOEMCP": {
+        "address": "0x7ffc7dd148b0",
+        "module": {
+          "name": "KERNEL32.DLL",
+          "base": "0x7ffc7dcd0000",
+          "rva": "0x448b0"
+        }
+      },
+      "qualification": "Direct reads in this owned original process; no codepage setter or Qt codec getter"
+    }
+  ],
+  "cleanup": {
+    "session_id": "390520b4-8f44-430f-abed-ee875d87ced1",
+    "device_id": "local",
+    "target": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+    "pid": 300,
+    "mode": "spawn",
+    "state": "paused",
+    "cleanup_required": false,
+    "gui_control_acquired": false,
+    "absence_verified": true,
+    "session_closed": true,
+    "cleanup_method": "Owned PID plus module-base guarded TerminateProcess; REA process enumeration confirmed absence; close session afterward",
+    "qualification": "No GUI control acquired; session close alone does not prove process absence"
+  },
+  "raw_files": {
+    "capture-evidence.json": "bdb95dbe5840180a1b1bb178faafe997accbff835f66242e1a3c4618d8d47fca",
+    "owned-process.json": "6a88d05ee199849b8abdae5d5f1a94b08ac40fb12583d1cf2d15f62039f6db2a",
+    "process-absence-evidence.json": "0c6e915d5590fe869f17a06659812da8fbf3018106e26ce6908c5110d914c546",
+    "processes-before.json": "096b4e0823613e5ba4066d001a521dd7b38d37282712e5beaf4363e5f7d8f935",
+    "script-load.json": "fb8ccd5418b5ab83f628b866dd350d35e4d5e58bd01d7ada8096456af4de304c",
+    "session-close-evidence.json": "b53d8b7832810f75d86584dbc495295037f01103e868dcf359d1be54012afdc5",
+    "session-start.json": "c2c2c837e4de1c04273092d03c5f469cd08c87807e7b7b95ec064eca29c5c36a",
+    "termination-evidence.json": "3af3bc43ce2a214c89b4a0b3b631c89da96fcb097b7c60ba740762795cb62086"
+  },
+  "qualifications": [
+    "Only startup through d35a80 return; no Primary extension or Open/Save/Close acceptance.",
+    "Focus entry predecessor is pre-state; no exact post-partition operand claim.",
+    "Code pages apply to this owned process/environment, not arbitrary hosts.",
+    "No mouse/keyboard control was acquired; terminating owned target is not a GUI control release.",
+    "Full inline Evidence retained; bounded observations do not establish full Qt behavior."
+  ]
+}

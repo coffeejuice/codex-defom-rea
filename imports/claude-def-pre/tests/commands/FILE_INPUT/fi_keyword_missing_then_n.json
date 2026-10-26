@@ -1,0 +1,15 @@
+{
+  "label": "File input 1: missing file, answer N, then existing file not read",
+  "stdin": "\n2\n1\nNOPE.KEY\nN\n1\nRING_SI.KEY\nE\nE\nY\n",
+  "timeout": 300,
+  "inputs": [
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [],
+    "notes": "'??? Can not find: NOPE.KEY', 'Re-enter File Name? [Y] '; after N the stop flag stays set: the second option 1 finds RING_SI.KEY but prints no INFO lines and does not read it (no Hit <CR> prompt either)."
+  }
+}

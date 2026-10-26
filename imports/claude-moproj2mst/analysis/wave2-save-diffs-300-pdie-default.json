@@ -1,0 +1,58 @@
+{
+  "status": "default_no_established_source_frozen_pending_apply_update",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "scope": "Initial editor300 stopping-page PDIE movement warning, original fresh-session default answer only",
+  "trigger": "Current PDIE movement kind3,4,7,8,9,10 and any parsed VMIN/LMAX difference from current model>1e-6",
+  "original_call": "ecbf8f0 warning branch calls QMessageBox::question(parent,title,text,0x4000,0x10000|0x100,0). Helper140031680(temporary,0x10000,0x100) constructs the second argument via QFlags integer OR;1413ee240 reads that integer.",
+  "button_flags": {
+    "140004a60": "copies int to flags storage",
+    "140031680": "constructs first operand then calls1400318d0 with second operand",
+    "1400318d0": "ORs both integers then constructs output flags",
+    "result": "button0=Yes0x4000; button1=No0x10000 plus legacy Default bit0x100; button2=0"
+  },
+  "qt_exact_binary_path": {
+    "dll": "evidence/original-binaries/QtGui4_64.dll",
+    "old_question_export": "65477050 (RVA477050; HHH overload)",
+    "delegate": "65476f80 constructs QMessageBox then calls65476640 with the three button integers before dialog exec",
+    "default_selection": "65476640 tests bit8 of button0, then button1, then button2. Only button1 has that bit. It maps the selected integer through65473ad0, looks up that button and calls exported QMessageBox::setDefaultButton654760a0.",
+    "flag_strip": "65473ad0 branches for standard buttons to65473b34; AND0xfffffcff strips bits0x100/0x200. No0x10100 becomes0x10000.",
+    "conclusion": "Default answer is No0x10000, explicitly marked by original call; no platform focus guess or historical screenshot inference."
+  },
+  "apply_consequence": "Original compares result to0x10000, clears cStack244 on No, skips the six VMIN/LMAX stores, then continues EMAX, MDSOBJ4, MDS object callbacks and rotation tail. Earlier TMAX/SMAX writes remain. User-selected Yes is outside this stage.",
+  "planned_change_after_freeze": "Replace helper UnsupportedSnapshot at the prompt predicate with the original default-No skip branch. Update focused tests to retain VMIN/LMAX and continue tail; keep all other supported-profile guards.",
+  "qualification": "Static bounded original/Qt DLL disassembly only; no original app control, target code execution, new Ghidra export or source edit during root freeze.",
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebf8f0.c",
+      "sha256": "cd54c007bad3cedbc1ca34c918bd61942ac5ee1d197c5b7f3dd7b3544805764b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-pdie-button-default.asm",
+      "sha256": "c328aba66b5a8f00180738da7653cb0447ae78672a76efd383b8cc0d624d00c0"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-pdie-button-flags-or.asm",
+      "sha256": "c30a919c1abffd286247c28ea9c73aca581905fdc297e8c5ba343581f6ad2094"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-pdie-button-flags-ctor.asm",
+      "sha256": "202bb4a46aad575c28e44dde4e748e48e7ca7b71bb5e2a26e065b59f79dadfaa"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-question-old-overload.asm",
+      "sha256": "5aa6b5bcb6c92619192cbbb0852ee0548a9a500b92d715b53acd235eb520ddae"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-question-old-helper.asm",
+      "sha256": "32001b0e2fe16f7b4b53bb1aad3eb38163694a50d0af4cc3220fe308012ab278"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-question-old-button-setup.asm",
+      "sha256": "6636075362356072392b27b73279dff3c00fb93d77a80c3d586ab81706596dce"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-question-standard-button-map-complete.asm",
+      "sha256": "59dff8f41e9553eb5615d8a9e219c125d9f8293b7da942863041dc94d92e4358"
+    }
+  ]
+}

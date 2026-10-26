@@ -1,0 +1,172 @@
+[
+ {
+  "label": "OBJPOS/v-ifd-area1-dir0-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_area1_dir0_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 2, area 1 %, direction 0 0 (MOVCTL angle -90 -> (0,-1)): same result as ifd_m2_tol_2d (die 2 net y -2.8415477900 after the +10 lift)"
+ },
+ {
+  "label": "OBJPOS/v-ifd-area1-12-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_area1_m12_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 12, area 1 %: displacement as ifd_m2_tol_2d, STROKE 2 += (0,10) + displacement"
+ },
+ {
+  "label": "OBJPOS/v-ifd-area1-102-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_area1_m102_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 102, area 1 %: no back-off; about the same displacement as ifd_m2_tol_2d, STROKE unchanged"
+ },
+ {
+  "label": "OBJPOS/v-ifd-area1-112-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_area1_m112_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 112, area 1 %: as mode 102 plus STROKE 2 update"
+ },
+ {
+  "label": "OBJPOS/v-ifd-area1-coupled-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_area1_coupled_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 2, area 1 %, coupled die 3 (lies behind the workpiece): signed minimum picks die 3's back-off displacement"
+ },
+ {
+  "label": "OBJPOS/v-ifd-area1-12coupled-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_area1_m12coupled_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 12, area 1 %, coupled die 3: as ifd_v_area1_coupled_2d plus both STROKEs"
+ },
+ {
+  "label": "OBJPOS/v-ifd-areatiny-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_areatiny_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 2D mode 2, area 1e-6 %: converges near first touch (gmin = 9.739 after the +10 lift, die 2 net y about +0.26)"
+ },
+ {
+  "label": "OBJPOS/v-ifd-drop-up-lifted-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "drop_v_up_lifted_3d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: 3D drop +z with the workpiece lifted 3 off die 3 (die 1 lifted 10): initial drop 7 + 0.001, workpiece net (0,0,10.001)"
+ },
+ {
+  "label": "OBJPOS/v-ifd-rot-only-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "drop_v_rotonly_3d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: the lift + 5 deg rotation of ifd_m7_tilted_3d without the drop (to see that the rotation reaches the nodes)"
+ },
+ {
+  "label": "OBJPOS/v-ifd-failstroke-area1-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_v_failstroke_area1_2d.KEY"
+   }
+  ],
+  "comment": "ov-ifd check: as ifd_m12_failstroke_2d but area 1 %, so the failure comes only from the +x direction (no common abscissa range): 'Object 2 to Object 3 interference positioning failed.', STROKE 2 += stale (0,10)"
+ }
+]

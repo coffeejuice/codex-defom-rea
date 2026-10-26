@@ -1,0 +1,52 @@
+{
+  "scope": "Equipment QFile fallback temporary and rename ordering; static only",
+  "evidence": [
+    {
+      "path": "analysis/wave3-qt-file-lifetimes-v2-decompile.json",
+      "sha256": "f36cb84a87284371cfd8d18e7750260e2c7b18aaf0da6aa7e40bd0b91ac6ce12"
+    },
+    {
+      "path": "analysis/wave3-qt-temporary-open-lifetime-decompile.json",
+      "sha256": "3408ce068ce47e463b13b1f296058dea85100ef1640beec9688b71990a3a6cee"
+    },
+    {
+      "path": "analysis/wave3-qt-temporary-engine-ctor-decompile.json",
+      "sha256": "b41d8b4ae18bfa436db89f5264fc1d9c35e178a8a9403cb031ed44389be273ea"
+    },
+    {
+      "path": "analysis/wave3-qt-temporary-engine-open-decompile.json",
+      "sha256": "9f8ca7b08a27a2657fd5b197513df208abb0f67078bb8f9264cb85cfb1f9eadf"
+    },
+    {
+      "path": "analysis/wave3-qt-temporary-native-create-decompile.json",
+      "sha256": "4c1355ac75a566d4df72a7501f6810adc6af7296b41263b0f679415cede217d2"
+    },
+    {
+      "path": "analysis/wave3-qt-temporary-random-decompile.json",
+      "sha256": "b1bddc6d7bb3059b799c06dca129c52a6a2bfaf4d28c942c918a97a6269d47c8"
+    },
+    {
+      "path": "analysis/wave3-qt-random-imports.json",
+      "sha256": "f384d967c9f0d27c295d4d69cfbc54c3a49082dd52d0abd6fa25d5a8461c3c02"
+    }
+  ],
+  "contract": [
+    "QTemporaryFile ctor sets autoRemove=true and provided template; destructor closes, conditionally removes nonempty actual filename, then QFile destruction.",
+    "Temporary engine selects X-run of at least6 in final filename component, else appends.XXXXXX; requests read/write mode and resolves native absolute path before creation.",
+    "670c73d0 fills X-run right-to-left with process-ID decimal digits, then qrand modulo52 mapped toA-Z/a-z. CallsCreateFileW(accessC0000000,share3,CREATE_NEW1,normal80).",
+    "On failure other thanERROR_FILE_EXISTS80 returnfalse. Collision advances leftmost character: digit->a;z->A;Z->a with carry; otherwise increments. Exhausted carry returns80. No replacement/open-existing fallback.",
+    "Qt qrand/qsrand are direct imports of MSVCR90 rand/srand; exact active CRT seed/thread state not reconstructed.",
+    "QFile rename checks target exists first, closes source, attempts backend MoveFileW; sequential file refuses fallback. Otherwise reads source in4096 chunks into destination openmode10, deletes partial destination on copy/read/source-remove failure. Success updates engine/name and follows original permission/close sequence.",
+    "QFile size can flush pending writes then reads backend size/cache. atEnd checks read buffer, open state, pending flush, engine extension or cached-size/bytesAvailable path; not simply an initial filesize loop."
+  ],
+  "remaining": [
+    "Native MSVCR90 random-state ownership and existing seeding consumers",
+    "Complete native source/read/write permissions and Qt error/flush edge cases",
+    "Equipment original fixed temp source name and flags, multi-column item ownership and post-copy notifications",
+    "Integrate copy only with source-backed complete branch behavior; do not replace fallback by CopyFileW alone"
+  ],
+  "qualification": [
+    "Private copied Qt project, readOnly/noanalysis, pinned executable hash; no DLL execution or shared REA endpoint.",
+    "First wildcard exporter failed before opening project; exact program inventory resolved retry, all failure logs retained."
+  ]
+}

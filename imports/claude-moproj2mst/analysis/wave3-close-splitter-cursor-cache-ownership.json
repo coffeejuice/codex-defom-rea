@@ -1,0 +1,27 @@
+{
+  "scope": "QCursor shared-data lifetime used by the exact handle constructor; source qualification only",
+  "evidence": [
+    {"path": "analysis/wave3-close-splitter-handle-cursor-contract.json", "sha256": "460062ba7ace14287494c7ef8dfde37a9ac5c22b035a11f9f655cf9900bc0318"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-cursor-data-cache-static.json", "sha256": "25c607a0768499f49d8d54ec262e80811a3467339275ddc745a0bda2b5e3bf60"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-cursor-data-cache-tail-static.json", "sha256": "869195f7d7f4e3e3a734c53413406a7bdc6cdda0afa6968feb09b635b13d2447"}
+  ],
+  "cache": [
+    "QtGui659c9870 gates initialization.6502eea0 allocates22 separate0x40-byte QCursorData objects, with shape integers0..21, storing ordered pointers in659c97c0. The initialized flag is written only after all loop iterations return.",
+    "QCursorData6508b300 constructs atomic refcount0, stores shape+4, null bitmap/mask pointers+8/+10, invokes actual default QPixmap ctor650ce380 on embedded+18, zeros16-bit hotspots+30/+32 and native cursor handle+38, then assigns refcount1.",
+    "No native cursor handle is fabricated by these stores. The embedded QPixmap default constructor is the smallest remaining constructor dependency on first cache initialization; it has not been expanded here."
+  ],
+  "references": [
+    "6502efb0 ensures cache initialized, selects requested index0..21 when nonnull, otherwise entry0; increments selected data refcount before decrementing/releasing any previous QCursor data, and assigns the actual selected pointer.",
+    "QCursor copy ctor6502f160 stores the same data pointer and increments its refcount. Thus each handle owns a distinct8-byte QCursor wrapper while shared cursor data may be identical across handles.",
+    "The temporary handle-constructor cursor and installed widget cursor hold references to the same shape data. Destroying the temporary decrements its reference without deleting shared data while cache/installed references remain.",
+    "QCursor destructor6502f1a0 deletes data only when atomic deref reaches zero. QCursorData destructor6508b370 deletes nonnull bitmap/mask owners, invokes DestroyCursor only for nonnull native handle, then destroys the embedded QPixmap."
+  ],
+  "qualifications": [
+    "Cache population/refcount at the actual runtime point is not observed by the existing splitter probe. These instructions establish allocation/reference behavior, not current counts or prior use.",
+    "The cache belongs to application/Qt runtime lifetime, not to one handle or a new independent per-splitter cache. Any later reconstruction needs a shared actual lifetime owner coordinated with root.",
+    "Allocation failure, invalid zero cache fallback, concurrent initialization and destruction after runtime shutdown are not covered by this normal constructor branch.",
+    "6502efb0 spans multiple unwind regions; the separate6502f008..6502f038 capture completes the real tail. No truncated prefix is treated as full-function proof.",
+    "No production declarations, tests, builds, target execution or frozen probe edits in this investigation."
+  ],
+  "next": "Use the combined startup capture before selecting the next actual ownership prefix. Keep first-use QPixmap/default-cache dependency explicit; do not add an ad hoc detached cursor owner."
+}

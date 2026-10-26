@@ -1,0 +1,21 @@
+{
+  "scope": "Compile-only qt::String qualification repair after first combined build failure; no behavioral change claimed",
+  "initial_contract": "analysis/wave2-doe-session-task-import-contract.json",
+  "initial_contract_sha256": "2ebb106c86ae980dcde195933b93c6c9314cbf1e7e70a4a308ae521b8689957a",
+  "source_hashes_after_repair": {
+    "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "61195f4ab9dbcd8e83c46116935e3d9083f5d5b0741a89211c16fcdeb70c407d",
+    "source/apps/moproj2mst/include/m2m/doe_session.hpp": "4f5aec906b08c922324f28a1c8a872e3f31ea42bd8be8ce6fd9b8d2b277d892a",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "c65df09ce07646ec749906a939ef2ce54e625b7515bc2a569ecd77cf882afc83",
+    "source/apps/moproj2mst/src/doe/session.cpp": "8850d2a82172bcf7cbade662419a33fc7580ff934a96246384ed0decd3bb7150",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "ade865efc0471228ada9d7d41d102245713a30963adf129eeeb2336cff22b8bd"
+  },
+  "changed_files": [
+    "source/apps/moproj2mst/src/doe/session_records.cpp"
+  ],
+  "repair": "createTask type and comma token constructor explicitly qt::String; no unqualified String remains in records header/cpp",
+  "checks": [
+    "git diff --check passed; parent rebuild pending"
+  ],
+  "session_cases": 21,
+  "app_control_used": false
+}

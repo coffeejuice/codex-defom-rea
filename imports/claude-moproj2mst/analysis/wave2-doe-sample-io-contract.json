@@ -1,0 +1,50 @@
+{
+  "scope": "Direct empty sample writer/load-wrapper only; active DOE remains unsupported",
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "static_evidence": {
+    "path": "analysis/wave2-doe-wrapper-decompile.json",
+    "sha256": "684bf41c597e16d8f8dd7d40d053aca79d4e0a9ecbc23cc2089f326eeab35834",
+    "functions": [
+      "140915360",
+      "1400d7a80"
+    ],
+    "qualification": "Read-only private Ghidra snapshot, matched code identity; static reconstruction, not runtime equivalence."
+  },
+  "contract": [
+    "Invalid requested mode returns false before file I/O",
+    "Native opening truncates target in place; no parent creation, atomic replacement or rollback",
+    "Empty table writes mode plus CRLF and flushes at the endl boundary",
+    "False only on failed open; later write/close error does not change wrapper result",
+    "After successful open, nonempty requested table causes CURRENT table clear and REQUESTED flag validation; counts unchanged",
+    "Undefined current index refuses only after preceding file effect, rather than inventing original out-of-bounds behavior",
+    "Recording explicitly simulates success without creating files"
+  ],
+  "source_files": {
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "78fa790b469ed075b48d029861797c7900f3be15cf28c1c7bcf2b1c80f18e76c",
+    "source/apps/moproj2mst/include/m2m/doe_sample_io.hpp": "038b5162efd7cfdf4aed15110bf69f48862cadadf8837f41796c0d3635e4eb3a",
+    "source/apps/moproj2mst/src/doe/io.cpp": "083f1798f5cc09482c190c51f19d104803ae2fbf9950d34fe53c7d45f31aebb6",
+    "source/apps/moproj2mst/src/doe/sample_io.cpp": "7a7533c9f947eecfccfe076c3475158e497110c0d3611bfad70b300f532211dc",
+    "source/apps/moproj2mst/tests/mdt/test_doe_sample_io.cpp": "accdc12a70bb2676eebf376d1818638369502a298f7893c82e0efb2630c268d4"
+  },
+  "build": "analysis/wave2-doe-sample-io-v1-build.json",
+  "tests_pending": false,
+  "limitations": [
+    "The new overload is not wired into unsupported active-study parsing",
+    "Native std::ofstream and Qt QFile sharing/race/device-specific failure equivalence not established",
+    "Injected short write validates wrapper state/partial-file contract; it is not an original runtime fault capture",
+    "TextWriteAttempt records requested bytes, not a claim of bytes committed after real write failure",
+    "Full sample tables remain on their existing planned-I/O seam"
+  ],
+  "app_control_used": false,
+  "validation": {
+    "full_suite": "analysis/wave2-doe-sample-io-v1-tests.json",
+    "registered": 101,
+    "exit_code": 0,
+    "fixture_changes": [],
+    "focused": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792757566474712900\\m2m.mdt.doe_sample_io.log",
+    "tests": 5,
+    "fresh_original_acceptance": false
+  },
+  "review": "analysis/wave2-doe-sample-io-review.json",
+  "verified_candidate": "build/wave2-sample-io-verified/receipt.json"
+}

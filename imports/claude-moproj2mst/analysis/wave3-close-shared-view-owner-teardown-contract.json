@@ -1,0 +1,65 @@
+{
+  "scope": "Static native destructor ordering for the shared MainView/ViewManager/SplitView ownership proposal",
+  "method": "Immutable original PE and bounded offline DUMPBIN; no GUI, target runtime, build or production source edit",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-shared-view-owner-delete-wrappers-static.json",
+      "sha256": "0eb116a0b33c352cd73cbe04b692fe58119f7c34615c30077ac27d3b2cf9e77b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-shared-view-owner-destructors-static.json",
+      "sha256": "7a48889aaf1c7f2f9acebdc8df113ff614dbc8cba54e79578539a88c133c9aa8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-shared-view-owner-base-teardown-static.json",
+      "sha256": "058430f619e57fccba94e5136584f2290820d8d3cfc5c9e23d81a27091795f5a"
+    },
+    {
+      "path": "analysis/wave3-close-default-splitter-ownership-contract.json",
+      "sha256": "d623bef49c31e9de10434cbaed642ca4b4f72b2cce29d94c4db82b74b4370e05"
+    }
+  ],
+  "destructors": {
+    "SfMoMainView": {
+      "vtable": "1421872a8",
+      "deleting_wrapper": "0eb650",
+      "body": "0e9ec0",
+      "order": [
+        "Free private block this+30 via14dfc68; this is not a direct delete of the ViewManager stored inside that block.",
+        "Call base d4fc20. Base vtable142a15af8 RTTI SfTabView; d4fc20 calls QTabWidget destructor IAT141e070b8."
+      ]
+    },
+    "SfViewManager": {
+      "vtable": "142a06d98",
+      "deleting_wrapper": "d39400",
+      "body": "d347e0",
+      "order": [
+        "Destroy layout-name QString at+30.",
+        "Destroy guarded layout field+28 via cbc900->QMetaObject::removeGuard IAT141e042a8. This removes the guard, not the guarded layout.",
+        "Call QWidget destructor IAT141e0ba48. Native d34920 explicit layout-deletion helper is not called in this body."
+      ]
+    },
+    "SfSplitView": {
+      "vtable": "142a5a638",
+      "deleting_wrapper": "dac110",
+      "body": "dab8a0",
+      "order": [
+        "Destroy name QString+28.",
+        "Call QSplitter destructor IAT141e05b90."
+      ]
+    }
+  },
+  "wrapper_behavior": "Each wrapper calls its body, tests raw flag&1, conditionally frees allocation via14dfc68, returns original this.",
+  "notifications": "No direct notifier-removal call in these three app destructor bodies. Actual QObject guard invalidation permits native snapshot dispatch to skip dead receivers; global entries must not be silently erased by projection. This does not assert no effect inside Qt destructor calls.",
+  "qualifications": [
+    "QWidget/QTabWidget/QSplitter descendant destruction, emitted signals and event callbacks remain unexpanded.",
+    "Order of Qt descendant destruction is not established by app wrapper order.",
+    "A weak guard being destroyed differs from its referenced object being destroyed. Mainwindow+148 and primary/secondary weak caches must track actual target lifetime.",
+    "No new shared registry or production source was added. Close63 frozen source remains unchanged."
+  ],
+  "next": "Root implements one shared view-owner boundary; retain unknown Qt descendant/callback effects. DOE uses same owners for snapshot and Close uses same child lookup."
+}

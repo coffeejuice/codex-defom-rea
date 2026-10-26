@@ -1,0 +1,142 @@
+{
+  "scope": "Concrete QGridLayout allocation and fresh parent installation prefix for SfViewManager; specific child-event receiver only",
+  "method": "Offline immutable shipped PE and bounded DUMPBIN; no target execution, GUI, builds or shared analysis database",
+  "binaries": [
+    {
+      "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence/original-binaries/QtGui4_64.dll",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    },
+    {
+      "path": "evidence/original-binaries/QtCore4_64.dll",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-default-splitter-ownership-contract.json",
+      "sha256": "d623bef49c31e9de10434cbaed642ca4b4f72b2cce29d94c4db82b74b4370e05"
+    },
+    {
+      "path": "analysis/wave3-close-shared-view-owner-teardown-contract.json",
+      "sha256": "6df7e71e59faa99401253ea7b7f1d05d330d710b37e4100ed4eb8915549778c9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-child-event-leaf-static.json",
+      "sha256": "4934e99cbe7b33f48d960d40f7969fc7b7c23d8be2b6fdce668aa56d14292c4d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-layout-constructor-dependencies-static.json",
+      "sha256": "d213dffa1682de4f94a63419d845086402d98929a77b05e201561cfaab1c864b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-layout-empty-count-static.json",
+      "sha256": "417dce8ad479088c13167e434c1d04303c14178d5592c30daa60c90bba15b20b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-layout-final-tail-static.json",
+      "sha256": "71a437398bdc011df21c644098a331765c9a7bd54a0fbede84e99e5a9f81c8bf"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-layout-install-empty-path-static.json",
+      "sha256": "d24a01fe59838e5099fdd5ffd85f3838c2cb3c5506fbb7eda03bed58edc16229"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-layout-ownership-prefix-static.json",
+      "sha256": "a8726897afa21ae00b3b7a27ddf040e665408586dd77c52bbaa98a815de23dee"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-manager-child-event-route-static.json",
+      "sha256": "a4b73b850f9a3723bc1b3446b587fd64aeab78e840223d873d9e5deca6976d41"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-qobject-child-ownership-static.json",
+      "sha256": "61d26711c9349d9a1b7e41950d564a65f6f77c659bc2780db50309d369a69d7a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-qobject-parent-prefix-static.json",
+      "sha256": "0675019309485fbdbaa2b62f97496789db999716c84efc54ae12087fa2146dc8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-widget-private-constructor-static.json",
+      "sha256": "b26df087dae98ae3bc8a7d64c93e15557b08b078f2ee53cfb0278db75c052fb3"
+    }
+  ],
+  "direct_bindings": [
+    {
+      "vtable": "0x142173038",
+      "slot": "0x58",
+      "thunk": "0x140138b80",
+      "bytes": "ff254ae7cc01",
+      "import": "?invalidate@QGridLayout@@UEAAXXZ"
+    },
+    {
+      "vtable": "0x1421730b8",
+      "slot": "0x78",
+      "thunk": "0x140138b4a",
+      "bytes": "ff250828cd01",
+      "import": "?count@QGridLayout@@UEBAHXZ"
+    },
+    {
+      "vtable": "0x142a06d98",
+      "slot": "0x20",
+      "thunk": "0x14013898e",
+      "bytes": "ff25c430cd01",
+      "import": "?event@QWidget@@MEAA_NPEAVQEvent@@@Z"
+    },
+    {
+      "vtable": "0x142a06d98",
+      "slot": "0x38",
+      "thunk": "0x140138634",
+      "bytes": "ff25d6bdcc01",
+      "import": "?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z"
+    }
+  ],
+  "event44_switch": [
+    {
+      "byte_address": "0x6506d7ce",
+      "index": 1,
+      "entry": "0x6506d788",
+      "target": "0x6506c9ba"
+    },
+    {
+      "byte_address": "0x6506d966",
+      "index": 52,
+      "entry": "0x6506d920",
+      "target": "0x6506d767"
+    },
+    {
+      "byte_address": "0x6712cf4b",
+      "index": 5,
+      "entry": "0x6712cf00",
+      "target": "0x6712cb5f"
+    }
+  ],
+  "observations": [
+    "d34da0 calls d34920 first, allocates0x20 and invokes QGridLayout default ctor; app vtables1421730b8/142173038 are concrete QGridLayout, not a named app subclass. It sets four contents margins to0, calls QWidget::setLayout, then returns. d34d50 assigns the manager guarded+28 only after this return.",
+    "Qt6503f7c0 allocates private0x138;6503c5a0 initializes QList item list+100 to QListData::shared_null and row/column vectors separately.65046b10 receives both optional parents null and invokes QObject ctor with null parent. QObjectPrivate67131160 sets parent+10 null; QObject6712e630 skips its nonnull-parent branch.",
+    "Grid row/column initializer6503cbe0 spans three unwind regions through6503d247; the fresh requested row/column counts become1/1. It updates row/column vectors, not item list+100. QGridLayout::count6503c2b0 delegates QListData::size670032c0; shared-null begin/end are both0, so the constructed item list is empty. This is only grid item population, not scene/widget population.",
+    "QLayoutPrivate65043890 initializes four margins to-1, flags+9c with bit0 clear/bit2 set, menu pointer+B8 null. Setting zero margins invokes actual QGridLayout::invalidate6503c520, then QLayout::invalidate65046760 and update65045930. On this parentless path update clears bit2 and returns after parent getter returnsnull; it does not post a layout event.",
+    "QWidgetPrivate6505e780 writes its native installed-layout pointer+A8 null. This binds constructor default, not arbitrary later widget mutation.",
+    "QWidget::setLayout65068490 rejects an existing different layout; on fresh null installed-layout/parentless grid, it sets layout-private flag bit0 and widget-private+A8 before QObject::setParent. The app guarded+28 remainsnull.",
+    "QObject::setParent6712e170 forwards6712d3f0. Fresh old-parentnull skips removal; stores new parent at6712d519; same-thread check precedes append at6712d556. If sendChildEvents/receiveChildEvents flags allow and child is nonwidget, constructs raw child event0x44, then synchronously dispatches via67119570 when QCoreApplication exists. Parent identity/ordered child membership are already committed at that point. Thread mismatch clears child parent and returns before append; installed QWidget layout pointer remains.",
+    "SfViewManager QWidget::event6506c950 raw0x44 routes to6506d767, then QObject::event6712caf0 case6712cb5f invokes vtable+38. Actual receiver+38 is QObject::childEvent67001000, exact RET. This closes receiver body only, not application notify/event filters before it.",
+    "After event dispatch,6712d3f0 has optional Qt declarative bookkeeping/posting and final hook. These remain unresolved. QWidget::setLayout then reparents contained widgets via650451c0; initial menu=null/itemcount0 skips its contained-widget loop. It later invalidates again; without intervening callback mutations the earlier-cleared flag bit2 causes update to return. Conditional top-level sizehint work is a separate later path."
+  ],
+  "minimum_projection": [
+    "One actual GridLayoutState object, initially parentless and empty, with zero contents margins and one row/column.",
+    "A weak installed-widget layout identity separate from SfViewManager guarded cached-layout identity; neither is the child owner.",
+    "Actual ordered QObject grid-child owner collection on ViewManager. Parent transfer appends the same GridLayoutState object before the child event boundary.",
+    "Pending execution qualification at synchronous child event; do not commit cached+28, View_Default name, SplitView_Main, Primary insertion, private alias or mainwindow+148.",
+    "Native owner invalidation must reach diagnostic grid leases when the MainView/manager is destroyed; do not count shared_ptr survival as native QObject lifetime."
+  ],
+  "qualifications": [
+    "Allocation failure/null dereference behavior and all Qt resource/thread initialization are not reconstructed here. This prefix is a fresh qualified same-thread constructor path.",
+    "No assertion of global/application/object filter absence; pure leaf childEvent does not remove the dispatch guard.",
+    "A repeated call after a suspended native installation cannot replay the prefix until missing continuation effects are qualified.",
+    "Do not infer scene item coverage, geometry, visibility, selection or arbitrary child population from the empty grid constructor."
+  ]
+}

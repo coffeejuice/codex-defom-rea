@@ -1,0 +1,83 @@
+{
+  "schema": "wave3-qobject-posted-event-removal-static-v1",
+  "status": "bounded static source contract; no runtime cleanup observation or implementation",
+  "qualification": {
+    "binary": "evidence/original-binaries/QtCore4_64.dll",
+    "binary_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+    "method": "Offline direct PE/DUMPBIN disassembly only; no original runtime, DLL loading, GUI, shared database, or build.",
+    "function_range": "0x67119970..0x67119b03 inclusive",
+    "range_limit": "The captured routine supports only the described bounded path; this does not establish every QObject destructor or posted-event cleanup route."
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-67119970.asm",
+      "sha256": "ee9cbb5fe13b65d2ad27b1ae3f739b1189e11a10de1e12497589ec0b1986444d",
+      "source_capture": "analysis/wave3-closure-next-close-widget-post-append-remove-static.json",
+      "capture_range": "0x67119970..0x67119b03"
+    },
+    {
+      "path": "analysis/wave3-close-editor003-shared-events-queue-contract.json",
+      "sha256": "534912ace38803b8865892325d96ece3ea24f11c7fd74f0f5900ba5ad6095e2c",
+      "role": "Observed editor-profile ordered queue and raw 0x4a/0x4c posting context; not a startup004 queue seed."
+    },
+    {
+      "path": "analysis/wave3-original-splitter-probe-004-receipt.json",
+      "sha256": "edadc1a656191b75f9cbc4666ee5439c973f6b3bdbf6b6a46cf5002102e1faed",
+      "role": "Startup004 observation reaches raw 0x4a post/wake boundary; it does not capture dispatcher private wake fields or QObject destruction cleanup."
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-compression-static.json",
+      "sha256": "50a199f4773623e684598cb8fa54369bf7e13a17c2e086e18d89b4b130002dba",
+      "role": "Bounded raw 0x4c compression scan and match/no-match outcomes."
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-layout-request-compressed-dtor-static.json",
+      "sha256": "483016d20b1589469bd2099dcd88de6217d5441b7f7a1e0b9fc1c76f623d5ef",
+      "role": "Bounded deleting-destructor call for the compressed incoming event."
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-plain-event-deleting-dtor-static.json",
+      "sha256": "31fe2eee0afee9f3446396e6f9aeacad5856514d5f53adafbdba1cc3baed2101",
+      "role": "Bounded plain-QEvent deleting destructor behavior."
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-default-wake-v2-static.json",
+      "sha256": "6736597a44520381b85e005ef9f3248f8dbb39cba92b0a40bd44a7bff6e5ea81",
+      "role": "Bounded default post/wake and queue source ranges."
+    },
+    {
+      "path": "analysis/wave3-close-probe004-dispatcher-gesture-corrections.json",
+      "sha256": "5e5314051d507ec9b68b029f4072ccd8348731b5da6fd58f87eb2d921cc48f2e",
+      "role": "Corrected dispatcher vtable slot 0x98 import-thunk route and unresolved startup runtime fields."
+    }
+  ],
+  "bounded_effects": [
+    "A null receiver argument returns without queue work. The routine checks a receiver-private flag before acquiring the current QThreadData path; behavior outside the admitted flag branch is not inferred.",
+    "The routine obtains the current thread data, follows its +0x30 posted-event-list field, and scans the active begin/end range in order.",
+    "For each record whose receiver field at record+0x08 equals the target QObject, it reads the associated event pointer at record+0x00, decrements the dword reached by loading [event+0x08] then addressing +0x24, clears the event posted flag at event+0x12 bit0, and calls the event vtable slot0 with deleting flag1. The meaning/owner of the decremented private dword is not assigned by this excerpt.",
+    "After the deleting destructor call, the matching record's receiver field is set to null. The captured range does not advance queue begin/end, compact or reorder records, rewrite their priority, or establish a separate queue-wide count adjustment; do not model those effects from this routine.",
+    "The loop continues across the observed active range, so multiple records matching the same receiver are handled by the same bounded path. Other receiver records are left alone by the equality test."
+  ],
+  "cross_contract_reconciliation": {
+    "append": "Existing editor evidence observes raw 0x4a appending at equal priority to the ordered queue tail; startup004 separately observes its own queue 19->20. This removal routine does not alter that append contract.",
+    "compression": "Existing raw 0x4c source scans same-receiver, same-type live events. On a match it deletes only the incoming event and returns before queue append; on the observed no-match path normal append proceeds. This is distinct from receiver-wide queue cleanup.",
+    "destruction": "This receiver cleanup path clears the posted bit and calls a deleting destructor for each queued event matched by receiver. Existing compressed/plain destructor artifacts cover specific event destructor paths, not every possible dynamic event class.",
+    "wake": "The corrected dispatcher route is QtGui+0x5e0ca0 -> QtCore+0x141b70. Static code proves serial increment and conditional HWND/CAS/PostMessage ordering. Startup004's HWND/serial/postedWake values remain unobserved; editor003's already-pending wake values cannot be reused for startup."
+  },
+  "not_closed": [
+    "The actual runtime receiver and event dynamic types for a destruction-time cleanup pass.",
+    "Whether the queue has zero, one, or several target-receiver records at the relevant destructor site; static loop behavior does not supply the runtime population.",
+    "All event-class deleting destructors, queue compaction/flush behavior, cross-thread posting/removal, or process-wide cleanup outside the captured routine.",
+    "Startup004 dispatcher private HWND, serial, and postedWake inputs and their numeric post/wake result."
+  ],
+  "implementation_decision": "No widget-events increment is source-ready from this contract alone: current WidgetPostEventQueue intentionally has unknown population, existing WidgetEventState instances are synchronous stack events, and this routine's queued dynamic event owners/destructor classes are not bound to a live reconstructed QObject queue. Preserve the existing guard until a passive capture supplies actual receiver/event queue ownership and required lifetime inputs.",
+  "smallest_next_passive_capture": {
+    "reuse": "Existing build/original-splitter-probe-004/probe.js and its native CLI Open-to-endpoint workflow; do not create a second event-pump or GUI-input experiment.",
+    "dispatcher_route": "Admit exact QtGui+0x5e0ca0 slot-0x98 thunk only when its loaded target resolves to QtCore+0x141b70 (or the verified direct Core target).",
+    "read": [
+      "At the already observed raw 0x4a wake entry, resolve the dispatcher private owner from this+0x08 and passively read private+0x98 HWND, private+0xa8 serial, and private+0xb4 postedWake immediately before and after the wake body.",
+      "At the existing post boundary, retain queue receiver/event identities and per-receiver posted count from the same process; do not seed from editor003 or pump/deliver events."
+    ],
+    "acceptance": "Retain ordered record/event identity, the exact owned-process cleanup/absence receipt, and source/build hashes; no field assignment, Qt call, GUI input, or event pumping."
+  }
+}

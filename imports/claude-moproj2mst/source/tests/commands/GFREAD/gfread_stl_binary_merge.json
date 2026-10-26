@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD STL binary merge",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.STL",
+      "source": "data/stl_binary_merge.stl"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Binary STL (byte > 0x7F in the first 255): header 80 + count 4 ignored, 50-byte records until fread of 48 bytes fails (10 trailing bytes ignored). Same DIEGEO as the ASCII case."
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "m2m-doe-empty-slice-cleanup-contract-v1",
+  "status": "worker3files SOURCE FROZEN; no worker build/tests; rootcandidate38pending",
+  "evidence_sha256": {
+    "analysis/wave2-doe-stepdata-object-slice-empty-cleanup-decompile.json": "d2d4cd35b6da03d4af1718feab506c2dd3d8576dc962ec71d0148a622cbc7e06",
+    "analysis/wave2-doe-stepdata-object-slice-empty-cleanup-leaves-decompile.json": "4f8b5abc0335d52ac7a266bc56d42f1dcc37478490cfe346bb99d3a395819e1a",
+    "analysis/wave2-doe-stepdata-object-slice-empty-cleanup-member-dtors-decompile.json": "889e422e4597dbc1f2a37563ea835f056aa80e2fb691e8c72b2deef2a565690f",
+    "analysis/wave2-doe-stepdata-object-slice-empty-matrix-teardown-decompile.json": "a111728df43459180cd555b8d14431312e917451dcd580363abc9c00d92b4be8",
+    "analysis/wave2-doe-stepdata-object-slice-empty-map-dtors-decompile.json": "6b615112130c624fc8de80800a5acbf7c0011f33250b0cc307fe240ce771f1b0",
+    "analysis/wave2-doe-stepdata-object-slice-empty-map-final-leaves-decompile.json": "08992e05e01f1b09dde546a7453666a59cc5da600d40483c26bf967629e688a7",
+    "analysis/wave2-doe-stepdata-object-slice-empty-member-destructor.asm": "a1314dc0f32f41404efc3f7ba8384098390bbb2917b17d192b2b734c98c6a66c",
+    "analysis/wave2-doe-slice-empty-vector-destructor.asm": "2137f81e2d1fb62331ea105cd90a913802da493c7e934fcfeccaf3ea115ac679",
+    "analysis/wave2-doe-slice-empty-allocator-wrapper-a.asm": "da463cf27ddc4436e6bec4f859e89232bb3852e1d8127e487fc0d5d2a6a75ecd",
+    "analysis/wave2-doe-slice-empty-allocator-wrapper-b.asm": "59e441b9910d974ec15001b0c21a28a7750e21881338fff1d9b5d164ee56072c",
+    "analysis/wave2-doe-slice-empty-allocator-delete-proxy.asm": "cefbee23566aeac2458601075ae0f5b8fc14ed454fb3c0777d7c2cfc5accd14e",
+    "analysis/wave2-doe-stepdata-object-slice-view-cleanup.asm": "ff5575b185547f84e957e3069b3049f20738b344bf3827ecd80790a1461385d0",
+    "analysis/wave2-doe-stepdata-object-view-owner-creators-decompile.json": "3378b5ae150f9ed8fd5203037a429cb01996c3703f1f4e64eff86eb68adbf336",
+    "analysis/wave2-doe-stepdata-object-view-constructor-head.asm": "fa78eb347b1c55236384d373b3b07cfa501c31260304709ce03a6f542edfcdf0",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-order.asm": "a951c0d674a1c61d4c94c971134be6840e20a4cc76a3820f04148c37904b483f",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-extract.asm": "66a68ad82a9a0e27fd31b10565802c0331b21259b3c839d5c84c3fed930c7d38",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-pop.asm": "a5137e1af5f606a85ebfb86f0a68c09913dcb7df1aee817ce6d5c3c63204e2f6",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-erase.asm": "b4dc60e27fa876d58907f205ca93a83162eb0efe9785900555923aee3a652413",
+    "evidence/gui_mo/s1/mdt/V/v1.c": "b343633d23fa2283e259a36e7db535c83501fda73c8556be79b6fe83892814e7",
+    "evidence/gui_mo/s1/mdt/V/v16.c": "adc73c65dabd239a304dab59b7f4843112a847c308a9bf5be91beb71333958f8"
+  },
+  "domain": [
+    "backendKnownNull=true,graphicCount=0,andopaqueMembersConstructorOnly=true BEFORE anyeffect. Lastfield is explicitadapter support-domain metadata, not inventednativefield.",
+    "Constructor-only field+3f98/+3f50 buffersnull; emptyhead-marked trees selflink/isNil1/size0 frombc3e70/bc4500. No populated backend, graphic or changedopaque member accepted."
+  ],
+  "ordered_contract": [
+    "1fdc40 captures View guardedowner BEFORE df8460. ActualView ctor1f07d0 ownerarg isactualGuiModel fromc82930/c82d50 and storedQPointer+10; no currentmanager/Display substitution.",
+    "df8460 firstdf8270. In domain, graphicslistempty so noGraphicDTOR calls; backendnull meansdf3c90 skipsdf3d80; constructorbuffersnull mean no bufferfrees.",
+    "Then actualCtorView+3f38 (ifnonnull) resolves actualSettings and clearsflag5 via1eeaf0(index5,0,true), whose couplingonlyindices0/1 doesnotaffectthisflag. This must use current list/objnull state after nativepop, never savedprepop Settings.",
+    "df8460 localresets touch only unconsumed fields. Root then55e260->df8210: repeatemptydf8270, no-opstylecac130(+3fa0),QListbackingdestruction(+3f88),base df3c40->fourdf09b0 memberdtors.",
+    "Opaque records: stylecac130 and vector121c570 are exactnoops; transformbc01f0 clears only constructor-empty internal trees and sentinel/allocator storage. Emptyhead subtreeerase loops terminateatIsNil; no payloadcallbacks. Allocator wrappera98a30->a98a50->a98a70->a99af0 calls0ad940(operator_delete) then no-opcac130. No sourceglobal scratch reset.",
+    "Modelplane store and processretainedrecordheap are separate, untouched by this cleanup.",
+    "Native deletion precedes View+338=null; c80560 follows using ownercapturedBEFOREcleanup. It iterates CURRENTvisibleViewlist, perView1f4df0. Root separatelybinds ctor-nullbackup leaf or guardspopulatedbackup.",
+    "Native c82b70 removes listentry via takeLast/Qt erase BEFORE fullunbind/virtualdtor. At a later guard, removedView is not visible; rootpendingRemoval is explicit adapterretention of in-flight state, no deferrednativecleanup replay."
+  ],
+  "worker_api": {
+    "signature": "void prepareEmptySliceCollectionDestruction(SliceCollectionState&,const std::function<void()>& clearActualSliceFlag)",
+    "effects": "Guarddomain first; ifCtorViewnonnull require/call actualflagcallback. Doesnotdelete/copy/resetcallerowner, modelbinding, processscratch or planeheap. Normalreturn licensesimmediateowningcallerdelete/null thenmodelupdate.",
+    "callback_failure": "Adapterinjectedrefusal propagates; no rollback, pointerdeletion or syntheticfinally. Actual nativeflagsetter in this domain is purestore; injectedtest doesnotclaim originalfaultcapture."
+  },
+  "root_integration": [
+    "Rootowns privateView.GuiModelGuard, actual creationarg binding, pendingRemoval, actualSettings callback, ownerdelete/null andc80560loop.",
+    "Rootowns publicclear/reset/nonfullrebind guards and source-qualifiedpopulatedbackup/update boundary. Other emptyDTOR/backend branches remain unsupported."
+  ],
+  "qualifications": [
+    "Logical application-state equivalence in successful ctor-onlyempty domain; exact native allocator/refcount/debugiterator/exception behavior and internal partialallocation failures remain qualified.",
+    "Internal sentinel storage release has no applicationcallbacks in selected empty paths; no populatedtree/render destructor coverage inferred.",
+    "No original/candidate runtime, GUI control, studyexecution or workerbuild/tests.",
+    "No normal-Close plane deletion/processleak absence claim; oldretainednativeheapqualification unchanged."
+  ]
+}

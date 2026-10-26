@@ -1,0 +1,37 @@
+{
+  "schema": "wave3-boolean-lifecycle-events-implementation-v1",
+  "status": "source_ready_not_built_by_worker",
+  "contract": {
+    "path": "analysis/wave3-boolean-timer-contract.json",
+    "sha256": "63ee9c2bca39e6b14ba2866a0ffc7a8caf5b389f49d4b41530d84e4f6145cdb0"
+  },
+  "owned_source_sha256": {
+    "source/apps/moproj2mst/include/m2m/engine/lifecycle_events.hpp": "fb8c37bdc006cd66c62c234f7d44d1ec60c0d05f6b383375f66808539936643e",
+    "source/apps/moproj2mst/src/engine/lifecycle_events.cpp": "eae26ae1cd7886aca5f92a9d755d9fef4857a9b4c266645713237b296ef0e643",
+    "source/apps/moproj2mst/tests/mdt/test_lifecycle_events.cpp": "2f7d9dfca5e781e1d71606523b5ef926b42248742a23617710b3b5a3240791bd"
+  },
+  "public_internal_header": "m2m/engine/lifecycle_events.hpp",
+  "class": "m2m::engine::DiagramLifecycleEvents",
+  "test_target": "m2m_mdt_lifecycle_events",
+  "ctest": "m2m.mdt.lifecycle_events",
+  "tests": [
+    "two independent binding timers and zero automatic delivery",
+    "null rebind retains pending; current model/item resolved by callback",
+    "receiver destruction disconnects without timer cancellation; new lifetime unique",
+    "dispatcher destruction clears timers without destroying receiver identity",
+    "consume before reentrant callback; destruction disconnects remaining events",
+    "two due IDs invoke replacement-selection callback with editor refill, avoiding stale AddNew repeat"
+  ],
+  "integration_required": [
+    "Root session/dispatcher owner outside Project lifetime",
+    "Root binding stores current attachment/item and invokes existing replacement-selection chain on delivery",
+    "Root Save flags0 pump receives explicitly qualified due IDs; current immediate adapter default supplies none",
+    "Actual Boolean hook integration tests belong to root; generic callback fixture is not execution of original Qt or Boolean editor"
+  ],
+  "qualification": [
+    "Normal allocation scope; uint64 identifier exhaustion is adapter guard, not original Qt failure semantics.",
+    "No clock, elapsed-time readiness, event-order inference, user wait, original/runtime/UI execution or public ABI change.",
+    "This worker did not build or execute tests; parent controls combined validation.",
+    "Pending timer records are consumed before callback (timer killed before timeout activation); callback resolves current attachment, so no model/item is stored in events."
+  ]
+}

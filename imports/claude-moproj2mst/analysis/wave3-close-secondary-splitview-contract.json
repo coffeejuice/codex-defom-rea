@@ -1,0 +1,112 @@
+{
+  "schema": "wave3-close-secondary-splitview-v1",
+  "status": "direct_decisions_and_order_bound; native_widget_state_and_notification_recipients_qualified",
+  "method": "Offline PE plus bounded DUMPBIN only; no original runtime, application control, shared Ghidra or production changes.",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "caller": "At the end of d0e540, main virtual+0x360 = cc54a0 is invoked when the main-window pointer exists and the first integer is0. This remains before signalRemoveGraphItems and project teardown.",
+  "ordered_behavior": [
+    "cc54a0 calls main virtual+0x7b8 = ca6210, which reads the guarded pointer at main+0x148 through c1aef0. A null result returns directly.",
+    "For a nonnull manager, call d34cd0(manager,1,QString::fromLatin1(\"SplitView_Main\")). d34bd0 obtains the manager layout through d34d50, calls QGridLayout::itemAtPosition(0,0), then item virtual+0x60 without an intervening null check; d39490 uses QMetaObject::cast with the application metaobject at1446b8440. The exact runtime metaobject class name was not extracted from its uninitialized-data address.",
+    "d34d50 is lazy: absent manager+0x28 calls d34da0, then stores the result through cbc920 / QMetaObject::changeGuard. d34da0 first runs d34920, allocates0x20 bytes, calls QGridLayout constructor, installs original class tables, sets all content margins0, and QWidget::setLayout(manager,layout). The d34920 cleanup deletes a preexisting layout via virtual+0x18; the absent pointer branch skips it.",
+    "For the requested SplitView_Main name, d34bd0 returns the successfully cast layout widget. d34cd0 then calls dabcb0 with index1; negative or index>=QSplitter::count returns null, otherwise QSplitter::widget(1). The SplitView_Sub branch is not selected here.",
+    "cc54a0 returns on null child or QWidget::isVisible(child)==false. A visible child is cast using QGraphicsView::staticMetaObject, and null cast or null QGraphicsView::scene returns. The preliminary138b2a0 ->100e20 helper returns0 without object mutation.",
+    "Once a nonnull QGraphicsScene is obtained, QGraphicsScene::clearSelection is called BEFORE checking that it dynamically casts to SfScene. A failed SfScene cast returns after that selection change.",
+    "For an SfScene, cd5490(scene,\"SfGraphHistogramItem\") is tried first. Only if null is cd5490(scene,\"SfChartPtrkItem\") tried. cd5490 enumerates QGraphicsScene::items, skips entries with nonnull parentItem, and tests the corresponding RTTI dynamic cast. It returns the first matching top-level item or null.",
+    "If either lookup succeeds, invoke notifier2cf3c0 on global143d76700 with the literal2signalCloseSecondaryWidgetInSplitView() and ten empty QGenericArguments. If both return null, return without that signal. The signal is not unconditional."
+  ],
+  "integration_inputs": [
+    "Actual main+0x148 manager availability.",
+    "Existing layout and its(0,0) item/type, or the lazy layout allocation prefix if absent.",
+    "Splitter child1 availability and QWidget visibility.",
+    "QGraphicsView and SfScene cast outcomes, scene selection and top-level histogram/particle-track item presence.",
+    "Signal recipients for signalCloseSecondaryWidgetInSplitView()."
+  ],
+  "qualifications": [
+    "Do not infer null manager, hidden child, empty scene, or missing chart from a fresh-project label. These are state predicates requiring startup/lifecycle evidence or explicit observations.",
+    "A missing secondary child is not proof of no earlier effects: manager layout resolution can allocate/cache/install a layout.",
+    "The unguarded layout-item dereference is retained; this receipt does not introduce a safe fallback or claim a runtime crash was observed.",
+    "Qt layout construction, selection-change notification recipients and the final application signal recipients are not transitively expanded here. Raw widget/rendering parity is not claimed.",
+    "The old c1aef0 capture ended immediately before RET; close-tail-layout-lazy includes its exact RET at140c1aefd. Adjacent padding/next function in the explicit100e20 capture is not part of that leaf claim."
+  ],
+  "literals": {
+    "0x142911e30": {
+      "value": "SplitView_Main",
+      "sha256_with_nul": "fdaa664f0667a252abc4374d9b1ab1e67004758febbddbe43c1ae7cadbf7e92a"
+    },
+    "0x142911e40": {
+      "value": "SfGraphHistogramItem",
+      "sha256_with_nul": "b553481970959177bc0e50697ba711ffd424cc4ca529ec2d06c613c364f3b371"
+    },
+    "0x142911e58": {
+      "value": "SfChartPtrkItem",
+      "sha256_with_nul": "918024dde89d775c8109d3a7c38be2c307184120f71807e1f70183569fc37269"
+    },
+    "0x142911e68": {
+      "value": "2signalCloseSecondaryWidgetInSplitView()",
+      "sha256_with_nul": "ceec78231f1875299711da60effd39b8c497306cdcfd979286a88e8f04ceaf72"
+    },
+    "0x14395b8d8": {
+      "value": ".?AVSfScene@@",
+      "sha256_with_nul": "c397666a5279041c9339107146a9ed70f51cbbf768211b4c086c814d5a7a4f83"
+    },
+    "0x143706c20": {
+      "value": ".?AVSfGraphHistogramItem@@",
+      "sha256_with_nul": "9258d61e45d3a8ca0a2a9f022af4794a58cc0f1bd92357a89e120cc2ce8f83a2"
+    },
+    "0x1436362f0": {
+      "value": ".?AVSfChartPtrkItem@@",
+      "sha256_with_nul": "e9fa2804bc8c492f6c8165b44d99d73c82241447bb705a9299596111e250363f"
+    }
+  },
+  "imports": {
+    "0x141e0b858": "?isVisible@QWidget@@QEBA_NXZ",
+    "0x141e07698": "?scene@QGraphicsView@@QEBAPEAVQGraphicsScene@@XZ",
+    "0x141e08388": "?clearSelection@QGraphicsScene@@QEAAXXZ",
+    "0x141e07ca8": "?items@QGraphicsScene@@QEBA?AV?$QList@PEAVQGraphicsItem@@@@XZ",
+    "0x141e09388": "?parentItem@QGraphicsItem@@QEBAPEAV1@XZ",
+    "0x141e04140": "?cast@QMetaObject@@QEBAPEAVQObject@@PEAV2@@Z",
+    "0x141e07f28": "?staticMetaObject@QGraphicsView@@2UQMetaObject@@B",
+    "0x141e09da8": "?itemAtPosition@QGridLayout@@QEBAPEAVQLayoutItem@@HH@Z",
+    "0x141e0a200": "?count@QSplitter@@QEBAHXZ",
+    "0x141e0a1f8": "?widget@QSplitter@@QEBAPEAVQWidget@@H@Z",
+    "0x141e08190": "??0QGridLayout@@QEAA@XZ",
+    "0x141e0b3a8": "?setContentsMargins@QLayout@@QEAAXHHHH@Z",
+    "0x141e0b948": "?setLayout@QWidget@@QEAAXPEAVQLayout@@@Z",
+    "0x141e058b0": "?changeGuard@QMetaObject@@SAXPEAPEAVQObject@@PEAV2@@Z"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-post-answer-contract.json",
+      "sha256": "2fee8b93778f6d8cb9e3d368f9a02d7b2c2493e4556946fb809d30131d7162f3"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-tail-notification-static.json",
+      "sha256": "aed31c4d8a7527116bcac28b384251d8223d35fe52ef4ebbc7a85866b0bb47f1"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-tail-getters-static.json",
+      "sha256": "3be686a51a34afbc89ce6ff093de9c249eb8ceba63171db02effaf82d8f27ac4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-tail-splitview-static.json",
+      "sha256": "cb014e744f5bb7768b7d64a84df5b3f726a1d186b9a5ccf1014adf74cd86a0e4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-tail-layout-static.json",
+      "sha256": "0d4f3415b3533bf289d621a91b3a1ad368792e193da138566867e88463d60497"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-tail-layout-lazy-static.json",
+      "sha256": "cdd6f365da8fc847f3be2a4fd00a36972051c76b1c9db3925f431b0831b4d4bd"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-tail-layout-cleanup-static.json",
+      "sha256": "324ca1ce878062ceea09fe548b52fba57221ce211a87d1f5a179e5a42644c009"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-getters-static.json",
+      "sha256": "585ea9932f6fcaa22f278b5b86ebfd90e15a0e4d1b76dcdb19dedb6cfe295f04"
+    }
+  ],
+  "tool_sha256": "bdb40ec993892930bdfe94ee9cfb630d1119d5bff0c83bdde17b723e5c48a7c1"
+}

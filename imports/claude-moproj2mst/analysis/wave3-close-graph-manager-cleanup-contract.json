@@ -1,0 +1,77 @@
+{
+  "scope": "Graph-manager factory teardown, guarded list entries and exact remove-before-graph-delete boundary",
+  "method": "Retained original PE/DUMPBIN; no source changes, runtime or GUI",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-graph-manager-constructor-contract.json",
+      "sha256": "21c58fa1f3ae77721fb0266b6151168aec14278a449fce1fc33c7f10ac397571"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-manager-destruction-static.json",
+      "sha256": "d89501e6060d037f348019454888d0cebbcff66efee4707fcc0565578716fa3e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-list-take-ownership-static.json",
+      "sha256": "274dc645b5d0449e1a9bdf7a385fe887ac8c3f3cc2fd932839aee7727b222ef1"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-manager-owned-cleanup-static.json",
+      "sha256": "d277828c4130f0ffa898eb67dd04543f1fe97b30309c4dff26677cc075a8e5f4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-list-guard-destroy-static.json",
+      "sha256": "e42f8aab86f044660edbf5d0fb7d385f50efe02e8c12eedc8d982533b089c10c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-manager-list-boundary-static.json",
+      "sha256": "392f75cb41264554c39efd1ca352ec93edd49bd6007b24dfd8dfd02373350c43"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-list-iterator-leaf-static.json",
+      "sha256": "691c379f0a313d26d367e78f2f4387ae24fe85dd0d43813c9835f24b273f1686"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c170b0.asm",
+      "sha256": "b639b113b00f9070f10fb9a0978e96e850644ba7f65feee97074eddc4441faaa"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c15db0.asm",
+      "sha256": "244a61c361c8111c1926ca2fda5379004b414ff863ad12476d4fe0644ad7c80e"
+    }
+  ],
+  "imports": {
+    "0x141e041e0": "?begin@QListData@@QEBAPEAPEAXXZ",
+    "0x141e041f0": "?end@QListData@@QEBAPEAPEAXXZ",
+    "0x141e04208": "?at@QListData@@QEBAPEAPEAXH@Z",
+    "0x141e042a8": "?removeGuard@QMetaObject@@SAXPEAPEAVQObject@@@Z",
+    "0x141e05578": "?addGuard@QMetaObject@@SAXPEAPEAVQObject@@@Z",
+    "0x141e058a0": "?remove@QListData@@QEAAXH@Z",
+    "0x141e058a8": "?erase@QListData@@QEAAPEAPEAXPEAPEAX@Z"
+  },
+  "manager_destruction": [
+    "Derived deleting wrapper c0df10 calls c0b930, then frees if flag1. c0b930 restores derived table, calls pure empty leaf c0b9e0, then c154e0.",
+    "c154e0 restores base table, calls c155d0, destroys the +10 list via c17070, then invokes QObject::~QObject. Its deleting wrapper is c17030.",
+    "c155d0 first deletes nonnull owned factory+18 through virtual+18(flag1), then stores+18=null. Only afterwards does it begin iterating the +10 graph collection.",
+    "c0dfa0/c0dfe0 first ensure writable list via cdf440, then call QListData::begin/end and store the returned iterator address through pure c628c0. 126470 compares iterator qwords for inequality. The empty-list branch skips every graph dereference/deletion.",
+    "For a nonempty list, c155d0 reads a guarded item. Null entries are erased; live entries are copied into a local guard, their graph deleting virtual+18 is invoked, then the entry is erased. Each branch restarts from the current list begin. Populated graph destructors and reentrant effects are still a separate dependency."
+  ],
+  "list_entry_representation": [
+    "619750 loads a node qword as the address of a separately allocated QPointer wrapper; the inline-node alternative is constant-unreachable.",
+    "c1af00 copies the guarded QObject pointer and invokes QMetaObject::addGuard. cbc900 only invokes QMetaObject::removeGuard.",
+    "dd77d0 calls c0e140 on a nonnull wrapper; c0e140 destroys its guard and frees the wrapper when requested. It does not delete the guarded graph pointee.",
+    "c17070 releases list shared-data storage when its reference count reaches zero. Exact copied/shared backing allocation internals are not expanded here."
+  ],
+  "take_at_and_delete_order": [
+    "c170b0 ensures writable list, gets node at index, copies its guard to a local guard, destroys the node guard wrapper, calls QListData::remove(index), copies the local guard into caller result, then destroys the local guard.",
+    "Thus c170b0 removes the collection entry while returning a still-guarded graph. It does not delete the graph object.",
+    "c15db0 finds a live graph with matching object+0xc0 QString name, calls c170b0, reads the returned guarded graph pointer, releases that temporary guard, and only then invokes deleting virtual+18 if pointer nonnull.",
+    "c15db0 still increments the numeric index after each iteration, including after removal. Do not replace it with erase-all or a corrected no-skip loop."
+  ],
+  "supported_next_projection": "A newly constructed graph manager with its still-empty private collection can own and destroy its real factory child in recovered order. Populating the collection or replaying scene cleanup requires actual graph owners and guarded handles; a vector of raw auxiliary model pointers is not this collection.",
+  "qualifications": [
+    "Constructor-empty is not proof of scene emptiness or a persisted manager remaining empty.",
+    "Shared QList detachment and populated object destructor callbacks remain qualified; no complete original runtime teardown claim.",
+    "This receipt closes exact take/remove ordering but does not authorize public Close integration."
+  ]
+}

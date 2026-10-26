@@ -1,0 +1,26 @@
+{
+  "schema": "editor300-setup-page-handoff-allocation-order-amendment-v1",
+  "created_utc": "2026-10-24T10:38:27.561006+00:00",
+  "amends": {
+    "path": "analysis\\wave3-editor-setup-page-handoff-design.json",
+    "sha256": "ae253462d3d10217830900914ffecc2df841404f13c0902aad2c6172482f964d"
+  },
+  "status": "accepted by parent; implementation waits for candidate38 final freeze",
+  "correction": "Preserve existing allocation order: Session creates StagedEditor300 first, then EditorSetupState. Replace proposed two-argument constructor with one-shot StagedEditor300::bindSetupOwner(EditorSetupState&) after both allocations. Never construct setup earlier merely for convenience.",
+  "liveness": "EditorSetupState owns a lightweight lifetime token; EditorSetupGuard in StagedEditor300 holds it weakly and stores an address for identity. Setup destruction expires the guard; later bound operations explicitly reject ExpiredSetupOwner and never fall back to isolated defaults. No destructor dereferences the peer. Reverse factory/page owner addresses retained in historical setup are opaque identity tokens only, never live pointers to dereference.",
+  "bind_rejections": [
+    "Invalid factory binding",
+    "Already bound, even to same setup; no replacement/replay",
+    "Page construction already attempted",
+    "Setup already owned by another factory or already sealed"
+  ],
+  "current_state_reconciliation": "Resolve source-proven MDS radio checked state and consumed local enable controls in setup. Preserve requested values separately; qualify effective parent enable profile rather than silently treating unknown inherited state as true. Six MDS coordinate and six rotation translated text values are0 under existing known profile, and must come from actual setup. Reached pre-page toggle delivery updates resolved consumed receiver state. Unknown prerequisites reject handoff before sealing.",
+  "constructor_use": "The later constructPageState segment validates current identities/context, resolves the exact live bound setup, creates one retained InitialEditorSession, performs one-way handoff, then calls existing composer. Public actual factory still refuses earlier native setup/picking/initial-row stages. Handoff success is not full native constructor completion.",
+  "extra_tests": [
+    "Destroy setup before factory and verify weak guard expires safely; no dereference, fallback or page effects",
+    "Binding a replacement or after any construction attempt rejects without modifying either setup",
+    "Post-seal live mutator explicitly refuses, historical observation stays unchanged after typed page edits",
+    "Unknown inherited/consumed state leaves setup unsealed and destination unchanged"
+  ],
+  "worker_ownership": "Five agreed setup/owner files only after parent release; Session allocation/bind call remains parent-owned. Current six stopping files refrozen after test amendment."
+}

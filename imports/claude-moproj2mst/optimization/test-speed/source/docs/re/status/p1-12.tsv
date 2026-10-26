@@ -1,0 +1,79 @@
+address	status	note
+0x1402248c0	verified	port/defdbio/src/dbcore/signature.cpp is_deform_db; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140224930	verified	port/defdbio/src/dbcore/signature.cpp is_db_2d (FUN_140323bf0 of p1-10 copied locally as c_to_fortran); oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140224a20	verified	port/defdbio/src/dbcore/signature.cpp is_db_3d; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140224b10	verified	port/defdbio/src/dbcore/signature.cpp is_db_23; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140235620	verified	port/defrt/src/ftn/helpers.cpp ftn_strncmp; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140235670	verified	port/defrt/src/ftn/helpers.cpp ftn_strncmp_b; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140235c10	ported	port/defrt/src/ftn/units.cpp unit_system; tier1 defrt.ftn_helpers
+0x140235d00	ported	port/defrt/src/ftn/units.cpp unit_factor (table 140531490 rows 0..43); tier1 defrt.ftn_helpers
+0x140235d80	ported	port/defrt/src/ftn/units.cpp convert_temperature; tier1 defrt.ftn_helpers
+0x140238025	verified	port/defrt/src/ftn/helpers.cpp copy_words4; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1402380c5	verified	port/defrt/src/ftn/helpers.cpp copy_words8; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x14023b1f0	ported	port/defrt/src/ftn/helpers.cpp vec3_sub; tier1 defrt.ftn_helpers
+0x14023b610	ported	port/defrt/src/ftn/helpers.cpp vec3_length; tier1 defrt.ftn_helpers
+0x14023b720	ported	port/defrt/src/ftn/helpers.cpp vec3_normalize; tier1 defrt.ftn_helpers
+0x1403b1e45	verified	port/defdbio/src/dbcore/signature.cpp check_sig_2d; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b1ff5	verified	port/defdbio/src/dbcore/signature.cpp check_sig_3d; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b26e5	verified	port/defdbio/src/dbcore/signature.cpp check_sig_23; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b32b5	verified	port/defdbio/src/dbcore/signature.cpp db_version (legacy 2D/3D tables: tier1 only); oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b41d9	verified	port/defdbio/src/dbcore/dbops.cpp read_file_header; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b44d2	verified	port/defdbio/src/dbcore/dbops.cpp convert_to_combined; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403b5a04	verified	port/defdbio/src/dbcore/dbops.cpp db_operation; licence branch on entry (License Error(1)) omitted; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b600f	verified	port/defdbio/src/dbcore/dbops.cpp op_open; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b6425	verified	port/defdbio/src/dbcore/dbops.cpp op_directory; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b6679	ported	port/defdbio/src/dbcore/dbops.cpp op_read_step (also: region selectors, step search); tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403b7729	verified	port/defdbio/src/dbcore/dbops.cpp op_write_step; licence check before the directory write (License Error(2)) and process-monitor message FUN_1403c4590 omitted; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403b92bc	verified	port/defdbio/src/dbcore/dbops.cpp chunk_io (write mode: op-4 rewrite test); oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403b9bef	ported	port/defdbio/src/dbcore/dbops.cpp read_mar_table; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403b9d4c	ported	port/defdbio/src/dbcore/dbops.cpp read_mar_regions; unused ALLOCATE dropped, last oversized region read via scratch (same values, no overrun); tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403ba54c	verified	port/defdbio/src/dbcore/dbops.cpp write_mar_regions; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403badb1	ported	port/defdbio/src/dbcore/dbops.cpp read_a_table; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403baf0e	ported	port/defdbio/src/dbcore/dbops.cpp read_a_regions; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403bb996	verified	port/defdbio/src/dbcore/dbops.cpp write_a_regions; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403bc85b	ported	port/defdbio/src/dbcore/dbdyn.cpp alloc_dynamic; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403bcf76	ported	port/defdbio/src/dbcore/dbdyn.cpp op_read_dynamic (search compares with step 0: DAT_140707758 never written); tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403bd3b5	ported	port/defdbio/src/dbcore/dbdyn.cpp read_int_dynamic (error report texts not oracle-checked); tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403bda24	ported	port/defdbio/src/dbcore/dbdyn.cpp read_real_dynamic; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403be093	ported	port/defdbio/src/dbcore/dbdyn.cpp read_ints_at; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403be165	ported	port/defdbio/src/dbcore/dbdyn.cpp read_int_array; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403be25d	ported	port/defdbio/src/dbcore/dbdyn.cpp read_real_array; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x1403be3d4	verified	port/defdbio/src/dbcore/dbdyn.cpp write_dynamic; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403be6af	verified	port/defdbio/src/dbcore/dbdyn.cpp write_int_dynamic; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403be8ac	verified	port/defdbio/src/dbcore/dbdyn.cpp write_real_dynamic; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403beaa9	verified	port/defdbio/src/dbcore/dbdyn.cpp write_ints_next; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403bec29	verified	port/defdbio/src/dbcore/dbdyn.cpp write_int_array; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403bed68	verified	port/defdbio/src/dbcore/dbdyn.cpp write_real_array; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1403c4504	not-needed	excluded (licence code, SFTC/user rule): never ported, analysed or wired; process monitor: MORNITOR_FEM_PROCESS messages (FUN_1400d5cc0 gate); 1403c4504/1403c75fe end in STOP ' ' after the message, left to their callers' packets
+0x1403c4590	not-needed	process monitor: MORNITOR_FEM_PROCESS messages (FUN_1400d5cc0 gate); 1403c4504/1403c75fe end in STOP ' ' after the message, left to their callers' packets
+0x1403c7572	not-needed	process monitor: MORNITOR_FEM_PROCESS messages (FUN_1400d5cc0 gate); 1403c4504/1403c75fe end in STOP ' ' after the message, left to their callers' packets
+0x1403c75fe	not-needed	process monitor: MORNITOR_FEM_PROCESS messages (FUN_1400d5cc0 gate); 1403c4504/1403c75fe end in STOP ' ' after the message, left to their callers' packets
+0x1403c783f	not-needed	process monitor: MORNITOR_FEM_PROCESS messages (FUN_1400d5cc0 gate); 1403c4504/1403c75fe end in STOP ' ' after the message, left to their callers' packets
+0x1403c8323	not-needed	process monitor: MORNITOR_FEM_PROCESS messages (FUN_1400d5cc0 gate); 1403c4504/1403c75fe end in STOP ' ' after the message, left to their callers' packets
+0x1403fbab0	verified	port/defdbio/src/dbcore/signature.cpp file_sig_2d; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403fbda5	verified	port/defdbio/src/dbcore/signature.cpp file_sig_3d; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x1403fc05c	verified	port/defdbio/src/dbcore/signature.cpp file_sig_23; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140407e60	verified	port/defdbio/src/dbcore/util.cpp swap_mode; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140407e6d	verified	port/defdbio/src/dbcore/util.cpp platform_swap_mode; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140407e75	verified	port/defdbio/src/dbcore/util.cpp set_swap_mode; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140407e81	verified	port/defdbio/src/dbcore/ftn_io.cpp fortran_open (modes 0,5 exercised; INQUIRE fault text from the -m blank-name case); oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x14043658f	ported	port/defrt/src/ftn/helpers.cpp rotate2d (CRT sin/cos instead of the runtime sincos FUN_1404b3b30: may differ in the last bit); tier1 defrt.ftn_helpers
+0x140437aa9	ported	port/defrt/src/ftn/helpers.cpp column_min_max (thunk); tier1 defrt.ftn_helpers
+0x140437b3b	ported	port/defrt/src/ftn/helpers.cpp column_min_max; tier1 defrt.ftn_helpers
+0x140437fc0	ported	port/defrt/src/ftn/helpers.cpp copy_words8_b; tier1 defrt.ftn_helpers
+0x14043c190	ported	port/defdbio/src/dbcore/util.cpp rmalloc / rmalloc_scratch; indices against Fortran bases live in a private 32-bit virtual space (rm_word); tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x14043c520	ported	port/defdbio/src/dbcore/util.cpp rfree; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x140443fc4	ported	port/defrt/src/ftn/helpers.cpp last_nonblank_plus1; tier1 defrt.ftn_helpers
+0x1404445bf	verified	port/defdbio/src/dbcore/util.cpp swap4; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x14044461c	verified	port/defdbio/src/dbcore/util.cpp swap4_words; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x140444955	verified	port/defdbio/src/dbcore/util.cpp swap8; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x1404449af	verified	port/defdbio/src/dbcore/util.cpp swap8_words; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x14044ac11	verified	port/defdbio/src/dbcore/util.cpp mod1; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x14044ac31	verified	port/defdbio/src/dbcore/util.cpp rle_encode_int (also equals deformdb::rle_encode, tier1); oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x14044aeeb	ported	port/defdbio/src/dbcore/util.cpp rle_decode_int; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x14044b0fa	verified	port/defdbio/src/dbcore/util.cpp rle_encode_real; oracle: rewriting all 19 DEF_PRE-written oracle DBs slot by slot through op 4 gives byte-identical files (test_dbcore_db)
+0x14044b3f5	ported	port/defdbio/src/dbcore/util.cpp rle_decode_real; tier1 test_dbcore_db: reads equal deformdb on COG, Inc718, 19 oracle DBs
+0x14044b62a	verified	port/defdbio/src/dbcore/ftn_io.cpp block_io_int; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x14044bc76	verified	port/defdbio/src/dbcore/ftn_io.cpp block_io_char4; oracle: 129/129 -m cases (both corpus DBs + synthetic) through dbcore in a local build of the -m path
+0x14044c2c2	ported	port/defdbio/src/dbcore/ftn_io.cpp block_io_real8; only reached on a byte-order-1 platform (never: FUN_140407e6d returns 2), REAL*8 goes through block_io_int
+0x14045a140	ported	port/defrt/src/ftn/helpers.cpp degrees_to_radians_if_flagged; tier1 defrt.ftn_helpers

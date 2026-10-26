@@ -1,0 +1,46 @@
+{
+  "schema": "editor300-startup-codec-translator-call-sites-v1",
+  "binary": {
+    "path": "evidence\\original-binaries\\DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "scope": "Raw x64 relative CALL and RIP-relative indirect CALL/JMP candidates in original EXE .text only. Each reached candidate needs instruction/function binding; no exclusion of dynamic calls, external DLL calls or plugin behavior.",
+  "sites": [
+    {
+      "site": "0x1400023fb",
+      "instruction": "call [rip+disp]",
+      "target": "installTranslator",
+      "function_region": "0x140002290"
+    },
+    {
+      "site": "0x1400026d8",
+      "instruction": "call [rip+disp]",
+      "target": "setCodecForLocale",
+      "function_region": "0x1400024f0"
+    },
+    {
+      "site": "0x1400026e3",
+      "instruction": "call [rip+disp]",
+      "target": "setCodecForTr",
+      "function_region": "0x1400024f0"
+    },
+    {
+      "site": "0x1400026ee",
+      "instruction": "call [rip+disp]",
+      "target": "setCodecForCStrings",
+      "function_region": "0x1400024f0"
+    },
+    {
+      "site": "0x140002227",
+      "instruction": "direct call candidate",
+      "target": "application codec setup",
+      "function_region": "0x1400021c0"
+    },
+    {
+      "site": "0x140002231",
+      "instruction": "direct call candidate",
+      "target": "application translator setup",
+      "function_region": "0x1400021c0"
+    }
+  ]
+}

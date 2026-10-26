@@ -1,0 +1,35 @@
+{
+  "scope": "Post-root-repair lazy activation baseline; before later Session source changes",
+  "original_contract": "analysis/wave2-doe-lazy-activation-contract.json",
+  "original_contract_sha256": "bd2ce926711520e62200138bfbfae424039356474af037e69bc3b775910fa850",
+  "validation": "analysis/wave3-lazy-sim300-validation.json",
+  "build": "analysis/wave3-lazy-sim300-v4-build.json",
+  "tests": "analysis/wave3-lazy-sim300-v4-tests.json",
+  "frozen_binaries": "build/wave3-lazy-sim300-verified",
+  "registered": 104,
+  "counts": {
+    "passed": 97,
+    "passed-with-logged-gaps": 6,
+    "passed-with-logged-differences": 1,
+    "incomplete-output": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "fixture_changes": [],
+  "historical": {
+    "SAME": 93,
+    "DIFF": 5,
+    "REFUSED": 0
+  },
+  "root_repairs": [
+    "Missing qt4path.hpp production include",
+    "Missing complete OpClass test include",
+    "Recording DOE path keys normalize separators/dot-components; observations keep raw paths"
+  ],
+  "source_files": {
+    "source\\apps\\moproj2mst\\src\\doe\\activation.cpp": "bfdb46bc90cc2940536fc39450170be6bf590f1c08d79c1b9466e4deef1611d7",
+    "source\\apps\\moproj2mst\\src\\doe\\io.cpp": "75012983b1be1851cb3bc1aef89c004cf31d797838b54ba048e2377eb8366cb9",
+    "source\\apps\\moproj2mst\\tests\\mdt\\test_doe_activation.cpp": "79e328055143d7421fc4bec9aa76d0d803a737cdd28d51d08ab16b1f15e6e03d"
+  },
+  "qualification": "104 CTest pass,6 lazy activation cases; historical diagnostics are scope/normalization qualified and not fresh-original parity. Earlier pre-root-fix contract preserved immutable."
+}

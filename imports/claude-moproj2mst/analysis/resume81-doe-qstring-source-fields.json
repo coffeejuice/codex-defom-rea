@@ -1,0 +1,64 @@
+{
+  "qualification": "read-only PE fields and import descriptors; no runtime identity observation",
+  "binaries": {
+    "DEF_GUI_MO_64.exe": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "QtCore4_64.dll": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+    "target-bcf0074c7e9f.dll": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+  },
+  "guiImports": [
+    {
+      "dll": "QtCore4_64.dll",
+      "slot": "0x141e04350",
+      "name": "?setCodecForCStrings@QTextCodec@@SAXPEAV1@@Z"
+    },
+    {
+      "dll": "QtCore4_64.dll",
+      "slot": "0x141e04480",
+      "name": "??0QString@@QEAA@PEBD@Z"
+    },
+    {
+      "dll": "QtCore4_64.dll",
+      "slot": "0x141e059e0",
+      "name": "??1QString@@QEAA@XZ"
+    }
+  ],
+  "coreImports": [
+    {
+      "dll": "MSVCR90.dll",
+      "slot": "0x671a85c0",
+      "name": "??0exception@std@@QEAA@AEBQEBDH@Z"
+    },
+    {
+      "dll": "MSVCR90.dll",
+      "slot": "0x671a8610",
+      "name": "malloc"
+    }
+  ],
+  "resource": {
+    "va": "0x14213afd8",
+    "ascii": ":/SfTool/icon/tool/iconDoe_24_24.png",
+    "byteLength": 36,
+    "allocationBytesForLatin1": 104
+  },
+  "codecGlobal": {
+    "va": "0x672f3e10",
+    "initialImageValue": "zero-filled virtual tail (section metadata confirms)",
+    "section": {
+      "name": ".data",
+      "virtualSize": "0x4a90",
+      "rva": "0x2f0000",
+      "rawSize": "0x3c00",
+      "rawOffset": "0x2edc00",
+      "zeroFill": true
+    },
+    "runtimeQualification": "mutable global; initial image value is not invocation-time state"
+  },
+  "sourceSlots": {
+    "QStringObject": "rsp+0x58 at GUI0x140086d68",
+    "postConstructorReturnedSlotSpills": [
+      "rsp+0x70",
+      "rsp+0x78"
+    ],
+    "dataOwner": "qword at returned QString slot; fresh allocation only on qualified null-codec successful allocation branch"
+  }
+}

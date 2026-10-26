@@ -1,0 +1,102 @@
+{
+  "target": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\DEF_GUI_MO_64.exe",
+  "target_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "tool": "tools\\doe_static_pe.py",
+  "tool_sha256": "e949707799912f8079e58d60a2b02ca204412d381e9accba81cd52bd4ee03ca8",
+  "strings": [
+    {
+      "text": "2signalCreateTaskBase()",
+      "encoding": "ascii",
+      "va": "0x1420f9948",
+      "offset": 34570568
+    },
+    {
+      "text": "2signalCreateTaskBase()",
+      "encoding": "ascii",
+      "va": "0x1424df280",
+      "offset": 38656640
+    },
+    {
+      "text": "2signalCreateTaskBase()",
+      "encoding": "ascii",
+      "va": "0x1424df398",
+      "offset": 38656920
+    },
+    {
+      "text": "2signalCreateTaskBase()",
+      "encoding": "ascii",
+      "va": "0x1424df8a0",
+      "offset": 38658208
+    },
+    {
+      "text": "2signalCreateTaskBase()",
+      "encoding": "ascii",
+      "va": "0x1424e3c98",
+      "offset": 38675608
+    }
+  ],
+  "unwind_regions": {},
+  "references": [
+    {
+      "candidate_site": "0x140011fbd",
+      "target": "0x1420f9948",
+      "kind": "RIP-LEA/MOV-pattern",
+      "bytes": "488d1584790e02",
+      "unwind_region": {
+        "begin": "0x1400111c0",
+        "end_exclusive": "0x140012034",
+        "unwind_info": "0x143111780",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "candidate_site": "0x140645d0b",
+      "target": "0x1424df280",
+      "kind": "RIP-LEA/MOV-pattern",
+      "bytes": "488d156e95e901",
+      "unwind_region": {
+        "begin": "0x1406459d0",
+        "end_exclusive": "0x140645dab",
+        "unwind_info": "0x14323fc4c",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "candidate_site": "0x140647e15",
+      "target": "0x1424df398",
+      "kind": "RIP-LEA/MOV-pattern",
+      "bytes": "488d157c75e901",
+      "unwind_region": {
+        "begin": "0x1406477a0",
+        "end_exclusive": "0x1406482b5",
+        "unwind_info": "0x1432401ec",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "candidate_site": "0x14064ec88",
+      "target": "0x1424df8a0",
+      "kind": "RIP-LEA/MOV-pattern",
+      "bytes": "488d15110ce901",
+      "unwind_region": {
+        "begin": "0x14064e850",
+        "end_exclusive": "0x14064ed31",
+        "unwind_info": "0x1432413e0",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "candidate_site": "0x140651b75",
+      "target": "0x1424e3c98",
+      "kind": "RIP-LEA/MOV-pattern",
+      "bytes": "488d151c21e901",
+      "unwind_region": {
+        "begin": "0x140650e60",
+        "end_exclusive": "0x1406520ef",
+        "unwind_info": "0x143242574",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    }
+  ],
+  "qualification": "offline byte-pattern candidates; validate instruction boundaries/semantics with disassembly; no runtime or REA connection"
+}

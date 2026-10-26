@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD UNV via STB2KEY3 (3D)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 2\nPLANE.UNV\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "PLANE.UNV",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/3D/LABS/PLANE.UNV"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Writes STB3.INI ('PLANE.UNV','1','1','      1.0000000'), runs system(\"\"<DEFORM_PC_PATH>3D\\STB2KEY3\" > DEF_STB3.TMP\"), deletes STB3.INI and DEF_STB3.TMP, reads STB3_MESH.TMP (mode, default 1) and SCRATCH.KEY (DIEGEO, or RZ+ELMCON), deletes both. Object 2 geometry/mesh replaced; none of the temp files remain."
+  }
+}

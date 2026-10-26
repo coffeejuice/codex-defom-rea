@@ -1,0 +1,38 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "670c73d0",
+      "entry": "670c73d0",
+      "name": "FUN_670c73d0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8\r\nFUN_670c73d0(undefined8 *param_1,QString *param_2,longlong param_3,longlong param_4,\r\n            undefined8 *param_5)\r\n\r\n{\r\n  ushort *puVar1;\r\n  uint uVar2;\r\n  ulonglong uVar3;\r\n  HANDLE pvVar4;\r\n  char cVar5;\r\n  ulonglong uVar6;\r\n  ushort *puVar7;\r\n  DWORD local_res8;\r\n  \r\n  if ((**(int **)param_2 !\u003d 1) ||\r\n     (*(longlong *)(*(longlong *)param_2 + 0x10) !\u003d *(longlong *)param_2 + 0x1a)) {\r\n    QString::realloc(param_2);\r\n  }\r\n  puVar1 \u003d (ushort *)(*(longlong *)(*(longlong *)param_2 + 0x10) + param_3 * 2);\r\n  uVar3 \u003d QCoreApplication::applicationPid();\r\n  puVar7 \u003d puVar1 + param_4;\r\n  do {\r\n    puVar7 \u003d puVar7 + -1;\r\n    uVar6 \u003d uVar3 / 10;\r\n    *puVar7 \u003d (ushort)(byte)((char)uVar3 + (char)uVar6 * -10 + 0x30);\r\n    if (puVar7 \u003d\u003d puVar1) goto LAB_670c74ac;\r\n    uVar3 \u003d uVar6;\r\n  } while (uVar6 !\u003d 0);\r\n  do {\r\n    uVar2 \u003d qrand();\r\n    cVar5 \u003d (char)(uVar2 \u0026 0xffff) + (char)((uVar2 \u0026 0xffff) / 0x34) * -0x34;\r\n    if (cVar5 \u003c \u0027\\x1a\u0027) {\r\n      puVar7[-1] \u003d (ushort)(byte)(cVar5 + 0x41);\r\n    }\r\n    else {\r\n      puVar7[-1] \u003d (ushort)(byte)(cVar5 + 0x47);\r\n    }\r\n    puVar7 \u003d puVar7 + -1;\r\n  } while (puVar7 !\u003d puVar1);\r\nLAB_670c74ac:\r\n  pvVar4 \u003d CreateFileW(*(LPCWSTR *)(*(longlong *)param_2 + 0x10),0xc0000000,3,\r\n                       (LPSECURITY_ATTRIBUTES)0x0,1,0x80,(HANDLE)0x0);\r\n  *param_1 \u003d pvVar4;\r\n  do {\r\n    if (pvVar4 !\u003d (HANDLE)0xffffffffffffffff) {\r\n      return 1;\r\n    }\r\n    local_res8 \u003d GetLastError();\r\n    if (local_res8 !\u003d 0x50) {\r\nLAB_670c75a2:\r\n      *param_5 \u003d CONCAT44(2,local_res8);\r\n      return 0;\r\n    }\r\n    cVar5 \u003d (char)*puVar1;\r\n    puVar7 \u003d puVar1;\r\n    while (\u0027/\u0027 \u003c cVar5) {\r\n      if (cVar5 \u003c \u0027:\u0027) {\r\n        *puVar7 \u003d 0x61;\r\n        goto LAB_670c7530;\r\n      }\r\n      if (cVar5 !\u003d \u0027Z\u0027) {\r\n        if (cVar5 \u003d\u003d \u0027z\u0027) {\r\n          *puVar7 \u003d 0x41;\r\n          goto LAB_670c7530;\r\n        }\r\n        break;\r\n      }\r\n      *puVar7 \u003d 0x61;\r\n      puVar7 \u003d puVar7 + 1;\r\n      if (puVar7 \u003d\u003d puVar1 + param_4) {\r\n        local_res8 \u003d 0x50;\r\n        goto LAB_670c75a2;\r\n      }\r\n      cVar5 \u003d (char)*puVar7;\r\n    }\r\n    *puVar7 \u003d *puVar7 + 1;\r\nLAB_670c7530:\r\n    pvVar4 \u003d CreateFileW(*(LPCWSTR *)(*(longlong *)param_2 + 0x10),0xc0000000,3,\r\n                         (LPSECURITY_ATTRIBUTES)0x0,1,0x80,(HANDLE)0x0);\r\n    *param_1 \u003d pvVar4;\r\n  } while( true );\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "673015b8",
+          "type": "DATA"
+        },
+        {
+          "from": "67280068",
+          "type": "DATA"
+        },
+        {
+          "from": "670c7903",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c7740"
+        }
+      ],
+      "known_callees": [
+        "6701c0f0",
+        "670703c0",
+        "671188e0",
+        "EXTERNAL:00000017",
+        "EXTERNAL:0000006c"
+      ]
+    }
+  ]
+}

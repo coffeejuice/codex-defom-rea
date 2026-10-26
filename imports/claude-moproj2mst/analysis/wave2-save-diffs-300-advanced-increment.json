@@ -1,0 +1,56 @@
+{
+  "status": "advanced_guarded_helpers_implemented_public_save_still_refused",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "bytes": 11269,
+      "sha256": "10842726412e242537dd5e05c98be359ed9761a4f2ca9662ecf4fbd443a16d82"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "bytes": 31173,
+      "sha256": "d4f5b253f0c6b2cd3990b6a4ba12337075779db40d28b4cd33ad68fd79e39928"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "bytes": 37618,
+      "sha256": "3eed44aa4a16e4b465673f17fe235ef165a58d06cf790ced9a90f8711a81cb5b"
+    }
+  ],
+  "contract": {
+    "path": "analysis/wave2-save-diffs-300-advanced-contract.json",
+    "bytes": 8659,
+    "sha256": "532487e05a0e51fb9730489543b406b981dfe39d9f2904ad36ddb0b2c37eb206"
+  },
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "implementation": {
+    "snapshot": "Remembered TNOW/GEOERR text with explicit validator states,10 ASCII user strings,7 checkbox states,3 ELMNOD radios,selected PDIE2; frequency combo metadata retains only text explicitly populated by original fill.",
+    "partial_order": "TNOW1\u2192TNOW2\u2192TNOW3\u2192guarded-no-op time callbacks\u2192GEOERR1..4\u2192USRDEF\u2192STNOUT\u2192ELMNOD\u2192PDIE2\u2192native state remap. Invalid alone stops and retains previous stores.",
+    "native_binding": "Original14082a360(step,0) delegates to existing def::model::step_remap_material_state(*step,false), no new shared native model code. Verified instruction shapes and paired external calls retained in advanced twin comparison.",
+    "guards": "3D,KnownC,positive unique eligible object labels,valid source radios,finite formatted scalars,ASCII null-terminated user strings,preexisting6x1/ncomp6 frequency table containing exact int32 values (nonnegative orfirst-1,no negativezero); valid movementkind6 excluded and live guard rechecked before apply.",
+    "source_mutation_test": "Source model changed after fill; Apply restores remembered text/flags/radios/PDIE2 but preserves later frequency-table changes because original advanced Save does not read those controls."
+  },
+  "tests": {
+    "status": "not_run_worker_root_owns_build_and_test",
+    "new_cases": [
+      "advanced_applies_remembered_text_flags_radios_and_secondary_die",
+      "advanced_invalid_returns_keep_exact_earlier_stores_and_skip_final_remap",
+      "advanced_final_remap_rebuilds_widths_and_allocates_live_object_state",
+      "advanced_frequency_snapshot_retains_only_original_populated_text",
+      "advanced_secondary_die_uses_mesh_eligibility_and_missing_number_falls_back",
+      "advanced_unrecovered_profiles_refuse_without_stores"
+    ],
+    "total_snapshot_cases": 33,
+    "prior_validation": "analysis/wave3-project-save-validation.json:root full108 passing;27 snapshot cases"
+  },
+  "source_check": "git diff --check passed for three owned source/test files",
+  "successor": "Recovery of eca080/ed5dd0 tail and Extra3D session reader/writer started immediately after this source boundary.",
+  "remaining": [
+    "movementkind6 nonempty curve evaluation/rotation140874630 and its dependencies",
+    "initial frequency table allocation/edited callback branches",
+    "Extra3D session data and Save tail composition",
+    "pressure/license/general widget enable binding",
+    "public lifecycle snapshot ownership/remesh file binding/fresh original comparison"
+  ],
+  "qualification": "Static evidence only; no original application runtime or fixtures changed. Source helpers remain unintegrated with public mode300 Save. No build/test execution by worker; token usage unavailable."
+}

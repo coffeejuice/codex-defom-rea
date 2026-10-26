@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD STL all triangles degenerate",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.STL",
+      "source": "data/stl_alldegen.stl"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "All facets collapse (merged ids repeat) -> 0 facets. DEF_STL.OUT is written and deleted, then FUN_140405720(cells, 1) on the empty list prints 'defCELL_GetCellData : 1 not valid, Max 0', a blank line and the 4-line 'The above error should not have happened' text and calls exit(1): DEF_PRE terminates with exit code 1 and no OUT.KEY."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "scope": "Actual empty SfPstGraphManager/factory owner, qualified scene identity and shared notifier registration prefix",
+  "status": "Frozen for root combined build; worker did not build or execute target",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp",
+      "sha256": "2bf0e8fbf55d540497171813bf604d950645d171c4f3f85224b5ba68e596a246"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/close_effects.cpp",
+      "sha256": "8ef9201e68a0778917ad5b369c482f21429d769435936f1e0f72eb5151000705"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_close_effects.cpp",
+      "sha256": "165a554ff354b83bb5f3eb9a7e69521f5d139b352387182bed1cb882aef83ae1"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-graph-manager-constructor-contract.json",
+      "sha256": "21c58fa1f3ae77721fb0266b6151168aec14278a449fce1fc33c7f10ac397571"
+    },
+    {
+      "path": "analysis/wave3-close-graph-manager-cleanup-contract.json",
+      "sha256": "ac744334f00e7f4392c6016daee48d107beac682294f2a585c8368aa1c2af1f1"
+    },
+    {
+      "path": "analysis/wave3-close-model-owner-identity-contract.json",
+      "sha256": "27f705e0e33e609cb7d7d18bb69b627094f0dd1b3b21a0141e231d452027cae7"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-modelbase-owned-manager-destruction-static.json",
+      "sha256": "d925eb45017115d035abc0f62b8312437831003ceadc4d9120f7aad90e6b3f99"
+    }
+  ],
+  "shared_declarations": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "215c5919044b0404661e8b0fc26d33b32fcdf435f0d6b9cb60440c1cd1904816"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/doe_session_notifications.hpp",
+      "sha256": "2473042bc3970cee52d5417c0b10d06d1f063445d94d126d69f8a0a6df811c3a"
+    }
+  ],
+  "implemented": [
+    "PostGraphSceneState binds the actual embedded Display; PostGraphSceneBinding separates unavailable from explicitly absent scene. It is not a native scene constructor or an empty-item assumption.",
+    "PostGraphManagerState owns actual base factory then allocates derived factory before deleting/replacing base; sets30/34=10 and38=false; actual private guarded graph collection starts empty and has no unsupported insertion path.",
+    "Manager weakly references its native model/DB child and scene; factory has actual manager/model backreferences. Scene and model ownership are not extended by these backreferences.",
+    "ensurePostGraphManager returns cached same-owner manager before construction-only context checks. Missing actual owner, base/type4 factory and unknown scene input guard.",
+    "Construction reaches the actual shared SessionNotificationState RemoveGraphItems population. Unknown population guards before cache commit; local uncommitted constructor ownership is cleaned on adapter refusal.",
+    "Known ordered population receives a weak manager registration without altering suppression/flag90. Model cache commits only after registration. Existing expired registrations are retained.",
+    "New-empty manager teardown deletes factory then clears its real empty collection. Root binds cache reset before the database reader teardown."
+  ],
+  "tests": {
+    "previous": 26,
+    "added": 7,
+    "total": 33,
+    "classification": "isolated-close-effects",
+    "worker_execution": "none",
+    "review": "Manual type/include/control-flow review and git diff --check passed."
+  },
+  "qualifications": [
+    "No public Close or histogram enabled-receiver invocation is connected by this increment. Existing histogram guard remains until actual global model selection, StateVar and scene effects are bound.",
+    "Global current model/active subproject selection and missing Project/type4 model factory remain parent-owned qualified dependencies.",
+    "Native scene items, populated graph collection/destructors, Qt parenting/reentrant callbacks, allocation failure and thrown native constructor behavior remain unprojected.",
+    "Strong externally retained manager instances may outlive model cache release in the adapter; their weak owner shows expiration. This is not claimed as native QObject parent-deletion parity.",
+    "Native SfModelBase destructor first handles1968 then1970 then1978 and other managers; root reset covers represented1970 ordering, not unknown preceding1968 effects."
+  ]
+}

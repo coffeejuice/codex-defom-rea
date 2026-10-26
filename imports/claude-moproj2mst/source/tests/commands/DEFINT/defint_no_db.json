@@ -1,0 +1,21 @@
+{
+  "label": "DEFINT without DBREAD (skip)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nHAMMER_SI.KEY\nDEFINT 1\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAMMER_SI.KEY",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "model+0x1748 empty -> '         Skip data interpolation'; no external program; OUT.KEY identical to a plain KFREAD/KFWRIT round trip."
+  }
+}

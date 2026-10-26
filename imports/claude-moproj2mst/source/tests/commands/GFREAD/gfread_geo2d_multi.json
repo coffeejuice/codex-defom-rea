@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD 2D GEO several curves",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nIN.GEO\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "IN.GEO",
+      "source": "data/geo2d_multi.geo"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "2D pre-check: line 2 has 2 tokens. Records: type 2 / 3 pts / bc 7 -> curve 1; type 2 bc -1 -> read but dropped (overwritten); type 1 differs from type 2 -> its 2 point lines skipped; type 2 / 2 pts / bc 4 -> curve 2 with (1.5,2.5,3.5) (comma separator) and (1.0,2.0,3.0) (D exponent, // comment, value continued on next line). Curve type = 2-1 = 1. DIEGEO 1 1 5 with one -1 separator; no TPLOGY (2 edges, no faces). Always Done in 2D."
+  }
+}

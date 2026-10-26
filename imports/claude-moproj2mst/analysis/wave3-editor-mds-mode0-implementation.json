@@ -1,0 +1,89 @@
+{
+  "schema": "editor300-mds-mode0-implementation-v1",
+  "created_utc": "2026-10-24T08:56:04.146426+00:00",
+  "status": "SOURCE FROZEN; root validation pending",
+  "contract": {
+    "path": "analysis/wave3-editor-mds-mode0-contract.json",
+    "sha256": "ede18234a17dd0b2cc328d434592a5049a1d87292d77372d0341835c147f9e6d"
+  },
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "5b3cb2fa0b341e48ac19d3b23f56a2931ac2db61c3081228cdc587f7ba0ebe02"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "be734e1362122e2a59200f2e99c36cc0f535b90d1cccce19466333e4626cdca0"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "13eaf85183edc57b3fab07a8dfbf51546ad9ad67bd1acb0d9ed6e24b1578ee11"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "88be215d66758c14f5e06c264c918aed21dd6f02b54f4d6279139e37549b7a37"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "fcf5630b292e70ea21a801d6213582cc3856308ca9aebd4e2343243ba8f0b47e"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "5656abc3e350cdbd9a5b7196a15a921534686e4ef9b505364f31d305e466619e"
+    }
+  ],
+  "implemented": [
+    "Mode0 shares coordinate formatting and retained spin with mode1, but explicitly checks node radio after eb6440. Source mode0/node/coordinates remain untouched during fill.",
+    "Preserves disabled-but-checked node radio, enabled spin, disabled coordinate group, and original mode0 to mode2 conversion at Save. Mode2/invalid modes stay refused.",
+    "Trailing InitialEditorContext::stoppingLabelProfile defaults Unknown. A supplied known profile binds before page fills; Unknown preserves an explicitly seeded retained state. Actual StagedEditor300 forwards this same context to its internally owned session. No shared Session or owner source edited."
+  ],
+  "tests": {
+    "new_snapshot": 2,
+    "new_lifecycle": 1,
+    "expected_case_counts": {
+      "simcontrol300_snapshot": 60,
+      "simcontrol300_lifecycle": 25
+    },
+    "scope": [
+      "Fresh mode0 with zero/nonzero mesh and Open-versus-Save mutation timing.",
+      "Coordinate-to-node refill, second-only double fill, retained nonzero spin and cross-reference enable behavior.",
+      "Factory-created InitialEditorSession receives context profile; existing unknown refusal and seeded-state tests preserved.",
+      "Existing mode guard fixtures now explicitly request mode2 rather than relying on native mode0 default."
+    ]
+  },
+  "preflight": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "test_cases": 60,
+      "main_count": 1
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "test_cases": 25,
+      "main_count": 1
+    }
+  ],
+  "worker_builds_or_tests": 0,
+  "runtime_or_gui_used": false,
+  "next_read_only_action": "Complete translator/codec source timing receipt and bounded mutation-site scan for root/closure_next combined startup capture; do not infer early empty translator list remains empty through Open."
+}

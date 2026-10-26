@@ -1,0 +1,35 @@
+{
+  "schema": "wave3-session-lifecycle-tests-draft-v1",
+  "status": "outside_source_not_compiled_not_run",
+  "created_utc": "2026-10-24T03:45:43.464919+00:00",
+  "artifacts": {
+    "analysis/session-lifecycle-draft/test_conversion_session.cpp": "6aef55ad438629ff51e43224435432fd646878f90e8e3d4c04c9adfb91a4fd32",
+    "analysis/session-lifecycle-draft/required-include-amendment.patch": "ae0d6c990a309c14ef77e204daee7217b28f47afee548538d10e9f3f11594436"
+  },
+  "session_draft_receipt": {
+    "path": "analysis/wave3-session-lifecycle-integration-draft.json",
+    "sha256": "e590b70bc07cf6bdde9a0ec1c4a50e618d85f5908427c4b664a4e705e423aeb2"
+  },
+  "case_count": 7,
+  "cases": [
+    "session_storage_keeps_actual_display_alive_for_both_operation_model_destructors",
+    "session_exception_cleanup_retains_display_through_real_model_teardown",
+    "session_shell_null_bound_delivery_fits_after_project_release_without_selection",
+    "session_shell_consumes_before_fit_and_reads_rebound_model_after_fit",
+    "session_missing_observation_does_not_consume_but_missing_fit_consumes_only_due_timer",
+    "session_requires_null_binding_before_release_and_guards_missing_click_after_fit",
+    "session_real_boolean_leaf_creates_one_cutter_and_refills_between_two_deliveries"
+  ],
+  "test_source_reuse": {
+    "source/apps/moproj2mst/tests/mdt/test_boolean_editor.cpp": "84cb8314868cfe2e0bdd7368e11b71266a9d283e496a76066638229a0cf47b22",
+    "source/apps/moproj2mst/tests/support/test_paths.hpp": "ecfefe43ade2eb2fe468075d291b8f346b38449338e0c8179a70723dbd3449c7"
+  },
+  "qualifications": [
+    "Tests are prepared for landing under tests/mdt with the session header under include/m2m/engine; analysis artifacts are not a CMake target.",
+    "Apply required-include-amendment.patch to the production session cpp or add its writer.hpp include manually; the original session draft remains hash-frozen.",
+    "Lifetime tests invoke two actual GuiModel destructors with the actual Display and observe ownership inside each custom deleter; no mock model destructor. Parent should also use ASan/native memory tooling if supported.",
+    "Timer tests use explicitly labelled shell-order effect drivers. These do not prove native Qt fit, signal recipients, wall-clock readiness or original Close parity.",
+    "Boolean test invokes real replacement/refill in2D and3D, checks one new cutter across two deliveries, stable original object, object-manager id and current-object state. Its fit/notification driver remains a fixture.",
+    "No source changes, builds, tests or target runtime ran for preparation. Root owns production integration and test execution."
+  ]
+}

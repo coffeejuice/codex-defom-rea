@@ -1,0 +1,79 @@
+{
+  "schema": "editor300-setup-one-way-page-handoff-design-v1",
+  "created_utc": "2026-10-24T10:31:25.583300+00:00",
+  "status": "parent accepted ownership design; source frozen pending checkpoint38; no implementation yet",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-actual-setup-page-successor-contract.json",
+      "sha256": "6b0063f92dc7cbb45e93d8f7a7227d8503660a52def5e08248760cc016d6e4ea"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-contract.json",
+      "sha256": "e662f17838820d9451027ba7c7a7c408184bf6604f549dc2a49a080cd18eae5c"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-retranslation-input-contract.json",
+      "sha256": "e38479fa2075e1b4a110d827cbeb4fd407107cf26e529c80a7a433b891de5669"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "faea11db2462c8a30f6ab863d2c93d22b02db20c30a4e90f161bd4667a1716af"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "f154a7751183c8773b42f59963352ae55539e1490708fe8fc44c54d6c706630c"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+      "sha256": "5d6a8058921fa1d95050b7ab788828b5f2643ed0f7c6549cbed5d89ab509b033"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp",
+      "sha256": "90dd29eaf7ce0f601cd5ad45de025ef85db9972d3ba7621b18bf57301645a77c"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "2445354c1aab8df22ab96b394c7d84c97ce36c1bb5739f6f388538e3aba1d112"
+    }
+  ],
+  "audit": "Production SetupState consumers are allocation and const Session projection inspection. receiveInternalToggled is only an isolated test helper today. Later recovered stopping/env/meshing callbacks operate typed page state directly. Keeping both mutable after page construction would create two competing representations of the same native widgets.",
+  "ownership": "One-way transfer of supported remembered widget values into StagedEditor300 single InitialEditorSession. Setup retains immutable historical constructor evidence only, with exact factory and destination identity. Its const control getters cannot claim live widget state after handoff. No back-synchronization or repeat seed. Other setup widgets remain incomplete projection and do not grant full native completion.",
+  "api_proposal": [
+    "StagedEditor300(Editor300Binding, EditorSetupState&) binds exact setup owner once; old one-argument construction remains explicitly isolated page-projection fixture path.",
+    "EditorSetupState::handoffToPages(const StagedEditor300&, InitialEditorSession&, StoppingLabelProfile) returns structured issue plus reached control; no seal on failed preconditions.",
+    "EditorSetupState exposes constructorControl(id), historical role, exact factory/page identity. Existing control(id) if retained is a documented historical alias.",
+    "All mutation APIs reject after historical sealing. Existing vector-returning receiveInternalToggled throws explicit logic_error after seal; it may not quietly discard a live event.",
+    "Bound StagedEditor300::constructPageState first validates actual Project/Operation/GuiModel/Remesh/context, then handoff to its retained page owner, then existing page composer. It remains explicitly a later qualified segment; public native setup/picking/initial-row guards are not bypassed."
+  ],
+  "seeding": {
+    "required_profiles": [
+      "Source-bound fresh native MDS control profile and established parent/local enable qualification",
+      "Fresh default combo model",
+      "Fresh native spin numeric profile",
+      "Consumed translation completed",
+      "Explicit AsciiNoActiveTranslator stopping label/codec profile; numeric locale alone insufficient"
+    ],
+    "mds_controls": "For each reference: resolved node/coordinate checked, bounded node spin and local enable/coordinate-group state, reference selector current state. IDs6a0/6b0/6a8/6b8/708 and738/748/740/750/7a0.",
+    "coordinate_text": "Actual setup translated strings from6d0/6e0/6f0 and768/778/788. These are source literal0 under established no-translator profile, not empty pre-retranslation QLineEdit text.",
+    "rotation_text": "Transfer actual setup translated strings848/850/858 and888/890/898 to rotation vector/center, retaining original text on any later partial stopping fill failure.",
+    "mode": "Transfer actual combo7c0 selection0. Required unknown/current custom model refuses instead of guessing."
+  },
+  "ordering": "Prepare/validate transfer inputs before sealing. A destination whose page construction already started is rejected without overwrite. Once transfer commits, no setup mutation, no reseed after any partial page refusal; page callbacks and Apply use the same live owner. Successful handoff does not certify earlier native constructor stages.",
+  "tests": [
+    "Exact factory/setup/destination identity and duplicate owner rejection",
+    "Unknown label/translation/combo/spin or required control refuses without seal or live page mutation",
+    "Known setup transfers zero strings, radio/spin/mode values; rotation retained on early stopping refusal",
+    "All setup mutators reject after seal; historical getter remains unchanged when page callback mutates live state",
+    "Repeated handoff and started destination reject without reset",
+    "Bound staged owner uses same retained pages across partial failure and retains original public constructor refusal",
+    "Legacy isolated setup/helper semantics stay explicitly qualified and separate"
+  ],
+  "owned_files_after_release": [
+    "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+    "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp"
+  ],
+  "next_action": "Wait for parent checkpoint38 source release; then implement the cohesive five-file increment. Meanwhile source-only evidence may continue. Parent owns Session allocation-order binding and shared native constructor cursor; no worker builds."
+}

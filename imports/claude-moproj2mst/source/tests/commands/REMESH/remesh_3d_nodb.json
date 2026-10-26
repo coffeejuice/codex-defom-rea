@@ -1,0 +1,21 @@
+{
+ "label": "REMESH obj1 3D from KEY only (interpolation skipped)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 1800,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nREMESH       1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "3D: AMG_DXT3, then DEFAMG 3D chain, then 'Skip data interpolation'. Compare OUT.KEY mesh with DEFAMG/defamg_3d (differs only through BRDEXT effects: obj+0x3f21 / NBCD handling)."
+ }
+}

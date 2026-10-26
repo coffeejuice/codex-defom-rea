@@ -1,0 +1,21 @@
+{
+  "label": "GFREAD id 0",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 0\nX.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "id < 1 -> FUN_14019ccc0 returns 0 -> case 2 ('ERROR: Keyword GFREAD Reading Error. ') before the file-name line is read; 'X.STL' is then parsed as a keyword ('WARNING: Keyword X.STL not found. Skip ...')."
+  }
+}

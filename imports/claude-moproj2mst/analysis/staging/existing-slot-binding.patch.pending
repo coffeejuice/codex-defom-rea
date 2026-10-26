@@ -1,0 +1,118 @@
+--- imports/claude-moproj2mst/source/apps/moproj2mst/include/m2m/model.hpp
++++ imports/claude-moproj2mst/source/apps/moproj2mst/include/m2m/model.hpp
+@@ -24,6 +24,7 @@
+ #include "m2m/common.hpp"
+ #include "m2m/qt4.hpp"
+ #include "m2m/xml.hpp"
++#include "m2m/engine/mo_model_slots.hpp"
+ 
+ namespace m2m {
+ using qt::String;
+@@ -247,6 +248,24 @@
+ 
+ // ---- project (P, s1-01 9.1) ----------------------------------------------------------------------
+ struct Project {
++private:
++    // Registry lease outlives slot storage; marker expires after all ordinary
++    // Project members. These anchors are adapter owners, not native fields.
++    std::shared_ptr<engine::OperationClassRegistry> registryAnchor_;
++    std::shared_ptr<engine::MoModelSlots> slotsAnchor_;
++    std::shared_ptr<const engine::ProjectStorageLifetime> slotBorrow_;
++public:
++    Project();
++    Project(std::shared_ptr<engine::MoModelSlots>,
++            std::shared_ptr<engine::OperationClassRegistry>);
++    ~Project();
++    Project(const Project&) = delete;
++    Project& operator=(const Project&) = delete;
++    Project(Project&&) = delete;
++    Project& operator=(Project&&) = delete;
++    const std::shared_ptr<engine::MoModelSlots>& modelSlotsOwner() const noexcept;
++    const std::shared_ptr<engine::OperationClassRegistry>& registryOwner() const noexcept;
++
+     // Per-conversion snapshot, not an original Project member/layout field.
+     OriginalSettings originalSettings;
+     int tokMode = 0;               // +0x00 KEY tokenizer mode
+@@ -265,15 +284,18 @@
+     std::vector<std::unique_ptr<SubProject>> subs;   // +0x58, [0] = main
+ 
+     // data root M (+0x08): the managers
+-    std::vector<std::unique_ptr<Operation>> operations;   // M+0x19c8 SfMoOprManager rows
+-    ItemManager objects{ItemKind::Object};        // M+0x19d0
+-    ItemManager materials{ItemKind::Material};    // M+0x19d8
+-    ItemManager equipment{ItemKind::Equipment};   // M+0x19e0
+-    ItemManager lubricants{ItemKind::Lubricant};  // M+0x19e8
++    // Borrowed aliases to the SAME Mo-owned manager representations. Like all
++    // reference members, these do not propagate const from Project; code must
++    // use the capsule const getters when a const manager view is required.
++    engine::MoModelSlots::OperationRows& operations; // M+0x19c8
++    ItemManager& objects;        // M+0x19d0
++    ItemManager& materials;      // M+0x19d8
++    ItemManager& equipment;      // M+0x19e0
++    ItemManager& lubricants;     // M+0x19e8
+ 
+     // Registry of operation classes (mainWindow+0x2b8, 0x14006dba0): one instance per class and
+     // conversion, keyed by class key. Filled by P02 (make_registry).
+-    std::map<String, std::unique_ptr<mst::OpClass>> registry;
++    engine::OperationClassRegistry::Entries& registry; // borrowed session registry
+ 
+     // Files the original writes at open (ObjPropertiesNNNNN.KEY, SimCtrl.KEY, InterObject.KEY,
+     // MoItem Data) are not written; their bytes are kept here, keyed by the cleaned absolute path
+--- imports/claude-moproj2mst/source/apps/moproj2mst/include/m2m/engine.hpp
++++ imports/claude-moproj2mst/source/apps/moproj2mst/include/m2m/engine.hpp
+@@ -94,6 +94,10 @@
+     ~DbHandle();
+     DbHandle(const DbHandle&) = delete;
+     DbHandle& operator=(const DbHandle&) = delete;
++    // Adopt the same Project slot storage on this Mo identity. Base children
++    // and replacement/foreign owners refuse; this is not native Close replay.
++    void adoptMoModelSlots(std::shared_ptr<MoModelSlots>);
++    const std::shared_ptr<MoModelSlots>& moModelSlotsOwner() const noexcept { return moModelSlots_; }
+ 
+     const Kind kind;
+     // Native +10 counter/+18 QList of nonowning plane pointers. Allocation
+@@ -112,6 +116,8 @@
+     bool cacheStarted = false;
+     bool stampValid = false;
+     long long stamp = 0;                   // QFileInfo::lastModified in ms (file time / 10000)
++private:
++    std::shared_ptr<MoModelSlots> moModelSlots_; // same Mo-owned slots, not a second model
+ };
+ 
+ // SfStepData (0x278 bytes, ctor 0x140c7a5b0): the GUI wrapper of one DEF_PRE DB_STEP_DATA.
+--- imports/claude-moproj2mst/source/apps/moproj2mst/src/engine/db_load.cpp
++++ imports/claude-moproj2mst/source/apps/moproj2mst/src/engine/db_load.cpp
+@@ -94,8 +94,23 @@
+ DbHandle::DbHandle(Kind modelKind) : kind(modelKind),
+     slicePlanes(std::make_unique<doe::SlicePlaneStore>()), reader(std::make_unique<Cls_1401dbfe0>()) {}
+ 
++void DbHandle::adoptMoModelSlots(std::shared_ptr<MoModelSlots> slots)
++{
++    if (kind != Kind::Mo)
++        throw Error(M2M_E_UNSUPPORTED, "Mo model slot storage requires an actual Mo model");
++    if (!slots) throw Error(M2M_E_UNSUPPORTED, "Mo model slot storage owner is missing");
++    if (moModelSlots_ && moModelSlots_ != slots)
++        throw Error(M2M_E_UNSUPPORTED, "Mo model already owns a different capsule");
++    if (moModelSlots_ == slots) return;
++    slots->bindModelIdentity(*this);
++    moModelSlots_ = std::move(slots);
++}
++
+ DbHandle::~DbHandle()
+ {
++    // Adapter fallback lease release only. Native staged slot effects and
++    // Project deletion are separate; a live Project still owns its capsule.
++    moModelSlots_.reset();
+     // cda520 -> cda6f0 deletes+1970 before the DB reader+40 destructor.
+     // Other native manager fields/Qt callbacks remain separately qualified.
+     postGraphManager.reset();
+@@ -109,6 +124,9 @@
+ DbHandle* projectDb(Project& p)
+ {
+     if (!p.dataDb) p.dataDb = std::make_shared<DbHandle>(DbHandle::Kind::Mo);
++    if (p.dataDb->kind == DbHandle::Kind::Mo) p.dataDb->adoptMoModelSlots(p.modelSlotsOwner());
++    // Existing Base fixtures retain their legacy adapter profile. They do not
++    // establish native Mo/Project ownership or authorize accepted Close.
+     return p.dataDb.get();
+ }
+ 

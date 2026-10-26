@@ -1,0 +1,22 @@
+{
+  "scope": "Whole-model Restart wrapper input encoding and return mapping",
+  "evidence": [
+    {
+      "path": "analysis/wave3-whole-model-wrapper-static.json",
+      "sha256": "3e8ccb4dc376972708d28f226780fec30949f05a77661c50893eca59a1e0d9b5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-static.json",
+      "sha256": "1ce8e80954008183bbeeebdc696bc0c9942d2e913f8b912ea7436993161fc8e1"
+    }
+  ],
+  "contract": [
+    "0x140c7d100 skips writer and returns true if engine model null",
+    "nonnull engine: flags0, QString::toLocal8Bit through import141e03f50, QByteArray::constData141e03f58, whole-model writer895350, returns status==0",
+    "Operation Save ignores wrapper return. Current syncOperationFiles already requires actual engine model; qualified helper uses configured locale bytes."
+  ],
+  "qualification": [
+    "No claim that explicit codepage parameter recovers arbitrary original machine locale settings",
+    "No fresh original execution"
+  ]
+}

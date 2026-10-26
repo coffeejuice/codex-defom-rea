@@ -1,0 +1,155 @@
+{
+  "schema": "editor300-owned-native-open-harness-proposal-v1",
+  "created_utc": "2026-10-24T12:13:56.190089+00:00",
+  "status": "Prepared and syntax-checked only. No original launch, target memory access, GUI control, external copy, builds or tests performed by this worker. Production source remains frozen.",
+  "purpose": "Reach real editor300 constructor using original supported native startup Open, preserve normal ownership/callbacks, observe current base/setup state, then stop before first editor grid allocation.",
+  "artifacts": [
+    {
+      "path": "analysis/wave3-editor-owned-open-fixture-manifest.json",
+      "sha256": "88050d3044b1669cc8f63f5d5f83472e24b2852a0f1e5a84afe805ddf1ed0e64"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-probe-v3.js",
+      "sha256": "e7bcfeb4fa52e21db2e7201790900c00444713d33a8da571db9a4618bf7069d0"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-probe-v3-bindings.json",
+      "sha256": "720fea03e75459687a5dd1d089fba44091ac90440598a57f7ce1e363413d128c"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-entry-static.json",
+      "sha256": "5701272c1b21062be8197e0e14bcee2f31bbaeeeacd2a1ead648c1e06dfa2525"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-argv-static.json",
+      "sha256": "47c18d777091f9267d5adc1aa035455c2c65aeec672775bc0e2970f943b8acf5"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-raw-text-static.json",
+      "sha256": "83f328dc4ae80011dd3d4e0013cda8f52f7b5c30cc320a042a645e4258e9934c"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-model-link-static.json",
+      "sha256": "37a8e7e4d004e0bbf5e3634c5749731e2645b4e41c1aa27817101bf08fd7acd5"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-operation-project-static.json",
+      "sha256": "fc2b0e88195e89c791a9d5209192c8d68d0ffa5bf023cfa10ba26a3b719244b0"
+    },
+    {
+      "path": "analysis/wave3-editor-native-prefix-observation-spec.json",
+      "sha256": "e94ddce99277efcddf157339246516421fbe3d0865ccc220a3b74a548d336df3"
+    },
+    {
+      "path": "analysis/wave3-editor-native-owner-contract.json",
+      "sha256": "3d70cad9c2c8d1c0984c9936351baf0d3f80dea31c6d31be4b2e9b25554c766a"
+    },
+    {
+      "path": "analysis/wave2-doe-model-manager-actual-open-contract.json",
+      "sha256": "29847379ac215992643348f01e6aa1f78455ade03e2e6d692eddf60a5d9ab19e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65068fe0.asm",
+      "sha256": "d80162083c4e974de87c278f05d8643a9c22156159e92f7d3c4444b7edc5e2ed"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-initial-resize-6506b5e0.asm",
+      "sha256": "e42be7e85bd6b917a6a2c03d81c4a42cf3ca9234eb714cf6920aee86f2478595"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-resize-branches-6506b67b.asm",
+      "sha256": "c70c4aa4193e90dc1e6f660ad81039cc00919bbf31219550f37d5851da5b7b6d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-mode-tail-static.json",
+      "sha256": "d7ac26025e777ed8ec87c271eea8718a4607952fb1d1d42ba51931d08d15f785"
+    },
+    {
+      "path": "analysis/wave2-original-crash-qt-location.json",
+      "sha256": "42a60e5a6ca41c975c6f356b56a2fda7c6fb261119b66ff05da38ae8729f02af"
+    },
+    {
+      "path": "build/reference-harness/billet-training-004/evidence/runtime-qualification.json",
+      "sha256": "fe07de8a45afeab45bcc8702c41057e31421fe7ed0e9d1d8a14b0afb8f638a64"
+    },
+    {
+      "path": "build/reference-harness/billet-training-004/evidence/crash-events.json",
+      "sha256": "6bdaa9c923657bf47dee2d3c76f355e62f8e7120cd1853ae30dbc2f40901d4db"
+    }
+  ],
+  "native_route": {
+    "parser": "140002900 loops argv from index1. A key must start with dash and have a following value not starting with dash. It removes the first dash, lowercases the key via QString::toLower IAT141e04328 and stores the next value. Proposal supplies separate plain arguments without embedded quoting.",
+    "main_keys": "140001410 queries m (literal141e151f4), compares with open (1420edd4c), then queries f (141e15224). Bare filename arguments do not select this route.",
+    "file_encoding": "1400011a0 decodes four ASCII hex characters per UTF-16 code unit using sscanf at14146dfd4 with literal141e151c4 (%x). Manifest supplies correctly grouped ASCII hex and independently round-trips the exact short path. Malformed input behavior is not exercised.",
+    "order": [
+      "140001b39 calls actual mainwindow constructor140010490.",
+      "140001b56 calls parser140002900.",
+      "140001c4d calls path decoder1400011a0.",
+      "Nonempty decoded file leads140001c8f\u219214001ca30 with actual mainwindow and decoded QString; caller return140001c94 is checked by probe.",
+      "140001ca9\u219214002a0e0 postOpen receives actual returned Project, then140001cbb\u219214001dc00 recent-file/settings tail.",
+      "Later140001f8d calls QSplashScreen::finish (IAT141e0bfe0),140001f98 QWidget::showMaximized (IAT141e0bfe8),140001faf QTimer::singleShot1000 (IAT141e04478),140001fb6 QApplication::exec (IAT141e0bff0)."
+    ],
+    "qualification": "This is native startup CLI Open before the final show/event-loop calls, not a proof of equivalence to interactive File\u2192Open timing, outer dialog busy/status effects or all environment states. All reached native callbacks run normally; no helper or constructor is called synthetically."
+  },
+  "ownership_checks": {
+    "mainwindow": "Track actual10490 constructor entry/return, require matching owner and exact main callsite at01ca30.",
+    "project": "Track actual08a9b0 Project argument and Project+8 registered model child; reject unexpected second Project.",
+    "post_open": "Track02a0e0 actual same mainwindow/Project when reached; constructor may be earlier, so retain postOpen boolean rather than assert a guessed order.",
+    "editor": "Track first140eb26f0 actual editor/operation arguments on selected real Open and its thread. Require nonnull operation/model child. Never inspect uninitialized editor object fields at entry.",
+    "model": "Track14005f770 only for actual operation; require its returned GuiModel before setup. 05f770\u219205f820 may return manager virtual lookup or operation guard/lazy fallback: do not equate it silently with Project+8. V2/V3 retain equality result plus raw16-byte model/operation guards ateditor+28/+38 only after setup entry.",
+    "setup": "At140ed9830 require args1==actual editor and args0==*(editor+140) UI record. Preserve actual native QWidget receiver, not reinterpretation as QDialog."
+  },
+  "offset_proof": {
+    "object_private": "QWidget::resize6506b5e9/6506b600 and setAttribute65069019 read private at object+8.",
+    "widget_data": "QWidgetPrivate::init6506e554 creates data at private+148 and6506e55b stores its pointer at object+20.",
+    "geometry": "init6506e657..6506e678 stores four QRect int32 endpoints at private+15c,+160,+164,+168, equivalently WidgetData+14,+18,+1c,+20. Resize6506b72b/6506b72f passes WidgetData+14 to QRect::setSize. Values are endpoints x1,y1,x2,y2, not width/height.",
+    "extended_attributes": "setAttribute65069019..65069044 maps raw attribute>=32 to private+1c8+4*((attribute-32)/32), bit((attribute-32)%32). Probe retains dwords+1c8,+1cc,+1d0. Created60 is+1c8 bit28 (direct test6506b604); resized42 is bit10; pending-size35 is bit3. This is bounded three-word observation, not all QWidget attributes.",
+    "min_max": "Uncreated resize6506b67b reads optional extra pointer private+88;6506b694/698 uses minheight+44/minwidth+40;6506b6d8/dc uses maxheight+4c/maxwidth+48. Absent extra uses0 min and0xffffff max.",
+    "string": "QtCore6700fec0 size reads Data+8,67047940 constData reads Data+10,67017c20 isNull compares QString Data with672f0b30. Leaf RET boundaries retained.",
+    "qualification": "Only live captured values bind editor context. Parentless constructor defaults before rawCreate0xf do not establish state after callbacks."
+  },
+  "capture_contract": {
+    "script": "analysis/wave3-editor-owned-open-probe-v3.js",
+    "hook_count": 13,
+    "endpoint": "Selected editor instruction140ed9969 after sizeGripEnabled setter returns; pause before first grid allocation140ed9982.",
+    "observations": [
+      "Module identities and original12-byte hook prologues; coordinator separately verifies whole installed/loaded binary hashes.",
+      "Native startup/Open/project-read/postOpen/editor/base-QWidget/setup stages; actual object name, geometry, extra attributes, dynamic properties and live translation/codec state.",
+      "Actual rawCreate0xf/property0xaa event headers, current internal/application/object filter receivers and callback order/results; rawCreate alone additionally reads bounded gesture ancestor chain.",
+      "Exact exception registers,256bytes of stack and at most24accurate backtrace frames; first8exceptions only, then one truncation marker. All handlers returnfalse; original exceptions remain unchanged."
+    ],
+    "bounds": {
+      "main_records": 140,
+      "list_entries": 32,
+      "gesture_entries": 32,
+      "ancestor_depth": 12,
+      "text_units": 512,
+      "dynamic_callback_hooks": 40,
+      "detailed_native_exceptions": 8,
+      "exception_truncation_markers": 1
+    },
+    "no_native_mutation": "Script makes no NativeFunction call, Qt getter call, native memory/state write, file/cwd change or GUI input. Interceptors and endpoint blocking are instrumentation effects; no timing-equivalence claim.",
+    "coordinator_cwd": "Root will set and verify the exact short process cwd before resume through separately reviewed kernel32 APIs because selected spawn interface lacks cwd. This adapter is outside worker script and must be retained in runtime receipt.",
+    "termination": "Coordinator saves raw messages then terminates exact owned PID while endpoint is paused, verifies absence, and unloads/detaches capture. Never unload first, send coordinator_release or select another PID: unloading may release selected thread and advance native setup. Unexpected ownership/hook bytes/callback failures pause and are evidence, not success.",
+    "qualification": "Fresh process still uses current user settings; no pristine-settings assumption. Passive observation does not contain native application file/registry side effects, prove full Open, Save or Close, or authorize continued setup past endpoint."
+  },
+  "prior_crash": {
+    "case": "billet-training-004",
+    "pid": 13316,
+    "first_fault_utc": "2026-10-23T11:22:56.7123126Z",
+    "opened_screenshot_utc": "2026-10-23T11:22:56.628Z",
+    "save_observation_utc": "2026-10-23T11:23:03.834Z",
+    "fault": "QtCore+12a0e4 access violationc0000005, followed callback exceptionc000041d; instructionmov rcx,[rax+28] aftermov rax,[rcx+8] in QObject::metaObject leaf.",
+    "qualification": "No register/stack was captured then, so cause/caller unknown. First fault precedes Save action; it cannot establish failed Save or editor300 failure. Prior fixture was HeatTransfer and chooser rejected forward slashes before corrected backslash Open. Process naturally disappeared, current user settings retained, no process-wide I/O tracing."
+  },
+  "validation": {
+    "node_check": "node --check analysis/wave3-editor-owned-open-probe-v3.js exited0; syntax only, Frida API/runtime behavior not tested.",
+    "fixture": "8files133041bytes; maximum proposed full path60<100;3XML paths present/non-escaping;1qCompress Data payload decoded and scanned; no obvious drive/UNC strings found. No target directory created.",
+    "source_freeze": "No production/test source edited for this harness. Prior five-file setup prefix delivery remains frozen."
+  },
+  "next_action": "Root review exact script/manifest, verify target absence and module hashes, obtain required exact fixture-copy sandbox escalation, then perform one owned bounded capture. If no constructor reached, preserve last phase/crash/timeout and diagnose smallest native dependency without synthetic constructor calls. Worker continues read-only source recovery."
+}

@@ -1,0 +1,21 @@
+{
+ "label": "DEFAMG obj1 2D with MGUSER windows (USRWIN.DAT)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 900,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nDEFAMG       1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/EN/Fracture/FRAC_EN.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "stdout lines: INFO   : Generating mesh - Object 1... | INFO   : Generating mesh - Done. MGWUSR 1.0 with 3 MGUSER windows: USRWIN.DAT written ('%1f' MGWUSR after normalisation, then per window '%6d %15.7e' npts/density and points only for shapes 11-13 unless obj+0x39c0==2). Capture USRWIN.DAT before deletion to check the format (deleted right after DEF_AMG)."
+ }
+}

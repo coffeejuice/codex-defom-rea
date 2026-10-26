@@ -1,0 +1,11 @@
+# Converter launcher timing receipt
+
+The launcher now records its complete Python validation path so the integration benchmark can separate fixture hashing from CTest execution. The legacy `elapsed_seconds` field still measures the CTest invocation window and retains its three-decimal format.
+
+Each run writes `build/test-runs/<id>/timing.json` with `launcher_elapsed_seconds`, `phase_seconds`, `return_code`, and `error`. Phase keys are `inventory`, `fixture_before_sha`, `ctest`, `fixture_after_sha`, and `junit_parsing_report`; inventory-only runs instead include `inventory_report`. Context-managed phases retain a duration if an operation raises. The finalizer writes the timing receipt on normal return and on exceptions after the run directory is created. The scope excludes its own final write and Python process exit, so externally timed entry-to-exit benchmarks remain authoritative.
+
+Each run also writes the complete result to `build/test-runs/<id>/receipt.json`. It is identical to the legacy `analysis/test-relocation-results.json` for a completed test run, or `analysis/test-relocation-inventory.json` for inventory-only. The existing receipt points to `timing.json` through `timing_receipt`. Per-run receipts let paired benchmarks compare exact case rows, counts, gaps, fixture changes, and logged diagnostic differences after the next run overwrites the legacy root copy.
+
+No CTest command, fixture set, JUnit classification, decision rule, or existing receipt field was removed or changed. I did not build or run the full suite. A synthetic one-test inventory/JUnit mock verified normal phase receipt, unchanged pass classification and fixture-change result, and an inventory exception receipt. Syntax parsing and both per-run receipt write sites were checked after the final edit. The first synthetic attempt failed before invoking the launcher because the default Windows temporary path was sandbox restricted; repeating under the writable checkout passed.
+
+Suggested benchmark interface: read `receipt.json` and `timing.json` from the same run directory; pair runs by the directory ID. Compare `launcher_elapsed_seconds` only for like-for-like runs and use the external process timer for strict entry-to-exit measurement. Treat `phase_seconds.ctest` and legacy `elapsed_seconds` as nearby but separate instrumentation boundaries.

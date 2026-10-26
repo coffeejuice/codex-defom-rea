@@ -1,0 +1,648 @@
+{
+  "schema": "editor300-operation-name-maxlength-defect-v1",
+  "status": "source-confirmed-in-existing-supported-page-helper-awaiting-repair",
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-setupui.c",
+      "sha256": "1217ddfefe72fc52f4a963f01cb4f7d10bc3a468d00e7ef1139736979483b8a7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140eb9630.c",
+      "sha256": "efaf4e8eb9fee723dc1ecdac1a50f6812080557d5432fc63322527d642758350"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebaa30.c",
+      "sha256": "173f93868a448598129195265fd71577bfd99c03d7264fbfaca1bee844d5915d"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-lineedit-maxlength-static.json",
+      "sha256": "641b11b77af87e62310d2627d528f6bee1d024e74ba194a1870e05a43206a4a4"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-linecontrol-text-static.json",
+      "sha256": "613e9505093e8d418d3b6324bb51a27effd0da19e19f66ec3425a676ee8eac92"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-linecontrol-initialize-static.json",
+      "sha256": "023fd906fe90e1e2e830a288ea9dca6c1b222efad5af1ebd651d3a6852f47e1a"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-lineedit-init-complete-static.json",
+      "sha256": "fa6e8f5c0a568199b86f60f3c9808803f0677b709d0bd20541432e4a4b23bf48"
+    }
+  ],
+  "affected_source": {
+    "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+    "sha256": "fa2b32c3a9ec910cdca229fc1e73290aeb65b5f5ff4b679be48ff99e977bea03"
+  },
+  "native_contract": {
+    "setup": "UI128 sets maxLength256 at original return140eddbf1, UI138 sets maxLength20 at140eddf2f. Native setup line1870 and1956. Control names are simTitleLnEdt and simNameLnEdt.",
+    "initial": "QLineControl constructor6537a4f0 stores input-mask pointer+98=null; the captured setup has no setInputMask call.",
+    "maximum": "QLineEdit653bfaa0 tests input mask; unmasked branch stores maxLength atcontrol+4c, then reapplies current text through653c61e0.",
+    "fill": "140eb9630 lines136..149 blocks title/name signals, converts model title andmodel+51 withfromLocal8Bit, callssetText on128/138, then unblocks. No alternative MO name bypass precedes the name copy.",
+    "bounded_text": "QLineEdit653bf9e0 tailcalls QLineControl653c61e0. Unmasked nonempty branch653c62eb..633a calls QString::left(control.maxLength) before storing the QString. Empty input is assigned directly.",
+    "save": "140ebaa30 first reads text of128, then138; converts toLocal8Bit, copies to model+0 andmodel+51. This occurs before mesh-number visibility/enabled checks.",
+    "getter": "QLineControl65375720 copies stored text, replacing null with fromLatin1(empty string at656af968). It returns a nonnull empty string for null stored input. This is a distinct stored/read representation."
+  },
+  "defect": {
+    "current": "fillGeneral copies the entire ASCII-terminated sc.oprnam (buffer65) to the remembered page. It does not apply the native20 UTF16-unit line-edit maximum.",
+    "expected": "For the already-supported ASCII profile, lengths0..20 are unchanged; lengths21..64 are truncated to their first20 characters in the page. Original model bytes remain unchanged by the fill; General Save later copies the remembered20-character name into model+51.",
+    "title": "SC.title has81 bytes, so supported terminated ASCII title is at most80 characters and cannot reach native title limit256.",
+    "scope": "This is an internal page/lifecycle discrepancy behind the still-retained public editor guard. It does not establish a currently enabled public Save path."
+  },
+  "acceptance": [
+    "Test names of lengths0,19,20,21,64 through fillGeneral and applyGeneral.",
+    "Assert fill retains original model name until Apply.",
+    "Assert remembered name wins if model name changes between fill and Apply.",
+    "Test original page composer/backed refresh retains original model before Save and writes truncated name at Apply.",
+    "Do not broaden non-ASCII, invalid unterminated buffers, user-edited string or public editor support."
+  ],
+  "related_line_controls": {
+    "count": 97,
+    "controls": [
+      {
+        "ui": "0x128",
+        "name": "simTitleLnEdt",
+        "constructor_line": 1835,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x138",
+        "name": "simNameLnEdt",
+        "constructor_line": 1927,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x200",
+        "name": "m_leDSMAX",
+        "constructor_line": 2851,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x248",
+        "name": "m_leDTMAX",
+        "constructor_line": 3254,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x288",
+        "name": "m_leInitalTimeStep",
+        "constructor_line": 3567,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x2a0",
+        "name": "m_leTempChangeMax",
+        "constructor_line": 3684,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x2c0",
+        "name": "m_leMinTimeTempChange",
+        "constructor_line": 3844,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x2c8",
+        "name": "m_leMaxTimeTempChange",
+        "constructor_line": 3880,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x348",
+        "name": "maxStrainWpLnEdt",
+        "constructor_line": 4522,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x3c0",
+        "name": "maxPolyLengthLnEdt",
+        "constructor_line": 5039,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x3f8",
+        "name": "maxCntctTimeLnEdt",
+        "constructor_line": 5304,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x430",
+        "name": "minTimeLnEdt",
+        "constructor_line": 5607,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x438",
+        "name": "maxTimeLnEdt",
+        "constructor_line": 5643,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x450",
+        "name": "maxTempLnEdt",
+        "constructor_line": 5781,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x480",
+        "name": "leMaximumDeformationTimeStep2D",
+        "constructor_line": 6005,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x490",
+        "name": "leMinimumDeformationTimeStep2D",
+        "constructor_line": 6094,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x4c8",
+        "name": "maxSldErrLnEdt",
+        "constructor_line": 6396,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x4f8",
+        "name": "maxVolElemLnEdt",
+        "constructor_line": 6624,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x500",
+        "name": "maxVolWpLnEdt",
+        "constructor_line": 6663,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x548",
+        "name": "processDurLnEdt",
+        "constructor_line": 6984,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x580",
+        "name": "primDieDispXLnEdt",
+        "constructor_line": 7263,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x590",
+        "name": "primDieDispYLnEdt",
+        "constructor_line": 7344,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x5a0",
+        "name": "primDieDispZLnEdt",
+        "constructor_line": 7425,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x5e8",
+        "name": "maxLoadXLnEdt",
+        "constructor_line": 7785,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x5f8",
+        "name": "maxLoadYLnEdt",
+        "constructor_line": 7876,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x608",
+        "name": "maxLoadZLnEdt",
+        "constructor_line": 7967,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x620",
+        "name": "minVlctyXLnEdt",
+        "constructor_line": 8096,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x630",
+        "name": "minVlctyYLnEdt",
+        "constructor_line": 8187,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x640",
+        "name": "minVlctyZLnEdt",
+        "constructor_line": 8278,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x648",
+        "name": "maxStrainElemLnEdt",
+        "constructor_line": 8336,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x6d0",
+        "name": "ref1PtXLnEdt",
+        "constructor_line": 8982,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x6e0",
+        "name": "ref1PtYLnEdt",
+        "constructor_line": 9063,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x6f0",
+        "name": "ref1PtZLnEdt",
+        "constructor_line": 9144,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x768",
+        "name": "ref2PtXLnEdt",
+        "constructor_line": 9821,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x778",
+        "name": "ref2PtYLnEdt",
+        "constructor_line": 9902,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x788",
+        "name": "ref2PtZLnEdt",
+        "constructor_line": 9983,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x7d8",
+        "name": "stopDistLnEdt",
+        "constructor_line": 10416,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x848",
+        "name": "stopDirXLnEdt",
+        "constructor_line": 11010,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x850",
+        "name": "stopDirYLnEdt",
+        "constructor_line": 11058,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x858",
+        "name": "stopDirZLnEdt",
+        "constructor_line": 11106,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x888",
+        "name": "stopPtXLnEdt",
+        "constructor_line": 11368,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x890",
+        "name": "stopPtYLnEdt",
+        "constructor_line": 11416,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x898",
+        "name": "stopPtZLnEdt",
+        "constructor_line": 11464,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x918",
+        "name": "leRemeshTimeInc",
+        "constructor_line": 12113,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x920",
+        "name": "leRemeshStrokeInc",
+        "constructor_line": 12149,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x950",
+        "name": "leRemeshInterferenceDepth2D",
+        "constructor_line": 12381,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x970",
+        "name": "leRemeshInterferenceDepth",
+        "constructor_line": 12519,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xa10",
+        "name": "m_leInternalElementSizeScalingFactor",
+        "constructor_line": 13286,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xab8",
+        "name": "lineEdCGfillin",
+        "constructor_line": 14040,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xac8",
+        "name": "lineEdCGpartition",
+        "constructor_line": 14116,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xb18",
+        "name": "lineEdDamping",
+        "constructor_line": 14486,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xb28",
+        "name": "lineEdMass",
+        "constructor_line": 14565,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xb38",
+        "name": "lineEdCycle",
+        "constructor_line": 14644,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xb48",
+        "name": "lineEdCurrentCycle",
+        "constructor_line": 14723,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xc08",
+        "name": "vlctyErrLnEdt",
+        "constructor_line": 15593,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xc10",
+        "name": "forceErrLnEdt",
+        "constructor_line": 15634,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xc60",
+        "name": "leMaximumIterationsperTimeStep",
+        "constructor_line": 15989,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xca0",
+        "name": "leMaximumIterationsperHeatTransferTimeStep",
+        "constructor_line": 16270,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xd00",
+        "name": "envTempConsLnEdt",
+        "constructor_line": 16708,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xd60",
+        "name": "convCoeConsLnEdt",
+        "constructor_line": 17148,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xe18",
+        "name": "envAtmLnEdt",
+        "constructor_line": 17986,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xe60",
+        "name": "reaRateCoeLnEdt",
+        "constructor_line": 18325,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xed0",
+        "name": "mgntcPrmbltyLnEdt",
+        "constructor_line": 18843,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xee8",
+        "name": "mgntcPrmtvtyLnEdt",
+        "constructor_line": 18986,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xf00",
+        "name": "srcEngyRatioLnEdt",
+        "constructor_line": 19139,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xf40",
+        "name": "intfPntyConsLnEdt",
+        "constructor_line": 19423,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xf50",
+        "name": "timeIntFacLnEdt",
+        "constructor_line": 19492,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xf60",
+        "name": "bltzmanRadConsLnEdt",
+        "constructor_line": 19576,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0xf70",
+        "name": "mechHtConvLnEdt",
+        "constructor_line": 19660,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1068",
+        "name": "curLocTmLnEdt",
+        "constructor_line": 20921,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1070",
+        "name": "curGlbTmLnEdt",
+        "constructor_line": 20962,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1110",
+        "name": "tanGeoErrLnEdt",
+        "constructor_line": 21640,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1128",
+        "name": "normGeoErrLnEdt",
+        "constructor_line": 21767,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1140",
+        "name": "GeoErrLnEdt_3",
+        "constructor_line": 21894,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1158",
+        "name": "GeoErrLnEdt_4",
+        "constructor_line": 22021,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1190",
+        "name": "ContactErrDistantLnEdt",
+        "constructor_line": 22296,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1370",
+        "name": "lineEdit_freqCNT",
+        "constructor_line": 24484,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1398",
+        "name": "lineEdit_freqTMP",
+        "constructor_line": 24686,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x13c0",
+        "name": "lineEdit_freqDBW",
+        "constructor_line": 24888,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x13f0",
+        "name": "lineEdit_freqMXW",
+        "constructor_line": 25118,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1418",
+        "name": "lineEdit_freqVEW",
+        "constructor_line": 25320,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1440",
+        "name": "lineEdit_freqYLD",
+        "constructor_line": 25522,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x14c0",
+        "name": "leDataNBC1",
+        "constructor_line": 26061,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x14e0",
+        "name": "leDataNBC2",
+        "constructor_line": 26196,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1510",
+        "name": "leSW2SP",
+        "constructor_line": 26427,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1550",
+        "name": "leSTRETCH1",
+        "constructor_line": 26707,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1560",
+        "name": "leSTRETCH2",
+        "constructor_line": 26786,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1570",
+        "name": "leSTRETCH3",
+        "constructor_line": 26865,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x15b8",
+        "name": "leBWEIGHT",
+        "constructor_line": 27178,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1638",
+        "name": "m_leSPRINGStiff",
+        "constructor_line": 27772,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1648",
+        "name": "m_leSPRINGMaxDisp",
+        "constructor_line": 27851,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1680",
+        "name": "m_leSPRINGDampRatio2",
+        "constructor_line": 28148,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x1690",
+        "name": "m_leSPRINGDampRatio1",
+        "constructor_line": 28220,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x16a0",
+        "name": "m_leSPRINGPreLoad",
+        "constructor_line": 28299,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x17b0",
+        "name": "m_lePPVarValue1",
+        "constructor_line": 29618,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x17c0",
+        "name": "m_lePPVarValue2",
+        "constructor_line": 29690,
+        "vtable": "14218c2e8"
+      },
+      {
+        "ui": "0x17f8",
+        "name": "m_lePPVarFName",
+        "constructor_line": 29964,
+        "vtable": "14218c2e8"
+      }
+    ]
+  },
+  "capture_failure_qualification": "Initial wave3-editor-qt-lineedit-init call captured653beb20 and653bf9b0 then failed because653bf9e0 had no unwind entry. Partial asm files remain. Complete new prefix includes an explicit64-byte leaf span; only653bf9e0..653bf9f6 belongs to setter before padding/neighbor function."
+}

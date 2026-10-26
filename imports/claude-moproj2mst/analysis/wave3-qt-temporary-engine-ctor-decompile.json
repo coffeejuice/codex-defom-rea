@@ -1,0 +1,73 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "670c75c0",
+      "entry": "670c75c0",
+      "name": "FUN_670c75c0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nQFSFileEngine * FUN_670c75c0(QFSFileEngine *param_1,QString *param_2,QFSFileEngine param_3)\r\n\r\n{\r\n  longlong lVar1;\r\n  QString *pQVar2;\r\n  Data *local_20;\r\n  Data *local_18;\r\n  \r\n  QFSFileEngine::QFSFileEngine(param_1);\r\n  *(undefined ***)param_1 \u003d QTemporaryFileEngine::vftable;\r\n  param_1[0x10] \u003d param_3;\r\n  lVar1 \u003d *(longlong *)(param_1 + 8);\r\n  pQVar2 \u003d (QString *)FUN_670eed10(\u0026local_20,param_2);\r\n  QString::operator\u003d((QString *)(lVar1 + 0x20),pQVar2);\r\n  QString::operator\u003d((QString *)(lVar1 + 0x28),pQVar2 + 8);\r\n  *(undefined2 *)(lVar1 + 0x30) \u003d *(undefined2 *)(pQVar2 + 0x10);\r\n  *(undefined2 *)(lVar1 + 0x32) \u003d *(undefined2 *)(pQVar2 + 0x12);\r\n  *(undefined2 *)(lVar1 + 0x34) \u003d *(undefined2 *)(pQVar2 + 0x14);\r\n  LOCK();\r\n  *(int *)local_18 \u003d *(int *)local_18 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_18 \u003d\u003d 0) {\r\n    QString::free(local_18);\r\n  }\r\n  LOCK();\r\n  *(int *)local_20 \u003d *(int *)local_20 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_20 \u003d\u003d 0) {\r\n    QString::free(local_20);\r\n  }\r\n  if (param_1[0x10] \u003d\u003d (QFSFileEngine)0x0) {\r\n    QFSFileEngine::setFileName(param_1,param_2);\r\n  }\r\n  return param_1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "673015d0",
+          "type": "DATA"
+        },
+        {
+          "from": "672800bc",
+          "type": "DATA"
+        },
+        {
+          "from": "670c7e30",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c7de0"
+        },
+        {
+          "from": "670c7e63",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c7de0"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "670703d0",
+        "670ea4c0",
+        "670eace0",
+        "670eed10"
+      ]
+    },
+    {
+      "requested_address": "670ff780",
+      "entry": "670ff780",
+      "name": "FUN_670ff780",
+      "completed": true,
+      "error": "",
+      "c": "\r\nbool FUN_670ff780(undefined8 param_1,undefined8 param_2,undefined8 *param_3)\r\n\r\n{\r\n  int *piVar1;\r\n  BOOL BVar2;\r\n  DWORD DVar3;\r\n  QString *this;\r\n  QString *this_00;\r\n  LPCWSTR lpNewFileName;\r\n  LPCWSTR lpExistingFileName;\r\n  undefined4 local_res20;\r\n  undefined4 uStackX_24;\r\n  Data *local_18;\r\n  undefined8 local_10;\r\n  \r\n  local_10 \u003d 0xfffffffffffffffe;\r\n  this \u003d (QString *)FUN_670efb20(param_2,\u0026local_18);\r\n  this_00 \u003d (QString *)FUN_670efb20(param_1,\u0026local_res20);\r\n  lpNewFileName \u003d (LPCWSTR)QString::utf16(this);\r\n  lpExistingFileName \u003d (LPCWSTR)QString::utf16(this_00);\r\n  BVar2 \u003d MoveFileW(lpExistingFileName,lpNewFileName);\r\n  piVar1 \u003d (int *)CONCAT44(uStackX_24,local_res20);\r\n  LOCK();\r\n  *piVar1 \u003d *piVar1 + -1;\r\n  UNLOCK();\r\n  if (*piVar1 \u003d\u003d 0) {\r\n    QString::free((Data *)CONCAT44(uStackX_24,local_res20));\r\n  }\r\n  LOCK();\r\n  *(int *)local_18 \u003d *(int *)local_18 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_18 \u003d\u003d 0) {\r\n    QString::free(local_18);\r\n  }\r\n  if (BVar2 \u003d\u003d 0) {\r\n    DVar3 \u003d GetLastError();\r\n    *param_3 \u003d CONCAT44(2,DVar3);\r\n  }\r\n  return BVar2 !\u003d 0;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "67303970",
+          "type": "DATA"
+        },
+        {
+          "from": "6728cafc",
+          "type": "DATA"
+        },
+        {
+          "from": "670f91a1",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670f9160"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "67070a50",
+        "670efb20",
+        "EXTERNAL:0000003b",
+        "EXTERNAL:0000006c"
+      ]
+    }
+  ]
+}

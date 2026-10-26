@@ -1,0 +1,25 @@
+{
+  "status": "captured; owned process terminated; absence verified; Frida session closed",
+  "objective_complete": false,
+  "gui_control_acquired": false,
+  "files": {
+    "cleanup-processes.json": "8ad62987f044b0322c00b76558116e2d0e88352eecab7f63d2d55694ced5d18d",
+    "frida-close.json": "b53d8b7832810f75d86584dbc495295037f01103e868dcf359d1be54012afdc5",
+    "load-evidence.json": "34c70ff06c41d98a36c750a905d5676b2a4e7737e2b9a0067d25ac440c06d5c0",
+    "owned-process.json": "c6e10136188a7b8866a1110aaa25136e77cd2e45a15b141675e13b61ddab0a1b",
+    "probe.js": "36034e0d8402a30c7919039d400744e731aecdf62a995208d24e79cc4e929eaf",
+    "start-evidence.json": "73dd05f6dae657ec7576f5228555ba64253d64126bb2f20610326d02cffd84c6",
+    "status-evidence.json": "14a43305f612013c5a0baae7e0f0bb62dc0aaa62d3013635fa2f434c0062c828",
+    "termination-evidence.json": "1be6a12d7f59661926f2d8d4a1c28bd8405314a34580139906b3f8d06c4b314e"
+  },
+  "observations": [
+    "All six snapshots show actual QApplication, ViewManager and single Vista style filter on identical threadData0x3930f50",
+    "Raw windowFlags0800f000 and layout flags2->3 match probe002",
+    "QInternal count0, object filters empty, one QtGui RVA362520 style filter; no source-assumed empty appfilter list"
+  ],
+  "qualifications": [
+    "Fresh startup grid prefix, no complete Open Save Close comparison",
+    "Third bounded capture needed because affinity was omitted from earlier scripts; this is probe design rework",
+    "Terminated only root-owned PID25464; no GUI control acquired"
+  ]
+}

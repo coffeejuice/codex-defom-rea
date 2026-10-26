@@ -1,0 +1,26 @@
+{
+  "schema": "editor300-property-bool-stores-qualification-v1",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-property-bool-variant-static.json",
+      "sha256": "3014c06cbc87092767d6d5c33c7f116672b9bdbf75531d219a3190d2ca595697"
+    },
+    {
+      "path": "analysis/wave3-editor-probe002-prefix-reconciliation.json",
+      "sha256": "c48f2daed6509d571c9895fc6f2d53dadceba5036b12c1611939da3f1533616a"
+    }
+  ],
+  "entry": "QtCore67139610",
+  "source_stores": [
+    "67139610 qwordthis+0=0",
+    "67139617 dwordthis+8=1",
+    "67139621 bytethis+0=boolargument",
+    "67139623 RET; following padding/neighbour67139630 excluded"
+  ],
+  "known_for_false_argument": {
+    "union_bytes_0_to_7": "all zero from explicit qword store followed bytefalse",
+    "metadata_bytes_8_to_11": "little-endian1 from explicit dword store",
+    "bytes_12_to_15": "not written by this constructor; do not infer initialization from observed zeros"
+  },
+  "implementation_rule": "Retain source typed boolfalse/type metadata; no full16-byte zero-initialization normalizer. Raw captured QVariant bytes remain immutable comparison evidence. This supplies concrete source stores, not a generic QVariant representation for other types."
+}

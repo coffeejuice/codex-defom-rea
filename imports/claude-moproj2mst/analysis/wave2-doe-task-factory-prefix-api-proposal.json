@@ -1,0 +1,93 @@
+{
+  "schema": "m2m-doe-factory-prefix-api-proposal-v1",
+  "status": "read-only proposal during candidate44 source freeze; no implementation or build",
+  "purpose": "Install actual main-window-owned lazy factory/data and retain first Report constructor prefix using actual allocation/font owners; stop at unavailable preference read without claiming17-prototype completion or cached/returnedTask.",
+  "evidence": {
+    "analysis/wave2-doe-global-task-constructor.asm": "d2a26a5e6145074bde9ce8d15bd63b4554c3769a9ecb3e7f5c54172f19f38f07",
+    "analysis/wave2-doe-global-task-mo-factory-constructor.asm": "c023b52ac833c21b56a4752d2e03a1c9e81c3535fc573abecc679ed2b84358f0",
+    "analysis/wave2-doe-global-task-factory-cache-base-remove-decompile.json": "239c726ac3e11f7bba7eadb4308e822d5f6c1366dcf09c07f329f2326d422d87",
+    "analysis/wave2-doe-task-prototype-initial-base-report-svminmax-decompile.json": "bd7f6aa74220b98e9ab06d6b744622e378a675a341430d21f03aa86129c3233b",
+    "analysis/wave2-doe-task-prototype-taskinfo-ctor.asm": "7f395fce24a655724492b720cefd36664223c47a84f99b208456e446d40a1ada",
+    "analysis/wave2-doe-task-prototype-taskinfo-private-constructor.asm": "172e1daaf0e6d57fde2153eb64694da2486bc4500d2d840b5f064000b83d980a",
+    "analysis/wave2-doe-task-prototype-qt-default-font.asm": "1e816c4d5df5edc117db15ae602bc7ad75fbe283c4353614eb2ef356786c81f9",
+    "analysis/wave2-doe-task-prototype-qt-empty-icon.asm": "9cc3ced9bb77a9e0f8ce91d1b1b70bd8866987324854edbf03117e46dbd00752",
+    "analysis/wave2-doe-task-prototype-report-child-factory.asm": "2e68d45fe807b364b51f14086ae8418bccb3fd522a2ae1389a4339fe3f20e3dd",
+    "analysis/wave2-doe-task-prototype-report-child-constructor.asm": "bbea93f503daa0c8246dc4db9700cc71e7e0b0e2eee0170418d6767e3ed1880f",
+    "analysis/wave2-doe-task-prototype-report-child-base.asm": "6d69396e22aafda173e0523b74fc97a84acd6b58eb6d084f79e0cdaab4846718",
+    "analysis/wave2-doe-task-prototype-report-child-backlink.asm": "39149a7e83810c0594a505ba74bfd32e4768f4f36ea17c1c89e68bf2b9e74c76",
+    "analysis/wave2-doe-task-prototype-report-metadata.asm": "26b7f5bbf82f3da49fd905c7e8e905778a7eb32a7c2b2577b2f619d74af8e5b7",
+    "analysis/wave2-doe-task-prototype-report-translation.asm": "0a4741c57908cdc4a50c7e5a5e46ec341d291f292a756103abf3aedba34bd58b",
+    "analysis/wave2-doe-active-task-defaults-stepdata-decompile.json": "c053c48c87d61f0660968e1e54dbb51f126c660bf8cd76d5364def3b9fef4e08",
+    "analysis/wave2-doe-task-prototype-constructors-static.json": "b2f6f0d40ecf77aa80e830a6f7c7195ca216cf36cf9e1559213c3a28ba4a132a",
+    "analysis/wave2-doe-session-task-return-notifier.asm": "0bd183505687db84a4a550ac418b05717d7bb42276328b99832de74be9904284"
+  },
+  "raw_literal_selections": {
+    "0x1426c2760": "General",
+    "0x1426c2768": "SfTaskReport",
+    "0x1426c10f4": "Report",
+    "0x1426c2778": "Report",
+    "0x142e93028": "/exeFileName",
+    "0x142e93038": "/arguments",
+    "0x142e93048": "/exeFileEnabled",
+    "0x142e93058": "/exeFileName2",
+    "0x142e93068": "/arguments2",
+    "0x142e93078": "/exeFileEnabled2",
+    "0x142e93090": "/workingDir",
+    "0x142e930a0": "/inputFileNo"
+  },
+  "translation_abi": {
+    "iat": "0x141e04188",
+    "dll": "QtCore4_64.dll",
+    "import": "?tr@QMetaObject@@QEBA?AVQString@@PEBD0@Z",
+    "wrapper": "0x1407b95a0",
+    "metaobject": "0x142710e00",
+    "class_string_pointer_va": "0x142710e08",
+    "class_string_address": "0x142710de0",
+    "class": "SfTaskReport",
+    "source_sequence": [
+      "General",
+      "Report",
+      "Report"
+    ],
+    "comment": "null in all three calls",
+    "qualification": "Actual shipped two-char-pointer QMetaObject::tr overload, no n/plural argument. The stack20=0 in wrapper is local return-lifetime flags, not extra translation parameter."
+  },
+  "ownership_and_order": [
+    "ConversionSession stands for original single fresh main-window/process scope. Its TaskFactoryRuntime holder must represent the actual mainwindow+4a0 lazy field; do not anchor a second cache toProject,StudyIo orSessionRecord.",
+    "Native01d960 constructsplainSfTaskFactory7c79b0(data+8null), storesmainwindow+4a0, constructsMoFactoryData1375d0(base7c7f70 maps+8/+10 initiallyempty), then7c7a70 storesfactory+8 BEFORE virtual+8 initialization137610.",
+    "137610 constructs17prototypes in retainedsourceorder. First7b89e0 Report enterscommonQObject(parentnull), TaskInfo+20 wrapper then0x80PIMPL; wrapper+8 commits only after PIMPL returns. Report Task allocation must belong toactualsameTaskAllocationStore, with incomplete constructor stage explicit.",
+    "PIMPL+30 QFont default calls actual current QApplication::font and aliasesitsFontData with resolveMask0. QIcon+40 null; fixedthreeRGBAcolors; +7ctrue; explicit QApplication::font call thenassigns actualCURRENT FontData+mask to+30; seconddefaultQIcon keepsnull. Do not copy startup probe data or conflate both font reads.",
+    "TaskInfo PIMPL+28 factory backlink is uninitialized until7c8140 registration. Keep unavailable, not inventednull. Other opaque/unconsumed fields stay unavailable.",
+    "Report commonreset constructs plainperTaskSfTaskReportFactory child+10 (basechild+8null thenbacklinkactualTask); +18null. This child belongsTask and is distinct from globalTaskFactory, QObject orGuiModel.",
+    "Reportmetadata usesactualTaskInfo: +0 trGeneral, +10 rawSfTaskReport key, +18 trReport, +20 trReport. Preserve three ordered translation calls with nullcomment. First1414091b0 preference consumption usesinfoName plus/exeFileName, invokes808860(global143d76370,key,Task+40). Stopexactlybeforethatread without suppliedsource-qualified context.",
+    "Neitherprototype cache map containsReport untilconstructorreturns, afterwhich7c8140 setsInfo+28 toactualglobalFactory andinsertsmetadata/task. A guardedfirstCtor neveradvancestoPrototype2,neverpopulatescache,neverreturnsrequestedTask.",
+    "NativeC++allocation/unwind behavior for injectedadapterunsupported guard is not nativeOOM/exception parity. Retainedincompleteallocation representation preserves observedprefix for analysis untilexplicitadapterprocessrelease; documentthis distinction."
+  ],
+  "proposed_minimal_interfaces": {
+    "owned_header": "include/m2m/doe_task_factory.hpp (new; subject to root approval)",
+    "holder": "class TaskFactoryRuntime: actualmain-window-ownedholder with lazyFactory/data/pendingPrototype state; weak actualTaskAllocationStore + weak actualWidgetRuntimeState; explicit nativeReceiverAlive/releaseAdapterScope",
+    "session_owner": "ConversionSession sole shared_ptr<TaskFactoryRuntime>; constructing holder alone does not create nativeFactory/data/prototypes",
+    "io_binding": "StudyIo::bindTaskFactoryRuntime(const shared_ptr<TaskFactoryRuntime>&); taskFactoryRuntimeOwner() locks weak. Nonnullsame-owner idempotence/no replacement, matching existing owner bindings.",
+    "dispatch": "TaskObserver dispatchCreateTaskBase(StudyIo&, const qt::String& taskType): shared+141 checked FIRST, preserves null return/no map/no flag90 when suppressed; otherwise actual fixed-registration receiver routes runtime.createTaskBase(taskType). Receiverregistration/lifetime must be explicit; no empty-keyallowlist substitution.",
+    "font_source": "Actual engine::WidgetRuntimeState::applicationFont() at BOTH sourcecallpoints, preserve shared WidgetFontDataState identity and independentresolveMask; unavailable runtime/value guards at consumedpoint.",
+    "translation_source": "Explicit callback/source-qualified context translate(metaClass,source,nullablecomment)->qt::String; no invented English fallback. Call three times in nativeorder and attach each resultingfieldafterreturn.",
+    "preferences": "Guard before first808860 until source-qualified preference getter context is supplied. No reading usersettings byworker or choosing default0/false/string.",
+    "allocation_extension": "TaskAllocationStore must retain each actualpendingprototypeTask allocation, not a secondtasksarena. ExistingSessionTask projection needs explicitTaskKind/constructorstage/TaskInfo/ownedplainchild toavoidlabelingReportasDOE.",
+    "compatibility_decision_required": "Current readSessionRecords unsuppressed SfTaskDoe is explicitly bounded parsed projection. Root must choose actualproductionfactory dispatch boundary and explicitfixtureprofiles without silently labeling currentprojection as completednativefactory. No newpublicenable in this proposal."
+  },
+  "focused_next_tests": [
+    "suppression beforemissingfactory/font owners andconstructorallocation",
+    "factory/data commits precede firstprototypeguard; cacheempty/ordinal0 unchanged",
+    "missingfirstfont source leaveswrapperPIMPLuncommitted; actualsharedFontData identity/mask0 thenactualmask",
+    "orderedtranslations andfailureprefix beforepreferences",
+    "noReportregistration/secondprototype/globalRegionDelete registration beforefirstCtorreturns",
+    "adapterrelease invalidates escapedfactorylease/observers without claiming nativeClose"
+  ],
+  "remaining_dependencies": [
+    "Root approval of actualmain-windowfactoryowner and return-notifierregistration seam",
+    "Source-qualified translation/profile and first808860 preference context",
+    "Remaining16 prototype constructors and17thclassmetadata/resources/preferences; #16SfTaskDoeSVMinMax globalRegionDelete registration atconstructorposition",
+    "Actual unsuppressedreturn-notifier receiver invocation/lifetime and rawcache rebinding into firstmatchingrecord afterclassdata",
+    "NativeQtfont/icon/colorrefcount/OOM/unwind and wholeClose details remain qualified"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "qualification": "Compare original GUI/native instruction shapes; no binary loading or execution.\n\nExternal absolute references are paired, not proved equivalent. Internal branch\nlocations are normalized to offsets. This is bounded structure evidence only.\n",
+  "binaries": [
+    {
+      "path": "evidence\\gui_mo\\DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence\\original-binaries\\DEF_PRE_64.exe",
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    }
+  ],
+  "results": [
+    {
+      "label": "nodal-resize",
+      "gui": [
+        "0x140854530",
+        "0x1408545a7"
+      ],
+      "native": [
+        "0x140180310",
+        "0x140180387"
+      ],
+      "instruction_count": [
+        27,
+        27
+      ],
+      "normalized_instruction_shapes_equal": true,
+      "first_difference": null,
+      "external_reference_pairs": [
+        [
+          "0x140b3e8e0",
+          "0x140329e60"
+        ]
+      ],
+      "captures": [
+        {
+          "path": "analysis\\wave2-save-diffs-300-tail-twin-nodal-resize-gui.asm",
+          "sha256": "291a397d55cdab9897c43629318912fb61a9aa0423d5a3625f8d28dff8a493d7"
+        },
+        {
+          "path": "analysis\\wave2-save-diffs-300-tail-twin-nodal-resize-native.asm",
+          "sha256": "30892f3a8a75fc89a4541369edf72624aadc9dfe35a525ec32d627a682e58be5"
+        }
+      ]
+    },
+    {
+      "label": "element-resize",
+      "gui": [
+        "0x140857a60",
+        "0x140857b12"
+      ],
+      "native": [
+        "0x140183840",
+        "0x1401838f2"
+      ],
+      "instruction_count": [
+        39,
+        39
+      ],
+      "normalized_instruction_shapes_equal": true,
+      "first_difference": null,
+      "external_reference_pairs": [
+        [
+          "0x140b3e8e0",
+          "0x140329e60"
+        ],
+        [
+          "0x14086e190",
+          "0x14019a410"
+        ],
+        [
+          "0x140c1ad30",
+          "0x14019a430"
+        ]
+      ],
+      "captures": [
+        {
+          "path": "analysis\\wave2-save-diffs-300-tail-twin-element-resize-gui.asm",
+          "sha256": "6f51af72b3ed7856b30f3073982369bbafce942e711a61c3e7c2cc8180b1eeca"
+        },
+        {
+          "path": "analysis\\wave2-save-diffs-300-tail-twin-element-resize-native.asm",
+          "sha256": "4fbea83b7a37d24c9a6bf0ae8945022c7a8adc18ba02e3a94a773b41da8bc870"
+        }
+      ]
+    }
+  ]
+}

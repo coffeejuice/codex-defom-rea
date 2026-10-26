@@ -1,0 +1,9 @@
+# CP186 root integration
+
+The retained QtCore private initializer now models `POP RDI` at RVA `0x13123e..0x13123f` with a symbolic saved incoming-RDI token from `[S-8]`, leaving RSP at `S` and stopping before `RET`. Private RAX, task RBX, earlier sparse stores and diagnostic stops remain qualified and unmodified. An initial focused run found the new saved-RDI allocation guard intercepted five older corruption cases. The owner changed the early guard to preserve their established refusal order while keeping strict allocation validation at the admitted new boundary, and added explicit stop-7/8 tests. The source-stable focused run passed.
+
+In a disjoint editor300 lane, `saveInterObject` confines its step borrow to immediate synchronous work. Its direct helper fixture tests present pairs and captured KEY output, plus null-step restoration under a synthetic valid setup. The lubSystem rebuild path remains source-preserved but is not newly reached by the positive fixture. Independent source review and focused `m2m.s.save_current` tests passed. This is helper mechanics, not public Save/native lifecycle acceptance.
+
+`analysis/wave3-checkpoint186-validation.json` and `build/wave3-checkpoint186-verified/` freeze source SHA-256 `54b57a007ddb130db21ae44649f7d5ce222daf79456797fce44c3ada1e7bb3f7` over 3,554 files. Complete regression: 361 registered, 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete, no fixture changes and no changed logged diagnostics against CP185. Historical folder comparison remains 93 SAME/five DIFF.
+
+CP187 was selected before freeze: symbolic `RET` at RVA `0x13123f..0x131240` to the retained caller and a disjoint `saveBcc` scoped step borrow after plan review. Public lifecycle, failure/Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

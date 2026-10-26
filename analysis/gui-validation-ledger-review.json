@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:56:42.174796+00:00",
+  "owner": "validation_fixtures",
+  "status": "acceptance_gates_coherent_one_minor_stale_observation_qualification",
+  "reviewed_artifact_sha256": {
+    "analysis/def-pre-gui-validation-state.json": "6947c0188c432c0faef19edc359c10009057fd48e3874987f0b28fe3432aa4a2",
+    "analysis/gui-invocation-route-map.json": "77a0f5eff910ffe223cc152175bf6d21ccea2ab1b5bdf87703d5d0b722559a07",
+    "analysis/helper-launch-context-findings.json": "47e27eefab75388a3ae0f214509c1e4b8678d1d90492eceaf58cc0d8f12822de",
+    "analysis/helper-H1-supervisor.json": "34facfd811c6ff6fb5af2c7c02bb328a3f8178abad6bae07aecc872c1e6e3977",
+    "analysis/helper-H2-supervisor.json": "ae0ed62329b82a527f6e28eb84c92470d30b7269a235bb562e62919eabb2f085",
+    "analysis/gui-control-lifecycle-review.json": "7d2722a42dbbe676882cfb729480de769005992b91d318de9347e69d6c279434"
+  },
+  "candidate_version": "0.2.1",
+  "checks": [
+    {
+      "id": "analysis_vs_runtime",
+      "pass": true,
+      "detail": "Only reconcile/static_routes/helper_connection/fixtures_and_comparators are complete, all kind analysis. Every backend case has empty acceptance and blocked status."
+    },
+    {
+      "id": "helper_dependency",
+      "pass": true,
+      "detail": "controller_one_step depends on helper_gui_verification; helper_connection completion is restricted to native configuration fetch."
+    },
+    {
+      "id": "conversion_case",
+      "pass": true,
+      "detail": "small2d_conversion is explicitly blocked; verified 2D fixture and live command/child observation remain required."
+    },
+    {
+      "id": "gui_release",
+      "pass": true,
+      "detail": "release_unverified and unsupported capability retained. Native process termination/detach is expressly not a GUI release receipt."
+    },
+    {
+      "id": "deployment_and_solver_scope",
+      "pass": true,
+      "detail": "restore_originals remains false, candidate identity remains v0.2.1, and static_routes qualification plus canonical map explicitly reject complete solver-analysis claims."
+    },
+    {
+      "id": "queue_coherence",
+      "pass": true,
+      "detail": "Status command returned release_ready=false, next_task=null, available=[], twelve blocked tasks, accepted_backend_cases=0, errors=[]."
+    },
+    {
+      "id": "evidence_paths",
+      "pass": true,
+      "detail": "39 ledger and route-catalog paths checked; none missing."
+    }
+  ],
+  "findings": [
+    {
+      "id": "stale_helper_context_wording",
+      "severity": "minor_evidence_qualification",
+      "location": "analysis/def-pre-gui-validation-state.json#/observations[id=manager_context]/result",
+      "observed": "Owned manager13628 has expected DEF_CFG_DIR and CWD; helper own launch context remains unobserved",
+      "issue": "Unqualified statement that helper own launch context remains unobserved conflicts with the now-observed independent native H1/H2 launch context. The earlier GUI child context is still unobserved.",
+      "proposed_correction": "Historical manager13628 context had expected DEF_CFG_DIR/CWD; the earlier GUI-launched helper child context remains unobserved; independent native H1/H2 context is recorded separately.",
+      "acceptance_impact": "No false backend acceptance follows: helper task qualification and helper_gui_verification dependency already preserve the required GUI recheck."
+    }
+  ],
+  "status_command": {
+    "command": "python tools/gui_validation_status.py",
+    "runs": 1,
+    "exit_code": 0,
+    "observed": {
+      "overall": "active",
+      "candidate_version": "0.2.1",
+      "gui_control": "release_unverified",
+      "release_ready": false,
+      "next_task": null,
+      "available": [],
+      "blocked_count": 12,
+      "accepted_backend_cases": 0,
+      "errors": []
+    }
+  },
+  "evidence_paths_checked": [
+    "analysis/arm-invocation-rea-evidence.json",
+    "analysis/arm-launch-helper-rea-evidence.json",
+    "analysis/controller-invocation-rea-evidence.json",
+    "analysis/controller-launch-helper-rea-evidence.json",
+    "analysis/def-pre-gui-validation-history-20261023.json",
+    "analysis/gui-control-lifecycle-assessment.json",
+    "analysis/gui-control-lifecycle-review.json",
+    "analysis/gui-fixture-handoff.json",
+    "analysis/gui-invocation-route-map.json",
+    "analysis/gui-post-diagnostic-invariants.json",
+    "analysis/gui-route-independent-review.json",
+    "analysis/gui-trial-preflight.json",
+    "analysis/gui-validation-comparator-contract.json",
+    "analysis/gui-validation-deployment-check.json",
+    "analysis/gui-validation-parallel-state.json",
+    "analysis/helper-H1-supervisor.json",
+    "analysis/helper-H2-supervisor.json",
+    "analysis/helper-launch-context-findings.json",
+    "analysis/manager-selected-launch-context.json",
+    "analysis/mo-accessibility-crash-evidence.json",
+    "analysis/mo-generate-db-observation.json",
+    "analysis/mo-run-options-observation.json",
+    "analysis/solver-preliminary-launch-inventory.json",
+    "analysis\\def-pre-gui-validation-history-20261023.json",
+    "build/gui-validation/mo-alternate-dispatch-imports.json",
+    "build/gui-validation/mo-alternate-dispatch-inner.c",
+    "build/gui-validation/mo-alternate-dispatch.c",
+    "build/gui-validation/mo-caller1-cli.json",
+    "build/gui-validation/mo-callsite-arguments.txt",
+    "build/gui-validation/mo-constructor-candidates.json",
+    "build/gui-validation/mo-convert-mirror-focused.c",
+    "build/gui-validation/mo-label-focused.c",
+    "build/gui-validation/mo-launch-focused.c",
+    "build/gui-validation/mo-meta-extended.json",
+    "build/gui-validation/mo-meta-references.json",
+    "build/gui-validation/mo-route-focused.c",
+    "build/gui-validation/mo-shell-dispatch.c",
+    "build/gui-validation/mo-ui-label-focused.c",
+    "build/gui-validation/mo-ui-text-focused.c"
+  ],
+  "expected_transition": "Overall/execution active during integration is expected. Root owns subsequent external-blocked transition after remaining integration.",
+  "review_limit": "Read-only ledger consistency review. No suite/capture/process reruns, no evidence reinterpretation beyond retained qualifications, no shared edits.",
+  "measurement": {
+    "elapsed_seconds_before_report_write": 102.239
+  },
+  "runtime_acceptance": false,
+  "freeze": "Only this new review file written; prior artifacts remain frozen."
+}

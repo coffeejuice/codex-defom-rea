@@ -1,0 +1,71 @@
+{
+  "status": "Design only; production remains at completed grid cache. Parent-owned combined capture is the next qualification input.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-grid-continuation-landing.json",
+      "sha256": "e32550d0c42bab4fcd9ff569fc406d9761dcbddac8ab92130ec8c2d5b6956340"
+    },
+    {
+      "path": "analysis/wave3-close-default-splitter-owner-cursor-correction.json",
+      "sha256": "87ca0d8d8f828ff3ae871c18fa313c6c66178a57ea7b2721e6b238d8dc41a813"
+    },
+    {
+      "path": "analysis/wave3-close-default-splitter-native-prefix-contract.json",
+      "sha256": "db9fe3d17c500328301e4c2047d7324e345e7104c22ad8ce3ae73b38650a03ec"
+    },
+    {
+      "path": "analysis/wave3-close-splitter-successor-observation-spec.json",
+      "sha256": "e8677999943760a6d153ba8a1200398d5871d862f9496d69e2a3d552a5f79ab2"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-grid-box-field-layout-static.json",
+      "sha256": "9f1a3069e443b15dcbcbb44912efa6d7df37fdb3aa7f10eb3009b750134dbc39"
+    }
+  ],
+  "native_cursor": "resume d349d4 after d349cf grid getter; layoutName remains null until d3614e after entire default splitter/grid-add returns",
+  "owner_structure": {
+    "MainViewState": "Owns the actual pending/new SplitView QObject after native QWidget parent commit; this is alongside the existing manager child, not a duplicate manager or scene registry.",
+    "ViewManagerState": "Takes actual SplitView QObject ownership only at grid addChildWidget reparent to manager; cached grid remains the same object.",
+    "SplitViewState": "Has native construction/liveness state, raw orientation and private flags, dedicated QString name, actual QWidget child identities, and ordered logical records. Initial intended parent and committed native parent must be distinct while constructor is incomplete.",
+    "SplitView logical record": "Source0x28 record containing own geometry/size/flags and nonowning identities of actual widget+18 and handle+20. QObject child owner remains separate; count is not a substitute for records/handles.",
+    "Placeholders": "Two distinct concrete QWidget owners, each initially parentless, then transferred into same SplitView through explicit Qt insertion. Secondary hide is an operation with exact earlier native fields/callback guard, not merely a bool write.",
+    "Handles": "Distinct actual QSplitterHandle owners, created through bound actual inherited virtual+190. Native parent is same SplitView; logical records reference handles. Primary replacement deletes old placeholder and its associated record/handle through native child-event path.",
+    "Grid": "Actual GridLayoutState owns concrete GridLayoutItemState/box. Default WidgetItemV2 binds same SplitView widget; factory hook must be observed/qualified before assuming default. QObject ownership and widget-item ownership must not be conflated.",
+    "Primary": "Later root/shared actual graphics-view owner must supply the same QWidget/scene identity. Do not manufacture an unrelated view or infer scene coverage from inserting its wrapper."
+  },
+  "construction_order": [
+    "pending SplitView allocation and source-bound private defaults; incomplete native receiver is not dispatchable",
+    "QFrame/QWidget parent MainView construction, observed/source-qualified event sequence; retained guards remain at first unresolved effect",
+    "derived vtable, QString default; construct placeholder0 then explicit insertion with private+224 set/restored",
+    "construct placeholder1 then explicit insertion with private+224 set/restored",
+    "setCollapsible(0,true), setCollapsible(1,true), actual HideSecondary",
+    "register five weak actual splitter receiver/method pairs in shared notifier owner",
+    "assign dedicated SplitView_Main name",
+    "actual MainView->manager QObject reparent before grid WidgetItem/box insertion and invalidation",
+    "assign View_Default layoutName only after normal return",
+    "later Primary replacement/insertion/show, followed by separate MainView setup and alias commits"
+  ],
+  "shared_declaration_need_if_construction_qualifies": [
+    "Forward declare engine::SplitViewState in doe_session_notifications.hpp.",
+    "Add SplitViewRegistration{weak_ptr<engine::SplitViewState> receiver,string bareMethod} and map<string,vector<SplitViewRegistration>> to same SessionNotificationState, following existing ViewManagerRegistration policy.",
+    "Existing shared notifier flags remain single-owned; no per-splitter suppression flags copied from notifier. Native splitter private+224 is a distinct insertion-reentrancy flag.",
+    "No new shared declaration/source edit requested until parent reviews capture-supported constructor boundary."
+  ],
+  "guards": [
+    "No generic Qt callback-success bool, notification counter or invented empty QObject child collection.",
+    "Constructor default-empty QSplitter logical records precede two real placeholder insertions and never define completed default population.",
+    "Observation profiles bind actual role/identity and phase; cannot silently reuse grid raw44 profile for MainView QWidget Create/raw43 pending-child behavior.",
+    "Different parent/filter/gesture/factory/visibility state or missing current coverage keeps exact next guard and partial real ownership.",
+    "C++ diagnostic leases must not keep native receiver live after native owner release; unrecovered populated Qt destruction/callbacks remain separately qualified.",
+    "nativeLayoutResolved and both aliases remain guarded until whole required View_Default/Primary constructor prefix is supported."
+  ],
+  "focused_future_tests": [
+    "Same actual grid retained across successor, no repeated d34920 deletion.",
+    "Initial MainView parent versus later manager owner transfer and late grid-item commit.",
+    "Two distinct placeholder and handle identities, exact logical order and separate QObject children.",
+    "Private+224 native insertion flag retains/restores in source order; incomplete callback branch does not fake normal completion.",
+    "Constructor hide guard precedes all five registrations; no premature name/layoutName/private/mainwindow alias.",
+    "Weak expired registrations retained; diagnostic leases become non-live on actual native owner release."
+  ],
+  "qualification": "No source changes, builds, target runtime or GUI occurred while preparing this design. This is not a completed SplitView implementation."
+}

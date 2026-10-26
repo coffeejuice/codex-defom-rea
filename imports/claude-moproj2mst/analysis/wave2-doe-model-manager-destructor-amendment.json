@@ -1,0 +1,30 @@
+{
+  "schema": "m2m-model-manager-destructor-amendment-v1",
+  "supersedes_source_freeze": "analysis/wave2-doe-model-manager-implementation.json",
+  "previous_receipt_sha256": "3d002bf5a4b6aca0c33f270bfb17321b0fc8158cad2a59021e17a6773136c31f",
+  "native_chain": "derived vt142115f68+18\u2192045bf0 scalar\u2192045460\u2192basec78250\u2192c782e0\u2192c78300 clear; base scalarc7a570\u2192c78250. Then QPointer/QList and QObject destructors. Scalar wrapper subsequently deletes storage if flag&1.",
+  "change": "~ModelManager calls clear(), preserving ordered release instead of relying on vector member destruction order. External adapter shared leases and QObject teardown remain explicitly qualified.",
+  "source_sha256": {
+    "source/apps/moproj2mst/include/m2m/engine/model_manager.hpp": "6776cac2763c51beaed663cca39860815ca1ce75046bd23a3f6fbcc5f3fca546",
+    "source/apps/moproj2mst/src/engine/model_manager.cpp": "81f0101f93d1d18078115beef97aba6f86ba15ac5a03bafc0c0cd15151120450",
+    "source/apps/moproj2mst/tests/mdt/test_model_manager.cpp": "006fb19a4267cc07b138459114af5e535ff61b7bbd303a384a82d06c0112da57"
+  },
+  "evidence_sha256": {
+    "analysis/wave2-doe-output-default-task-open-and-manager-dtor-decompile.json": "70d504aeefb3b2f19fdab354934967be76c30df35ef02d47d4899163da02825e",
+    "analysis/wave2-doe-output-default-task-manager-destructors-decompile.json": "819f9d9eaf6981e2ecce283230e07bd258901ebc157642198fb3bdbaa83dec7d",
+    "analysis/wave2-doe-output-default-task-manager-destructor-clear-decompile.json": "842b74cf955c2d6f71ec3f3f367151ff676baf9b377546b2e565c24bba136246",
+    "analysis/wave3-boolean-close-140c78300.c": "2105176fb68b77a9e1b6549360587cfdee088471985ebaaefea02ee19d3067e2"
+  },
+  "tests": {
+    "cases": 7,
+    "new_case": "sole-owned custom deleter observations prove adapter destructor encounter-order1,2,3 and selected weak lifetime expiry",
+    "status": "source inspected; no worker build/tests; coordinator validation pending",
+    "preflight": [
+      "own declaring header included",
+      "shared engine.hpp Kind/modelId available",
+      "test main uses testkit::run_all",
+      "REQUIRE macro matches testkit convention",
+      "git diff --check passed"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "m2m-doe-public-qobject-ownership-v1",
+  "status": "read-only successor contract; source remains frozen for45",
+  "purpose": "Bind the actual public parentless QObject constructor and its shared-state dependencies before extending the stable pending Report allocation.",
+  "evidence": {
+    "analysis/wave2-doe-task-base-public-qobject-call.asm": "9ab0fc19b72c28c16af2c61d9e303e7962ba015b9da6ec4294607662d18d6428",
+    "analysis/wave2-doe-task-base-public-qobject-constructor.asm": "945960cbfd88a502ae6797cc14b7c37d5d4094818883a2ca8dfea2735462f207",
+    "analysis/wave2-doe-task-qobject-private-initializer.asm": "beb76f3a7a4b089aa59dc17336c9ae41fb1498fa9fe92e440b3538eb6ff4aa07",
+    "analysis/wave2-doe-task-qobject-current-thread.asm": "bb4f6c61aa4879b3a4b7b9a7463f690e2f7a78fadf08dd0e7b60c39c45b29151",
+    "analysis/wave2-doe-task-qobject-thread-ref.asm": "cfbc1216143573a6aa3c18952a408ec06d5cad139236ee060496f85b1a439e43",
+    "analysis/wave2-doe-task-qobject-thread-tls-initializer.asm": "c06368be2e4a56cb27af21608f344fa868c383eca125e3ffd1838cd1373014b3",
+    "analysis/wave3-editor-shared-qobject-counter-contract.json": "882291ec5af40eb036763c7d7b782dd3c0153d60f63eb30ef1bd27174f200253",
+    "source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp": "3d59535b1771173dfdbdd2bef5ae6637867336544e3487a4d4b683dcab6274ae",
+    "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "30b18d2f565ab3f8870cc0f156c29abce880727148a5261e91dc0851e6faaaf8"
+  },
+  "address_refinement": {
+    "caller": "141403222 edx0;141403229 callIAT141e041c0",
+    "import": "??0QObject@@QEAA@PEAV0@@Z",
+    "actual_export": "QtCore4_64.dll671313d0",
+    "not_the_same_constructor": "6712e630 is protected QObject(private,parent) used by other Widget/Grid paths. It demonstrates shared globals but is not the direct Task public ctor.",
+    "public_counter_site": "67131488 LOCK ADD DWORD[672f4344],1",
+    "supersedes": "Specific6712e630-as-Task-base references in prefix proposal/implementation/comments are refined by this contract. Existing guard before entire QObject call remains correct; frozen source has not been edited."
+  },
+  "native_order": [
+    "Public671313d0 first sets QObject vtable6723cac8, allocates0x88 private storage, invokes67131160(private,0x40804), then commits object+8 toprivate and private+8 back to SAME object identity.",
+    "67131160 sets private+18 to shared672f0a50 and increments that refcount; sets+30 to672f0b30 and increments; +40/+48/+50/+58 null; +68 to672f0bb8 with increment; +70 tosame672f0a50 with second increment; +78/+80 null. Versionconstant40804 takes no warning branch.",
+    "Initializer sets private+8/+10/+38/+28 null, dwords+24/+60/+64 zero. Raw+20 becomes(old &0xfffffcf0)|0x60. Known resulting bits mask0x36f/value0x60; remaining bits are not initialized by this routine and must not become inventedzero.",
+    "Publicctor parentnull unconditionally6702aca0 currentThreadData. That calls67029600; if TLSindex672f08e8 already differs fromFFFFFFFF initializer returns withoutlock/allocation, then actualTlsGetValue(index) resultnonnull returns immediately. MissingTLS branches have additional adoption/allocation effects and remain guarded.",
+    "Publicctor writes actual selectedThreadData toprivate+40 and67027630 increments its DWORDrefcount with defined32-bit wrapping. Parentnull then skipsall parent validation/child/callback operations, and67131488 increments SAME processQObjectcounter672f4344. Onlyafterreturn can TaskBase overwritevtable and beginTaskInfo+20."
+  ],
+  "ownership_constraints": [
+    "The current0xc0 Report descriptor is unique_ptr-owned at a stable address in actual TaskAllocationStore.prototypes_. Future QObject and Task state must be constructed in this SAME node/identity; never replace it via createParsedDoeTask or allocate a second SessionTask owner/arena.",
+    "Current descriptor Kind/size/qobjectBaseCompleted fields are adapter observations, not native bytes. It deliberately has no QObject/private/TaskInfo defaults. NativeRawAllocation identity must be explicit before any actual q_ptr/backlink/weak observer consumes it.",
+    "SessionTask default lists{{},{0}} are the bounded DOE payload projection, not verified generic Report base list defaults. Do not instantiate that default projection as completed Report state. Add source-qualified per-kind field initialization and preserve unreached fields.",
+    "Actual WidgetRuntime must own shared global empty-container refcount state and use its existing WidgetThreadState for the selected current QThreadData identity/refcount, not a factory-local copied thread/counter.",
+    "Shared refcounts may retain exact uint32 deltas with explicitly unknown bases where no absolute count is observed. Counter-only commitQObjectConstruction does not certify prior private/thread work. Constructor frame must commit each effect exactly once.",
+    "Existing thread notifyDepth observation does not by itself qualify TLS index/current QThreadData identity. Require explicit source/capture profile for existing TLSnonnull fastpath or retain guard atTLS lookup after priorprivate effects. Never infer absent TLS or invent a new thread.",
+    "Actual current FontData must be read at TaskInfo calls afterbasecompletes. Neither source-private defaults nor startup probe004 imply laterfont invariance."
+  ],
+  "minimal_next_api_proposal": {
+    "allocation": "Extend existing PendingTaskPrototype in place with native identity token and optional publicQObject frame; frame holds actual shared-runtime lease/weakowner, actualthread observation and qualified private fields. Observer installation waits actualnativebase/Taskconstruction point.",
+    "shared_runtime": "Root/closure-owned WidgetRuntime shared empty-container refcount observations/deltas and actual existing ThreadData selection/refcount seam; reuse QObjectConstructionRecord only at actual67131488 afterthreadref.",
+    "first_guard": "If native current-thread profile is unavailable, stop at6702aca0/TLS read after completedprivate-global increments/backlinks, beforethreadref/counter/TaskInfo. If qualified existingTLSnonnull sourceprofile closes, completepublicparentnullbase thenadvanceactualTaskInfo fontpoint."
+  },
+  "remaining": [
+    "Qualification/API for actual native TLS/currentThreadData on same WidgetThreadState",
+    "Shared empty-container refcount effects/state on same WidgetRuntime owner",
+    "Per-allocation stable native identity/public QObject constructor frame and once-only cleanup qualifications",
+    "Unknownversion/parentnonnull/OOM/unwind/QObject destructor and global-refcount-zero cleanup remain outsidethisbranch",
+    "Onlythen TaskInfo font/translation/preferences and17-prototype cache/factorycompletion"
+  ]
+}

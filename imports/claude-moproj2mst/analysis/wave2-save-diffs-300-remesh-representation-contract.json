@@ -1,0 +1,93 @@
+{
+  "status": "read_only_representation_contract_before_source_implementation",
+  "lineage": {
+    "path": "analysis/wave2-save-diffs-300-remesh-raw-contract.json",
+    "bytes": 7932,
+    "sha256": "79f5324a57b08f98a934392b67f82be723dac46c642274cc0777c329044737ef"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-ctor.asm",
+      "bytes": 2399,
+      "sha256": "92988ee35ed3a647a195e81a5efe63aeeb220d03a0beb6e0d50f6a1d590b5c8a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-reader.asm",
+      "bytes": 13531,
+      "sha256": "f88cf1a7e439056f28477e7408090511915d2b6a3beb40e6e5d60f6949b928af"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-cases.json",
+      "bytes": 408,
+      "sha256": "a70dfaa1e50d040b2ba01df2a8c53ddc37bd75dfee2c1a00a5aa8932447bfbd1"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-dispatch.asm",
+      "bytes": 20425,
+      "sha256": "e3949d029d8dc84920f7f379c4ff6cbd02c869f30614f95f3776e905bb6fbfc4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-copy.asm",
+      "bytes": 2633,
+      "sha256": "6dc1e060fb303e53a34ac7061c3db19dce8d14249bee9435b7d58d0e0b8149f9"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-1400abcc0.c",
+      "bytes": 1733,
+      "sha256": "9f18fe650a8add906269dec986dc531f3d6134f12b3baed8f3f0d250a789e440"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-file-literals.json",
+      "bytes": 2125,
+      "sha256": "e5741c58fc853951e2858268cf0747f446de5095ec1c5e1762143afdfe255caf"
+    }
+  ],
+  "extension": "Prior strict profile<=7 avoids any spill. A9-byte modeled span extends selectedtoken<=8 safely: bytes0..7 are original uniform double representation+10..17, byte8 is known contact flag+18. Token length8 writes only terminatingNUL to contact flag, which is definedfalse. No arbitrary bool representation or padding write occurs. This covers original writer default0.000000(8chars).",
+  "algorithm": "Seed array<byte,9> from current double object bytes and supported bool normalized0/1. Require selectedtoken length<=8 and no embeddedNUL (original TokenReader-selected Cstring profile). Copy exact byte prefix plusNUL. Copy first8bytes back through memcpy/bit_cast. Contact flag is unchanged for lengths<=7 and explicitlyfalse forlength8. No atof/strtod/number formatting or entire-field zeroing. Every other RemeshState field stays untouched.",
+  "guards": "Selectedtoken>=9 or embeddedNUL outside source-generated token profile refuses before this helper's writes. Earlier stream/keyword effects must remain in a future reader; do not transactionalize. Longer source effects may be recoverable with a complete byte layout and writer promotion, but are not represented by writing arbitrary bytes into C++bool.",
+  "derived_vectors": [
+    {
+      "token": "1",
+      "before_double_bits": "3ff4000000000000",
+      "before_contact_byte": 1,
+      "after_nine_bytes": "310000000000f43f01",
+      "after_double_bits": "3ff4000000000031",
+      "after_contact_byte": 1
+    },
+    {
+      "token": "0.25",
+      "before_double_bits": "0000000000000000",
+      "before_contact_byte": 1,
+      "after_nine_bytes": "302e32350000000001",
+      "after_double_bits": "0000000035322e30",
+      "after_contact_byte": 1
+    },
+    {
+      "token": "0.000000",
+      "before_double_bits": "3ff4000000000000",
+      "before_contact_byte": 1,
+      "after_nine_bytes": "302e30303030303000",
+      "after_double_bits": "3030303030302e30",
+      "after_contact_byte": 0
+    },
+    {
+      "token": "1",
+      "before_double_bits": "3030303030302e30",
+      "before_contact_byte": 0,
+      "after_nine_bytes": "310030303030303000",
+      "after_double_bits": "3030303030300031",
+      "after_contact_byte": 0
+    },
+    {
+      "token": "",
+      "before_double_bits": "7ff8000000000031",
+      "before_contact_byte": 1,
+      "after_nine_bytes": "000000000000f87f01",
+      "after_double_bits": "7ff8000000000000",
+      "after_contact_byte": 1
+    }
+  ],
+  "test_plan": "Bit-exact prefix/suffix and duplicate-token composition; length8 contact clear; no neighboring state changes; unsupported longtoken has no helper writes; signedzero/NaN representations copied without arithmetic. Vectors are derived from proven copy instructions, not captured original outputs.",
+  "successor": "After typed helper tests, add nativeCRT remesh reader carrying exact tokenization and earlier effects, then actual root-owned project Open/Save binding. Missing/empty-file success/failure and unit-independent field defaults remain exact source contracts; no numeric fix for the original bug.",
+  "limits": "No production/test source changes during root build freeze, no runtime/app control/build/test execution/fixture mutation. No complete static object-size or public Save integration claim."
+}

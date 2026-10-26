@@ -1,0 +1,79 @@
+{
+  "scope": "Actual Display main/selected model guard and lazy GuiModel auxiliary drawing identities",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "7a9b66f4050c857fb189356670366bb319f31305d7159f73edd6bff82f67e295"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_scene.hpp",
+      "sha256": "17bb9f8d8c5b7086e1c899898c2b40896e208c653092a298c1945653db107872"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_auxiliary.hpp",
+      "sha256": "165960ef072d8d55fc3017c3097c4cf944c50dda125a1cf9b914c4649d28cd5e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/gui_model.cpp",
+      "sha256": "5cf994e794d7e249957ecfeae6054e83af5a3c8e52a1b23f5618acd2a8c7b8a4"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer_camera.cpp",
+      "sha256": "6226f3134daf9aa1c67601e19a22ef013b8ab5d7231b588ff1905e5d952d3b32"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/auxiliary.cpp",
+      "sha256": "c2dd941cd1528f5149737b52e62b2b18bc0e7cd981e7dae0c0cbed9e5d9f4940"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_display_selection.cpp",
+      "sha256": "51a13fbbf726ebb96aaec260de51dbb3816a68e85041163096edaefbe945e055"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-display-selected-model-contract.json",
+      "sha256": "07aa8710a5e3115b42dce910496012ecafe973def70b5440ae6c0760f5586bd8"
+    },
+    {
+      "path": "analysis/wave3-close-display-select-main-contract.json",
+      "sha256": "81adb6e1b9c056a78baf79cbd131f01ed542cb8184004f7b5fcf98a6573d2889"
+    },
+    {
+      "path": "analysis/wave3-close-model-aux-lifecycle-contract.json",
+      "sha256": "83d6e158e63e3b28cf62f438f9d6ee4b1717b7ded9fdcf59f23114abedcd9eb7"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-model-list-ownership-contract.json",
+      "sha256": "08ae4b6b620aa1f27a66bf86774a34a9ae8a5c01cd60036cf1be0dc07b9c8872"
+    }
+  ],
+  "implemented": [
+    "GuiModel-owned lifetime token is observed weakly by guards; does not keep model alive and expires after represented member destruction. It remains valid through reset and independent of model.display backlink changes.",
+    "Display main+1a0 and selectedOverride+1e0 are real guards; selected getter chooses live override then guarded main, independent of shown state.",
+    "selectDisplayModel captures previous selection, clears override, checks named/third/main/second in exact order. Main executes cf96f0 mainShown=true then commits guarded main. Unmatched returns prior selection; unknown controller matches refuse after the clear, including null/alias cases.",
+    "GuiModel+250 begins unallocated. Actual getter lazily allocates list; register performs backward pointer identity search then append, without removing existing duplicates.",
+    "Auxiliary wrapper never owns pointees and preserves stale entries after manager deletion. Reset keeps the wrapper. Represented destructor cleanup deletes list storage before model members/token."
+  ],
+  "tests": {
+    "new_target": "m2m.mdt.display_selection",
+    "cases": 7,
+    "coverage": [
+      "main/override divergence and unmatched selection",
+      "guard expiration despite display backlink replacement",
+      "null and alias branch priority with retained clear",
+      "named and second controller refusal",
+      "lazy/allocated-empty registry distinction; duplicate and reset retention",
+      "nonownership of live/deleted pointees",
+      "both main guards expire when only one display backlink remains"
+    ]
+  },
+  "qualifications": [
+    "No complete original GuiModel destructor replay: original pre-cleanup reset and other callbacks remain queued; late token expiry does not establish reentrant destruction parity.",
+    "Original display reset cf9150 is not confused with camera reset; its future lifecycle binding must clear override at the actual site.",
+    "Named/third/second selection helper effects remain guarded.",
+    "Raw identities are compared/retained only, never dereferenced after pointee deletion; allocation exhaustion and Qt shared-list memory behavior remain qualified.",
+    "Actual normal Close invocation and global receiver provenance remain separate pending work; no fresh original runtime capture."
+  ],
+  "validation": "pending root focused/full suite"
+}

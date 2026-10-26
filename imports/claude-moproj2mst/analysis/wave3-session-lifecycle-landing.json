@@ -1,0 +1,42 @@
+{
+  "schema": "wave3-session-lifecycle-landing-v1",
+  "created_utc": "2026-10-24T04:02:18.719100+00:00",
+  "status": "source_landed_frozen_for_parent_build",
+  "files": {
+    "source/apps/moproj2mst/include/m2m/engine/conversion_session.hpp": "5ce40fe046f0b40e01c150c9ff60682123c891e1167f8a6904816dc62d828e6d",
+    "source/apps/moproj2mst/src/engine/conversion_session.cpp": "e143a7d2b24e4b810777237753a7735ba6bb0102488eac5975761d0c9ef492cb",
+    "source/apps/moproj2mst/tests/mdt/test_conversion_session.cpp": "75c9e6d2ab83c854e2c6882bab70037273541c7a4e9bd842cbf403b9ffbe28d7"
+  },
+  "evidence": {
+    "analysis/wave3-session-lifecycle-integration-draft.json": "e590b70bc07cf6bdde9a0ec1c4a50e618d85f5908427c4b664a4e705e423aeb2",
+    "analysis/wave3-session-lifecycle-test-draft.json": "21d2a058d0a07616f68727cba4d4b0a69618261e482186e8617eab6039ebbdff",
+    "analysis/wave3-close-session-integration-audit.json": "bb76dd07c195d957dc353e38922893aedc58c744b897b4c505bc84b29e4af6e9",
+    "analysis/wave3-normal-close-diagram-lifetime-contract.json": "82ee52146337e99c4f5472fb6105468134ee70b6a1836a6af69c66e080bfa21c",
+    "analysis/wave3-diagram-modelupdated-fit-contract.json": "5cf54033c3671a10d8af4ee78c4c4a0aa013e43dbf4fbc46997affccaa2941bd"
+  },
+  "exclusive_ownership": "Only the three new session/test files listed above were written. Root retains core/convert.cpp, CMake, builds and shared sources.",
+  "landing_changes_from_frozen_draft": [
+    "Canonical production session header include in cpp.",
+    "Apply writer.hpp completeness amendment for Project registry unique_ptr<OpClass>.",
+    "Replace review-draft banners with production scope/test qualifications; no other behavior changes."
+  ],
+  "manual_compile_review": [
+    "Project/ProjectScope definitions come from engine.hpp ->model.hpp; OpClass is complete through writer.hpp at Project allocation/destruction.",
+    "Opaque Display shared_ptr and out-of-line ConversionSession destructor preserve incomplete-type header usability.",
+    "Tests use canonical production header and existing tests/support/test_paths.hpp convention; Boolean fixture includes DB_STEP_DATA and Boolean payload definitions.",
+    "Seven test cases retained. No compiler was invoked, so compilation is not confirmed."
+  ],
+  "qualifications": [
+    "Ownership shell does not invoke original Save or Close; Qt answer/write success/adapter result separation remains root-owned.",
+    "Explicit due observation and actual fit/click effect-driver guards remain; no production pump points or automatic timer readiness are introduced here.",
+    "Diagram logical binding commits do not reproduce all170430 attachment effects.",
+    "Display lease protects operation-model destruction and exception cleanup; native lifetime parity and full notification effects retain prior qualifications."
+  ],
+  "validation": {
+    "build_run": false,
+    "tests_run": false,
+    "parent_reported_base_checkpoint": "wave3-taskkeys-legend-remesh:121 passing; historical93/98 unchanged",
+    "base_checkpoint_not_claimed_for_new_sources": true
+  },
+  "next_static_dependency": "Bound signalRemoveGraphItems registration/receiver effects after accepted Close, excluding root-owned Save answer split."
+}

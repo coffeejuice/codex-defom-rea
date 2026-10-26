@@ -1,0 +1,58 @@
+{
+  "scope": "Secondary view attachment after actual SfScene construction; source qualification for scene membership successor",
+  "created_utc": "2026-10-24T06:30:01.763995+00:00",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-mainwindow-post-scene-creation-static.json",
+      "sha256": "8d45401e5ccdf71dadde07868481baa6dab7b6425036ff2515cac30c1b2c43a7"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-secondary-scene-view-attachment-static.json",
+      "sha256": "26417f8a08b868c59352c2fa40361bb1c49b0c2063c96d38d5528b19e31df169"
+    },
+    {
+      "path": "analysis/wave3-close-scene-initial-text-items-contract.json",
+      "sha256": "d78480d69e7ee013a55149e4efdd53f5a4a5e9c6d8b8280a82f35aede7dd83b2"
+    },
+    {
+      "path": "analysis/wave3-close-histogram-zero-flag-contract.json",
+      "sha256": "b6acf14a00634b96e349729f441fd7833dcf3d2661a5311fdcc9b925333799d4"
+    }
+  ],
+  "bindings": {
+    "mainwindow+7a8": "vt1420fb108 and14290ac88 ->ca5fd0",
+    "mainwindow+7b0": "both ->ca6110"
+  },
+  "imports": {
+    "0x141e098b0": "?setViewportUpdateMode@QGraphicsView@@QEAAXW4ViewportUpdateMode@1@@Z",
+    "0x141e098b8": "?setViewport@QAbstractScrollArea@@QEAAXPEAVQWidget@@@Z",
+    "0x141e07af0": "?setScene@QGraphicsView@@QEAAXPEAVQGraphicsScene@@@Z",
+    "0x141e0b568": "?viewport@QAbstractScrollArea@@QEBAPEAVQWidget@@XZ",
+    "0x141e07ae8": "?setAttribute@QWidget@@QEAAXW4WidgetAttribute@Qt@@_N@Z",
+    "0x141e07b00": "??0QGraphicsView@@QEAA@PEAVQWidget@@@Z",
+    "0x141e0bce0": "?setWindowTitle@QWidget@@QEAAXAEBVQString@@@Z",
+    "0x141e07ad0": "?setRenderHints@QGraphicsView@@QEAAXV?$QFlags@W4RenderHint@QPainter@@@@@Z"
+  },
+  "observations": [
+    "ca6110 returns if mainwindow guarded+140 already exists. Otherwise allocate0x38\u2192d8a020(null QWidget parent), assign guarded+140, set view policy through IAT141e098b0(arg0), d8a2b0, then d8a140(view, secondary scene from mainwindow+128).",
+    "d8a140 FIRST assigns view guarded+28 scene pointer through cbc920, THEN QGraphicsView::setScene via IAT141e07af0. It has no direct application graph constructor or addItem call.",
+    "d8a2b0 obtains viewport and sets raw QWidget attribute0x79=true. d8a020 constructs QGraphicsView, clears scene guard, initializesQString, sets window title and alignment. These framework calls are not an absence proof for synchronous event effects.",
+    "Primary ca5fd0 differs: it stores view at+138, sets viewport to mainwindow+e0 QGLWidget, applies the policy/viewport attribute, attaches primary+120, then additionally calls cd7410(primary scene). That last effect is not attributed to secondary.",
+    "c0d7e0 examines secondary QGraphicsScene::items, casts first to SfGraphItem RTTI143706be8 and compares name; for SfHistoChart literal it additionally casts to SfHistoChart RTTI143706c40. The known initial SfGraphicsTextItem hierarchy matches neither."
+  ],
+  "qualifications": [
+    "Current primary/secondary scene bindings are distinct from the graph-manager cached construction scene.",
+    "No complete Qt callback/item membership contract established here. There are known two initial text objects, but no claim they are the complete Close-time scene.",
+    "No production source changed after48-case freeze; next typed membership must live in actual scene owner and preserve unknown item coverage."
+  ],
+  "implementation_boundary": [
+    "Actual primary/secondary scene owner needs current ordered item identities and their concrete recovered type; item count alone cannot answer c0d7e0.",
+    "A qualified no-match query can return only after all current items have recovered nonmatching classification. Encountering unknown item type or unknown population must guard.",
+    "A match must guard at or execute actual HideSecondary recipients; never turn it into silent graph deletion.",
+    "RemoveGraphItems differs: it selectively deletes graph classes across primary then secondary, then always emits HideSecondary even if neither scene contains a graph."
+  ]
+}

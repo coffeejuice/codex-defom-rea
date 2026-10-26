@@ -1,0 +1,59 @@
+{
+  "schema": "wave3-editor-furnace-guard-increment-v1",
+  "created_utc": "2026-10-24T05:10:55.544778+00:00",
+  "status": "source_frozen_for_root_validation",
+  "owner": "remesh_native",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "1d9d06eed28dca4900d0dbdc216caa4d3305976cd1f942ee13be2f0626e56907",
+      "bytes": 14524
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "39fc7cedbbb7547861eadec1bf98eb27f86318afa6df16ccee61363d340a45bf",
+      "bytes": 37874
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "ab48d4a477079a97ddb9c29ae2a236945db0a14c39cee104aeb23ff427456357",
+      "bytes": 43353
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "6ab0ec31e763d463f545a9295033393e64a3fdff008231baa105db0073619a9e",
+      "bytes": 21025
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-furnace-guard-contract.json",
+      "sha256": "1ac26493ac6a74c662eb342f7be21505005002f39394508d2402a11fc1ee4ace",
+      "bytes": 8050
+    }
+  ],
+  "change": "Removed only the evidence-disproved furnace_on!=0 refusal in fillEnvironment3D and corrected its documented profile. No new furnace checkbox, snapshot, normalization, whole-object copy or model-copy change was introduced.",
+  "tests": {
+    "case_counts": {
+      "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp": 38,
+      "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp": 12
+    },
+    "new_cases": [
+      "environment_active_furnace_flag_and_live_owned_state_are_not_editor_snapshot_fields",
+      "initial_editor_active_furnace_survives_backup_refresh_and_apply_retains_later_live_state"
+    ],
+    "scope": [
+      "Direct fill/apply with active byte values1/2/255, retained live flags including a later0, name, curve values and furnace byte flags; ordinary ENVTMP still rounds from remembered controls.",
+      "Actual composer Open/backup/refill and Apply with active flags1/255. Reacquire curve pointers after backup-owned reconstruction; verify count, name, values, u54 and original un-copied byte flags. Later live changes remain after Apply.",
+      "Existing explicit unsupported TIMEID and nonconstant CNVCOF tests now run while the furnace flag is active, showing unrelated guards remain."
+    ],
+    "validation_run": "git diff --check for all four owned files exited0. Worker ran no builds or tests.",
+    "required_root_validation": "Snapshot38 and lifecycle12 cases, affected editor/remesh regression and full required suite before candidate freeze."
+  },
+  "qualifications": [
+    "This corrects one helper refusal. Public editor300 Save remains guarded, and furnace-related public loader/serializer requirements are not declared complete.",
+    "Existing field-aware native SimControl/furnace copy is used unchanged; original omission of SC+3c0 and furnace+58 byte flags remains.",
+    "No protected original, parent DMO/DEF_PRE, Session/Ctx/core or installed application edits."
+  ],
+  "successor": "TIMEID display/checkbox state selected and already investigated in analysis/wave3-editor-timeid-contract.json. Hold source freeze while root validates; prepare exact state shape and tests, then implement only after release."
+}

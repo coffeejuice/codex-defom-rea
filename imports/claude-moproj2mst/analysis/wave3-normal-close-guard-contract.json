@@ -1,0 +1,183 @@
+{
+  "schema": "wave3-normal-close-guard-v1",
+  "status": "process_type_and_nested_save_before_detach_source_bound; default_Yes_for_shipped_fresh_Windows_style",
+  "method": "Offline retained PE, bounded DUMPBIN and prior qualified evidence; no application runtime, GUI, DLL load, build or shared database.",
+  "binaries": {
+    "DEF_GUI_MO_64.exe": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "QtGui4_64.dll": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "vtables": [
+    {
+      "table": "0x142115f68",
+      "offset": "0x58",
+      "target": "0x140c7a100",
+      "raw_sha256": "81d77faf5a6d71498170093cb34770c0243af0bfcd812e1d7cfd630e6f8feb6e"
+    },
+    {
+      "table": "0x142112878",
+      "offset": "0x68",
+      "target": "0x140044110",
+      "raw_sha256": "b9e3cc307b08226e593609cf3e2f2256a18b6536afc16ff9f0228bb35eadad23"
+    }
+  ],
+  "process_type": [
+    "1402cb780 stores *int_arg to global143d766b8+0xc; 1402cb7a0 reads that exact field. 1402cb7c0 tests 1 or 5, and 1402cb870 tests 5.",
+    "This is the application process type, separate from settings Setting/MoInputMode at settings+0xc90. No equality between those fields is assumed.",
+    "Normal Open registration 14002a0e0 calls 140013d40(main,0,0) at 14002a11b. For mode argument 0, 013d40 resolves current project through0133a0/045780; null project selects5, project+0x55 true selects5, false selects1.",
+    "Native .moproj loader14008a9b0 stores 14008afa0 return byte into project+0x55 at14008ae1d. 08afa0 returns native reader08b410 success byte. Thus successful native Open selects process type5.",
+    "140010a70 also writes5 through2cb780; its startup caller is not needed for the post-Open binding and is not asserted here."
+  ],
+  "guard": [
+    "Normal Close0299a0 calls manager can-close before busy=true, refresh resets, manager deletion or diagram detach. Manager vtable+0x58 is c7a100; it calls each owned model vtable+0x68 and aborts on false. SfMoModel slot is044110.",
+    "044110 immediately allows Close if project+0x19c0 is null or process type is neither1 nor5. Otherwise it asks a question; no modified/dirty flag is tested in this body.",
+    "When project+0x55 is true and process type5, the question is current-operation Save; otherwise it asks whether to save a Keyword file. Both use Yes0x4000 | No0x10000 | Cancel0x400000, combined0x414000, and explicit defaultNoButton0.",
+    "Current-operation question returns at0444dc. Yes calls project Save0980d0 at044507, while project and diagram are still attached; replace answer with its integer result. If result equals0x4000, remap toCancel0x400000. Other return values are not treated as failure by this guard merely because they are zero.",
+    "Keyword question Yes invokes main-window virtual+0x3a0 at04479a; this receipt does not resolve that alternate branch.",
+    "When final answer differs fromCancel, invoke main-window virtual+0x288 and signalRemoveGraphItems before returning true. Actual detach follows only after all guards return true. The nested Save and callback bodies require their own contracts."
+  ],
+  "question_default": {
+    "answer": "Yes (0x4000)",
+    "qualification": "Static fresh dialog with the shipped Windows/Common, WindowsXP or WindowsVista style and unchanged initial focus. No original runtime observation, user focus movement, alternate/custom style, environment style override or external event-filter behavior is claimed.",
+    "chain": [
+      "QtGui654777a0 question delegates65477580 with icon4. Helper adds the ascending standard-button bits and, for default0, explicitly chooses only AcceptRole0. Yes role5, No role6 and Cancel role1 therefore leave the explicit default unset.",
+      "QDialogButtonBox private init6539b500 queries styleHint0x45. WindowsVista delegates this hint toXP; XP delegates toWindows; Windows delegates toCommon. Common starts result0 and jumps to its return for this hint.",
+      "Horizontal layout0 raw role table656fc580 puts roles5,6,1 in that order: Yes,No,Cancel. Layout6539c680 sets focus proxy to first widget and calls QWidget::setTabOrder for subsequent widgets at6539cb1b.",
+      "QPushButton ctor653f8270 initializes autoDefault state2. autoDefault653f7410/742c resolves true for a QDialog ancestor. QDialog::setVisible6545ac70 selects the first focus-chain autoDefault button when no default exists; focusInEvent653f75c0 also promotes the initially focused autoDefault button.",
+      "QDialog::keyPressEvent6545b1d0 handles Return/Enter by finding the visible enabled default QPushButton and calling click65371ee0. Helper65477580 returns the clicked standard button."
+    ],
+    "style_dispatch": [
+      {
+        "style": "QWindowsStyle",
+        "hint": "0x45",
+        "lookup": "0x6535afe1",
+        "lookup_byte": 9,
+        "table_entry": "0x6535af98",
+        "branch": "0x6535af45",
+        "raw_sha256": "132e8a7208ed5874976501efbc11edc75041369c704e925412407fec27d96a5e"
+      },
+      {
+        "style": "QWindowsXPStyle",
+        "hint": "0x45",
+        "lookup": "0x6530fe05",
+        "lookup_byte": 8,
+        "table_entry": "0x6530fdbc",
+        "branch": "0x6530fd5c",
+        "raw_sha256": "cf4495d20fa36586b403975468c6965cc4f09404726dce032dd8366997ea037c"
+      },
+      {
+        "style": "QCommonStyle",
+        "hint": "0x45",
+        "lookup": "0x652b5a35",
+        "lookup_byte": 9,
+        "table_entry": "0x652b5958",
+        "branch": "0x652b5915",
+        "raw_sha256": "7ed78cfefd56bbf325140788a1d96a572433b7f84a2478e0b6caaef083a9f644"
+      }
+    ],
+    "layout_table": {
+      "address": "0x656fc580",
+      "roles": [
+        7,
+        536870912,
+        5,
+        0,
+        268435456,
+        2,
+        6,
+        3,
+        1,
+        8,
+        4,
+        1073741824,
+        1073741824,
+        1073741824
+      ],
+      "raw_sha256": "3a3ffc68f11aaa5c4cdab42b0d50c4ba4791337b5eefc526fb057340a663095d"
+    }
+  },
+  "event_delivery": "The question uses QDialog::exec and therefore the modal event loop already source-bound by the directory-failure-dialog contract. Pending eligible timers may run before the default answer, and nested0980d0 contains additional Save delivery points. A fresh default answer does not imply zero event delivery. Preserve explicit due-event schedules; do not infer wall-clock arrival.",
+  "integration": "For successful native MO Open -> Save -> normal Close under the recovered default: question modal delivery, answerYes, nested0980d0 Save, non-Cancel post-answer callbacks, then existing Close cleanup/null attachment contract. Do not implement normal public Close as detach alone or suppress its nested Save based on a reconstructed dirty flag.",
+  "remaining": [
+    "Bind nested0980d0 return values and post-answer main virtual+0x288.",
+    "Source-selected shipped Windows style is established here; a full original fresh runtime comparison remains pending under the parent validation gate."
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-normal-close-diagram-lifetime-contract.json",
+      "sha256": "82ee52146337e99c4f5472fb6105468134ee70b6a1836a6af69c66e080bfa21c"
+    },
+    {
+      "path": "analysis/wave3-directory-failure-dialog-contract.json",
+      "sha256": "4111e716cc5d5482433f33c6330a63ec4a9f618b592cd3a335b7f88887bf8ec4"
+    },
+    {
+      "path": "analysis/wave3-boolean-open-sequence-contract.json",
+      "sha256": "fc6562b8380b3a3d61de2634991f9f86b0379d22af2775104e6a059f07a17822"
+    },
+    {
+      "path": "analysis/wave3-boolean-save-pump-14008a9b0.asm",
+      "sha256": "8f4bffd1a8655f30972facc5037684d99b6a996309f2b8561f2c38575390dd4a"
+    },
+    {
+      "path": "analysis/wave3-boolean-external-callback-14002a0e0.asm",
+      "sha256": "e3e74166115892e04fe23160955278cf3101abacb6d818cd41746bca94c43f63"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-static.json",
+      "sha256": "1ce8e80954008183bbeeebdc696bc0c9942d2e913f8b912ea7436993161fc8e1"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-model-static.json",
+      "sha256": "e413ca34f88bd23c1f91a60afb19568d8da7d4574547105bbc9c5ad8d979eaef"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-gates-static.json",
+      "sha256": "c7db1a054245480d58feca653b9348109bdfd5656dfe3ec16d2479d739c8cb0d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-mode-tail-static.json",
+      "sha256": "d7ac26025e777ed8ec87c271eea8718a4607952fb1d1d42ba51931d08d15f785"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-mode-ret-static.json",
+      "sha256": "95d8e3bfe360d3e42f8ac7336d5d07e3d012b856a464d2ec5be398df51a0e081"
+    },
+    {
+      "path": "analysis/wave3-closure-next-question-static.json",
+      "sha256": "69c48f24353f7429529335c3816e01fbab6fa5def0f8daffbb2c9a6dad6c25e8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-question-helper-static.json",
+      "sha256": "1b75aaed4b4bfb32c77033dd1cfb87a63249cad47f1056e4dd80a871f5d95d02"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-question-focus-static.json",
+      "sha256": "cd46f6c0fbcc461880a309e75dc2c55448055daccde9774a892aa3e083115276"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-proctype-static.json",
+      "sha256": "7a146928b28baf741368d31b8d32bcaab2a81afcacfcb03804a35139d84a41b0"
+    },
+    {
+      "path": "analysis/wave3-closure-next-question-layout-static.json",
+      "sha256": "8b47c59d89e6ca7ce94755b71c3d043d6949f9d17578faa651cf256043af4c77"
+    },
+    {
+      "path": "analysis/wave3-closure-next-question-style-static.json",
+      "sha256": "a45715f3e2862828be85a121b6d1acbcd826d60f4d23d751974418b868cf86e6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-question-style-init-static.json",
+      "sha256": "9dc1ab0fac3c6e12a4b42ff26cf72f949385fde4fdc2390bd81b90f611eb770d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-native-open-mode-static.json",
+      "sha256": "3210778fd4b51a008fef7ae0b3ba36b28f1582241b3d1a0cff46f26088fd1410"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-reset-signals-static.json",
+      "sha256": "87bc7b6623b79e906a252224e797566fbdfd56911ec693dbf53dd66bd998dfba"
+    }
+  ],
+  "tool_sha256": "230139df0f710345e8968d2f58adf30d5fc5b640fd9e2b2b0a5022a108cfc278"
+}

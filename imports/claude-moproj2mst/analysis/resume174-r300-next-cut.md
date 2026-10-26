@@ -1,0 +1,34 @@
+# CP174 R300 next raw-access cut: `propsStep` closure
+
+## Decision
+
+The next bounded source cut is the internal properties step accessor. `propsStep(Project&, Props&)` in `src/engine/props_sync.cpp` still returns `opModel(...)->step.get()` to seven current call sites. This is a second public-to-engine raw step escape after CP173 removed `opStep`. Replace it with a synchronous nullable callback, then migrate all seven callers in one source-stable patch. Keep `GuiModel::step` public for this cut so all other owners continue compiling. Do not install the Stopping barrier, change the CP163 after-A refusal, read selected length, or publish cache1.
+
+CP173 froze the first `opStep` callback cut and the unchanged Stopping boundary: `analysis/resume173-root-integration.md` records 361 registered tests, 354 clean passes, six logged-gap suites, one diagnostic-difference suite and no failed/skipped/incomplete tests, bound to source SHA-256 `ab67e3e532defdadbb637596e243c8bee9e45dadba2ac25376333c1943f6dc26`. The earlier `analysis/resume173-r300-closure-audit.md` and `analysis/resume173-r300-barrier-review.md` inventory the remaining direct access and explain why private `step` cannot be the first isolated change. The original static zero-branch evidence remains DEF_GUI_MO_64 v11.0.2, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`; it supplies no new public runtime occurrence or behavior for this mechanical accessor migration.
+
+## Exclusive files and exact migration
+
+One source owner takes exactly these four files:
+
+| File under `source/apps/moproj2mst/src/engine` | Work |
+| --- | --- |
+| `props_sync.hpp` | Replace the raw-return declaration with `withPropsStep(Project&, Props&, callback)` constrained to `void`/`bool`. Keep the `!pr.owner` path before `opModel`, invoke the callback once with null there, and otherwise invoke once with the actual model's nullable step. Do not add `GuiModelAccess::withStep` or a geometry guard in this behavioral cut. Include the types and `<functional>`/`<type_traits>`/`<utility>` needed for a compileable header. |
+| `props_sync.cpp` | Remove `propsStep` definition. Migrate its two uses. `readerSimCtl` must not return `&s->sim_ctrl` after the new callback ends; replace it with a scoped callback helper that invokes on the explicit caller `sc` without a model lookup, or resolves the owner step and uses its `sim_ctrl` only inside the callback. Keep `B(pr)` creation and property stores in their present order. `propsSetHeatingTime` retains its null-step unsupported error before `B(pr)` mutation. |
+| `loader_l2.cpp` | Migrate furnace `propsStep` sites at the current `furnaceEnvTemp`, `furnacePropsLoad`, and `furnaceToEngine` call boundaries. Keep prologue/TRANS and nested furnace lookup order. `furnaceSetModel` copies furnace data; verify it retains no step pointer before returning from the callback. Preserve missing-model return and current name/curve/diagram effects. |
+| `loader_l3.cpp` | Replace the two `propsStep` presence checks in `formingPropsLoad` and `fePropsLoad` with bool callback checks at the same point, after their existing property fills and before `propsModel`/movement reads. Do not move those lookups or earlier property effects. |
+
+Connector174 exclusively owns `src/doe/task_factory.cpp`, `include/m2m/doe_task_runtime.hpp`, and `tests/mdt/test_doe_task_factory.cpp` (with `view_manager.hpp` only if needed). The four engine files above are disjoint. A separate test owner may extend `tests/mdt/test_loader_l2.cpp` and `tests/mdt/test_engine_l3.cpp` after coordinating ownership; connector174's DOE test is outside this cut.
+
+The helper may use the already frozen CP173 `withOpStep` for an owner operation, provided it preserves `propsStep`'s `!pr.owner` short circuit, nullable pointer, and lookup timing. Do not return a step, SimControl pointer, reference, span, or closure from either helper. Return-type restriction alone cannot stop capture into external storage; review every callback for that escape. No new ownership, retry, or synchronization semantics follow from the callback shape.
+
+## Acceptance and rollback
+
+Before release, search all `source/apps/moproj2mst/{src,include}` for `propsStep(` and the old declaration/definition; the result must be empty. Review all `withPropsStep` uses for synchronous invocation, one callback per former acquisition, void/bool result, no capture/field store of the step or nested SimControl address, and no queued callback. Confirm explicit `sc` callers in the four props-sync readers do not acquire a model, while absent `sc` callers retain the owner lookup. Confirm the two L3 presence probes still make their second `propsModel` lookup only on a nonnull step, and the L2 furnace path still performs its nested lookup at the previous point. Compare any changed unsupported text, mutation order, `FileEffects`, and diagram effects against the CP173 source.
+
+Build the changed core with a source-bound receipt, then run CTest `m2m.mdt.loader_l2`, `m2m.mdt.engine_l3`, `m2m.s.save_current`, `m2m.mdt.simcontrol300_stopping_cached`, and `m2m.g0.abi`. Existing L2/L3 positive cases check furnace and forming/Express properties; add focused cases to the two owned test files if they lack `pr.owner == nullptr`, owner with no model/step, caller-supplied `sc`, and ordered furnace nested lookup coverage. These should assert both result and unchanged pre-effect state on null paths. Do not count an unrelated passing target as proof that both nullable branches or furnace writer ordering ran. Root then runs the complete source-stable launcher and freezes the selected source/build hashes before releasing the next access owner.
+
+If compilation, source audit, or focused behavior fails, revert the four-file accessor migration and any paired focused tests together to CP173's frozen source; restore the `propsStep` declaration/definition and all seven callers as one unit. CP163 cache0, A publication, and immediate refusal remain untouched, so rollback needs no model-state repair, fixture replacement, original capture, or installed-program action.
+
+## Remaining frontier
+
+This cut removes one returned `DB_STEP_DATA*` route only. `GuiModel::step` remains public across the CP173 inventory; `opModel`, `opSimCtl`, `GuiModel::simCtl/object/objectAt`, and any returned movement/object pointer still need their own owner and lifetime review. After this accessor cut, migrate direct step uses by exclusive file clusters to a guarded synchronous seam, then privatize `step` without reordering the member. Only when all supported model and aggregate entries are gated before effects, outstanding alias/thread behavior is qualified, and the Stopping frame installs without a post-effect throw may the zero-length cache1 stage be implemented and tested. Public Open/Save equivalence and the original same-occurrence reader tail remain unsupported.

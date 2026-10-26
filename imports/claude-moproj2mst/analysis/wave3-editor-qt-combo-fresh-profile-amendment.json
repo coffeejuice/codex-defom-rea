@@ -1,0 +1,146 @@
+{
+  "schema": "editor300-qt-combo-fresh-profile-amendment-v1",
+  "amends": "analysis/wave3-editor-qt-combo-selection-contract.json",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-persistent-index-static.json",
+      "sha256": "e18c61fdf173dbb5dcc063b33f13b69965c660a903f6c097080fec75bbef5a62"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-300-setupui.c",
+      "sha256": "1217ddfefe72fc52f4a963f01cb4f7d10bc3a468d00e7ef1139736979483b8a7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-control-private-static.json",
+      "sha256": "4a94403715e7770c2b737b659b08dea91cb55d2eb5b2cbd73fa1a0cde6a074a7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-selection-contract.json",
+      "sha256": "f4644e004b587746a0accdbd7918b4a3f168124ad34aed6091350131e116ea11"
+    }
+  ],
+  "fresh_index": {
+    "QtGui_private_ctor": "65386290 calls QPersistentModelIndex default ctor at private+248 and+250; import65698820 resolves QtCore6710ccc0.",
+    "default_ctor": "6710ccc0..6710ccca sets indexdata pointer0.",
+    "isValid": "6710cf80..6710cf9f returnsfalse for nullpointer; import65698878.",
+    "row": "6710ce60..6710ce6e returns-1 for nullpointer; import65698840.",
+    "qualification": "Leaf captures include neighboring functions after these exact RET boundaries."
+  },
+  "fresh_setup_combos": [
+    {
+      "ui": "0xb8",
+      "name": "heatCmBx",
+      "constructor_line": 1285
+    },
+    {
+      "ui": "0x1f8",
+      "name": "m_cmbbxDSMAX",
+      "constructor_line": 2802
+    },
+    {
+      "ui": "0x250",
+      "name": "m_cmbbxDTMAX",
+      "constructor_line": 3305
+    },
+    {
+      "ui": "0x708",
+      "name": "stopObj1CmBx",
+      "constructor_line": 9285
+    },
+    {
+      "ui": "0x7a0",
+      "name": "stopObj2CmBx",
+      "constructor_line": 10119
+    },
+    {
+      "ui": "0x7c0",
+      "name": "stopMthdCmBx",
+      "constructor_line": 10299
+    },
+    {
+      "ui": "0x838",
+      "name": "m_cmbxStopPlane",
+      "constructor_line": 10930
+    },
+    {
+      "ui": "0x9b8",
+      "name": "cmboxRemeshObjects",
+      "constructor_line": 12874
+    },
+    {
+      "ui": "0xaa8",
+      "name": "cmBoxCGmethod",
+      "constructor_line": 13964
+    },
+    {
+      "ui": "0xad8",
+      "name": "cmBoxCGdirectSolver",
+      "constructor_line": 14192
+    },
+    {
+      "ui": "0x10c0",
+      "name": "m_cmbxPrmWorkPiece",
+      "constructor_line": 21307
+    },
+    {
+      "ui": "0x1360",
+      "name": "cmBxFreqCNT",
+      "constructor_line": 24408
+    },
+    {
+      "ui": "0x1388",
+      "name": "cmBxFreqTMP",
+      "constructor_line": 24610
+    },
+    {
+      "ui": "0x13b0",
+      "name": "cmBxFreqDBW",
+      "constructor_line": 24812
+    },
+    {
+      "ui": "0x13e0",
+      "name": "cmBxFreqMXW",
+      "constructor_line": 25042
+    },
+    {
+      "ui": "0x1408",
+      "name": "cmBxFreqVEW",
+      "constructor_line": 25244
+    },
+    {
+      "ui": "0x1430",
+      "name": "cmBxFreqYLD",
+      "constructor_line": 25446
+    },
+    {
+      "ui": "0x1650",
+      "name": "cmbxSPRINGObjDie",
+      "constructor_line": 27887
+    },
+    {
+      "ui": "0x1688",
+      "name": "cmbxSPRINGRelateObj",
+      "constructor_line": 28184
+    },
+    {
+      "ui": "0x16c8",
+      "name": "m_cmbxPDie",
+      "constructor_line": 28501
+    },
+    {
+      "ui": "0x17b8",
+      "name": "m_cbPPVarSel",
+      "constructor_line": 29654
+    }
+  ],
+  "direct_combo_call_inventory": {
+    "QComboBox(QWidget*)": 21,
+    "other_QComboBox_calls_in_setup_before_retranslation": 0
+  },
+  "supported_projection": "In this retained fresh default-model profile, all21 combo indices begin-1. The13 clear/nonempty-list insertions in recovered retranslation end at0 through bound native rowsInserted callback. The8 other combos remain-1 until a later constructor/page fill changes their model.",
+  "limits": [
+    "Do not assign0 to arbitrary combos, swapped models, preexisting valid selections, failed insertions or repeated live UI actions.",
+    "Initial native application event filters remain a separate constructor boundary; these facts describe the captured Qt control profile, not a blanket full-app setup success.",
+    "Both public/setup guards remain until all remaining source-backed prefix effects are composed."
+  ]
+}

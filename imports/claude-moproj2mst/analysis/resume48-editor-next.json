@@ -1,0 +1,92 @@
+{
+  "schema": "resume48-editor-next-static-v1",
+  "created_utc": "2026-10-24T17:47:59.613231+00:00",
+  "status": "static_investigation_in_progress_source_frozen",
+  "binary": {
+    "path": "evidence\\original-binaries\\QtGui4_64.dll",
+    "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "tool": {
+    "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+    "sha256": "12a1cd87238bd66dfdb788b4fcdcb91ce4b3f81236aab12a7a29e5ae1d85af50"
+  },
+  "captures": [
+    {
+      "entry": "0x6511b390",
+      "end_exclusive": "0x6511b500",
+      "bounds_qualification": "runtime unwind region, not proof of whole logical procedure",
+      "code_sha256": "0ecea367fef00421474747790ffd85fc8e3362bba35f4330377b18483a7542a2",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6511b390,0x6511b4ff",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll"
+      ],
+      "stdout": "Microsoft (R) COFF/PE Dumper Version 14.44.35228.0\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n\r\nDump of file C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll\r\n\r\nFile Type: DLL\r\n\r\n  000000006511B390: 40 53              push        rbx\r\n  000000006511B392: 48 81 EC 80 00 00  sub         rsp,80h\r\n                    00\r\n  000000006511B399: 48 C7 44 24 20 FE  mov         qword ptr [rsp+20h],0FFFFFFFFFFFFFFFEh\r\n                    FF FF FF\r\n  000000006511B3A2: 48 8B DA           mov         rbx,rdx\r\n  000000006511B3A5: C7 84 24 90 00 00  mov         dword ptr [rsp+0000000000000090h],0\r\n                    00 00 00 00 00\r\n  000000006511B3B0: 48 8B 49 08        mov         rcx,qword ptr [rcx+8]\r\n  000000006511B3B4: 83 79 08 00        cmp         dword ptr [rcx+8],0\r\n  000000006511B3B8: 0F 85 13 01 00 00  jne         000000006511B4D1\r\n  000000006511B3BE: 48 8B 0D 7B B7 57  mov         rcx,qword ptr [0000000065696B40h]\r\n                    00\r\n  000000006511B3C5: 48 89 8C 24 90 00  mov         qword ptr [rsp+0000000000000090h],rcx\r\n                    00 00\r\n  000000006511B3CD: FF 15 ED B4 57 00  call        qword ptr [00000000656968C0h]\r\n  000000006511B3D3: 90                 nop\r\n  000000006511B3D4: BA 03 00 00 00     mov         edx,3\r\n  000000006511B3D9: 48 8D 4C 24 28     lea         rcx,[rsp+28h]\r\n  000000006511B3DE: E8 DD 5B 00 00     call        0000000065120FC0\r\n  000000006511B3E3: BA 02 00 00 00     mov         edx,2\r\n  000000006511B3E8: 48 8D 4C 24 38     lea         rcx,[rsp+38h]\r\n  000000006511B3ED: E8 CE 5B 00 00     call        0000000065120FC0\r\n  000000006511B3F2: F2 0F 10 2D A6 EB  movsd       xmm5,mmword ptr [0000000065699FA0h]\r\n                    57 00\r\n  000000006511B3FA: F2 0F 11 6C 24 60  movsd       mmword ptr [rsp+60h],xmm5\r\n  000000006511B400: 8B 44 24 28        mov         eax,dword ptr [rsp+28h]\r\n  000000006511B404: 89 44 24 68        mov         dword ptr [rsp+68h],eax\r\n  000000006511B408: 48 8D 54 24 6C     lea         rdx,[rsp+6Ch]\r\n  000000006511B40D: 48 8D 4C 24 2C     lea         rcx,[rsp+2Ch]\r\n  000000006511B412: 8B 01              mov         eax,dword ptr [rcx]\r\n  000000006511B414: 89 02              mov         dword ptr [rdx],eax\r\n  000000006511B416: 8B 41 04           mov         eax,dword ptr [rcx+4]\r\n  000000006511B419: 89 42 04           mov         dword ptr [rdx+4],eax\r\n  000000006511B41C: 0F B7 41 08        movzx       eax,word ptr [rcx+8]\r\n  000000006511B420: 66 89 42 08        mov         word ptr [rdx+8],ax\r\n  000000006511B424: 66 0F 57 C0        xorpd       xmm0,xmm0\r\n  000000006511B428: F2 0F 11 44 24 48  movsd       mmword ptr [rsp+48h],xmm0\r\n  000000006511B42E: 8B 44 24 38        mov         eax,dword ptr [rsp+38h]\r\n  000000006511B432: 89 44 24 50        mov         dword ptr [rsp+50h],eax\r\n  000000006511B436: 48 8D 54 24 54     lea         rdx,[rsp+54h]\r\n  000000006511B43B: 48 8D 4C 24 3C     lea         rcx,[rsp+3Ch]\r\n  000000006511B440: 8B 01              mov         eax,dword ptr [rcx]\r\n  000000006511B442: 89 02              mov         dword ptr [rdx],eax\r\n  000000006511B444: 8B 41 04           mov         eax,dword ptr [rcx+4]\r\n  000000006511B447: 89 42 04           mov         dword ptr [rdx+4],eax\r\n  000000006511B44A: 0F B7 41 08        movzx       eax,word ptr [rcx+8]\r\n  000000006511B44E: 66 89 42 08        mov         word ptr [rdx+8],ax\r\n  000000006511B452: 48 8D 54 24 48     lea         rdx,[rsp+48h]\r\n  000000006511B457: 48 8D 8C 24 90 00  lea         rcx,[rsp+0000000000000090h]\r\n                    00 00\r\n  000000006511B45F: E8 FC F9 FF FF     call        000000006511AE60\r\n  000000006511B464: 48 8D 54 24 60     lea         rdx,[rsp+60h]\r\n  000000006511B469: 48 8D 8C 24 90 00  lea         rcx,[rsp+0000000000000090h]\r\n                    00 00\r\n  000000006511B471: E8 EA F9 FF FF     call        000000006511AE60\r\n  000000006511B476: 48 8B 8C 24 90 00  mov         rcx,qword ptr [rsp+0000000000000090h]\r\n                    00 00\r\n  000000006511B47E: 48 89 0B           mov         qword ptr [rbx],rcx\r\n  000000006511B481: FF 15 39 B4 57 00  call        qword ptr [00000000656968C0h]\r\n  000000006511B487: 4C 8B 1B           mov         r11,qword ptr [rbx]\r\n  000000006511B48A: 41 F6 43 0C 01     test        byte ptr [r11+0Ch],1\r\n  000000006511B48F: 75 11              jne         000000006511B4A2\r\n  000000006511B491: 45 8B 43 04        mov         r8d,dword ptr [r11+4]\r\n  000000006511B495: 41 8B 53 08        mov         edx,dword ptr [r11+8]\r\n  000000006511B499: 48 8B CB           mov         rcx,rbx\r\n  000000006511B49C: E8 BF F3 FF FF     call        000000006511A860\r\n  000000006511B4A1: 90                 nop\r\n  000000006511B4A2: 48 8B 8C 24 90 00  mov         rcx,qword ptr [rsp+0000000000000090h]\r\n                    00 00\r\n  000000006511B4AA: 48 85 C9           test        rcx,rcx\r\n  000000006511B4AD: 74 1D              je          000000006511B4CC\r\n  000000006511B4AF: FF 15 C3 B4 57 00  call        qword ptr [0000000065696978h]\r\n  000000006511B4B5: 84 C0              test        al,al\r\n  000000006511B4B7: 75 13              jne         000000006511B4CC\r\n  000000006511B4B9: BA 08 00 00 00     mov         edx,8\r\n  000000006511B4BE: 48 8B 8C 24 90 00  mov         rcx,qword ptr [rsp+0000000000000090h]\r\n                    00 00\r\n  000000006511B4C6: FF 15 2C B4 57 00  call        qword ptr [00000000656968F8h]\r\n  000000006511B4CC: 48 8B C3           mov         rax,rbx\r\n  000000006511B4CF: EB 26              jmp         000000006511B4F7\r\n  000000006511B4D1: 48 89 0A           mov         qword ptr [rdx],rcx\r\n  000000006511B4D4: FF 15 E6 B3 57 00  call        qword ptr [00000000656968C0h]\r\n  000000006511B4DA: 4C 8B 1B           mov         r11,qword ptr [rbx]\r\n  000000006511B4DD: 41 F6 43 0C 01     test        byte ptr [r11+0Ch],1\r\n  000000006511B4E2: 75 10              jne         000000006511B4F4\r\n  000000006511B4E4: 45 8B 43 04        mov         r8d,dword ptr [r11+4]\r\n  000000006511B4E8: 41 8B 53 08        mov         edx,dword ptr [r11+8]\r\n  000000006511B4EC: 48 8B CB           mov         rcx,rbx\r\n  000000006511B4EF: E8 6C F3 FF FF     call        000000006511A860\r\n  000000006511B4F4: 48 8B C3           mov         rax,rbx\r\n  000000006511B4F7: 48 81 C4 80 00 00  add         rsp,80h\r\n                    00\r\n  000000006511B4FE: 5B                 pop         rbx\r\n  000000006511B4FF: C3                 ret\r\n\r\n  Summary\r\n\r\n      695000 .text\r\n",
+      "stdout_sha256": "e2f4c1b7b1716f2abe550f848a753dcff8c1bb4eafa3c54b753622748fa15857"
+    },
+    {
+      "entry": "0x6511aba0",
+      "end_exclusive": "0x6511ac1e",
+      "bounds_qualification": "runtime unwind region, not proof of whole logical procedure",
+      "code_sha256": "9855d8a85b3fe998363b778c726a1295291aaf62f9acfe1d57cadd34d49eb265",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6511aba0,0x6511ac1d",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll"
+      ],
+      "stdout": "Microsoft (R) COFF/PE Dumper Version 14.44.35228.0\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n\r\nDump of file C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll\r\n\r\nFile Type: DLL\r\n\r\n  000000006511ABA0: 40 53              push        rbx\r\n  000000006511ABA2: 48 81 EC 80 00 00  sub         rsp,80h\r\n                    00\r\n  000000006511ABA9: 48 8B 11           mov         rdx,qword ptr [rcx]\r\n  000000006511ABAC: 83 7A 04 10        cmp         dword ptr [rdx+4],10h\r\n  000000006511ABB0: 0F 85 21 01 00 00  jne         000000006511ACD7\r\n  000000006511ABB6: 8B 42 04           mov         eax,dword ptr [rdx+4]\r\n  000000006511ABB9: 83 F8 0F           cmp         eax,0Fh\r\n  000000006511ABBC: 74 0E              je          000000006511ABCC\r\n  000000006511ABBE: 83 F8 10           cmp         eax,10h\r\n  000000006511ABC1: 74 09              je          000000006511ABCC\r\n  000000006511ABC3: 83 F8 11           cmp         eax,11h\r\n  000000006511ABC6: 74 04              je          000000006511ABCC\r\n  000000006511ABC8: 33 DB              xor         ebx,ebx\r\n  000000006511ABCA: EB 04              jmp         000000006511ABD0\r\n  000000006511ABCC: 48 8D 5A 70        lea         rbx,[rdx+70h]\r\n  000000006511ABD0: 8B 43 38           mov         eax,dword ptr [rbx+38h]\r\n  000000006511ABD3: 83 E0 F8           and         eax,0FFFFFFF8h\r\n  000000006511ABD6: 89 84 24 90 00 00  mov         dword ptr [rsp+0000000000000090h],eax\r\n                    00\r\n  000000006511ABDD: 66 0F 6E 8C 24 90  movd        xmm1,dword ptr [rsp+0000000000000090h]\r\n                    00 00 00\r\n  000000006511ABE6: 0F 5A C9           cvtps2pd    xmm1,xmm1\r\n  000000006511ABE9: 66 0F 2F 0D BF F3  comisd      xmm1,mmword ptr [0000000065699FB0h]\r\n                    57 00\r\n  000000006511ABF1: 73 08              jae         000000006511ABFB\r\n  000000006511ABF3: 66 0F 57 0D C5 F3  xorpd       xmm1,xmmword ptr [0000000065699FC0h]\r\n                    57 00\r\n  000000006511ABFB: F2 0F 10 05 6D D1  movsd       xmm0,mmword ptr [00000000656A7D70h]\r\n                    58 00\r\n  000000006511AC03: 66 0F 2F C1        comisd      xmm0,xmm1\r\n  000000006511AC07: 73 0B              jae         000000006511AC14\r\n  000000006511AC09: B0 01              mov         al,1\r\n  000000006511AC0B: 48 81 C4 80 00 00  add         rsp,80h\r\n                    00\r\n  000000006511AC12: 5B                 pop         rbx\r\n  000000006511AC13: C3                 ret\r\n  000000006511AC14: F2 0F 10 53 18     movsd       xmm2,mmword ptr [rbx+18h]\r\n  000000006511AC19: F2 0F 10 4B 10     movsd       xmm1,mmword ptr [rbx+10h]\r\n\r\n  Summary\r\n\r\n      695000 .text\r\n",
+      "stdout_sha256": "c8bfc476f2ac3350319b84f1602b995667cf3edc45cc5c4a1ba1d947121e6d75"
+    },
+    {
+      "entry": "0x65120fc0",
+      "end_exclusive": "0x65121004",
+      "bounds_qualification": "runtime unwind region, not proof of whole logical procedure",
+      "code_sha256": "81fdcc5e322b683d98bd107c29ac1db9204c9ece58615cb26edc0523cce5e5ba",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x65120fc0,0x65121003",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll"
+      ],
+      "stdout": "Microsoft (R) COFF/PE Dumper Version 14.44.35228.0\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n\r\nDump of file C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll\r\n\r\nFile Type: DLL\r\n\r\n  0000000065120FC0: 40 53              push        rbx\r\n  0000000065120FC2: 48 83 EC 30        sub         rsp,30h\r\n  0000000065120FC6: 4C 63 DA           movsxd      r11,edx\r\n  0000000065120FC9: 48 8B D9           mov         rbx,rcx\r\n  0000000065120FCC: 48 8D 0D CD 01 5A  lea         rcx,[00000000656C11A0h]\r\n                    00\r\n  0000000065120FD3: 42 8B 04 99        mov         eax,dword ptr [rcx+r11*4]\r\n  0000000065120FD7: 46 0F B6 44 99 01  movzx       r8d,byte ptr [rcx+r11*4+1]\r\n  0000000065120FDD: 42 0F B6 54 99 02  movzx       edx,byte ptr [rcx+r11*4+2]\r\n  0000000065120FE3: 44 8B D0           mov         r10d,eax\r\n  0000000065120FE6: 44 0F B6 C8        movzx       r9d,al\r\n  0000000065120FEA: 48 8B CB           mov         rcx,rbx\r\n  0000000065120FED: 41 C1 EA 18        shr         r10d,18h\r\n  0000000065120FF1: 44 89 54 24 20     mov         dword ptr [rsp+20h],r10d\r\n  0000000065120FF6: E8 15 DD FF FF     call        000000006511ED10\r\n  0000000065120FFB: 48 8B C3           mov         rax,rbx\r\n  0000000065120FFE: 48 83 C4 30        add         rsp,30h\r\n  0000000065121002: 5B                 pop         rbx\r\n  0000000065121003: C3                 ret\r\n\r\n  Summary\r\n\r\n      695000 .text\r\n",
+      "stdout_sha256": "92cab554fa263152c381058dc398e987db6e60adcf8e23419b54bcf5a166b36e"
+    },
+    {
+      "entry": "0x6511ed10",
+      "end_exclusive": "0x6511eda9",
+      "bounds_qualification": "runtime unwind region, not proof of whole logical procedure",
+      "code_sha256": "39dbad6eb4391140f798adea88bd02a7a5ae453b514499f266c09d62a67f293d",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6511ed10,0x6511eda8",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll"
+      ],
+      "stdout": "Microsoft (R) COFF/PE Dumper Version 14.44.35228.0\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n\r\nDump of file C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll\r\n\r\nFile Type: DLL\r\n\r\n  000000006511ED10: 40 53              push        rbx\r\n  000000006511ED12: 48 83 EC 20        sub         rsp,20h\r\n  000000006511ED16: 48 8B D9           mov         rbx,rcx\r\n  000000006511ED19: 81 FA FF 00 00 00  cmp         edx,0FFh\r\n  000000006511ED1F: 77 58              ja          000000006511ED79\r\n  000000006511ED21: 41 81 F8 FF 00 00  cmp         r8d,0FFh\r\n                    00\r\n  000000006511ED28: 77 4F              ja          000000006511ED79\r\n  000000006511ED2A: 41 81 F9 FF 00 00  cmp         r9d,0FFh\r\n                    00\r\n  000000006511ED31: 77 46              ja          000000006511ED79\r\n  000000006511ED33: 8B 44 24 50        mov         eax,dword ptr [rsp+50h]\r\n  000000006511ED37: 3D FF 00 00 00     cmp         eax,0FFh\r\n  000000006511ED3C: 77 3B              ja          000000006511ED79\r\n  000000006511ED3E: C7 01 01 00 00 00  mov         dword ptr [rcx],1\r\n  000000006511ED44: B9 01 01 00 00     mov         ecx,101h\r\n  000000006511ED49: 66 0F AF C1        imul        ax,cx\r\n  000000006511ED4D: 66 0F AF D1        imul        dx,cx\r\n  000000006511ED51: 66 44 0F AF C1     imul        r8w,cx\r\n  000000006511ED56: 66 89 43 04        mov         word ptr [rbx+4],ax\r\n  000000006511ED5A: 66 89 53 06        mov         word ptr [rbx+6],dx\r\n  000000006511ED5E: 66 44 89 43 08     mov         word ptr [rbx+8],r8w\r\n  000000006511ED63: 66 44 0F AF C9     imul        r9w,cx\r\n  000000006511ED68: 33 C0              xor         eax,eax\r\n  000000006511ED6A: 66 89 43 0C        mov         word ptr [rbx+0Ch],ax\r\n  000000006511ED6E: 66 44 89 4B 0A     mov         word ptr [rbx+0Ah],r9w\r\n  000000006511ED73: 48 83 C4 20        add         rsp,20h\r\n  000000006511ED77: 5B                 pop         rbx\r\n  000000006511ED78: C3                 ret\r\n  000000006511ED79: 48 8D 0D 58 22 5A  lea         rcx,[00000000656C0FD8h]\r\n                    00\r\n  000000006511ED80: FF 15 12 7C 57 00  call        qword ptr [0000000065696998h]\r\n  000000006511ED86: 33 C0              xor         eax,eax\r\n  000000006511ED88: B9 FF FF 00 00     mov         ecx,0FFFFh\r\n  000000006511ED8D: 89 03              mov         dword ptr [rbx],eax\r\n  000000006511ED8F: 66 89 4B 04        mov         word ptr [rbx+4],cx\r\n  000000006511ED93: 66 89 43 06        mov         word ptr [rbx+6],ax\r\n  000000006511ED97: 66 89 43 08        mov         word ptr [rbx+8],ax\r\n  000000006511ED9B: 66 89 43 0A        mov         word ptr [rbx+0Ah],ax\r\n  000000006511ED9F: 66 89 43 0C        mov         word ptr [rbx+0Ch],ax\r\n  000000006511EDA3: 48 83 C4 20        add         rsp,20h\r\n  000000006511EDA7: 5B                 pop         rbx\r\n  000000006511EDA8: C3                 ret\r\n\r\n  Summary\r\n\r\n      695000 .text\r\n",
+      "stdout_sha256": "12fdf6c70a63bfc92a5080a0e2a3c5dccc10874bd6e0787b896e2d89129e6e0b"
+    }
+  ],
+  "source_writes": false,
+  "original_runtime": false,
+  "mutable_rea": false,
+  "tokens": "unavailable",
+  "literal_reads": [
+    {
+      "address": "0x65699fa0",
+      "bytes": "000000000000f03f",
+      "value": 1.0
+    },
+    {
+      "address": "0x656c11a8",
+      "bytes": "000000ff",
+      "value": 4278190080
+    },
+    {
+      "address": "0x656c11ac",
+      "bytes": "ffffffff",
+      "value": 4294967295
+    }
+  ]
+}

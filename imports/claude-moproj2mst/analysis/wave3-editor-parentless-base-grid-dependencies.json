@@ -1,0 +1,84 @@
+{
+  "schema": "editor300-parentless-base-and-grid-dependencies-v1",
+  "created_utc": "2026-10-24T12:57:37.874916+00:00",
+  "status": "Read-only source reconciliation; no source edits after five-file freeze, no runtime/build/test",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-native-owner-140130740.asm",
+      "sha256": "1ad1a26453389b352e1f49567868492be04eb84772bd75aa6a5beb75ec4bbbe7"
+    },
+    {
+      "path": "analysis/wave3-editor-native-parent-140377950.asm",
+      "sha256": "b252fc3bc745f5b40a99295833240ae346b6d6d21dafb987843b6443948e8ee8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65070d70.asm",
+      "sha256": "79542748f0ce31086b76e420ab7024ddd133b5efdfc4f5f13d706e1ab95cc6d4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505e780.asm",
+      "sha256": "76ea1255e2b25c691ec26bf3198d1ad53e991632b268a9d5c77e0b44c706bd81"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505c8b0.asm",
+      "sha256": "45198b44093a67f72a0d15a6c7a42dfad21f521295dcd275b001583f16dc1e90"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-palette-static.json",
+      "sha256": "874813db6cda35de5afb0c562af1104651148293bd1ca1075db05be0e40d7a44"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-native-symbols.json",
+      "sha256": "2755141d49de2997f4027e52dee68dd89ea68226eafeb1d460f04e6c72239c74"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-direction-static.json",
+      "sha256": "c19fbd4da2e9faf31a17b72f218e36966fb61f436f16b33dd86b065c3633c7cf"
+    },
+    {
+      "path": "analysis/wave3-close-widget-font-device-successor-contract.json",
+      "sha256": "94ad7ecc2b2629bae7ed5f5fe80ffdbf3b2f94c9e5961cd4d9cd682347eb96fb"
+    },
+    {
+      "path": "analysis/wave3-editor-probe002-prefix-reconciliation.json",
+      "sha256": "c48f2daed6509d571c9895fc6f2d53dadceba5036b12c1611939da3f1533616a"
+    },
+    {
+      "path": "analysis/wave3-editor-first-parented-grid-contract.json",
+      "sha256": "d7dd9c9e02cda9ac7e5a19aa1b0996a065ba01794950258dc2ae2d3c922e9dae"
+    },
+    {
+      "path": "analysis/wave3-editor-parented-grid-update-contract.json",
+      "sha256": "02494bdf9b0e79d8f74a5ca7c0fa7115c25b887a3456d796d74d305c5da600dc"
+    }
+  ],
+  "parentless_native_path": [
+    "140eb2721 invokes140130740(actualeditor,actualoperation,mode0). That base explicitly passesnullparent into140377950 at14013075c..763;140377950 constructsflags0 then calls QWidget65070d70 viaIAT141e0ba80. No QObject area parent exists yet.",
+    "QWidget allocates private0x1e0 and calls QWidgetPrivate6505e780(version0x40804), QObject(private,parentnull), QPaintDevice, installs QWidget vtables, then privateinit6506e4d0(parentnull,flags0). Base fields/Qt values/actual thread must be created in source order; representation allocation is not native completion.",
+    "Privateinit checks QApplicationGUI, inserts actualwidget into allWidgets ifregistryexists at6506e51e..53b, assignswidgetData/backlinks/flags, raw76 and16; parentnull selects QRect0,0,639,479 and self focus ring.",
+    "flags0 and parentnull choose6506e6d3. No QWidget::setParent or ChildAdded/pendingchildren path is taken here. adjustFlags6505c8b0 uses no-parent predicate and sets nativeflags0x0800f001.",
+    "6506e6e5 calls resolveLayoutDirection6506a620: explicitdirectionraw57false routes actual application layoutDirection650171e0. Getter returns signed32globalQtGui+0x9c96b4 thenRET650171e6. Equal requested RTLbool and currentraw56 returns at6506a557; changed branch writesraw56 then iterates children and emitsraw0x5a. Do not assume English/locale establishes direction.",
+    "6506e6ed QWidget::palette65064410 may update actual palettegroup;6506e6fe QPalette::brush(currentgroup4,role10) then actualtopwindow/style/QBrush::isOpaque decision sets private+1d8bit17 ifchanged and calls65097940. Native brushdata/currentpalette/activewindow inputs remain explicit.",
+    "Rejoins common6506e75b QFont(source,actualpaintdevice) path already owned by closure. Then raw34/35 setters, same runtime globalcurrent/maximum widgetcount mutation, compatibility/nativecreate predicate, Create0x0f, heap0x4a construction/post, private+C8clear and source-stack Create eventdestruction.",
+    "Only after QWidgetreturns do application wrapper guard/procedure fields and actualOperation/GuiModel guard binding occur, followed by editor UIallocation/setup. Native CLI capture002 proved arrival after these effects but is not an implementation of them."
+  ],
+  "current_captured_versus_missing": {
+    "captured002": "Actual selected editor receiver ownership, app/filter/thread identities, initial setup name/geometry/attrs, selected Create0x0f and property0xaa routes, completed propertyeffects. It did not capture parentless palette/font/DC/counters/raw0x4a queue state.",
+    "shared": "Closure sibling recovers one actual runtime/thread/queue/device contract from first SplitView startup; mechanics may be reused. Actual populations at editor construction must be source-bound or observed at that point; no startup-to-Open invariance assertion.",
+    "unknown_numeric_depth": "Only closed property0xaa paths presently allow symbolic unknownbase+1/-1. Other paths consuming depth remain guarded."
+  },
+  "first_grid_required_generalization": {
+    "existing": "GridLayoutState is manager-specific: parent_ weak ViewManagerState, row/column defaults1, layoutflags2 after parentless margin invalidation; ViewManagerState separately owns QObjectchildren and installedlayout/cachedlayoutaliases.",
+    "required": "Use one actual generic QObject/layout child owner plus parent WidgetState identity and independent installedlayoutalias. Parentededitor constructor begins row/column0/layoutflags6, emitsChildAddedwhileQObjectbasevtable before installedlayout/UIpublication, then setsflagbit0 andinstalledlayout, invalidates/postsraw0x4c, then QtGrid/appvt/rowcol1/UIpublication. Reuse primitives, not ensureGridLayout(manager).",
+    "queues": "Raw0x4a basepost and raw0x4c layoutrequest must share actualWidgetThreadState queue with different compression contracts. Preserve sourceflags/counters/postedeventidentity and wakeeffects; no inlineeventdelivery or emptyqueueassumption."
+  },
+  "next_executable_actions": [
+    "After43validation compose source-closed caller QVariant(bool) destructor into constructor cursor; retain all earlier base gates.",
+    "Coordinate shared parentless private/default/value construction with closure common QWidget machinery rather than clone it. Smallest new directinput is actual app layoutDirectionQtGui+9c96b4; include in alreadyneeded ownedcapture ifstaticwrites cannot close it.",
+    "Do not generalize manager GridLayoutState until its pendingQObjectowner/parentWidget/thread/event aliases are agreed with root; no source change authorized by this receipt alone."
+  ]
+}

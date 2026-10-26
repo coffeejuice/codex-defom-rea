@@ -1,0 +1,129 @@
+{
+  "status": "next_helper_contract_recovered_source_frozen_not_yet_implemented",
+  "scope": "Initial3D environment page constant-curve branch",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "correction": "Retained original1412e6910 is exactly mov eax,1;ret. Earlier descriptions that left this primary getter as an unknown license input were too cautious for this binary. ENVATM/ACVCOF population and fill callbacks always execute. The fallback fae90 checks in those branches are unreachable.",
+  "fill": {
+    "entry": "140ec3fa0",
+    "curves": "Each of ENVTMP,CNVCOF,ENVATM,ACVCOF displays constant value using g6 text and configures constant/table radios. Under the constant profile, all four constant radios are selected. ACVCOF callback140eccf10(0) writes its ndim0,var0=0 into model and var0=0 into editor temporary.",
+    "temporary_state": "Final constructor ecb340 backs up SC, copies these model curves into editor+c8,d0,d8,e0 before refilling environment, then restores SC. Snapshots must retain those actual deep copies.",
+    "pressure_fields": "Only global byte1446ee586 determines whether ED0/EE8 are filled with ENVMPR/ENVMPT g6 text or remain their initial empty QLineEdit text. Their enable state does not guard Save conversion.",
+    "other_fields": "EHRATE,PENINF,UNTE2H,TINTGF,BLZMAN are always filled with g6 text, regardless tab visibility/enabled state.",
+    "shared_general_control": "When pressure flag is true and General HTMTHD checkbox is checked, positive HTMTHD sets General shared combo to HTMTHD-1. The combo contains3items; out-of-range becomes-1. Otherwise the earlier General fill leaves index0. Composer must share this remembered combo; it cannot treat pages as independent scalar rounding.",
+    "timeid": "ec4970 clears three UI tables and fills them from TIMEID values; no direct model writes. Empty TIMEID has no item state. DiffBnd callbackecf980 can rewrite TIMEID on checked-state changes, so the first helper will guard an empty table and initial unchecked branch.",
+    "view_factor": "First helper guards VFACTR mode0; original fill leaves checkbox false and Save writes mode0 without copying the unvisited temporary VFACTR array."
+  },
+  "empty_validation_proof": {
+    "validateChars": "QtCore6704a960 clears output QByteArray; QString length0 branches at6704a9e1 directly to6704aae5 (AL=1).",
+    "doubleValidator": "Retained QtGui private654264f0 checks validateChars success, then QByteArray::isEmpty at6542656c..579; true returns state1 at65426586.",
+    "consequence": "Default empty text is Intermediate1, not Invalid0. QString::toDouble(empty) returns0. Original pressure-disabled Save therefore writes ENVMPR=0, ENVMPT=0 and continues. This is now source-derived, not an invented finite/blank validator shortcut.",
+    "qualification": "KnownC numeric-validator profile for generated finite numeric text; explicit Invalid/Intermediate/Acceptable state retained for edited text. No ambient locale or pressure-feature flag default is inferred."
+  },
+  "apply": {
+    "entry": "140ec50f0 first calls140ec9b30",
+    "curve_order": "ENVTMP, CNVCOF, ENVATM, ACVCOF. For each constant radio set temporary ndim0; simplify text; if validator!=Invalid assign converted constant, otherwise retain remembered temporary constant; deep-copy temporary into SC regardless validation outcome.",
+    "scalar_order": [
+      "ENVMPR628",
+      "ENVMPT630",
+      "EHRATE638",
+      "PENINF3a8",
+      "UNTE2H3b0",
+      "TINTGF3b8",
+      "BLZMAN4b8",
+      "VFACTR mode9d8"
+    ],
+    "partial_validation": "Only Invalid stops scalar processing. Four curve copies already occurred and survive any scalar early return. Intermediate still converts, including pressure-disabled empty text."
+  },
+  "first_helper_guards_proposed": [
+    "dimension3 and explicit KnownC numeric-validator locale",
+    "explicit supplied pressure-fields-populated boolean for original1446ee586; no public binding yet",
+    "all four source curves ndim0, no owned objects/table arrays, finite constants; ACVCOF var0=0",
+    "furnace flag0",
+    "TIMEID empty and VFACTR mode0",
+    "finite filled scalar source values"
+  ],
+  "implementation_plan": [
+    "EnvironmentPage holds deep const curve snapshots, four ValidatedText constants, seven ValidatedText scalar fields and an optional shared General heat-combo overwrite.",
+    "fillEnvironment3D models the original constant callback and final remembered curve/text state, including Intermediate empty pressure fields.",
+    "applyEnvironment3D copies curves in original order then assigns scalar fields sequentially using explicit validator state, preserving partial writes.",
+    "Tests mutate model after snapshot, check remembered curves/text, pressure-disabled zero conversion, curve-invalid retention versus scalar-invalid stop, and shared General combo state."
+  ],
+  "remaining_before_public_integration": [
+    "Bind the actual original feature/license record result used for pressure byte1446ee586, now localized as OR(object+1c,object+1d). No source-qualified value is yet supplied to public conversion.",
+    "Compose full constructor fill/refill and shared controls before public Save dispatch.",
+    "Advanced, extra3D, recovery tail and native file I/O remain separate successors."
+  ],
+  "qualification": "Private ec4970 single export used byte-verified copied original; Ghidra lock released. No original runtime, app control, source edit during freeze, build or test execution. Decompiler empty known_callees metadata is not coverage evidence.",
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-license-global.asm",
+      "sha256": "f5229e1e0e0a394763b460c1c971cae4761a295a2b8d1aca0480592da824d44d"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ec3fa0.c",
+      "sha256": "333f4cf09a3ab36d39cbd73d3869b8e2c34b440e5fbfa2ec1448aae58fb5ac9b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ec50f0.c",
+      "sha256": "676dac28677963459c319e74e85b1247bd9cdf38e9c96178bc1540b521a49061"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec9b30.c",
+      "sha256": "ccf2ddaa67191023a17ee68f336e3a46796d23096cd9a8b093a8d93015b63574"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eccf10.c",
+      "sha256": "72040eec60e4d1d5513271b0e1625d46441c812644cf56c08cc419d1c52f5ba4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec4970.c",
+      "sha256": "7cef8fb776657de0a903bc935f77a63d566f7b6300cfe910e5528363db6e2fed"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecb340.c",
+      "sha256": "84eb3c518d394e7c9c16abb6ae49927ff8d57e5e2d092ab9de40c8d1b2d821b5"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-locale-validatechars-empty-path.asm",
+      "sha256": "10420017915b4237c0f5f59f5d28124c75b8a2351702becf0bdda357f2fe847f"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-double-validate-private.asm",
+      "sha256": "448ce9f075048c634fa160fa5c4b1079589bebdad5505ad46fcf0fa357b6b89d"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-environment-formats.json",
+      "sha256": "7948e06c03e1c22ec38f24486b0fdd8e35b46675cf1fe02637a307f64bf00add"
+    },
+    {
+      "path": "analysis/wave2-doe-sim300-environment-final-fill-decompile.json",
+      "sha256": "f42824b13d973115296fdd478b408a885baf6ead840552fe7b59c701a42deca0"
+    },
+    {
+      "path": "analysis/wave2-doe-sim300-pressure-startup-decompile.json",
+      "sha256": "1eda6a07d556bd1c711d22dbbff7c8d428daebf585e263a5d71c4237e1c8bf84"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-main-feature-init.asm",
+      "sha256": "bddfda30b5c4b7904c3e20a47688fd62ab7f97fcc63678cfb72b069c6fe364b8"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-pressure-feature-aggregation.asm",
+      "sha256": "bb556518269e65d788f193487994531d8d1622144a41ec7810f95e73803a7f1a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-1412ef8b0.c",
+      "sha256": "8ab71b0d0de93f23b96df90601f3be2b0cee908b076e02c3d91e03e1b05c53ac"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-1412eae20.c",
+      "sha256": "ad1de8b65f409b100a943f6d22696617da4da6146f700b892a5be631740e1586"
+    }
+  ],
+  "pressure_feature_lifecycle": {
+    "main": "140001410 calls1412ef8b0(global1446ee580,0,0), queries1412e7060 for modes2/3, then1412eae20 and1412e73d0",
+    "aggregation": "Exact leaf1412e73d0 assigns byte+6 from OR(byte+1c,byte+1d); pressure state is aggregated product/feature state, not a plain MoInputMode INI preference",
+    "initialization": "1412ef8b0 calls1412ef050 for product modes2/3 when corresponding presence fields+3c/+40 are0;1412eae20 reads feature records and calls1412e75b0 to update data",
+    "boundary": "Actual feature-record inputs remain unrecovered. Do not default tofalse merely because BSS starts0, or infertrue from a historical Save row. Keep helper input explicit; public replay/binding remains unqualified."
+  }
+}

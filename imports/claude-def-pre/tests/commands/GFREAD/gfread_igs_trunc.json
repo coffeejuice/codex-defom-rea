@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES parameter data cut short",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nTRUNC.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "TRUNC.IGS",
+      "source": "data/trunc.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "DEF_IGS.OUT"
+    ],
+    "notes": "The second 110 has 3 values and the file ends: FUN_140463e15 hits EOF, writes \" INPSEC : STOPPING\" (list-directed, before the buffered C stdout text) and executes STOP: DEF_PRE ends with exit code 0, no OUT.KEY, empty DEF_IGS.OUT left."
+  }
+}

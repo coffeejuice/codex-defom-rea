@@ -1,0 +1,91 @@
+{
+  "scope": "Actual GuiModel+250 initialization, access, registration and destruction placement for root integration",
+  "method": "Bounded original PE/DUMPBIN with direct-call sites validated; no worker source changes",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-model-aux-init-cleanup-callers.json",
+      "sha256": "bf299311b0c6f551cd1f5c5c453263b7fa5e178a8e984cc4e936c07b3ef467a3"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-aux-list-init-static.json",
+      "sha256": "b27fc31ec9cfd29ab5e14dd53610c11c45baf981230cc02e15aa5c1438650e5f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-aux-initial-state-static.json",
+      "sha256": "32c43edade48572ed5927b4a4f07bda299f93ce8f95bbbaf563d3f5afcb4653b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-aux-constructor-destructor-static.json",
+      "sha256": "38831693bb9909f93bb486c7c1b64ce927c888097de18d7f5fd18cfc5d22f8cd"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-reset-aux-preservation-static.json",
+      "sha256": "074b2e14cad7435c2eea9ffecef088de8678fe87d32ac4cfaef32f230d15df16"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-inline-node-copy-eight-static.json",
+      "sha256": "568986ce6937c61ac86caac9387d0adc4bc901fbab92e83797345918367a0ee8"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-model-registration-contract.json",
+      "sha256": "071815066a9381e56a680b0c3950fd03ab409bfecaeb79b0b1a8fc8e872e82de"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-model-list-ownership-contract.json",
+      "sha256": "08ae4b6b620aa1f27a66bf86774a34a9ae8a5c01cd60036cf1be0dc07b9c8872"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/gui_model.cpp",
+      "sha256": "af121ccdc446265821c31341f61fc2510637bf803c2779e73c2a520f3a9d70e1"
+    }
+  ],
+  "boundaries": [
+    {
+      "operation": "Constructor null",
+      "source": "c7a5b0@c7a67f and c7a6b0@c7a779 callc7a870; itsc7a9be callsc91100. c91100 is puremodel+250=null."
+    },
+    {
+      "operation": "Lazy wrapper getter",
+      "source": "c91070 returns existing+250; ifnull allocates8bytes, d64710 constructs an empty QList through18f9e0, stores+250, returnsit."
+    },
+    {
+      "operation": "Add graph identity",
+      "source": "d64780 searches backward via2178c0/13886d0, comparesstoredpointer exactly, returnsifpresent; otherwise2d0580 appends an inline8-byte pointer node."
+    },
+    {
+      "operation": "Pointer node copy",
+      "source": "de9b40 compiled live branch calls14146f100 withcount8. For the aligned stack/QList node calls, forward and backward paths each perform exactlyoneqword copy thenreturn; noobject constructor orretain."
+    },
+    {
+      "operation": "Reset",
+      "source": "c7b720 checksstep, then c82c70,c8ba80,step8246a0,c902c0,c833c0. It containsnoc91120/c7aa00 callandnodirect+250 mutation. Do notclearregistry inGuiModel::reset."
+    },
+    {
+      "operation": "Wrapper destruction",
+      "source": "c91120 nullskips or c91a00(...,1)->d64740 thenfreewrapper, finally stores+250=null. d64740 clears/destroysliststorage withoutdeletingpointees."
+    },
+    {
+      "operation": "Destructor placement",
+      "source": "c7a7a0 callsc7aa00 beforememberdestructors. c7aa00 callsresetc7b720 first, otherpointercleanupnext, c91120 last. Then c7a7a0 destroystypedmembersandcallsQObjectbasedestructor."
+    }
+  ],
+  "qobject_base_import": "??1QObject@@UEAA@XZ",
+  "pointer_reference_scan": {
+    "c91120_qword_candidates": [],
+    "c7aa00_qword_candidates": [],
+    "qualification": "Complete file byte-pattern search for exact64-bitaddress values; notproofagainstcomputedindirectcalls."
+  },
+  "integration_requirements": [
+    "Preserve unallocated versus allocated-empty registry. Constructor beginsunallocated; actualgetter allocates.",
+    "Retain raw/nonowning graphidentities aftermanagergraphdeletion; modelregistry doesnotownobjects.",
+    "Destructor clearswrapperafterthereset/cleanup prefix. Modelreset alonepreservesregistry; speculativeadditionalclear wouldchange sourcebehavior.",
+    "OriginalQObjectbasedestruction followsmodelcleanup. Anewmodel-ownedlifetime token mustnotmake claimsabout earlierQPointerinvalidation duringunrecoveredreentrantcleanup.",
+    "ExistingmodernGuiModeldestructor doesnotreplay everyoriginalcleanup; addingregistryshouldrespect supportedorderingwithoutassertingfullparity."
+  ],
+  "qualifications": [
+    "Reset subroutine payloadeffects are inheritedfromexistingqualifiedconverterports; thisreceipt establishes directregistrycleanup placement, notallpossiblecallbackeffects.",
+    "Eight-byte copy claim is limitedtoalignednodes/count8, notwholeCRTfunction.",
+    "No targetruntime, memory-exhaustion behavior or danglingdereference tested."
+  ]
+}

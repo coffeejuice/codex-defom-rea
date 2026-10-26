@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "reviewer": "validation_routes",
+  "created_utc": "2026-10-23T15:56:27.631580+00:00",
+  "status": "frozen_metadata_only_assessment",
+  "scope": "Current authorized parallel GUI validation preparation and reviews for reconstructed DEF_PRE_64 v0.2.1; no execution-equivalence acceptance assessment.",
+  "scheduled_reviews": "Remain disabled; this is the explicitly requested bounded parallelism measurement, not a restarted automation.",
+  "source_snapshots": [
+    {
+      "path": "analysis/gui-validation-parallel-state.json",
+      "sha256": "47af778353ad33f9ffcec6ed045ff80e7735cab6412f09ab3c8bd8744d2be6a1"
+    },
+    {
+      "path": "analysis/gui-route-review-handoff.json",
+      "sha256": "3634f35b8efab90c634fd2bc9d422e06f62cbf6b4873991723bf7a2f780d7ad7"
+    },
+    {
+      "path": "analysis/helper-diagnostic-handoff.json",
+      "sha256": "9c7608ba4a692c1ec509005d7f538e24af18e5c1bbc219cdcb5377c6b7c7bb36"
+    },
+    {
+      "path": "analysis/gui-fixture-handoff.json",
+      "sha256": "dc0f4e6edcf3b507e29131f354765699546dbad9fdc807cc989bad5334b9328f"
+    },
+    {
+      "path": "analysis/gui-fixture-independent-review.json",
+      "sha256": "78ad44b1bed9abded122044b86e2ac2b5e1a8c1e008e785bcf65447ea5b58d3b"
+    },
+    {
+      "path": "analysis/helper-probe-independent-review.json",
+      "sha256": "933ea3e71cb1a0d3761c8154f5871f83a749366307b3925e70bdfaf9edacc8fd"
+    },
+    {
+      "path": "analysis/gui-route-independent-review.json",
+      "sha256": "8bdb9b3226c84dcf8febe34021873730027de279f08f51cf6d788040c35f16bf"
+    },
+    {
+      "path": "analysis/helper-launch-context-findings.json",
+      "sha256": "47e27eefab75388a3ae0f214509c1e4b8678d1d90492eceaf58cc0d8f12822de"
+    },
+    {
+      "path": "analysis/gui-control-lifecycle-review.json",
+      "sha256": "7d2722a42dbbe676882cfb729480de769005992b91d318de9347e69d6c279434"
+    },
+    {
+      "path": "analysis/gui-post-diagnostic-invariants.json",
+      "sha256": "0d94918ad613679e389959e1ab4c3dceb591b87d9a67490e8cf09bd5a8e197f1"
+    },
+    {
+      "path": "analysis/gui-trial-preflight.json",
+      "sha256": "68d82d5cec6bd21dac9e9b7a7ca789d272aefbda554b0b6144915ec1fc763406"
+    },
+    {
+      "path": "analysis/helper-H1-supervisor.json",
+      "sha256": "34facfd811c6ff6fb5af2c7c02bb328a3f8178abad6bae07aecc872c1e6e3977"
+    },
+    {
+      "path": "analysis/helper-H2-supervisor.json",
+      "sha256": "ae0ed62329b82a527f6e28eb84c92470d30b7269a235bb562e62919eabb2f085"
+    }
+  ],
+  "recorded_stage": {
+    "batch_dispatch_confirmed_utc": "2026-10-23T15:23:25.192061+00:00",
+    "latest_selected_preparation_artifact_utc": "2026-10-23T15:53:18.270728+00:00",
+    "dispatch_to_latest_selected_artifact_seconds": 1793.078667,
+    "qualification": "Recorded timestamp span to latest selected preparation handoff, not end-to-end completed objective duration or active CPU time. Integration may continue."
+  },
+  "observed_overlap": {
+    "basis": "Confirmed-dispatch to first-observed-completion windows; all three dispatches share one recorded batch timestamp.",
+    "first_completion_observed_spans_seconds": {
+      "routes": 671.73,
+      "helper": 562.781,
+      "fixtures": 470.142
+    },
+    "all_three_initial_tasks_outstanding_seconds": 470.142,
+    "at_least_two_initial_tasks_outstanding_seconds": 562.781,
+    "last_initial_completion_observed_seconds": 671.73,
+    "sum_of_recorded_worker_windows_seconds": 1704.653,
+    "not_claimed": [
+      "True simultaneous CPU execution throughout these windows",
+      "Serial equivalent runtime",
+      "A speedup factor",
+      "Saved tokens",
+      "Background execution after workers stop"
+    ],
+    "qualification": "Overlapping outstanding assignments are observed. Workers may include analysis, tool waits and coordination. Summed windows are exposure, not a serial baseline."
+  },
+  "handoff_visibility": {
+    "routes": {
+      "artifact_completed_utc": "2026-10-23T15:33:05.766091+00:00",
+      "observed_utc": "2026-10-23T15:34:36.922048+00:00",
+      "artifact_to_observation_seconds": 91.155957
+    },
+    "helper": {
+      "artifact_created_utc": "2026-10-23T15:31:57.816933+00:00",
+      "observed_utc": "2026-10-23T15:32:47.973222+00:00",
+      "artifact_to_observation_seconds": 50.156289
+    },
+    "qualification": "Creation/completion-to-recorded-observation latency is not demonstrated idle time. Fixture first handoff timestamp was overwritten by later repairs; no creation-to-first-observation metric is inferred."
+  },
+  "measured_small_checks": [
+    {
+      "check": "helper offline suite",
+      "tests": 11,
+      "elapsed_seconds": 0.362,
+      "source": "analysis/helper-diagnostic-handoff.json"
+    },
+    {
+      "check": "fixture offline suite",
+      "tests": 16,
+      "elapsed_seconds": 0.25,
+      "source": "analysis/gui-fixture-handoff.json"
+    },
+    {
+      "check": "instruction repair focused regression",
+      "tests": 1,
+      "elapsed_seconds": 0.036,
+      "source": "analysis/helper-probe-independent-review.json"
+    },
+    {
+      "check": "trial preflight",
+      "elapsed_seconds": 0.1668,
+      "source": "analysis/gui-trial-preflight.json"
+    },
+    {
+      "check": "post-diagnostic invariants",
+      "elapsed_seconds": 0.75,
+      "source": "analysis/gui-post-diagnostic-invariants.json"
+    }
+  ],
+  "serialized_native_trials": {
+    "trials": [
+      {
+        "source": "analysis/helper-H1-supervisor.json",
+        "creation_utc": "2026-10-23T15:41:09.6662974Z",
+        "finished_utc": "2026-10-23T15:42:28.3137779Z",
+        "creation_to_finished_seconds": 78.64748,
+        "declared_deadline_seconds": 45,
+        "timed_out": true,
+        "termination": "trial-owned deadline",
+        "creation_to_armed_seconds": null,
+        "armed_to_finished_seconds": null
+      },
+      {
+        "source": "analysis/helper-H2-supervisor.json",
+        "creation_utc": "2026-10-23T15:43:38.8378054Z",
+        "finished_utc": "2026-10-23T15:45:20.0435815Z",
+        "creation_to_finished_seconds": 101.205776,
+        "declared_deadline_seconds": 45,
+        "timed_out": true,
+        "termination": "trial-owned deadline",
+        "creation_to_armed_seconds": 56.16293,
+        "armed_to_finished_seconds": 45.042846
+      }
+    ],
+    "sum_of_recorded_creation_to_finished_seconds": 179.853256,
+    "qualification": "Root-owned native diagnostic lifecycles were serialized; neither timeout is a natural successful helper exit. H2 validated configuration fetching, not GUI or reconstructed-backend acceptance."
+  },
+  "productive_parallel_results": [
+    {
+      "owner": "routes",
+      "result": "Corrected broad four-caller inference with exact argument bytes and alternate DEF_PRE command resolver; prevented treating Run Simulation/CopyMirror as proven PRE64 invocations."
+    },
+    {
+      "owner": "fixtures",
+      "result": "Found retained DEF_MPIp4penv.DAT in isolated solver fixtures; fresh R4 preparation and preflight excluded unwanted MPI state."
+    },
+    {
+      "owner": "helper_independent_review",
+      "result": "Reproduced duplicate XML scalar acceptance; repaired multiplicity guards preserve unambiguous controller limits."
+    },
+    {
+      "owner": "routes_independent_review",
+      "result": "Identified undocumented mid-function callback form; owner repaired to direct instruction callback and focused test passed."
+    },
+    {
+      "owner": "orchestrator_and_helper_review",
+      "result": "Serialized H1/H2 observations established missing child DEF_CFG_DIR and corrected controlled launch context; removed service-stopped assumption."
+    },
+    {
+      "owner": "orchestrator_and_fixtures",
+      "result": "Canonical comparator protocol default made retained/reproducible without changing masks."
+    }
+  ],
+  "repair_windows": [
+    {
+      "finding": "duplicate XML scalar",
+      "initial_review_utc": "2026-10-23T15:34:24.148676+00:00",
+      "verified_repair_utc": "2026-10-23T15:36:27.757284+00:00",
+      "recorded_window_seconds": 123.608608
+    },
+    {
+      "finding": "instruction probe callback",
+      "initial_review_utc": "2026-10-23T15:36:37.927418+00:00",
+      "verified_repair_utc": "2026-10-23T15:38:24.578299+00:00",
+      "recorded_window_seconds": 106.650881
+    }
+  ],
+  "contention_and_measurement_limits": [
+    "No competing native capture, build or mutable REA database is recorded; ownership boundaries kept these serialized. This is a bounded metadata observation, not a full-session proof of zero contention.",
+    "Route worker needed orchestrator-owned supplementary binary queries, so some dependency waits were inherent; no exact queue-wait duration is retained.",
+    "Mutable handoff timestamps and overwritten successor fields do not provide complete per-task stage timing. For example, helper repair artifact timestamp precedes its later recorded successor dispatch confirmation; do not interpret that as actual dispatch ordering or idle time.",
+    "No token telemetry or serial control run is retained. Test elapsed times below one second do not establish overall agent speed."
+  ],
+  "recommendations": [
+    {
+      "priority": 1,
+      "action": "Finish integration and post-diagnostic invariant handoffs, then keep no idle active workers solely waiting for GUI release support. Retain resumable ownership/queue and dispatch up to three again only when independent ready tasks exist.",
+      "reason": "Three workers were useful for independent preparation and cross-review. The remaining accepted GUI routes share one external lifecycle prerequisite and original captures must remain serialized."
+    },
+    {
+      "priority": 2,
+      "action": "For the next authorized diagnostic, arm the trial deadline immediately after verified process creation and record both creation and arming.",
+      "reason": "H2 recorded56.163seconds from creation to arming plus45.043seconds from arming to finish; total101.206seconds exceeds its45second armed interval. Earlier arming improves elapsed-time bounding without changing target behavior. Do not alter existing observations."
+    },
+    {
+      "priority": 3,
+      "action": "Preserve per-task dispatch, first handoff, review request, repair handoff and acceptance timestamps as append-only task events in future coordination records.",
+      "reason": "Current overwritten successor/handoff fields limit latency measurement; small event records avoid long session audits and unsupported efficiency claims."
+    },
+    {
+      "priority": 4,
+      "action": "Reuse frozen source-bound contracts and run only changed focused tests until root integration regression is needed.",
+      "reason": "Independent review already caught concrete defects; duplicate broad audits add little evidence once source hashes and scope remain stable."
+    }
+  ],
+  "external_critical_path": {
+    "dependency": "Supported app-control release operation with explicit verification receipt/status; current capability review confirms neither for this surface.",
+    "evidence": "analysis/gui-control-lifecycle-review.json",
+    "effect": "Required GUI action/capture/reopen acceptance cannot currently proceed. Native helper configuration diagnosis is complete for controlled child launch only.",
+    "backend_accepted_cases": 0
+  },
+  "actions_performed": [
+    "Read compact existing metadata/reports and compute timestamp differences.",
+    "Write this single assessment artifact."
+  ],
+  "actions_not_performed": [
+    "No source/tool/shared-state edits",
+    "No tests, builds, captures or native analysis sessions",
+    "No GUI control",
+    "No automation changes",
+    "No claims of speed/token savings"
+  ]
+}

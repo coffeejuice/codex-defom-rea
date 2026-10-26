@@ -1,0 +1,139 @@
+{
+  "schema": "editor300-mds-successful-node-read-contract-v1",
+  "created_utc": "2026-10-24T09:22:55.491821+00:00",
+  "status": "Read-only evidence and successor design; no source edits authorized beyond frozen candidate37.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-mds-node-location-static.json",
+      "sha256": "f3297f4801716a0c0e84705872a91a3bb922633d97b4c749417f330119098c20"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-callback-static.json",
+      "sha256": "072a2a03a4c4c8338fbfbb7a002bcf689968e20e2c1099659e43a152103bfecc"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-callback-literal.json",
+      "sha256": "6e5863dd7839b678e337ea0f40156846abf8d7c572b3e8cc4090ec5753ddf2a3"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-callback-static.json",
+      "sha256": "c5c9567ee392245eae47a5ae570918d7c5ea64cb7335c0b28b13984bf18e776c"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-reference-display-static.json",
+      "sha256": "aa4e7310daefe332a65184a71067c5a7926eb28cffa5698a79dd6091e032e9d0"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-storage-static.json",
+      "sha256": "84a7efac10f3638981700155100c2e747ecf1bd8efbc4ada8379edf0bd3907e6"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-storage-twins-complete-static.json",
+      "sha256": "0930186c52caae61d363be746010b4260b9bdf43e02c83784894a1fd5da2692e"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-model-sync-static.json",
+      "sha256": "ac07a9010e7adb0b01c6aa32c1badd9d5141b8056d44f42f4350e08a1bcf23b4"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-sync-predicate-dependencies-static.json",
+      "sha256": "2c80982526387cf7285e4f8b36103449c539049e4f25aba6a67b5d33251a77fa"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-variable-vtables.json",
+      "sha256": "c75bc593fd0d62d8a24ea38afdf6113303b6170829b2b6b71d38d0a495978091"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-variable-key-zero-static.json",
+      "sha256": "9a6a1c2eed74cd46140bedb98b37efd007a1beb81787e7063d5f8fe400fc48a2"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-native-owner-chain-static.json",
+      "sha256": "89a62035cd6135b71cb55c8dedf557a4cd9e57175c9c8e566115cb58d0fa844e"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-native-list-add-static.json",
+      "sha256": "e93b48da2c662ac8476680feaedd94d02c1a51011066d7c7434e39cc2acac553"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-native-object-constructor-static.json",
+      "sha256": "2efe45c47f3e905c8af7092d0b0a26f162aa14b111a6a3c54a6dbe76338dec54"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-native-object-owner-static.json",
+      "sha256": "27466cbc09930c6ff057d7673c0a460b19b3f28d5c63e257e49f75829da02fe4"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-allocation-failure-diagnostic-static.json",
+      "sha256": "0ef8f5bfb4f07914e71a06acec3788a4d7fd024a7e5b7fd6b1f41370fa3dd985"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-allocation-log-router-static.json",
+      "sha256": "c2a9b2f18412c6bdad6da51015a64cc6ea6c6ab522a3fd8ec4f0affc9c4ba58d"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-allocation-diagnostic-literals.json",
+      "sha256": "60b946d7ebbc227b317042719f8f9fc94d8bc3b68f62662db605af4c40fd5e6d"
+    }
+  ],
+  "same_owner_chain": [
+    "GuiModel current-model getter used by eb59a0 resolves selected object and DB_STEP_DATA from the same editor model.",
+    "8bde10 finds or creates in DB_STEP_DATA+1380. 84eaa0 supplies list+18 owner to LLOBJ_DATA constructor832cf0.",
+    "832cf0 calls832fd0 with that owner; 832fd0 stores object+3a98 and passes it to8531e0 for object+8a0.",
+    "8531e0 stores node-set+130 and uses owner dimension(+1c) to initialize node-set+138. Reconstructed GuiModel::objectWrap and llobj_ctor::set_owner retain this same identity."
+  ],
+  "node_getter": [
+    "eb59a0 rejects missing object, node<=0, or node>signed object+880 before any geometry call.",
+    "For a valid node it takes stride from the current model DB_STEP_DATA+15f8 and calls854af0 once to test the coordinate pointer. Null ends this lookup with false.",
+    "A nonnull pointer causes three more854af0 calls, one per 3D axis. The signed32 index is (node-1)*stride+axis, then sign-extended. Read all three coordinates before returning true.",
+    "854af0 gets allocation dimensions from node-set owner+15f8, calls854200(set,set+12c,dims,0), calls82dca0(owner,&key0) if an owner exists, and returns node-set+8.",
+    "854200 skips all allocation/StateVar dispatch when signed n<=0. Otherwise it allocates missing coordinates with9c83b0(signed32(n*dims[0])), skips the six integer allocations for key0, and callsb3e8e0 to dispatch every StateVar slot2.",
+    "All28 constructor-registered variable IDs are nonzero. Their key0 slot2 calls do not resize data; mutable list indexing still detaches shared COW storage.",
+    "82dca0 returns immediately when82bf10 is true. False is exactly owner+1b58==0, owner dimension3, signed step_version>=6000; the false branch remains a database reload dependency."
+  ],
+  "allocation_failure": [
+    "9c83b0 returns null without allocation for count0. Nonzero signed count is sign-extended and passed to the CRT calloc(count,8) wrapper.",
+    "On null it callsb2f920 with exact strings: %s Error when allocating %s memory of size %d\\n, ERROR followed by four spaces, DOUBLE, and signed count.",
+    "b2faf0 formats a4096-byte buffer, appends another newline, flushes stdout, writes buffer to stdout, then flushes all streams. It does not exit.",
+    "Existing defmodel::bc::calloc_doubles and alloc_message preserve this same success/failure structure and literals. The node_arrays.cpp private allocator drops the diagnostic, so it cannot be substituted without qualification.",
+    "Signed multiplication overflow, invalid extents, CRT-specific exhaustion/errno/new-handler behavior and external allocation injection remain qualifications; do not reproduce host undefined behavior."
+  ],
+  "callback_order": [
+    "Only changed bounded QSpinBox values emit the callback. Slotecda10 uses the actual sender side and calls the above node lookup. False returns immediately with the changed spin retained.",
+    "Success formats three temporary coordinate texts using exact literal142b15240: %.6g. Thenece5c0 calls eb5b00 on two stack vectors.",
+    "eb5b00 processes the first reference then the second. A checked node radio uses the current spin and repeats node lookup; a false lookup returns immediately. Otherwise it parses the three remembered coordinate texts.",
+    "Only successful completion of both references calls eb6180, which re-reads selected IDs and zeroes both stack vectors if either is0. These vectors do not escape; there is no direct model or viewer store in this tail.",
+    "Control returns to ebe100, which overwrites the sender-side coordinate text from stored MDS coordinates using %.3f. Source MDS coordinates and node fields remain unchanged until Save."
+  ],
+  "source_derived_examples": [
+    {
+      "fresh_selection": "first None, second valid mode2",
+      "coordinate_getter_calls": 4,
+      "why": "sender lookup succeeds; follow-up first reference is a checked None node and returns false before any getter; second invocation is equal-value and emits no callback."
+    },
+    {
+      "fresh_selection": "first valid mode2, second None",
+      "coordinate_getter_calls": 8,
+      "why": "sender plus first follow-up lookup; None second then returns false."
+    },
+    {
+      "fresh_selection": "both valid mode2",
+      "coordinate_getter_calls": 20,
+      "why": "first callback makes sender+first lookups; second spin is still0. Second callback makes sender+first+second lookups. Four getter calls per successful3D lookup."
+    }
+  ],
+  "proposed_next_profile": [
+    "Use the actual model and node-set owner without clones; preserve current model identity at every lookup.",
+    "Implement the local GUI getter with existing diagnostic allocator and StateVar dispatch; never silently use the shared always-true sync predicate.",
+    "Preserve original null-result false return and changed-spin state. Validate safe array/index extent at the reached dereference, rather than inventing a successful coordinate result.",
+    "Keep database reload, foreign owner, malformed extent, nonfinite formatting and unknown runtime allocation behavior explicit. A newly reached unsupported branch after allocation/dispatch must retain those effects.",
+    "For a future refusal after a widget mutation, retain the partial current page or explicitly record that current optional-return helper lacks that projection; do not claim full failure fidelity while discarding it."
+  ],
+  "implementation_files_if_released": [
+    "simcontrol300.hpp/cpp",
+    "simcontrol300_lifecycle.cpp if a partial stopping-page projection is needed",
+    "snapshot/lifecycle tests"
+  ],
+  "worker_builds_or_tests": 0,
+  "runtime_or_gui_used": false
+}

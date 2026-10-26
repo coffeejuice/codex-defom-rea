@@ -1,0 +1,78 @@
+{
+  "scope": "Exact observed application style event filter, normal raw ChildAdded0x44 delivery during parent-owned original startup probe001.",
+  "method": "Parent retained Frida observation plus this worker offline PE/DUMPBIN. This worker performed no target execution or GUI acquisition.",
+  "evidence": [
+    {
+      "path": "build/original-startup-probe-001/filter-evidence.json",
+      "sha256": "ee84ac314bcea9b28106e13ac0db606410239742145b66bc1160a0cc65f84902"
+    },
+    {
+      "path": "build/original-startup-probe-001/status-evidence.json",
+      "sha256": "a1ac0fb4cefdeff9e4bc98e856540db2605d136e8a211c7082dc6a7a8d92e9c6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-observed-application-filter-static.json",
+      "sha256": "56cdf6f3fc78c9e9bd6a7d0edd77719fce90a45344d202f267b4735b4382e001"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-observed-filter-leaves-static.json",
+      "sha256": "548fde4dadc589d48c537224d1847a25edb4167b0ba258071ebb361bfe575a0f"
+    },
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observation-layout-contract.json",
+      "sha256": "fa72c46ff267653e785de5f9fe58af18cb3b7ca0002025219b75335fe5549f5f"
+    }
+  ],
+  "observed_filter": {
+    "kind": "application_filter_identity",
+    "object": "0x3e97030",
+    "vtable": "0x53d0c3a8",
+    "eventFilter": "0x53982520",
+    "module": {
+      "name": "QtGui4_64.dll",
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtGui4_64.dll",
+      "base": "0x53620000",
+      "rva": "0x362520"
+    }
+  },
+  "static_binding": {
+    "binary_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+    "preferred_vtable": "0x656ec3a8",
+    "vtable_slot28_address": "0x656ec3d0",
+    "eventFilter_target": "0x65362520",
+    "COL_address": "0x657c0c28",
+    "COL_bytes_sha256": "bdf4917e8a17b5d7b1655ccab9c8b58d0514effd9619569134e484cb109f6cdb",
+    "COL_offset": 0,
+    "type_descriptor": "0x659c3658",
+    "RTTI_name": ".?AVQWindowsVistaStyle@@",
+    "exported_implementation": "QWindowsStyle::eventFilter65362520 inherited by QWindowsVistaStyle"
+  },
+  "branch44": {
+    "event_type": 68,
+    "switch_subtract": 6,
+    "byte_address": "6536291a",
+    "byte_value": 5,
+    "table_entry": "653628d8",
+    "table_target": "6536289a",
+    "tail": "QObject::eventFilter viaIAT656969a0 \u2192QtCore670c85c0 =32c0c3 (xor al,al;ret)"
+  },
+  "ordered_effects": [
+    "65362520 calls QObject::isWidgetType67118cf0 on receiver. This reads object private+20 bit0 and returns. If false, directly delegates QObject::eventFilter false.",
+    "For QWidget receiver, it repeats the same pure type check, obtains filter private+8 without invoking a method, and reads QEvent::type67011730 (unsigned word event+10).",
+    "Raw0x44 minus6 selects byte6536291a=5 and target6536289a. All keyboard/style mutation cases are skipped.",
+    "The target forwards filter/receiver/event unchanged to QObject::eventFilter. Its entire exact leaf is xor al,al;ret. There are no style/filter/receiver writes or callbacks on this selected normal branch."
+  ],
+  "conclusion": "The single application filter actually observed by parent does not consume or mutate ChildAdded0x44. With observed internal type3 list absent, receiver filters empty, declarative flag0 and child hookData0, this removes those specific immediate dispatch unknowns for the captured startup state. It does not generalize to other event types or populations.",
+  "qualifications": [
+    "Provider filter evidence reports artifact identity unavailable; module path/base/RVA are observed. Parent must bind loaded DLL file hashes to retained static files in its combined observation receipt.",
+    "Static function body includes switch data after653628c1; dumpbin pseudo-instructions in table bytes are not executable behavior.",
+    "Parent captures state at six bracketing stages, not a traced callback call/return. Exact branch behavior follows static code from observed class/type and raw child event.",
+    "Exception, allocation failure, foreign thread and callback mutation outside this observed population are not claimed covered.",
+    "QWidget::setLayout later top-level sizehint/contained-widget/update dependencies remain separately qualified; this receipt only closes the observed filter and immediate dispatch inputs.",
+    "Close70 and ViewManager11 source remain frozen; no grid continuation or alias commit implemented by this worker."
+  ]
+}

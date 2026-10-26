@@ -1,0 +1,9 @@
+# CP166 root integration
+
+The retained prototype-one QObject private object now binds `private+0x30` to a distinct root-owned QtCore QString shared-null identity and records one symbolic reference increment before stopping at RVA `0x1311b5`. The preceding QList binding/delta and private address point remain intact. Admission requires the actual Session root and committed CP165 frame; reentry cannot replay the increment. This does not establish an absolute QtCore reference count, string value, later fields, TaskInfo or public DOE completion.
+
+The first focused run found a test assumption error: a later `associateWidgetRuntime` call is intentionally ignored after the store has paired with its Session root. The revised test asserts that foreign/null reassociation leaves the original root in force and allows the CP166 positive cut; the expired-root negative remains separate. Independent review accepted the test correction. The repaired grouped build, factory/View/DOE Session focused suites and complete source-bound regression passed.
+
+`analysis/wave3-checkpoint166-validation.json` and `build/wave3-checkpoint166-verified/` freeze source SHA-256 `55fe3aed84fe8ea9ca9a12e0bc70945dd8f6817d88d8ab01dc16c3c4d5d35508` over 3,554 files: 361 registered, 354 clean passes, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete/fixture changes, and no changed logged diagnostics. Historical 93 SAME/five DIFF remains qualified. No GUI control, live REA or original application session was acquired.
+
+CP167 was selected before freeze. Independent evidence and plan review accepted one same-private-object `+0x40` known-zero instruction cut, stopping before the next field; its exclusive source owner began after the archive. Public lifecycle and fresh original comparison gates remain open.

@@ -1,0 +1,155 @@
+{
+  "status": "read_only_original_raw_overwrite_contract_no_implementation",
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-ctor.asm",
+      "bytes": 2399,
+      "sha256": "92988ee35ed3a647a195e81a5efe63aeeb220d03a0beb6e0d50f6a1d590b5c8a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-static-init.asm",
+      "bytes": 588,
+      "sha256": "07c2c16247a088fc1cd665e9ce2a6c015b208c2b5a6814059a0d5470ccbf5ba7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-global-xrefs.json",
+      "bytes": 959,
+      "sha256": "7c4dc284ef053ec071442e4ff23af0d10d0d56b6a0b9a35660506fc24444b962"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-reader.asm",
+      "bytes": 13531,
+      "sha256": "f88cf1a7e439056f28477e7408090511915d2b6a3beb40e6e5d60f6949b928af"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-1400ab170.c",
+      "bytes": 4618,
+      "sha256": "5b7fdb6f23c260699aa57e71f25c5a9b989896d8a4cca8c3a95cee621c947c1a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-1400abcc0.c",
+      "bytes": 1733,
+      "sha256": "9f18fe650a8add906269dec986dc531f3d6134f12b3baed8f3f0d250a789e440"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-file-literals.json",
+      "bytes": 2125,
+      "sha256": "e5741c58fc853951e2858268cf0747f446de5095ec1c5e1762143afdfe255caf"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-dispatch.asm",
+      "bytes": 20425,
+      "sha256": "e3949d029d8dc84920f7f379c4ff6cbd02c869f30614f95f3776e905bb6fbfc4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-cases.json",
+      "bytes": 408,
+      "sha256": "a70dfaa1e50d040b2ba01df2a8c53ddc37bd75dfee2c1a00a5aa8932447bfbd1"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-copy.asm",
+      "bytes": 2633,
+      "sha256": "6dc1e060fb303e53a34ac7061c3db19dce8d14249bee9435b7d58d0e0b8149f9"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/datafiles.hpp",
+      "bytes": 7864,
+      "sha256": "406d8e075166f19e6fcfc889f5887b1a04ae06c5cc70f25974dc33270a3288c6"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/datafiles/token.cpp",
+      "bytes": 5217,
+      "sha256": "3c56020a595e356e3a6c51a177c6470c88ae63622d85a6256ef4dc298e5bde9e"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "bytes": 13065,
+      "sha256": "cefd7a80fae92cd0150fcd76395e09799becd6fd254ea7d290960c0652f5e940"
+    }
+  ],
+  "original": {
+    "singleton": "Getter1402c7ed0 returns static global143d91238; static init141cd9ba0 calls ctor1402cc4e0. Constructor proves scalar/member accesses through+29; observed field span is at least0x2a, not proof of sizeof0x30 or any larger object extent.",
+    "layout": [
+      {
+        "offset": "0x00",
+        "width": 4,
+        "meaning": "method",
+        "default": 1
+      },
+      {
+        "offset": "0x04",
+        "width": 1,
+        "meaning": "good internal changeable",
+        "default": 1
+      },
+      {
+        "offset": "0x08",
+        "width": 8,
+        "meaning": "filter distance double",
+        "default": 0
+      },
+      {
+        "offset": "0x10",
+        "width": 8,
+        "meaning": "uniform internal edge double",
+        "default": 0
+      },
+      {
+        "offset": "0x18",
+        "width": 1,
+        "meaning": "improve contact byte",
+        "default": 0
+      },
+      {
+        "offset": "0x20",
+        "width": 8,
+        "meaning": "scaling factor double",
+        "default": 1.2
+      },
+      {
+        "offset": "0x28",
+        "width": 1,
+        "meaning": "good surface changeable byte",
+        "default": 1
+      },
+      {
+        "offset": "0x29",
+        "width": 1,
+        "meaning": "enabled byte",
+        "default": 0
+      }
+    ],
+    "reader": "At1400ab47e..4a8 UNIFORM_INTERNAL_EDGE_LENGTH passes destination singleton+10 and type4 to1409068f0. Dispatch uses(type-1), tableVA140906e0c storesRVA906ca6. At140906ca6, original calls14146fec0 with destination and selected token. Raw copier writes bytes through NUL. This is not Double10 conversion; type10's table entry is independently different.",
+    "token": "For pos0, type4 consumes the next existing token if available. If it must read a fresh physical line, Raw tokenizes only CR/LF for the first token; it does not universally mean substring after the keyword. EOF leaves non-Upper output untouched. Adapter profile must bound the selected token after original tokenization, not merely the original line length.",
+    "writer": "1400abcc0 reads qword+10 and formats %s %lf newline for UNIFORM_INTERNAL_EDGE_LENGTH. Thus original text bytes become later double bits; a numeric parse would alter original behavior."
+  },
+  "safe_reconstruction_proposal": {
+    "first_profile": "Selected token<=7 bytes plus NUL stays wholly in known double storage+10..17. Copy current double representation to array<byte,8>, overwrite prefix with exact token plusNUL, decode bits back through memcpy/bit_cast. Untouched suffix remains current state, including a preceding duplicate keyword's effect. No floating-point parse, no clearing entire field, no whole-struct write.",
+    "extent": "Token length8 writes its NUL into+18 improveContact. Length16 reaches+20 scaling, length24 reaches+28 goodSurface, length25 reaches+29 enabled. No claim of safe larger object extent. Refuse before first spill in initial bounded implementation, recording earlier reader effects rather than transactional rollback.",
+    "longer_profile": "To preserve spills, use modeled byte storage and exact raw-byte field loads, not arbitrary writes into C++ bool objects. Existing RemeshState bool fields cannot safely represent arbitrary character bytes or preserve writer promotion. Future support needs writer/consumer byte semantics and actual field/extent qualifications; do not assume sizeof from natural alignment.",
+    "other_inputs": "Native rt open/fseek/close flags and exact TokenReader numeric/locale conversions remain separate contracts. Existing memory TextFile is not proof of native path/sharing semantics. Missing integer token can leave original shared local unassigned; exclude indeterminate first-use cases rather than invent0. Empty readable file succeeds with retained state; both open failures returnfalse without scalar writes."
+  },
+  "pressure_provenance_correction": {
+    "aggregate": "1412e73d0 proves byte+6 = OR(byte+1c,byte+1d); environment reads global1446ee586.",
+    "not_closed": "1412eae20 packet decoder calls1412e75b0; bounded leaf now proves that handler only sets+2f if payload+34>1 and maxes+44. It does not populate pressure flags+1c/+1d. Next trace their actual setters from global-record initialization/callers; no BSS/default0 inference.",
+    "evidence": [
+      {
+        "path": "analysis/wave2-save-diffs-300-pressure-record-loader.asm",
+        "bytes": 1956,
+        "sha256": "c14ea2d8ceaadd2fafb9e6e371728ed7bd4466181b84e2d437a6dff0f1c55b0a"
+      },
+      {
+        "path": "analysis/wave2-save-diffs-300-pressure-payload-decode.asm",
+        "bytes": 1236,
+        "sha256": "f367bd41051c514af027c6255074535e135e55995f6bbabe28c7c426445d6b7b"
+      },
+      {
+        "path": "analysis/wave2-save-diffs-300-pressure-feature-aggregation.asm",
+        "bytes": 8731,
+        "sha256": "bb556518269e65d788f193487994531d8d1622144a41ec7810f95e73803a7f1a"
+      }
+    ],
+    "decode_limit": "Payload decoder selection is entry-only; not whole logical procedure coverage."
+  },
+  "validation": "Read-only fixed-PE selections and source reconciliation only. No source/test implementation, build, runtime, app control or fixture mutation. Public300 guard stays; next source changes require coordinator release."
+}

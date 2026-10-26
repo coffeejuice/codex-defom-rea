@@ -1,0 +1,116 @@
+{
+  "status": "observed_feature_context_component_frozen_for_root_build",
+  "source_qualification": "Original fixed PE remains oracle. New private read-only three-function export on byte-verified project completed16.848s, no runtime/shared REA. Ghidra void return on1412e4b90 is incorrect; bounded raw bytes establish EAX return and caller preservation. Entry-only known_callees are not coverage proof.",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "bytes": 13065,
+      "sha256": "cefd7a80fae92cd0150fcd76395e09799becd6fd254ea7d290960c0652f5e940"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "bytes": 36806,
+      "sha256": "04697517267180f94b96b62b12fa06c2e8a179dd71f3a26951e8ab4f707a335c"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_mo.cpp",
+      "bytes": 12276,
+      "sha256": "6ef6ac927343aa4bf152d9f948d8a588a87d4f50c462a01cc8115dddd1481b9e"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-sim300-mo-general-bindings-decompile.json",
+      "bytes": 3408,
+      "sha256": "7fd2ddd793d3a533ee05dbfee0110e9118ff477a8e76c755c954469d71069794"
+    },
+    {
+      "path": "analysis/wave2-doe-sim300-mo-feature-query-decompile.json",
+      "bytes": 8979,
+      "sha256": "f9e5a24bc6c589e14fd74b446b94aac361a537c908202a558a51ff4f4b7416a4"
+    },
+    {
+      "path": "analysis/wave2-doe-sim300-mo-feature-query-receipt.json",
+      "bytes": 2360,
+      "sha256": "67d3b296d6ab973d7ad6b3dcc68624cafa12df39874894d0a2f9bca747383e48"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-feature-result.asm",
+      "bytes": 14635,
+      "sha256": "14e58cdc455d541bdca45844a29af07766a9fcb6d3a1a7c1897a039231cd2cf4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-feature-query-wrapper.asm",
+      "bytes": 3837,
+      "sha256": "c49e9bf500aa67da1ade641cae81dcb23ba5f8418919de69a238eb4cf966b7e2"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-feature-literals.json",
+      "bytes": 1625,
+      "sha256": "136584bf4fca05daeb5f1cbd62cbd7860956b294e9a9a6bfcb9f6418c2829f39"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140eb9630.c",
+      "bytes": 17787,
+      "sha256": "efaf4e8eb9fee723dc1ecdac1a50f6812080557d5432fc63322527d642758350"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb26f0.c",
+      "bytes": 13068,
+      "sha256": "9f708926ec67808b7af7e8bd4a56725ee679e2b09cf464558ad9f091822f995c"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebaa30.c",
+      "bytes": 6975,
+      "sha256": "173f93868a448598129195265fd71577bfd99c03d7264fbfaca1bee844d5915d"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-mo-control-bindings.json",
+      "bytes": 5319,
+      "sha256": "a978a017a4e20b4918b3c72dec892f840caa231e3c29ae459331a7c618d9f4a8"
+    },
+    {
+      "path": "analysis/wave3-save-dispatch-validation.json",
+      "bytes": 7000,
+      "sha256": "d6d14bd5f50b8270a8615488fa7498eba61dc08fa7153bb9b3befa47114a9a00"
+    }
+  ],
+  "original_contract": {
+    "query": "1412eef80 allocates product client, ctor1412ee6a0, selects feature1412e67d0, checks availability1412e4b90, saves EAX, unregisters/destroys client and returns saved signed integer. Each dimension3 getter returns result>0.",
+    "identity": "Literal DEFORM-3D product; TRANS3 is3D_DEF_GUI_MIC3(fae10) OR3D_DEF_WZD_HEAT_TREAT3(fab10). Final TRANS4/TRANS5/HTMTHD enables use3D_DEF_HEATING(faeb0). Logs name CLManagerClientForProduct::check_license_availability; DEF_MODULE_NO_CHECKING ctor string does not establish successful result.",
+    "result": "Availability requires four query string pointers, product record and feature record; missing pointers/records or transaction failure returns0. Virtual+48,+20,+30 transactions expect sizes18h,b8h,18h, then success returns output record+14h (initial b0h). This is an external transaction, not a constant getter. No server/availability default is inferred.",
+    "general_order": "MIC3 first, WZD only if MIC3 unavailable. Then HEATING queries separately in source order: UI+a8(HTMTHD), UI+a0(TRANS5), UI+c8(final TRANS4), the last overwriting earlier constant TRANS4 enable. Constructor control array maps indices0..5 to UI78,70,90,c8,a0,a8; Apply writes engine TRANS0..4/HTMTHD from these controls."
+  },
+  "adapter_contract": {
+    "type": "MoFeatureAvailability{optional<int32_t> microstructure3D,wizardHeatTreat3D;array<optional<int32_t>,3> heating}",
+    "method": "generalContextForMoAvailability(Project&,dimension,const MoFeatureAvailability&) ->optional<GeneralContext>; supports actual MO3D only, no settings/license reads or global caching.",
+    "unknown": "nullopt is unknown and refuses if that original query is reached. Numeric0 andnegative are observed unavailable, positive is observed available. MIC3positive permits missing skippedWZD; missingMIC3 always refuses.",
+    "heating": "All three reached observations required, independently mapped [2],[1],[0] to process enables[3],[4],[5]. Differing answers are retained rather than imposing stability. Existing bool helper remains an explicitly supplied isolated control-state convenience; it does not recover repeated queries.",
+    "scope": "One General fill invocation only. No claim observations remain stable across constructor refills. Existing persistent composer still takes explicit GeneralContext and public300 Save remains refused. Next owned composition binding must accept two independent observation sets at the two actual General fills; root eventual shared hook supplies observed per-call state, not license guesses."
+  },
+  "tests": {
+    "new_cases": [
+      "mo_feature_observations_require_only_queries_reached_by_original_short_circuit",
+      "mo_feature_observations_preserve_three_distinct_heating_calls_and_remembered_controls"
+    ],
+    "mo_cases_count": 9,
+    "method": "Missing/short-circuited observations, signed result semantics, each mandatory HEATING observation, dimension guard, independent HEATING call order and fill->change observed input->Apply remembered controls. Real Project is used; no fixture files are written.",
+    "status": "not_run_worker_root_owns_build_and_execution",
+    "prior_checkpoint": "Parent reports repaired118 CTests passing in analysis/wave3-save-dispatch-validation.json; no new executable registration, two new MO cases in existing group.",
+    "cheap_handoff_checks": {
+      "int32_declaring_header": true,
+      "optional_declaring_header": true,
+      "helper_declared": true,
+      "helper_defined": true,
+      "test_main": true,
+      "test_registry_type_header": true
+    }
+  },
+  "remaining": [
+    "Two independent constructor General-fill observation bindings",
+    "Pressure feature record provenance/aggregation inputs",
+    "Remesh native type4 field layout/reader contract",
+    "Existing recovery/view/outer Save dependencies and guarded profiles"
+  ],
+  "limits": "No worker builds/tests, app control, original runtime or fixture mutation. No new public settings/ABI/env surface, license client implementation, default availability answer or full integration claim."
+}

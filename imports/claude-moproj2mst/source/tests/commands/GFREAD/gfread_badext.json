@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD mixed-case extension",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 2\nX.Stl\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "X.Stl",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/3D/3D_Examples/EN/Multiple_Operations/Op1_die.STL"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "'Stl' matches neither 'STL' nor 'stl' -> type -1 -> 'INFO   : Loading geometry - Failed'."
+  }
+}

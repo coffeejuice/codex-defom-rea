@@ -1,0 +1,52 @@
+# CP102 deferred LinkTo on actual Study-owned Variables
+
+Nonempty `LinkTo` is the next higher-impact, source-qualified Variable reader branch. The original queues the reader's actual **last record pointer** and target name while importing a row, completes that entire DoeVariables container, reindexes all manager records, then resolves queued names and stores nonowning link pointers in encounter order. This adds a persistent model relationship and reaches existing model link queries without a widget, QFileInfo, notifier or new numeric conversion.
+
+This report is evidence-only while CP101 source/archive is held. It changes only analysis evidence/report files. No production/test source, build/CTest, native process, GUI or mutable database was used. Root must approve exact source ownership before implementation; `doe_study.cpp` is required in addition to the existing helper/header because the queue lifetime and finalization point span all rows in one container.
+
+## Native caller, state and exact order
+
+GUI PE SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`. Complete reader0x14090ee20 is retained by `resume50-doe-variable-body-pe-receipt.json`, body SHA-256 `270b855af32d5c5f3fca905489895021d41d376f5e24f05d8941daf161e25f08`, compact stream SHA-256 `1816C5454A6D81C4BADD706592CA854D7FABB548D9B6DC2AEB38B286EC6C5D02`. This pass reread the actual queue and finalizer instructions, not a specification inferred from candidate `Var::link`.
+
+1. At entry0x14090ee4a..ee5a the reader constructs separate local list wrappers at rsp+70 (source pointers) and rsp+68 (target QStrings). These are per **one DoeVariables reader invocation**, not Session/Study history.
+2. Existing qualified name/sample/create-or-existing processing and optional varId/dimension setters run first. As CP94 establishes, the reader's local rsp+a8 always points to the last manager record, even when a row's name matched an earlier record.
+3.0x14090f357..f3b0 retrieves `LinkTo` with a default QString.0x14090f3dc checks isEmpty; empty/absent text skips queueing. For nonempty text0x14090f3f6 appends the actual rsp+a8 **pointer value** to the local source list through0x14172d7e0.0x14090f408 separately appends the target QString to the parallel local name list through0x140004b90. Direct child dispatch starts only after that queue point, at0x14090f40d. This is deferred pointer binding, not immediate link assignment.
+4. After all direct rows and nonmatching siblings are exhausted,0x1409128b6 invokes manager vt+1e0 (reindex). Only then does0x1409128bc..9129b0 traverse queued source pointers in their original order. A null source is skipped. For a nonnull source, it copies the corresponding queued target name and calls vt+180 at0x140912967, then vt+1a0 at0x140912982.
+5. A null target pointer at0x140912999 skips the setter, preserving any existing link. A found target calls0x140100a60 at0x1409129ab with actual source/target pointers. The loop continues; there is no early return, link-chain traversal, cycle validation or pointer ownership transfer. The reader then destroys its local queue wrappers and returns; the outer InputTable reader's ID pass follows separately.
+
+The native queues append source before target name. Host storage may use one typed pair per request for scope safety, while explicitly retaining that native allocation/ref/fault timing is unrepresented. Native exceptional unwinding before the tail does not apply queued links; earlier persistent record/header/Description mutations remain. Do not resolve requests eagerly or roll those mutations back.
+
+## Target lookup, setter and ownership independently closed
+
+New immutable receipt `resume102-doe-link-target-static.json`, SHA-256 `63B06906C4E55306D8D0C4F848B6381CA6A9D027DCF413AFA33C602CD833068E`, captures exact original functions0x14091b5d0 (name index),0x14091b950 (at index),0x1408169d0 (record destructor). Name lookup initializes result-1, scans actual manager+38 in increasing list order, obtains each name through0x1403047c0 and compares QString content with imported equality at IAT0x141e03f08. On equality it records that index and exits; no case folding, trimming, numeric-ID match or recursive link lookup occurs. At-index returns null for negative/out-of-count indices, otherwise the stored pointer. Same-name existence/normal record construction were already independently bound in CP91/93/94.
+
+New receipt `resume102-doe-variable-link-static.json`, SHA-256 `7459D527E7098942A0B5999653D3041AF4C985D971C5A38FB92B6935249536EE`, captures bounded leaf candidates. Setter0x140100a60..100a78 performs only `source+0x40 = target` and returns; accessor0x1401cc6b0..1cc6be reads+0x40. Padding and neighboring functions after those RETs are excluded from the selected function claim. The complete record destructor deletes keyword payloads, clears geometry, releases list wrappers and name/Description strings; it neither follows nor deletes+0x40. Link lifetime is therefore nonowning under the actual manager's concrete record ownership. A self pointer or cycle adds no owner/ref cycle and is not prohibited by this setter path.
+
+## Observable normal and partial behavior
+
+- Forward A LinkTo B binds A to the B record created later **in the same container**. Backward and self links use the same lookup/store. A,B,A with a LinkTo on the third row queues B as source, because that is the reader's last record, independently of the name match.
+- Multiple requests for one source apply in encounter order. A later found target overwrites the earlier pointer; a later missing target leaves the earlier pointer intact. An absent/empty LinkTo never clears an existing link.
+- An unresolved request in a first DoeVariables container is discarded when that invocation returns. Creating its target in a later container does not retroactively resolve it. Later calls can bind against names already owned by Study.
+- A later unsupported matched row prevents the whole current queue tail from running; existing links are unchanged even if earlier rows queued replacements. Their reached header/Description/append state survives. A later top-level sibling guard occurs after completed reindex/link application and therefore retains those links.
+- Name targets are exact content matches; numeric IDs are irrelevant. No links are recursively flattened or cycle-checked. The existing candidate model already has nonowning `Var::link`, `unlinkedVars()` and `linkMap()` consumers; importing relationships must not invent new writer or geometry readiness.
+
+## Minimal candidate seam and exclusive ownership proposal
+
+Requested files under `source/apps/moproj2mst`:
+
+- `include/m2m/doe_variable_record.hpp`: declare an internal typed deferred request containing a borrowed concrete HeaderVariableRecord pointer and target String, its local request-vector type, helper queue parameter and a post-reindex resolver.
+- `src/doe/variable_record.cpp`: admit nonempty LinkTo only within all existing mode0/header/Description/concrete-owner profiles; capture the actual selected last-record pointer and target name at the source-qualified point after ID/dimension and before Description. Implement ordered exact-name target resolution on the same coherent concrete owner and raw nonowning pointer assignment. Do not reset an existing link on absent/missing target.
+- `src/doe/doe_study.cpp`: create one queue inside each exact DoeVariables branch; pass it through the existing helper call; call the resolver **after** `reindexExistingVariables(s)` and before setting status/continuing later top-level siblings. Queue scope must unwind with that branch and never persist on Study/Session.
+- NEW `tests/doe/test_variable_deferred_link.cpp`: focused actual public reader and lazy owner cases. No shared Session, Study storage, model emitters, build/CMake or ABI change is required.
+
+The only helper callsite found is the actual readInputTable DoeVariables loop; no public C ABI is changed by the internal queue parameter. An explicit required queue reference avoids a second helper mode that could silently accept a link without tracking it. Queue records own only target String values, not Variables/Study, so no ownership cycle or derived deletion through Var is introduced. HeaderVariableRecord concrete owner/alias/count guards remain exactly the admission boundary; foreign/scalar/geometry/retained owners are not adopted.
+
+Keep every existing sample/ID/dimension/name optional-profile condition, including textual0 duplicate-only and actual QLocale/provider/global caveats. Keep mixed Keyword/Geometry/other child and malformed-conversion guards. Existing host allocation failure safety remains a value/lifetime adapter, not native Qt list/QString fault parity. No artificial allocation/null-pointer success or queue-history journal is justified.
+
+Root owns old tests and build after source release. Known obsolete nonempty-link guard fixtures need a narrow review rather than broad removal: the original record guard vector includes `row("3","7","3"," LinkTo=\"Other\"")`; other LinkTo rows may still carry missing-header/payload/foreign guards. Expected new target `m2m_doe_variable_deferred_link`, CTest `m2m.doe.variable_deferred_link`.
+
+Focused matrix: forward/backward/self/cycle links; exact case-sensitive names; repeated request order/found then missing retention; duplicate-name last-source binding; existing links preserved by empty LinkTo; per-container queue scope; later-row refusal before resolution versus later-sibling refusal after resolution; coherent owner/foreign/mixed/fresh-textual0 guards; and actual Session lazy read with bound record identity, ordered sample continuation then unchanged pre-XML nonempty-vars Save refusal. Save reconciliation, output geometry, actual SetOprHasDoe/refresh receiver and native locale ownership remain explicit guards.
+
+## Alternate paths reviewed and next boundary
+
+Constraint records currently admit exact Value0/positive integer fields with unknown+0x10 retained explicitly. Widening numeric Value or missing numeric fields would revisit the same locale/conversion dependencies rather than add a new relationship. Keyword/scalar import reaches the existing QIcon/SetOprHasDoe owner gap, while public Save reaches nonempty-vars dimension reconciliation and later actual UI refresh. Deferred LinkTo instead has complete input/owner/decision/store evidence at the current concrete Study boundary and is the smallest higher-impact integration increment identified by this pass.

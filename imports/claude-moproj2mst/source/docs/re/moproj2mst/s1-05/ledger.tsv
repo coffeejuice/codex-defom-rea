@@ -1,0 +1,161 @@
+address	size	role	status
+1414136b0	0xfd	SfOprFormingExpress +0x280 writer (express or base)	spec
+141412c90	0xfd	SfOprFormingExpress2D +0x280 writer (same as 3D)	spec
+14141ce30	0x5c	cast to SfOprFormingExpressProperties	spec
+14142bb30	0x2b	FE data type in {3,4}	spec
+14142bf50	0x15	FE data express flag +0x110	spec
+14141f2f0	0x958	FE express driver (blow/step loop)	spec
+14141fc50	0x1a82	FE block BL	spec
+1414216e0	0xc37	FE block DW	spec
+141422320	0xe08	FE block TO	spec
+141423130	0x252	FE object section / PDIE	spec
+141423f20	0x1fd	SIMNAM <op>-BL%1	spec
+141424130	0x1fd	SIMNAM <op>-DW%1	spec
+141423d10	0x1fd	SIMNAM <op>-TO%1	spec
+14142c080	0x15	FE nBlow D+0x120	spec
+14142c110	0x5e	FE nStep(b) D+0x128	spec
+14142c5f0	0x9c	FE drop(b,s) D+0x168	spec
+14142c750	0x9c	FE flip(b,s) D+0x170	spec
+14142c490	0xa2	FE gap(b,s) D+0x160	spec
+14142c210	0xae	FE stroke(b,s) D+0x150	spec
+14142c3e0	0xa2	FE list D+0x158 (result unused)	spec
+14142be90	0xb1	FE IHTC for DW (units, D+0x100)	spec
+14142be70	0x18	FE dt for DW -> 14142bdb0	spec
+14142bdb0	0xae	FE dt (units, D+0xf8)	spec
+14142bd00	0x17	FE D+0xd0	spec
+14142bd50	0x17	FE D+0xd8	spec
+14142bce0	0x17	FE D+0xc8 (unused)	spec
+14142bc90	0x17	FE D+0xc0 node temperature	spec
+14142bc40	0x15	FE D+0xa8 init strain flag	spec
+14142cb20	0x263	FE data -> Movement fields	spec
+1405fc890	0x14	props friction *(p+0x30)+0x10	spec
+1405fc8e0	0xae	props IHTC (units)	spec
+1405fb6a0	0x75	props +0x70 fill SimCtrl	spec
+1405fb980	0x155	props +0x80	spec
+1405fbd10	0x11a	props +0x90	spec
+1405fc060	0x11a	props +0xa0	spec
+1405fc5d0	0x249	props +0xb0 DT mode / DSMAX / DTMAX	spec
+1405fd4b0	0x1f	SimCtrl set +0x1e0	spec
+1408d47a0	0x18b	SimCtrl step defaults (engine)	spec
+1408da660	0x63	SimCtrl mode default	spec
+140899010	0x1151	keyword descriptor init (engine)	spec
+140921f30	0x54	keyword name by id (static buffer)	spec
+140922160	0x64	keyword table lookup 1427c06e0	spec
+1408609b0	0x2f	Movement angle atan2*57.29577951308232	spec
+14141bbe0	0x90	FE ctor init +0x60..+0x98	spec
+14141bb40	0x41	FE common ctor	spec
+141412f90	0x2c	FE ctor	spec
+141423390	0x54c	FE +0x298 sim list	spec
+1400b8820	0x353	first sim of flow position n	spec
+1400b8360	0x1b3	sim list of sub-project (+0x298 hooks)	spec
+1400b8540	0x2d2	sim list filter by position	spec
+140cbc690	0xe	sim entry position +8	spec
+140cbc680	0xe	sim entry sim no +0xc	spec
+1402ede00	0x167	unit-string conversion (owner open, Q2)	out-of-scope
+140821bf0	0x23e	engine model ctor (scratch)	out-of-scope
+1408d3bc0	0x102	engine SimCtrl ctor (scratch)	out-of-scope
+14085f3f0	0x148	engine Movement ctor (scratch)	out-of-scope
+14005f770	0x22	op engine model (lazy load)	out-of-scope
+14005f820	0xcf	op engine model impl	out-of-scope
+1402b5410	0x1e4	SfOprDiestress +0x280 writer	spec
+1402b7380	0x2d8	SfOprDiestress +0x298 sim list	spec
+1401344a0	0x61	KFREAD 1 + path emitter (s1-02 range)	spec
+1400b9e80	0x7b	sub-project DB path with dir (s1-02, Q1)	out-of-scope
+14029ad10	0x721	SfOprDiestressBM2D +0x280 writer	spec
+14029cb50	0x721	SfOprDiestressBM3D +0x280 writer (same as 2D)	spec
+14029a550	0x15a	BM die object ids (type 1 or 5)	spec
+14029a4b0	0x3e	BM +0x298 -> base 1405f5880	spec
+1405f5880	0x2e0	base +0x298 sim list (one entry)	spec
+14029ee50	0x3f	BM props +0xb8 write .Wzd	spec
+14029eea0	0x3f	BM props +0xc0 read .Wzd	spec
+14029eef0	0x19c	BM .Wzd path	spec
+1402a16c0	0x722	BM .Wzd XML writer (field map)	spec
+1411b1460	0xbc	SfOprHeatTreat +0x280 writer	spec
+1411aee40	0xbc	SfOprHeatTreat2D +0x280 writer	spec
+1411b1530	0x95c	HeatTreat body (3D)	spec
+1411aef10	0x95c	HeatTreat body (2D, same)	spec
+1411b2790	0x305	HeatTreat +0x298 sim list	spec
+1411b0170	0x305	HeatTreat2D +0x298 sim list	spec
+1411b71c0	0x1f7	HT generate MOKEY side files	spec
+1411b73c0	0x1cad	HT MOKEY writer (fprintf, engine data)	out-of-scope
+1411b9080	0xa92	HT first-step KEY check (reads files)	out-of-scope
+1411b9e70	0x6c2	HT volume fraction check	out-of-scope
+1411bae90	0x1a9	HT region map adjust	out-of-scope
+1411bb040	0x2d0	HT region map adjust impl	out-of-scope
+1411b3540	0x1c4	HT engine defaults	out-of-scope
+1411b38e0	0x237	HT_Proc<k>.MOKEY path	spec
+1411b3760	0x52	HT schedule -> engine model	spec
+1411b0a70	0x1c	HT schedule count +0x28	spec
+1411b0a90	0x57	HT schedule step i	spec
+1411b0af0	0x55	HT index check	spec
+1411b0b50	0x78	HT append new step	spec
+140514c40	0xe	HT schedule first step +0x20	spec
+141681de0	0xf	HT props schedule +0x68	spec
+1412c4c80	0x42	HT step user KEY +0x118	spec
+1411c05a0	0x180	HT props +0x70 SimCtrl copy	spec
+1412b05a0	0x15	SfOprReport +0x280 (empty)	spec
+1412b05c0	0x14	SfOprReport +0x298 (empty)	spec
+14013fb90	0x15	SfOprShapeOptim +0x280 (empty)	spec
+14013fbb0	0x14	SfOprShapeOptim +0x298 (empty)	spec
+1401321a0	0x128	DOE op write (globals 143d80258..)	spec
+140131a50	0x1ac	*!SUBPRJ block	spec
+140131530	0x145	.MST.TEMP writer	spec
+1400ba650	0x19b	DOE: MST.TEMP + DEF_DOE_PARSER.INI	spec
+1400ba350	0xf5	DOE Control dir	spec
+1400ba000	0x343	DOE study dir	spec
+1400a51e0	0x9f	<base>.MST.TEMP name	spec
+140915eb0	0x1cd	write DEF_DOE_PARSER.INI	spec
+1400ba800	0xa7f	prepare DOE dir structure (copies)	out-of-scope
+1400bb760	0x5ae	DOE sample folder copy	out-of-scope
+1401322d0	0x765	DOE variables emitter (shared with s1-02)	spec
+140132a40	0x17d	DOE geometry emitter (shared with s1-02)	spec
+140132bd0	0x166c	DOE geometry block (shared with s1-02)	spec
+14091bbb0	0xf8	DOE mgr +0x1b8 vars of op	spec
+14091bdb0	0x398	DOE mgr +0x1c8 link map	spec
+14091ba60	0x149	DOE mgr +0x1b0 geometry vars	spec
+14091b950	0x5a	DOE mgr +0x1a0 var by index	spec
+14091b9b0	0xa5	DOE mgr +0x1a8 all vars	spec
+14091bcb0	0xed	DOE mgr +0x1c0 unlinked vars	spec
+14091dbb0	0x47	DOE var applies to op	spec
+1400b5a90	0xf	sub-project DOE manager +0x20	spec
+14093a200	0x63	count non-empty lines	spec
+140909a30	0x20b	DOE COR side files	spec
+140909c50	0x2b8	write .COR file	spec
+140817870	0xe	DOE var geoType +0x20	spec
+140817a80	0x5b	DOE var file name [0]	spec
+140817940	0x88	DOE var file pair	spec
+140817e20	0x7e	DOE var file flag a	spec
+140817eb0	0x7e	DOE var file flag b	spec
+140818420	0x63	DOE var points a	spec
+140818490	0x63	DOE var points b	spec
+140818f10	0x61	QFileInfo::fileName	spec
+1400d0e60	0x3e	DOE var items +0x30	spec
+1400d7fc0	0x3f	DOE item text +0x18	spec
+1400d8000	0x3f	DOE item text +0x20	spec
+140010320	0xe	+0x18 int accessor	spec
+1401cc6b0	0xf	DOE var link +0x40	spec
+140100980	0xe	+0x1c int accessor	spec
+1403047c0	0x3b	QString copy accessor	spec
+1413c5630	0x45	QMap contains	library
+140136f40	0x57	QMap value or 0	library
+1413df430	0x2f	QMap isEmpty	library
+140307410	0x19	QList isEmpty	library
+14005ff30	0xf6	object name or Read From DB	spec
+14005fb80	0x83	object position in op	spec
+14005fc10	0x32	position+1 or 0	spec
+140061310	0x3d	op object by id	spec
+14004d800	0xe	object has mesh +0x19	spec
+1405ef320	0x4f	op properties of node	spec
+14146f8fc	0x19d	__RTDynamicCast	library
+14005f150	0x68	op is 2D	spec
+140050bc0	0x57	op is first in flow	spec
+14004d560	0xd	object id	spec
+14004d5a0	0xe	object type	spec
+14004de90	0xe	object equipment id +0x28	spec
+1400a75a0	0xbc	Sub_Project Name attribute	spec
+1400a78e0	0x1cc	idx-th Sub_Project DOM element	spec
+140050df0	0x22c	operation task dir	spec
+1405f8d90	0x1c	*(x+0x20)	spec
+1400b5c80	0x37	sub-project index	spec
+140054ff0	0x33	project unit system of op	spec
+14008f530	0x1461	open: SfDoeStudy / Samples_*.par (s1-01)	out-of-scope

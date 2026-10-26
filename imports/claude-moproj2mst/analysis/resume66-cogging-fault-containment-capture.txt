@@ -1,0 +1,82 @@
+Artifact: immutable evidence/original-binaries/DEF_GUI_MO_64.exe
+SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+DUMPBIN /UNWINDINFO excerpts for the relevant call chain.
+
+=== Save entry RVA 000980D0; operation iterator 000982E0; property wrapper and writer; master and record writer ===
+  00003CC0 000980D0 000982AC 03133030
+    Unwind version: 1
+    Unwind flags: UHANDLER
+    Size of prologue: 0x15
+    Count of codes: 2
+    Unwind codes:
+      0C: ALLOC_LARGE, size=0x88
+    Handler: 0146E20C
+
+
+  00003CD8 000982E0 000983B7 03133068
+    Unwind version: 1
+    Unwind flags: None
+    Size of prologue: 0x09
+    Count of codes: 1
+    Unwind codes:
+      09: ALLOC_SMALL, size=0x68
+
+
+  0001E534 00760400 0076041C 0327542C
+    Unwind version: 1
+    Unwind flags: None
+    Size of prologue: 0x09
+    Count of codes: 1
+    Unwind codes:
+      09: ALLOC_SMALL, size=0x28
+
+
+  0001E5AC 007616D0 007617D8 03275550
+    Unwind version: 1
+    Unwind flags: UHANDLER
+    Size of prologue: 0x15
+    Count of codes: 2
+    Unwind codes:
+      0C: ALLOC_LARGE, size=0x88
+    Handler: 0146E20C
+
+
+  0001E5B8 007617E0 00761C85 032755E0
+    Unwind version: 1
+    Unwind flags: UHANDLER
+    Size of prologue: 0x1A
+    Count of codes: 2
+    Unwind codes:
+      11: ALLOC_LARGE, size=0xA8
+    Handler: 0146E20C
+
+
+  0001E90C 0076A8C0 0076AC8D 03276E70
+    Unwind version: 1
+    Unwind flags: EHANDLER UHANDLER
+    Size of prologue: 0x24
+    Count of codes: 3
+    Unwind codes:
+      12: ALLOC_LARGE, size=0x330
+      0B: PUSH_NONVOL, register=rbx
+    Handler: 0146FDE4
+
+  0001EA68 0076CB50 0076CC44 032774FC
+    Unwind version: 1
+    Unwind flags: None
+    Size of prologue: 0x13
+    Count of codes: 1
+    Unwind codes:
+      13: ALLOC_SMALL, size=0x38
+
+
+
+=== Master exception-handler thunk 0x14146fde4 ===
+  000000014146FDE4: 48 83 EC 28        sub         rsp,28h
+  000000014146FDE8: 4D 8B 41 38        mov         r8,qword ptr [r9+38h]
+  000000014146FDEC: 48 8B CA           mov         rcx,rdx
+  000000014146FDEF: 49 8B D1           mov         rdx,r9
+  000000014146FDF2: E8 89 FF FF FF     call        000000014146FD80
+  000000014146FDF7: B8 01 00 00 00     mov         eax,1
+  000000014146FDFC: 48 83 C4 28        add         rsp,28h
+  000000014146FE00: C3                 ret

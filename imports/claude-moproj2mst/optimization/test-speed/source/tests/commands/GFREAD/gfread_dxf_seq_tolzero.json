@@ -1,0 +1,29 @@
+{
+  "label": "GFREAD DXF empty then mirrored LINEs (global threshold 0)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nEMPTY.DXF\nGFREAD 1\nMIR.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "EMPTY.DXF",
+      "source": "data/dxf_empty.dxf"
+    },
+    {
+      "name": "MIR.DXF",
+      "source": "data/dxf_mirror.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "First read leaves DAT_14062bc68 = 0 (0.01*size of nothing); the second read then uses 0 as arbitrary-axis threshold: Wz x N = 0 for N=(0,0,-1), every mirrored point becomes (0,0). Observed 2026-10-21: no DIEGEO/TPLOGY for object 1 (KFWRIT drops the degenerate one-segment curve), matching the prediction."
+  }
+}

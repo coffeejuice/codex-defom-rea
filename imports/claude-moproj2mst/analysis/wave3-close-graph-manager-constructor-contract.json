@@ -1,0 +1,141 @@
+{
+  "scope": "Histogram/Close graph-manager lazy creation and its factory child replacement",
+  "method": "Original PE and bounded offline DUMPBIN only; no source edits, original execution or GUI",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-histogram-zero-flag-contract.json",
+      "sha256": "b6acf14a00634b96e349729f441fd7833dcf3d2661a5311fdcc9b925333799d4"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140cdd8e0.asm",
+      "sha256": "1f6f8695721bea012e8e9d316e7d74769758c1fb6fa59a03065542122a35db65"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140045260.asm",
+      "sha256": "9f12abfedec8c9da277588ed631d1d86e184b6e0a756bd9a8c1f39a37bb7f211"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c0b8c0.asm",
+      "sha256": "51c9c80070dcaf84e64c15a3f2147f8fdfc4884e12321bca00b4b667b0a2c618"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c0b980.asm",
+      "sha256": "61c24610f96271c7b4ca96784d3b35e1e966541bb33c78bb3aea1480b50844dc"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-manager-ctor-prefix-static.json",
+      "sha256": "976e2809ab6442f484cc6efc86d7419b6abefd3a53968762fd2ecb6d258c8f03"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-manager-ctor-owned-child-static.json",
+      "sha256": "f5685fabfb61cda52bd5777020925ac4cc90c7946e073711853c0f28cfa8b868"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-manager-base-factory-static.json",
+      "sha256": "fde03c2e2acb5a67b17bf090710b9b40c1898810c1e8374a89e18a8dc032848d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-graph-factory-replacement-cleanup-static.json",
+      "sha256": "d5a9309dfe36d9ff569f866498e0fb1d0ef7a8362690eca2432616d187d18e09"
+    }
+  ],
+  "vtable_bindings": [
+    {
+      "vtable": "0x142112878",
+      "type": ".?AVSfMoModel@@",
+      "slots": [
+        {
+          "offset": "0x58",
+          "target": "0x140045260",
+          "bytes": "6052044001000000"
+        }
+      ]
+    },
+    {
+      "vtable": "0x14281c298",
+      "type": ".?AVSfPstGraphManager@@",
+      "slots": [
+        {
+          "offset": "0x58",
+          "target": "0x140c0b9f0",
+          "bytes": "f0b9c04001000000"
+        }
+      ]
+    },
+    {
+      "vtable": "0x142827868",
+      "type": ".?AVSfGraphManager@@",
+      "slots": [
+        {
+          "offset": "0x58",
+          "target": "0x140c15880",
+          "bytes": "8058c14001000000"
+        },
+        {
+          "offset": "0x18",
+          "target": "0x140c17030",
+          "bytes": "3070c14001000000"
+        }
+      ]
+    },
+    {
+      "vtable": "0x142854628",
+      "type": ".?AVSfGraphFactory@@",
+      "slots": [
+        {
+          "offset": "0x18",
+          "target": "0x140c38c60",
+          "bytes": "608cc34001000000"
+        }
+      ]
+    },
+    {
+      "vtable": "0x14284d0c8",
+      "type": ".?AVSfPstGraphFactory@@",
+      "slots": [
+        {
+          "offset": "0x18",
+          "target": "0x140c37f90",
+          "bytes": "907fc34001000000"
+        }
+      ]
+    }
+  ],
+  "imports": {
+    "0x141e041c0": "??0QObject@@QEAA@PEAV0@@Z",
+    "0x141e042b0": "??1QObject@@UEAA@XZ"
+  },
+  "lazy_owner": "cdd8e0 returns root+1970 if present; otherwise calls data-root virtual+58 and stores its returned pointer. Actual SfMoModel factory is045260. This is an actual owned cache, not a notification counter.",
+  "factory_order": [
+    "045260 reads global mainwindow and invokes+778 without a null mainwindow guard. The returned scene may be null; it is forwarded to the constructor. Allocate0x40; invoke c0b8c0(parent=data root, root=data root, scene).",
+    "Base c15440 calls QObject(parent), installs SfGraphManager table142827868, initializes QList+10 through18f9e0, sets+18=null, stores root at+20 and scene at+28, then calls c15540.",
+    "c15540 skips deletion because+18 was just set null, invokes the BASE table+58=c15880, then stores returned factory+18. c15880 allocates0x20 and constructs SfGraphFactory via c38ac0(parent=manager,manager=manager,root=manager+20), then c157f0 sets+18 (still previously null).",
+    "c38ac0 calls QObject(parent), installs SfGraphFactory table142854628, stores manager at+10 and root at+18. No other app function is called in this constructor.",
+    "Derived c0b8c0 installs SfPstGraphManager table14281c298, calls c0b980, whose first virtual+58 is c0b9f0.",
+    "c0b9f0 allocates0x20 and constructs SfPstGraphFactory via c36b00 with the same parent/manager/root arguments. c36b00 executes c38ac0 then installs table14284d0c8.",
+    "After new derived factory construction, c157f0 deletes the prior base factory via virtual+18(flag1), stores+18=null, then commits the new derived factory pointer. Allocation and deletion order are not interchangeable.",
+    "c0b980 next calls c0de20 (manager+30=10,+34=10), c0dec0 (byte+38=false), then registers signalRemoveGraphItems/slotRemoveGraphItems at2cfbe0 with receiver=manager, fifth argumentfalse."
+  ],
+  "factory_deletion": [
+    "SfGraphFactory wrapper c38c60 invokes c38b30 then frees when flag1. c38b30 restores table and calls QObject::~QObject.",
+    "SfPstGraphFactory wrapper c37f90 invokes c36b50 then frees when flag1. c36b50 restores derived table then calls c38b30.",
+    "No application-level graph list/scene mutation is present in these factory destructor bodies. QObject parenting/teardown semantics remain framework behavior, not an invented no-op."
+  ],
+  "integration_requirements": [
+    "A source-backed graph-manager projection needs actual data-root cache ownership and actual scene identity; Display+10 is not the whole QGraphicsScene.",
+    "Represent the manager list and factory as real state/owned identity. Final cached factory is derived; base factory construction and replacement order remain in the source contract.",
+    "This registration participates in the real notifier population. Do not add a detached bool standing for registration or declare empty scene because the manager list was constructed empty.",
+    "Histogram graphOn clearing still follows successful graph-manager access and selected StateVar access. Constructor closure alone does not close scene query/hide receivers.",
+    "Keep the production histogram guard until actual owner/scene dependencies are supplied, or retain a guard immediately after a deliberately implemented supported prefix."
+  ],
+  "qualifications": [
+    "No actual fresh-run factory reachability, receiver population or scene emptiness is established by constructor code alone.",
+    "Allocation failure and exceptional constructor cleanup are not projected.",
+    "Manager teardown and populated graph-list object ownership remain separate from factory-child teardown."
+  ]
+}

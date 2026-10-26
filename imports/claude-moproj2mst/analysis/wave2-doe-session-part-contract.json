@@ -1,0 +1,62 @@
+{
+  "schema": "m2m-doe-session-part-contract-v1",
+  "scope": "Actual Type2 DoeOutput callback advances document read through ordered part creation/metadata. Session payload, fallback/selection/notification remain guarded.",
+  "original_gui_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "source_hashes": {
+    "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "a047a61952082b98e8d4e85c28afb3dbf4ac4bfb3c2ceeae238443d15e19af60",
+    "source/apps/moproj2mst/include/m2m/doe_session.hpp": "8e98ee1b0bb290d7255c923fe3b642c8949d4d9dd51f04072dcdc4619d4237a6",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "23b4fc6b8da3719db843e4e52b859d0f51b77fd909f7fbf80c283ffcdbe8bcb9",
+    "source/apps/moproj2mst/src/doe/session.cpp": "950e1c46d5285772190a6fedc4bfc2a493984bf9e1b0d333dca51f9752335d6b",
+    "source/apps/moproj2mst/src/ops/noop.cpp": "adb75a74e8de055c61f8e252af4bbe01b5c4079f0582ead2558f873be0e71688",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "2f4e57f8744fda81f2f562fcc5d1f73683ceee3834dffb7ce4ef466edf8c840f"
+  },
+  "evidence_hashes": {
+    "analysis/wave2-doe-type2-session-read-failures-decompile.json": "ade93e39a9800f3d39321e55ef1bb29a6af0db58017d8d82ae6002679463c877",
+    "analysis/wave2-doe-session-root-task-io-decompile.json": "fe234e79d42ea999d4067d27bea3c99eb876f29321f87d9c122ecaa7e8e6f6b5",
+    "analysis/wave2-doe-session-valid-existing-input-decompile.json": "e1e3598d484e64e286ab36a5fa11d11aa598a6d25efcd316a671d2e38a743c54",
+    "analysis/wave2-doe-session-record-creation-order-decompile.json": "d56b406a1eb639641f5b9db36776e27c54fee60f6d5682a28414665e7efef342",
+    "analysis/wave2-doe-session-task-part-init-boolean-signal-decompile.json": "73a4092dcd7502756c7f98eab980265d80df21474c11e3efc16f231b3db64301",
+    "analysis/wave2-doe-session-part-init-closure-decompile.json": "cb2654de248ca94f96ce1d9983d8a5f51e9dce5b726636af2202e946d3e9186e",
+    "analysis/wave2-doe-part-metadata-leaves-receipt.json": "c457133eb2dec9673df7cecb9a2a40e865295404260d556fffeea968ae742d6a",
+    "analysis/wave2-doe-part-state-leaves-receipt.json": "ea2cbdabb05ea6fc90ef3e82d023a729d4629df1bce2f3531ed87f3ae67cc793",
+    "analysis/wave2-doe-part-clear-leaves-receipt.json": "ad4e48074ed05920639a4ee5338f3b8da3033dc29bb9eec6000deb00ef4de194",
+    "analysis/wave2-doe-session-part-clear-closure-decompile.json": "024f3df89c170bbc61649990828488d63d3c7b71c8682c92a27ac68ffe439d0d",
+    "analysis/wave2-doe-session-inner-clear-closure-decompile.json": "4d1299dca502deae183baaa249502fe5a28656fbe9000574fe615763f3017610"
+  },
+  "ordered_contract": [
+    "644440 invokes646e90 before scanning source; old parts are removed first-to-last",
+    "646e90 calls6589a0\u219264f8e0 before each deletion; currentSession=-1, clear session records, remove all raw children of retained root in reverse order. Represented states have no Session/Task records, so task-delete loop is empty. Candidate clears the same child sequence as one vector operation; no per-node callbacks are represented.",
+    "If document current root is SessionRoot, import that one root only; otherwise all descendant SessionRoot elements in QDom order, including nested matches",
+    "Construct658690 then append record BEFORE659d90; start/end/entity0, metadata-derived display $OPR_RANGE, currentSession-1, export flags false",
+    "659d90 updates only present OprEndNo, OprStartNo, PartEntityNo, DisplayName, ExportSiesta, ExportAnsys in that order",
+    "Short attributes fail/overflow to0; booleans are converted short!=0.010330 is exactly subproject type==2;643100/658690/65ae80 set inner flag28 true for this Type2 branch",
+    "650e60\u2192657150 retains actual SessionRoot DOM element before child iteration",
+    "At first Session child guard before Image/UserDefinedStepList/factory/record import; DBLIST/ReportList guard before their unresolved handlers/condition; unknown elements and raw non-elements skip",
+    "If no recognized payload encountered, guard before6469d0 default-part creation and subsequent647170/647560 selection/notifications. No default DOM insertion or selection is invented."
+  ],
+  "constructor_correction": "Previous preliminary null-display summaries are superseded:658690 first assigns null, then6589d0 metadata\u2192659020\u219265be10 assigns $OPR_RANGE.",
+  "bridge": "prepareCurrentOutputSession uses existing readDoeDocument hook, prepares document then readSessionRecords. No new model/core/LoaderSlots fields. Noop fallback guard remains if callback ever returns.",
+  "tests": {
+    "status": "Frozen source; combined parent validation pending",
+    "session_case_count": 14,
+    "new_cases": 5,
+    "coverage": [
+      "part defaults and metadata before payload guard",
+      "short overflow/failure plus explicit empty display",
+      "descendant DOM order and direct-root exclusive branch",
+      "old record clearing, old-root child deletion, append-before-guard, stop before later part",
+      "unknown children skip; DBLIST/ReportList encounter guards"
+    ],
+    "worker_checks": [
+      "git diff --check passed; no worker build or app execution"
+    ]
+  },
+  "limitations": [
+    "No Session records or Tasks constructed; no parsed/global Task conflation",
+    "No StepData/StateVar/SfDispView/GraphicsItems or Image/QImage decoding",
+    "No fallback part creation, current selection, QObject notification consumers or completed active DOE Save",
+    "ReportList guard precedes its unrecovered global enable condition; candidate does not claim the original would always enter its handler",
+    "Historical120-122 remain scope-mismatched reference pairs, not fresh original acceptance"
+  ],
+  "app_control_used": false
+}

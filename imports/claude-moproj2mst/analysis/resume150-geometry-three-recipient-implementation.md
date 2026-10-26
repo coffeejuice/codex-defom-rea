@@ -1,0 +1,37 @@
+# CP150: third distinct fresh fixed-row recipient
+
+The initial high-version geometry reader now admits exactly three distinct fresh same-step n1/d3/first1 recipients, retaining a separate actual allocation/sizing/copy receipt per object and guarding a fourth positive recipient. The change extends the candidate's fixed capacity over the existing native caller loop; no third-specific native branch or public activation behavior is claimed. Frozen qualification: `analysis/resume150-geometry-next.md` SHA-256 `6a1f7faf07ec1c410859ba98417f081606b148d6276c4c784a204ee84a063e70`.
+
+## Production change and retained boundaries
+
+Viewer now declares one private `GeometrySyncBarrier::mainRecipientCapacity = 3`, used by its fixed receipt array extent and all three completed/active/admission bound checks. No growable store or new receipt allocation was introduced. The existing CP149 per-recipient reset/coordinate/six-BC/28-real-zero-size-leaf/24-byte-copy stages and one-way global arrays/main transition are unchanged. Entry3 starts only after both earlier entries are CopyCommitted, live/distinct/increasing actual ordinals, and current typed fresh-owner/source/descriptor/registry facts pass.
+
+The CP149 validator remains in force after every third-recipient reset/lookup and before copy/Stop/retirement. It recovers each earlier object through the current actual step table and recorded ordinal, compares identity before dereference, then checks primary/BC/registry/receiver/binding/dimension receipts. Both prior copied rows persist as historical effects even if current A changes. The third uses the same actual A offset0/count>=3, but its own distinct actual primary and BC allocations. Source pointer/count/current maximum, installed frame/control block/current initial borrow/model/DB/receipt, version/dimension/cache/id/flag/which and all other earlier guards remain.
+
+Capacity exhaustion refuses a fourth positive before reset/publication. Third fresh-admission refusal leaves it untouched; later refusal retains its reached allocations/leaves plus both earlier copies. Parked raw repair cannot restart any record. The actual per-object MAR load still precedes every caller skip and no unused MAR pointer arithmetic is introduced. Successful actual loop exhaustion validates every started receipt before the existing one node Stop and exact high retirement within the initial borrow. Zero-main/low paths and existing one first getter/null-connectivity or one cached second getter/populated behavior are unchanged. Nonempty variable allocation, wider rows/offsets, preexisting spans, arbitrary N and generic resume remain guarded.
+
+Retained native qualification: original EXE SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`; native helper call `14082dbe9` returns via `dbee -> dc66 -> d9b4`, reloads actual next ordinal/object/MAR/A and calls the same per-object leaf chain. Stop follows actual loop exhaustion at `dc6b..dc81`. CP145–149 leaf evidence is reused; this lane made no REA call, import, GUI/original execution or new runtime capture.
+
+## Focused tests and honest expectation maintenance
+
+The existing actual lookup observer remains void/read-only to result selection and still forwards every real mutable lookup. Its fixture selector now recognizes the third actual node receiver. Test source/table/owner/width changes below are explicitly adversarial observations, not original runtime captures.
+
+- Renamed/extended normal case `geometry_two_or_three_fresh_recipients_copy_independent_rows_and_complete_once`:16 profiles total, including8 new three-recipient profiles (two versions, populated/null connectivity, zero/mixed BC widths). Captures three distinct registry bodies and84 actual ordered receiver lookups for three recipients, actual primary/positive BC allocation distinctness, empty values/null slots/seventh slot, n1/reset marker0, one arrays checkpoint/Stop, bounds/getter counts and cached no-replay. Seeds actual A at successive final lookups with nonzero rowA `1.25,-2.5,7.75`, rowB `4.5,5.25,-6.75`, rowC `-7.5,8.25,9.75` while retaining destination sentinels. Exact24-byte comparisons require all historical destination rows stay independent and source ends at the final row. Existing two-recipient profiles remain in the same matrix.
+- `geometry_third_recipient_partial_lookup_rechecks_both_prior_live_ordinals`:4 profiles refuse at third lookup5 through ordinary width, third foreign owner, replacing first live ordinal2, or replacing second live ordinal3. Each table mutation swaps a prior object with a real spare while keeping current third at ordinal4, and restores links/owner via RAII before cleanup. Require62 actual lookups, both earlier exact rows, third allocations/five completed leaves/sentinel bytes, timer2/unsupported scene and no parked replay after repair. This tests current-table membership for both earlier receipts before dereference.
+- `geometry_three_recipient_copies_remain_before_fourth_positive_or_later_MAR_guard`:2 profiles retain all three copied rows/84 lookups when a fourth fresh positive or its next malformed MAR preload refuses. The third malformed-MAR injection occurs after its already-loaded current input. Fourth coordinates/count/reset marker stay untouched, no Stop/retirement occurs and raw repair cannot replay.
+- `geometry_third_recipient_fresh_admission_guards_preserve_two_prior_copies`:3 profiles reject a third preexisting primary, first2 or foreign owner before its reset; both prior byte-exact rows persist and third primary/count/reset marker remain unchanged.
+
+The stale CP149 case is explicitly renamed `geometry_two_recipient_copies_remain_before_unqualified_third_or_later_MAR_guard`. Its positive third descriptor now has logical node count0, an explicit existing admission refusal. Its malformed-MAR branch still refuses at the third object's preload after two copies. Thus a fully qualified third no longer carries a stale unsupported expectation; new triple normal and fourth guard cases test the newly supported descriptor and new capacity boundary directly.
+
+## Static preflight and release
+
+Static preflight passed: balanced delimiters, whitespace, resolved project/Testkit includes, CHECK/REQUIRE outer argument arity, unique24 cases with326 CHECK/120 REQUIRE calls, single Testkit main, matching private helper call arities, and the one named limit consistently used at the fixed array/three capacity checks (no stale literal2 bounds). Source lifetime revalidation algorithm and same-invocation stage order were inspected unchanged from CP149. No compilation, build, test execution or shared CTest registration change occurred.
+
+Target `m2m_mdt_geometry_a_producer`; exact focused CTest `m2m.mdt.geometry_a_producer`. Root owns changed-test binding preflight, focused/full validation and broader Viewer regressions. Runtime results remain pending root validation.
+
+Frozen exclusive files:
+- `source/apps/moproj2mst/src/engine/viewer.cpp` SHA-256 `a75d80335eb22cd47812e175fd755e84635f10422a5701a9762fc96668dc06c8`
+- `source/apps/moproj2mst/tests/mdt/test_geometry_a_producer.cpp` SHA-256 `1ac7e183c684530aede83847ee3170b2b47c842e60ac903cd90e286fe1827294`
+- This new implementation receipt.
+
+Viewer/test are frozen and released to root for grouped build. No shared header, CMake, other source, evidence binary, GUI or mutable REA state was modified.

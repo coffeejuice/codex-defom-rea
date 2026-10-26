@@ -1,0 +1,357 @@
+{
+  "status": "Ready bounded observation specification only; root decides/executes owned capture; worker did not launch or acquire control",
+  "objective": "One fresh original startup capture to qualify View_Default/SplitView_Main with actual two placeholders, handle/list ownership, reparent/callback inputs, and translator/codecs at same startup points",
+  "all_offsets": "Hexadecimal byte offsets; convert preferredVA to actual module base+RVA. Verify module identity and specified instruction bytes before installing hooks.",
+  "scope_and_endpoint": [
+    "No GUI API/input, no target getters or extra Qt calls, no project Open/Save, no settings edits. Parent-owned fresh process only.",
+    "Install early hooks through module observer before SfMoMainView ctor so its own QWidget Create event is not missed.",
+    "Recommended endpoint: selected d35a80(manager,View_Default) onLeave. This includes both placeholders/handles, hide, splitter naming, grid reparent/item creation and layoutName commit.",
+    "Optional single-run extension: continue only through d36170(manager,Primary,view) onLeave to capture known placeholder0/handle deletion and actual Primary insertion. Do not silently extend to later MainView setup or Open.",
+    "Pause only the owned selected thread at the chosen endpoint for receipt/termination, as parent probes001-003 did. Parent verifies owned identity, terminates owned PID, verifies absence, closes Frida session. No app-control release claim follows from debugger cleanup."
+  ],
+  "modules": [
+    {
+      "name": "DEF_GUI_MO_64.exe",
+      "preferred_base": "0x140000000",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "name": "QtGui4_64.dll",
+      "preferred_base": "0x65000000",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    },
+    {
+      "name": "QtCore4_64.dll",
+      "preferred_base": "0x67000000",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    }
+  ],
+  "hooks": [
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0x2236",
+      "preferred_va": "0x140002236",
+      "first12_bytes": "90488b4424404883c438c3cc",
+      "name": "after startup codec and translator routines",
+      "selection": "one instruction checkpoint after140002290 returns",
+      "observations": "language globals below; no object creation or getter invocation"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xe9400",
+      "preferred_va": "0x1400e9400",
+      "first12_bytes": "4c8944241848895424104889",
+      "name": "actual MainView constructor",
+      "selection": "first selected original SfMoMainView ctor; remember args0 as MainView, args1 as mainwindow; initially memory uninitialized",
+      "observations": "seed MainView before its QWidget create event, record identities only on entry; never read private fields until QObject/widget initialization"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xd34730",
+      "preferred_va": "0x140d34730",
+      "first12_bytes": "488954241048894c24084883",
+      "name": "actual ViewManager constructor",
+      "selection": "args1 equals tracked MainView; remember args0 manager",
+      "observations": "seed manager identity; constructor exit snapshot actual parent/layout/name/filter/gesture state"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xd34d50",
+      "preferred_va": "0x140d34d50",
+      "first12_bytes": "48894c24084883ec28488b4c",
+      "name": "grid getter return / successor cursor",
+      "selection": "args0 manager and returnAddress == app+0xd349d4",
+      "observations": "onLeave grid cached; complete baseline snapshot. Resume native splitter allocation here, without restarting clears"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xdab810",
+      "preferred_va": "0x140dab810",
+      "first12_bytes": "4c894424188954241048894c",
+      "name": "SfSplitView constructor",
+      "selection": "args2 == tracked MainView and selected d349a0 call chain; args0 splitter, args1 orientation1",
+      "observations": "identity onEnter only; onLeave concrete splitter,name-data pointer,logical records,all live placeholders/handles,notifier registrations expected by source"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x403210",
+      "preferred_va": "0x65403210",
+      "first12_bytes": "48894c24085356574883ec30",
+      "name": "base QSplitter constructor",
+      "selection": "args0 == tracked splitter",
+      "observations": "entry args/identities only; onLeave private fields valid, before SfSplitView derived setup"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xdab900",
+      "preferred_va": "0x140dab900",
+      "first12_bytes": "48894c24084881ec88000000",
+      "name": "derived splitter initialize",
+      "selection": "args0 == tracked splitter",
+      "observations": "onEnter state before two placeholders; onLeave state after secondary hide and before five notifier registrations"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x70d70",
+      "preferred_va": "0x65070d70",
+      "first12_bytes": "48894c2408565741544883ec",
+      "name": "placeholder QWidget constructor",
+      "selection": "returnAddress app+0xdab952 means placeholder0; app+0xdab9e0 means placeholder1",
+      "observations": "record args0 identity,args1 parent,args2 flags pointer. Do not dereference raw object on entry. OnLeave full widget state; raw Create event is captured separately"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x402b00",
+      "preferred_va": "0x65402b00",
+      "first12_bytes": "48894c240853555657415448",
+      "name": "QSplitterHandle constructor",
+      "selection": "args2 == tracked splitter; label handles by allocation occurrence, not logical index",
+      "observations": "entry identities/desired orientation only; onLeave raw owner/parent/handle fields; track each actual handle, including optional Primary replacement"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x6e4d0",
+      "preferred_va": "0x6506e4d0",
+      "first12_bytes": "488bc4565741544155415648",
+      "name": "QWidgetPrivate initialize",
+      "selection": "*(args0+8) is tracked MainView/manager/splitter/placeholder/handle",
+      "observations": "entry only known QObjectPrivate fields and args1 parent/raw flags; onLeave complete QWidget fields. WidgetData may not yet be assigned on entry"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x405710",
+      "preferred_va": "0x65405710",
+      "first12_bytes": "48895c2408574883ec20488b",
+      "name": "QSplitter addWidget",
+      "selection": "args0 splitter and args1 tracked placeholder",
+      "observations": "before/after actual parent,logical records,handles,visibility,private+224 suppression,thread/filter/gesture state"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x404d00",
+      "preferred_va": "0x65404d00",
+      "first12_bytes": "4056574154415541564883ec",
+      "name": "QSplitter private insert",
+      "selection": "args0 == *(splitter+8); args2 tracked placeholder or optional Primary",
+      "observations": "before/after saved/restored+224 and reparent/list/order; record index and explicit-insert bool arg3"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x404d47",
+      "preferred_va": "0x65404d47",
+      "first12_bytes": "4584c97432488b46208b5008",
+      "name": "after insertion suppression store",
+      "selection": "current selected insertion frame only; optional instruction snapshot",
+      "observations": "private+224 nowtrue BEFORE reparent; direct current-state confirmation"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x70a60",
+      "preferred_va": "0x65070a60",
+      "first12_bytes": "48895c2408574883ec20488b",
+      "name": "QWidget setParent wrapper",
+      "selection": "args0 tracked splitter/placeholder/handle/Primary",
+      "observations": "before/after actual QObject parent, QWidget flags,attributes,children/pending-child vector and event sequence"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x40290",
+      "preferred_va": "0x65040290",
+      "first12_bytes": "488bc44154415541564883ec",
+      "name": "QGridLayout addWidget(row,column)",
+      "selection": "args0 tracked manager grid and args1 tracked splitter",
+      "observations": "before/after MainView->manager QObject reparent, grid item allocation and current layout flags; record alignment argument from stack only if needed"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x43930",
+      "preferred_va": "0x65043930",
+      "first12_bytes": "40534883ec3048c7442420fe",
+      "name": "QLayout widget-item factory",
+      "selection": "args0 grid and args1 splitter",
+      "observations": "record global createWidgetItem hook before call; onLeave actual QLayoutItem identity,vtable,widget member+10 for default WidgetItemV2 only"
+    },
+    {
+      "module": "QtGui4_64.dll",
+      "rva": "0x70410",
+      "preferred_va": "0x65070410",
+      "first12_bytes": "40565741544883ec4048c744",
+      "name": "QWidget setVisible",
+      "selection": "args0 tracked splitter/placeholders/handles or optional Primary",
+      "observations": "record requested bool, before/after complete relevant widget flags, current parent/layout and emitted events; constructor hide may have exact early-return branch"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xdac040",
+      "preferred_va": "0x140dac040",
+      "first12_bytes": "48894c24084883ec38ba0100",
+      "name": "HideSecondary dispatcher during derived ctor",
+      "selection": "args0 splitter",
+      "observations": "before/after logical child1 identity and visibility; do not confuse slot with deletion"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xdabb50",
+      "preferred_va": "0x140dabb50",
+      "first12_bytes": "488954241048894c24084883",
+      "name": "splitter name commit",
+      "selection": "args0 splitter",
+      "observations": "record QString holder+28 data pointer after return; source literal is SplitView_Main"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xd35a80",
+      "preferred_va": "0x140d35a80",
+      "first12_bytes": "488954241048894c24084881",
+      "name": "View_Default operation",
+      "selection": "args0 manager; original selected initial call",
+      "observations": "onLeave final complete snapshot; recommended stop/pause here after default layout name commit, before Primary"
+    },
+    {
+      "module": "QtCore4_64.dll",
+      "rva": "0x119570",
+      "preferred_va": "0x67119570",
+      "first12_bytes": "40565741544883ec4048c744",
+      "name": "normal notifyInternal",
+      "selection": "args1 tracked live object or tracked ancestor; raw type read u16(args2+0x10)",
+      "observations": "onEnter/onLeave bounded event records with current source-input fields. This captures QInternal handling that may skip QApplication::notify; parent ignores ChildAdded return, retain it separately"
+    },
+    {
+      "module": "QtCore4_64.dll",
+      "rva": "0x11ae90",
+      "preferred_va": "0x6711ae90",
+      "first12_bytes": "40555657415441554883ec40",
+      "name": "postEvent(receiver,event,priority)",
+      "selection": "args0 tracked live object or ancestor",
+      "observations": "record event pointer,type,priority,caller,module/thread,object role. Only3-arg hook avoids counting two-arg wrapper twice; no queue pumping"
+    },
+    {
+      "module": "QtCore4_64.dll",
+      "rva": "0x12f870",
+      "preferred_va": "0x6712f870",
+      "first12_bytes": "48894c240853565741544155",
+      "name": "QObject destructor",
+      "selection": "args0 is tracked object",
+      "observations": "mark native object dead on entry, retain last safe snapshot/identity; never dereference it after destruction starts"
+    },
+    {
+      "module": "DEF_GUI_MO_64.exe",
+      "rva": "0xd36170",
+      "preferred_va": "0x140d36170",
+      "first12_bytes": "4c8944241848895424104889",
+      "name": "OPTIONAL Primary insertion",
+      "selection": "args0 manager and role parameter source is Primary; args2 actual requested view",
+      "observations": "only if root elects extended endpoint: remember actual Primary identity; before/after view/placeholder0 removal+handle lifetime and splitter record order; stop on normal return before later MainView grid insertion/alias writes"
+    }
+  ],
+  "object_snapshot": {
+    "common": "object pointer,role,lifecycle phase,vtable; private=*(object+8), actual QObject parent=*(private+0x10), raw QObject flags u32(private+0x20), threadData=*(private+0x40), notify depth int(threadData+0x1c); QObject children QList data=*(private+0x18).",
+    "q_list": "data+8 signed begin,data+0xc signed end; entries at data+0x18+8*index. Record header/data identity and bounded entries. QObject child/list entries are raw pointers. Event-filter list entries are guard wrappers; dereference wrapper+0 to current filter.",
+    "filters": "application and each current event receiver: data=*(private+0x70), begin/end and every bounded guard/current pointer; for each live filter record threadData, vtable, vt+0x28 function,module path/base/RVA. Preserve null/expired entries and foreign affinity, do not prune.",
+    "pending_child_vector": "data=*(private+0x68), signed count at data+8, capacity atdata+4. Each16-byte pair at data+0x10+16*i: control pointer+0, raw QObject child identity+8. Record pair fields without assuming control!=null means live; control-block liveness internals not needed to assert identity/count. Different from QObject children QList.",
+    "widget": "only when QWidget data initialized: data=*(object+0x20), u32(data+8) low attributes, u32(data+0xc) window flags. Raw attribute extension words at private+0x1c8,+0x1cc,+0x1d0 (covers created/explicit hide/attribute69 etc). Store raw values; do not infer effective visible from parent or hidden alone.",
+    "widget_extra": "private+0x88 extra pointer; when valid extra+8 topExtra pointer and topExtra+0x7c flags. Native installed QLayout=*(private+0xa8); cached QWidgetItem=*(private+0xc0). Do not cast arbitrary MainView layout as QGridLayout.",
+    "generic_layout": "if installed layout nonnull/live: vtable,QObject private,parent,private+0x9c flags,+0xa4/+0xa8/+0xac/+0xb0 QRect endpoints,menu pointer+0xb8; record type identity before class-specific fields.",
+    "grid": "actual already-bound QGridLayout only: private+0x100 QList of GridBox pointers; each box+0 is QLayoutItem*,box+8/+0xc/+0x10/+0x14 row/column bounds raw ints. Default QWidgetItemV2 has widget+0x10 (ctor650494b0); verify vtable before interpreting custom factory result. Grid private+0x108 cache,+0x134 dirty; margins/current flags/rect as earlier probes.",
+    "splitter": "after private constructor: guarded+0x208 pointer; logical QList+0x210 (records, NOT QObject child list); orientation int+0x218; bytes+0x21c/+0x21d/+0x21e/+0x21f; int+0x220; suppression byte+0x224. Logical record0x28: QRect raw0..0xf,size int+0x10,flags u32+0x14,widget*+0x18,handle*+0x20. Capture all bounded records in actual order.",
+    "handle": "Qt QSplitterHandle private+0x1e0 owner splitter,+0x1e8 orientation,+0x1ec int,+0x1f0 flags. Owner field is initialized only AFTER QWidget base constructor; before that retain known constructor args as intended parent, not committed owner.",
+    "names_and_aliases": "manager guarded grid pointer at+0x28; manager layoutName QString data pointer at+0x30; splitter dedicated name QString data pointer+0x28. Trace assignment sites rather than invent QString data parsing. MainView private allocation pointer+0x30 and its manager+0x30 remain uncommitted until native later0e9cfc; do not read uninitialized member as null proof."
+  },
+  "gesture_snapshot": {
+    "application": "app private+0x148 gesture manager pointer (probe002/003 nonnull); do not assume absent.",
+    "receiver_and_ancestors": "for every tracked QWidget event receiver, walk actual QObject parents until first widget with window lowbit1 or null, with cycle/bound detection. At each record identity/parent/window flags and gesture map data=*(private+0x1c0).",
+    "map": "Qt4 ordered map header: signed size at data+0x70, level at+0x6c,ref at+0x68,first node=*(data+8),sentinel=data. For bounded nonempty map walk next=*(node+8) until sentinel; gesture key int(node-8),flags int(node-4). Record raw nodes and count consistency; unavailable/truncated/malformed is unknown, never empty.",
+    "reason": "6507e340 for rawCreate0x0f gathers this widget and eligible ancestors; empty context maps along the actual walked chain source-close its no-recognizer branch. Nonempty contexts require later source/dispatch qualification, even when current window flags happen to match."
+  },
+  "shared_runtime_fields": {
+    "application_instance": "*(QtCore base+0x2f4220); record actual app vtable,threadData,filters; app-closing byte QtCore+0x2f41fd",
+    "internal_callbacks": "owner=*(QtCore+0x2f3c68), shutdown byte+0x2f3c70. If owner nonnull data=*owner,count=int(data+8); when count>3 type3 QList data=*(data+0x28). Record complete bounded entries with function/module/RVA; distinguish absent/indexAbsent/empty/read error.",
+    "parent_optional_hooks": "declarative byte QtCore+0x2f1da8, final hook pointer QtCore+0x2f4358; each child private+0x78 hookData and QObject flags. QWidget post-child vector behavior is separate and may occur even when declarative flag is0.",
+    "grid_item_factory": "raw function pointer *(QtGui base+0x9c98e0); if nonnull record module/RVA and actual factory return identity, do not invoke it separately or assume default WidgetItemV2.",
+    "hide_globals": "QtGui+0x9c96e8 raw current widget identity used by setVisible(false), plus relevant raw widget/parent/installed-layout fields before each hide.",
+    "event_data": "u16(event+0x10) type; header first0x18 raw bytes; child pointer at event+0x18 ONLY for raw0x44/0x45/0x47 QChildEvent. Raw0x43/0x4a/0x4c are posted plain QEvent in retained paths and have no proven child pointer. Record requested result separately from adapter success."
+  },
+  "language_snapshot": {
+    "timing": [
+      "once just after original translator loader returned at app+0x2236",
+      "at grid successor baseline",
+      "at final View_Default/optional Primary endpoint"
+    ],
+    "translator": "app+0x10 is allocated translator owner pointer; authoritative active list is data=*(appPrivate+0x98), begin/end signed atdata+8/+0xc, raw translator pointers atdata+0x18+8*i. Record actual entries/vtable/module but call no translate/getter. Allocation alone is not installation.",
+    "codec_globals": "QtCore+0x2f4438 locale; +0x2f4440 translation; +0x2f3e10 C-strings. Read raw pointers, and vtable if nonnull; no getter (locale getter can initialize).",
+    "qualification": "Fresh observed startup points only; unchanged through future Open is not established. Supplied by remesh_native exact translate67119b20/startup codec bindings."
+  },
+  "bounds_and_receipts": [
+    "Maximum64 elements per QList/QVector,32 gesture contexts per map,16 ancestors,160 selected notify/post records; any cap produces explicit incomplete coverage and a final count, never empty/default. Root may adjust these fixed limits before execution.",
+    "Use compact phase snapshots and per-event receiver snapshots rather than all-object full dumps at every event. Retain complete raw JSON in process evidence and emit compact counts/status only.",
+    "Record observed modules/paths/bases, current file SHA binding, PID/process ownership, hook byte validations, start/end times, target stages reached, read errors/truncations, normal return vs error and cleanup receipts.",
+    "Read only initialized/live fields. Native QObject destructor entry marks tracked object dead; retain identity and last snapshot, do not dereference freed addresses. Address reuse needs a new generation/role record, not resurrection.",
+    "The earlier affinity omission is already recorded as probe rework. This specification includes app/filter/receiver/grid threadData and all directly identified optional hooks to avoid another missing-field repeat."
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-default-splitter-owner-cursor-correction.json",
+      "sha256": "87ca0d8d8f828ff3ae871c18fa313c6c66178a57ea7b2721e6b238d8dc41a813"
+    },
+    {
+      "path": "analysis/wave3-close-default-splitter-native-prefix-contract.json",
+      "sha256": "db9fe3d17c500328301e4c2047d7324e345e7104c22ad8ce3ae73b38650a03ec"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observation-layout-contract.json",
+      "sha256": "fa72c46ff267653e785de5f9fe58af18cb3b7ca0002025219b75335fe5549f5f"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observed-style-filter-contract.json",
+      "sha256": "ca9edbcd025fade3c5e8faa4c5f38c531967ae7e766eabcf47bc239737390183"
+    },
+    {
+      "path": "analysis/wave3-close-grid-constructor-create-event-contract.json",
+      "sha256": "9e2096aca2736bc69b648a9090a71afd70a9779d1cc510498f3c12a666b55174"
+    },
+    {
+      "path": "analysis/wave3-close-qt-hide-false-prefix-contract.json",
+      "sha256": "824ef0ca9d0ac27cbc569d50bc9c79d2eaaf5ad60513eb9a9833dfabdd968272"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-handle-constructor-static.json",
+      "sha256": "b142f971cfc50fe052cca5adbbe3753595d8e62646e58c1ef8b8983510c1cc5d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-grid-item-factory-static.json",
+      "sha256": "43fa65557f5fbe5a54f465c68476a4918c9b2c34733035351a3c24163bd9bb72"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-grid-item-constructor-static.json",
+      "sha256": "d00485d6df1ff7afc5b0aecebec7e2e14ab1a13bd819e2b09f3582145ac6bd06"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-pending-child-storage-static.json",
+      "sha256": "e6b36b6af851e7695e1e04524904bf51a99815feadc29cde8df8189c64551d7b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-child-event-payload-static.json",
+      "sha256": "706fa94dd2b6f153d480ef5d84cff2640fcf2dccc7d87af44f31a3b39ad1bd48"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-codec-bindings-static.json",
+      "sha256": "80eddd09eae4c07fe6ec5feac43ed5a3ba934545942acf07f6b53d0aaa1adc4b"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-connection-storage-translate-67119b20.asm",
+      "sha256": "b0c5c71194653e2a0f3d7dbefa21b8fa6126da7faed64e1a8cbcbfc85cadbf5b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-1400e9400.asm",
+      "sha256": "7594bf4f140da1b4fb6933b144aef569d508b1af8c43985773e0f48dfd994234"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506dbd0.asm",
+      "sha256": "732491d42b26315e65e0039309e70d98d72f7d37c7e576e25d83408e2ca02ff8"
+    }
+  ]
+}

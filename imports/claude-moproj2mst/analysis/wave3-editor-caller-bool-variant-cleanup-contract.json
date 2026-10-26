@@ -1,0 +1,45 @@
+{
+  "schema": "editor300-caller-bool-variant-cleanup-contract-v1",
+  "created_utc": "2026-10-24T12:53:54.067541+00:00",
+  "status": "Static contract only; five editor source files remain frozen for parent candidate43",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-property-caller-cleanup-static.json",
+      "sha256": "7fe786527be980afcf3b5fef8ad3a19deb03d0538c87ab1925fcc21430f38026"
+    },
+    {
+      "path": "analysis/wave3-editor-false-variant-destructor-static.json",
+      "sha256": "39a8434c5b21d260729af4ea7155bb8a809fa3759ba604a75ec605653214f933"
+    },
+    {
+      "path": "analysis/wave3-editor-property-bool-stores-qualification.json",
+      "sha256": "ebdc37a2e3c0b8414e5ec1e8d22ee1b0c3fb7e9790b8520738dcf4d0ba63d414"
+    },
+    {
+      "path": "analysis/wave3-editor-first-parented-grid-contract.json",
+      "sha256": "d7dd9c9e02cda9ac7e5a19aa1b0996a065ba01794950258dc2ae2d3c922e9dae"
+    }
+  ],
+  "callsite": {
+    "address": "0x140ed9972",
+    "iat": "0x141e059b8",
+    "import": "??1QVariant@@QEAA@XZ",
+    "export": "QtCore4_64.dll+0x138370",
+    "export_va": "0x67138370",
+    "import_evidence": "analysis/wave3-closure-next-can-close-gates-static.json imports entry0x141e059b8",
+    "stack": "Native leaRCX,[rsp+0x208] at140ed996a; decompiler stack offsets are normalized differently. This is caller QVariant temporary, not QDynamicPropertyChangeEvent."
+  },
+  "exact_bool_path": [
+    "QVariant(boolfalse) constructor67139610 stores qword0=0,dword8=1,byte0=false. Bytes12..15 remain uninitialized/unknown and are not consumed by this destructor.",
+    "67138374 tests metadata bit30; metadata1 makes it clear, jumping to67138385 without dereferencing union pointer or refcount.",
+    "67138388 again tests bit30 then6713838e masks low30bits,67138393 compares type1 to7; unsignedjbe goes671383a7, stackrestore,RET671383ab. No memory store, free, clearhandler, property mutation, queue or callback on this exact branch.",
+    "Native caller then executes allocation size0x20 at140ed9978 and allocator call140ed997d. Do not publish grid before constructor and callback effects."
+  ],
+  "implementation_rule": "After original setter false return, mark only caller typedbool temporary lifetime ended and record source-order destructor completion. Preserve falseVariantConstructed as historical fact and keep live lifetime separate if needed. Do not clear retained QObject property or reuse stackevent destructor. Compose into next real constructor cursor; do not claim full QVariant destructor implementation for other metadata.",
+  "observation_limit": "Original capture002 stopped at140ed9969 before this destructor. This closure is static original instruction evidence, not an observed execution of destructor/grid.",
+  "capture_boundary": "32-byte caller capture ends mid-neighbor instruction after140ed9982; only complete instructions through140ed997d are used. Retained first-grid capture independently starts140ed9978 and proves subsequent instructions.",
+  "remaining_prerequisites": [
+    "Parentless QWidget base init/Create/post0x4a and same actual queue/runtime effects before setup",
+    "Subsequent parented QGridLayout: QObject child0x44 before editor layout/UI publication, then installedlayout and invalidate/post0x4c before QtGridtail; existing manager grid order cannot substitute."
+  ]
+}

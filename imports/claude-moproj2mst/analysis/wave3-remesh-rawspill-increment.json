@@ -1,0 +1,85 @@
+{
+  "schema": "wave3-remesh-rawspill-increment-v1",
+  "created_utc": "2026-10-24T04:43:31.496369+00:00",
+  "status": "source_frozen_for_root_build_and_validation",
+  "owner": "remesh_native",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "0ce705caca732b38289209cce491e37ec7cad8833e16441976ef220ac689b25c",
+      "bytes": 13829
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_remesh.hpp",
+      "sha256": "63dee579befff222f11175adf30414df71d19b4e9963ab561cdeecb1abef7eb3",
+      "bytes": 2699
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_remesh.cpp",
+      "sha256": "cbe790d9feded3b23029a9b797aaae51e6d378ffae0dcfb8efc3a27b6d17392c",
+      "bytes": 17381
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_remesh.cpp",
+      "sha256": "11d3d350d0801541f90510b9debd1be8d4b08147ed2e3b8a16d82d8813766280",
+      "bytes": 29183
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-remesh-rawspill-representation-contract.json",
+      "sha256": "8d6ff7c18eb1abfe82aafaeb22147c26bee752864f317af2157c7f42e91066c8",
+      "bytes": 4022
+    },
+    {
+      "path": "analysis/wave3-remesh-rawspill-layout.json",
+      "sha256": "1b6404d96fc78c0293daf0991ea71abf7f1e5b99793e2ccb293c7e3a51fbf8bc",
+      "bytes": 2788
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-parameter-startup-contract.json",
+      "sha256": "d53cfdfedf9d4fe8ec2fd8941739ed48f12e6173db6d1c1b805a9cffbc1f343b",
+      "bytes": 6513
+    },
+    {
+      "path": "analysis/wave3-remesh-native-save-increment.json",
+      "sha256": "f7388873ec712deb0c5486aadac22af5bbbbb115ab54042f2d97f8a72c381204",
+      "bytes": 6014
+    },
+    {
+      "path": "analysis/wave3-remesh-save-qualified-formatter-amendment.json",
+      "sha256": "e385bd6f29c8060b912635495e9c035acdd1ef5aa20bb3a7909411d62213fdee",
+      "bytes": 745
+    }
+  ],
+  "implemented": [
+    "RemeshState retains contact, surface and enabled as uint8_t plus seven explicit bytes at original +19..1f. Fresh zero-fill is retained without treating C++ padding as storage.",
+    "applyRemeshUniformEdgeToken packs the proven +10..29 span from current fields, copies selected text and its NUL, then unpacks with memcpy and raw byte conversions. No numeric parse, Boolean normalization or arithmetic on floating bits.",
+    "The supported token length expands from 8 to 25. Length 26 or greater, and a caller-provided embedded NUL, refuse before local writes. Earlier reader records stay applied; wider original corruption remains an explicit unknown.",
+    "The existing native Save casts now print raw contact/surface values. Later integer records still normalize those fields in file order; Project Open assigns enabled only after a supported reader return.",
+    "The Save report comment now links the established default startup termination to the remaining public terminal-outcome representation; behavior of the failed-open guard is unchanged."
+  ],
+  "tests": {
+    "cases_in_target": 27,
+    "new_cases": [
+      "remesh_nine_character_token_preserves_raw_contact_and_untouched_intervening_bytes",
+      "remesh_raw_span_reaches_scaling_surface_and_enabled_in_original_byte_order",
+      "remesh_reader_retains_raw_flags_until_later_keywords_and_open_assigns_enabled_last",
+      "remesh_native_save_prints_overwritten_contact_and_surface_bytes_without_normalizing"
+    ],
+    "revised_cases": [
+      "Long-token refusal now starts at length 26 and checks retained suffix state.",
+      "Late unsupported reader record follows a successful nine-byte raw store and method record; their effects survive.",
+      "Native Save 12.500000 output now reopens successfully, preserves text-as-double bits, and respects the later normalizing contact keyword and scaling clamp."
+    ],
+    "validation_run": "git diff --check for the four owned files exited 0. No compilation or tests run by worker; root owns all builds and execution.",
+    "required_root_validation": "Remesh target (27 cases), affected editor snapshot/lifecycle targets, actual public Open/Save cases, complete registered regression and candidate freeze."
+  },
+  "qualification": [
+    "Derived vectors are static evidence, not fresh original runtime captures.",
+    "The full editor300 public path remains guarded pending remaining constituent recovery.",
+    "No change to Session/Ctx/core, shared TokenReader, native failure outcome, C ABI, original evidence or protected applications.",
+    "The old <=8-byte profile and guarded 12.500000 reopen expectation in prior immutable receipts are superseded only within the newly proven 26-byte span."
+  ],
+  "successor": "Maintain source freeze while root validates. Investigate the next smallest editor300 dependency; startup default invalid-parameter contract is already retained for root-owned terminal outcome integration."
+}

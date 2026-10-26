@@ -1,0 +1,25 @@
+# Resume 46: Cogging branch audit
+
+## Scope and status
+
+This audit covers queue item `RCOG` / legacy item `C10` only. The converter is the imported subtree `imports/claude-moproj2mst`; its approved scope is one-project headless Open → Save → Close, original default dialog choices, native internal behavior, and no rollback redesign (see `RESEARCH_CHARTER.md` and `IMPLEMENTATION_PLAN.md`). This is a read-only inventory; no source, build, app-control, or REA database action was performed.
+
+The parent checkout's `python tools/recovery_status.py` reports its separate DMO/GUI validation blocked by unavailable GUI release. `admin/check_continuation.py` is absent at the parent root; converter instructions place it under the imported subtree (`imports/claude-moproj2mst/admin/check_continuation.py`). This DMO status does not close or block read-only Cogging inventory.
+
+## Already covered by current source and receipts
+
+- `source/apps/moproj2mst/src/engine/cogging_load.cpp` implements the Cogging loader hooks and connects `cogProcessUpdate`; `source/apps/moproj2mst/src/engine/cogging_process.cpp` models Process editor fill/apply order, including reheat-related adaptive controls. Static comments identify original functions and addresses; these are port claims, not fresh execution evidence.
+- `source/apps/moproj2mst/src/engine/cogging_save.cpp` contains geometry/engine mutation and save setup. It explicitly indexes `pass(m.cog, 1, 1)` for die positioning and refuses missing required objects/undefined source states rather than inventing behavior.
+- `source/apps/moproj2mst/src/datafiles/mdt_write.cpp` serializes the defaults, simulation list, and reheat records. Its `masterWrite` computes and writes `SIMLST`, emits `NoReheats`, then explicitly refuses `nReheats >= 2`; only the one-reheat `reheatWrite(o, c.reheats[0], 1)` path is serialized. `reheatWrite` emits `NoPass`, three heat records, and indexed pass records.
+- The source-native Cogging per-operation file output path is separately covered by `analysis/wave3-cogging-native-io-contract.md` and `.json`; `analysis/wave3-cogging-native-io-validation.json` records all seven focused I/O tests passing and the full 110-test validation. The receipt qualifies it to the normal allocation/default CString-codec profile, leaving codec binding and allocator/descriptor/FILE/old-CRT write edge cases open.
+- `analysis/wave3-distortion-cogging-validation.json` records 103 passed, six passed-with-logged-gaps, one passed-with-logged-differences, zero failed among 110; historical comparison includes case `A:RS_55_Multiple_Operations_Example1` as a DIFF. The contemporary test receipts explicitly skip `53_Cogging_Multiple_Ops_Lab1` as A-excluded. Thus the pass count does not establish multiple-reheat parity or close the excluded case.
+
+## One unresolved behavior to isolate
+
+The concrete gap is the original behavior of the `NoReheats >= 2` serialization branch. Queue C10 labels this a refusal/error-policy deviation and requires validating loop indexing and ownership bounds, with full-output retention. `closure-audit.json` cites original addresses `0x14076ac03`, `0x14076ac72`, and `0x1407617e0`; the retained source qualification at `source/apps/moproj2mst/src/datafiles/mdt_write.cpp` lines 422 and 590 is explicitly static evidence, not an execution observation. The source itself says the original cumulative pointer writes a triangularly offset element and then reads beyond the array, so the resulting bytes may be unstable/undefined. Do not infer that the port's deterministic `M2M_E_UNSUPPORTED` is the original result, and do not encode one unstable output as a contract.
+
+Failed-open behavior is a distinct already-advanced area: Cogging native writer tests cover failed open, skipped global effects, and continuation to later operation writers. It should not be conflated with this multi-reheat branch.
+
+## Exact source-qualified next action
+
+In the next Cogging evidence phase, first inspect the retained native disassembly/source for `0x14076ac03..0x14076ac72` and `0x1407617e0`, resolving the pointer induction, allocation length, and read/write bounds against the `CogReheat` owner/layout. Then run original-first captures on disposable copies with one reheat (control) and two reheats (target), retaining complete process status, error/dialog result, all generated Cogging.MDT bytes and hashes, and any partial files. Repeat the two-reheat capture only enough to characterize stability; preserve crashes or varying outputs as such. Use the known fresh-session harness and the existing excluded `RS_53_Cogging_Multiple_Ops_Lab1` only after verifying its actual reheat count and fixture qualification. Compare against the current candidate's explicit refusal without changing the candidate or comparator during evidence collection. After evidence, update the C10 contract and decide whether original behavior is reproducible; implementation must preserve observed order/failure effects and must not replace undefined outputs with a guessed serialization. This action is contingent on an available, supported original-app control lifecycle; none was initiated here.

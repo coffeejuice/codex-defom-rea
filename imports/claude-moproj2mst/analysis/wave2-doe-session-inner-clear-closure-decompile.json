@@ -1,0 +1,23 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "14064f8e0",
+      "entry": "14064f8e0",
+      "name": "FUN_14064f8e0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_14064f8e0(longlong param_1)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  longlong lVar3;\r\n  undefined8 uVar4;\r\n  undefined8 *puVar5;\r\n  undefined1 auStack_68 [8];\r\n  int iStack_60;\r\n  undefined8 uStack_58;\r\n  int iStack_50;\r\n  longlong *plStack_48;\r\n  int iStack_40;\r\n  undefined1 auStack_38 [8];\r\n  longlong *plStack_30;\r\n  longlong *plStack_28;\r\n  undefined1 auStack_20 [8];\r\n  undefined8 uStack_18;\r\n  undefined8 uStack_10;\r\n  \r\n  uStack_18 \u003d 0xfffffffffffffffe;\r\n  lVar3 \u003d func_0x000140c1aef0(param_1 + 0x38);\r\n  if (lVar3 !\u003d 0) {\r\n    uVar4 \u003d func_0x000140c1aef0(param_1 + 0x38);\r\n    uStack_58 \u003d FUN_1406588d0(uVar4);\r\n    cVar1 \u003d func_0x000140645010(uStack_58);\r\n    if (cVar1 !\u003d \u0027\\0\u0027) {\r\n      iStack_50 \u003d 0;\r\n      while( true ) {\r\n        iVar2 \u003d FUN_140004ae0(param_1 + 0x30);\r\n        if (iVar2 \u003c\u003d iStack_50) break;\r\n        puVar5 \u003d (undefined8 *)FUN_140160c10(param_1 + 0x30,iStack_50);\r\n        plStack_48 \u003d (longlong *)FUN_1406584f0(*puVar5);\r\n        if (plStack_48 !\u003d (longlong *)0x0) {\r\n          plStack_30 \u003d plStack_48;\r\n          plStack_28 \u003d plStack_48;\r\n          if (plStack_48 \u003d\u003d (longlong *)0x0) {\r\n            uStack_10 \u003d 0;\r\n          }\r\n          else {\r\n            uStack_10 \u003d (**(code **)(*plStack_48 + 0x18))(plStack_48,1);\r\n          }\r\n        }\r\n        iStack_50 \u003d iStack_50 + 1;\r\n      }\r\n    }\r\n  }\r\n  *(undefined4 *)(param_1 + 0x2c) \u003d 0xffffffff;\r\n  FUN_14020db90(param_1 + 0x30);\r\n  _childNodes_QDomNode__QEBA_AVQDomNodeList__XZ(param_1 + 0x18,auStack_68);\r\n  iStack_60 \u003d _count_QDomNodeList__QEBAHXZ(auStack_68);\r\n  iStack_40 \u003d iStack_60;\r\n  while (iStack_40 \u003d iStack_40 + -1, -1 \u003c iStack_40) {\r\n    _at_QDomNodeList__QEBA_AVQDomNode__H_Z(auStack_68,auStack_38,iStack_40);\r\n    _removeChild_QDomNode__QEAA_AV1_AEBV1__Z(param_1 + 0x18,auStack_20,auStack_38);\r\n    __1QDomNode__QEAA_XZ(auStack_20);\r\n    __1QDomNode__QEAA_XZ(auStack_38);\r\n  }\r\n  __1QDomNodeList__QEAA_XZ(auStack_68);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145071e88",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

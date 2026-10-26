@@ -1,0 +1,29 @@
+{
+  "scope": "Exact handle private initialization, cursor ownership prefix and next unresolved boundary; no target runtime or production changes",
+  "evidence": [
+    {"path": "analysis/wave3-closure-next-close-default-splitter-handle-constructor-static.json", "sha256": "b142f971cfc50fe052cca5adbbe3753595d8e62646e58c1ef8b8983510c1cc5d"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-handle-cursor-prefix-static.json", "sha256": "363b683d77ee86d9af43179d45e7d8196500c7ce30b2e4cf25cee1be3e25b7bd"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-cursor-platform-prefix-static.json", "sha256": "6e6c6f0f19bb5aafb51d54fd87473eb8d3b8062179bf97f0977dff6e53c69776"}
+  ],
+  "initialization_correction": {
+    "before_base": "65402b00 allocates private0x1f8 and constructs QWidgetPrivate; then+1e0=null,+1e8=1,+1ec=0,low3bits+1f0=0 at65402b51..68, before QWidget base call65402b88. Other bits of+1f0 are not assigned by these instructions.",
+    "after_base": "Install actual QSplitterHandle vtables6570b288/6570b250; assign actual splitter pointer at private+1e0 and passed orientation at+1e8. Then construct and assign cursor before returning.",
+    "capture_qualification": "Parent reviewed probe conservatively records handle-specific fields only after derivedReady. Earlier omitted values are not source-uninitialized or observed-zero facts; valid pre-base defaults are established statically."
+  },
+  "cursor_sequence": [
+    "65402bc1 chooses shape12 for orientation1, else11. QCursor constructor6502f490 first stores its shared-data pointer null, conditionally invokes global cache initialization6502eea0 if QtGui659c9870 is0, then assigns the requested shape through6502efb0.",
+    "QWidget::setCursor6506a6f0 reads actual cursor shape. Nonzero shapes enter private-extra allocation/helper65062f00; allocates a concrete8-byte QCursor and copy-constructs it through6502f160.",
+    "Destroy/free any prior cursor from private+88 extra+18, then store the new concrete cursor there. This is actual per-widget cursor ownership, separate from splitter record and QObject parent ownership.",
+    "Set raw attribute0x26=true through65068fe0. Then call65096e10(private,cursor); that wrapper ignores cursor argument, passes actual QWidget from private+8 and false to65081b10.",
+    "65081b10 checks static guard659caec0. On first use it sets the guard bit, constructs guarded QObject pointer659caeb8 fromnull and registers its cleanup. This precedes later widget visibility/creation checks.",
+    "Its false-argument path may substitute a cached widget when rawattribute0x3c istrue and window identity matches. It then resolves candidate/native window context and requires visible/enabled predicates and absent override before obtaining a cursor handle and calling imported SetCursor. Other branches return without that final OS call.",
+    "After platform helper returns, setCursor constructs raw0xb7 QEvent and synchronously sends it to the same handle, then destroys event. Handle ctor destroys its temporary QCursor and returns."
+  ],
+  "remaining": [
+    "Global QCursor cache initialization and selected shared cursor-data ownership, extra allocation and attribute setter effects are not yet reconstructed.",
+    "Fresh hidden/uncreated predicates may skip final SetCursor but do not skip all earlier ownership/cache effects.",
+    "Actual raw0xb7 receiver/dispatcher and current filter/gesture inputs require qualification; existing ChildAdded or QWidget lower event leaves do not automatically cover it.",
+    "No new runtime fields are demanded solely from this static receipt. The already frozen probe records all selected-role event types; omitted native state remains unknown."
+  ],
+  "next": "Reconcile parent-owned capture before choosing a typed constructor increment. If this cursor dependency is first unsupported, retain exact pending handle ownership and refuse here before logical-record append. Do not commit both placeholders or notifier registrations from observed end-state alone."
+}

@@ -1,0 +1,7 @@
+# CP93 CP88 fallback hash guard
+
+The acceptance script no longer accepts caller-supplied non-CP88 hashes while labeling a receipt-free run `CP88`. Receipt-free CP88 mode remains compatible with the historical defaults, but any explicitly supplied source or artifact hash that differs from the exact CP88 default requires `--freeze-receipt`. With a receipt, the existing validation binds the checkpoint-specific receipt path, source-tree hash, artifact paths, and EXE/DLL hashes before any scratch allocation or process launch.
+
+The no-execute `--self-check` now covers both input-mode pinning and rejection of a CP88 executable-hash override without a freeze receipt. It passed with `converter_launched: false` and `cp88_unbound_hash_override_rejected: true`. An actual CLI rejection check passed too: calling the script with `--candidate-version CP88`, the frozen CP88 CLI path, a deliberately invalid all-zero EXE hash, and no receipt exited 2 with the expected `CP88 hash overrides require a validated --freeze-receipt` error. This guard runs before fixture validation, scratch creation, or converter execution.
+
+No runtime acceptance rerun was needed because project/output paths and candidate environment behavior are unchanged. CP90's passing acceptance receipt remains byte-for-byte unchanged at `C:\PROBLEM\b98r\r90-5f34b6e3\receipt.json`, SHA-256 `fb65e22db27edb27c192a3ead16ef63670596d217841ea415c2daf9fc2d7433e`. The protected original and GUI were not launched; no source or build files were changed.

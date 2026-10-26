@@ -1,0 +1,61 @@
+{
+  "scope": "Unbuilt shared StateVar explicit-selection apply and non-discarding shared notification owner API",
+  "objective_complete": false,
+  "source_hashes": {
+    "source/apps/moproj2mst/include/m2m/doe_statevar.hpp": "f00cabe649690f728ba28b3ad127217a89f0135dbcb9d5f5de2a7b070f69dace",
+    "source/apps/moproj2mst/src/doe/statevar.cpp": "69ff8378fe69f7ae2f1c739eecfb419e0f1490713a09351944d010607cde0114",
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "8d36d888b8b3f51e0c69fbde11d9e118d2e4e5f7dad712580b7d44d33dc28d59",
+    "source/apps/moproj2mst/src/doe/session_notifications.cpp": "8ad365b2059708fa61f88261049c7e15cf0b9b77ef6243ac0b14aefbbcb52f9a",
+    "source/apps/moproj2mst/tests/mdt/test_doe_statevar_apply.cpp": "febd485fb8f2338a4a84a54c45d5c3dbb5614e5a0b795a4e2691efeee6e39425",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session_notifications.cpp": "7314c3d5d900ff35546ad6a87beb4ab6c31ff18e3f2c6fb8106faaff1a1fdb81"
+  },
+  "coordinated_receiver_hashes": {
+    "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp": "bc407635ef681a5038eda6678a26c073a0be8c186a79450b7e6b7601d7b664d2",
+    "source/apps/moproj2mst/src/engine/close_effects.cpp": "9dbbff8671964f7c42317013f9197ecb3b46abe8af8c3dc43b552ec3e3b9aaef"
+  },
+  "draft_provenance": {
+    "path": "analysis/wave2-doe-statevar-shared-apply-draft.json",
+    "sha256": "6567bac0307290624c5bc23cb81612a232d1083714a27b942d14173131d6c5cf"
+  },
+  "interfaces": {
+    "apply": "void doe::applyStateVarSelection(engine::GuiModel&,int variable,int component,bool notify,const StateVarConstructorContext*,StudyIo*,engine::StateVarPlotEffects*=nullptr)",
+    "bind": "void doe::StudyIo::bindSessionNotificationState(std::shared_ptr<doe::SessionNotificationState> owner)",
+    "receiver": "engine::StateVarPlotEffects::changePtrkGraph(GuiModel&,StateVarState&) and changeHistoGraph(GuiModel&,StateVarState&), default second hook guarded",
+    "root_owner": "Root binds the same ConversionSession-owned pointer before openProject; root/session/core changes are parent-owned and validated in the combined candidate."
+  },
+  "source_order": [
+    "Fresh model StateVar construction reused through one helper; explicit apply does not create/reset Histogram. XML histogram reset/parse ordering remains unchanged.",
+    "d25340 sets apply marker; empty-view normalization precedes cache clear using INCOMING variable and then variable/component stores. Populated view guard preserves the old explicit-selection fields.",
+    "notify=true checks live shared suppression. If not suppressed set shared flag90=false, then invoke typed first receiver effect, or guard missing dispatcher. This point precedes rendering/type/title/range.",
+    "State remains live after receiver effects; nonzero variable/model object guards occur at their source points. For variable0 assign type2, explicit translated title and min0/max1.",
+    "At exact d17b90 emit point, reread live suppression, reset flag90 and invoke typed histogram effect. This precedes cached-radius/visibility/display/legend work.",
+    "Only normal return clears apply/pending markers. Both typed effects receive actual model StateVar identity, not copied flags.",
+    "XML reader calls common apply with notify=false and never calls either dispatcher or touches notifier gates.",
+    "Owner bind accepts nonnull shared pointer, same-owner idempotence, rejects a different existing/lazy owner so earlier observations cannot be silently lost."
+  ],
+  "tests": {
+    "new_apply_target_cases": 7,
+    "notification_target_cases": 8,
+    "owner_cases_added": 2,
+    "statevar_existing_cases": 25,
+    "session_existing_cases": 29,
+    "coverage": [
+      "Explicit apply without XML/histogram reset; notify=false ignores effects.",
+      "Missing first dispatcher retains cache/field stores before type/range.",
+      "Injected first/second failures verify actual state identity and partial effect order; second sees type/title/range and independent flag90 reset.",
+      "Typed probe mutations survive normal apply; markers clear only afterward.",
+      "Live shared suppression is reread for second emit and can suppress dispatch without requiring receiver knowledge.",
+      "Early populated-view guard precedes explicit argument stores, cache clear and notifier state creation.",
+      "Same shared owner survives one StudyIo release, is used by a second handle, and rejects null/different replacement."
+    ],
+    "probe_qualification": "Injected typed probes validate seam ordering/state retention, not original callback behavior; closure-owned receiver module supplies separate source-qualified actual off-state contracts.",
+    "preflight": "Declarations/includes checked, memory/function/string/utility/algorithm/cmath/limits explicit as used, one testkit main, CHECK macro commas and whitespace checked; new targets instantiate no local Project incomplete owner.",
+    "worker_build_or_tests": false
+  },
+  "qualifications": [
+    "This adds no public full-Close acceptance claim or GUI control. Exact native Qt container nodes/event delivery, arbitrary registration state and process-global teardown remain source-qualified separately.",
+    "Shared flags are modeled in one bound owner; the four static-empty Session keys retain their exact insertion effects. Typed Ptrk/Histo receiver populations/lifetime remain actual qualified module state, not assumed empty from constructor flags.",
+    "No original/candidate runtime, DLL execution, app-control session, worker builds or shared REA mutation."
+  ],
+  "source_state": "Six owned files frozen; coordinated receiver files also frozen by closure worker. Root combined configure/build/focused/full checks pending."
+}

@@ -1,0 +1,31 @@
+--- a/source/apps/moproj2mst/include/m2m/model.hpp
++++ b/source/apps/moproj2mst/include/m2m/model.hpp
+@@ -34,7 +34,7 @@
+ struct Props;           // m2m/props.hpp
+ class KeyTokenizer;     // below
+ namespace mst { class OpClass; }   // m2m/mst/writer.hpp (the SfOpr* singleton, "OB")
+-namespace doe { class Model; }     // m2m/mst/doe_model.hpp (P09): DefDoeModel / SfMoDoeManager
++namespace doe { class Model; struct Study; class StudyIo; }     // m2m/mst/doe_model.hpp (P09): DefDoeModel / SfMoDoeManager
+ namespace data { struct CogProcess; }   // m2m/data/cogging.hpp (MDT)
+ namespace engine { struct GuiModel; struct Display; struct DbHandle; }   // m2m/engine.hpp (MDT L0; Display: packet moproj; DbHandle: MDT DB)
+ 
+@@ -233,7 +233,8 @@
+     Project* project = nullptr;    // +0x10
+     int type = 0;                  // +0x18 (0 main, 2 DOE, 3 optimisation, 4 die stress)
+     int id = 0;                    // +0x1c
+-    doe::Model* doe = nullptr;     // +0x20 DOE study (doe_model.hpp, P09; null for a plain project)
++    doe::Model* doe = nullptr;     // +0x20 alias of ownedDoeStudy for recovered Type2
++    std::shared_ptr<doe::Study> ownedDoeStudy; // manager ownership; raw alias keeps existing writer seam
+     String dbName;                 // +0x38 Subproject_DbName DbName
+ 
+     // ---- added by P01 ----
+@@ -316,6 +317,9 @@
+     // The main window's 3D display (SfGLDisplay, ctor 0x140cf8b00) with its camera
+     // (src/engine/viewer_camera.cpp); made on first use.
+     std::shared_ptr<engine::Display> display;
++    // Adapter configures before openProject: native only for file-writing Save;
++    // recording for read-only/convertToBytes, explicitly simulated constructor effects.
++    std::shared_ptr<doe::StudyIo> doeIo;
+     // ---- added by MDT DB ----
+     // The DB part of the data root (P+8, 0x1400a5890): path, loaded flag and the DB reader
+     // (src/engine/db_load.cpp). The GUI creates the data root at start-up (0x140043fe0); here it is

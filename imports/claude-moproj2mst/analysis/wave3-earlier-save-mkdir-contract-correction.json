@@ -1,0 +1,17 @@
+{
+  "supersedes": "analysis\\wave3-earlier-save-mkdir-contract.json",
+  "previous_sha256": "5d90aad29ee8db972cce7df2fe2e267128c98c0dffd7cf3ef5c221d9dcfea723",
+  "reason": "IAT resolution corrects preliminary mnemonic interpretation before implementation",
+  "corrected_helper_contract": [
+    "81afb0 constructs an empty QString then QDir(empty), calls setPath(target) at81b022, then mkpath(target) at81b035",
+    "There is NO separate QDir::exists call in this body. The branch81b046 tests mkpath return; mkpathfalse plus dialogs=true enters message box",
+    "Caller directories are normally absolute; relative-path composition must preserve setPath(target) followed by mkpath(target) if that branch is later supported",
+    "Dialog result remains ignored and helper returns true; caller ordering and mismatch with deferred throwing applyEffects remain established"
+  ],
+  "remaining": [
+    "Qt mkpath and message-box default effects",
+    "KEY direct writer encoding/failure contract",
+    "Modal event delivery qualification"
+  ],
+  "implementation_changed": false
+}

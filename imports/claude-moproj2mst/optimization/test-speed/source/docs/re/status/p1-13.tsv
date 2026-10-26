@@ -1,0 +1,68 @@
+address	status	note
+0x1403d84b0	verified	port/defdbio/src/resultset/db_result_sets.cpp read_db_header; print branch unreachable (callers 1401dc3f0/1401dd0d0/1401e51d0 pass 0), stops in not_ported; datarm23 ops via local copy (owner p1-12) in resultset/datarm_local.cpp; COG header = oracle -m header; replaces the -m thread's local copy; -m oracle 129/129 at the Phase 1 gate
+0x1403d96fc	verified	port/defdbio/src/resultset/db_result_sets.cpp read_result_sets; print branch unreachable as above; NUMRST/NUMRMS globals; COG directory = oracle -m stepList; replaces the -m thread's local copy; -m oracle 129/129 at the Phase 1 gate
+0x1403ddf20	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp OBJ_MESH2D ctor (Cls_1403ddf20 = OBJ_MESH2D); p1-04 sub-object calls through mesh2d::member_ext() stubs until p1-04 lands
+0x1403de190	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp ~OBJ_MESH2D
+0x1403de2a0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp OBJ_MESH2D::reset
+0x1403de3d0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp OBJ_MESH2D::clear
+0x1403de460	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp OBJ_MESH2D::copy_from
+0x1403e2280	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp OBJ_MESH2D::mesh_a
+0x1403e2290	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp OBJ_MESH2D::mesh_b_count
+0x1403e2370	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~Elem28_1403e2370
+0x1403e23f0	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~Elem18_1403e23f0
+0x1403e2450	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~Elem18_1403e2450
+0x1403e25a0	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~Elem20_1403e25a0
+0x1403e2610	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~Elem10_1403e2610
+0x1403e2750	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~Elem10_1403e2750
+0x1403e2850	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h1588 (handle at 0x1588)
+0x1403e28c0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h1588
+0x1403e29f0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h1590 (handle at 0x1590)
+0x1403e2a60	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h1590
+0x1403e2bb0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h1598 (handle at 0x1598)
+0x1403e2c20	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h1598
+0x1403e2d50	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h15a0 (handle at 0x15a0)
+0x1403e2dc0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h15a0
+0x1403e2ee0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h15a8 (handle at 0x15a8)
+0x1403e2f50	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h15a8
+0x1403e3110	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp release_list
+0x1403e3210	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h15b0 (handle at 0x15b0)
+0x1403e3280	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h15b0
+0x1403e33d0	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp new_h15b8 (handle at 0x15b8)
+0x1403e3440	ported	port/defmodel/src/obj_mesh2d/obj_mesh2d.cpp release_h15b8
+0x1403e4210	ported	rc_array.hpp RcArray ctor, via new_h1588
+0x1403e4260	ported	rc_array.hpp release_rc_array, via release_h1588
+0x1403e4340	ported	rc_array.hpp RcArray ctor, via new_h1590
+0x1403e4390	ported	rc_array.hpp release_rc_array, via release_h1590
+0x1403e44a0	ported	rc_array.hpp RcArray ctor, via new_h1598
+0x1403e44f0	ported	rc_array.hpp release_rc_array, via release_h1598
+0x1403e45a0	ported	rc_array.hpp RcArray ctor, via new_h15a0
+0x1403e45f0	ported	rc_array.hpp release_rc_array, via release_h15a0
+0x1403e4670	ported	rc_array.hpp RcArray ctor, via new_h15a8
+0x1403e46c0	ported	rc_array.hpp release_rc_array, via release_h15a8
+0x1403e47c0	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp in release_list (reference drop)
+0x1403e4820	ported	rc_array.hpp RcArray ctor, via new_h15b0
+0x1403e4870	ported	rc_array.hpp release_rc_array, via release_h15b0
+0x1403e4970	ported	rc_array.hpp RcArray ctor, via new_h15b8
+0x1403e49c0	ported	rc_array.hpp release_rc_array, via release_h15b8
+0x1403e4ba0	ported	rc_array.hpp delete of the block in release_rc_array (h1588)
+0x1403e4be0	ported	rc_array.hpp delete[] data in ~RcArray (compiler vector deleting dtor, h1588)
+0x1403e4c70	ported	rc_array.hpp delete of the block in release_rc_array (h1590)
+0x1403e4cb0	ported	rc_array.hpp delete[] data in ~RcArray (compiler vector deleting dtor, h1590)
+0x1403e4d40	ported	rc_array.hpp delete of the block in release_rc_array (h1598)
+0x1403e4d80	ported	rc_array.hpp delete of the block in release_rc_array (h15a0)
+0x1403e4dc0	ported	rc_array.hpp delete of the block in release_rc_array (h15a8)
+0x1403e4e00	ported	rc_array.hpp delete[] data in ~RcArray (compiler vector deleting dtor, h15a8)
+0x1403e4e90	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp in release_list (block scalar deleting dtor)
+0x1403e4ed0	ported	rc_array.hpp delete of the block in release_rc_array (h15b0)
+0x1403e4f10	ported	rc_array.hpp delete[] data in ~RcArray (compiler vector deleting dtor, h15b0)
+0x1403e4fa0	ported	rc_array.hpp delete of the block in release_rc_array (h15b8)
+0x1403e4fe0	ported	rc_array.hpp delete[] data in ~RcArray (compiler vector deleting dtor, h15b8)
+0x1403e50b0	ported	rc_array.hpp ~RcArray (Destroy / free of data, h1588)
+0x1403e5130	ported	rc_array.hpp ~RcArray (Destroy / free of data, h1590)
+0x1403e5180	ported	rc_array.hpp ~RcArray (Destroy / free of data, h1598)
+0x1403e51e0	ported	rc_array.hpp ~RcArray (Destroy / free of data, h15a0)
+0x1403e5230	ported	rc_array.hpp ~RcArray (Destroy / free of data, h15a8)
+0x1403e52c0	ported	rc_array.hpp ~RcArray (Destroy / free of data, h15b0)
+0x1403e5310	ported	rc_array.hpp ~RcArray (Destroy / free of data, h15b8)
+0x1403e53b0	ported	rc_array.hpp delete[] data in ~RcArray (compiler vector deleting dtor, h15a0)
+0x1403e5d60	ported	port/defmodel/src/obj_mesh2d/rc_array.cpp ~RcList

@@ -1,0 +1,76 @@
+# kw-g2bc: group 2 boundary-condition keywords (EC*, WIN*, nodal BCC*/CRBFLX/RHTFLX/HDNOBJ, BCCFNC, LOC*, RSEDEF).
+# Shell functions (parser 0x14038b8a0, object writer 0x14029e250) are kw-g2obj's; this packet ports their cases
+#   0x11-0x14 0x18 0x19 0x49 0x4b-0x4e 0x52-0x58 0x61-0x6c 0x9e (port/defkey/src/kw_g2bc/*.cpp) and writer-map
+#   steps 48-52 (write_window_lists), 53 (write_local_bcs), 54 (write_edge_face_bcs), 60 (write_rsedef); all oracle-verified.
+# 0x1402a4a80 (kw-g2sv's state-variable writer): its cases 0x41..0x4c (the EC arrays) are ported inside ec.cpp because
+#   1402abf20 needs them; kw-g2sv should export or call g2bc::write_keyword for those codes.
+# Handler2s of BCCDEF/BCCDFN/BCCTMP/BCCTFN/HDNOBJ/BCCCRB/CRBFLX/BCCRHT/RHTFLX are kw-g2sv's (coordinator decision).
+# Not ported here: 0x14026a3c0 (_OBJ_GEO3D getter, p1-07; WIN shape 3 stops at DEF_NOT_PORTED),
+#   0x1401fc290 (ELMCON boundary build, mesh packet; should call bc::recount_boundary_segments and
+#   bc::realloc_edge_face_arrays), 0x140235c10 (p1-12; set_node_count stops there until it lands).
+# Test-only stand-ins (in tests only): RZ/ELMCON counts and boundary build, model component widths.
+# Known divergence (not reproducible, not matched): GEOTYP read after RZ in 2D changes the BCCDEF/BCCDFN
+#   width (model+0x1640/0x1644 via FUN_1401d0fc0 -> 1401d09c0) while 140199650 only reallocs the per-node
+#   int arrays (realloc, no re-layout), so the original writes heap garbage in BCCDEF/BCCDFN. The port does
+#   the same width update and realloc (call_1401d0fc0); the newly grown bytes differ (heap contents).
+address	status	note
+0x1402ac560	verified	write_local_bcs, port/defkey/src/kw_g2bc/local.cpp
+0x1402b7140	verified	write_rsedef, local.cpp
+0x1402b4050	verified	BCCFNC handler2, local.cpp
+0x1402ae590	verified	LOCTMP handler2, local.cpp
+0x1402aeb40	verified	LOCATM handler2 (crafted oracle cases only), local.cpp
+0x1402aef30	verified	LOCDEF handler2, local.cpp
+0x1402b4180	ported	BCCFNC accessor, local.cpp
+0x1402ae950	ported	LOCTMP accessor, local.cpp
+0x1402aeda0	ported	LOCATM accessor, local.cpp
+0x1402af1f0	ported	LOCDEF accessor, local.cpp
+0x1401368c0	verified	dynary_list_find, port/defmodel/src/bc/local_bc.cpp
+0x1402ab880	verified	write_winprs_block, win_write.cpp
+0x1402696f0	verified	winlist_remove, port/defmodel/src/bc/window_bc.cpp (LLRANGEDEF_DATA re-link branch: no such nodes in the port)
+0x1402632d0	ported	window_has_shape, window_bc.cpp; 3D shape-3 branch reads +0x220 through 14026a3c0 (kwm-audit)
+0x140416c90	verified	read_node_values, port/defkey/src/node_elem_var/node_elem.cpp
+0x1404199a0	verified	read_value_records, node_elem.cpp
+0x140419b90	verified	read_value_records_k, node_elem.cpp
+0x140419d40	verified	read_int_values, node_elem.cpp
+0x140419ea0	verified	read_int_records, node_elem.cpp
+0x1401652b0	ported	bc::set_node_count, port/defmodel/src/bc/node_arrays.cpp (stops at 140235c10 until p1-12 lands)
+0x140162ff0	verified	bc::alloc_node_arrays, node_arrays.cpp
+0x140163270	ported	bc::free_node_arrays, node_arrays.cpp
+0x14017ffe0	verified	bc::node_set_alloc, node_arrays.cpp
+0x1401653b0	verified	bc::set_element_count, node_arrays.cpp
+0x140163090	verified	bc::alloc_element_arrays, node_arrays.cpp
+0x1401632a0	ported	bc::free_element_arrays, node_arrays.cpp
+0x1401836c0	verified	bc::element_set_alloc, node_arrays.cpp
+0x14041a090	verified	read_edge_face_values, port/defkey/src/node_elem_var/edge_face.cpp
+0x14041a440	verified	read_edge_face_ints, port/defkey/src/node_elem_var/edge_face.cpp
+0x1402abf20	verified	write_edge_face_bcs, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6840	verified	ECCDEF handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6a80	verified	ECCTMP handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6cc0	verified	ECCATM handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6900	verified	ECDEFN handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6b40	verified	ECTMFN handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6d80	verified	ECATFN handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b69c0	verified	ECPRES handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6c00	verified	ECHFLX handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6e40	verified	ECAFLX handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6f00	verified	ECCRHT handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b6fc0	verified	ECRHFN handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402b7080	verified	ECRFLX handler2, port/defkey/src/kw_g2bc/ec.cpp
+0x1402f6600	verified	int edge/face line writer, port/defkey/src/kw_g2bc/ec.cpp
+0x1402f6a10	verified	double edge/face line writer, port/defkey/src/kw_g2bc/ec.cpp
+0x140165170	verified	slot count, port/defmodel/src/bc/boundary_topology.cpp
+0x140165d30	verified	boundary recount, port/defmodel/src/bc/boundary_topology.cpp
+0x14017ebc0	verified	segments per boundary record, port/defmodel/src/bc/boundary_topology.cpp
+0x140200c90	verified	2D edge -> slot, port/defmodel/src/bc/boundary_topology.cpp
+0x140200ff0	verified	3D face -> slot, port/defmodel/src/bc/boundary_topology.cpp
+0x140200e20	verified	2D slot -> nodes, port/defmodel/src/bc/boundary_topology.cpp
+0x140200ec0	verified	2D slot -> nodes (raw table), port/defmodel/src/bc/boundary_topology.cpp
+0x140201210	verified	3D face -> 4 nodes, port/defmodel/src/bc/boundary_topology.cpp
+0x14017e8a0	ported	boundary record arrays (+1 zeroed int), port/defmodel/src/bc/boundary_topology.cpp
+0x140163300	ported	boundary count (cap 100), port/defmodel/src/bc/boundary_topology.cpp
+0x140200a70	ported	faces of one boundary, port/defmodel/src/bc/boundary_topology.cpp
+0x140256dc0	ported	calloc ints (failure report 14039d3a0 not ported), port/defmodel/src/bc/boundary_topology.cpp
+0x140257150	ported	calloc doubles (same), port/defmodel/src/bc/boundary_topology.cpp
+0x1401858d0	verified	allocate the 12 EC arrays, port/defmodel/src/bc/edge_face.cpp
+0x1401632d0	ported	free the 12 EC arrays, port/defmodel/src/bc/edge_face.cpp
+0x1401631e0	verified	reallocate the 12 EC arrays, port/defmodel/src/bc/edge_face.cpp

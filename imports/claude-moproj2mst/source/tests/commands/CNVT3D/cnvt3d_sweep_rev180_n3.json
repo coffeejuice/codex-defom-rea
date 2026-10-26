@@ -1,0 +1,26 @@
+{
+  "label": "CNVT3D sweep revolve 180 start 30 nsec 3 to 4 off-axis",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 900,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGEO23 2 1\n180.0 30.0 0.0\nGEOSEC 2 4\nMSHSEC 2 3\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "data/sweep_offaxis.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "NBCD.OUT",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "odd nsec 3 -> 4 sections (5 layers, 30 nodes, 8 hex); theta_s = s*(180*pi/180/4) + 30*pi/180"
+  }
+}

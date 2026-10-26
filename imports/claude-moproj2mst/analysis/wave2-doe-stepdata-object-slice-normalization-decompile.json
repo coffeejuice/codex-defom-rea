@@ -1,0 +1,23 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "14093aa30",
+      "entry": "14093aa30",
+      "name": "FUN_14093aa30",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n\r\nundefined1 * FUN_14093aa30(undefined1 *param_1,undefined1 *param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined1 *puVar2;\r\n  double *pdVar3;\r\n  undefined1 *puVar4;\r\n  double dVar5;\r\n  double dStack_58;\r\n  double dStack_50;\r\n  double dStack_48;\r\n  double dStack_40;\r\n  undefined1 auStack_38 [40];\r\n  \r\n  puVar2 \u003d param_2;\r\n  puVar4 \u003d auStack_38;\r\n  for (lVar1 \u003d 0x18; lVar1 !\u003d 0; lVar1 \u003d lVar1 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d auStack_38;\r\n  pdVar3 \u003d \u0026dStack_58;\r\n  for (lVar1 \u003d 0x18; lVar1 !\u003d 0; lVar1 \u003d lVar1 + -1) {\r\n    *(undefined1 *)pdVar3 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    pdVar3 \u003d (double *)((longlong)pdVar3 + 1);\r\n  }\r\n  dStack_40 \u003d (double)FUN_14093a920(param_2);\r\n  dVar5 \u003d (double)FUN_141470a78(dStack_40);\r\n  if (dVar5 \u003c\u003d _UNK_142248190) {\r\n    dStack_48 \u003d 0.0;\r\n    dStack_50 \u003d 0.0;\r\n    dStack_58 \u003d 0.0;\r\n  }\r\n  else {\r\n    dStack_58 \u003d dStack_58 / dStack_40;\r\n    dStack_50 \u003d dStack_50 / dStack_40;\r\n    dStack_48 \u003d dStack_48 / dStack_40;\r\n  }\r\n  pdVar3 \u003d \u0026dStack_58;\r\n  puVar2 \u003d param_1;\r\n  for (lVar1 \u003d 0x18; lVar1 !\u003d 0; lVar1 \u003d lVar1 + -1) {\r\n    *puVar2 \u003d *(undefined1 *)pdVar3;\r\n    pdVar3 \u003d (double *)((longlong)pdVar3 + 1);\r\n    puVar2 \u003d puVar2 + 1;\r\n  }\r\n  return param_1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508006c",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

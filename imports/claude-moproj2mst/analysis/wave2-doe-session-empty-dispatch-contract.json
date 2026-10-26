@@ -1,0 +1,71 @@
+{
+  "scope": "Fixed original main-PE notifier API binding set and four empty-list final Session dispatches, static contract",
+  "objective_complete": false,
+  "original_gui_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence_hashes": {
+    "analysis/wave2-doe-session-notifier-register-binding-decompile.json": "9aaddb2a4b4c519b81d44d6b2e6c6f7a1d0f2539e4644c632a5b96973868d271",
+    "analysis/wave2-doe-session-notifier-call-instructions.json": "e1a357a697a2f3fd1de4a56eee1fcbf5470cd25ef7a1bf93e32e60b957dbbd4a",
+    "analysis/wave2-doe-session-notifier-call-instructions-receipt.json": "2bdbae3a7f7b9067d64a8006cbc95fc3a5b6f275fc9c40b8db116f1d259663c2",
+    "analysis/wave2-doe-session-notifier-direct-key-candidates.json": "1a947bb2daf487a9e9d8aee1999d09675f2abb6202b3e526ef1847fcbc6cf0d9",
+    "analysis/wave2-doe-session-register-transform.json": "b28b4d52f1f1611708ce667968c5e22b7df1e18f5a493adf9fa6659690e60f8b",
+    "analysis/wave2-doe-session-qflaglocation-receipt.json": "8273c46430876374d715b59ee74265ba6dc875148b00cc6dfb6bf47366195030",
+    "analysis/wave2-doe-session-register-exposure.json": "e4d60bfc2c3502fcf9ceb2d7e29cdc056f50ff6586ea48aed994e8e23d626f80",
+    "analysis/wave2-doe-session-register-pdata-classification.json": "1bf04c8871fb38814aea4e492c47a6ec5b7bfecc622e9b2650769d156249d009",
+    "analysis/wave2-doe-session-notifier-retained-receipt.json": "b3f4ece6135a04c2e39c43ecf8642b3020e3dba82b064f08244aa7488c2bb317",
+    "analysis/wave2-doe-session-notifier-map-lifecycle-decompile.json": "ef09c0cca9e3bcc1b4fe88f4228684ef7e199635ab7e5739f4039c6f669a841a",
+    "analysis/wave2-doe-session-notifier-suppression-closure-decompile.json": "6e0e253d4cb13448d849accd95f5bed703a78ec1bb00ab7a921bc3070e0467e1",
+    "analysis/wave2-doe-session-notifier-suppression-calls.json": "00aedeb8a9b67f03a2650c0b2dec3167267f4763b9339472834f62e8e597a3d2",
+    "analysis/wave2-doe-session-notifier-static-suppression-byte.json": "d48e553a017d15463302cbcfe37cd0b1270a19f4972335f37e93309c9eed8513",
+    "analysis/wave2-doe-session-notifier-empty-map-data.json": "e32d87b0ce4eab268c343770a64a27fbbd8e6e0f5fc3c614f660878524d19497",
+    "analysis/wave2-doe-task-list-content-decompile.json": "d20845734ace865b9f8b23ca9297f3467f835064f42b5d4eff2615b7415b0d07",
+    "analysis/wave2-doe-session-postparse-final-order-decompile.json": "f555a03ded278e63ede4a2205660f9ee62e9ab11125dc9f0526171375d4112f4",
+    "analysis/wave2-doe-session-selection-leaves-receipt.json": "21401951b0a3d718bac7773c88cf86926c79a80a8b63cc2fc6d75f6631ea019e"
+  },
+  "binding_closure": {
+    "verified_call_instructions": 348,
+    "adjacent_constant_key_and_global_operands": 346,
+    "qFlagLocation_transforms": 2,
+    "transform_result": "Both remaining callers pass constant signalUpdateWindefShapeNo through shipped qFlagLocation; its code returns the original pointer unchanged after a separate diagnostic ring update.",
+    "instruction_method": "Seeded only116 supplied Windows unwind regions in private Ghidra memory; all348 CALLs and346 LEA RDX/RCX operands decoded and matched against byte-derived key addresses. Transaction rolled back and headless readOnly used.",
+    "incoming_references_after_decode": 349,
+    "extra_data_reference": "The349th reference is the exact .pdata exception-table RUNTIME_FUNCTION begin RVA, not a callable pointer. Main PE has no registration export or absolute function-address pointer.",
+    "receiver_allocation": "2d0360 constructor has one direct caller inside2cfbe0.2cfbe0 constructs/stores receiver+slot and writes the per-key list; no other recovered notifier method adds receivers.",
+    "other_methods": "2cf740 directly invokes existing receivers with a generic return argument.2cffd0 removes a matching existing receiver;2cfae0 tests whether a key has any receiver. They do not manufacture a binding.",
+    "constructor": "2ce3f0 initializes map+88 through13df3f0 to shipped QMapData.shared_null; empty shared data observed. Other reset helpers initialize unrelated pointer/flag fields.",
+    "signal_keys_without_binding": [
+      "2signalChangeStepRange()",
+      "2signalOpenSession()",
+      "2signalChapterChanged()",
+      "2signalNumChaptersChanged()"
+    ],
+    "not_general_absence_inference": "Result is derived from the complete instruction-verified fixed registration call-key set and classified writer path, not from a missing literal or partial Ghidra reference database alone. It is a static contract for the shipped main PE and its registration API, not a runtime capture of arbitrary process modifications."
+  },
+  "suppression": {
+    "initial": "Global143d76700+141 lies in the PE .data zero-fill portion, initial0 before static constructors.",
+    "setter": "2ce630 returns the old byte then writes the new byte; source callers ignore the old return.",
+    "sites": 12,
+    "normal_scopes": 6,
+    "source_behavior": "Two scopes in265870, two in266060, one inScene item deletion ccaf50, one inTask cf80. Each normal set1 scope ends with explicit set0; they do not restore the old value. No normal early return between a shown set1/set0 pair.",
+    "qualification": "Native allocation/Qt exceptions or interrupted unrelated GUI calls are not claimed. Current single fresh-project successful prefix observes normal-return state."
+  },
+  "exact_empty_dispatch": [
+    "2cf3c0 with suppression+141 nonzero returns before touching flag+90 or the map.",
+    "Otherwise set flag+90=0, then2d03f0 map[key] detaches/looks up and inserts a default empty QList if missing. Copy that list and iterate.",
+    "For each of these four keys the recovered binding set supplies zero receivers. Therefore no QMetaObject invokeMethod runs; the flag reset and empty-key insertion still occur and must be retained.",
+    "Existing empty key reuses the entry. Each helper call/argument can be observed separately; an observation is not an actual GUI event or callback."
+  ],
+  "final_selection_order": [
+    "For existing parts,6469d0(doc,0) is a lookup only.647170(entity0) clears current part and selects first entity0.",
+    "ChangeStepRange dispatch happens while imported currentSession still equals the last append index, and while current part can be null on no entity0 match.",
+    "After dispatch,647110 falls back to ordinal0 only if current part is null.656220 sets selected currentSession=-1.",
+    "notify=true then calls OpenSession(), ChapterChanged(int currentSession), NumChaptersChanged(int list count) in order. All four dispatches have the empty-list effects above.",
+    "Empty parts still require646a60 default part/DOM/RefreshTaskTree construction, outside this increment. The higher DoeOutput operation guard after the document callback remains to protect unrecovered Task/model lifecycle."
+  ],
+  "corrections": [
+    "Intermediate claim that the initial private DB had two qFlagLocation incoming refs was wrong: it had one decoded call and one .pdata DATA ref. Final348 instruction verification supersedes that incomplete inventory.",
+    "Intermediate message saying five setter scopes was a count error; twelve sites form six normal set1/set0 scopes.",
+    "Earlier current-part fallback wording was transitive shorthand:647560 calls647110, which performs the ordinal0 assignment only after ChangeStepRange."
+  ],
+  "planned_implementation": "DOE-owned per-StudyIo narrow empty-notification observation state; final existing-part selection/reset and all4 dispatch effects. No production no-op callback injection; actual static empty receiver result is encoded narrowly for these four keys. No StateVar or shared root edits.",
+  "runtime": "No original/candidate runtime, DLL execution, UI session or shared REA mutation."
+}

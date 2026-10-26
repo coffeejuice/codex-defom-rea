@@ -1,0 +1,604 @@
+{
+  "schema": "editor300-qt-spin-numeric-profile-contract-v1",
+  "status": "source-bound-numeric-projection-not-full-control-construction",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-defaults-static.json",
+      "sha256": "ea1b2717b06e4523a7b059cb2a0f1621ce52031429dba890fe97d07b15a23fa3"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-control-private-static.json",
+      "sha256": "4a94403715e7770c2b737b659b08dea91cb55d2eb5b2cbd73fa1a0cde6a074a7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-value-range-static.json",
+      "sha256": "77828f6155f36378ec175d81ce91930487673f4f7713f63600e10028328d89ab"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-private-range-static.json",
+      "sha256": "e79637da14f996f4fd7bab890531e867bde41e958bdf6526e150bd462f1f6a2d"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-bound-static.json",
+      "sha256": "cd77483b00508870ef8bab3fba2e8794c660ed7c07a25182f2e0883eaf09269f"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-abstract-constructor-static.json",
+      "sha256": "3c2783266ca877e9f8dd755db05c9327e51b59029ca21087cd28166fbe05ce2e"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-init-cache-static.json",
+      "sha256": "535f6ca3dd1620658162a9440aa92027b922fd108aa09400d36da8ff84fe113a"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-lineedit-binding-static.json",
+      "sha256": "b914586e59b2d36c3c80f95df6ddaf75b80b306ce2159a498f3190661c493c86"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-layout-static.json",
+      "sha256": "9b66ee984e2f4c3fc9bb1dc35fd9b7967146de5546d67601af1c2ced78a63a88"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-explicit-state-source-v2.json",
+      "sha256": "c868aaaf6b6f232537d07acad3e7714363be0b682091606d4a9b9e3c30477ec7"
+    }
+  ],
+  "source": {
+    "path": "analysis/wave2-save-diffs-300-setupui.c",
+    "sha256": "1217ddfefe72fc52f4a963f01cb4f7d10bc3a468d00e7ef1139736979483b8a7"
+  },
+  "native_constructor": {
+    "entry": "QtGui QSpinBox653fe680 allocates QSpinBoxPrivate653fe140 then QAbstractSpinBox6537a970; original setup assigns plain QSpinBox RTTI14218cf08, previously qualified in remesh-radio receipt.",
+    "defaults": "QSpinBoxPrivate653fe140 sets QVariant(int) minimum+210=0, maximum+220=99, value+200=minimum, singleStep+230=1, type+240=2.",
+    "wrapping": "Base private65375ee0 at65376010..18 ANDs flags+28c byfffffe50 then OR50; wrapping bit4 is cleared.",
+    "getter": "Public653fe9a0+200,653feb40+210,653febd0+220,653fead0+230 tailcall QVariant::toInt IAT656978e8. These48-byte leaf captures include following function bytes after tail jump; only entry through tail jump belongs to getter."
+  },
+  "bound_setters": {
+    "setMinimum": "653feb60 constructs integer QVariant and calls private vtable+20 with(minRequested,max(oldMax,minRequested)).",
+    "setMaximum": "653febf0 calls same virtual with(min(oldMin,maxRequested),maxRequested).",
+    "range": "Private vtable6570a4e8+20 resolves653779f0. It clears cached conversion atvirtual+68=653768e0, stores bounds, bounds current value throughvirtual+28=653777e0, and stores changed bounded value before update/signal.",
+    "bound": "653777e0 at6537795f..79bf clamps to min/max for recovered nonwrapping profile. Other wrapping/step paths are not generalized.",
+    "integer_compare": "65377030 dispatch table653772c4 index2 leads653771f6; compares QVariant::toInt results signed, returns-1/0/1.",
+    "setValue": "653fe9c0 calls65376720(value,emitPolicy0,updateEdittrue), which bounds value throughsamevirtual+28, stores+200, updates edit, and emits only if value differs.",
+    "setSingleStep": "653feaf0 rejects negative argument, otherwise stores+230 thenupdates edit. Original calls are1,10,10."
+  },
+  "callback_order": {
+    "child_binding": "Abstract constructor6537a970 callsinit65379fc0; creates QLineEdit thenbinds65378500. Native child text connections are distinct from editor setup connections, which occur after retranslation.",
+    "edit_update": "6537af60 at6537b141..150 calls QObject::blockSignals(true) on child lineEdit before setText653bf9e0 at6537b163; restores prior blocked state at6537b25f. It formats value without changing numeric value itself.",
+    "change_signal": "Private virtual+38=653fe220 emits valueChanged(QString) then valueChanged(int), guarded by old/new difference for policy0. Setup minimum1 clamps value0 to1 before later max and redundant explicit value1. No editor connections exist yet.",
+    "layout_qualification": "Native style/layout and application event/filter effects are not a full recovered GUI construction. 65379410 style option helper capture is an initial unwind fragment and is NOT claimed complete; this numeric profile does not claim style behavior."
+  },
+  "controls": [
+    {
+      "ui": "0x148",
+      "name": "oprNoSpnBx",
+      "constructor_line": 2016
+    },
+    {
+      "ui": "0x158",
+      "name": "mshNoSpnBx",
+      "constructor_line": 2113
+    },
+    {
+      "ui": "0x6a8",
+      "name": "ref1NodeSpnBx",
+      "constructor_line": 8788
+    },
+    {
+      "ui": "0x740",
+      "name": "ref2NodeSpnBx",
+      "constructor_line": 9631
+    },
+    {
+      "ui": "0x938",
+      "name": "spboxRemeshStepInc",
+      "constructor_line": 12256
+    },
+    {
+      "ui": "0x11f8",
+      "name": "SubstepsLockedSpnBx",
+      "constructor_line": 22788
+    },
+    {
+      "ui": "0x1200",
+      "name": "NoOscSpnBx",
+      "constructor_line": 22824
+    },
+    {
+      "ui": "0x1238",
+      "name": "NoCyclesSpnBx",
+      "constructor_line": 23090
+    },
+    {
+      "ui": "0x1718",
+      "name": "startStepNoSpnBx",
+      "constructor_line": 28864
+    },
+    {
+      "ui": "0x1740",
+      "name": "stepTotalSpnBx",
+      "constructor_line": 29103
+    },
+    {
+      "ui": "0x1750",
+      "name": "stepIncSpnBx",
+      "constructor_line": 29198
+    }
+  ],
+  "ordered_setter_effects": [
+    {
+      "call": {
+        "ui": "0x148",
+        "property": "Minimum",
+        "class": "QSpinBox",
+        "value": 1,
+        "line": 2050,
+        "return_address": "0x140ede2b5",
+        "name": "oprNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 99,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x148",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 9999,
+        "line": 2053,
+        "return_address": "0x140ede2cf",
+        "name": "oprNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 1,
+        "maximum": 99,
+        "value": 1,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 9999,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x148",
+        "property": "Value",
+        "class": "QSpinBox",
+        "value": 1,
+        "line": 2056,
+        "return_address": "0x140ede2e9",
+        "name": "oprNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 1,
+        "maximum": 9999,
+        "value": 1,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 9999,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x158",
+        "property": "Minimum",
+        "class": "QSpinBox",
+        "value": 1,
+        "line": 2147,
+        "return_address": "0x140ede658",
+        "name": "mshNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 99,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x158",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 9999,
+        "line": 2150,
+        "return_address": "0x140ede672",
+        "name": "mshNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 1,
+        "maximum": 99,
+        "value": 1,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 9999,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x6a8",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 999999,
+        "line": 8807,
+        "return_address": "0x140eee1dd",
+        "name": "ref1NodeSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 0,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x740",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 999999,
+        "line": 9650,
+        "return_address": "0x140ef01b1",
+        "name": "ref2NodeSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 0,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x938",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 1000000000,
+        "line": 12275,
+        "return_address": "0x140ef64a1",
+        "name": "spboxRemeshStepInc",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 0,
+        "maximum": 1000000000,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1718",
+        "property": "Minimum",
+        "class": "QSpinBox",
+        "value": -999999,
+        "line": 28898,
+        "return_address": "0x140f1d894",
+        "name": "startStepNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": -999999,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1718",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 999999,
+        "line": 28901,
+        "return_address": "0x140f1d8ae",
+        "name": "startStepNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": -999999,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": -999999,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1718",
+        "property": "SingleStep",
+        "class": "QSpinBox",
+        "value": 1,
+        "line": 28904,
+        "return_address": "0x140f1d8c8",
+        "name": "startStepNoSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": -999999,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": -999999,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1740",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 999999,
+        "line": 29132,
+        "return_address": "0x140f1e145",
+        "name": "stepTotalSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 0,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1740",
+        "property": "SingleStep",
+        "class": "QSpinBox",
+        "value": 10,
+        "line": 29135,
+        "return_address": "0x140f1e15f",
+        "name": "stepTotalSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 0,
+        "maximum": 999999,
+        "value": 0,
+        "singleStep": 10
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1750",
+        "property": "Minimum",
+        "class": "QSpinBox",
+        "value": 1,
+        "line": 29227,
+        "return_address": "0x140f1e4d3",
+        "name": "stepIncSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 0,
+        "maximum": 99,
+        "value": 0,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 99,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1750",
+        "property": "Maximum",
+        "class": "QSpinBox",
+        "value": 999999,
+        "line": 29230,
+        "return_address": "0x140f1e4ed",
+        "name": "stepIncSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 1,
+        "maximum": 99,
+        "value": 1,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 999999,
+        "value": 1,
+        "singleStep": 1
+      }
+    },
+    {
+      "call": {
+        "ui": "0x1750",
+        "property": "SingleStep",
+        "class": "QSpinBox",
+        "value": 10,
+        "line": 29233,
+        "return_address": "0x140f1e507",
+        "name": "stepIncSpnBx",
+        "guard": null,
+        "phase": "before-retranslation"
+      },
+      "before": {
+        "minimum": 1,
+        "maximum": 999999,
+        "value": 1,
+        "singleStep": 1
+      },
+      "after": {
+        "minimum": 1,
+        "maximum": 999999,
+        "value": 1,
+        "singleStep": 10
+      }
+    }
+  ],
+  "expected_numeric_state": {
+    "0x148": {
+      "minimum": 1,
+      "maximum": 9999,
+      "value": 1,
+      "singleStep": 1
+    },
+    "0x158": {
+      "minimum": 1,
+      "maximum": 9999,
+      "value": 1,
+      "singleStep": 1
+    },
+    "0x6a8": {
+      "minimum": 0,
+      "maximum": 999999,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x740": {
+      "minimum": 0,
+      "maximum": 999999,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x938": {
+      "minimum": 0,
+      "maximum": 1000000000,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x11f8": {
+      "minimum": 0,
+      "maximum": 99,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x1200": {
+      "minimum": 0,
+      "maximum": 99,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x1238": {
+      "minimum": 0,
+      "maximum": 99,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x1718": {
+      "minimum": -999999,
+      "maximum": 999999,
+      "value": 0,
+      "singleStep": 1
+    },
+    "0x1740": {
+      "minimum": 0,
+      "maximum": 999999,
+      "value": 0,
+      "singleStep": 10
+    },
+    "0x1750": {
+      "minimum": 1,
+      "maximum": 999999,
+      "value": 1,
+      "singleStep": 10
+    }
+  },
+  "projection_proposal": "Add an explicit fresh-native-spin profile with separate actual numeric state, preserving existing explicit setter arguments. Bind only at Prefix; unknown/custom controls stay refused. Preserve public/setup guards and no fabricated application callbacks.",
+  "limits": [
+    "No arbitrary edited or custom subclass control, runtime keyboard step, wrapping, user input, locale/text formatting, allocation-failure or application-filter contract is claimed.",
+    "Native QWidget/child ownership and app event routing remain under independent constructor guards.",
+    "Expected states derive from captured original constructor/setters; they are not fresh GUI observations. No app or worker build/test execution."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "status": "Reviewable implementation proposal only; shared source untouched and root-owned",
+  "engineering_purpose": "Advance accepted Close through actual Display/model StateVar mutation without counter-based substitutes, unknown receiver elision or automatic event pumping.",
+  "minimal_next_increment": {
+    "name": "Shared StateVar plot-selection application boundary",
+    "files": [
+      "include/m2m/doe_statevar.hpp",
+      "src/doe/statevar.cpp",
+      "new tests/doe/test_statevar_plot_apply.cpp; exact integration paths assigned by root"
+    ],
+    "typed_request": "StateVarPlotSelection { int variable; int component; bool notify; } for source d15b80 direct-entry semantics only; no guessed names or support for extra d161f0 mode arguments.",
+    "real_owners": "Take engine::GuiModel&, use model.doeStepData->stateVar and Project.doeIo->stateVarRuntime(); retain actual model.display identity when reusing existing display/legend logic. Do not create a separate Close mirror of plot fields or legends.",
+    "shared_flow": [
+      "Keep readStateVar XML import/constructor/Histogram/Colorbar work intact. Refactor only its private postparse application into a shared explicit selection routine; read path passes parsed variable/component and notify=false.",
+      "For the direct application entry, bracket plotApplyInProgress as original d15b80; preserve d15bf0 first and cached-data handling. Write requested variable and component to the actual StateVarState at original order.",
+      "When notify=true, dispatch ChangePtrkGraph before any d16ae0 render or legend update. Require a typed receiver dispatcher whose state is KnownRegistrations or Unavailable. Default Unavailable throws at this boundary; an empty vector is valid only with a source/runtime qualification, never a default.",
+      "For supported notify=false or completed receiver effects, reuse current exact zero-variable/empty-view branches, actual title/range mutation, real display-bound StateVarRuntime legends and normal-return flag cleanup. Existing nonzero/view/object/property-table guards remain at reached boundaries."
+    ],
+    "minimal_effect_interface": "A typed StateVarPlotEffects::changePtrkGraph(GuiModel&, StateVarState&) must execute actual receiver state transitions. Diagnostic event strings may accompany those transitions but cannot satisfy the effect. No generic success callback or incremented counter in production.",
+    "tests": [
+      "Existing readStateVar notify=false output, mutation order and guards remain identical.",
+      "Notify=true sees actual variable/component stores before callback; callback can observe those exact object identities.",
+      "Unavailable ChangePtrkGraph stops after original prefix, leaving plotApplyInProgress true and later type/title/range/legend state unchanged.",
+      "A qualified fixture dispatcher can exercise existing zero-var completion but must be labelled adapter fixture, not original receiver parity.",
+      "When selected model changes, identity must come from actual Display links; never Operation.engineModel or a separately copied model."
+    ],
+    "public_close_limit": "Do not wire this directly as complete d0e540: its earlier cfac50 active selector, lazy display controller+840, named-model mode2/range lookup and later main+360 still need their own supported ownership/effect state. It is a concrete shared subroutine increment, not accepted-Close parity."
+  },
+  "next_receiver_dependency": {
+    "signal": "ChangePtrkGraph",
+    "verified_registration": "140309eff in140309cc0",
+    "qualification": "Peer confirmed all348 call instruction shapes from existing inventory; decode r9 slot and metadata next. Do not broad-scan again.",
+    "related_bindings": [
+      "AssignPtrkGraph140309edb",
+      "PtrkGraphOff140309f6b"
+    ]
+  },
+  "following_graph_state_increment": {
+    "original_identity_distinction": "main+120/+128 are QGraphicsScene/SfScene owners; current engine::Display is SfGLDisplay (scene+10). Do not call QGraphicsScene cleanup on Display or reuse StateVar legends as a graph-only shadow.",
+    "suggested_ownership": "A typed Scene owner associated with the actual Display and held by ConversionSession; scene items are owned typed objects with stable handles. StateVarRuntime legend handles must refer to the same scene item owner rather than duplicate visibility flags. Main and secondary scene presence must each distinguish Unavailable/Absent/Present.",
+    "remove_graph_effect": "Traverse actual scene snapshot in original order. Preserve unknown/nonmatching items and legend items. For matching named graphs, execute manager-list first matching removal/index progression and real object destruction, not erase-all by name. Until destructor/scene-removal effects are known, guard on reached matching items; proven observed-empty graph scenes can skip that loop while still emitting HideSecondaryWidget.",
+    "hide_receivers": "Maintain ordered typed registrations with lifetime-safe identities for actual split view, summary widget, load-stroke widget and points manager; apply recovered hide/flag/conditional points effects to these objects. Unavailable registration set guards; it is not an empty set.",
+    "scope": "This larger ownership increment follows shared plot apply; it should not be smuggled into a generic completion flag or receipt counter."
+  },
+  "source_snapshot": [
+    {
+      "path": "source/apps/moproj2mst/src/doe/statevar.cpp",
+      "sha256": "7e7bf869bffd79a55da97f94ce8c819abd72eb79e8588079ef1a801514c13524"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/doe_statevar.hpp",
+      "sha256": "2a308659a15c38bdfb369193ee5961c36585d27950e2349bee0def8d6a50023d"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/doe_stepdata.hpp",
+      "sha256": "9204fa6f27cdbdde86921087c21fb7284e5cc4a70d05e1a13b9fceaabe868ca2"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_scene.hpp",
+      "sha256": "6df200ba2bdd14fbb9fc43be0273bc336fcbbe7045c89410d1c3409029ec7331"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer_camera.cpp",
+      "sha256": "e9b4e639ec2f75051610e141f319ea95e7de7dc7d2e722104d61f16f52372232"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-post-answer-contract.json",
+      "sha256": "2fee8b93778f6d8cb9e3d368f9a02d7b2c2493e4556946fb809d30131d7162f3"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    },
+    {
+      "path": "analysis/wave3-close-hide-secondary-splitview-contract.json",
+      "sha256": "fc23ae849ac29c0ba9ef3835a818d1928e1145b1c77db7c3b9a14dce548c55c1"
+    },
+    {
+      "path": "analysis/wave3-close-hide-secondary-other-receivers-contract.json",
+      "sha256": "2704d00774a7781426d29bd0f412539437869beb56a974e0d3f1380974875eec"
+    }
+  ],
+  "coordination": "Root owns core, save answer/status split, RemeshState/session changes and builds. DOE peer has not refactored StateVar and is keeping it stable; no edit authorization inferred from this proposal."
+}

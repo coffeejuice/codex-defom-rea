@@ -1,0 +1,122 @@
+{
+  "status": "Exact API/ownership draft only; production remains unchanged pending capture/source acceptance",
+  "api": {
+    "path": "analysis/wave3-close-widget-runtime-values-api-draft.hpp",
+    "sha256": "f7e96515e40048b01dbbab3354d482b1ddb9dd5b85819702ecc58625f27dc013"
+  },
+  "root_call": "runtime->observeStartupValues(observation) after MainView.bindWidgetRuntime(runtime), before ensureGridLayout/ensureDefaultSplitView; actual MainView/manager weak identities are validated against this same runtime and parent ownership.",
+  "ownership": [
+    "Existing ConversionSession WidgetRuntimeState owns the application cache wrappers and interns positive observation-local font/palette aliases; original pointer addresses remain in evidence only.",
+    "Each actual WidgetState owns its own FontValue/PaletteValue fields; copies share DataState, while font mask and palette group/resolve word are copied by value. Mutating MainView palette group never changes the application cache wrapper or another widget value.",
+    "Partial cache population is nullopt; observed empty is a present empty ordered vector. Lookup requires complete relevant entries, exact QWidget base metadata and current owner qualification.",
+    "Escaped WidgetState leases become nonlive on native release and cannot be used for operations. Releasing known font/palette fields drops their data leases; no unclosed font-engine destruction or Qt global application shutdown is claimed."
+  ],
+  "construction_order": [
+    "Bind existing MainView/manager values from the accepted original before new SplitView allocation. Existing absent fields stay unknown.",
+    "During fresh SplitView QWidgetPrivate projection, copy the application default font data and write mask0; copy application default palette data and write entire group/resolve word0 (6504ac10). Copy fresh private QLocale index/options only if observed. Source ctor initializes inherited masks0, opaqueChildrenDirty=true and opaque=false.",
+    "Keep current grid/registry/parent/focus stages intact. Do not retroactively replace values or replay the focus splice when a later guard is reached."
+  ],
+  "cohesive_operation_order": [
+    {
+      "step": "font preparation",
+      "effect": "Require current base QWidget metadata/dynamic-meta-null, actual class cache, source styles/window/parent predicates. Exact class lookup prefers QWidget key, then native iteration-order first inherited key QWidget/QPaintDevice/QObject, otherwise current application default. For the qualified class/default same-data route, copy actual parent font to a local value and clear local mask. Same-data/current mask0 resolve shares data; current widget font remains unchanged. Missing cache/query/unsupported different-data resolve guards before that effect."
+    },
+    {
+      "step": "palette preparation and real parent group write",
+      "effect": "Resolve class palette from the same runtime/cache. When class/default data alias, call projected QWidget palette selection on actual parent: disabled -> (word&0xfffffff1)|1; enabled hidden with modalState=false -> word&0xfffffff0. Visible-active and true/unknown modal paths remain guarded unless source inputs close. Commit this parent group write before any later resolution/updater guard. Local palette then clears resolve high bits, preserving its group."
+    },
+    {
+      "step": "palette same-data resolution/updater",
+      "effect": "QPalette resolve sharing yields other data and (currentWord&0xfffffff0)|(otherWord&0xf). Source updater compares data/equality and only high resolve bits; when alias and high bits equal, it does not assign the candidate to child. Therefore preserve child group even when candidate group differs. Unequal-data comparison/update remains guarded after the preceding actual parent group write."
+    },
+    {
+      "step": "direction and locale",
+      "effect": "Native direction helper6506a510 returns without write when current raw56 equals inherited parent direction. Locale comparison reads two uint16 fields only: equal index/options is source-proven true; index0x187 compares the same read-only system locale pointer. Differing inputs retain the mutation/child-notification guard. Do not compare uninitialized trailing bytes from the probe raw8 read."
+    },
+    {
+      "step": "enabled/updates/style",
+      "effect": "Use live parent WidgetState attributes, not detached observed copies. Retain closed unchanged enabled/updates branches and empty-style branch; unknown/change paths guard exactly before their native effects."
+    },
+    {
+      "step": "parent event and weak pending-child collection",
+      "effect": "Use source-qualified live callback inputs from accepted probe. raw44 occurs before checking parent pending QVector. One actual ordered pending collection must preserve opaque preexisting guarded entries; append the actual new child weak identity after raw44. Nonempty population skips post43; empty/unknown population keeps the unimplemented post-event branch guard. Do not conflate QObject child order, pending vector order or logical splitter records. raw45 is conditional on actual private+d0; raw15 follows before hidden/opacity tail."
+    },
+    {
+      "step": "hidden flag",
+      "effect": "Apply raw16 hidden attribute from saved-created/parent visible/explicit-hide predicates after raw15, preserving prior effects if an input is missing."
+    },
+    {
+      "step": "dirty caches and opacity",
+      "effect": "6505ebc0 first sets current WidgetState opaqueChildrenDirty=true, then6505eb50 walks actual QObject ancestors to null for graphics effects. Unknown/present effects guard after the initial bit write. With absent effects, source propagation sets each actual parent bit16 until already dirty or a window; retain real ancestors and cursor. Then current nonwindow/no auto-fill/no-effect branch calls QWidget::palette on child (real group write), and leaves opaque=false when already false. A transition invokes97940 and retains its guard after the bit write."
+    },
+    {
+      "step": "proxy cleanup and return",
+      "effect": "Old-window extra+10 proxy is distinct from extra+8 topExtra. Missing/nonnull cleanup input guards after dirty/group effects; source nonwindow path finally clears inSetParent bit24. Stop at WidgetFontDevicePending before QWidgetPrivate::init font paint-device binding; no complete QSplitter/View_Default/public alias claim."
+    }
+  ],
+  "pending_collection_design": "One vector of a typed variant: accepted opaque preexisting guarded identity (evidence-local alias and observed validity qualification) or weak_ptr to an actual known WidgetState. Never create fake QObject owners for opaque entries. The current increment may stop before append if this ownership binding is not accepted; no counters-as-effects.",
+  "dispatch_design": "Qualified application/filter/gesture inputs belong to the same runtime and actual receiver WidgetState. The exact native raw44/15 callback paths are separately source-closed. Missing callback population is not empty. A runtime observation never acts as a generic callback-success flag.",
+  "tests_planned": [
+    "Same-runtime aliases are shared; masks/groups remain value-local. Foreign/missing aliases and owner replacement fail atomically before mutations.",
+    "Fresh child font mask/palette word reset0 while sharing defaults; initial parent state is not copied into child blindly.",
+    "Exact class override wins before fallback; complete empty cache falls back; incomplete cache guards without inventing absence; fallback order preserved.",
+    "Parent palette word changes before unsupported child palette update guard; app cache word and sibling values stay unchanged.",
+    "Child candidate group is not assigned when same-data/high-mask updater returns.",
+    "Locale same index/options ignores padding and has no notification; differing value remains guarded.",
+    "Unknown callbacks retain preceding parent group effects; existing pending entries are preserved and actual child weak identity appends only at its source point.",
+    "Dirty bit is set before unknown graphics-effect guard; actual parent dirty propagation stops at already dirty/window and does not touch unrelated widgets.",
+    "Repeated continuation does not replay earlier focus/group/append events; native owner invalidation removes liveness while diagnostic leases can remain."
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-splitter-probe-003-script-freeze.json",
+      "sha256": "087701ce73fc30ecdfb5459824c09144b50d71706ce4a26274ae12f8e443e617"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-widget-palette-getter-static.json",
+      "sha256": "831a288d77e7b1c37c6640d9e1cf3dc11af055287219286d3f0c6b213ce1b5ea"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-palette-private-default-static.json",
+      "sha256": "122ae28743c7076adb9770e62cc2b8c14d38ec793ce4c0ea6c3683f870d26462"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-palette-default-tail-static.json",
+      "sha256": "2009694549d81a53b3f775139dd7acd27f2b8a8f59bc1f82ba66e796110edce0"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-locale-equality-body-static.json",
+      "sha256": "a0683413a66fc6a14925aab8e5e9d8647610c8024ef2071de2f0fbb027533012"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-locale-equality-leaves-static.json",
+      "sha256": "e64e1ccb0fe2e4f2d27c6d448f90db158c46fe4c39378e5c32a0b253cb0aeb5f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-qobject-meta-leaf-static.json",
+      "sha256": "f328acb4605bf69fcbbd9e1b0d270313ed77bfe7d36237c220891b61caf0a129"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-parent-opacity-tail-body-static.json",
+      "sha256": "82056c6aea7bb7f6e9e919df62f4b3a10a8f42ff623c6ab100e70e163aeb7664"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-parent-opacity-exit-static.json",
+      "sha256": "0abc64e9d62069781c1be8549d80e4f3082a1575b5da1c6758e144120a0fad48"
+    }
+  ],
+  "production_hashes": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "sha256": "2a9b6c2c4dd1189790c191575f41381f0f389b4db369831238d9af323947e8e9"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "sha256": "8e4401c014378b4341bfe3aa6f9189c3a473e5326a9bf0411cbcdadc6a7b0360"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "sha256": "6fd8f2cbf15a0d954d378adf499a4e2d67f0532e18a6824a0a97cf6ed02740b6"
+    }
+  ]
+}

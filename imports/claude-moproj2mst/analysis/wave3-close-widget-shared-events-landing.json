@@ -1,0 +1,85 @@
+{
+  "status": "Frozen worker source; root owns all compile/test/integration work. No worker build or runtime.",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "sha256": "b8831ff4c8b8770301c4ceafc9e18fdf99e860496c50aeea32956a3bde89a8a0"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "sha256": "62ffa511ec4a2dbb1cf09a9b20a5cc4da803fedf8f55c160c4dd4b336559190f"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "sha256": "4db021d541134c25896e044dfff022670bd1a2eb15ca1091f19324eae5945610"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp",
+      "sha256": "c419b053e8aaea51dc80cb7f061feb3384ced6937944637bab74165c30a09693"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/widget_events.cpp",
+      "sha256": "9fd03ea85dad21e3a5eb3a2dcdb112ae11d82a3205e47b544e2e66157f79402b"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_widget_events.cpp",
+      "sha256": "cbfe8bb6a194afa245278bbe0319be48164b56ce4086f6eeff5f141c42e7d377"
+    }
+  ],
+  "contract": {
+    "path": "analysis/wave3-close-widget-shared-events-contract.json",
+    "sha256": "77366a6cca1b661b6d3fa3d607b5e61024369c796b75b59c62117b54c10b4746"
+  },
+  "preflight": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "trailing_whitespace": 0,
+      "test_cases": 0,
+      "test_mains": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "trailing_whitespace": 0,
+      "test_cases": 0,
+      "test_mains": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "trailing_whitespace": 0,
+      "test_cases": 63,
+      "test_mains": 1
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp",
+      "trailing_whitespace": 0,
+      "test_cases": 0,
+      "test_mains": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/widget_events.cpp",
+      "trailing_whitespace": 0,
+      "test_cases": 0,
+      "test_mains": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_widget_events.cpp",
+      "trailing_whitespace": 0,
+      "test_cases": 14,
+      "test_mains": 1
+    }
+  ],
+  "test_inventory": {
+    "existing_view_manager_cases": 59,
+    "new_storage_cases": 4,
+    "view_manager_total": 63,
+    "new_widget_events_cases": 14
+  },
+  "review": [
+    "All m2m quoted includes resolve. Header declarations/definitions and actual friend owner names inspected.",
+    "Native owner death rejects mutation/dispatch. Runtime replacement after weak expiry rejected.",
+    "Guarded event frame retains exact owner lifetime tokens and +1 depth, resumption is idempotent.",
+    "Source observations never overwrite known live storage; new tests cover name/geometry conflicts and native append order."
+  ],
+  "not_run": "No compiler, linker, CTest, application, GUI or mutable analysis database invoked by worker.",
+  "next": "Root integrates actual editor/Session seams and validates. This lane resumes read-only constructor-tail dependencies and the one bundled passive capture specification."
+}

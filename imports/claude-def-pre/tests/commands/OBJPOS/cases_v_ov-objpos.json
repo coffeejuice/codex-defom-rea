@@ -1,0 +1,138 @@
+[
+ {
+  "label": "OBJPOS/v-bits-rot_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Spike_ForgingBlow2.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Forging/Spike_ForgingBlow2.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_bits_rot_3d.KEY"
+   }
+  ],
+  "comment": "v: 3D mode 3 by 40.6 deg about (1,1,1) through (1,2,3), object 1 (tet mesh, tensors) + coupled object 2 (die geometry): angle chosen so (a/45)*(pi/4) != (a*pi)/180 and Fortran SIN/COS != AMD libm != UCRT; GENDB bits checked for RZ, DRZ, URZ, STRESS, STNCMP (Fortran kernel) and DIEGEO (4x4, AMD libm)"
+ },
+ {
+  "label": "OBJPOS/v-tensor_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/ResistanceSpotWelding/Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_tensor_2d.KEY"
+   }
+  ],
+  "comment": "v: replaces gk_tensor_2d (its seed fails KFREAD): 2D mode 3, object 1 (STRESS and STNCMP 1265x4 non-zero) rotated 40.6 deg about (0,0): components 0,1,3 rotated by FUN_14032e585, hoop unchanged, STNCMP shear halved/doubled; GENDB bits"
+ },
+ {
+  "label": "OBJPOS/v-mirror-bits_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/ResistanceSpotWelding/Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_mirror_bits_2d.KEY"
+   }
+  ],
+  "comment": "v: 2D mode 4 of object 1 at the oblique line (0,0)-(1,3), double-precision reflection; GENDB bits"
+ },
+ {
+  "label": "OBJPOS/v-mirror-bits_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_mirror_bits_3d.KEY"
+   }
+  ],
+  "comment": "v: 3D mode 4 of object 1 at the plane through (1,2,3) normal (1,1,1), single-precision reflection; GENDB bits"
+ },
+ {
+  "label": "OBJPOS/v-dir0_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Spike_ForgingBlow2.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Forging/Spike_ForgingBlow2.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_dir0_3d.KEY"
+   }
+  ],
+  "comment": "v: 3D mode 3 with direction (0,0,0) and angle 30: point kernel keeps its static frame (all zero at start: every node goes to the origin), tensor kernel gives NaN (OBJPOS.md 6.3, geo_kernels 1.2)"
+ },
+ {
+  "label": "OBJPOS/v-tplogy_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "HT_QUENCH1_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/HeatTreat/HT_QUENCH1_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_tplogy_2d.KEY"
+   }
+  ],
+  "comment": "v: 2D mode 1 of object 2 (type-2 edge) by (1,1): does TPLOGY vertex data follow the edge end points?"
+ },
+ {
+  "label": "OBJPOS/v-ecflx-ctrl_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_ecflx_ctrl_2d.KEY"
+   }
+  ],
+  "comment": "v: control for v_ecflx_2d: face data ECPRES/ECHFLX/ECAFLX set on faces 1, 2 of object 1, no OBJPOS"
+ },
+ {
+  "label": "OBJPOS/v-ecflx_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_ecflx_2d.KEY"
+   }
+  ],
+  "comment": "v: 2D mirror face-array reversal: ECPRES follows the new face order, ECHFLX (reversed twice) and ECAFLX (never reversed) stay on the old face indices (geo_kernels 4.1)"
+ }
+]

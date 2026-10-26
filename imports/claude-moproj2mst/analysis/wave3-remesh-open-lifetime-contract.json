@@ -1,0 +1,88 @@
+{
+  "schema": "wave3-remesh-open-lifetime-v1",
+  "created_utc": "2026-10-24T04:10:12.666535+00:00",
+  "status": "original_order_and_process_storage_bound_root_integration_pending",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-boolean-save-pump-14008a9b0.asm",
+      "sha256": "8f4bffd1a8655f30972facc5037684d99b6a996309f2b8561f2c38575390dd4a",
+      "bytes": 22896
+    },
+    {
+      "path": "analysis/wave3-remesh-open-binding-1400aa960.asm",
+      "sha256": "15e4d9433932e99b3b4331380abbe665e2d8e2e1140a42bf210589c301b1a8d0",
+      "bytes": 6957
+    },
+    {
+      "path": "analysis/wave3-remesh-open-binding-1400ab150-leaf.asm",
+      "sha256": "65437cb4bd703fd1320795feb0445d3121942848e2f459e397489e978896fbf1",
+      "bytes": 1002
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-ctor.asm",
+      "sha256": "92988ee35ed3a647a195e81a5efe63aeeb220d03a0beb6e0d50f6a1d590b5c8a",
+      "bytes": 2399
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-static-init.asm",
+      "sha256": "07c2c16247a088fc1cd665e9ce2a6c015b208c2b5a6814059a0d5470ccbf5ba7",
+      "bytes": 588
+    },
+    {
+      "path": "analysis/wave3-remesh-static-destruction-static.json",
+      "sha256": "4e23a9f4efe33be119158ff15169dd679c1a5a1510e69b434c263132f70b9f78",
+      "bytes": 984
+    },
+    {
+      "path": "analysis/wave3-remesh-static-destructor-leaf.asm",
+      "sha256": "72b46320f6cc34f29f37cc3caaaced28b1e005848100ed2101b3094c33b3dc67",
+      "bytes": 1169
+    },
+    {
+      "path": "analysis/wave3-remesh-lifetime-call-hints.json",
+      "sha256": "bd727dce490be0eb924e4773ae737270212cac5054577f1a51ebfc05a273158a",
+      "bytes": 9023
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-getter-callers.json",
+      "sha256": "1708b76ed269ad882d630801e7e5b1e9208849a87759674cfccd37f820eeaa01",
+      "bytes": 2086
+    },
+    {
+      "path": "analysis/wave3-boolean-external-callback-1402ca7a0.asm",
+      "sha256": "6b201cfd1036f455bc840b5b7f88289a4776fabdc08911bdd4b371f0d1d81c6b",
+      "bytes": 2731
+    },
+    {
+      "path": "analysis/wave3-normal-close-diagram-lifetime-contract.json",
+      "sha256": "82ee52146337e99c4f5472fb6105468134ee70b6a1836a6af69c66e080bfa21c",
+      "bytes": 10316
+    }
+  ],
+  "open_order": [
+    "14008ae0c calls08afa0 project XML reader; AL stored toProject+55 at08ae1d.",
+    "The ordinary .moproj branch joins08af14 regardless of that AL;08af21 gets project directory,08af2c calls QDir::setCurrent.",
+    "08af3a calls0aa960, which traverses current diagram items via0a58b0 and virtual+1b8/+1c0, obtains operation/model0x054e90, gets its string05ef960, then queries/registers it through Project+60 helpers12ec7b0/12f08d0. Current source omits this; its complete licensing/feature effects remain a separate required gap.",
+    "08af3f obtains process remesh singleton via2c7ed0;08af4e calls0ab170;08af61 calls0ab150 with its returned AL. Leaf0ab150 dereferences the bool pointer and stores tosingleton+29.",
+    "08af6f calls2ca7a0(false). That helper removes override cursors and invokes Qt processEvents as qualified in existing Boolean callback work. Remesh state/enable assignment must be visible before this pump.",
+    "08af74 stores1,08af87 loads that1 toAL and08af95 returns. Thus wrapper bool is true on this accepted-suffix tail even when Project+55 is false; it is distinct from parsed/openedOk status. Current source returns p.openedOk. Outer callers and preceding omitted effects must be audited before changing API result mapping."
+  ],
+  "owner": {
+    "storage": "Remesh singleton is fixed process storage143d91238, not an operation, subproject or Project member.",
+    "startup": "141cd9ba0 loads singleton address and calls1402cc4e0 constructor; then registers141df6640 via14146ed38. Constructor sets method1, internal-changeabletrue, filter0, uniform0, contactfalse, scaling1.2, surface-changeabletrue, enabledfalse. Direct-E8 scan has one constructor hint141cd9bab, confirmed by original disassembly.",
+    "shutdown": "Registered callback141df6640 passes same143d91238 to140cac130. That target stores its parameter then returns without object writes at140cac135. Captured following alignment and next function are not interpreted as destructor effects.",
+    "close": "Process-static storage survives Project deletion. Existing recovered normal Close ownership chain contains no demonstrated remesh ownership/deletion. This is not exhaustive proof of no scalar reset by every indirect Close callback; preserve current remesh state through Project storage release until such a source-bound mutation is recovered.",
+    "calls": "Explicit enabled setter direct hints areOpen08af61 and editor/tool functions e56faf,e570f7,e5dbef,e5dc05,ec15c4,ec15dd; there is no direct Close hint. Byte-pattern scan is not negative indirect-call proof."
+  },
+  "minimal_seam": {
+    "owner": "Add RemeshState to ConversionSession (or its session-global aggregate), constructor defaults once per declared fresh-original-equivalent conversion; keep it alive after releaseProjectAfterCloseEffects. Do not store a new independent remesh object on each operation.",
+    "open": "Root Ctx/session link or callback invokes loadRemeshAtProjectOpen on that exact owner after source-equivalent directory selection and0aa960 stage, before2ca7a0(false) pump. Native IO receives the resolved project directory with the explicit ordinary ASCII path profile; no process CWD mutation or readAll fallback.",
+    "sharing": "Editor300 fill/apply and later remesh Save must borrow the same session state. The isolated helper may not silently create defaults when a session owner is missing. Bare unit-test profiles can provide explicit owner/io fixtures; public conversion must install its real session binding.",
+    "failure": "Keep openedOk and wrapper accepted-path return separate. ReadRemesh loaded=false assigns enabledfalse without resettingother state; unsupported retains earlier stores and prevents completed enabledassignment. Public Error mapping is separate from original bool and source ordering.",
+    "qualification": "This is integration design from original evidence, not implemented shared source or a claim that0aa960/all event recipients are already recovered."
+  },
+  "capture_qualification": "capture_pe_ranges.py captured0aa960 then stopped with KeyError because leaf0ab150 has no unwind entry; the first raw file is retained and independently bound here. Leaf0ab150 was recaptured with explicit aligned rangeAB150..AB16F; returnAB16A and followingINT3 delimit the interpreted body. Static destructor leafCAC130..CAC135 likewise separated from later padding/nextfunction.",
+  "validation": "No worker build/test/runtime/GUI. Native reader source remains frozen; root owns integration and validation.",
+  "next": "Root integrate session-global owner and Open callback after current candidate freeze; worker recover0aa960 registration semantics and applicable omitted effects or next editor300 dependency as assigned."
+}

@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-10-24T04:29:12.202136+00:00",
+  "scope": "Native full Save remesh tail and actual logical current-directory binding",
+  "changes": [
+    "Open remesh reader uses qt::currentPath after original setCurrent attempt, not unconditional requested project directory.",
+    "Native full Save calls saveRemeshAtProjectSave with the same Session remesh owner and actual logical currentdirectory, after MST attempt.",
+    "Project/MST returnedfalse is recorded and adapter WRITE is deferred until after remesh write/remove; exceptions retain uncompleted writerreturn flags.",
+    "Output alias with LOCAL_REMESH.DAT rejected before Save mutations.",
+    "SaveEffects retains original answer independently of helper result/writer flags."
+  ],
+  "tests_added": [
+    "public enabled Save writes state loaded fromfallback; fallbackretained",
+    "project/MST deniedopen stillrunsremeshtail beforeadapterWRITE",
+    "disabled unmarkedprimary removed; deniedremove ignored",
+    "remeshoutputaliasrejectsbeforeprojectSave"
+  ],
+  "qualifications": [
+    "Recording convertToBytes sideeffects do not yet include remeshSave serialization/removal; actual nativepublic C ABI path isbound.",
+    "Original normalClose and Save modal/timer callbacks remain unrecovered; no completionclaim.",
+    "Original abnormal invalidparameterpath fromfailedremeshfopen remains explicitunsupported, not ignoredfailure.",
+    "No-nonnull-subproject originalanswer distinction is covered; native adapter empty-subprojects shortcut stillneeds closure against nonpublic/outercaller reachability."
+  ],
+  "files_sha256": {
+    "analysis/wave3-save-answer-remesh-open-increment.json": "a3eb78b15d797cb02bb027ffcc858c14eb5144166cd9849767a4fa7f57e98fd7",
+    "analysis/wave3-remesh-native-save-increment.json": "f7388873ec712deb0c5486aadac22af5bbbbb115ab54042f2d97f8a72c381204",
+    "analysis/wave3-remesh-save-qualified-formatter-amendment.json": "e385bd6f29c8060b912635495e9c035acdd1ef5aa20bb3a7909411d62213fdee",
+    "analysis/wave3-editor-remesh-owner-increment.json": "a932f0ccde81562c4ad9b9a59d88ef114ba69a16da2a9b7763d42fca69fc9105",
+    "source/apps/moproj2mst/src/core/convert.cpp": "28251e49e49a5f4a01a02022c199903bdaf65f0ffed8a48aeb8a960a3d825774",
+    "source/apps/moproj2mst/src/moproj/read.cpp": "58d2560fd0fa59cba49732f5d0877e265821f04f0def22aeb794ff9dc9cd13a5",
+    "source/apps/moproj2mst/include/m2m/engine.hpp": "8d3c5ec7957f63140dd50230390ecfb06a97526b0ddf3729e0157c76900d23bd",
+    "source/apps/moproj2mst/src/engine/save_project.cpp": "caad315ee609c5da39eee35e6728c32e39cc0f3a31fe3b89fffbaf4c3f5339c9",
+    "source/apps/moproj2mst/tests/s/test_save_io.cpp": "fdf0318fb9465c7afdd3f896746d34e8d8660296887f583e31ac2afd87683c54"
+  },
+  "validation": "Pending combinedbuild"
+}

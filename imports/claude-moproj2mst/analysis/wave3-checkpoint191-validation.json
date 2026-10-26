@@ -1,0 +1,143 @@
+{
+  "scope": "CP191 caller MOV R12,RAX before private reverse backlink and storeSimNames scoped SimControl borrow",
+  "objective_complete": false,
+  "build": "analysis\\resume191-dual-build.json",
+  "tests": "analysis\\resume191-dual-tests.json",
+  "registered": 361,
+  "counts": {
+    "passed": 354,
+    "passed-with-logged-gaps": 6,
+    "passed-with-logged-differences": 1,
+    "incomplete-output": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "fixture_changes": [],
+  "historical": {
+    "SAME": 93,
+    "DIFF": 5
+  },
+  "historical_diffs": [
+    {
+      "result": "DIFF",
+      "case": "A:RS_55_Multiple_Operations_Example1",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:120_B_DOE",
+      "differ": 1,
+      "missing": 7,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:121_B_DOE_VAR",
+      "differ": 1,
+      "missing": 8,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:122_B_DOE_GEO",
+      "differ": 1,
+      "missing": 10,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:98_B_DS3F",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    }
+  ],
+  "changed_diagnostics": [],
+  "reviewed_diagnostic_changes": [],
+  "focused": [
+    {
+      "test": "m2m.g0.abi",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792977935587733300\\m2m.g0.abi.log",
+      "sha256": "d76694b9a019d846332ecb35f99a2983f12e9628c01f24eaf739b9f4465cc2f7",
+      "summary": [
+        "0 of 10 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.doe_session",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792977935587733300\\m2m.mdt.doe_session.log",
+      "sha256": "b19b795b052844f63bb914e32dc9b90cc9741173029c3c35a7abff810c1a34b8",
+      "summary": [
+        "0 of 41 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.doe_task_factory",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792977935587733300\\m2m.mdt.doe_task_factory.log",
+      "sha256": "efe177d3e2736d53e351305d23d56831c57a888c4c6a38be22daac116f9872f1",
+      "summary": [
+        "0 of 122 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_stopping_cached",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792977935587733300\\m2m.mdt.simcontrol300_stopping_cached.log",
+      "sha256": "10acca57d52e19e598bca1620ec673271c7bd90da17420c975d8c719dbfa734d",
+      "summary": [
+        "0 of 13 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.s.save_current",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792977935587733300\\m2m.s.save_current.log",
+      "sha256": "4ac6f05c869b05f1d09636500476e9f0deb98c478c470e2eb36ee3558b176ad8",
+      "summary": [
+        "0 of 13 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.s.save_io",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792977935587733300\\m2m.s.save_io.log",
+      "sha256": "9a565b8ee6bfd456da7981edf55899c4bd7f31ad187d260f37a0710ab1d6dbae",
+      "summary": [
+        "0 of 77 cases failed"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/resume191-connector-next.md",
+      "sha256": "233eaa394af12745532c10e62185b1a825f26da7e12ae880e6897fcf3fc2c2b5"
+    },
+    {
+      "path": "analysis/resume191-connector-plan-review.md",
+      "sha256": "241589890ab7127ddd6f46fd1a4807fab9a5bab6a6b2b6cbaad7dcdfae3d57b0"
+    },
+    {
+      "path": "analysis/resume191-r300-next.md",
+      "sha256": "d5163ae4586d10005933ae98b3b07a74d34f68114bfe69377a9f8552e3919d79"
+    },
+    {
+      "path": "analysis/resume191-r300-plan-review.md",
+      "sha256": "05dd680e8ae26a44d89a4e4aa9e072b41bd0877c2626a7f241af60490e4378dd"
+    }
+  ],
+  "qualifications": [
+    "Historical oracles are not fresh original-session acceptance evidence",
+    "CTest success can contain case skips, expected refusals or permissive assertions",
+    "g0.abi real-project assertion permits M2M_OK or M2M_E_UNSUPPORTED",
+    "Deflate external vectors and imported PACK fixture absent unless separately acquired",
+    "s.save_folder is diagnostic: it logs differences/refusals without failing assertions",
+    "Full folder comparator normalizes declared view/banner profiles; inspect raw differences",
+    "No original executable is launched; keyword reference is read as a PE file only",
+    "Retained QtCore/native SimControl static evidence and direct corpus46 helper mechanics; private reverse backlink and public Open-Save-Close remain unverified"
+  ],
+  "next_started": "CP192 caller private-token stack spill at QtCore 0x13142c..0x131431; audit next R300 step-owned alias after storeSimNames"
+}

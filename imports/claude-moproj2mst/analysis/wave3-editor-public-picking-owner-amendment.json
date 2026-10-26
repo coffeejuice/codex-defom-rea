@@ -1,0 +1,32 @@
+{
+  "schema": "wave3-editor-public-picking-owner-amendment-v1",
+  "created_utc": "2026-10-24T06:35:07.063653+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-public-view-owner-static.json",
+      "sha256": "0a6d629b4854914d57491e3bd0e81ed1de0b9f4d390d8f1b0d707dbf1e44b241"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-meta-init-static.json",
+      "sha256": "49b667be2661d482a8b875f73de3cb6cd86781ead90bbfed2f7455b44a27f39d"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-metadata.json",
+      "sha256": "a7d7d3d34b821396c28a601bd102e9ad9b856968b5fd798a777b8f8e33175cc8"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-meta-static.json",
+      "sha256": "84344cc2061400172de3e144defcc5605d0af80285a716a2ed73f6ff7b8ceede"
+    },
+    {
+      "path": "analysis/wave3-editor-public-view-reset-static.json",
+      "sha256": "aa571e3e8810cae66242f48644847c90ba0d323f2ea7d9aa6a9be9e03bb9162b"
+    }
+  ],
+  "owner_correction": "The prior public-route audit assigned receiver integration broadly to the shared Display owner. Exact original receiver ownership is narrower: editor300 vtable142b165b8+198 points140377b50, the same guarded GuiModel getter used by page code. The editor constructor passes it to140c90f10, which lazily allocates a0x4428 picking object and stores it at GuiModel+248. Picking fields407c/4080/4278 are not direct Display fields. GuiModel auxiliary drawing list+250 is distinct.",
+  "metadata": "Interaction QObject type is SfIPicking, with36 declared slots. metaObject141202a30 normally returns1446e5420; this BSS structure is populated by141d91840..141d91878, whose string table142ceac50 and integer table142cea940 were read from the original PE. All36 distinct slot signatures used by the40 connect and37 disconnect string pairs match these methods after removal of signature whitespace. View signals and dynamic connection state still require their own contract.",
+  "init_qualification": "Captured96-byte initializer range includes a different function from141d91880. Only141d91840 throughRET141d91878 supports this initializer claim. Static metadata content is sourced from initializer targets, not invented reads of uninitialized BSS.",
+  "view_reset": "141202ed0 first stores picking+407c=0, then iterates a snapshot of the picking+4080 list and invokes each nonnull entry virtual deletion in its foreach loop, before clearing the list. Exact foreach object/element ownership and failure effects remain unqualified; do not replace this with a no-op or mutate Display directly.",
+  "next_public_bridge": "Root can retain actual editor ownership at the Forming tree factory point after objectTreeAdd. A staged record must preserve true Project/Operation/GuiModel/Remesh identities and source-stage refusals. The native sidecar adapter takes a fixed explicit directory per call; use actual current directory at each source boundary rather than silently retaining an Open directory when Save CWD differs.",
+  "status": "No source changes after five-file freeze; no worker build or runtime execution."
+}

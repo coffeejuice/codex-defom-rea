@@ -1,0 +1,159 @@
+{
+  "schema": "wave3-normal-close-diagram-lifetime-v1",
+  "status": "project_destructor_null_rebind_and_owner_separation_source_bound; broader_Close_callbacks_qualified",
+  "method": "Offline direct PE, bounded DUMPBIN and prior qualified private decompile; no target runtime, UI, DLL load, shared DB or builds.",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "vtables": [
+    {
+      "table": "0x142112878",
+      "offset": "0x18",
+      "target": "0x140045350",
+      "raw_sha256": "20574dd3f524305d57991c8f5ffabbc10279ac64f0b541aab8d69764ddffae30"
+    },
+    {
+      "table": "0x1421cded8",
+      "offset": "0x1b8",
+      "target": "0x140170430",
+      "raw_sha256": "064ca4ab07b8dbb70836513f831dad49de1196732991e4b252ded1a7ecb5072d"
+    },
+    {
+      "table": "0x1421cded8",
+      "offset": "0x18",
+      "target": "0x140159c50",
+      "raw_sha256": "15ffe9882e7e5725dadbd166dcfd197b38b356d01ebbfd16db5070d0b8add424"
+    }
+  ],
+  "close_order": [
+    {
+      "entry": "140031f10 ->1400299a0",
+      "contract": "Normal Close wrapper enters0299a0. Busy guard2ca920 or failed manager can-close c9b8c0 returnsfalse before cleanup. Contracts below apply after these guards succeed."
+    },
+    {
+      "site": "140029a54..140029a76",
+      "contract": "Set busytrue2ca9f0, call02aae0, obtain model manager0133a0, clear managerc78300. 02aae0 requests refreshTree(null), refreshProperty(null), refreshScene(null), in that order, subject to notifier+0x141 guard."
+    },
+    {
+      "entry": "140c78300",
+      "contract": "Manager iterates and deletes owned model objects through virtual+0x18; after collection clearing it resets current model handle+0x20. SfMoModel RTTI-backed table142112878+0x18 resolves045350 ->044040."
+    },
+    {
+      "entry": "140044040 ->1400440c0",
+      "contract": "SfMoModel destructor runs044bf0 for owned project+0x19c0 before045000 deletes model slots+0x19c8,+0x19d0,+0x19d8,+0x19e0,+0x19e8."
+    },
+    {
+      "entry": "140044bf0",
+      "contract": "For nonnull owned project: call0982c0 ->0aab30, then deleting destructor0453e0 ->08a3c0; clear owner+0x19c0 after deletion."
+    },
+    {
+      "site": "14008a3d7..14008a3f8",
+      "contract": "Project destructor calls0a89e0, which obtains main-window and returns012fa0 diagram view. For nonnull view call virtual+0x1b8 withnull; exact SfDiagCellEditor slot1421cded8+0x1b8=170430. This is model detach, not receiver destruction."
+    },
+    {
+      "site": "14008a403",
+      "contract": "Only after diagram null-rebind, invoke0a80e0 which clears project subproject collection; continue destruction of project owned members. Outer SfMoModel model slots are deleted later by045000."
+    },
+    {
+      "entry": "140170430(null)",
+      "contract": "Save old view position through attached model+0x110, detach old model with model+8(null), write attachment null, reset render/selection holders and execute selected view refresh virtuals. Nonnull-only timer registration branch is skipped. No singleShot cancellation occurs in this body."
+    },
+    {
+      "site": "140029a83..140029a93",
+      "contract": "After manager clear, get current project01d510 ->045780 and run02a0e0 with it. Null-project branch emits ProjectChanged(null), RefreshMainView and DiagEditorFitAll; the concrete main+0x2c8 diagram pointer is retained in inspected direct bodies."
+    }
+  ],
+  "integration": {
+    "lifetime": "Diagram receiver and its event owner belong to session/main-window lifetime, separate from Project. At recovered project destructor boundary bind current attachmentnull before releasing project operation data. Do not receiverDestroyed/dispatcherDestroyed or clear pending timers at project Close.",
+    "delivery_after_close": "Pending singleShots still belong to dispatcher. A live diagram callback resolves current attachment; null binding prevents project-dependent click path, with view-only fit/update behavior still qualified. Real receiver destruction is a separate later Qt destructor boundary.",
+    "source_delta": "No production source edits; coordinator may wire existing DiagramLifecycleEvents with this ownership/order boundary."
+  },
+  "signal_metadata": {
+    "dynamic_init": "141ce2ea0 initializes143d94cb0 with strings14234dcc0,data14234dbd0",
+    "data_sha256": "53a0e061a613d1894dc874b5076dd35d7f09c88be1ac1705131176e0e85421ed",
+    "methods": [
+      {
+        "local_id": 0,
+        "signature_va": "0x14234dccc",
+        "signature": "signalStepDataChanged(SfStepData*)"
+      },
+      {
+        "local_id": 1,
+        "signature_va": "0x14234dcef",
+        "signature": "signalRefreshScene(SfStepData*)"
+      },
+      {
+        "local_id": 2,
+        "signature_va": "0x14234dd11",
+        "signature": "signalSceneAction(QString,QString)"
+      },
+      {
+        "local_id": 3,
+        "signature_va": "0x14234dd34",
+        "signature": "signalRefreshProperty(SfBaseProperties*)"
+      },
+      {
+        "local_id": 4,
+        "signature_va": "0x14234dd5d",
+        "signature": "signalRefreshProperty()"
+      },
+      {
+        "local_id": 5,
+        "signature_va": "0x14234dd75",
+        "signature": "signalRefreshTree(SfItemModel*)"
+      },
+      {
+        "local_id": 6,
+        "signature_va": "0x14234dd95",
+        "signature": "signalDiagItemAdded(ISfDiagItem*)"
+      },
+      {
+        "local_id": 7,
+        "signature_va": "0x14234ddb7",
+        "signature": "signalShowWidget(QWidget*)"
+      },
+      {
+        "local_id": 8,
+        "signature_va": "0x14234ddd2",
+        "signature": "signalGeneralAction(QString,QStringList)"
+      }
+    ]
+  },
+  "qualifications": [
+    "Static control/data-flow recovery, not original execution. One-project successful can-close path only.",
+    "Busy/can-close dialog behavior and every arbitrary notifier recipient are not claimed closed.",
+    "Receiver preservation is established by explicit null rebind and main-window ownership; selected Close direct bodies contain no receiver delete. Arbitrary plugin or transitive UI callback teardown is not exhaustively excluded.",
+    "The target is the original DEF_GUI_MO_64 v11.0.2; no reconstructed DEF_PRE or DMO build/deployment is part of this task.",
+    "Prior private decompilation is qualified by its retained text verification receipt; exact key detach/order was independently bound by PE/DUMPBIN here.",
+    "Initial ASCII/RIP candidate scans were only location aids; behavioral claims use disassembled sites and fixed table contents."
+  ],
+  "next_ready": "Audit can-close manager+0x58 dispatch to determine normal fresh-session Save prompt/default route, retaining independent scheduler qualification.",
+  "evidence_sha256": {
+    "analysis/wave3-closure-next-normal-close-static.json": "55606b9e6859e649e378d133e9073905391f9623f2e3772e35c7f10977ddc09b",
+    "analysis/wave3-closure-next-close-global-reset-static.json": "6da570e7280fd899803f2c49cda37d1f0a2b501a9c98482dad3471443fcfa6a8",
+    "analysis/wave3-closure-next-close-model-destruct-static.json": "b628cfea4cc191addaa53df361d638734c73dc4d115c3e5e25be99f8d4150367",
+    "analysis/wave3-closure-next-close-project-data-static.json": "431833927b4913d1a9011687579165cc19660b60ef667104130853217d39a827",
+    "analysis/wave3-closure-next-close-signal-meta-init-static.json": "3c1dd7d3a4d487cc20bec044e060232fe8a04b3784bc4b39ddf309903eb36a63",
+    "analysis/wave3-boolean-timer-contract.json": "63ee9c2bca39e6b14ba2866a0ffc7a8caf5b389f49d4b41530d84e4f6145cdb0",
+    "analysis/wave3-boolean-open-sequence-contract.json": "fc6562b8380b3a3d61de2634991f9f86b0379d22af2775104e6a059f07a17822",
+    "analysis/wave3-boolean-open-native-view-140170430.c": "bf67c18fb2cb9536983b069f74e2a06c93349e6d7b3f04250698aaf8993f7622",
+    "analysis/wave3-boolean-timer-140170430.asm": "990eeb72652151a1ea1120c2ac386dbd7cef20a718692a875003945998c40315",
+    "analysis/wave3-boolean-timer-1400a89e0.asm": "849258e405e917a9823d4a31d221cba05afd4f8dd0c906c81151b08d6281cc20",
+    "analysis/wave3-boolean-external-callback-140012fa0.asm": "3257c57427b070a85b5e0f1dc5b5dcc6118a03572d0a5e4f589a0059430e07be",
+    "analysis/wave3-boolean-external-callback-140012fe0.asm": "f398508e324c38ea41273b6e9a19d261af49e705146628a032c7b37c375f53ed",
+    "analysis/wave3-boolean-external-callback-14002a0e0.asm": "e3e74166115892e04fe23160955278cf3101abacb6d818cd41746bca94c43f63",
+    "analysis/wave3-boolean-close-140031f10.asm": "072290cc4545352c0be06546d8ebe690d30930d3e2b66a07e3d540a62e054fae",
+    "analysis/wave3-boolean-close-1400133a0.asm": "9bf506363b515b7d28fdfae83d7c5979f3d3a535de737f4d6fa789a2b1742359",
+    "analysis/wave3-boolean-close-14002aae0.asm": "fad358af3083caca08ea1ee8804213079a165c70b541e46615dc34855a0f284d",
+    "analysis/wave3-boolean-close-140c78300.asm": "f4f560ad36054ac0b16d03f4a542db5aec4d366eb6ef75a15b1291fd11790445",
+    "analysis/wave3-boolean-close-140044040.asm": "f0aa2f9db66449be53dc7c7273daf4356a3ac50ce9e7db675db2b6cf3d24350e",
+    "analysis/wave3-boolean-close-1400440c0.asm": "329c7dd97d4205ab649199c29b0803e5835c89a2cb76dd094092d5bf66de640b",
+    "analysis/wave3-boolean-close-140044bf0.asm": "e0f190d0dbe7bc2697dc030ed3733cd5e1ad386e02b2b6f1692fee65e543caf6",
+    "analysis/wave3-boolean-close-140045000.asm": "c8352a4f6c7a5188e21abb6c935f097e7d78280e322008e6d036e68daad2fd4a",
+    "analysis/wave3-boolean-close-140045350.asm": "73bf9c6dd8b28042ee4037a8a0ee0aae9829eb61b60ecce37fe0fe109bb418b5",
+    "analysis/wave3-boolean-close-1400453e0.asm": "bc35ddbc3d21bfb6586ac25266db8b8bbb307955523889e99d796461c715a6d5",
+    "analysis/wave3-boolean-close-1400982c0.asm": "8988aaf697d5a922af27b966f161e83b0a58a9dfe3f53ffcc21fdffa9f6228c4",
+    "analysis/wave2-doe-boolean-close-manager-decompile.json": "a8a3307d06603d7a7ef4575e0ad02170213a99a0d3bf8b95d8ae86704458c669",
+    "analysis/wave2-doe-boolean-close-manager-receipt.json": "4638d3132780cebd3b5757b46834bdc0691661205b979d49313af1fc3296bbc9",
+    "analysis/wave2-doe-ghidra-text-verification.json": "843b2166c4e3fcfb805c115667d47aefc117019453708b38672a927ce32a9bb2",
+    "evidence/gui_mo/L5d/sv.c": "c57dff099f40e922ef6332a7c6563c30942508be7c076f4958d4d6cd1635c354"
+  }
+}

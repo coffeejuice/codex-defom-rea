@@ -1,0 +1,3799 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  000000014090EE20: 4C 89 44 24 18     mov         qword ptr [rsp+18h],r8
+  000000014090EE25: 48 89 54 24 10     mov         qword ptr [rsp+10h],rdx
+  000000014090EE2A: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  000000014090EE2F: 56                 push        rsi
+  000000014090EE30: 57                 push        rdi
+  000000014090EE31: B8 08 10 00 00     mov         eax,1008h
+  000000014090EE36: E8 25 6A EE 00     call        00000001417F5860
+  000000014090EE3B: 48 2B E0           sub         rsp,rax
+  000000014090EE3E: 48 C7 84 24 70 09  mov         qword ptr [rsp+0000000000000970h],0FFFFFFFFFFFFFFFEh
+                    00 00 FE FF FF FF
+  000000014090EE4A: 48 8D 4C 24 70     lea         rcx,[rsp+70h]
+  000000014090EE4F: E8 8C 0B 88 FF     call        000000014018F9E0
+  000000014090EE54: 90                 nop
+  000000014090EE55: 48 8D 4C 24 68     lea         rcx,[rsp+68h]
+  000000014090EE5A: E8 81 0B 88 FF     call        000000014018F9E0
+  000000014090EE5F: 90                 nop
+  000000014090EE60: C6 44 24 64 01     mov         byte ptr [rsp+64h],1
+  000000014090EE65: 48 8D 54 24 58     lea         rdx,[rsp+58h]
+  000000014090EE6A: 48 8B 8C 24 28 10  mov         rcx,qword ptr [rsp+0000000000001028h]
+                    00 00
+  000000014090EE72: FF 15 40 D7 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  000000014090EE78: 90                 nop
+  000000014090EE79: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  000000014090EE7E: FF 15 B4 D6 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090EE84: 0F B6 C0           movzx       eax,al
+  000000014090EE87: 85 C0              test        eax,eax
+  000000014090EE89: 0F 85 14 3A 00 00  jne         00000001409128A3
+  000000014090EE8F: 48 8D 54 24 78     lea         rdx,[rsp+78h]
+  000000014090EE94: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  000000014090EE99: FF 15 11 D7 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  000000014090EE9F: 90                 nop
+  000000014090EEA0: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090EEA5: FF 15 8D D6 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090EEAB: 0F B6 C0           movzx       eax,al
+  000000014090EEAE: 85 C0              test        eax,eax
+  000000014090EEB0: 0F 85 8F 39 00 00  jne         0000000140912845
+  000000014090EEB6: 48 8D 94 24 40 03  lea         rdx,[rsp+0000000000000340h]
+                    00 00
+  000000014090EEBE: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090EEC3: FF 15 DF D6 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090EEC9: 48 89 84 24 78 09  mov         qword ptr [rsp+0000000000000978h],rax
+                    00 00
+  000000014090EED1: 48 8B 84 24 78 09  mov         rax,qword ptr [rsp+0000000000000978h]
+                    00 00
+  000000014090EED9: 48 89 84 24 80 09  mov         qword ptr [rsp+0000000000000980h],rax
+                    00 00
+  000000014090EEE1: 48 8D 15 20 C6 EA  lea         rdx,[00000001427BB508h] ; 'DoeVariable'
+                    01
+  000000014090EEE8: 48 8B 8C 24 80 09  mov         rcx,qword ptr [rsp+0000000000000980h]
+                    00 00
+  000000014090EEF0: FF 15 72 55 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090EEF6: 88 84 24 38 03 00  mov         byte ptr [rsp+0000000000000338h],al
+                    00
+  000000014090EEFD: 48 8D 8C 24 40 03  lea         rcx,[rsp+0000000000000340h]
+                    00 00
+  000000014090EF05: FF 15 D5 6A 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090EF0B: 0F B6 94 24 38 03  movzx       edx,byte ptr [rsp+0000000000000338h]
+                    00 00
+  000000014090EF13: 85 D2              test        edx,edx
+  000000014090EF15: 0F 84 2A 39 00 00  je          0000000140912845
+  000000014090EF1B: 48 8D 15 F2 C5 EA  lea         rdx,[00000001427BB514h] ; 'name'
+                    01
+  000000014090EF22: 48 8D 8C 24 50 03  lea         rcx,[rsp+0000000000000350h]
+                    00 00
+  000000014090EF2A: FF 15 50 55 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090EF30: 90                 nop
+  000000014090EF31: 48 8D 8C 24 48 03  lea         rcx,[rsp+0000000000000348h]
+                    00 00
+  000000014090EF39: FF 15 81 55 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090EF3F: 48 89 84 24 88 09  mov         qword ptr [rsp+0000000000000988h],rax
+                    00 00
+  000000014090EF47: 48 8B 84 24 88 09  mov         rax,qword ptr [rsp+0000000000000988h]
+                    00 00
+  000000014090EF4F: 48 89 84 24 90 09  mov         qword ptr [rsp+0000000000000990h],rax
+                    00 00
+  000000014090EF57: 4C 8B 8C 24 90 09  mov         r9,qword ptr [rsp+0000000000000990h]
+                    00 00
+  000000014090EF5F: 4C 8D 84 24 50 03  lea         r8,[rsp+0000000000000350h]
+                    00 00
+  000000014090EF67: 48 8D 94 24 90 00  lea         rdx,[rsp+0000000000000090h]
+                    00 00
+  000000014090EF6F: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090EF74: FF 15 EE D6 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090EF7A: 90                 nop
+  000000014090EF7B: 48 8D 8C 24 48 03  lea         rcx,[rsp+0000000000000348h]
+                    00 00
+  000000014090EF83: FF 15 57 6A 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090EF89: 90                 nop
+  000000014090EF8A: 48 8D 8C 24 50 03  lea         rcx,[rsp+0000000000000350h]
+                    00 00
+  000000014090EF92: FF 15 48 6A 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090EF98: 48 8D 15 81 C5 EA  lea         rdx,[00000001427BB520h] ; 'numSamples'
+                    01
+  000000014090EF9F: 48 8D 8C 24 60 03  lea         rcx,[rsp+0000000000000360h]
+                    00 00
+  000000014090EFA7: FF 15 D3 54 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090EFAD: 90                 nop
+  000000014090EFAE: 48 8D 8C 24 58 03  lea         rcx,[rsp+0000000000000358h]
+                    00 00
+  000000014090EFB6: FF 15 04 55 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090EFBC: 48 89 84 24 98 09  mov         qword ptr [rsp+0000000000000998h],rax
+                    00 00
+  000000014090EFC4: 48 8B 84 24 98 09  mov         rax,qword ptr [rsp+0000000000000998h]
+                    00 00
+  000000014090EFCC: 48 89 84 24 A0 09  mov         qword ptr [rsp+00000000000009A0h],rax
+                    00 00
+  000000014090EFD4: 4C 8B 8C 24 A0 09  mov         r9,qword ptr [rsp+00000000000009A0h]
+                    00 00
+  000000014090EFDC: 4C 8D 84 24 60 03  lea         r8,[rsp+0000000000000360h]
+                    00 00
+  000000014090EFE4: 48 8D 94 24 68 03  lea         rdx,[rsp+0000000000000368h]
+                    00 00
+  000000014090EFEC: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090EFF1: FF 15 71 D6 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090EFF7: 48 89 84 24 A8 09  mov         qword ptr [rsp+00000000000009A8h],rax
+                    00 00
+  000000014090EFFF: 48 8B 84 24 A8 09  mov         rax,qword ptr [rsp+00000000000009A8h]
+                    00 00
+  000000014090F007: 48 89 84 24 B0 09  mov         qword ptr [rsp+00000000000009B0h],rax
+                    00 00
+  000000014090F00F: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090F015: 33 D2              xor         edx,edx
+  000000014090F017: 48 8B 8C 24 B0 09  mov         rcx,qword ptr [rsp+00000000000009B0h]
+                    00 00
+  000000014090F01F: FF 15 6B 50 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090F025: 89 84 24 B4 00 00  mov         dword ptr [rsp+00000000000000B4h],eax
+                    00
+  000000014090F02C: 48 8D 8C 24 68 03  lea         rcx,[rsp+0000000000000368h]
+                    00 00
+  000000014090F034: FF 15 A6 69 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F03A: 90                 nop
+  000000014090F03B: 48 8D 8C 24 58 03  lea         rcx,[rsp+0000000000000358h]
+                    00 00
+  000000014090F043: FF 15 97 69 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F049: 90                 nop
+  000000014090F04A: 48 8D 8C 24 60 03  lea         rcx,[rsp+0000000000000360h]
+                    00 00
+  000000014090F052: FF 15 88 69 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F058: 48 8D 84 24 70 03  lea         rax,[rsp+0000000000000370h]
+                    00 00
+  000000014090F060: 48 89 84 24 78 03  mov         qword ptr [rsp+0000000000000378h],rax
+                    00 00
+  000000014090F068: 48 8D 94 24 90 00  lea         rdx,[rsp+0000000000000090h]
+                    00 00
+  000000014090F070: 48 8B 8C 24 78 03  mov         rcx,qword ptr [rsp+0000000000000378h]
+                    00 00
+  000000014090F078: FF 15 5A 69 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  000000014090F07E: 48 89 84 24 B8 09  mov         qword ptr [rsp+00000000000009B8h],rax
+                    00 00
+  000000014090F086: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014090F08E: 48 8B 00           mov         rax,qword ptr [rax]
+  000000014090F091: 45 33 C9           xor         r9d,r9d
+  000000014090F094: 44 8B 84 24 B4 00  mov         r8d,dword ptr [rsp+00000000000000B4h]
+                    00 00
+  000000014090F09C: 48 8B 94 24 B8 09  mov         rdx,qword ptr [rsp+00000000000009B8h]
+                    00 00
+  000000014090F0A4: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014090F0AC: FF 90 F8 00 00 00  call        qword ptr [rax+00000000000000F8h]
+  000000014090F0B2: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014090F0BA: 48 8B 00           mov         rax,qword ptr [rax]
+  000000014090F0BD: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014090F0C5: FF 90 78 01 00 00  call        qword ptr [rax+0000000000000178h]
+  000000014090F0CB: 83 E8 01           sub         eax,1
+  000000014090F0CE: 89 84 24 B0 00 00  mov         dword ptr [rsp+00000000000000B0h],eax
+                    00
+  000000014090F0D5: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014090F0DD: 48 8B 00           mov         rax,qword ptr [rax]
+  000000014090F0E0: 8B 94 24 B0 00 00  mov         edx,dword ptr [rsp+00000000000000B0h]
+                    00
+  000000014090F0E7: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014090F0EF: FF 90 A0 01 00 00  call        qword ptr [rax+00000000000001A0h]
+  000000014090F0F5: 48 89 84 24 A8 00  mov         qword ptr [rsp+00000000000000A8h],rax
+                    00 00
+  000000014090F0FD: C7 84 24 80 00 00  mov         dword ptr [rsp+0000000000000080h],0
+                    00 00 00 00 00
+  000000014090F108: 48 8D 15 1D C4 EA  lea         rdx,[00000001427BB52Ch] ; 'varId'
+                    01
+  000000014090F10F: 48 8D 8C 24 88 03  lea         rcx,[rsp+0000000000000388h]
+                    00 00
+  000000014090F117: FF 15 63 53 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F11D: 90                 nop
+  000000014090F11E: 48 8D 94 24 88 03  lea         rdx,[rsp+0000000000000388h]
+                    00 00
+  000000014090F126: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090F12B: FF 15 07 D3 4F 01  call        qword ptr [0000000141E0C438h] ; QtXml4_64.dll!?hasAttribute@QDomElement@@QEBA_NAEBVQString@@@Z
+  000000014090F131: 88 84 24 80 03 00  mov         byte ptr [rsp+0000000000000380h],al
+                    00
+  000000014090F138: 48 8D 8C 24 88 03  lea         rcx,[rsp+0000000000000388h]
+                    00 00
+  000000014090F140: FF 15 9A 68 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F146: 0F B6 94 24 80 03  movzx       edx,byte ptr [rsp+0000000000000380h]
+                    00 00
+  000000014090F14E: 85 D2              test        edx,edx
+  000000014090F150: 0F 84 D4 00 00 00  je          000000014090F22A
+  000000014090F156: 48 8D 15 D7 C3 EA  lea         rdx,[00000001427BB534h] ; 'varId'
+                    01
+  000000014090F15D: 48 8D 8C 24 98 03  lea         rcx,[rsp+0000000000000398h]
+                    00 00
+  000000014090F165: FF 15 15 53 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F16B: 90                 nop
+  000000014090F16C: 48 8D 8C 24 90 03  lea         rcx,[rsp+0000000000000390h]
+                    00 00
+  000000014090F174: FF 15 46 53 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F17A: 48 89 84 24 C0 09  mov         qword ptr [rsp+00000000000009C0h],rax
+                    00 00
+  000000014090F182: 48 8B 84 24 C0 09  mov         rax,qword ptr [rsp+00000000000009C0h]
+                    00 00
+  000000014090F18A: 48 89 84 24 C8 09  mov         qword ptr [rsp+00000000000009C8h],rax
+                    00 00
+  000000014090F192: 4C 8B 8C 24 C8 09  mov         r9,qword ptr [rsp+00000000000009C8h]
+                    00 00
+  000000014090F19A: 4C 8D 84 24 98 03  lea         r8,[rsp+0000000000000398h]
+                    00 00
+  000000014090F1A2: 48 8D 94 24 A0 03  lea         rdx,[rsp+00000000000003A0h]
+                    00 00
+  000000014090F1AA: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090F1AF: FF 15 B3 D4 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F1B5: 48 89 84 24 D0 09  mov         qword ptr [rsp+00000000000009D0h],rax
+                    00 00
+  000000014090F1BD: 48 8B 84 24 D0 09  mov         rax,qword ptr [rsp+00000000000009D0h]
+                    00 00
+  000000014090F1C5: 48 89 84 24 D8 09  mov         qword ptr [rsp+00000000000009D8h],rax
+                    00 00
+  000000014090F1CD: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090F1D3: 33 D2              xor         edx,edx
+  000000014090F1D5: 48 8B 8C 24 D8 09  mov         rcx,qword ptr [rsp+00000000000009D8h]
+                    00 00
+  000000014090F1DD: FF 15 AD 4E 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090F1E3: 89 84 24 80 00 00  mov         dword ptr [rsp+0000000000000080h],eax
+                    00
+  000000014090F1EA: 48 8D 8C 24 A0 03  lea         rcx,[rsp+00000000000003A0h]
+                    00 00
+  000000014090F1F2: FF 15 E8 67 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F1F8: 90                 nop
+  000000014090F1F9: 48 8D 8C 24 90 03  lea         rcx,[rsp+0000000000000390h]
+                    00 00
+  000000014090F201: FF 15 D9 67 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F207: 90                 nop
+  000000014090F208: 48 8D 8C 24 98 03  lea         rcx,[rsp+0000000000000398h]
+                    00 00
+  000000014090F210: FF 15 CA 67 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F216: 8B 94 24 80 00 00  mov         edx,dword ptr [rsp+0000000000000080h]
+                    00
+  000000014090F21D: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  000000014090F225: E8 66 03 0F 00     call        00000001409FF590
+  000000014090F22A: C7 84 24 84 00 00  mov         dword ptr [rsp+0000000000000084h],3
+                    00 03 00 00 00
+  000000014090F235: 48 8D 15 04 C3 EA  lea         rdx,[00000001427BB540h] ; 'dimension'
+                    01
+  000000014090F23C: 48 8D 8C 24 B0 03  lea         rcx,[rsp+00000000000003B0h]
+                    00 00
+  000000014090F244: FF 15 36 52 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F24A: 90                 nop
+  000000014090F24B: 48 8D 94 24 B0 03  lea         rdx,[rsp+00000000000003B0h]
+                    00 00
+  000000014090F253: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090F258: FF 15 DA D1 4F 01  call        qword ptr [0000000141E0C438h] ; QtXml4_64.dll!?hasAttribute@QDomElement@@QEBA_NAEBVQString@@@Z
+  000000014090F25E: 88 84 24 A8 03 00  mov         byte ptr [rsp+00000000000003A8h],al
+                    00
+  000000014090F265: 48 8D 8C 24 B0 03  lea         rcx,[rsp+00000000000003B0h]
+                    00 00
+  000000014090F26D: FF 15 6D 67 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F273: 0F B6 94 24 A8 03  movzx       edx,byte ptr [rsp+00000000000003A8h]
+                    00 00
+  000000014090F27B: 85 D2              test        edx,edx
+  000000014090F27D: 0F 84 D4 00 00 00  je          000000014090F357
+  000000014090F283: 48 8D 15 C6 C2 EA  lea         rdx,[00000001427BB550h] ; 'dimension'
+                    01
+  000000014090F28A: 48 8D 8C 24 C0 03  lea         rcx,[rsp+00000000000003C0h]
+                    00 00
+  000000014090F292: FF 15 E8 51 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F298: 90                 nop
+  000000014090F299: 48 8D 8C 24 B8 03  lea         rcx,[rsp+00000000000003B8h]
+                    00 00
+  000000014090F2A1: FF 15 19 52 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F2A7: 48 89 84 24 E0 09  mov         qword ptr [rsp+00000000000009E0h],rax
+                    00 00
+  000000014090F2AF: 48 8B 84 24 E0 09  mov         rax,qword ptr [rsp+00000000000009E0h]
+                    00 00
+  000000014090F2B7: 48 89 84 24 E8 09  mov         qword ptr [rsp+00000000000009E8h],rax
+                    00 00
+  000000014090F2BF: 4C 8B 8C 24 E8 09  mov         r9,qword ptr [rsp+00000000000009E8h]
+                    00 00
+  000000014090F2C7: 4C 8D 84 24 C0 03  lea         r8,[rsp+00000000000003C0h]
+                    00 00
+  000000014090F2CF: 48 8D 94 24 C8 03  lea         rdx,[rsp+00000000000003C8h]
+                    00 00
+  000000014090F2D7: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090F2DC: FF 15 86 D3 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F2E2: 48 89 84 24 F0 09  mov         qword ptr [rsp+00000000000009F0h],rax
+                    00 00
+  000000014090F2EA: 48 8B 84 24 F0 09  mov         rax,qword ptr [rsp+00000000000009F0h]
+                    00 00
+  000000014090F2F2: 48 89 84 24 F8 09  mov         qword ptr [rsp+00000000000009F8h],rax
+                    00 00
+  000000014090F2FA: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090F300: 33 D2              xor         edx,edx
+  000000014090F302: 48 8B 8C 24 F8 09  mov         rcx,qword ptr [rsp+00000000000009F8h]
+                    00 00
+  000000014090F30A: FF 15 80 4D 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090F310: 89 84 24 84 00 00  mov         dword ptr [rsp+0000000000000084h],eax
+                    00
+  000000014090F317: 48 8D 8C 24 C8 03  lea         rcx,[rsp+00000000000003C8h]
+                    00 00
+  000000014090F31F: FF 15 BB 66 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F325: 90                 nop
+  000000014090F326: 48 8D 8C 24 B8 03  lea         rcx,[rsp+00000000000003B8h]
+                    00 00
+  000000014090F32E: FF 15 AC 66 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F334: 90                 nop
+  000000014090F335: 48 8D 8C 24 C0 03  lea         rcx,[rsp+00000000000003C0h]
+                    00 00
+  000000014090F33D: FF 15 9D 66 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F343: 8B 94 24 84 00 00  mov         edx,dword ptr [rsp+0000000000000084h]
+                    00
+  000000014090F34A: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  000000014090F352: E8 E9 8C 7C FF     call        00000001400D8040
+  000000014090F357: 48 8D 15 FE C1 EA  lea         rdx,[00000001427BB55Ch] ; 'LinkTo'
+                    01
+  000000014090F35E: 48 8D 8C 24 D8 03  lea         rcx,[rsp+00000000000003D8h]
+                    00 00
+  000000014090F366: FF 15 14 51 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F36C: 90                 nop
+  000000014090F36D: 48 8D 8C 24 D0 03  lea         rcx,[rsp+00000000000003D0h]
+                    00 00
+  000000014090F375: FF 15 45 51 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F37B: 48 89 84 24 00 0A  mov         qword ptr [rsp+0000000000000A00h],rax
+                    00 00
+  000000014090F383: 48 8B 84 24 00 0A  mov         rax,qword ptr [rsp+0000000000000A00h]
+                    00 00
+  000000014090F38B: 48 89 84 24 08 0A  mov         qword ptr [rsp+0000000000000A08h],rax
+                    00 00
+  000000014090F393: 4C 8B 8C 24 08 0A  mov         r9,qword ptr [rsp+0000000000000A08h]
+                    00 00
+  000000014090F39B: 4C 8D 84 24 D8 03  lea         r8,[rsp+00000000000003D8h]
+                    00 00
+  000000014090F3A3: 48 8D 94 24 88 00  lea         rdx,[rsp+0000000000000088h]
+                    00 00
+  000000014090F3AB: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090F3B0: FF 15 B2 D2 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F3B6: 90                 nop
+  000000014090F3B7: 48 8D 8C 24 D0 03  lea         rcx,[rsp+00000000000003D0h]
+                    00 00
+  000000014090F3BF: FF 15 1B 66 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F3C5: 90                 nop
+  000000014090F3C6: 48 8D 8C 24 D8 03  lea         rcx,[rsp+00000000000003D8h]
+                    00 00
+  000000014090F3CE: FF 15 0C 66 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F3D4: 48 8D 8C 24 88 00  lea         rcx,[rsp+0000000000000088h]
+                    00 00
+  000000014090F3DC: FF 15 E6 4B 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  000000014090F3E2: 0F B6 C0           movzx       eax,al
+  000000014090F3E5: 85 C0              test        eax,eax
+  000000014090F3E7: 75 24              jne         000000014090F40D
+  000000014090F3E9: 48 8D 94 24 A8 00  lea         rdx,[rsp+00000000000000A8h]
+                    00 00
+  000000014090F3F1: 48 8D 4C 24 70     lea         rcx,[rsp+70h]
+  000000014090F3F6: E8 E5 E3 E1 00     call        000000014172D7E0
+  000000014090F3FB: 48 8D 94 24 88 00  lea         rdx,[rsp+0000000000000088h]
+                    00 00
+  000000014090F403: 48 8D 4C 24 68     lea         rcx,[rsp+68h]
+  000000014090F408: E8 83 57 6F FF     call        0000000140004B90
+  000000014090F40D: C7 84 24 A0 00 00  mov         dword ptr [rsp+00000000000000A0h],0
+                    00 00 00 00 00
+  000000014090F418: 48 8D 94 24 98 00  lea         rdx,[rsp+0000000000000098h]
+                    00 00
+  000000014090F420: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  000000014090F425: FF 15 8D D1 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  000000014090F42B: 90                 nop
+  000000014090F42C: 48 8D 8C 24 98 00  lea         rcx,[rsp+0000000000000098h]
+                    00 00
+  000000014090F434: FF 15 FE D0 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090F43A: 0F B6 C0           movzx       eax,al
+  000000014090F43D: 85 C0              test        eax,eax
+  000000014090F43F: 0F 85 D4 33 00 00  jne         0000000140912819
+  000000014090F445: 48 8D 94 24 B8 00  lea         rdx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F44D: 48 8D 8C 24 98 00  lea         rcx,[rsp+0000000000000098h]
+                    00 00
+  000000014090F455: FF 15 55 D1 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  000000014090F45B: 90                 nop
+  000000014090F45C: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F464: FF 15 CE D0 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090F46A: 0F B6 C0           movzx       eax,al
+  000000014090F46D: 85 C0              test        eax,eax
+  000000014090F46F: 0F 85 3D 33 00 00  jne         00000001409127B2
+  000000014090F475: 48 8D 94 24 E8 03  lea         rdx,[rsp+00000000000003E8h]
+                    00 00
+  000000014090F47D: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F485: FF 15 1D D1 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090F48B: 48 89 84 24 10 0A  mov         qword ptr [rsp+0000000000000A10h],rax
+                    00 00
+  000000014090F493: 48 8B 84 24 10 0A  mov         rax,qword ptr [rsp+0000000000000A10h]
+                    00 00
+  000000014090F49B: 48 89 84 24 18 0A  mov         qword ptr [rsp+0000000000000A18h],rax
+                    00 00
+  000000014090F4A3: 48 8D 15 BE C0 EA  lea         rdx,[00000001427BB568h] ; 'Description'
+                    01
+  000000014090F4AA: 48 8B 8C 24 18 0A  mov         rcx,qword ptr [rsp+0000000000000A18h]
+                    00 00
+  000000014090F4B2: FF 15 B0 4F 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090F4B8: 88 84 24 E0 03 00  mov         byte ptr [rsp+00000000000003E0h],al
+                    00
+  000000014090F4BF: 48 8D 8C 24 E8 03  lea         rcx,[rsp+00000000000003E8h]
+                    00 00
+  000000014090F4C7: FF 15 13 65 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F4CD: 0F B6 94 24 E0 03  movzx       edx,byte ptr [rsp+00000000000003E0h]
+                    00 00
+  000000014090F4D5: 85 D2              test        edx,edx
+  000000014090F4D7: 74 7E              je          000000014090F557
+  000000014090F4D9: 48 8D 94 24 C0 00  lea         rdx,[rsp+00000000000000C0h]
+                    00 00
+  000000014090F4E1: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F4E9: FF 15 B1 D0 4F 01  call        qword ptr [0000000141E0C5A0h] ; QtXml4_64.dll!?text@QDomElement@@QEBA?AVQString@@XZ
+  000000014090F4EF: 90                 nop
+  000000014090F4F0: 48 8D 8C 24 C0 00  lea         rcx,[rsp+00000000000000C0h]
+                    00 00
+  000000014090F4F8: FF 15 CA 4A 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  000000014090F4FE: 0F B6 C0           movzx       eax,al
+  000000014090F501: 85 C0              test        eax,eax
+  000000014090F503: 75 44              jne         000000014090F549
+  000000014090F505: 48 8D 84 24 F0 03  lea         rax,[rsp+00000000000003F0h]
+                    00 00
+  000000014090F50D: 48 89 84 24 F8 03  mov         qword ptr [rsp+00000000000003F8h],rax
+                    00 00
+  000000014090F515: 48 8D 94 24 C0 00  lea         rdx,[rsp+00000000000000C0h]
+                    00 00
+  000000014090F51D: 48 8B 8C 24 F8 03  mov         rcx,qword ptr [rsp+00000000000003F8h]
+                    00 00
+  000000014090F525: FF 15 AD 64 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  000000014090F52B: 48 89 84 24 20 0A  mov         qword ptr [rsp+0000000000000A20h],rax
+                    00 00
+  000000014090F533: 48 8B 94 24 20 0A  mov         rdx,qword ptr [rsp+0000000000000A20h]
+                    00 00
+  000000014090F53B: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  000000014090F543: E8 B8 FC 7F FF     call        000000014010F200
+  000000014090F548: 90                 nop
+  000000014090F549: 48 8D 8C 24 C0 00  lea         rcx,[rsp+00000000000000C0h]
+                    00 00
+  000000014090F551: FF 15 89 64 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F557: 48 8D 94 24 08 04  lea         rdx,[rsp+0000000000000408h]
+                    00 00
+  000000014090F55F: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F567: FF 15 3B D0 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090F56D: 48 89 84 24 28 0A  mov         qword ptr [rsp+0000000000000A28h],rax
+                    00 00
+  000000014090F575: 48 8B 84 24 28 0A  mov         rax,qword ptr [rsp+0000000000000A28h]
+                    00 00
+  000000014090F57D: 48 89 84 24 30 0A  mov         qword ptr [rsp+0000000000000A30h],rax
+                    00 00
+  000000014090F585: 48 8D 15 EC BF EA  lea         rdx,[00000001427BB578h] ; 'Keyword'
+                    01
+  000000014090F58C: 48 8B 8C 24 30 0A  mov         rcx,qword ptr [rsp+0000000000000A30h]
+                    00 00
+  000000014090F594: FF 15 CE 4E 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090F59A: 88 84 24 00 04 00  mov         byte ptr [rsp+0000000000000400h],al
+                    00
+  000000014090F5A1: 48 8D 8C 24 08 04  lea         rcx,[rsp+0000000000000408h]
+                    00 00
+  000000014090F5A9: FF 15 31 64 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F5AF: 0F B6 94 24 00 04  movzx       edx,byte ptr [rsp+0000000000000400h]
+                    00 00
+  000000014090F5B7: 85 D2              test        edx,edx
+  000000014090F5B9: 0F 84 0B 1F 00 00  je          00000001409114CA
+  000000014090F5BF: 48 8D 8C 24 10 01  lea         rcx,[rsp+0000000000000110h]
+                    00 00
+  000000014090F5C7: E8 14 5E 75 FF     call        00000001400653E0
+  000000014090F5CC: 90                 nop
+  000000014090F5CD: 48 8D 8C 24 E8 00  lea         rcx,[rsp+00000000000000E8h]
+                    00 00
+  000000014090F5D5: E8 06 04 88 FF     call        000000014018F9E0
+  000000014090F5DA: 90                 nop
+  000000014090F5DB: 48 8D 15 9E BF EA  lea         rdx,[00000001427BB580h] ; 'name'
+                    01
+  000000014090F5E2: 48 8D 8C 24 18 04  lea         rcx,[rsp+0000000000000418h]
+                    00 00
+  000000014090F5EA: FF 15 90 4E 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F5F0: 90                 nop
+  000000014090F5F1: 48 8D 8C 24 10 04  lea         rcx,[rsp+0000000000000410h]
+                    00 00
+  000000014090F5F9: FF 15 C1 4E 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F5FF: 48 89 84 24 38 0A  mov         qword ptr [rsp+0000000000000A38h],rax
+                    00 00
+  000000014090F607: 48 8B 84 24 38 0A  mov         rax,qword ptr [rsp+0000000000000A38h]
+                    00 00
+  000000014090F60F: 48 89 84 24 40 0A  mov         qword ptr [rsp+0000000000000A40h],rax
+                    00 00
+  000000014090F617: 4C 8B 8C 24 40 0A  mov         r9,qword ptr [rsp+0000000000000A40h]
+                    00 00
+  000000014090F61F: 4C 8D 84 24 18 04  lea         r8,[rsp+0000000000000418h]
+                    00 00
+  000000014090F627: 48 8D 94 24 28 01  lea         rdx,[rsp+0000000000000128h]
+                    00 00
+  000000014090F62F: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F637: FF 15 2B D0 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F63D: 90                 nop
+  000000014090F63E: 48 8D 8C 24 10 04  lea         rcx,[rsp+0000000000000410h]
+                    00 00
+  000000014090F646: FF 15 94 63 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F64C: 90                 nop
+  000000014090F64D: 48 8D 8C 24 18 04  lea         rcx,[rsp+0000000000000418h]
+                    00 00
+  000000014090F655: FF 15 85 63 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F65B: 48 8D 15 26 BF EA  lea         rdx,[00000001427BB588h] ; 'unitType'
+                    01
+  000000014090F662: 48 8D 8C 24 28 04  lea         rcx,[rsp+0000000000000428h]
+                    00 00
+  000000014090F66A: FF 15 10 4E 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F670: 90                 nop
+  000000014090F671: 48 8D 8C 24 20 04  lea         rcx,[rsp+0000000000000420h]
+                    00 00
+  000000014090F679: FF 15 41 4E 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F67F: 48 89 84 24 48 0A  mov         qword ptr [rsp+0000000000000A48h],rax
+                    00 00
+  000000014090F687: 48 8B 84 24 48 0A  mov         rax,qword ptr [rsp+0000000000000A48h]
+                    00 00
+  000000014090F68F: 48 89 84 24 50 0A  mov         qword ptr [rsp+0000000000000A50h],rax
+                    00 00
+  000000014090F697: 4C 8B 8C 24 50 0A  mov         r9,qword ptr [rsp+0000000000000A50h]
+                    00 00
+  000000014090F69F: 4C 8D 84 24 28 04  lea         r8,[rsp+0000000000000428h]
+                    00 00
+  000000014090F6A7: 48 8D 94 24 30 04  lea         rdx,[rsp+0000000000000430h]
+                    00 00
+  000000014090F6AF: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F6B7: FF 15 AB CF 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F6BD: 48 89 84 24 58 0A  mov         qword ptr [rsp+0000000000000A58h],rax
+                    00 00
+  000000014090F6C5: 48 8B 84 24 58 0A  mov         rax,qword ptr [rsp+0000000000000A58h]
+                    00 00
+  000000014090F6CD: 48 89 84 24 60 0A  mov         qword ptr [rsp+0000000000000A60h],rax
+                    00 00
+  000000014090F6D5: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090F6DB: 33 D2              xor         edx,edx
+  000000014090F6DD: 48 8B 8C 24 60 0A  mov         rcx,qword ptr [rsp+0000000000000A60h]
+                    00 00
+  000000014090F6E5: FF 15 A5 49 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090F6EB: 89 84 24 44 01 00  mov         dword ptr [rsp+0000000000000144h],eax
+                    00
+  000000014090F6F2: 48 8D 8C 24 30 04  lea         rcx,[rsp+0000000000000430h]
+                    00 00
+  000000014090F6FA: FF 15 E0 62 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F700: 90                 nop
+  000000014090F701: 48 8D 8C 24 20 04  lea         rcx,[rsp+0000000000000420h]
+                    00 00
+  000000014090F709: FF 15 D1 62 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F70F: 90                 nop
+  000000014090F710: 48 8D 8C 24 28 04  lea         rcx,[rsp+0000000000000428h]
+                    00 00
+  000000014090F718: FF 15 C2 62 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F71E: 48 8D 15 73 BE EA  lea         rdx,[00000001427BB598h] ; 'parmType'
+                    01
+  000000014090F725: 48 8D 8C 24 40 04  lea         rcx,[rsp+0000000000000440h]
+                    00 00
+  000000014090F72D: FF 15 4D 4D 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F733: 90                 nop
+  000000014090F734: 48 8D 8C 24 38 04  lea         rcx,[rsp+0000000000000438h]
+                    00 00
+  000000014090F73C: FF 15 7E 4D 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F742: 48 89 84 24 68 0A  mov         qword ptr [rsp+0000000000000A68h],rax
+                    00 00
+  000000014090F74A: 48 8B 84 24 68 0A  mov         rax,qword ptr [rsp+0000000000000A68h]
+                    00 00
+  000000014090F752: 48 89 84 24 70 0A  mov         qword ptr [rsp+0000000000000A70h],rax
+                    00 00
+  000000014090F75A: 4C 8B 8C 24 70 0A  mov         r9,qword ptr [rsp+0000000000000A70h]
+                    00 00
+  000000014090F762: 4C 8D 84 24 40 04  lea         r8,[rsp+0000000000000440h]
+                    00 00
+  000000014090F76A: 48 8D 94 24 48 04  lea         rdx,[rsp+0000000000000448h]
+                    00 00
+  000000014090F772: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F77A: FF 15 E8 CE 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F780: 48 89 84 24 78 0A  mov         qword ptr [rsp+0000000000000A78h],rax
+                    00 00
+  000000014090F788: 48 8B 84 24 78 0A  mov         rax,qword ptr [rsp+0000000000000A78h]
+                    00 00
+  000000014090F790: 48 89 84 24 80 0A  mov         qword ptr [rsp+0000000000000A80h],rax
+                    00 00
+  000000014090F798: 48 8D 94 24 00 01  lea         rdx,[rsp+0000000000000100h]
+                    00 00
+  000000014090F7A0: 48 8B 8C 24 80 0A  mov         rcx,qword ptr [rsp+0000000000000A80h]
+                    00 00
+  000000014090F7A8: FF 15 7A 4B 4F 01  call        qword ptr [0000000141E04328h] ; QtCore4_64.dll!?toLower@QString@@QEBA?AV1@XZ
+  000000014090F7AE: 90                 nop
+  000000014090F7AF: 48 8D 8C 24 48 04  lea         rcx,[rsp+0000000000000448h]
+                    00 00
+  000000014090F7B7: FF 15 23 62 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F7BD: 90                 nop
+  000000014090F7BE: 48 8D 8C 24 38 04  lea         rcx,[rsp+0000000000000438h]
+                    00 00
+  000000014090F7C6: FF 15 14 62 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F7CC: 90                 nop
+  000000014090F7CD: 48 8D 8C 24 40 04  lea         rcx,[rsp+0000000000000440h]
+                    00 00
+  000000014090F7D5: FF 15 05 62 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F7DB: C6 84 24 40 01 00  mov         byte ptr [rsp+0000000000000140h],0
+                    00 00
+  000000014090F7E3: C6 84 24 F8 00 00  mov         byte ptr [rsp+00000000000000F8h],0
+                    00 00
+  000000014090F7EB: 48 8D 15 B6 BD EA  lea         rdx,[00000001427BB5A8h] ; 'function'
+                    01
+  000000014090F7F2: 48 8D 8C 24 00 01  lea         rcx,[rsp+0000000000000100h]
+                    00 00
+  000000014090F7FA: FF 15 68 4C 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090F800: 0F B6 C0           movzx       eax,al
+  000000014090F803: 85 C0              test        eax,eax
+  000000014090F805: 74 0A              je          000000014090F811
+  000000014090F807: C6 84 24 40 01 00  mov         byte ptr [rsp+0000000000000140h],1
+                    00 01
+  000000014090F80F: EB 24              jmp         000000014090F835
+  000000014090F811: 48 8D 15 9C BD EA  lea         rdx,[00000001427BB5B4h] ; 'enum'
+                    01
+  000000014090F818: 48 8D 8C 24 00 01  lea         rcx,[rsp+0000000000000100h]
+                    00 00
+  000000014090F820: FF 15 42 4C 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090F826: 0F B6 C0           movzx       eax,al
+  000000014090F829: 85 C0              test        eax,eax
+  000000014090F82B: 74 08              je          000000014090F835
+  000000014090F82D: C6 84 24 F8 00 00  mov         byte ptr [rsp+00000000000000F8h],1
+                    00 01
+  000000014090F835: 48 8D 15 84 BD EA  lea         rdx,[00000001427BB5C0h] ; 'parameter'
+                    01
+  000000014090F83C: 48 8D 8C 24 58 04  lea         rcx,[rsp+0000000000000458h]
+                    00 00
+  000000014090F844: FF 15 36 4C 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F84A: 90                 nop
+  000000014090F84B: 48 8D 8C 24 50 04  lea         rcx,[rsp+0000000000000450h]
+                    00 00
+  000000014090F853: FF 15 67 4C 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F859: 48 89 84 24 88 0A  mov         qword ptr [rsp+0000000000000A88h],rax
+                    00 00
+  000000014090F861: 48 8B 84 24 88 0A  mov         rax,qword ptr [rsp+0000000000000A88h]
+                    00 00
+  000000014090F869: 48 89 84 24 90 0A  mov         qword ptr [rsp+0000000000000A90h],rax
+                    00 00
+  000000014090F871: 4C 8B 8C 24 90 0A  mov         r9,qword ptr [rsp+0000000000000A90h]
+                    00 00
+  000000014090F879: 4C 8D 84 24 58 04  lea         r8,[rsp+0000000000000458h]
+                    00 00
+  000000014090F881: 48 8D 94 24 60 04  lea         rdx,[rsp+0000000000000460h]
+                    00 00
+  000000014090F889: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F891: FF 15 D1 CD 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F897: 48 89 84 24 98 0A  mov         qword ptr [rsp+0000000000000A98h],rax
+                    00 00
+  000000014090F89F: 48 8B 84 24 98 0A  mov         rax,qword ptr [rsp+0000000000000A98h]
+                    00 00
+  000000014090F8A7: 48 89 84 24 A0 0A  mov         qword ptr [rsp+0000000000000AA0h],rax
+                    00 00
+  000000014090F8AF: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090F8B5: 33 D2              xor         edx,edx
+  000000014090F8B7: 48 8B 8C 24 A0 0A  mov         rcx,qword ptr [rsp+0000000000000AA0h]
+                    00 00
+  000000014090F8BF: FF 15 CB 47 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090F8C5: 89 84 24 E0 00 00  mov         dword ptr [rsp+00000000000000E0h],eax
+                    00
+  000000014090F8CC: 48 8D 8C 24 60 04  lea         rcx,[rsp+0000000000000460h]
+                    00 00
+  000000014090F8D4: FF 15 06 61 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F8DA: 90                 nop
+  000000014090F8DB: 48 8D 8C 24 50 04  lea         rcx,[rsp+0000000000000450h]
+                    00 00
+  000000014090F8E3: FF 15 F7 60 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F8E9: 90                 nop
+  000000014090F8EA: 48 8D 8C 24 58 04  lea         rcx,[rsp+0000000000000458h]
+                    00 00
+  000000014090F8F2: FF 15 E8 60 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F8F8: 48 8D 8C 24 08 01  lea         rcx,[rsp+0000000000000108h]
+                    00 00
+  000000014090F900: FF 15 BA 4B 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F906: 90                 nop
+  000000014090F907: 48 8D 15 C2 BC EA  lea         rdx,[00000001427BB5D0h] ; 'parameterName'
+                    01
+  000000014090F90E: 48 8D 8C 24 70 04  lea         rcx,[rsp+0000000000000470h]
+                    00 00
+  000000014090F916: FF 15 64 4B 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F91C: 90                 nop
+  000000014090F91D: 48 8D 8C 24 68 04  lea         rcx,[rsp+0000000000000468h]
+                    00 00
+  000000014090F925: FF 15 95 4B 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F92B: 48 89 84 24 A8 0A  mov         qword ptr [rsp+0000000000000AA8h],rax
+                    00 00
+  000000014090F933: 48 8B 84 24 A8 0A  mov         rax,qword ptr [rsp+0000000000000AA8h]
+                    00 00
+  000000014090F93B: 48 89 84 24 B0 0A  mov         qword ptr [rsp+0000000000000AB0h],rax
+                    00 00
+  000000014090F943: 4C 8B 8C 24 B0 0A  mov         r9,qword ptr [rsp+0000000000000AB0h]
+                    00 00
+  000000014090F94B: 4C 8D 84 24 70 04  lea         r8,[rsp+0000000000000470h]
+                    00 00
+  000000014090F953: 48 8D 94 24 78 04  lea         rdx,[rsp+0000000000000478h]
+                    00 00
+  000000014090F95B: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090F963: FF 15 FF CC 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090F969: 48 89 84 24 B8 0A  mov         qword ptr [rsp+0000000000000AB8h],rax
+                    00 00
+  000000014090F971: 48 8B 84 24 B8 0A  mov         rax,qword ptr [rsp+0000000000000AB8h]
+                    00 00
+  000000014090F979: 48 89 84 24 C0 0A  mov         qword ptr [rsp+0000000000000AC0h],rax
+                    00 00
+  000000014090F981: 48 8B 94 24 C0 0A  mov         rdx,qword ptr [rsp+0000000000000AC0h]
+                    00 00
+  000000014090F989: 48 8D 8C 24 08 01  lea         rcx,[rsp+0000000000000108h]
+                    00 00
+  000000014090F991: FF 15 D9 4A 4F 01  call        qword ptr [0000000141E04470h] ; QtCore4_64.dll!??4QString@@QEAAAEAV0@AEBV0@@Z
+  000000014090F997: 90                 nop
+  000000014090F998: 48 8D 8C 24 78 04  lea         rcx,[rsp+0000000000000478h]
+                    00 00
+  000000014090F9A0: FF 15 3A 60 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F9A6: 90                 nop
+  000000014090F9A7: 48 8D 8C 24 68 04  lea         rcx,[rsp+0000000000000468h]
+                    00 00
+  000000014090F9AF: FF 15 2B 60 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F9B5: 90                 nop
+  000000014090F9B6: 48 8D 8C 24 70 04  lea         rcx,[rsp+0000000000000470h]
+                    00 00
+  000000014090F9BE: FF 15 1C 60 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090F9C4: 48 8D 15 15 BC EA  lea         rdx,[00000001427BB5E0h] ; 'nominalValue'
+                    01
+  000000014090F9CB: 48 8D 8C 24 88 04  lea         rcx,[rsp+0000000000000488h]
+                    00 00
+  000000014090F9D3: FF 15 A7 4A 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090F9D9: 90                 nop
+  000000014090F9DA: 48 8D 8C 24 80 04  lea         rcx,[rsp+0000000000000480h]
+                    00 00
+  000000014090F9E2: FF 15 D8 4A 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090F9E8: 48 89 84 24 C8 0A  mov         qword ptr [rsp+0000000000000AC8h],rax
+                    00 00
+  000000014090F9F0: 48 8B 84 24 C8 0A  mov         rax,qword ptr [rsp+0000000000000AC8h]
+                    00 00
+  000000014090F9F8: 48 89 84 24 D0 0A  mov         qword ptr [rsp+0000000000000AD0h],rax
+                    00 00
+  000000014090FA00: 4C 8B 8C 24 D0 0A  mov         r9,qword ptr [rsp+0000000000000AD0h]
+                    00 00
+  000000014090FA08: 4C 8D 84 24 88 04  lea         r8,[rsp+0000000000000488h]
+                    00 00
+  000000014090FA10: 48 8D 94 24 90 04  lea         rdx,[rsp+0000000000000490h]
+                    00 00
+  000000014090FA18: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090FA20: FF 15 42 CC 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090FA26: 48 89 84 24 D8 0A  mov         qword ptr [rsp+0000000000000AD8h],rax
+                    00 00
+  000000014090FA2E: 48 8B 84 24 D8 0A  mov         rax,qword ptr [rsp+0000000000000AD8h]
+                    00 00
+  000000014090FA36: 48 89 84 24 E0 0A  mov         qword ptr [rsp+0000000000000AE0h],rax
+                    00 00
+  000000014090FA3E: 33 D2              xor         edx,edx
+  000000014090FA40: 48 8B 8C 24 E0 0A  mov         rcx,qword ptr [rsp+0000000000000AE0h]
+                    00 00
+  000000014090FA48: FF 15 C2 5D 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  000000014090FA4E: F2 0F 11 84 24 D0  movsd       mmword ptr [rsp+00000000000000D0h],xmm0
+                    00 00 00
+  000000014090FA57: 48 8D 8C 24 90 04  lea         rcx,[rsp+0000000000000490h]
+                    00 00
+  000000014090FA5F: FF 15 7B 5F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FA65: 90                 nop
+  000000014090FA66: 48 8D 8C 24 80 04  lea         rcx,[rsp+0000000000000480h]
+                    00 00
+  000000014090FA6E: FF 15 6C 5F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FA74: 90                 nop
+  000000014090FA75: 48 8D 8C 24 88 04  lea         rcx,[rsp+0000000000000488h]
+                    00 00
+  000000014090FA7D: FF 15 5D 5F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FA83: 0F B6 84 24 40 01  movzx       eax,byte ptr [rsp+0000000000000140h]
+                    00 00
+  000000014090FA8B: 85 C0              test        eax,eax
+  000000014090FA8D: 0F 84 C3 00 00 00  je          000000014090FB56
+  000000014090FA93: 48 8D 15 56 BB EA  lea         rdx,[00000001427BB5F0h] ; 'funcEntryNo'
+                    01
+  000000014090FA9A: 48 8D 8C 24 A0 04  lea         rcx,[rsp+00000000000004A0h]
+                    00 00
+  000000014090FAA2: FF 15 D8 49 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090FAA8: 90                 nop
+  000000014090FAA9: 48 8D 8C 24 98 04  lea         rcx,[rsp+0000000000000498h]
+                    00 00
+  000000014090FAB1: FF 15 09 4A 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090FAB7: 48 89 84 24 E8 0A  mov         qword ptr [rsp+0000000000000AE8h],rax
+                    00 00
+  000000014090FABF: 48 8B 84 24 E8 0A  mov         rax,qword ptr [rsp+0000000000000AE8h]
+                    00 00
+  000000014090FAC7: 48 89 84 24 F0 0A  mov         qword ptr [rsp+0000000000000AF0h],rax
+                    00 00
+  000000014090FACF: 4C 8B 8C 24 F0 0A  mov         r9,qword ptr [rsp+0000000000000AF0h]
+                    00 00
+  000000014090FAD7: 4C 8D 84 24 A0 04  lea         r8,[rsp+00000000000004A0h]
+                    00 00
+  000000014090FADF: 48 8D 94 24 A8 04  lea         rdx,[rsp+00000000000004A8h]
+                    00 00
+  000000014090FAE7: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090FAEF: FF 15 73 CB 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090FAF5: 48 89 84 24 F8 0A  mov         qword ptr [rsp+0000000000000AF8h],rax
+                    00 00
+  000000014090FAFD: 48 8B 84 24 F8 0A  mov         rax,qword ptr [rsp+0000000000000AF8h]
+                    00 00
+  000000014090FB05: 48 89 84 24 00 0B  mov         qword ptr [rsp+0000000000000B00h],rax
+                    00 00
+  000000014090FB0D: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090FB13: 33 D2              xor         edx,edx
+  000000014090FB15: 48 8B 8C 24 00 0B  mov         rcx,qword ptr [rsp+0000000000000B00h]
+                    00 00
+  000000014090FB1D: FF 15 6D 45 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090FB23: 89 84 24 C8 00 00  mov         dword ptr [rsp+00000000000000C8h],eax
+                    00
+  000000014090FB2A: 48 8D 8C 24 A8 04  lea         rcx,[rsp+00000000000004A8h]
+                    00 00
+  000000014090FB32: FF 15 A8 5E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FB38: 90                 nop
+  000000014090FB39: 48 8D 8C 24 98 04  lea         rcx,[rsp+0000000000000498h]
+                    00 00
+  000000014090FB41: FF 15 99 5E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FB47: 90                 nop
+  000000014090FB48: 48 8D 8C 24 A0 04  lea         rcx,[rsp+00000000000004A0h]
+                    00 00
+  000000014090FB50: FF 15 8A 5E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FB56: 48 8D 8C 24 20 01  lea         rcx,[rsp+0000000000000120h]
+                    00 00
+  000000014090FB5E: E8 7D FE 87 FF     call        000000014018F9E0
+  000000014090FB63: 90                 nop
+  000000014090FB64: 48 8D 8C 24 38 01  lea         rcx,[rsp+0000000000000138h]
+                    00 00
+  000000014090FB6C: E8 6F FE 87 FF     call        000000014018F9E0
+  000000014090FB71: 90                 nop
+  000000014090FB72: 48 8D 8C 24 D8 00  lea         rcx,[rsp+00000000000000D8h]
+                    00 00
+  000000014090FB7A: FF 15 40 49 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090FB80: 90                 nop
+  000000014090FB81: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  000000014090FB89: FF 15 31 49 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090FB8F: 90                 nop
+  000000014090FB90: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  000000014090FB98: FF 15 22 49 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090FB9E: 90                 nop
+  000000014090FB9F: 48 8D 94 24 30 01  lea         rdx,[rsp+0000000000000130h]
+                    00 00
+  000000014090FBA7: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014090FBAF: FF 15 03 CA 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  000000014090FBB5: 90                 nop
+  000000014090FBB6: 48 8D 8C 24 30 01  lea         rcx,[rsp+0000000000000130h]
+                    00 00
+  000000014090FBBE: FF 15 74 C9 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090FBC4: 0F B6 C0           movzx       eax,al
+  000000014090FBC7: 85 C0              test        eax,eax
+  000000014090FBC9: 0F 85 74 0C 00 00  jne         0000000140910843
+  000000014090FBCF: 48 8D 94 24 50 01  lea         rdx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FBD7: 48 8D 8C 24 30 01  lea         rcx,[rsp+0000000000000130h]
+                    00 00
+  000000014090FBDF: FF 15 CB C9 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  000000014090FBE5: 90                 nop
+  000000014090FBE6: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FBEE: FF 15 44 C9 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090FBF4: 0F B6 C0           movzx       eax,al
+  000000014090FBF7: 85 C0              test        eax,eax
+  000000014090FBF9: 0F 85 DD 0B 00 00  jne         00000001409107DC
+  000000014090FBFF: 48 8D 94 24 B8 04  lea         rdx,[rsp+00000000000004B8h]
+                    00 00
+  000000014090FC07: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FC0F: FF 15 93 C9 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090FC15: 48 89 84 24 08 0B  mov         qword ptr [rsp+0000000000000B08h],rax
+                    00 00
+  000000014090FC1D: 48 8B 84 24 08 0B  mov         rax,qword ptr [rsp+0000000000000B08h]
+                    00 00
+  000000014090FC25: 48 89 84 24 10 0B  mov         qword ptr [rsp+0000000000000B10h],rax
+                    00 00
+  000000014090FC2D: 48 8D 15 CC B9 EA  lea         rdx,[00000001427BB600h] ; 'EnumData'
+                    01
+  000000014090FC34: 48 8B 8C 24 10 0B  mov         rcx,qword ptr [rsp+0000000000000B10h]
+                    00 00
+  000000014090FC3C: FF 15 26 48 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090FC42: 88 84 24 B0 04 00  mov         byte ptr [rsp+00000000000004B0h],al
+                    00
+  000000014090FC49: 48 8D 8C 24 B8 04  lea         rcx,[rsp+00000000000004B8h]
+                    00 00
+  000000014090FC51: FF 15 89 5D 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FC57: 0F B6 94 24 B0 04  movzx       edx,byte ptr [rsp+00000000000004B0h]
+                    00 00
+  000000014090FC5F: 85 D2              test        edx,edx
+  000000014090FC61: 0F 84 95 01 00 00  je          000000014090FDFC
+  000000014090FC67: 48 8D 15 9E B9 EA  lea         rdx,[00000001427BB60Ch] ; 'Text'
+                    01
+  000000014090FC6E: 48 8D 8C 24 C8 04  lea         rcx,[rsp+00000000000004C8h]
+                    00 00
+  000000014090FC76: FF 15 04 48 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090FC7C: 90                 nop
+  000000014090FC7D: 48 8D 8C 24 C0 04  lea         rcx,[rsp+00000000000004C0h]
+                    00 00
+  000000014090FC85: FF 15 35 48 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090FC8B: 48 89 84 24 18 0B  mov         qword ptr [rsp+0000000000000B18h],rax
+                    00 00
+  000000014090FC93: 48 8B 84 24 18 0B  mov         rax,qword ptr [rsp+0000000000000B18h]
+                    00 00
+  000000014090FC9B: 48 89 84 24 20 0B  mov         qword ptr [rsp+0000000000000B20h],rax
+                    00 00
+  000000014090FCA3: 4C 8B 8C 24 20 0B  mov         r9,qword ptr [rsp+0000000000000B20h]
+                    00 00
+  000000014090FCAB: 4C 8D 84 24 C8 04  lea         r8,[rsp+00000000000004C8h]
+                    00 00
+  000000014090FCB3: 48 8D 94 24 D0 04  lea         rdx,[rsp+00000000000004D0h]
+                    00 00
+  000000014090FCBB: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FCC3: FF 15 9F C9 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090FCC9: 48 89 84 24 28 0B  mov         qword ptr [rsp+0000000000000B28h],rax
+                    00 00
+  000000014090FCD1: 48 8B 84 24 28 0B  mov         rax,qword ptr [rsp+0000000000000B28h]
+                    00 00
+  000000014090FCD9: 48 89 84 24 30 0B  mov         qword ptr [rsp+0000000000000B30h],rax
+                    00 00
+  000000014090FCE1: 48 8B 94 24 30 0B  mov         rdx,qword ptr [rsp+0000000000000B30h]
+                    00 00
+  000000014090FCE9: 48 8D 8C 24 10 01  lea         rcx,[rsp+0000000000000110h]
+                    00 00
+  000000014090FCF1: E8 9A 4E 6F FF     call        0000000140004B90
+  000000014090FCF6: 90                 nop
+  000000014090FCF7: 48 8D 8C 24 D0 04  lea         rcx,[rsp+00000000000004D0h]
+                    00 00
+  000000014090FCFF: FF 15 DB 5C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FD05: 90                 nop
+  000000014090FD06: 48 8D 8C 24 C0 04  lea         rcx,[rsp+00000000000004C0h]
+                    00 00
+  000000014090FD0E: FF 15 CC 5C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FD14: 90                 nop
+  000000014090FD15: 48 8D 8C 24 C8 04  lea         rcx,[rsp+00000000000004C8h]
+                    00 00
+  000000014090FD1D: FF 15 BD 5C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FD23: 48 8D 15 EA B8 EA  lea         rdx,[00000001427BB614h] ; 'Value'
+                    01
+  000000014090FD2A: 48 8D 8C 24 E8 04  lea         rcx,[rsp+00000000000004E8h]
+                    00 00
+  000000014090FD32: FF 15 48 47 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  000000014090FD38: 90                 nop
+  000000014090FD39: 48 8D 8C 24 E0 04  lea         rcx,[rsp+00000000000004E0h]
+                    00 00
+  000000014090FD41: FF 15 79 47 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014090FD47: 48 89 84 24 38 0B  mov         qword ptr [rsp+0000000000000B38h],rax
+                    00 00
+  000000014090FD4F: 48 8B 84 24 38 0B  mov         rax,qword ptr [rsp+0000000000000B38h]
+                    00 00
+  000000014090FD57: 48 89 84 24 40 0B  mov         qword ptr [rsp+0000000000000B40h],rax
+                    00 00
+  000000014090FD5F: 4C 8B 8C 24 40 0B  mov         r9,qword ptr [rsp+0000000000000B40h]
+                    00 00
+  000000014090FD67: 4C 8D 84 24 E8 04  lea         r8,[rsp+00000000000004E8h]
+                    00 00
+  000000014090FD6F: 48 8D 94 24 F0 04  lea         rdx,[rsp+00000000000004F0h]
+                    00 00
+  000000014090FD77: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FD7F: FF 15 E3 C8 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014090FD85: 48 89 84 24 48 0B  mov         qword ptr [rsp+0000000000000B48h],rax
+                    00 00
+  000000014090FD8D: 48 8B 84 24 48 0B  mov         rax,qword ptr [rsp+0000000000000B48h]
+                    00 00
+  000000014090FD95: 48 89 84 24 50 0B  mov         qword ptr [rsp+0000000000000B50h],rax
+                    00 00
+  000000014090FD9D: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014090FDA3: 33 D2              xor         edx,edx
+  000000014090FDA5: 48 8B 8C 24 50 0B  mov         rcx,qword ptr [rsp+0000000000000B50h]
+                    00 00
+  000000014090FDAD: FF 15 DD 42 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014090FDB3: 89 84 24 D8 04 00  mov         dword ptr [rsp+00000000000004D8h],eax
+                    00
+  000000014090FDBA: 48 8D 94 24 D8 04  lea         rdx,[rsp+00000000000004D8h]
+                    00 00
+  000000014090FDC2: 48 8D 8C 24 E8 00  lea         rcx,[rsp+00000000000000E8h]
+                    00 00
+  000000014090FDCA: E8 31 53 71 FF     call        0000000140025100
+  000000014090FDCF: 90                 nop
+  000000014090FDD0: 48 8D 8C 24 F0 04  lea         rcx,[rsp+00000000000004F0h]
+                    00 00
+  000000014090FDD8: FF 15 02 5C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FDDE: 90                 nop
+  000000014090FDDF: 48 8D 8C 24 E0 04  lea         rcx,[rsp+00000000000004E0h]
+                    00 00
+  000000014090FDE7: FF 15 F3 5B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FDED: 90                 nop
+  000000014090FDEE: 48 8D 8C 24 E8 04  lea         rcx,[rsp+00000000000004E8h]
+                    00 00
+  000000014090FDF6: FF 15 E4 5B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FDFC: 48 8D 94 24 00 05  lea         rdx,[rsp+0000000000000500h]
+                    00 00
+  000000014090FE04: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FE0C: FF 15 96 C7 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090FE12: 48 89 84 24 58 0B  mov         qword ptr [rsp+0000000000000B58h],rax
+                    00 00
+  000000014090FE1A: 48 8B 84 24 58 0B  mov         rax,qword ptr [rsp+0000000000000B58h]
+                    00 00
+  000000014090FE22: 48 89 84 24 60 0B  mov         qword ptr [rsp+0000000000000B60h],rax
+                    00 00
+  000000014090FE2A: 48 8D 15 EF B7 EA  lea         rdx,[00000001427BB620h] ; 'NominalData'
+                    01
+  000000014090FE31: 48 8B 8C 24 60 0B  mov         rcx,qword ptr [rsp+0000000000000B60h]
+                    00 00
+  000000014090FE39: FF 15 29 46 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090FE3F: 88 84 24 F8 04 00  mov         byte ptr [rsp+00000000000004F8h],al
+                    00
+  000000014090FE46: 48 8D 8C 24 00 05  lea         rcx,[rsp+0000000000000500h]
+                    00 00
+  000000014090FE4E: FF 15 8C 5B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FE54: 0F B6 94 24 F8 04  movzx       edx,byte ptr [rsp+00000000000004F8h]
+                    00 00
+  000000014090FE5C: 85 D2              test        edx,edx
+  000000014090FE5E: 0F 84 35 01 00 00  je          000000014090FF99
+  000000014090FE64: 48 8D 94 24 58 01  lea         rdx,[rsp+0000000000000158h]
+                    00 00
+  000000014090FE6C: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FE74: FF 15 3E C7 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  000000014090FE7A: 90                 nop
+  000000014090FE7B: 48 8D 8C 24 58 01  lea         rcx,[rsp+0000000000000158h]
+                    00 00
+  000000014090FE83: FF 15 AF C6 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090FE89: 0F B6 C0           movzx       eax,al
+  000000014090FE8C: 85 C0              test        eax,eax
+  000000014090FE8E: 0F 85 F7 00 00 00  jne         000000014090FF8B
+  000000014090FE94: 48 8D 94 24 60 01  lea         rdx,[rsp+0000000000000160h]
+                    00 00
+  000000014090FE9C: 48 8D 8C 24 58 01  lea         rcx,[rsp+0000000000000158h]
+                    00 00
+  000000014090FEA4: FF 15 06 C7 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  000000014090FEAA: 90                 nop
+  000000014090FEAB: 48 8D 8C 24 60 01  lea         rcx,[rsp+0000000000000160h]
+                    00 00
+  000000014090FEB3: FF 15 7F C6 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014090FEB9: 0F B6 C0           movzx       eax,al
+  000000014090FEBC: 85 C0              test        eax,eax
+  000000014090FEBE: 0F 85 B8 00 00 00  jne         000000014090FF7C
+  000000014090FEC4: 48 8D 94 24 10 05  lea         rdx,[rsp+0000000000000510h]
+                    00 00
+  000000014090FECC: 48 8D 8C 24 60 01  lea         rcx,[rsp+0000000000000160h]
+                    00 00
+  000000014090FED4: FF 15 CE C6 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090FEDA: 48 89 84 24 68 0B  mov         qword ptr [rsp+0000000000000B68h],rax
+                    00 00
+  000000014090FEE2: 48 8B 84 24 68 0B  mov         rax,qword ptr [rsp+0000000000000B68h]
+                    00 00
+  000000014090FEEA: 48 89 84 24 70 0B  mov         qword ptr [rsp+0000000000000B70h],rax
+                    00 00
+  000000014090FEF2: 48 8D 15 33 B7 EA  lea         rdx,[00000001427BB62Ch] ; 'string'
+                    01
+  000000014090FEF9: 48 8B 8C 24 70 0B  mov         rcx,qword ptr [rsp+0000000000000B70h]
+                    00 00
+  000000014090FF01: FF 15 61 45 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090FF07: 88 84 24 08 05 00  mov         byte ptr [rsp+0000000000000508h],al
+                    00
+  000000014090FF0E: 48 8D 8C 24 10 05  lea         rcx,[rsp+0000000000000510h]
+                    00 00
+  000000014090FF16: FF 15 C4 5A 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FF1C: 0F B6 94 24 08 05  movzx       edx,byte ptr [rsp+0000000000000508h]
+                    00 00
+  000000014090FF24: 85 D2              test        edx,edx
+  000000014090FF26: 74 54              je          000000014090FF7C
+  000000014090FF28: 48 8D 94 24 18 05  lea         rdx,[rsp+0000000000000518h]
+                    00 00
+  000000014090FF30: 48 8D 8C 24 60 01  lea         rcx,[rsp+0000000000000160h]
+                    00 00
+  000000014090FF38: FF 15 62 C6 4F 01  call        qword ptr [0000000141E0C5A0h] ; QtXml4_64.dll!?text@QDomElement@@QEBA?AVQString@@XZ
+  000000014090FF3E: 48 89 84 24 78 0B  mov         qword ptr [rsp+0000000000000B78h],rax
+                    00 00
+  000000014090FF46: 48 8B 84 24 78 0B  mov         rax,qword ptr [rsp+0000000000000B78h]
+                    00 00
+  000000014090FF4E: 48 89 84 24 80 0B  mov         qword ptr [rsp+0000000000000B80h],rax
+                    00 00
+  000000014090FF56: 48 8B 94 24 80 0B  mov         rdx,qword ptr [rsp+0000000000000B80h]
+                    00 00
+  000000014090FF5E: 48 8D 8C 24 D8 00  lea         rcx,[rsp+00000000000000D8h]
+                    00 00
+  000000014090FF66: FF 15 04 45 4F 01  call        qword ptr [0000000141E04470h] ; QtCore4_64.dll!??4QString@@QEAAAEAV0@AEBV0@@Z
+  000000014090FF6C: 90                 nop
+  000000014090FF6D: 48 8D 8C 24 18 05  lea         rcx,[rsp+0000000000000518h]
+                    00 00
+  000000014090FF75: FF 15 65 5A 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FF7B: 90                 nop
+  000000014090FF7C: 48 8D 8C 24 60 01  lea         rcx,[rsp+0000000000000160h]
+                    00 00
+  000000014090FF84: FF 15 26 C7 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  000000014090FF8A: 90                 nop
+  000000014090FF8B: 48 8D 8C 24 58 01  lea         rcx,[rsp+0000000000000158h]
+                    00 00
+  000000014090FF93: FF 15 0F C7 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  000000014090FF99: 48 8D 94 24 28 05  lea         rdx,[rsp+0000000000000528h]
+                    00 00
+  000000014090FFA1: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014090FFA9: FF 15 F9 C5 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014090FFAF: 48 89 84 24 88 0B  mov         qword ptr [rsp+0000000000000B88h],rax
+                    00 00
+  000000014090FFB7: 48 8B 84 24 88 0B  mov         rax,qword ptr [rsp+0000000000000B88h]
+                    00 00
+  000000014090FFBF: 48 89 84 24 90 0B  mov         qword ptr [rsp+0000000000000B90h],rax
+                    00 00
+  000000014090FFC7: 48 8D 15 6A B6 EA  lea         rdx,[00000001427BB638h] ; 'UpperData'
+                    01
+  000000014090FFCE: 48 8B 8C 24 90 0B  mov         rcx,qword ptr [rsp+0000000000000B90h]
+                    00 00
+  000000014090FFD6: FF 15 8C 44 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014090FFDC: 88 84 24 20 05 00  mov         byte ptr [rsp+0000000000000520h],al
+                    00
+  000000014090FFE3: 48 8D 8C 24 28 05  lea         rcx,[rsp+0000000000000528h]
+                    00 00
+  000000014090FFEB: FF 15 EF 59 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014090FFF1: 0F B6 94 24 20 05  movzx       edx,byte ptr [rsp+0000000000000520h]
+                    00 00
+  000000014090FFF9: 85 D2              test        edx,edx
+  000000014090FFFB: 0F 84 3A 01 00 00  je          000000014091013B
+  0000000140910001: 48 8D 94 24 68 01  lea         rdx,[rsp+0000000000000168h]
+                    00 00
+  0000000140910009: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  0000000140910011: FF 15 A1 C5 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  0000000140910017: 90                 nop
+  0000000140910018: 48 8D 8C 24 68 01  lea         rcx,[rsp+0000000000000168h]
+                    00 00
+  0000000140910020: FF 15 12 C5 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140910026: 0F B6 C0           movzx       eax,al
+  0000000140910029: 85 C0              test        eax,eax
+  000000014091002B: 0F 85 F7 00 00 00  jne         0000000140910128
+  0000000140910031: 48 8D 94 24 70 01  lea         rdx,[rsp+0000000000000170h]
+                    00 00
+  0000000140910039: 48 8D 8C 24 68 01  lea         rcx,[rsp+0000000000000168h]
+                    00 00
+  0000000140910041: FF 15 69 C5 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  0000000140910047: 90                 nop
+  0000000140910048: 48 8D 8C 24 70 01  lea         rcx,[rsp+0000000000000170h]
+                    00 00
+  0000000140910050: FF 15 E2 C4 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140910056: 0F B6 C0           movzx       eax,al
+  0000000140910059: 85 C0              test        eax,eax
+  000000014091005B: 0F 85 B8 00 00 00  jne         0000000140910119
+  0000000140910061: 48 8D 94 24 38 05  lea         rdx,[rsp+0000000000000538h]
+                    00 00
+  0000000140910069: 48 8D 8C 24 70 01  lea         rcx,[rsp+0000000000000170h]
+                    00 00
+  0000000140910071: FF 15 31 C5 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  0000000140910077: 48 89 84 24 98 0B  mov         qword ptr [rsp+0000000000000B98h],rax
+                    00 00
+  000000014091007F: 48 8B 84 24 98 0B  mov         rax,qword ptr [rsp+0000000000000B98h]
+                    00 00
+  0000000140910087: 48 89 84 24 A0 0B  mov         qword ptr [rsp+0000000000000BA0h],rax
+                    00 00
+  000000014091008F: 48 8D 15 AE B5 EA  lea         rdx,[00000001427BB644h] ; 'string'
+                    01
+  0000000140910096: 48 8B 8C 24 A0 0B  mov         rcx,qword ptr [rsp+0000000000000BA0h]
+                    00 00
+  000000014091009E: FF 15 C4 43 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  00000001409100A4: 88 84 24 30 05 00  mov         byte ptr [rsp+0000000000000530h],al
+                    00
+  00000001409100AB: 48 8D 8C 24 38 05  lea         rcx,[rsp+0000000000000538h]
+                    00 00
+  00000001409100B3: FF 15 27 59 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409100B9: 0F B6 94 24 30 05  movzx       edx,byte ptr [rsp+0000000000000530h]
+                    00 00
+  00000001409100C1: 85 D2              test        edx,edx
+  00000001409100C3: 74 54              je          0000000140910119
+  00000001409100C5: 48 8D 94 24 40 05  lea         rdx,[rsp+0000000000000540h]
+                    00 00
+  00000001409100CD: 48 8D 8C 24 70 01  lea         rcx,[rsp+0000000000000170h]
+                    00 00
+  00000001409100D5: FF 15 C5 C4 4F 01  call        qword ptr [0000000141E0C5A0h] ; QtXml4_64.dll!?text@QDomElement@@QEBA?AVQString@@XZ
+  00000001409100DB: 48 89 84 24 A8 0B  mov         qword ptr [rsp+0000000000000BA8h],rax
+                    00 00
+  00000001409100E3: 48 8B 84 24 A8 0B  mov         rax,qword ptr [rsp+0000000000000BA8h]
+                    00 00
+  00000001409100EB: 48 89 84 24 B0 0B  mov         qword ptr [rsp+0000000000000BB0h],rax
+                    00 00
+  00000001409100F3: 48 8B 94 24 B0 0B  mov         rdx,qword ptr [rsp+0000000000000BB0h]
+                    00 00
+  00000001409100FB: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140910103: FF 15 67 43 4F 01  call        qword ptr [0000000141E04470h] ; QtCore4_64.dll!??4QString@@QEAAAEAV0@AEBV0@@Z
+  0000000140910109: 90                 nop
+  000000014091010A: 48 8D 8C 24 40 05  lea         rcx,[rsp+0000000000000540h]
+                    00 00
+  0000000140910112: FF 15 C8 58 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910118: 90                 nop
+  0000000140910119: 48 8D 8C 24 70 01  lea         rcx,[rsp+0000000000000170h]
+                    00 00
+  0000000140910121: FF 15 89 C5 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  0000000140910127: 90                 nop
+  0000000140910128: 48 8D 8C 24 68 01  lea         rcx,[rsp+0000000000000168h]
+                    00 00
+  0000000140910130: FF 15 72 C5 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140910136: E9 A1 06 00 00     jmp         00000001409107DC
+  000000014091013B: 48 8D 94 24 50 05  lea         rdx,[rsp+0000000000000550h]
+                    00 00
+  0000000140910143: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014091014B: FF 15 57 C4 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  0000000140910151: 48 89 84 24 B8 0B  mov         qword ptr [rsp+0000000000000BB8h],rax
+                    00 00
+  0000000140910159: 48 8B 84 24 B8 0B  mov         rax,qword ptr [rsp+0000000000000BB8h]
+                    00 00
+  0000000140910161: 48 89 84 24 C0 0B  mov         qword ptr [rsp+0000000000000BC0h],rax
+                    00 00
+  0000000140910169: 48 8D 15 E0 B4 EA  lea         rdx,[00000001427BB650h] ; 'LowerData'
+                    01
+  0000000140910170: 48 8B 8C 24 C0 0B  mov         rcx,qword ptr [rsp+0000000000000BC0h]
+                    00 00
+  0000000140910178: FF 15 EA 42 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014091017E: 88 84 24 48 05 00  mov         byte ptr [rsp+0000000000000548h],al
+                    00
+  0000000140910185: 48 8D 8C 24 50 05  lea         rcx,[rsp+0000000000000550h]
+                    00 00
+  000000014091018D: FF 15 4D 58 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910193: 0F B6 94 24 48 05  movzx       edx,byte ptr [rsp+0000000000000548h]
+                    00 00
+  000000014091019B: 85 D2              test        edx,edx
+  000000014091019D: 0F 84 3A 01 00 00  je          00000001409102DD
+  00000001409101A3: 48 8D 94 24 78 01  lea         rdx,[rsp+0000000000000178h]
+                    00 00
+  00000001409101AB: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  00000001409101B3: FF 15 FF C3 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  00000001409101B9: 90                 nop
+  00000001409101BA: 48 8D 8C 24 78 01  lea         rcx,[rsp+0000000000000178h]
+                    00 00
+  00000001409101C2: FF 15 70 C3 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  00000001409101C8: 0F B6 C0           movzx       eax,al
+  00000001409101CB: 85 C0              test        eax,eax
+  00000001409101CD: 0F 85 F7 00 00 00  jne         00000001409102CA
+  00000001409101D3: 48 8D 94 24 80 01  lea         rdx,[rsp+0000000000000180h]
+                    00 00
+  00000001409101DB: 48 8D 8C 24 78 01  lea         rcx,[rsp+0000000000000178h]
+                    00 00
+  00000001409101E3: FF 15 C7 C3 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  00000001409101E9: 90                 nop
+  00000001409101EA: 48 8D 8C 24 80 01  lea         rcx,[rsp+0000000000000180h]
+                    00 00
+  00000001409101F2: FF 15 40 C3 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  00000001409101F8: 0F B6 C0           movzx       eax,al
+  00000001409101FB: 85 C0              test        eax,eax
+  00000001409101FD: 0F 85 B8 00 00 00  jne         00000001409102BB
+  0000000140910203: 48 8D 94 24 60 05  lea         rdx,[rsp+0000000000000560h]
+                    00 00
+  000000014091020B: 48 8D 8C 24 80 01  lea         rcx,[rsp+0000000000000180h]
+                    00 00
+  0000000140910213: FF 15 8F C3 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  0000000140910219: 48 89 84 24 C8 0B  mov         qword ptr [rsp+0000000000000BC8h],rax
+                    00 00
+  0000000140910221: 48 8B 84 24 C8 0B  mov         rax,qword ptr [rsp+0000000000000BC8h]
+                    00 00
+  0000000140910229: 48 89 84 24 D0 0B  mov         qword ptr [rsp+0000000000000BD0h],rax
+                    00 00
+  0000000140910231: 48 8D 15 24 B4 EA  lea         rdx,[00000001427BB65Ch] ; 'string'
+                    01
+  0000000140910238: 48 8B 8C 24 D0 0B  mov         rcx,qword ptr [rsp+0000000000000BD0h]
+                    00 00
+  0000000140910240: FF 15 22 42 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  0000000140910246: 88 84 24 58 05 00  mov         byte ptr [rsp+0000000000000558h],al
+                    00
+  000000014091024D: 48 8D 8C 24 60 05  lea         rcx,[rsp+0000000000000560h]
+                    00 00
+  0000000140910255: FF 15 85 57 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014091025B: 0F B6 94 24 58 05  movzx       edx,byte ptr [rsp+0000000000000558h]
+                    00 00
+  0000000140910263: 85 D2              test        edx,edx
+  0000000140910265: 74 54              je          00000001409102BB
+  0000000140910267: 48 8D 94 24 68 05  lea         rdx,[rsp+0000000000000568h]
+                    00 00
+  000000014091026F: 48 8D 8C 24 80 01  lea         rcx,[rsp+0000000000000180h]
+                    00 00
+  0000000140910277: FF 15 23 C3 4F 01  call        qword ptr [0000000141E0C5A0h] ; QtXml4_64.dll!?text@QDomElement@@QEBA?AVQString@@XZ
+  000000014091027D: 48 89 84 24 D8 0B  mov         qword ptr [rsp+0000000000000BD8h],rax
+                    00 00
+  0000000140910285: 48 8B 84 24 D8 0B  mov         rax,qword ptr [rsp+0000000000000BD8h]
+                    00 00
+  000000014091028D: 48 89 84 24 E0 0B  mov         qword ptr [rsp+0000000000000BE0h],rax
+                    00 00
+  0000000140910295: 48 8B 94 24 E0 0B  mov         rdx,qword ptr [rsp+0000000000000BE0h]
+                    00 00
+  000000014091029D: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  00000001409102A5: FF 15 C5 41 4F 01  call        qword ptr [0000000141E04470h] ; QtCore4_64.dll!??4QString@@QEAAAEAV0@AEBV0@@Z
+  00000001409102AB: 90                 nop
+  00000001409102AC: 48 8D 8C 24 68 05  lea         rcx,[rsp+0000000000000568h]
+                    00 00
+  00000001409102B4: FF 15 26 57 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409102BA: 90                 nop
+  00000001409102BB: 48 8D 8C 24 80 01  lea         rcx,[rsp+0000000000000180h]
+                    00 00
+  00000001409102C3: FF 15 E7 C3 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  00000001409102C9: 90                 nop
+  00000001409102CA: 48 8D 8C 24 78 01  lea         rcx,[rsp+0000000000000178h]
+                    00 00
+  00000001409102D2: FF 15 D0 C3 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  00000001409102D8: E9 FF 04 00 00     jmp         00000001409107DC
+  00000001409102DD: 48 8D 94 24 78 05  lea         rdx,[rsp+0000000000000578h]
+                    00 00
+  00000001409102E5: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  00000001409102ED: FF 15 B5 C2 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  00000001409102F3: 48 89 84 24 E8 0B  mov         qword ptr [rsp+0000000000000BE8h],rax
+                    00 00
+  00000001409102FB: 48 8B 84 24 E8 0B  mov         rax,qword ptr [rsp+0000000000000BE8h]
+                    00 00
+  0000000140910303: 48 89 84 24 F0 0B  mov         qword ptr [rsp+0000000000000BF0h],rax
+                    00 00
+  000000014091030B: 48 8D 15 56 B3 EA  lea         rdx,[00000001427BB668h] ; 'KwEntities'
+                    01
+  0000000140910312: 48 8B 8C 24 F0 0B  mov         rcx,qword ptr [rsp+0000000000000BF0h]
+                    00 00
+  000000014091031A: FF 15 48 41 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  0000000140910320: 88 84 24 70 05 00  mov         byte ptr [rsp+0000000000000570h],al
+                    00
+  0000000140910327: 48 8D 8C 24 78 05  lea         rcx,[rsp+0000000000000578h]
+                    00 00
+  000000014091032F: FF 15 AB 56 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910335: 0F B6 94 24 70 05  movzx       edx,byte ptr [rsp+0000000000000570h]
+                    00 00
+  000000014091033D: 85 D2              test        edx,edx
+  000000014091033F: 0F 84 1A 02 00 00  je          000000014091055F
+  0000000140910345: 48 8D 94 24 88 01  lea         rdx,[rsp+0000000000000188h]
+                    00 00
+  000000014091034D: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  0000000140910355: FF 15 5D C2 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  000000014091035B: 90                 nop
+  000000014091035C: 48 8D 8C 24 88 01  lea         rcx,[rsp+0000000000000188h]
+                    00 00
+  0000000140910364: FF 15 CE C1 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014091036A: 0F B6 C0           movzx       eax,al
+  000000014091036D: 85 C0              test        eax,eax
+  000000014091036F: 0F 85 D7 01 00 00  jne         000000014091054C
+  0000000140910375: 48 8D 94 24 90 01  lea         rdx,[rsp+0000000000000190h]
+                    00 00
+  000000014091037D: 48 8D 8C 24 88 01  lea         rcx,[rsp+0000000000000188h]
+                    00 00
+  0000000140910385: FF 15 25 C2 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  000000014091038B: 90                 nop
+  000000014091038C: 48 8D 8C 24 90 01  lea         rcx,[rsp+0000000000000190h]
+                    00 00
+  0000000140910394: FF 15 9E C1 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014091039A: 0F B6 C0           movzx       eax,al
+  000000014091039D: 85 C0              test        eax,eax
+  000000014091039F: 0F 85 40 01 00 00  jne         00000001409104E5
+  00000001409103A5: 48 8D 94 24 88 05  lea         rdx,[rsp+0000000000000588h]
+                    00 00
+  00000001409103AD: 48 8D 8C 24 90 01  lea         rcx,[rsp+0000000000000190h]
+                    00 00
+  00000001409103B5: FF 15 ED C1 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  00000001409103BB: 48 89 84 24 F8 0B  mov         qword ptr [rsp+0000000000000BF8h],rax
+                    00 00
+  00000001409103C3: 48 8B 84 24 F8 0B  mov         rax,qword ptr [rsp+0000000000000BF8h]
+                    00 00
+  00000001409103CB: 48 89 84 24 00 0C  mov         qword ptr [rsp+0000000000000C00h],rax
+                    00 00
+  00000001409103D3: 48 8D 15 9E B2 EA  lea         rdx,[00000001427BB678h] ; 'KwEntity'
+                    01
+  00000001409103DA: 48 8B 8C 24 00 0C  mov         rcx,qword ptr [rsp+0000000000000C00h]
+                    00 00
+  00000001409103E2: FF 15 80 40 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  00000001409103E8: 88 84 24 80 05 00  mov         byte ptr [rsp+0000000000000580h],al
+                    00
+  00000001409103EF: 48 8D 8C 24 88 05  lea         rcx,[rsp+0000000000000588h]
+                    00 00
+  00000001409103F7: FF 15 E3 55 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409103FD: 0F B6 94 24 80 05  movzx       edx,byte ptr [rsp+0000000000000580h]
+                    00 00
+  0000000140910405: 85 D2              test        edx,edx
+  0000000140910407: 0F 84 D8 00 00 00  je          00000001409104E5
+  000000014091040D: 48 8D 15 18 AE EA  lea         rdx,[00000001427BB22Ch] ; 'id'
+                    01
+  0000000140910414: 48 8D 8C 24 98 05  lea         rcx,[rsp+0000000000000598h]
+                    00 00
+  000000014091041C: FF 15 5E 40 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140910422: 90                 nop
+  0000000140910423: 48 8D 8C 24 90 05  lea         rcx,[rsp+0000000000000590h]
+                    00 00
+  000000014091042B: FF 15 8F 40 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140910431: 48 89 84 24 08 0C  mov         qword ptr [rsp+0000000000000C08h],rax
+                    00 00
+  0000000140910439: 48 8B 84 24 08 0C  mov         rax,qword ptr [rsp+0000000000000C08h]
+                    00 00
+  0000000140910441: 48 89 84 24 10 0C  mov         qword ptr [rsp+0000000000000C10h],rax
+                    00 00
+  0000000140910449: 4C 8B 8C 24 10 0C  mov         r9,qword ptr [rsp+0000000000000C10h]
+                    00 00
+  0000000140910451: 4C 8D 84 24 98 05  lea         r8,[rsp+0000000000000598h]
+                    00 00
+  0000000140910459: 48 8D 94 24 A0 05  lea         rdx,[rsp+00000000000005A0h]
+                    00 00
+  0000000140910461: 48 8D 8C 24 90 01  lea         rcx,[rsp+0000000000000190h]
+                    00 00
+  0000000140910469: FF 15 F9 C1 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  000000014091046F: 48 89 84 24 18 0C  mov         qword ptr [rsp+0000000000000C18h],rax
+                    00 00
+  0000000140910477: 48 8B 84 24 18 0C  mov         rax,qword ptr [rsp+0000000000000C18h]
+                    00 00
+  000000014091047F: 48 89 84 24 20 0C  mov         qword ptr [rsp+0000000000000C20h],rax
+                    00 00
+  0000000140910487: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014091048D: 33 D2              xor         edx,edx
+  000000014091048F: 48 8B 8C 24 20 0C  mov         rcx,qword ptr [rsp+0000000000000C20h]
+                    00 00
+  0000000140910497: FF 15 F3 3B 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014091049D: 89 84 24 98 01 00  mov         dword ptr [rsp+0000000000000198h],eax
+                    00
+  00000001409104A4: 48 8D 8C 24 A0 05  lea         rcx,[rsp+00000000000005A0h]
+                    00 00
+  00000001409104AC: FF 15 2E 55 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409104B2: 90                 nop
+  00000001409104B3: 48 8D 8C 24 90 05  lea         rcx,[rsp+0000000000000590h]
+                    00 00
+  00000001409104BB: FF 15 1F 55 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409104C1: 90                 nop
+  00000001409104C2: 48 8D 8C 24 98 05  lea         rcx,[rsp+0000000000000598h]
+                    00 00
+  00000001409104CA: FF 15 10 55 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409104D0: 48 8D 94 24 98 01  lea         rdx,[rsp+0000000000000198h]
+                    00 00
+  00000001409104D8: 48 8D 8C 24 38 01  lea         rcx,[rsp+0000000000000138h]
+                    00 00
+  00000001409104E0: E8 1B 4C 71 FF     call        0000000140025100
+  00000001409104E5: 48 8D 94 24 A8 05  lea         rdx,[rsp+00000000000005A8h]
+                    00 00
+  00000001409104ED: 48 8D 8C 24 88 01  lea         rcx,[rsp+0000000000000188h]
+                    00 00
+  00000001409104F5: FF 15 9D C0 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  00000001409104FB: 48 89 84 24 28 0C  mov         qword ptr [rsp+0000000000000C28h],rax
+                    00 00
+  0000000140910503: 48 8B 84 24 28 0C  mov         rax,qword ptr [rsp+0000000000000C28h]
+                    00 00
+  000000014091050B: 48 89 84 24 30 0C  mov         qword ptr [rsp+0000000000000C30h],rax
+                    00 00
+  0000000140910513: 48 8B 94 24 30 0C  mov         rdx,qword ptr [rsp+0000000000000C30h]
+                    00 00
+  000000014091051B: 48 8D 8C 24 88 01  lea         rcx,[rsp+0000000000000188h]
+                    00 00
+  0000000140910523: FF 15 37 C0 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  0000000140910529: 90                 nop
+  000000014091052A: 48 8D 8C 24 A8 05  lea         rcx,[rsp+00000000000005A8h]
+                    00 00
+  0000000140910532: FF 15 70 C1 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140910538: 90                 nop
+  0000000140910539: 48 8D 8C 24 90 01  lea         rcx,[rsp+0000000000000190h]
+                    00 00
+  0000000140910541: FF 15 69 C1 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  0000000140910547: E9 10 FE FF FF     jmp         000000014091035C
+  000000014091054C: 48 8D 8C 24 88 01  lea         rcx,[rsp+0000000000000188h]
+                    00 00
+  0000000140910554: FF 15 4E C1 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  000000014091055A: E9 7D 02 00 00     jmp         00000001409107DC
+  000000014091055F: 48 8D 94 24 B8 05  lea         rdx,[rsp+00000000000005B8h]
+                    00 00
+  0000000140910567: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  000000014091056F: FF 15 33 C0 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  0000000140910575: 48 89 84 24 38 0C  mov         qword ptr [rsp+0000000000000C38h],rax
+                    00 00
+  000000014091057D: 48 8B 84 24 38 0C  mov         rax,qword ptr [rsp+0000000000000C38h]
+                    00 00
+  0000000140910585: 48 89 84 24 40 0C  mov         qword ptr [rsp+0000000000000C40h],rax
+                    00 00
+  000000014091058D: 48 8D 15 F4 B0 EA  lea         rdx,[00000001427BB688h] ; 'KwOperations'
+                    01
+  0000000140910594: 48 8B 8C 24 40 0C  mov         rcx,qword ptr [rsp+0000000000000C40h]
+                    00 00
+  000000014091059C: FF 15 C6 3E 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  00000001409105A2: 88 84 24 B0 05 00  mov         byte ptr [rsp+00000000000005B0h],al
+                    00
+  00000001409105A9: 48 8D 8C 24 B8 05  lea         rcx,[rsp+00000000000005B8h]
+                    00 00
+  00000001409105B1: FF 15 29 54 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409105B7: 0F B6 94 24 B0 05  movzx       edx,byte ptr [rsp+00000000000005B0h]
+                    00 00
+  00000001409105BF: 85 D2              test        edx,edx
+  00000001409105C1: 0F 84 15 02 00 00  je          00000001409107DC
+  00000001409105C7: 48 8D 94 24 A0 01  lea         rdx,[rsp+00000000000001A0h]
+                    00 00
+  00000001409105CF: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  00000001409105D7: FF 15 DB BF 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  00000001409105DD: 90                 nop
+  00000001409105DE: 48 8D 8C 24 A0 01  lea         rcx,[rsp+00000000000001A0h]
+                    00 00
+  00000001409105E6: FF 15 4C BF 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  00000001409105EC: 0F B6 C0           movzx       eax,al
+  00000001409105EF: 85 C0              test        eax,eax
+  00000001409105F1: 0F 85 D7 01 00 00  jne         00000001409107CE
+  00000001409105F7: 48 8D 94 24 A8 01  lea         rdx,[rsp+00000000000001A8h]
+                    00 00
+  00000001409105FF: 48 8D 8C 24 A0 01  lea         rcx,[rsp+00000000000001A0h]
+                    00 00
+  0000000140910607: FF 15 A3 BF 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  000000014091060D: 90                 nop
+  000000014091060E: 48 8D 8C 24 A8 01  lea         rcx,[rsp+00000000000001A8h]
+                    00 00
+  0000000140910616: FF 15 1C BF 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  000000014091061C: 0F B6 C0           movzx       eax,al
+  000000014091061F: 85 C0              test        eax,eax
+  0000000140910621: 0F 85 40 01 00 00  jne         0000000140910767
+  0000000140910627: 48 8D 94 24 C8 05  lea         rdx,[rsp+00000000000005C8h]
+                    00 00
+  000000014091062F: 48 8D 8C 24 A8 01  lea         rcx,[rsp+00000000000001A8h]
+                    00 00
+  0000000140910637: FF 15 6B BF 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014091063D: 48 89 84 24 48 0C  mov         qword ptr [rsp+0000000000000C48h],rax
+                    00 00
+  0000000140910645: 48 8B 84 24 48 0C  mov         rax,qword ptr [rsp+0000000000000C48h]
+                    00 00
+  000000014091064D: 48 89 84 24 50 0C  mov         qword ptr [rsp+0000000000000C50h],rax
+                    00 00
+  0000000140910655: 48 8D 15 3C B0 EA  lea         rdx,[00000001427BB698h] ; 'KwOperation'
+                    01
+  000000014091065C: 48 8B 8C 24 50 0C  mov         rcx,qword ptr [rsp+0000000000000C50h]
+                    00 00
+  0000000140910664: FF 15 FE 3D 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014091066A: 88 84 24 C0 05 00  mov         byte ptr [rsp+00000000000005C0h],al
+                    00
+  0000000140910671: 48 8D 8C 24 C8 05  lea         rcx,[rsp+00000000000005C8h]
+                    00 00
+  0000000140910679: FF 15 61 53 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014091067F: 0F B6 94 24 C0 05  movzx       edx,byte ptr [rsp+00000000000005C0h]
+                    00 00
+  0000000140910687: 85 D2              test        edx,edx
+  0000000140910689: 0F 84 D8 00 00 00  je          0000000140910767
+  000000014091068F: 48 8D 15 66 AC EA  lea         rdx,[00000001427BB2FCh] ; 'id'
+                    01
+  0000000140910696: 48 8D 8C 24 D8 05  lea         rcx,[rsp+00000000000005D8h]
+                    00 00
+  000000014091069E: FF 15 DC 3D 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  00000001409106A4: 90                 nop
+  00000001409106A5: 48 8D 8C 24 D0 05  lea         rcx,[rsp+00000000000005D0h]
+                    00 00
+  00000001409106AD: FF 15 0D 3E 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  00000001409106B3: 48 89 84 24 58 0C  mov         qword ptr [rsp+0000000000000C58h],rax
+                    00 00
+  00000001409106BB: 48 8B 84 24 58 0C  mov         rax,qword ptr [rsp+0000000000000C58h]
+                    00 00
+  00000001409106C3: 48 89 84 24 60 0C  mov         qword ptr [rsp+0000000000000C60h],rax
+                    00 00
+  00000001409106CB: 4C 8B 8C 24 60 0C  mov         r9,qword ptr [rsp+0000000000000C60h]
+                    00 00
+  00000001409106D3: 4C 8D 84 24 D8 05  lea         r8,[rsp+00000000000005D8h]
+                    00 00
+  00000001409106DB: 48 8D 94 24 E0 05  lea         rdx,[rsp+00000000000005E0h]
+                    00 00
+  00000001409106E3: 48 8D 8C 24 A8 01  lea         rcx,[rsp+00000000000001A8h]
+                    00 00
+  00000001409106EB: FF 15 77 BF 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  00000001409106F1: 48 89 84 24 68 0C  mov         qword ptr [rsp+0000000000000C68h],rax
+                    00 00
+  00000001409106F9: 48 8B 84 24 68 0C  mov         rax,qword ptr [rsp+0000000000000C68h]
+                    00 00
+  0000000140910701: 48 89 84 24 70 0C  mov         qword ptr [rsp+0000000000000C70h],rax
+                    00 00
+  0000000140910709: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014091070F: 33 D2              xor         edx,edx
+  0000000140910711: 48 8B 8C 24 70 0C  mov         rcx,qword ptr [rsp+0000000000000C70h]
+                    00 00
+  0000000140910719: FF 15 71 39 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014091071F: 89 84 24 B0 01 00  mov         dword ptr [rsp+00000000000001B0h],eax
+                    00
+  0000000140910726: 48 8D 8C 24 E0 05  lea         rcx,[rsp+00000000000005E0h]
+                    00 00
+  000000014091072E: FF 15 AC 52 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910734: 90                 nop
+  0000000140910735: 48 8D 8C 24 D0 05  lea         rcx,[rsp+00000000000005D0h]
+                    00 00
+  000000014091073D: FF 15 9D 52 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910743: 90                 nop
+  0000000140910744: 48 8D 8C 24 D8 05  lea         rcx,[rsp+00000000000005D8h]
+                    00 00
+  000000014091074C: FF 15 8E 52 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910752: 48 8D 94 24 B0 01  lea         rdx,[rsp+00000000000001B0h]
+                    00 00
+  000000014091075A: 48 8D 8C 24 20 01  lea         rcx,[rsp+0000000000000120h]
+                    00 00
+  0000000140910762: E8 99 49 71 FF     call        0000000140025100
+  0000000140910767: 48 8D 94 24 E8 05  lea         rdx,[rsp+00000000000005E8h]
+                    00 00
+  000000014091076F: 48 8D 8C 24 A0 01  lea         rcx,[rsp+00000000000001A0h]
+                    00 00
+  0000000140910777: FF 15 1B BE 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  000000014091077D: 48 89 84 24 78 0C  mov         qword ptr [rsp+0000000000000C78h],rax
+                    00 00
+  0000000140910785: 48 8B 84 24 78 0C  mov         rax,qword ptr [rsp+0000000000000C78h]
+                    00 00
+  000000014091078D: 48 89 84 24 80 0C  mov         qword ptr [rsp+0000000000000C80h],rax
+                    00 00
+  0000000140910795: 48 8B 94 24 80 0C  mov         rdx,qword ptr [rsp+0000000000000C80h]
+                    00 00
+  000000014091079D: 48 8D 8C 24 A0 01  lea         rcx,[rsp+00000000000001A0h]
+                    00 00
+  00000001409107A5: FF 15 B5 BD 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  00000001409107AB: 90                 nop
+  00000001409107AC: 48 8D 8C 24 E8 05  lea         rcx,[rsp+00000000000005E8h]
+                    00 00
+  00000001409107B4: FF 15 EE BE 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  00000001409107BA: 90                 nop
+  00000001409107BB: 48 8D 8C 24 A8 01  lea         rcx,[rsp+00000000000001A8h]
+                    00 00
+  00000001409107C3: FF 15 E7 BE 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  00000001409107C9: E9 10 FE FF FF     jmp         00000001409105DE
+  00000001409107CE: 48 8D 8C 24 A0 01  lea         rcx,[rsp+00000000000001A0h]
+                    00 00
+  00000001409107D6: FF 15 CC BE 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  00000001409107DC: 48 8D 94 24 F0 05  lea         rdx,[rsp+00000000000005F0h]
+                    00 00
+  00000001409107E4: 48 8D 8C 24 30 01  lea         rcx,[rsp+0000000000000130h]
+                    00 00
+  00000001409107EC: FF 15 A6 BD 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  00000001409107F2: 48 89 84 24 88 0C  mov         qword ptr [rsp+0000000000000C88h],rax
+                    00 00
+  00000001409107FA: 48 8B 84 24 88 0C  mov         rax,qword ptr [rsp+0000000000000C88h]
+                    00 00
+  0000000140910802: 48 89 84 24 90 0C  mov         qword ptr [rsp+0000000000000C90h],rax
+                    00 00
+  000000014091080A: 48 8B 94 24 90 0C  mov         rdx,qword ptr [rsp+0000000000000C90h]
+                    00 00
+  0000000140910812: 48 8D 8C 24 30 01  lea         rcx,[rsp+0000000000000130h]
+                    00 00
+  000000014091081A: FF 15 40 BD 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  0000000140910820: 90                 nop
+  0000000140910821: 48 8D 8C 24 F0 05  lea         rcx,[rsp+00000000000005F0h]
+                    00 00
+  0000000140910829: FF 15 79 BE 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  000000014091082F: 90                 nop
+  0000000140910830: 48 8D 8C 24 50 01  lea         rcx,[rsp+0000000000000150h]
+                    00 00
+  0000000140910838: FF 15 72 BE 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  000000014091083E: E9 73 F3 FF FF     jmp         000000014090FBB6
+  0000000140910843: 48 8D 84 24 F8 05  lea         rax,[rsp+00000000000005F8h]
+                    00 00
+  000000014091084B: 48 89 84 24 00 06  mov         qword ptr [rsp+0000000000000600h],rax
+                    00 00
+  0000000140910853: 48 8D 84 24 10 06  lea         rax,[rsp+0000000000000610h]
+                    00 00
+  000000014091085B: 48 89 84 24 18 06  mov         qword ptr [rsp+0000000000000618h],rax
+                    00 00
+  0000000140910863: 48 8D 94 24 08 01  lea         rdx,[rsp+0000000000000108h]
+                    00 00
+  000000014091086B: 48 8B 8C 24 00 06  mov         rcx,qword ptr [rsp+0000000000000600h]
+                    00 00
+  0000000140910873: FF 15 5F 51 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140910879: 48 89 84 24 98 0C  mov         qword ptr [rsp+0000000000000C98h],rax
+                    00 00
+  0000000140910881: 48 8B 84 24 98 0C  mov         rax,qword ptr [rsp+0000000000000C98h]
+                    00 00
+  0000000140910889: 48 89 84 24 A0 0C  mov         qword ptr [rsp+0000000000000CA0h],rax
+                    00 00
+  0000000140910891: 48 8D 94 24 08 06  lea         rdx,[rsp+0000000000000608h]
+                    00 00
+  0000000140910899: 48 8D 8C 24 28 01  lea         rcx,[rsp+0000000000000128h]
+                    00 00
+  00000001409108A1: FF 15 A9 36 4F 01  call        qword ptr [0000000141E03F50h] ; QtCore4_64.dll!?toLocal8Bit@QString@@QEBA?AVQByteArray@@XZ
+  00000001409108A7: 48 89 84 24 A8 0C  mov         qword ptr [rsp+0000000000000CA8h],rax
+                    00 00
+  00000001409108AF: 48 8B 84 24 A8 0C  mov         rax,qword ptr [rsp+0000000000000CA8h]
+                    00 00
+  00000001409108B7: 48 89 84 24 B0 0C  mov         qword ptr [rsp+0000000000000CB0h],rax
+                    00 00
+  00000001409108BF: 48 8B 8C 24 B0 0C  mov         rcx,qword ptr [rsp+0000000000000CB0h]
+                    00 00
+  00000001409108C7: FF 15 5B 39 4F 01  call        qword ptr [0000000141E04228h] ; QtCore4_64.dll!?data@QByteArray@@QEAAPEADXZ
+  00000001409108CD: 48 8B C8           mov         rcx,rax
+  00000001409108D0: E8 BB 15 01 00     call        0000000140921E90
+  00000001409108D5: 8B F0              mov         esi,eax
+  00000001409108D7: 48 8D 94 24 90 00  lea         rdx,[rsp+0000000000000090h]
+                    00 00
+  00000001409108DF: 48 8B 8C 24 18 06  mov         rcx,qword ptr [rsp+0000000000000618h]
+                    00 00
+  00000001409108E7: FF 15 EB 50 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  00000001409108ED: 48 89 84 24 B8 0C  mov         qword ptr [rsp+0000000000000CB8h],rax
+                    00 00
+  00000001409108F5: 48 8B BC 24 30 10  mov         rdi,qword ptr [rsp+0000000000001030h]
+                    00 00
+  00000001409108FD: 48 8B 3F           mov         rdi,qword ptr [rdi]
+  0000000140910900: 48 8D 84 24 38 01  lea         rax,[rsp+0000000000000138h]
+                    00 00
+  0000000140910908: 48 89 44 24 40     mov         qword ptr [rsp+40h],rax
+  000000014091090D: 48 8D 84 24 20 01  lea         rax,[rsp+0000000000000120h]
+                    00 00
+  0000000140910915: 48 89 44 24 38     mov         qword ptr [rsp+38h],rax
+  000000014091091A: F2 0F 10 84 24 D0  movsd       xmm0,mmword ptr [rsp+00000000000000D0h]
+                    00 00 00
+  0000000140910923: F2 0F 11 44 24 30  movsd       mmword ptr [rsp+30h],xmm0
+  0000000140910929: 8B 84 24 84 00 00  mov         eax,dword ptr [rsp+0000000000000084h]
+                    00
+  0000000140910930: 89 44 24 28        mov         dword ptr [rsp+28h],eax
+  0000000140910934: 8B 84 24 44 01 00  mov         eax,dword ptr [rsp+0000000000000144h]
+                    00
+  000000014091093B: 89 44 24 20        mov         dword ptr [rsp+20h],eax
+  000000014091093F: 4C 8B 8C 24 A0 0C  mov         r9,qword ptr [rsp+0000000000000CA0h]
+                    00 00
+  0000000140910947: 44 8B C6           mov         r8d,esi
+  000000014091094A: 48 8B 94 24 B8 0C  mov         rdx,qword ptr [rsp+0000000000000CB8h]
+                    00 00
+  0000000140910952: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  000000014091095A: FF 97 18 01 00 00  call        qword ptr [rdi+0000000000000118h]
+  0000000140910960: 90                 nop
+  0000000140910961: 48 8D 8C 24 08 06  lea         rcx,[rsp+0000000000000608h]
+                    00 00
+  0000000140910969: FF 15 21 39 4F 01  call        qword ptr [0000000141E04290h] ; QtCore4_64.dll!??1QByteArray@@QEAA@XZ
+  000000014091096F: 48 8D 84 24 20 06  lea         rax,[rsp+0000000000000620h]
+                    00 00
+  0000000140910977: 48 89 84 24 28 06  mov         qword ptr [rsp+0000000000000628h],rax
+                    00 00
+  000000014091097F: 48 8D 84 24 30 06  lea         rax,[rsp+0000000000000630h]
+                    00 00
+  0000000140910987: 48 89 84 24 38 06  mov         qword ptr [rsp+0000000000000638h],rax
+                    00 00
+  000000014091098F: 48 8D 94 24 90 00  lea         rdx,[rsp+0000000000000090h]
+                    00 00
+  0000000140910997: 48 8B 8C 24 28 06  mov         rcx,qword ptr [rsp+0000000000000628h]
+                    00 00
+  000000014091099F: FF 15 33 50 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  00000001409109A5: 48 89 84 24 C0 0C  mov         qword ptr [rsp+0000000000000CC0h],rax
+                    00 00
+  00000001409109AD: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  00000001409109B5: 48 8B 00           mov         rax,qword ptr [rax]
+  00000001409109B8: 48 8B 94 24 C0 0C  mov         rdx,qword ptr [rsp+0000000000000CC0h]
+                    00 00
+  00000001409109C0: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  00000001409109C8: FF 90 28 01 00 00  call        qword ptr [rax+0000000000000128h]
+  00000001409109CE: 89 84 24 C8 0C 00  mov         dword ptr [rsp+0000000000000CC8h],eax
+                    00
+  00000001409109D5: 8B BC 24 C8 0C 00  mov         edi,dword ptr [rsp+0000000000000CC8h]
+                    00
+  00000001409109DC: 83 EF 01           sub         edi,1
+  00000001409109DF: 48 8D 94 24 90 00  lea         rdx,[rsp+0000000000000090h]
+                    00 00
+  00000001409109E7: 48 8B 8C 24 38 06  mov         rcx,qword ptr [rsp+0000000000000638h]
+                    00 00
+  00000001409109EF: FF 15 E3 4F 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  00000001409109F5: 48 89 84 24 D0 0C  mov         qword ptr [rsp+0000000000000CD0h],rax
+                    00 00
+  00000001409109FD: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  0000000140910A05: 48 8B 00           mov         rax,qword ptr [rax]
+  0000000140910A08: 44 8B C7           mov         r8d,edi
+  0000000140910A0B: 48 8B 94 24 D0 0C  mov         rdx,qword ptr [rsp+0000000000000CD0h]
+                    00 00
+  0000000140910A13: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  0000000140910A1B: FF 90 38 01 00 00  call        qword ptr [rax+0000000000000138h]
+  0000000140910A21: 48 89 84 24 48 01  mov         qword ptr [rsp+0000000000000148h],rax
+                    00 00
+  0000000140910A29: 8B 94 24 E0 00 00  mov         edx,dword ptr [rsp+00000000000000E0h]
+                    00
+  0000000140910A30: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140910A38: E8 A3 E7 7F FF     call        000000014010F1E0
+  0000000140910A3D: 0F B6 94 24 40 01  movzx       edx,byte ptr [rsp+0000000000000140h]
+                    00 00
+  0000000140910A45: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140910A4D: E8 1E 67 00 00     call        0000000140917170
+  0000000140910A52: 0F B6 94 24 F8 00  movzx       edx,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  0000000140910A5A: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140910A62: E8 29 67 00 00     call        0000000140917190
+  0000000140910A67: 48 8D 8C 24 D8 00  lea         rcx,[rsp+00000000000000D8h]
+                    00 00
+  0000000140910A6F: FF 15 53 35 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140910A75: 0F B6 C0           movzx       eax,al
+  0000000140910A78: 85 C0              test        eax,eax
+  0000000140910A7A: 75 43              jne         0000000140910ABF
+  0000000140910A7C: 48 8D 84 24 40 06  lea         rax,[rsp+0000000000000640h]
+                    00 00
+  0000000140910A84: 48 89 84 24 48 06  mov         qword ptr [rsp+0000000000000648h],rax
+                    00 00
+  0000000140910A8C: 48 8D 94 24 D8 00  lea         rdx,[rsp+00000000000000D8h]
+                    00 00
+  0000000140910A94: 48 8B 8C 24 48 06  mov         rcx,qword ptr [rsp+0000000000000648h]
+                    00 00
+  0000000140910A9C: FF 15 36 4F 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140910AA2: 48 89 84 24 D8 0C  mov         qword ptr [rsp+0000000000000CD8h],rax
+                    00 00
+  0000000140910AAA: 48 8B 94 24 D8 0C  mov         rdx,qword ptr [rsp+0000000000000CD8h]
+                    00 00
+  0000000140910AB2: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140910ABA: E8 C1 0E 01 00     call        0000000140921980
+  0000000140910ABF: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140910AC7: FF 15 FB 34 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140910ACD: 0F B6 C0           movzx       eax,al
+  0000000140910AD0: 85 C0              test        eax,eax
+  0000000140910AD2: 75 43              jne         0000000140910B17
+  0000000140910AD4: 48 8D 84 24 50 06  lea         rax,[rsp+0000000000000650h]
+                    00 00
+  0000000140910ADC: 48 89 84 24 58 06  mov         qword ptr [rsp+0000000000000658h],rax
+                    00 00
+  0000000140910AE4: 48 8D 94 24 18 01  lea         rdx,[rsp+0000000000000118h]
+                    00 00
+  0000000140910AEC: 48 8B 8C 24 58 06  mov         rcx,qword ptr [rsp+0000000000000658h]
+                    00 00
+  0000000140910AF4: FF 15 DE 4E 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140910AFA: 48 89 84 24 E0 0C  mov         qword ptr [rsp+0000000000000CE0h],rax
+                    00 00
+  0000000140910B02: 48 8B 94 24 E0 0C  mov         rdx,qword ptr [rsp+0000000000000CE0h]
+                    00 00
+  0000000140910B0A: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140910B12: E8 C9 0F 01 00     call        0000000140921AE0
+  0000000140910B17: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  0000000140910B1F: FF 15 A3 34 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140910B25: 0F B6 C0           movzx       eax,al
+  0000000140910B28: 85 C0              test        eax,eax
+  0000000140910B2A: 75 43              jne         0000000140910B6F
+  0000000140910B2C: 48 8D 84 24 60 06  lea         rax,[rsp+0000000000000660h]
+                    00 00
+  0000000140910B34: 48 89 84 24 68 06  mov         qword ptr [rsp+0000000000000668h],rax
+                    00 00
+  0000000140910B3C: 48 8D 94 24 F0 00  lea         rdx,[rsp+00000000000000F0h]
+                    00 00
+  0000000140910B44: 48 8B 8C 24 68 06  mov         rcx,qword ptr [rsp+0000000000000668h]
+                    00 00
+  0000000140910B4C: FF 15 86 4E 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140910B52: 48 89 84 24 E8 0C  mov         qword ptr [rsp+0000000000000CE8h],rax
+                    00 00
+  0000000140910B5A: 48 8B 94 24 E8 0C  mov         rdx,qword ptr [rsp+0000000000000CE8h]
+                    00 00
+  0000000140910B62: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140910B6A: E8 D1 10 01 00     call        0000000140921C40
+  0000000140910B6F: 0F B6 84 24 40 01  movzx       eax,byte ptr [rsp+0000000000000140h]
+                    00 00
+  0000000140910B77: 85 C0              test        eax,eax
+  0000000140910B79: 0F 84 45 06 00 00  je          00000001409111C4
+  0000000140910B7F: 48 C7 84 24 D8 01  mov         qword ptr [rsp+00000000000001D8h],0
+                    00 00 00 00 00 00
+  0000000140910B8B: 48 C7 84 24 C8 01  mov         qword ptr [rsp+00000000000001C8h],0
+                    00 00 00 00 00 00
+  0000000140910B97: 48 C7 84 24 E0 01  mov         qword ptr [rsp+00000000000001E0h],0
+                    00 00 00 00 00 00
+  0000000140910BA3: 48 8D 8C 24 B8 01  lea         rcx,[rsp+00000000000001B8h]
+                    00 00
+  0000000140910BAB: E8 70 7C 18 00     call        0000000140A98820
+  0000000140910BB0: 90                 nop
+  0000000140910BB1: 48 8D 8C 24 38 01  lea         rcx,[rsp+0000000000000138h]
+                    00 00
+  0000000140910BB9: E8 22 3F 6F FF     call        0000000140004AE0
+  0000000140910BBE: 89 84 24 C0 01 00  mov         dword ptr [rsp+00000000000001C0h],eax
+                    00
+  0000000140910BC5: 83 BC 24 C0 01 00  cmp         dword ptr [rsp+00000000000001C0h],0
+                    00 00
+  0000000140910BCD: 0F 8E 85 00 00 00  jle         0000000140910C58
+  0000000140910BD3: 33 D2              xor         edx,edx
+  0000000140910BD5: 48 8D 8C 24 38 01  lea         rcx,[rsp+0000000000000138h]
+                    00 00
+  0000000140910BDD: E8 DE 44 71 FF     call        00000001400250C0
+  0000000140910BE2: 4C 8B C0           mov         r8,rax
+  0000000140910BE5: 48 8D 94 24 70 06  lea         rdx,[rsp+0000000000000670h]
+                    00 00
+  0000000140910BED: 48 8D 8C 24 B8 01  lea         rcx,[rsp+00000000000001B8h]
+                    00 00
+  0000000140910BF5: E8 C6 B0 75 FF     call        000000014006BCC0
+  0000000140910BFA: 83 BC 24 C0 01 00  cmp         dword ptr [rsp+00000000000001C0h],1
+                    00 01
+  0000000140910C02: 7E 2C              jle         0000000140910C30
+  0000000140910C04: BA 01 00 00 00     mov         edx,1
+  0000000140910C09: 48 8D 8C 24 38 01  lea         rcx,[rsp+0000000000000138h]
+                    00 00
+  0000000140910C11: E8 AA 44 71 FF     call        00000001400250C0
+  0000000140910C16: 4C 8B C0           mov         r8,rax
+  0000000140910C19: 48 8D 94 24 78 06  lea         rdx,[rsp+0000000000000678h]
+                    00 00
+  0000000140910C21: 48 8D 8C 24 B8 01  lea         rcx,[rsp+00000000000001B8h]
+                    00 00
+  0000000140910C29: E8 92 B0 75 FF     call        000000014006BCC0
+  0000000140910C2E: EB 28              jmp         0000000140910C58
+  0000000140910C30: C7 84 24 80 06 00  mov         dword ptr [rsp+0000000000000680h],1
+                    00 01 00 00 00
+  0000000140910C3B: 4C 8D 84 24 80 06  lea         r8,[rsp+0000000000000680h]
+                    00 00
+  0000000140910C43: 48 8D 94 24 88 06  lea         rdx,[rsp+0000000000000688h]
+                    00 00
+  0000000140910C4B: 48 8D 8C 24 B8 01  lea         rcx,[rsp+00000000000001B8h]
+                    00 00
+  0000000140910C53: E8 68 B0 75 FF     call        000000014006BCC0
+  0000000140910C58: BA 0D 00 00 00     mov         edx,0Dh
+  0000000140910C5D: 48 8D 8C 24 90 06  lea         rcx,[rsp+0000000000000690h]
+                    00 00
+  0000000140910C65: FF 15 35 38 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910C6B: 41 B8 01 00 00 00  mov         r8d,1
+  0000000140910C71: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910C74: 48 8D 8C 24 D8 00  lea         rcx,[rsp+00000000000000D8h]
+                    00 00
+  0000000140910C7C: FF 15 5E 42 4F 01  call        qword ptr [0000000141E04EE0h] ; QtCore4_64.dll!?remove@QString@@QEAAAEAV1@VQChar@@W4CaseSensitivity@Qt@@@Z
+  0000000140910C82: BA 0A 00 00 00     mov         edx,0Ah
+  0000000140910C87: 48 8D 8C 24 A0 06  lea         rcx,[rsp+00000000000006A0h]
+                    00 00
+  0000000140910C8F: FF 15 0B 38 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910C95: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910C98: 48 8D 8C 24 98 06  lea         rcx,[rsp+0000000000000698h]
+                    00 00
+  0000000140910CA0: FF 15 A2 4B 4F 01  call        qword ptr [0000000141E05848h] ; QtCore4_64.dll!??0QString@@QEAA@VQChar@@@Z
+  0000000140910CA6: 48 89 84 24 F0 0C  mov         qword ptr [rsp+0000000000000CF0h],rax
+                    00 00
+  0000000140910CAE: 48 8B 84 24 F0 0C  mov         rax,qword ptr [rsp+0000000000000CF0h]
+                    00 00
+  0000000140910CB6: 48 89 84 24 F8 0C  mov         qword ptr [rsp+0000000000000CF8h],rax
+                    00 00
+  0000000140910CBE: BA 0D 00 00 00     mov         edx,0Dh
+  0000000140910CC3: 48 8D 8C 24 B0 06  lea         rcx,[rsp+00000000000006B0h]
+                    00 00
+  0000000140910CCB: FF 15 CF 37 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910CD1: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910CD4: 48 8D 8C 24 A8 06  lea         rcx,[rsp+00000000000006A8h]
+                    00 00
+  0000000140910CDC: FF 15 66 4B 4F 01  call        qword ptr [0000000141E05848h] ; QtCore4_64.dll!??0QString@@QEAA@VQChar@@@Z
+  0000000140910CE2: 48 89 84 24 00 0D  mov         qword ptr [rsp+0000000000000D00h],rax
+                    00 00
+  0000000140910CEA: 48 8B 84 24 00 0D  mov         rax,qword ptr [rsp+0000000000000D00h]
+                    00 00
+  0000000140910CF2: 48 89 84 24 08 0D  mov         qword ptr [rsp+0000000000000D08h],rax
+                    00 00
+  0000000140910CFA: 4C 8B 84 24 F8 0C  mov         r8,qword ptr [rsp+0000000000000CF8h]
+                    00 00
+  0000000140910D02: 48 8B 94 24 08 0D  mov         rdx,qword ptr [rsp+0000000000000D08h]
+                    00 00
+  0000000140910D0A: 48 8D 8C 24 B8 06  lea         rcx,[rsp+00000000000006B8h]
+                    00 00
+  0000000140910D12: E8 D9 3B 6F FF     call        00000001400048F0
+  0000000140910D17: 48 89 84 24 10 0D  mov         qword ptr [rsp+0000000000000D10h],rax
+                    00 00
+  0000000140910D1F: 48 8B 84 24 10 0D  mov         rax,qword ptr [rsp+0000000000000D10h]
+                    00 00
+  0000000140910D27: 48 89 84 24 18 0D  mov         qword ptr [rsp+0000000000000D18h],rax
+                    00 00
+  0000000140910D2F: BA 0A 00 00 00     mov         edx,0Ah
+  0000000140910D34: 48 8D 8C 24 C0 06  lea         rcx,[rsp+00000000000006C0h]
+                    00 00
+  0000000140910D3C: FF 15 5E 37 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910D42: 41 B9 01 00 00 00  mov         r9d,1
+  0000000140910D48: 4C 8B 84 24 18 0D  mov         r8,qword ptr [rsp+0000000000000D18h]
+                    00 00
+  0000000140910D50: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910D53: 48 8D 8C 24 D8 00  lea         rcx,[rsp+00000000000000D8h]
+                    00 00
+  0000000140910D5B: FF 15 DF 41 4F 01  call        qword ptr [0000000141E04F40h] ; QtCore4_64.dll!?replace@QString@@QEAAAEAV1@VQChar@@AEBV1@W4CaseSensitivity@Qt@@@Z
+  0000000140910D61: 90                 nop
+  0000000140910D62: 48 8D 8C 24 B8 06  lea         rcx,[rsp+00000000000006B8h]
+                    00 00
+  0000000140910D6A: FF 15 70 4C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910D70: 90                 nop
+  0000000140910D71: 48 8D 8C 24 A8 06  lea         rcx,[rsp+00000000000006A8h]
+                    00 00
+  0000000140910D79: FF 15 61 4C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910D7F: 90                 nop
+  0000000140910D80: 48 8D 8C 24 98 06  lea         rcx,[rsp+0000000000000698h]
+                    00 00
+  0000000140910D88: FF 15 52 4C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910D8E: BA 0D 00 00 00     mov         edx,0Dh
+  0000000140910D93: 48 8D 8C 24 C2 06  lea         rcx,[rsp+00000000000006C2h]
+                    00 00
+  0000000140910D9B: FF 15 FF 36 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910DA1: 41 B8 01 00 00 00  mov         r8d,1
+  0000000140910DA7: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910DAA: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140910DB2: FF 15 28 41 4F 01  call        qword ptr [0000000141E04EE0h] ; QtCore4_64.dll!?remove@QString@@QEAAAEAV1@VQChar@@W4CaseSensitivity@Qt@@@Z
+  0000000140910DB8: BA 0A 00 00 00     mov         edx,0Ah
+  0000000140910DBD: 48 8D 8C 24 D0 06  lea         rcx,[rsp+00000000000006D0h]
+                    00 00
+  0000000140910DC5: FF 15 D5 36 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910DCB: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910DCE: 48 8D 8C 24 C8 06  lea         rcx,[rsp+00000000000006C8h]
+                    00 00
+  0000000140910DD6: FF 15 6C 4A 4F 01  call        qword ptr [0000000141E05848h] ; QtCore4_64.dll!??0QString@@QEAA@VQChar@@@Z
+  0000000140910DDC: 48 89 84 24 20 0D  mov         qword ptr [rsp+0000000000000D20h],rax
+                    00 00
+  0000000140910DE4: 48 8B 84 24 20 0D  mov         rax,qword ptr [rsp+0000000000000D20h]
+                    00 00
+  0000000140910DEC: 48 89 84 24 28 0D  mov         qword ptr [rsp+0000000000000D28h],rax
+                    00 00
+  0000000140910DF4: BA 0D 00 00 00     mov         edx,0Dh
+  0000000140910DF9: 48 8D 8C 24 E0 06  lea         rcx,[rsp+00000000000006E0h]
+                    00 00
+  0000000140910E01: FF 15 99 36 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910E07: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910E0A: 48 8D 8C 24 D8 06  lea         rcx,[rsp+00000000000006D8h]
+                    00 00
+  0000000140910E12: FF 15 30 4A 4F 01  call        qword ptr [0000000141E05848h] ; QtCore4_64.dll!??0QString@@QEAA@VQChar@@@Z
+  0000000140910E18: 48 89 84 24 30 0D  mov         qword ptr [rsp+0000000000000D30h],rax
+                    00 00
+  0000000140910E20: 48 8B 84 24 30 0D  mov         rax,qword ptr [rsp+0000000000000D30h]
+                    00 00
+  0000000140910E28: 48 89 84 24 38 0D  mov         qword ptr [rsp+0000000000000D38h],rax
+                    00 00
+  0000000140910E30: 4C 8B 84 24 28 0D  mov         r8,qword ptr [rsp+0000000000000D28h]
+                    00 00
+  0000000140910E38: 48 8B 94 24 38 0D  mov         rdx,qword ptr [rsp+0000000000000D38h]
+                    00 00
+  0000000140910E40: 48 8D 8C 24 E8 06  lea         rcx,[rsp+00000000000006E8h]
+                    00 00
+  0000000140910E48: E8 A3 3A 6F FF     call        00000001400048F0
+  0000000140910E4D: 48 89 84 24 40 0D  mov         qword ptr [rsp+0000000000000D40h],rax
+                    00 00
+  0000000140910E55: 48 8B 84 24 40 0D  mov         rax,qword ptr [rsp+0000000000000D40h]
+                    00 00
+  0000000140910E5D: 48 89 84 24 48 0D  mov         qword ptr [rsp+0000000000000D48h],rax
+                    00 00
+  0000000140910E65: BA 0A 00 00 00     mov         edx,0Ah
+  0000000140910E6A: 48 8D 8C 24 F0 06  lea         rcx,[rsp+00000000000006F0h]
+                    00 00
+  0000000140910E72: FF 15 28 36 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910E78: 41 B9 01 00 00 00  mov         r9d,1
+  0000000140910E7E: 4C 8B 84 24 48 0D  mov         r8,qword ptr [rsp+0000000000000D48h]
+                    00 00
+  0000000140910E86: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910E89: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140910E91: FF 15 A9 40 4F 01  call        qword ptr [0000000141E04F40h] ; QtCore4_64.dll!?replace@QString@@QEAAAEAV1@VQChar@@AEBV1@W4CaseSensitivity@Qt@@@Z
+  0000000140910E97: 90                 nop
+  0000000140910E98: 48 8D 8C 24 E8 06  lea         rcx,[rsp+00000000000006E8h]
+                    00 00
+  0000000140910EA0: FF 15 3A 4B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910EA6: 90                 nop
+  0000000140910EA7: 48 8D 8C 24 D8 06  lea         rcx,[rsp+00000000000006D8h]
+                    00 00
+  0000000140910EAF: FF 15 2B 4B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910EB5: 90                 nop
+  0000000140910EB6: 48 8D 8C 24 C8 06  lea         rcx,[rsp+00000000000006C8h]
+                    00 00
+  0000000140910EBE: FF 15 1C 4B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910EC4: BA 0D 00 00 00     mov         edx,0Dh
+  0000000140910EC9: 48 8D 8C 24 F2 06  lea         rcx,[rsp+00000000000006F2h]
+                    00 00
+  0000000140910ED1: FF 15 C9 35 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910ED7: 41 B8 01 00 00 00  mov         r8d,1
+  0000000140910EDD: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910EE0: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  0000000140910EE8: FF 15 F2 3F 4F 01  call        qword ptr [0000000141E04EE0h] ; QtCore4_64.dll!?remove@QString@@QEAAAEAV1@VQChar@@W4CaseSensitivity@Qt@@@Z
+  0000000140910EEE: BA 0A 00 00 00     mov         edx,0Ah
+  0000000140910EF3: 48 8D 8C 24 00 07  lea         rcx,[rsp+0000000000000700h]
+                    00 00
+  0000000140910EFB: FF 15 9F 35 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910F01: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910F04: 48 8D 8C 24 F8 06  lea         rcx,[rsp+00000000000006F8h]
+                    00 00
+  0000000140910F0C: FF 15 36 49 4F 01  call        qword ptr [0000000141E05848h] ; QtCore4_64.dll!??0QString@@QEAA@VQChar@@@Z
+  0000000140910F12: 48 89 84 24 50 0D  mov         qword ptr [rsp+0000000000000D50h],rax
+                    00 00
+  0000000140910F1A: 48 8B 84 24 50 0D  mov         rax,qword ptr [rsp+0000000000000D50h]
+                    00 00
+  0000000140910F22: 48 89 84 24 58 0D  mov         qword ptr [rsp+0000000000000D58h],rax
+                    00 00
+  0000000140910F2A: BA 0D 00 00 00     mov         edx,0Dh
+  0000000140910F2F: 48 8D 8C 24 10 07  lea         rcx,[rsp+0000000000000710h]
+                    00 00
+  0000000140910F37: FF 15 63 35 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910F3D: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910F40: 48 8D 8C 24 08 07  lea         rcx,[rsp+0000000000000708h]
+                    00 00
+  0000000140910F48: FF 15 FA 48 4F 01  call        qword ptr [0000000141E05848h] ; QtCore4_64.dll!??0QString@@QEAA@VQChar@@@Z
+  0000000140910F4E: 48 89 84 24 60 0D  mov         qword ptr [rsp+0000000000000D60h],rax
+                    00 00
+  0000000140910F56: 48 8B 84 24 60 0D  mov         rax,qword ptr [rsp+0000000000000D60h]
+                    00 00
+  0000000140910F5E: 48 89 84 24 68 0D  mov         qword ptr [rsp+0000000000000D68h],rax
+                    00 00
+  0000000140910F66: 4C 8B 84 24 58 0D  mov         r8,qword ptr [rsp+0000000000000D58h]
+                    00 00
+  0000000140910F6E: 48 8B 94 24 68 0D  mov         rdx,qword ptr [rsp+0000000000000D68h]
+                    00 00
+  0000000140910F76: 48 8D 8C 24 18 07  lea         rcx,[rsp+0000000000000718h]
+                    00 00
+  0000000140910F7E: E8 6D 39 6F FF     call        00000001400048F0
+  0000000140910F83: 48 89 84 24 70 0D  mov         qword ptr [rsp+0000000000000D70h],rax
+                    00 00
+  0000000140910F8B: 48 8B 84 24 70 0D  mov         rax,qword ptr [rsp+0000000000000D70h]
+                    00 00
+  0000000140910F93: 48 89 84 24 78 0D  mov         qword ptr [rsp+0000000000000D78h],rax
+                    00 00
+  0000000140910F9B: BA 0A 00 00 00     mov         edx,0Ah
+  0000000140910FA0: 48 8D 8C 24 20 07  lea         rcx,[rsp+0000000000000720h]
+                    00 00
+  0000000140910FA8: FF 15 F2 34 4F 01  call        qword ptr [0000000141E044A0h] ; QtCore4_64.dll!??0QChar@@QEAA@H@Z
+  0000000140910FAE: 41 B9 01 00 00 00  mov         r9d,1
+  0000000140910FB4: 4C 8B 84 24 78 0D  mov         r8,qword ptr [rsp+0000000000000D78h]
+                    00 00
+  0000000140910FBC: 0F B7 10           movzx       edx,word ptr [rax]
+  0000000140910FBF: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  0000000140910FC7: FF 15 73 3F 4F 01  call        qword ptr [0000000141E04F40h] ; QtCore4_64.dll!?replace@QString@@QEAAAEAV1@VQChar@@AEBV1@W4CaseSensitivity@Qt@@@Z
+  0000000140910FCD: 90                 nop
+  0000000140910FCE: 48 8D 8C 24 18 07  lea         rcx,[rsp+0000000000000718h]
+                    00 00
+  0000000140910FD6: FF 15 04 4A 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910FDC: 90                 nop
+  0000000140910FDD: 48 8D 8C 24 08 07  lea         rcx,[rsp+0000000000000708h]
+                    00 00
+  0000000140910FE5: FF 15 F5 49 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910FEB: 90                 nop
+  0000000140910FEC: 48 8D 8C 24 F8 06  lea         rcx,[rsp+00000000000006F8h]
+                    00 00
+  0000000140910FF4: FF 15 E6 49 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140910FFA: 48 8D 84 24 28 07  lea         rax,[rsp+0000000000000728h]
+                    00 00
+  0000000140911002: 48 89 84 24 30 07  mov         qword ptr [rsp+0000000000000730h],rax
+                    00 00
+  000000014091100A: 48 8D 94 24 B8 01  lea         rdx,[rsp+00000000000001B8h]
+                    00 00
+  0000000140911012: 48 8B 8C 24 30 07  mov         rcx,qword ptr [rsp+0000000000000730h]
+                    00 00
+  000000014091101A: E8 E1 67 00 00     call        0000000140917800
+  000000014091101F: 48 89 84 24 80 0D  mov         qword ptr [rsp+0000000000000D80h],rax
+                    00 00
+  0000000140911027: 48 8B 84 24 80 0D  mov         rax,qword ptr [rsp+0000000000000D80h]
+                    00 00
+  000000014091102F: 48 89 84 24 88 0D  mov         qword ptr [rsp+0000000000000D88h],rax
+                    00 00
+  0000000140911037: 48 8D 94 24 38 07  lea         rdx,[rsp+0000000000000738h]
+                    00 00
+  000000014091103F: 48 8D 8C 24 08 01  lea         rcx,[rsp+0000000000000108h]
+                    00 00
+  0000000140911047: FF 15 03 2F 4F 01  call        qword ptr [0000000141E03F50h] ; QtCore4_64.dll!?toLocal8Bit@QString@@QEBA?AVQByteArray@@XZ
+  000000014091104D: 48 89 84 24 90 0D  mov         qword ptr [rsp+0000000000000D90h],rax
+                    00 00
+  0000000140911055: 48 8B 84 24 90 0D  mov         rax,qword ptr [rsp+0000000000000D90h]
+                    00 00
+  000000014091105D: 48 89 84 24 98 0D  mov         qword ptr [rsp+0000000000000D98h],rax
+                    00 00
+  0000000140911065: 48 8B 8C 24 98 0D  mov         rcx,qword ptr [rsp+0000000000000D98h]
+                    00 00
+  000000014091106D: FF 15 B5 31 4F 01  call        qword ptr [0000000141E04228h] ; QtCore4_64.dll!?data@QByteArray@@QEAAPEADXZ
+  0000000140911073: 48 8B F8           mov         rdi,rax
+  0000000140911076: 48 8D 94 24 40 07  lea         rdx,[rsp+0000000000000740h]
+                    00 00
+  000000014091107E: 48 8D 8C 24 28 01  lea         rcx,[rsp+0000000000000128h]
+                    00 00
+  0000000140911086: FF 15 C4 2E 4F 01  call        qword ptr [0000000141E03F50h] ; QtCore4_64.dll!?toLocal8Bit@QString@@QEBA?AVQByteArray@@XZ
+  000000014091108C: 48 89 84 24 A0 0D  mov         qword ptr [rsp+0000000000000DA0h],rax
+                    00 00
+  0000000140911094: 48 8B 84 24 A0 0D  mov         rax,qword ptr [rsp+0000000000000DA0h]
+                    00 00
+  000000014091109C: 48 89 84 24 A8 0D  mov         qword ptr [rsp+0000000000000DA8h],rax
+                    00 00
+  00000001409110A4: 48 8B 8C 24 A8 0D  mov         rcx,qword ptr [rsp+0000000000000DA8h]
+                    00 00
+  00000001409110AC: FF 15 76 31 4F 01  call        qword ptr [0000000141E04228h] ; QtCore4_64.dll!?data@QByteArray@@QEAAPEADXZ
+  00000001409110B2: 48 8B C8           mov         rcx,rax
+  00000001409110B5: E8 D6 0D 01 00     call        0000000140921E90
+  00000001409110BA: 8B C8              mov         ecx,eax
+  00000001409110BC: 48 8D 84 24 E0 01  lea         rax,[rsp+00000000000001E0h]
+                    00 00
+  00000001409110C4: 48 89 44 24 48     mov         qword ptr [rsp+48h],rax
+  00000001409110C9: 48 8D 84 24 C8 01  lea         rax,[rsp+00000000000001C8h]
+                    00 00
+  00000001409110D1: 48 89 44 24 40     mov         qword ptr [rsp+40h],rax
+  00000001409110D6: 48 8D 84 24 D8 01  lea         rax,[rsp+00000000000001D8h]
+                    00 00
+  00000001409110DE: 48 89 44 24 38     mov         qword ptr [rsp+38h],rax
+  00000001409110E3: 48 8D 84 24 F0 00  lea         rax,[rsp+00000000000000F0h]
+                    00 00
+  00000001409110EB: 48 89 44 24 30     mov         qword ptr [rsp+30h],rax
+  00000001409110F0: 48 8D 84 24 18 01  lea         rax,[rsp+0000000000000118h]
+                    00 00
+  00000001409110F8: 48 89 44 24 28     mov         qword ptr [rsp+28h],rax
+  00000001409110FD: 48 8D 84 24 D8 00  lea         rax,[rsp+00000000000000D8h]
+                    00 00
+  0000000140911105: 48 89 44 24 20     mov         qword ptr [rsp+20h],rax
+  000000014091110A: 4C 8B 8C 24 88 0D  mov         r9,qword ptr [rsp+0000000000000D88h]
+                    00 00
+  0000000140911112: 44 8B 84 24 84 00  mov         r8d,dword ptr [rsp+0000000000000084h]
+                    00 00
+  000000014091111A: 48 8B D7           mov         rdx,rdi
+  000000014091111D: E8 0E 54 00 00     call        0000000140916530
+  0000000140911122: 89 84 24 D0 01 00  mov         dword ptr [rsp+00000000000001D0h],eax
+                    00
+  0000000140911129: 48 8D 8C 24 40 07  lea         rcx,[rsp+0000000000000740h]
+                    00 00
+  0000000140911131: FF 15 59 31 4F 01  call        qword ptr [0000000141E04290h] ; QtCore4_64.dll!??1QByteArray@@QEAA@XZ
+  0000000140911137: 90                 nop
+  0000000140911138: 48 8D 8C 24 38 07  lea         rcx,[rsp+0000000000000738h]
+                    00 00
+  0000000140911140: FF 15 4A 31 4F 01  call        qword ptr [0000000141E04290h] ; QtCore4_64.dll!??1QByteArray@@QEAA@XZ
+  0000000140911146: 48 83 BC 24 D8 01  cmp         qword ptr [rsp+00000000000001D8h],0
+                    00 00 00
+  000000014091114F: 74 61              je          00000001409111B2
+  0000000140911151: 48 83 BC 24 C8 01  cmp         qword ptr [rsp+00000000000001C8h],0
+                    00 00 00
+  000000014091115A: 74 56              je          00000001409111B2
+  000000014091115C: 48 83 BC 24 E0 01  cmp         qword ptr [rsp+00000000000001E0h],0
+                    00 00 00
+  0000000140911165: 74 4B              je          00000001409111B2
+  0000000140911167: 45 33 C9           xor         r9d,r9d
+  000000014091116A: 44 8B 84 24 C8 00  mov         r8d,dword ptr [rsp+00000000000000C8h]
+                    00 00
+  0000000140911172: 48 8B 94 24 D8 01  mov         rdx,qword ptr [rsp+00000000000001D8h]
+                    00 00
+  000000014091117A: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140911182: E8 49 FF 00 00     call        00000001409210D0
+  0000000140911187: 48 8B 94 24 E0 01  mov         rdx,qword ptr [rsp+00000000000001E0h]
+                    00 00
+  000000014091118F: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140911197: E8 54 02 01 00     call        00000001409213F0
+  000000014091119C: 48 8B 94 24 C8 01  mov         rdx,qword ptr [rsp+00000000000001C8h]
+                    00 00
+  00000001409111A4: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  00000001409111AC: E8 3F 01 01 00     call        00000001409212F0
+  00000001409111B1: 90                 nop
+  00000001409111B2: 48 8D 8C 24 B8 01  lea         rcx,[rsp+00000000000001B8h]
+                    00 00
+  00000001409111BA: E8 31 B5 FD FF     call        00000001408EC6F0
+  00000001409111BF: E9 66 02 00 00     jmp         000000014091142A
+  00000001409111C4: 0F B6 84 24 F8 00  movzx       eax,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  00000001409111CC: 85 C0              test        eax,eax
+  00000001409111CE: 74 49              je          0000000140911219
+  00000001409111D0: F2 0F 2C 94 24 D0  cvttsd2si   edx,mmword ptr [rsp+00000000000000D0h]
+                    00 00 00
+  00000001409111D9: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  00000001409111E1: E8 AA 03 01 00     call        0000000140921590
+  00000001409111E6: 4C 8D 84 24 E8 00  lea         r8,[rsp+00000000000000E8h]
+                    00 00
+  00000001409111EE: 48 8D 94 24 10 01  lea         rdx,[rsp+0000000000000110h]
+                    00 00
+  00000001409111F6: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  00000001409111FE: E8 ED 02 01 00     call        00000001409214F0
+  0000000140911203: F2 0F 2C 94 24 D0  cvttsd2si   edx,mmword ptr [rsp+00000000000000D0h]
+                    00 00 00
+  000000014091120C: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140911214: E8 77 03 01 00     call        0000000140921590
+  0000000140911219: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140911221: FF 15 A1 2D 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140911227: 0F B6 C0           movzx       eax,al
+  000000014091122A: 85 C0              test        eax,eax
+  000000014091122C: 0F 85 1D 01 00 00  jne         000000014091134F
+  0000000140911232: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  000000014091123A: FF 15 88 2D 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140911240: 0F B6 C0           movzx       eax,al
+  0000000140911243: 85 C0              test        eax,eax
+  0000000140911245: 0F 85 04 01 00 00  jne         000000014091134F
+  000000014091124B: C6 84 24 F0 01 00  mov         byte ptr [rsp+00000000000001F0h],0
+                    00 00
+  0000000140911253: 0F B6 84 24 F8 00  movzx       eax,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  000000014091125B: 85 C0              test        eax,eax
+  000000014091125D: 74 08              je          0000000140911267
+  000000014091125F: C6 84 24 F0 01 00  mov         byte ptr [rsp+00000000000001F0h],1
+                    00 01
+  0000000140911267: 44 0F B6 8C 24 F0  movzx       r9d,byte ptr [rsp+00000000000001F0h]
+                    01 00 00
+  0000000140911270: 4C 8D 84 24 18 01  lea         r8,[rsp+0000000000000118h]
+                    00 00
+  0000000140911278: 48 8D 94 24 F0 00  lea         rdx,[rsp+00000000000000F0h]
+                    00 00
+  0000000140911280: 48 8D 8C 24 E8 01  lea         rcx,[rsp+00000000000001E8h]
+                    00 00
+  0000000140911288: E8 A3 10 01 00     call        0000000140922330
+  000000014091128D: 90                 nop
+  000000014091128E: 8B 94 24 E0 00 00  mov         edx,dword ptr [rsp+00000000000000E0h]
+                    00
+  0000000140911295: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  000000014091129D: E8 3E 18 01 00     call        0000000140922AE0
+  00000001409112A2: F2 0F 11 84 24 F8  movsd       mmword ptr [rsp+00000000000001F8h],xmm0
+                    01 00 00
+  00000001409112AB: 0F B6 84 24 F8 00  movzx       eax,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  00000001409112B3: 85 C0              test        eax,eax
+  00000001409112B5: 74 18              je          00000001409112CF
+  00000001409112B7: F2 0F 2C 94 24 F8  cvttsd2si   edx,mmword ptr [rsp+00000000000001F8h]
+                    01 00 00
+  00000001409112C0: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  00000001409112C8: E8 F3 04 01 00     call        00000001409217C0
+  00000001409112CD: EB 16              jmp         00000001409112E5
+  00000001409112CF: F2 0F 10 8C 24 F8  movsd       xmm1,mmword ptr [rsp+00000000000001F8h]
+                    01 00 00
+  00000001409112D8: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  00000001409112E0: E8 4B FD 00 00     call        0000000140921030
+  00000001409112E5: 8B 94 24 E0 00 00  mov         edx,dword ptr [rsp+00000000000000E0h]
+                    00
+  00000001409112EC: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  00000001409112F4: E8 E7 17 01 00     call        0000000140922AE0
+  00000001409112F9: F2 0F 11 84 24 F8  movsd       mmword ptr [rsp+00000000000001F8h],xmm0
+                    01 00 00
+  0000000140911302: 0F B6 84 24 F8 00  movzx       eax,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  000000014091130A: 85 C0              test        eax,eax
+  000000014091130C: 74 18              je          0000000140911326
+  000000014091130E: F2 0F 2C 94 24 F8  cvttsd2si   edx,mmword ptr [rsp+00000000000001F8h]
+                    01 00 00
+  0000000140911317: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  000000014091131F: E8 2C 03 01 00     call        0000000140921650
+  0000000140911324: EB 17              jmp         000000014091133D
+  0000000140911326: F2 0F 10 8C 24 F8  movsd       xmm1,mmword ptr [rsp+00000000000001F8h]
+                    01 00 00
+  000000014091132F: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140911337: E8 54 FC 00 00     call        0000000140920F90
+  000000014091133C: 90                 nop
+  000000014091133D: 48 8D 8C 24 E8 01  lea         rcx,[rsp+00000000000001E8h]
+                    00 00
+  0000000140911345: E8 A6 B3 FD FF     call        00000001408EC6F0
+  000000014091134A: E9 DB 00 00 00     jmp         000000014091142A
+  000000014091134F: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140911357: FF 15 6B 2C 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  000000014091135D: 0F B6 C0           movzx       eax,al
+  0000000140911360: 85 C0              test        eax,eax
+  0000000140911362: 75 59              jne         00000001409113BD
+  0000000140911364: 8B 94 24 E0 00 00  mov         edx,dword ptr [rsp+00000000000000E0h]
+                    00
+  000000014091136B: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140911373: E8 68 17 01 00     call        0000000140922AE0
+  0000000140911378: F2 0F 11 84 24 00  movsd       mmword ptr [rsp+0000000000000200h],xmm0
+                    02 00 00
+  0000000140911381: 0F B6 84 24 F8 00  movzx       eax,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  0000000140911389: 85 C0              test        eax,eax
+  000000014091138B: 74 18              je          00000001409113A5
+  000000014091138D: F2 0F 2C 94 24 00  cvttsd2si   edx,mmword ptr [rsp+0000000000000200h]
+                    02 00 00
+  0000000140911396: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  000000014091139E: E8 AD 02 01 00     call        0000000140921650
+  00000001409113A3: EB 16              jmp         00000001409113BB
+  00000001409113A5: F2 0F 10 8C 24 00  movsd       xmm1,mmword ptr [rsp+0000000000000200h]
+                    02 00 00
+  00000001409113AE: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  00000001409113B6: E8 D5 FB 00 00     call        0000000140920F90
+  00000001409113BB: EB 6D              jmp         000000014091142A
+  00000001409113BD: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  00000001409113C5: FF 15 FD 2B 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  00000001409113CB: 0F B6 C0           movzx       eax,al
+  00000001409113CE: 85 C0              test        eax,eax
+  00000001409113D0: 75 58              jne         000000014091142A
+  00000001409113D2: 8B 94 24 E0 00 00  mov         edx,dword ptr [rsp+00000000000000E0h]
+                    00
+  00000001409113D9: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  00000001409113E1: E8 FA 16 01 00     call        0000000140922AE0
+  00000001409113E6: F2 0F 11 84 24 08  movsd       mmword ptr [rsp+0000000000000208h],xmm0
+                    02 00 00
+  00000001409113EF: 0F B6 84 24 F8 00  movzx       eax,byte ptr [rsp+00000000000000F8h]
+                    00 00
+  00000001409113F7: 85 C0              test        eax,eax
+  00000001409113F9: 74 18              je          0000000140911413
+  00000001409113FB: F2 0F 2C 94 24 08  cvttsd2si   edx,mmword ptr [rsp+0000000000000208h]
+                    02 00 00
+  0000000140911404: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  000000014091140C: E8 AF 03 01 00     call        00000001409217C0
+  0000000140911411: EB 17              jmp         000000014091142A
+  0000000140911413: F2 0F 10 8C 24 08  movsd       xmm1,mmword ptr [rsp+0000000000000208h]
+                    02 00 00
+  000000014091141C: 48 8B 8C 24 48 01  mov         rcx,qword ptr [rsp+0000000000000148h]
+                    00 00
+  0000000140911424: E8 07 FC 00 00     call        0000000140921030
+  0000000140911429: 90                 nop
+  000000014091142A: 48 8D 8C 24 30 01  lea         rcx,[rsp+0000000000000130h]
+                    00 00
+  0000000140911432: FF 15 70 B2 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140911438: 90                 nop
+  0000000140911439: 48 8D 8C 24 F0 00  lea         rcx,[rsp+00000000000000F0h]
+                    00 00
+  0000000140911441: FF 15 99 45 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911447: 90                 nop
+  0000000140911448: 48 8D 8C 24 18 01  lea         rcx,[rsp+0000000000000118h]
+                    00 00
+  0000000140911450: FF 15 8A 45 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911456: 90                 nop
+  0000000140911457: 48 8D 8C 24 D8 00  lea         rcx,[rsp+00000000000000D8h]
+                    00 00
+  000000014091145F: FF 15 7B 45 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911465: 90                 nop
+  0000000140911466: 48 8D 8C 24 38 01  lea         rcx,[rsp+0000000000000138h]
+                    00 00
+  000000014091146E: E8 2D 6D 8F FF     call        00000001402081A0
+  0000000140911473: 90                 nop
+  0000000140911474: 48 8D 8C 24 20 01  lea         rcx,[rsp+0000000000000120h]
+                    00 00
+  000000014091147C: E8 1F 6D 8F FF     call        00000001402081A0
+  0000000140911481: 90                 nop
+  0000000140911482: 48 8D 8C 24 08 01  lea         rcx,[rsp+0000000000000108h]
+                    00 00
+  000000014091148A: FF 15 50 45 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911490: 90                 nop
+  0000000140911491: 48 8D 8C 24 00 01  lea         rcx,[rsp+0000000000000100h]
+                    00 00
+  0000000140911499: FF 15 41 45 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014091149F: 90                 nop
+  00000001409114A0: 48 8D 8C 24 28 01  lea         rcx,[rsp+0000000000000128h]
+                    00 00
+  00000001409114A8: FF 15 32 45 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409114AE: 90                 nop
+  00000001409114AF: 48 8D 8C 24 E8 00  lea         rcx,[rsp+00000000000000E8h]
+                    00 00
+  00000001409114B7: E8 E4 6C 8F FF     call        00000001402081A0
+  00000001409114BC: 90                 nop
+  00000001409114BD: 48 8D 8C 24 10 01  lea         rcx,[rsp+0000000000000110h]
+                    00 00
+  00000001409114C5: E8 06 34 6F FF     call        00000001400048D0
+  00000001409114CA: 48 8D 94 24 50 07  lea         rdx,[rsp+0000000000000750h]
+                    00 00
+  00000001409114D2: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  00000001409114DA: FF 15 C8 B0 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  00000001409114E0: 48 89 84 24 B0 0D  mov         qword ptr [rsp+0000000000000DB0h],rax
+                    00 00
+  00000001409114E8: 48 8B 84 24 B0 0D  mov         rax,qword ptr [rsp+0000000000000DB0h]
+                    00 00
+  00000001409114F0: 48 89 84 24 B8 0D  mov         qword ptr [rsp+0000000000000DB8h],rax
+                    00 00
+  00000001409114F8: 48 8D 15 A9 A1 EA  lea         rdx,[00000001427BB6A8h] ; 'Geometry'
+                    01
+  00000001409114FF: 48 8B 8C 24 B8 0D  mov         rcx,qword ptr [rsp+0000000000000DB8h]
+                    00 00
+  0000000140911507: FF 15 5B 2F 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014091150D: 88 84 24 48 07 00  mov         byte ptr [rsp+0000000000000748h],al
+                    00
+  0000000140911514: 48 8D 8C 24 50 07  lea         rcx,[rsp+0000000000000750h]
+                    00 00
+  000000014091151C: FF 15 BE 44 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911522: 0F B6 94 24 48 07  movzx       edx,byte ptr [rsp+0000000000000748h]
+                    00 00
+  000000014091152A: 85 D2              test        edx,edx
+  000000014091152C: 0F 84 80 12 00 00  je          00000001409127B2
+  0000000140911532: 48 8B 94 24 20 10  mov         rdx,qword ptr [rsp+0000000000001020h]
+                    00 00
+  000000014091153A: 48 8D 8C 24 58 02  lea         rcx,[rsp+0000000000000258h]
+                    00 00
+  0000000140911542: FF 15 18 2A 4F 01  call        qword ptr [0000000141E03F60h] ; QtCore4_64.dll!??0QFileInfo@@QEAA@AEBVQString@@@Z
+  0000000140911548: 90                 nop
+  0000000140911549: 48 8D 94 24 38 02  lea         rdx,[rsp+0000000000000238h]
+                    00 00
+  0000000140911551: 48 8D 8C 24 58 02  lea         rcx,[rsp+0000000000000258h]
+                    00 00
+  0000000140911559: FF 15 21 30 4F 01  call        qword ptr [0000000141E04580h] ; QtCore4_64.dll!?path@QFileInfo@@QEBA?AVQString@@XZ
+  000000014091155F: 90                 nop
+  0000000140911560: 48 8D 15 51 A1 EA  lea         rdx,[00000001427BB6B8h] ; 'GeoOperation'
+                    01
+  0000000140911567: 48 8D 8C 24 60 07  lea         rcx,[rsp+0000000000000760h]
+                    00 00
+  000000014091156F: FF 15 0B 2F 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911575: 90                 nop
+  0000000140911576: 48 8D 8C 24 58 07  lea         rcx,[rsp+0000000000000758h]
+                    00 00
+  000000014091157E: FF 15 3C 2F 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140911584: 48 89 84 24 C0 0D  mov         qword ptr [rsp+0000000000000DC0h],rax
+                    00 00
+  000000014091158C: 48 8B 84 24 C0 0D  mov         rax,qword ptr [rsp+0000000000000DC0h]
+                    00 00
+  0000000140911594: 48 89 84 24 C8 0D  mov         qword ptr [rsp+0000000000000DC8h],rax
+                    00 00
+  000000014091159C: 4C 8B 8C 24 C8 0D  mov         r9,qword ptr [rsp+0000000000000DC8h]
+                    00 00
+  00000001409115A4: 4C 8D 84 24 60 07  lea         r8,[rsp+0000000000000760h]
+                    00 00
+  00000001409115AC: 48 8D 94 24 68 07  lea         rdx,[rsp+0000000000000768h]
+                    00 00
+  00000001409115B4: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  00000001409115BC: FF 15 A6 B0 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  00000001409115C2: 48 89 84 24 D0 0D  mov         qword ptr [rsp+0000000000000DD0h],rax
+                    00 00
+  00000001409115CA: 48 8B 84 24 D0 0D  mov         rax,qword ptr [rsp+0000000000000DD0h]
+                    00 00
+  00000001409115D2: 48 89 84 24 D8 0D  mov         qword ptr [rsp+0000000000000DD8h],rax
+                    00 00
+  00000001409115DA: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  00000001409115E0: 33 D2              xor         edx,edx
+  00000001409115E2: 48 8B 8C 24 D8 0D  mov         rcx,qword ptr [rsp+0000000000000DD8h]
+                    00 00
+  00000001409115EA: FF 15 A0 2A 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  00000001409115F0: 89 84 24 10 02 00  mov         dword ptr [rsp+0000000000000210h],eax
+                    00
+  00000001409115F7: 48 8D 8C 24 68 07  lea         rcx,[rsp+0000000000000768h]
+                    00 00
+  00000001409115FF: FF 15 DB 43 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911605: 90                 nop
+  0000000140911606: 48 8D 8C 24 58 07  lea         rcx,[rsp+0000000000000758h]
+                    00 00
+  000000014091160E: FF 15 CC 43 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911614: 90                 nop
+  0000000140911615: 48 8D 8C 24 60 07  lea         rcx,[rsp+0000000000000760h]
+                    00 00
+  000000014091161D: FF 15 BD 43 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911623: 48 8D 15 9E A0 EA  lea         rdx,[00000001427BB6C8h] ; 'GeoObject'
+                    01
+  000000014091162A: 48 8D 8C 24 78 07  lea         rcx,[rsp+0000000000000778h]
+                    00 00
+  0000000140911632: FF 15 48 2E 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911638: 90                 nop
+  0000000140911639: 48 8D 8C 24 70 07  lea         rcx,[rsp+0000000000000770h]
+                    00 00
+  0000000140911641: FF 15 79 2E 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140911647: 48 89 84 24 E0 0D  mov         qword ptr [rsp+0000000000000DE0h],rax
+                    00 00
+  000000014091164F: 48 8B 84 24 E0 0D  mov         rax,qword ptr [rsp+0000000000000DE0h]
+                    00 00
+  0000000140911657: 48 89 84 24 E8 0D  mov         qword ptr [rsp+0000000000000DE8h],rax
+                    00 00
+  000000014091165F: 4C 8B 8C 24 E8 0D  mov         r9,qword ptr [rsp+0000000000000DE8h]
+                    00 00
+  0000000140911667: 4C 8D 84 24 78 07  lea         r8,[rsp+0000000000000778h]
+                    00 00
+  000000014091166F: 48 8D 94 24 80 07  lea         rdx,[rsp+0000000000000780h]
+                    00 00
+  0000000140911677: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014091167F: FF 15 E3 AF 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911685: 48 89 84 24 F0 0D  mov         qword ptr [rsp+0000000000000DF0h],rax
+                    00 00
+  000000014091168D: 48 8B 84 24 F0 0D  mov         rax,qword ptr [rsp+0000000000000DF0h]
+                    00 00
+  0000000140911695: 48 89 84 24 F8 0D  mov         qword ptr [rsp+0000000000000DF8h],rax
+                    00 00
+  000000014091169D: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  00000001409116A3: 33 D2              xor         edx,edx
+  00000001409116A5: 48 8B 8C 24 F8 0D  mov         rcx,qword ptr [rsp+0000000000000DF8h]
+                    00 00
+  00000001409116AD: FF 15 DD 29 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  00000001409116B3: 89 84 24 1C 02 00  mov         dword ptr [rsp+000000000000021Ch],eax
+                    00
+  00000001409116BA: 48 8D 8C 24 80 07  lea         rcx,[rsp+0000000000000780h]
+                    00 00
+  00000001409116C2: FF 15 18 43 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409116C8: 90                 nop
+  00000001409116C9: 48 8D 8C 24 70 07  lea         rcx,[rsp+0000000000000770h]
+                    00 00
+  00000001409116D1: FF 15 09 43 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409116D7: 90                 nop
+  00000001409116D8: 48 8D 8C 24 78 07  lea         rcx,[rsp+0000000000000778h]
+                    00 00
+  00000001409116E0: FF 15 FA 42 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409116E6: C7 84 24 28 02 00  mov         dword ptr [rsp+0000000000000228h],0
+                    00 00 00 00 00
+  00000001409116F1: 48 8D 15 E0 9F EA  lea         rdx,[00000001427BB6D8h] ; 'MorphMethod'
+                    01
+  00000001409116F8: 48 8D 8C 24 90 07  lea         rcx,[rsp+0000000000000790h]
+                    00 00
+  0000000140911700: FF 15 7A 2D 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911706: 90                 nop
+  0000000140911707: 48 8D 8C 24 88 07  lea         rcx,[rsp+0000000000000788h]
+                    00 00
+  000000014091170F: FF 15 AB 2D 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140911715: 48 89 84 24 00 0E  mov         qword ptr [rsp+0000000000000E00h],rax
+                    00 00
+  000000014091171D: 48 8B 84 24 00 0E  mov         rax,qword ptr [rsp+0000000000000E00h]
+                    00 00
+  0000000140911725: 48 89 84 24 08 0E  mov         qword ptr [rsp+0000000000000E08h],rax
+                    00 00
+  000000014091172D: 4C 8B 8C 24 08 0E  mov         r9,qword ptr [rsp+0000000000000E08h]
+                    00 00
+  0000000140911735: 4C 8D 84 24 90 07  lea         r8,[rsp+0000000000000790h]
+                    00 00
+  000000014091173D: 48 8D 94 24 40 02  lea         rdx,[rsp+0000000000000240h]
+                    00 00
+  0000000140911745: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014091174D: FF 15 15 AF 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911753: 90                 nop
+  0000000140911754: 48 8D 8C 24 88 07  lea         rcx,[rsp+0000000000000788h]
+                    00 00
+  000000014091175C: FF 15 7E 42 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911762: 90                 nop
+  0000000140911763: 48 8D 8C 24 90 07  lea         rcx,[rsp+0000000000000790h]
+                    00 00
+  000000014091176B: FF 15 6F 42 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911771: 48 8D 8C 24 40 02  lea         rcx,[rsp+0000000000000240h]
+                    00 00
+  0000000140911779: FF 15 49 28 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  000000014091177F: 0F B6 C0           movzx       eax,al
+  0000000140911782: 85 C0              test        eax,eax
+  0000000140911784: 75 1D              jne         00000001409117A3
+  0000000140911786: 41 B8 0A 00 00 00  mov         r8d,0Ah
+  000000014091178C: 33 D2              xor         edx,edx
+  000000014091178E: 48 8D 8C 24 40 02  lea         rcx,[rsp+0000000000000240h]
+                    00 00
+  0000000140911796: FF 15 F4 28 4F 01  call        qword ptr [0000000141E04090h] ; QtCore4_64.dll!?toInt@QString@@QEBAHPEA_NH@Z
+  000000014091179C: 89 84 24 28 02 00  mov         dword ptr [rsp+0000000000000228h],eax
+                    00
+  00000001409117A3: 48 8D 15 3E 9F EA  lea         rdx,[00000001427BB6E8h] ; 'UpperGeoFile'
+                    01
+  00000001409117AA: 48 8D 8C 24 A0 07  lea         rcx,[rsp+00000000000007A0h]
+                    00 00
+  00000001409117B2: FF 15 C8 2C 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  00000001409117B8: 90                 nop
+  00000001409117B9: 48 8D 8C 24 98 07  lea         rcx,[rsp+0000000000000798h]
+                    00 00
+  00000001409117C1: FF 15 F9 2C 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  00000001409117C7: 48 89 84 24 10 0E  mov         qword ptr [rsp+0000000000000E10h],rax
+                    00 00
+  00000001409117CF: 48 8B 84 24 10 0E  mov         rax,qword ptr [rsp+0000000000000E10h]
+                    00 00
+  00000001409117D7: 48 89 84 24 18 0E  mov         qword ptr [rsp+0000000000000E18h],rax
+                    00 00
+  00000001409117DF: 4C 8B 8C 24 18 0E  mov         r9,qword ptr [rsp+0000000000000E18h]
+                    00 00
+  00000001409117E7: 4C 8D 84 24 A0 07  lea         r8,[rsp+00000000000007A0h]
+                    00 00
+  00000001409117EF: 48 8D 94 24 A8 07  lea         rdx,[rsp+00000000000007A8h]
+                    00 00
+  00000001409117F7: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  00000001409117FF: FF 15 63 AE 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911805: 48 89 84 24 20 0E  mov         qword ptr [rsp+0000000000000E20h],rax
+                    00 00
+  000000014091180D: 48 8B 84 24 20 0E  mov         rax,qword ptr [rsp+0000000000000E20h]
+                    00 00
+  0000000140911815: 48 89 84 24 28 0E  mov         qword ptr [rsp+0000000000000E28h],rax
+                    00 00
+  000000014091181D: 48 8D 15 F0 9A EA  lea         rdx,[00000001427BB314h] ; '/'
+                    01
+  0000000140911824: 48 8D 8C 24 B0 07  lea         rcx,[rsp+00000000000007B0h]
+                    00 00
+  000000014091182C: FF 15 4E 2C 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911832: 48 89 84 24 30 0E  mov         qword ptr [rsp+0000000000000E30h],rax
+                    00 00
+  000000014091183A: 48 8B 84 24 30 0E  mov         rax,qword ptr [rsp+0000000000000E30h]
+                    00 00
+  0000000140911842: 48 89 84 24 38 0E  mov         qword ptr [rsp+0000000000000E38h],rax
+                    00 00
+  000000014091184A: 4C 8B 84 24 38 0E  mov         r8,qword ptr [rsp+0000000000000E38h]
+                    00 00
+  0000000140911852: 48 8D 94 24 38 02  lea         rdx,[rsp+0000000000000238h]
+                    00 00
+  000000014091185A: 48 8D 8C 24 B8 07  lea         rcx,[rsp+00000000000007B8h]
+                    00 00
+  0000000140911862: E8 89 30 6F FF     call        00000001400048F0
+  0000000140911867: 48 89 84 24 40 0E  mov         qword ptr [rsp+0000000000000E40h],rax
+                    00 00
+  000000014091186F: 48 8B 84 24 40 0E  mov         rax,qword ptr [rsp+0000000000000E40h]
+                    00 00
+  0000000140911877: 48 89 84 24 48 0E  mov         qword ptr [rsp+0000000000000E48h],rax
+                    00 00
+  000000014091187F: 4C 8B 84 24 28 0E  mov         r8,qword ptr [rsp+0000000000000E28h]
+                    00 00
+  0000000140911887: 48 8B 94 24 48 0E  mov         rdx,qword ptr [rsp+0000000000000E48h]
+                    00 00
+  000000014091188F: 48 8D 8C 24 50 02  lea         rcx,[rsp+0000000000000250h]
+                    00 00
+  0000000140911897: E8 54 30 6F FF     call        00000001400048F0
+  000000014091189C: 90                 nop
+  000000014091189D: 48 8D 8C 24 B8 07  lea         rcx,[rsp+00000000000007B8h]
+                    00 00
+  00000001409118A5: FF 15 35 41 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409118AB: 90                 nop
+  00000001409118AC: 48 8D 8C 24 B0 07  lea         rcx,[rsp+00000000000007B0h]
+                    00 00
+  00000001409118B4: FF 15 26 41 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409118BA: 90                 nop
+  00000001409118BB: 48 8D 8C 24 A8 07  lea         rcx,[rsp+00000000000007A8h]
+                    00 00
+  00000001409118C3: FF 15 17 41 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409118C9: 90                 nop
+  00000001409118CA: 48 8D 8C 24 98 07  lea         rcx,[rsp+0000000000000798h]
+                    00 00
+  00000001409118D2: FF 15 08 41 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409118D8: 90                 nop
+  00000001409118D9: 48 8D 8C 24 A0 07  lea         rcx,[rsp+00000000000007A0h]
+                    00 00
+  00000001409118E1: FF 15 F9 40 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409118E7: 48 8D 15 0A 9E EA  lea         rdx,[00000001427BB6F8h] ; 'LowerGeoFile'
+                    01
+  00000001409118EE: 48 8D 8C 24 C8 07  lea         rcx,[rsp+00000000000007C8h]
+                    00 00
+  00000001409118F6: FF 15 84 2B 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  00000001409118FC: 90                 nop
+  00000001409118FD: 48 8D 8C 24 C0 07  lea         rcx,[rsp+00000000000007C0h]
+                    00 00
+  0000000140911905: FF 15 B5 2B 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  000000014091190B: 48 89 84 24 50 0E  mov         qword ptr [rsp+0000000000000E50h],rax
+                    00 00
+  0000000140911913: 48 8B 84 24 50 0E  mov         rax,qword ptr [rsp+0000000000000E50h]
+                    00 00
+  000000014091191B: 48 89 84 24 58 0E  mov         qword ptr [rsp+0000000000000E58h],rax
+                    00 00
+  0000000140911923: 4C 8B 8C 24 58 0E  mov         r9,qword ptr [rsp+0000000000000E58h]
+                    00 00
+  000000014091192B: 4C 8D 84 24 C8 07  lea         r8,[rsp+00000000000007C8h]
+                    00 00
+  0000000140911933: 48 8D 94 24 D0 07  lea         rdx,[rsp+00000000000007D0h]
+                    00 00
+  000000014091193B: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911943: FF 15 1F AD 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911949: 48 89 84 24 60 0E  mov         qword ptr [rsp+0000000000000E60h],rax
+                    00 00
+  0000000140911951: 48 8B 84 24 60 0E  mov         rax,qword ptr [rsp+0000000000000E60h]
+                    00 00
+  0000000140911959: 48 89 84 24 68 0E  mov         qword ptr [rsp+0000000000000E68h],rax
+                    00 00
+  0000000140911961: 48 8D 15 E4 99 EA  lea         rdx,[00000001427BB34Ch] ; '/'
+                    01
+  0000000140911968: 48 8D 8C 24 D8 07  lea         rcx,[rsp+00000000000007D8h]
+                    00 00
+  0000000140911970: FF 15 0A 2B 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911976: 48 89 84 24 70 0E  mov         qword ptr [rsp+0000000000000E70h],rax
+                    00 00
+  000000014091197E: 48 8B 84 24 70 0E  mov         rax,qword ptr [rsp+0000000000000E70h]
+                    00 00
+  0000000140911986: 48 89 84 24 78 0E  mov         qword ptr [rsp+0000000000000E78h],rax
+                    00 00
+  000000014091198E: 4C 8B 84 24 78 0E  mov         r8,qword ptr [rsp+0000000000000E78h]
+                    00 00
+  0000000140911996: 48 8D 94 24 38 02  lea         rdx,[rsp+0000000000000238h]
+                    00 00
+  000000014091199E: 48 8D 8C 24 E0 07  lea         rcx,[rsp+00000000000007E0h]
+                    00 00
+  00000001409119A6: E8 45 2F 6F FF     call        00000001400048F0
+  00000001409119AB: 48 89 84 24 80 0E  mov         qword ptr [rsp+0000000000000E80h],rax
+                    00 00
+  00000001409119B3: 48 8B 84 24 80 0E  mov         rax,qword ptr [rsp+0000000000000E80h]
+                    00 00
+  00000001409119BB: 48 89 84 24 88 0E  mov         qword ptr [rsp+0000000000000E88h],rax
+                    00 00
+  00000001409119C3: 4C 8B 84 24 68 0E  mov         r8,qword ptr [rsp+0000000000000E68h]
+                    00 00
+  00000001409119CB: 48 8B 94 24 88 0E  mov         rdx,qword ptr [rsp+0000000000000E88h]
+                    00 00
+  00000001409119D3: 48 8D 8C 24 48 02  lea         rcx,[rsp+0000000000000248h]
+                    00 00
+  00000001409119DB: E8 10 2F 6F FF     call        00000001400048F0
+  00000001409119E0: 90                 nop
+  00000001409119E1: 48 8D 8C 24 E0 07  lea         rcx,[rsp+00000000000007E0h]
+                    00 00
+  00000001409119E9: FF 15 F1 3F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409119EF: 90                 nop
+  00000001409119F0: 48 8D 8C 24 D8 07  lea         rcx,[rsp+00000000000007D8h]
+                    00 00
+  00000001409119F8: FF 15 E2 3F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409119FE: 90                 nop
+  00000001409119FF: 48 8D 8C 24 D0 07  lea         rcx,[rsp+00000000000007D0h]
+                    00 00
+  0000000140911A07: FF 15 D3 3F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911A0D: 90                 nop
+  0000000140911A0E: 48 8D 8C 24 C0 07  lea         rcx,[rsp+00000000000007C0h]
+                    00 00
+  0000000140911A16: FF 15 C4 3F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911A1C: 90                 nop
+  0000000140911A1D: 48 8D 8C 24 C8 07  lea         rcx,[rsp+00000000000007C8h]
+                    00 00
+  0000000140911A25: FF 15 B5 3F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911A2B: 48 8D 15 D6 9C EA  lea         rdx,[00000001427BB708h] ; 'NominalGeoFile'
+                    01
+  0000000140911A32: 48 8D 8C 24 F0 07  lea         rcx,[rsp+00000000000007F0h]
+                    00 00
+  0000000140911A3A: FF 15 40 2A 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911A40: 90                 nop
+  0000000140911A41: 48 8D 8C 24 E8 07  lea         rcx,[rsp+00000000000007E8h]
+                    00 00
+  0000000140911A49: FF 15 71 2A 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140911A4F: 48 89 84 24 90 0E  mov         qword ptr [rsp+0000000000000E90h],rax
+                    00 00
+  0000000140911A57: 48 8B 84 24 90 0E  mov         rax,qword ptr [rsp+0000000000000E90h]
+                    00 00
+  0000000140911A5F: 48 89 84 24 98 0E  mov         qword ptr [rsp+0000000000000E98h],rax
+                    00 00
+  0000000140911A67: 4C 8B 8C 24 98 0E  mov         r9,qword ptr [rsp+0000000000000E98h]
+                    00 00
+  0000000140911A6F: 4C 8D 84 24 F0 07  lea         r8,[rsp+00000000000007F0h]
+                    00 00
+  0000000140911A77: 48 8D 94 24 F8 07  lea         rdx,[rsp+00000000000007F8h]
+                    00 00
+  0000000140911A7F: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911A87: FF 15 DB AB 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911A8D: 48 89 84 24 A0 0E  mov         qword ptr [rsp+0000000000000EA0h],rax
+                    00 00
+  0000000140911A95: 48 8B 84 24 A0 0E  mov         rax,qword ptr [rsp+0000000000000EA0h]
+                    00 00
+  0000000140911A9D: 48 89 84 24 A8 0E  mov         qword ptr [rsp+0000000000000EA8h],rax
+                    00 00
+  0000000140911AA5: 48 8D 15 08 99 EA  lea         rdx,[00000001427BB3B4h] ; '/'
+                    01
+  0000000140911AAC: 48 8D 8C 24 00 08  lea         rcx,[rsp+0000000000000800h]
+                    00 00
+  0000000140911AB4: FF 15 C6 29 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911ABA: 48 89 84 24 B0 0E  mov         qword ptr [rsp+0000000000000EB0h],rax
+                    00 00
+  0000000140911AC2: 48 8B 84 24 B0 0E  mov         rax,qword ptr [rsp+0000000000000EB0h]
+                    00 00
+  0000000140911ACA: 48 89 84 24 B8 0E  mov         qword ptr [rsp+0000000000000EB8h],rax
+                    00 00
+  0000000140911AD2: 4C 8B 84 24 B8 0E  mov         r8,qword ptr [rsp+0000000000000EB8h]
+                    00 00
+  0000000140911ADA: 48 8D 94 24 38 02  lea         rdx,[rsp+0000000000000238h]
+                    00 00
+  0000000140911AE2: 48 8D 8C 24 08 08  lea         rcx,[rsp+0000000000000808h]
+                    00 00
+  0000000140911AEA: E8 01 2E 6F FF     call        00000001400048F0
+  0000000140911AEF: 48 89 84 24 C0 0E  mov         qword ptr [rsp+0000000000000EC0h],rax
+                    00 00
+  0000000140911AF7: 48 8B 84 24 C0 0E  mov         rax,qword ptr [rsp+0000000000000EC0h]
+                    00 00
+  0000000140911AFF: 48 89 84 24 C8 0E  mov         qword ptr [rsp+0000000000000EC8h],rax
+                    00 00
+  0000000140911B07: 4C 8B 84 24 A8 0E  mov         r8,qword ptr [rsp+0000000000000EA8h]
+                    00 00
+  0000000140911B0F: 48 8B 94 24 C8 0E  mov         rdx,qword ptr [rsp+0000000000000EC8h]
+                    00 00
+  0000000140911B17: 48 8D 8C 24 30 02  lea         rcx,[rsp+0000000000000230h]
+                    00 00
+  0000000140911B1F: E8 CC 2D 6F FF     call        00000001400048F0
+  0000000140911B24: 90                 nop
+  0000000140911B25: 48 8D 8C 24 08 08  lea         rcx,[rsp+0000000000000808h]
+                    00 00
+  0000000140911B2D: FF 15 AD 3E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911B33: 90                 nop
+  0000000140911B34: 48 8D 8C 24 00 08  lea         rcx,[rsp+0000000000000800h]
+                    00 00
+  0000000140911B3C: FF 15 9E 3E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911B42: 90                 nop
+  0000000140911B43: 48 8D 8C 24 F8 07  lea         rcx,[rsp+00000000000007F8h]
+                    00 00
+  0000000140911B4B: FF 15 8F 3E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911B51: 90                 nop
+  0000000140911B52: 48 8D 8C 24 E8 07  lea         rcx,[rsp+00000000000007E8h]
+                    00 00
+  0000000140911B5A: FF 15 80 3E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911B60: 90                 nop
+  0000000140911B61: 48 8D 8C 24 F0 07  lea         rcx,[rsp+00000000000007F0h]
+                    00 00
+  0000000140911B69: FF 15 71 3E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911B6F: C6 84 24 2C 02 00  mov         byte ptr [rsp+000000000000022Ch],0
+                    00 00
+  0000000140911B77: 48 8D 15 9A 9B EA  lea         rdx,[00000001427BB718h] ; 'UpperDefined'
+                    01
+  0000000140911B7E: 48 8D 8C 24 18 08  lea         rcx,[rsp+0000000000000818h]
+                    00 00
+  0000000140911B86: FF 15 F4 28 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911B8C: 90                 nop
+  0000000140911B8D: 48 8D 94 24 18 08  lea         rdx,[rsp+0000000000000818h]
+                    00 00
+  0000000140911B95: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911B9D: FF 15 95 A8 4F 01  call        qword ptr [0000000141E0C438h] ; QtXml4_64.dll!?hasAttribute@QDomElement@@QEBA_NAEBVQString@@@Z
+  0000000140911BA3: 88 84 24 10 08 00  mov         byte ptr [rsp+0000000000000810h],al
+                    00
+  0000000140911BAA: 48 8D 8C 24 18 08  lea         rcx,[rsp+0000000000000818h]
+                    00 00
+  0000000140911BB2: FF 15 28 3E 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911BB8: 0F B6 94 24 10 08  movzx       edx,byte ptr [rsp+0000000000000810h]
+                    00 00
+  0000000140911BC0: 85 D2              test        edx,edx
+  0000000140911BC2: 0F 84 22 01 00 00  je          0000000140911CEA
+  0000000140911BC8: 48 8D 15 59 9B EA  lea         rdx,[00000001427BB728h] ; 'UpperDefined'
+                    01
+  0000000140911BCF: 48 8D 8C 24 28 08  lea         rcx,[rsp+0000000000000828h]
+                    00 00
+  0000000140911BD7: FF 15 A3 28 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911BDD: 90                 nop
+  0000000140911BDE: 48 8D 15 53 9B EA  lea         rdx,[00000001427BB738h] ; 'false'
+                    01
+  0000000140911BE5: 48 8D 8C 24 38 08  lea         rcx,[rsp+0000000000000838h]
+                    00 00
+  0000000140911BED: FF 15 8D 28 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911BF3: 48 89 84 24 D0 0E  mov         qword ptr [rsp+0000000000000ED0h],rax
+                    00 00
+  0000000140911BFB: 48 8B 84 24 D0 0E  mov         rax,qword ptr [rsp+0000000000000ED0h]
+                    00 00
+  0000000140911C03: 48 89 84 24 D8 0E  mov         qword ptr [rsp+0000000000000ED8h],rax
+                    00 00
+  0000000140911C0B: 48 8D 8C 24 20 08  lea         rcx,[rsp+0000000000000820h]
+                    00 00
+  0000000140911C13: FF 15 A7 28 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140911C19: 48 89 84 24 E0 0E  mov         qword ptr [rsp+0000000000000EE0h],rax
+                    00 00
+  0000000140911C21: 48 8B 84 24 E0 0E  mov         rax,qword ptr [rsp+0000000000000EE0h]
+                    00 00
+  0000000140911C29: 48 89 84 24 E8 0E  mov         qword ptr [rsp+0000000000000EE8h],rax
+                    00 00
+  0000000140911C31: 4C 8B 8C 24 E8 0E  mov         r9,qword ptr [rsp+0000000000000EE8h]
+                    00 00
+  0000000140911C39: 4C 8D 84 24 28 08  lea         r8,[rsp+0000000000000828h]
+                    00 00
+  0000000140911C41: 48 8D 94 24 30 08  lea         rdx,[rsp+0000000000000830h]
+                    00 00
+  0000000140911C49: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911C51: FF 15 11 AA 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911C57: 48 89 84 24 F0 0E  mov         qword ptr [rsp+0000000000000EF0h],rax
+                    00 00
+  0000000140911C5F: 48 8B 84 24 F0 0E  mov         rax,qword ptr [rsp+0000000000000EF0h]
+                    00 00
+  0000000140911C67: 48 89 84 24 F8 0E  mov         qword ptr [rsp+0000000000000EF8h],rax
+                    00 00
+  0000000140911C6F: 48 8B 94 24 D8 0E  mov         rdx,qword ptr [rsp+0000000000000ED8h]
+                    00 00
+  0000000140911C77: 48 8B 8C 24 F8 0E  mov         rcx,qword ptr [rsp+0000000000000EF8h]
+                    00 00
+  0000000140911C7F: FF 15 83 22 4F 01  call        qword ptr [0000000141E03F08h] ; QtCore4_64.dll!??8QString@@QEBA_NAEBV0@@Z
+  0000000140911C85: 0F B6 C0           movzx       eax,al
+  0000000140911C88: 85 C0              test        eax,eax
+  0000000140911C8A: 74 0A              je          0000000140911C96
+  0000000140911C8C: C6 84 24 00 0F 00  mov         byte ptr [rsp+0000000000000F00h],0
+                    00 00
+  0000000140911C94: EB 08              jmp         0000000140911C9E
+  0000000140911C96: C6 84 24 00 0F 00  mov         byte ptr [rsp+0000000000000F00h],1
+                    00 01
+  0000000140911C9E: 0F B6 84 24 00 0F  movzx       eax,byte ptr [rsp+0000000000000F00h]
+                    00 00
+  0000000140911CA6: 88 84 24 2C 02 00  mov         byte ptr [rsp+000000000000022Ch],al
+                    00
+  0000000140911CAD: 48 8D 8C 24 30 08  lea         rcx,[rsp+0000000000000830h]
+                    00 00
+  0000000140911CB5: FF 15 25 3D 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911CBB: 90                 nop
+  0000000140911CBC: 48 8D 8C 24 20 08  lea         rcx,[rsp+0000000000000820h]
+                    00 00
+  0000000140911CC4: FF 15 16 3D 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911CCA: 90                 nop
+  0000000140911CCB: 48 8D 8C 24 38 08  lea         rcx,[rsp+0000000000000838h]
+                    00 00
+  0000000140911CD3: FF 15 07 3D 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911CD9: 90                 nop
+  0000000140911CDA: 48 8D 8C 24 28 08  lea         rcx,[rsp+0000000000000828h]
+                    00 00
+  0000000140911CE2: FF 15 F8 3C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911CE8: EB 1D              jmp         0000000140911D07
+  0000000140911CEA: 48 8D 8C 24 50 02  lea         rcx,[rsp+0000000000000250h]
+                    00 00
+  0000000140911CF2: FF 15 D0 22 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140911CF8: 0F B6 C0           movzx       eax,al
+  0000000140911CFB: 85 C0              test        eax,eax
+  0000000140911CFD: 75 08              jne         0000000140911D07
+  0000000140911CFF: C6 84 24 2C 02 00  mov         byte ptr [rsp+000000000000022Ch],1
+                    00 01
+  0000000140911D07: C6 84 24 18 02 00  mov         byte ptr [rsp+0000000000000218h],1
+                    00 01
+  0000000140911D0F: 48 8D 15 2A 9A EA  lea         rdx,[00000001427BB740h] ; 'LowerDefined'
+                    01
+  0000000140911D16: 48 8D 8C 24 48 08  lea         rcx,[rsp+0000000000000848h]
+                    00 00
+  0000000140911D1E: FF 15 5C 27 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911D24: 90                 nop
+  0000000140911D25: 48 8D 94 24 48 08  lea         rdx,[rsp+0000000000000848h]
+                    00 00
+  0000000140911D2D: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911D35: FF 15 FD A6 4F 01  call        qword ptr [0000000141E0C438h] ; QtXml4_64.dll!?hasAttribute@QDomElement@@QEBA_NAEBVQString@@@Z
+  0000000140911D3B: 88 84 24 40 08 00  mov         byte ptr [rsp+0000000000000840h],al
+                    00
+  0000000140911D42: 48 8D 8C 24 48 08  lea         rcx,[rsp+0000000000000848h]
+                    00 00
+  0000000140911D4A: FF 15 90 3C 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911D50: 0F B6 94 24 40 08  movzx       edx,byte ptr [rsp+0000000000000840h]
+                    00 00
+  0000000140911D58: 85 D2              test        edx,edx
+  0000000140911D5A: 0F 84 22 01 00 00  je          0000000140911E82
+  0000000140911D60: 48 8D 15 E9 99 EA  lea         rdx,[00000001427BB750h] ; 'LowerDefined'
+                    01
+  0000000140911D67: 48 8D 8C 24 58 08  lea         rcx,[rsp+0000000000000858h]
+                    00 00
+  0000000140911D6F: FF 15 0B 27 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911D75: 90                 nop
+  0000000140911D76: 48 8D 15 E3 99 EA  lea         rdx,[00000001427BB760h] ; 'false'
+                    01
+  0000000140911D7D: 48 8D 8C 24 68 08  lea         rcx,[rsp+0000000000000868h]
+                    00 00
+  0000000140911D85: FF 15 F5 26 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  0000000140911D8B: 48 89 84 24 08 0F  mov         qword ptr [rsp+0000000000000F08h],rax
+                    00 00
+  0000000140911D93: 48 8B 84 24 08 0F  mov         rax,qword ptr [rsp+0000000000000F08h]
+                    00 00
+  0000000140911D9B: 48 89 84 24 10 0F  mov         qword ptr [rsp+0000000000000F10h],rax
+                    00 00
+  0000000140911DA3: 48 8D 8C 24 50 08  lea         rcx,[rsp+0000000000000850h]
+                    00 00
+  0000000140911DAB: FF 15 0F 27 4F 01  call        qword ptr [0000000141E044C0h] ; QtCore4_64.dll!??0QString@@QEAA@XZ
+  0000000140911DB1: 48 89 84 24 18 0F  mov         qword ptr [rsp+0000000000000F18h],rax
+                    00 00
+  0000000140911DB9: 48 8B 84 24 18 0F  mov         rax,qword ptr [rsp+0000000000000F18h]
+                    00 00
+  0000000140911DC1: 48 89 84 24 20 0F  mov         qword ptr [rsp+0000000000000F20h],rax
+                    00 00
+  0000000140911DC9: 4C 8B 8C 24 20 0F  mov         r9,qword ptr [rsp+0000000000000F20h]
+                    00 00
+  0000000140911DD1: 4C 8D 84 24 58 08  lea         r8,[rsp+0000000000000858h]
+                    00 00
+  0000000140911DD9: 48 8D 94 24 60 08  lea         rdx,[rsp+0000000000000860h]
+                    00 00
+  0000000140911DE1: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911DE9: FF 15 79 A8 4F 01  call        qword ptr [0000000141E0C668h] ; QtXml4_64.dll!?attribute@QDomElement@@QEBA?AVQString@@AEBV2@0@Z
+  0000000140911DEF: 48 89 84 24 28 0F  mov         qword ptr [rsp+0000000000000F28h],rax
+                    00 00
+  0000000140911DF7: 48 8B 84 24 28 0F  mov         rax,qword ptr [rsp+0000000000000F28h]
+                    00 00
+  0000000140911DFF: 48 89 84 24 30 0F  mov         qword ptr [rsp+0000000000000F30h],rax
+                    00 00
+  0000000140911E07: 48 8B 94 24 10 0F  mov         rdx,qword ptr [rsp+0000000000000F10h]
+                    00 00
+  0000000140911E0F: 48 8B 8C 24 30 0F  mov         rcx,qword ptr [rsp+0000000000000F30h]
+                    00 00
+  0000000140911E17: FF 15 EB 20 4F 01  call        qword ptr [0000000141E03F08h] ; QtCore4_64.dll!??8QString@@QEBA_NAEBV0@@Z
+  0000000140911E1D: 0F B6 C0           movzx       eax,al
+  0000000140911E20: 85 C0              test        eax,eax
+  0000000140911E22: 74 0A              je          0000000140911E2E
+  0000000140911E24: C6 84 24 38 0F 00  mov         byte ptr [rsp+0000000000000F38h],0
+                    00 00
+  0000000140911E2C: EB 08              jmp         0000000140911E36
+  0000000140911E2E: C6 84 24 38 0F 00  mov         byte ptr [rsp+0000000000000F38h],1
+                    00 01
+  0000000140911E36: 0F B6 84 24 38 0F  movzx       eax,byte ptr [rsp+0000000000000F38h]
+                    00 00
+  0000000140911E3E: 88 84 24 18 02 00  mov         byte ptr [rsp+0000000000000218h],al
+                    00
+  0000000140911E45: 48 8D 8C 24 60 08  lea         rcx,[rsp+0000000000000860h]
+                    00 00
+  0000000140911E4D: FF 15 8D 3B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911E53: 90                 nop
+  0000000140911E54: 48 8D 8C 24 50 08  lea         rcx,[rsp+0000000000000850h]
+                    00 00
+  0000000140911E5C: FF 15 7E 3B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911E62: 90                 nop
+  0000000140911E63: 48 8D 8C 24 68 08  lea         rcx,[rsp+0000000000000868h]
+                    00 00
+  0000000140911E6B: FF 15 6F 3B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911E71: 90                 nop
+  0000000140911E72: 48 8D 8C 24 58 08  lea         rcx,[rsp+0000000000000858h]
+                    00 00
+  0000000140911E7A: FF 15 60 3B 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140911E80: EB 1D              jmp         0000000140911E9F
+  0000000140911E82: 48 8D 8C 24 48 02  lea         rcx,[rsp+0000000000000248h]
+                    00 00
+  0000000140911E8A: FF 15 38 21 4F 01  call        qword ptr [0000000141E03FC8h] ; QtCore4_64.dll!?isEmpty@QString@@QEBA_NXZ
+  0000000140911E90: 0F B6 C0           movzx       eax,al
+  0000000140911E93: 85 C0              test        eax,eax
+  0000000140911E95: 75 08              jne         0000000140911E9F
+  0000000140911E97: C6 84 24 2C 02 00  mov         byte ptr [rsp+000000000000022Ch],1
+                    00 01
+  0000000140911E9F: 48 8D 94 24 20 02  lea         rdx,[rsp+0000000000000220h]
+                    00 00
+  0000000140911EA7: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  0000000140911EAF: FF 15 03 A7 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  0000000140911EB5: 90                 nop
+  0000000140911EB6: 48 8D 84 24 70 08  lea         rax,[rsp+0000000000000870h]
+                    00 00
+  0000000140911EBE: 48 89 84 24 78 08  mov         qword ptr [rsp+0000000000000878h],rax
+                    00 00
+  0000000140911EC6: 48 8D 84 24 80 08  lea         rax,[rsp+0000000000000880h]
+                    00 00
+  0000000140911ECE: 48 89 84 24 88 08  mov         qword ptr [rsp+0000000000000888h],rax
+                    00 00
+  0000000140911ED6: 48 8D 84 24 90 08  lea         rax,[rsp+0000000000000890h]
+                    00 00
+  0000000140911EDE: 48 89 84 24 98 08  mov         qword ptr [rsp+0000000000000898h],rax
+                    00 00
+  0000000140911EE6: 48 8D 94 24 48 02  lea         rdx,[rsp+0000000000000248h]
+                    00 00
+  0000000140911EEE: 48 8B 8C 24 78 08  mov         rcx,qword ptr [rsp+0000000000000878h]
+                    00 00
+  0000000140911EF6: FF 15 DC 3A 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140911EFC: 48 89 84 24 40 0F  mov         qword ptr [rsp+0000000000000F40h],rax
+                    00 00
+  0000000140911F04: 48 8B 84 24 40 0F  mov         rax,qword ptr [rsp+0000000000000F40h]
+                    00 00
+  0000000140911F0C: 48 89 84 24 48 0F  mov         qword ptr [rsp+0000000000000F48h],rax
+                    00 00
+  0000000140911F14: 48 8D 94 24 50 02  lea         rdx,[rsp+0000000000000250h]
+                    00 00
+  0000000140911F1C: 48 8B 8C 24 88 08  mov         rcx,qword ptr [rsp+0000000000000888h]
+                    00 00
+  0000000140911F24: FF 15 AE 3A 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140911F2A: 48 89 84 24 50 0F  mov         qword ptr [rsp+0000000000000F50h],rax
+                    00 00
+  0000000140911F32: 48 8B 84 24 50 0F  mov         rax,qword ptr [rsp+0000000000000F50h]
+                    00 00
+  0000000140911F3A: 48 89 84 24 58 0F  mov         qword ptr [rsp+0000000000000F58h],rax
+                    00 00
+  0000000140911F42: 48 8D 94 24 30 02  lea         rdx,[rsp+0000000000000230h]
+                    00 00
+  0000000140911F4A: 48 8B 8C 24 98 08  mov         rcx,qword ptr [rsp+0000000000000898h]
+                    00 00
+  0000000140911F52: FF 15 80 3A 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140911F58: 48 89 84 24 60 0F  mov         qword ptr [rsp+0000000000000F60h],rax
+                    00 00
+  0000000140911F60: 48 8B 84 24 48 0F  mov         rax,qword ptr [rsp+0000000000000F48h]
+                    00 00
+  0000000140911F68: 48 89 44 24 28     mov         qword ptr [rsp+28h],rax
+  0000000140911F6D: 48 8B 84 24 58 0F  mov         rax,qword ptr [rsp+0000000000000F58h]
+                    00 00
+  0000000140911F75: 48 89 44 24 20     mov         qword ptr [rsp+20h],rax
+  0000000140911F7A: 4C 8B 8C 24 60 0F  mov         r9,qword ptr [rsp+0000000000000F60h]
+                    00 00
+  0000000140911F82: 44 8B 84 24 1C 02  mov         r8d,dword ptr [rsp+000000000000021Ch]
+                    00 00
+  0000000140911F8A: 8B 94 24 10 02 00  mov         edx,dword ptr [rsp+0000000000000210h]
+                    00
+  0000000140911F91: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  0000000140911F99: E8 22 56 F0 FF     call        00000001408175C0
+  0000000140911F9E: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  0000000140911FA6: E8 95 58 F0 FF     call        0000000140817840
+  0000000140911FAB: 83 E8 01           sub         eax,1
+  0000000140911FAE: 89 84 24 14 02 00  mov         dword ptr [rsp+0000000000000214h],eax
+                    00
+  0000000140911FB5: 44 0F B6 84 24 2C  movzx       r8d,byte ptr [rsp+000000000000022Ch]
+                    02 00 00
+  0000000140911FBE: 8B 94 24 14 02 00  mov         edx,dword ptr [rsp+0000000000000214h]
+                    00
+  0000000140911FC5: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  0000000140911FCD: E8 6E 5F F0 FF     call        0000000140817F40
+  0000000140911FD2: 44 0F B6 84 24 18  movzx       r8d,byte ptr [rsp+0000000000000218h]
+                    02 00 00
+  0000000140911FDB: 8B 94 24 14 02 00  mov         edx,dword ptr [rsp+0000000000000214h]
+                    00
+  0000000140911FE2: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  0000000140911FEA: E8 B1 5F F0 FF     call        0000000140817FA0
+  0000000140911FEF: 8B 94 24 28 02 00  mov         edx,dword ptr [rsp+0000000000000228h]
+                    00
+  0000000140911FF6: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  0000000140911FFE: E8 8D 58 F0 FF     call        0000000140817890
+  0000000140912003: 48 8D 8C 24 20 02  lea         rcx,[rsp+0000000000000220h]
+                    00 00
+  000000014091200B: FF 15 27 A5 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140912011: 0F B6 C0           movzx       eax,al
+  0000000140912014: 85 C0              test        eax,eax
+  0000000140912016: 0F 85 2E 07 00 00  jne         000000014091274A
+  000000014091201C: 48 8D 94 24 60 02  lea         rdx,[rsp+0000000000000260h]
+                    00 00
+  0000000140912024: 48 8D 8C 24 20 02  lea         rcx,[rsp+0000000000000220h]
+                    00 00
+  000000014091202C: FF 15 7E A5 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  0000000140912032: 90                 nop
+  0000000140912033: 48 8D 8C 24 60 02  lea         rcx,[rsp+0000000000000260h]
+                    00 00
+  000000014091203B: FF 15 F7 A4 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140912041: 0F B6 C0           movzx       eax,al
+  0000000140912044: 85 C0              test        eax,eax
+  0000000140912046: 0F 85 97 06 00 00  jne         00000001409126E3
+  000000014091204C: 48 8D 94 24 A8 08  lea         rdx,[rsp+00000000000008A8h]
+                    00 00
+  0000000140912054: 48 8D 8C 24 60 02  lea         rcx,[rsp+0000000000000260h]
+                    00 00
+  000000014091205C: FF 15 46 A5 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  0000000140912062: 48 89 84 24 68 0F  mov         qword ptr [rsp+0000000000000F68h],rax
+                    00 00
+  000000014091206A: 48 8B 84 24 68 0F  mov         rax,qword ptr [rsp+0000000000000F68h]
+                    00 00
+  0000000140912072: 48 89 84 24 70 0F  mov         qword ptr [rsp+0000000000000F70h],rax
+                    00 00
+  000000014091207A: 48 8D 15 E7 96 EA  lea         rdx,[00000001427BB768h] ; 'UpperCorrespondence'
+                    01
+  0000000140912081: 48 8B 8C 24 70 0F  mov         rcx,qword ptr [rsp+0000000000000F70h]
+                    00 00
+  0000000140912089: FF 15 D9 23 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  000000014091208F: 88 84 24 A0 08 00  mov         byte ptr [rsp+00000000000008A0h],al
+                    00
+  0000000140912096: 48 8D 8C 24 A8 08  lea         rcx,[rsp+00000000000008A8h]
+                    00 00
+  000000014091209E: FF 15 3C 39 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409120A4: 0F B6 94 24 A0 08  movzx       edx,byte ptr [rsp+00000000000008A0h]
+                    00 00
+  00000001409120AC: 85 D2              test        edx,edx
+  00000001409120AE: 0F 84 E6 02 00 00  je          000000014091239A
+  00000001409120B4: 48 8D 94 24 68 02  lea         rdx,[rsp+0000000000000268h]
+                    00 00
+  00000001409120BC: 48 8D 8C 24 60 02  lea         rcx,[rsp+0000000000000260h]
+                    00 00
+  00000001409120C4: FF 15 EE A4 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  00000001409120CA: 90                 nop
+  00000001409120CB: 48 8D 8C 24 68 02  lea         rcx,[rsp+0000000000000268h]
+                    00 00
+  00000001409120D3: FF 15 5F A4 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  00000001409120D9: 0F B6 C0           movzx       eax,al
+  00000001409120DC: 85 C0              test        eax,eax
+  00000001409120DE: 0F 85 A3 02 00 00  jne         0000000140912387
+  00000001409120E4: 48 8D 94 24 70 02  lea         rdx,[rsp+0000000000000270h]
+                    00 00
+  00000001409120EC: 48 8D 8C 24 68 02  lea         rcx,[rsp+0000000000000268h]
+                    00 00
+  00000001409120F4: FF 15 B6 A4 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  00000001409120FA: 90                 nop
+  00000001409120FB: 48 8D 8C 24 70 02  lea         rcx,[rsp+0000000000000270h]
+                    00 00
+  0000000140912103: FF 15 2F A4 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140912109: 0F B6 C0           movzx       eax,al
+  000000014091210C: 85 C0              test        eax,eax
+  000000014091210E: 0F 85 0C 02 00 00  jne         0000000140912320
+  0000000140912114: 48 8D 94 24 B8 08  lea         rdx,[rsp+00000000000008B8h]
+                    00 00
+  000000014091211C: 48 8D 8C 24 70 02  lea         rcx,[rsp+0000000000000270h]
+                    00 00
+  0000000140912124: FF 15 7E A4 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  000000014091212A: 48 89 84 24 78 0F  mov         qword ptr [rsp+0000000000000F78h],rax
+                    00 00
+  0000000140912132: 48 8B 84 24 78 0F  mov         rax,qword ptr [rsp+0000000000000F78h]
+                    00 00
+  000000014091213A: 48 89 84 24 80 0F  mov         qword ptr [rsp+0000000000000F80h],rax
+                    00 00
+  0000000140912142: 48 8D 15 37 96 EA  lea         rdx,[00000001427BB780h] ; 'PointPair'
+                    01
+  0000000140912149: 48 8B 8C 24 80 0F  mov         rcx,qword ptr [rsp+0000000000000F80h]
+                    00 00
+  0000000140912151: FF 15 11 23 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  0000000140912157: 88 84 24 B0 08 00  mov         byte ptr [rsp+00000000000008B0h],al
+                    00
+  000000014091215E: 48 8D 8C 24 B8 08  lea         rcx,[rsp+00000000000008B8h]
+                    00 00
+  0000000140912166: FF 15 74 38 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014091216C: 0F B6 94 24 B0 08  movzx       edx,byte ptr [rsp+00000000000008B0h]
+                    00 00
+  0000000140912174: 85 D2              test        edx,edx
+  0000000140912176: 0F 84 A4 01 00 00  je          0000000140912320
+  000000014091217C: 48 8D 94 24 C0 02  lea         rdx,[rsp+00000000000002C0h]
+                    00 00
+  0000000140912184: 48 8D 8C 24 70 02  lea         rcx,[rsp+0000000000000270h]
+                    00 00
+  000000014091218C: FF 15 0E A4 4F 01  call        qword ptr [0000000141E0C5A0h] ; QtXml4_64.dll!?text@QDomElement@@QEBA?AVQString@@XZ
+  0000000140912192: 90                 nop
+  0000000140912193: 48 8D 15 E2 92 EA  lea         rdx,[00000001427BB47Ch] ; ', '
+                    01
+  000000014091219A: 48 8D 8C 24 C0 08  lea         rcx,[rsp+00000000000008C0h]
+                    00 00
+  00000001409121A2: FF 15 D8 22 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  00000001409121A8: 90                 nop
+  00000001409121A9: C7 44 24 20 01 00  mov         dword ptr [rsp+20h],1
+                    00 00
+  00000001409121B1: 45 33 C9           xor         r9d,r9d
+  00000001409121B4: 4C 8D 84 24 C0 08  lea         r8,[rsp+00000000000008C0h]
+                    00 00
+  00000001409121BC: 48 8D 94 24 A0 02  lea         rdx,[rsp+00000000000002A0h]
+                    00 00
+  00000001409121C4: 48 8D 8C 24 C0 02  lea         rcx,[rsp+00000000000002C0h]
+                    00 00
+  00000001409121CC: FF 15 B6 20 4F 01  call        qword ptr [0000000141E04288h] ; QtCore4_64.dll!?split@QString@@QEBA?AVQStringList@@AEBV1@W4SplitBehavior@1@W4CaseSensitivity@Qt@@@Z
+  00000001409121D2: 90                 nop
+  00000001409121D3: 48 8D 8C 24 C0 08  lea         rcx,[rsp+00000000000008C0h]
+                    00 00
+  00000001409121DB: FF 15 FF 37 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409121E1: 33 D2              xor         edx,edx
+  00000001409121E3: 48 8D 8C 24 A0 02  lea         rcx,[rsp+00000000000002A0h]
+                    00 00
+  00000001409121EB: E8 50 29 6F FF     call        0000000140004B40
+  00000001409121F0: 33 D2              xor         edx,edx
+  00000001409121F2: 48 8B C8           mov         rcx,rax
+  00000001409121F5: FF 15 15 36 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  00000001409121FB: F2 0F 11 84 24 A8  movsd       mmword ptr [rsp+00000000000002A8h],xmm0
+                    02 00 00
+  0000000140912204: BA 01 00 00 00     mov         edx,1
+  0000000140912209: 48 8D 8C 24 A0 02  lea         rcx,[rsp+00000000000002A0h]
+                    00 00
+  0000000140912211: E8 2A 29 6F FF     call        0000000140004B40
+  0000000140912216: 33 D2              xor         edx,edx
+  0000000140912218: 48 8B C8           mov         rcx,rax
+  000000014091221B: FF 15 EF 35 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  0000000140912221: F2 0F 11 84 24 98  movsd       mmword ptr [rsp+0000000000000298h],xmm0
+                    02 00 00
+  000000014091222A: BA 02 00 00 00     mov         edx,2
+  000000014091222F: 48 8D 8C 24 A0 02  lea         rcx,[rsp+00000000000002A0h]
+                    00 00
+  0000000140912237: E8 04 29 6F FF     call        0000000140004B40
+  000000014091223C: 33 D2              xor         edx,edx
+  000000014091223E: 48 8B C8           mov         rcx,rax
+  0000000140912241: FF 15 C9 35 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  0000000140912247: F2 0F 11 84 24 80  movsd       mmword ptr [rsp+0000000000000280h],xmm0
+                    02 00 00
+  0000000140912250: BA 03 00 00 00     mov         edx,3
+  0000000140912255: 48 8D 8C 24 A0 02  lea         rcx,[rsp+00000000000002A0h]
+                    00 00
+  000000014091225D: E8 DE 28 6F FF     call        0000000140004B40
+  0000000140912262: 33 D2              xor         edx,edx
+  0000000140912264: 48 8B C8           mov         rcx,rax
+  0000000140912267: FF 15 A3 35 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  000000014091226D: F2 0F 11 84 24 78  movsd       mmword ptr [rsp+0000000000000278h],xmm0
+                    02 00 00
+  0000000140912276: F2 0F 10 94 24 98  movsd       xmm2,mmword ptr [rsp+0000000000000298h]
+                    02 00 00
+  000000014091227F: F2 0F 10 8C 24 A8  movsd       xmm1,mmword ptr [rsp+00000000000002A8h]
+                    02 00 00
+  0000000140912288: 48 8D 8C 24 B0 02  lea         rcx,[rsp+00000000000002B0h]
+                    00 00
+  0000000140912290: FF 15 42 35 4F 01  call        qword ptr [0000000141E057D8h] ; QtCore4_64.dll!??0QPointF@@QEAA@NN@Z
+  0000000140912296: F2 0F 10 94 24 78  movsd       xmm2,mmword ptr [rsp+0000000000000278h]
+                    02 00 00
+  000000014091229F: F2 0F 10 8C 24 80  movsd       xmm1,mmword ptr [rsp+0000000000000280h]
+                    02 00 00
+  00000001409122A8: 48 8D 8C 24 88 02  lea         rcx,[rsp+0000000000000288h]
+                    00 00
+  00000001409122B0: FF 15 22 35 4F 01  call        qword ptr [0000000141E057D8h] ; QtCore4_64.dll!??0QPointF@@QEAA@NN@Z
+  00000001409122B6: 48 8D BC 24 40 09  lea         rdi,[rsp+0000000000000940h]
+                    00 00
+  00000001409122BE: 48 8D B4 24 88 02  lea         rsi,[rsp+0000000000000288h]
+                    00 00
+  00000001409122C6: B9 10 00 00 00     mov         ecx,10h
+  00000001409122CB: F3 A4              rep movs    byte ptr [rdi],byte ptr [rsi]
+  00000001409122CD: 48 8D BC 24 30 09  lea         rdi,[rsp+0000000000000930h]
+                    00 00
+  00000001409122D5: 48 8D B4 24 B0 02  lea         rsi,[rsp+00000000000002B0h]
+                    00 00
+  00000001409122DD: B9 10 00 00 00     mov         ecx,10h
+  00000001409122E2: F3 A4              rep movs    byte ptr [rdi],byte ptr [rsi]
+  00000001409122E4: 4C 8D 8C 24 40 09  lea         r9,[rsp+0000000000000940h]
+                    00 00
+  00000001409122EC: 4C 8D 84 24 30 09  lea         r8,[rsp+0000000000000930h]
+                    00 00
+  00000001409122F4: 33 D2              xor         edx,edx
+  00000001409122F6: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  00000001409122FE: E8 FD 5C F0 FF     call        0000000140818000
+  0000000140912303: 90                 nop
+  0000000140912304: 48 8D 8C 24 A0 02  lea         rcx,[rsp+00000000000002A0h]
+                    00 00
+  000000014091230C: E8 BF 25 6F FF     call        00000001400048D0
+  0000000140912311: 90                 nop
+  0000000140912312: 48 8D 8C 24 C0 02  lea         rcx,[rsp+00000000000002C0h]
+                    00 00
+  000000014091231A: FF 15 C0 36 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912320: 48 8D 94 24 C8 08  lea         rdx,[rsp+00000000000008C8h]
+                    00 00
+  0000000140912328: 48 8D 8C 24 68 02  lea         rcx,[rsp+0000000000000268h]
+                    00 00
+  0000000140912330: FF 15 62 A2 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  0000000140912336: 48 89 84 24 88 0F  mov         qword ptr [rsp+0000000000000F88h],rax
+                    00 00
+  000000014091233E: 48 8B 84 24 88 0F  mov         rax,qword ptr [rsp+0000000000000F88h]
+                    00 00
+  0000000140912346: 48 89 84 24 90 0F  mov         qword ptr [rsp+0000000000000F90h],rax
+                    00 00
+  000000014091234E: 48 8B 94 24 90 0F  mov         rdx,qword ptr [rsp+0000000000000F90h]
+                    00 00
+  0000000140912356: 48 8D 8C 24 68 02  lea         rcx,[rsp+0000000000000268h]
+                    00 00
+  000000014091235E: FF 15 FC A1 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  0000000140912364: 90                 nop
+  0000000140912365: 48 8D 8C 24 C8 08  lea         rcx,[rsp+00000000000008C8h]
+                    00 00
+  000000014091236D: FF 15 35 A3 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912373: 90                 nop
+  0000000140912374: 48 8D 8C 24 70 02  lea         rcx,[rsp+0000000000000270h]
+                    00 00
+  000000014091237C: FF 15 2E A3 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  0000000140912382: E9 44 FD FF FF     jmp         00000001409120CB
+  0000000140912387: 48 8D 8C 24 68 02  lea         rcx,[rsp+0000000000000268h]
+                    00 00
+  000000014091238F: FF 15 13 A3 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912395: E9 49 03 00 00     jmp         00000001409126E3
+  000000014091239A: 48 8D 94 24 D8 08  lea         rdx,[rsp+00000000000008D8h]
+                    00 00
+  00000001409123A2: 48 8D 8C 24 60 02  lea         rcx,[rsp+0000000000000260h]
+                    00 00
+  00000001409123AA: FF 15 F8 A1 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  00000001409123B0: 48 89 84 24 98 0F  mov         qword ptr [rsp+0000000000000F98h],rax
+                    00 00
+  00000001409123B8: 48 8B 84 24 98 0F  mov         rax,qword ptr [rsp+0000000000000F98h]
+                    00 00
+  00000001409123C0: 48 89 84 24 A0 0F  mov         qword ptr [rsp+0000000000000FA0h],rax
+                    00 00
+  00000001409123C8: 48 8D 15 C1 93 EA  lea         rdx,[00000001427BB790h] ; 'LowerCorrespondence'
+                    01
+  00000001409123CF: 48 8B 8C 24 A0 0F  mov         rcx,qword ptr [rsp+0000000000000FA0h]
+                    00 00
+  00000001409123D7: FF 15 8B 20 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  00000001409123DD: 88 84 24 D0 08 00  mov         byte ptr [rsp+00000000000008D0h],al
+                    00
+  00000001409123E4: 48 8D 8C 24 D8 08  lea         rcx,[rsp+00000000000008D8h]
+                    00 00
+  00000001409123EC: FF 15 EE 35 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409123F2: 0F B6 94 24 D0 08  movzx       edx,byte ptr [rsp+00000000000008D0h]
+                    00 00
+  00000001409123FA: 85 D2              test        edx,edx
+  00000001409123FC: 0F 84 E1 02 00 00  je          00000001409126E3
+  0000000140912402: 48 8D 94 24 C8 02  lea         rdx,[rsp+00000000000002C8h]
+                    00 00
+  000000014091240A: 48 8D 8C 24 60 02  lea         rcx,[rsp+0000000000000260h]
+                    00 00
+  0000000140912412: FF 15 A0 A1 4F 01  call        qword ptr [0000000141E0C5B8h] ; QtXml4_64.dll!?firstChild@QDomNode@@QEBA?AV1@XZ
+  0000000140912418: 90                 nop
+  0000000140912419: 48 8D 8C 24 C8 02  lea         rcx,[rsp+00000000000002C8h]
+                    00 00
+  0000000140912421: FF 15 11 A1 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140912427: 0F B6 C0           movzx       eax,al
+  000000014091242A: 85 C0              test        eax,eax
+  000000014091242C: 0F 85 A3 02 00 00  jne         00000001409126D5
+  0000000140912432: 48 8D 94 24 D0 02  lea         rdx,[rsp+00000000000002D0h]
+                    00 00
+  000000014091243A: 48 8D 8C 24 C8 02  lea         rcx,[rsp+00000000000002C8h]
+                    00 00
+  0000000140912442: FF 15 68 A1 4F 01  call        qword ptr [0000000141E0C5B0h] ; QtXml4_64.dll!?toElement@QDomNode@@QEBA?AVQDomElement@@XZ
+  0000000140912448: 90                 nop
+  0000000140912449: 48 8D 8C 24 D0 02  lea         rcx,[rsp+00000000000002D0h]
+                    00 00
+  0000000140912451: FF 15 E1 A0 4F 01  call        qword ptr [0000000141E0C538h] ; QtXml4_64.dll!?isNull@QDomNode@@QEBA_NXZ
+  0000000140912457: 0F B6 C0           movzx       eax,al
+  000000014091245A: 85 C0              test        eax,eax
+  000000014091245C: 0F 85 0C 02 00 00  jne         000000014091266E
+  0000000140912462: 48 8D 94 24 E8 08  lea         rdx,[rsp+00000000000008E8h]
+                    00 00
+  000000014091246A: 48 8D 8C 24 D0 02  lea         rcx,[rsp+00000000000002D0h]
+                    00 00
+  0000000140912472: FF 15 30 A1 4F 01  call        qword ptr [0000000141E0C5A8h] ; QtXml4_64.dll!?tagName@QDomElement@@QEBA?AVQString@@XZ
+  0000000140912478: 48 89 84 24 A8 0F  mov         qword ptr [rsp+0000000000000FA8h],rax
+                    00 00
+  0000000140912480: 48 8B 84 24 A8 0F  mov         rax,qword ptr [rsp+0000000000000FA8h]
+                    00 00
+  0000000140912488: 48 89 84 24 B0 0F  mov         qword ptr [rsp+0000000000000FB0h],rax
+                    00 00
+  0000000140912490: 48 8D 15 11 93 EA  lea         rdx,[00000001427BB7A8h] ; 'PointPair'
+                    01
+  0000000140912497: 48 8B 8C 24 B0 0F  mov         rcx,qword ptr [rsp+0000000000000FB0h]
+                    00 00
+  000000014091249F: FF 15 C3 1F 4F 01  call        qword ptr [0000000141E04468h] ; QtCore4_64.dll!??8QString@@QEBA_NPEBD@Z
+  00000001409124A5: 88 84 24 E0 08 00  mov         byte ptr [rsp+00000000000008E0h],al
+                    00
+  00000001409124AC: 48 8D 8C 24 E8 08  lea         rcx,[rsp+00000000000008E8h]
+                    00 00
+  00000001409124B4: FF 15 26 35 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409124BA: 0F B6 94 24 E0 08  movzx       edx,byte ptr [rsp+00000000000008E0h]
+                    00 00
+  00000001409124C2: 85 D2              test        edx,edx
+  00000001409124C4: 0F 84 A4 01 00 00  je          000000014091266E
+  00000001409124CA: 48 8D 94 24 20 03  lea         rdx,[rsp+0000000000000320h]
+                    00 00
+  00000001409124D2: 48 8D 8C 24 D0 02  lea         rcx,[rsp+00000000000002D0h]
+                    00 00
+  00000001409124DA: FF 15 C0 A0 4F 01  call        qword ptr [0000000141E0C5A0h] ; QtXml4_64.dll!?text@QDomElement@@QEBA?AVQString@@XZ
+  00000001409124E0: 90                 nop
+  00000001409124E1: 48 8D 15 8C 90 EA  lea         rdx,[00000001427BB574h] ; ', '
+                    01
+  00000001409124E8: 48 8D 8C 24 F0 08  lea         rcx,[rsp+00000000000008F0h]
+                    00 00
+  00000001409124F0: FF 15 8A 1F 4F 01  call        qword ptr [0000000141E04480h] ; QtCore4_64.dll!??0QString@@QEAA@PEBD@Z
+  00000001409124F6: 90                 nop
+  00000001409124F7: C7 44 24 20 01 00  mov         dword ptr [rsp+20h],1
+                    00 00
+  00000001409124FF: 45 33 C9           xor         r9d,r9d
+  0000000140912502: 4C 8D 84 24 F0 08  lea         r8,[rsp+00000000000008F0h]
+                    00 00
+  000000014091250A: 48 8D 94 24 00 03  lea         rdx,[rsp+0000000000000300h]
+                    00 00
+  0000000140912512: 48 8D 8C 24 20 03  lea         rcx,[rsp+0000000000000320h]
+                    00 00
+  000000014091251A: FF 15 68 1D 4F 01  call        qword ptr [0000000141E04288h] ; QtCore4_64.dll!?split@QString@@QEBA?AVQStringList@@AEBV1@W4SplitBehavior@1@W4CaseSensitivity@Qt@@@Z
+  0000000140912520: 90                 nop
+  0000000140912521: 48 8D 8C 24 F0 08  lea         rcx,[rsp+00000000000008F0h]
+                    00 00
+  0000000140912529: FF 15 B1 34 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014091252F: 33 D2              xor         edx,edx
+  0000000140912531: 48 8D 8C 24 00 03  lea         rcx,[rsp+0000000000000300h]
+                    00 00
+  0000000140912539: E8 02 26 6F FF     call        0000000140004B40
+  000000014091253E: 33 D2              xor         edx,edx
+  0000000140912540: 48 8B C8           mov         rcx,rax
+  0000000140912543: FF 15 C7 32 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  0000000140912549: F2 0F 11 84 24 08  movsd       mmword ptr [rsp+0000000000000308h],xmm0
+                    03 00 00
+  0000000140912552: BA 01 00 00 00     mov         edx,1
+  0000000140912557: 48 8D 8C 24 00 03  lea         rcx,[rsp+0000000000000300h]
+                    00 00
+  000000014091255F: E8 DC 25 6F FF     call        0000000140004B40
+  0000000140912564: 33 D2              xor         edx,edx
+  0000000140912566: 48 8B C8           mov         rcx,rax
+  0000000140912569: FF 15 A1 32 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  000000014091256F: F2 0F 11 84 24 F8  movsd       mmword ptr [rsp+00000000000002F8h],xmm0
+                    02 00 00
+  0000000140912578: BA 02 00 00 00     mov         edx,2
+  000000014091257D: 48 8D 8C 24 00 03  lea         rcx,[rsp+0000000000000300h]
+                    00 00
+  0000000140912585: E8 B6 25 6F FF     call        0000000140004B40
+  000000014091258A: 33 D2              xor         edx,edx
+  000000014091258C: 48 8B C8           mov         rcx,rax
+  000000014091258F: FF 15 7B 32 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  0000000140912595: F2 0F 11 84 24 E0  movsd       mmword ptr [rsp+00000000000002E0h],xmm0
+                    02 00 00
+  000000014091259E: BA 03 00 00 00     mov         edx,3
+  00000001409125A3: 48 8D 8C 24 00 03  lea         rcx,[rsp+0000000000000300h]
+                    00 00
+  00000001409125AB: E8 90 25 6F FF     call        0000000140004B40
+  00000001409125B0: 33 D2              xor         edx,edx
+  00000001409125B2: 48 8B C8           mov         rcx,rax
+  00000001409125B5: FF 15 55 32 4F 01  call        qword ptr [0000000141E05810h] ; QtCore4_64.dll!?toDouble@QString@@QEBANPEA_N@Z
+  00000001409125BB: F2 0F 11 84 24 D8  movsd       mmword ptr [rsp+00000000000002D8h],xmm0
+                    02 00 00
+  00000001409125C4: F2 0F 10 94 24 F8  movsd       xmm2,mmword ptr [rsp+00000000000002F8h]
+                    02 00 00
+  00000001409125CD: F2 0F 10 8C 24 08  movsd       xmm1,mmword ptr [rsp+0000000000000308h]
+                    03 00 00
+  00000001409125D6: 48 8D 8C 24 10 03  lea         rcx,[rsp+0000000000000310h]
+                    00 00
+  00000001409125DE: FF 15 F4 31 4F 01  call        qword ptr [0000000141E057D8h] ; QtCore4_64.dll!??0QPointF@@QEAA@NN@Z
+  00000001409125E4: F2 0F 10 94 24 D8  movsd       xmm2,mmword ptr [rsp+00000000000002D8h]
+                    02 00 00
+  00000001409125ED: F2 0F 10 8C 24 E0  movsd       xmm1,mmword ptr [rsp+00000000000002E0h]
+                    02 00 00
+  00000001409125F6: 48 8D 8C 24 E8 02  lea         rcx,[rsp+00000000000002E8h]
+                    00 00
+  00000001409125FE: FF 15 D4 31 4F 01  call        qword ptr [0000000141E057D8h] ; QtCore4_64.dll!??0QPointF@@QEAA@NN@Z
+  0000000140912604: 48 8D BC 24 60 09  lea         rdi,[rsp+0000000000000960h]
+                    00 00
+  000000014091260C: 48 8D B4 24 E8 02  lea         rsi,[rsp+00000000000002E8h]
+                    00 00
+  0000000140912614: B9 10 00 00 00     mov         ecx,10h
+  0000000140912619: F3 A4              rep movs    byte ptr [rdi],byte ptr [rsi]
+  000000014091261B: 48 8D BC 24 50 09  lea         rdi,[rsp+0000000000000950h]
+                    00 00
+  0000000140912623: 48 8D B4 24 10 03  lea         rsi,[rsp+0000000000000310h]
+                    00 00
+  000000014091262B: B9 10 00 00 00     mov         ecx,10h
+  0000000140912630: F3 A4              rep movs    byte ptr [rdi],byte ptr [rsi]
+  0000000140912632: 4C 8D 8C 24 60 09  lea         r9,[rsp+0000000000000960h]
+                    00 00
+  000000014091263A: 4C 8D 84 24 50 09  lea         r8,[rsp+0000000000000950h]
+                    00 00
+  0000000140912642: 33 D2              xor         edx,edx
+  0000000140912644: 48 8B 8C 24 A8 00  mov         rcx,qword ptr [rsp+00000000000000A8h]
+                    00 00
+  000000014091264C: E8 2F 5A F0 FF     call        0000000140818080
+  0000000140912651: 90                 nop
+  0000000140912652: 48 8D 8C 24 00 03  lea         rcx,[rsp+0000000000000300h]
+                    00 00
+  000000014091265A: E8 71 22 6F FF     call        00000001400048D0
+  000000014091265F: 90                 nop
+  0000000140912660: 48 8D 8C 24 20 03  lea         rcx,[rsp+0000000000000320h]
+                    00 00
+  0000000140912668: FF 15 72 33 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  000000014091266E: 48 8D 94 24 F8 08  lea         rdx,[rsp+00000000000008F8h]
+                    00 00
+  0000000140912676: 48 8D 8C 24 C8 02  lea         rcx,[rsp+00000000000002C8h]
+                    00 00
+  000000014091267E: FF 15 14 9F 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  0000000140912684: 48 89 84 24 B8 0F  mov         qword ptr [rsp+0000000000000FB8h],rax
+                    00 00
+  000000014091268C: 48 8B 84 24 B8 0F  mov         rax,qword ptr [rsp+0000000000000FB8h]
+                    00 00
+  0000000140912694: 48 89 84 24 C0 0F  mov         qword ptr [rsp+0000000000000FC0h],rax
+                    00 00
+  000000014091269C: 48 8B 94 24 C0 0F  mov         rdx,qword ptr [rsp+0000000000000FC0h]
+                    00 00
+  00000001409126A4: 48 8D 8C 24 C8 02  lea         rcx,[rsp+00000000000002C8h]
+                    00 00
+  00000001409126AC: FF 15 AE 9E 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  00000001409126B2: 90                 nop
+  00000001409126B3: 48 8D 8C 24 F8 08  lea         rcx,[rsp+00000000000008F8h]
+                    00 00
+  00000001409126BB: FF 15 E7 9F 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  00000001409126C1: 90                 nop
+  00000001409126C2: 48 8D 8C 24 D0 02  lea         rcx,[rsp+00000000000002D0h]
+                    00 00
+  00000001409126CA: FF 15 E0 9F 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  00000001409126D0: E9 44 FD FF FF     jmp         0000000140912419
+  00000001409126D5: 48 8D 8C 24 C8 02  lea         rcx,[rsp+00000000000002C8h]
+                    00 00
+  00000001409126DD: FF 15 C5 9F 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  00000001409126E3: 48 8D 94 24 00 09  lea         rdx,[rsp+0000000000000900h]
+                    00 00
+  00000001409126EB: 48 8D 8C 24 20 02  lea         rcx,[rsp+0000000000000220h]
+                    00 00
+  00000001409126F3: FF 15 9F 9E 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  00000001409126F9: 48 89 84 24 C8 0F  mov         qword ptr [rsp+0000000000000FC8h],rax
+                    00 00
+  0000000140912701: 48 8B 84 24 C8 0F  mov         rax,qword ptr [rsp+0000000000000FC8h]
+                    00 00
+  0000000140912709: 48 89 84 24 D0 0F  mov         qword ptr [rsp+0000000000000FD0h],rax
+                    00 00
+  0000000140912711: 48 8B 94 24 D0 0F  mov         rdx,qword ptr [rsp+0000000000000FD0h]
+                    00 00
+  0000000140912719: 48 8D 8C 24 20 02  lea         rcx,[rsp+0000000000000220h]
+                    00 00
+  0000000140912721: FF 15 39 9E 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  0000000140912727: 90                 nop
+  0000000140912728: 48 8D 8C 24 00 09  lea         rcx,[rsp+0000000000000900h]
+                    00 00
+  0000000140912730: FF 15 72 9F 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912736: 90                 nop
+  0000000140912737: 48 8D 8C 24 60 02  lea         rcx,[rsp+0000000000000260h]
+                    00 00
+  000000014091273F: FF 15 6B 9F 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  0000000140912745: E9 B9 F8 FF FF     jmp         0000000140912003
+  000000014091274A: 48 8D 8C 24 20 02  lea         rcx,[rsp+0000000000000220h]
+                    00 00
+  0000000140912752: FF 15 50 9F 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912758: 90                 nop
+  0000000140912759: 48 8D 8C 24 30 02  lea         rcx,[rsp+0000000000000230h]
+                    00 00
+  0000000140912761: FF 15 79 32 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912767: 90                 nop
+  0000000140912768: 48 8D 8C 24 48 02  lea         rcx,[rsp+0000000000000248h]
+                    00 00
+  0000000140912770: FF 15 6A 32 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912776: 90                 nop
+  0000000140912777: 48 8D 8C 24 50 02  lea         rcx,[rsp+0000000000000250h]
+                    00 00
+  000000014091277F: FF 15 5B 32 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912785: 90                 nop
+  0000000140912786: 48 8D 8C 24 40 02  lea         rcx,[rsp+0000000000000240h]
+                    00 00
+  000000014091278E: FF 15 4C 32 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912794: 90                 nop
+  0000000140912795: 48 8D 8C 24 38 02  lea         rcx,[rsp+0000000000000238h]
+                    00 00
+  000000014091279D: FF 15 3D 32 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409127A3: 90                 nop
+  00000001409127A4: 48 8D 8C 24 58 02  lea         rcx,[rsp+0000000000000258h]
+                    00 00
+  00000001409127AC: FF 15 D6 17 4F 01  call        qword ptr [0000000141E03F88h] ; QtCore4_64.dll!??1QFileInfo@@QEAA@XZ
+  00000001409127B2: 48 8D 94 24 08 09  lea         rdx,[rsp+0000000000000908h]
+                    00 00
+  00000001409127BA: 48 8D 8C 24 98 00  lea         rcx,[rsp+0000000000000098h]
+                    00 00
+  00000001409127C2: FF 15 D0 9D 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  00000001409127C8: 48 89 84 24 D8 0F  mov         qword ptr [rsp+0000000000000FD8h],rax
+                    00 00
+  00000001409127D0: 48 8B 84 24 D8 0F  mov         rax,qword ptr [rsp+0000000000000FD8h]
+                    00 00
+  00000001409127D8: 48 89 84 24 E0 0F  mov         qword ptr [rsp+0000000000000FE0h],rax
+                    00 00
+  00000001409127E0: 48 8B 94 24 E0 0F  mov         rdx,qword ptr [rsp+0000000000000FE0h]
+                    00 00
+  00000001409127E8: 48 8D 8C 24 98 00  lea         rcx,[rsp+0000000000000098h]
+                    00 00
+  00000001409127F0: FF 15 6A 9D 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  00000001409127F6: 90                 nop
+  00000001409127F7: 48 8D 8C 24 08 09  lea         rcx,[rsp+0000000000000908h]
+                    00 00
+  00000001409127FF: FF 15 A3 9E 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912805: 90                 nop
+  0000000140912806: 48 8D 8C 24 B8 00  lea         rcx,[rsp+00000000000000B8h]
+                    00 00
+  000000014091280E: FF 15 9C 9E 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  0000000140912814: E9 13 CC FF FF     jmp         000000014090F42C
+  0000000140912819: 48 8D 8C 24 98 00  lea         rcx,[rsp+0000000000000098h]
+                    00 00
+  0000000140912821: FF 15 81 9E 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912827: 90                 nop
+  0000000140912828: 48 8D 8C 24 88 00  lea         rcx,[rsp+0000000000000088h]
+                    00 00
+  0000000140912830: FF 15 AA 31 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912836: 90                 nop
+  0000000140912837: 48 8D 8C 24 90 00  lea         rcx,[rsp+0000000000000090h]
+                    00 00
+  000000014091283F: FF 15 9B 31 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  0000000140912845: 48 8D 94 24 10 09  lea         rdx,[rsp+0000000000000910h]
+                    00 00
+  000000014091284D: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  0000000140912852: FF 15 40 9D 4F 01  call        qword ptr [0000000141E0C598h] ; QtXml4_64.dll!?nextSibling@QDomNode@@QEBA?AV1@XZ
+  0000000140912858: 48 89 84 24 E8 0F  mov         qword ptr [rsp+0000000000000FE8h],rax
+                    00 00
+  0000000140912860: 48 8B 84 24 E8 0F  mov         rax,qword ptr [rsp+0000000000000FE8h]
+                    00 00
+  0000000140912868: 48 89 84 24 F0 0F  mov         qword ptr [rsp+0000000000000FF0h],rax
+                    00 00
+  0000000140912870: 48 8B 94 24 F0 0F  mov         rdx,qword ptr [rsp+0000000000000FF0h]
+                    00 00
+  0000000140912878: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  000000014091287D: FF 15 DD 9C 4F 01  call        qword ptr [0000000141E0C560h] ; QtXml4_64.dll!??4QDomNode@@QEAAAEAV0@AEBV0@@Z
+  0000000140912883: 90                 nop
+  0000000140912884: 48 8D 8C 24 10 09  lea         rcx,[rsp+0000000000000910h]
+                    00 00
+  000000014091288C: FF 15 16 9E 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  0000000140912892: 90                 nop
+  0000000140912893: 48 8D 4C 24 78     lea         rcx,[rsp+78h]
+  0000000140912898: FF 15 12 9E 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  000000014091289E: E9 D6 C5 FF FF     jmp         000000014090EE79
+  00000001409128A3: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  00000001409128AB: 48 8B 00           mov         rax,qword ptr [rax]
+  00000001409128AE: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  00000001409128B6: FF 90 E0 01 00 00  call        qword ptr [rax+00000000000001E0h]
+  00000001409128BC: 48 8D 4C 24 70     lea         rcx,[rsp+70h]
+  00000001409128C1: E8 1A 22 6F FF     call        0000000140004AE0
+  00000001409128C6: 89 44 24 60        mov         dword ptr [rsp+60h],eax
+  00000001409128CA: C7 44 24 50 00 00  mov         dword ptr [rsp+50h],0
+                    00 00
+  00000001409128D2: EB 0B              jmp         00000001409128DF
+  00000001409128D4: 8B 44 24 50        mov         eax,dword ptr [rsp+50h]
+  00000001409128D8: 83 C0 01           add         eax,1
+  00000001409128DB: 89 44 24 50        mov         dword ptr [rsp+50h],eax
+  00000001409128DF: 8B 44 24 60        mov         eax,dword ptr [rsp+60h]
+  00000001409128E3: 39 44 24 50        cmp         dword ptr [rsp+50h],eax
+  00000001409128E7: 0F 8D C8 00 00 00  jge         00000001409129B5
+  00000001409128ED: 8B 54 24 50        mov         edx,dword ptr [rsp+50h]
+  00000001409128F1: 48 8D 4C 24 70     lea         rcx,[rsp+70h]
+  00000001409128F6: E8 15 E3 84 FF     call        0000000140160C10
+  00000001409128FB: 48 8B 00           mov         rax,qword ptr [rax]
+  00000001409128FE: 48 89 84 24 28 03  mov         qword ptr [rsp+0000000000000328h],rax
+                    00 00
+  0000000140912906: 48 83 BC 24 28 03  cmp         qword ptr [rsp+0000000000000328h],0
+                    00 00 00
+  000000014091290F: 0F 84 9B 00 00 00  je          00000001409129B0
+  0000000140912915: 48 8D 84 24 18 09  lea         rax,[rsp+0000000000000918h]
+                    00 00
+  000000014091291D: 48 89 84 24 20 09  mov         qword ptr [rsp+0000000000000920h],rax
+                    00 00
+  0000000140912925: 8B 54 24 50        mov         edx,dword ptr [rsp+50h]
+  0000000140912929: 48 8D 4C 24 68     lea         rcx,[rsp+68h]
+  000000014091292E: E8 0D 22 6F FF     call        0000000140004B40
+  0000000140912933: 48 8B D0           mov         rdx,rax
+  0000000140912936: 48 8B 8C 24 20 09  mov         rcx,qword ptr [rsp+0000000000000920h]
+                    00 00
+  000000014091293E: FF 15 94 30 4F 01  call        qword ptr [0000000141E059D8h] ; QtCore4_64.dll!??0QString@@QEAA@AEBV0@@Z
+  0000000140912944: 48 89 84 24 F8 0F  mov         qword ptr [rsp+0000000000000FF8h],rax
+                    00 00
+  000000014091294C: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  0000000140912954: 48 8B 00           mov         rax,qword ptr [rax]
+  0000000140912957: 48 8B 94 24 F8 0F  mov         rdx,qword ptr [rsp+0000000000000FF8h]
+                    00 00
+  000000014091295F: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  0000000140912967: FF 90 80 01 00 00  call        qword ptr [rax+0000000000000180h]
+  000000014091296D: 8B D0              mov         edx,eax
+  000000014091296F: 48 8B 84 24 30 10  mov         rax,qword ptr [rsp+0000000000001030h]
+                    00 00
+  0000000140912977: 48 8B 00           mov         rax,qword ptr [rax]
+  000000014091297A: 48 8B 8C 24 30 10  mov         rcx,qword ptr [rsp+0000000000001030h]
+                    00 00
+  0000000140912982: FF 90 A0 01 00 00  call        qword ptr [rax+00000000000001A0h]
+  0000000140912988: 48 89 84 24 30 03  mov         qword ptr [rsp+0000000000000330h],rax
+                    00 00
+  0000000140912990: 48 83 BC 24 30 03  cmp         qword ptr [rsp+0000000000000330h],0
+                    00 00 00
+  0000000140912999: 74 15              je          00000001409129B0
+  000000014091299B: 48 8B 94 24 30 03  mov         rdx,qword ptr [rsp+0000000000000330h]
+                    00 00
+  00000001409129A3: 48 8B 8C 24 28 03  mov         rcx,qword ptr [rsp+0000000000000328h]
+                    00 00
+  00000001409129AB: E8 B0 E0 7E FF     call        0000000140100A60
+  00000001409129B0: E9 1F FF FF FF     jmp         00000001409128D4
+  00000001409129B5: 0F B6 44 24 64     movzx       eax,byte ptr [rsp+64h]
+  00000001409129BA: 88 84 24 28 09 00  mov         byte ptr [rsp+0000000000000928h],al
+                    00
+  00000001409129C1: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  00000001409129C6: FF 15 DC 9C 4F 01  call        qword ptr [0000000141E0C6A8h] ; QtXml4_64.dll!??1QDomNode@@QEAA@XZ
+  00000001409129CC: 90                 nop
+  00000001409129CD: 48 8D 4C 24 68     lea         rcx,[rsp+68h]
+  00000001409129D2: E8 29 21 6F FF     call        0000000140004B00
+  00000001409129D7: 90                 nop
+  00000001409129D8: 48 8D 4C 24 70     lea         rcx,[rsp+70h]
+  00000001409129DD: E8 BE 57 8F FF     call        00000001402081A0
+  00000001409129E2: 90                 nop
+  00000001409129E3: 48 8B 8C 24 20 10  mov         rcx,qword ptr [rsp+0000000000001020h]
+                    00 00
+  00000001409129EB: FF 15 EF 2F 4F 01  call        qword ptr [0000000141E059E0h] ; QtCore4_64.dll!??1QString@@QEAA@XZ
+  00000001409129F1: 90                 nop
+  00000001409129F2: 48 8B 8C 24 28 10  mov         rcx,qword ptr [rsp+0000000000001028h]
+                    00 00
+  00000001409129FA: FF 15 B0 9C 4F 01  call        qword ptr [0000000141E0C6B0h] ; QtXml4_64.dll!??1QDomElement@@QEAA@XZ
+  0000000140912A00: 8A 84 24 28 09 00  mov         al,byte ptr [rsp+0000000000000928h]
+                    00
+  0000000140912A07: 48 81 C4 08 10 00  add         rsp,1008h
+                    00
+  0000000140912A0E: 5F                 pop         rdi
+  0000000140912A0F: 5E                 pop         rsi
+  0000000140912A10: C3                 ret
+
+  Summary
+
+     1E02000 .text

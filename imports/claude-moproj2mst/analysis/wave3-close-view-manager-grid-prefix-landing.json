@@ -1,0 +1,63 @@
+{
+  "status": "Frozen for parent build; not compiled or executed by worker",
+  "scope": "Only3parent-released ViewManager production/test paths; existing3Closefiles unchanged",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "sha256": "dcae3e2839267e44d4f3c97a9b008504e55235daf5eb235920a63bffb9b4601b"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "sha256": "c384cebd1093ca6257bbaa1b37e0eb8ec7effe2d3b14b0b4dd7f0fd4fd639bf2"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "sha256": "9b4f5ff2d8e0917246ed6020220d3990fd29ee962042ad67060f05110ddee857"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-grid-layout-ownership-contract.json",
+      "sha256": "0f358f997cba4794bcafcb23c39f0f02aedefab56f58c2572ccf99cff0d7ad5e"
+    }
+  ],
+  "implemented": [
+    "Actual concrete GridLayoutState, zero margins, one row/column and actual empty typed item owner collection.",
+    "Separate QWidget installed-layout weak identity and manager guarded cache; real same-object ordered QObject grid-child ownership.",
+    "Fresh ensureGridLayout commits installed pointer and parent membership then guards child-event dispatch/remaining parent-transfer hooks; cache+28 and public/private aliases remain pending.",
+    "Parent release invalidates escaped native grid/manager leases and releases owned child storage without pruning notifier entries.",
+    "No replay of suspended constructor prefix; no substitute item counts, split-view registry, scene geometry or visibility defaults."
+  ],
+  "tests": {
+    "existing": 5,
+    "new": 6,
+    "total": 11,
+    "new_coverage": [
+      "Same actual grid identity in parent membership and installed layout while manager cache staysnull",
+      "Late alias/reentry guard leaves same child and no duplicateallocation",
+      "Native parent teardown invalidates escaped grid and managerleases",
+      "Guard exception scope exit releases unleased child, notifier expired entry retained",
+      "Two manager owners retain distinct grid identities and independent teardown",
+      "Grid creation does not dispatch or mutate the constructor notifierkeys"
+    ],
+    "execution": "Pending parent build and focused/full validation"
+  },
+  "preflight": {
+    "own_m2m_headers_exist": true,
+    "one_test_main": true,
+    "no_conflict_markers_or_trailing_whitespace": true,
+    "manual_cpp_review": "Private friendship/access, complete unique_ptr item type, explicit memory/vector/array includes, weak ownership cycle avoidance, return/throw paths and noncopyable QObject projection reviewed.",
+    "not_a_compile_check": true
+  },
+  "source_review_resolution": [
+    "MainView separate private allocation releases before manager child invalidation.",
+    "Escaped strong diagnostic leases do not keep native receivers or gridsalive.",
+    "Existing incomplete View_Default/Primary construction still prevents late private/mainwindow aliases."
+  ],
+  "qualifications": [
+    "Only isolated grid-prefix helper added; Session/public Close invocation remains parent-owned and has not been completed by this increment.",
+    "Receiver childEvent is source-closed pure RET, but application notify/filters and later Qt declarative hooks remain guarded.",
+    "Empty constructed grid is not scene/widget population completeness.",
+    "Allocation failure, arbitrary later layout replacement and unqualified cross-thread contexts are outside this fresh prefix."
+  ]
+}

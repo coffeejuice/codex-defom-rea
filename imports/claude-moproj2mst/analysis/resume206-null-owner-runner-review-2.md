@@ -1,0 +1,9 @@
+# CP206 null-owner runner focused rereview — PASS (static)
+
+Reviewed the current `admin/original_null_owner_probe.mjs` at SHA-256 `e12d6f68b8909747026dc953542c5029b61cbc9f755c2298619ad8c950f13a4e`, following the HOLD in `analysis/resume206-null-owner-runner-review.md`. No original process, Frida session, or GUI interaction was started.
+
+The missing output timestamp is now declared on line 189 before its sole interpolation on line 190. `node --check admin/original_null_owner_probe.mjs` exits 0. This resolves the prior certain `ReferenceError` before preflight and evidence retention. The generated Frida source is unaffected by this change; the implementation report records its earlier `vm.Script` syntax compilation.
+
+The original-specific `ORIGINAL_RUN_REVIEWED` guard remains `false`, and the exact `--execute-reviewed-probe` argument is still required. That is the intended default-disabled release gate, not an implementation defect. Rechecking the one-run path found no further definite static blocker: fixed image/helper/project/fixture checks precede an owned suspended child; the four byte-verified instruction hooks and handler-ready receipt precede the sole `resume` command; the helper enforces one resume; the host waits for natural exit before fallback cleanup and requires process absence, Frida detach, unchanged fixture, and retained receipts for `CAPTURE_COMPLETE`.
+
+This is a static readiness judgment for the reviewed hash, not a runtime success claim. The runner leaves causal classification indeterminate. A later evidence review must tie the selected access violation to the same-frame consumer and producer pair before attributing the null to the producer, a later field transition, or a holder change. Frida hook delivery, exception behavior, and cleanup remain untested until an authorized run.

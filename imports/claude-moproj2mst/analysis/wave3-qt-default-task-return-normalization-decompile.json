@@ -1,0 +1,120 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "6711ff60",
+      "entry": "6711ff60",
+      "name": "normalizedSignature",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n/* public: static class QByteArray __cdecl QMetaObject::normalizedSignature(char const * __ptr64) */\r\n\r\nchar * __cdecl QMetaObject::normalizedSignature(char *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  uint uVar2;\r\n  int iVar3;\r\n  char *pcVar4;\r\n  QByteArray *pQVar5;\r\n  longlong lVar6;\r\n  char *in_RDX;\r\n  int iVar7;\r\n  int iVar8;\r\n  char *pcVar9;\r\n  char *_Str2;\r\n  Data *local_res18;\r\n  int *local_res20;\r\n  char local_148 [280];\r\n  \r\n                    /* 0x11ff60  3275  ?normalizedSignature@QMetaObject@@SA?AVQByteArray@@PEBD@Z */\r\n  iVar8 \u003d 0;\r\n  local_res18 \u003d \u0026QByteArray::shared_null;\r\n  LOCK();\r\n  _shared_null \u003d _shared_null + 1;\r\n  UNLOCK();\r\n  if ((in_RDX \u003d\u003d (char *)0x0) || (*in_RDX \u003d\u003d \u0027\\0\u0027)) {\r\n    *(Data **)param_1 \u003d \u0026QByteArray::shared_null;\r\n    LOCK();\r\n    UNLOCK();\r\n    LOCK();\r\n    UNLOCK();\r\n    if (_shared_null \u003d\u003d 0) {\r\n      qFree(\u0026QByteArray::shared_null);\r\n    }\r\n  }\r\n  else {\r\n    lVar6 \u003d -1;\r\n    do {\r\n      if (lVar6 \u003d\u003d 0) break;\r\n      lVar6 \u003d lVar6 + -1;\r\n      cVar1 \u003d *in_RDX;\r\n      in_RDX \u003d in_RDX + 1;\r\n    } while (cVar1 !\u003d \u0027\\0\u0027);\r\n    uVar2 \u003d ~(uint)lVar6;\r\n    if ((int)uVar2 \u003c 0x101) {\r\n      pcVar4 \u003d local_148;\r\n    }\r\n    else {\r\n      pcVar4 \u003d qMalloc((longlong)(int)uVar2);\r\n      if (pcVar4 \u003d\u003d (char *)0x0) {\r\n                    /* WARNING: Subroutine does not return */\r\n        qBadAlloc();\r\n      }\r\n    }\r\n    FUN_6711e6b0();\r\n    if ((*(int *)local_res18 !\u003d 1) || (*(int *)(local_res18 + 4) \u003c (int)(uVar2 - 1))) {\r\n      QByteArray::realloc((QByteArray *)\u0026local_res18,uVar2 - 1);\r\n    }\r\n    iVar7 \u003d 0;\r\n    cVar1 \u003d *pcVar4;\r\n    _Str2 \u003d pcVar4;\r\n    while (cVar1 !\u003d \u0027\\0\u0027) {\r\n      pcVar9 \u003d _Str2;\r\n      if (iVar8 \u003d\u003d 1) {\r\n        while ((cVar1 !\u003d \u0027\\0\u0027 \u0026\u0026 ((iVar7 !\u003d 0 || ((*pcVar9 !\u003d \u0027,\u0027 \u0026\u0026 (*pcVar9 !\u003d \u0027)\u0027))))))) {\r\n          if (*pcVar9 \u003d\u003d \u0027\u003c\u0027) {\r\n            iVar7 \u003d iVar7 + 1;\r\n          }\r\n          if (*pcVar9 \u003d\u003d \u0027\u003e\u0027) {\r\n            iVar7 \u003d iVar7 + -1;\r\n          }\r\n          cVar1 \u003d pcVar9[1];\r\n          pcVar9 \u003d pcVar9 + 1;\r\n        }\r\n        iVar3 \u003d strncmp(\"void\",_Str2,(longlong)pcVar9 - (longlong)_Str2);\r\n        if (iVar3 !\u003d 0) {\r\n          pQVar5 \u003d (QByteArray *)FUN_6711f010(\u0026local_res20,_Str2,pcVar9,0,1);\r\n          QByteArray::append((QByteArray *)\u0026local_res18,pQVar5);\r\n          LOCK();\r\n          iVar3 \u003d *local_res20;\r\n          *local_res20 \u003d *local_res20 + -1;\r\n          UNLOCK();\r\n          if (iVar3 \u003d\u003d 1) {\r\n            qFree(local_res20);\r\n          }\r\n        }\r\n        if (*pcVar9 \u003d\u003d \u0027\\0\u0027) break;\r\n      }\r\n      cVar1 \u003d *pcVar9;\r\n      if (cVar1 \u003d\u003d \u0027(\u0027) {\r\n        iVar8 \u003d iVar8 + 1;\r\n      }\r\n      if (cVar1 \u003d\u003d \u0027)\u0027) {\r\n        iVar8 \u003d iVar8 + -1;\r\n      }\r\n      QByteArray::append((QByteArray *)\u0026local_res18,cVar1);\r\n      _Str2 \u003d pcVar9 + 1;\r\n      cVar1 \u003d *_Str2;\r\n    }\r\n    *(Data **)param_1 \u003d local_res18;\r\n    LOCK();\r\n    *(int *)local_res18 \u003d *(int *)local_res18 + 1;\r\n    UNLOCK();\r\n    if (pcVar4 !\u003d local_148) {\r\n      qFree(pcVar4);\r\n    }\r\n    LOCK();\r\n    iVar8 \u003d *(int *)local_res18;\r\n    *(int *)local_res18 \u003d *(int *)local_res18 + -1;\r\n    UNLOCK();\r\n    if (iVar8 \u003d\u003d 1) {\r\n      qFree(local_res18);\r\n    }\r\n  }\r\n  return param_1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9020",
+          "type": "DATA"
+        },
+        {
+          "from": "67305230",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "67293550",
+          "type": "DATA"
+        },
+        {
+          "from": "67121bc9",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67121aa0"
+        },
+        {
+          "from": "671212e7",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671211e0"
+        },
+        {
+          "from": "671202cb",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671201d0"
+        },
+        {
+          "from": "6712fe83",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6712fdc0"
+        },
+        {
+          "from": "6712ffb5",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6712fdc0"
+        },
+        {
+          "from": "67120f87",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67120e90"
+        },
+        {
+          "from": "6713174d",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671315c0"
+        },
+        {
+          "from": "67131950",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671315c0"
+        },
+        {
+          "from": "67121139",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67121030"
+        },
+        {
+          "from": "671221a8",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67121de0"
+        },
+        {
+          "from": "67121870",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671214c0"
+        },
+        {
+          "from": "6712b9bd",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6712b980"
+        },
+        {
+          "from": "67158d92",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67158ca0"
+        },
+        {
+          "from": "6715ddae",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6715dd00"
+        },
+        {
+          "from": "67176911",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67176900"
+        }
+      ],
+      "known_callees": [
+        "6701bfb0",
+        "670203a0",
+        "670203b0",
+        "6702d710",
+        "6702d9c0",
+        "6702dcb0",
+        "6711e6b0",
+        "6711f010",
+        "EXTERNAL:000000e3"
+      ]
+    }
+  ]
+}

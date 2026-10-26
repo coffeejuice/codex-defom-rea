@@ -1,0 +1,56 @@
+{
+  "schema": "m2m-doe-stepdata-checkbox-empty-implementation-v1",
+  "status": "source frozen for parent integration/build; tests not executed by worker",
+  "evidence_contract": {
+    "path": "analysis/wave2-doe-stepdata-checkbox-empty-contract.json",
+    "sha256": "dbf8198ef21d20104edcc9b5f04541ae92e1e03177bd4148572884c070963ad8"
+  },
+  "source_files": {
+    "source/apps/moproj2mst/include/m2m/doe_property_table.hpp": "1fb071dfc80635a2f12a9400a5769183ae13aaf3fdd07930681dc914c242abcf",
+    "source/apps/moproj2mst/src/doe/property_table.cpp": "b85cccfc5bfc9a69b7d02683358d1fc80f53093715af21a1ac3d4da31a89b833",
+    "source/apps/moproj2mst/tests/mdt/test_doe_property_table.cpp": "d0b167cba5f644a631879b6f8a92018b514d258c3d4bfa20b04ef8878443c603",
+    "source/apps/moproj2mst/include/m2m/doe_stepdata.hpp": "79451b87290f4325c95e2efbe1cc763a6d752d25126032639f48c68b680b699b",
+    "source/apps/moproj2mst/src/doe/stepdata.cpp": "f282e18d1de56706cca7a6346ba7a50dc897390a8940de7f3804d271b701a172",
+    "source/apps/moproj2mst/tests/mdt/test_doe_stepdata.cpp": "dd0f3eac7ec786e05152b4069b0ab6a7badfa2257f9c36df90a44055cdf9260a"
+  },
+  "changes": [
+    "Actual unique PropertyTableState owner on existing GuiModel.doeStepData represents native+230; raw owner backlink native+50. propertyTableCreated() is derived from this owner; reset destroys table while preserving separately owned StateVar.",
+    "StepData constructs the table only after ordered child import and calls parent engine::finalizeStepDataPropertyTable. Removed prior direct current-object refresh; parent seam snapshots actual View pointers before refresh and uses actual owner/Settings.",
+    "PropertyTableState itemIsAbsent returns true for source-qualified constructor-empty rows/cols0. Native negative row/column returnnull precedes unqualified population guard. Otherwise populated/unqualified domain refuses at exact first item lookup, before flag/checkstate effects.",
+    "Fixed inline diagnostic prefix records first256 item lookups, count saturates at UINT64_MAX, last pair retained; truncation reported without semantic refusal or query-time diagnostic allocation. These are adapter observations, not native table fields."
+  ],
+  "focused_cases": {
+    "m2m_doe_property_table": 5,
+    "m2m_doe_stepdata": 14,
+    "new_stepdata_cases": 3,
+    "existing_stepdata_tests_changed_from_finalizer_refusal_to_success": 4,
+    "accepted_calls_previously_reaching_broad_finalizer_guard": 5
+  },
+  "case_intent": [
+    "Actual owner plus constructor-empty row/column queries; populated guard retains owner and earlier diagnostics; native negative query branch; diagnostic truncation continues; table reset retains separate StateVar ownership.",
+    "Unbound views skip cell consumers; existing unqualified table still permits skipped unbound views without global preguard; later invalid Object preserves prior actual table and child effects before finalization.",
+    "Repeated symmetry/SfDispOpt-without-Settings imports and noDB Slice complete actual empty-table finalization, preserving View identity, scratch effects, current-object refresh and no-growth."
+  ],
+  "preflight": {
+    "whitespace": "passed six files",
+    "delimiter_and_test_main": "passed six files; lexical check only",
+    "direct_refresh_removed": true,
+    "shared_engine_declaration_present": true,
+    "copy_of_unique_stepdata_owner_found": false,
+    "worker_compilation": false,
+    "worker_tests": false,
+    "target_runtime": false,
+    "gui_control": false,
+    "private_ghidra_mutation": false
+  },
+  "integration_requirements": [
+    "Parent owns engine_scene.hpp/viewer.cpp and root actual-owner/order tests. Shared signature void engine::finalizeStepDataPropertyTable(GuiModel&,doe::PropertyTableState&).",
+    "Parent migrates marker reads/assignments outside owned StepData test to actual table owner/method; source list and test registration use existing GLOB CONFIGURE_DEPENDS."
+  ],
+  "qualifications": [
+    "Constructor-empty current table population is explicitly qualified. Future native table-fill calls must modify or invalidate this same owner. No general table population, Qt selection/QObject behavior, item check-state callback or native allocation-failure parity claim.",
+    "Native read-only object getter in preceding contract is 0x1411f19f0..0x1411f19fe; the earlier contract qualification contains a spelling typo in its abbreviated end address. Actual captured bytes and bounded conclusions are unchanged.",
+    "Parent checkpoint38 remains prior validated candidate. This new source increment has no runtime validation receipt yet; historical93/98 qualifications unchanged.",
+    "Private mutable Ghidra database remained idle throughout parent capture; all new evidence uses immutablePE/DUMPBIN."
+  ]
+}

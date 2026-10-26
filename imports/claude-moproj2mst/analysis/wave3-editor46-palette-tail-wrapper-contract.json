@@ -1,0 +1,173 @@
+{
+  "schema": "editor46-sparse-palette-shared-tail-wrapper-prerequisites-v1",
+  "created_utc": "2026-10-24T15:09:06.630032+00:00",
+  "owner": "test_fidelity_review; editor subsystem only",
+  "status": "editor source implemented; shared palette API supplied separately by test_timing; root build and validation pending",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-probe004-palette-binding-contract.json",
+      "sha256": "983794323ce1c2142f623c05f8e3f43502e06aa71d792a30c5203ccaa1b3ad00",
+      "bytes": 5147
+    },
+    {
+      "path": "analysis/wave3-original-editor-probe-004-receipt.json",
+      "sha256": "63f392d69d9def0699f963a3722b9f4e0b257c0192ad53f4097a3ea2f5250439",
+      "bytes": 4943
+    },
+    {
+      "path": "build/original-editor-probe-004/capture-evidence.json",
+      "sha256": "e4d0a277c4bbb074fa1e038ce3870e64ebb87ec884665cb1bb0ddd0221f99ced",
+      "bytes": 145151
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-static.json",
+      "sha256": "2e594ae36d0c811ed53e77d5f80df614f6bbaab19d3e2e396fa0f7dbedeacc1b",
+      "bytes": 2458
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200",
+      "bytes": 16842
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-65049bf0.asm",
+      "sha256": "78f7d514e3c87519f9268fcc5fc29624890759a1995bf83225ed0f53c4a82368",
+      "bytes": 1876
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-6511c090.asm",
+      "sha256": "716cb7f8e726b62960add3b4718c6b48aef1f184e43b6a9e6317101d25bb9d32",
+      "bytes": 9972
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-6511e6d0.asm",
+      "sha256": "ea2e3922b1c05313b23c3885b86c4ee635fdf61c655b07dc875490896b93de14",
+      "bytes": 3186
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-65097940.asm",
+      "sha256": "15a1bc1fe9f99c039c574f3d948a64db3c3b57e805338994a529b8e0c40d4cef",
+      "bytes": 3111
+    },
+    {
+      "path": "analysis/wave3-editor-native-parent-140377950.asm",
+      "sha256": "b252fc3bc745f5b40a99295833240ae346b6d6d21dafb987843b6443948e8ee8",
+      "bytes": 2962
+    },
+    {
+      "path": "analysis/wave3-editor-native-owner-140130740.asm",
+      "sha256": "1ad1a26453389b352e1f49567868492be04eb84772bd75aa6a5beb75ec4bbbe7",
+      "bytes": 2381
+    },
+    {
+      "path": "analysis/wave3-editor-native-parent-140130830.asm",
+      "sha256": "89d7d9f853c6bcc74b0923ec767cfb9d84165731b4b4c3f628240a454d525ca4",
+      "bytes": 11240
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-model-link-140377b20.asm",
+      "sha256": "6df9d929531ca4a3975f7b39372687dfa3bd5758af56b513999f437b40391c79",
+      "bytes": 905
+    },
+    {
+      "path": "analysis/wave3-closure-next-14015d170.asm",
+      "sha256": "1333f89a90bd4a73cc01eabac5d335506bde54062d54a714c27063fbcfee9785",
+      "bytes": 1156
+    },
+    {
+      "path": "analysis/wave3-closure-next-140cbc920.asm",
+      "sha256": "7a5864778bfa6e2ed120a628cac18e566cb2603a1ab09945b7ac378f3ba78f8f",
+      "bytes": 1227
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-140130d70.asm",
+      "sha256": "49b7cd60da2fe5353a641ef9da916be39cb2bd1861cb6d24c119602144d72085",
+      "bytes": 3050
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-140377b80.asm",
+      "sha256": "d137e8a08a36e9317cd9a21b3e34fdda7cefd2875d7a4f55bd38a45132cde956",
+      "bytes": 2491
+    }
+  ],
+  "shipped_reference": {
+    "DEF_GUI_MO_64.exe": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "QtGui4_64.dll": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "established_inputs": [
+    "Probe004 records18/19 retain actual palette getter entry/return; record20 requests Current group4 and Window role10. Record21 returned brush address equals actual paletteData+8+10*8, supporting current group0 with exact retained paletteData identity.",
+    "Record21 brushData style1, QColor alphaHighByte255 and raw16=01000000fffff0f0f0f0f0f000000000. Source6511c0ad calls6511e6d0 on brushData+8; the complete leaf6511e6d0 reads byte[color+5]. Only that alpha byte is represented; other QColor fields and padding are not reconstructed.",
+    "Source6506e710 skips isOpaque for style0. For style1,6511c0b9 compares alpha result255 and returns it through6511c297. Gradient/texture/other style paths remain unresolved.",
+    "Source6506e72b..756 compares desired opacity against private+1d8 bit17, writes only that bit on change, then calls65097940. Equal opacity skips the helper.",
+    "65097940 returns for nonwindow or raw120false before native window calls. Probe004 records23..25 preserve opacityDecision1, raw bit17 transition69905->200977 and helper return. Native window paths remain guarded.",
+    "6506e75b continues the same actual widget into the shared font/device/attribute/count/Create/post tail. Editor46 supplies no detached editor font, palette, QObject counter, thread or post queue."
+  ],
+  "implementation": [
+    "EditorBaseConstruction reads the actual current palette group/role10 sparse slot through its shared runtime data owner. Missing brush/style and missing style1 alpha remain distinct guards; unsupported style remains guarded.",
+    "OpacityEffect is a retained stage after the actual opaque bit write, so an unresolved raw120 helper cannot be bypassed by retrying an equal-value comparison.",
+    "One unique WidgetConstructorTail belongs to the same base call frame. Font/device, counts, dispatch and retained stack Create are delegated on the actual WidgetRuntime/WidgetState. Pending report remains not QWidget-returned and setup binding remains blocked.",
+    "If the shared tail eventually reports native completion, base reports QWidgetReturned but still guards application wrappers. No applicationWrappersReturned or completeForPublicSave claim is introduced.",
+    "No loader, ConversionSession, public ABI or root test expectation file was edited; public6504abb0 remains intact."
+  ],
+  "ownership_and_shared_api": {
+    "owner": "test_timing owns view_manager.hpp/cpp and widget_events; no shared file edited by this worker",
+    "api": "WidgetPrivateConstructionObservation.brushData/paletteBrushes; WidgetPaletteDataState::brushAt(uint32 group,uint32 role); WidgetBrushDataState::style(), alphaHighByte()",
+    "constraint": "Sparse slots retain same interned BrushData owners by alias within the actual runtime. Only unknown/equal observations merge; source lifetime/control-block checks, alias and slot conflicts remain the shared owner responsibility."
+  },
+  "wrapper_prerequisites": [
+    "After QWidget return,140377950 installs SfWidget vtables, initializes actual guard+28 by pure-null14015d170, writes enabled+34=1, calls140377b20(null) through140cbc920 then140377b80(0) to+30, and sets+35=0.",
+    "140cbc920 compares stored guard value then calls QMetaObject::changeGuard only on a change. A raw pointer or the existing adapter GuiModelGuard is not proof of this native operation/QObject guard population and teardown.",
+    "140130740 then installs operation wrapper vtables, initializes guard+38, invokes140130830(actual operation), and only after that returns writes procedureType through140130d70(+40).",
+    "140130830 assigns actual operation guard+38, resolves it twice around14005f770 to obtain the OPERATION model, assigns model guard+28 via140377b20, creates typed SfStepData* argument and invokes notifier1402cf3c0 for2signalChangeActiveStepData() at140130ad1.",
+    "Probe004 records49..53 observe the initialized null/model/operation guard storage and notifier entry/return with suppressed0 and flag90 unchanged0. They do not establish the complete ordered receiver population or callback effects; no unqualified empty-key shortcut is permitted.",
+    "Native UI allocation/setup follows the returned QWidget and both application wrappers. No setup/page handoff, CG normalization, Save, native QPointer cleanup or wrapper completion is advanced by this increment."
+  ],
+  "root_integration_constraints": [
+    "Do not seed editor-time private palette/font or modal/layout inputs from earlier startup captures without a same-owner, same-stage evidence binding. Public6504abb0 stops before private palette consumption by design.",
+    "Probe004 is CLI startup Open before show/event-loop through first grid publication; user settings remained active, so it does not establish arbitrary settings/session invariance.",
+    "Editor-time current/max widget observations cannot overwrite the live startup counters after174. Intermediate constructor increments and ownership must be recovered or supplied under a separately qualified actual-state transition. Isolated tests760/761 are not production defaults.",
+    "Native queue population/wakeup, posted event ownership, private+c8 store/Create destructor and outer QWidget return are shared-tail successors. Root must not interpret pending tail or arrival captures as successful constructor return."
+  ],
+  "focused_tests": {
+    "file": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+    "case_count": 23,
+    "added_cases": 8,
+    "coverage": [
+      "actual palette slot versus other palette data",
+      "late unknown style/alpha qualification without replay",
+      "style1 alpha254/255 exact branch",
+      "style0 bypasses alpha/helper",
+      "unsupported style guard",
+      "actual current disabled group1 selects correct slot",
+      "changed opacity retained across native helper guard",
+      "same actual shared tail/Create/counters retained at post guard"
+    ],
+    "test_execution": "not run; root owns all builds and tests"
+  },
+  "needed_validation": [
+    "Build combined candidate46 after all worker freezes",
+    "Run m2m.mdt.editor_base (23 source cases), editor_grid/setup/owner, view_manager/widget_events and ConversionSession groups",
+    "Keep public6504abb0 and no-premature-setup root tests passing",
+    "Run full current converter inventory and preserved diagnostic comparison with fixture hash protection",
+    "Validate shared sparse alias/slot/conflict/owner tests supplied by test_timing"
+  ],
+  "precise_next_dependency": "Root must bind actual post-Open editor palette/font/modal/layout observations to the same runtime without overwriting live startup state; shared real post-event queue/dispatcher continuation must close before QWidget can return. Then reconstruct native QPointer guard ownership and actual ordered active-step notifier population before either wrapper can authorize setup.",
+  "qualification": "Source-constrained successful-allocation profile only; no native OOM/exception unwind, dynamic Qt object graph, native window APIs, arbitrary brush styles, full editor/Save/Close acceptance or speed/token savings claim. Token measurement unavailable.",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_base.hpp",
+      "sha256": "4427afe4be4b6d176a0e030b9fb9de098d106af21a25ae5247d5ad61e645920b",
+      "bytes": 3765
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_base.cpp",
+      "sha256": "519cf81615f579dc60ceac978e8ef967163e2f39067cd53bb901cae60f3b2b37",
+      "bytes": 13048
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+      "sha256": "2320c353e2125555fd981fbddd73ef84656c4c5cc5ecaf3460458a8db1fd5b5f",
+      "bytes": 21633
+    }
+  ]
+}

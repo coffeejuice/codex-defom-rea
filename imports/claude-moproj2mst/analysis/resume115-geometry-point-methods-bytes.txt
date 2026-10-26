@@ -1,0 +1,39 @@
+Target: analysis/resume48-distortion-vt198-rea-session/DEF_GUI_MO_64.exe
+SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+PE image base: 0x140000000
+Section mapping: .text RVA 0x1000, raw offset 0x400
+0x140818000 file offset 0x817400, bounded 0x80-byte method:
+0000000140818000: 4c 89 4c 24 20 4c 89 44 24 18 89 54 24 10 48 89
+0000000140818010: 4c 24 08 53 48 83 ec 40 83 7c 24 58 ff 7e 4c 48
+0000000140818020: 8b 4c 24 50 48 83 c1 28 e8 b3 ca 7e ff 39 44 24
+0000000140818030: 58 7d 38 4c 8b 44 24 68 48 8b 54 24 60 48 8d 4c
+0000000140818040: 24 20 e8 a9 c5 9d ff 48 8b d8 48 8b 4c 24 50 48
+0000000140818050: 83 c1 28 8b 54 24 58 e8 b4 6d ad ff 48 8b 08 48
+0000000140818060: 83 c1 28 48 8b d3 e8 45 53 89 ff 48 83 c4 40 5b
+0000000140818070: c3 cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc
+
+0x140818080 file offset 0x817480, bounded 0x80-byte method:
+0000000140818080: 4c 89 4c 24 20 4c 89 44 24 18 89 54 24 10 48 89
+0000000140818090: 4c 24 08 53 48 83 ec 40 83 7c 24 58 ff 7e 4c 48
+00000001408180a0: 8b 4c 24 50 48 83 c1 28 e8 33 ca 7e ff 39 44 24
+00000001408180b0: 58 7d 38 4c 8b 44 24 68 48 8b 54 24 60 48 8d 4c
+00000001408180c0: 24 20 e8 29 c5 9d ff 48 8b d8 48 8b 4c 24 50 48
+00000001408180d0: 83 c1 28 8b 54 24 58 e8 34 6d ad ff 48 8b 08 48
+00000001408180e0: 83 c1 30 48 8b d3 e8 c5 52 89 ff 48 83 c4 40 5b
+00000001408180f0: c3 cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc
+
+Direct call targets decoded from the signed rel32 bytes:
+0x140818028 -> 0x140004ae0 (QList size; closure-audit.json identifies role)
+0x140818042 -> 0x1401f45f0 (two-point 0x20-byte aggregate copy helper)
+0x140818057 -> 0x1402eee10 (outer row selector helper)
+0x140818066 -> 0x1400ad3b0 (Upper correspondence-list append helper)
+0x1408180a8 -> 0x140004ae0 (QList size)
+0x1408180c2 -> 0x1401f45f0 (two-point 0x20-byte aggregate copy helper)
+0x1408180d7 -> 0x1402eee10 (outer row selector helper)
+0x1408180e6 -> 0x1400ad3b0 (Lower correspondence-list append helper)
+
+Bounded companion byte extracts inspected in place:
+0x1401f45f0..0x1401f4654: four 16-byte rep-movsb copies; destination aggregate is 0x20 bytes.
+0x1400ad3b0..0x1400ad480: COW/detach-or-append helper; supplied value pointer is the second argument. The body has no explicit return-status branch.
+
+This is a byte receipt plus analyst decoding, not a claim of a Microsoft or REA disassembly output. No target execution or PE modification occurred. Rizin CLI attempt was unavailable in this Windows provider; see report uncertainty boundary for reliance on direct/relative bytes and retained callsite disassembly.

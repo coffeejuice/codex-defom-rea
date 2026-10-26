@@ -1,0 +1,31 @@
+address	status	note
+1403e2e00	ported	0x15a0 vertices at(i): RcHandle<Elem10_1403e2610>::at (rc_array.hpp)
+1403e2f70	ported	0x15a8 curves size: RcHandle<Elem20_1403e25a0>::size
+1403e2f90	ported	0x15a8 curves at(i): RcHandle<Elem20_1403e25a0>::at
+1403e3070	ported	0x15a8 curves clear: RcHandle::clear (detach + clear_body); called by 1403dedd0 / 1403df970
+1403e30a0	ported	TopoLoopList (CowList<LoopItem>) handle ctor
+1403e3130	ported	TopoLoopList size (body + 0x10)
+1403e31d0	ported	TopoLoopList at(i), detaching: CowList::mutable_at (topology.cpp loop_at)
+1403e32a0	ported	0x15b0 loops size: RcHandle<Elem10_1403e2750>::size
+1403e32c0	ported	0x15b0 loops at(i): RcHandle::at
+1403e33a0	ported	0x15b0 loops clear: RcHandle::clear
+1403e3460	ported	0x15b8 regions size: RcHandle<Elem18_1403e23f0>::size
+1403e3480	ported	0x15b8 regions at(i): RcHandle::at
+1403e3560	ported	0x15b8 regions clear: RcHandle::clear
+1403e38b0	ported	Elem18_1403e2450 (side) operator=
+1403e3920	ported	Elem10_1403e2610 (vertex) operator= (+0x04 not copied)
+1403e3960	ported	Elem20_1403e25a0 (curve) operator=
+1403e39f0	ported	Elem10_1403e2750 (loop) operator=
+1403e3a30	ported	Elem18_1403e23f0 (region) operator= (+0x14 not copied)
+1403e3cc0	ported	0x1588 nodes detach (unsigned refs > 1): RcHandle::detach
+1403e3e80	ported	0x15a0 first, detaching: folded into RcHandle::at
+1403e3ee0	ported	0x15a8 first, detaching: folded into RcHandle::at
+1403e3f40	ported	TopoLoopList assign: CowList::operator= (refs++ source before release)
+1403e40d0	ported	0x15b0 first, detaching: folded into RcHandle::at
+1403e4130	ported	0x15b8 first, detaching: folded into RcHandle::at
+1403e4740	ported	0x15a8 body clear: RcArray::clear_body
+1403e48f0	ported	0x15b0 body clear: RcArray::clear_body
+1403e4a50	ported	0x15b8 body clear: RcArray::clear_body
+1403e5560	ported	0x1588 refs-- and clone: RcHandle::detach (null on failed new not reproduced; new throws)
+1403e5f70	ported	TopoLoopList walk i nodes from head->next: CowList::mutable_at
+1403e6330	ported	0x1588 clone: RcArray(const RcArray&) (capacity == size; Elem28::u0c not copied)

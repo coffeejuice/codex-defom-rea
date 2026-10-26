@@ -1,0 +1,113 @@
+{
+  "scope": "Read-only next StateVar constructor/import contract; current source still guards before lazy construction",
+  "objective_complete": false,
+  "evidence_hashes": {
+    "analysis/wave2-doe-stepdata-statevar-control-order-decompile.json": "4ef612fef7fd4aad7cd0789a369fcd4ff48c82e5b0ceb4d24dc794c3637c7fe6",
+    "analysis/wave2-doe-stepdata-statevar-constructor-read-decompile.json": "d68d778a9764e1e6edeaf52eac6e0935820a8c56b9b1fc14d0839f57983bf94d",
+    "analysis/wave2-doe-stepdata-statevar-owned-ctor-decompile.json": "4a69848e1d00a47fce62c62cf4e25d392c5a94e331fba287291e0527501be0ed",
+    "analysis/wave2-doe-statevar-defaults-raw-receipt.json": "7112bb090a4b385c18d62891407bc2041e0a929470f6ae64ab418bac60c796a2",
+    "analysis/wave2-doe-stepdata-histogram-reset-receipt.json": "d04147246ffb1902a5c8a2877259c36acd6971f5edba13e3a4cd9f66df100927",
+    "analysis/wave2-doe-statevar-owned-ctor-raw-receipt.json": "c7008e42b207bd63b6fb6e5f805b478e3df9edd6d8a84bcac7c105c748322044",
+    "analysis/wave3-boolean-external-callback-contract.json": "f5b1ff592135f9b72de7f5734c1157a7b937e666d3c6c8f4ae44d7e6174f2ede"
+  },
+  "constructor_order": [
+    "d15610 constructs nested state+88, null QStrings+430/+438, shared container+4d0, stores owner+440, then d15720",
+    "d15720 resets fields in retained raw call order; d25050 copies mutable colorbar global143d763c4 and QString title143d763d8 before fixed scalar defaults",
+    "d306f0 writes provisional defaults then unconditionally overwrites five fields from QSettings global143d76370; absence yields0/false, not provisional defaults",
+    "Additional copied globals include143d77590+270 RGBA,143d7664c,143d76650 arrays,143d763ec/f0/f1/f4,143d76584/5e8,143d76688..6a0; none assumed immutable or zero",
+    "Histogram pointer+520 initiallynull; d328c0 lazily creates411640 then resets three histogram fields BEFORE XML iteration"
+  ],
+  "scalar_defaults": {
+    "SVPlotType": 2,
+    "SVType": 1,
+    "SVPlotVar": 0,
+    "SVPlotCompNo": 0,
+    "SVRangeType": 0,
+    "SVRangeMin": 0,
+    "SVRangeMax": 0,
+    "SVMin": 0,
+    "SVMax": 0,
+    "SVColorBarNo": "unrecovered mutable preference, not0 assumption"
+  },
+  "qsettings_order": [
+    {
+      "key": "displayOption/dispDeflectionScaleType",
+      "field": "+480",
+      "conversion": "QVariant::toInt",
+      "absent": 0
+    },
+    {
+      "key": "displayOption/dispDeflectionScale",
+      "field": "+484",
+      "conversion": "QVariant::toInt",
+      "absent": 0
+    },
+    {
+      "key": "displayOption/dispDeflectionLineThkType",
+      "field": "+488",
+      "conversion": "QVariant::toInt",
+      "absent": 0
+    },
+    {
+      "key": "displayOption/dispDeflectionRefShow",
+      "field": "+48c",
+      "conversion": "QVariant::toBool",
+      "absent": false
+    },
+    {
+      "key": "displayOption/dispDeflectionRefTransparent",
+      "field": "+48d",
+      "conversion": "QVariant::toBool",
+      "absent": false
+    }
+  ],
+  "histogram": {
+    "reset": {
+      "+10": 10,
+      "+14": false,
+      "+30": false
+    },
+    "constructor": "QObject parentnull; font/state object+38 via12c08c0; reset4117b0; register411700",
+    "deferred_signal_slots": [
+      [
+        "signalChangeHistoGraph",
+        "slotChangeHistoGraph"
+      ],
+      [
+        "signalAssignHistoGraph",
+        "slotAssignHistoGraph"
+      ],
+      [
+        "signalHistoGraphOff",
+        "slotHistoGraphOff"
+      ],
+      [
+        "signalGetHistoGraphOn",
+        "slotGetHistoGraphOn"
+      ]
+    ],
+    "registration_qualification": "2cfbe0 strips Qt marker and method parameters into deferred notifier registration; no immediate slot invocation. Actual later consumers must be preserved when emitted."
+  },
+  "xml_read_order": [
+    "Iterate child elements in encounter order; unknown children skipped; all scalar conversions QString::toInt, including range/min/max subsequently converted int to double",
+    "SVColorBarNo assigns converted integer BEFORE comparing old colorbar; if changed d25210 deletes/recreates auxiliary data via global143d9a5a0",
+    "SVHistoGraph invokes413910 on lazy Histogram at encounter",
+    "After all children alwaysd15b40\u2192d15b80\u2192d16530; do not jump directly to property-table finalizer"
+  ],
+  "corrections": [
+    "d25810 only gathers DB state and returns d25a50 capability switch result; prior worker message suggesting a global mutation here is superseded",
+    "d16ae0 global rendering mutation is conditional on field+450, initializedfalse byctor; do not claim unconditional mutation on actual fresh path",
+    "Even if that branch skips, postparse emits notifications and d16a80 can update display property tables; empty DB/view counts alone do not establish a no-op"
+  ],
+  "next_minimal_interface": {
+    "need": "Explicit source-backed per-conversion preference snapshot/read observations for lazy StateVar ctor. Do not default an unobserved snapshot to all keys absent. Shared hook proposal must distinguish unavailable input from observed absent keys.",
+    "owned_state": "Separate StateVar ownership retained across GuiModel reset; explicit constructor preference recovery marker/optional values; Histogram lazy state plus deferred registrations",
+    "next_sources": [
+      "Exact preference initialization/global writers or declared captured snapshot seam",
+      "12c0d40 font reset and9dd490 nested helpera390b0 if full constructor ownership projection consumes them",
+      "413910 histogram payload",
+      "d25210 auxiliary colorbar source/ownership and d16530 postparse model/notification effects"
+    ]
+  },
+  "runtime": "No original/candidate/DLL execution or app control; private read-only static PE/Ghidra only"
+}

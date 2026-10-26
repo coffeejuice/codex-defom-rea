@@ -1,0 +1,56 @@
+{
+  "schema": "wave3-boolean-open-sequence-v1",
+  "method": "Read-only fixed-PE metadata/RTTI/DUMPBIN and private Ghidra selections; no target/runtime/UI.",
+  "status": "earliest_open_factory_apply_timing_unresolved",
+  "narrowed_chain": [
+    "Fresh Open0271b0: busytrue -> normal project01ca30 -> postOpen02a0e0 -> recentpath01dc00 -> busyfalse.",
+    "02a0e0 NULL-project branch emits ProjectChanged/Refresh/FitAll. Successful branch calls02a9b0(type,subproject0,1), then main virtual2c0/7f0.",
+    "01c2f0 is archive/import dialog fallback; normal .moproj path01ca30 ->08a9b0 ->08afa0 ->08b410.",
+    "02a9b0 activates subproject0 via0a7250, then038380 native view refresh. 0a7250 calls0a7b90 (diagram/model binding, DOE refresh) then updates active item via047af0.",
+    "038380 operation-class virtual160 enumerates reference assets and updates matching paths, then view virtual1b8 binds operation model.",
+    "012fa0 creates native view lazily via012fe0 ->14ef60. Fixed constructor installs1421cded8; vt+1b8=170430.",
+    "170430 detaches/attaches native model, clears/resolves render members, calls model virtual168, queues1000ms modelUpdated() timer when nonnull. No direct Boolean factory call in this selected body."
+  ],
+  "ruled_out_direct_routes": [
+    "Busy TreeEnableSelection(bool) is tree metadata local6 ->d3c0c0 ->setSelectionMode1/0, not d3c070.",
+    "Inputmode callback is tree local1 ->d3c070 ->currentIndex ->d3b7d0(true). Producers2fc20/2fe50 are SfMoAction local44/45 slotActionModeGuided/Expert, via00ace0/00ad10. Exact ctor00a830 connects them from QAction triggered(), not tree selection.",
+    "SfMoMainWindow RTTI143569258 resolves primaryCOL1430d46d8 ->vt1420fb108; virtual2c0=011020 title update, virtual7f0=014260 UI refresh."
+  ],
+  "remaining_dependency": [
+    "Bind selected operation native model type and its virtual168 callback, plus actual modelUpdated Qt method, before claiming they cannot cause editor creation/application.",
+    "UI refresh014260 delegates multiple action/update helpers; no claim made that all indirect callbacks are exhausted.",
+    "No static proof yet that editor exists before explicit row0 tree click, nor a guaranteed second apply callback before Save. Historical opened screenshot Cutter4 remains observation with unresolved callback timing."
+  ],
+  "production_decision": "Preserve current source-proven filled snapshot and Save apply; do not add unconditional postLoad object mutation. Continue independently with source-qualified Cogging.MDT failure recovery.",
+  "qualification": [
+    "Selected original function completion is not whole-program callgraph coverage.",
+    "Small exploratory main-action selection started midinstruction and is not used; complete dispatcher wave3-boolean-main-action-dispatch.asm supersedes it.",
+    "No original runtime/UI was acquired; all source/tests untouched during this Boolean investigation."
+  ],
+  "evidence_sha256": {
+    "analysis/wave3-boolean-external-callback-contract.json": "f5b1ff592135f9b72de7f5734c1157a7b937e666d3c6c8f4ae44d7e6174f2ede",
+    "analysis/wave2-doe-boolean-open-registration-decompile.json": "1757742f8c2bb028e6e3ccf2d4048ba7fb5eb398f8cd0c0061322ed6131fafed",
+    "analysis/wave2-doe-boolean-open-view-binding-decompile.json": "1c0691541794d1f0daaa2aa3b163beee7b588b0c99cddf53812fb6ec9a66700b",
+    "analysis/wave2-doe-boolean-open-native-view-decompile.json": "cbc7c9149fd00e300dda0d810b7b43028680384f0125ecb3658a505f69b6b2ab",
+    "analysis/wave2-doe-ghidra-receipt.json": "bd3f6d5f69b73f2d0206377edf260e0a1049a30e9e592d95f693e51c370a9d55",
+    "analysis/wave2-doe-ghidra-text-verification.json": "843b2166c4e3fcfb805c115667d47aefc117019453708b38672a927ce32a9bb2",
+    "evidence/gui_mo/s1/moproj_vt/v5.c": "608b9c64e7e7b1ba2665f22c3da731c5673dc43747372f311ed4c1957c1d64bd",
+    "evidence/gui_mo/s1/s1-01/dc/act1.c": "d272ac7ac84393f847cdc7455be987c177b7de4e81cd8896aa5c8fc4c590dd91",
+    "analysis/wave3-boolean-external-callback-14000a830.asm": "a5a54dc0785383e490f7dc12a8cdad5e8b4eb214a5954173396efe5ddce425bd",
+    "analysis/wave3-boolean-external-callback-140011020.asm": "5c5f41e07473943587532c38a57494f7931441d23ff35cdc499da4efc0b2d99c",
+    "analysis/wave3-boolean-external-callback-1400111c0-prefix.asm": "36f7379cb4ecc29ef97076a5eef4f3a8339f26d28a4568311c62f3454b8b2e13",
+    "analysis/wave3-boolean-external-callback-140012fa0.asm": "3257c57427b070a85b5e0f1dc5b5dcc6118a03572d0a5e4f589a0059430e07be",
+    "analysis/wave3-boolean-external-callback-140012fe0.asm": "f398508e324c38ea41273b6e9a19d261af49e705146628a032c7b37c375f53ed",
+    "analysis/wave3-boolean-external-callback-140014260.asm": "97da71dac37c98441bd400951cb441bc48ca6161d09f0e0d420346c1f848e127",
+    "analysis/wave3-boolean-external-callback-14001dc00.asm": "af078312dccaf7d67c850be995529243644de4cbb9168d3947934363f53bc9f1",
+    "analysis/wave3-boolean-external-callback-14002a0e0.asm": "e3e74166115892e04fe23160955278cf3101abacb6d818cd41746bca94c43f63",
+    "analysis/wave3-boolean-external-callback-140038380.asm": "d83ed1a61bee0279b68dc3058845ffe10ad3a1d2f63dac98d6a242f525e2f4ae",
+    "analysis/wave3-boolean-external-callback-1400a7250.asm": "3c0c2d933e0d5808fc5c5d48dc2b3e7c25ac31b91922c10ec1ea63c8ad26af2c",
+    "analysis/wave3-boolean-external-callback-14014ef60-prefix.asm": "bdd6eaece31177f3defcf3b59d77667a0644d907ab2202e949f8247ac93cc18b",
+    "analysis/wave3-boolean-external-callback-1402ca7a0.asm": "6b201cfd1036f455bc840b5b7f88289a4776fabdc08911bdd4b371f0d1d81c6b",
+    "analysis/wave3-boolean-external-callback-1402cfbe0.asm": "e6461b0a96bf9b7d2e00274bb9093fbc0b28279add9b29c8626b679cfee5799e",
+    "analysis/wave3-boolean-external-callback-140d3c070.asm": "eca60eb79d0def025ada98a6683072b5089bfb07326a9f0ca01a46e31809da11",
+    "analysis/wave3-boolean-external-callback-140d3c0c0.asm": "e96d053317b6c95649c2e2201ba60e80624020005172b582a42f4c54a2664b29",
+    "analysis/wave3-boolean-main-action-dispatch.asm": "b8e883fe6e26777125be61b7a31b47767352162ec32cd44421e79bf5e6b15569"
+  }
+}

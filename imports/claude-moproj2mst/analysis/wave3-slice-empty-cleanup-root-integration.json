@@ -1,0 +1,64 @@
+{
+  "status": "root source frozen; worker final cleanup receipt required before candidate38 build",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer.cpp",
+      "sha256": "17dac8c39e691b7fa6a957b49099f21d2791a8fb9efe07e9b04b4a8d7a95f334"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_viewer_slice.cpp",
+      "sha256": "f55a35dc070aa81876daa40bd20ec55c07c85c3e32e806fa67bed10f7b317a3a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-owner-creators-decompile.json",
+      "sha256": "3378b5ae150f9ed8fd5203037a429cb01996c3703f1f4e64eff86eb68adbf336"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-constructor-head.asm",
+      "sha256": "fa78eb347b1c55236384d373b3b07cfa501c31260304709ce03a6f542edfcdf0"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-slice-view-cleanup.asm",
+      "sha256": "ff5575b185547f84e957e3069b3049f20738b344bf3827ecd80790a1461385d0"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-slice-empty-cleanup-decompile.json",
+      "sha256": "d2d4cd35b6da03d4af1718feab506c2dd3d8576dc962ec71d0148a622cbc7e06"
+    },
+    {
+      "path": "analysis/wave3-view-update-dirty-static.json",
+      "sha256": "cf9da9160fdc01a093759acd64bf7987b4a75a729d00a6baaf800d65f5ef2df6"
+    },
+    {
+      "path": "analysis/wave3-view-update-state-access-static.json",
+      "sha256": "7993cfbbcefb9f7a5bf20fde2de45bdbc697b5e076befb70b5e67baf2f2c7d88"
+    },
+    {
+      "path": "analysis/wave3-view-settings-backup-init-static.json",
+      "sha256": "2d65eb21651f432460cd8b24eb4d2e1d2afcae597732b6b043a15fed9451b095"
+    },
+    {
+      "path": "analysis/wave3-view-settings-backup-null-static.json",
+      "sha256": "04bc16dc1ecdd88f01970f8735d624e55d9eddf6766594c8bcdf2391e0ba9c93"
+    }
+  ],
+  "implemented": [
+    "Actual View stores native nonowning GuiModel guard; creation helpers use actual model argument",
+    "Full unbind saves actual model guard before empty Slice cleanup; actual Settings flag5 callback occurs before delete and View.slice=null",
+    "Empty constructor-only Slice cleanup can complete without deleting retained database plane allocations or clearing global color scratch",
+    "c80560 loop also runs for views without Slice; visits current visible views after extraction, with source-proven null saved-Settings backup fast return",
+    "Populated saved-Settings restore and populated Slice cleanup remain guarded at consumed state; pending extracted View is never reinserted into visible list"
+  ],
+  "validation": [
+    "15 root viewer_slice cases including empty multi-view cleanup, retained DB planes and populated-domain refusal ordering",
+    "26 actual Session cases from separate root integration",
+    "Full regression and ABI pending"
+  ],
+  "qualifications": [
+    "SavedSettings backup creation/restore remains unrecovered; existing supported path retains source-proven ctor-null pointer",
+    "Local opaque Slice members are only accepted in proven constructor-only state; no renderer effects inferred",
+    "Framework/application destructor dependencies outside this bounded empty path still queued; not full Close acceptance"
+  ]
+}

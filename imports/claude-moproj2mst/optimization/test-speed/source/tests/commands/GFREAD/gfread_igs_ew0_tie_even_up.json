@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES Ew.0 probe tie_even_up",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nPROBE.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "PROBE.IGS",
+      "text": "SYNTHETIC IGES FOR THE EW.0 PROBES                                      S      1\r\n1H,,1H;,5HPROBE,9HPROBE.IGS,4HTEST,4HTEST,32,38,6,308,15,4HTEST,1.0,1,  G      1\r\n4HINCH,1,1.0,15H20261021.120000,0.0001,10.0,4HTEST,4HTEST,9,0;          G      2\r\n     110       1       0       1       0       0       0       000000000D      1\r\n     110       0       0       7       0                                D      2\r\n     110       8       0       1       0       0       0       000000000D      3\r\n     110       0       0       7       0                                D      4\r\n     110      15       0       1       0       0       0       000000000D      5\r\n     110       0       0       7       0                                D      6\r\n     110      22       0       1       0       0       0       000000000D      7\r\n     110       0       0       7       0                                D      8\r\n     110      29       0       1       0       0       0       000000000D      9\r\n     110       0       0       7       0                                D     10\r\n110,                                                                   1P      1\r\n0.0,                                                                   1P      2\r\n0.0,                                                                   1P      3\r\n0.0,                                                                   1P      4\r\n1.0,                                                                   1P      5\r\n0.0,                                                                   1P      6\r\n0.0;                                                                   1P      7\r\n110,                                                                   3P      8\r\n1.0,                                                                   3P      9\r\n0.0,                                                                   3P     10\r\n0.0,                                                                   3P     11\r\n1.0,                                                                   3P     12\r\n1.0,                                                                   3P     13\r\n0.0;                                                                   3P     14\r\n110,                                                                   5P     15\r\n1.0,                                                                   5P     16\r\n1.0,                                                                   5P     17\r\n0.0,                                                                   5P     18\r\n0.0,                                                                   5P     19\r\n1.0,                                                                   5P     20\r\n0.0;                                                                   5P     21\r\n110,                                                                   7P     22\r\n0.0,                                                                   7P     23\r\n1.0,                                                                   7P     24\r\n0.0,                                                                   7P     25\r\n0.0,                                                                   7P     26\r\n1.0E-9,                                                                7P     27\r\n0.0;                                                                   7P     28\r\n110,                                                                   9P     29\r\n1.000000000000000444089209850062616169452667236328125,                 9P     30\r\n5.0,                                                                   9P     31\r\n0.0,                                                                   9P     32\r\n1.000000000000000333066907387546962127089500427246093750,              9P     33\r\n5.0,                                                                   9P     34\r\n0.0;                                                                   9P     35\r\nS      1G      2D     10P     35                                        T      1\r\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "T8-2: '1.000000000000000444089209850062616169452667236328125' and '1.000000000000000333066907387546962127089500427246093750' are the same double under correct rounding; a different conversion of the second gives the probe line a non-zero length and leaves the 1e-9 gap of the square open."
+  }
+}

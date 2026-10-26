@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-10-24T04:03:19.261371+00:00",
+  "scope": "Native top-level item Data ordering and actual converter session ownership",
+  "original": [
+    "14008e3d0 walks all child elements before checking name; each Data assignment replaces retained text.",
+    "14008ed8d hasData branch decodes last string then uncompresses;14008ee20 parent and14008ee47 mkpath(flag1).",
+    "14008ee9f QFile::open WriteOnly2 false skips manager append; successful open writes QByteArray at14008eebc, closes at14008eeca, then appends manager row at14008eef5. Neither write nor close result gates append.",
+    "No Data branch14008ef31 appends without IO; object/material attributes only apply to nonnull created item."
+  ],
+  "implementation": [
+    "NativeItemBlobs enabled before openProject only for native WRITE_SAVE; binary FileDevice at exact parse site; failed open does not inject overlay or row.",
+    "Repeated Data writes once; repeated MoItem elements retain independent attempts. Recording profile remains overlay based.",
+    "Public core now owns Project through ConversionSession, captures actual Display lease before operation model teardown and removes adapter ProjectScope before Project.",
+    "Session driver remains default unsupported for missing fit/click effects; no fake timers, Close replay, or native notifications are added by storage wiring."
+  ],
+  "tests_added": [
+    "last Data retained, one attempt, binary NUL, row appended with attributes",
+    "failed open leaves previous file, omits row, continues later items",
+    "no Data appends without IO; empty name skips",
+    "failed flush still appends row",
+    "failed directory creation skips row without throwing"
+  ],
+  "qualification": [
+    "Directory failure modal delivery remains unrecovered; file effects are source-bound, not fresh runtime acceptance.",
+    "Native original Close remains queued; C++ storage teardown is not original Close.",
+    "Earlier operation blob receipt described top-level write-status semantics imprecisely: exact gate is OPEN success, not write success."
+  ],
+  "files_sha256": {
+    "analysis/wave3-native-item-blob-static.json": "52e30d2c40139137b84578b9db417253f79d372c2554fec047af3f22d9d640ca",
+    "analysis/wave3-native-operation-blob-imports.json": "64387322b0981ccdcca54b15451b62e0dcf6928f90ef3fedd28784f899edf472",
+    "source/apps/moproj2mst/src/moproj/read.cpp": "de6e6055bc1470c7fe047c32ec27744901a91226c39b250ab8b301e3fd46a4eb",
+    "source/apps/moproj2mst/src/core/convert.cpp": "e6c9df3ba6148719dd47c93785cf71c7dd10ae2eaa11881c3439688ae5460aa1",
+    "source/apps/moproj2mst/include/m2m/common.hpp": "11b242c15017a3fe018940dfc0602b6c66ccfddffb03166b2a9e4202ec03eedf",
+    "source/apps/moproj2mst/tests/s/test_save_io.cpp": "4e114b889ed6b7ed1f8cee9113127cec96ec2ef1a55fb542fbe4094043da5064",
+    "analysis/wave3-session-lifecycle-landing.json": "770dea22f26782f48304ecfd4b202c31509ac841eb103620498424bc016907d4"
+  },
+  "validation": "Pending build and focused/full tests"
+}

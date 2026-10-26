@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "bounded_review_complete",
+  "utc": "2026-10-23T05:33:44.828782+00:00",
+  "head": "777c08fc7271da0050feb70fe45d895d972728bb",
+  "checkpoint": "analysis/claude-def-pre-import-validation.json",
+  "checkpoint_sha256": "ce8697a9164c4e4dbe4b22acfb9486794fbeb4b9b8b61a0d085c97210f7601e5",
+  "checkpoint_committed": false,
+  "trigger": "New completed import/build/tier1 checkpoint; metadata-only safe-checkpoint review.",
+  "actual_goal_observation": {
+    "source": "get_goal",
+    "goal": null,
+    "qualification": "No goal returned currently. Historical blocked status not assumed current; no goal changed."
+  },
+  "timing": "analysis/efficiency-import-timing-20261023.json",
+  "observations": [
+    "Completed import turn: 782.361s elapsed, 530.916s tool-item union, 240.81s reasoning-item union, 161.16s unattributed. Categories overlap; do not add. Five failed tool items are not five failed tests.",
+    "MSBuild first attempt stalled before compilation. Retry changed execution context and node reuse; neither isolated cause nor speedup established.",
+    "217 passing tier1 entries at four jobs took 195.92s. Different workload from earlier 155-test suite; no comparative speed claim.",
+    "Optional case and corpus filters remain; 38 lines mention skips/filters, not 38 skipped tests. Tier2/tier3 not rerun and full app equivalence not certified.",
+    "Existing wrapper retains logs and emits compact receipts. No repeat build, test or original-process experiment needed.",
+    "Initial timing artifact in sandbox temporary storage was inaccessible to subsequent executions; metadata-only auditor repeated once into final analysis path. No permission settings changed."
+  ],
+  "measurements": {
+    "tests_passed": 217,
+    "tests_failed": 0,
+    "test_seconds": 195.92,
+    "ctest_jobs": 4,
+    "build_attempts": 2,
+    "build_log_bytes": 183057,
+    "ctest_stdout_bytes": 34576,
+    "ctest_detailed_log_bytes": 907094
+  },
+  "evidence_validation": {
+    "logs_match_receipt": true,
+    "verified_logs": [
+      {
+        "path": "build/claude-def-pre/build.log",
+        "bytes": 183057,
+        "sha256": "9c604468c7b2d9059a3cb84838f90ec861280b96cc09a9f881e38c4e72081eaa"
+      },
+      {
+        "path": "build/claude-def-pre/tier1-tests.log",
+        "bytes": 34576,
+        "sha256": "c51b81dfdb6c85e783331d9280998e52cb38d876f3f287f2663a60dcb71406ae"
+      },
+      {
+        "path": "build/claude-def-pre/Testing/Temporary/LastTest.log",
+        "bytes": 907094,
+        "sha256": "ef8ceb79834ac76fb14428194d1d00982b87969809038f8db5256c04b94bf5d6"
+      }
+    ],
+    "source_changes": 0,
+    "candidate_changes": 0,
+    "runtime_experiments": 0
+  },
+  "one_improvement": {
+    "adopted": false,
+    "decision": "Defer: compact logging already adopted; no controlled measurement supports further concurrency or build-context changes."
+  },
+  "decisions": [
+    "Preserve import provenance, candidate freezes and loader API.",
+    "No new benchmark or unchanged test rerun.",
+    "No model, permission settings, dependencies, target behavior, Git transport or automation changes."
+  ],
+  "qualification": "Log bytes are not token savings. No controlled end-to-end speedup inferred. Source Claude directory untouched."
+}

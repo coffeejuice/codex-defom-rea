@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-10-24T04:44:03.722261+00:00",
+  "scope": "Public StudyIo binds actual session-owned notifier state before project Open",
+  "changes": [
+    "ConversionSession owns one shared notification state across project creation/destruction.",
+    "Core binds that owner immediately after native/recording StudyIo factory before Open, never copies flags/maps.",
+    "Project release may destroy StudyIo while retained keys/flags stay live; separate fresh sessions receive separate owners."
+  ],
+  "tests_added": [
+    "actual Project/StudyIo destruction keeps session notifier alive until sessiondestroyed",
+    "fresh session neither reuses flags nor prior key observations"
+  ],
+  "remaining": [
+    "Only four statically empty Session signal-key populations are closed; Close graph/histogram receiver coverage remains explicitly qualified.",
+    "Shared StateVar notify effects are integrated into the real apply routine but normal Close invocation/remaining scene teardown stay queued."
+  ],
+  "files_sha256": {
+    "source/apps/moproj2mst/include/m2m/engine/conversion_session.hpp": "ecdb721f314624e4468474ac51162ff4f5900d6d30e0cf68a299be471247953e",
+    "source/apps/moproj2mst/src/engine/conversion_session.cpp": "cb8beedfd951246d6ff177e0bf0614571add04a72cf11ebae3d0409d3f70fddb",
+    "source/apps/moproj2mst/src/core/convert.cpp": "213f85f779c64d3b165738a608c2faa4bb7ffc79a9152a9bc12fd102c643b340",
+    "source/apps/moproj2mst/tests/mdt/test_conversion_session.cpp": "9e3ceec121928e0248bf4e93c7c4aa66a2a4aeb988cd312eb718a8beffaf5237"
+  },
+  "validation": "Pending root build"
+}

@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF POLYLINE closed through 210=1.0",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nPL210.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "PL210.DXF",
+      "source": "data/dxf_polyline_210.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "POLYLINE closed flag comes from code 210 == 1.0. Prediction (DXF_READER.md model) = observed 2026-10-21: status 0, DIEGEO 1 2 4; segment 1: 1 1 0.0000000000E+000 6.0000000000E+000 8.0000000000E+000 6.0000000000E+000 0.0000000000E+000"
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "authorization": "User 2026-10-23 explicitly authorized up to three concurrent subagents for the current continuous validation plan.",
+  "orchestrator": "/root",
+  "status": "prepared_external_gui_release_blocked",
+  "shared_resources": {
+    "native_analysis_owner": null,
+    "original_capture_owner": null,
+    "build_integration_acceptance_owner": "/root",
+    "gui_input": "blocked pending supported release and verification"
+  },
+  "candidate": {
+    "version": "0.2.1",
+    "rebuild_authorized_only_for_established_defect": true
+  },
+  "workers": {
+    "routes": {
+      "status": "idle_complete_frozen",
+      "owns": [
+        "analysis/gui-invocation-route-map.json",
+        "analysis/gui-invocation-route-map.md",
+        "analysis/gui-route-review-handoff.json",
+        "analysis/helper-probe-independent-review.json",
+        "analysis/gui-parallel-efficiency-review.json"
+      ],
+      "agent": "/root/validation_routes",
+      "dispatch_confirmed_utc": "2026-10-23T15:23:25.192061+00:00",
+      "first_handoff": "analysis/gui-route-review-handoff.json",
+      "first_completion_observed_utc": "2026-10-23T15:34:36.922048+00:00",
+      "successor": "parallel_efficiency_review",
+      "successor_dispatch_confirmed_utc": "2026-10-23T15:54:41.404440+00:00",
+      "last_handoff": "analysis/gui-parallel-efficiency-review.json",
+      "completion_observed_utc": "2026-10-23T15:59:08.657226+00:00"
+    },
+    "helper": {
+      "status": "idle_complete_frozen",
+      "owns": [
+        "tools/observe_job_helper.js",
+        "tests/test_job_helper_probe.py",
+        "analysis/helper-diagnostic-handoff.json",
+        "analysis/gui-fixture-independent-review.json",
+        "analysis/helper-launch-context-findings.json",
+        "analysis/gui-helper-resume-contract.json"
+      ],
+      "agent": "/root/validation_helper",
+      "dispatch_confirmed_utc": "2026-10-23T15:23:25.192061+00:00",
+      "first_handoff": "analysis/helper-diagnostic-handoff.json",
+      "first_completion_observed_utc": "2026-10-23T15:32:47.973222+00:00",
+      "successor": "gui_helper_resume_contract",
+      "successor_dispatch_confirmed_utc": "2026-10-23T15:54:41.404440+00:00",
+      "last_handoff": "analysis/gui-helper-resume-contract.json",
+      "completion_observed_utc": "2026-10-23T15:59:08.657226+00:00"
+    },
+    "fixtures": {
+      "status": "idle_complete_frozen",
+      "owns": [
+        "tools/check_gui_trial_preflight.py",
+        "tests/test_gui_trial_preflight.py",
+        "analysis/gui-trial-preflight.json",
+        "analysis/gui-fixture-handoff.json",
+        "analysis/gui-control-lifecycle-review.json",
+        "analysis/gui-route-independent-review.json",
+        "analysis/gui-post-diagnostic-invariants.json",
+        "analysis/gui-validation-ledger-review.json"
+      ],
+      "agent": "/root/validation_fixtures",
+      "dispatch_confirmed_utc": "2026-10-23T15:23:25.192061+00:00",
+      "first_handoff": "analysis/gui-fixture-handoff.json",
+      "first_completion_observed_utc": "2026-10-23T15:31:15.333728+00:00",
+      "successor": "canonical_protocol_default_repair",
+      "successor_dispatch_confirmed_utc": "2026-10-23T15:47:49.158947+00:00",
+      "last_handoff": "analysis/gui-validation-ledger-review.json",
+      "completion_observed_utc": "2026-10-23T15:59:08.657226+00:00"
+    }
+  },
+  "queue": [
+    {
+      "id": "route_contract",
+      "owner": "routes",
+      "state": "review_approved"
+    },
+    {
+      "id": "helper_probe",
+      "owner": "helper",
+      "state": "review_approved"
+    },
+    {
+      "id": "fixture_preflight",
+      "owner": "fixtures",
+      "state": "review_approved"
+    },
+    {
+      "id": "control_lifecycle_review",
+      "owner": "fixtures",
+      "state": "complete_external_gate_confirmed"
+    },
+    {
+      "id": "fixture_independent_review",
+      "owner": "helper",
+      "state": "complete"
+    },
+    {
+      "id": "helper_probe_independent_review",
+      "owner": "routes",
+      "state": "complete"
+    },
+    {
+      "id": "route_independent_review",
+      "owner": "fixtures",
+      "state": "complete"
+    },
+    {
+      "id": "cross_review",
+      "owner": "orchestrator",
+      "state": "complete",
+      "depends_on": [
+        "route_contract",
+        "helper_probe",
+        "fixture_preflight"
+      ]
+    },
+    {
+      "id": "integrate_preparation",
+      "owner": "orchestrator",
+      "state": "complete",
+      "depends_on": [
+        "cross_review"
+      ]
+    },
+    {
+      "id": "gui_execution",
+      "owner": "orchestrator",
+      "state": "blocked",
+      "dependency": "Supported app-control release API and explicit release verification; no new GUI input until available."
+    },
+    {
+      "id": "helper_native_context_diagnosis",
+      "owner": "orchestrator",
+      "state": "complete_diagnostic_only",
+      "evidence": "analysis/helper-launch-context-findings.json"
+    },
+    {
+      "id": "post_diagnostic_invariants",
+      "owner": "fixtures",
+      "state": "complete",
+      "evidence": "analysis/gui-post-diagnostic-invariants.json"
+    },
+    {
+      "id": "gui_helper_resume_contract",
+      "owner": "helper",
+      "state": "complete"
+    },
+    {
+      "id": "parallel_efficiency_review",
+      "owner": "routes",
+      "state": "complete"
+    },
+    {
+      "id": "canonical_protocol_default_repair",
+      "owner": "fixtures",
+      "state": "complete_frozen",
+      "evidence": "analysis/gui-fixture-handoff.json"
+    },
+    {
+      "id": "ledger_integration_review",
+      "owner": "fixtures",
+      "state": "complete_minor_wording_repaired_by_root",
+      "evidence": "analysis/gui-validation-ledger-review.json"
+    }
+  ],
+  "metrics": {
+    "measurement": "Dispatch/completion/validation timestamps and elapsed worker spans; no serial baseline or speed/token claim.",
+    "dispatches_recorded_utc": "2026-10-23T15:23:25.192061+00:00",
+    "review": "analysis/gui-parallel-efficiency-review.json",
+    "initial_three_assignments_outstanding_overlap_seconds": 470.142,
+    "serial_baseline": null,
+    "speedup_or_token_savings": null,
+    "root_adoption": {
+      "workers": "Reduce to zero active delegated jobs after integration because no independent ready task remains.",
+      "timing": "Preserve separate spawn, paused setup, supervisor arming and resume timestamps for future diagnostics. H2 was spawned paused, so creation-to-arming is not proven unsupervised app execution. Do not retroactively relabel it. No additional live run solely to benchmark.",
+      "speed_gain_measured": false
+    }
+  },
+  "resume_cursor": "No active worker tasks or native sessions. Recheck release capability only after external change; resume current state queue with fresh owned observations. Reuse frozen evidence, no original restoration, no archived chats or schedules.",
+  "findings": [
+    {
+      "id": "stale_mpi_variant",
+      "owner": "fixtures",
+      "found": "OS/CS retained DEF_MPIp4penv.DAT",
+      "resolution": "Preparer corrected; new R4 inputs created, R3 preserved",
+      "status": "fixed_and_independently_verified"
+    },
+    {
+      "id": "launcher_alternate_branch",
+      "owner": "routes",
+      "found": "Common launcher has non-marker-selected branch for param4=1,param5=0",
+      "resolution": "Exact callsite flags and command-interpreter resolver recovered; canonical route map corrects broader inference.",
+      "status": "resolved_static_contract"
+    },
+    {
+      "id": "duplicate_xml_scalar",
+      "owner": "helper",
+      "found": "DTMAX/HeatingTime dictionary discarded conflicting duplicate properties",
+      "resolution": "Preflight owner assigned exact multiplicity guard and adverse test",
+      "status": "fixed_and_independently_reviewed"
+    },
+    {
+      "id": "instruction_probe_api",
+      "owner": "routes",
+      "found": "Mid-function warning reference used function-entry callback object",
+      "resolution": "Probe owner assigned documented direct-function Interceptor.attach callback plus mock regression",
+      "status": "fixed_and_independently_verified"
+    },
+    {
+      "id": "native_helper_environment",
+      "owner": "orchestrator/helper",
+      "found": "REA-spawned helper lacked DEF_CFG_DIR; empty path caused its configuration fetch warning",
+      "resolution": "New trial child with stock DEF_CFG_DIR fetched valid configuration; duplicate argv token also corrected",
+      "status": "resolved_for_controlled_native_launch_only"
+    },
+    {
+      "id": "canonical_protocol_path",
+      "status": "fixed_and_root_delta_verified",
+      "resolution": "Default protocol changed to retained canonical path; reconstructing old bytes yields old frozen script SHA; protocol byte-identical; 16 focused tests pass."
+    },
+    {
+      "id": "ledger_context_qualification",
+      "status": "fixed_by_root",
+      "resolution": "Distinguish historical GUI child argv/CWD capture and unobserved environment/fetch from observed native H1/H2."
+    }
+  ],
+  "updated_utc": "2026-10-23T15:59:08.657226+00:00",
+  "active_executors_after_integration": {
+    "workers": 0,
+    "native_sessions": 0,
+    "note": "No claim of background execution."
+  }
+}

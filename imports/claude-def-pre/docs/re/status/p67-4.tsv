@@ -1,0 +1,15 @@
+address	status	note
+0x1401ac710	verified	obj_cmds.cpp doe_scale; DOESCL oracle cases (messages, materials, objects)
+0x14029b3f0	verified	port/defmodel/src/obj_scale/obj_scale.cpp scale_material; DOESCL fstres_tab_2d, young_2d, fperv_3d, fperv_both_3d, fstres_nontab_3d
+0x14021d9c0	verified	obj_scale.cpp scale_object; MOVCTL, LOCTMP and NDTMP branches oracle-verified (ndtmp_2d/3d with kw-g2sv's writer)
+0x1401954d0	verified	obj_scale.cpp scale_movement; DOESCL movctl_* cases (types 1, 2, 3; i2 0..3)
+0x140136220	verified	obj_scale.cpp table_scale; one MULSD per value (listing 140136243, 140136290)
+0x140132a60	verified	obj_scale.cpp table_segment; FP order from listing 140132b93..140132bca; SVSCAL cases (kind0/1, extrap, chain_zero)
+0x140132bf0	verified	obj_scale.cpp table_interpolate; FP order from listing 140132c79..140132c94; SVSCAL cases
+0x140204bc0	verified	obj_scale.cpp remap_strain; SVSCAL cases (STRAIN records)
+0x140183fd0	verified	obj_scale.cpp element_strain (id 0x2b, set+0x48)
+0x140181320	ported	obj_scale.cpp node_strain (id 0x1b, set+0x98)
+0x140180c40	verified	obj_scale.cpp node_temperature (NDTMP id 8, set+0x40)
+0x1401d48d0	ported	obj_scale.cpp region_load: every branch needs 1401d2b70 == 0, which never happens (DEF_NOT_PORTED guard on the dead path)
+0x14047b6c0	not-needed	crt: strtol base 10 (key::token_int)
+0x140484f90	not-needed	crt: strcpy; DOESCL's copy between two uninitialised case-0xb buffers is never read (no-op)

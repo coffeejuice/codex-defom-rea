@@ -1,0 +1,81 @@
+{
+  "schema": "wave3-editor-acvcof-collapse-owned-save-increment-v1",
+  "created_utc": "2026-10-24T06:20:02.923820+00:00",
+  "status": "source frozen awaiting root build and tests",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-acvcof-collapse-save-contract.json",
+      "sha256": "6de7f8a3d60aa0718506f37532d9a76e365ed290123b0f73e1b428d4cb30aae3",
+      "bytes": 7852
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-include-repair.json",
+      "sha256": "6db50a47d25897cdf8b383d89c99b36df52b03ba8504209eac5ff61363713e1c",
+      "bytes": 641
+    }
+  ],
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "32516c3cb4329cc6c46105de5731d47e68167e7091087ef3fd8768438a41cfb9",
+      "bytes": 16690
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "fa2b32c3a9ec910cdca229fc1e73290aeb65b5f5ff4b679be48ff99e977bea03",
+      "bytes": 45539
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "dbec47e75d7b0a8aa42db06d7f0ca1d0053a7d90e8324354fdef5a2fa485a05a",
+      "bytes": 8816
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "a5671153e3662d1b5e8598e9af793b37ea3c2be1f74414436c6a3150301c9ff0",
+      "bytes": 64054
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "6bdcc2baaadb590ff727e22e6484045f698b853d4ea1ab2673495dc12ecde815",
+      "bytes": 36365
+    }
+  ],
+  "implementation": [
+    "Expanded only ACVCOF ndim0 owned collapse profile from ncomp1 to positive ncomp; retained nonnegative-count, borrowed-axis and nested-owner guards. Removed the now source-closed multicomponent callback refusal. Existing dynary_copy supplies exact component-prefix/zero-filled allocation behavior without a replacement copy algorithm.",
+    "Composed applyEnvironment3D now receives EnvironmentCurveTemporaries from the same InitialEditorSession used by Fill. Explicit owner/page identity and nonalias checks occur before environment stores. Each actual owner is mutated in original curve order, then copied directly into SC. No additional curve clone is made on the composed branch.",
+    "Invalid constant text still writes owner.ndim=0, retains its value, then copies it to SC. Owner axes and full values buffers retain their addresses; SC copy separately allocates the collapsed component prefix. Table-radio branches leave owner ndim/value unchanged. All four curve stores precede later scalar validation.",
+    "Legacy isolated Apply calls without an owner parameter preserve qualified snapshot-only semantics; the composer never uses that branch. Internal C++ signature extended with a default argument; m2m C ABI unchanged.",
+    "Preserved root direct inter_object_ops.hpp test include repair and public editor300 guard."
+  ],
+  "new_tests": [
+    "environment_owned_apply_mutates_curves_in_order_before_scalar_failure",
+    "environment_owned_apply_refuses_invalid_owner_binding_before_stores",
+    "initial_editor_acvcof_collapse_copies_component_prefix_and_empty_zeros",
+    "initial_editor_final_collapse_save_mutates_owner_before_later_page_effects"
+  ],
+  "updated_tests": [
+    "environment_acvcof_requires_owners_and_collapses_multicomponent_tables (previous guarded branch now checks original callback-only mutation and retained allocations)",
+    "initial_editor_acvcof_collapse_retains_count_history_and_owner_links (actual owner value now asserted after Save)"
+  ],
+  "coverage": "36 composed collapse vectors across ordinary/special type0/B5/A7/A8/AA/AB, ncomp1/3 and nonempty1D/empty2D/nonempty3D; raw NaN payload retention; positive-zero empty collapse; count/variable history; exact owner identities and array addresses; invalid text, scalar failure, and later Extra3D effects; four explicit invalid owner bindings.",
+  "case_counts": {
+    "snapshot": 49,
+    "lifecycle": 20
+  },
+  "validation": {
+    "whitespace": "all five source files checked directly, passed",
+    "duplicate_test_names": "checked directly, none",
+    "direct_header": "root include repair verified present",
+    "build": "not run; root owns build",
+    "tests": "not run; root execution required",
+    "fresh_original": "not run; source-derived expectations"
+  },
+  "remaining_qualifications": [
+    "Public editor300 integration remains guarded.",
+    "Original allocation failure, first-wave orphaned temporaries and complete editor destruction remain separately recorded.",
+    "Unknown/nested/borrowed curve ownership and nonfinite formatted constant members remain unsupported.",
+    "Legacy isolated Apply has no original editor-state claim."
+  ],
+  "next_action": "Root builds and runs snapshot49/lifecycle20 plus required regressions. Worker keeps source frozen and audits the smallest ordinary3D public300 path blockers to select actual-lifecycle integration dependencies."
+}

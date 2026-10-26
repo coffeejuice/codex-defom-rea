@@ -1,0 +1,24 @@
+{
+  "schema": "editor300-mds-db-load-sync-qualification-v1",
+  "created_utc": "2026-10-24T09:24:17.359591+00:00",
+  "related_contract": {
+    "path": "analysis\\wave3-editor-mds-successful-node-read-contract.json",
+    "sha256": "9958b8baee42d239a58efadd81482fe17f6d74c378904dcb1eeecd97954cd7c0"
+  },
+  "evidence": {
+    "path": "analysis\\wave3-editor-mds-current-model-db-load-static.json",
+    "sha256": "25251c2cbc7811c21c38a6cf36d7faadb896b19c4ecae1ec621bbb03f6f29372"
+  },
+  "established": [
+    "Original140c7b900 clears/reset viewers, then reads actual process type via2cb7a0 atc7b970.",
+    "Process type3 selects byte0, every other type selects byte1. It passes that byte by pointer to896940 before the database reader8256c0.",
+    "896940 copies the supplied byte to actual DB_STEP_DATA+1b58; it does not normalize a copied generic flag.",
+    "Thus MO process type5 enters this DB reader with flag1. Reconstructed readDbEntry already sets u1b58=true for its explicitly bounded MO profile."
+  ],
+  "limits": [
+    "This capture establishes the pre-read store, not invariance through all database-reader callees or later model mutations.",
+    "The node getter should evaluate actual current owner+1b58/dimension/version whenever reached, instead of assuming process type proves the current predicate.",
+    "No process-type extension, full GUI database read equivalence, or new public support is claimed."
+  ],
+  "next_executable_action": "Root validates frozen candidate37; after source release, implement the closed no-sync node getter/callback path with reached-state and extent guards, or first resolve partial-page retention at a later refusal."
+}

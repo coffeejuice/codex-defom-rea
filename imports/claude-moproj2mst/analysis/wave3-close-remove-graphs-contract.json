@@ -1,0 +1,126 @@
+{
+  "scope": "Accepted Close signalRemoveGraphItems receiver; static contract, not production integration or runtime verification",
+  "method": "Retained immutable PE plus bounded offline DUMPBIN, no target execution or GUI",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-cleanup-nested-static.json",
+      "sha256": "500c9c7ea0bd779046de1d846d2b78667d368224d19174d486b155245c537b10"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-clear-static.json",
+      "sha256": "06b900e01e387a1bae61359e77e425ac65aea2b3760cfe76c9908a361ee420ae"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-dispatch-static.json",
+      "sha256": "4c811c0c947c6bc97a18466c4ecdf31b478cbcf1ab98cb8cfd55ee68d68fd91f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-effect-static.json",
+      "sha256": "d3296683611b47cce17e8f2da84a332b93a9a93a6b8396195d50de0c409c6354"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-getters-static.json",
+      "sha256": "e5af3a68bd177e4b042a0f760ad99e4f89a831fe6780f048cc64e2097c9ef3df"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-init-static.json",
+      "sha256": "bfe12440b61fd728685c54e434ec052a5a834e317248aa46ddf73138a63a0228"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-model-ctor-static.json",
+      "sha256": "218d53458267ba3a377bf2b3310ec3ac4cd8493c8baa7b8b9b17df3730f83380"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-owner-static.json",
+      "sha256": "73b3ea00a35351419b87865172f36a3099c2bc5eae8e9dc87499c7810c30fbcb"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-registration-static.json",
+      "sha256": "7d81a8c6a85a9e5390ae534ef26a91b9ad20b6a6127ac7e8574eabfc3cd5e640"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-remove-graphs-slot-static.json",
+      "sha256": "8db26c1695e1e543e8464a3bdf91b93273c42c0e9961d3ffb834949178977120"
+    },
+    {
+      "path": "analysis/wave2-doe-session-notifier-direct-key-candidates.json",
+      "sha256": "1a947bb2daf487a9e9d8aee1999d09675f2abb6202b3e526ef1847fcbc6cf0d9"
+    },
+    {
+      "path": "analysis/wave3-normal-close-guard-contract.json",
+      "sha256": "2c3c855180354f53810702b5e1cabfae0e9365e6b61f5f86902394e419a1bde5"
+    }
+  ],
+  "binding": [
+    "SfMoModel constructor043fe0 installs vtable142112878. Its slot+58 is factory045260; factory allocates0x40 then constructs SfPstGraphManager via c0b8c0 with model pointers and main+778 scene handle.",
+    "c0b8c0 installs vtable14281c298 and calls c0b980. c0b980 registers receiver this with global143d76700 signalRemoveGraphItems and slotRemoveGraphItems through2cfbe0, fifth argument false.",
+    "Qt metadata1428492f0/string142849370 names SfPstGraphManager; local method0 is slotRemoveGraphItems. c36a80 delegates base then dispatches local0 via c36910 to c0cfe0.",
+    "This establishes factory and registration behavior, not whether every selected original run has instantiated that factory. Candidate scan has one matching RemoveGraphItems registration; it is not proof of an exhaustive dynamic receiver set."
+  ],
+  "slot_order": [
+    "c0cfe0 obtains global main window twice, calls main+780 then+788; vtables1420fb108 and14290ac88 bind these to ca5bf0/ca5c20. They load main+120 and main+128 using c1aef0, respectively.",
+    "If first scene pointer is nonnull, call receiver virtual+70=c0c650(scene). Then do the same for the second scene pointer if nonnull. No null-pointer inference is licensed for fresh state.",
+    "After both conditional cleanup calls, unconditionally emit global2signalHideSecondaryWidgetInSplitView() literal14281c080 via2cf3c0 with ten default QGenericArgument values."
+  ],
+  "selective_scene_cleanup": {
+    "entry": "0x140c0c650",
+    "null_scene": "Returns immediately",
+    "items": "Calls QGraphicsScene::items() (IAT141e07ca8); traverses the returned list. This is not QGraphicsScene::clear and does not restrict this loop to top-level items.",
+    "ordered_casts": [
+      {
+        "type": "SfChartPtrkItem",
+        "RTTI": "1436362e0",
+        "effect": "If cast succeeds, call deleting virtual destructor+18 with flag1."
+      },
+      {
+        "type": "SfGraphHistogramItem",
+        "RTTI": "143706c10",
+        "effect": "Pass address item+0xc0 from c0df60 to c15db0(manager,key)."
+      },
+      {
+        "type": "SfGraphLoadStrokeItem",
+        "RTTI": "1438deca8",
+        "effect": "Same manager/key path."
+      },
+      {
+        "type": "SfGraphSummaryMinMax",
+        "RTTI": "1438dec78",
+        "effect": "Same manager/key path."
+      },
+      {
+        "type": "SfGraphSummaryMinMaxGroup",
+        "RTTI": "1438ded30",
+        "effect": "Same manager/key path."
+      },
+      {
+        "type": "SfChartSummaryMinMax",
+        "RTTI": "1438ded00",
+        "effect": "If cast succeeds, call deleting virtual destructor+18 with flag1."
+      },
+      {
+        "type": "SfLoadStrokeChart",
+        "RTTI": "1438decd8",
+        "effect": "If cast succeeds, call deleting virtual destructor+18 with flag1."
+      }
+    ],
+    "other_types": "No matching direct deletion or manager-key removal in the captured function.",
+    "name_helper": "c15db0 iterates manager+0x10 collection, checks nonnull pointer, compares each object+0xc0 QString using equality IAT141e03f08; matching path obtains collection element through c170b0 then invokes deleting destructor+18 on returned object. The iterator/index increments after that path. c170b0 exact collection mutation remains a dependency; do not replace this with clearing all entries.",
+    "qualification": "Item destructor effects and Qt scene traversal behavior are not expanded in this receipt."
+  },
+  "successor": {
+    "signal": "2signalHideSecondaryWidgetInSplitView()",
+    "retained_registration_candidates": [
+      "140daba80",
+      "1416b7920",
+      "1416baeb0",
+      "1416bf6e0"
+    ],
+    "first_confirmed": "140daba80 registers1slotHideSecondaryWidget() using literal142a5a498. Its caller candidate is140dab87e in140dab810.",
+    "next": "Resolve this receiver owner/slot and its fresh registration condition; other three candidates remain distinct until shown otherwise."
+  },
+  "integration_qualification": "Do not claim accepted Close fully implemented or replace selective cleanup with counters/no-op. Root owns Save integer answer versus write-status split; landed ConversionSession only establishes storage/event boundary."
+}

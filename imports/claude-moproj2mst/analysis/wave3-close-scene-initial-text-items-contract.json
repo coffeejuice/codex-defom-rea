@@ -1,0 +1,78 @@
+{
+  "scope": "SfScene constructor creates non-graph text items before selected Close cleanup",
+  "created_utc": "2026-10-24T06:04:40.575107+00:00",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-scene-display-owner-constructor-static.json",
+      "sha256": "e1f9640c3911f043e19bd9525d09815033bdcf0b3c0cb121ef434cffc1fe83d8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-initial-item-constructors-static.json",
+      "sha256": "72c867e5e8a93264827432e27b17924b7c72218738a8a51b1d8cd1c93cba7562"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    },
+    {
+      "path": "analysis/wave3-close-scene-owner-identity-contract.json",
+      "sha256": "4dd548c10f7051d871513a227deae1b93a2e1af5eec0a09430da7538b994f713"
+    }
+  ],
+  "imports": {
+    "0x141e076e8": "??0QGraphicsTextItem@@QEAA@AEBVQString@@PEAVQGraphicsItem@@PEAVQGraphicsScene@@@Z",
+    "0x141e08260": "?addItem@QGraphicsScene@@QEAAXPEAVQGraphicsItem@@@Z",
+    "0x141e078f8": "?setFont@QGraphicsTextItem@@QEAAXAEBVQFont@@@Z",
+    "0x141e08520": "?setFlag@QGraphicsItem@@QEAAXW4GraphicsItemFlag@1@_N@Z",
+    "0x141e074f0": "?setZValue@QGraphicsItem@@QEAAXN@Z",
+    "0x141e0bb78": "?hide@QGraphicsItem@@QEAAXXZ"
+  },
+  "rtti": [
+    {
+      "vtable": "0x1428458a8",
+      "complete_object_locator": "0x1430ef638",
+      "offset": 0,
+      "bases": [
+        ".?AVSfGraphicsTextItem@@",
+        ".?AVQGraphicsTextItem@@",
+        ".?AVQGraphicsObject@@",
+        ".?AVQObject@@",
+        ".?AVQGraphicsItem@@"
+      ]
+    },
+    {
+      "vtable": "0x142845778",
+      "complete_object_locator": "0x1430ef6d0",
+      "offset": 16,
+      "bases": [
+        ".?AVSfGraphicsTextItem@@",
+        ".?AVQGraphicsTextItem@@",
+        ".?AVQGraphicsObject@@",
+        ".?AVQObject@@",
+        ".?AVQGraphicsItem@@"
+      ]
+    }
+  ],
+  "observations": [
+    "cca680 allocates0x40 at cca8bf and cca9d5; each success calls c353f0 with text, scene+10 Display, null QGraphicsItem parent. Returned objects are stored at scene+c98 and+ca0.",
+    "The texts are literal1429dcbc8=$DBNAME and1429dcbd0=Step $STEPNO. c353f0 calls QGraphicsTextItem(text,parent,nullScene), installs SfGraphicsTextItem vtables, stores Display+30 and copy text+38, stores int+28=1.",
+    "c353f0 sets Arial font18, weight50, italicfalse, enables raw QGraphicsItem flags1,2,4, then setsZValue. These are Qt framework operations, not recovered render parity.",
+    "cca680 calls QGraphicsScene::addItem for each object+10 at cca9ca/ccaae0; later calls QGraphicsItem::hide at ccab89/ccaba3.",
+    "ccae60 resets scene fields+c1c=1,+9dc/+9e0=0,+c00=0,+c08 point(0,0),+be8=0,+ca8=0. It neither clears nor establishes an empty QGraphicsScene item list."
+  ],
+  "consequences": [
+    "A fresh constructor cannot be represented as an empty scene: it explicitly adds two items. Hiding is distinct from deleting/removing these objects.",
+    "RTTI hierarchy of these concrete objects contains only SfGraphicsTextItem/QGraphicsTextItem/QGraphicsObject/QObject/QGraphicsItem, so the captured c0c650 graph-class dynamic_cast branches do not match these two objects. This is a static type inference, not an original runtime observation.",
+    "Any actual scene projection for Close must retain nonmatching text identities and separate graph membership; full scene.clear() is incorrect."
+  ],
+  "qualifications": [
+    "This establishes at least the two explicit additions, not a complete item-population inventory at Close or an empty graph population.",
+    "Other constructor helpers, QObject callbacks, post-constructor mutators and Qt graphics internals remain separately qualified.",
+    "Source remains frozen at39 cases. No production scene allocation or hidden-text adapter was introduced."
+  ],
+  "next": "Coordinate actual primary/secondary scene identity and current ModelManager/Project owner; preserve missing graph-item population guards."
+}

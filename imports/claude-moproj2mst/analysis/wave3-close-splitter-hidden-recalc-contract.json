@@ -1,0 +1,35 @@
+{
+  "scope": "Source-closed hidden/inactive recalculation tail, after each actual handle visibility call has separately completed",
+  "evidence": [
+    {"path": "analysis/wave3-close-splitter-local-effects-contract.json", "sha256": "861ec51c1edfb0d86babf55bbb82b6af501be8631b5dc7a91cdbf3c2e2adce3c"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-cached-frame-width-static.json", "sha256": "f8d638637c3bca0efefc261da1ba7e8532eb5c7c55635848996b8cffe90fb4f4"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-parent-meta-cast-static.json", "sha256": "ef6c81de599b94946b0e7909e87115a86bb187ec4cdc28021ed76d5b2fe1cc03"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-parent-meta-object-static.json", "sha256": "437ef07e20734ce93b4a336108dea10783c7a051b3438662388e7d788caa1363"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-meta-private-getter-static.json", "sha256": "1db33979cae17d28f7fefd3328edf437712367e6abe498ca66dc858b785cac9c"}
+  ],
+  "predicates": [
+    "Same actual splitter, actual ordered records, widget identities and handle identities used by65404920.",
+    "Every placeholder hidden bit remains true at each relevant source read; no assumption that handle callbacks preserve it without separate qualification.",
+    "Original second argument to65404920 is false (supplied from splitter QWidgetData visible bit by65404d00).",
+    "Every reached actual handle setVisible(false) completes its separately qualified source branch before continuing."
+  ],
+  "ordered_branch": [
+    "First loop calls actual handle virtual+58 with false for each hidden widget. It reads current per-record widget hidden state, not a copied constructor flag.",
+    "All-hidden second loop reaches no nonhidden widget, so no record flags bit0 is cleared.",
+    "QFrame::frameWidth653b25e0 reads *(widget+8), then signed16(private+1f8), then returns. It has no writes or calls.",
+    "Size-calculation loop skips each hidden widget, avoiding widget sizeHint/minimum/maximum helpers.",
+    "The all-hidden branch invokes QSplitter staticMetaObject657583b0 cast on current parent. QMetaObject::cast6711ddd0 invokes parent virtual+0 once and walks returned metaObject super pointers by reads/comparisons only.",
+    "Actual MainView vtable1421872a8 virtual+0=1400db070. It reads private+28 when nonnull or returns staticMetaObject14216ae80. Private getter1400d8a50 calls exact RET140004b80 then loads the private pointer. This actual receiver path does not mutate or emit.",
+    "Computed geometry values and cast result are discarded when original second argument is false. The branch writes splitter private+21d=1 at65404cdd and returns normally."
+  ],
+  "pure_binding": {
+    "app_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "mainview_vtable_slot0": "0x1421872a8 -> 0x1400db070",
+    "private_getter_empty_helper": {"address": "0x140004b80", "bytes": "c3", "meaning": "exact RET; subsequent bytes are CC padding"},
+    "mainview_class_literal": "0x14216ad50 = SfMoMainView",
+    "qualification": "The pure valid native-object reads can be elided when their unused values do not change this branch. This does not validate dangling/corrupt pointers or an arbitrary overridden receiver."
+  },
+  "implementation_limit": "This closes only the recalc tail conditional on the predicates. It does not authorize replacing handle visibility calls, style/platform callbacks, cursor assignment, parent transfer or child bookkeeping with snapshot copying or counters.",
+  "investigation_rework": "The initial bounded parent qt_metacast export1400db0d0 was unnecessary: the exact QMetaObject::cast uses virtual metaObject slot0, not slot8. That artifact is preserved but is not evidence for this branch.",
+  "runtime": "No target execution, app control, builds, production or frozen probe edits by this worker."
+}

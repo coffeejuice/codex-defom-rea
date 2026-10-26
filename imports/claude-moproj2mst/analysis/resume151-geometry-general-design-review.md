@@ -1,0 +1,22 @@
+# CP151 design review: actual-bound geometry recipient loop
+
+## Result
+
+The CP151 proposal matches the retained native loop: current `step.u1378` is reread at every backedge, each iteration does a fresh object lookup and MAR preload before skips, helper return reaches the same backedge, and Stop occurs only after exhaustion. Removing the arbitrary capacity3 candidate limit is therefore source-supported for the already-qualified same-profile recipient; it does not widen row size, offset, storage provenance, or variable resizing.
+
+The dynamic observational vector is a reasonable implementation if it remains purely metadata and append failure is caught before that recipient's native reset. The report correctly requires no-throw receipt movement, no held reference across a growth, and fresh live-table identity checks. I found no design blocker. The implementation should keep failure semantics explicit: metadata allocation failure is a reconstruction guard that parks the frame and retains earlier effects, not a claimed native allocation branch.
+
+## Review points
+
+- **Native loop bound:** the loop compares the incremented signed ordinal against the current `u1378`, not an initial snapshot or number of positive recipients. A genuine append through the owning list and actual count update inside an earlier callback can be reached at the next backedge. A test must append a real owned object; raising count alone would be invalid.
+- **Per-recipient ownership:** the vector stores raw observational fields only. Each record remains bound to its distinct current step object, actual primary/BC allocations, live receiver registry, dimensions and copy receipt. Every prior object must be reacquired by its current ordinal and identity-compared before dereference after later callback work. Earlier destination bytes stay historical and must not be compared with mutable current source A or recopied.
+- **Append boundary:** recipient eligibility, current actual bound/ordinal, identity uniqueness, all prior receipts and fresh empty current storage must be proved before append. Append must then complete before the actual free/reset. If it fails, no native effect for the new recipient begins; prior copies/cache/query/arrays effects remain, the same frame stays parked, and later refresh cannot retry it.
+- **Vector correctness:** use vector size as the one started-record count or another unambiguous count—do not retain a second stale fixed-capacity counter. Verify the record is nothrow movable/default constructible. Obtain the active record only after append; do not hold a reference/pointer across the next possible append. A `bad_alloc`/length failure guard should be local to append and preserve vector contents under its strong guarantee. Do not catch broad helper failures or translate actual primary/BC/native failures into metadata failure.
+- **Dynamic growth:** do not reserve based on signed/untrusted current count. Growth may move receipt records but cannot move their referenced native objects. If a real callback appends an owned object and updates `u1378`, it is eligible only after the prior helper returns and the backedge re-reads the count. Count shrink, moved prior identities, or malformed links must stop before using stale object aliases.
+- **Tests:** cover 0..8 copies, multiple vector growths, mixed real skips/positive objects, distinct seeded A rows and per-recipient destination bytes, one query/A/arrays/Stop, cached no-replay, late receipt allocation failure before reset, later live-identity replacement, a genuine append during a declared callback, and persistent fourth/fifth/eighth+ copies without numeric cap. Update CP150's fourth-positive refusal to success; keep only a genuinely unqualified later object or malformed later MAR as a negative. These are candidate tests and metadata failure injections, not original runtime observations.
+
+## Remaining qualifications
+
+The appended host vector changes reconstruction metadata allocation behavior and may fail independently of native buffers. Report/receipt must keep this distinction clear. No runtime speed or memory improvement follows from removing the cap; full live-receipt validation grows with recipient count, so performance claims require separate measurements. Positive-size variable resize/unwind, wider rows/offsets, preexisting spans, arbitrary source offsets and generic parked-frame resume remain outside this cut.
+
+Read-only design review only; no source/build/test, GUI, original execution or REA action was performed.

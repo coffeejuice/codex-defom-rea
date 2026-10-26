@@ -1,0 +1,22 @@
+{
+ "label": "REMESH obj1 2D from DB (HAMMER_SI)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 1200,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "DBREAD 0\nHAMMER_SI.DB\nREMESH       1\nKFWRIT\nOUT.KEY\nGENDB\nOUT.DB\n"
+  },
+  {
+   "name": "HAMMER_SI.DB",
+   "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY",
+   "OUT.DB"
+  ],
+  "notes": "stdout order: Remeshing - Object 1 / Extracting border (AMG_DXT > DEF_BRD.OUT, 2D) / Generating mesh (DEF_AMG < DEF_MGN.ACT > DEF_MGN.OUT; object 1 has no DIEGEO -> boundary built from mesh unless BRDEXT supplied it) / Interpolating data with 'Data interpolation...HAMMER_SI.DB' (DEF_INT.ACT, DEF_REM.INI, <prob>.RMS, 'DEF_INT < DEF_INT.ACT > DEF_INT.OUT', read-back HAMMER_SI_REM.KEY) / Remeshing - Done. GENDB: MESHNO + 1 (model+0x2f89 set). NBCD.DAT from AMG_DXT kept for DEF_AMG when obj+0x3f21 = 1."
+ }
+}

@@ -1,0 +1,27 @@
+address	status	note
+0x14019a390	ported	port/defcmd/src/objpos/rotate.cpp nodes_rotate: one-line test node set +0x138 == 2, inlined (@src tag on nodes_rotate); p67-1 row; oracle path test_objpos_oracle
+0x14019a3c0	ported	port/defcmd/src/objpos/rotate.cpp nodes_rotate: one-line test node set +0x138 == 3, inlined; p67-1 row
+0x14019a480	ported	port/defcmd/src/objpos/tensor.cpp elems_rotate: one-line test element set +0xf8 == 2, inlined; p67-1 row
+0x140284ae0	ported	port/defcmd/src/objpos/translate.cpp cross_section_translate: getter of GEO2D_AND_MESH2D flag +0x31 (u31), inlined (also in 140281660); p67-1 row
+0x1402854d0	ported	port/defcmd/src/objpos/transform4x4.cpp cross_section_xf4: Matrix4 := 4x4 doubles element by element, inlined (also in 140281710 mirror3d.cpp); p67-1 row
+0x140308e80	ported	port/defcmd/src/objpos/translate.cpp movement_translate: 2-double copy, inlined; p67-1 row
+0x1401b06e0	ported	port/defcmd/src/ifd/drv/ifd3d.cpp load_body: &OBJ_GEO3D elems handle (+0x18), inlined as gk::geo3d_elems; p67-2 row
+0x1403e51b0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVectorBody::size instance (0x18-byte elements); binary-routine check deform-rea-work/scripts_c07/c2d_copy_check.cpp ok; p67-1 row, 1401fd240 subtree
+0x1403e5cb0	ported	port/defmodel/include/defmodel/obj_mesh2d/rc_array.hpp (C09, the owner); comment-only tags remain in sdctl/cow.hpp; was: port/defmodel/include/defmodel/sdctl/cow.hpp CowListBody ctor instance (8-byte values); p67-1 row, 1401fd240 subtree
+0x1403e6320	ported	port/defmodel/include/defmodel/obj_mesh2d/rc_array.hpp (C09, the owner); comment-only tags remain in sdctl/cow.hpp; was: port/defmodel/include/defmodel/sdctl/cow.hpp CowListBody sentinel node ctor instance (identity); p67-1 row, 1401fd240 subtree
+0x1403e5de0	not-needed	stl: std::list _Insert (8-byte value), replaced by std::list in CowListBody (as 14019c9c0); p67-1 row, 1401fd240 subtree
+0x1403e62f0	not-needed	stl: std::list node value ctor (8-byte), replaced by std::list (as 14019cc30); p67-1 row, 1401fd240 subtree
+0x1403e5280	not-needed	stl: std::list iterator ctor from a node, replaced by std::list (as 14019b5f0); p67-1 row, 1401fd240 subtree
+0x1403e52a0	not-needed	stl: std::list iterator copy, replaced by std::list (as 14019c6d0); p67-1 row, 1401fd240 subtree
+0x1403e61f0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (0x18-byte trivially copyable elements); binary-routine check c2d_copy_check.cpp ok; p67-1 row
+0x1403e6180	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (C2dRec28, defcmd/objpos_c2d.hpp); binary-routine check c2d_copy_check.cpp ok; test_objpos_c07; p67-1 row
+0x1403e6260	ported	port/defmodel/include/defmodel/obj_mesh2d/rc_array.hpp (C09, the owner); comment-only tags remain in defcmd/objpos_c2d.hpp; was: port/defcmd/include/defcmd/objpos_c2d.hpp C2dRec28::operator=; binary-routine check c2d_copy_check.cpp ok; test_objpos_c07; p67-1 row
+0x1403e81a0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (0x18-byte elements, operator= 1403e38b0 of packet C12); p67-1 row
+0x1403e82e0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (0x10-byte elements, operator= 1403e3920 of packet C12); p67-1 row
+0x1403e8350	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (0x20-byte elements, operator= 1403e3960 of packet C12); p67-1 row
+0x1403e83c0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (0x10-byte elements, operator= 1403e39f0 of packet C12); p67-1 row
+0x1403e8430	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy instance (0x18-byte elements, operator= 1403e3a30 of packet C12); p67-1 row
+0x1403ee161	not-needed	unreachable: symmetry modes 1..3 of 1403ea82d; its only caller 1403e8510 passes mode 0x140708180 = 0 (the only write, 1403e86b9, stores R10D = 0 set at 1403e852d); p67-3 row
+0x1403ee24b	not-needed	unreachable: symmetry modes 1..3 of 1403ea82d (see 1403ee161); p67-3 row
+0x1403f0667	not-needed	unreachable: called only from the symmetry-mode helpers 1403ee161 / 1403ee24b (and code at 1403ee33d / 1403ee442 inside them); p67-3 row
+0x1403f096f	not-needed	unreachable: called only from the symmetry-mode helpers 1403ee161 / 1403ee24b (and 1403ee33d / 1403ee442); p67-3 row

@@ -1,0 +1,7 @@
+# CP203 elevated read of existing WER archives
+
+An elevated read-only listing found two Windows Error Reporting archive folders whose timestamps correspond to the owned original runs at 2026-10-25 23:45 and 23:59 local time. Each contains only `Report.wer` (86,390 and 85,298 bytes respectively); neither contains a dump. Their archived APPCRASH signatures agree on `def_gui_mo_64.exe`, QtCore4_64.dll 4.8.4.0, `c0000005`, and exception offset `0x32c0`. These signatures corroborate the separate Event 1000/1001 records and retained helper receipts. Archive-local ReportIdentifier values differ from the Event 1000 report IDs, so the folder-time/signature mapping is qualified rather than asserted as a shared GUID identity.
+
+The bounded metadata read exposed loaded-module lists but no faulting registers, memory address, stack, or exception context. The instrumented archive lists QtGui before the first 25 displayed modules; the no-Frida archive lists QtNetwork at its 24th displayed module. Module-list ordering/content may reflect capture timing and does not identify the crash cause or prove environment equality. No file in ProgramData was edited or copied. This read does not replace the blocked native exception-handler preflight.
+
+The earlier `analysis/resume202-attempt2-wer-inspection.md` accurately recorded that its lower-privilege read could not access a matching archive. This follow-up adds the narrower elevated observation without altering that historical receipt.

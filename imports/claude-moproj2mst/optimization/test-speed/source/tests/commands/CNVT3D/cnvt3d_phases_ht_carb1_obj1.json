@@ -1,0 +1,24 @@
+{
+  "label": "CNVT3D revolve 90 brick obj1 with phases (HT_CARB1_SI)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nHT_CARB1_SI.KEY\nMGNELM 1 1000 0 1\nGEO23 1 1\n90.0 0.0 0.0\nGEOSEC 1 10\nMSHSEC 1 11\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n1\n"
+    },
+    {
+      "name": "HT_CARB1_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/HeatTreat/HT_CARB1_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "STEP.DAT",
+      "CONV_STATUS.DAT",
+      " .LOG"
+    ],
+    "notes": "Packet p9-ac8a0: STEP.DAT (1402ac8a0) of an object with mixture materials, so the VOLFC / VOLFS blocks go through 1402a7b60 (phase-column gather + 1402f7490) instead of the 'NE  0' lines of RING_SI."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD 3D GEO pre-check fails",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.GEO\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.GEO",
+      "source": "data/geo3d_badcheck.geo"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Line 2 has 3 tokens -> FUN_1402488a0 false -> reader 0 -> Failed; no DIEGEO for object 4."
+  }
+}

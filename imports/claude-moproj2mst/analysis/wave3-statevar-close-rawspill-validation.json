@@ -1,0 +1,150 @@
+{
+  "scope": "Remesh raw-memory spill, shared StateVar application, typed Close receiver effects and session notifier lifetime",
+  "objective_complete": false,
+  "build": "analysis\\wave3-statevar-close-rawspill-v1-build.json",
+  "tests": "analysis\\wave3-statevar-close-rawspill-v1-tests.json",
+  "registered": 126,
+  "counts": {
+    "passed": 119,
+    "passed-with-logged-gaps": 6,
+    "passed-with-logged-differences": 1,
+    "incomplete-output": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "fixture_changes": [],
+  "historical": {
+    "SAME": 93,
+    "DIFF": 5
+  },
+  "historical_diffs": [
+    {
+      "result": "DIFF",
+      "case": "A:RS_55_Multiple_Operations_Example1",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:120_B_DOE",
+      "differ": 1,
+      "missing": 7,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:121_B_DOE_VAR",
+      "differ": 1,
+      "missing": 8,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:122_B_DOE_GEO",
+      "differ": 1,
+      "missing": 10,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:98_B_DS3F",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    }
+  ],
+  "changed_diagnostics": [],
+  "focused": [
+    {
+      "test": "m2m.mdt.close_effects",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.mdt.close_effects.log",
+      "sha256": "60884a7676b257d09fd47f03c66d4351ef64d2d0892a6a1d9b5f17214e1ded57",
+      "summary": [
+        "0 of 12 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.conversion_session",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.mdt.conversion_session.log",
+      "sha256": "70870f63adcbe5bca242b4a108d6ad221f7f4b0c8603ea1c3a2a624f493bf457",
+      "summary": [
+        "0 of 11 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.doe_session_notifications",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.mdt.doe_session_notifications.log",
+      "sha256": "5b7dfa1909ff508f19a8379dc53cf58269362c6ade58dbb0bfb524cc5628a40a",
+      "summary": [
+        "0 of 8 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.doe_statevar_apply",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.mdt.doe_statevar_apply.log",
+      "sha256": "b09bb4ddad59c552b9dec23760a4f04dac6c36ad37c94073dfca8292775232bc",
+      "summary": [
+        "0 of 7 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_lifecycle",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.mdt.simcontrol300_lifecycle.log",
+      "sha256": "c763e0e67340950822b71b27b6c53de23ed48e911f048601bedce0b33c9394fc",
+      "summary": [
+        "0 of 9 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_remesh",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.mdt.simcontrol300_remesh.log",
+      "sha256": "bf7dc4dbb1901a2e09eec1a92fcf2ef514f1862d58e8c73dd1e01e7bb13dbf6e",
+      "summary": [
+        "0 of 27 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.s.save_io",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792817167452079400\\m2m.s.save_io.log",
+      "sha256": "973974c08f595badcb5b75e8f92da9483d48691f3ff0fbace7fa89c8e02dbe28",
+      "summary": [
+        "0 of 53 cases failed"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/wave3-remesh-rawspill-increment.json",
+      "sha256": "5f5a7f320ab6afc71f638976d2efa6cc9bd70c2818168bcc5bf605d249da2134"
+    },
+    {
+      "path": "analysis/wave2-doe-statevar-shared-apply-contract.json",
+      "sha256": "afff66288ebe7312cd1e51c969535f8cbc650e83d86285739f704301334ee74a"
+    },
+    {
+      "path": "analysis/wave3-close-effects-landing.json",
+      "sha256": "1ba824e0309a82d2766ea027d73dde21253cc0e6fdea33c91b4f048ef2eb3389"
+    },
+    {
+      "path": "analysis/wave3-session-notifier-owner-increment.json",
+      "sha256": "60ce2ff9fa2a65b24cdff4f464eca03fbe693d035a57ca3b0cf48caaf95141e8"
+    }
+  ],
+  "qualifications": [
+    "Historical oracles are not fresh original-session acceptance evidence",
+    "CTest success can contain case skips, expected refusals or permissive assertions",
+    "g0.abi real-project assertion permits M2M_OK or M2M_E_UNSUPPORTED",
+    "Deflate external vectors and imported PACK fixture absent unless separately acquired",
+    "s.save_folder is diagnostic: it logs differences/refusals without failing assertions",
+    "Full folder comparator normalizes declared view/banner profiles; inspect raw differences",
+    "No original executable is launched; keyword reference is read as a PE file only",
+    "Close receiver tests are isolated; actual normal Close is not invoked by public converter. Enabled graph receiver, nonzero StateVar, renderer and unknown registration populations remain guarded."
+  ],
+  "next_started": "Implement editor VFACTR owned-definition tail and native whole-model KEY ordering; recover next active DOE stage and real Close graph allocation/registration."
+}

@@ -1,0 +1,142 @@
+{
+  "scope": "Checkpoint41: remove confirmed nonoriginal grown-tail zeroing from both object-set allocator call paths",
+  "objective_complete": false,
+  "build": "analysis\\wave3-allocator-tail-fidelity-v1-build.json",
+  "tests": "analysis\\wave3-allocator-tail-fidelity-v1-tests.json",
+  "registered": 145,
+  "counts": {
+    "passed": 138,
+    "passed-with-logged-gaps": 6,
+    "passed-with-logged-differences": 1,
+    "incomplete-output": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "fixture_changes": [],
+  "historical": {
+    "SAME": 93,
+    "DIFF": 5
+  },
+  "historical_diffs": [
+    {
+      "result": "DIFF",
+      "case": "A:RS_55_Multiple_Operations_Example1",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:120_B_DOE",
+      "differ": 1,
+      "missing": 7,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:121_B_DOE_VAR",
+      "differ": 1,
+      "missing": 8,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:122_B_DOE_GEO",
+      "differ": 1,
+      "missing": 10,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:98_B_DS3F",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    }
+  ],
+  "changed_diagnostics": [],
+  "focused": [
+    {
+      "test": "m2m.g0.abi",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792840836797262400\\m2m.g0.abi.log",
+      "sha256": "a42f1102187a43a01bf52d12072ce5359c6bf810f1f6b1c7ee5bfa644307e817",
+      "summary": [
+        "0 of 8 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.l7_load",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792840836797262400\\m2m.mdt.l7_load.log",
+      "sha256": "5b0e244628aefc955666838941cbe5b6c11a3cd28064ad9d385d284221125494",
+      "summary": [
+        "0 of 3 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_lifecycle",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792840836797262400\\m2m.mdt.simcontrol300_lifecycle.log",
+      "sha256": "749d168cbe4252eed91d89e6c2355c6bb0e452af93e175fd94d63bc8483f1ae5",
+      "summary": [
+        "0 of 28 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_remesh",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792840836797262400\\m2m.mdt.simcontrol300_remesh.log",
+      "sha256": "bf7dc4dbb1901a2e09eec1a92fcf2ef514f1862d58e8c73dd1e01e7bb13dbf6e",
+      "summary": [
+        "0 of 27 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.viewer_box",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792840836797262400\\m2m.mdt.viewer_box.log",
+      "sha256": "504dfe5b7aee36775d365dcd48da20045c7ca41b5d198dcae458f10f5df8a251",
+      "summary": [
+        "0 of 5 cases failed"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/wave3-allocator-tail-fidelity-implementation.json",
+      "sha256": "1fd3623b0105d354742cbb727e513e3125daa93745ef4c411860c1d79564de68"
+    },
+    {
+      "path": "analysis/wave3-allocator-tail-discrepancy-contract.json",
+      "sha256": "ec199d935bfcce3e730cdc03277677a04d37a69ca25e711b5984b073d46d22d1"
+    },
+    {
+      "path": "analysis/wave3-original-allocator-probe-receipt.json",
+      "sha256": "903e80cc8198cf012bb8b2b246f9de4773c9c5f553fe29254054fb56900e9eeb"
+    },
+    {
+      "path": "analysis/wave3-ported-allocator-probe-receipt.json",
+      "sha256": "7b0de03bf09b005e2c503f6eccdcfa1de244d6df5c1a92463629ae80f4d1ce27"
+    },
+    {
+      "path": "analysis/wave3-faithful-allocator-probe-receipt.json",
+      "sha256": "4e9c6bc06bfbc81273fa9b0fab9b1d75f1a5410bad5475bd1423eb2bbc515198"
+    },
+    {
+      "path": "analysis/wave3-allocator-low-level-tests.json",
+      "sha256": "017818998475552235c8c356bc6e7482f680919418d7c1ccf020cb076628096b"
+    }
+  ],
+  "qualifications": [
+    "Historical oracles are not fresh original-session acceptance evidence",
+    "CTest success can contain case skips, expected refusals or permissive assertions",
+    "g0.abi real-project assertion permits M2M_OK or M2M_E_UNSUPPORTED",
+    "Deflate external vectors and imported PACK fixture absent unless separately acquired",
+    "s.save_folder is diagnostic: it logs differences/refusals without failing assertions",
+    "Full folder comparator normalizes declared view/banner profiles; inspect raw differences",
+    "No original executable is launched; keyword reference is read as a PE file only",
+    "Initialization policy repaired; exact uninitialized bytes and full CRT failure behavior remain qualified. Historical diagnostics unchanged in this run."
+  ],
+  "next_started": "Native editor setup-prefix, actual Type2 Task registry/session ownership, and bundled startup cache capture preparation are active. Root reviews next owner APIs and capture after mandatory three-checkpoint efficiency review."
+}

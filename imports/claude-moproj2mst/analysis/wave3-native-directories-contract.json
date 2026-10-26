@@ -1,0 +1,50 @@
+{
+  "scope": "Immediate native absolute Save directory attempts; writer-specific KEY ordering remains separate",
+  "objective_complete": false,
+  "original_contract": [
+    "140051190 calls task directory then14008c630 standard project directories; return values ignored",
+    "14081afb0 setPath(target) then mkpath(target); on failure one-OK modal dialog, exec return ignored, helper alwaystrue",
+    "Qt670feeb0 cleans and converts separators, iterates parent prefixes, tests directory/other existing entries, then CreateDirectoryW; first failure retains previous components",
+    "Qt670f7fc0 preserves device prefix, otherwise670ffbf0 GetFullPathNameW then extended prefix even for short paths; trailing space adjustment retained",
+    "Qt670fed20 root drive adjustment and access/sharing-error FindFirstFileW fallback retained"
+  ],
+  "imports": {
+    "0x671a8268": "GetFullPathNameW",
+    "0x671a8218": "FindFirstFileW",
+    "0x671a8210": "FindClose"
+  },
+  "implementation": [
+    "Native Save step2 enables immediate directory attempts, with ordered result observations; no deferred retries for those mkdir entries",
+    "Recording-only API retains mkdir effects and makes no directories",
+    "Other recorded files are still applied later; this increment does not claim earlier KEY file ordering recovered"
+  ],
+  "required_validation": [
+    "Focused directory success, collision and retained-prefix failures",
+    "Public Save continuation after blocked unused directory",
+    "Full regression and unchanged diagnostics/fixtures"
+  ],
+  "qualifications": [
+    "Absolute filesystem paths only; relative, drive-relative and custom QDir engines remain explicit refusal/investigation",
+    "Modal event delivery is not integrated; failed-attempt observation marks the actual dispatch boundary for successor integration",
+    "Default OK return is source-bound; no original app session run here",
+    "GetFullPathNameW second-buffer instability is guarded rather than reproducing undefined memory reads",
+    "Existing cleanPath implementation qualifications remain; no claim of complete Qt filesystem equivalence"
+  ],
+  "files_sha256": {
+    "analysis/wave3-earlier-save-static.json": "a36ed5cec04ada3856135a91c8576b1a606e54b0099c9b7a067011efd98c30a3",
+    "analysis/wave3-earlier-save-mkdir-contract-correction.json": "e1cf5cd05222646a48268ec257a4667ca85bf8aa2b31826cd582126f411a9bce",
+    "analysis/wave3-earlier-save-mkdir-qt-static.json": "115ecbdddb6ae65d0e950b7e463049a1b64c355df2d1bbb2844077ffb6c27759",
+    "analysis/wave3-earlier-save-mkdir-native-static.json": "13fac390d41ea304b59816b7ed629e561d39ea0f59abb29ceee881b74f835d25",
+    "analysis/wave3-earlier-save-mkdir-path-static.json": "15c20f0d59df405e9880a830c952612507b72fdaa7dd25741db027c289107637",
+    "analysis/wave3-earlier-save-mkdir-symbols.json": "f9b4326828bd3b3ca7fc24c563c713d349a28422b459c455f4bd6cc27bfc8f95",
+    "analysis/wave3-earlier-save-mkdir-path-final-static.json": "0d6d0a31d3b08d9beb80f4e14f53ba413d7078c255f59453b4842ca0c6b7d1cc",
+    "analysis/wave3-directory-failure-dialog-contract.json": "4111e716cc5d5482433f33c6330a63ec4a9f618b592cd3a335b7f88887bf8ec4",
+    "source/apps/moproj2mst/include/m2m/native_directories.hpp": "8d705e756c7845432950727ead3df47bc98edd1806f4442ab586cbad0a94ba20",
+    "source/apps/moproj2mst/src/qt4/native_directories.cpp": "48ba21411d091ec7c4139de5dcbeb7dc4fb18a4c712bf62a3d5d572bfc84f2ec",
+    "source/apps/moproj2mst/include/m2m/engine.hpp": "680b3d01f6f9447be20ec9e1d98394b0c72e61288ee4b2b34882cd24613b89d1",
+    "source/apps/moproj2mst/src/engine/save_current.cpp": "07d66cf080fcf2307ab6d74466c11c46bd1631972715351e6069aa468faaccaa",
+    "source/apps/moproj2mst/src/core/convert.cpp": "eda51e1f54e76dd9fbdd2614ca9009be72dab45b77b647d0bce34dc2e63ac12b",
+    "source/apps/moproj2mst/tests/s/test_native_directories.cpp": "5e0f6babdcf1a2b4de990930e3608e6fc1d1aa6d289f47d4cfb6ee2c7be0cd3d",
+    "source/apps/moproj2mst/tests/s/test_save_io.cpp": "ed5e620b19ad6841b1ad01625fbf18fca8a77ee640d8e5851de4479e26a3db66"
+  }
+}

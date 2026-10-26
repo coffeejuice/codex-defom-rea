@@ -1,0 +1,78 @@
+{
+  "schema": "editor300-same-widget-event-owner-proposal-v1",
+  "created_utc": "2026-10-24T12:34:36.572742+00:00",
+  "status": "Source/API proposal only; shared event APIs must be agreed with root/closure_next before production edits.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-probe002-prefix-reconciliation.json",
+      "sha256": "c48f2daed6509d571c9895fc6f2d53dadceba5036b12c1611939da3f1533616a"
+    },
+    {
+      "path": "analysis/wave3-editor-property-event-dtor-static.json",
+      "sha256": "77dc5a1cff77a692acffdd44e530e573d489a5a5735f46afc4810d881b34b379"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-property-event-6711d640.asm",
+      "sha256": "77872671f40809d713e557e10e914d0af130e5e2ea43eeea21b055d6fad1c896"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-dynamic-property-6712e180.asm",
+      "sha256": "4cc1fdc3d44bb6177bd15c1fe61743ec819bc1c6fd88e0875630ceff170d8809"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-property-application-switches.json",
+      "sha256": "5acf5c66fcf5b7f0537d5eb351eaf9fa6b74de27dba33eda84f32c52fe32feeb"
+    },
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    }
+  ],
+  "owners": {
+    "native_widget": "m2m::engine::simcontrol300::StagedEditor300 is the actual factory/widget-area-owned parentless editor record. Add one shared_ptr<WidgetState> component with nativeIdentity=this, analogous to existing MainViewState component. Initial fields unknown; creating this representation does not complete/register native QWidget construction.",
+    "setup": "EditorSetupState is separately allocated after factory, then one-shot bound. It borrows weak WidgetState identity from its exact bound StagedEditor300. Setup expiration, factory destruction or model guard expiration must revoke live notification access.",
+    "runtime": "Session supplies the same WidgetRuntimeState used by actual native widget owners. Runtime supplies the same actual WidgetThreadState for receiver/application/filter identity; no editor-only queue, depth counter or copied app filter owner. Binding and all-widgets registration are separate effects.",
+    "field_migration": "Move live prefix name,geometry,resize-known-bits and dynamic property names/typed values into the WidgetState component; no second mutable state in NativeSetupPrefixState. The prefix retains stage/issue/ordered effects/qualification/event ownership. Existing diagnostic consumers use const accessors/view into same live component; historical snapshots may copy values only when explicitly marked immutable and never dispatched.",
+    "property_event": "EditorSetupState owns one source-stack WidgetEventState for raw0xaa and its independent name payload. Its lifetime spans guarded synchronous dispatch. Runtime borrows exact actual receiver/event; diagnostics use weak/read-only event view. Normal event destruction removes live event access but preserves immutable receipt/effects."
+  },
+  "proposed_editor_api": [
+    "StagedEditor300::widgetState() const noexcept -> shared_ptr<WidgetState> exposes actual component for root binding, not constructor-completion status.",
+    "StagedEditor300::bindWidgetRuntime(Editor300Binding,const shared_ptr<WidgetRuntimeState>&) binds exact live component to actual shared runtime once, rejecting replacement or late binding. Root/closure may prefer existing generic bind method under same constraints.",
+    "StagedEditor300::continueNativeSetupPropertyNotification(Editor300Binding) -> NativeSetupPrefixReport uses existing bound setup/component/runtime and actual pending event. No external success boolean or independent copied application context.",
+    "EditorSetupState private continuation calls agreed shared dispatchSynchronousWidgetEvent(actual WidgetState&,actual WidgetEventState&); its retained cursor prevents duplicate depth increments or replay after a later dependency guard.",
+    "NativeSetupPrefixState reaches PropertySetReturned only after normal notify return, event destruction and sourcefalse return. CompleteForNativeSetup and CompleteForPublicSave remainfalse; first-grid allocation and earlier base-post/constructor qualifiers remain separate."
+  ],
+  "source_event_lifetime": {
+    "construct": "6711d640 clears eventprivate+8, sets type0xaa, clears flagbits0/1 and setsacceptedbit2; leaves other raw bits untouched. It installs derivedvtable and copies name-data pointer into+18 with refincrement at6711d670.",
+    "temporary_name": "Setter constructs event6712e330, releases temporary name ref at6712e33e/freeifzero, clears spontaneous again6712e356, then optional actualapp notify6712e36f. Event-owned name survives the temporary; current property table name data and event name data were distinct in capture002.",
+    "notify": "Absent app skips notify. Captured app-present sourceprofile has no internal callbacks, uses same thread+1c scoped increment/decrement, SfApplication normal forwarding, one knownsame-thread VistaStyle false filter, emptyobjectfilters/layoutnull, native propertyreceiverfalse. Unknown/custom/throwing routes stayexplicit; raw0xaa bypasses gestures.",
+    "destroy": "Setter calls6711d680 at6712e37a. Dtor reinstallsderivedvtable, decrementsname-data ref at6711d6a4/freeifzero atd6ae, setsbaseeventvtable atd6bb, then checks postedbit0 atd6be. Postedfalse path skips67119970 removePostedEvent; appnull also skips. Current stackevent is not queued.",
+    "return": "6712e37f setsALfalse aftereventdtor. Caller QVariantfalse temporary destruction occurs only after selectedendpoint140ed9969; do not conflate eventdtor withcaller QVariant cleanup.",
+    "raw_bytes": "Captured QVariant16bytes and raw eventflag word are retained evidence only. Typedfalse/source-known metadata do not initialize or normalize unused union/padding/highflag bits."
+  },
+  "focused_acceptance": [
+    "Exact WidgetState identity remains same across factory,setup,runtime; failed replacement/expired model/setup/native owner cannot dispatch.",
+    "Native prefix writes are visible through actual WidgetState; no stale independent copy after external shared runtime/widget mutation.",
+    "Missing thread/depth preserves actual constructedevent/property writes and reaches correct guardedcursor; never assumesdepth0.",
+    "Known nonzero depth increments/decrements same thread owner exactlyonce; guard afterincrement doesnot silently unwind or incrementagain onresume.",
+    "Known capturedroute returnsfalse,clears spontaneousbit asnative,retainsaccepted andpropertyfalse,then destroys onlystackevent/namepayload; no queued-eventcounter/removal or propertyrollback.",
+    "Repeated continuation afterreturn doesnot repeatcallback,propertyappend,dtor ordepthchanges.",
+    "Public editor guard and earlier base/raw0x4a queue qualification remain; no wholeconstructor/Open/Save claim."
+  ],
+  "file_ownership": {
+    "worker_proposed": [
+      "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+      "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+      "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp"
+    ],
+    "shared_root_closure": [
+      "WidgetState and WidgetRuntimeState declarations/implementation; agreed widget_events.hpp/cpp/tests; singleWidgetThreadState/queue/event owner APIs"
+    ],
+    "root_only": [
+      "ConversionSession/family/public stage wiring and its tests; builds/regression/archive"
+    ]
+  },
+  "current_blocking_dependency": "Agree shared field/component/event API and obtain missing actual threaddepth/postedqueue/dispatcher observation in already-planned bundled constructorcapture. Static capture002 profile reaches earlysetup only; it cannot bypass those earlier prerequisites."
+}

@@ -1,0 +1,72 @@
+{
+  "scope": "Shared actual WidgetState storage and source-closed synchronous stack DynamicPropertyChange0xaa path. Queue/post/base constructor completion remains guarded.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observed-style-filter-contract.json",
+      "sha256": "ca9edbcd025fade3c5e8faa4c5f38c531967ae7e766eabcf47bc239737390183"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-property-application-switches.json",
+      "sha256": "5acf5c66fcf5b7f0537d5eb351eaf9fa6b74de27dba33eda84f32c52fe32feeb"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-resize-property-prefix-proposal.json",
+      "sha256": "8428edcd208a50293187890e4e733053dd6fe573b39f1d6b735140e3bc766fc5"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-native-property-successor-contract.json",
+      "sha256": "3bb53402b095b64ec07b3dabb4291a306396f84f21ee4fbeb0094ad8b1a661d5"
+    },
+    {
+      "path": "analysis/wave3-editor-probe002-prefix-reconciliation.json",
+      "sha256": "c48f2daed6509d571c9895fc6f2d53dadceba5036b12c1611939da3f1533616a"
+    },
+    {
+      "path": "analysis/wave3-editor-property-event-dtor-static.json",
+      "sha256": "77dc5a1cff77a692acffdd44e530e573d489a5a5735f46afc4810d881b34b379"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67119570.asm",
+      "sha256": "16c54cadcaee336e17bd6dc0e740f87f9b3c92a7907a88a022aecd08db29ac37"
+    },
+    {
+      "path": "analysis/wave3-close-widget-constructor-tail-probe-spec.json",
+      "sha256": "ecf98dbde619cf3ef2d4f81f16e3d056803b7e299af02f8f2fe55d694b1c4dde"
+    }
+  ],
+  "owner": [
+    "Existing WidgetRuntime owns one application-event context and one WidgetThreadState. Existing startup event guards and new editor dispatch read the same application context; no duplicate application snapshot owner.",
+    "WidgetState is a component of actual native owner. StagedEditor300 is the new friend factory; its own destructor must invalidate native owner despite escaped component leases. Binding runtime/thread does not register allWidgets or certify base construction.",
+    "Expired runtime binding cannot be replaced on the same live native component. Call-frame identity includes weak runtime/event lifetime control blocks plus exact receiver and thread.",
+    "Shared widget name, geometry and dynamic-property lists are the sole live storage. Observations fill unknown or accept equal; conflicts refuse before replacing state. Attribute35/42 writes preserve unknown other bits through sparse storage only when full words are absent.",
+    "Property names and boolean QVariant values are separate ordered arrays: allocation, name append, then value append. This does not support arbitrary QVariant types or unknown preexisting tables."
+  ],
+  "source_order": [
+    "Stack QDynamicPropertyChangeEvent6711d640: type0xaa, name QByteArray at+18, private data null, accepted true, spontaneous false and posted false; unspecified flag bits are not zero-filled.",
+    "notifyInternal67119570 first runs QInternal type3; incomplete/nonempty registry guards before thread depth change.",
+    "671195cf increments actual receiver ThreadData+1c before original SfApplication vt+58 ->140002480 ->QApplication notify.",
+    "QApplication raw0xaa exact switch bypasses gesture collection and input-state mutation, then common helper65022c60 processes application filters, layout, object filters and receiver in source order.",
+    "First supported live filter population contains only source-bound same-thread VistaStyle entries (empty also supported); unsupported affinity keeps diagnostic boundary. Actual receiver has no installed layout and complete empty object filters.",
+    "Actual QWidget receiver6506d668 non-_q_customDpi branch goes QObject6712cec5/cedf, raw0xaa<1000 returns false; unknown type or custom-DPI path guards at receiver.",
+    "Normal common helper return clears spontaneous mask2;671195e2 decrements same thread depth once. Caller receives original boolfalse. Event remains alive until caller destroys it at original setter point.",
+    "destroyStackEvent models unposted normal6711d680 payload release; no removal from post queue. Destruction during pending dispatch refuses. SetProperty false result is distinct from property storage success."
+  ],
+  "numeric_depth_proof": {
+    "field": "Actual ThreadData+1c; 32-bit increment/decrement with defined unsigned wrap in projection.",
+    "unknown_base": "Optional base remains unknown; source delta+1 is retained at guarded cursor and -1 only on normal return. Fully closed branch +1/-1 preserves every possible original 32-bit base.",
+    "why_no_numeric_consumer": "Empty QInternal callback path invokes none. SfApplication normal forward reads no thread depth. Selected raw0xaa QApplication switches skip gesture/input-specific paths. Application-filter helper uses thread owner identities only; each admitted VistaStyle/WindowsStyle/QObject filter leaf returns false without reading ThreadData+1c. Null layout and empty object filters invoke none. Selected QWidget/QObject property receiver consumes event name/type only and returns false. Common helper touches event spontaneous bit, not depth.",
+    "limits": "This is path-specific, not all-callback coverage. Numeric consumers such as DeferredDelete remain unsupported. Arbitrary callbacks/native exceptions are not invoked or simulated.",
+    "abandonment": "Destroying a retained diagnostic dispatch does not stand in for native exception unwinding: depth delta stays and event remains dispatch-active. No implicit rollback/repair is claimed."
+  },
+  "runtime_qualification": "Editor probe002 verifies actual raw0xaa context/false return but did not read ThreadData+1c. Symbolic unknown-base cancellation is source-proved only for this closed path. Startup font/Create/post queue observation remains separate in constructor-tail-probe-spec.",
+  "implementation_limits": [
+    "No raw0x4a/raw0x4c post implementation or fabricated empty queue; shared queue owner explicitly reports unknown population.",
+    "No native QWidget base completion, first editor grid, timer pump or public normal-Close parity.",
+    "No delivery-success callback or result input; actual typed source branches compute original result.",
+    "Application/receiver observations are provenance-qualified partial input bindings, not a broad mutable Qt event framework."
+  ]
+}

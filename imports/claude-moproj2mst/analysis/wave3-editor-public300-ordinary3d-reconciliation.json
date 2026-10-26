@@ -1,0 +1,144 @@
+{
+  "schema": "wave3-editor-public300-ordinary3d-reconciliation-v1",
+  "created_utc": "2026-10-24T06:24:55.246473+00:00",
+  "status": "read-only public-route audit during source freeze; not public enablement",
+  "evidence": [
+    {
+      "path": "source/apps/moproj2mst/src/ops/family.cpp",
+      "sha256": "db40adb7365f1275b5e024d301066c533c1b13c41b195630f988b8348eb72217",
+      "bytes": 12661
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/loader_l3.cpp",
+      "sha256": "576dcf80afb373a65d252cfedeaa3c45986a1cdc80781592114015fe217a686a",
+      "bytes": 36952
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "fa858c0ef3cf519cb973c3472343db4bd0b4cd8a496f49d0461859c26918d543",
+      "bytes": 3272
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "dbec47e75d7b0a8aa42db06d7f0ca1d0053a7d90e8324354fdef5a2fa485a05a",
+      "bytes": 8816
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-lifecycle-increment.json",
+      "sha256": "6a15c11e9d993516a2a4c43dc1486af2fdf66cbd1ea944ef307c04a516fe49d1",
+      "bytes": 13298
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-observed-composition-contract.json",
+      "sha256": "80bf4a18eb97cf2a42acf210d46f2bf7b84ecd66c71392514def7ffdbbe48dfb",
+      "bytes": 2364
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-pressure-context-contract.json",
+      "sha256": "ed9a60e1ea3b3e85774abcad32ed9178c5659b6214997320b0d9e247ff78aa86",
+      "bytes": 5829
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb5180.c",
+      "sha256": "1829b218e68d8773e19b4b083d1c08225272ca2a0b3ec1c9bc8e05a287747fd2",
+      "bytes": 856
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb5250.c",
+      "sha256": "c82c1c2d2a58eae1a3a58fbccf2e02082438f56804a3b52ba96e0a52749f0261",
+      "bytes": 502
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb5500.c",
+      "sha256": "cee64835a04481c167ba4eb711e99c36defe02f6aa15ad5ba0861e8b71bbfbc3",
+      "bytes": 916
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ece7b0.c",
+      "sha256": "cbc48fdf03a306e643c0a31eec02b234cebd4476b3420dc82f0603c0797acdba",
+      "bytes": 2430
+    },
+    {
+      "path": "analysis/wave3-editor-public-empty-recovery-static.json",
+      "sha256": "f884ce57e6a407432088ba3cad550da2a20716e7949cad24987d3982ed3e7289",
+      "bytes": 3860
+    },
+    {
+      "path": "analysis/wave3-editor-public-view-toggle-static.json",
+      "sha256": "3695304bbd424ff47b5a567690e5ef3cea6a6a95826d4906e2aefda6eb2137c9",
+      "bytes": 2489
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-collapse-owned-save-increment.json",
+      "sha256": "66b40c509a6338e72f2d27e3ee6ebde7e162ad52f63c0e59611ddd1fba6cd412",
+      "bytes": 4984
+    }
+  ],
+  "current_production_route": [
+    "FormingClass::objectTreeFill in ops/family.cpp selects300 when originalSettings.moInputMode!=0 and calls formingSimControl300Open(p,op). That loader slot still only normalizes CG in the live SC. It creates no InitialEditorSession.",
+    "FormingClass::updateDataInWidgetArea checks same shown operation, then unconditionally refuses300 at140eb5180. This is the actual public gate, independent of the helper completeForPublicSave constants.",
+    "openInitialEditor/applyInitialEditorPageState have only tests as external callers in the current source. A production ownership/provider bridge is therefore required before any helper increment can change public300 behavior.",
+    "Actual remesh Open and Save state is now owned by ConversionSession and integrated by read.cpp/convert.cpp. The editor can borrow that same state; no second singleton or absent-file approximation is needed."
+  ],
+  "reconciled_old_gaps": [
+    "MO General hidden mesh, live active-subproject process override and operation StepCount decisions are implemented with explicit original contexts. Do not reschedule the earlier procType1-versus5 correction.",
+    "Repeated stopping/meshing, backed-up refills, environment curve ownership, furnace preservation, TIMEID remembered checkbox/tables, VFACTR, first-three table curves and recognized ACVCOF branches are implemented. The current frozen successor adds ACVCOF collapse and actual owner Save stores; validation is pending root.",
+    "Native remesh reader/writer, raw spill bytes, actual Open owner and Save failure-tail ordering are integrated. Preserve their explicit encoding/malformed/allocation qualifications instead of treating the whole remesh dependency as absent."
+  ],
+  "ordinary3d_candidate_profile": "Actual selected Forming3D mode300, finite KnownC/ASCII profile, existing supported page shapes, no eligible MDS selection, no movementkind6 time curve, absent/empty spring sidecar and empty root/operation recovery lists. This is a proposed bounded first public route, not a claim that complete model structures or API branches are recovered.",
+  "blocking_dependencies": [
+    {
+      "id": "R300-public-owner",
+      "owner": "root shared lifecycle",
+      "status": "missing production binding",
+      "next": "Choose the true editor owner tied to the shown operation/session; construct persistent editor state at the real Open slot, retain model/remesh identity, and dispatch the same state at Save. Never move initial constructor effects to Save.",
+      "acceptance": "Public Open state checkpoints and subsequent Save effects match original for the bounded candidate; Close releases the same owner."
+    },
+    {
+      "id": "R300-feature-provider",
+      "owner": "root/shared provider with worker source contract",
+      "status": "observations typed but no production provider",
+      "next": "Bind two independent General availability query sets and startup 2D/3D heating record bytes to actual original-equivalent provider state. Preserve query order/short circuit and unknown outcome; do not assume all-enabled or BSS-zero.",
+      "acceptance": "Distinct first/refill query results and pressure aggregate proven through actual public path; source/provider provenance retained."
+    },
+    {
+      "id": "R300-constructor-tail",
+      "owner": "editor worker",
+      "status": "source partly closed, incomplete integration",
+      "next": "Complete empty recovery table constructor140ed4b00\u2192140ed4bb0\u2192selectRow0\u2192140ed6460, validator/unit tail and event/timer boundary. Bind exact processEvents observation rather than inventing no events.",
+      "acceptance": "Empty list/UI receiver state and model effects represented at the actual constructor slot; populated branches explicitly queued."
+    },
+    {
+      "id": "R300-apply-tail",
+      "owner": "editor worker plus shared Display owner",
+      "status": "missing receiver state",
+      "next": "Bind application update/reentrancy guards and the ordered140ecd2f0(false),140ecd430(false),base+48 getter before recovery apply. Recover interaction object vt+68 and rotation-reselection callback effects.",
+      "acceptance": "Before/after state and call order covered even after local page validation stops; no generic no-op claim for viewer calls."
+    },
+    {
+      "id": "R300-outer-save",
+      "owner": "root shared lifecycle plus editor contract",
+      "status": "source-known sequence, not integrated",
+      "next": "After page apply:140131110 refresh/dirty, local8 SC.oprnam\u2192setOprName140050a90, root model store140eb5250,140ece7b0(0),140eb5500, then caller propsLoad. Reuse existing refreshSlotItems and setOprName only where their receivers/order match. Recover1400a8190 storage and view receivers before enablement.",
+      "acceptance": "Actual operation/root model ownership, raw names, directory/output effects and view state match original sequence."
+    },
+    {
+      "id": "R300-close-owner",
+      "owner": "editor/closure coordination",
+      "status": "qualified",
+      "next": "Integrate six current temporary owners and interaction/timer/recovery UI destruction with accepted Close. Keep first-wave orphaned720payload bytes, allocation-failure and global delegate ownership explicit.",
+      "acceptance": "No completion claim while original owner/cleanup effects remain unexplained."
+    }
+  ],
+  "new_bounded_findings": [
+    "140eb50f0 reaches repeated stopping140ebd180, meshing140ec0a40, app vt+260 getter, backed-up140ecb340(0), then140ed4b00. The current composer stops before this recovery-constructor call.",
+    "140ecd2f0(false) calls140ec09a0(false), then interaction object editor+150 vt+68(0).140ec09a0 reads MDS selectors and only invokes140ed95c0 when both positive AND passed flagtrue; the false branch does not make that call.",
+    "140ecd430(false) calls140ec0a00(false), then the same interaction vt+68(0).140ec0a00 always calls140eb62e0\u2192140eb6310 before reading flag. That scan can set the rotation combo even when the flag is false; no additional model store exists in this leaf.",
+    "Constructor interaction object140f341d0 stores vtable142b1b3e8, editor pointer+18, external view binding+10, counter+20=0. Exact vt+58/+60/+68 targets and effects remain next bounded investigation.",
+    "Empty recovery selection140ed6460 keeps index=-1 when both source lists are empty; at140ed6603..6608 it jumps to cleanup140ed6feb, bypassing all populated-row widget writes. This does not make the preceding140ed4bb0 table construction a no-op.",
+    "140ed4bb0 allocates two local item objects and lazily initializes process globals1446d49b8/1446d49b0 before checking row counts. Empty lists still reach allocation/receiver work; exact ownership is not yet closed.",
+    "140ed6460 has jump-table data from140ed7000 onward in the captured unwind range. Instruction interpretation stops at return140ed6ffe; the table bytes are not executable evidence."
+  ],
+  "selected_smallest_investigation": "Resolve interaction object vtable142b1b3e8+58/+60/+68 and complete the empty recovery constructor path. This closes ordinary public lifecycle dependencies instead of extending uncommon page profiles. Coordinate any shared Display/manager edits with root; source files remain frozen.",
+  "validation": "No new build, tests, original execution or GUI control by worker. New original evidence is immutable read-only PE disassembly. Current five-file source freeze is unchanged."
+}

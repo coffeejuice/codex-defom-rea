@@ -1,0 +1,85 @@
+{
+  "utc": "2026-10-24T18:27:02.886430+00:00",
+  "status": "implemented_new_files_only; pending_parent_binding_and_build",
+  "owner": "distortion_rea",
+  "authorization": "Parent checkpoint48 frozen signal",
+  "evidence": "analysis/resume48-distortion-vt198-rea.json",
+  "api": {
+    "namespace": "m2m::engine",
+    "declaration": "std::vector<ContactPair> distortionDefaultPairs(Operation& op);",
+    "header": "src/engine/distortion_contacts.hpp",
+    "precondition": "Caller supplies active operation corresponding to native class current pointer; reconstruction guards wrong/missing props, null data and fixtureCount outside0..100."
+  },
+  "owned_files": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/distortion_contacts.hpp",
+      "bytes": 392,
+      "sha256": "93c344574b2e69d6b7dd730b4f8f5f06040c29e513a0c4238052a64d082aea4d"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/distortion_contacts.cpp",
+      "bytes": 2043,
+      "sha256": "20b70b643998a6e83a63750d8bd00fe48d8f06c70c8473aabd8dc2b5ffda685c"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/s/test_distortion_contacts.cpp",
+      "bytes": 6446,
+      "sha256": "e3e7f8225dbd23d2e800e34aca0ff8b8fa0bf63766033e39ef2b8e94e2855d3f"
+    }
+  ],
+  "parent_binding": {
+    "file": "source/apps/moproj2mst/src/engine/save_current.cpp",
+    "include": "distortion_contacts.hpp",
+    "location": "classDefaultPairs Distortion2D/Distortion3D arm",
+    "replacement": "return distortionDefaultPairs(op);",
+    "done_by_this_lane": false
+  },
+  "guards": {
+    "missing_or_wrong_props": "M2M_E_UNSUPPORTED",
+    "null_data": "M2M_E_UNSUPPORTED",
+    "fixtureCount_negative_or_above100": "M2M_E_UNSUPPORTED",
+    "qualification": "These preserve the prior public unsupported boundary for invalid/unrepresented state; no parity with native invalid pointer or out-of-bounds behavior is claimed."
+  },
+  "valid_logic": {
+    "workpiece_nonpositive": "empty",
+    "count_zero": "empty",
+    "pair": "master=fixtures[i],slave=workpiece,frc=0,ihtc=0,lub=1,f19=1",
+    "order": "stored fixture order; no filtering, deduplication or self-pair exclusion",
+    "dimensional_branch": false,
+    "new_engine_dependencies": false
+  },
+  "tests": {
+    "file": "source/apps/moproj2mst/tests/s/test_distortion_contacts.cpp",
+    "target": "m2m_s_distortion_contacts",
+    "ctest": "m2m.s.distortion_contacts",
+    "cases": 6,
+    "direct": [
+      "2D/3D ordered values",
+      "duplicate/self/zero/negative fixture IDs",
+      "workpiece nonpositive/count0",
+      "capacity100",
+      "null/wrong props/null data/negative and101 counts"
+    ],
+    "integration": "Synthetic constructed models plus registered ModelClass; syncOperationFiles rebuilds 2D/3D contacts then asserts4 ordered mirrored pair records and 3D flag1. Requires parent routing binding.",
+    "run": false,
+    "reason": "Parent owns shared candidate builds.",
+    "registration": "Existing CONFIGURE_DEPENDS source/test glob; no CMake edits needed."
+  },
+  "checks_performed": [
+    "Reviewed helper against verified complete PE body and offsets",
+    "Inspected opBase registry binding and fixed synthetic test registration",
+    "Validated exclusive file paths and hashes"
+  ],
+  "not_performed": [
+    "Build",
+    "Test execution",
+    "Original runtime capture",
+    "Shared save_current.cpp edit",
+    "Public header or C ABI edit"
+  ],
+  "remaining": [
+    "Parent review helper and bind classDefaultPairs",
+    "Parent reconfigure/build candidate and run m2m.s.distortion_contacts",
+    "Parent run required regression and acceptance gates"
+  ]
+}

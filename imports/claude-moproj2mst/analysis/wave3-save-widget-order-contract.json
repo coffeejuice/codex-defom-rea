@@ -1,0 +1,78 @@
+{
+  "schema": "wave3-save-widget-order-contract-v1",
+  "status": "original_base_order_closed_root_shared_patch_pending_validation",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "scope": "Base Save virtual68=1405ef510 and base widget update virtuald0=1405f1e20 only. Class-specific Save overrides retain separate contracts, including ShapeOptim.",
+  "order": [
+    {
+      "address": "0x1405ef51e",
+      "action": "Cache current OPI via5ef2b0; skip rest if null."
+    },
+    {
+      "address": "0x1405ef53f",
+      "action": "Call virtual+d0. Base5f1e20 queries property-stack index (initialized0) via notifier2cf740."
+    },
+    {
+      "address": "0x1405f20ad",
+      "action": "Index0: propsToEngine0543a0."
+    },
+    {
+      "address": "0x1405f22af",
+      "action": "Nonzero: emit UpdateDataInWidgetArea with direct notifier."
+    },
+    {
+      "address": "0x1405f22c4",
+      "action": "Nonzero: propsLoad054350 after widget update."
+    },
+    {
+      "address": "0x1405ef54a",
+      "action": "After virtual+d0 returns, unconditionally propsToEngine0543a0 using cached OPI; no test of virtual return value."
+    },
+    {
+      "address": "0x1405ef55c /56f /582",
+      "action": "Then virtual+d8, +e8, +80."
+    }
+  ],
+  "helper_binding": {
+    "054350": "Props virtual58 at05438e.",
+    "0543a0": "Props virtual60 at054410."
+  },
+  "consequence": "Shown editor: apply -> propsLoad -> propsToEngine -> remaining Save slots. Index0: propsToEngine twice. Existing conditional adapter omitted the unconditional outer call; root owns correction/tests.",
+  "code_regions": [
+    {
+      "begin": "0x1405ef510",
+      "end_exclusive": "0x1405ef58d",
+      "sha256": "5644c883cd542eb0742191a39ae101acb5ccf160d755c8a9b754803bf495d899",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "begin": "0x1405f1e20",
+      "end_exclusive": "0x1405f22d3",
+      "sha256": "d3478a345891188246eeb4968ec0ab76c0be9bef505cbd8650790d2a3f3efd11",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "begin": "0x140054350",
+      "end_exclusive": "0x140054396",
+      "sha256": "c36fd14484fac7b9f3d2991a6e05afb3c1048e88d8b3915414d94f12ce162afa",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "begin": "0x1400543a0",
+      "end_exclusive": "0x140054418",
+      "sha256": "6582dbdf77c556a94029a1349acd7cb676d72d233c0f2f77ad5aada43bb2eb76",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    }
+  ],
+  "evidence_sha256": {
+    "analysis/wave2-doe-boolean-row-and-save-order-decompile.json": "5573a950f51b5d082c1d79c667898c2e64fcd88c6dfb6b7669248e9c8c5cb0b5",
+    "analysis/wave2-doe-boolean-row-and-save-order-receipt.json": "6ea99b0cb2683519c294510d34003b4858e3546e16dd267a5a6396c45083c080",
+    "analysis/wave2-doe-ghidra-text-verification.json": "843b2166c4e3fcfb805c115667d47aefc117019453708b38672a927ce32a9bb2",
+    "analysis/wave3-save-widget-order-140054350.asm": "29463f6d79e50822866e542a13315167d9b63c4e885a79ed1c8d4ecc890f2688",
+    "analysis/wave3-save-widget-order-1400543a0.asm": "a8b3f050c253f2753f31286bb921669591d67e5e7665aa8445123c9554defdac",
+    "analysis/wave3-save-widget-order-1405ef510.asm": "5ab71368fb91ebd0363901cb3b741503cf8bbe64022bf41bf28d01b1031620fd",
+    "analysis/wave3-save-widget-order-1405f1e20.asm": "f12044123e62ad70fe37113f754a075ec72740d74cfc26cebfebbf77c373393a",
+    "evidence/gui_mo/s1/mdt/L6/s1.c": "f5ff02930ed36713e45040acd6c4e023c965e7683b80faff7d9aa142e6c24499"
+  },
+  "qualification": "Fixed-PE/static evidence only; no original/runtime/UI or worker builds. Not a claim every class override has base semantics."
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "wave3-project-close-status-v1",
+  "method": "Offline DUMPBIN/direct PE only; no original/Qt runtime or builds.",
+  "captures": [
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+      "entry": "0x1400983c0",
+      "end_exclusive": "0x14009903a",
+      "code_sha256": "c1b5c3a3b5f2800473ee8bb8bf14b377408259fd6ec5189bae6fdd09661e26ec",
+      "artifact": "analysis\\wave3-project-close-status-1400983c0.asm",
+      "artifact_sha256": "8887d0a3a169f999298163282d28331008d2633629790a48bc307bbff36a1f83",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x1400983c0,0x140099039",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\DEF_GUI_MO_64.exe"
+      ]
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "binary_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+      "entry": "0x670b4840",
+      "end_exclusive": "0x670b48b0",
+      "code_sha256": "fee56d4b4f59f383d5d390c071dfc3a112b02263b02b44c9964b540f9b32e62a",
+      "artifact": "analysis\\wave3-project-close-status-670b4840.asm",
+      "artifact_sha256": "76641e684c0fbde58c5a855f654832b48b24741741682dfbc71652490309c0d8",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x670b4840,0x670b48af",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    }
+  ],
+  "codec_literal": {
+    "va": "0x1421401b8",
+    "text": "UTF-8"
+  },
+  "call_order": [
+    {
+      "site": "0x140098d8f",
+      "symbol": "?setCodec@QTextStream@@QEAAXPEAVQTextCodec@@@Z"
+    },
+    {
+      "site": "0x140098dac",
+      "symbol": "?toString@QDomDocument@@QEBA?AVQString@@H@Z"
+    },
+    {
+      "site": "0x140098dbd",
+      "symbol": "??6QTextStream@@QEAAAEAV0@AEBVQString@@@Z"
+    },
+    {
+      "site": "0x140098dc8",
+      "symbol": "?close@QFile@@UEAAXXZ"
+    },
+    {
+      "site": "0x140098dd3",
+      "symbol": "?error@QFile@@QEBA?AW4FileError@1@XZ"
+    }
+  ],
+  "return_contract": "Project writer returns false on failed open or nonzero QFile.error after close. It does not query QTextStream.status.",
+  "file_error_state": {
+    "getter": "0x670b4840 reads QFile private+0x120",
+    "unset": "0x670b4861 writes0 to private+0x120",
+    "close_success": "Existing exact close capture0x670b5f30: initial QFile.flush result is saved; if engine close and saved flush succeed, call unsetError0x670b4850 at0x670b5f9c.",
+    "implication": "Earlier file write error can be cleared by successful close-time byte-buffer recovery, while QTextStream status3 remains sticky. Do not derive project return from stream status alone."
+  },
+  "qualification": [
+    "Normal native path-open scope; exceptions, allocation failure, Qt plugin/stdio branches not generalized.",
+    "Concrete OS partial-byte outcomes and QFile.error resetting require candidate tests; implications above follow statically from caller/state branches, not injected original execution.",
+    "Original top Save still continues later stages regardless project writer false; m2m ABI status mapping is separate."
+  ],
+  "prior_evidence": [
+    "analysis/wave3-boolean-save-io-contract.json",
+    "analysis/wave3-boolean-close-flush-contract.json"
+  ],
+  "files_sha256": {
+    "evidence/gui_mo/s1/mdt/L3/save0.c": "9a523f0e7f2718db36be22419763e9db042c590e5571956b4ea9c8f3d4985720",
+    "analysis/wave3-boolean-save-io-contract.json": "8e955f00d4b724b350dedd59d6ea66f05bdf3562feefb05ff5f623e3f9495cb7",
+    "analysis/wave3-boolean-close-flush-contract.json": "4f9e677670d7c7c275ccec74e3676dd17cf08cafe19ef6aa0190f0d3f8f6acd2"
+  }
+}

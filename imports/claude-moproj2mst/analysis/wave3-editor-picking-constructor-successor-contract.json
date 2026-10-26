@@ -1,0 +1,57 @@
+{
+  "schema": "editor300-picking-native-constructor-successor-v1",
+  "created_utc": "2026-10-24T10:42:38.214746+00:00",
+  "status": "bounded original static dependencies for future actual constructor; no implementation",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-picking-constructor-static.json",
+      "sha256": "e14c0afd3d519bc2e027303e50352ca28c770806b604bbd9dfa239630000e98b"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-initial-state-static.json",
+      "sha256": "2fcf9daec2f96707e10c33d713371f7684c0a8fddb753cae93ae4b7058046d16"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-constructor-counters-static.json",
+      "sha256": "fe8e8d4255e31a87636821a662fad2c683a3a7169bfa1cebcf662cfe95f7d060"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-constructor-imports.json",
+      "sha256": "9d9c169125b98d19d977985d635acaab96624a550216b1a56b0f7234f86c5f94"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-mode-counters-static.json",
+      "sha256": "09cc9283168e5b42ab00f6df4590f9a27108cfcb2df1b0f9bf5e2167c2896952"
+    },
+    {
+      "path": "analysis/wave3-editor-public-picking-owner-amendment.json",
+      "sha256": "366f8ef8b0a427a9dc5e11950fbaea47091d29513c086f83b948d2b9a624ca12"
+    },
+    {
+      "path": "analysis/wave3-close-display-selected-model-contract.json",
+      "sha256": "07aa8710a5e3115b42dce910496012ecafe973def70b5440ae6c0760f5586bd8"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-contract.json",
+      "sha256": "99e4eba643d39674c61c7e58997e6739ff1763f859073458c446fdcb77c501d5"
+    }
+  ],
+  "owner": "GuiModel lazy+248 via140c90f10 allocates0x4428 and calls141202b70(model). Original constructor creates parentless QObject (IAT141e041c0), not a QObject child owned by mainwindow or Display. It stores vtable142cf03a8. GuiModel actual ownership/delete path remains a separate integration requirement.",
+  "construction_order": [
+    "QList at+4080 through14018f9e0 (already recovered shared empty list primitive).",
+    "Two embedded14120c6f0 records at+4088 and+4180 with null model/zero mode; each creates own guard+D8 and containers+E8/+F0, resets through14120c800 and assigns mode+2c0.",
+    "Guard+4380 through14015d170; member+4390 through140a1c780(null); bind actual model guard+4380 with140cbc920 (existing GuiModel guard source contract).",
+    "Call141202ce0 initializer:141202e90(false),141203140,141204c50,141207790,14120b070,14120b200,14120b9b0; then+4388=null,+78=0."
+  ],
+  "selection_buffer": "141203140 calls original memory-fill141471850(buffer=this+7c,value0,count0x1000 bytes), then IAT141e03780=OPENGL32.dll!glSelectBuffer(count0x1000 GLuint entries,buffer=this+7c). The byte fill is0x1000 while registered storage span is0x4000 bytes up to407c. Do not silently zero the entire registered span or drop the graphics/context side effect.",
+  "counters": "141207790 explicitly zeros43 signed dwords at+4278 (total slot0 and modes1..42), then calls1412047e0. This strengthens fresh counter initialization; it does not imply that the connection registry stays empty through constructor initialization or later callbacks.",
+  "reused_contracts": "Guard constructor/changeGuard and shared-list primitives are already established. Their bodies were not exported again. External framework primitive behavior remains the contract boundary; inspect only effects reaching in-scope state/callbacks.",
+  "next_dependencies": [
+    "14120c800 and member140a1c780 constructor only to extent consumed by reached resets/selection",
+    "141204c50,1412047e0,14120b070,14120b200,14120b9b0 reached initializer writes/callbacks",
+    "Actual GuiModel-owned picking deletion and QObject connection cleanup",
+    "Owned graphics/context state for ordered glSelectBuffer; initial row callback reset and subsequent repeat at initial fill"
+  ],
+  "limits": "No runtime or GUI control, no mutable database, no source changes or builds. The capture filename constructor-counters records141203140 but that function is selection-buffer initialization, not counter initialization. Exact counter proof is the separate141207790 capture. Earlier native setup/public guards remain unchanged.",
+  "current_resume": "Candidate38v2 parent validation after test amendment; next authorized implementation is one-way setup/page handoff with weak lifetime guard, released only after parent freeze."
+}

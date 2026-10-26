@@ -1,0 +1,21 @@
+{
+  "label": "DEFFRZ 1 1 0.0 3D (DEF_FRZ3)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nCOG_P1_B1.DB\nDEFFRZ 1 1 0.0\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "COG_P1_B1.DB",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "3D FUN_140157be0: FRZ3.INI (PROBID, 0, DB, step, 1, 1, 0.000000), DMESH.DAT (3D mesh + MTLGRP); runs 'DEF_FRZ3 > DEF_FRZ3.OUT' (3D folder); reads SCRATCH.KEY then SCRATCH.DAT."
+  }
+}

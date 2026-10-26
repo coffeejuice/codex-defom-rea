@@ -139,7 +139,7 @@ RootControls initialized_root_controls(int dimension, double node8_default,
 }
 
 ObjectRecord::ObjectRecord(int object_id, int dimension)
-    : id(object_id), element_kind(dimension == 2 ? 0 : 2), mesh({1, 1, 1}, 4) {
+    : id(object_id), motion(dimension), element_kind(dimension == 2 ? 0 : 2), mesh({1, 1, 1}, 4) {
     if (object_id < 1) throw std::invalid_argument("object ID must be positive");
     if (dimension != 2 && dimension != 3)
         throw std::invalid_argument("unsupported object dimension");
@@ -162,6 +162,7 @@ void ObjectRecord::apply_type(int file_type, int secondary_value) {
         // and selected element kind/arity survive; name and mesh payload clear.
         mesh.deactivate();
         geometry.deactivate();
+        motion.deactivate();
         // 15fbf0:301d10 removes the containers, then301ad0 constructs a new
         // default one. Unlike import-time clear(), this resets the matrix too.
         geometry_segments = GeometrySegments{};

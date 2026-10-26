@@ -1,0 +1,250 @@
+address	size	role	status
+1400a20d0	118	saveMst: main MST + DOE hooks	spec
+1400a50a0	308	MST path (.MST)	spec
+1401313c0	362	write main .MST	spec
+140131530	325	write .MST.TEMP (DOE sub-project)	spec
+140131390	33	clear object masks	spec
+140131680	545	header block	spec
+140c0df50	leaf	Project GEOTYP (+0x24)	spec
+1400a2180	leaf	Project UNIT (+0x20)	spec
+140ceed20	63	Project title (+0x28)	spec
+1401318b0	398	main-project block	spec
+14008a500	62	CBASE(project path)	spec
+14008a4b0	63	project path (+0x18)	spec
+140818d50	196	path+basename+ext builder	spec
+140131a50	428	sub-project block	spec
+1400a75a0	188	DOM Sub_Project[n] Name attribute	spec
+1400a78e0	460	DOM n-th Sub_Project element	spec
+140131df0	773	operation walk	spec
+1400a74f0	89	sub-project at index	spec
+1400a7360	28	sub-project count	spec
+1400a7390	36	current sub-project	spec
+1400a73c0	leaf	current sub-project index (+0x50)	spec
+1400b5a90	leaf	sub-project DOE model (+0x20)	spec
+1400a7670	101	DB path cleanPath twice	spec
+1400a4ee0	63	cleanPath(project+0x30)	spec
+1400b6630	3629	flow-chart op id order	spec
+140085190	716	flow: group items sorted	spec
+140085470	902	flow: group members sorted	spec
+140084ad0	1060	flow: chain head to tail	spec
+140084a50	117	flow: cell (row,col) less	spec
+140085110	117	flow: group cell less	spec
+140085800	3862	flow: op position cache (CURSIM a)	spec
+1400a58b0	51	SfMoOprManager getter	spec
+140044c80	139	holder +0x19c8 lazy create	spec
+140047dc0	61	op item by id to SimItem	spec
+140047950	58	manager lookup + cast	spec
+140047910	58	dynamic_cast SfMoItem to SfMoOprItem	spec
+140045f90	leaf	SfMoOprItem +0x48	spec
+140054e90	167	op singleton from registry	spec
+140070650	154	registry map lookup	spec
+1405ef2b0	28	op current item get	spec
+1405ef280	38	op current item set	spec
+140132100	142	non-DOE dispatch	spec
+1401321a0	296	DOE dispatch (globals)	spec
+140131d10	218	trailer block	spec
+140131c10	250	SIMULATION header	spec
+140050d00	66	SimItem type name (+0x120)	spec
+140132a40	381	DOE geometry variables	spec
+1401322d0	1893	DOE variables	spec
+140132bd0	5740	DOE geometry study (calls 140909a30 which writes .COR)	spec
+140134250	265	DIM/NSTART or DBREAD	spec
+140134360	112	NSTART	spec
+1401343e0	182	DBREAD	spec
+14005a2a0	leaf	SimItem +0x18	spec
+14005a2e0	leaf	SimItem +0x1c	spec
+14005a300	73	DBREAD arg from NSTART	spec
+14005f0f0	79	operation dimension	spec
+1405f5bf0	140	SfOprBase v190 dimension	spec
+1405fece0	leaf	vbase v58 dim flags	spec
+1405fd4d0	240	op member ctor (vbase layout)	spec
+1405fe2e0	554	op info ctor (+0x80 flags)	spec
+140134510	355	KFREAD own KEY	spec
+140064740	leaf	SimItem +0x150	spec
+140064a50	522	own KEY path	spec
+140134680	169	extra KFREAD	spec
+140062e40	leaf	SimItem +0x140	spec
+140062e80	66	SimItem +0x148	spec
+140134730	158	OPRNAM	spec
+1401347e0	278	SIMNAM	spec
+140136b60	162	CYCL<n> prefix	spec
+140134900	251	CURSIM	spec
+140050b10	leaf	returns 0	spec
+140050b20	67	CURSIM flow position	spec
+140055050	51	current sub-project of item	spec
+1400b5f40	59	flow position lookup	spec
+140050910	leaf	SimItem op id (+0x108)	spec
+140134a10	462	GENDB/KFWRIT	spec
+140134bf0	437	MDSOBJ/TNOW/KFREAD SimCtrl	spec
+140059290	282	SimCtrl.KEY path	spec
+140050df0	556	operation dir	spec
+140055030	leaf	SimItem project (+0x100)	spec
+140051110	66	SimItem op folder (+0x130)	spec
+1400a4220	144	project abs dir	spec
+140134db0	1125	KFREAD materials	spec
+1400a5930	51	SfMoMatManager getter	spec
+140044dc0	139	holder +0x19d8 lazy create	spec
+140058e30	238	material id strings	spec
+140058f30	353	unique material ids	spec
+140135220	1102	OBJTYP/KFREAD/MTLGRP	spec
+140135680	1105	OBJTYP single-object variant	spec
+140135b80	535	OBJTYP 0 lines, mask copy	spec
+140136c10	27	vector size	library
+140136c30	44	vector at	library
+140136c60	138	vector resize(n,val)	library
+140136cf0	37	vector clear	library
+140136df0	37	vector detach	library
+140136d20	36	vector begin	library
+140136d50	36	vector end	library
+140136d80	106	vector erase	library
+140136e40	125	vector insert	library
+140136e20	leaf	vector size impl	library
+140061250	115	ObjEntry at (grows list)	spec
+140061220	28	ObjEntry list size	spec
+140061020	159	append default ObjEntry	spec
+14004d160	118	ObjEntry ctor	spec
+14004d450	194	ObjEntry defaults (+4=7)	spec
+14004d520	54	ObjEntry set number	spec
+14004d5a0	leaf	ObjEntry ObjectType (+4)	spec
+14004df40	leaf	ObjEntry +0x1b8	spec
+14005fa80	28	object slot count	spec
+14005fb30	66	object id at slot	spec
+14005fc10	50	slot number (i+1)	spec
+140060600	47	slot index valid	spec
+1400606c0	39	id == -2	spec
+140060030	101	object definition by id	spec
+1400550d0	51	object manager getter	spec
+1400a58f0	51	holder object manager	spec
+140044d20	139	holder +0x19d0 lazy create	spec
+1400690a0	58	dynamic_cast SfMoItem to SfMoObjItem	spec
+14006ba60	101	cleanPath(item+0x28)	spec
+14004db50	28	material list size	spec
+14004db80	88	material id at	spec
+140135da0	358	CNTACT + InterObject	spec
+14005a690	282	InterObject.KEY path	spec
+140135f10	162	OBJPOS list	spec
+140062070	28	OBJPOS list size	spec
+1400620a0	66	OBJPOS at	spec
+14005f150	104	op is 2D	spec
+140065f80	1876	OBJPOS 3D line	spec
+140065af0	1160	OBJPOS 2D line	spec
+1400666e0	31	OBJPOS id list size	spec
+140066700	82	OBJPOS id list at (1-based)	spec
+140135fc0	119	TLOC	spec
+1400ac0e0	leaf	SimItem +0xe8	spec
+140136040	67	INICTC/GENCTC	spec
+140065790	leaf	SimItem +0x70	spec
+1400ac010	200	INICTC/GENCTC writer	spec
+140136090	67	state variables gate	spec
+1400613b0	2679	state vars + NRECVL/ERECVL	spec
+14005f1c0	104	op is 3D (or none)	spec
+14004e1c0	65	2D state vars	spec
+14004e210	65	3D state vars	spec
+14004e830	1830	2D state-var lines	spec
+14004f050	330	SVSCAL	spec
+14004f1c0	2213	3D state-var lines	spec
+14005a400	83	recovery list A	spec
+1400b9cd0	275	sub-project model	spec
+1400655b0	leaf	model +0x19a8	spec
+140970130	leaf	SimItem +0x28	spec
+1401cc700	leaf	SimItem +0x20	spec
+140067100	56	BC list at	spec
+1401360e0	705	KFREAD MeshSettings, REMESH	spec
+14004dfc0	leaf	ObjEntry +0x1ba	spec
+14004df80	leaf	ObjEntry +0x1b9	spec
+14004d560	leaf	ObjEntry number (+0)	spec
+14005cf70	638	MeshSettings%05d.KEY path	spec
+1401363b0	570	KFREAD BccDef	spec
+14004d600	44	ObjectType == 5	spec
+14004e0c0	leaf	ObjEntry +0x1be	spec
+14005da90	638	BccDef%05d.KEY path	spec
+1401365f0	535	KFREAD ObjProperties	spec
+14005eb10	638	ObjProperties%05d.KEY path	spec
+140136810	537	IMPEQP	spec
+1400a5970	51	equipment manager getter	spec
+140044e60	139	holder +0x19e0 lazy create	spec
+14004de90	leaf	ObjEntry equipment id (+0x28)	spec
+1405f5340	885	base operation writer (+0x280)	spec
+1405f56c0	402	default body (+0x288)	spec
+1405f5860	leaf	default +0x290 (empty)	spec
+1405f79b0	leaf	default +0x200 false	spec
+1413e5ef0	leaf	+0x200/+0x1f8 true	spec
+1405f79a0	leaf	default +0x1f8 false	spec
+14006cdd0	89	manager count (rowCount)	spec
+14006d380	136	manager path by id	spec
+14006cea0	153	manager item by id	spec
+14006ce30	99	manager item at row	spec
+14006b8a0	leaf	item id (+0x18)	spec
+140041bc0	28	apply stream manipulator	library
+1400048f0	118	QString operator+	library
+140004970	119	QString + QChar	library
+140002110	167	QString + const char*	library
+140819590	97	QFileInfo absolutePath	library
+140818f10	97	QFileInfo fileName	library
+140819090	97	QFileInfo completeBaseName	library
+140818e20	226	strip leading dot	spec
+1408192e0	435	dir+base+ext builder	spec
+140818bf0	331	append extension if missing	spec
+140136ab0	39	set KFWRIT mode	spec
+140136af0	53	set cycle mode	spec
+140135ae0	150	preset prev object mask (Run path)	out-of-scope
+141354350	69	HeatTransfer v188 vbase	spec
+140750600	69	Cogging v188 vbase	spec
+1400024f0	865	start-up codec selection (replaced by m2m_set_codepage, coordinator 2026-10-22)	out-of-scope
+1400980d0	476	File>Save driver	out-of-scope
+1400ba650	411	DOE .MST.TEMP writer	out-of-scope
+1400ba800	2687	DOE dir structure	out-of-scope
+1400a51e0	159	.MST.TEMP name	spec
+1400ba000	835	DoeStudies dir	out-of-scope
+1400ba350	245	DOE Control dir	out-of-scope
+1400b5c40	leaf	sub-project project ptr	spec
+1400b5c80	55	sub-project index	spec
+1400a77b0	170	sub-project index by id	spec
+14005ff30	246	object name or Read From DB	spec
+14005fb80	131	slot of object id	spec
+140061310	61	ObjEntry by object id	spec
+14004d730	63	ObjEntry name (+0x10)	spec
+140817870	leaf	DOE var +0x20	spec
+1401cc6b0	leaf	DOE var link (+0x40)	spec
+140010320	leaf	+0x18 int	spec
+140100980	leaf	+0x1c int	spec
+1403047c0	59	QString copy (+0)	spec
+140817a80	91	DOE var string list at	spec
+140817940	136	DOE var geo pair at	spec
+140817e20	126	DOE var geo A valid	spec
+140817eb0	126	DOE var geo B valid	spec
+140909a30	523	DOE writes .COR file (side effect)	out-of-scope
+14093a200	99	count non-empty lines	spec
+1400d0e60	62	DOE var entry list (+0x30)	spec
+1400d7fc0	63	DOE entry +0x18	spec
+1400d8000	63	DOE entry +0x20	spec
+14091ba60	329	DefDoeModel v1b0	spec
+14091bbb0	248	DefDoeModel v1b8	spec
+14091bdb0	920	DefDoeModel v1c8	spec
+140136f40	87	QMap<int,int> value	library
+1413c5630	69	QMap contains	library
+1413df430	47	QMap isEmpty	library
+1413df3f0	52	QMap ctor	library
+140307410	25	QList isEmpty	library
+14004d800	leaf	ObjEntry +0x19	spec
+14018f9e0	48	QList ctor	library
+140004ae0	25	QList size	library
+14014b5b0	46	QList at	library
+1400250c0	56	QList<int> at	library
+140010330	44	kind == 2	spec
+140010360	44	kind == 3	spec
+14006daf0	58	container iterator	library
+1400b53d0	156	QMap assign	library
+1400ad070	146	QList assign	library
+140004a60	leaf	flags ctor	library
+140044a90	314	holder root model	spec
+1400b5a70	leaf	sub-project flow (+0)	spec
+14006c120	172	SfMoItemManager ctor	spec
+1400425a0	216	SfMoMatManager ctor	spec
+1400beca0	180	SfMoEqpManager ctor	spec
+140045fe0	259	SfMoOprManager ctor	spec
+140068ba0	180	object manager ctor	spec
+140136ae0	leaf	reset KFWRIT mode	spec
+140136b30	leaf	reset cycle mode	spec
+140136b40	leaf	set cycle index (0x143d80250)	spec
+1403b5520	?	sets language global 0x143d79718 (not decompiled)	out-of-scope

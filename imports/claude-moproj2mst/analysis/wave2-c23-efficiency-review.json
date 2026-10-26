@@ -1,0 +1,21 @@
+{
+  "scope": "Converter checkpoint review only",
+  "metadata": "analysis/wave2-c23-efficiency-metadata.json",
+  "qualification": "Bounded tail has one completed prior turn, no current recovery token attribution. No speedup claim.",
+  "observed": {
+    "successful_build_seconds": 31.156,
+    "test_seconds": 18.984,
+    "tests": 99,
+    "build_repair": "Missing header in new test",
+    "test_repair": "Test-created inactive model changed shared class.current; restored active pointer",
+    "registration_gap": "Port tests disabled in standalone converter; registered shared mesh test through converter wrapper"
+  },
+  "adopted_change": "Check new test names in configured inventory before starting a dedicated run; use --no-tests=error so absent registration cannot appear as a pass.",
+  "validation_preserved": [
+    "Full99 CTest suite",
+    "Raw129 manifest/byte diff",
+    "Source/build hashes",
+    "Fixture unchanged checks"
+  ],
+  "speedup_claim": null
+}

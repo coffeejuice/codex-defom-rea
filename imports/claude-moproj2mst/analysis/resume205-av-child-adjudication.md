@@ -1,0 +1,9 @@
+# CP205 owned-child exception preflight adjudication
+
+The raw run in `resume205-exception-handler-av-child-preflight.md` remains **INCOMPLETE** under its original strict predicate. Do not rewrite that result as a PASS. Its expectation that this Python fault must exit with Windows status `0xC0000005` was not met: the held process exited naturally with code `1`. The report does not establish which Python or Windows layer converted that status.
+
+The narrower callback objective **was observed**. Frida 17.23.2 installed `Process.setExceptionHandler` before the single resume of newly created suspended Python PID 30744. Its first message after resume was `first-access-violation`, with RIP and exception address `0x0`, execute access at `0x0`, 16 accurate backtrace frames, and more than ten registers. The injected callback returned `false`. RIP `0x0` has no containing module, so the original checker’s module-at-fault requirement is inappropriate for this specific null-execute child. The backtrace includes libffi, ctypes and Python modules.
+
+The helper reported `target_exited`, then exact-handle cleanup with `exit_verified=true`, `handles_closed=true`, zero termination attempts and exit code `1`. The helper exited `0`; both Windows and Frida views showed PID absent, and the Frida session detached. There were zero runner failures. No GUI input or application control was acquired, and no DEFORM or converter process was targeted.
+
+This establishes that the installed Frida callback mechanism can capture a native access violation and let handling continue after returning `false`. It does **not** establish the original converter's fault site, final crash status, or Close behavior. The next discriminator is the reviewed, owned original crash-stack capture; retain its own raw receipts and require exact target/fixture pins before interpreting it.

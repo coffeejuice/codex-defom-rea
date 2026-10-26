@@ -1,0 +1,67 @@
+{
+  "status": "Source-only review correction; frozen worker probe and candidate38 production unchanged; no worker launch",
+  "evidence": [
+    {
+      "path": "build/original-splitter-probe-002/probe.js",
+      "sha256": "086b383d3589107f8a5d0f57a31533693122d2b0d3067f145624f6ae7dc5e1b2"
+    },
+    {
+      "path": "analysis/wave3-close-splitter-probe-002-script-freeze.json",
+      "sha256": "728d8e0f922936e8bc752a14906e9b360667a1157c2586a274e53eaeca027c31"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505fc40.asm",
+      "sha256": "015e2b988732a6524e1965c9304b91c74019d01156f1731aaf4a9876bb4811c5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505fc9c.asm",
+      "sha256": "ddc2d20e5445611266212963f66fd13517f182c69d42dffec49564ff82a963ba"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505fd94.asm",
+      "sha256": "52b5a0d9863e181783ec68a2cddd7465b3eb869ae77a4927752947849e28f993"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505fe18.asm",
+      "sha256": "99d86a42505dce44cdb8ca1f473a5ce5fb090d87a75080b30973ad63b54d1b29"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506dbd0.asm",
+      "sha256": "732491d42b26315e65e0039309e70d98d72f7d37c7e576e25d83408e2ca02ff8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-parent-small-dependencies-static.json",
+      "sha256": "9d3f8a8f8622ffd4bec82058bc936f30533480e3992f234aea5c2efa187847d5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140dab810.asm",
+      "sha256": "9d4a251a8f46c895c54000b6f987490478680aa8bc27fd7dad398f8c8d038b70"
+    }
+  ],
+  "focus_input": {
+    "receiver": "rcx is QWidgetPrivate; private+8 actual QWidget",
+    "old_window": "rdx is old top-level window obtained before setParent changes; 6506df2d..33 passes saved r15",
+    "parent": "IAT65696868 is QObject::parent; raw QObjectPrivate+10 matches retained parent fields"
+  },
+  "focus_flow": [
+    "6505fc4d..8c walks actual current QWidget and its QObject parents while current QWidgetData+0xc bit0 is clear. If parent is null it retains last object. First bit0-set object is current window.",
+    "6505fc8c compares old window with current window. Equal returns immediately at6505fe18; no ring partition or splice.",
+    "Otherwise6505fca1..fd80 partitions the existing focus ring and may clear existing focus child. Fresh self-ring is only one qualified branch.",
+    "If receiver QWidgetData+0xc bit0 clear,6505fd94..ce repeats the current window walk after partition. At6505fdd2 it loads that window private+98 predecessor, then splices the retained receiver sub-ring. If receiver is itself a window,6505fe00 closes its own ring instead."
+  ],
+  "probe_defect": "Worker002 focus snapshot unconditionally selected MainView.previous. This is a profile hypothesis, not a source-general selection and not enough by itself for later placeholder/handle or splitter reparent contexts.",
+  "reviewed_copy_requirements": [
+    "Do not amend frozen worker script. Root creates separately hashed reviewed copy.",
+    "Read actual receiver private+10 parent. Collect bounded/cycle-checked parent chain with object/private/parent/QWidgetData/window flags and explicit invalid/truncated result. Do not call Qt getters.",
+    "Record oldWindow and actual currentWindow plus equality result. For same-window entry label no-op; do not infer ring splice from hook name.",
+    "For different-window non-window receiver, capture actual current-window predecessor and preserve that pointer for return snapshot; entry predecessor remains a pre-state observation if partition can mutate its identity.",
+    "Do not label MainView predecessor as general. Unobserved or partial-ring traversal remains unresolved.",
+    "Root increases state budget80 to160, retaining bounded caps/errors/truncation."
+  ],
+  "constructor_field_review": {
+    "defect": "Current candidate38 SplitViewState holds initialized qt::String name_ and exposes objectName while only QWidget-base construction prefix has executed.",
+    "native_order": "dab839 QSplitter ctor must return; dab845..85b install derived vtables; dab868 constructs dedicated QString at split+28; dab874 derived init; dab87e notifier registrations.",
+    "required_correction": "Model dedicated splitViewName as optional and absent at all current pending stages. Do not label this dedicated SfSplitView field QObject objectName.",
+    "coordination": "Reported to root before any frozen production amendment."
+  }
+}

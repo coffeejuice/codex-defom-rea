@@ -1,0 +1,45 @@
+{
+  "scope": "QWidget::setVisible(false) early return, reached state prefix and event boundary for HideSecondary",
+  "method": "Immutable shipped QtGui4_64.dll offline bounded DUMPBIN, no GUI/runtime",
+  "binary": {
+    "path": "evidence/original-binaries/QtGui4_64.dll",
+    "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-qt-widget-visibility-contract.json",
+      "sha256": "fc8aa63c3f0df4022dd7d2e6d711adc9d49a6468612a9d98456f6a7884c33857"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-qt-widget-hide-body-static.json",
+      "sha256": "2a446c452c8431dac25b738dd469a4969bd98099c4f22009503998995cf4fb41"
+    }
+  ],
+  "entry": "65070410 false argument branches6507075f",
+  "early_no_effect_return": {
+    "condition": [
+      "bit5 at dword(*(widget+8)+0x1cc) set",
+      "bit0 at byte(*(widget+20)+0x0a) set"
+    ],
+    "effect": "returns6507093f without the later state stores or callback calls",
+    "qualification": "Neither raw bit is inferred solely from isVisible()==false; enum names/defaults and current values remain inputs."
+  },
+  "remaining_order": [
+    "Conditional top-level/created/window-style branch65070781..650707db invokes platform helpers and Get/SetWindowLongPtr through IAT65699ac0/9ac8; helper65022040 not expanded.",
+    "If global659c96e8 equals this widget, clears it; otherwise writes back same value.",
+    "For non-window with parent, invokes parent-private6505ebc0 before attribute stores.",
+    "Calls65068fe0(widget,rawattribute16,true), then65068fe0(widget,rawattribute69,true). Attribute setter effects not expanded here.",
+    "If created-bit at(*(widget+8)+1c8) bit28 is set, invokes650700b0(private). That hide helper and its callbacks remain a dependency.",
+    "For qualifying parent states, invokes parent layout virtual+58, or allocates QEvent raw0x4c and posts to parent via QCoreApplication::postEvent.",
+    "Finally constructs QEvent raw0x1b and synchronously QCoreApplication::sendEvent(widget,event), then destroys event."
+  ],
+  "imports": {
+    "65696868": "QObject::parent",
+    "65696818": "QEvent::QEvent(Type)",
+    "65696bf0": "QCoreApplication::postEvent(QObject*,QEvent*)",
+    "65696810": "QCoreApplication::sendEvent(QObject*,QEvent*)",
+    "65696808": "QEvent::~QEvent"
+  },
+  "implementation_limit": "Only the exact qualified early-return branch is closed without downstream dependencies. Every other live Hide must retain the first unavailable state/helper/event guard; do not implement a bool-only hide and claim parity.",
+  "excluded": "setVisible(true) branch not recovered; original fresh visibility and full Qt event/descendant state not inferred."
+}

@@ -1,0 +1,115 @@
+{
+  "status": "Completed owned startup capture; absence verified and Frida closed",
+  "utc": "2026-10-24T13:05:48.535942+00:00",
+  "evidence_id": "ev_e1a5f1078dc55e818b40d9918609fde4eb3f80df9788d11798d1e95bd0f2e169",
+  "pid": 30208,
+  "session_id": "de603db6-6be4-4977-b84e-3d80afc3f9d6",
+  "modules": [
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+      "base": "0x7ff7c94b0000",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtCore4_64.dll",
+      "base": "0x54570000",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    },
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtGui4_64.dll",
+      "base": "0x53b00000",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    }
+  ],
+  "script": {
+    "path": "build\\original-splitter-probe-004\\probe.js",
+    "sha256": "582b6291dc9abc631048732631bac058f8697d69049bb28a2a4c496e73f394b1"
+  },
+  "counts": {
+    "states": 18,
+    "records": 39,
+    "failedReads": 0,
+    "callbackErrors": 0,
+    "queueRecords": 20,
+    "init": 1,
+    "font": 1,
+    "metric": 2,
+    "post": 1,
+    "create": 1,
+    "frame": 1,
+    "geometry": 1
+  },
+  "messages": 94,
+  "errors": [],
+  "truncations": [],
+  "nested_qualification_markers": [],
+  "installed_hooks": [
+    "def_gui_mo_64.exe:e9400",
+    "def_gui_mo_64.exe:d34730",
+    "def_gui_mo_64.exe:d35a80",
+    "def_gui_mo_64.exe:dab810",
+    "def_gui_mo_64.exe:dab900",
+    "qtcore4_64.dll:2acc2",
+    "qtcore4_64.dll:119570",
+    "qtcore4_64.dll:11ae90",
+    "qtcore4_64.dll:11afc6",
+    "qtcore4_64.dll:11afe8",
+    "qtcore4_64.dll:11b015",
+    "qtcore4_64.dll:141b70",
+    "qtgui4_64.dll:6e4d0",
+    "qtgui4_64.dll:1f2e30",
+    "qtgui4_64.dll:99110",
+    "qtgui4_64.dll:99181",
+    "qtgui4_64.dll:7f9d0",
+    "qtgui4_64.dll:6e780",
+    "qtgui4_64.dll:6e7ab",
+    "qtgui4_64.dll:3b2470",
+    "qtgui4_64.dll:5e420",
+    "qtgui4_64.dll:5e4b0",
+    "qtgui4_64.dll:5e4cd",
+    "qtgui4_64.dll:6db20",
+    "qtgui4_64.dll:62460",
+    "qtgui4_64.dll:403210"
+  ],
+  "cleanup": {
+    "session_id": "de603db6-6be4-4977-b84e-3d80afc3f9d6",
+    "device_id": "local",
+    "target": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+    "pid": 30208,
+    "mode": "spawn",
+    "state": "paused",
+    "cleanup_required": false,
+    "absence_verified": true,
+    "session_closed": true,
+    "gui_input_acquired": false,
+    "observed_endpoint": "d35a80 return paused in probe; exact owned PID subsequently terminated"
+  },
+  "directory_effects": {
+    "cwd": "C:\\PROBLEM\\m2m42",
+    "files": 8,
+    "changed": [],
+    "added": [],
+    "removed": []
+  },
+  "raw_files": {
+    "absence-evidence.json": "7682f73153cdb8cb0f9ec5a40be7382a7242102e8f055a4f9e56901e34adc7a7",
+    "capture-evidence.json": "184e45ee34732e4436057df2b99741ce1bed713440f9cc0bfd7e7f9a7ce4df9d",
+    "close-evidence.json": "b53d8b7832810f75d86584dbc495295037f01103e868dcf359d1be54012afdc5",
+    "load-evidence.json": "1c09e57c1b5d28181776698488d87c3070dcccd977a58417433a8143cac3ded3",
+    "owned-process.json": "860df2dc5f1585d1233ed6750dcb78380aa7d185cb669fc2753d34efe1c93b9f",
+    "resume-evidence.json": "6e2c9a7a7856fc510dcfd80f66d6d611219ef819e60a108c92358cf3ea0837f9",
+    "root-preflight.json": "19958dd0252902fd3b869ead0671f8c271718ad42e4c34687dd69816923f6efa",
+    "start-evidence.json": "f16480131a4b85e4b13fd609c48b9720eb3e0f1f28c2ac2814bd4ef3b4bb4a45",
+    "terminate-evidence.json": "7cbfdc868cc992473f40d6e70ec1c383ac7484e7bdc930704961f7c0bcd8f800"
+  },
+  "qualifications": [
+    "First actual SplitView constructor tail through d35a80 return; no project Open/Save/Close comparison.",
+    "Passive metric/DC/font/count/Create/post/dispatcher/frame observations; no Qt calls or event pump.",
+    "No GUI input/control acquired. Exact owned-process termination is not a GUI-control release.",
+    "Raw frame/policy/queue/event bytes are usable only at source-qualified initialization points; incidental earlier bytes do not establish initialized state.",
+    "Opaque queued receivers remain evidence aliases, not fabricated live widget owners or supported dispatch.",
+    "Current startup observations do not prove later editor-time population or values.",
+    "Frida close reports unknown target state; separate enumeration establishes PID absence.",
+    "Full inline Evidence retained; source interpretation, integration and acceptance remain separate."
+  ]
+}

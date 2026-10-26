@@ -1,0 +1,87 @@
+{
+  "schema": "wave3-close-nested-save-return-v1",
+  "status": "nested_Save_answer_and_warning_overload_closed; post_answer_scene_inputs_bound; scene_effects_pending",
+  "method": "Offline original PE and bounded DUMPBIN; no runtime, application control, DLL loading or builds.",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "save_return": [
+    "0980d0 initializes answer=0x4000 at0980e5 and an independent write-success byte=true. If project+0x55 is false it sets answer=0x10000 and returns it.",
+    "For each nonnull subproject, call0b8fb0 and replace answer with its result. Any result other than0x10000 returns immediately before current-operation Save and output writes.",
+    "After checks, call current operation052ec0 if present, project write0983c0(false), properties0982e0, MST0a20d0, then timer/settings bookkeeping. Project-write false does not skip properties or MST. Combined write success is stored in a local byte and is not returned.",
+    "0982a0 returns the answer integer. With at least one nonnull subproject whose checks pass, answer is0x10000 regardless of the later project/MST boolean write success. With no nonnull subproject it remains0x4000.",
+    "Caller044110 replaces Yes with this returned answer. Exactly0x4000 is remapped toCancel0x400000. Therefore ordinary checked Save permits Close despite a boolean output-write failure; no-nonnull-subproject Save cancels Close. This is original control flow, not a proposed error-handling improvement."
+  ],
+  "last_operation_warning": {
+    "precondition": "0b8fb0 detects an operation marked must-be-last that precedes another connector-chain operation; the existing must-be-last structural contract is not expanded here.",
+    "normal_return": "0b8fb0 initializes answer=0x10000 and returns that unchanged if no warning is required.",
+    "call": "At0b94b3 import141e0b7b8 is ?warning@QMessageBox@@SAHPEAVQWidget@@AEBVQString@@1W4StandardButton@1@2@Z; r9=0x4000 and fifth argument=0x10000.",
+    "overload": "QtGui65018420 wraps ONLY first enum0x4000 in a QFlags object, and forwards second enum0x10000 as default to654777e0. That wrapper passes icon2 to shared65477580. Thus available buttons=Yes only, requested default=No (absent). This is not Yes|No.",
+    "default_answer": "Shared helper creates the sole Yes button and leaves explicit default unset because No is absent. Fresh dialog focus/autoDefault selects that sole button; answer0x4000. This default does not depend on relative Yes/No layout order.",
+    "consequence": "0b8fb0 returns0x4000, 0980d0 stops before Save writes, and normal Close044110 maps it toCancel and leaves project attached. The warning modal loop remains an event delivery opportunity.",
+    "source_comment_correction": "source/apps/moproj2mst/src/engine/save_project.cpp currently describes a Yes/No choice and throws unsupported. Exact shipped overload has only Yes; root owns any implementation change."
+  },
+  "post_answer": {
+    "slots": [
+      {
+        "table": "0x1420fb108",
+        "offset": "0x288",
+        "target": "0x140c9c1d0",
+        "raw_sha256": "8f8cdee9e226a4db9f7485eb32e7d289c14139ed09f20fc397c0687d89472b4c"
+      },
+      {
+        "table": "0x1420fb108",
+        "offset": "0x778",
+        "target": "0x140c9bbd0",
+        "raw_sha256": "a09e62b26da51c574f1dd57819e82e719d9e93cec2952e7b9981e8144770c0b4"
+      },
+      {
+        "table": "0x1420fb108",
+        "offset": "0x3a0",
+        "target": "0x140029300",
+        "raw_sha256": "becff6ea3dca0d023f7b6956e35e4f500c5e2a6ee7e6602afa391d95ed1069bb"
+      }
+    ],
+    "order": [
+      "If final answer is notCancel, guard044110 calls main virtual+0x288 at0447e1.",
+      "c9c1d0 calls main virtual+0x778, bound to c9bbd0. c9bbd0 passes main+0x120 to c1aef0, a direct pointer load. If nonnull, c9c1d0 returns that object+0x10; otherwise null.",
+      "For nonnull return,0447fa..044838 builds integers0,0 and booltrue and calls d0e540(pointer,&int0,&int0,&boolTrue). Then emit signalRemoveGraphItems through notifier2cf3c0. Guard returns true only after these calls.",
+      "d0e540 resolves primary scene item cfac50, secondary cf9960 (+0x1b8), primary cf94f0 (+0x1a0), and enabled cached scene controller d0cb50. It can mutate item display state and walks collection at scene+0x1d8. Full fresh effects are not declared a no-op by this receipt."
+    ],
+    "remaining": "Bind d0e540 mutation callees and scene-model provenance with DOE worker before representing this callback as an exact Close state transition. The input arguments and call position are proven."
+  },
+  "qualification_addendum": "In wave3-normal-close-guard-contract.json, shipped Windows style means the captured Qt style implementation path. Application startup selection of that style was not separately recovered; no runtime/custom-style/environment override assertion is intended.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-normal-close-guard-contract.json",
+      "sha256": "2c3c855180354f53810702b5e1cabfae0e9365e6b61f5f86902394e419a1bde5"
+    },
+    {
+      "path": "analysis/wave3-boolean-open-sequence-contract.json",
+      "sha256": "fc6562b8380b3a3d61de2634991f9f86b0379d22af2775104e6a059f07a17822"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-nested-save-static.json",
+      "sha256": "04253495263176777b5a67c6ed3fcc07f9b45fc8a6794fef51b024d968dd6dc3"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-answer-static.json",
+      "sha256": "73a3090211e81d729515861772831298f03eb4184c9fd1eb5f82b6608f48d432"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-owner-static.json",
+      "sha256": "ddc61c7eacc52a85c2ca19b401e0807585d7b66c2c793f753ccec4f11c197f4f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-getters-static.json",
+      "sha256": "585ea9932f6fcaa22f278b5b86ebfd90e15a0e4d1b76dcdb19dedb6cfe295f04"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-lastop-warning-static.json",
+      "sha256": "9623decbb7dbc1e5ef24c8692c8b7843ccbc7725cc01db650e7f8cdf1c362285"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-warning-forward-static.json",
+      "sha256": "c0647888d52621b93baf118571a02b3e236c2872f0d188f123e3924f2770840f"
+    }
+  ],
+  "tool_sha256": "25ba403517dbd33b58f320b4d1f6403d0968abe509bc02bec01777777edf60e5"
+}

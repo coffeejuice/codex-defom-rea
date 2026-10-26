@@ -1,0 +1,42 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00000001400D90B0: 4C 89 4C 24 20     mov         qword ptr [rsp+20h],r9
+  00000001400D90B5: 44 89 44 24 18     mov         dword ptr [rsp+18h],r8d
+  00000001400D90BA: 89 54 24 10        mov         dword ptr [rsp+10h],edx
+  00000001400D90BE: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  00000001400D90C3: 48 83 EC 28        sub         rsp,28h
+  00000001400D90C7: 4C 8B 4C 24 48     mov         r9,qword ptr [rsp+48h]
+  00000001400D90CC: 44 8B 44 24 40     mov         r8d,dword ptr [rsp+40h]
+  00000001400D90D1: 8B 54 24 38        mov         edx,dword ptr [rsp+38h]
+  00000001400D90D5: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  00000001400D90DA: FF 15 98 B5 D2 01  call        qword ptr [0000000141E04678h]
+  00000001400D90E0: 89 44 24 40        mov         dword ptr [rsp+40h],eax
+  00000001400D90E4: 83 7C 24 40 00     cmp         dword ptr [rsp+40h],0
+  00000001400D90E9: 7D 06              jge         00000001400D90F1
+  00000001400D90EB: 8B 44 24 40        mov         eax,dword ptr [rsp+40h]
+  00000001400D90EF: EB 35              jmp         00000001400D9126
+  00000001400D90F1: 83 7C 24 38 00     cmp         dword ptr [rsp+38h],0
+  00000001400D90F6: 75 2A              jne         00000001400D9122
+  00000001400D90F8: 83 7C 24 40 1D     cmp         dword ptr [rsp+40h],1Dh
+  00000001400D90FD: 7D 18              jge         00000001400D9117
+  00000001400D90FF: 4C 8B 4C 24 48     mov         r9,qword ptr [rsp+48h]
+  00000001400D9104: 44 8B 44 24 40     mov         r8d,dword ptr [rsp+40h]
+  00000001400D9109: 8B 54 24 38        mov         edx,dword ptr [rsp+38h]
+  00000001400D910D: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  00000001400D9112: E8 59 F9 FF FF     call        00000001400D8A70
+  00000001400D9117: 8B 44 24 40        mov         eax,dword ptr [rsp+40h]
+  00000001400D911B: 83 E8 1D           sub         eax,1Dh
+  00000001400D911E: 89 44 24 40        mov         dword ptr [rsp+40h],eax
+  00000001400D9122: 8B 44 24 40        mov         eax,dword ptr [rsp+40h]
+  00000001400D9126: 48 83 C4 28        add         rsp,28h
+  00000001400D912A: C3                 ret
+
+  Summary
+
+     1E02000 .text

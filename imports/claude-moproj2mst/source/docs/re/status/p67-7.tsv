@@ -1,0 +1,143 @@
+address	status	note
+0x140029d47	ported	group surface; fun_140029d47 (NI3/EI2 validity); unit cube test [tier-1 tested]
+0x14002a857	ported	group srcnt; SYMGRP2 symmetry planes; planes from common fixed code 1 polygons (oracle correction 4); dot/axis order from listing 14002ae22..14002ae69, 14002b17f..14002b1a5; unit DAT_14077a7bc for the delete message
+0x14002b89c	ported	group srcnt; DIE_00k.GEO writer; records 1000(I8) / 1001(I6,3F16.7) / 1002(5I8) byte-identical to the oracle DIE_001.GEO (s3d_diegeo_dat, CR LF) in tier 1 [tier-1 tested]
+0x14002cc15	ported	group pipeline; stage 4 EI2 = 0 for common positive code; test double cube [tier-1 tested]
+0x14002cdee	ported	group srcnt; SRCNT2; SRCNT2.DAT read (unit 92, once per process) tier-1 tested; polygon loop needs cube + MDSPS2 [tier-1 tested]
+0x14002de5d	ported	group srcnt; SRCNT2 subdivision; REAL*4 step 1.0f/REAL(n-1) (14002e4c2); sums from listing 14002e2b5, 14002e73d, 14002e9a6
+0x14002f091	ported	group srcnt4; SRCNT4 driver; port/defcmd/src/ctc3d/srcnt4/srcnt4.cpp; SKIP_PNTR/flag paths tier-1 [ported by packet p67-3]
+0x140030ae1	ported	group srcnt4; point box (mode 1/0/-1); srcnt4_parts.cpp; tier-1 hand values [ported by packet p67-3]
+0x140030d0e	ported	group srcnt; SRCNT5; distance DAT_14064ff48 enters MDSPS2_REC with its previous value (as in the binary)
+0x140032a3e	ported	group srcnt4; flag listed EI2=1 polygons, first unflagged valid polygon; srcnt4_parts.cpp [ported by packet p67-3]
+0x140032ce4	ported	group srcnt4; candidate filter (>=2 coded nodes, centroid box overlap) + compaction; srcnt4_parts.cpp [ported by packet p67-3]
+0x14003329f	ported	group srcnt4; re-validation EI2 -2000 -> 1; binary uses centroid z for all 3 components (140033c3f); srcnt4_parts.cpp [ported by packet p67-3]
+0x140033d76	ported	group srcnt4; flood fill EI2 := -2000 (mode 1); srcnt4_parts.cpp [ported by packet p67-3]
+0x140034138	ported	group srcnt4; flood fill EI2 := 1 from MDSPS2 hit of a coded slave node (mode 0); srcnt4_parts.cpp [ported by packet p67-3]
+0x140039ef9	ported	group srcnt4; neighbour push (EI1/EI6/ER1); srcnt4_parts.cpp [ported by packet p67-3]
+0x14003a4be	ported	group srcnt4; shared negative NI4 code test; srcnt4_parts.cpp; tier-1 [ported by packet p67-3]
+0x14003a580	ported	group pipeline; list of common BC codes; hand-made code arrays incl. the row-clearing quirk for code 1 [tier-1 tested]
+0x14003a978	ported	group pipeline; first common BC code (group decide, ported here by agreement); hand-made code arrays incl. stale SAVE direction for one node [tier-1 tested]
+0x14003abfd	ported	group decide; fun_14003abfd; decide_decision.cpp; tier-1 hand cases [tier-1 tested]
+0x14003b0c6	ported	group srcnt; box diagonal; order (dz^2 + (dy^2 + dx^2)) from listing; tier-1 bit check [tier-1 tested]
+0x14003b130	ported	group srcnt; SRCNT set-up: negative partner node flag; tier-1 path without partners only [tier-1 tested]
+0x14003b304	ported	group srcnt; SRCNT; stage driver (sec. 7.2); tolerance compare/mul order from listing 14003b432..14003b48b; DIEGEO.DAT open/close on unit 23; debug branch (DAT_140655a84 == 1, never set) ends in STOP via fio::stop
+0x14003c506	ported	group surface; fun_14003c506 (NI3 cleanup); unit cube test (all nodes stay 1) [tier-1 tested]
+0x14003c742	ported	group srcnt; SRCNT debug print; debug only (DAT_140655a84 never 1); list-directed arrays of 8 written element by element
+0x14003cd08	ported	group srcnt; DIEGEO.DAT -> DIE_00k.GEO; DIE_000.GEO buffer internal writes tier-1 tested (k < 10, < 100, reset of the tens digit, >= 100) [tier-1 tested]
+0x14003d2ee	ported	group srcnt; symmetry polygons (EI2 = 0); tier-1 path without planes only; ALLOCATABLE list as std::vector (descriptor fields kept in the image); sums/dots from listing 14003d7ba..14003d9e7 [tier-1 tested]
+0x14003dabe	ported	group srcnt; symmetry die; dead in DEF_PRE (DAT_14076abb8 never > 0); comparisons from listing 14003dfa8..14003e7c8
+0x14003e7f6	ported	group srcnt; partner-partner contact; partition branch (DAT_14075bc80 > 0) dead but transcribed; message 1001 on unit DAT_14077a7bc
+0x14003fadc	ported	group pipeline; stage 7 partner NI7 + projection; needs cube, MDSPS2_REC 14006798b, 14004f363, geoutl 1404d1b1c/1404d1ed7
+0x1400407e7	ported	group surface; fun_1400407e7 (ER1 normal, ER2 area); unit cube test; 140066a50 / 14004f363 doubles in the test [tier-1 tested]
+0x140040d77	ported	group decide; fun_140040d77; decide_decision.cpp; control flow and NaN compares from the listing; early return tested
+0x1400446b4	ported	group decide; fun_1400446b4; decide_existing.cpp; transcribed fully (spec open item 1)
+0x14004522c	ported	group decide; fun_14004522c; decide_switch.cpp; early returns tested
+0x140046471	ported	group decide; fun_140046471; decide_decision.cpp
+0x140046625	ported	group decide; fun_140046625; decide_decision.cpp; tier-1 hand case [tier-1 tested]
+0x140046a93	ported	group decide; fun_140046a93; decide_decision.cpp; needs cube ER getters (still stubs) for a tier-1 test
+0x1400483ed	ported	group decide; fun_1400483ed; decide_existing.cpp
+0x14004946f	ported	group decide; fun_14004946f; decide_node.cpp
+0x140049b2d	ported	group decide; fun_140049b2d; decide_existing.cpp; early return tested
+0x14004ad46	ported	group decide; fun_14004ad46; decide_existing.cpp; early return tested
+0x14004bc99	ported	group decide; fun_14004bc99; decide_existing.cpp; transcribed fully (spec open item 1)
+0x14004c429	ported	group decide; fun_14004c429; decide_existing.cpp; tier-1 hand cases [tier-1 tested]
+0x14004c564	ported	group decide; fun_14004c564; decide_existing.cpp
+0x14004ce7a	ported	group decide; fun_14004ce7a; decide_existing.cpp
+0x14004e10c	ported	group decide; fun_14004e10c; decide_node.cpp
+0x14004f363	ported	group search; polygon node coordinates; test_ctc3d_search_mdsps2 (real type-3 cube of group cube) [tier-1 tested]
+0x14004f56b	ported	group surface; fun_14004f56b (master surface build); steps after the cube run in the unit cube test; cube creation needs the cube group's accessors
+0x1400501d7	ported	group pipeline; partner NI7 from single edges; allocatable E(3,4*nface) kept in a local vector; needs the cube
+0x14005110a	ported	group surface; fun_14005110a (counts, box); box via geoutl::fun_1404d1d05 (body pending in geoutl_pending)
+0x1400511e4	ported	group pipeline; partner list DAT_140771918 / DAT_14077867c; test_ctc3d_pipeline partner_list [tier-1 tested]
+0x1400512aa	ported	group pipeline; GENCTC 3D pipeline (stages 1-7, decision loop); calls 140029d47, 14003b304 (through the agreed srcnt signature), 14005190e; DAT_140676704=0, DAT_140676708/70c node counters as in the listing; untested until surface/srcnt/decide/cube land
+0x14005190e	ported	group decide; fun_14005190e; decide_node.cpp
+0x14005266d	ported	group decide; fun_14005266d; decide_node.cpp; early return tested
+0x140052f49	ported	group pipeline; stage 2 NI5, critical corner nodes; test double cube: class-1 edge sums and class-2 copy; corner-node path and messages 1000/1001 not exercised (formats tested) [tier-1 tested]
+0x14005815c	ported	group surface; fun_14005815c (ININDP NR1/NR2/NR5/NI2); unit cube test: NR1, NR2 0.75, NR5 (sqrt(2/3), 1/sqrt3), conv 3 [tier-1 tested]
+0x14005a6bf	ported	group surface; fun_14005a6bf (unique list); list test [tier-1 tested]
+0x14005bbf2	ported	group surface; fun_14005bbf2 (edge classes, EI3); unit cube test: class 2 on all edges [tier-1 tested]
+0x14005c3a7	ported	group pipeline; stage 1 EI3 per-edge BC class; transcribed from the listing (spec sec. 6.1 open item 6 closed); test_ctc3d_pipeline_stages with a cube test double [tier-1 tested]
+0x14005d44f	ported	group srcnt; symmetry die EI3; dead in DEF_PRE (called only with DAT_14076abb8 > 0)
+0x14005d848	ported	group surface; fun_14005d848 (FTCURV curves); runs in the unit cube test, curve contents not checked by hand
+0x14005ee88	ported	group decide; fun_14005ee88; decide_existing.cpp; CRVPLY transcribed fully; ALLOCATE/DEALLOCATE as malloc/free with the dope vector kept in the image
+0x14005fe15	ported	group surface; fun_14005fe15 (special nodes); node index guarded (original indexes heap with raw conn)
+0x140060038	ported	group surface; fun_140060038 (node in list)
+0x1400600bb	ported	group surface; fun_1400600bb (trace one curve); control flow from the listing
+0x1400610f2	ported	group surface; fun_1400610f2 (ER3 per polygon); unit cube test: ER3 = 3 pi/2 on every edge [tier-1 tested]
+0x140062fb2	ported	group search; node list convention; hand cases [tier-1 tested]
+0x140062fff	ported	group surface; fun_140062fff (edge-frame angle); via 1400610f2 on the cube (quad centroid path) [tier-1 tested]
+0x140066a50	verified	group search; triangle normal; 400 golden cases from the original incl. NaN/degenerate [bit-exact vs the binary routine]
+0x140066ff1	verified	group search; cross product, normalised; 400 golden cases incl. NaN, parallel, tiny [bit-exact vs the binary routine]
+0x14006790a	ported	group search; polygon presence in box; real cube [tier-1 tested]
+0x14006798b	ported	group search; MDSPS2_REC; hand scenarios on a real type-3 cube: quad/triangle plates, boundary edge, disabled polygon, failure, vertex sign + re-search, dihedral edge signs, direction filter [tier-1 tested]
+0x14006de2d	ported	group search; vertex re-search; through 14006798b (below-corner case) [tier-1 tested]
+0x14006e938	ported	group search; candidate reorder; hand cases k = 3, k = 0 [tier-1 tested]
+0x14006f089	ported	group surface; fun_14006f089 (list intersection); list test [tier-1 tested]
+0x14006fb9b	ported	group search; projection on a neighbour polygon; quad and triangle hand cases [tier-1 tested]
+0x1400702c8	verified	group search; triangle projection; 600 sequential golden cases (call tree incl. p67-3 1400647a0) [bit-exact vs the binary routine]
+0x140070bf5	verified	group search; segment projection; 400 golden cases; WRITE path (|b-a| <= 1e-13) not golden-tested [bit-exact vs the binary routine]
+0x140075036	ported	group surface; fun_140075036 (triangle area); unit cube test (area 1) [tier-1 tested]
+0x1400798bf	ported	group surface; fun_1400798bf (half-edges, pairing); unit cube test [tier-1 tested]
+0x14007aa22	ported	group surface; fun_14007aa22 (edge table, EI1 ids); unit cube test: 12 edges [tier-1 tested]
+0x14007b1ea	ported	group surface; fun_14007b1ea (patches EI4, EI1 neighbours); unit cube test: 1 patch, reversed-edge neighbours [tier-1 tested]
+0x14007c24c	ported	group surface; fun_14007c24c (same-patch reversed edge); not reached on the cube (flood pairs all edges)
+0x14007c697	ported	group surface; fun_14007c697 (ND2ELM NI1); unit cube test; STOP = exit(0), nothing printed [tier-1 tested]
+0x14007d97c	ported	group surface; fun_14007d97c (folding check); runs on the cube (no polygon flagged)
+0x14007e28d	ported	group surface; fun_14007e28d (node bins); bins test with chaining [tier-1 tested]
+0x14007e62b	ported	group surface; fun_14007e62b (REAL*8 copy); via 1400610f2 [tier-1 tested]
+0x14007ea01	ported	group surface; fun_14007ea01 (2D angle, atan2); atan2(s, c) per listing 14007eb1a; hand values [tier-1 tested]
+0x140080a83	ported	group pipeline; plane box for SYMGRP polygons; needs 140066ff1 (search) and geoutl 1404d1b1c (pending)
+0x140082ed6	ported	group pipeline; DAT_140778684[obj] = 1; test_ctc3d_pipeline partner_list [tier-1 tested]
+0x1400839c6	verified	group search; flat-edge volume sign; 400 golden cases (sgn and SAVE volume) [bit-exact vs the binary routine]
+0x140088e99	ported	group pipeline; stage 6 NR1[4] = 0; needs the cube
+0x14008a8c1	ported	group pipeline; empty; RET only
+0x14008a8c3	ported	group pipeline; empty; RET only
+0x14008a8c4	ported	group pipeline; empty; RET only
+0x14008b65b	ported	group pipeline; lexicographic column sort; edge-table case with ties [tier-1 tested]
+0x14008ba00	ported	group pipeline; swap two columns [tier-1 tested]
+0x14008bb26	ported	group pipeline; quicksort descending; ties, 10-column case [tier-1 tested]
+0x14008bd37	ported	group pipeline; quicksort descending (twin); through 14008bb26 recursion [tier-1 tested]
+0x14008bf48	ported	group pipeline; quicksort ascending; hand-traced ties; SAVE-index reuse case (order differs from a plain quicksort) [tier-1 tested]
+0x14008c159	ported	group pipeline; quicksort ascending (twin); through 14008bf48 recursion [tier-1 tested]
+0x1401a7710	ported	group cube; cube_build_all_objects; driver; not run in tier 1 (needs a model + the surface group's 14004f56b)
+0x1401a7980	ported	group cube; cube_source_is_fe_surface
+0x1401a7a30	ported	group cube; obj_is_pair_slave
+0x140225cd0	ported	group cube; cfnCUBE_Clean_ObjEntity; test_ctc3d_cube (tier-1 tested)
+0x1402260a0	ported	group cube; cfnCUBE_rebuild_keep_attrs; test_ctc3d_cube (tier-1 tested)
+0x140227e00	ported	group cube; cfnCUBE_Get_Elem_Conn; test_ctc3d_cube (tier-1 tested)
+0x140227fc0	ported	group cube; cfnCUBE_Get_Node_Coord; test_ctc3d_cube (tier-1 tested)
+0x1402280d0	ported	group cube; cfnCUBE_Init_Object_EI; test_ctc3d_cube (tier-1 tested)
+0x140228260	ported	group cube; cfnCUBE_Get_Object_EI; test_ctc3d_cube (tier-1 tested)
+0x1402283b0	ported	group cube; cfnCUBE_Init_Object_ER; test_ctc3d_cube (tier-1 tested)
+0x140228540	ported	group cube; cfnCUBE_Get_Object_ER; test_ctc3d_cube (tier-1 tested)
+0x140228690	ported	group cube; cfnCUBE_Init_Object_NI; test_ctc3d_cube (tier-1 tested)
+0x140228830	ported	group cube; cfnCUBE_Get_Object_NI; test_ctc3d_cube (tier-1 tested)
+0x140228980	ported	group cube; cfnCUBE_Init_Object_NR; test_ctc3d_cube (tier-1 tested)
+0x140228b10	ported	group cube; cfnCUBE_Get_Object_NR; test_ctc3d_cube (tier-1 tested)
+0x14022a5c0	ported	group cube; cfnCUBE_GetPoly3_Obj; test_ctc3d_cube (tier-1 tested)
+0x14022d770	ported	group cube; cfnCUBE_SearchPoint_Obj; test_ctc3d_cube (shell search and brute force vs brute force) (tier-1 tested)
+0x14022fcd0	ported	group cube; cfnCUBE_SearchPoint_CellPolygon_Obj; test_ctc3d_cube (range only); corners measured from the unclamped point (tier-1 tested)
+0x140232090	ported	group cube; cfnCUBE_GetDimension_Obj; test_ctc3d_cube (tier-1 tested)
+0x140233ef0	ported	group cube; cube_mark_surface_points; via 140226150 type 3 in test_ctc3d_cube (tier-1 tested)
+0x140256a60	ported	group cube; calloc_bytes; via 14022a5c0 (tier-1 tested)
+0x140256ac0	ported	group cube; realloc_bytes
+0x140256b30	ported	group cube; calloc_chars; via 140226150 type 3 (tier-1 tested)
+# 0x1402571b0	-	cube/alloc.cpp forwards to DBREAD (owner row in p-dbread-w3.tsv); was: ported group cube; realloc_doubles; via 140404e90 (NR replace) (tier-1 tested)
+0x140400330	ported	group cube; defLOCD_InsertPoint_Obj; via 140226150 type 3 + 14022d770 (tier-1 tested)
+0x140401c40	ported	group cube; defLOCD_InsertPolygon_ControlVolume; types 5/6 only; unreachable in DEF_PRE GENCTC
+0x1404021a0	ported	group cube; defLOCD_InsertEdge_Obj; type 7 only; unreachable in DEF_PRE GENCTC
+0x140402c40	ported	group cube; defLOCD_InsertElement_Obj; types 2/4 only; unreachable in DEF_PRE GENCTC
+0x1404040c0	ported	group cube; defLOCD_polygon_box_exact; test_ctc3d_cube (exact box query) (tier-1 tested)
+0x140404560	ported	group cube; attr_set_int; test_ctc3d_cube (tier-1 tested)
+0x1404045e0	ported	group cube; attr_get_int; test_ctc3d_cube (tier-1 tested)
+0x140404660	ported	group cube; attr_set_real; test_ctc3d_cube (tier-1 tested)
+0x1404046f0	ported	group cube; attr_get_real; test_ctc3d_cube (tier-1 tested)
+0x140404900	ported	group cube; attr_list_set_int; test_ctc3d_cube (tier-1 tested)
+0x140404a00	ported	group cube; attr_node_new_int; test_ctc3d_cube (tier-1 tested)
+0x140404ab0	ported	group cube; attr_node_replace_int; test_ctc3d_cube (count change) (tier-1 tested)
+0x140404b90	ported	group cube; attr_list_get_int; test_ctc3d_cube (tier-1 tested)
+0x140404ce0	ported	group cube; attr_list_set_real; test_ctc3d_cube (tier-1 tested)
+0x140404de0	ported	group cube; attr_node_new_real; test_ctc3d_cube (tier-1 tested)
+0x140404e90	ported	group cube; attr_node_replace_real
+0x140404f70	ported	group cube; attr_list_get_real; test_ctc3d_cube (tier-1 tested)
+0x140406540	ported	group cube; dist2; test_ctc3d_cube (tier-1 tested)

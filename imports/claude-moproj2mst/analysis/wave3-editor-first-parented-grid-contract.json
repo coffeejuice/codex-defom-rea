@@ -1,0 +1,97 @@
+{
+  "schema": "editor300-first-parented-grid-contract-v1",
+  "created_utc": "2026-10-24T12:17:07.642816+00:00",
+  "method": "Bounded offline original PE evidence only; no launch, GUI, builds or mutable database. Reuse recovered framework leaves; distinguish constructor entry points and callback-visible ordering.",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-first-grid-entry-static.json",
+      "sha256": "da59a74d7014bebe714645ab0d0133367b7d7140d12f29197d6b2262c34c96a0"
+    },
+    {
+      "path": "analysis/wave3-editor-first-grid-parent-static.json",
+      "sha256": "e687e5ee1c0f6f8cebc4cc163db82a81fbb42f765e8e380bb9df8a37f4526906"
+    },
+    {
+      "path": "analysis/wave3-close-grid-layout-ownership-contract.json",
+      "sha256": "0f358f997cba4794bcafcb23c39f0f02aedefab56f58c2572ccf99cff0d7ad5e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65046b10.asm",
+      "sha256": "e94740557dcc7fc0ca734a3ca26d85bd4de62dc9b78590bd6c018260d2491ed5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712e630.asm",
+      "sha256": "4ff378bfa7a1ce61b0467bb687dbc4f89fe9f0cfaad45e83718eea2870c873df"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65043890.asm",
+      "sha256": "178400713ed6ecf114c19020c48f7a1fc4ecbc3b843af1eea8bf3449bb57ca61"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6503c5a0.asm",
+      "sha256": "3d6fdcc3f9441eecfd8ad7ef2a68dc9980eeb18d630355d36fac4eca953d2994"
+    },
+    {
+      "path": "analysis/wave3-close-grid-post-parent-tail-contract-v2.json",
+      "sha256": "5615122ac64bc7fb63684ff73d741f999084c5b61783b8e5589a315c7f702aaa"
+    },
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67131160.asm",
+      "sha256": "006a86bf080b956ccfa0885cb2a20313a0c69a198648dd770ea93caf82527aad"
+    },
+    {
+      "path": "analysis/wave3-closure-next-can-close-mode-tail-static.json",
+      "sha256": "d7ac26025e777ed8ec87c271eea8718a4607952fb1d1d42ba51931d08d15f785"
+    }
+  ],
+  "native_editor_receiver_slots": [
+    {
+      "editor_vtable": "0x142b165b8",
+      "slot": "0x20",
+      "target": "0x14013898e",
+      "bytes": "ff25c430cd01",
+      "iat": "0x141e0ba58"
+    },
+    {
+      "editor_vtable": "0x142b165b8",
+      "slot": "0x38",
+      "target": "0x140138634",
+      "bytes": "ff25d6bdcc01",
+      "iat": "0x141e04410"
+    }
+  ],
+  "grid_object_name": {
+    "va": "0x142173c28",
+    "ascii": "gridLayout"
+  },
+  "ordered_editor_constructor": [
+    "140ed997d calls allocate0x20;140ed9982 is allocator RETURN, correcting shorthand return-label references in earlier proposal. Selected probe endpoint140ed9969 is before both.",
+    "Non-null allocation:140ed99a5 calls IAT141e0b3a0 QGridLayout(QWidget*)=QtGui6503f700 with actualeditor parent. Null branch publishesnull atUI[0] later then invokes setter throughnull; host undefined/crash behavior must remain an explicit qualification, not fabricated success.",
+    "6503f700 allocates0x138 private;6503c5a0 initializes QObject/QLayout private, row/column counters0, itemlist sharednull, cached size-1, dirty bit2, vectors and margins-1.",
+    "6503f73e passes actualeditor asr9 and null layout-parent asr8 into65046b10;65046b37..41 selects actualeditor as QObject parent before QLayout vtable installation.",
+    "QObject6712e630 installs QObject basevtable6723cac8 and data/backlinks, resolves threadData, checks parent-thread compatibility. Nonwidget private flag goes6712e6d3\u21926712d3f0. Same-thread/native enabled child-events path commits child parent+10 then appends same child to editor QObjectPrivate children+18 before raw0x44 dispatch.",
+    "At that child-event boundary, original grid remains under QObject-base construction, QLayout/QtGrid/app vtables are not installed, grid row/column counters remain0, editor UI[0] remains its earlierzero, and this constructor has not written editor installed-layout+A8. Any preexisting layout must be observed rather than assumednull.",
+    "Only after QObject ctor returns does65046b48 set QLayoutItem alignment0 and65046b51..63 install QLayout vtables. It queries editor layout6505df20. Fresh null-layout branch65046c68 sets layout flagbit0,65046c73 writes editor private+A8, then65046c7f invalidates; existing-layout branch emitswarning and setParent(null) before return.",
+    "After QLayout ctor returns,6503f750..761 installs QtQGridLayout vtables;6503f765..7a4 initializes row/column capacities to at least1 through6503cbe0, preserving any reached callback mutations.",
+    "140ed99ab..99cc installs app QGridLayout forwarding vtables1421730b8/142173038;140ed9a0e publishes same object intoUI[0].",
+    "140ed9a21 setSpacing3 then140ed9a4b setContentsMargins3,3,3,3; only afterward grid objectName literal is set. Invalidation/update/posting must preserve this parented path; do not import parentless no-post behavior."
+  ],
+  "distinct_from_existing_manager_profile": {
+    "manager": "d34da0 uses default parentless6503f7c0, sets zero margins, then QWidget::setLayout: widget+A8 is written BEFORE QObject child notification. Row/column1 and app grid vtables are already established at that notification.",
+    "editor": "Parented6503f700 sends child notification during QObject base construction BEFORE editor+A8/UI[0] and BEFORE QLayout/QGridLayout vtables and row/column1. Margins3/spacing3 happen only after publication.",
+    "integration_rule": "Reuse primitive Qt state/ownership types where appropriate, but never call manager ensureGridLayout as a substitute for editor constructor. Avoid a second independent mutable widget owner. Pending allocation versus child-owned versus installed-layout alias versus UI pointer are separate source stages."
+  },
+  "event_receiver": "Actual SfPreSimControl300142b165b8+20 and+38 match the already-closed QWidget::event\u2192QObject::event\u2192QObject::childEvent RET routes for raw0x44. Native receiver neutrality alone does not prove current QInternal/application/filter neutrality. Grid constructor input must include current parent/thread/child-event flags and live callback context from exact reached stage.",
+  "prior_base_default_reuse": "QObjectPrivate67131160 initializes name+30 sharednull at671311a9, dynamicMeta+28null at67131220, declarative hook+78null at671311e6, posted count+24zero at67131213. These are initial values before QWidget Create and editor operation-binding callbacks; future editor-time context must not assume they survived.",
+  "next_actions": [
+    "Complete actual editor native name/resize/property callback binding from the bounded capture; no first-grid source advance before earlier prefix is closed.",
+    "Prepare a general parented-grid constructor projection using actual editor ownership, one pending grid record and explicit reached-child-event state. Root retains shared framework/session integration; no new source ownership claimed in this static receipt.",
+    "Keep invalidation/update, post-parent hooks and event delivery at their source stages; existing manager profiles may share leaves but not order.",
+    "If later capture needed, observe same owned editor grid ctor entry and child-event interval, not another startup manager profile. Current probe intentionally stops before grid and supplies no observations about it."
+  ]
+}

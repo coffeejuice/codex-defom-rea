@@ -1,0 +1,97 @@
+{
+  "schema": "wave2-doe-lazy-activation-v1",
+  "scope": "Complete zero-variable lazy SfDoeStudy parse slice; selected DoeOutput/session/model remains guarded",
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "source_files": {
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "817be23438513355f51d68b11778557923c1d81c7a2eb22d176546cbea6a4835",
+    "source/apps/moproj2mst/src/doe/io.cpp": "dc28aec1b758011ae4b429352b5f62fa2742715a23b69ace7d36684118b913a4",
+    "source/apps/moproj2mst/include/m2m/doe_activation.hpp": "d2097e480ee302a9fd4def622013235d80f0d5b25d85547594d02f23b59b2cd5",
+    "source/apps/moproj2mst/src/doe/activation.cpp": "e8bc00d99669cb32dd716c81d1f4cccbd1af932b57fe1798f1c88f19bed38833",
+    "source/apps/moproj2mst/src/doe/doe_study.cpp": "988b9599de5d47426bef8fd34554b436636e0af2932ecbd1f43e1458629532e4",
+    "source/apps/moproj2mst/src/model/subproject.cpp": "92b5361a7fd540b7c55d82f7d22e41ce21f8bce24676f484667d8dfd69f0d7a6",
+    "source/apps/moproj2mst/tests/mdt/test_doe_activation.cpp": "4ce54e6f0f03213632869a25831066ba9534dddc4822d963b3a32f8b29761315"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-type2-activation-save-decompile.json",
+      "sha256": "35c95dcf016cd785d4f3720ff39bf635f199f9f635231132a9720669c4e8e4a2"
+    },
+    {
+      "path": "analysis/wave2-doe-type2-session-load-dom-decompile.json",
+      "sha256": "fb638b8e6574306a37cd1987842c7eb73a4823859625b0b6de07227839f7a80e"
+    },
+    {
+      "path": "analysis/wave2-doe-wrapper-decompile.json",
+      "sha256": "684bf41c597e16d8f8dd7d40d053aca79d4e0a9ecbc23cc2089f326eeab35834"
+    },
+    {
+      "path": "analysis/wave2-doe-manager-session-decompile.json",
+      "sha256": "5a77d4147020ab1adf628b28b637ae32724d710b039ebff4338c2e7ae63b998a"
+    },
+    {
+      "path": "analysis/wave2-doe-lazy-input-empty-readers-decompile.json",
+      "sha256": "8bbbb410969e3f95a33aa37eb123518c372f55d869e0ab21de9bbc39aab9c2bb"
+    },
+    {
+      "path": "analysis/wave2-doe-lazy-empty-finalizer-tree-decompile.json",
+      "sha256": "87f15691e53e47867dbc0d07da8d366871d9338d6a00857c301e9a4dc731ab9e"
+    }
+  ],
+  "functions": {
+    "lazy_Type2": "14008f530",
+    "name": "1400d2aa0",
+    "InputTable": [
+      "1400d3970",
+      "14090e080"
+    ],
+    "empty_container_readers": [
+      "14090ee20",
+      "140912a20",
+      "140912b00",
+      "140912d10"
+    ],
+    "empty_variable_finalizer": "14091c7a0",
+    "Samples_writer_bug": [
+      "1400d7a80",
+      "140915360"
+    ],
+    "current_PAR": [
+      "1400d7820",
+      "1409156e0",
+      "1409157c0"
+    ]
+  },
+  "contract": [
+    "Study remains eager-owned from constructor; lazy parser reads name before any paths",
+    "InputTable open failure sets isolated lastError to original Failed to open file message; success or parse failure does not clear it",
+    "InputTable parser begins returnfalse; header mutations do not change status; recovered empty child readers returntrue; empty Regions/Constraints clear their state before children",
+    "No-variable finalizer91c7a0 only enumerates/reindexes existing vars, absent on supported branch",
+    "InputTable helperfalse ignored, then all three Samples writer calls in mode order0/1/2, then DEF_DOE.PAR read; helperfalse never rolls back or cancels next call",
+    "Sample writer memory mutation depends on real opened result; later stream errors do not change return",
+    "PAR failed open leaves manager unchanged; successful empty input commits empty valid current table, count0; rows parsed in original order with id-only rows dropped",
+    "Unsafe parsed mode changes mode then refuses before undefined table indexing",
+    "ASCII Text decoding removes CR; non-ASCII/NUL/BOM refuses after open/preceding effects; broader QTextStream codecs not fabricated",
+    "Native immediate I/O remains configured only by existing writeFile&&WRITE_SAVE corehook; Recording reads actual inputs plus own simulated writes without mutating filesystem",
+    "No synthetic study creation/selection or expected output copying; default C ABI still activates sub0",
+    "Populated variables/regions/constraints/operations remain guarded; selected DoeOutput load/save guards retained"
+  ],
+  "tests_added": 6,
+  "test_scope": "Injected I/O ordering/failures, header result semantics, partial unsupported effects, PAR mode/codec guards, native and recording through internal lazy activation. Internal Type2 selection is unit seam, not default C ABI reference scenario.",
+  "validation": {
+    "worker_diff_check": "passed",
+    "root_build_tests": "queued",
+    "worker_builds": 0,
+    "target_runtime_executed": false,
+    "shared_rea_session": false,
+    "fixture_mutation": false
+  },
+  "limitations": [
+    "Full active DOE and fresh-original parity not established",
+    "Numeric default locale and broader Qt text conversions unresolved",
+    "Qt/std sharing/race/device-specific I/O equivalence unestablished",
+    "Per-conversion StudyIo.lastError models original global only inside this slice; no consumer/global coverage claim",
+    "Existing separate loadInputTable legacy seam is not used by new lazy caller",
+    "Type3 optimization remains refused"
+  ],
+  "successor": "Source-read-only Session/StepData StateVar parser/finalizer closure, coordinated private Ghidra lock."
+}

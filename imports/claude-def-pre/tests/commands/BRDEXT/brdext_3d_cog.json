@@ -1,0 +1,22 @@
+{
+  "label": "BRDEXT obj1 3D (AMG_DXT3)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nCOG_P1_B1.DB\nPROBID\nCOG_P1_B1\nBRDEXT 1\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "COG_P1_B1.DB",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "COG_P1_B1.GEO"
+    ],
+    "notes": "3D object: DB version check (>= 0x8fd), AMG_DXT3.INI; runs 'AMG_DXT3 > DEF_BRD.OUT' (3D folder); reads COG_P1_B1.GEO (nnodes, '%*d x y z', nfaces, '%*d n1 n2 n3 n4') into the object's surface geometry."
+  }
+}

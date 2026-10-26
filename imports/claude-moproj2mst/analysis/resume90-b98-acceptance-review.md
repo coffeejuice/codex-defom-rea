@@ -1,0 +1,15 @@
+# CP90 retained-artifact acceptance review
+
+## Review result
+
+The script is structurally careful about keeping retained evidence and the original executable untouched. `validate_inputs()` rejects links in both retained trees and checks their comparable before/after manifests. Conversion runs only on a copied `BEFORE` tree under a unique `C:\PROBLEM\b98r\r-<8 hex>` directory; there is no deletion path. It validates the generated project-tree paths stay below 100 characters, records copied input and post-run manifests, and keeps stdout/stderr plus the receipt. The retained AFTER tree is read to create a manifest and read the expected MST; no write operation targets either retained tree.
+
+Binary binding is exact for the frozen CP88 candidate artifacts: the passed CLI path must resolve to `moproj2mst.exe`; its SHA-256 must equal the required CP88 executable hash, and adjacent `moproj2mst.dll` and `deformdb.dll` hashes are checked. The supplied expected executable hash must equal that same constant. The report's CP88 DLL hash and source-tree hash correspond to the frozen CP88 receipt. The `candidate_source_tree_sha256` field is a constant copied into the receipt, not recomputed at run time; the executable/dependency hashes are the actual runtime artifact checks.
+
+Output evidence is kept separate correctly. The candidate manifest/difference is raw; exactly one occurrence each of the disposable KEY path and retained original KEY path is required before the script writes a separate `candidate.path-qualified.MST`. Acceptance requires 29 comparable paths on both sides, exactly one raw `Gear_blank.MST` content difference, and byte equality after only that one path substitution. `subprocess.run(..., check=False)` captures the actual process `returncode`, stdout, and stderr, and the receipt bases acceptance on `returncode == 0`. The CP90 receipt therefore demonstrates an exit-0 candidate run and the claimed raw/qualified comparison, while explicitly not claiming the historical GUI action was replayed.
+
+## Specific reproducibility gap
+
+The script inherits the caller's full environment because it does not pass `env=` to `subprocess.run`. The frozen CLI calls `m2m_convert_w`, and `src/dll/abi.cpp` reads `M2M_MO_INPUT_MODE` for each conversion: unset/empty means mode 0, a nonzero value selects another editor path, and invalid text returns an argument error. CP90 records argv/cwd but not this variable. Thus a later run can take a different conversion path or fail based on ambient `M2M_MO_INPUT_MODE`; the retained receipt cannot establish which value was used. This is a specific limit to reproducibility, not a defect in the retained before/after comparison or its reported run.
+
+The next acceptance revision should explicitly set a per-child environment with `M2M_MO_INPUT_MODE` unset (or explicitly `0` if the intended mode contract is 0) and record the effective value in the receipt. A rerun should use a fresh never-reused scratch path and recheck all artifact hashes. This review itself did not rerun the script or touch its `C:\PROBLEM` artifacts. No source or evidence files were changed; only this review report was written.

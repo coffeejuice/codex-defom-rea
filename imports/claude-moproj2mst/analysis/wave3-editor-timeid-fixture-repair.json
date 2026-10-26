@@ -1,0 +1,24 @@
+{
+  "schema": "wave3-editor-timeid-fixture-repair-v1",
+  "created_utc": "2026-10-24T05:40:56.441406+00:00",
+  "status": "source_refrozen_for_root_rebuild",
+  "amends": {
+    "path": "analysis/wave3-editor-timeid-increment.json",
+    "sha256": "6de5a345a7fe7025dd1a7b814b2e3a42e70b33bd61f6e1cb6f78515c85ca74fc"
+  },
+  "observed_failure": {
+    "capture": "analysis\\wave3-editor-timeid-failed-snapshot.log",
+    "sha256": "209ca2361e4df4e4bfdcf18855c129eb8abfc72f0cc9d6675c91562db9dae4c7",
+    "original_last_test_log_sha256": "aeb6b29b0c8af14a285a5ea6844f330a21565950802ca029bfc4cdc6ff23e870",
+    "result": "1 of41 snapshot cases failed at first new TIMEID REQUIRE(form); other two new cases passed incidentally. Root reports lifecycle14 and other selected groups passed."
+  },
+  "cause": "The three new snapshot cases constructed bare SimControl and populated only TIMEID. Native sim_ctrl.cpp constructor leaves environment scalar fields for owner initialization, so the fill finite-value checks read an uninitialized fixture. Existing environment tests use GuiModel owner setup.",
+  "repair": "Use engine::GuiModel(nullptr,3) and its initialized simCtl() in all three new snapshot cases. Preserve their table inputs/assertions and all production logic. No default scalar initialization added to the reconstruction.",
+  "changed_file": {
+    "path": "source\\apps\\moproj2mst\\tests\\mdt\\test_simcontrol300_snapshot.cpp",
+    "sha256": "92eab17ba60d4c89b6c131b65969fbc982f582fdd06d20af7c3f1079ccd0e5ff",
+    "bytes": 49492
+  },
+  "validation": "Direct whitespace check passed; no worker builds/tests. Root rebuild and behavioral execution required.",
+  "next_action": "Root rebuilds and reruns focused snapshot/lifecycle and required regression; worker preserves freeze and continues static environment table work."
+}

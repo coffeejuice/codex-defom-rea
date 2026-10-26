@@ -1,0 +1,77 @@
+{
+  "schema": "wave3-file-device-error-v1",
+  "method": "Implementation receipt from retained shipped-byte evidence; no original/DLL/runtime/UI or builds by this worker. Source/tests frozen for coordinator build.",
+  "binary_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "contract": [
+    {
+      "address": "0x670b4840,0x670b4850",
+      "behavior": "QFile.error reads separate private+0x120; unsetError resets it to0. Stream failure remains independent/sticky."
+    },
+    {
+      "address": "0x670b6039",
+      "behavior": "WriteData clears QFile error before its buffered/direct write; it does not reset underlying engine error."
+    },
+    {
+      "address": "0x670f8753..0x670f878e",
+      "behavior": "Native write failure before progress sets engine WriteError2; failure after progress returns positive prefix without setting new error."
+    },
+    {
+      "address": "0x670b5e00",
+      "behavior": "Flush mismatch maps engine UnspecifiedError8 to WriteError2, otherwise copies existing engine error (including0). Successful flush does not clear QFile error."
+    },
+    {
+      "address": "0x670b5f60..0x670b5f9c",
+      "behavior": "Close saves initial QFile.flush result BEFORE aboutToClose. If saved flush and engine close succeed, unset QFile error even if text callback failed later."
+    },
+    {
+      "address": "0x670b5fa3..0x670b5fc8",
+      "behavior": "Failed engine close copies engine error only if saved initial flush succeeded; otherwise preserve existing file error."
+    },
+    {
+      "address": "0x670f827a,0x670f9420",
+      "behavior": "Native-open truncate call outcome is ignored; native setSize failure does not itself supply a new ResizeError in this path."
+    }
+  ],
+  "tests": {
+    "target": "m2m_mdt_file_device",
+    "ctest": "m2m.mdt.file_device",
+    "test_cases": [
+      "file_device_open_truncates_and_small_writes_wait_for_flush",
+      "file_device_buffer_boundary_and_large_direct_write",
+      "file_device_failed_open_does_not_create_parent_or_serialize",
+      "file_device_close_retries_locked_line_after_stream_failure",
+      "file_device_error_after_close_uses_saved_initial_flush_result",
+      "file_device_close_and_stream_destructor_flush_unterminated_text"
+    ],
+    "new_error_cases": [
+      "Lock then stream endl sets Stream sticky failure and QFile WriteError2; unlock before close recovers first buffered line, suppresses later stream text, clears QFile error0.",
+      "Keep lock through close: initial byte-buffer dirty flush failure preserves2; initially empty successful flush followed by aboutToClose failure is cleared0 by successful engine close."
+    ],
+    "validation": "Coordinator reports all6 FileDevice cases,9 Save I/O cases and full108 tests passed; see linked validation receipt. This worker did not build or run tests."
+  },
+  "qualification": [
+    "Native Windows regular-file mode2 scope only; stdio/plugin paths, allocation/exceptions not generalized.",
+    "Real Windows byte-range locking tests exercise candidate behavior; no original runtime failure injection.",
+    "Path long-name extension remains adapter behavior. External closed/empty write calls are outside recovered Save scope.",
+    "Original top Save ignores project writer false for later stages; adapter ABI status mapping belongs to coordinator.",
+    "Earlier receipt source hashes/test counts are chronological snapshots; this receipt captures current FileDevice-owned files."
+  ],
+  "source_sha256": {
+    "source/apps/moproj2mst/include/m2m/mst/file_device.hpp": "edada94223d5f2f3b5bd84c7f69090fa2835245829d88c36650521add602df0a",
+    "source/apps/moproj2mst/src/mst/file_device.cpp": "db34cc971f885e6d1154f9c72097a2fe2c04dbfd3fbfdf1876c893ae3cfb19e7",
+    "source/apps/moproj2mst/tests/mdt/test_file_device.cpp": "574c8f3e67430c32d66d6a49260e21ce8493bdd8c34e25982874027e6f5acd92"
+  },
+  "evidence_sha256": {
+    "analysis/wave3-project-close-status-contract.json": "d7a441287f17a0022216b41c93cd0881dafc7b4824e779ed5c3d24828bcd6e5e",
+    "analysis/wave3-boolean-close-flush-contract.json": "4f9e677670d7c7c275ccec74e3676dd17cf08cafe19ef6aa0190f0d3f8f6acd2",
+    "analysis/wave3-boolean-save-buffer-contract.json": "7e5ba6f7f6d80157ef6ad4367f6034186e7797ce09594beb74b85da40901556c",
+    "analysis/wave3-boolean-save-io-contract.json": "8e955f00d4b724b350dedd59d6ea66f05bdf3562feefb05ff5f623e3f9495cb7",
+    "analysis/wave3-boolean-save-io-670b5e00.asm": "8f73acae8be36eeaeb92b0168e0a31a3420bc38a75d8330ce57add0f5ba2b028",
+    "analysis/wave3-boolean-save-io-670b5f30.asm": "ad5fc40e2dc1172c5d02b24731a868ad9443f585200a14db6fe2dcc7ac269935",
+    "analysis/wave3-boolean-save-buffer-670b6010.asm": "3579599d2e78e6034814f8b8e8189732ca30c538c225aafceb15e34e6a69eb91",
+    "analysis/wave3-boolean-save-buffer-670f8690.asm": "b1d79089b516f9a631a8907531cb636631efb60bad74dabcf173f0828a695bea",
+    "analysis/wave3-boolean-save-buffer-670f82b0.asm": "c2c5da390b4c032746fdafd8883a6f37678774f15825ebf86717a26227d05925",
+    "analysis/wave3-boolean-save-buffer-670f9420.asm": "15990089d84c5f382d22235360eac48dc146db7a586bfc807cdce95c4c0355d6",
+    "analysis/wave3-project-save-validation.json": "a24bb729603ff611651658975c9b3980dadbedf350b9d3b84cd763b3a60c42b2"
+  }
+}

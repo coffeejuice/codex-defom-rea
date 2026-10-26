@@ -1,0 +1,57 @@
+{
+  "schema": "wave3-editor-remesh-owner-v1",
+  "created_utc": "2026-10-24T04:13:51.960655+00:00",
+  "status": "source_frozen_for_root_integration_and_build",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "f36eed3b09d8c90279f0392afc4038439f9d8213e5267174ed030a3f1a676e89",
+      "bytes": 3221
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "271fce9c7b3adeeb0fb22f6a424e35ded33e92af3c25096e38b53ad4ccd29cf4",
+      "bytes": 8206
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "fc7d74e0af13d7c695250fb8aea741ff229f57701094fe7d9e14415a468e37d0",
+      "bytes": 16125
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-remesh-open-lifetime-contract.json",
+      "sha256": "ba7883b3d2dea182c7052fee38196af1dcc11c578cd407664839c0b45987d0ff",
+      "bytes": 7174
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-meshing-contract.json",
+      "sha256": "de34e83b5c7b61954bfa92e532fa8f853ce1802fb8507020742058e50df62174",
+      "bytes": 8324
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-getter-callers.json",
+      "sha256": "1708b76ed269ad882d630801e7e5b1e9208849a87759674cfccd37f820eeaa01",
+      "bytes": 2086
+    }
+  ],
+  "contract": "Original Open and editor meshing fill/apply use the same fixed process singleton143d91238. Fresh conversion maps that process lifetime to ConversionSession::remeshState(). Existing signatures retain a required external RemeshState reference; InitialEditorSession now records sourceRemesh identity at Open and Apply rejects missing/replaced owner before any model/page/file effect. This adapter invariant avoids inventing per-operation globals and is not an original error dialog or original pointer-check claim.",
+  "implementation": "Only page widget values are snapshots. Applying remembered meshing fields mutates the supplied same owner, preserving current fields that original meshing page does not write. Disabled rememberedremesh writes enabledfalse but leaves all other current globalfields. Model/control identity remains required; pointerfields now defaultnull. Owner mustoutliveeditor; no weak lifetimeproof or ownedcopyinvented.",
+  "tests": {
+    "total": 9,
+    "new": 2,
+    "cases": [
+      "initial_editor_requires_same_live_remesh_owner_before_any_apply_effect",
+      "initial_editor_remesh_widgets_write_same_owner_without_restoring_other_global_fields"
+    ],
+    "status": "not_run_root_builds_tests",
+    "coverage": "Equal-value copy and missingowner both refuse before General/StepCount/I/O; actual ConversionSession owner supplies reference for enabled/disabled fills, later independent globalchanges remain intact while remembered UI fields copyback."
+  },
+  "dependency": "Root-owned ConversionSession::remeshState() accessor and session Open hook are required for build/public lifecycle. No root file touched. Publiceditor300guard stays and full editor/API integration is not claimed.",
+  "limits": [
+    "No source license bypass/default feature answers. PrecedingOpen0aa960 feature-effects remain qualified in separate dependencyreceipt.",
+    "No builds/tests/runtime/GUI/originalfixture edits byworker. Root combinesandvalidates."
+  ],
+  "next": "Root validate with lifecycle9cases plusMO13/nativeRemesh19/sessionOpen tests. Worker next recover actual remesh Save same-owner ordering and nativefailure contract, sourcefrozen until rootrelease."
+}

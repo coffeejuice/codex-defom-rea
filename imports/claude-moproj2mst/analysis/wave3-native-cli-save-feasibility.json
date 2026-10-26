@@ -1,0 +1,18 @@
+{
+  "status": "Bounded static inspection complete; no native Save command established",
+  "evidence": [
+    "analysis/wave3-native-cli-option-literals.json",
+    "analysis/wave3-editor-owned-open-entry-140001410.asm",
+    "analysis/wave3-editor-owned-open-argv-static.json"
+  ],
+  "findings": [
+    "Inspected main argv dispatch after parser2900 at140001b56 through QApplication event-loop entry140001fb6.",
+    "Mode open decodes f and invokes actual Open01ca30, postOpen02a0e0 and recent-project01dc00 before showing the window and entering the event loop.",
+    "The alternate mode tested here is new, with optional prob_dir and delayed slotActionFileNew. q selects troubleshoot or language flags; the unconditional delayed slot is slotRelaxDockSizeLimit.",
+    "No Save or Close command dispatch is present in this inspected main branch. A guessed save argv must not be used as a successful original comparison."
+  ],
+  "qualification": "This bounded dispatch inspection is not an exhaustive inventory of automation mechanisms elsewhere in the application. Existing native CLI Open captures remain valid only for their retained endpoint/timing.",
+  "next_action": "Continue source reconstruction and reviewed passive startup captures. Fresh whole-lifecycle acceptance still requires a separately evidenced action path and cleanup; no acceptance gate is advanced.",
+  "target_execution": false,
+  "objective_complete": false
+}

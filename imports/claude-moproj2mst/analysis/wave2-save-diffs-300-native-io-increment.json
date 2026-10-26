@@ -1,0 +1,125 @@
+{
+  "status": "native_extra3d_bounded_backend_implemented_frozen_for_root_build",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_io.hpp",
+      "bytes": 3892,
+      "sha256": "40b0c547f7513d43a0855dec9697eb193239e2381d91f35b0984cf359f86017d"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_native_io.cpp",
+      "bytes": 6550,
+      "sha256": "5cda9144e8ebd5b45ffc759d7e50a5ade7c856f6bbc19e1b908c3808e1fc1076"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_native_io.cpp",
+      "bytes": 7040,
+      "sha256": "e0332952acfe60fa75f69abac981f4df0ddd6d3ce52fd5c08ca3684c33326d2d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-native-reader-contract.json",
+      "bytes": 5341,
+      "sha256": "b69b986cb432adfb8c960ef3fcdfb6535935af9ed40e1a678966b0f3e0124c28"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-real-tables.json",
+      "bytes": 3751,
+      "sha256": "b1388f8dc8efc14710e49cbfe8e13230ab300e50eb20fd7d995c6b611e6120a7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-getreal-complete.asm",
+      "bytes": 21756,
+      "sha256": "801af67ab78706c515c106d0938055d9df5fb28e82a96158380655bbbcf48686"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-getinteger-complete.asm",
+      "bytes": 22168,
+      "sha256": "f7d4f60a403016cd75528362c1f314307a8472e2e63ce71cc4772d1815e177c7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-read-int-complete.asm",
+      "bytes": 2377,
+      "sha256": "b8a9fcb3e9fd8bdcdd615248008f0df1713c6e72eb7200c903bb73458e92f73b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-read-double-complete.asm",
+      "bytes": 2253,
+      "sha256": "39d552ec0897dc6985e1006919a1e08e31d5a7077d5fa3f13ecb84f9c8c93ae9"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-default-exports.txt",
+      "bytes": 662,
+      "sha256": "4bc0a522ae672dc5a11bd89f3ca0ca8b7e53f00804bfca308d7581d4df2aaacb"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-device-ctor.asm",
+      "bytes": 2509,
+      "sha256": "8940ea51f1c280ed6a1c4c83a4059c63e5a5c641fb4bda32feb3bd88aa34565c"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-private-ctor.asm",
+      "bytes": 3077,
+      "sha256": "8592f705a9cf544699dd34394a6319ee524e8d1a274e7d1602cea868b0842417"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-private-reset.asm",
+      "bytes": 4074,
+      "sha256": "30add66f0f7416533949346234bc57332489346094112b0d7408d35ac0002122"
+    },
+    {
+      "path": "analysis/wave2-doe-read-handle-contract.json",
+      "bytes": 4607,
+      "sha256": "f536f8a42119074436949b5fef06d46c2386d3bb105213dbdb0c5d1df5d29bdf"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-extra3d-increment.json",
+      "bytes": 7765,
+      "sha256": "13729d91466e9fb35bf2cd5221d4f4ce232ee393df8d2a6b3718ea12046086fe"
+    },
+    {
+      "path": "analysis/wave3-distortion-cogging-validation.json",
+      "bytes": 6826,
+      "sha256": "d2812c30dc6c78399e63ad5a6ddd3c30ebd1d61bd8a0f327cf96ad376f0ad676"
+    }
+  ],
+  "original_exe_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "original_qtcore_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "contract": {
+    "directory": "Explicit absolute per-call directory replaces original process working directory; no ambient original installation access or directory creation.",
+    "read": "Zero outputs; exists before native ReadOnly open. Reuse verified StudyIo GENERIC_READ/share READ|WRITE/no DELETE/OPEN_EXISTING/normal/noninheritable handle. Successful count0 open does not read or decode bytes.",
+    "real": "KnownC ASCII, original 13x10 getReal transition table and delimiter pushback, 124-character bound plus trailing-digit consumption; existing qt::toDouble conversion. Failure yields zero and later extractions continue despite sticky stream status.",
+    "integer": "Explicit first profile: signed decimal int32, no ambiguous leading zeros, whitespace or end delimiter. Automatic radix selection, wrapping overflow and other original integer branches refuse; they are not approximated as zero.",
+    "defaults": "Qt device constructor -> private constructor creates C QLocale; private reset initializes integerBase0. Base0 is original evidence; restricted decimal handling is an adapter profile guard.",
+    "springs": "Absent, empty or nonpositive count produces no spring items. Positive count explicitly refuses before selected-editor behavior can be approximated.",
+    "write": "Existing FileDevice plus recovered Extra3DIo Stream helper, WriteOnly without Text, literal tabs and CRLF preserved. Open success remains the original helper result; later write failures do not abort later blocks.",
+    "delete": "CRT wide fopen(rt), fclose, remove through existing path seam; read-open failure returns true. Only failed NBC removal invokes supplied warning callback."
+  },
+  "tests": {
+    "status": "not_run_worker_root_owns_build_and_execution",
+    "new_cases": [
+      "native_extra3d_empty_files_enable_and_zero_count_probe_does_not_decode",
+      "native_extra3d_real_reader_preserves_prefix_pushback_and_failure_continuation",
+      "native_extra3d_integer_and_decoder_profiles_are_explicit",
+      "native_extra3d_write_denial_keeps_existing_prefix_and_continues_other_files",
+      "native_extra3d_readable_delete_failure_warns_only_nbc_and_continues",
+      "native_extra3d_read_open_denial_is_remembered_as_disabled",
+      "native_extra3d_missing_parents_are_not_created_and_directory_is_explicit"
+    ],
+    "new_cases_count": 7,
+    "prior_validation": "analysis/wave3-distortion-cogging-validation.json: root reports full110 CTests and40 editor helper cases passing, no fixture/diagnostic changes",
+    "expected_editor_helper_cases": 47,
+    "coverage": "Native empty and absent files, count0 binary content, real prefix/pushback/failure continuation, signed zero, explicit integer/decoder/spring guards, remembered read-open denial, write sharing failure continuation, NBC delete failure warning and later-file continuation, no missing-parent creation, absolute-directory requirement."
+  },
+  "checks": "git diff --check and owned-file trailing-whitespace inspection passed; no build/test execution by worker.",
+  "qualifications": [
+    "No original DLL loading, original executable runtime, app control or fixture mutation.",
+    "No general Unicode/BOM or non-C locale decoder equivalence; unsupported bytes explicitly refuse when extraction is requested.",
+    "Existing StudyIo readAll packet sizing and dynamic-file/read-fault timing remain qualified; native open flags alone are not total QFile equivalence.",
+    "Existing long-path/Qt path seams and numeric conversion seams retain their inherited qualifications.",
+    "Positive spring selected-editor state, populated recovery lists, whole initial-editor composition and external capability/remesh lifecycle remain queued.",
+    "Public mode300 Save remains explicitly refused; this checkpoint is not public integration or original lifecycle acceptance."
+  ],
+  "successor": "No new implementation scope before parent integration. Retained original integer source permits bounded automatic-base recovery afterward; public composition still requires remaining lifecycle/capability bindings."
+}

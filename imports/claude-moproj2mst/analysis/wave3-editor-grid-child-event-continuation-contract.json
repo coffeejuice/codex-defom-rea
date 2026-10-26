@@ -1,0 +1,75 @@
+{
+  "schema": "editor300-grid-child-event-continuation-contract-v1",
+  "created_utc": "2026-10-24T13:20:50.876295+00:00",
+  "status": "Source successor only; eight editor files remain frozen",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-child-event-lifetime-static.json",
+      "sha256": "c71e9dfa670f7be7bf322ab95f12ca65366a5791a484ae128695ff3149f11534"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712d3f0.asm",
+      "sha256": "4e7740db817888c3626b58afe7ebf6f9c422745439664fc82f13bdb5c6266d1a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712e630.asm",
+      "sha256": "4ff378bfa7a1ce61b0467bb687dbc4f89fe9f0cfaad45e83718eea2870c873df"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712caf0.asm",
+      "sha256": "56a20fea009822726e9b95941a554d0607319eb4b698cb4d158077fffeb21282"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506c950.asm",
+      "sha256": "49504514e7be5c14bd57ce8e108afa44b5a648a05bbc72a280307ddd1007934a"
+    },
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    },
+    {
+      "path": "analysis/wave3-editor-first-grid-prefix-increment.json",
+      "sha256": "191cec7e34237752819e264ba474e90dca46c13e45444d3bcfb0ba78f72b75fe"
+    },
+    {
+      "path": "analysis/wave3-editor-first-grid-thread-owner-amendment.json",
+      "sha256": "718b245e53e5b49b29ae817068e40fa6f6e63ed8a21a5d3ad1464517a2df9424"
+    }
+  ],
+  "event_constructor": {
+    "entry": "QtCore6711d5e0",
+    "callsite": "6712d592",
+    "raw_type": "0x44",
+    "payload": "Exact new grid QObject identity borrowed at event+18; no child allocation, deletion, refcount or QObject ownership transfer by the event.",
+    "stores": [
+      "private+8=0 atd5e5",
+      "type+10=argDX atd5ed",
+      "flags+12 clearbits0/1 andsetbit2 atd5f1/d5f5; allotherbits remain priorrawstorage",
+      "vtable6723a4c0 atd5fa/d601",
+      "payloadchild+18=R8 atd604",
+      "RETd60b; subsequentd610 neighbor excluded"
+    ],
+    "caller": "6712d598 AND0xfffd clears spontaneous again; actualappnonnull6712d5a5 invokes same runtime notify6712d5b3."
+  },
+  "normal_result": "QWidget raw44 reaches6506d767 and calls QObject::event at6506d76d, preserving AL through its return. QObject6712caf0 childcase6712cb5f calls actualchildEvent vt+38 atcb68 then jumps6712cedb AL=1. Thus normal closed receiver/notify returns TRUE. The leaf childEvent itself is RET but QObject wrapper supplies true. App-closing earlyreturn remains false. Parent helper ignores either result; neither means parent membership failed.",
+  "ordered_lifetime": [
+    "Construct same source-stack child event after child parent/membership; keep pending event and dispatch cursor owned by actual constructor frame.",
+    "On normal notify return, DO NOT immediately destroy it. Native6712d5b8 first tests process-globalQtCore+2f1da8. True path reads actual parentpending-child vector+68, possibly postsraw0x43 priority1 ifempty, obtains guarded child controlblock, appends pair and releases local guard ref. These must use actual shared runtime/thread/queue/parent owners.",
+    "Only after post-parent bookkeeping does6712d677 call QEvent::~QEvent6711d580. Dtor installsbasevtable671a91e0 and, because thisevent is unposted, skips removePostedEvent67119970. It does not free/decrement/delete borrowed childpayload.",
+    "After eventdtor, helper6712d681 checks childflagsbit3 then childhookdata+78; optional hook call6712d696. Fresh-null plus closedcallbacks may close it, but unknown/mutatingcallbacks cannot assume null.",
+    "Then helper returns. QObject constructor increments processglobalQtCore+2f4344 at6712e6e0. Only afterwards QLayout installs vtables and later actualeditor installedlayout alias."
+  ],
+  "next_shared_interface_proposal": [
+    "Extend WidgetEventState with stackChildAdded(const shared_ptr<GridLayoutState>& actualChild) retaining rawchildidentity+weakowner/lifetime evidence, never strong QObject ownership. Validate sameactual controlblock when comparing supplied owners. Getter borrowedChildIdentity exposes originalpayload without reviving native lifetime.",
+    "Extend shared WidgetEventDispatch raw44 only with exact currentapp/receiver/filter/layout predicates and source resulttrue; use same runtime/thread +1/-1 cursor. Never reuse propertyfalse result or its caller teardown order.",
+    "EditorGridConstruction owns event/dispatch and an additional PostParentBookkeeping stage. It destroys event only after sourcebookkeeping closes, then continues finalhook/globalcounter. Event/globalcounter/layoutinstallation/UI aliases remain sourceordered."
+  ],
+  "validation_to_add": [
+    "Raw44true versus raw0xaafalse and appclosingfalse-result branch",
+    "Childpayload identity is same actualgrid without additional nativeQObject ownership",
+    "Unknown after-notify declarative flag retains completeddispatch but liveevent and no duplicate notify/depth onretry",
+    "Eventteardown after actualpost-parentprefix, beforeglobalQObjectincrement; no removedqueued-event/deletechild sideeffects forunpostedcase",
+    "Same native parent/grid/thread/runtime identity on guardedresume; foreignownershipblock cannot substitute"
+  ],
+  "capture_dependency": "Root preparing one native CLI editor-base+first-grid probe through UI[0] publication before spacing. Current reconstruction has not run these later callbacks; source closure alone does not seed current callback/queue populations. No worker original runtime or GUI session."
+}

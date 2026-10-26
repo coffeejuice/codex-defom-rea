@@ -1,0 +1,19 @@
+# c05: census-2026-10-21 packet C05 (15 P3 shared helpers). Decompiles: deform-rea-work/out/c05/rows.c.
+# The iostream rows are reached only from ostream code whose users are ported with C stdio (ARMCTL
+# 140007a50) or on std::cout (14000af30); the std::string rows only from MSVC std::string code
+# (14015c080 by vtable slot, 140006730, 14000bc80, 140159230) or from 1401b1060, ported on std::string.
+0x140005b40	not-needed	stl: std::string::append(const string&, pos, n); callers 140005f40 / 140159230 are MSVC string/iostream code, ported code uses std::string
+0x140005f40	not-needed	stl: std::string::append(const char*, n) (aliasing case -> 140005b40); callers 14015c080 (iostream facet, vtable-slot reach), 140006730, 14000bc80: ported code uses std::string
+0x140007150	not-needed	stl: std::ostream::flush; callers are ostream code (ARMCTL endl 140007a50, 1400078b0, _Osfx, sentry) ported with C stdio, and 14000af30 (p5-01 menu_shell.cpp, ported on std::cout.flush)
+0x1400073d0	not-needed	stl: std::ostream::_Osfx (unitbuf flush); callers ~sentry 140007610, 140007660, 1400078b0: ostream code ported with C stdio
+0x1400078b0	not-needed	stl: std::ostream::put(char); callers ARMCTL endl 140007a50 (ported with C stdio, p8-01 cmd_armctl) and 14000af30 (p5-01 menu_shell.cpp, ported on std::cout << '\n')
+0x14015d740	not-needed	stl: std::string::at-style element pointer (_Xran when pos > size); callers 14015c080 (iostream facet) and 1401b1060, ported on std::string (p4-01 menu7.cpp trim)
+0x1401d8fa0	ported	port/defmodel/src/material/state_remap.cpp material_list_numbers (MaterialList +0x18), used by 1401d0fc0
+0x1401d8fb0	ported	port/defmodel/src/material/state_remap.cpp material_list_index_of (MaterialList +0x20), used by 1401d0fc0
+0x14032ed30	ported	port/defmodel/src/cvname/cvname.cpp cv_def_construct (CustomVarDef(id)), used by cv_get_or_add
+0x14032f9b0	ported	port/defmodel/src/cvname/cvname.cpp var_list_begin, used by find 14032f670
+0x14032f9f0	ported	port/defmodel/src/cvname/cvname.cpp var_list_end, used by find / cv_get_or_add
+0x14032fa50	ported	port/defmodel/src/cvname/cvname.cpp var_list_push_back, used by cv_get_or_add
+0x14032fb10	ported	port/defmodel/src/cvname/cvname.cpp var_list_back, used by cv_get_or_add
+0x14032fc00	ported	port/defmodel/src/cvname/cvname.cpp var_list_iter_default, used by find 14032f670
+0x14032fcf0	ported	port/defmodel/src/cvname/cvname.cpp str_list_end, used by cv_def_append (14032f880)

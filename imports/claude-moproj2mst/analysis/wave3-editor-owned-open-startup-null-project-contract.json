@@ -1,0 +1,29 @@
+{
+  "schema": "editor300-owned-open-startup-null-project-contract-v1",
+  "created_utc": "2026-10-24T12:23:42.335210+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-140010490.asm",
+      "sha256": "e929eae03d3feb126384753db39ad930975381bc1fcaf4598d066360d41404be"
+    },
+    {
+      "path": "analysis/wave3-closure-next-1400111c0.asm",
+      "sha256": "f9f78f69236143b5a255e8439c448785e93ced5e5ec41252edacde678ec72f17"
+    },
+    {
+      "path": "analysis/wave3-boolean-external-callback-14002a0e0.asm",
+      "sha256": "e3e74166115892e04fe23160955278cf3101abacb6d818cd41746bca94c43f63"
+    },
+    {
+      "path": "analysis/wave3-editor-owned-open-probe-phase-amendment.json",
+      "sha256": "811c8317826ffeddac5b29129252294456ffd45b2e3ef03c830c013f9d11fd5e"
+    }
+  ],
+  "source_chain": [
+    "Actual mainwindow ctor10490 calls111c0 at140010598.",
+    "111c0 explicitly zeroesEDX at140012018, loads same mainwindow intoRCX, and calls02a0e0 at14001201f, return140012024. This occurs before10490 returns.",
+    "02a0e0 resets mainwindow+3c0, calls13d40(0,0), then branches on its Project argument at14002a120. Null branch begins14002a1a6 and handles empty/current-project presentation. The function is not exclusive to successful project Open."
+  ],
+  "runtime_qualification": "Capture001 did not retain caller or Project argument before the guard failed. This proves a reachable ordinary null-Project startup call, but does not retrospectively invent its observed values. V4 captures actual caller/Project for confirmation and leaves normal callbacks running.",
+  "next_action": "Compare next capture preselected02a0e0 caller/Project with return140012024/null, then assess selected native CLI Open independently. No production edits or worker target access."
+}

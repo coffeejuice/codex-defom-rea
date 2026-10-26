@@ -1,0 +1,95 @@
+{
+  "scope": "Ptrk Change graph selected-model owner, registration and post-registration return boundaries",
+  "method": "Retained instruction-verified DUMPBIN plus three bounded static functions; no runtime or production changes",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-global-selection-owner-static.json",
+      "sha256": "be9f3395fa899bfce22c047831dc995c828c02f0c22c89b396d4b8cbbc5b7397"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14030a290.asm",
+      "sha256": "f52d0450d35b02b6c3ade6937bd2297bdbab5bc46530e14bca771c958e9923e1"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14030a2b0.asm",
+      "sha256": "bb7847ba8a1712b07e182fdd5f951f2ec839051d246f954e0d26cef03c0b9848"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14001d770.asm",
+      "sha256": "e4b0dbb0a7061b0012be415c6af743313d18aee4f766fb7062df54267704016d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c1aef0.asm",
+      "sha256": "0665181097e137ba331e9ef6bcf2ae6a0a90167e9971382b075458eb6518b093"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d0d610.asm",
+      "sha256": "14fbd8b699f493dd7353198a4a1213d367604fc054f72bb55ccea33c5c944303"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14031fab0.asm",
+      "sha256": "68196d941eb92e025fe526c3d304bbffd6e286fdd66a3674a5bcd9273d090a70"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140321660.asm",
+      "sha256": "0a1991d1b571294aeaa69f210e4ff51289a1685f03d9b1e9ff3031f6ab5455e8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140322420.asm",
+      "sha256": "4ca301356be7b46132441533f09ff53a62c68b7f39a9a1ac1cdaac281eec3be9"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-model-registration-contract.json",
+      "sha256": "071815066a9381e56a680b0c3950fd03ab409bfecaeb79b0b1a8fc8e872e82de"
+    },
+    {
+      "path": "analysis/wave3-close-model-aux-lifecycle-contract.json",
+      "sha256": "83d6e158e63e3b28cf62f438f9d6ee4b1717b7ded9fdcf59f23114abedcd9eb7"
+    }
+  ],
+  "vtable_bindings": [
+    {
+      "vtable": "0x1420fb108",
+      "offset": "0x268",
+      "slot_va": "0x1420fb370",
+      "target": "0x14001d770",
+      "bytes": "70d7014001000000"
+    },
+    {
+      "vtable": "0x1420fb108",
+      "offset": "0x778",
+      "slot_va": "0x1420fb880",
+      "target": "0x140c9bbd0",
+      "bytes": "d0bbc94001000000"
+    }
+  ],
+  "owner_chain": [
+    "30a290 calls2c8090 on global143d766b8; 2c8090 returns qword+0 without calls or mutation.",
+    "30a2b0 initializes null result. A null global mainwindow returns null; otherwise invokes virtual+268.",
+    "Actual SfMoMainWindow table1420fb108 binds+268 to01d770 and+778 to c9bbd0.",
+    "c9bbd0 reads QPointer at mainwindow+120 through c1aef0. 01d770 returns null if this scene is null; otherwise invokes d0d610 on scene+10 Display.",
+    "d0d610 reads guarded main+1a0 first, then uses nonnull guarded override+1e0. It does not inspect shown-model flags or manager owner."
+  ],
+  "dispatch_order": [
+    "322420 returns immediately when live manager+4d0 is false.",
+    "321660 ->31fab0 allocates and stores the cached graph if absent. For nonnull graph it calls the global selected-model chain and registers graph identity in a nonnull model lazy+250 registry. Existing graphs repeat this step.",
+    "Only after31fab0 returns does321660 load graph+f1. False returns before the later selected-model lookup and StateVar access.",
+    "When+f1 is true,322420 calls30a2b0 again. Null selected model returns. No reuse of the earlier selected pointer is established by source.",
+    "A nonnull selected model passes through c905b0. Existing model+240 returns unchanged. Missing state allocates0x580 and calls d15610 with the selected model, then stores only after constructor returns.",
+    "066760 reads the selected StateVar+4c plotVar. Zero returns. Nonzero reaches30ad90 before322170/321b10/3216a0."
+  ],
+  "integration_contract": [
+    "Represent unavailable global Display binding separately from an explicitly qualified null mainwindow/scene. Do not replace it with the emitting model, model.display or manager owner.",
+    "A supplied live binding must refer to the actual global scene Display owner. A shared lease can protect adapter lifetime but does not establish original selection provenance.",
+    "Use root-owned actual selected getter and lazy model registry insertion. Preserve mutations before later guards and reread selected model after graph+f1 true.",
+    "Existing actual selected StateVar supports the plotVar0 return. Until shared lazy getter/context is exposed, guard missing StateVar at c905b0 without creating a blank substitute or invoking apply/read.",
+    "Retain nonzero variable guard before30ad90. A matching zero on the emitting model is insufficient.",
+    "Tests remain isolated receiver tests until lifecycle binding and actual Close caller are integrated."
+  ],
+  "qualifications": [
+    "Actual mainwindow class dispatch is source-bound; current adapter global-owner binding must remain explicit.",
+    "No original runtime, allocation-failure branch or reentrant allocator behavior was observed.",
+    "Global replacement and other mainwindow subclasses are not automatically covered by a fixed Display lease."
+  ]
+}

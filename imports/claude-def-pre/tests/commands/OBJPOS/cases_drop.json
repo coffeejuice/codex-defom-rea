@@ -1,0 +1,53 @@
+[
+ {
+  "label": "OBJPOS/drop-gap05-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "drop_gap05_3d.KEY"
+   }
+  ],
+  "comment": "Drop solver, p15 = 0.5: initial drop -(3 + 0.25), stable at once. Expect object 2 moved by about (0,0,-3.25), 'Object 2 has been dropped successfully.' (OBJPOS_drop_solver.md 5.6, 5.12)"
+ },
+ {
+  "label": "OBJPOS/drop-inplace-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "drop_inplace_3d.KEY"
+   }
+  ],
+  "comment": "Drop solver, body already on die 3: contacts at the first detection, stable, no motion (at most about -0.001 in z if the touching nodes are not accepted); success message (OBJPOS_drop_solver.md 4.2, 5.5.1 mode 1)"
+ },
+ {
+  "label": "OBJPOS/drop-nohit-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "drop_nohit_3d.KEY"
+   }
+  ],
+  "comment": "Drop solver, direction +x with nothing in the path: forward and reverse ray casts miss, status 0 without motion; success message (OBJPOS_drop_solver.md 5.6)"
+ }
+]

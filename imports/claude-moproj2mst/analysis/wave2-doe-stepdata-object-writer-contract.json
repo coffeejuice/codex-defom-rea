@@ -1,0 +1,55 @@
+{
+  "schema": "m2m-doe-stepdata-object-writer-contract-v1",
+  "status": "source-closed bounded serializer; approved implementation follows",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "outer_c90640": [
+    "StateVar is written/appended first when flagtrue. Copy actual current View pointer list afterward.",
+    "Each encounter creates DETACHED Object with No as decimal0-based traversalordinal, passes actual View to141200360; append Object to StepData ONLY AFTER whole writer normalreturn. Null actualView invalid-access guard cannot be skipped/replaced."
+  ],
+  "object_141200360": [
+    "Resolve actual View Settings1411f1a10; only ifSettingsnonnull AND actualboundobjnonnull create/APPEND SfDispOpt, then1411eec70(actualflags+8,actualmode1eea00,actualobjKind+0xc). No settings reset/allocation.",
+    "Slice predicate1fd560 is collection!=null AND graphiccount>0 via df89c0. Empty actualgraphics skips even ifcollectionexists. Positivecount loop creates/APPENDS Slice BEFORE firstgraphic querydfae40; retain explicit guard at this first unrecovered payload, no synthetic coefficients or empty-list substitution.",
+    "Then actual symmetrycount1249420:0 skips entire SfSymmetryInfo evenShowSymmtrue. Nonzero creates ShowSymm decimal bool attr, APPENDS SfSymmetryInfo BEFORE14124a890."
+  ],
+  "display_options_1411eec70": [
+    "Always append DispModeType text QString::number(int,10), then DispFlagList.",
+    "Set attribute insertion order: SelectionOn[0],ObjectOn[1],MeshOn[2],GeoOn[3],TranspOn[4],SliceOn[5],CrossSectionGeoOn[43],CrossSectionMeshOn[44],TransformCrossSectionOn[45],GeoNodalShadingOn[8],MeshNodalShadingOn[9].",
+    "Nonzero general bytes serialize unsigned0..255 (MOVZX in originalasm), not normalizedbool. Mesh/Geo write-1 unconditionally for actualobjectKind5; otherwise1 only ifcorrespondingbyte nonzero. Unused35flags omitted."
+  ],
+  "symmetry_14124a890": [
+    "Append NumOfSymmData signeddecimal, then Min XYZdoubleattrs, Max XYZdoubleattrs, NeighborSymData Index0/1intattrs.",
+    "For signedindex0..<count create SfSymmetryData%ordinal, APPEND before record141248030. Negativecount emits headers/no record loop; no normalization.",
+    "Record childorder Matrix(P0..P15rowmajordoubleattrs), KeepOrientation decimalbooltext, IsActive decimalbooltext, OglEqn P0..P3doubleattrs, NeighborSymData Index0/1intattrs. Matrix built detached then appended only afterall16 reads.",
+    "Optionalmatrix unavailable guards at firstP0 consumer; parentSfSymmetryData remains, no Matrix child. Nativeindex>=128 guards at first actualinvalidrecord after earlier validrecords and emptySfSymmetryData128 append; no assumed allocation growth."
+  ],
+  "double_attribute": [
+    "ShippedQtXml6100c210 calls qsnprintf256buffer with literal%.16g at61045ee8; positivecount Latin1 result; <=0 fallbackQString::number(double,g,6).",
+    "Reuse established def::rt::crt::snprintf seam used by datafiles/qdom_write.cpp::DomElement::setDouble. Do not substitute QString g6/g15. CRT/global locale remains existing qualifiedprofile, not new arbitraryprocess-locale parity."
+  ],
+  "proposed_apis": [
+    "doe::writeDisplayOptionFields(xml::Node&,std::span<const uint8_t,46>,int32 mode,int32 objectKind)",
+    "doe::writeObjectSymmetry(const ViewStepDataState&,xml::Node& object)",
+    "engine::writeViewerStepDataObjects(GuiModel&,xml::Node& stepData) [root-owned actualView/Settings routing]"
+  ],
+  "qualifications": [
+    "Native allocation/refcount/QtQObject effects and undefined-memory behavior are not invented. Unsupported encounter retains preceding state/attachedDOMeffects.",
+    "Bound Settings are the actual existing private owner with existing FreshCrtDefaults/currentstate qualification; no clonedSettings/profile and no source snapshots from expectedoutputs.",
+    "Populated Slice graphic payload remains guarded, as do missing matrices/unsafecount and later sharedViewManager snapshot. This does not complete activeDOE or publicacceptance.",
+    "No source edits duringcandidate39build, no workerbuild/test/targetruntime. MutableGhidra released/idle for parentexperiment."
+  ],
+  "evidence": {
+    "analysis/wave2-doe-default-task-stepdata-snapshot-decompile.json": "f7267cde546ec4cf4542a56a0a70d4437bb3be73fa38720e5bd45d0370d3b79f",
+    "analysis/wave2-doe-stepdata-object-symmetry-writer-decompile.json": "07c388bd777cba3e4b2a9d2934b10e740d7f8a5aecb50c788f0182885ffcfd01",
+    "analysis/wave2-doe-stepdata-object-display-options-write-decompile.json": "1e5fbbd7c319abe1b2436ef78a4f637a403f0f57b2b7c800d5a3aad331d10ff3",
+    "analysis/wave2-doe-stepdata-object-symmetry-write-fields-decompile.json": "a2a985cc92e4926a6b19679dbf34d6530c530e750f96f15a5b6f765731df43db",
+    "analysis/wave2-doe-stepdata-object-symmetry-record-write-decompile.json": "b8d33086ab773565d6330cc68b6dd1292b03e9542e4bb3e7542917584c03759c",
+    "source/apps/moproj2mst/src/datafiles/qdom_write.cpp": "520b7cb61dae0a6c3dfa0b1d598d6118b99351b852df9566828cc2246d79ea22",
+    "analysis/wave2-doe-object-writer-display-options-asm.asm": "5e1e5d3684ccebcc238f6ecae489d0ff14860a3ddef271fbfe58b4439f52041f",
+    "analysis/wave2-doe-object-writer-qt-double-attribute.asm": "4ec36150fdaa836bdc3cf2a1df95ebd679ad0157c55f766b5fcc0878454360ac",
+    "analysis/wave2-doe-object-writer-slice-count.asm": "4c0cfbbf90d3e062078b73b881f7ba38fbca4012e1b7cfb533ed21754c022182",
+    "analysis/wave2-doe-object-writer-slice-list-size.asm": "e5024941162d5ef2ce3dbd89d4be4cd07f2d5dec3329880fd9172f87292bbdd3",
+    "analysis/wave2-doe-object-writer-slice-nonempty.asm": "cc28712b63b2cefaae3e591fa9fb1979c5f361aa341ceed74de405f2c49d19fd",
+    "analysis/wave2-doe-object-writer-slice-predicate.asm": "4628644c3524cf5e8a56c862530268180632a873fafce58fd2d99c3e916681fa",
+    "analysis/wave2-doe-object-writer-symmetry-count.asm": "a8e01beee0892f6e20d0a3fda28347e23c14df3a018fd7100aa417763b0e031b"
+  }
+}

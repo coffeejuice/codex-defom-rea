@@ -1,0 +1,21 @@
+{
+  "label": "GFREAD missing file",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 2\nNOFILE.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Prints 'ERROR  : Reading GFREAD' and '         NOFILE.STL does not exist.'; no 'Loading geometry' line; case returns 0; model unchanged."
+  }
+}

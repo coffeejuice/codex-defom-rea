@@ -1,0 +1,61 @@
+{
+  "schema": "wave3-doe-report-qobject-capture-plan-v1",
+  "status": "static plan only; no process launched or attached",
+  "scope": "Passively observe the first Report public QObject(parent=null) in a fresh original process; no GUI input, Qt calls, event pumping, memory writes, DB edits, or candidate changes",
+  "target": {
+    "exe_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "qtcore_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+    "source_static_addresses": "analysis/wave2-doe-task-public-qobject-ownership-contract.json",
+    "caller": "DEF_GUI_MO_64.exe preferred VA 0x141403222 (RVA 0x01403222); call to QObject(parent=null) IAT target, actual QtCore export 0x671313d0 in preferred-address notation",
+    "runtime_address_rule": "Resolve each RVA from the actually loaded module base recorded in the process; do not hardcode preferred VAs. Probe004 recorded QtCore base 0x53b00000, but each new process must record its own bases."
+  },
+  "passive_hook_points": [
+    {
+      "point": "DEF_GUI_MO_64.exe+0x01403222 before call IAT 0x141e041c0",
+      "capture": "thread id, RCX prospective Report identity, RDX parent (must be null for this branch), R8/R9, RSP/return address, caller bytes and call ordinal; mark whether this is the selected real DOE factory path"
+    },
+    {
+      "point": "QtCore4_64.dll+0x001313d0 public QObject constructor entry/return",
+      "capture": "same RCX object identity, RDX parent, entry/return registers, object+0 and object+8; at return verify object+8 points to the private allocation and private+8 backlinks to the same object"
+    },
+    {
+      "point": "QtCore4_64.dll+0x00131160 private initializer entry/return; internal instruction offsets +0x1190, +0x11ad, +0x11d2, +0x11de, +0x1232",
+      "capture": "private pointer and version argument; shared counter values immediately before/after each LOCK ADD at globals +0x2f0a50 (QListData, incremented twice), +0x2f0b30 (QString), +0x2f0bb8 (QVectorData); fields explicitly written by this initializer and raw dword +0x20 before/after mask update. Never infer untouched fields are zero."
+    },
+    {
+      "point": "QtCore4_64.dll+0x0012aca0 currentThreadData entry/return; +0x00129600 TLS initializer entry/return; IAT TlsGetValue call from +0x0012acbc",
+      "capture": "global TLS index at QtCore+0x2f08e8 before/after initializer; TlsGetValue index argument and actual returned pointer; classify existing-index/non-null fast path versus any initializer, null result, allocation/adoption branch. Record selected QThreadData pointer only from the observed return, never infer from notifyDepth or OS thread id."
+    },
+    {
+      "point": "QtCore4_64.dll+0x00131453 before call +0x0027630; +0x0027630 entry/return; constructor continuation +0x00131488",
+      "capture": "selected QThreadData pointer at +0x40 of private object; ref helper RCX value and dword [RCX] before/after LOCK ADD; then process QObject counter at QtCore+0x2f4344 before/after its distinct increment. Require same thread/call ordinal and exact identity chain through constructor return."
+    }
+  ],
+  "qualification": [
+    "Use module-relative Frida Interceptor hooks patterned after build/original-editor-probe-004/probe.js attach/checked helpers. Hooks may read registers and bounded memory only; no target-memory assignment, function invocation, Qt API calls, or UI action from the agent.",
+    "The process must reach the actual Report constructor through the native DOE/task-factory call path. Probe004 ended at selected_editor_first_grid_published before later setup and does not establish this constructor is reached; do not treat startup/editor observations as a substitute.",
+    "Accept the fast-path profile only if the actual TLS index is already initialized, TlsGetValue returns nonnull, and returned pointer is the same pointer whose refcount helper runs. Missing-index/null-result paths remain guarded and need separate evidence.",
+    "Record all three shared-null global identities and exact before/after deltas, with full module identities and thread IDs. The two QList increments must remain distinguishable and sum to +2; QString and QVector each +1. Record exact observed bases, not inferred values.",
+    "The QObject counter increment is a separate later effect and must follow the thread ref increment. Any nested/unrelated constructor activity invalidates attribution unless call-stack/return-address and object identity disambiguate it."
+  ],
+  "fresh-run_setup_and_cleanup": [
+    "Root/operator owns any future execution. Verify installed executable and QtCore hashes against target identities, record loaded module paths/bases/hashes, cwd, argv, PID, environment, locale/code page, startup settings, and no prior project before starting.",
+    "Use a new disposable case/cwd and fresh process; keep all evidence under the converter checkout. Do not reuse probe004's project state as a claim of pristine settings or as proof of Report-path reachability.",
+    "Use a bounded capture that stops recording after the selected Report constructor returns or the requested guarded prefix is reached; retain raw event stream, script hash, capture status and truncation/error diagnostics.",
+    "Do not attempt Save, simulation, DOE execution, or extra dialog actions as part of this constructor observation. Preserve crash/refusal/timeout and partial artifacts as observed.",
+    "At completion, quiesce observation, verify exact owned PID absence independently before closing the Frida session, and retain close/termination evidence. Probe004's receipt is an example of that order; its cleanup receipt is not transferable to a new run."
+  ],
+  "guard_decision": "No native guard relaxation follows from this plan. Keep M2M_E_UNSUPPORTED before TaskInfo until capture and shared-owner implementation/tests qualify the ordered effects.",
+  "existing_evidence": {
+    "probe004_receipt": "analysis/wave3-original-editor-probe-004-receipt.json",
+    "probe004_script": "build/original-editor-probe-004/probe.js",
+    "native_constructor_contract": "analysis/wave2-doe-task-public-qobject-ownership-contract.json",
+    "native_asm": [
+      "analysis/wave2-doe-task-base-public-qobject-constructor.asm",
+      "analysis/wave2-doe-task-qobject-private-initializer.asm",
+      "analysis/wave2-doe-task-qobject-current-thread.asm",
+      "analysis/wave2-doe-task-qobject-thread-ref.asm",
+      "analysis/wave2-doe-task-qobject-thread-tls-initializer.asm"
+    ]
+  }
+}

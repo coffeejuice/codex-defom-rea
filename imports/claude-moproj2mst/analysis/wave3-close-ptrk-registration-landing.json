@@ -1,0 +1,68 @@
+{
+  "scope": "Qualified actual global Display binding, model auxiliary registration and supported post-registration Ptrk returns",
+  "owned_sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp",
+      "sha256": "493b03d769f1e0da92166f9a2acf73b11509354bb389aff49231c42a193cb3ee"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/close_effects.cpp",
+      "sha256": "8c9648020184121d987245f2f38256f9a49f0d66083d0174e177264e862789c7"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_close_effects.cpp",
+      "sha256": "60e2a488763f65674ebe1ff91b790ef4c7158c35cb84e51fd8db5bf24098404a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-ptrk-dispatch-selection-contract.json",
+      "sha256": "5122710f4ea57f51a9cee73c738b7019e0fb500af8c0496a95d8ca0a3899bcb4"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-registration-test-draft.json",
+      "sha256": "9e817ddb65e8102f34fd87a0777df0dd22d2761cee152949e41da08c4f2d6900"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-allocation-landing.json",
+      "sha256": "7f75d51ff9eb5fd00baf3eaee9fdc7f97013e2ebab7f63d2dfe78e9aaf1a3ac8"
+    },
+    {
+      "path": "analysis/wave3-close-model-aux-lifecycle-contract.json",
+      "sha256": "83d6e158e63e3b28cf62f438f9d6ee4b1717b7ded9fdcf59f23114abedcd9eb7"
+    }
+  ],
+  "shared_interfaces": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_scene.hpp",
+      "sha256": "17bb9f8d8c5b7086e1c899898c2b40896e208c653092a298c1945653db107872"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_auxiliary.hpp",
+      "sha256": "165960ef072d8d55fc3017c3097c4cf944c50dda125a1cf9b914c4649d28cd5e"
+    }
+  ],
+  "behavior": [
+    "Optional qualified PtrkGraphDisplayBinding leases the actual global Display. Missing/empty qualification guards after allocation; qualified null mainwindow/scene is represented distinctly.",
+    "Enabled manager allocates its cache if needed, resolves actual selected model through root displaySelectedModel, and calls root registerAuxiliaryDrawing for nonnull selection on every invocation.",
+    "Graph+f1 false returns only after registration. True resolves actual selection again; null returns, existing selected StateVar plotVar0 returns.",
+    "Absent selected StateVar guards at c905b0 constructor; nonzero variable guards before30ad90. The emitting model is never substituted for selection.",
+    "All prior receiver population, ownership, expired-registration and histogram qualifications are preserved. Global owner replacement requires explicit rebinding."
+  ],
+  "tests": {
+    "count": 26,
+    "previous_cases_retained": 17,
+    "added_cases": 9,
+    "classification": "isolated-close-effects",
+    "worker_execution": "none; root owns all builds and test execution",
+    "review": "Includes actual shared headers and writer.hpp for Project destruction; source and test control flow manually inspected, git diff --check passed before final small test amendment."
+  },
+  "qualifications": [
+    "No public normal-Close binding or original runtime parity is claimed by these isolated tests.",
+    "A caller-supplied qualification does not itself establish original global owner or receiver provenance.",
+    "Native render payloads, graph nonzero updates, StateVar lazy construction, reentrant allocator behavior and allocation failure remain outside this increment.",
+    "Manager cache deletion leaves raw registry identities; tests never dereference stale entries."
+  ],
+  "status": "Frozen for root integration; no worker build or target execution",
+  "next": "Read-only smallest remaining Close dependency; production remains frozen until root releases."
+}

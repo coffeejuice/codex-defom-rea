@@ -1,0 +1,100 @@
+{
+  "schema": "editor300-pending-model-picking-owner-contract-v1",
+  "created_utc": "2026-10-24T11:02:59.257053+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-picking-constructor-successor-contract.json",
+      "sha256": "acb53bb248f26dd722ba9a88281110aed1e2a31f15e951195cf96105d19b0b6a"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-reset-leaves-static.json",
+      "sha256": "e049c1367fc84b5c578993d8d15e30b90febd5d4b5508e962780a0db2fd01786"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-value-init-static.json",
+      "sha256": "3bca5af5b3c1aca0f56cbe908c1b566585b63620a390fdfbe79873bf41a42dcf"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-value-stores-static.json",
+      "sha256": "bf411a9d4161a582d98e8b7b7e76c0cd7ed2716415ba9ddbd410e430dd3e22d4"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-owner-init-delete-static.json",
+      "sha256": "a607cbb9d8966156cf04d1af3a83d92d61aa5ae77b41f72e227b3813b48c5949"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-empty-vector-static.json",
+      "sha256": "af15a95eb1b87aee60bd2833bff6749ad578aafea601ff552e90c4e81e9fe926"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-destruction-slots.json",
+      "sha256": "cab3e1d986bbb3491bc9a9bba57395274dd3d28c5ef759b02de09fbd40063b57"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-destroy-wrapper-static.json",
+      "sha256": "af122ca534aca39df8f07632dfea672fe041a2488c0be1676d3ecd3a25678136"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-destroy-order-static.json",
+      "sha256": "8ec8f1ac0f4bd439b7e4f4d987a0fb241727d7a0c07dad1ccf40f5c257a42c25"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-destroy-effects-static.json",
+      "sha256": "c7bfbbf66ded1d60ed2d2b9525309b4a88bb4fdc326ef4790219c7a42cc6079d"
+    },
+    {
+      "path": "analysis/wave3-editor-picking-owned-delete-leaves-static.json",
+      "sha256": "f834c4a51d4b224a99f4cac1ee1d97be48788fae3ae3de5b0edd1c27d981d3b2"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c7aa00.asm",
+      "sha256": "c270b2470574541356a2d870bdf635878584308ce05ca4c14bf60a240e958039"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c7a870.asm",
+      "sha256": "dee85e664497389c38e65325f0d1f8b638ea36dcc3980bef632007cc5834321d"
+    },
+    {
+      "path": "analysis/wave3-editor-constructor-prefix-140054540.asm",
+      "sha256": "28765bafa02a626d64f4ea51de222aad214e236fc65297671cb25daeefcc75f5"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/save_current.cpp",
+      "sha256": "488cb039cbfbbd9413af4e941b4e37e772f194a67f07a74701c7c77cef31959b"
+    }
+  ],
+  "publication": "c90fd0 stores GuiModel+248=null. c90f10 checks+248, allocates0x4428, runs141202b70 and only then stores its returned pointer into+248 atc90f7b. An incomplete constructor is pending storage, never a published picking object.",
+  "pre_graphics": "141202b70 constructs parentless QObject, QList4080, references4088/4180 each with guardD8 and separately allocated vector wrappersE8/F0, guard4380, chain4390(null), then binds actual model guard4380. 141202ce0 first resets viae90(false):407c=0 and fresh empty4080 list snapshot/clear. 141203140 clears exactly0x1000 bytes at7c before reaching glSelectBuffer(count0x1000 entries,address7c).",
+  "embedded_reference": "14120c820 zeros int8, double3@10, int22@28..7c, bool80/double3@88, boola0/double3@a8, boolc0/doublec8/intd0;14120e1a0 setsinte0=0 then vector resize(count0,fill0) forE8 andF0. Later guard assignment null and mode2c=0. 140ab50b0 allocates each32-byte vector wrapper;8948f0 sets begin/end/capacity null after allocator/proxy base. Existing standard vector contract is used for fresh empty payload; original allocation failure/debug proxy details remain qualified.",
+  "chain4390": "a1c780(null) stores+20=null thena1c7c0 sets pointer0/+8=null,int14=0,int18=2,pointer28=null,int10=-1. Null+20 skips model-derived branch.",
+  "post_graphics_unreached": "Do not apply141204c50/141204c90 zero flags10/14 and vectors18/30/48;14120779043 counters4278;1412047e0ten counters4324;14120b07043c0/c4/c8;14120b20043cc/d0 and vectors43d8/43f0/4408;14120b9b04420=null;+4388=null;+78=0 until graphics call is resolved. Captured pure store proofs retained for later increment.",
+  "cleanup": "GuiModelc7aa00 callsc90ff0 immediately before auxiliary wrapperc91120. c90ff0 nullskips; otherwise vtable+18(...,1), then+248=null only after normal return. Vtable142cf03a8+18=14120be10\u2192141202c40\u2192141202d60(reset e90false,delete optional4388,delete4420via14120b9d0). Then chain4390 cleanup,guard4380,reference4180 then4088, list4080, QObject base. Embedded14120ca30 is RET at14120ca35; following captured function is unrelated. Reference destructor freesF0 thenE8 then guardD8. Later runtime mutations/nonempty pointee deletion remain guarded.",
+  "storeSimNames": {
+    "status": "Existing implementation, not missing helper. Editor constructor integration still gated by earlier setup.",
+    "implementation": "save_current.cpp:219 storeSimNames; no source changes in worker lane.",
+    "original_order": "MO5 only; active subproject; copy operation name and flowNumber; first filtered sim entry; get model simcontrol; strncpy OPRNAM64; CURSIM[1]; strncpy SIMNAM80; CURSIM[0].",
+    "qualification": "Existing notPorted refusal for unnamed sim entries and local8 codec profile remain; cycle Save test_l7_load is not proof of editor constructor placement.",
+    "next_action": "Root integrates this existing function only after complete native setup boundary and before pending lazy picking; do not move before unresolved setup."
+  },
+  "api": {
+    "namespace": "m2m::engine",
+    "pending": "PendingPickingOwner(GuiModel&) retains an exact weak guarded model identity; prepareConstructor(GuiModel&) one attempt, refusing different or expired owner. This record is a pending allocation, separate from GuiModel+248.",
+    "state": "Typed embedded reference/vector ownership and chain defaults, empty entry list, known reset407c, selection buffer with explicit known-prefix extent. Unknown bytes/fields remain represented as unknown rather than read from host uninitialized memory or invented zero.",
+    "boundary": "Typed PendingSelectionRegistration request identifies same pending owner and buffer, count0x1000 and native call14120316d. No method accepts a success boolean or publishes. Later advancement requires actual graphics context/registration outcome contract, not a synthetic flag.",
+    "lifetime": "Weak actual GuiModel binding expires without extending lifetime. C++ destruction of a paused reconstruction record releases reconstruction storage only and is not claimed as native successful destructor execution."
+  },
+  "worker_files": [
+    "source/apps/moproj2mst/include/m2m/engine/picking_owner.hpp",
+    "source/apps/moproj2mst/src/engine/picking_owner.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_picking_owner.cpp"
+  ],
+  "validation_plan": [
+    "Fresh exact model leaves pending request and no publication, source-ordered reached constructor stages.",
+    "Verify embedded independent vector owners/guards/defaults and fresh empty reset.",
+    "Byte4095 known zero,4096 and16383 unknown; registration count4096entries differs from cleared4096bytes; out-of-range explicitly distinct.",
+    "Post-graphics values remain unknown, no registry/counter success invented.",
+    "Substituted/expired model refuses before prefix effects; repeated prepare does not replay reached effects.",
+    "No m2m ABI or public constructor guard changes."
+  ],
+  "limits": "No runtime, mutable DB, GUI, original comparison or worker builds. Root owns shared GuiModel publication/reset and Session progression; previous five handoff files remain untouched."
+}

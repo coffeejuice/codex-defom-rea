@@ -1,0 +1,35 @@
+# CP198 deterministic callee/initializer prefix implementation
+
+The actual Session Report route now executes the ten structural model instructions in `[0x2aca0,0x2acb6)` followed by `[0x29600,0x29614)`. It stops at `0x29614`, RSP `S-0xa8`, before the TLS-index CMP/global read. No TLS observation/query, initialized-index conclusion, branch selection, helper/initializer return, result owner, private `+0x40` assignment, reference increment, cache publication or completion is implemented.
+
+## Frozen predecessor and qualified bytes
+
+All five assigned source/test files matched their exact `build/wave3-checkpoint197-verified/source.zip` entries before editing. The receipt identifies source SHA-256 `c90622460bde430543513cb2e32675006274d3315a7d5d77faeac8ca238ea8f2`. The owner supplied CP197's repaired PASS source review/full 361-test regression and freeze before releasing this increment.
+
+Read the CP198 batch/PASS review and retained original qualifications previously read in `resume163-connector-qobject-static.json` and the public-QObject ownership contract. Rechecked bounded lines from `wave2-doe-task-qobject-current-thread.asm` and `wave2-doe-task-qobject-thread-tls-initializer.asm`: three outer PUSH instructions, SUB 0x50, marker store, CALL 0x29600; then inner PUSH RDI, SUB 0x30, marker store and RBX spill. The next instruction at `0x29614` is the excluded dword CMP of RVA `0x2f08e8`.
+
+The retained QtCore digest is `bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160`. The plan/review records the two wave2 listing digests as `bb4f6c61aa4879b3a4b7b9a7463f690e2f7a78fadf08dd0e7b60c39c45b29151` and `c06368be2e4a56cb27af21608f344fa868c383eca125e3ffd1838cd1373014b3`. These are static bounded/unwind qualifications, not complete logical-function or native-execution evidence. No original image was executed or independently rehashed in this lane.
+
+## State, flags and issued provenance
+
+Ten intermediate phases derive the eleven cursors and RSP displacements in the reviewed table. A separate internal diagnostic budget 0..10 selects the completed prefix length; default 10 executes the batch. Historical CP197 fixtures pin this budget to zero. The prior instruction budget remains 0..18 and the actual default Session progresses through the batch. Reentry at any later completed boundary with a smaller valid batch budget stops unchanged.
+
+The eight new qword observations are `[S-8]=B`, `[S-0x10]=I`, `[S-0x18]=P`, `[S-0x28]=-2`, `[S-0x70]=0x2acb6`, `[S-0x78]=P`, `[S-0x88]=-2`, and `[S-0x68]=B`. Marker values are the sign-extended qword `0xfffffffffffffffe`. Every observation records width, producer, symbolic address, value/token provenance, caller and active call generation/occurrence. No unwritten reservation bytes are initialized. The old saved-RDI slot record remains historical after POP; its liveness projection is false while the new `[S-8]` RBX observation is live.
+
+Generation 2 remains active at `[S]=0x13144e`. A separately recorded generation-3 nested CALL binds source/caller/enclosing occurrence, `0x2acb1 -> 0x29600`, return `0x2acb6`, caller RSP `S-0x68` and inner return slot/RSP `S-0x70`. The live-slot projection selects generation 3 as innermost after that CALL, while `activeReturnSlots()` preserves both active enclosing and inner entries. Generation 1 remains consumed history.
+
+Both SUBs have explicit symbolic six-flag expressions over the same S origin: producer `0x2aca4`, operand `S-0x18`, immediate 0x50, result `S-0x68`; then producer `0x29602`, operand `S-0x78`, immediate 0x30, result `S-0xa8`. CF/PF/AF/ZF/SF/OF remain symbolic functions, including auxiliary borrow; no native flag bits are inferred from signed displacement arithmetic. The second expression becomes current, while the first and parent TEST/JE remain history. PUSH/MOV/CALL preserve the current flags expression.
+
+Each boundary, slot, nested call and SUB record is created as an immutable object. An independent private factory handle retains the exact issued boundary object/control block outside the public frame handle. Validation checks all structural fields, source/owner identities, widths/values, call generations, current/history flags and existing CP197 guards, then rejects coherent copied/rebound state with the exact issued-prefix provenance error. Copying slots/nested-call/flags into a cloned boundary cannot authenticate a replacement. The factory creates the actual records as const objects; there is no normal mutable alias to issued data.
+
+Every allocating state/slot/call/flags preparation precedes nonthrowing shared-handle, phase and RSP publication. Existing source, task/private allocation occurrence, register, TEST/JE-history, enclosing CALL/slot, sparse field, count and incomplete-state admission remains required. Only the exact Session generation-2 route qualifies; standalone unknown/null/nonnull guards remain unchanged. Scope release revokes the private boundary handle.
+
+## Focused checks and release limits
+
+Complete snapshots include immutable payloads, weak owner/control-block identities, independent issued handle, all slot occurrences/widths/values/liveness, outer/inner live returns, nested history, current/historical symbolic flags, and the entire previous state/count/cache observations. Seven new Testkit cases cover every boundary, full batch, 66 split pairs, cached genuine-boundary coherent rewinds, later-boundary smaller-budget reentry, default Session stop, invalid budget before allocation/after retention, exact copied-state/slot/nested-call/flags provenance errors, partial public rewind, premature prefix state, 32 structural/source corruptions, and width/producer/address/value corruption for each of the eight slots. Refusal assertions distinguish errors from normal terminal stops and require damaged snapshots/counts unchanged.
+
+Static preflight passed: ten instruction cases, exact eleven cursor/RSP boundaries, eight slot addresses/producers, nested generation 3 with enclosing return retained, symbolic SUB flags/current projection, private immutable issuance and prepare-before-commit ordering. All seven tests use the existing Testkit main and supported CHECK/REQUIRE assertions with no C assert. Compile-time assertions check nonthrowing state moves and the absence of a TLS-index observation field. No new quoted includes were introduced.
+
+No build, executable test, full suite, GUI control, original execution, mutable REA database action, deployment, shared plan/state/build edit, parent/DMO/Claude/original-evidence change or additional file outside the assigned source/test lane was performed. Root owns compilation, execution, source review and freeze. The next instruction remains an independent TLS/global-input boundary.
+
+Released files: `source/apps/moproj2mst/src/doe/task_factory.cpp`, `source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp`, `source/apps/moproj2mst/include/m2m/doe_task_factory.hpp`, `source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp`, and this report. `conversion_session.cpp` was compared to the freeze and left unchanged.

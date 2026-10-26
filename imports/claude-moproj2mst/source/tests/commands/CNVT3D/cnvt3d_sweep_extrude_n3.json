@@ -1,0 +1,25 @@
+{
+  "label": "CNVT3D sweep extrude length 50 start 5 nsec 3",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 900,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGEO23 2 2\n50.0 5.0\nGEOSEC 2 4\nMSHSEC 2 3\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "data/sweep_offaxis.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "extrude: 3 layers z=5,30,55; 18 nodes, 4 hex, elem nodes (s-2)NN+c1..c4,(s-1)NN+c1..c4; rotated +90 about x (CRDSYS!=2)"
+  }
+}

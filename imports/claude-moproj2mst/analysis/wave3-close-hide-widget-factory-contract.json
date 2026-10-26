@@ -1,0 +1,57 @@
+{
+  "scope": "Actual allocation and parent inputs for two HideSecondary flag receivers; static only",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-hide-widget-lazy-owners-static.json",
+      "sha256": "d87a9f6ff27ab35fe5a521de89ef5220e228c78abb515454f7b08cf3fd0e8ce9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-widget-factory-dispatch-static.json",
+      "sha256": "bbf11d312523074d0a4f2522f6aa0f66136c11632454c5649ecfcab179f9280d"
+    },
+    {
+      "path": "analysis/wave3-close-hide-secondary-other-receivers-contract.json",
+      "sha256": "2704d00774a7781426d29bd0f412539437869beb56a974e0d3f1380974875eec"
+    },
+    {
+      "path": "analysis/wave3-closure-next-1416b7bd0.asm",
+      "sha256": "d99e56153f038c07866729cbb62742e488556be3827428d05939b0f412171cf5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-1416bf560.asm",
+      "sha256": "d6f4629db72b8d18fca914267155e179488d3d0080ea308c1d1eea17fb6778b9"
+    }
+  ],
+  "correction": "The capture label says lazy-owners, but the actual captured factories allocate on every entry; no cache/get-existing guard is present.",
+  "facts": [
+    "ce6250 allocates0x68 then calls16b7bd0 with parent returned by ce8240; ce8240 ignores its this argument and returns current global mainwindow via2c8090. QWidget constructor IAT141e0ba80 receives that parent.",
+    "ce6740 allocates0x40 then calls16bf560 with its own this argument as QWidget parent.",
+    "Both newly constructed widgets register HideSecondary in their constructor chains already retained. Their lifecycle must therefore be represented by actual QWidget owners, not a copied Close-time graph flag.",
+    "Both factories first emit2signalShowWidgetInPopupArea() with one raw QWidget * generic argument, then2signalShowPopupArea() with QWidget* generic argument. Popup receiver reparenting/deletion remains unexpanded.",
+    "Instruction-verified dc84d0 local method2 callsce6250 and method3 callsce6740. Qt metacall dc86f0 appears at vtable1429f25c8+10; its complete-object RTTI is SfPostWidget. This establishes a post-widget invocation route, not whether it occurs during selected Open/Save/Close."
+  ],
+  "literal_provenance": {
+    "1429f2230": "QWidget *",
+    "1429f2240": "2signalShowWidgetInPopupArea()",
+    "1429f2260": "QWidget*",
+    "1429f2270": "2signalShowPopupArea()",
+    "1429f2288": "QWidget *",
+    "1429f2298": "2signalShowWidgetInPopupArea()",
+    "1429f22b8": "QWidget*",
+    "1429f22c8": "2signalShowPopupArea()"
+  },
+  "qualifications": [
+    "No fresh-session widget absence inferred from absence of a direct constructor caller elsewhere in bounded PE reference scan.",
+    "No runtime GUI acquisition, target execution, build or production edit.",
+    "Actual popup area receiver identities and reparent/delete rules are separate from SplitView replacement.",
+    "HideSecondary exact leaf effects remain byte+60=0 and byte+3c=0 on the actual live widget; constructor defaults do not substitute for current state."
+  ],
+  "related_contract_refinement": {
+    "path": "analysis/wave3-close-default-splitter-ownership-contract.json",
+    "note": "Its remaining d34bd0 ownership dependency was already partly closed in wave3-close-secondary-splitview-contract.json: lazy layout->itemAtPosition(0,0)->widget virtual+60 then SfSplitView metaobject cast and requested name handling. Reuse that retained contract; no new export needed."
+  }
+}

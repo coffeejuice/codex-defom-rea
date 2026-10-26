@@ -1,0 +1,89 @@
+{
+  "scope": "Exact QWidget::setLayout post-parent tail for original concrete empty QGridLayout; source-first qualification of final window branch.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-grid-layout-ownership-contract.json",
+      "sha256": "0f358f997cba4794bcafcb23c39f0f02aedefab56f58c2572ccf99cff0d7ad5e"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observed-style-filter-contract.json",
+      "sha256": "ca9edbcd025fade3c5e8faa4c5f38c531967ae7e766eabcf47bc239737390183"
+    },
+    {
+      "path": "analysis/wave3-close-shared-view-constructor-fields-contract.json",
+      "sha256": "90638bb62978a021163d69d20a18c96ef03972b87a26643b0a4b6b10c19fd244"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65068490.asm",
+      "sha256": "a680cc05cb230e05e8aac10e84f4928b67950b3203d0fec8bf4f61af73f10b9f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-650451c0.asm",
+      "sha256": "b6abf46c43dcd63841569e888c1a7dc4fa870acd279d9244de16b7b1f7ba3dc4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6503c520.asm",
+      "sha256": "751c8d5fef186dfe259b022c84046ee2fa8787575993ee48f4942f473e62339d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65046760.asm",
+      "sha256": "7e68b8be52c176e7afa63ac0d7a07b9ce2d1ad3070f5ab74a56b1ba5b7eb7f9a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65045930.asm",
+      "sha256": "36ea904471976e0f87f0f95f2df2ba6492af159608bf40dbdbeb3922b9b45d0f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65070d70.asm",
+      "sha256": "79542748f0ce31086b76e420ab7024ddd133b5efdfc4f5f13d706e1ab95cc6d4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-window-kind-initializer-static.json",
+      "sha256": "7b51bd84a57143bc31a62ece89944c897c613dc1e992a7a50b1867dc3f32c2c7"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-parent-window-flags-static.json",
+      "sha256": "311fec15103425b9e91b02b558e3466de900c3b2f67e4e2d0693c0aea9b3aa14"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-native-parent-window-commit-static.json",
+      "sha256": "03ff8d1af5bcca003ea06348139d34567eee77298a947fe379f0f71d51f5b640"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-invalid-geometry-leaf-static.json",
+      "sha256": "4df0445a73599aad93357612a0590b6d136a148b2e12912dc43a014104cf3013"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-invalid-geometry-return-static.json",
+      "sha256": "f8959dce1cc87208bf72c6a7b1c73b5a28bc5a49f63c5f15e2736c83bd9d59a4"
+    }
+  ],
+  "post_parent_order": [
+    "650686ac calls QLayoutPrivate::reparentChildWidgets650451c0. It calls actual grid count (native constructor empty), checks menu pointer(private+B8=null), reads parent QWidget visible bit, then count0 jumps over contained-widget loop to return. No item allocation/parent transfer on this branch.",
+    "650686b8 invokes QLayoutItem-side slot+58 bound to QGridLayout::invalidate6503c520: OR private+134 mask4, set int private+108=-1, then tail QLayout::invalidate65046760.",
+    "65046760 stores default QRect coordinates into layout private+A4,+A8,+AC,+B0. Exact QtCore QRect ctor6700b230..6700b249 writes0,0,-1,-1. These are rectangle endpoints, not width/height.",
+    "QLayout::update65045930 reads layout-private+9c mask4. Earlier setContentsMargins(0,0,0,0) already invalidated parentless layout and cleared this bit. Grid child event normal branch has no writes to it under observed profile; current invalidate does not set it. Hence update returns without posting raw0x4c.",
+    "650686bb reads widgetData=*(manager+20), tests byte(widgetData+0c)&1. False returns. True next tests managerPrivate+88 and extra+8 for null; either null returns. Only both nonnull enter65065a80 and clear extra+8+7c mask200.",
+    "d34da0 returns only after QWidget::setLayout completes. d34d50 then assigns guarded manager+28. No early cache/name/Primary/private/mainwindow alias commit is justified."
+  ],
+  "window_bit_source": [
+    "Actual SfViewManager d34730 calls QWidget(parent,rawflags0). MainView0e9400 passes its actual this as nonnull parent.",
+    "QWidget65070d70 forwards parent/flags to QWidgetPrivate6506e4d0. This binds widget+20 to private+148 and initializes flags at private+154 (=widgetData+0c).",
+    "The nonnull-parent init branch invokes QWidget::setParent6506dbd0, whose native helper6509adb0 runs QObjectPrivate parent transfer before restoring the supplied flags to private+154 at6509aefa.",
+    "6509af41 invokes6505c8b0(flagsAddress,widget). For lowbyte0, this helper adds lowbit1 only if widget.parent() is null. With actual nonnull parent it preserves lowbyte0 while possibly adding upper decoration bits0800f000.",
+    "QWidget constructor later sends synchronous raw event0x0f and posts0x4a before returning. The source traces above establish direct flag computation; complete callback effects at that earlier construction point and arbitrary intervening window mutations are not proven absent by probe001 snapshots."
+  ],
+  "minimum_remaining_condition": "Current manager window bit false, or qualified null extra/top-level-extra, closes final650686bb branch. Direct fresh constructor computes false, but distinguish that source default from complete current-state/callback proof. No second runtime capture was performed or requested by this worker.",
+  "projection_needs": "If parent advances continuation, use the existing actual GridLayoutState and retain concrete dirty/cache/invalid-rectangle mutations before final window-branch qualification, then commit cached layout only after return. Preserve pending marker for unsupported true-window branch.",
+  "qualifications": [
+    "No production edits after empty-selection freeze.",
+    "All new captures are bounded immutable PE/DUMPBIN; no runtime, GUI, shared Ghidra or worker builds.",
+    "The initial QRect capture ended in a partial return instruction; separate6700b245..249 capture completes it. No pseudo-instruction or adjacent-function bytes support behavioral claims.",
+    "The invalidation flags are concrete native state effects, not notification counters. Geometry defaults here are QLayout invalid QRect only, not scene or viewport geometry."
+  ],
+  "supersedes": {
+    "path": "analysis/wave3-close-grid-post-parent-tail-contract.json",
+    "sha256": "2aa33e60818deed8ae6847cee081fbc53547d94171d15b97a095ee31b3ad7903",
+    "correction": "The secondary base at layout+10 is QLayoutItem, not QGraphicsLayoutItem. Behavioral address/order unchanged."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "label": "MORP n=1 m=3 2D",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nMORP 1 3\n0.5\nA1\nA2\nA3\nA4\nA5\nA6\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "DEF_MORP2.INI",
+      "OUT.KEY"
+    ],
+    "notes": "2D model: DEF_MORP2.INI ('wt') lines '3','1','0.500000','A1'..'A6'; then system(\"\"<DEFORM_PC_PATH>2D\\DEF_MORP2.EXE\"\") with no arguments. Strings are placeholders, so DEF_MORP2 may fail or wait on stdin (it inherits DEF_PRE's stdin); the check is the INI content. Model unchanged."
+  }
+}

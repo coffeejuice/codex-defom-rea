@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES into an object with 8 curves",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 9\nCIRC.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/InductionHeating/Induction_Heating_Example1_SI.KEY"
+    },
+    {
+      "name": "CIRC.IGS",
+      "source": "data/circle.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Object 9 has 8 curves in geometry 0 (DIEGEO 9 1 33, 7 separators). The IGES pass sets the curve count to 1 (140198230 -> 14027fe20 -> 140280290 removes edges 1..7, renumbers), then stores the arc in curve 0."
+  }
+}

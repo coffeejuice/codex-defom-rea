@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-22T23-59-18-01a16720-b2bc-7720-b5e2-c7be786faaaa.jsonl",
+    "bytes_at_scan": 6025331,
+    "tail_mib": 4,
+    "start_offset": 1832061,
+    "end_offset": 6025331,
+    "window_sha256": "50a89a08cf76e2d1e36ed4ebadda0a0d72458b7aa5993aee888c5e736256bd7d"
+  },
+  "turns": [
+    {
+      "turn_id": "01a16848-7905-7842-9ed7-03cb9a9e865b",
+      "started_at": "2026-10-23T10:22:22.486Z",
+      "completed_at": "2026-10-23T10:23:00.013Z",
+      "elapsed_seconds": 37.527,
+      "tool_active_union_seconds": 0.972,
+      "reasoning_item_union_seconds": 16.221,
+      "tool_reasoning_overlap_seconds": 0.0,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 11.497,
+      "tool_items": {
+        "search_openai_docs": 1,
+        "fetch_openai_doc": 1
+      },
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 0,
+      "usage_delta": {
+        "input_tokens": 386133,
+        "cached_input_tokens": 383744,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 801,
+        "reasoning_output_tokens": 331,
+        "total_tokens": 386934,
+        "uncached_input_tokens": 2389
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "McpToolCall",
+          "name": "fetch_openai_doc",
+          "seconds": 0.548,
+          "item_id": "exec-90cb9aec-0798-4b80-b3ab-84cb85f450e2"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "search_openai_docs",
+          "seconds": 0.424,
+          "item_id": "exec-cf5d34c9-e68a-40cc-9730-28855328b005"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ]
+}

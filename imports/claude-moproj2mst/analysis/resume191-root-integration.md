@@ -1,0 +1,9 @@
+# CP191 root integration
+
+The retained QtCore caller now models `MOV R12,RAX` at RVA `0x131429..0x13142c`, copying the qualified private identity while task `+0x08` remains published and private `+0x08` remains zero. The cut stops before the separate stack spill and reverse backlink. Independent source review and focused factory/Session tests passed with earlier diagnostic budgets preserved.
+
+In a disjoint editor300 lane, `storeSimNames` confines its step-owned SimControl pointer and four ordered writes to an immediate callback. It preserves first named-entry admission, one model lookup, the existing `simCtl()` geometry guard, null behavior, `strncpy` lengths and conversion order. A direct corpus-46 helper case checks named-entry selection, sentinel field writes, repeat naming and RAII restored null-step behavior. Independent source review and focused Save-current tests passed. These establish reconstructed helper mechanics, not public Save/native lifecycle equivalence.
+
+`analysis/wave3-checkpoint191-validation.json` and `build/wave3-checkpoint191-verified/` freeze source SHA-256 `5b398b1fe0af86e321f8a4eb9136a0e321b9e9f51503f91b9a31e1ff1112b238` over 3,554 files. Complete regression: 361 registered, 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete, no fixture changes and no changed logged diagnostics against CP190. Historical folder comparison remains 93 SAME/five DIFF.
+
+CP192 was selected before freeze: caller spill of the private token to `[S+0x60]` at RVA `0x13142c..0x131431`, plus a bounded audit of the next genuinely unclosed editor300 step-owned alias. Public Open–Save–Close, failure/Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

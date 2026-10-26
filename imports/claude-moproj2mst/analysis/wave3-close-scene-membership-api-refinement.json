@@ -1,0 +1,29 @@
+{
+  "scope": "Concrete scene membership API refinement for reviewed successor; no production edits",
+  "created_utc": "2026-10-24T06:35:34.273830+00:00",
+  "decision": "Separate initial-text construction commits from scene identity binding. Existing PostGraphSceneState(Display) must not silently rerun native constructor effects when binding an existing scene.",
+  "proposed_methods": [
+    "PostGraphSceneState::commitInitialTextItems(): sequentially create/add two owned SfGraphicsTextItem projections with exact native strings and shared Display identity; preserve partial first-item commit if second allocation cannot complete. This commit alone does not qualify complete population.",
+    "PostGraphSceneState::qualifyCurrentItemPopulation(string): explicit source/profile coverage over the actual current owned collection, not an observed-empty default. Empty string remains unavailable.",
+    "PostGraphSceneState::invalidateItemPopulation(): called at a reached unrepresented mutator; never erase known objects as an invalidation shortcut.",
+    "PostGraphSceneState::hasHistogramChart(): require population qualification, traverse actual owned identities, returnfalse only for the supported complete nonmatching collection. Any unrepresented concrete graph constructor/item kind must guard before claiming it was added."
+  ],
+  "data": [
+    "Own text objects within the actual scene; text fields and hidden flags are mutable state, not counts.",
+    "Initial text commit must be one-shot; scene identity can be rebound without duplicating text items.",
+    "Do not expose arbitrary fake graph types or caller-set hasChart Boolean. Real graph constructor/lifetime support precedes graph insertion.",
+    "HistogramGraphBinding gains optional secondary scene binding, read at c0d7e0 only after actual histogram.graphOn clear. Null secondary is native items dereference guard."
+  ],
+  "tests": [
+    "Existing39/48 behavior unchanged until secondary binding supplied.",
+    "Both concrete initial text identities remain after no-match query, including whenhidden.",
+    "Changing text strings to SfHistoChart does not make a text object match native SfGraphItem RTTI.",
+    "Population invalidation preserves objects and restores exact guard; requalification never recreates objects.",
+    "Primary and secondary items are independent; manager.cachedScene is not used as current secondary.",
+    "Known complete no-match completes enabledhistogram var0 and processes later live receivers; unknown secondary still retains partial flagclear and stops dispatch."
+  ],
+  "limitations": [
+    "Qualified population may be an explicitly declared adapter profile; production fresh-scene coverage is not established by this API.",
+    "Text Qt font/metrics/scene callback state remains outside the pure type-query support and must be qualified separately before broader scene parity."
+  ]
+}

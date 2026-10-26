@@ -1,0 +1,235 @@
+{
+  "schema": "resume46-doe-active-v1",
+  "utc": "2026-10-24T17:38:39.224567+00:00",
+  "owner": "test_runner_audit / doe_active",
+  "status": "reconciled; bounded missing execution-preferences contract closed statically; native active-study guard retained",
+  "scope": "Converter subtree only. No source edits, builds, executable tests, original-app execution, GUI control or REA mutations.",
+  "reconciliation": {
+    "verified_checkpoint": "analysis/wave3-checkpoint45-validation.json: 150 registered; 143 passed, 6 passed-with-logged-gaps, 1 passed-with-logged-differences; not validation of partial checkpoint46 source",
+    "paused_candidate46": "analysis/user-stop-checkpoint45-candidate46.json explicitly identifies DOE changes as read-only contracts/capture plan; native guard retained",
+    "source_hashes_compared_to_earlier_prefix_receipt": [
+      "source/apps/moproj2mst/src/doe/task_factory.cpp"
+    ],
+    "qualification": "A historical source-hash difference does not establish a new change in this work unit. Current files were read and hashed; none edited.",
+    "current_guard": "TaskFactoryRuntime::initializeNativePrefix retains Factory/Data and one store-owned 0xc0 Report allocation, then M2M_E_UNSUPPORTED before public QObject(parent=null) completes and before TaskInfo initialization.",
+    "source_refinement": "Current task_factory.cpp comment correctly identifies public QtCore 671313d0 rather than protected 6712e630. No second Report allocation, parsed SessionTask replacement, cache registration or counter advancement introduced.",
+    "reachability": "StateVar/Histogram, samples and Type3 optimization still depend on actual native TaskInfo/factory/selected manager. Detached helper behavior cannot be promoted to active-study acceptance."
+  },
+  "evidence": {
+    "analysis/wave2-doe-task-public-qobject-ownership-contract.json": "81e05b0f2aee8014da834c2a3db46df6eea09a6a01e6744498e4ee3d9afd9a32",
+    "analysis/wave3-doe-report-qobject-prerequisite-contract.json": "d132044c91c93b2b6b8017acb11f05451e4ef3b4896f83f158aa055d379a5998",
+    "analysis/wave3-doe-report-qobject-capture-plan.json": "feb2f1a14fa2216e21aee8a9775bb8bca20cb73ff9811597f585a2aa41b706db",
+    "analysis/wave3-doe-next-active-study-dependency.json": "ef24012c37b8819f605cd3455e955368cd5afb96c8b9b07b80491fdd81d19a57",
+    "analysis/wave2-doe-task-factory-prefix-api-proposal.json": "d0be839928cc62bffe213dba3c6263772f57c3b7f4904c987e454aa008e1d6e4",
+    "analysis/wave2-doe-session-task-preference-getters-decompile.json": "2baea04073223b8970e12874b5762b58c319c8abd3906f125507b5d39f3bb510",
+    "analysis/wave2-doe-session-task-preference-getters-receipt.json": "de69d1acd40089b037bea05b7757888e11b51297fb399f6969e386bfa740365d",
+    "analysis/wave2-doe-active-task-defaults-stepdata-decompile.json": "c053c48c87d61f0660968e1e54dbb51f126c660bf8cd76d5364def3b9fef4e08",
+    "analysis/wave2-doe-active-task-defaults-stepdata-receipt.json": "b3fd899de9012eeecc0d48ecd17e57f61ae0f73523a4717ceaa56046c39c6ebf",
+    "analysis/wave2-doe-task-prototype-taskinfo-name.asm": "85f0d0060bbd7e230aa0ee179e8bce5e5a085d70385d19c42c85e04466422c78",
+    "analysis/wave2-doe-task-prototype-taskinfo-ctor.asm": "7f395fce24a655724492b720cefd36664223c47a84f99b208456e446d40a1ada",
+    "analysis/wave2-doe-task-prototype-taskinfo-private-constructor.asm": "172e1daaf0e6d57fde2153eb64694da2486bc4500d2d840b5f064000b83d980a",
+    "analysis/wave2-doe-task-base-public-qobject-call.asm": "9ab0fc19b72c28c16af2c61d9e303e7962ba015b9da6ec4294607662d18d6428",
+    "analysis/resume46-doe-preferences.asm": "7cf0d134d7f7cdfe8c22700b6986c0df8312008cc8a000ac4c0c1047a8b333fc",
+    "analysis/resume46-doe-preference-entry.asm": "b1b2dc50fb8c2e1b73cde9dbdbab5b78467062af608d3c439b4977a632de42fa"
+  },
+  "static_extraction": {
+    "target": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "target_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "tool": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/dumpbin.exe",
+    "tool_sha256": "12a1cd87238bd66dfdb788b4fcdcb91ce4b3f81236aab12a7a29e5ae1d85af50",
+    "commands": [
+      [
+        "dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x1414091b0,0x141409af0",
+        "evidence/original-binaries/DEF_GUI_MO_64.exe"
+      ],
+      [
+        "dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x1414036e0,0x1414037ed",
+        "evidence/original-binaries/DEF_GUI_MO_64.exe"
+      ]
+    ],
+    "qualification": "Offline immutable PE reads only; no DLL load or original runtime. The first range follows a PE unwind region, not a general proof of logical-function completeness. Second range contains 1414036e0, getter141403790, getter1414037b0 and alignment. Existing decompile qualifications remain: private read-only snapshot, unresolved indirect callees possible.",
+    "literal_qualification": "Raw bounded NUL-terminated ASCII bytes selected at instruction/decompile-established addresses, not inferred by string-name similarity.",
+    "literals": [
+      {
+        "va": "0x142e93028",
+        "file_offset": 48830504,
+        "ascii": "/exeFileName",
+        "hex": "2f65786546696c654e616d65"
+      },
+      {
+        "va": "0x142e93038",
+        "file_offset": 48830520,
+        "ascii": "/arguments",
+        "hex": "2f617267756d656e7473"
+      },
+      {
+        "va": "0x142e93048",
+        "file_offset": 48830536,
+        "ascii": "/exeFileEnabled",
+        "hex": "2f65786546696c65456e61626c6564"
+      },
+      {
+        "va": "0x142e93058",
+        "file_offset": 48830552,
+        "ascii": "/exeFileName2",
+        "hex": "2f65786546696c654e616d6532"
+      },
+      {
+        "va": "0x142e93068",
+        "file_offset": 48830568,
+        "ascii": "/arguments2",
+        "hex": "2f617267756d656e747332"
+      },
+      {
+        "va": "0x142e93078",
+        "file_offset": 48830584,
+        "ascii": "/exeFileEnabled2",
+        "hex": "2f65786546696c65456e61626c656432"
+      },
+      {
+        "va": "0x142e93090",
+        "file_offset": 48830608,
+        "ascii": "/workingDir",
+        "hex": "2f776f726b696e67446972"
+      },
+      {
+        "va": "0x142e930a0",
+        "file_offset": 48830624,
+        "ascii": "/inputFileNo",
+        "hex": "2f696e70757446696c654e6f"
+      },
+      {
+        "va": "0x142e930b0",
+        "file_offset": 48830640,
+        "ascii": "/inputFile/%1/desc",
+        "hex": "2f696e70757446696c652f25312f64657363"
+      },
+      {
+        "va": "0x142e930c8",
+        "file_offset": 48830664,
+        "ascii": "/inputFile/%1/filename",
+        "hex": "2f696e70757446696c652f25312f66696c656e616d65"
+      }
+    ]
+  },
+  "bounded_contract": {
+    "purpose": "Specify the first preference dependency after native Report TaskInfo/base construction without reading user settings or inventing absent/default values.",
+    "entry_order": [
+      "1414036e0 calls virtual+68, stores returned child to Task+10, conditionally applies child backlink141411700, calls virtual+70 and stores to Task+18, conditionally applies141412100, calls virtual+60 metadata, then calls1414091b0 at141403774. These virtual targets still require actual per-kind vtable qualification.",
+      "1414091b0 calls1414037b0 at1414091d6. That getter addresses Task+20 TaskInfo and calls14140e5d0; retained getter evidence copies private+10, the raw metadata name, into a local QString. For qualified Report metadata this name is SfTaskReport, not its translated title.",
+      "Build each key from that metadata name plus the literal suffix via1400048f0; convert key through QString const-char conversion IAT141e057f8 before each getter. The actual Qt codec/byte conversion remains a separate prerequisite.",
+      "All ordered getter calls below use the same actual settings owner at preferred VA143d76370. Getter returns are ignored by1414091b0; no early stop or reset is inserted by the native routine."
+    ],
+    "ordered_getters": [
+      {
+        "suffix": "/exeFileName",
+        "conversion": "string",
+        "destination_relative_to_task": "0x40",
+        "call_site": "0x1414092a4",
+        "callee": "140808860"
+      },
+      {
+        "suffix": "/arguments",
+        "conversion": "string",
+        "destination_relative_to_task": "0x48",
+        "call_site": "0x141409351",
+        "callee": "140808860"
+      },
+      {
+        "suffix": "/exeFileEnabled",
+        "conversion": "bool",
+        "destination_relative_to_task": "0x50",
+        "call_site": "0x14140940a",
+        "callee": "140808270"
+      },
+      {
+        "suffix": "/exeFileName2",
+        "conversion": "string",
+        "destination_relative_to_task": "0x58",
+        "call_site": "0x1414094c3",
+        "callee": "140808860"
+      },
+      {
+        "suffix": "/arguments2",
+        "conversion": "string",
+        "destination_relative_to_task": "0x60",
+        "call_site": "0x14140957c",
+        "callee": "140808860"
+      },
+      {
+        "suffix": "/exeFileEnabled2",
+        "conversion": "bool",
+        "destination_relative_to_task": "0x68",
+        "call_site": "0x141409635",
+        "callee": "140808270"
+      },
+      {
+        "suffix": "/workingDir",
+        "conversion": "string",
+        "destination_relative_to_task": "0x70",
+        "call_site": "0x1414096ee",
+        "callee": "140808860"
+      },
+      {
+        "suffix": "/inputFileNo",
+        "conversion": "int",
+        "destination_relative_to_task": "local int initialized 0",
+        "call_site": "0x14140979d",
+        "callee": "1408085c0"
+      }
+    ],
+    "getter_effects": [
+      "Each getter constructs a QString key and invokes actual settings virtual+58 as a presence query. If false, it returns false and does not change the caller destination. This must stay distinct from unavailable settings evidence.",
+      "On true, getter calls QSettings::value with a default-constructed QVariant, then converts using QVariant::toString, QVariant::toBool or QVariant::toInt(null ok pointer) and assigns the destination. No conversion-success flag is consulted by the int getter. Exact QVariant/storage semantics remain dependencies.",
+      "The settings presence virtual+58 target, profile/file/registry/backend identity, codec, defaults/fallback hierarchy and actual values are not established by these extracts; source/decompile establishes only the ordered protocol. Do not equate missing observation with absent key."
+    ],
+    "input_file_loop": [
+      "The local count starts at0. A missing /inputFileNo therefore retains0. Only positive count calls14020db90(Task+78) at1414097b5, then loops index0 through count-1; zero/negative counts neither clear nor iterate.",
+      "For each index, QString::arg formats /inputFile/%1/desc then /inputFile/%1/filename using base10, width0 and space fill. Allocate0x20 and call1414122f0 before reading description.",
+      "Both string getters write to the SAME local QString (native rsp+48) default-constructed once at entry1414091ed. It is not reset between description, filename or iterations. A false presence query therefore preserves the preceding successful string, including across iterations. Getter boolean returns are ignored.",
+      "Description getter call14140995e is followed by1414124e0(item,scratch). Filename getter call141409a96 is followed by141412460(item,scratch). Only after both setter calls does14172d7e0 append the item pointer at141409abb. Setter internals and list clear/append cleanup still require their own qualification.",
+      "Keep this apparent carry-forward behavior in the faithful baseline; clearing scratch on each missing key would change the recovered protocol. This is a static consequence of reused destination plus no-write-on-absence, not a fresh runtime result."
+    ],
+    "implementation_guard": "No code is authorized to cross the earlier QObject guard from this contract alone. After shared QObject/TLS and actual TaskInfo/font/metadata stages close, stop immediately before first actual settings read unless the same settings owner and required observations are supplied.",
+    "future_focused_checks": [
+      "Missing string/bool/int keys preserve existing destinations rather than assigning fabricated defaults.",
+      "Reads remain in the eight fixed call-site order; input count starts0 and only positive count clears the existing input list.",
+      "Shared input scratch preserves prior successful description/filename across missing keys and later iterations.",
+      "Each item appends only after both setter calls; earlier fixed-field effects remain if a later reconstruction guard is encountered.",
+      "No preference-stage fixture can mark native Report constructor/factory initialization complete while earlier QObject/TaskInfo prerequisites remain unavailable."
+    ]
+  },
+  "checks": {
+    "source_edits": 0,
+    "builds": 0,
+    "executable_tests": 0,
+    "static_assertions": "PASS: exact ordered eight getter call addresses exist in bounded assembly; eight literal suffixes match immutable PE; evidence/source SHA-256 computed; JSON serialization/readback verified.",
+    "test_limit": "Static checks are evidence consistency checks, not original/candidate behavioral acceptance."
+  },
+  "source_hashes_at_review": {
+    "source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp": "3d59535b1771173dfdbdd2bef5ae6637867336544e3487a4d4b683dcab6274ae",
+    "source/apps/moproj2mst/src/doe/task_runtime.cpp": "ded750f5fb1fd47e279d33283842daeb0271a598c11083cc8eff7c1fa2306762",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_runtime.cpp": "237d20902b040d1b9ac793656a7b4436c1596103c8eaa90debddd6e8bec706b5",
+    "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "8374d5bdf40580b2337faf94f62b4f611a2e6ba3fa7d6b0bd3df3b82eadb8d61",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "8e8410f7fb4596bc62e752b02969208e51c9cfcfab402ba72727885bb3f50794",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "15e79e1253325b95c9a4ed696d8801ea08b1d9662b50ca6e68c335c720d397a5",
+    "source/apps/moproj2mst/include/m2m/doe_session.hpp": "583ea14ccc3160ce40437ac4d80a74cc14fcfa78aa2e40217de0dedd7c7a8f4c",
+    "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "30b18d2f565ab3f8870cc0f156c29abce880727148a5261e91dc0851e6faaaf8",
+    "source/apps/moproj2mst/src/doe/task_factory.cpp": "1994204fa2599f07dedae5256c3d3e6273e4b124ba163bc516f1e9338cd867c4",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "39a3a332f14cfc0c2a6b1db02aa5abc0c587bac84cf2fe8ec960b0e2828ed9d6",
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "3207aaa840a4774ac2323fcef675363c08eeca75c8baec2e9b84a7bceff69192",
+    "source/apps/moproj2mst/src/doe/io.cpp": "4a9574161317572c651a3df0757138c3cceb8bb252a376d360c5bbbb77e63db2",
+    "source/apps/moproj2mst/include/m2m/doe_session_notifications.hpp": "be68879bf7756a67b229662d5d2397f16d89668c3accf277c7a97b442c5ad625",
+    "source/apps/moproj2mst/src/doe/session_notifications.cpp": "066eb200da45c48a0efc0a96c5093eaf5236946eab2abc929b0d89f07072c09d"
+  },
+  "next_dependency": {
+    "root_required": "Execute already-planned root-serialized actual Report QObject observation; integrate same WidgetRuntime shared-empty refcount owners, actual WidgetThreadState TLS/QThreadData identity/refcount and once-only in-place pending-constructor frame. Keep all unsupported TLS and TaskInfo paths guarded.",
+    "after_that": "Read actual current application font at both TaskInfo source points; qualify metadata translations and fixed child constructors; then bind actual settings owner/presence/value/codec observations and apply this ordered preference contract.",
+    "independent_successor": "A different read-only lane may recover1414122f0/1414124e0/141412460 input-item field ownership and14020db90/14172d7e0 list cleanup/append from immutable PE. No detached active-study implementation is claimed."
+  },
+  "token_usage": "Unavailable; no token savings estimated."
+}

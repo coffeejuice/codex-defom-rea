@@ -1,0 +1,114 @@
+{
+  "scope": "Can synchronous raw0x0f from QWidget constructor mutate current SfViewManager window flags? Exact receiver/style leaves and remaining optional gesture route.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-grid-post-parent-tail-contract-v2.json",
+      "sha256": "5615122ac64bc7fb63684ff73d741f999084c5b61783b8e5589a315c7f702aaa"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observed-style-filter-contract.json",
+      "sha256": "ca9edbcd025fade3c5e8faa4c5f38c531967ae7e766eabcf47bc239737390183"
+    },
+    {
+      "path": "analysis/wave3-original-grid-probe-module-binding.json",
+      "sha256": "110d930907f689d5f6819f0ba772f41848d3589091ee9b0963e90bf3672de09b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65070d70.asm",
+      "sha256": "79542748f0ce31086b76e420ab7024ddd133b5efdfc4f5f13d706e1ab95cc6d4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506c950.asm",
+      "sha256": "49504514e7be5c14bd57ce8e108afa44b5a648a05bbc72a280307ddd1007934a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712caf0.asm",
+      "sha256": "56a20fea009822726e9b95941a554d0607319eb4b698cb4d158077fffeb21282"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65023ff0.asm",
+      "sha256": "a3fe1badc745d4d05bb2c999f04fee0bfa214c4fb6c3542ae10678708b7e9fc9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-constructor-gesture-event-static.json",
+      "sha256": "b7c684943dbd90f4e89f6e456ef1646ba07645fe92f2c467b5b50db1375313f3"
+    }
+  ],
+  "event": {
+    "construct": "6506e7fb raw0x0f QEvent constructor",
+    "send": "6506e814 synchronous sendEvent import65696810",
+    "after_send": "alloc/post raw0x4a then return; no implicit event pump asserted"
+  },
+  "receiver": {
+    "active_vtable": "QWidget656ab898 installed65070dd3..dda before privateinit call65070dfa",
+    "slot20": "6506c950",
+    "derived_install": "SfViewManager142a06d98 only after QWidget constructor returns at140d34770..77d",
+    "effect": "Raw0x0f first QWidget switch (if enabled) and body switch both route QObject::event. QObject default compares event<1000 then returnsfalse; no virtual customEvent or widget mutation."
+  },
+  "switches": [
+    {
+      "name": "style",
+      "byte": "0x653628e5",
+      "index": 5,
+      "entry": "0x653628d8",
+      "target": "0x6536289a"
+    },
+    {
+      "name": "QWidget-enabled",
+      "byte": "0x6506d799",
+      "index": 1,
+      "entry": "0x6506d788",
+      "target": "0x6506c9ba"
+    },
+    {
+      "name": "QWidget-body",
+      "byte": "0x6506d931",
+      "index": 52,
+      "entry": "0x6506d920",
+      "target": "0x6506d767"
+    },
+    {
+      "name": "QApplication-gesture",
+      "byte": "0x65025b63",
+      "index": 1,
+      "entry": "0x65025b5c",
+      "target": "0x65024180"
+    },
+    {
+      "name": "QApplication-state",
+      "byte": "0x65025c29",
+      "index": 2,
+      "entry": "0x65025c18",
+      "target": "0x65024208"
+    },
+    {
+      "name": "QApplication-dispatch",
+      "byte": "0x65025cc9",
+      "index": 14,
+      "entry": "0x65025cb8",
+      "target": "0x65025b19"
+    },
+    {
+      "name": "QObject",
+      "byte": "0x6712cf16",
+      "index": 6,
+      "entry": "0x6712cf04",
+      "target": "0x6712cec5"
+    }
+  ],
+  "style_filter": "For actual observed QWindowsVistaStyle object, inherited QWindowsStyle filter raw0x0f selects same pure QObject::eventFilter false as ChildAdded0x44. It cannot change receiver/window flags on this branch.",
+  "QApplication": [
+    "Normal actual SfApplication forwards QApplication::notify. App closing/null branches do not mutate manager window bit.",
+    "Raw0x0f skips keyboard/mouse state mutations. However optional application-private+148 nonnull routes65024180 to6507e340 before the common filter/receiver helper.",
+    "6507e340 does not test event type before gathering gesture contexts from actual QWidget private+1c0. It also visits ancestor widgets until a window boundary or null parent, gathering eligible contexts.",
+    "At6507e79f an empty gathered context map returnsfalse; nonempty calls6507ce40(manager,contexts,event). That path remains unrecovered, so raw0x0f cannot be declared globally side-effect-free solely from direct QWidget/style leaves.",
+    "If optional gesture path returnsfalse/skips, remaining raw0x0f QApplication switches go common65022c60. Its enter/leave updates skip; initial installed layout is null from constructor, so no layout callback. Observed style false plus qualified empty object filters then reaches pure QWidget/QObject receiver."
+  ],
+  "answer": "Direct actual receiver and observed style filter do not mutate window bit. Full synchronous event needs qualified internal/object/application populations at that earlier constructor point, and either null app-private+148 or empty relevant gesture contexts (or closure of populated6507ce40). Probe001 only brackets grid installation later; do not retroactively infer all earlier callback populations.",
+  "minimum_next_input": "App QObject private+148 gesture-manager pointer at constructor raw0x0f, or actual complete per-widget/ancestor gesture contexts. Direct observation of current manager widgetData+0c window bit at grid tail could instead qualify the final predicate without asserting earlier callback harmlessness.",
+  "scope_boundary": "No full gesture-recognizer inventory. Close70 source validated in parent candidate34(137programs) and remains frozen. ViewManager11 source unchanged. No additional runtime/GUI/build performed by this worker."
+}

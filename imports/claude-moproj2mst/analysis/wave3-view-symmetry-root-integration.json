@@ -1,0 +1,21 @@
+{
+  "status": "implemented; candidate34 validation pending",
+  "objective_complete": false,
+  "contract": "analysis/wave2-doe-view-stepdata-symmetry-implementation.json",
+  "changes": [
+    "Each existing engine View owns its DOE StepData symmetry state",
+    "Lookup rejects invalid or absent views without creating viewer or settings",
+    "Ordered Object reader updates actual View state; nonempty finalization remains guarded"
+  ],
+  "source": {
+    "source/apps/moproj2mst/include/m2m/engine_scene.hpp": "a863f5858ce46e3ac8935e852adfcc1d53ea89aab4ad22307077e1c5c6288872",
+    "source/apps/moproj2mst/src/engine/viewer.cpp": "0f601175421eecbc8f277f23b67ec576b7030c630ba26545e6dbaabb44eb7b4f",
+    "source/apps/moproj2mst/include/m2m/doe_stepdata.hpp": "21791a9c386c5d09691e417a2a02bbc278adca311cd0dd3712066c06cba8320f"
+  },
+  "required_validation": [
+    "doe_view_stepdata",
+    "doe_stepdata",
+    "session",
+    "full regression and C ABI"
+  ]
+}

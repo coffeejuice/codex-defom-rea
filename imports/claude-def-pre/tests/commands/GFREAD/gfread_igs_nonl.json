@@ -1,0 +1,26 @@
+{
+  "label": "GFREAD IGES without line ends",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nBNL.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "BNL.IGS",
+      "text": "DESIGNCAD DRAWING                                                       S      1C:\\DCAD\\BILLET.DW2                                                      S      2,,9HDESIGNCAD,18HC:\\DCAD\\BILLET.DW2,                                    G      14HASBC,1H3,16,8,24,8,56,1H ,1.0,1,4HINCH,1,1.0,13H940906.131704         G      20.00001,1.0E5,1H ,1H ;                                                  G      3     110       1       1       1       1                        000000  D      1     110       0       4       2                                        D      2     110       2       1       1       1                        000000  D      3     110       0       4       2                                        D      4     110       3       1       1       1                        000000  D      5     110       0       4       2                                        D      6     110       4       1       1       1                        000000  D      7     110       0       4       2                                        D      8110,0.0,0.0,0.0,0.0,2.25,0.0;                                          1P      1110,0.0,2.25,0.0,1.0,2.25,0.0;                                         3P      2110,1.0,2.25,0.0,1.0,0.0,0.0;                                          5P      3110,1.0,0.0,0.0,0.0,0.0,0.0;                                           7P      4S      2G      3D      8P      4                                        T      1"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "BNL.IGS_TMP_SFTC"
+    ],
+    "notes": "BILLET.IGS as one 1440-byte record: pass 1 reaches EOF in the S section, the file is copied to BNL.IGS_TMP_SFTC with CR,LF after every 80 bytes and read again; same DIEGEO as gfread_2d_igs; BNL.IGS_TMP_SFTC is left."
+  }
+}

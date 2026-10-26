@@ -1,0 +1,75 @@
+{
+  "schema": "editor300-mds-mode2-no-geometry-implementation-v1",
+  "created_utc": "2026-10-24T09:15:10.365590+00:00",
+  "status": "SOURCE FROZEN; root candidate37 validation pending",
+  "prior_mode0_receipt": {
+    "path": "analysis\\wave3-editor-mds-mode0-implementation.json",
+    "sha256": "68cff2393ebf304e2ba067cd35743e783008ffe3cc9634ddc6824003ea460699"
+  },
+  "contract": {
+    "path": "analysis\\wave3-editor-mds-mode2-no-geometry-contract.json",
+    "sha256": "7d4926a8e160f0ed3add9dc026761d5f8bad768e01dc911f94d24a02c0a55761"
+  },
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "773b9a4954d3baa568e30197d0b93858d00a8b8664116196a1c5de3f5afcb784",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "a194afd123f55c278a3113349b97cf8063e575872bd5c836ac4f54f992d7a07c",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "13eaf85183edc57b3fab07a8dfbf51546ad9ad67bd1acb0d9ed6e24b1578ee11",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "88be215d66758c14f5e06c264c918aed21dd6f02b54f4d6279139e37549b7a37",
+      "test_cases": 0,
+      "main_count": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "773e149608a40443bc5740e6863a555fee47c0111a44cda87dbacb43a3c1cfb1",
+      "test_cases": 63,
+      "main_count": 1
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "7429a69f4cc701c936b869394a36b4595c4332120c3b2e7550f08227411bc69a",
+      "test_cases": 26,
+      "main_count": 1
+    }
+  ],
+  "implemented": [
+    "Mode2 checks the node radio and clamps its requested value into the original 0..999999 spin range. Equal bounded value preserves the spin without a valueChanged callback.",
+    "Changed bounded value is supported when native eb59a0 would reject node <= 0 or node > signed object+880 before any geometry getter. Final stored MDS coordinate formatting still runs.",
+    "Changed valid nodes retain the explicit geometry refusal. Source mode, stored node and coordinates stay unchanged during fill; Save uses retained controls and original both-disabled node-reset decision.",
+    "Prior mode0 behavior and trailing InitialEditorContext label-profile binding are preserved. No shared Session, owner, ABI, or public Save guard edits."
+  ],
+  "new_tests": {
+    "snapshot": 3,
+    "lifecycle": 1,
+    "expected_case_counts": {
+      "simcontrol300_snapshot": 63,
+      "simcontrol300_lifecycle": 26
+    },
+    "coverage": [
+      "-1/0/1/999999/1000000 source values against changed remembered spin; rounding and Save timing.",
+      "Equal clamped positive node with absent geometry and a GUI-sync-required model does not reach the geometry dependency; changing the remembered spin refuses that same node.",
+      "Second-only double fill, changed node availability between fills, negative native node count, and both-disabled Save reset.",
+      "Actual InitialEditorSession repeated fills retain bounded spin and rounded coordinate values; Save ignores later live node/text changes."
+    ]
+  },
+  "preflight": "Unique cases, one main per test program, no conflict markers or trailing whitespace; required direct includes from prior compiler repairs retained. Focused or full tests not run by worker.",
+  "worker_builds_or_tests": 0,
+  "runtime_or_gui_used": false,
+  "next_read_only_action": "Recover successful node callback geometry owner and array extent profile, preserving GUI sync differences and allocation/collection side effects."
+}

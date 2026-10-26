@@ -1,0 +1,86 @@
+{
+  "scope": "Three additional observed HideSecondaryWidget registrations; static exact leaves with conditional continuation",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "method": "Retained original PE and bounded offline DUMPBIN; no GUI/runtime/build/source edits",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-extra-dispatch-static.json",
+      "sha256": "51e3ed413b1d233049c987f70d6aeae85f04dd885de071e528d518899486fe91"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-extra-metacalls-static.json",
+      "sha256": "19bd8bf90088bec4c5e57bd4bd9b3f15e4d4f67c9ced7882b4c18fae97f8388a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-extra-slot-tails-static.json",
+      "sha256": "aebafff265eec743b0855cf1fe666d98a9493145ec4ed6920556b4c3169ab351"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-extra-slots-static.json",
+      "sha256": "9bba3d6fb67b836754f1b830c4cb93c36523ead4c8503cd41465784d72c0db27"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-other-owners-static.json",
+      "sha256": "80ac0eeed1260d770ba402b9371431b1ff979da95029d1bcc7f4f1775ed2ca6b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-other-registrations-static.json",
+      "sha256": "2fc1d652a14dc5d0dd37c0935545476cabb22945c7a6e045cf9a03941657a006"
+    }
+  ],
+  "receivers": [
+    {
+      "class": "SfSummaryStateVarWidget",
+      "vtable": "142fbce18",
+      "ctor": "1416b7bd0",
+      "registration": "1416baeb0@1416baf8a",
+      "registered_slot": "slotSetGraphOff()",
+      "strings": "143035b20",
+      "metadata_table": "143035960",
+      "local_method_index": 18,
+      "dispatch": "1762a70 ->17627a0, jumptable176295c entry18 ->176294b ->1762af0",
+      "effect": "Writes byte this+0x60=0, then returns. No calls. The RET is separately captured at1762afe.",
+      "creation_qualification": "Constructor registers the receiver. Whether that widget is instantiated in selected Open-to-Close lifecycle is not established here."
+    },
+    {
+      "class": "SfLoadStrokeWidget",
+      "vtable": "142fc13f8",
+      "ctor": "1416bf560",
+      "registration": "1416bf6e0@1416bf829",
+      "registered_slot": "slotSetGraphOff()",
+      "strings": "143035f60",
+      "metadata_table": "143035e40",
+      "local_method_index": 10,
+      "dispatch": "1763360 ->1763120, jumptable1763264 entry10 ->1763255 ->17633e0",
+      "effect": "Writes byte this+0x3c=0, then returns. No calls. The RET is separately captured at17633ee.",
+      "creation_qualification": "Constructor registers the receiver. Whether that widget is instantiated in selected Open-to-Close lifecycle is not established here."
+    },
+    {
+      "class": "SfSV2PointsManager",
+      "vtable": "142fb8e98",
+      "ctor": "1416b7920",
+      "registration": "1416b7920@1416b79cf",
+      "registered_slot": "slotGraphClosed()",
+      "strings": "143031b80",
+      "metadata_table": "143031b00",
+      "local_method_index": 2,
+      "dispatch": "175f5a0 ->175f450 local2 ->16b7b60",
+      "ownership": "cddc50 lazily allocates0x18 at model+0x19a0, parent=model. Constructor initializes manager+0x10 widget pointer null.",
+      "effect": "If manager+0x10 null, returns. Otherwise calls1760b40(widget). No assumption that ctor-null stays null during selected run.",
+      "forwarding_contract": [
+        "1760b40 returns if widget+0xa0 or widget+0xa1 nonzero.",
+        "Otherwise calls175fad0(widget); null result returns.",
+        "Nonnull result goes to c91070; if nonnull, calls d647d0(returned,widget).",
+        "Then writes dword widget+0x18=0 and calls175f990(widget)."
+      ],
+      "remaining": "175fad0,c91070,d647d0,175f990 effects and fresh widget registration/state not closed."
+    }
+  ],
+  "qualifications": [
+    "This receipt resolves observed candidates, not all possible dynamic receivers.",
+    "Metadata table identities are bound by class strings, matching method counts, vtable metacast and metacall dispatch; no live metadata inspection.",
+    "State changes are not automatically integrated into ConversionSession.",
+    "The graph manager callback path must stay guarded when original widget/state inputs and required effects are unavailable."
+  ],
+  "next": "Bound conditional points-widget continuation and lazy graph manager instantiation; no new GUI acquisition."
+}

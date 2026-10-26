@@ -1,0 +1,104 @@
+[
+ {
+  "label": "WRTOBJ/badobj",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "badobj.KEY"
+   }
+  ],
+  "comment": "WRTOBJ of a missing object 9: no file NONE.KEY, no message, status 0; the KEY loop continues (OUT.KEY written)"
+ },
+ {
+  "label": "WRTOBJ/badpath",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "badpath.KEY"
+   }
+  ],
+  "comment": "WRTOBJ to a file in a missing directory: _fsopen fails, status 1 stops the KEY loop (OUT.KEY is NOT written)"
+ },
+ {
+  "label": "WRTOBJ/flag0_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "flag0_3d.KEY"
+   }
+  ],
+  "comment": "WRTOBJ outNo 0: object 2 block written to OBJ2.KEY with its own number 2 (no file header; same text as object 2 in OUT.KEY)"
+ },
+ {
+  "label": "WRTOBJ/flag3_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "flag3_2d.KEY"
+   }
+  ],
+  "comment": "WRTOBJ outNo 3 on the 2D seed: object 1 written as object 3 into OBJ1_AS3.KEY"
+ },
+ {
+  "label": "WRTOBJ/flag5_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "flag5_3d.KEY"
+   }
+  ],
+  "comment": "WRTOBJ outNo 5: object 2 block written to OBJ2_AS5.KEY, every line renumbered 5 (model unchanged: OUT.KEY object 2 stays 2)"
+ },
+ {
+  "label": "WRTOBJ/noflag_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "noflag_2d.KEY"
+   }
+  ],
+  "comment": "WRTOBJ with only the object number (2nd value missing = 0), 2D seed: object 1 block in OBJ1.KEY, trailing blanks of the name trimmed"
+ }
+]

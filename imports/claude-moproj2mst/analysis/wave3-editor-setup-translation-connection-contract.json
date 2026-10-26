@@ -1,0 +1,148 @@
+{
+  "schema": "editor300-setup-translation-connection-contract-v1",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-connect-slots-static.json",
+      "sha256": "d24b3d01f220108d5d164c4e0616158d41a9d58b9dfa2cf0b16d9fbfe97f3ab7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-translate-connect-core-static.json",
+      "sha256": "c8c8fbacefae356b4b5225042d1961b5b878a52e7860a51ced9de1e34d70ec96"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-connection-storage-translate-static.json",
+      "sha256": "09305018aae3e3e0661996afe50066fe35ced76808cdc2a3c39ef19c05a04865"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-connection-tail-static.json",
+      "sha256": "f58f002847aaf9cad7f02ceb8742e2ccfbf229b632f4b678309fce1bafb4cbbf"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-connection-tail-continuation-static.json",
+      "sha256": "8085d66058db613d6b6ad72e7887f481109b3c315310f8a68c6e059def640745"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-connection-tail-body-static.json",
+      "sha256": "bb43b95e4a041f52ffa1ca873bac00567456f4f88b72c76dfa338c93a45d9813"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-translation-number-static.json",
+      "sha256": "4f0f07b5a8f8b693c9edc004c080204bf7a3abb414b6c4ecd1eef36b3f5cd846"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-translator-static.json",
+      "sha256": "c9d93d7db7840b415bd57b0453a1e7fa2fcc25f21eb817cf2a5c0746549e51f4"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-translator-path-static.json",
+      "sha256": "599346e0a73b3961792d42551e8ecbd17902ecd378c189096f5eab9ee97fb332"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-language-setting-static.json",
+      "sha256": "a682dfcaa3719cd0314bbc673858fedbd68bc561889f86306ee805d73f8a7e1d"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-language-default-static.json",
+      "sha256": "470b6b69c338099424f8fc0f5b7b6b83aea480359b68d49ed4565ed810f364a1"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-language-install-chain-static.json",
+      "sha256": "8eeccb46f1688152d88a2954effa41128bd8e3db8215018cb43da7389046d303"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-language-preload-static.json",
+      "sha256": "5788fbef6db4919a88594ccdc0f83a3927e7cec4ed258e1bc8ffc3d78e8dc536"
+    }
+  ],
+  "automatic_connection": {
+    "entry": "QtCore4_64!67130b60",
+    "mechanism": [
+      "Fetch receiver metadata; recursively collect QObject children through6712c6f0->6712c110.",
+      "Iterate metadata methods in index order; retain names beginning on_ (67130c1e..35), match child objectName, resolve signal index/compatible signature.",
+      "Register using671306d0 at67130e92; this allocates/links a connection node, not an invocation of the receiving slot.",
+      "6712f740 appends connection node at current signal list tail6712f82e..843;6712e500 is cleanup of removed records, recovered across five adjacent unwind chunks ending6712e623."
+    ],
+    "qualification": "Captured registration path has no receiver slot invocation or QMetaObject activation. Actual matching still depends on child metadata and object tree;33 own candidates alone do not prove all connections were installed."
+  },
+  "translation": {
+    "overload": "6711a3e0 forwards n=-1 to67119b20",
+    "selection": "Walk QCoreApplication instance672f4220 private+98 translator list in stored order; continue while returned QString length is0; first nonempty result wins. No translation or empty output takes source fallback.",
+    "fallback": "Encoding1 at67119c71 takes UTF8 source conversion67119c86; setup operands use encoding1. Number replacement67118af0 returns immediately for n<0.",
+    "scope": "For explicit no-successful-translator startup profile, setup source strings are literal UTF8 outputs. This profile is not automatically assumed for unknown startup/catalog state."
+  },
+  "startup": {
+    "constructor": "1400021c0: QApplication ctor then1400024f0 text-codec setup then140002290 translator setup",
+    "loader": "140002290 allocates parentless QTranslator stored app+10;1402c7ae0 supplies filename. QTranslator::load resultfalse skips installation;true calls installTranslator at1400023fb.",
+    "filename": "1402c7ae0 uses DEFORM3_DIR, joins LANGUAGE directory and language basename via QDir/QString helpers.",
+    "language_indices": {
+      "0": "english",
+      "1": "japanese",
+      "2": "chinese_big5",
+      "3": "russian",
+      "4": "korean",
+      "5": "german",
+      "6": "spanish",
+      "7": "chinese_gb",
+      "8": "french"
+    },
+    "getter": "1403b5520 reads global143d79718; negative calls1403b54f0 which returns0, then setter1403b5500. Initial global lies outside file-backed section, but indirect startup configuration writes have not been fully excluded.",
+    "setter_candidate": "Raw CALL scan found getter plus1403b5f50; confirmed latter at1403b64a2..cb reads GUI combo index and writes only if changed. This is not evidence that no earlier indirect configuration write exists."
+  },
+  "local_resource_observation": {
+    "utc": "2026-10-24T07:36:57.438671+00:00",
+    "current_codex_process_DEFORM3_DIR": null,
+    "directories": [
+      {
+        "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\LANGUAGE",
+        "exists": true,
+        "files": [
+          "chinese_big5.qm",
+          "chinese_big5.ts",
+          "chinese_gb.qm",
+          "chinese_gb.ts",
+          "french.qm",
+          "french.ts",
+          "german.qm",
+          "german.ts",
+          "italian.qm",
+          "italian.ts",
+          "japanese.qm",
+          "japanese.ts",
+          "korean.qm",
+          "korean.ts",
+          "russian.qm",
+          "russian.ts",
+          "spanish.qm",
+          "spanish.ts"
+        ]
+      },
+      {
+        "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\LANGUAGE",
+        "exists": true,
+        "files": [
+          "chinese_big5.qm",
+          "chinese_big5.ts",
+          "chinese_gb.qm",
+          "chinese_gb.ts",
+          "french.qm",
+          "french.ts",
+          "german.qm",
+          "german.ts",
+          "italian.qm",
+          "italian.ts",
+          "japanese.qm",
+          "japanese.ts",
+          "korean.qm",
+          "korean.ts",
+          "russian.qm",
+          "russian.ts",
+          "spanish.qm",
+          "spanish.ts"
+        ]
+      }
+    ],
+    "conclusion": "Neither inspected installed LANGUAGE directory contains english or english.qm. Files were listed read-only; no application executed, no file copied or changed. Actual original-launch DEFORM3_DIR and cached language remain separately qualified."
+  },
+  "next_smallest_action": "Bind a source-qualified startup translation observation (or copied catalog resolver) to setup retranslation. Recover all state-changing translated operations, not only numeric edits, and preserve original evaluation order before connections/final indices. Retain public setupUi guard until this and remaining prefix effects are composed.",
+  "frozen_source": "wave3-editor-setup-projection-increment.json is still frozen. Root reported missing test main during integration and is making that sole repair; worker performs no source edits."
+}

@@ -1,0 +1,85 @@
+"""Freeze a read-only source integration audit; do not build or edit production."""
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def digest(path):
+    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+
+
+def main():
+    contracts = {
+        'analysis/wave3-normal-close-diagram-lifetime-contract.json': '82ee52146337e99c4f5472fb6105468134ee70b6a1836a6af69c66e080bfa21c',
+        'analysis/wave3-normal-close-guard-contract.json': '2c3c855180354f53810702b5e1cabfae0e9365e6b61f5f86902394e419a1bde5',
+        'analysis/wave3-close-save-return-contract.json': '811a759327378fcfd34e1afa2a964e14ddb9466fd15d2a222b5acdc862997871',
+        'analysis/wave3-close-post-answer-contract.json': '2fee8b93778f6d8cb9e3d368f9a02d7b2c2493e4556946fb809d30131d7162f3',
+        'analysis/wave3-directory-failure-dialog-contract.json': '4111e716cc5d5482433f33c6330a63ec4a9f618b592cd3a335b7f88887bf8ec4',
+        'analysis/wave2-doe-statevar-zero-legend-successor.json': '8f6922ff7f2bde5770a3d1513e3dd206fa2ee7a81228d13cf6cb6c253da3d5f5',
+    }
+    for path, expected in contracts.items():
+        assert digest(path) == expected, path
+    prefix = 'source/apps/moproj2mst/'
+    source_paths = [prefix + path for path in (
+        'include/m2m/engine/lifecycle_events.hpp',
+        'src/engine/lifecycle_events.cpp',
+        'include/m2m/engine/boolean_lifecycle.hpp',
+        'src/engine/boolean_lifecycle.cpp',
+        'tests/mdt/test_lifecycle_events.cpp',
+        'include/m2m/model.hpp',
+        'include/m2m/engine_scene.hpp',
+        'src/engine/viewer_camera.cpp',
+        'src/engine/gui_model.cpp',
+    )]
+    sources = {path: digest(path) for path in source_paths}
+    model = (ROOT / (prefix + 'include/m2m/model.hpp')).read_text()
+    assert model.index('std::vector<std::unique_ptr<Operation>> operations') < model.index('std::shared_ptr<engine::Display> display')
+    viewer = (ROOT / (prefix + 'src/engine/viewer_camera.cpp')).read_text()
+    assert 'd.main = m;' in viewer and 'if (m) m->display = &d;' in viewer
+    result = {
+        'schema': 'wave3-close-session-integration-audit-v1',
+        'status': 'read_only_integration_requirements; implementation_pending_parent_delegation',
+        'original_gui_sha256': 'fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc',
+        'method': 'Inspected current converter source against immutable static original contracts. No builds, tests, target runtime, UI, shared Ghidra or production changes.',
+        'existing_helpers': [
+            'DiagramLifecycleEvents has separate live receiver identities and pending timer identities. Each nonnull attachment registers a distinct logical1000ms timer. Null attachment leaves prior timers pending.',
+            'Receiver destruction removes connectivity but leaves pending timer ownership. Dispatcher destruction clears pending timers. deliver consumes the timer before invoking a live receiver callback.',
+            'The helper deliberately requires the caller to identify a due timer; it does not read elapsed time or infer readiness at a modal dialog.',
+            'reselectBooleanObjectEditor applies the recovered same-current, loaded Type0 Boolean shown Object-editor replacement, including current-object zero and fresh editor refill. It does not implement fit-view, generic selection or attachment ownership.',
+            'Existing lifecycle_events tests exercise abstract ownership, null rebinding, separate registrations, receiver disconnect, dispatcher teardown and consume-before-callback order. This audit did not run tests or claim end-to-end session coverage.'
+        ],
+        'required_session_binding': [
+            'Own receiver/dispatcher lifetime outside the Project. Keep then-current project/model/item attachment separately from each timer; never capture the attachment at registration.',
+            'At a qualified dispatch point consume the supplied due timer, perform the original modelUpdated fit-view prefix, then inspect the then-current attachment. A live null binding skips selection after fit; it must not call the Boolean helper or be misreported as receiver disconnection.',
+            'Apply normal Close guard and nested Save decision before teardown. Keep Qt integer answer separate from file-write success. Fresh Yes on the source-bound last-operation warning aborts Save before writes and cancels Close.',
+            'When Close is accepted, preserve the exact display callback(0,0,true) and RemoveGraphItems order, then refresh notifications/manager cleanup. Do not collapse the callback to a no-op from unobserved display state.',
+            'During project destruction null-bind the diagram receiver before project models are freed. This null binding does not unregister the session receiver or clear pending timers.',
+            'Only session/receiver/dispatcher teardown performs the respective terminal event operations. Preserve single-project scope and explicit due-event profiles rather than inventing wall-clock readiness.'
+        ],
+        'static_lifetime_finding': {
+            'classification': 'candidate source lifetime risk; not reproduced runtime failure',
+            'cause': 'Project declares operations before display, so ordinary reverse member destruction releases display before operations. Display::~Display clears backlinks only for currently referenced main/second/third/named models. displayShow(A) then displayShow(B) replaces d.main and leaves A.display unchanged.',
+            'consequence': 'If both operation-owned models remain live, A is absent from all current display slots, and no other display owner remains, later GuiModel::~GuiModel(A) calls displayForget through a pointer to the already destroyed Display.',
+            'integration_direction': 'The recovered original display is owned by the main window across project cleanup. Preserve a session display owner until all project GuiModels are destroyed, and review named-model ownership separately. This report does not propose clearing old backlinks as an unproven original behavior.',
+            'qualification': 'The two-model sequence follows inspected C++ operations, but no public fixture route or runtime fault was exercised. Parent source can change after the recorded digests.'
+        },
+        'remaining_gates': [
+            'Production session integration and parent-owned build/test validation.',
+            'Fit-view and full notification effects at actual due-event dispatch points.',
+            'Close display/StateVar transitive effects retain their explicit inputs; DOE parse notify=false does not establish Close notify=true or named mode2 parity.',
+            'Fresh original Windows-style default derivation remains static, not an observed original run or proof of application startup custom-style exclusion.'
+        ],
+        'contract_hashes': contracts,
+        'source_hashes_at_audit': sources,
+        'tool_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    }
+    output = ROOT / 'analysis/wave3-close-session-integration-audit.json'
+    assert not output.exists()
+    output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+    print(json.dumps({'path': output.relative_to(ROOT).as_posix(), 'sha256': digest(output.relative_to(ROOT)), 'contracts_verified': len(contracts), 'source_files_bound': len(sources)}))
+
+
+if __name__ == '__main__':
+    main()

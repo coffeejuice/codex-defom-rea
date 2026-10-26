@@ -1,0 +1,22 @@
+{
+  "status": "Prepared v2; not launched",
+  "source": "analysis\\wave3-editor-base-grid-probe-v1.js",
+  "source_sha256": "9fcd4ce07f32ca0acf0c968ba0913fabccb44cc8e608427907dad963c4228122",
+  "script": "analysis\\wave3-editor-base-grid-probe-v2.js",
+  "sha256": "e8a896a7753d2660951f36319eeac9f29d4ffada29e37bd085754537fe1f93db",
+  "checked_sites": 45,
+  "changes": [
+    "QMap refcount reads +0x68; probe004 data+0 value is not a refcount. Map size/order observations remain distinct.",
+    "Admit exact QtGui wake thunk only with verified six bytes and actual IAT target, then read source-bound Win32 private fields.",
+    "At65046c73 R12 is actual layout, RSI is private storage. Fix hook selection before installed-layout store.",
+    "Use exact wrapper owner checks and entry/onLeave pairs rather than RET-site hooks across procedure boundaries.",
+    "Record actual QChildEvent child pointer and ordered editor QObject child list at same grid states.",
+    "Capture initialized private font/palette and actual null parent/flags before QWidget private-init mutations.",
+    "Retain bounded native exception diagnostics; handler returns false and preserves original handling."
+  ],
+  "qualifications": [
+    "V1 and probe004 remain immutable. Probe004 Win32 fields were not captured; its equal opaque snapshots do not prove no wake effects.",
+    "Probe004 mislabeled refs field is unusable. Source-backed unchanged-map inference remains a separate qualified argument.",
+    "Normal raw44 child-event returns true per6712cb5f/6712cedb; capture retains actual result without imposing property-event false."
+  ]
+}

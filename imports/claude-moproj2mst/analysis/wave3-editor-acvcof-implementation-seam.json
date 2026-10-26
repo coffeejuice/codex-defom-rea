@@ -1,0 +1,51 @@
+{
+  "schema": "wave3-editor-acvcof-implementation-seam-v1",
+  "created_utc": "2026-10-24T05:49:21.167092+00:00",
+  "status": "approved_files_prepared_during_table_freeze",
+  "contract": {
+    "path": "analysis/wave3-editor-acvcof-owner-contract.json",
+    "sha256": "e3176a084484fa30c9716ff937fe518ccb93e7d37d1096bb001e6ce30d440b6b"
+  },
+  "owners": [
+    "InitialEditorSession owns EnvironmentCurveTemporaries containing four shared_ptr<DYNARY> current editor objects plus currentCurveIndex. Allocate once before the first environment fill. Current EnvironmentPage.curves remains array<shared_ptr<const DYNARY>> but aliases these same four objects; it is not a second independent copy.",
+    "With an explicit owner, fillEnvironment3D aliases existing temporaries and changes only the reached callback fields. It must not silently copy the model into those owners during fill. Original initial/final copy slots alone perform dynary_copy into the same object addresses.",
+    "The initial dispatch can expose fresh empty temporary state internally. After all nine initial pages,140eb5630 fills those same owners from the now-current SC. At backed-up refresh140ecb340 copies model to them before environment fill, lets the ACVCOF callback change owner.var[0], then restores only SC.",
+    "The existing isolated fill overload without owner keeps its already-supported constant-ACVCOF behavior and private deep snapshots. An expanded ACVCOF path requires an owner and refuses missing/null/aliased-to-model or mutually aliased owner slots before callback writes. No independent default owner is created for an owner-required path.",
+    "Actual composed Apply checks page curve references still identify its owners before effects; then existing Apply uses those same current remembered curves. Final model restoration must not replace/reclone page references."
+  ],
+  "signature": "Add a final defaulted EnvironmentCurveTemporaries* argument to fillEnvironment3D after previousDifferenceBoundaryChecked. Existing call sites remain source-compatible. Composer passes &session.environmentCurves. No m2m C ABI or shared ConversionSession/Ctx change.",
+  "callback_state": "Explicit ACVCOF selection0..3 and constant input/unit/definition enable state. Selection0 writes live ndim0+var0 and owner.var0, but does not write owner.ndim. Selections1/2/3 write var3/12/1 to live model and owner, retaining both ndim values. Every reached callback sets currentCurveIndex3.",
+  "copy_order_regressions": [
+    "Recognized vars3/12/1 must select their radio even when source ndim0; Save therefore leaves that constant member raw rather than g6 rounding it.",
+    "Unknown var with nonzero ndim uses prior ENVATM ndim!=0. Table ENVATM yields selection1 and variable3. Constant ENVATM yields selection0 and collapses live ndim while retaining its allocations/counts until later deep-copy/restore effects.",
+    "For the fallback-to-constant branch, keep nontrivial collapsed allocation profiles guarded until explicit tests bind stale counts and source/destination copy effects. In particular, ndim0/ncomp>=2 has a separate values allocation count despite no axes. Never force counts to0 or clear arrays as a repair.",
+    "For a known ordinary ndim0/ncomp1 collapsed table, GUI copy14089ad60 copies metadata but allocates/copies no axes or values. Original count14089bc90 returns0 for this ordinary type profile. Initial/final copies can thus retain positive count metadata with null arrays. The final fill must not mistake that reached source result for a fresh empty shape."
+  ],
+  "tests_required": [
+    "Initial owner address remains identical through initial and backed-up fills; page references identify it.",
+    "Recognized variables3/12/1 with ndim0 and table state; exact radio/enable/model/temp fields and raw copied constant values.",
+    "Unknown-variable fallback with ENVATM constant versus table; preserve original collapse/normalization and retained counts.",
+    "Final refill hook changes source variable and table before backup; then later live changes are overwritten only by remembered owner at Save.",
+    "Missing/replaced owner and unsafe/collapsed ncomp profile remain explicit, preserving earlier model effects at the correct boundary."
+  ],
+  "files": [
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp"
+  ],
+  "separate_close_evidence": [
+    {
+      "path": "analysis/wave3-editor-temporary-dtor-wrapper-static.json",
+      "sha256": "9e86c226c1355e4dfcbd44b41fad4e025266535aa869ea04669a9403ddfbf5a5"
+    },
+    {
+      "path": "analysis/wave3-editor-temporary-dtor-static.json",
+      "sha256": "381e45ba906d1d04163fa308c5f01ece2b54bf907561eb06a6dea7292cbf4c16"
+    }
+  ],
+  "close_finding": "Editor dtor140eb3a60 iterates exactly the current six pointers+c8..f0 and invokes1401009d0(pointer,1). The overwritten first allocation wave is not reachable through this loop. Earlier140eb52f0 and DYNARY init escape behavior remain separate lifetime dependencies before a whole-heap leak claim.",
+  "qualification": "Preparation only. No source edits after first-three table freeze, no worker builds/tests/original runtime. Public300 stays guarded. Original allocation-failure and first-wave retention behavior remain explicit architecture qualifications."
+}

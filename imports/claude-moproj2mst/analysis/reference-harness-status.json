@@ -1,0 +1,147 @@
+{
+  "schema": "m2m-reference-harness-groundwork-v1",
+  "date": "2026-10-23",
+  "status": "groundwork_complete_runtime_not_started",
+  "scope": "One project in fresh original state: Open, Save, Close; actual observed default dialog answers only; original failures and partial effects retained",
+  "files": [
+    "tools/reference_harness/harness.py",
+    "tools/reference_harness/test_harness.py",
+    "tools/reference_harness/README.md",
+    "tools/reference_harness/observation.template.json"
+  ],
+  "commands": [
+    "prepare",
+    "preflight",
+    "manifest",
+    "record",
+    "compare"
+  ],
+  "tests": {
+    "command": "python -B -m unittest discover -s tools/reference_harness -p test_harness.py -v",
+    "run": 39,
+    "passed": 38,
+    "skipped": 1,
+    "failed": 0,
+    "elapsed_seconds": 11.848,
+    "log": "build/reference-harness/verification-build-binding-final-tests.log",
+    "skip": "Windows symlink creation unavailable (WinError 1314); link/reparse-point rejection remains implemented but live symlink test did not execute",
+    "qualification": "Synthetic filesystem/provenance checks only; no original or candidate process executed and no fidelity claim follows"
+  },
+  "first_reference_case": {
+    "fixture": "evidence/gui_mo/s1/corpus/06_BILLET",
+    "project": "BILLET.moproj",
+    "split": "training",
+    "operation": "SfOprHeatTransfer",
+    "operation_count": 1,
+    "input_files": 8,
+    "input_bytes": 509044,
+    "selection_qualification": "Small first training case with one operation and three present selected XML references; smaller DB_deconstruction fixtures need database/open dependency qualification; not complete feature/failure coverage",
+    "prepared_example": "build/reference-harness/billet-training-001",
+    "prepared_example_case_sha256": "bf38c9aa18827c604ede10153ea96030c0de77433dff3867af56faf6016400d7",
+    "historical_preflight": "build/reference-harness/billet-training-001/preflight.json",
+    "historical_preflight_sha256": "42a2e0b40da1650c9e6aa5e92e7336a8389e33934141266fc3c63b29081033df",
+    "historical_preflight_result": "Freeze intact then; no absolute/escape/missing paths in selected XML scan",
+    "current_use": "billet-training-001 remains an unverified preparation example. Current valid prepared training case is billet-training-003, using final v2 candidate build; preflight passed with verified receipt consistency and no selected XML-path blockers; no runtime executed.",
+    "build_binding": "001 unverified; 002 superseded; 003 verified_receipt_consistency for final v2 build"
+  },
+  "read_only_runtime_inventory": {
+    "installed_original": "C:/Program Files/SFTC/DEFORM/v11.0.2/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "matches_imported_original": true,
+    "process_check": "Get-Process -Name DEF_GUI_MO_64 returned no process at inspection time; recheck immediately before launch",
+    "qt4_dll_files": "QtCore4_64.dll, QtGui4_64.dll, QtXml4_64.dll and additional Qt4 DLLs present",
+    "qualification": "File/process inventory does not prove licence availability, actual loaded modules or successful startup"
+  },
+  "runtime_prerequisites": [
+    "Prepared billet-training-003 is available with final v2 source/build receipt; recheck freeze immediately before runtime and retain the current evidence qualifications",
+    "Confirm installed original identity, runtime/licence and no prior open project; capture startup settings, code page, unit and actual fresh initial state",
+    "Use supported observed GUI controls and record actual default buttons; historical coordinate guesses and hardcoded yes/no answers must not be reused",
+    "Run original only on disposable project with disposable cwd; capture full lifecycle, messages, dialogs, process/close outcome and outside-project effects",
+    "Retain evidence before record; record original first, then execute frozen candidate with --write-save/full Save mode and retain candidate evidence",
+    "Document settings/environment gaps and external-write observation coverage; final manifests do not prove write ordering or complete I/O containment",
+    "Use independent held-out selection for later evaluation; the split label alone cannot prove cases were unseen"
+  ],
+  "build_receipt_verification": {
+    "supported_schema": "m2m-candidate-build-v1",
+    "supported_producer_layout": "admin/build_candidate.py",
+    "source_digest_algorithm": "sha256(concat(files in native sorted(Path.rglob('*')) order: relative POSIX path UTF-8 + NUL + raw file SHA-256 digest))",
+    "required_checks": [
+      "Pre-build source digest and file count match prepare source manifest",
+      "After-build source digest and file count also match, and source_stable_during_build is true",
+      "Configure/build steps both successful; targets null; no targeted command",
+      "Every supplied binary path, size and SHA-256 matches a receipt artifact",
+      "Frozen source copy agrees with initial manifest; frozen receipt copy hash agrees with supplied receipt"
+    ],
+    "supported_mismatch_handling": "Reject preparation for source/count/binary mismatches, failed/partial builds or missing/mismatched stability fields before any candidate copy",
+    "binding_labels": [
+      "verified_receipt_consistency",
+      "unverified_absent",
+      "unverified_unsupported"
+    ],
+    "receipt_retention": "Copy supplied receipt into the case; preserve origin identity; recheck frozen receipt and binding at preflight",
+    "limits": "Consistency of a locally supplied build receipt is not independent compiler attestation or a reproducible-build proof. Matching endpoint hashes cannot exclude source changes followed by reversion between endpoints.",
+    "new_test_coverage": "Supported matching receipt, explicit absent/legacy labels, source digest/count mismatch, changed or differently located binary, failed build, partial or targeted build, missing build step, unstable/changed/missing after-state, independent hash framing and native path ordering",
+    "real_case_prepared_after_upgrade": true,
+    "prepared_case": "build/reference-harness/billet-training-003",
+    "prepared_case_status": "Prepared and preflight passed; no runtime executed. Source, input snapshots, build receipt and three candidate binaries retained and verified.",
+    "prepared_case_sha256": "5e0019b10d6fbf7d92179a12680a5a15dda15069fc200e0b7e1a1c84389c8f99",
+    "prepared_case_binding_at_preparation": "verified_receipt_consistency",
+    "prepared_case_source_build_digest": "646584d8fd4b83fa91118540588175396510708dff8e3eee47f99d69f8d33ad7",
+    "prepared_case_source_file_count": 2998,
+    "prepared_case_build_receipt": "analysis/wave1-connector-final-v2-build.json",
+    "frozen_build_receipt_sha256": "b32f64637e0a7a6c64ca8803ce1dbb19cd0928ec8ca67682139d3e7b55631283",
+    "prepared_case_preflight": "build/reference-harness/billet-training-003/preflight.json",
+    "prepared_case_preflight_sha256": "b0b05a433ea4e0fdf14e5f17bd38383c596b3bb34f38822e7a6eb579ff134778",
+    "prepared_case_preflight_result": "freeze_intact true; all three selected XML references present; no absolute/escape values detected in bounded XML scan; runtime readiness not established",
+    "frozen_candidate_artifacts": [
+      {
+        "path": "build/reference-harness/billet-training-003/frozen-candidate/moproj2mst.exe",
+        "bytes": 3560448,
+        "sha256": "40d408c577357ad37008bda417cfcd4dc376881170bced1dd4d5716ca6fce974"
+      },
+      {
+        "path": "build/reference-harness/billet-training-003/frozen-candidate/moproj2mst.dll",
+        "bytes": 3564032,
+        "sha256": "c9ae61cc9b3bb75e58d2a20c53b6ff796879dbd9827555f72e1b5b8f9e0bd08f"
+      },
+      {
+        "path": "build/reference-harness/billet-training-003/frozen-candidate/deformdb.dll",
+        "bytes": 216576,
+        "sha256": "c89256fd4a9b226adc9e1eeb57dcaf36a99ab1dfae66b1fc1f419077e9577aa3"
+      }
+    ],
+    "superseded_case": {
+      "path": "build/reference-harness/billet-training-002",
+      "status": "preparation only; superseded by final v2 build; no runtime or preflight after coordinator hold",
+      "case_sha256": "3c5e2f297da3337ae4103fb51f147b9304fdbdc92358b4775911a4ded129625c"
+    }
+  },
+  "historical_oracle_qualification": "Historical corpus bytes/provenance are retained as input, never promoted to fresh-reference expectations. Oracle B README documents same-process MultiBlow contamination and later fresh reruns; neither an oracle label nor an old plan establishes present runtime state.",
+  "comparison_limits": [
+    "Raw file bytes and added/removed/changed files remain primary; metadata changes are listed separately",
+    "No automatic legacy-express, GENCTC, path, numerical or XML/whitespace waiver",
+    "Optional qualified views bind full raw digests plus explicit nonoverlapping byte slices, written reason and retained evidence, and leave the raw result unchanged",
+    "Local receipts check consistency of operator-declared provenance; they are not independent process attestation or protection against deliberate whole-chain rewriting",
+    "Matching final state does not prove architecture, complete reachable dependency recovery, transient effects, write order or overall acceptance"
+  ],
+  "efficiency": {
+    "method": "Reuse imported corpus and qualifications; bounded source views; stdlib-only harness; compact receipts with complete local artifacts",
+    "token_usage": "unavailable",
+    "speed_or_token_savings_claimed": false
+  },
+  "original_gui_launched": true,
+  "candidate_executed": true,
+  "rea_session_connected": false,
+  "behavioral_source_edited": false,
+  "dmo_build_or_deployment": false,
+  "latest_case": {
+    "path": "build/reference-harness/billet-training-004",
+    "source_snapshot": "build/wave2-geometry-source",
+    "binding": "verified_receipt_consistency",
+    "original_outcome": "crashed immediately after rendered Open, before Save observation",
+    "candidate_outcome": "completed exit0",
+    "comparison": "comparisons/raw.json: raw_content_equal=false; no parity pass",
+    "protocol_qualification": "Native filename syntax corrected before actual project Open; retained training deviation. Persisted settings not reset. Whole-process side effects unobserved.",
+    "app_control": "Reference PID13316 and window absent after crash; no further UI input active."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "m2m-reference-harness-v1",
+  "role": "original",
+  "outcome": "completed",
+  "session": {
+    "fresh_state": true,
+    "previous_projects": [],
+    "project_count": 1,
+    "save_mode": "full-save",
+    "started_utc": "REPLACE_WITH_OBSERVED_TIME_WITH_UTC_OFFSET",
+    "ended_utc": "REPLACE_WITH_OBSERVED_TIME_WITH_UTC_OFFSET",
+    "pid": 0,
+    "argv": ["REPLACE_WITH_ACTUAL_EXECUTABLE_AND_ARGUMENTS"],
+    "executable_sha256": "REPLACE_WITH_OBSERVED_FULL_SHA256",
+    "cwd": "REPLACE_WITH_ABSOLUTE_CASE_SANDBOX_ROLE_CWD",
+    "environment": {
+      "locale": "RECORD_OBSERVED_OR_UNKNOWN",
+      "codepage": "RECORD_OBSERVED_OR_UNKNOWN",
+      "runtime_modules": "RETAIN_MODULE_IDENTITIES_AND_EVIDENCE",
+      "external_writes": "RETAIN_BEFORE_AFTER_EVIDENCE_OR_DECLARE_UNOBSERVED"
+    },
+    "settings": {
+      "startup_unit": "RECORD_OBSERVED_OR_UNKNOWN",
+      "initial_project_state": "REFERENCE_RETAINED_INITIAL_STATE_EVIDENCE"
+    },
+    "exit_status": "RECORD_CLOSE_AND_PROCESS_EXIT_OUTCOME"
+  },
+  "actions": [
+    {"action": "open", "status": "completed", "evidence": "evidence/open.json"},
+    {"action": "save", "status": "completed", "evidence": "evidence/save.json"},
+    {"action": "close", "status": "completed", "evidence": "evidence/close.json"}
+  ],
+  "dialogs": [],
+  "dialog_record_example_remove_before_use": {
+    "stage": "save",
+    "text": "ACTUAL_OBSERVED_DIALOG_TEXT",
+    "observed_default": "ACTUAL_OBSERVED_DEFAULT_CONTROL",
+    "selected": "SAME_DEFAULT_CONTROL",
+    "evidence": "evidence/dialog.json"
+  },
+  "artifacts": ["evidence/session.json"],
+  "qualification": "FILL_FROM_OBSERVATIONS; declare gaps, failures and adapter-only lifecycle evidence explicitly"
+}

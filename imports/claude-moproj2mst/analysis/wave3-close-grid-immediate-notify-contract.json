@@ -1,0 +1,94 @@
+{
+  "scope": "Immediate raw0x44 grid-child notification path only; normal nonthrowing application route",
+  "method": "Retained peer startup capture plus bounded immutable PE/DUMPBIN. No runtime, GUI or source changes.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-startup-language-install-chain-1400021c0.asm",
+      "sha256": "ab76d617d3a958e49e1b6b38b69d2c2dc2a230e3a90772c807f50d60d6791531"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-immediate-notify-prefix-static.json",
+      "sha256": "6e4833403820616ad46c9b2a39712f0d2fe5b5c20b2cfbad8946382fe10059a6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-notify-internal-callbacks-static.json",
+      "sha256": "400f8facb6a4e07540ff0a33f020b768584aac44e01d4837b88075effd0b8a4e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-application-notify-override-static.json",
+      "sha256": "4c206ed93ef54b28c5a06c0a95f3d1f09e780ad99c6eb03ee87b90dd2616f10c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-qapplication-notify-route-static.json",
+      "sha256": "ab76f46c6ea297982a423a8ee000596e260dfb2e44e194217e659b4c7a58069a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-qapplication-notify-helper-tail-static.json",
+      "sha256": "bec4582a1dab39c5b5e9b8419b1cd54aa27e5b2b3ab3b34d37f7b01c36553bdc"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-qapplication-notify-event-delivery-static.json",
+      "sha256": "6ca26e9bb95007c8ebc7ff2355a72a32e2139c6962f79372dbeb4accb8e0e162"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-installed-layout-child-event-static.json",
+      "sha256": "3265231705c1ec681381ed68a6a23196333ec17909d866eaf6f9f51f83aa2cad"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-grid-immediate-filter-lists-static.json",
+      "sha256": "cf8703919433024e515485676d545fbb4d36d864c89d0be8cf231b224804c309"
+    },
+    {
+      "path": "analysis/wave3-close-grid-layout-ownership-contract.json",
+      "sha256": "0f358f997cba4794bcafcb23c39f0f02aedefab56f58c2572ccf99cff0d7ad5e"
+    }
+  ],
+  "bindings": {
+    "application_ctor": "1400021c0 invokes QApplication via IAT141e0bf90 then sets vtable1420edeb8",
+    "application_RTTI": ".?AVSfApplication@@",
+    "notify_slot_58": "140002480",
+    "normal_notify_forward_import": "?notify@QApplication@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z",
+    "QApplication_event44_switch": [
+      {
+        "byte_va": "0x65025b98",
+        "index": 0,
+        "entry_va": "0x65025b58",
+        "target": "0x650241c7"
+      },
+      {
+        "byte_va": "0x65025c5e",
+        "index": 2,
+        "entry_va": "0x65025c18",
+        "target": "0x65024208"
+      },
+      {
+        "byte_va": "0x65025cfe",
+        "index": 14,
+        "entry_va": "0x65025cb8",
+        "target": "0x65025b19"
+      }
+    ],
+    "filter_imports": {
+      "0x65696db0": "?sendThroughApplicationEventFilters@QCoreApplicationPrivate@@QEAA_NPEAVQObject@@PEAVQEvent@@@Z",
+      "0x65696da8": "?sendThroughObjectEventFilters@QCoreApplicationPrivate@@QEAA_NPEAVQObject@@PEAVQEvent@@@Z"
+    },
+    "installed_layout_event": "650467c0"
+  },
+  "ordered_observations": [
+    "67119570 first passes raw callback type3 and a local pointer array(receiver,event,resultbyte=false) to QInternal::activateCallbacks6701dc80. If its returned bool is true, notifyInternal returns the separate local resultbyte; it does not call application notify.",
+    "6701dc80 snapshots the callback list for the selected callback index, invokes every entry in order, ORs their returns without early true exit, destroys the snapshot and returns that OR. Absent global owner/index or empty list returnsfalse. No proof is made that the current registry is empty.",
+    "If not handled internally,67119570 increments receiver thread-data+1c, invokes actual application vt+58, then decrements after normal return. Actual SfApplication notify140002480 normally forwards the same arguments to QApplication::notify and returns its bool. Exception-handling funclets are unclosed.",
+    "QApplication65023ff0 first checks actual app-closing state and receiver-null. For raw0x44, its input-state/gesture/notification switch paths go directly to common helper65022c60; the exact three switch entries are retained above.",
+    "65022c60 first sends through application event filters. A true filter return stops delivery. For raw0x44 its enter/leave widget updates skip, then it reads the actual already-installed QWidget layout pointer+A8 and calls650467c0 whennonnull BEFORE object event filters.",
+    "650467c0 has special raw event cases0x0e,0x46,0x47,0x48,0x4c. Raw0x44 reaches directreturn for either enabled-bit state and makes no layout mutation. Thus this actual installed empty grid callback is closed for this event.",
+    "After layout handling, helper sends object event filters, then actual receiver vt+20 only if no filter consumes it; the already-bound receiver chain ends QObject::childEvent RET. Normal helper return clears event spontaneous-bit mask0x0002.",
+    "Application filter67119600 uses actual application-private+70 ordered guarded list after same-thread test; object filter671196d0 uses receiver-private+70 and skips when receiver isapplication. Both skip null guarded receivers, warn/skip foreign-thread filters, call live same-thread filter vt+28, stop ontrue, and reread current list size/pointers on iteration. They do not prune null entries."
+  ],
+  "remaining_exact_inputs": [
+    "Current QInternal callback-type3 registry, not assumed empty from absence of app direct registration.",
+    "Actual SfApplication+70 application-filter list and live SfViewManager+70 object-filter list at this construction point. QObjectPrivate constructor initializes both list fields to shared-null, but intervening install/filter owners remain unqualified.",
+    "Actual app-closing/instance state and optional post-parent declarative registration/hooks.",
+    "Behavior of throwing notify/filter/internal callbacks and native exception handlers."
+  ],
+  "actionable_conclusion": "The new source guard remains valid after committed actual parent membership. Specific receiver and installed-layout raw0x44 leaves are source-closed; completing dispatch requires actual registry coverage, not a no-op callback or copied empty-list claim. No production source changed after grid11case freeze."
+}

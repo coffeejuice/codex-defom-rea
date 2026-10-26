@@ -1,0 +1,71 @@
+{
+  "schema": "m2m-doe-view-display-options-implementation-v1",
+  "status": "worker5files SOURCE FROZEN; no worker build/tests; coordinator validation pending",
+  "owned_source_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_view_stepdata.hpp": "3c273e125d70bec4d8fcc534283340528b9e1a50419966afec2db44666916070",
+    "source/apps/moproj2mst/src/doe/view_stepdata.cpp": "b112ad43e4dde69f6eca42fba542c6be58d77f5628f38088e8b286786bb0decd",
+    "source/apps/moproj2mst/src/doe/stepdata.cpp": "9ee48afba57c627ec70e7609ab81bdf86a556b95b68a7d22e11d6374090bbdd2",
+    "source/apps/moproj2mst/tests/mdt/test_doe_view_stepdata.cpp": "a768c3fb99c245308b1ce19eadb87228641184bc96d3b3e90e030e275b549155",
+    "source/apps/moproj2mst/tests/mdt/test_doe_stepdata.cpp": "5b5724c9fa3ddf2fe7860c3316c944f2a54e67cf7321d7346835e8b279b14beb"
+  },
+  "root_shared_observed_sha256": {
+    "source/apps/moproj2mst/include/m2m/engine_scene.hpp": "ead1fc3e053ec038f3e3e6f7a6a0047580309eacd488ba16155061ff2ead9c0e",
+    "source/apps/moproj2mst/src/engine/viewer.cpp": "3ac181d60e4bf71f5fb0c3f3ce14c87cd349d4768f23466f58e5588878faf43a"
+  },
+  "evidence_sha256": {
+    "analysis/wave2-doe-view-display-options-successor.json": "a89c3fee98c9cab6848f1938fb3fb91f4532f9b6018a8b0ada6dafbe6d482f0e",
+    "analysis/wave2-doe-stepdata-object-display-settings-read-decompile.json": "ab8049fdfd5c19edec75fb314573cc8db828dbd0852f652554e3dffdfcea7bc2",
+    "analysis/wave2-doe-stepdata-object-display-settings-leaf.asm": "8ef2aae18843c472d67b86992ff05c5a6ad054e50cd73fb3d9c463dd22dfb5c2",
+    "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721"
+  },
+  "api": [
+    "doe::DisplayOptionsImport=std::function<void(const xml::Node&)>",
+    "readObjectStepData(ViewStepDataState&,const xml::Node&,const DisplayOptionsImport& = {})",
+    "readDisplayOptionFields(const xml::Node&,std::span<std::uint8_t,46>,std::int32_t& mode,std::int32_t objectKind)",
+    "engine::readViewerDisplayOptions(GuiModel&,int zeroBasedIndex,const xml::Node&) root-owned"
+  ],
+  "ordered_routing": [
+    "StepData passes synchronous callback capturing actual model and current zero-based view index; no callback stored or duplicate Settings owner.",
+    "SfDispOpt invokes callback exactly at encounter; no callback retains previous unsupported refusal. Later symmetry and Slice branches keep source order.",
+    "Root wrapper validates existing view without allocation/growth, resolves actual settingsOf (object number then view position); null skips. Nonnull settings with null bound object guards before native invalid access.",
+    "Existing setDefaultFlags resets actual object-derived flags/mode with existing explicit FreshCrtDefaults profile1/1; pure helper mutates actual flags/mode by references; root copies current mesh/geo flags to cached b3c/b3d only after return."
+  ],
+  "parser": [
+    "Ordered children, no reset in pure helper; mode=sign-extended QString::toShort (invalid/overflow0).",
+    "Eleven named flag slots modified in native index order; other35unchanged. General named flags clear first then supplied attribute.toShort!=0.",
+    "Mesh/Geo missing attrs preserve only native OBJECT KIND+0xc==5; supplied short -1 preserves for every kind. Overflow65535 converts0 rather than wrapping to-1.",
+    "Repeated groups merge without inferred reset; unknown/raw/case-mismatched children ignored."
+  ],
+  "focused_tests": {
+    "m2m_doe_view_stepdata": 14,
+    "m2m_doe_stepdata": 10,
+    "new_cases": 9,
+    "root_integration_tests": "separate root-owned test_viewer_display_options.cpp; not counted here",
+    "new_coverage": [
+      "mode signed-short endpoints/overflow/invalid",
+      "11flag map and untouched35slots",
+      "missing Mesh/Geo nativekind5 vsotherkinds",
+      "-1 sentinel vs65535overflow and general boolean attributes",
+      "repeated child merge and absent groups",
+      "callback observes earlier/later symmetry in exact XML order",
+      "injected callback failure retains earlier state and stops later child (test seam, not original fault claim)",
+      "actual empty View with no Settings skips SfDispOpt and reaches subsequent symmetry then Slice guard"
+    ]
+  },
+  "preflight": [
+    "Main exists once per test target; new includes span/cstdint/functional/utility/vector explicit.",
+    "std::span staticextent46 accepts actual native Settings array and test std::array; mode is actual int32_t reference.",
+    "setContent5arguments and CHECK macro template-comma parentheses reviewed; no worker compilation.",
+    "Root wrapper/getter declarations and method body inspected; existing no-growth source retained.",
+    "Owned trailing whitespace scan clean; git diff --check clean for tracked changes. CMake GLOB requires no registration."
+  ],
+  "qualifications": [
+    "Existing fresh CRT shading preferences1/1 source profile retained explicitly; arbitrary persisted/current user preferences remain queued, not measured by this increment.",
+    "Qt integer conversion uses existing qualified seam; no new locale/Unicode-number claims.",
+    "Injected callback failure verifies adapter state ordering only, not a captured original Qt failure.",
+    "Native allocation/fault/Qt object lifetime parity unclaimed. No app control/runtime/study execution or worker build/tests.",
+    "Slice, populated checkbox finalizer and Object snapshot writer remain guarded; no complete activeDOE acceptance claim.",
+    "Root shared hashes record inspection point; root build receipt/source archive binds final combined tree."
+  ],
+  "successor": "Read-only Slice path: retain original uninitialized missing coefficient behavior; recover1411fd600/1411fe310 and actual slice collection ownership/settings flag save-restore before proposing source integration."
+}

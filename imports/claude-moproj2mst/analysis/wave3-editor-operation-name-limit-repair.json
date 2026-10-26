@@ -1,0 +1,62 @@
+{
+  "schema": "editor300-operation-name-limit-repair-v1",
+  "status": "source-frozen-awaiting-root-build",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "a1828a5a9154448b1fddcad89ca9b4a23f8e8d01ae763dfec80137d532883e93"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "7a79e649df08ae951389d83d72c8943eb8ab1c255bf1e91220f444cae6e27419"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "ac61abc53d1215ea42e5a1aff5c3246858e0d5eaf336bb4f47c8f64f3cbf8b98"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-operation-name-maxlength-defect.json",
+      "sha256": "01fe1792f21682d3b75e994f7e856207d562d010b3170ea1205c8410398ec7c9"
+    },
+    {
+      "path": "analysis/wave3-editor-lineedit-empty-and-length-amendment.json",
+      "sha256": "f699f932ce4033b3375c133e75c2fd3ff4d59c2379634a00a77c2328253dcd91"
+    }
+  ],
+  "repair": [
+    "fillGeneral now constructs its remembered operation name from at most20 characters, matching ui138 setMaxLength20 and original QLineControl::internalSetText. The guard already requires terminated printable ASCII, so character count equals UTF16-unit count; no encoding expansion is introduced.",
+    "The model name is not truncated during fill. Original Save timing remains in applyGeneral, which copies the remembered widget name later. Native title limit256 is not reached by the80-character supported title buffer.",
+    "No change to public editor dispatch, lifecycle ownership, supported application mode/dimension, non-ASCII refusal, unsupported unterminated data or the existing shared Qt String class.",
+    "Only actual source path src/engine/simcontrol300.cpp and its snapshot/lifecycle tests were edited. All editor_setup files remain at their prior frozen candidate."
+  ],
+  "validation": {
+    "worker_builds_or_tests": "none",
+    "new_tests": [
+      "general_name_limit_clips_widgets_at_fill_and_model_only_at_save",
+      "general_save_uses_the_remembered_truncated_name",
+      "initial_editor_name_limit_survives_backed_refresh_without_mutating_open_model"
+    ],
+    "coverage": [
+      "Name lengths0/19/20/21/64 under explicit PRE-style and MO General profiles.",
+      "Fill retains full source model name; Save later writes its first20 characters.",
+      "Fresh empty line-edit read remains nonnull empty.",
+      "80-character title stays intact.",
+      "A model name changed between fill and Save does not replace the remembered truncated widget value.",
+      "Actual page composer completes backed refresh and restores64-character source model before Apply; Apply writes remembered20-character name."
+    ],
+    "static_preflight": {
+      "test_case_counts": {
+        "test_simcontrol300_snapshot.cpp": 51,
+        "test_simcontrol300_lifecycle.cpp": 21
+      },
+      "unique_cases": true,
+      "one_main_per_test": true,
+      "direct_string_and_string_view_includes": true,
+      "whitespace": "pass",
+      "conflict_markers": "none"
+    }
+  },
+  "next_action": "Root builds, runs focused snapshot/lifecycle and candidate regressions, then archives. Worker continues read-only MDS coordinate-mode dependency proof; no other source edits until release."
+}

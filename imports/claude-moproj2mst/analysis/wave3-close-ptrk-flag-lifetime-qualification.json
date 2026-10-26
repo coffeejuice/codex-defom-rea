@@ -1,0 +1,35 @@
+{
+  "scope": "SfPtrkManager graphOn lifetime qualification; bounded static write-sites, not fresh-path coverage",
+  "method": "Original PE candidates followed by offline bounded DUMPBIN; no target runtime/build/source edit",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-ptrk-flag-candidates.json",
+      "sha256": "4c42a4c1fa9f08a7674ee8349d13dc2daeb84cb18a42cb1aa48f8500b5f2efc0"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-flag-setter-callers.json",
+      "sha256": "38df2ed6db0f6308d4ff8f4ddf98d6d9769189da13fcacd9e31a03ef7182aa52"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-flag-accessors-static.json",
+      "sha256": "f3b56065b47a7ff23c6fa783cb5220cbb049f5a8023fada9bbda818d8f5b5387"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-flag-file-branches-static.json",
+      "sha256": "45a0d51d62ac8dd15508f2d7db64f1aacc23d0e290b062c9b0e56d7a04de7549"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-flag-active-writers-static.json",
+      "sha256": "3f244ce4b485a274e713487797a81f95574521fbe4071750991d84b3fb48f910"
+    }
+  ],
+  "facts": [
+    "3215a0 is a pure setter of byte this+0x4d0 from its byte argument;3215c0 is the corresponding pure getter. Accessor disassembly includes both complete leaves; preceding partial function tail is not used.",
+    "Constructor309cc0 initializes+0x4d0=false in its nonnull-parent branch. This does not close later lifetime state.",
+    "All9 direct-call byte candidates for3215a0 in this executable were checked at instruction sites:30a5dd and30a765 passfalse;30f190 passestrue on the30ad90 success branch;30f1ae/30f1d9 passfalse;3124df/3134cf passfalse;312b96/313b86 pass the30ad90 return byte.",
+    "The untyped displacement scan initially required unwind ownership and therefore excluded leaf setter/getter. It is only a discovery receipt, not a complete field write-set. The explicit accessor capture supplies those missing leaves.",
+    "Getter cdd980 has20 direct-call candidates in retained PE, including domains outside the bounded Close wrapper. No inference that the receiver is absent or graphOn remainsfalse after Open/Save follows from constructor state."
+  ],
+  "integration": "The draft stores a live graphOn field in the actual typed manager projection and checks it during delivery; receiver-population qualification remains required. Its graphOn=true guard is retained. Source no-default graph-state proof has not been replaced by a convenient fresh assumption.",
+  "next": "After parent build release, land the frozen three-file Close effects draft; shared StateVar application prefix/guard integration remains DOE peer-owned and parent-coordinated."
+}

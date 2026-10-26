@@ -1,0 +1,79 @@
+{
+  "schema": "converter-computer-use-release-capability-assessment-v1",
+  "checked_utc": "2026-10-24T03:55:47.890717+00:00",
+  "package_version": "26.1021.22027",
+  "status": "supported_release_and_verifiable_status_not_established",
+  "scope": "Read only documented API, guidance, confirmations, visible tool descriptions and prior retained assessment; converter analysis output only.",
+  "sources": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1021.22027\\skills\\computer-use\\SKILL.md",
+      "sha256": "8211e4b11a19a0dc4f0ace91096c74c5b36037ca4cb2c8988f0f535bb209e951"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1021.22027\\docs\\api.md",
+      "sha256": "c36d005fb98ed79837a1a5d4605ebad036cec95864e5646f451425163d5c16af"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1021.22027\\docs\\guidance.md",
+      "sha256": "b171b26bc19f49226bb594bf3ed3f36666e5dd063a996c297986b2b461ac8efd"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1021.22027\\docs\\confirmations.md",
+      "sha256": "9c45b3eb20e4a7fb14860e50f635e200b321a52fef6d26f39f7b936bd44be11a"
+    }
+  ],
+  "prior_assessment": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\gui-control-lifecycle-assessment.json",
+    "sha256": "5a1657cabd718a7674a2a70aaf350d4186e85bc19704e5a96318c55cb5d79d0b",
+    "recorded_package": "26.1016.62342",
+    "old_package_files_present": false,
+    "current_api_sha_matches_prior_record": true,
+    "current_guidance_sha_matches_prior_record": true
+  },
+  "documented_sky_methods": [
+    "list_windows",
+    "get_window",
+    "list_apps",
+    "launch_app",
+    "get_window_state",
+    "click",
+    "press_key",
+    "type_text",
+    "scroll",
+    "set_value",
+    "drag",
+    "perform_secondary_action",
+    "activate_window"
+  ],
+  "release_method": null,
+  "release_status_method": null,
+  "control_release_receipt_schema": null,
+  "window_state_fields": [
+    "accessibility",
+    "screenshots",
+    "window"
+  ],
+  "visible_tool_capability_change": {
+    "surface": "mcp__cua_repl.js supplied tool description",
+    "native_entrypoint": "await cua.getApp(name/bundle ID/path)",
+    "difference": "Native app selection is now advertised; the earlier tool description disabled native computer APIs.",
+    "release_or_control_status_advertised": false,
+    "qualification": "Description review only. Per-app documentation that selection would return was not requested because no GUI/control acquisition is permitted before release is established."
+  },
+  "findings": [
+    "The new sky API lists the same13 methods as the prior assessment and exposes no release/end-control method or control ownership/status field. get_window_state returns accessibility, screenshots and the Window identity, not an independent control-release receipt.",
+    "The exact new api.md and guidance.md digests equal the hashes recorded for the older package. The old package path is no longer present, so this is comparison with retained identity rather than a fresh read of old files.",
+    "Guidance line251 says to stop issuing input when Computer Use reports a stopped turn. This is a reaction rule, not an exposed operation that releases control or verifies release.",
+    "Guidance recovery mentions JavaScript reset; neither that text nor the supplied js_reset description establishes control release. No reset, debugger detach, application closure, Escape injection or helper protocol was used or treated as release.",
+    "The new native getApp entry point does not by itself satisfy the user-required release operation plus verifiable receipt/status."
+  ],
+  "calls_not_made": [
+    "No cua_repl initialization/getState/getApp or browser/app selection",
+    "No sky import, list_apps/list_windows or get_window_state",
+    "No application launch/input, screenshots, UI Automation or custom helper protocol",
+    "No installed app or parent assessment modification"
+  ],
+  "control_state_claim": "Unknown. No GUI API was acquired or invoked during this assessment; this is not a claim about an existing overlay/control session state.",
+  "effect": "Retain the user-required hold on new GUI-control sessions. Continue converter source/evidence/session work. No renewed user permission is required for that independent work.",
+  "next": "Return to session integration draft/test review under parent source freeze; do not broaden into new GUI or style investigations."
+}

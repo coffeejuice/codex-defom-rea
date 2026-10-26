@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD .STL on a 2D object is a no-op success",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 2\nX.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "X.STL",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/3D/3D_Examples/EN/Multiple_Operations/Op1_die.STL"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "2D object: the 2D table (140244010) does nothing for type 3 and succeeds: 'INFO   : Loading geometry - Done', model unchanged."
+  }
+}

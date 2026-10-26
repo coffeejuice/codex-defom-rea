@@ -1,0 +1,67 @@
+{
+  "status": "COMPUTER_USE_STOPPED_BY_PHYSICAL_ESCAPE",
+  "utc": "2026-10-23T14:38:26.1515363Z",
+  "trial_directory": "C:\\Users\\alext\\Projects\\codex-deform-rea\\build\\gui-validation\\trial-20261023-01",
+  "app": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+  "observed_window_id": 265308,
+  "observed_dialog": "Open Project",
+  "project_to_open": "C:\\PROBLEM\\R1\\O\\COG_P1_B1.moproj",
+  "preparation": "Two independent complete project copies; XML references checked, no absolute Path/File references found.",
+  "completed": [
+    "Computer Use app access obtained on retry",
+    "Original DEFORM GUI launched",
+    "Open Project dialog opened with Ctrl+O",
+    "File-dialog navigation workaround established",
+    "Original copied short-path project displayed successfully twice; not a save/reopen pass"
+  ],
+  "blocker": "Computer Use reported a second physical Escape during GUI testing. DeformLicenseServer, DeformSimServer and DeformBatchQueue are verified running; helper warning is a connectivity/configuration symptom, not proof that the service is stopped.",
+  "required_user_step": null,
+  "installation_modified": true,
+  "originals_substituted": true,
+  "source_projects_modified": false,
+  "cases_passed": [],
+  "remaining": "All G01-G10 behavioral checks, route capture and candidate GUI validation remain unexecuted.",
+  "project_root": "C:\\PROBLEM\\R1",
+  "project_path_limit_characters": 100,
+  "project_path_policy": "All DEFORM working-file paths shorter than 100 characters; project files under C:\\PROBLEM; checkout stores reports only.",
+  "short_path_preparation": "128 copied files hash-verified; project path 32 characters; maximum existing copied path 59 characters.",
+  "candidate_project": "C:\\PROBLEM\\R1\\C\\COG_P1_B1.moproj",
+  "recovery_attempts": [
+    "Recovered returned window and activated it before observing.",
+    "Navigated modal using parent-window screenshot coordinates; project opened.",
+    "Repeated original launch and project open with screenshot-only observations; project opened, then original GUI crashed again."
+  ],
+  "crash_evidence": "build/gui-validation/trial-20261023-01/original-gui-crash.json",
+  "testing_owner": "Codex; user is not asked to execute tests.",
+  "next_action": "Resume owned manager PID 13628 after renewed input; project directory C:\\PROBLEM\\R1\\C is loaded. No MO process remained at start of this attempt. Manager observer detached during cleanup. Map confirmed static export/conversion callers to GUI commands.",
+  "manual_control_observation": {
+    "source": "User report",
+    "result": "Same open-project procedure remains stable when performed manually.",
+    "qualification": "Manual workflow is not established to fail; automated save/reopen checks remain unexecuted."
+  },
+  "user_live_session": {
+    "pid_observed": 34196,
+    "interaction_performed": false
+  },
+  "active_backend": "Reconstructed DEF_PRE_64.exe at root/2D/3D; retained until explicit user restoration request.",
+  "deployment_receipt": "analysis/def-pre-deployment-state.json",
+  "diagnostic_session": {
+    "pid": 29240,
+    "accessibility_guard": "process-local only; installed GUI files unchanged",
+    "cleanup": "GUI inputs stopped; session not detached while guarded GUI remains open to avoid reintroducing crash",
+    "session_id": "11389ff2-fac3-4cd6-a34f-21322cfc66c9",
+    "backend_version": "0.2.1"
+  },
+  "new_findings": [
+    "Generate Database completed on C:\\PROBLEM\\R1\\C, wrote 110080-byte DB; no child process observed, therefore no reconstructed-backend acceptance pass.",
+    "Run Options launched DEFJobGroupSetup.exe and reported License Server is not running.",
+    "Focused no-auto-analysis Ghidra pseudocode saved under build/gui-validation/mo-launch-focused.c; ordinary REA Ghidra startup timed out."
+  ],
+  "rea_static_recovery": {
+    "status": "success",
+    "additional_focused_code": "build/gui-validation/mo-route-focused.c",
+    "profile": "Decompiler Parameter ID and Decompiler Switch Analysis disabled; complete auto-analysis reported",
+    "evidence": "build/gui-validation/mo-caller1-cli.json",
+    "snapshot": "build/gui-validation/mo-focused.rea.json"
+  }
+}

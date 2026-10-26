@@ -1,0 +1,9 @@
+# CP193 root integration
+
+The retained QtCore caller now publishes the reverse task backlink into private `+0x08` at RVA `0x131431..0x131435`. Public task `+0x08` already holds the private token, and the `[S+0x60]` spill remains. The model changes the private slot from its qualified zero to a task-token observation and stops before `TEST RDI`. The first focused run found an early new guard intercepting 12 historical bare-marker refusals. The correction preserves those earlier refusal decisions while still rejecting premature value-bearing backlinks and inconsistent CP193 terminal states. Source-stable focused factory/Session tests then passed.
+
+In a disjoint editor300 lane, `furnacePostLoad` now confines its SimControl alias to an immediate captureless callback without changing its geometry gate, unchecked-null policy or ordered flag/curve setup. The installed same-owner corpus-08 fixture checks an empty list's 22-curve shape and populated list identity/value/u54, with no file effects. Independent source review and focused L2 tests passed. Native null/failure behavior is not established by this helper fixture.
+
+`analysis/wave3-checkpoint193-validation.json` and `build/wave3-checkpoint193-verified/` freeze source SHA-256 `3367f46edbabe581e4c3ee8122f5075bef714da7a1956f3c6844f8ba3acdf581` over 3,554 files. Complete regression: 361 registered, 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete, no fixture changes and no changed logged diagnostics against CP192. Historical folder comparison remains 93 SAME/five DIFF.
+
+CP194 was selected before freeze: caller `TEST RDI` at RVA `0x131435..0x131438`, plus a bounded audit of the next genuinely unclosed editor300 step-owned alias. Public Open–Save–Close, failure/Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

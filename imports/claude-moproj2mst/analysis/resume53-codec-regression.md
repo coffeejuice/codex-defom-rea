@@ -1,0 +1,9 @@
+# Checkpoint 53: codec-boundary regression fixture
+
+Added `source/apps/moproj2mst/tests/mdt/test_codec_boundary.cpp`. It feeds U+20AC to the existing `engine::local8` and `qt::toAscii` helpers and asserts different output bytes: `0x80` for ACP 1252 and `0x3f` (`?`) for the default CString/Latin-1 conversion. It also asserts the observed host ACP/OEMCP pair (1252/437), so a changed host profile fails visibly instead of silently reinterpreting this as an OEM or universal expectation.
+
+The test uses the existing MDT test discovery path in `source/apps/moproj2mst/CMakeLists.txt` (test sources are globbed with `CONFIGURE_DEPENDS` and linked to `m2m_core`/testkit). No CMake change is needed. The test was not built or run, per task constraints. The source assertion itself is therefore an unexecuted fixture, not validation evidence.
+
+The candidate helper expectations are grounded in the current source: `engine::local8` in `src/engine/loader.cpp` passes UTF-16 to `WideCharToMultiByte(CP_ACP, ...)`; `qt::toAscii` in `src/qt4/string.cpp` documents and implements Latin-1 with replacement above U+00FF. The retained [Cogging native-I/O qualification](wave3-cogging-native-io-contract.md) identifies the separate original QString-to-C-string path and its default null-codec Latin-1 profile. Original `toLocal8Bit` is an ANSI-codepage operation; OEM 437 is not its codec. This test does not launch the original application or verify an original runtime call.
+
+Host limit: on the current qualified host, U+20AC maps to `0x80` in Windows-1252. Other ACPs can map it differently or use a fallback. The hard host assertions intentionally prevent treating this fixture as portable. No production codecs/defaults, shared build files, GUI, or mutable REA state were changed; the two new files are frozen pending coordinator integration.

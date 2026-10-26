@@ -1,0 +1,180 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "671201d0",
+      "entry": "671201d0",
+      "name": "invoke",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n/* public: bool __cdecl QMetaMethod::invoke(class QObject * __ptr64,enum Qt::ConnectionType,class\r\n   QGenericReturnArgument,class QGenericArgument,class QGenericArgument,class QGenericArgument,class\r\n   QGenericArgument,class QGenericArgument,class QGenericArgument,class QGenericArgument,class\r\n   QGenericArgument,class QGenericArgument,class QGenericArgument)const __ptr64 */\r\n\r\nbool __thiscall\r\nQMetaMethod::invoke(QMetaMethod *this,QObject *param_1,int param_2,longlong *param_4,\r\n                   longlong *param_5,undefined8 *param_6,undefined8 *param_7,undefined8 *param_8,\r\n                   undefined8 *param_9,undefined8 *param_10,undefined8 *param_11,\r\n                   undefined8 *param_12,undefined8 *param_13,undefined8 *param_14)\r\n\r\n{\r\n  char cVar1;\r\n  undefined8 *puVar2;\r\n  undefined8 *puVar3;\r\n  _func_void_QObject_ptr_Call_int_void_ptr_ptr *p_Var4;\r\n  int iVar5;\r\n  QThread *pQVar6;\r\n  QThread *pQVar7;\r\n  void **ppvVar8;\r\n  int *piVar9;\r\n  void *pvVar10;\r\n  QEvent *pQVar11;\r\n  QMetaCallEvent *this_00;\r\n  longlong lVar12;\r\n  longlong *plVar13;\r\n  longlong lVar14;\r\n  QEvent *pQVar15;\r\n  longlong lVar16;\r\n  uint uVar17;\r\n  void **ppvVar18;\r\n  char *pcVar19;\r\n  int iVar20;\r\n  uint uVar21;\r\n  bool bVar22;\r\n  Data *local_138;\r\n  int local_130;\r\n  undefined4 uStack_12c;\r\n  int local_128;\r\n  QMetaCallEvent *local_120;\r\n  _func_void_QObject_ptr_Call_int_void_ptr_ptr *local_118;\r\n  void *local_108;\r\n  longlong local_100 [4];\r\n  undefined8 local_e0;\r\n  undefined8 local_d8;\r\n  undefined8 local_d0;\r\n  undefined8 local_c8;\r\n  undefined8 local_c0;\r\n  undefined8 local_b8;\r\n  longlong local_a8 [12];\r\n  undefined8 local_48;\r\n  \r\n                    /* 0x1201d0  2682\r\n                       ?invoke@QMetaMethod@@QEBA_NPEAVQObject@@W4ConnectionType@Qt@@VQGenericReturnArgument@@VQGenericArgument@@333333333@Z\r\n                        */\r\n  local_48 \u003d 0xfffffffffffffffe;\r\n  if ((param_1 \u003d\u003d (QObject *)0x0) || (lVar14 \u003d *(longlong *)this, lVar14 \u003d\u003d 0)) {\r\n    bVar22 \u003d false;\r\n  }\r\n  else {\r\n    if (*param_4 !\u003d 0) {\r\n      pcVar19 \u003d (char *)((ulonglong)\r\n                         *(uint *)(*(longlong *)(lVar14 + 0x10) +\r\n                                  (ulonglong)(*(int *)(this + 8) + 2) * 4) +\r\n                        *(longlong *)(lVar14 + 8));\r\n      iVar5 \u003d qstrcmp((char *)param_4[1],pcVar19);\r\n      if (iVar5 !\u003d 0) {\r\n        local_138 \u003d \u0026QByteArray::shared_null;\r\n        LOCK();\r\n        _shared_null \u003d _shared_null + 1;\r\n        UNLOCK();\r\n        iVar5 \u003d FUN_67001bb0(param_4[1]);\r\n        if ((*(int *)local_138 !\u003d 1) || (*(int *)(local_138 + 4) \u003c iVar5 + 3)) {\r\n          QByteArray::realloc((QByteArray *)\u0026local_138,iVar5 + 3);\r\n        }\r\n        QByteArray::operator\u003d((QByteArray *)\u0026local_138,\"_(\");\r\n        QByteArray::append((QByteArray *)\u0026local_138,(char *)param_4[1]);\r\n        QByteArray::append((QByteArray *)\u0026local_138,\u0027)\u0027);\r\n        QMetaObject::normalizedSignature((char *)\u0026local_130);\r\n        QByteArray::truncate\r\n                  ((QByteArray *)\u0026local_130,*(int *)(CONCAT44(uStack_12c,local_130) + 8) + -1);\r\n        iVar5 \u003d qstrcmp((char *)(*(longlong *)(CONCAT44(uStack_12c,local_130) + 0x10) + 2),pcVar19);\r\n        if (iVar5 !\u003d 0) {\r\n          piVar9 \u003d (int *)CONCAT44(uStack_12c,local_130);\r\n          LOCK();\r\n          iVar5 \u003d *piVar9;\r\n          *piVar9 \u003d *piVar9 + -1;\r\n          UNLOCK();\r\n          if (iVar5 \u003d\u003d 1) {\r\n            qFree((void *)CONCAT44(uStack_12c,local_130));\r\n          }\r\n          LOCK();\r\n          iVar5 \u003d *(int *)local_138;\r\n          *(int *)local_138 \u003d *(int *)local_138 + -1;\r\n          UNLOCK();\r\n          if (iVar5 \u003d\u003d 1) {\r\n            qFree(local_138);\r\n          }\r\n          return false;\r\n        }\r\n        piVar9 \u003d (int *)CONCAT44(uStack_12c,local_130);\r\n        LOCK();\r\n        iVar5 \u003d *piVar9;\r\n        *piVar9 \u003d *piVar9 + -1;\r\n        UNLOCK();\r\n        if (iVar5 \u003d\u003d 1) {\r\n          qFree((void *)CONCAT44(uStack_12c,local_130));\r\n        }\r\n        LOCK();\r\n        iVar5 \u003d *(int *)local_138;\r\n        *(int *)local_138 \u003d *(int *)local_138 + -1;\r\n        UNLOCK();\r\n        if (iVar5 \u003d\u003d 1) {\r\n          qFree(local_138);\r\n        }\r\n      }\r\n    }\r\n    local_a8[0] \u003d param_4[1];\r\n    local_a8[1] \u003d param_5[1];\r\n    local_a8[2] \u003d param_6[1];\r\n    local_a8[3] \u003d param_7[1];\r\n    local_a8[4] \u003d param_8[1];\r\n    local_a8[5] \u003d param_9[1];\r\n    local_a8[6] \u003d param_10[1];\r\n    local_a8[7] \u003d param_11[1];\r\n    local_a8[8] \u003d param_12[1];\r\n    local_a8[9] \u003d param_13[1];\r\n    local_a8[10] \u003d param_14[1];\r\n    lVar16 \u003d 1;\r\n    iVar5 \u003d 1;\r\n    lVar14 \u003d 1;\r\n    do {\r\n      if ((char *)local_a8[lVar14] \u003d\u003d (char *)0x0) break;\r\n      lVar12 \u003d -1;\r\n      pcVar19 \u003d (char *)local_a8[lVar14];\r\n      do {\r\n        if (lVar12 \u003d\u003d 0) break;\r\n        lVar12 \u003d lVar12 + -1;\r\n        cVar1 \u003d *pcVar19;\r\n        pcVar19 \u003d pcVar19 + 1;\r\n      } while (cVar1 !\u003d \u0027\\0\u0027);\r\n      if ((int)lVar12 \u003d\u003d -2) break;\r\n      iVar5 \u003d iVar5 + 1;\r\n      lVar14 \u003d lVar14 + 1;\r\n    } while (lVar14 \u003c 0xb);\r\n    pQVar11 \u003d (QEvent *)0x0;\r\n    uVar21 \u003d 0;\r\n    lVar14 \u003d *(longlong *)(*(longlong *)this + 0x10);\r\n    lVar12 \u003d *(longlong *)(*(longlong *)this + 8);\r\n    pcVar19 \u003d (char *)((ulonglong)*(uint *)(lVar14 + (ulonglong)(*(uint *)(this + 8) + 1) * 4) +\r\n                      lVar12);\r\n    if (*pcVar19 \u003d\u003d \u0027\\0\u0027) {\r\n      pcVar19 \u003d (char *)((ulonglong)*(uint *)(lVar14 + (ulonglong)*(uint *)(this + 8) * 4) + lVar12)\r\n      ;\r\n      cVar1 \u003d *pcVar19;\r\n      while ((cVar1 !\u003d \u0027\\0\u0027 \u0026\u0026 (cVar1 !\u003d \u0027(\u0027))) {\r\n        pcVar19 \u003d pcVar19 + 1;\r\n        cVar1 \u003d *pcVar19;\r\n      }\r\n      uVar17 \u003d uVar21;\r\n      if (pcVar19[1] !\u003d \u0027)\u0027) {\r\n        uVar17 \u003d 1;\r\n      }\r\n    }\r\n    else {\r\n      pcVar19 \u003d pcVar19 + -1;\r\n      pQVar15 \u003d pQVar11;\r\n      do {\r\n        pcVar19 \u003d pcVar19 + 1;\r\n        cVar1 \u003d *pcVar19;\r\n        while ((cVar1 !\u003d \u0027\\0\u0027 \u0026\u0026 (cVar1 !\u003d \u0027,\u0027))) {\r\n          pcVar19 \u003d pcVar19 + 1;\r\n          cVar1 \u003d *pcVar19;\r\n        }\r\n        uVar17 \u003d (int)pQVar15 + 1;\r\n        pQVar15 \u003d (QEvent *)(ulonglong)uVar17;\r\n      } while (*pcVar19 !\u003d \u0027\\0\u0027);\r\n    }\r\n    if ((int)uVar17 \u003c iVar5) {\r\n      local_128 \u003d iVar5;\r\n      pQVar6 \u003d QThread::currentThread();\r\n      pQVar7 \u003d QObject::thread(param_1);\r\n      if (param_2 \u003d\u003d 0) {\r\n        param_2 \u003d (pQVar6 !\u003d pQVar7) + 1;\r\n      }\r\n      local_108 \u003d (void *)*param_4;\r\n      local_100[0] \u003d *param_5;\r\n      local_100[1] \u003d *param_6;\r\n      local_100[2] \u003d *param_7;\r\n      local_100[3] \u003d *param_8;\r\n      local_e0 \u003d *param_9;\r\n      local_d8 \u003d *param_10;\r\n      local_d0 \u003d *param_11;\r\n      local_c8 \u003d *param_12;\r\n      local_c0 \u003d *param_13;\r\n      local_b8 \u003d *param_14;\r\n      puVar2 \u003d *(undefined8 **)this;\r\n      uVar17 \u003d (uint)(*(int *)(this + 8) - *(int *)(puVar2[2] + 0x14)) / 5;\r\n      local_138 \u003d (Data *)CONCAT44(local_138._4_4_,uVar17);\r\n      for (puVar3 \u003d (undefined8 *)*puVar2; puVar3 !\u003d (undefined8 *)0x0;\r\n          puVar3 \u003d (undefined8 *)*puVar3) {\r\n        uVar21 \u003d uVar21 + *(int *)(puVar3[2] + 0x10);\r\n      }\r\n      if ((*(int *)puVar2[2] \u003c 6) || (puVar2[3] \u003d\u003d 0)) {\r\n        local_118 \u003d (_func_void_QObject_ptr_Call_int_void_ptr_ptr *)0x0;\r\n      }\r\n      else {\r\n        local_118 \u003d *(_func_void_QObject_ptr_Call_int_void_ptr_ptr **)(puVar2[3] + 8);\r\n      }\r\n      p_Var4 \u003d local_118;\r\n      if (param_2 \u003d\u003d 1) {\r\n        if (local_118 \u003d\u003d (_func_void_QObject_ptr_Call_int_void_ptr_ptr *)0x0) {\r\n          if (*(longlong *)(*(longlong *)(param_1 + 8) + 0x28) \u003d\u003d 0) {\r\n            iVar5 \u003d (**(code **)(*(longlong *)param_1 + 0x10))(param_1,0,uVar21 + uVar17,\u0026local_108)\r\n            ;\r\n          }\r\n          else {\r\n            plVar13 \u003d (longlong *)(*(longlong *)(*(longlong *)(param_1 + 8) + 0x28) + -8);\r\n            iVar5 \u003d (**(code **)(*plVar13 + 8))(plVar13,0,uVar21 + uVar17,\u0026local_108);\r\n          }\r\n          bVar22 \u003d iVar5 \u003c 0;\r\n        }\r\n        else {\r\n          (*local_118)(param_1,0,uVar17,\u0026local_108);\r\n          bVar22 \u003d true;\r\n        }\r\n      }\r\n      else {\r\n        if (param_2 \u003d\u003d 2) {\r\n          if (local_108 !\u003d (void *)0x0) {\r\n            qWarning(\r\n                    \"QMetaMethod::invoke: Unable to invoke methods with return values in queued connections\"\r\n                    );\r\n            return false;\r\n          }\r\n          local_130 \u003d 1;\r\n          ppvVar8 \u003d qMalloc((longlong)iVar5 * 8);\r\n          if (ppvVar8 \u003d\u003d (void **)0x0) {\r\n                    /* WARNING: Subroutine does not return */\r\n            qBadAlloc();\r\n          }\r\n          piVar9 \u003d qMalloc((longlong)iVar5 * 4);\r\n          if (piVar9 \u003d\u003d (int *)0x0) {\r\n                    /* WARNING: Subroutine does not return */\r\n            qBadAlloc();\r\n          }\r\n          *piVar9 \u003d 0;\r\n          *ppvVar8 \u003d (void *)0x0;\r\n          iVar20 \u003d 1;\r\n          lVar14 \u003d 1;\r\n          iVar5 \u003d 1;\r\n          if (1 \u003c local_128) {\r\n            local_120 \u003d (QMetaCallEvent *)((longlong)local_a8 - (longlong)ppvVar8);\r\n            ppvVar18 \u003d ppvVar8;\r\n            do {\r\n              ppvVar18 \u003d ppvVar18 + 1;\r\n              iVar5 \u003d QMetaType::type(*(char **)((longlong)local_120 + (longlong)ppvVar18));\r\n              piVar9[lVar14] \u003d iVar5;\r\n              if (iVar5 \u003d\u003d 0) {\r\n                if (local_100[lVar14 + -1] !\u003d 0) {\r\n                  qWarning(\"QMetaMethod::invoke: Unable to handle unregistered datatype \\\u0027%s\\\u0027\",\r\n                           local_a8[iVar20]);\r\n                  if (1 \u003c lVar14) {\r\n                    do {\r\n                      if ((piVar9[lVar16] !\u003d 0) \u0026\u0026 (ppvVar8[lVar16] !\u003d (void *)0x0)) {\r\n                        QMetaType::destroy(piVar9[lVar16],ppvVar8[lVar16]);\r\n                      }\r\n                      lVar16 \u003d lVar16 + 1;\r\n                    } while (lVar16 \u003c lVar14);\r\n                  }\r\n                  qFree(piVar9);\r\n                  qFree(ppvVar8);\r\n                  return false;\r\n                }\r\n              }\r\n              else {\r\n                pvVar10 \u003d QMetaType::construct(iVar5,(void *)local_100[lVar14 + -1]);\r\n                *ppvVar18 \u003d pvVar10;\r\n                local_130 \u003d local_130 + 1;\r\n              }\r\n              iVar20 \u003d iVar20 + 1;\r\n              lVar14 \u003d lVar14 + 1;\r\n              iVar5 \u003d local_130;\r\n            } while (lVar14 \u003c local_128);\r\n          }\r\n          local_120 \u003d operator_new(0x50);\r\n          if (local_120 !\u003d (QMetaCallEvent *)0x0) {\r\n            pQVar11 \u003d (QEvent *)\r\n                      QMetaCallEvent::QMetaCallEvent\r\n                                (local_120,(ushort)uVar21,(ushort)local_138,local_118,(QObject *)0x0\r\n                                 ,-1,iVar5,piVar9,ppvVar8,(QSemaphore *)0x0);\r\n          }\r\n          QCoreApplication::postEvent(param_1,pQVar11);\r\n        }\r\n        else {\r\n          if (pQVar6 \u003d\u003d pQVar7) {\r\n            qWarning(\"QMetaMethod::invoke: Dead lock detected in BlockingQueuedConnection: Receiver is %s(%p)\"\r\n                     ,puVar2[1],param_1);\r\n          }\r\n          QSemaphore::QSemaphore((QSemaphore *)\u0026local_120,0);\r\n          this_00 \u003d operator_new(0x50);\r\n          if (this_00 !\u003d (QMetaCallEvent *)0x0) {\r\n            pQVar11 \u003d (QEvent *)\r\n                      QMetaCallEvent::QMetaCallEvent\r\n                                (this_00,(ushort)uVar21,(ushort)uVar17,p_Var4,(QObject *)0x0,-1,0,\r\n                                 (int *)0x0,\u0026local_108,(QSemaphore *)\u0026local_120);\r\n          }\r\n          QCoreApplication::postEvent(param_1,pQVar11);\r\n          QSemaphore::acquire((QSemaphore *)\u0026local_120,1);\r\n          QSemaphore::~QSemaphore((QSemaphore *)\u0026local_120);\r\n        }\r\n        bVar22 \u003d true;\r\n      }\r\n    }\r\n    else {\r\n      bVar22 \u003d false;\r\n    }\r\n  }\r\n  return bVar22;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a86dc",
+          "type": "DATA"
+        },
+        {
+          "from": "6730523c",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "672935e4",
+          "type": "DATA"
+        },
+        {
+          "from": "6700215e",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67001f90"
+        },
+        {
+          "from": "6700233f",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67002170"
+        },
+        {
+          "from": "6700251a",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67002350"
+        },
+        {
+          "from": "6712249b",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67121de0"
+        }
+      ],
+      "known_callees": [
+        "67001bb0",
+        "6701bfb0",
+        "6701cee0",
+        "670203a0",
+        "670203b0",
+        "67026ff0",
+        "67027060",
+        "670270a0",
+        "67027650",
+        "6702cb50",
+        "6702d710",
+        "6702dae0",
+        "6702dcb0",
+        "6702eb30",
+        "670305d0",
+        "6711bfd0",
+        "6711ff60",
+        "67124f80",
+        "67125590",
+        "67126590",
+        "671298d0",
+        "6712b110",
+        "67178a86"
+      ]
+    },
+    {
+      "requested_address": "67121de0",
+      "entry": "67121de0",
+      "name": "invokeMethod",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: static bool __cdecl QMetaObject::invokeMethod(class QObject * __ptr64,char const *\r\n   __ptr64,enum Qt::ConnectionType,class QGenericReturnArgument,class QGenericArgument,class\r\n   QGenericArgument,class QGenericArgument,class QGenericArgument,class QGenericArgument,class\r\n   QGenericArgument,class QGenericArgument,class QGenericArgument,class QGenericArgument,class\r\n   QGenericArgument) */\r\n\r\nbool __cdecl\r\nQMetaObject::invokeMethod\r\n          (undefined8 *param_1,char *param_2,undefined4 param_3,undefined8 *param_4,\r\n          undefined8 *param_5,undefined8 *param_6,undefined8 *param_7,undefined8 *param_8,\r\n          undefined8 *param_9,undefined8 *param_10,undefined8 *param_11,undefined8 *param_12,\r\n          undefined8 *param_13,undefined8 *param_14)\r\n\r\n{\r\n  char cVar1;\r\n  QMetaObject *pQVar2;\r\n  bool bVar3;\r\n  QMetaObject *pQVar4;\r\n  undefined8 *puVar5;\r\n  int *piVar6;\r\n  int iVar7;\r\n  ulonglong uVar8;\r\n  longlong lVar9;\r\n  longlong lVar10;\r\n  int iVar11;\r\n  char *pcVar12;\r\n  char *pcVar13;\r\n  int iVar14;\r\n  int local_res8 [2];\r\n  undefined8 local_3a8;\r\n  int iStack_3a0;\r\n  undefined4 uStack_39c;\r\n  int local_398;\r\n  int local_394 [3];\r\n  undefined4 local_388;\r\n  undefined4 uStack_384;\r\n  int iStack_380;\r\n  undefined4 uStack_37c;\r\n  undefined8 local_378 [12];\r\n  undefined8 local_318;\r\n  undefined8 local_310;\r\n  undefined8 local_308;\r\n  undefined8 local_300;\r\n  undefined8 local_2f8;\r\n  undefined8 local_2f0;\r\n  undefined8 local_2e8;\r\n  undefined8 local_2e0;\r\n  undefined8 local_2d8;\r\n  undefined8 local_2d0;\r\n  undefined8 local_2c8;\r\n  undefined8 local_2c0;\r\n  undefined8 local_2b8;\r\n  undefined8 local_2b0;\r\n  undefined8 local_2a8;\r\n  undefined8 local_2a0;\r\n  undefined8 local_298;\r\n  undefined8 local_290;\r\n  undefined8 local_288;\r\n  undefined8 local_280;\r\n  undefined8 local_278;\r\n  undefined8 local_270;\r\n  undefined8 local_268;\r\n  int local_258;\r\n  int local_254;\r\n  char *local_250;\r\n  char local_248 [528];\r\n  \r\n                    /* 0x121de0  2686\r\n                       ?invokeMethod@QMetaObject@@SA_NPEAVQObject@@PEBDW4ConnectionType@Qt@@VQGenericReturnArgument@@VQGenericArgument@@444444444@Z\r\n                        */\r\n  local_268 \u003d 0xfffffffffffffffe;\r\n  if (param_1 \u003d\u003d (undefined8 *)0x0) {\r\n    return false;\r\n  }\r\n  local_254 \u003d 0;\r\n  local_250 \u003d local_248;\r\n  local_258 \u003d 0x200;\r\n  if (param_2 \u003d\u003d (char *)0x0) {\r\n    return false;\r\n  }\r\n  uVar8 \u003d 0xffffffffffffffff;\r\n  pcVar12 \u003d param_2;\r\n  do {\r\n    if (uVar8 \u003d\u003d 0) break;\r\n    uVar8 \u003d uVar8 - 1;\r\n    cVar1 \u003d *pcVar12;\r\n    pcVar12 \u003d pcVar12 + 1;\r\n  } while (cVar1 !\u003d \u0027\\0\u0027);\r\n  iVar14 \u003d (int)(~uVar8 - 1);\r\n  if (iVar14 \u003c 1) {\r\n    return false;\r\n  }\r\n  local_res8[0] \u003d iVar14;\r\n  if (0x1ff \u003c iVar14) {\r\n    local_394[1] \u003d 0;\r\n    piVar6 \u003d local_res8;\r\n    if (iVar14 \u003c 1) {\r\n      piVar6 \u003d local_394 + 1;\r\n    }\r\n    FUN_67004b30(\u0026local_258,0,*piVar6);\r\n  }\r\n  qMemCopy(local_250 + local_254,param_2,(longlong)iVar14);\r\n  local_254 \u003d iVar14;\r\n  if (iVar14 \u003d\u003d local_258) {\r\n    FUN_67004b30(\u0026local_258,~uVar8 - 1 \u0026 0xffffffff,iVar14 * 2);\r\n  }\r\n  lVar9 \u003d (longlong)local_254;\r\n  local_254 \u003d local_254 + 1;\r\n  local_250[lVar9] \u003d \u0027(\u0027;\r\n  local_378[0] \u003d param_4[1];\r\n  local_378[1] \u003d param_5[1];\r\n  local_378[2] \u003d param_6[1];\r\n  local_378[3] \u003d param_7[1];\r\n  local_378[4] \u003d param_8[1];\r\n  local_378[5] \u003d param_9[1];\r\n  local_378[6] \u003d param_10[1];\r\n  local_378[7] \u003d param_11[1];\r\n  local_378[8] \u003d param_12[1];\r\n  local_378[9] \u003d param_13[1];\r\n  local_378[10] \u003d param_14[1];\r\n  iVar14 \u003d 1;\r\n  lVar9 \u003d 1;\r\n  do {\r\n    pcVar12 \u003d (char *)local_378[lVar9];\r\n    if (pcVar12 \u003d\u003d (char *)0x0) break;\r\n    lVar10 \u003d -1;\r\n    pcVar13 \u003d pcVar12;\r\n    do {\r\n      if (lVar10 \u003d\u003d 0) break;\r\n      lVar10 \u003d lVar10 + -1;\r\n      cVar1 \u003d *pcVar13;\r\n      pcVar13 \u003d pcVar13 + 1;\r\n    } while (cVar1 !\u003d \u0027\\0\u0027);\r\n    iVar7 \u003d ~(uint)lVar10 - 1;\r\n    if (iVar7 \u003c 1) break;\r\n    iVar11 \u003d local_254 + iVar7;\r\n    local_394[0] \u003d iVar11;\r\n    if (local_258 \u003c\u003d iVar11) {\r\n      local_398 \u003d local_254 * 2;\r\n      piVar6 \u003d local_394;\r\n      if (iVar11 \u003c\u003d local_254 * 2) {\r\n        piVar6 \u003d \u0026local_398;\r\n      }\r\n      FUN_67004b30(\u0026local_258,local_254,*piVar6);\r\n    }\r\n    qMemCopy(local_250 + local_254,pcVar12,(longlong)iVar7);\r\n    local_254 \u003d iVar11;\r\n    if (iVar11 \u003d\u003d local_258) {\r\n      FUN_67004b30(\u0026local_258,iVar11,iVar11 * 2);\r\n    }\r\n    lVar10 \u003d (longlong)local_254;\r\n    local_254 \u003d local_254 + 1;\r\n    local_250[lVar10] \u003d \u0027,\u0027;\r\n    iVar14 \u003d iVar14 + 1;\r\n    lVar9 \u003d lVar9 + 1;\r\n  } while (lVar9 \u003c 0xb);\r\n  if (iVar14 \u003d\u003d 1) {\r\n    if (local_254 \u003d\u003d local_258) {\r\n      FUN_67004b30(\u0026local_258,local_254,local_254 * 2);\r\n    }\r\n    lVar9 \u003d (longlong)local_254;\r\n    local_254 \u003d local_254 + 1;\r\n    local_250[lVar9] \u003d \u0027)\u0027;\r\n  }\r\n  else {\r\n    local_250[(longlong)local_254 + -1] \u003d \u0027)\u0027;\r\n  }\r\n  if (local_254 \u003d\u003d local_258) {\r\n    FUN_67004b30(\u0026local_258,local_254,local_254 * 2);\r\n  }\r\n  lVar9 \u003d (longlong)local_254;\r\n  local_254 \u003d local_254 + 1;\r\n  local_250[lVar9] \u003d \u0027\\0\u0027;\r\n  pQVar4 \u003d (QMetaObject *)(**(code **)*param_1)(param_1);\r\n  iVar14 \u003d indexOfMethod(pQVar4,local_250);\r\n  if (iVar14 \u003c 0) {\r\n    normalizedSignature((char *)\u0026local_3a8);\r\n    pcVar12 \u003d *(char **)(local_3a8 + 4);\r\n    pQVar4 \u003d (QMetaObject *)(**(code **)*param_1)(param_1);\r\n    iVar14 \u003d indexOfMethod(pQVar4,pcVar12);\r\n    LOCK();\r\n    iVar7 \u003d *local_3a8;\r\n    *local_3a8 \u003d *local_3a8 + -1;\r\n    UNLOCK();\r\n    if (iVar7 \u003d\u003d 1) {\r\n      qFree(local_3a8);\r\n    }\r\n    if (iVar14 \u003c 0) goto LAB_671224c2;\r\n  }\r\n  puVar5 \u003d (undefined8 *)(**(code **)*param_1)(param_1);\r\n  iVar7 \u003d *(int *)(puVar5[2] + 0x10);\r\n  for (puVar5 \u003d (undefined8 *)*puVar5; puVar5 !\u003d (undefined8 *)0x0; puVar5 \u003d (undefined8 *)*puVar5)\r\n  {\r\n    iVar7 \u003d iVar7 + *(int *)(puVar5[2] + 0x10);\r\n  }\r\n  if (iVar14 \u003c iVar7) {\r\n    piVar6 \u003d (int *)(**(code **)*param_1)(param_1);\r\n    iVar7 \u003d 0;\r\n    pQVar4 \u003d *(QMetaObject **)piVar6;\r\n    for (pQVar2 \u003d pQVar4; pQVar2 !\u003d (QMetaObject *)0x0; pQVar2 \u003d *(QMetaObject **)pQVar2) {\r\n      iVar7 \u003d iVar7 + *(int *)(*(longlong *)(pQVar2 + 0x10) + 0x10);\r\n    }\r\n    iVar14 \u003d iVar14 - iVar7;\r\n    if ((iVar14 \u003c 0) \u0026\u0026 (pQVar4 !\u003d (QMetaObject *)0x0)) {\r\n      method(pQVar4,(int)\u0026local_388);\r\n    }\r\n    else {\r\n      local_3a8 \u003d (int *)0x0;\r\n      iStack_3a0 \u003d 0;\r\n      if ((-1 \u003c iVar14) \u0026\u0026 (iVar14 \u003c *(int *)(*(longlong *)(piVar6 + 4) + 0x10))) {\r\n        iStack_3a0 \u003d iVar14 * 5 + *(int *)(*(longlong *)(piVar6 + 4) + 0x14);\r\n        local_3a8 \u003d piVar6;\r\n      }\r\n      local_388 \u003d (undefined4)local_3a8;\r\n      uStack_384 \u003d local_3a8._4_4_;\r\n      iStack_380 \u003d iStack_3a0;\r\n      uStack_37c \u003d uStack_39c;\r\n    }\r\n    local_278 \u003d *param_14;\r\n    local_270 \u003d param_14[1];\r\n    local_2a8 \u003d *param_13;\r\n    local_2a0 \u003d param_13[1];\r\n    local_2e8 \u003d *param_12;\r\n    local_2e0 \u003d param_12[1];\r\n    local_318 \u003d *param_11;\r\n    local_310 \u003d param_11[1];\r\n    local_2c8 \u003d *param_10;\r\n    local_2c0 \u003d param_10[1];\r\n    local_288 \u003d *param_9;\r\n    local_280 \u003d param_9[1];\r\n    local_308 \u003d *param_8;\r\n    local_300 \u003d param_8[1];\r\n    local_2f8 \u003d *param_7;\r\n    local_2f0 \u003d param_7[1];\r\n    local_2d8 \u003d *param_6;\r\n    local_2d0 \u003d param_6[1];\r\n    local_2b8 \u003d *param_5;\r\n    local_2b0 \u003d param_5[1];\r\n    local_298 \u003d *param_4;\r\n    local_290 \u003d param_4[1];\r\n    bVar3 \u003d QMetaMethod::invoke((QMetaMethod *)\u0026local_388,param_1,param_3,\u0026local_298,\u0026local_2b8,\r\n                                \u0026local_2d8,\u0026local_2f8,\u0026local_308,\u0026local_288,\u0026local_2c8,\u0026local_318,\r\n                                \u0026local_2e8,\u0026local_2a8,\u0026local_278);\r\n    if (local_250 !\u003d local_248) {\r\n      qFree(local_250);\r\n      return bVar3;\r\n    }\r\n    return bVar3;\r\n  }\r\nLAB_671224c2:\r\n  pcVar12 \u003d local_250;\r\n  lVar9 \u003d (**(code **)*param_1)(param_1);\r\n  qWarning(\"QMetaObject::invokeMethod: No such method %s::%s\",*(undefined8 *)(lVar9 + 8),pcVar12);\r\n  if (local_250 !\u003d local_248) {\r\n    qFree(local_250);\r\n  }\r\n  return false;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a86ec",
+          "type": "DATA"
+        },
+        {
+          "from": "67305314",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "672938c0",
+          "type": "DATA"
+        },
+        {
+          "from": "670a85bf",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670a83f0"
+        },
+        {
+          "from": "670a9265",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670a8f70"
+        },
+        {
+          "from": "6710cc8a",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6710cac0"
+        },
+        {
+          "from": "671150de",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67114ed0"
+        },
+        {
+          "from": "67115302",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67115100"
+        },
+        {
+          "from": "67134666",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671344c0"
+        },
+        {
+          "from": "67135005",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67134d90"
+        },
+        {
+          "from": "67148236",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67148090"
+        },
+        {
+          "from": "67151852",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671515f0"
+        },
+        {
+          "from": "6715bdc2",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6715bb80"
+        },
+        {
+          "from": "6715c4c8",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6715c110"
+        },
+        {
+          "from": "671745ee",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67174420"
+        },
+        {
+          "from": "6712ceb0",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6712caf0"
+        }
+      ],
+      "known_callees": [
+        "67004b30",
+        "6701c050",
+        "6701cee0",
+        "670203b0",
+        "6711e410",
+        "6711ff60",
+        "671201d0",
+        "671211e0"
+      ]
+    }
+  ]
+}

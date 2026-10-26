@@ -1,0 +1,86 @@
+address	role	status	file
+14005f770	accessor (spec section 10)	ported	src/ops/express.cpp
+14005f820	accessor (spec section 10)	ported	src/ops/express.cpp
+1408d47a0	SimCtrl step defaults (engine)	ported (partial)	only the fields BL reads: initSimCtrlVals (src/ops/express.cpp)
+141412c90	SfOprFormingExpress2D +0x280 writer (same as 3D)	ported	src/ops/express.cpp
+141412f90	FE ctor	ported (partial)	ctor chain: object fields in FormingExpressClass (src/ops/express.cpp)
+1414136b0	SfOprFormingExpress +0x280 writer (express or base)	ported	src/ops/express.cpp
+14141bb40	FE common ctor	ported (partial)	ctor chain: object fields in FormingExpressClass (src/ops/express.cpp)
+14141bbe0	FE ctor init +0x60..+0x98	ported	src/ops/express.cpp
+14141ce30	cast to SfOprFormingExpressProperties	ported	src/ops/express.cpp
+14141f2f0	FE express driver (blow/step loop)	ported	src/ops/express.cpp
+14141fc50	FE block BL	ported	src/ops/express.cpp
+1414216e0	FE block DW	ported	src/ops/express.cpp
+141422320	FE block TO	ported	src/ops/express.cpp
+141423130	FE object section / PDIE	ported	src/ops/express.cpp
+141423390	FE +0x298 sim list	ported (partial)	body ported by P14 (simcount.cpp); P15 override + simdata::fe* in src/ops/express.cpp
+141423d10	SIMNAM <op>-TO%1	ported	src/ops/express.cpp
+141423f20	SIMNAM <op>-BL%1	ported	src/ops/express.cpp
+141424130	SIMNAM <op>-DW%1	ported	src/ops/express.cpp
+14142bb30	FE data type in {3,4}	ported	src/ops/express.cpp
+14142bc40	FE D+0xa8 init strain flag	ported	src/ops/express.cpp
+14142bc90	FE D+0xc0 node temperature	ported	src/ops/express.cpp
+14142bce0	FE D+0xc8 (unused)	ported	src/ops/express.cpp
+14142bd00	FE D+0xd0	ported	src/ops/express.cpp
+14142bd50	FE D+0xd8	ported	src/ops/express.cpp
+14142bdb0	FE dt (units, D+0xf8)	ported	src/ops/express.cpp
+14142be70	FE dt for DW -> 14142bdb0	ported	src/ops/express.cpp
+14142be90	FE IHTC for DW (units, D+0x100)	ported	src/ops/express.cpp
+14142bf50	FE data express flag +0x110	ported	src/ops/express.cpp
+14142c080	FE nBlow D+0x120	ported	src/ops/express.cpp
+14142c110	FE nStep(b) D+0x128	ported	src/ops/express.cpp
+14142c210	FE stroke(b,s) D+0x150	ported	src/ops/express.cpp
+14142c3e0	FE list D+0x158 (result unused)	ported	src/ops/express.cpp
+14142c490	FE gap(b,s) D+0x160	ported	src/ops/express.cpp
+14142c5f0	FE drop(b,s) D+0x168	ported	src/ops/express.cpp
+14142c750	FE flip(b,s) D+0x170	ported	src/ops/express.cpp
+14142cb20	FE data -> Movement fields	ported	src/ops/express.cpp
+1405fb6a0	props base +0x70 fill sim-control (coordinator: P15)	ported	src/ops/express.cpp
+1405fb980	props base +0x80	ported	src/ops/express.cpp
+1405fbd10	props base +0x90	ported	src/ops/express.cpp
+1405fc060	props base +0xa0	ported	src/ops/express.cpp
+1405fc5d0	props base +0xb0	ported	src/ops/express.cpp
+1405fc890	props base friction	ported	src/ops/express.cpp
+1405fc8e0	props base IHTC	ported	src/ops/express.cpp
+1405fd4b0	SimCtrl +0x1e0 setter	ported	src/ops/express.cpp
+1408e0200	SimCtrl unit (+0xfc, no rescale on this path)	ported	src/ops/express.cpp
+1408609b0	Movement angle	ported	src/ops/express.cpp
+140c7a5b0	engine model ctor (no file read): engineFacts	ported	src/ops/express.cpp
+1405f6410	vt+0x1b0 lazy engine model: hasEngineModel	ported	src/ops/express.cpp
+14142fac0	FE data ctor	ported	src/ops/express_tree.cpp
+1414263f0	FE props ctor (D, tree)	ported	src/ops/express.cpp
+14141cf10	FE makeProps vt+0x98	ported	src/ops/express.cpp
+1414269a0	FE property templates (names/types)	ported	src/ops/express_tree.cpp
+141429cc0	FE default tree	ported	src/ops/express_tree.cpp
+14142a740	EquipmentType children	ported	src/ops/express_tree.cpp
+14142a950	EquipmentSpec children by type	ported	src/ops/express_tree.cpp
+14142d610	setNumHeats	ported	src/ops/express_tree.cpp
+14142e260	setNumBlows	ported	src/ops/express_tree.cpp
+1414645a0	qt_metacall slots (69): set* ported, get* not needed	ported	src/ops/express_tree.cpp
+1405fd4d0	op member ctor (vbase layout): not on the FE path, nothing to port	not needed	-
+140514c40	HT schedule first step	moved to P16	-
+1412c4c80	HT step user KEY	moved to P16	-
+14142ff20	cogging model Temperaure_Type	moved to P11	-
+1414126f0	SfOprFormingExpress2D vt+0x180 class init: key, dimFlags 0x15 (rest GUI)	ported	src/model/classinit.cpp
+141413000	SfOprFormingExpress vt+0x180 class init: key, dimFlags 0x16 (rest GUI)	ported	src/model/classinit.cpp
+141432bc0	field setter/getter (s1-05 5-9)	not on the FE MST path; owner to confirm	-
+1405f9eb0	base adder TestGroup NumSteps/StepIncr (new in ledger)	ported	src/ops/props_base.cpp
+1405fa560	base adder EnvTemp (new)	ported	src/ops/props_base.cpp
+1405faaa0	base adder ConvectionCoef (new)	ported	src/ops/props_base.cpp
+1405fb020	base adder StepBy/DistPerStep/TimePerStep (new)	ported	src/ops/props_base.cpp
+1405fad10	base adder FrictionType/FrictionCoef (new)	ported	src/ops/props_base.cpp
+1405fa7d0	base adder HeatTransCoef (new)	ported	src/ops/props_base.cpp
+1405fb450	StepBy mode swap (new)	ported	src/ops/props_base.cpp
+1405f84b0	base qt_metacall (new)	ported (dispatch by name)	src/ops/props_base.cpp
+1405f7b10	base slot dispatch, 24 methods (new)	ported (set* slots)	src/ops/props_base.cpp
+1405fd0e0	setNumSteps (new)	ported	src/ops/props_base.cpp
+1405f85c0	setStepIncr (new)	ported	src/ops/props_base.cpp
+1405fd180	setHeatingTime (new)	ported	src/ops/props_base.cpp
+1405f8660	setEnvTemp (new)	ported	src/ops/props_base.cpp
+1405f8730	setHeatTransCoef (new)	ported	src/ops/props_base.cpp
+1405f8800	setConvectionCoef (new)	ported	src/ops/props_base.cpp
+1405f8a70	setFrictionType (new)	ported	src/ops/props_base.cpp
+1405f8b10	setFrictionCoef (new)	ported	src/ops/props_base.cpp
+1405fb560	setStepBy (new)	ported	src/ops/props_base.cpp
+1405f88d0	setDistPerStep (new)	ported	src/ops/props_base.cpp
+1405f89a0	setTimePerStep (new)	ported	src/ops/props_base.cpp

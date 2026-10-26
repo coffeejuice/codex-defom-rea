@@ -1,0 +1,66 @@
+{
+  "scope": "Primary and secondary SfScene identities for post graph manager and Close cleanup; static constructor prefix only",
+  "created_utc": "2026-10-24T05:58:41.434623+00:00",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "method": "Retained PE/DUMPBIN only. No runtime, GUI, source changes or broad fresh capture.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-main-scene-setter-static.json",
+      "sha256": "8a938f6bb4fe7ce8f11cd3d03051a18ff44be35d7b4635d31b47a8731d6048df"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-primary-scene-allocation-candidate-static.json",
+      "sha256": "ebece09b37bf797a814660e5b56dcb1a46dfd89df19475d18f81b8eaefb4b0d2"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-primary-scene-creation-binding-static.json",
+      "sha256": "eecbf94c2d30243249efff05fe753055743d8cb1c0b6016ea2a6fa0a90e16b8d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-display-owner-constructor-static.json",
+      "sha256": "e1f9640c3911f043e19bd9525d09815033bdcf0b3c0cb121ef434cffc1fe83d8"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-dispatch-selection-contract.json",
+      "sha256": "5122710f4ea57f51a9cee73c738b7019e0fb500af8c0496a95d8ca0a3899bcb4"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    }
+  ],
+  "rtti": [
+    {
+      "vtable": "0x1429de188",
+      "complete_object_locator": "0x1430f1848",
+      "subobject_offset": 0,
+      "type_descriptor": "0x14395b8c8",
+      "type_name": ".?AVSfScene@@"
+    },
+    {
+      "vtable": "0x1429ddf78",
+      "complete_object_locator": "0x1430f19d8",
+      "subobject_offset": 16,
+      "type_descriptor": "0x14395b8c8",
+      "type_name": ".?AVSfScene@@"
+    }
+  ],
+  "observations": [
+    "ca5850 separately allocates two 0xcc0 SfScene objects through cca680(mainwindow,width,height). Primary is assigned to mainwindow guarded +120 via cbc920 at ca59d3; secondary to +128 at ca5b0e.",
+    "cca680 first calls QGraphicsScene(QObject*=null) through IAT141e07af8, then cf8b00 on this+10; installs the two SfScene vtables shown in the RTTI record at offsets0 and16. This binds the actual embedded SfGLDisplay projection.",
+    "cca680 stores constructor mainwindow argument at scene+be0 and calls ccae60; it continues with multiple constructor effects that this contract does not close.",
+    "ca5850 attaches primary scene to QGLWidget through cce690 and performs two QObject connections with raw enum3 before creating secondary scene. Enum spelling/timing is not asserted.",
+    "ca5850 writes secondary scene+1f8=false after guarded assignment, then calls mainwindow virtual+7b0; later notification registrations remain separate effects.",
+    "Mainwindow+778(c9bbd0) and+780(ca5bf0) retrieve guarded primary+120. Mainwindow+788(ca5c20) retrieves secondary+128. Primary selected-model lookup uses primary scene+10 Display.",
+    "c9bb80 is a refresh function, not a scene setter. c9c290 is a scene item query, not the allocator. Prior capture labels are retained immutable and are not behavioral names."
+  ],
+  "qualifications": [
+    "Each scene has its own embedded Display. Do not substitute the primary Display for secondary scene identity.",
+    "This does not establish an empty QGraphicsScene item population, full scene construction, later mutators, QObject lifetime equivalence or fresh run scene presence.",
+    "The bounded candidate search was mainwindow-region instruction-pattern discovery; it was not an exhaustive setter inventory.",
+    "PostGraphSceneState binds an actual supplied scene/Display identity only; production constructor/state population and Close cleanup remain guarded."
+  ]
+}

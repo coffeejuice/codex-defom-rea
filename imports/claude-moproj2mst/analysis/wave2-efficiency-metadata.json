@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-22T23-59-18-01a16720-b2bc-7720-b5e2-c7be786faaaa.jsonl",
+    "bytes_at_scan": 12987673,
+    "tail_mib": 8,
+    "start_offset": 4602350,
+    "end_offset": 12987673,
+    "window_sha256": "c4c35f2c8b6cf4fcca35647979bfd74caef1d844bb494f6d067fe71cf31eec7b"
+  },
+  "turns": [
+    {
+      "turn_id": "01a16864-0d47-7641-af13-4588258fca3d",
+      "started_at": "2026-10-23T10:52:29.916Z",
+      "completed_at": "2026-10-23T11:07:44.846Z",
+      "elapsed_seconds": 914.93,
+      "tool_active_union_seconds": 167.965,
+      "reasoning_item_union_seconds": 243.1,
+      "tool_reasoning_overlap_seconds": 52.385,
+      "compaction_seconds": 174.813,
+      "unattributed_seconds": 365.047,
+      "tool_items": {
+        "CommandExecution": 40,
+        "js": 12,
+        "FileChange": 2
+      },
+      "failed_tool_items": 9,
+      "truncated_command_outputs": 1,
+      "usage_delta": {
+        "input_tokens": 8753716,
+        "cached_input_tokens": 8650496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14413,
+        "reasoning_output_tokens": 4435,
+        "total_tokens": 8768129,
+        "uncached_input_tokens": 103220
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 102.765,
+          "item_id": "exec-2755a19f-3db1-4aa3-9eb1-3ef37495977f"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "js",
+          "seconds": 42.353,
+          "item_id": "exec-b2ad8275-d7cf-4ced-946e-0133203a088a"
+        },
+        {
+          "kind": "McpToolCall",
+          "name": "js",
+          "seconds": 14.393,
+          "item_id": "exec-9aea21f0-ecc6-4a55-968e-4fed4f4f5c6a"
+        },
+        {
+          "kind": "FileChange",
+          "name": "FileChange",
+          "seconds": 1.269,
+          "item_id": "exec-a7981856-1c52-4f55-906d-47b25c243b20"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.904,
+          "item_id": "exec-a37389c5-eb18-44b3-b9fc-3c0813bb00df"
+        }
+      ]
+    },
+    {
+      "turn_id": "01a1687a-f6ae-7e51-b9e9-9a819d101bbe",
+      "started_at": "2026-10-23T11:17:31.462Z",
+      "completed_at": "2026-10-23T11:17:40.531Z",
+      "elapsed_seconds": 9.069,
+      "tool_active_union_seconds": 0.0,
+      "reasoning_item_union_seconds": 3.432,
+      "tool_reasoning_overlap_seconds": 0.0,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 2.535,
+      "tool_items": {},
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 0,
+      "usage_delta": {
+        "input_tokens": 52929,
+        "cached_input_tokens": 52608,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 123,
+        "reasoning_output_tokens": 75,
+        "total_tokens": 53052,
+        "uncached_input_tokens": 321
+      },
+      "slowest_tool_items": []
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ]
+}

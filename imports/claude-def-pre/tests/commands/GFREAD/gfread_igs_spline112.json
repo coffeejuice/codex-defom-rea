@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES 112 parametric spline",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nSP112.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "SP112.IGS",
+      "source": "data/spline112.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "112 with N=2 is sampled at 8 steps per segment (17 points, 16 line segments) and closed by a 110 line: DIEGEO 1 2 17, first segment (0,0)-(0.125,0.1865234375)."
+  }
+}

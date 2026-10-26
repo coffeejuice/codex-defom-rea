@@ -1,0 +1,51 @@
+{
+  "scope": "Default QPixmap embedded in each cursor cache data record; constructor leaf closure only, no production change",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-splitter-cursor-cache-ownership.json",
+      "sha256": "1dd0e733412e206fb1e918762b8fbc83dc43ccee3f1a7725ba7149c17a8706f4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-cursor-default-pixmap-static.json",
+      "sha256": "03fd708ce731e638c4c41218b8ef3dbf70048bf30f996ca2f3b50d4aa907ecae"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-cursor-pixmap-leaves-static.json",
+      "sha256": "6bdf36f0ae5c10090b88ab83cb89304e0e21734c102a6ddd4f607ec02e13e096"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-cursor-pixmap-guard-tail-static.json",
+      "sha256": "8ea0c02522db20b6750c08a1352f9374e27200472d6ed4d56116a8e9c203a459"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-cursor-pixmap-affinity-tail-static.json",
+      "sha256": "39dbb501576505f9c651a8250762f59b65ea38dcbaf38a9d8837d2f0f3b737be"
+    }
+  ],
+  "qualified_normal_branch": {
+    "prerequisites": [
+      "QCoreApplication::instance nonnull",
+      "QObject::thread(application) == QThread::currentThread; otherwise separate backend-dependent warning branch",
+      "QtGui application type global659c9670 nonzero"
+    ],
+    "effect": [
+      "QPaintDevice65138140 writes its vtable and active-painter16bit field+8=0; no calls.",
+      "QPixmap650ce380 writes pixmap vtable656b5730 and data pointer+10=null.",
+      "Guard650cdf00 confirms app and thread; equal-thread returns true with no backend lookup or warning.",
+      "Constructor reads nonzero application type then sees its just-null data pointer, so no refcount release/virtual destructor. It returns the same object.",
+      "Consequently no raster/native pixmap allocation is required for these22 default embedded QPixmaps on this qualified branch; cursor data native cursor+38 remains null from surrounding ctor."
+    ]
+  },
+  "other_branches": [
+    "Absent application calls qFatal before returning false in650cdf00.",
+    "Foreign-thread path compares application backend string659c9748 against literal656b5678; when selected, emits qWarning and returns false. Caller does not branch on guard result.",
+    "Application type0 emits another qWarning; do not erase diagnostic behavior by assuming null pixmap construction is always inert."
+  ],
+  "remaining": [
+    "This does not establish actual cursor cache initialized flag/refcounts at the captured constructor point. Existing probe did not capture cache population.",
+    "Use shared Qt runtime lifetime, not per-SplitView cache. Actual QWidget::setCursor then reaches platform pointer cache and raw0xb7 event, still separately qualified.",
+    "Native QThread pointer equality prerequisite is stated explicitly; observed shared threadData supports context but this receipt does not invent a direct currentThread pointer capture.",
+    "Full constructor spans split guard unwind regions; allthree650cdf00..650cdf8b captured."
+  ],
+  "next": "Retain first-use cache constructor closure; select cursor platform setter cache dependency only when handle construction becomes reachable. Current parent/focus/value successor remains priority."
+}

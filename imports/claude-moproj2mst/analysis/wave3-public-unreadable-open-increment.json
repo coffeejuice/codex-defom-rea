@@ -1,0 +1,37 @@
+{
+  "schema": "m2m-public-unreadable-open-increment-v1",
+  "status": "source awaiting coordinator validation",
+  "objective_complete": false,
+  "evidence": [
+    "analysis/wave2-doe-model-manager-actual-open-contract.json",
+    "analysis/wave2-doe-output-default-task-open-and-manager-dtor-decompile.json",
+    "analysis/wave3-open-accepted-result-increment.json",
+    "analysis/wave3-remesh-open-lifetime-contract.json",
+    "evidence/gui_mo/s1/s1-01/dc/open0.c"
+  ],
+  "source_contract": [
+    "Native01ca30 native-suffix branch changes the DB suffix, checks existing model identity, constructs/registers the actual model, obtains its actual Project, then calls08a9b0 using the supplied path. No extra readability preflight occurs on this recovered branch.",
+    "08a9b0 recognized moproj suffix records reader success in openedOk, but performs current-directory/remesh tail and returns accepted=true even when the read fails.",
+    "The already selected path can become absent/sharing-denied after dialog selection. File-dialog validation is outside the m2m supplied-path adapter boundary; it is not an extra original read between model creation and Project read.",
+    "Existing full Save later rejects openedOk=false before its write sequence. Earlier remesh refusal takes precedence when that dependency is reached first."
+  ],
+  "implementation": [
+    "M2M_FLAG_WRITE_SAVE bypasses the adapter-only checkReadable. Legacy MST/MDT conversion profiles retain M2M_E_OPEN read-preflight behavior.",
+    "Existing full lifecycle actual model/read/current-selection pipeline is reused; no alternate parser or synthetic state callback is added.",
+    "The C ABI signature/version remain unchanged. The supported full-lifecycle status refinement is documented: E_PARSE at later rejected Save, or the earlier source-bound unsupported Open boundary.",
+    "guiViews construction before saveCurrent was reviewed: it stores only the Project reference; camera/state serialization is deferred to virtual use. It does not justify a speculative reordering fix."
+  ],
+  "validation": [
+    "Actual DLL wide entry: absent selected moproj with valid remesh reaches E_PARSE, preserves remesh file, creates no project/MST, and retains adapter cwd restoration.",
+    "Absent selected moproj with unsupported remesh data reaches that Open reader refusal instead of masking it with E_OPEN; legacy flags still return E_OPEN.",
+    "Real sharing-denied project handle: original reader result reaches later Save rejection while legacy profile keeps preflight behavior.",
+    "Actual DLL UTF8 entry: rejected suffix returns E_PARSE before malformed remesh tail.",
+    "Full regression plus unchanged raw diagnostics and fixture hashes required."
+  ],
+  "qualifications": [
+    "Normal Close cleanup, native feature-cache/refresh/dialog effects, and full original failed-Open equivalence remain separately queued.",
+    "E_PARSE/E_UNSUPPORTED are compatibility-adapter statuses, not invented GUI return codes.",
+    "No fresh original runtime comparison in this increment."
+  ],
+  "next": "Continue actual accepted/rejected Open failure cleanup and Close ownership, native filesystem copy behavior, and shared layout/editor completion."
+}

@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES with LF-only line ends",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nBLF.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "BLF.IGS",
+      "text": "DESIGNCAD DRAWING                                                       S      1\nC:\\DCAD\\BILLET.DW2                                                      S      2\n,,9HDESIGNCAD,18HC:\\DCAD\\BILLET.DW2,                                    G      1\n4HASBC,1H3,16,8,24,8,56,1H ,1.0,1,4HINCH,1,1.0,13H940906.131704         G      2\n0.00001,1.0E5,1H ,1H ;                                                  G      3\n     110       1       1       1       1                        000000  D      1\n     110       0       4       2                                        D      2\n     110       2       1       1       1                        000000  D      3\n     110       0       4       2                                        D      4\n     110       3       1       1       1                        000000  D      5\n     110       0       4       2                                        D      6\n     110       4       1       1       1                        000000  D      7\n     110       0       4       2                                        D      8\n110,0.0,0.0,0.0,0.0,2.25,0.0;                                          1P      1\n110,0.0,2.25,0.0,1.0,2.25,0.0;                                         3P      2\n110,1.0,2.25,0.0,1.0,0.0,0.0;                                          5P      3\n110,1.0,0.0,0.0,0.0,0.0,0.0;                                           7P      4\nS      2G      3D      8P      4                                        T      1\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "BILLET.IGS with LF line ends: expected the same DIEGEO block as gfread_2d_igs if the Fortran reader accepts LF records."
+  }
+}

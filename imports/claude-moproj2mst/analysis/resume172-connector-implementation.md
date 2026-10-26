@@ -1,0 +1,18 @@
+# CP172 connector implementation record
+
+Implemented the bounded QtCore QVector shared-null address binding cut `[0x1311c7,0x1311d2)`. The root `WidgetRuntimeState` owns a qualified `QVectorSharedNullState` (QtCore SHA-256 `bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160`, RVA `0x2f0bb8`, unknown absolute count, zero symbolic delta). The retained QObjectPrivate model stores a weak `+0x68` binding and a separate false increment-committed marker. The factory validates the existing retained Report/private frame, actual allocation-store/root pairing, QList/QString bindings and committed markers, four observed zero fields, QVector qualification and empty binding before making only that binding and cursor change. It then stops at a distinct phase/diagnostic for RVA `0x1311d2`.
+
+Focused tests cover positive ConversionSession-root binding, repeated-call refusal without increment/cache/backlink/completion effects, malformed QVector qualification refusal, and a CP172 prebinding refusal matrix. The matrix snapshots identities, allocation sizes/address points, phase, all zero fields, QList/QString/QVector bindings and commit markers, symbol deltas/observed counts, completion/backlink flags, cache sizes, and retained allocation counts. It injects premature binding/commit, predecessor corruption, private identity/address/size faults, missing, foreign, and aliasing-foreign list/string bindings, completion/backlink faults, wrong phase/address-written markers/kind, expired root ownership, and malformed symbol qualification. The one-valued `Kind` enum has no valid non-Report variant; a cast invalid value exercises the guard. The wrong-phase case asserts the earlier CP169 guard diagnostic because that phase reaches the private+0x58 guard first. A foreign factory root is rejected before the CP172 phase by existing owner tests; no public mutation hook exists for replacing the interned root QVector object, so its malformed qualification is exercised through the explicit optional fixture field. A narrow optional qualification RVA fixture field enables the malformed record case; production constructors leave it unset, preserving the compile-time RVA and immutable getter. The factory guard validates that fixture qualification when present, and confirms any existing private binding is identical to the root record.
+
+No build, test execution, checkpoint/freeze, GUI control, live REA, or shared recovery state mutation was performed. Static `git diff --check` passes; compilation and test outcomes remain unverified. Earlier seam fixtures clear QVector binding and marker when reconstructing predecessor phases. Current-stop assertions use `0x1311d2`; intentional first-call `0x1311c7` assertions remain for tests that explicitly reconstruct earlier CP seams. CP171's predecessor acceptance gates were still not established; this change is conditional source work only. The gradient helper is not reconciled with this root symbol because the evidence does not establish shared process interning. No absolute QVector count or atomic increment is modeled.
+
+`git diff --check -- source/apps/moproj2mst` completed without reported whitespace errors.
+
+## SHA-256 (implementation files)
+
+| File | SHA-256 |
+|---|---|
+| `source/apps/moproj2mst/include/m2m/engine/view_manager.hpp` | `db71dd022911a4214768a93f742a17cf4bda1237c87401b3d999df8e57354a3e` |
+| `source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp` | `31a1c9c52418a6ea775b2d5822feb13be170c3e54e98a632698b72c80a0b28b1` |
+| `source/apps/moproj2mst/src/doe/task_factory.cpp` | `92245bc591766eb68b748cc636dcc2bba96672a3bd93b183d3ee3aff9f70086a` |
+| `source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp` | `025bfd98911a7b2b9f662d46805c5c02de54ee8574e2df3113d4dce4b1d49df8` |

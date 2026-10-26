@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD 2D GEO with 99 topology",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nIN.GEO\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "IN.GEO",
+      "source": "data/geo2d_topo.geo"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Two curves (bc 5, 6) then '99': FUN_140249700 reads the TPLOGY-format topology (comment line, counts line, vertex/edge/loop/face records). DIEGEO 1 1 4 and TPLOGY 1 2 2 1 1 written from the file's topology."
+  }
+}

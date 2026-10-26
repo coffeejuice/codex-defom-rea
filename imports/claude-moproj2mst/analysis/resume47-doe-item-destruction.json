@@ -1,0 +1,341 @@
+{
+  "schema": "resume47-doe-item-destruction-v1",
+  "utc": "2026-10-24T17:47:04.976544+00:00",
+  "owner": "test_runner_audit / doe_active",
+  "status": "Bounded destructor traversal and ownership distinctions source-qualified; final global item owner remains unestablished.",
+  "purpose": "Determine whether Task input-list clear/destruction deletes parentless input items, and bind the actual item deleting destructor without crossing native Report guard.",
+  "scope": "Analysis-only successor. No source edits, builds, tests executing binaries, app-control activity, original app launches or mutable REA operations.",
+  "target": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "product": "Original DEF_GUI_MO_64 v11.0.2"
+  },
+  "source_qualifications": [
+    "Immutable original PE bytes selected with offline DUMPBIN. No original runtime observation; no equality claim for reconstructed behavior.",
+    "PE unwind regions bound selections, not complete logical-method definitions in general. Leaf slices include neighboring alignment/methods: only leaf1414123f0 through1414123f5 and1414116e0 through1414116f4 are used. The1414dfc68 slice is used only for its initial tail jump.",
+    "Only specific vtable slots are identified from raw qword reads. No table length is inferred from neighboring executable-looking values.",
+    "RIP/call byte-pattern scans are candidate inventories and cannot prove absence of indirect/dynamic/reflection calls. Three returned candidates are individually supported by selected disassembly. No global no-delete or memory-leak conclusion follows."
+  ],
+  "evidence_sha256": {
+    "analysis/resume47-doe-item-1414034f0.asm": "e47ea1522951a76c13080006b4f89a19afa8a500e49587a9d1e96d7cf32f61aa",
+    "analysis/resume47-doe-item-141412510.asm": "db23a657c9d0801ecc2adadac523b174d028718adf4528f49fa3dc359ae7d99a",
+    "analysis/resume47-doe-item-141412360.asm": "1020d7f2bd22e5580ff3d21124e0a5f1c3cfed50837b6ede971a7cf7628616a1",
+    "analysis/resume47-doe-item-14140c780.asm": "61277ee2237be1b02abae34dc908ad42fcb2495cfb4234b68b33012af65cad6f",
+    "analysis/resume47-doe-item-1414123f0.asm": "3e19c29fcef393c36df53e2196d5874d54039dc5c6764665cece138fd4f0fb1a",
+    "analysis/resume47-doe-item-1407bc4a0.asm": "03bc1ff3e3745ebc05f9d2536feb8e4663be6ad3e13ed1fbc3390532f43663d3",
+    "analysis/resume47-doe-item-1414dfc68.asm": "0ae7635d99b2b10a8bf23a34b7e0d3cd2796097d314b3024130a537840586e6a",
+    "analysis/resume47-doe-item-1407bb7e0.asm": "4067cfa4186db0c66a27138d95c0d0e781648c76c33b048b6f2f320555566af4",
+    "analysis/resume47-doe-item-1414116e0.asm": "c74f33c81a8c4cb7fc89375218414790952f067bb681e0cd52b24244bc84f60b",
+    "analysis/resume47-doe-item-141471b7c.asm": "6fdb3d9de43cb404e7e28e03e1584ecca1715f5165245192c12b03f5771c7ce0",
+    "analysis/resume46-doe-input-items.json": "27d68d10814a93b4e935c35e521336d82352095d055387821c8f4a7202e5e1cf",
+    "analysis/resume46-doe-input-1402081a0.asm": "b495aa3cff18fd36704c25e47abcd5bb0a6a5e828cfaf126fadfce925517fa22",
+    "analysis/resume46-doe-input-140025650.asm": "6ec16e1153835edf77907f998aa81db5e6baaec5e35797967fb1e6d9268c7cd3",
+    "analysis/resume46-doe-input-140025840.asm": "d3e77ca4aa39a61fcef3ef7ea941ea492115733d45d95e3f831599fb8b9a73ba",
+    "analysis/resume46-doe-input-1414122f0.asm": "67d4af25e5ac9a40c21b094751cf6719f0c39ff112265f535f62b44089f300f6",
+    "analysis/resume46-doe-input-1414124e0.asm": "a54dd0ad038557745cd0ea4edf5b05588375b2cc55dd32a88d0817878670c742",
+    "analysis/resume46-doe-input-141412460.asm": "f1548f3d84b0cbb8be0a40d472e7d032697323ecff5e61a32cc1ce04e2fdb20c",
+    "analysis/wave2-doe-task-prototype-task-base-dtor.asm": "7625a70da67edb29e38b2c05f3ee9bf4269e1e74bcefb70494bc5596142f8128",
+    "analysis/wave2-doe-task-prototype-report-base-dtor.asm": "f913dfd7683151350aefa98e477ab23c2f2e6a8e48783bd24eec1d47eb745c21",
+    "analysis/wave2-doe-task-prototype-report-base-dtor-leaf.asm": "b1ceac91372e039d2df1c322664d1fa3d4312727aadce594710f29a55b150c52",
+    "analysis/wave2-doe-task-prototype-report-dtor.asm": "17be507c1ca1e072079e4b73516015c00e24f223e8c16fb5929caf402c486ac0",
+    "analysis/wave2-doe-task-prototype-report-child-constructor.asm": "bbea93f503daa0c8246dc4db9700cc71e7e0b0e2eee0170418d6767e3ed1880f",
+    "analysis/wave2-doe-task-prototype-report-child-backlink.asm": "39149a7e83810c0594a505ba74bfd32e4768f4f36ea17c1c89e68bf2b9e74c76",
+    "analysis/wave2-doe-active-task-defaults-stepdata-decompile.json": "c053c48c87d61f0660968e1e54dbb51f126c660bf8cd76d5364def3b9fef4e08",
+    "analysis/wave2-doe-task-public-qobject-ownership-contract.json": "81e05b0f2aee8014da834c2a3db46df6eea09a6a01e6744498e4ee3d9afd9a32"
+  },
+  "capture_receipt": {
+    "tool": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/dumpbin.exe",
+    "tool_sha256": "12a1cd87238bd66dfdb788b4fcdcb91ce4b3f81236aab12a7a29e5ae1d85af50",
+    "mode": "/disasm:bytes /range:BEGIN,END evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "ranges": [
+      {
+        "begin": "0x1414034f0",
+        "end_inclusive": "0x1414036d0",
+        "unwind": {
+          "begin": "0x1414034f0",
+          "end_exclusive": "0x1414036d1",
+          "unwind_info": "0x14346305c",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-1414034f0.asm"
+      },
+      {
+        "begin": "0x141412510",
+        "end_inclusive": "0x141412545",
+        "unwind": {
+          "begin": "0x141412510",
+          "end_exclusive": "0x141412546",
+          "unwind_info": "0x14315fad0",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-141412510.asm"
+      },
+      {
+        "begin": "0x141412360",
+        "end_inclusive": "0x1414123bb",
+        "unwind": {
+          "begin": "0x141412360",
+          "end_exclusive": "0x1414123bc",
+          "unwind_info": "0x143468248",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-141412360.asm"
+      },
+      {
+        "begin": "0x14140c780",
+        "end_inclusive": "0x14140c808",
+        "unwind": {
+          "begin": "0x14140c780",
+          "end_exclusive": "0x14140c809",
+          "unwind_info": "0x143465004",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-14140c780.asm"
+      },
+      {
+        "begin": "0x1414123f0",
+        "end_inclusive": "0x1414123ff",
+        "unwind": null,
+        "path": "analysis/resume47-doe-item-1414123f0.asm"
+      },
+      {
+        "begin": "0x1407bc4a0",
+        "end_inclusive": "0x1407bc4d5",
+        "unwind": {
+          "begin": "0x1407bc4a0",
+          "end_exclusive": "0x1407bc4d6",
+          "unwind_info": "0x14315fad0",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-1407bc4a0.asm"
+      },
+      {
+        "begin": "0x1414dfc68",
+        "end_inclusive": "0x1414dfc77",
+        "unwind": null,
+        "path": "analysis/resume47-doe-item-1414dfc68.asm"
+      },
+      {
+        "begin": "0x1407bb7e0",
+        "end_inclusive": "0x1407bb806",
+        "unwind": {
+          "begin": "0x1407bb7e0",
+          "end_exclusive": "0x1407bb807",
+          "unwind_info": "0x143287a0c",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-1407bb7e0.asm"
+      },
+      {
+        "begin": "0x1414116e0",
+        "end_inclusive": "0x14141171f",
+        "unwind": null,
+        "path": "analysis/resume47-doe-item-1414116e0.asm"
+      },
+      {
+        "begin": "0x141471b7c",
+        "end_inclusive": "0x141471bb8",
+        "unwind": {
+          "begin": "0x141471b7c",
+          "end_exclusive": "0x141471bb9",
+          "unwind_info": "0x14347c0a4",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        },
+        "path": "analysis/resume47-doe-item-141471b7c.asm"
+      }
+    ],
+    "import_directory_selection": [
+      {
+        "iat": "0x141e042b0",
+        "dll": "QtCore4_64.dll",
+        "import": "??1QObject@@UEAA@XZ"
+      },
+      {
+        "iat": "0x141e059e0",
+        "dll": "QtCore4_64.dll",
+        "import": "??1QString@@QEAA@XZ"
+      },
+      {
+        "iat": "0x141e032f8",
+        "dll": "KERNEL32.dll",
+        "import": "HeapFree"
+      }
+    ],
+    "vtable_selections": [
+      {
+        "table": "0x142e9eee8",
+        "offset": "0x18",
+        "file_offset": 48879360,
+        "raw_qword_hex": "1025414101000000",
+        "target": "0x141412510",
+        "qualification": "Item constructor/destructor explicitly install this table; selected function is scalar deleting wrapper from its body."
+      },
+      {
+        "table": "0x1426cd3e0",
+        "offset": "0x0",
+        "file_offset": 40680416,
+        "raw_qword_hex": "a0c47b4001000000",
+        "target": "0x1407bc4a0",
+        "qualification": "Report child-factory constructor installs this table; Task cleanup invokes child virtual slot0 with EDX1."
+      }
+    ],
+    "candidate_scan": [
+      {
+        "candidate_site": "0x141412315",
+        "target": "0x142e9eee8",
+        "kind": "RIP-LEA/MOV-pattern",
+        "bytes": "488d05cccba801",
+        "unwind_region": {
+          "begin": "0x1414122f0",
+          "end_exclusive": "0x141412354",
+          "unwind_info": "0x1434681e0",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        }
+      },
+      {
+        "candidate_site": "0x141412377",
+        "target": "0x142e9eee8",
+        "kind": "RIP-LEA/MOV-pattern",
+        "bytes": "488d056acba801",
+        "unwind_region": {
+          "begin": "0x141412360",
+          "end_exclusive": "0x1414123bc",
+          "unwind_info": "0x143468248",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        }
+      },
+      {
+        "candidate_site": "0x141412522",
+        "target": "0x141412360",
+        "kind": "CALL/JMP-rel32-pattern",
+        "bytes": "e839feffff",
+        "unwind_region": {
+          "begin": "0x141412510",
+          "end_exclusive": "0x141412546",
+          "unwind_info": "0x14315fad0",
+          "qualification": "runtime unwind region, not proof of whole logical procedure"
+        }
+      }
+    ]
+  },
+  "task_destructor_traversal": [
+    {
+      "stage": "Report derived/base destructors",
+      "source": "1407b8a30 ->14157eb20 ->14157eb90",
+      "effect": "Reset respective vtables; base leaf calls14140c780 for operation/output list at Task+90, then common Task destructor141403300."
+    },
+    {
+      "stage": "Task cleanup",
+      "source": "141403300 ->1414034f0",
+      "effect": "Common vtable reset, then delete nonnull Task+10 through virtual0/EDX1 and clear+10; delete nonnull+18 and+38 through virtual18/EDX1 and clear fields; conditionally clear pointer list+80; delete nonnull+a0 through virtual18/EDX1; then call14140c780 on+90. There is no Task+78 input traversal in this selected cleanup body."
+    },
+    {
+      "stage": "Operation/output traversal is separate",
+      "source": "14140c780",
+      "effect": "Operates on Task+90, repeatedly obtains/removes entries through140c51720 and calls each nonnull element virtual0 with EDX1. It does not address Task+78. Actual element class deletion semantics require its own per-kind qualification."
+    },
+    {
+      "stage": "Input list Data release",
+      "source": "141403300 at141403367-14140336b",
+      "effect": "After+98,+90,+80 handle destructors, call1402081a0(Task+78). That helper decrements Data reference and, on zero, invokes140025650 ->140025840 (no-op pointer node destruction) ->qFree(Data). Item objects are not destroyed by this handle path."
+    },
+    {
+      "stage": "Remaining fields/base",
+      "source": "141403300 after14140336b",
+      "effect": "Destroy QString fields+70,+60,+58,+48,+40, TaskInfo wrapper+20 through14140e110, then imported QObject destructor. Exact TaskInfo and QObject destructor side effects beyond this ordering are not closed in this work unit."
+    }
+  ],
+  "actual_report_child_factory": {
+    "binding": "Qualified Report child ctor1407bb7a0 installs1426cd3e0, derives from1414116a0 and retains raw Task backlink+8 via141411700.",
+    "deletion_chain": "Task cleanup virtual0 ->1407bc4a0 ->1407bb7e0 ->1414116e0; child destructors only reset their own vtables, then deleting wrapper flag1 calls1414dfc68. They do not read child+8, visit Task+78 or destroy input items.",
+    "qualification": "Applies to this fixed Report child-factory class. Nonnull+18/+38/+a0 or other Task kinds must not inherit this conclusion without their actual destructor evidence."
+  },
+  "item_deleting_destructor": {
+    "dispatch": "Item vtable142e9eee8+18 contains141412510.",
+    "ordered_effects": [
+      {
+        "site": "141412522",
+        "effect": "Unconditionally call actual item destructor141412360 using same RCX identity."
+      },
+      {
+        "site": "141412377-14141237e",
+        "effect": "Item destructor resets vtable142e9eee8."
+      },
+      {
+        "site": "141412386",
+        "effect": "Call1414123f0, a no-op leaf ending1414123f5; no member writes/destruction."
+      },
+      {
+        "site": "141412395",
+        "effect": "Destroy QString at item+18 (filename) via imported QString::~QString."
+      },
+      {
+        "site": "1414123a5",
+        "effect": "Destroy QString at item+10 (description) via same import."
+      },
+      {
+        "site": "1414123b1",
+        "effect": "Invoke imported QObject::~QObject using same item identity, then return."
+      },
+      {
+        "site": "141412527-141412537",
+        "effect": "Deleting wrapper tests saved EDX bit0; only when set calls1414dfc68 with same pointer. Wrapper returns original pointer value afterward; this does not imply object is live."
+      }
+    ],
+    "deallocation": "1414dfc68 tails to141471b7c; nonnull pointer passed as R8 to imported KERNEL32 HeapFree with actual global heap handle0x144700810 and flags0. Failure invokes existing CRT errno translation, not a propagated item result.",
+    "qualification": "Native QObject weak-observer/thread/shared-ref/destructor callbacks and unwind/error states remain opaque. Flags other than bit0 are not assigned invented meaning. A deleting-destructor body does not establish that lifecycle code invokes it."
+  },
+  "bounded_ownership_result": {
+    "established": [
+      "Task+78 is a nonowning membership list for item pointers: both explicit clear and its normal handle destruction manage Data storage, not pointed QObject lifetimes.",
+      "Input item construction uses QObject(parent=null); description/filename setters only assign QStrings and preference append copies raw pointers. No parent adoption occurs in this qualified construction/append sequence.",
+      "The selected common Task cleanup contains no explicit input-list traversal, and its qualified Report child factory destructor does not supply one. A current list member or a previously cleared item must not be assigned automatic deletion merely because a Task list handle is gone.",
+      "Actual item deletion, when called, must preserve filename-before-description-before-QObject-before-conditional-heap-free order."
+    ],
+    "not_established": [
+      "An owning application-wide registry or later explicit removal path that eventually invokes item virtual18.",
+      "Whether other indirect cleanup receivers/Task kinds reparent or delete items; TaskInfo/QObject transitive callbacks are not globally inventoried here.",
+      "A whole-lifecycle leak, successful destruction observation, or final heap/Qt refcount state. Lack of direct candidate calls is not proof of no virtual delete."
+    ],
+    "implementation_requirement": "Keep allocation retention distinct from pointer memberships. Clearing or destroying the membership list must not run per-item unique_ptr destruction. Adapter-scope release may reclaim reconstruction allocations at its explicitly qualified fresh-process boundary, but cannot be labelled original native Task/item Close deletion."
+  },
+  "current_source_reconciliation": {
+    "source_sha256": {
+      "source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp": "3d59535b1771173dfdbdd2bef5ae6637867336544e3487a4d4b683dcab6274ae",
+      "source/apps/moproj2mst/src/doe/task_runtime.cpp": "ded750f5fb1fd47e279d33283842daeb0271a598c11083cc8eff7c1fa2306762",
+      "source/apps/moproj2mst/tests/mdt/test_doe_task_runtime.cpp": "237d20902b040d1b9ac793656a7b4436c1596103c8eaa90debddd6e8bec706b5",
+      "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "8374d5bdf40580b2337faf94f62b4f611a2e6ba3fa7d6b0bd3df3b82eadb8d61",
+      "source/apps/moproj2mst/src/doe/session_records.cpp": "8e8410f7fb4596bc62e752b02969208e51c9cfcfab402ba72727885bb3f50794",
+      "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "15e79e1253325b95c9a4ed696d8801ea08b1d9662b50ca6e68c335c720d397a5",
+      "source/apps/moproj2mst/include/m2m/doe_session.hpp": "583ea14ccc3160ce40437ac4d80a74cc14fcfa78aa2e40217de0dedd7c7a8f4c",
+      "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "30b18d2f565ab3f8870cc0f156c29abce880727148a5261e91dc0851e6faaaf8",
+      "source/apps/moproj2mst/src/doe/task_factory.cpp": "1994204fa2599f07dedae5256c3d3e6273e4b124ba163bc516f1e9338cd867c4",
+      "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "39a3a332f14cfc0c2a6b1db02aa5abc0c587bac84cf2fe8ec960b0e2828ed9d6",
+      "source/apps/moproj2mst/include/m2m/doe_io.hpp": "3207aaa840a4774ac2323fcef675363c08eeca75c8baec2e9b84a7bceff69192",
+      "source/apps/moproj2mst/src/doe/io.cpp": "4a9574161317572c651a3df0757138c3cceb8bb252a376d360c5bbbb77e63db2",
+      "source/apps/moproj2mst/include/m2m/doe_session_notifications.hpp": "be68879bf7756a67b229662d5d2397f16d89668c3accf277c7a97b442c5ad625",
+      "source/apps/moproj2mst/src/doe/session_notifications.cpp": "066eb200da45c48a0efc0a96c5093eaf5236946eab2abc929b0d89f07072c09d"
+    },
+    "source_differences_since_resume46_input_report": [],
+    "guard": "Native TaskFactoryRuntime retains the first Report descriptor and throws M2M_E_UNSUPPORTED before public QObject completion and TaskInfo. No native input items or preference state are instantiated.",
+    "adapter_cleanup": "TaskAllocationStore::releaseAdapterScope clears sessions/tasks/prototypes as reconstruction fresh-process cleanup. Its header/source explicitly disclaim native normal Close proof. SessionTask represents bounded parsed lists only; executionPreferencesRecovered remains false.",
+    "decision": "No source change; this report refines future ownership requirements without fabricating native construction, deletion or successful active-study behavior."
+  },
+  "validation": {
+    "result": "PASS",
+    "checks": [
+      "Selected item vtable slot18 equals141412510.",
+      "Selected Report child-factory slot0 equals1407bc4a0.",
+      "Task+78 handle destructor call retained; cleanup1414034f0 has no rcx+78 path.",
+      "Item QString18 precedes QString10 and QObject destructor.",
+      "Deleting-wrapper base destructor precedes bit0 deallocation check.",
+      "All retained evidence hashes computed; report JSON parsed."
+    ],
+    "builds": 0,
+    "runtime_tests": 0,
+    "source_edits": 0,
+    "qualification": "Static consistency checks do not demonstrate original runtime cleanup or candidate acceptance."
+  },
+  "next_dependency": "Root shared QObject/TLS/refcount closure remains the first executable RDOE dependency. A future independent bounded item may enumerate native input-list remove/replace consumers and actual virtual18 receiver population; retain indirect-call uncertainty and avoid global lifetime claims until that inventory is source-qualified.",
+  "token_measurements": "Unavailable; no estimated speed/token savings."
+}

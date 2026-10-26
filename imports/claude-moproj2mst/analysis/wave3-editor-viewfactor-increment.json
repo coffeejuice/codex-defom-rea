@@ -1,0 +1,97 @@
+{
+  "schema": "wave3-editor-viewfactor-increment-v1",
+  "created_utc": "2026-10-24T04:53:56.414847+00:00",
+  "status": "source_frozen_for_root_build_and_validation",
+  "owner": "remesh_native",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "bc8d27baf9062359c8b2000bbcf95b360f26dbd7fe20aa903953af0725cf7e4a",
+      "bytes": 14459
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "32ac0bb5b6efdb648998b4dfa3efe6ced20f2784cb11694902dd2f1fe450b7f5",
+      "bytes": 37896
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "e7fa42dad35d9a12482c801ff40813a95958b59bffa78e2a4025b55ad9e0cce6",
+      "bytes": 8363
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "2ea85b3cad2280a5cdca3f4147474d25cc0b45d0809c505b8f5fbd39efb505ad",
+      "bytes": 42024
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "dc36e7b63477254620f1a8b973f6f19da9f57cd22eb4380161f09d16a56ad87d",
+      "bytes": 19004
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-viewfactor-contract.json",
+      "sha256": "3da53134244ee933e312055881205efb30f93b55d1b15f8e52aa02a3314b789e",
+      "bytes": 6386
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-fill-apply-static.json",
+      "sha256": "1c065a5b4403e19515ab53e312a64532448cab6b5ba6e04215e66eaf9c5b9eb1",
+      "bytes": 1634
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-dimension-static.json",
+      "sha256": "49022b1ed8d8f8b8ae75bbfacdfd06420b00919559aa594290e97188bddb2a01",
+      "bytes": 2273
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-dimension-owner-static.json",
+      "sha256": "176e71082ad08edf5651e865a590838b73cf89f992907a8276352895c3789279",
+      "bytes": 993
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-model-dimension-static.json",
+      "sha256": "d34109b735fe8117acf8421623fa856e119e6845c93b88dff5d978cc90ccce8d",
+      "bytes": 993
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-step-dimension.asm",
+      "sha256": "bc4d64545c1149425b82254b6c919e16cded420de22af902774a45395b4ba39d",
+      "bytes": 901
+    }
+  ],
+  "implemented": [
+    "EnvironmentPage retains the VFACTR checkbox and definition-button enabled state from any nonzero mode without mutating SC during fill.",
+    "applyEnvironment3D accepts an optional explicit EnvironmentViewFactorState carrying the current dimension and borrowed editor-owned curve/definition. Existing unchecked callers remain source compatible.",
+    "After all four constant-curve copies and all seven scalar validations, Apply stores mode0 for unchecked or mode1 for checked. Checked 3D deep-copies through existing field-aware dynary_copy then assigns the remembered definition; non-3D leaves curve/definition unchanged.",
+    "Missing context, missing 3D curve, or direct use of the live SC curve in place of the separate editor temporary refuses at the reached copy boundary, after the preceding stores. This avoids a fabricated Save-time snapshot and host self-copy/free behavior.",
+    "Actual composer supplies its existing InitialEditorSession::viewFactorCurve and viewFactorDefinition, with current model dimension. It does not create a replacement temporary or unguard the public editor.",
+    "The prior mode0-only fill guard is removed; other existing furnace/TIMEID/environment curve and whole-editor qualifications remain."
+  ],
+  "tests": {
+    "case_counts": {
+      "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp": 37,
+      "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp": 11
+    },
+    "new_cases": [
+      "environment_viewfactor_remembers_nonzero_checkbox_and_non3d_skips_owned_copy",
+      "environment_checked_viewfactor_copies_exact_owned_curve_then_definition",
+      "environment_each_scalar_validation_stop_prevents_all_viewfactor_tail_writes",
+      "environment_missing_or_live_model_viewfactor_owner_refuses_at_reached_copy_boundary",
+      "initial_editor_checked_viewfactor_uses_same_remembered_temporary_and_definition",
+      "initial_editor_viewfactor_final_refill_controls_copy_and_unchecked_preserves_live_state"
+    ],
+    "coverage": "Noncanonical positive/negative modes; 2D no-copy; 3D deep table copy, metadata and unrounded values; each of seven Invalid positions; missing and aliased context; real composed temporary identity and final constructor refill; disabled mode retaining later live curve/definition.",
+    "validation_run": "git diff --check exited 0 for all five owned files. Worker did not compile or execute tests.",
+    "required_root_validation": "Snapshot and lifecycle targets, remesh regression after shared header changes, complete required registered suite, candidate freeze."
+  },
+  "qualifications": [
+    "The environment helper remains scoped to 3D initial fill; only its source-backed non-3D Apply tail is represented. This does not claim complete 2D editor recovery.",
+    "The dimension value is supplied from the current model at the Apply call; the branch and copy occur at the original tail after scalar validation. The headless validation does not dispatch original virtual getter callbacks.",
+    "Existing recovered dynary_copy is field-aware, not raw object memcpy; untouched original fields are not newly claimed copied.",
+    "Derived expectations come from immutable original code and retained ownership timing. No fresh original runtime comparison, GUI control, original mutable database access, or C ABI change."
+  ],
+  "successor": "Hold source freeze during root validation; investigate the next smallest environment branch (furnace enable state and its callback dependencies), retaining any original unknowns until sufficient evidence exists."
+}

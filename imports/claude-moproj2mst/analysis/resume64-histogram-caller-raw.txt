@@ -1,0 +1,20 @@
+CP64 bounded static search receipt
+Target: evidence/original-binaries/DEF_GUI_MO_64.exe
+SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+Size: 67,611,136 bytes
+
+Raw .rdata bytes from the verified image (little-endian pointer values):
+- file offset 0x284b920: d0 6b c3 40 01 00 00 00 80 6b c3 40 01 00 00 00
+  = vtable entries at 0x14284d120 -> 0x140c36bd0 and 0x14284d128 -> 0x140c36b80.
+- file offset 0x284b928: 80 6b c3 40 01 00 00 00 b0 74 c3 40 01 00 00 00
+
+Bounded negative-search results, whole .text raw range [0x400,0x1e01800) and full image where indicated:
+- E8 rel32 CALL / E9 rel32 JMP to 0x140c15910: zero matches.
+- 64-bit absolute VA 0x140c15910: zero matches in the image.
+- 32-bit RVA 0x00c15910: one occurrence at file offset 0x3da9674 in the .pdata runtime-function record.
+- common x64 RIP-relative LEA/MOV/FF references resolving to 0x140c15910: zero matches.
+- literal 64-bit slot VA 0x14284d128: zero matches in the image.
+- common RIP-relative references to vtable start 0x14284d0c8: two setup references, VAs 0x140c36b36 and 0x140c36b5e; see resume63-graph-adoption-xref.asm.
+- common encodings FF 50..57 60 and FF 90..97 60 00 00 00: 217 generic indirect-call candidates across .text. This count does not type the receiver or identify an incoming call to c15910.
+
+The negative results are bounded to the listed encodings and do not cover computed function addresses, unusual prefixes, dynamically built tables, or references from other modules. The 217 generic virtual-call candidates are not ownership evidence.

@@ -1,0 +1,91 @@
+{
+  "status": "read_only_native_remesh_successor_contract_no_source_implementation",
+  "original_evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-native-io-repair-contract.json",
+      "bytes": 7821,
+      "sha256": "2c220d7b285ce6e1d28dfbc6cfeb7adac7db63811d4b8d94f1349935103d44c2"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-native-delete-original.asm",
+      "bytes": 72920,
+      "sha256": "95cbbff7d2db0c1418d4941fc5c1df267619808e7bb6fdefe31ce75c16b71e56"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-reader.asm",
+      "bytes": 13531,
+      "sha256": "f88cf1a7e439056f28477e7408090511915d2b6a3beb40e6e5d60f6949b928af"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-crt-fgets.asm",
+      "bytes": 9948,
+      "sha256": "a2c2ac0ef2788e6a42f71e73ffcb5663a4dcaafdf28e02a2e82e2e5d4a42545f"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-crt-rewind.asm",
+      "bytes": 4328,
+      "sha256": "202c6a81f293991ec52a76b1e99a873790a608ab8b63d270db093116ccf1e32b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-crt-getbuf.asm",
+      "bytes": 1819,
+      "sha256": "a7d75ab5d61e34d2fb4205d5368385dd0ae64a87fa51f2de20503e316bf35a4f"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-memory-increment.json",
+      "bytes": 7427,
+      "sha256": "7fbab72286ebfe09c9740f8b53a6f5a07ce803922d3b64e88db81590da78674f"
+    }
+  ],
+  "local_current_sdk_reference": [
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/fopen.cpp",
+      "bytes": 3965,
+      "sha256": "a1ea16e147833a0743a7edc281c8a31d06b22168e17f784a0f0ce50b7f6e42f7"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/openfile.cpp",
+      "bytes": 2257,
+      "sha256": "bddbbb7a39f0e49a657e7dc738b8767522000dd4518ec1441368687b80befad1"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/open.cpp",
+      "bytes": 27249,
+      "sha256": "d6aabcd41d36558903b6110c3c99bf2ecc8b05f5c5c515b174d6a1bd9cc77ab8"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/fgets.cpp",
+      "bytes": 3224,
+      "sha256": "d2652632a679f90bfaa7fb861b1c055081f9cfb354df5a8ad2572b905d9407a2"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/rewind.cpp",
+      "bytes": 1781,
+      "sha256": "e37d598ace15cfed6a8f45c0f381cd3b448b84d84c12741beb3633e35d6f01d6"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/_getbuf.cpp",
+      "bytes": 1242,
+      "sha256": "79d45927b93ecfc095729aa799645968adcc49b29faff3968d857eb9c403348c"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_lowio.h",
+      "bytes": 11985,
+      "sha256": "1465b3388c22524a779c19dcd709eeff116993d21a0068e639281181ddb2a751"
+    }
+  ],
+  "reference_qualification": "Installed Microsoft UCRT SDK source is a current-library reference, not original binary evidence or proof of every linked runtime byte. Original instruction selections remain the behavioral oracle; planned focused native tests must validate the chosen regular-file profile. This task's standalone CMake selects static CRT.",
+  "original_contract": {
+    "open": "Remesh reader calls the same narrow fopen14146fcd8 with literal rt as prior recovered helper. Original open reaches CreateFileA with GENERIC_READ, shareREAD|WRITE3 withoutDELETE, OPEN_EXISTING3, NORMAL80, security size24/null descriptor/inheritTRUE. Fixed relative names inherit the original CWD; adapter needs an explicit ordinary ASCII absolute-directory profile without pretending wide/extended paths are equivalent.",
+    "fgets": "1414733ac takes buffer,n,FILE; reads at most n-1 bytes, stops after LF, appends NUL. Immediate EOF returns null without modifying destination; EOF after prefix returns that prefix. TokenReader requests2000. No separate readAll or preread snapshot occurs.",
+    "rewind": "141470298 flushes/reset state, clears stream EOF/error and descriptor EOF flag, then seeks file descriptor tooffset0; failed seek sets streamerror. Remesh ignores the return and still follows original scan/fallback branch. Rewind happens even for unmarked primary before close.",
+    "buffer": "Original _getbuf14148a7c0 allocates4096; on failure it uses an internal2-byte buffer. Normal profile can pin4096 through setvbuf, but resource-exhaustion/two-byte fallback must remain qualified rather than silently claimed equivalent."
+  },
+  "proposed_native_component": {
+    "file": "Read analogue of current CoggingFile, not reuse of its write constructor: CreateFileA with exact read flags/inheritance, _open_osfhandle(_O_RDONLY|_O_TEXT), _fdopen(rt), owned4096 buffer, actual fgets/rewind/fclose. Handle/descriptor/FILE cleanup on each failure; open failures still return null to the existing remesh fallback logic.",
+    "token_bridge": "Keep shared token.cpp unchanged. Separately coordinate a TextFile borrowed line-reader factory whose fgets calls the live FILE reader. For callback-backed objects, unsupported non-line cursor/data operations must refuse explicitly. RemeshReadFile owns the FILE and bridge lifetime. No full file caching, double CRLF translation, fake rewind, or wide ifstream substitution.",
+    "reached_profile_guard": "Each reached fgets chunk can validate its visible C-string prefix and token-count profile before tokenization. Original fgets consumes bytes after an embeddedNUL but TokenReader observes only its C-string prefix; preserve cursor consumption rather than treating strlen as bytes read. Numeric/range and raw-spill guards stay in memory parser. Rejecting a later chunk preserves earlier reader field effects.",
+    "test_requirements": "Scratch-only real files: missing/empty/fallback/marked primary; CRLF/loneCR/CtrlZ plus rewind; read sharing allows a concurrent writer but denies delete/rename while held; first-open denial selects fallback; handle closure before fallback; no pre-read of later unsupported chunks; narrow path/MAX_PATH/namespace qualification; native and typed memory outputs agree for supported profile. Parent owns compilation and execution."
+  },
+  "limits": "No production/test edits after memory-reader freeze, no build/test execution, original runtime, app control or fixture changes. Shared API change is a proposal awaiting coordinator agreement. Resource failures, ordinary-path qualification and current CRT/reference differences are not represented as complete original behavior."
+}

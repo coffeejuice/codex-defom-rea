@@ -1,0 +1,9 @@
+# CP180 root integration
+
+The retained Report constructor now applies five consecutive QtCore private zero stores in native order over `0x13120f..0x131220`: qword `+0x10`, dword `+0x24`, qword `+0x38`, dword `+0x64`, then dword `+0x60`. A private test stop ordinal retains every intermediate cursor and sparse state, including later-prefix refusal and continuation behavior; its default reaches the fifth store. The cut stops before private `+0x28` and the unknown-input flags read/modify/write. Independent source review accepted the full-prefix guards, 295-case matrix and Session coverage.
+
+In a disjoint Save lane, HeatTransferExpress `TMAX` now uses a synchronous void step borrow after unit parsing and one model lookup. Both TNOW selection branches and a null-step fixture passed focused testing. No additional geometry guard, C ABI change, or Stopping cache1 publication was introduced.
+
+`analysis/wave3-checkpoint180-validation.json` and `build/wave3-checkpoint180-verified/` freeze source SHA-256 `83d71f4d36d7e5c5bd98e9da57fa5176f67d08b195865c4e5ffaa6ee2a3e7ea3` over 3,554 files: 361 registered, 354 clean passes, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete/fixture changes, and no changed logged diagnostics. Historical 93 SAME/five DIFF remains qualified. Focused factory, Session, L3, Stopping, Save and ABI tests passed.
+
+The batch avoided four repeated build/full-suite gate sets that separate one-store checkpoints would have required. The earlier read-only projection was 324.9 seconds of recorded command time; realized end-to-end and token savings were not measured. CP181 was selected before freeze: private `+0x28` known-zero store, a separate symbolic flags investigation, and Express Save scoped SimControl closure. Public lifecycle and fresh original comparison gates remain open. No GUI control, original application or live REA session was acquired.

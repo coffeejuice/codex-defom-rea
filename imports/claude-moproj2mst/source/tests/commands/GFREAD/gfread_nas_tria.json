@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD NASTRAN CTRIA3 surface",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.NAS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.NAS",
+      "source": "data/nas_tria.nas"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Mode 1: GRID atof (double, not rounded to float), CTRIA3 fields 4-6 + first id again. FUN_140251be0 stores the surface (DIEGEO 4 1 4 2) but FUN_140251d60 returns 0 -> 'Failed' although the DIEGEO is written."
+  }
+}

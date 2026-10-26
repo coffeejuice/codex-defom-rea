@@ -1,0 +1,117 @@
+{
+  "status": "initialized_backup_unit_repair_frozen_for_root_build",
+  "cause": "Automatic SimControl backup had indeterminate UNIT. Native sim_ctrl_set_owner calls sim_ctrl_init_u3a8, which reads UNIT twice before sim_ctrl_copy overwrites the backup's copied fields. Passing tests cannot establish absence of this C++ undefined behavior.",
+  "repair": "Assign backup.unit = sc.unit immediately after construction and before owner/init. Existing fillGeneral has already required source UNIT1 or2 on this supported path. Retain all field-aware deep copy, repeated fill and restore ordering.",
+  "original_qualification": "Retained GUI140ecb340 calls GUI1408d3bc0 constructor, GUI1408d3cd0 owner/init, then GUI1408df7b0 copy. That selection does not establish the original stack UNIT value. This repair supplies defined adapter/native initialization; it is not a claim that original GUI constructor bytes or incidental stack contents match it. Shared native model sources remain untouched.",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "bytes": 7267,
+      "sha256": "c597ba33c659d7635138a5f7dfc43acef01a3b095bf0567e289d9306fc1fe6dc"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "bytes": 12728,
+      "sha256": "bcd23cc9524fb674a3fb29c153d090969f7716afc25582591ec424f1870c7a8e"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "source/port/defmodel/src/step/sim_ctrl.cpp",
+      "bytes": 8766,
+      "sha256": "a393cc2e5315c75cc7f5631b5130ba9b3e69424d57fda1f4bfcfd067fffb9b6e"
+    },
+    {
+      "path": "source/port/defmodel/src/linked/dynary_lifecycle.cpp",
+      "bytes": 1107,
+      "sha256": "98963963f834b2b0fead9bf85081393be5ed2d1f1cd803bf452529fb594f1f16"
+    },
+    {
+      "path": "source/port/defmodel/src/table/dynary_template.cpp",
+      "bytes": 11677,
+      "sha256": "e8170c39949a9fdc9b8e2c776b87bc95106a3ed18d69be890c0fded3792ab2ef"
+    },
+    {
+      "path": "source/port/defmodel/src/layout/cls_1403753f0.cpp",
+      "bytes": 540,
+      "sha256": "05156915475c92127c40589beb692384364c031a131571b7902a0675b3e3477c"
+    },
+    {
+      "path": "source/port/defmodel/src/llobj/dynary_table.cpp",
+      "bytes": 5263,
+      "sha256": "91493b6df8a5c3b5d48841182750deb16ae9a1d6c7954518beeaed1a1a2fb12f"
+    },
+    {
+      "path": "source/port/defmodel/src/members/furnace.cpp",
+      "bytes": 14808,
+      "sha256": "bb8ac2cddcb562127928afba78627397f9508a14d88e1059b5192f6c0df4a86a"
+    },
+    {
+      "path": "source/port/defmodel/src/members/ext_deps_wiring.cpp",
+      "bytes": 5605,
+      "sha256": "7ee82b28ca257398690c00b7ccf4f2eede77c965def2a7deb5fde347d3a1dd3d"
+    },
+    {
+      "path": "source/port/defrt/include/defrt/ftn/units.hpp",
+      "bytes": 1482,
+      "sha256": "dcfcde650f2f5fdd3b13c0e9b32b7f6e73a48d0a1399813dfdab9c8971042308"
+    },
+    {
+      "path": "source/port/defrt/src/ftn/units.cpp",
+      "bytes": 5325,
+      "sha256": "7e24313bec892554fc2e99696982063ea052c08b7b5a7a549fa95225cf82b93f"
+    },
+    {
+      "path": "source/port/defcmd/src/p8_08/model_copy.cpp",
+      "bytes": 17543,
+      "sha256": "c3ade7207a700deb008203f8c9a196934865faefaee5dc1c5265736388d80c57"
+    },
+    {
+      "path": "source/port/defmodel/src/window/inter_object_ops.cpp",
+      "bytes": 5466,
+      "sha256": "7743de56231c2c0626fc78a2f7dc824a34606fa1563a919b003ccb641ba7721b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecb340.c",
+      "bytes": 2509,
+      "sha256": "84eb3c518d394e7c9c16abb6ae49927ff8d57e5e2d092ab9de40c8d1b2d821b5"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-lifecycle-increment.json",
+      "bytes": 13298,
+      "sha256": "6a15c11e9d993516a2a4c43dc1486af2fdf66cbd1ea944ef307c04a516fe49d1"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-lifecycle-compile-repair.json",
+      "bytes": 1017,
+      "sha256": "a6a2b84fc9df68949a7297582a6b7455a53d9d708bf8e51955e3da50a6f5e9ef"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-mo-fixture-repair.json",
+      "bytes": 1966,
+      "sha256": "193791db53423e886e0f5eb6e29aa65bef7d46c16ec8d627cc2c5e78354616e3"
+    }
+  ],
+  "bounded_initialization_audit": {
+    "owner": "Constructor assigns owner=null; set_owner installs actual already initialized 3D DB_STEP_DATA before all dimension queries.",
+    "scalar_reads": "Names/step counts/limits/iteration/misc init write their target fields before dependent use. update_u240 reads DSMAX and DTTYPE.ndim after their assignments. FRQNCY dimensions are assigned before multiplication/allocation. Environment init's UNIT branch is the only preexisting SimControl scalar dependency identified before deep copy.",
+    "owned_members": "DYNARY constructor sets counts, arrays and owned pointer before dynary_init/free; templates set shape before calloc. Furnace constructor initializes list head/tail/count and name bytes before clear/setup; newly appended DYNARY nodes are constructed, and shape/value allocations are initialized before default fill/conversion. Furnace conversion's unit singleton is inline UnitGlobals g_units{} and has defined initialization, separate from backup UNIT.",
+    "untouched_storage": "DYNARY padding+5c/+70 and 3D-excluded 2D-only SimControl fields are not initialized wholesale, and are not read by this bounded ctor/init path. No memset/whole-struct assignment introduced. No claim of every native model field or arbitrary later operation being initialized.",
+    "copy_boundary": "First sim_ctrl_copy reads destination ownership, constructed table storage and source fields; destination scalars are stores. Native dynary_copy/alloc only read constructed destination arrays/counts/shape; original field-aware omissions remain. Source model completeness remains the existing loaded-state/profile requirement."
+  },
+  "test": {
+    "new_case": "initial_editor_backup_initialization_preserves_both_loaded_unit_profiles",
+    "method": "UNIT1 and2 each Open with distinct loaded environment values, verify loaded values/deep temporary snapshots survive backup initialization, mutate source UNIT/curve values, then Apply and verify remembered UNIT and six-significant-digit form conversion. Ordinary assertions do not detect all undefined reads; source ordering audit establishes repair.",
+    "lifecycle_cases": 7,
+    "status": "not_run_worker_root_owns_build_and_execution",
+    "root_reported_prior": "Full118 CTests passed before this repair; parent retained v2 results, not evidence that the UB was harmless.",
+    "cheap_handoff_checks": {
+      "unit_before_owner_init_before_copy": true,
+      "declaring_init_header": true,
+      "declaring_copy_header": true,
+      "test_main": true,
+      "both_unit_profiles": true
+    }
+  },
+  "scope": "Only composer/test plus this receipt tool changed. No builds/runtime/static exports/fixture writes. Public300 Save guard and m2m ABI remain unchanged; full lifecycle recovery remains incomplete."
+}

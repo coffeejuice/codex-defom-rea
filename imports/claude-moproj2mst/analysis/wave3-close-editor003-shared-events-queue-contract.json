@@ -1,0 +1,185 @@
+{
+  "scope": "Shared events, posting and dispatcher for observed post-Open editor300/first-grid; independent from startup004 profile",
+  "evidence": [
+    {
+      "path": "analysis/wave3-original-editor-probe-003-receipt.json",
+      "sha256": "ed7bb6626f6da2cfdd18f115503b5c7261fbe50a8ac605dd286d8b906148d2d3"
+    },
+    {
+      "path": "build/original-editor-probe-003/capture-evidence.json",
+      "sha256": "42fe8c13cfafe22d9beeac4cf87c95f48635e8f91af399241366f836e7bc6a2b"
+    },
+    {
+      "path": "analysis/wave3-close-probe004-dispatcher-gesture-corrections.json",
+      "sha256": "5e5314051d507ec9b68b029f4072ccd8348731b5da6fd58f87eb2d921cc48f2e"
+    },
+    {
+      "path": "analysis/wave3-close-widget-post-record-ownership-contract.json",
+      "sha256": "f111957c8dd6f1bf1cefa823f9d322aae848bb8b2ddf91a3c2b6f7db95a3cf54"
+    },
+    {
+      "path": "analysis/wave3-editor-grid-child-event-continuation-contract.json",
+      "sha256": "b0bc220042051d220a7ad6fed52b1f5f49cc3d0f9ac6ca6a17ffb5d201facf38"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6501e3e0.asm",
+      "sha256": "c81a539764063c40adcbac5fa9f41427a563fed2757fee4158d9a42de1861e39"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-layout-request-compression-tail-static.json",
+      "sha256": "b3b0785107333adb3aae67e0d8d605028c02ff2f4ff5000ccf6dce7b3c05ee31"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-layout-request-compressed-dtor-static.json",
+      "sha256": "483016d20b1589469bd2099dcd88de6217d5441b7f7a1e0b9fc1cc76f623d5ef"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-plain-event-deleting-dtor-static.json",
+      "sha256": "31fe2eee0afee9f3446396e6f9aeacad5856514d5f53adafbdba1cc3baed2101"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67141b70.asm",
+      "sha256": "6949b93ac56f20790204f57351050845a6a76c7f9e4ed10866481ff61deaeddb"
+    }
+  ],
+  "actual_owners": {
+    "receiver": "editor0x350e780",
+    "grid": "0x14155630",
+    "runtime_application": "0x3ce6f0",
+    "threadData": "0x3110c70",
+    "dispatcher": "0x3113da0",
+    "queue_owner": "0x3110ca0",
+    "queue_backing": "0x4e6c940"
+  },
+  "events": [
+    {
+      "type": "0x0f",
+      "context": 1,
+      "return": false,
+      "inputstate": 5,
+      "qualification": "own emptygesturemap, receiveriswindow, noancestor visit; refs1063 irrelevant because emptycurrentmap bypasses nonconstiteration"
+    },
+    {
+      "type": "0xaa",
+      "context": 2,
+      "return": false,
+      "inputstate": 17,
+      "qualification": "propertypath bypassesgesturegathering"
+    },
+    {
+      "type": "0x44",
+      "context": 3,
+      "return": true,
+      "inputstate": 17,
+      "qualification": "same actualgrid borrowedpayload; QObject childEvent return discarded then wrapper AL=true; event staysalive through postparent bookkeeping"
+    }
+  ],
+  "event_inputs": {
+    "QInternal_callbacks": 0,
+    "appclosing": false,
+    "appfilters": "one same-thread exact VistaStyle362520",
+    "object_filters": 0,
+    "layout_at_all_three_sends": "null",
+    "notifyDepth_before_after": 0,
+    "stack_flags": "Only initialized bits0/1/2 have semantic meaning; higher captured bits differ across stack allocations and must not be defaultzero."
+  },
+  "posting": [
+    {
+      "rawtype": "0x4a",
+      "priority": 0,
+      "receiverPostedCount": [
+        0,
+        1
+      ],
+      "queueCounts": [
+        97,
+        98
+      ],
+      "eventFlags": [
+        1260,
+        1261
+      ],
+      "record": "0x4f50a60",
+      "event": "0x4f509c0",
+      "nativeCompression": "skipped because freshreceiverpostedcount0",
+      "queueStates": [
+        7,
+        8
+      ]
+    },
+    {
+      "rawtype": "0x4c",
+      "priority": 0,
+      "receiverPostedCount": [
+        1,
+        2
+      ],
+      "queueCounts": [
+        98,
+        99
+      ],
+      "eventFlags": [
+        4,
+        5
+      ],
+      "record": "0x4f51020",
+      "event": "0x4f50fc0",
+      "nativeCompression": "called; scans completequeue; no sameeditor liveeventtype76 found; returnsfalse withoutdeletion",
+      "queueStates": [
+        24,
+        25
+      ]
+    }
+  ],
+  "queue_identity_qualification": {
+    "descriptor_aliases98and99": "same native record and event; flags change only. Alias is interned snapshotdescriptor, not globalobjectID.",
+    "owned_record_counts": [
+      97,
+      98,
+      99
+    ],
+    "record_and_event_interning": "Use native record/event identity separately from descriptorversion. Retain ordered opaqueearlierreceivers, never fabricateempty population or duplicate actualeditor event.",
+    "observed_backing": "refcount1, capacity2045, begin1555,end1652->1653->1654; same data owner. Equalpriority0 appends at end, earlierorder preserved.",
+    "raw_owner_fields": "[0,0,0] retained as raw; no invented semantics needed for selected appendbranch."
+  },
+  "dispatcher": {
+    "vtable": "QtGui+6adb68",
+    "slot98": "QtGui+5e0ca0 exact importthunk toCore+141b70",
+    "window": "0xad028a nonnull",
+    "serial": [
+      1703,
+      1704,
+      1705
+    ],
+    "postedWake": [
+      1,
+      1,
+      1
+    ],
+    "source_result": "Atomicserialincrement always happens; CAS0->1 fails because postedWake already1, so no PostMessageW call ontheseobservedbranches. This closes actual state mutation, not a generic no-op.",
+    "canWait": [
+      0,
+      0,
+      0
+    ],
+    "unknown_other_context": "Startup004 wakeprivatefields remain unknown; editorvalues cannot seed startup. No messagepump/delivery implied."
+  },
+  "compression_source": {
+    "entry": "6501e3e0 raw4c ->6501e491; QListData const begin/end imports do notdetach",
+    "scan": "orderedrecords, matchsameactualreceiver, nonnull event, sametype. No match returnsfalse6501e592.",
+    "match": "6501e5d5 calls INCOMING event deletingdtor(flag1), returns true. Existingqueued event/order/count unchanged. postEvent exits before append/postedcount/canWait/wake.",
+    "plain_event_dtor": "ObservedplainQEvent vt6569e350 slot0=65080a30; callsQEventdtor thenoperatorDelete ifflag1. Incoming postedfalse skips queuedremove.",
+    "not_implemented": "Other mergedpayloadtypes and genericcallback/nativecleanup remain guarded."
+  },
+  "implementation_ready": [
+    "Shared rawCreate parentless-window emptycontext branch and rawChildAdded exacttrue result can use same WidgetEventDispatch with retainedstackeventlifetime.",
+    "Shared runtime mustown actual QObject globalcount1891->1892->1893 separately from QWidgetcount760->761, with sourceordered updates, no cursorcopy.",
+    "One observed orderedqueue can execute raw4a normalappend and raw4c nomatch/compressedduplicate branches; actualsameeditor postedcount and sameThreadcanWait mutate.",
+    "Win32dispatcher alreadyPendingWake branch is implementable with actualowner/window/serial/postedWake fields; absentorzero fields retain nextnativePostMessage guard."
+  ],
+  "limitations": [
+    "This receipt is postOpen editor-time only. No implied stability from priorstartup.",
+    "No worker build/runtime/GUI; root capturecleanupreceipt provides verifiedabsence.",
+    "Public earlierconstructor/Close guards remain until actual lifecyclebindings consume these effects."
+  ]
+}

@@ -1,0 +1,9 @@
+# CP171 root integration
+
+The four retained Report QObject private zero-field admissions now use one file-local, read-only owner and binding qualifier. Each phase still checks its own sparse predecessor fields, emits its original diagnostic, writes exactly one field, and advances once. The helper does not commit an effect, broaden the public API, or infer a later native instruction. Independent review accepted the final source and four-seam no-mutation regression after the test snapshots were expanded to identities, bindings, markers, address points, sizes, deltas, counts and completion state.
+
+`analysis/wave3-checkpoint171-validation.json` and `build/wave3-checkpoint171-verified/` freeze source SHA-256 `e60366239b7df001a005f89b7f800f21c484554304f8e86852839e6eb80a087d` over 3,554 files: 361 registered, 354 clean passes, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete/fixture changes and no changed logged diagnostics. Historical 93 SAME/five DIFF remains qualified. This is a refactor checkpoint, not new original behavior recovery.
+
+One supplemental CP171-bound focused run set `M2M_INSTALL_FIXTURE` to the verified installed DEFORM directory and passed all six `m2m.mdt.mdt_write` cases, including `header_text_from_pack_dat`. The installed `PACK/pack.dat` SHA-256 was `f82967bf8117671aad02e8621549adbb6caf1e5265c55818ec806d9d6b250c10` before and after. The full-run logged-gap classification remains frozen because that run did not set the optional variable. The focused receipt is `build/logs/resume171-pack-focused.log`.
+
+CP172 was selected before freeze: root-owned QVector shared-null identity binding at QtCore `0x1311c7..0x1311d2`, stopping before atomic increment. Public lifecycle and fresh original comparison gates remain open. No GUI control, original application or live REA session was acquired.

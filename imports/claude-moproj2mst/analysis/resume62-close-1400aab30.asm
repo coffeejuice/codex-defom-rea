@@ -1,0 +1,17 @@
+
+Dump of file evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00000001400AAB30: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  00000001400AAB35: 48 83 EC 28        sub         rsp,28h
+  00000001400AAB39: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  00000001400AAB3E: 48 83 C1 60        add         rcx,60h
+  00000001400AAB42: E8 49 66 24 01     call        00000001412F1190
+  00000001400AAB47: B0 01              mov         al,1
+  00000001400AAB49: 48 83 C4 28        add         rsp,28h
+  00000001400AAB4D: C3                 ret
+
+  Summary
+
+     1E02000 .text

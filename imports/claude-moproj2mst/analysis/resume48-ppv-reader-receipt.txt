@@ -1,0 +1,136 @@
+# Bounded immutable receipt: SimCtrl.PPV reader
+
+Source: imports\claude-moproj2mst\evidence\gui_mo\s1\mdt\L0\A\b0.c
+Source SHA-256: cb28de6852d5b6279719d2576759a9dcc0f640e436bcdf846caa691622c58698
+Selected function: FUN_140d4b400 @ 0x140d4b400
+Selection: complete decompiled function through closing brace, excluding next function.
+
+```c
+// ===== FUN_140d4b400 @ 140d4b400
+
+undefined1 FUN_140d4b400(undefined8 param_1,undefined8 param_2,longlong param_3,longlong param_4)
+
+{
+  char cVar1;
+  int iVar2;
+  undefined8 uVar3;
+  undefined1 auStack_d8 [16];
+  undefined1 uStack_c8;
+  int iStack_c4;
+  undefined1 auStack_c0 [16];
+  undefined1 auStack_b0 [8];
+  int iStack_a8;
+  undefined1 auStack_a0 [8];
+  undefined1 auStack_98 [8];
+  uint uStack_90;
+  undefined4 uStack_8c;
+  undefined4 uStack_88;
+  undefined8 uStack_80;
+  undefined4 uStack_78;
+  undefined8 uStack_70;
+  undefined1 auStack_68 [8];
+  undefined1 *puStack_60;
+  undefined1 auStack_58 [8];
+  undefined1 auStack_50 [8];
+  char cStack_48;
+  undefined1 auStack_40 [8];
+  undefined1 uStack_38;
+  undefined1 uStack_37;
+  uint uStack_34;
+  undefined8 uStack_30;
+  undefined8 uStack_28;
+  undefined8 uStack_20;
+  undefined1 uStack_18;
+  undefined4 uStack_14;
+  undefined1 uStack_10;
+  
+  uStack_30 = 0xfffffffffffffffe;
+  uStack_34 = 0;
+  uStack_c8 = 0;
+  __0QFile__QEAA_AEBVQString___Z(auStack_d8,param_2);
+  puStack_60 = auStack_68;
+  uVar3 = func_0x000140004a60(puStack_60,1);
+  cVar1 = _open_QFile__UEAA_NV__QFlags_W4OpenModeFlag_QIODevice_____Z(auStack_d8,uVar3);
+  if (cVar1 != '\0') {
+    FUN_1400670b0(param_1);
+    __0QTextStream__QEAA_PEAVQIODevice___Z(auStack_c0,auStack_d8);
+    _readLine_QTextStream__QEAA_AVQString___J_Z(auStack_c0,auStack_b0,0);
+    _trimmed_QString__QEBA_AV1_XZ(auStack_b0,auStack_58);
+    __1QString__QEAA_XZ(auStack_58);
+    iStack_c4 = _toInt_QString__QEBAHPEA_NH_Z(auStack_b0,0,10);
+    if (0 < iStack_c4) {
+      uStack_c8 = 1;
+      for (iStack_a8 = 0; iStack_a8 < iStack_c4; iStack_a8 = iStack_a8 + 1) {
+        uStack_28 = _readLine_QTextStream__QEAA_AVQString___J_Z(auStack_c0,auStack_50,0);
+        uStack_20 = uStack_28;
+        __4QString__QEAAAEAV0_AEBV0__Z(auStack_b0,uStack_28);
+        __1QString__QEAA_XZ(auStack_50);
+        _split_QString__QEBA_AVQStringList__AEBVQRegExp__W4SplitBehavior_1__Z
+                  (auStack_b0,auStack_a0,0x1446b4b20,1);
+        iVar2 = FUN_140004ae0(auStack_a0);
+        if (iVar2 < 6) {
+          uStack_c8 = 0;
+          FUN_1400048d0(auStack_a0);
+          break;
+        }
+        uVar3 = FUN_140004b40(auStack_a0,0);
+        uStack_88 = _toInt_QString__QEBAHPEA_NH_Z(uVar3,0,10);
+        uVar3 = FUN_140004b40(auStack_a0,1);
+        __0QString__QEAA_AEBV0__Z(auStack_98,uVar3);
+        uVar3 = FUN_140004b40(auStack_a0,2);
+        uStack_78 = _toInt_QString__QEBAHPEA_NH_Z(uVar3,0,10);
+        uVar3 = FUN_140004b40(auStack_a0,3);
+        uStack_8c = _toInt_QString__QEBAHPEA_NH_Z(uVar3,0,10);
+        uVar3 = FUN_140004b40(auStack_a0,4);
+        uStack_80 = _toDouble_QString__QEBANPEA_N_Z(uVar3,0);
+        uVar3 = FUN_140004b40(auStack_a0,5);
+        uStack_70 = _toDouble_QString__QEBANPEA_N_Z(uVar3,0);
+        uStack_90 = 0;
+        iVar2 = FUN_140004ae0(auStack_a0);
+        if (iVar2 == 7) {
+          uVar3 = FUN_140004b40(auStack_a0,5);
+          iVar2 = _toInt_QString__QEBAHPEA_NH_Z(uVar3,0,10);
+          uStack_18 = iVar2 != 0;
+          uStack_90 = (uint)(byte)uStack_18;
+        }
+        __0QString__QEAA_PEBD_Z(auStack_40,&UNK_142a13b0c);
+        uStack_34 = uStack_34 | 1;
+        iVar2 = _compare_QString__QEBAHAEBV1_W4CaseSensitivity_Qt___Z(auStack_98,auStack_40,0);
+        if ((iVar2 == 0) && (param_3 != 0)) {
+          uStack_14 = 1;
+        }
+        else {
+          uStack_14 = 0;
+        }
+        cStack_48 = (char)uStack_14;
+        if ((uStack_34 & 1) != 0) {
+          uStack_34 = uStack_34 & 0xfffffffe;
+          __1QString__QEAA_XZ(auStack_40);
+        }
+        if (cStack_48 == '\0') {
+          uStack_88 = FUN_140d4af00(param_1,uStack_78,uStack_8c,uStack_80,uStack_70);
+        }
+        else {
+          uStack_88 = FUN_140d4af00(param_3,uStack_78,uStack_8c,uStack_80,uStack_70);
+          if (param_4 != 0) {
+            uStack_38 = uStack_90 != 0;
+            uStack_10 = uStack_38;
+            FUN_140d4bb70(param_4,uStack_88);
+          }
+        }
+        __1QString__QEAA_XZ(auStack_98);
+        FUN_1400048d0(auStack_a0);
+      }
+    }
+    _close_QFile__UEAAXXZ(auStack_d8);
+    __1QString__QEAA_XZ(auStack_b0);
+    __1QTextStream__UEAA_XZ(auStack_c0);
+  }
+  uStack_37 = uStack_c8;
+  __1QFile__UEAA_XZ(auStack_d8);
+  __1QString__QEAA_XZ(param_2);
+  return uStack_37;
+}
+
+
+```

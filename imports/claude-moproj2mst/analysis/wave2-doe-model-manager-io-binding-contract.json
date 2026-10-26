@@ -1,0 +1,40 @@
+{
+  "schema": "m2m-doe-live-model-manager-binding-v1",
+  "status": "source frozen for coordinator; no worker builds or tests",
+  "source_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "fc698906a88c6427773fe1329a4b311179569e5025fa9ed74a6c00d211015618",
+    "source/apps/moproj2mst/src/doe/io.cpp": "95169266bb97f84c2ce4abac08f23b08dd9f63a0529785bbabee523c7f7d12f4",
+    "source/apps/moproj2mst/tests/mdt/test_doe_model_manager_binding.cpp": "ab605c374a046ae918047ca689c8ba4ca80ee1902f1f2c52443d1bacb200949c"
+  },
+  "evidence": {
+    "analysis/wave2-doe-model-manager-actual-open-contract.json": "29847379ac215992643348f01e6aa1f78455ade03e2e6d692eddf60a5d9ab19e"
+  },
+  "api": [
+    "void StudyIo::bindModelManager(std::shared_ptr<engine::ModelManager> owner)",
+    "engine::ModelManager* StudyIo::modelManager() const noexcept"
+  ],
+  "contract": [
+    "Unbound null means unavailable; binding an observed empty manager is distinct. No private/lazy manager is manufactured.",
+    "Nonnull identical pointer+control-block binding is idempotent; replacement, null, or identical raw pointer with unrelated shared owner guard without changing binding.",
+    "Getter returns actual bound shared owner; current selection and model ID are queried live, not copied.",
+    "StudyIo keeps session manager alive if its earlier external holder is released; native process-global/Qt lifetime parity not implied.",
+    "No new runtime consumer/defaultTask construction enabled. Root owns actual ConversionSession registration/current selection/callback routing and ModelManager3files."
+  ],
+  "tests": {
+    "target": "m2m_doe_model_manager_binding",
+    "cases": 3,
+    "coverage": [
+      "unavailable versus observed empty and no file effects",
+      "actual current/ID changes visible including preselection-1 and later clearing",
+      "idempotency/replacement/control-block rejection and shared-owner lifetime"
+    ],
+    "preflight": [
+      "own declaring headers and exact shared API inspected",
+      "test main present",
+      "no Project/OpClass incomplete destruction dependency",
+      "git diff --check passed"
+    ],
+    "execution": "pending coordinator build"
+  },
+  "successor": "Trace native DB path/open signalModelChanged/Updated emissions and exact receiver branch before calling registration harmless."
+}

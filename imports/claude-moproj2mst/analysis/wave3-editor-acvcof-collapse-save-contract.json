@@ -1,0 +1,118 @@
+{
+  "schema": "wave3-editor-acvcof-collapse-save-contract-v1",
+  "created_utc": "2026-10-24T06:16:38.102687+00:00",
+  "status": "static successor prepared while candidate sources remain frozen",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-environment-table-14089ad60.asm",
+      "sha256": "2d33ba4af51ead523aff0ff134f67d83eed7f433fd377d90a7898377beccdab7",
+      "bytes": 8009
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-allocation-static-14089b840.asm",
+      "sha256": "5c7845e9dfcf846b0741fe57fb242959bde4dbc37b86b62f711322972c4021b7",
+      "bytes": 5071
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-count-shape-14089bc90.asm",
+      "sha256": "5bceeba0b93149c1fba95cca199cf69bba14b0c012644e4d84e11f6ee25451b2",
+      "bytes": 4134
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-shape-leaf-14089b970.asm",
+      "sha256": "9dff18cc849ec910761b727c033123cc1b171d1ef166e07089be603dcf44737f",
+      "bytes": 3252
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-collapse-free-14089b1f0.asm",
+      "sha256": "586e7031da47530c91ca3c8deaa8346d8fbb91870e3e4fd29aa07172f1e7ee9b",
+      "bytes": 6878
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-owner-140eccf10.asm",
+      "sha256": "19561d61b8390d0bd57e7676ad38b30e4c8c1732a7082f566fa36857c454b058",
+      "bytes": 15982
+    },
+    {
+      "path": "analysis/wave3-editor-environment-table-140ec9b30.asm",
+      "sha256": "6973b46388bbc94abb17d436c178707aa727fb3942b5a4d4ac83d7b4e2ee74a3",
+      "bytes": 20396
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-owned-increment.json",
+      "sha256": "3c6ffe8abcaed4b0dca2d1d197b2bbc010eba79a6f6aa18683a0953fd0949e1b",
+      "bytes": 5703
+    }
+  ],
+  "qualification": "All behavioral conclusions are instruction-derived from the retained original GUI PE, not fresh original runtime observations. No production or test files changed for this contract.",
+  "collapse": [
+    "Callback140eccf10 selection0 changes only live ndim to0, live var[0] to0, and editor temporary var[0] to0. It retains component count, all three counts, axes, value allocation and scalar constant. The temporary ndim is not changed by Fill.",
+    "Copy14089ad60 copies type/value/u54/ndim/ncomp/u50 and all three var/count fields before allocation at14089ae4a. Its axis copy loop14089ae64..aed0 is empty for ndim0. Its value copy14089aed0..af12 checks both pointers and uses destination count14089bc90.",
+    "Count14089bc90 returns ncomp for ndim0 when ncomp>1 or type is B5/A7/A8/AA/AB, and otherwise returns0. Thus multicomponent collapse copies only the first ncomp source values. A positive prior table product is at least ncomp; an empty prior table has a null values pointer and the copy skips the read.",
+    "Allocator14089b840 frees old destination arrays, clamps metadata, allocates no ndim0 axes, and allocates/zeroes count values. A null source values pointer therefore leaves ncomp positive-zero values after a successful allocation.",
+    "Free14089b1f0 preserves count metadata, clears all array pointers, and suppresses frees if any zero count has a nonnull axis (borrowed-array marker). That marker remains excluded from the supported ownership profile. Positive counts with null axes are a reached result after collapse copies, not grounds to normalize metadata.",
+    "Clamp14089b970 through REP RET14089b9d1..d2 sets negative counts to0 and ncomp<=0 to1. The chosen extension preserves the existing nonnegative-count, positive-ncomp profile rather than enabling malformed or overflow shapes."
+  ],
+  "amendment_to_previous_increment": {
+    "previous_receipt": "analysis/wave3-editor-acvcof-owned-increment.json",
+    "scope": "The prior ordinary ndim0/ncomp1 comment does not describe all accepted type IDs. Special types B5/A7/A8/AA/AB still allocate/copy one value. Existing native copy code follows this original count rule, but those paths were not directly tested by the previous increment.",
+    "action": "Keep the prior receipt immutable; replace the incomplete source comment and add explicit special-type vectors in the successor."
+  },
+  "save_owner_gap": {
+    "original_stores": [
+      {
+        "curve": "ENVTMP",
+        "slot": "editor+c8",
+        "ndim": "140ec9bab",
+        "value": "140ec9c7d",
+        "copy_to_sc": "140ec9ca0"
+      },
+      {
+        "curve": "CNVCOF",
+        "slot": "editor+d0",
+        "ndim": "140ec9cdb",
+        "value": "140ec9dad",
+        "copy_to_sc": "140ec9dd0"
+      },
+      {
+        "curve": "ENVATM",
+        "slot": "editor+d8",
+        "ndim": "140ec9e0b",
+        "value": "140ec9ee9",
+        "copy_to_sc": "140ec9f0c"
+      },
+      {
+        "curve": "ACVCOF",
+        "slot": "editor+e0",
+        "ndim": "140ec9f47",
+        "value": "140eca025",
+        "copy_to_sc": "140eca048"
+      }
+    ],
+    "decision_order": "For each curve in the listed order: if constant radio is checked, write actual owner.ndim=0 before validation; if validator result is nonzero, write converted owner.value; then copy that same owner to SC. Invalid text skips only the value store. It does not skip ndim=0 or the model copy. Owner arrays are not replaced by these stores; model destination allocation is distinct.",
+    "current_gap": "applyEnvironment3D currently clones every const page curve into a fresh local temporary and mutates that clone. Outputs match the supported normal branch but actual editor owner ndim/value do not acquire their original Save mutations.",
+    "proposed_seam": "Add defaulted EnvironmentCurveTemporaries* to applyEnvironment3D after the existing view-factor argument. Composer passes its exact owners. Validate four owner/page identities and distinct live SC receivers before any environment effects. With explicit owners, mutate and copy those actual objects directly. Keep isolated no-owner helper semantics qualified; no public300 enable."
+  },
+  "proposed_files": [
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp"
+  ],
+  "required_tests": [
+    "Callback-only multicomponent collapse retains live old arrays and leaves temporary ndim unchanged, with exact owner identity.",
+    "Composed Open multicomponent nonempty table keeps first component vector, raw NaN payload where present, all counts/var history, and null axes after backup restoration.",
+    "Composed Open empty table produces zero component values after collapse; cover multidimensional empty products.",
+    "Special types B5/A7/A8/AA/AB at ncomp1 retain or zero one value; ordinary type0 at ncomp1 keeps no values.",
+    "Owned Apply updates actual owner constant value before model copy and preserves owner array identity; invalid constant text retains value but writes ndim0.",
+    "Owned Apply completes all four curve mutations/copies before a later scalar validation stop and keeps skipped/nonconstant owner fields intact.",
+    "Missing/replaced/aliased explicit owner refuses before environment effects. Public300 guard and unrelated environment restrictions remain."
+  ],
+  "remaining_qualifications": [
+    "Allocation failure, original orphaned temporary allocations and exact editor destructor ownership remain separately queued.",
+    "Nonfinite formatted constant member and unknown borrowed/nested ownership remain guarded.",
+    "No build or tests run by worker; root must release sources, then own validation."
+  ],
+  "next_action": "Root selects/releases the five-file successor after current candidate acceptance; implement only source-closed collapse and owner Save effects, then freeze and request root regression."
+}

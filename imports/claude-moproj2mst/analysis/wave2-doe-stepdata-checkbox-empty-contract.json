@@ -1,0 +1,75 @@
+{
+  "schema": "m2m-doe-stepdata-checkbox-empty-contract-v1",
+  "status": "source-closed constructor-empty cell-consumer projection; implementation proposed, no source edits",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qtgui_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+  "bindings": {
+    "0x141e041d0": {
+      "dll": "QtCore4_64.dll",
+      "name": "?connect@QObject@@SA_NPEBV1@PEBD01W4ConnectionType@Qt@@@Z"
+    },
+    "0x141e05a90": {
+      "dll": "QtGui4_64.dll",
+      "name": "??0QStandardItemModel@@QEAA@PEAVQObject@@@Z"
+    },
+    "0x141e0b778": {
+      "dll": "QtGui4_64.dll",
+      "name": "??0QItemSelectionModel@@QEAA@PEAVQAbstractItemModel@@@Z"
+    }
+  },
+  "identity": [
+    "c90210 lazily creates SfObjectManager (RTTI142a3f748) into GuiModel+230 only after d78100 returns. It is distinct from StateVar+240.",
+    "d78100 stores actual raw GuiModel pointer at+50; base SfItemModel d3d590 creates QStandardItemModel(QObject*null), embedded QStandardItem+10 and base selection+48; derived selection+58; d41b10 writes mode+40=0.",
+    "Base and derived self-connections both register itemChanged(QStandardItem *) -> slotItemChanged(QStandardItem *), raw connection3; registration is not synchronous invocation. Neither selected constructor populates rows."
+  ],
+  "fresh_root": [
+    "Shipped QtGui export6552ce10 creates private6552b680 whose root item uses private6552a980; stores root rows+28=0,columns+2c=0. Root flags role31 setData6552c920 writes role vector+18; root model+8 is null so no model emission; no row/column writes. Root binding6552c340 sees empty children and prior modelnull, stores actual model pointer.",
+    "Shipped item65529390 compares signed row/col vs root rows/cols before reading child array; out-of-bounds returnsnull at655293cf. This lookup does not create/grow items."
+  ],
+  "finalizer": [
+    "d7c260 copies current View list, then c7b1a0(model,true) current-object refresh. It skips nullView; 1f1b80 skips objnull and object kind7 (getter1f19f0 reads View+18,834fa0 tests object+0xc!=7).",
+    "For each eligible View obtains object number then existing Settings via1f1a10: actual owner guard, object-number lookup c832d0; if missing fallback actual View position c83080 then c832d0. It does not construct Settings.",
+    "Only with nonnull Settings: columns1..6 call table.item(row,col), test nonnull then isCheckable, d7b3f0 maps column1..6 to flags0..5,1eebd0 reads checkstate, setCheckState. Row increments only after eligible+Settings. Constructor-empty item returnsnull, so no flag read/setCheckState/itemChanged emission."
+  ],
+  "proposal": {
+    "owned_files": [
+      "include/m2m/doe_property_table.hpp",
+      "src/doe/property_table.cpp",
+      "tests/mdt/test_doe_property_table.cpp",
+      "include/m2m/doe_stepdata.hpp",
+      "src/doe/stepdata.cpp",
+      "tests/mdt/test_doe_stepdata.cpp"
+    ],
+    "root_seam": "void engine::finalizeStepDataPropertyTable(GuiModel&,doe::PropertyTableState&);",
+    "owner": "unique_ptr<PropertyTableState> on existing GuiModel.doeStepData, raw backlink actual GuiModel; reset deletes only table, StateVar persists",
+    "consumer": "null result only for constructor-empty population qualification; unsupported populated/unqualified domain guards at exact item query, after preceding native refresh/skip predicates; no detached table/Settings copy"
+  },
+  "qualifications": [
+    "This is a typed projection of actual+230 table, not full Qt QObject/selection lifetime, allocation failure or item-model behavior. Future native population calls must mutate/invalidate the same actual owner; do not infer current emptiness for previously populated tables.",
+    "Some bounded ASM selections include padding/adjacent routine prefixes: d41b10 contract only throughret atd41b25; Viewobjgetter throughret1f19ffe; base ctor throughd3d66d; derived ctor throughd781de; d7b3f0 jump table474..48b is data. Settings-getter selection ends at firstbyte of epilogue1f1aa3; conclusions use prior full retained/source seam and selected body only.",
+    "No source edits, target runtime, GUI control, worker build or tests in this investigation. Private mutable Ghidra database held idle during parent startup capture."
+  ],
+  "evidence": {
+    "analysis/wave2-doe-stepdata-table-base-constructor.asm": "d07b33a9001b18ce3173def9f77d01fff01ec9146ba445351a004389adddcd50",
+    "analysis/wave2-doe-stepdata-table-column-map.asm": "1f098058cfff352f19f70f8ad97a79c4d938445874cffc82eeace6385049c158",
+    "analysis/wave2-doe-stepdata-table-constructor.asm": "f3dfd7c582378b255c161ed43479c467f3f3bd3b7da1ac3f703fc33d9e011689",
+    "analysis/wave2-doe-stepdata-table-object-getter.asm": "0eb017de62d97b69dd8b0c8f747bfe2579d67f8c0579c74506a939a7550fa0c9",
+    "analysis/wave2-doe-stepdata-table-qt-item-ctor.asm": "acd57df9b2d07e7db9477f4cafed218dc8332425549764b53228d1872efbb04b",
+    "analysis/wave2-doe-stepdata-table-qt-item-model-binding.asm": "a9d6ad9b2851b11ff6bec6e84063567f51a819a65c40ddc7ec3124a461df4994",
+    "analysis/wave2-doe-stepdata-table-qt-item-private-ctor.asm": "521af93ce5dc400b259e2952e900791e50a1237894983e336c8169f2326b556f",
+    "analysis/wave2-doe-stepdata-table-qt-item-setdata.asm": "abd162aa295255e556799afc205e3e337a9d981eed89c5832dce6a0fade5ca16",
+    "analysis/wave2-doe-stepdata-table-qt-model-ctor.asm": "b0e3f769926e9e88f54f52a3bee4a4a3268232509f3361f6ccc0f900fafce7e2",
+    "analysis/wave2-doe-stepdata-table-qt-model-item-tail.asm": "769a08aac9e82f4621d8cf3a1c5eedfc0eb25342216a06712e93db5f086ba481",
+    "analysis/wave2-doe-stepdata-table-qt-model-item.asm": "db7c336cdeff22fffbe8a3a20481782c0cb5b32a3304ffb9177ba874c69dbacf",
+    "analysis/wave2-doe-stepdata-table-qt-model-private-ctor.asm": "a9326b1d4e7df3cbb7744e680bc8462fb6a8becbc220b42b36fc4747d1ea2066",
+    "analysis/wave2-doe-stepdata-table-readmode-setter.asm": "63d848580794d873ca3006e60ff0429bf417cadfd52f52f08dfce2a4cdf06661",
+    "analysis/wave2-doe-stepdata-table-settings-getter-complete.asm": "3a56840389f04e26e39d0e79d9fd5d6c3eb0c0809cc56810e2f61fd09554622a",
+    "analysis/wave2-doe-stepdata-table-settings-getter.asm": "2855d7aae20ea3457881ba8dd5eca3eb23b02cdfdf7115c808deead8464fd98e",
+    "analysis/wave2-doe-stepdata-table-view-eligibility.asm": "2f1cfcedcfc0717d3dce19e397f02ef242a35f9b1936d8fb70ed7e689ca81b47",
+    "analysis/wave2-doe-stepdata-statevar-finalizer-decompile.json": "3f8e923f48538cf0454b6e119572b2528bd61e1d7edb26be50102432f09a6e96",
+    "analysis/wave2-doe-stepdata-ctors-remesh-decompile.json": "15b8b9ac44eb88eee28322d1fd5adac7dbfd56cf3ada4bd6b278f89df0867c45",
+    "analysis/wave2-doe-lazy-empty-finalizer-tree-decompile.json": "87f15691e53e47867dbc0d07da8d366871d9338d6a00857c301e9a4dc731ab9e",
+    "analysis/wave2-doe-stepdata-statevar-callbacks-decompile.json": "fc732aea06085067cb8a061f9270d9bb3c55f51bfed53f5948c629253986b8a9",
+    "analysis/wave2-doe-stepdata-primary-iteration-c7b1a0.asm": "76d3b09525513a27dfcad0228dd9ae08d218bd908b06af3bc409624f15f3f16a"
+  }
+}

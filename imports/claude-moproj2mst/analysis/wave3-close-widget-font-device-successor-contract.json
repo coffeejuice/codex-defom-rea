@@ -1,0 +1,52 @@
+{
+  "status": "Read-only successor; production remains frozen at WidgetFontDevicePending",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-widget-font-device-binding-static.json",
+      "sha256": "619d3c8d060723d0322c6bd828bd0b5e8a8af3f6c95e7c2dc070776d85838446"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-paintdevice-metric-static.json",
+      "sha256": "8c705d124cc0e96613699c52f1c7d26b361d9e2d17a9a0c2774b4d37801cff8b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-paintdevice-metric-tail-static.json",
+      "sha256": "cfd360f1289598fb3472fac74061668005665e53b6f090d027a22bba9028d168"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-font-device-dc-static.json",
+      "sha256": "2a56641ce62a0ae93b20c29bdc3ead7d6b5f549250e234a0501e924ef85b00a2"
+    }
+  ],
+  "constructor": {
+    "entry": "651f2e30 QFont(QFont const&,QPaintDevice*)",
+    "call": "QWidgetPrivate::init6506e75b..e76b uses actual QWidget+10 paint-device subobject and current private+180 font",
+    "order": [
+      "Initialize temporary output data=null and copy resolve mask",
+      "virtual metric8 on actual paint device",
+      "compare current FontData+38 with returned metric and +3c with0",
+      "matching branch shares source data via651f2840; mismatch allocates0x60 and copies source via651f1f50 then writes+38=metric,+3c=0",
+      "virtual devType; actual base QWidget650097b0 returns1 so deviceType4 printer-engine branch skipped",
+      "caller651f3060 assigns temporary result to actual private+180 then destroys temporary"
+    ]
+  },
+  "vtable": {
+    "installed": "QWidget65070ddd..e4 writes secondary656ab860 atwidget+10 before init",
+    "metric_slot28": "656ab888 ->65099110",
+    "devType_slot8": "656ab868 ->650097b0"
+  },
+  "metric8": {
+    "source": "65099110 prefix is fragmented by unwind metadata; explicit915a..93b9 tail retained",
+    "thread": "QObject::thread(qApp) versus QThread::currentThread before choosing DC. Same-thread uses6507f9d0; foreign thread calls GetDC(NULL) and releases atreturn. Prior observedthreadData equality is related but not itself QThread object identity.",
+    "cache": "6507f9d0 reads QtGui+9cae30; null calls GetDC(NULL) and writes cache. Nonnull returns current owner handle.",
+    "switch": "(metric8-3)*4 at650993d0 holdsRVA99214",
+    "value": "Current QWidgetPrivate.extra+52 nonzeroushort override wins; otherwise actualparent paintdevice virtualmetric8; no parent calls GetDeviceCaps(cachedHDC,90). DC acquisition occurs BEFORE override/parent tests.",
+    "new_gap": "Probe003 did not read FontData+3c, actual extra+52 DPI override, cachedHDC+9cae30 or metric8 return. Do not infer them just from field38=168."
+  },
+  "ownership_plan": {
+    "font": "Extend existing WidgetFontDataState with optional source-bound screen field3c. Supported matching branch preserves shared actual data/mask. Different data copy retains exactguard before allocating unrepresented font engine/request state.",
+    "device": "Resolve actual WidgetState parent chain with known base QWidget metric implementation and typed optionalDPI override; explicit runtime displayDC owner/value qualification belongs to same existing WidgetRuntime, not detached success boolean.",
+    "scope": "No new capture prepared/requested yet. Existing capture post-parent later roles preserve aliases but are not enough alone to prove every intervening constructor callback and metric cache effect. Bundle any eventual observation with remaining QWidget/QFrame constructor dependencies."
+  },
+  "next_direct_source": "QtCore QObject::thread/QThread::currentThread getters plus QFont same-pointer assignment leaf; then native raw22/raw23 attributes and posted raw74 ownership after font binding. No worker runtime or build."
+}

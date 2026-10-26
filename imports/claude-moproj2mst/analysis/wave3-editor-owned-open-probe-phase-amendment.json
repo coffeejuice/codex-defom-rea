@@ -1,0 +1,37 @@
+{
+  "schema": "editor300-owned-open-probe-phase-amendment-v1",
+  "created_utc": "2026-10-24T12:22:17.726662+00:00",
+  "supersedes_script_only": {
+    "path": "analysis/wave3-editor-owned-open-probe-v3-bindings.json",
+    "sha256": "720fea03e75459687a5dd1d089fba44091ac90440598a57f7ce1e363413d128c"
+  },
+  "preserved_runtime_evidence": {
+    "path": "build/original-editor-probe-001/capture-evidence.json",
+    "sha256": "ee319d9a3aa8252dab9127152ac15d6165225c86eb18acf55f4a2f48f657ca73"
+  },
+  "new_script": {
+    "path": "analysis/wave3-editor-owned-open-probe-v4.js",
+    "sha256": "55e7fe8d67c7b15485a7abe5ff9a1a519cfb8a7e3d644bc9c41365dfa9d9361f"
+  },
+  "new_bindings": {
+    "path": "analysis/wave3-editor-owned-open-probe-v4-bindings.json",
+    "sha256": "f07c1f5662b78b896e6fccc9ba2f1cf4f6bff52ae3e9702b1c740a5475577cbb"
+  },
+  "fixture_unchanged": {
+    "path": "analysis/wave3-editor-owned-open-fixture-manifest.json",
+    "sha256": "88050d3044b1669cc8f63f5d5f83472e24b2852a0f1e5a84afe805ddf1ed0e64"
+  },
+  "observed": "OwnedPID26764 TID832 hit02a0e0 inside mainwindow construction with mainReady=false,normalOpen=false,postOpen=false,setupEntered=false,sequence0. V3 guard raised callback_error and paused before selected nativeOpen. No native exception observed in this capture. This is an observer selection defect, not original Open/editor behavior. Root owns exactPID cleanup receipt.",
+  "repair": [
+    "02a0e0 before selected Open records owner/project/caller then returns without setting selected Project/postOpen state.",
+    "08a9b0 before selected Open records bounded pointer/path evidence and excludes its return from selected Project results.",
+    "eb26f0/ed9830/ed9969 before selected Open record bounded ignored calls and do not capture an editor or pause its construction.",
+    "01ca30 selects only actual mainwindow after its ctor return and exact main return site1c94. Earlier unrelated calls are observed/ignored; exact selected call must still decode to expected manifest path.",
+    "11a0 output logging requires exact main decoder call return1c52. Calls from other sites do not select native Open or populate editor context.",
+    "All owner/caller/path checks remain strict once normalOpen is selected; any later second Project/editor or mismatched setup stops. QWidget/property/notify hooks already require selected editor identity and needed phase.",
+    "Ignored-call output is capped at8 plus one truncation marker; original8native-exception cap remains. No target invocation/argument/state manipulation added."
+  ],
+  "phase_qualification": "Any actual preselected startup Project/Open/editor work, if observed, must qualify fresh-project acceptance. Ignoring it for hook ownership does not claim it never occurred or is harmless. V4 preserves phase booleans in ignored-call records; an unrelated decoder may also be logged outside its exact selected main callsite.",
+  "checks": "node --check analysis/wave3-editor-owned-open-probe-v4.js exits0. Manually inspected all13globally attached hook selectors. This is static syntax/source review only, no worker execution/tests/builds/GUI.",
+  "next_action": "Root reviews v4 and performs next owned capture with existing exact fixture after verified priorPID absence. Preserve capture001 failure evidence; do not reclassify it as completed setup or native application crash."
+}

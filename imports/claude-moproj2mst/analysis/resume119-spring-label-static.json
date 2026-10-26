@@ -1,0 +1,110 @@
+{
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "tool": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+  "tool_sha256": "12a1cd87238bd66dfdb788b4fcdcb91ce4b3f81236aab12a7a29e5ae1d85af50",
+  "captures": [
+    {
+      "path": "analysis\\resume119-spring-combo-label-140ec8da0.asm",
+      "begin": "0x140ec8da0",
+      "end_exclusive": "0x140ec8e69",
+      "native_bytes_sha256": "15f8ac6483300ee592eaae43cdfc719f5facd14ac591a36229f9ee42a36c9866",
+      "capture_sha256": "e7b577b7ea27cddf656b616346d4cc9f2d3e9a5e036230acd397e95c3ba8ffda",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/DISASM:BYTES",
+        "/RANGE:0x140ec8da0,0x140ec8e68",
+        "evidence\\original-binaries\\DEF_GUI_MO_64.exe"
+      ]
+    },
+    {
+      "path": "analysis\\resume119-spring-label-parser-140ec9980.asm",
+      "begin": "0x140ec9980",
+      "end_exclusive": "0x140ec9a47",
+      "native_bytes_sha256": "8ee0571c2976dcf9e21b8c604a0dbf50f59276d4417b2db6cb22a39ed1783f07",
+      "capture_sha256": "283376436060d0f7ecc918d8ed8e2b482db650206bfce74c2d4831cdcaf7acb5",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/DISASM:BYTES",
+        "/RANGE:0x140ec9980,0x140ec9a46",
+        "evidence\\original-binaries\\DEF_GUI_MO_64.exe"
+      ]
+    }
+  ],
+  "imports": [
+    {
+      "iat": "0x141e0b4a8",
+      "dll": "QtGui4_64.dll",
+      "name": "?currentText@QComboBox@@QEBA?AVQString@@XZ"
+    },
+    {
+      "iat": "0x141e0b4a0",
+      "dll": "QtGui4_64.dll",
+      "name": "?count@QComboBox@@QEBAHXZ"
+    },
+    {
+      "iat": "0x141e08f50",
+      "dll": "QtGui4_64.dll",
+      "name": "?itemText@QComboBox@@QEBA?AVQString@@H@Z"
+    },
+    {
+      "iat": "0x141e0b4c8",
+      "dll": "QtGui4_64.dll",
+      "name": "?setCurrentIndex@QComboBox@@QEAAXH@Z"
+    },
+    {
+      "iat": "0x141e03fc8",
+      "dll": "QtCore4_64.dll",
+      "name": "?isEmpty@QString@@QEBA_NXZ"
+    },
+    {
+      "iat": "0x141e03f50",
+      "dll": "QtCore4_64.dll",
+      "name": "?toLocal8Bit@QString@@QEBA?AVQByteArray@@XZ"
+    },
+    {
+      "iat": "0x141e04228",
+      "dll": "QtCore4_64.dll",
+      "name": "?data@QByteArray@@QEAAPEADXZ"
+    },
+    {
+      "iat": "0x141e04290",
+      "dll": "QtCore4_64.dll",
+      "name": "??1QByteArray@@QEAA@XZ"
+    },
+    {
+      "iat": "0x141e05d68",
+      "dll": "QtGui4_64.dll",
+      "name": "?isChecked@QAbstractButton@@QEBA_NXZ"
+    },
+    {
+      "iat": "0x141e07298",
+      "dll": "QtGui4_64.dll",
+      "name": "?setChecked@QAbstractButton@@QEAAX_N@Z"
+    }
+  ],
+  "literals": [
+    {
+      "address": "0x142b14f84",
+      "ascii": "%d"
+    },
+    {
+      "address": "0x142b13df0",
+      "ascii": "2itemClicked(QListWidgetItem *)"
+    },
+    {
+      "address": "0x142b13dc0",
+      "ascii": "1slotSpringLoadDieSelected(QListWidgetItem *)"
+    }
+  ],
+  "flag_writeback": {
+    "begin": "0x140ece20f",
+    "end_exclusive": "0x140ece259",
+    "native_bytes_sha256": "2fae71d3f69bbf94552128de88d200c8032593bcda8cf35090988563acb22f6a"
+  },
+  "flag_load": {
+    "begin": "0x140ece530",
+    "end_exclusive": "0x140ece56d",
+    "native_bytes_sha256": "710d2cf021e7a2df7d885f4c6a1cff99ce39c45e9009283c1d45fb945b1050aa"
+  },
+  "qualification": "Read-only PE/retained-source proof; DUMPBIN only, no original function execution, GUI, REA DB mutation or source/build edits."
+}

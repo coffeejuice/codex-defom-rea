@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF SPLINE + LINE",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nSPL.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "SPL.DXF",
+      "source": "data/dxf_spline.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Cubic spline sampled at 30 points + closing line. Prediction (DXF_READER.md model) = observed 2026-10-21: status 0, DIEGEO 1 2 30; segment 1: 1 1 0.0000000000E+000 0.0000000000E+000 8.0000000000E+000 0.0000000000E+000 0.0000000000E+000"
+  }
+}

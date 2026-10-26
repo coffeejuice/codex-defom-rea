@@ -1,0 +1,801 @@
+[
+ {
+  "label": "OBJPOS/2-explicit-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_explicit_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2: die 1 lifted 5 (mode 1), then positioned along -z onto workpiece 2 with depth 0. Rigid mover: workpiece boundary nodes are cast +z onto the die surface. Expect die 1 moved by (0,0,-5), 'Object 1 has been interference positioned w.r.t. Object 2.', STROKE 1 unchanged"
+ },
+ {
+  "label": "OBJPOS/2-depth-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_tol_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with depth 0.5: distance = (|0.5| + 5) - 0 = 5.5, die 1 moved by (0,0,-5.5)"
+ },
+ {
+  "label": "OBJPOS/2-negdepth-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_negtol_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with depth -0.5: fabs is used, same result as depth 0.5 (die 1 moved by (0,0,-5.5))"
+ },
+ {
+  "label": "OBJPOS/2-movctldir-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_dir0_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with direction 0 0 0: MOVCTL direction of object 1 (0,0,-1) is used; same result as ifd_m2_explicit_3d"
+ },
+ {
+  "label": "OBJPOS/2-oblique-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_oblique_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 along (0,1,-1) (normalised twice): die 1 lifted 5, then moved along the diagonal until contact; displacement = w*d, w = (0, 0.7071.., -0.7071..)"
+ },
+ {
+  "label": "OBJPOS/2-overlap-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_overlap_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with overlap: die 1 lowered 2 into the workpiece; flag 1 backs the workpiece off by shift = 15-13 = 2, hit 0, d = (0+0)-2 = -2; die 1 moved by (0,0,2) (back to contact)"
+ },
+ {
+  "label": "OBJPOS/102-overlap-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m102_overlap_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 102 with overlap 2: no back-off; the result depends on whether the bucket query returns the die bottom faces below the workpiece nodes (hit -2 -> die 1 moved by (0,0,2)) or not (backward retry); discriminates flag 0 from flag 1"
+ },
+ {
+  "label": "OBJPOS/12-explicit-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m12_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 12: as mode 2 (die 1 moved by (0,0,-5)) and STROKE 1 += (0,0,-5) (movement type 1, not 4)"
+ },
+ {
+  "label": "OBJPOS/102-explicit-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m102_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 102 without overlap: same displacement as mode 2 (0,0,-5), STROKE unchanged"
+ },
+ {
+  "label": "OBJPOS/112-explicit-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m112_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 112: displacement (0,0,-5) and STROKE 1 += (0,0,-5)"
+ },
+ {
+  "label": "OBJPOS/2-deformable-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_wp_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2, deformable mover: die 1 lifted 10, workpiece 2 lifted 3, then cast -z onto die 3 (mesh boundary nodes of 2 onto the DIEGEO surface of 3); expect workpiece moved by (0,0,-3)"
+ },
+ {
+  "label": "OBJPOS/2-tet-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Tet.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Tet.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_tet_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 on the tet seed: tetrahedral workpiece 2 (FNDBND 4-node path) lifted 3 and cast onto die 3; expect (0,0,-3)"
+ },
+ {
+  "label": "OBJPOS/2-auto-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_auto_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with target 0: candidates 2 (d = 5) and 3 (d = 20); smallest wins -> 'w.r.t. Object 2', die 1 moved by (0,0,-5)"
+ },
+ {
+  "label": "OBJPOS/12-auto-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m12_auto_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 12 with target 0: as ifd_m2_auto_3d plus STROKE 1 += (0,0,-5)"
+ },
+ {
+  "label": "OBJPOS/102-auto-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m102_auto_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 102 with target 0 (search always runs with flag 1, final call with flag 0): target 2, (0,0,-5)"
+ },
+ {
+  "label": "OBJPOS/112-auto-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m112_auto_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 112 with target 0: target 2, (0,0,-5), STROKE 1 += (0,0,-5)"
+ },
+ {
+  "label": "OBJPOS/2-auto-behind-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_autoback_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 target 0, workpiece 2 (lifted 1) moving +z, die 1 lifted 5: candidate 1 gives d = 4; candidate 3 lies behind: back-off shift 56 puts the workpiece under die 3, hit 0, d = -56 (signed) -> wins; expect 'w.r.t. Object 3' and workpiece moved by (0,0,-56) (ends below die 3)"
+ },
+ {
+  "label": "OBJPOS/2-auto-coupledexcluded-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_autocoupled_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 target 0 with coupled object 1: 1 is excluded from the candidates, only 3 remains; workpiece 2 (lifted 3) moved by (0,0,-3) and coupled die 1 moved by the same: 'Object 1 has been moved by (0, 0, -3).'"
+ },
+ {
+  "label": "OBJPOS/2-coupled-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_coupled_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with coupled die 1: distance of 2 to target 3 is 3, of 1 is 25; minimum 3 -> both moved by (0,0,-3); 'Object 1 has been moved by (0, 0, -3).'"
+ },
+ {
+  "label": "OBJPOS/12-coupled-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m12_coupled_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 12 with coupled die 1: both moved by (0,0,-3), both STROKEs += (0,0,-3)"
+ },
+ {
+  "label": "OBJPOS/2-coupled-movctldir-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_coupleddir0_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2, direction 0, mover 1 (MOVCTL dir (0,0,-1), lifted 5), coupled 3 (MOVCTL dir 0 -> uses (0,0,-1)): die 3 lies behind the workpiece, signed distance -55 wins; displacement rebuilt along 1's MOVCTL dir: die 1 moved by (0,0,-55); coupled 3 moved along its own zero MOVCTL dir -> 'Object 3 has been moved by (0, 0, 0).'"
+ },
+ {
+  "label": "OBJPOS/2-nomovctldir-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_nomovdir_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2, direction 0, workpiece 2 whose MOVCTL direction is 0: kernel returns 0 -> 'Object 2 to Object 3 interference positioning failed.', nothing moved, status 0"
+ },
+ {
+  "label": "OBJPOS/2-undefined-target-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_badtarget_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with target 9 (missing): return 3 without message -> 'ERROR: Keyword OBJPOS Data Error.'"
+ },
+ {
+  "label": "OBJPOS/2-undefined-mover-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_badobj_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 with moving object 9 (missing): return 3 -> 'ERROR: Keyword OBJPOS Data Error.'"
+ },
+ {
+  "label": "OBJPOS/2-nohit-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_nohit_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 2 along +x after lifting die 1 by 5: no y-z overlap between the bodies in either direction, both attempts fail -> 'Object 1 to Object 2 interference positioning failed.'"
+ },
+ {
+  "label": "OBJPOS/2-explicit-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 2: die 2 lifted 10 (mode 1) then positioned along -y onto workpiece 1 with 0 percent area (back-off, 1001 gap samples, shift for area 0 = touch); 'Object 2 is interference positioned w.r.t. Object 1.'"
+ },
+ {
+  "label": "OBJPOS/2-area-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_tol_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 2 with token 2 = 1: interference area = 1 percent of the reference area, die 2 ends slightly deeper than in ifd_m2_2d"
+ },
+ {
+  "label": "OBJPOS/2-movctldir-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_dir0_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 2 with direction 0 0: MOVCTL direction of die 2 (angle -90 -> (0,-1)) is used; same as ifd_m2_2d"
+ },
+ {
+  "label": "OBJPOS/12-explicit-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m12_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 12: as ifd_m2_2d and STROKE 2 (x, y) += displacement"
+ },
+ {
+  "label": "OBJPOS/102-explicit-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m102_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 102: no back-off, gaps below -1e-15 skipped when sampling; STROKE unchanged"
+ },
+ {
+  "label": "OBJPOS/112-explicit-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m112_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 112: as 102 plus STROKE 2 += displacement"
+ },
+ {
+  "label": "OBJPOS/2-coupled-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_coupled_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 2 with coupled die 3: die 3 lies behind the workpiece, its back-off places it on the far side, signed distance about -82 wins; both dies move by die 3's displacement (upwards); 'Object 3(coupled) has been moved by (..).'"
+ },
+ {
+  "label": "OBJPOS/12-coupled-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m12_coupled_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 12 with coupled die 3: as ifd_m2_coupled_2d plus both STROKEs updated"
+ },
+ {
+  "label": "OBJPOS/2-target0-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m2_target0_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 2 with target 0: no automatic search in 2D, object 0 not found -> return 3 'ERROR: Keyword OBJPOS Data Error.', nothing moved"
+ },
+ {
+  "label": "OBJPOS/12-failed-stroke-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m12_failstroke_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 12 that fails (target 3, direction +x: no common abscissa range after rotation) -> 'Object 2 to Object 3 interference positioning failed.'; the 2D stroke flag ignores success, so STROKE 2 += stale DAT_140706bb0 = (0, 10) from the preceding mode 1"
+ },
+ {
+  "label": "OBJPOS/7-drop-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7: die 1 lifted 10, workpiece 2 lifted 3, dropped along -z (token 2 = 0.002) onto the union of the other surfaces: 'Object 2 has been dropped successfully.' (expect about (0,0,-3))"
+ },
+ {
+  "label": "OBJPOS/7-default-tol-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_tol0_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 with token 2 = 0: solver default 0.002; same result as ifd_m7_3d"
+ },
+ {
+  "label": "OBJPOS/7-tilted-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_tilted_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 on a tilted part: workpiece lifted 3 and rotated 5 deg about x through (0,0,3) (mode 3), then dropped; the solver may rotate it to rest"
+ },
+ {
+  "label": "OBJPOS/8-drop-axis-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m8_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 8: windows ignored, one axis constraint through the FUN_1401fe7d0 surface point along the drop direction"
+ },
+ {
+  "label": "OBJPOS/9-drop-vector-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m9_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 9 with vector (1,0,0) in tokens 6-8 (normalised, count 1 passed to the solver)"
+ },
+ {
+  "label": "OBJPOS/9-drop-zerovector-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m9_zero_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 9 with vector 0: count 0, expected to behave like mode 7"
+ },
+ {
+  "label": "OBJPOS/7-drop-coupled-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_coupled_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 with coupled die 1: after a successful drop die 1 gets the same 4x4 transform: 'Object 1 has been moved by drop positioning.'"
+ },
+ {
+  "label": "OBJPOS/7-drop-rigid-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_rigid_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 for rigid die 1 (moving data = its DIEGEO surface, mesh nodes transformed by the wrapper) lifted 5 and dropped along -z onto the workpiece"
+ },
+ {
+  "label": "OBJPOS/7-drop-up-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_up_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 along +z: workpiece dropped upwards onto die 1 lifted 10 (expect about (0,0,10))"
+ },
+ {
+  "label": "OBJPOS/7-drop-zerodir-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_dir0_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 with direction 0: solver returns with status 1 -> 'Failure in drop-positioning object 2.'"
+ },
+ {
+  "label": "OBJPOS/7-undefined-3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_badobj_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 7 for missing object 9: return 3 -> 'ERROR: Keyword OBJPOS Data Error.'"
+ },
+ {
+  "label": "OBJPOS/7-in-2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ifd_m7_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 7: no 2D case, nothing happens, no message, status 0"
+ }
+]

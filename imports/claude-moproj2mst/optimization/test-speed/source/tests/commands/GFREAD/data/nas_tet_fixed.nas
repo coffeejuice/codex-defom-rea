@@ -1,0 +1,11 @@
+$ fixed-field CTETRA test
+BEGIN BULK
+GRID    1               0.0     0.0     0.0     
+GRID    2               0.1     0.0     0.0     
+GRID    3               0.0     1.0     0.0     
+GRID    4               0.0     0.0     1.0     
+GRID    5               1.0-3   2.5E-1  1.0     
+$ CTETRA in a comment is skipped
+CTETRA  1       1       1       2       3       4       
+CTETRA  2       1       2       3       4       5       
+ENDDATA

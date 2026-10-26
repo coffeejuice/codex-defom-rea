@@ -1,0 +1,38 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140c78300",
+      "entry": "140c78300",
+      "name": "FUN_140c78300",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Removing unreachable block (ram,0x000140c78493) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c783e0) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c78396) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c78353) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c78430) */\r\n\r\nvoid FUN_140c78300(longlong param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)\r\n\r\n{\r\n  char cVar1;\r\n  undefined8 uVar2;\r\n  longlong lVar3;\r\n  undefined8 *puVar4;\r\n  longlong *plVar5;\r\n  undefined1 auStack_80 [32];\r\n  undefined1 *puStack_60;\r\n  longlong *plStack_58;\r\n  longlong *plStack_50;\r\n  undefined8 uStack_48;\r\n  undefined8 uStack_40;\r\n  undefined8 uStack_38;\r\n  undefined8 uStack_30;\r\n  undefined8 uStack_28;\r\n  int *piStack_20;\r\n  undefined8 uStack_18;\r\n  undefined8 uStack_10;\r\n  \r\n  uStack_48 \u003d 0xfffffffffffffffe;\r\n  FUN_14006daf0(auStack_80,param_1 + 0x18,param_3,param_4,0);\r\n  puStack_60 \u003d auStack_80;\r\n  while( true ) {\r\n    uStack_38 \u003d 0;\r\n    uVar2 \u003d func_0x000140dfc380(puStack_60,0);\r\n    cVar1 \u003d FUN_140dfc080(uVar2);\r\n    if (cVar1 \u003d\u003d \u0027\\0\u0027) break;\r\n    uStack_30 \u003d 0;\r\n    lVar3 \u003d func_0x000140dfc380(puStack_60,0);\r\n    puVar4 \u003d (undefined8 *)FUN_14064f400(lVar3 + 0x10);\r\n    plVar5 \u003d (longlong *)*puVar4;\r\n    while( true ) {\r\n      uStack_18 \u003d 0;\r\n      lVar3 \u003d func_0x000140dfc380(puStack_60,0);\r\n      if (*(int *)(lVar3 + 8) \u003d\u003d 0) break;\r\n      plStack_58 \u003d plVar5;\r\n      plStack_50 \u003d plVar5;\r\n      if (plVar5 \u003d\u003d (longlong *)0x0) {\r\n        uStack_10 \u003d 0;\r\n      }\r\n      else {\r\n        uStack_10 \u003d (**(code **)(*plVar5 + 0x18))(plVar5,1);\r\n      }\r\n      uStack_28 \u003d 0;\r\n      lVar3 \u003d func_0x000140dfc380(puStack_60,0);\r\n      piStack_20 \u003d (int *)(lVar3 + 8);\r\n      *piStack_20 \u003d *piStack_20 + -1;\r\n    }\r\n    uStack_40 \u003d 0;\r\n    lVar3 \u003d func_0x000140dfc380(puStack_60,0);\r\n    func_0x000140de9800(lVar3 + 0x10);\r\n  }\r\n  FUN_140c51520(auStack_80);\r\n  FUN_14020db90(param_1 + 0x18);\r\n  FUN_140cbc920(param_1 + 0x20,0);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e61c",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140c9b8c0",
+      "entry": "140c9b8c0",
+      "name": "FUN_140c9b8c0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 FUN_140c9b8c0(undefined8 param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  longlong *plVar2;\r\n  undefined8 uVar3;\r\n  \r\n  lVar1 \u003d func_0x000140c9b7c0(param_1);\r\n  if (lVar1 \u003d\u003d 0) {\r\n    uVar3 \u003d 1;\r\n  }\r\n  else {\r\n    plVar2 \u003d (longlong *)func_0x000140c9b7c0(param_1);\r\n    uVar3 \u003d (**(code **)(*plVar2 + 0x58))(plVar2);\r\n  }\r\n  return uVar3;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508fc0c",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

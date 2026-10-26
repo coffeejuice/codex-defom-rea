@@ -1,0 +1,376 @@
+[
+ {
+  "label": "DOESCL/badmat_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "badmat_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL YOUNG of missing material 9: \"Scale 2.000000 YOUNG  : Mat# 9\" then \"Error on reading DOESCL : material # 9 is not defined.\""
+ },
+ {
+  "label": "DOESCL/badobj_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "badobj_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL NDTMP of missing object 9: \"Scale 2.000000 NDTMP  : Obj# 9\" then \"Error on reading DOESCL : object # 9 is not defined.\""
+ },
+ {
+  "label": "DOESCL/blankfactor_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "blankfactor_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL with nothing after the keyword: factor reader returns 1 -> Reading Error; the next line \"NDTMP 2\" is then read by the KEY loop as an NDTMP keyword (object 2, rest of line empty -> its own error)"
+ },
+ {
+  "label": "DOESCL/fperv_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "fperv_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL FPERV with flags 1 0: first set FPERV constants 2.0 and 3.0, then only the first (Body Force, +0x1ef0) is scaled: 20.0, second stays 3.0"
+ },
+ {
+  "label": "DOESCL/fperv_both_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "fperv_both_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL FPERV with flags 0 1: only the second quantity (+0x1f68) scaled: 2.0 stays, 3.0 -> 30.0"
+ },
+ {
+  "label": "DOESCL/fstres_nontab_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "fstres_nontab_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL FSTRES on a non-tabular flow stress (seed FSTRES 1 1, mode != 1): message printed, nothing scaled"
+ },
+ {
+  "label": "DOESCL/fstres_tab_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "fstres_tab_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL FSTRES on a tabular flow stress (seed FSTRES 1 2, mode +0x50 = 1): every flow-stress table value x 1.1; prints \"Scale 1.100000 FSTRES : Mat# 1\" and the VarFieldWidth debug line"
+ },
+ {
+  "label": "DOESCL/loctmp_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/ResistanceSpotWelding/Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "loctmp_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL LOCTMP object 3 window 2, flags 1 1 0 0 0: Env temperature 25 -> 50 and Conv. coef 0.3 -> 0.6, others unchanged; window 1 untouched"
+ },
+ {
+  "label": "DOESCL/loctmp_win0_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/ResistanceSpotWelding/Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "loctmp_win0_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL LOCTMP window number 0: positional lookup gives the first window; all five flags set (Htc skipped, byte +0x560 = 0)"
+ },
+ {
+  "label": "DOESCL/movctl_ham_t0_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "HAMMER_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/MultipleHammerOperations/HAMMER_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_ham_t0_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type 0 on a hammer (object 2, energy 2.712E7): energy x 0.5 = 1.356E7"
+ },
+ {
+  "label": "DOESCL/movctl_ham_t1_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "HAMMER_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/MultipleHammerOperations/HAMMER_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_ham_t1_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type 1 on a hammer: energy assigned = 1.0E7"
+ },
+ {
+  "label": "DOESCL/movctl_ham_t2_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "HAMMER_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/MultipleHammerOperations/HAMMER_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_ham_t2_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type 2 on a hammer without efficiency table: efficiency 0.6 assigned 0.8"
+ },
+ {
+  "label": "DOESCL/movctl_ham_t3_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "HAMMER_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/MultipleHammerOperations/HAMMER_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_ham_t3_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type field 3 on a hammer: no message, nothing changed"
+ },
+ {
+  "label": "DOESCL/movctl_screw_t0_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Screwpress_Controls_Example1_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Press_Modelling/Screwpress_Controls_Example1_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_screw_t0_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type 0 on a screw press (object 2, energy 4.52E7): energy x 2.0 = 9.04E7"
+ },
+ {
+  "label": "DOESCL/movctl_screw_t2_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Screwpress_Controls_Example1_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Press_Modelling/Screwpress_Controls_Example1_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_screw_t2_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type 2 on a screw press: efficiency 0.9 assigned 0.75 (when the screw table T@+0x2400 is constant)"
+ },
+ {
+  "label": "DOESCL/movctl_speed_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_speed_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL on movement type 1 (speed): the speed table/constant (1.0) x 3.0 = 3.0 whatever the type field; message \"Scale energy 3.000000 MOVCTL : Obj# 1 type 0\""
+ },
+ {
+  "label": "DOESCL/movctl_speed_t2_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "movctl_speed_t2_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL MOVCTL type field 2 on a speed object: still scales the speed (1.0 x 3.0), message \"Assign efficiency ...\""
+ },
+ {
+  "label": "DOESCL/ndtmp_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ndtmp_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL NDTMP on the 2D seed: object 1 node temperatures x 2.0 (2D KEY writer prints T-dT and T pairs, see NDTMP.md)"
+ },
+ {
+  "label": "DOESCL/ndtmp_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "ndtmp_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL NDTMP: node temperatures of object 2 (1200) x 0.5 = 600; objects 1 and 3 unchanged"
+ },
+ {
+  "label": "DOESCL/unknown_kw_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "unknown_kw_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL with an unknown name (id 305): \"undefined keyword definition\", status 0"
+ },
+ {
+  "label": "DOESCL/unsupported_kw_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "unsupported_kw_3d.KEY"
+   }
+  ],
+  "comment": "DOESCL with a real but unsupported keyword (STRAIN): \"Error on reading DOESCL : undefined keyword definition\", nothing changed, status 0"
+ },
+ {
+  "label": "DOESCL/young_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "young_2d.KEY"
+   }
+  ],
+  "comment": "DOESCL YOUNG: constant Young modulus 2.06843E5 x 0.5 = 1.034215E5 (one MULSD)"
+ }
+]

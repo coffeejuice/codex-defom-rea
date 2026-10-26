@@ -1,0 +1,15 @@
+# CP115: deferred Spring combo ordering regression
+
+Added one case to the exclusively assigned `source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp`: `initial_editor_spring_combo_projection_observes_model_after_scalar_sidecar_reads`. No production/shared source or other test was edited in this task.
+
+The local Extra3DIo spy records the complete successful scalar read prefix, including the conditional STRETCH double-read. The actual GuiModel starts with zero objects. Only inside the final STRAIN_DST scalar read does the spy create actual objects1..20 through model.objectWrap, then report that observation. Its subsequent SPRING read returns the source-qualified one-row10/20 payload. The deferred lifecycle combo callback therefore obtains the IDs from the changed actual model and accepts the row. An eager combo scan before scalar IO would cache onlyID0 and cause the positive-row Fill to refuse; the new case would fail instead of merely producing the same read log.
+
+The asserted sequence is NBC double2; SW2SP int1; STRETCH int1; STRETCH double3; B_WEIGHT double1; STRAIN_DST double0; model-object creation marker; Spring read. It then requires completed internal page construction, the reached Extra3D page, one selected row0/IDs10 and20/flagfalse and the same model/remesh owners. It retains `InitialEditorSession::completeForPublicSave == false`. Any unexpected write/delete/warning during this Open-only fixture fails. The supplied IO mutation is a deterministic test observation, not a claim of an original callback or fresh native GUI behavior.
+
+A pre-existing geometry-parked model cannot test this edge: openInitialEditorInto first calls model.simCtl, whose geometry barrier rejects before any page/IO. Installing a genuine barrier only at the scalar read would need the actual DB owner/directory receipt and viewer geometry query setup used by the separate geometry tests. This bounded fixture has none of those owners. No private barrier, fake reader or shared hook was introduced; the permitted state-dependent ordering alternative above directly detects the eager-scan regression.
+
+Static preflight compared CP114 verified source.zip baseline SHA1dec8b6827017706802b599ba388983628b6d591cc6fe77dff79080596122337. All prior case text is unchanged; one new case brings the target to29 cases. Includes resolve; Testkit main/run_all/macros are supported; delimiters and whitespace pass; no C assert/REQUIRE_EQ. No compiler/build/test executable was invoked. Root must run `m2m_mdt_simcontrol300_lifecycle` / `m2m.mdt.simcontrol300_lifecycle` with the shared deferred callback integration before claiming validation.
+
+Frozen test SHA-256: `c74a62d1c1ee6b1d3a0b840b0993ee6882addb70b8e230960bd5657ccccb0661`.
+
+This task wrote only the assigned existing test and this receipt. No shared headers/src/CMake, build/test, GUI, original execution or mutable REA operation occurred. Source is frozen/released for root integration; public mode300/palette guards remain unchanged.

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "rollout-2026-10-22T23-59-18-01a16720-b2bc-7720-b5e2-c7be786faaaa.jsonl",
+    "bytes_at_scan": 20123020,
+    "tail_mib": 4,
+    "start_offset": 16448748,
+    "end_offset": 20123020,
+    "window_sha256": "cbdd97ee6abaf9b3bce2841f2de91d7738d6511cdff68ef25f2b525026165090"
+  },
+  "turns": [
+    {
+      "turn_id": "01a16925-3b68-7c70-81d9-ff90b0e932a6",
+      "started_at": "2026-10-23T14:23:30.180Z",
+      "completed_at": "2026-10-23T14:28:35.718Z",
+      "elapsed_seconds": 305.538,
+      "tool_active_union_seconds": 0.534,
+      "reasoning_item_union_seconds": 95.325,
+      "tool_reasoning_overlap_seconds": 0.0,
+      "compaction_seconds": 0.0,
+      "unattributed_seconds": 202.413,
+      "tool_items": {
+        "CommandExecution": 8
+      },
+      "failed_tool_items": 0,
+      "truncated_command_outputs": 2,
+      "usage_delta": {
+        "input_tokens": 837454,
+        "cached_input_tokens": 827904,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3947,
+        "reasoning_output_tokens": 1628,
+        "total_tokens": 841401,
+        "uncached_input_tokens": 9550
+      },
+      "slowest_tool_items": [
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.162,
+          "item_id": "exec-ce03f0e7-362b-4a33-8d81-be40878699e4"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.112,
+          "item_id": "exec-c740c8b3-56d4-49fe-b55d-20edd9b597bf"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.102,
+          "item_id": "exec-2c26db0b-d43a-413a-9543-a9cc22ad855c"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.095,
+          "item_id": "exec-906bbf21-1295-472d-85da-fdb36d69b6be"
+        },
+        {
+          "kind": "CommandExecution",
+          "name": "CommandExecution",
+          "seconds": 0.094,
+          "item_id": "exec-6bb5cee7-018b-48dd-86e4-250bea83beca"
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "Only completed turns with a start present in the bounded tail; no whole-history claim.",
+    "Intervals are UI item lifetimes, not CPU time or proof that Codex was blocked. Concurrent spans are unioned, not added.",
+    "Reasoning item time is observed model activity; unattributed time can include generation, client/approval latency and gaps. No causal attribution is inferred.",
+    "Usage is cumulative-ledger delta when both endpoints exist and are monotonic. Cached input is separate; no price or billing estimate.",
+    "No messages, commands, arguments, reasoning text, credentials or rate-limit records are copied."
+  ]
+}

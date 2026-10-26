@@ -1,0 +1,217 @@
+--- a/close_effects.hpp
++++ b/close_effects.hpp
+@@ -6,7 +6,7 @@
+ #include <string>
+ #include <vector>
+ 
+-namespace m2m::doe { struct StateVarState; }
++namespace m2m::doe { struct StateVarState; class StudyIo; }
+ 
+ namespace m2m::engine {
+ struct DbHandle;
+@@ -17,6 +17,9 @@
+ struct StateVarPlotEffects {
+     virtual ~StateVarPlotEffects() = default;
+     virtual void changePtrkGraph(GuiModel&, doe::StateVarState&) = 0;
++    // d17b90 emits after its type/title/range prefix, before d189b0/legend.
++    // First-only implementations retain an exact refusal at this second hook.
++    virtual void changeHistoGraph(GuiModel&, doe::StateVarState&);
+ };
+ 
+ // SfPtrkManager (309cc0), lazily owned by the original data root at +1978.
+@@ -41,6 +44,15 @@
+     std::vector<std::weak_ptr<PtrkGraphManagerState>> receivers;
+ };
+ 
++// Shared lease keeps the actual StudyIo/runtime registry alive across Project
++// storage release. Receiver ownership remains StateVar's; registrations are weak.
++struct HistogramRegistrations {
++    std::shared_ptr<doe::StudyIo> owner;
++    std::string qualification;
++};
++
++// These receiver methods require the shared notifier's +90/+141 gates to have
++// been handled by lifecycle integration. No duplicate suppression flags here.
+ // Source-qualified subset of signalChangePtrkGraph delivery. Registration
+ // lifetime and live receiver state are real; graphOn=true remains guarded before
+ // its first unresolved lazy allocation/registration effect (321660 ->31fab0).
+@@ -53,8 +65,14 @@
+         return ptrkGraphRegistrations_;
+     }
+     void changePtrkGraph(GuiModel&, doe::StateVarState&) override;
++    void setHistogramRegistrations(std::optional<HistogramRegistrations>);
++    const std::optional<HistogramRegistrations>& histogramRegistrations() const noexcept {
++        return histogramRegistrations_;
++    }
++    void changeHistoGraph(GuiModel&, doe::StateVarState&) override;
+ 
+ private:
+     std::optional<PtrkGraphRegistrations> ptrkGraphRegistrations_;
++    std::optional<HistogramRegistrations> histogramRegistrations_;
+ };
+ } // namespace m2m::engine
+--- a/close_effects.cpp
++++ b/close_effects.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include "m2m/common.hpp"
+ #include "m2m/doe_statevar.hpp"
++#include "m2m/doe_io.hpp"
+ #include "m2m/doe_stepdata.hpp"
+ #include "m2m/engine.hpp"
+ 
+@@ -55,4 +56,41 @@
+         unsupported("enabled receiver needs native graph ownership and registration (321660/31fab0)");
+     }
+ }
++void StateVarPlotEffects::changeHistoGraph(GuiModel&, doe::StateVarState&)
++{
++    throw Error(M2M_E_UNSUPPORTED, "Close ChangeHistoGraph: receiver effect is unavailable");
++}
++
++void CloseEffects::setHistogramRegistrations(std::optional<HistogramRegistrations> registrations)
++{
++    histogramRegistrations_ = std::move(registrations);
++}
++
++void CloseEffects::changeHistoGraph(GuiModel& model, doe::StateVarState& state)
++{
++    const auto refuse = [](const char* detail) {
++        throw Error(M2M_E_UNSUPPORTED, std::string("Close ChangeHistoGraph: ") + detail);
++    };
++    if (!model.doeStepData || model.doeStepData->stateVar.get() != &state)
++        refuse("application must pass the StateVar owned by the actual GuiModel");
++    if (!histogramRegistrations_ || !histogramRegistrations_->owner ||
++        histogramRegistrations_->qualification.empty())
++        refuse("actual runtime and ordered receiver coverage are unavailable");
++
++    // Bind the actual runtime and take a new local snapshot at each emit. New
++    // helpers registered since binding are included. Flags are never copied.
++    const auto lease = histogramRegistrations_->owner;
++    const auto snapshot = lease->stateVarRuntime().histogramRegistrations;
++    for (const auto& registration : snapshot) {
++        if (registration.signal != "signalChangeHistoGraph") continue;
++        const auto receiver = registration.receiver.lock();
++        if (!receiver) continue; // do not prune persistent runtime registrations
++        if (registration.slot != "slotChangeHistoGraph")
++            refuse("live receiver uses an unsupported slot");
++        // 413f00 ->4117e0 reads the existing helper's actual +14 field.
++        if (!receiver->graphOn) continue;
++        // The next read is helper+38+7c, NOT HistogramState::binWidth at+10.
++        refuse("enabled receiver needs nested Qt field +0xb4 and graph effects (4122f0)");
++    }
++}
+ } // namespace m2m::engine
+--- a/test_close_effects.cpp
++++ b/test_close_effects.cpp
+@@ -9,6 +9,7 @@
+ 
+ #include "m2m/common.hpp"
+ #include "m2m/doe_statevar.hpp"
++#include "m2m/doe_io.hpp"
+ #include "m2m/doe_stepdata.hpp"
+ #include "m2m/engine.hpp"
+ #include "m2m/engine/close_effects.hpp"
+@@ -146,4 +147,102 @@
+     expectUnsupported([&] { effects.changePtrkGraph(f.model, f.state()); }, "data-root owner");
+ }
+ 
++
++TEST_CASE(close_effects_isolated_second_hook_defaults_to_guard)
++{
++    struct FirstOnly : engine::StateVarPlotEffects {
++        void changePtrkGraph(engine::GuiModel&, doe::StateVarState&) override {}
++    } firstOnly;
++    Fixture f;
++    expectUnsupported([&] { firstOnly.changeHistoGraph(f.model, f.state()); }, "ChangeHistoGraph");
++}
++
++TEST_CASE(close_effects_isolated_histogram_requires_actual_qualified_runtime)
++{
++    Fixture f;
++    engine::CloseEffects effects;
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, f.state()); }, "coverage");
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{});
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, f.state()); }, "coverage");
++    auto io = doe::makeRecordingStudyIo();
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{io, ""});
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, f.state()); }, "coverage");
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{io, "isolated observed-empty fixture"});
++    effects.changeHistoGraph(f.model, f.state());
++    doe::StateVarState detached;
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, detached); }, "actual GuiModel");
++}
++
++TEST_CASE(close_effects_isolated_histogram_reads_actual_registry_and_live_flags)
++{
++    Fixture f;
++    auto io = doe::makeRecordingStudyIo();
++    engine::CloseEffects effects;
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{io, "isolated live-registry fixture"});
++    f.state().histogram = std::make_shared<doe::HistogramState>();
++    // Added AFTER binding; dispatch must not use a cloned registration population.
++    io->stateVarRuntime().histogramRegistrations.push_back(
++        {"signalChangeHistoGraph", "slotChangeHistoGraph", f.state().histogram});
++    auto& histogram = *f.state().histogram;
++    histogram.binWidth = 27;
++    effects.changeHistoGraph(f.model, f.state());
++    histogram.graphOn = true;
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, f.state()); }, "+0xb4");
++    CHECK(histogram.graphOn);
++    CHECK_EQ(histogram.binWidth, 27);
++    histogram.graphOn = false;
++    effects.changeHistoGraph(f.model, f.state());
++}
++
++TEST_CASE(close_effects_isolated_histogram_global_receivers_are_not_just_current_helper)
++{
++    Fixture f;
++    auto io = doe::makeRecordingStudyIo();
++    engine::CloseEffects effects;
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{io, "isolated global-registry fixture"});
++    f.state().histogram = std::make_shared<doe::HistogramState>();
++    auto other = std::make_shared<doe::HistogramState>();
++    other->graphOn = true;
++    auto& records = io->stateVarRuntime().histogramRegistrations;
++    records.push_back({"signalHistoGraphOff", "slotHistoGraphOff", other});
++    records.push_back({"signalChangeHistoGraph", "slotChangeHistoGraph", f.state().histogram});
++    effects.changeHistoGraph(f.model, f.state()); // unrelated key is ignored
++    records.push_back({"signalChangeHistoGraph", "slotChangeHistoGraph", other});
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, f.state()); }, "+0xb4");
++    CHECK(!f.state().histogram->graphOn);
++    CHECK(other->graphOn);
++}
++
++TEST_CASE(close_effects_isolated_histogram_expiry_preserves_actual_registry)
++{
++    Fixture f;
++    auto io = doe::makeRecordingStudyIo();
++    engine::CloseEffects effects;
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{io, "isolated lifetime fixture"});
++    auto receiver = std::make_shared<doe::HistogramState>();
++    auto& records = io->stateVarRuntime().histogramRegistrations;
++    records.push_back({"signalChangeHistoGraph", "unrecoveredLiveSlot", receiver});
++    expectUnsupported([&] { effects.changeHistoGraph(f.model, f.state()); }, "unsupported slot");
++    receiver.reset();
++    effects.changeHistoGraph(f.model, f.state()); // null receiver skips slot invocation
++    CHECK_EQ(records.size(), std::size_t{1});
++    CHECK(records.front().receiver.expired());
++}
++
++TEST_CASE(close_effects_isolated_histogram_lease_retains_same_runtime)
++{
++    Fixture f;
++    auto io = doe::makeRecordingStudyIo();
++    std::weak_ptr<doe::StudyIo> observed = io;
++    auto* runtime = &io->stateVarRuntime();
++    engine::CloseEffects effects;
++    effects.setHistogramRegistrations(engine::HistogramRegistrations{io, "isolated session lease fixture"});
++    io.reset();
++    CHECK(!observed.expired());
++    CHECK(&effects.histogramRegistrations()->owner->stateVarRuntime() == runtime);
++    effects.changeHistoGraph(f.model, f.state());
++    effects.setHistogramRegistrations(std::nullopt);
++    CHECK(observed.expired());
++}
++
+ int main() { return testkit::run_all(); }

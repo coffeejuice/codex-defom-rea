@@ -1,0 +1,32 @@
+{
+  "scope": "Converter recovery only; parent DMO efficiency state is owned by another chat",
+  "metadata": "analysis/wave2-efficiency-metadata.json",
+  "metadata_limit": "Bounded audit covers two completed prior turns, not this active implementation turn; do not attribute their usage to the current build/test work.",
+  "verified_results": {
+    "geometry_configure_seconds": 0.953,
+    "geometry_build_seconds": 5.828,
+    "geometry_ctest_seconds": 18.625,
+    "registered_tests": 95,
+    "incomplete_test_outputs": 0,
+    "fixture_changes": 0
+  },
+  "bottlenecks": [
+    {
+      "issue": "Sandboxed original launches exposed no UI window",
+      "resolution": "Interactive Start-Process outside execution sandbox with explicit disposable cwd exposed owned original window; launch receipt retained.",
+      "limit": "Original subsequently crashed after Open; no successful end-to-end reference yet."
+    },
+    {
+      "issue": "Native file-dialog accessibility indices unavailable and focus mislabeled",
+      "resolution": "Use observed filename focus and native Windows backslash path. Preserve failed syntax attempt as training deviation.",
+      "limit": "Not a clean acceptance capture."
+    },
+    {
+      "issue": "Broad text searches and Windows literal wildcard paths generated avoidable failures/oversized outputs",
+      "adopted_change": "Use rg directory plus -g pattern; for JSON decompile exports print selected fields/functions only, never raw matching one-line bodies."
+    }
+  ],
+  "token_measurement": "No current-turn recovery usage attribution available",
+  "speedup_claim": null,
+  "next_review": "After three further recovery checkpoints or one hour at next safe checkpoint; do not interrupt live builds/captures."
+}

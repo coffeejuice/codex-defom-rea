@@ -1,0 +1,66 @@
+{
+  "schema": "editor300-stopping-partial-page-seam-design-v1",
+  "created_utc": "2026-10-24T09:30:27.408885+00:00",
+  "status": "Design only; source frozen pending candidate37. Root has received proposed direction.",
+  "inputs": [
+    {
+      "path": "analysis/wave3-editor-mds-stopping-page-order-static.json",
+      "sha256": "bd1986693151db4beb8543445530b83e232102a7228f5afa82b7c42e759ffbd6"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ebd180.c",
+      "sha256": "2e4e10bb9a30ae74ccdcae56654fe63a276c338fd1567ae3bd0aa32dbbee0ea8"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-successful-node-read-contract.json",
+      "sha256": "9958b8baee42d239a58efadd81482fe17f6d74c378904dcb1eeecd97954cd7c0"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "88be215d66758c14f5e06c264c918aed21dd6f02b54f4d6279139e37549b7a37"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "a194afd123f55c278a3113349b97cf8063e575872bd5c836ac4f54f992d7a07c"
+    }
+  ],
+  "problem": "Actual InitialEditorSession uses retain(optional fillStopping3D). A later refusal inside a mode2 callback would discard the local current-page widget updates, even if coordinate allocation or COW effects had already happened. Current successful-only snapshot helper does not establish this failure projection.",
+  "native_consumed_control_order": [
+    "After the dimension visibility/combo-shape prefix (still separately qualified), fill TMAX, SMAX0..2, VMIN0..2, LMAX0..2, EMAX in this order.",
+    "Clear both reference selectors, insert None, append eligible objects, set both selected indices, run eb6440 for first and second.",
+    "Run ebe100 first invocation, then second. Each can change radio/spin state and invoke node-coordinate callbacks before its final stored-coordinate text fill.",
+    "Only afterward assign MDS mode combo, threshold text, and the rotation selector/control tail."
+  ],
+  "proposed_api": "StoppingFillReport fillStopping3DInto(StoppingPage& destination, const SimControl&, GuiModel&, NumericLocale);",
+  "api_semantics": [
+    "The destination supplies retained widgets; it is the same page owned by InitialEditorSession. No clone of its owner or hidden default label context.",
+    "Return report separates completed supported projection from a reached unsupported dependency, with stage, issue, current reference/invocation and node-getter counts for scientific acceptance.",
+    "Update the destination in original consumed-control order. After a refusal, keep reached page state and model prefix effects; never fabricate tail values.",
+    "Preserve existing optional overloads as explicit convenience wrappers that discard an incomplete local snapshot; only the actual composer uses the retaining API.",
+    "Store the last stopping fill report in InitialOpenReport or the session so its UnsupportedPage result identifies the specific reached dependency.",
+    "A source profile refusal is not an original application error. Unknown visibility, translator, parent/filter and later public constructor behavior remain qualified; no public300 guard removal."
+  ],
+  "node_profile_contract": [
+    "Use same model/step/node-set owner identity, original signed node bounds and positive bounded spin values.",
+    "Apply original allocate/dispatch/sync ordering. Use bc::calloc_doubles for matching allocation diagnostics; retain calloc failure as a null callback result when modeled.",
+    "Read current GUI sync predicate after allocation and StateVar dispatch. False branches remain explicit until the audited defdbio reader receives the live GUI predicate.",
+    "Before each reached dereference, reject unsafe signed32 index/extent arithmetic instead of reproducing host UB. Preserve earlier calls and allocations.",
+    "Format all successful callback coordinates with %.6g, run the original first/second stack-vector evaluation, then let ebe100 overwrite with stored %.3f coordinates."
+  ],
+  "proposed_tests": [
+    "Changed valid node with existing data succeeds; confirm exact getter counts and unchanged MDS model before Save.",
+    "Missing data with valid small owned extent allocates zeroed coordinates and retains that allocation after fill.",
+    "No-storage/zero-count getter returns false yet final stored MDS coordinate text and changed spin persist.",
+    "Reached GUI-sync or extent refusal retains scalar prefix, selector/radio/spin state and any earlier model allocation; threshold/rotation tail stays remembered.",
+    "Second reference refusal retains completed first reference; first/second same-object behavior and repeated-fill zero callback count.",
+    "Actual InitialEditorSession receives a partial stopping-page report at its original stage; earlier pages remain and Save stays refused."
+  ],
+  "files_to_coordinate": [
+    "simcontrol300.hpp/cpp",
+    "simcontrol300_lifecycle.hpp/cpp",
+    "test_simcontrol300_snapshot.cpp",
+    "test_simcontrol300_lifecycle.cpp"
+  ],
+  "worker_builds_or_tests": 0,
+  "runtime_or_gui_used": false
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140c782b0",
+      "entry": "140c782b0",
+      "name": "FUN_140c782b0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140c782b0(longlong param_1)\r\n\r\n{\r\n  FUN_140cbc920(param_1 + 0x20,0);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e604",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140045590",
+      "entry": "140045590",
+      "name": "FUN_140045590",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 FUN_140045590(undefined8 param_1,longlong param_2)\r\n\r\n{\r\n  int iVar1;\r\n  longlong lVar2;\r\n  longlong lVar3;\r\n  undefined8 uVar4;\r\n  longlong lStack_30;\r\n  int iStack_28;\r\n  \r\n  lStack_30 \u003d 0;\r\n  iVar1 \u003d FUN_140c79ca0(param_1);\r\n  for (iStack_28 \u003d 0; lVar2 \u003d lStack_30, iStack_28 \u003c iVar1; iStack_28 \u003d iStack_28 + 1) {\r\n    lVar2 \u003d FUN_140c79100(param_1,iStack_28);\r\n    lVar3 \u003d FUN_14146f8fc(lVar2,0,0x143569448,0x143569470,0);\r\n    if ((lVar3 !\u003d 0) \u0026\u0026 (lVar3 \u003d FUN_140044a90(lVar3), lVar3 \u003d\u003d param_2)) break;\r\n  }\r\n  lStack_30 \u003d lVar2;\r\n  if (lStack_30 \u003d\u003d 0) {\r\n    uVar4 \u003d 0;\r\n  }\r\n  else {\r\n    uVar4 \u003d FUN_14146f8fc(lStack_30,0,0x143569448,0x143569470,0);\r\n  }\r\n  return uVar4;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057c98",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140c79390",
+      "entry": "140c79390",
+      "name": "FUN_140c79390",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 FUN_140c79390(longlong *param_1,undefined8 param_2)\r\n\r\n{\r\n  undefined8 uStack_18;\r\n  undefined4 uStack_10;\r\n  \r\n  uStack_18 \u003d 0;\r\n  uStack_18 \u003d (**(code **)(*param_1 + 0x68))(param_1,param_2);\r\n  FUN_140cdcdc0(uStack_18,param_2,0);\r\n  uStack_10 \u003d FUN_140c79470(param_1);\r\n  func_0x000140cdd740(uStack_18,uStack_10);\r\n  FUN_14172d7e0(param_1 + 3,\u0026uStack_18);\r\n  _connect_QObject__SA_NPEBV1_PEBD01W4ConnectionType_Qt___Z\r\n            (uStack_18,\u0026UNK_1428fa1d8,param_1[2],\u0026UNK_1428fa1b8,3);\r\n  _connect_QObject__SA_NPEBV1_PEBD01W4ConnectionType_Qt___Z\r\n            (uStack_18,\u0026UNK_1428fa218,param_1[2],\u0026UNK_1428fa200,3);\r\n  return uStack_18;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e6d0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

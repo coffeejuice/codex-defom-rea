@@ -1,0 +1,104 @@
+[
+ {
+  "label": "SVSCAL/badobj",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "badobj.KEY"
+   }
+  ],
+  "comment": "SVSCAL on missing object 9: return 2 (Reading Error) before the table is read; the two table lines are then read as unknown keywords \"0.0\" and \"1.0\" (WARNING ... not found); model unchanged"
+ },
+ {
+  "label": "SVSCAL/chain_zero_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "chain_zero_3d.KEY"
+   }
+  ],
+  "comment": "SVSCAL twice: first 0 -> 0.25 (3-point table, knot 0 lower segment), then a 0-point table maps every strain to 0.0 (FUN_14012f610 false)"
+ },
+ {
+  "label": "SVSCAL/extrap_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "extrap_3d.KEY"
+   }
+  ],
+  "comment": "SVSCAL below the table: strain 0 < x0 = 0.1, segment 0 extrapolated: r = (0-0.1)/(0.3-0.1) = -0.5, F = 1.0 + (-0.5)*(2.0-1.0) = 0.5; objects 1 and 3 untouched"
+ },
+ {
+  "label": "SVSCAL/kind0_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "kind0_3d.KEY"
+   }
+  ],
+  "comment": "SVSCAL kind 0: same result as kind 1 (template 0x81 already sets var 7), object 2 STRAIN becomes 0.5"
+ },
+ {
+  "label": "SVSCAL/kind1_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "SPIKE_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/SPIKE_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "kind1_2d.KEY"
+   }
+  ],
+  "comment": "SVSCAL on the 2D seed, object 1 (workpiece): STRAIN 0.0 -> 0.5, values given on one line (free format)"
+ },
+ {
+  "label": "SVSCAL/kind1_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "UPSET_Brick.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "kind1_3d.KEY"
+   }
+  ],
+  "comment": "SVSCAL kind 1, 2-point table: object 2 STRAIN 0.0 -> F(0) = 0.5 (y0 + r*(y1-y0), r = 0); nodal strain untouched (ELMNOD strain option 0)"
+ }
+]

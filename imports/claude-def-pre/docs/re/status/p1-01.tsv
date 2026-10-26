@@ -1,0 +1,228 @@
+address	status	note
+0x140001000	ported	port/defrt/include/defrt/stdlib/refcount.hpp def::rt::ref_init
+0x140001010	ported	port/defrt/include/defrt/stdlib/refcount.hpp def::rt::ref_release
+0x140001060	not-needed	stl: std::bad_alloc scalar deleting dtor, replaced by std::bad_alloc
+0x140001150	not-needed	stl: std::char_traits<char>::to_char_type
+0x140001160	not-needed	stl: std::char_traits<char>::to_int_type
+0x140001170	not-needed	stl: std::char_traits<char>::eq_int_type
+0x140001180	not-needed	stl: std::char_traits<char>::eof (returns -1)
+0x1400011d0	not-needed	trivial one-pointer ctor (*p = v); its p1-02 initialisers set their globals directly
+0x140001230	not-needed	stl: std::locale::facet::_Incref
+0x140001360	not-needed	stl: std::locale dtor (_Decref of the facet)
+0x140001420	not-needed	stl: std::locale::facet scalar deleting dtor
+0x140001570	not-needed	stl: std::ios_base::getloc
+0x1400015e0	ported	port/defrt/include/defrt/stdlib/refcount.hpp def::rt::dimension_is_2
+0x1400015f0	ported	port/defrt/include/defrt/stdlib/refcount.hpp def::rt::dimension_is_3
+0x140002810	ported	port/defrt/include/defrt/stdlib/msvc9_string.hpp Msvc9String::size (std::string::size)
+0x140002880	not-needed	stl: std::allocator copy (identity)
+0x1400028b0	not-needed	stl: std::basic_streambuf<char>::gptr
+0x1400028c0	not-needed	stl: std::basic_streambuf<char>::_Gninc
+0x140002900	not-needed	stl: std::basic_streambuf<char>::_Gnavail
+0x140002920	not-needed	stl: std::basic_streambuf<char>::_Pninc
+0x140002940	not-needed	stl: std::basic_streambuf<char>::_Pnavail
+0x140002970	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (size of the 8-byte body)
+0x140002980	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (size of the int body; same template, given to p1-05 by the coordinator)
+0x140002990	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::data (_Myptr)
+0x140002ac0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (int element copy loop = std::copy; same template, given to p1-05)
+0x140002ba0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (copy-construct the int body)
+0x140002ca0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (8-byte element copy loop = std::copy)
+0x140002d50	not-needed	stl: std::ctype<char>::do_tolower(char)
+0x140002d60	not-needed	stl: std::ctype<char>::do_tolower(range)
+0x140002db0	not-needed	stl: std::ctype<char>::do_toupper(char)
+0x140002dc0	not-needed	stl: std::ctype<char>::do_toupper(range)
+0x140002e10	not-needed	stl: std::ctype<char>::do_widen(char)
+0x140002e20	not-needed	stl: std::ctype<char>::do_widen(range), forwards to _Do_widen_s
+0x140002e40	not-needed	stl: std::ctype<char>::_Do_widen_s (memcpy_s)
+0x140002ea0	not-needed	stl: std::ctype<char>::do_narrow(char)
+0x140002eb0	not-needed	stl: std::ctype<char>::do_narrow(range), forwards to _Do_narrow_s
+0x140002ee0	not-needed	stl: std::ctype<char>::_Do_narrow_s (memcpy_s)
+0x140002f90	not-needed	stl: std::ctype<char> scalar deleting dtor
+0x140003090	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (size of an 8-byte handle)
+0x1400030b0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (size of an int handle; same template, given to p1-05)
+0x140003180	not-needed	stl: allocator rebind copy (identity)
+0x140003240	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::chassign (_Chassign)
+0x140003290	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::eos (_Eos)
+0x1400033b0	not-needed	stl: std::char_traits<char>::_Copy_s (memcpy_s)
+0x1400033f0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (copy-construct the 8-byte body)
+0x1400034d0	ported	ported by p1-07: extra (p1-01 row, coordinator): OBJ_GEO3D::node_count, src/geo/obj_geo3d.cpp
+0x140003500	ported	ported by p1-07: extra (p1-01 row, coordinator): OBJ_GEO3D::elem_count, src/geo/obj_geo3d.cpp
+0x140004d40	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::erase
+0x140004df0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::tidy (_Tidy)
+0x140004e60	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (make the int body unique)
+0x140004eb0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::copy (_Copy, VS2008 growth rule)
+0x140005040	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String() (default ctor)
+0x140005060	ported	port/defrt/src/stdlib/msvc9_string.cpp ~Msvc9String
+0x1400050a0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (writable data of an int handle; same template, given to p1-05)
+0x140005100	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (writable element of an int handle; same template, given to p1-05)
+0x1400051a0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (make the 8-byte body unique)
+0x1400051f0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::grow (_Grow)
+0x140005320	not-needed	stl: std::runtime_error::what
+0x140005340	not-needed	stl: std::runtime_error scalar deleting dtor
+0x1400053b0	not-needed	stl: std::_Locinfo ctor
+0x140005440	not-needed	stl: std::_Locinfo dtor
+0x1400058b0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::assign(str, off, count)
+0x1400059d0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::assign(count, ch)
+0x140005ae0	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (writable data of an 8-byte handle)
+0x140005c80	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::assign(ptr, count)
+0x140005e70	not-needed	ported in defmodel/sdctl/cow.hpp (p1-05): copy-on-write container template (writable element of an 8-byte handle; same template, given to p1-05)
+0x140006160	not-needed	stl: std::locale::name
+0x1400061a0	not-needed	stl: std::ctype<char>::_Getcat
+0x1400063a0	not-needed	stl: std::ios_base::failure scalar deleting dtor
+0x1400066a0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String(const char*)
+0x1400066f0	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String::assign(const Msvc9String&)
+0x1400067a0	not-needed	stl: std::use_facet<std::ctype<char>>
+0x1400068f0	not-needed	stl: std::ios_base::clear (throws ios_base::failure "ios_base::badbit set" etc. only when exceptions() is set)
+0x140006c70	not-needed	stl: std::basic_ios<char>::widen
+0x140007120	not-needed	stl: std::basic_ios<char>::setstate
+0x14001b4e0	verified	port/defrt/src/stdlib/cli_helpers.cpp def::rt::print_help (replaces the -m CLI local copy); -m oracle 129/129 at the Phase 1 gate
+0x14001b700	verified	port/defrt/src/stdlib/cli_helpers.cpp def::rt::strip_quotes (replaces the -m CLI local copy); -m oracle 129/129 at the Phase 1 gate
+0x14001bfe0	verified	port/defrt/src/stdlib/cli_helpers.cpp def::rt::operation_steps (replaces the -m CLI local copy); -m oracle 129/129 at the Phase 1 gate
+0x14001c090	ported	port/defrt/src/stdlib/cli_helpers.cpp def::rt::split_tokens (replaces the -m CLI local copy)
+0x1401b1ff0	not-needed	stl: ~basic_filebuf<char>; std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b2040	not-needed	stl: ~basic_streambuf<char>
+0x1401b20b0	not-needed	stl: std::basic_streambuf<char>::overflow default (eof)
+0x1401b20d0	not-needed	stl: std::basic_streambuf<char>::pbackfail default (eof)
+0x1401b20f0	not-needed	stl: std::basic_streambuf<char>::showmanyc (0)
+0x1401b2100	not-needed	stl: std::basic_streambuf<char>::underflow default (eof)
+0x1401b2120	not-needed	stl: std::basic_streambuf<char>::uflow
+0x1401b2190	not-needed	stl: std::basic_streambuf<char>::xsgetn
+0x1401b21d0	not-needed	stl: std::basic_streambuf<char>::_Xsgetn_s
+0x1401b2330	not-needed	stl: std::basic_streambuf<char>::xsputn
+0x1401b2480	not-needed	stl: std::basic_streambuf<char>::seekoff default (bad position)
+0x1401b24c0	not-needed	stl: std::basic_streambuf<char>::seekpos default (bad position)
+0x1401b2500	not-needed	stl: std::basic_streambuf<char>::setbuf default (this)
+0x1401b2520	not-needed	stl: std::basic_streambuf<char>::sync default (0)
+0x1401b2540	not-needed	stl: basic_filebuf<char>::overflow (fputc / codecvt path); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b2960	not-needed	stl: std::char_traits<char>::not_eof
+0x1401b29c0	not-needed	stl: std::_Fputc<char> (fputc)
+0x1401b2a00	not-needed	stl: basic_filebuf<char>::pbackfail; std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b2b80	not-needed	stl: std::_Ungetc<char> (ungetc)
+0x1401b2bc0	not-needed	stl: basic_filebuf<char>::underflow; std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b2c70	not-needed	stl: basic_filebuf<char>::uflow (fgetc / codecvt path); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b3060	not-needed	stl: std::_Fgetc<char> (fgetc)
+0x1401b30a0	not-needed	stl: basic_filebuf<char>::seekoff (fseek/fgetpos); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b31e0	not-needed	stl: basic_filebuf<char>::seekpos (fsetpos); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b3330	not-needed	stl: basic_filebuf<char>::setbuf (setvbuf); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b33d0	not-needed	stl: basic_filebuf<char>::sync (overflow(eof) then fflush); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b3570	not-needed	stl: std::locale scalar deleting dtor
+0x1401b3600	not-needed	stl: std::basic_streambuf<char> scalar deleting dtor
+0x1401b3690	not-needed	stl: basic_filebuf<char> scalar deleting dtor
+0x1401b3730	ported	port/defrt/src/stdlib/msvc9_string.cpp Msvc9String(count, ch)
+0x1401b37a0	not-needed	stl: std::string::begin (checked iterator; its _SECURE_SCL check only fires on a bug)
+0x1401b3900	not-needed	stl: std::basic_streambuf<char>::eback
+0x1401b3920	not-needed	stl: std::basic_streambuf<char>::pptr
+0x1401b3940	not-needed	stl: std::basic_streambuf<char>::egptr
+0x1401b3960	not-needed	stl: std::basic_streambuf<char>::gbump
+0x1401b39b0	not-needed	stl: std::basic_streambuf<char>::setg
+0x1401b3a00	not-needed	stl: std::basic_streambuf<char>::epptr
+0x1401b3a20	not-needed	stl: std::basic_streambuf<char>::_Gndec
+0x1401b3a70	not-needed	stl: std::basic_streambuf<char>::pbump
+0x1401b3bd0	not-needed	stl: basic_filebuf<char>::close (fclose); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b3c60	not-needed	stl: basic_filebuf<char>::_Init(FILE*), streambuf pointers into the FILE buffer; std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b3d90	not-needed	stl: basic_filebuf<char>::_Endwrite (codecvt unshift); std::basic_filebuf<char> replaced by std::filebuf; the modern MSVC STL also runs the filebuf over the FILE buffer (_Init with the FILE pointers), so stdio and stream output interleave the same way
+0x1401b4250	not-needed	stl: std::fpos<int>(streamoff)
+0x1401b4290	not-needed	stl: std::fpos<int>(state, fpos_t)
+0x1401b42d0	not-needed	stl: std::fpos<int>::state
+0x1401b42e0	not-needed	stl: std::fpos<int>::seekpos
+0x1401b42f0	not-needed	stl: std::fpos<int>::operator streamoff
+0x1401b4310	not-needed	stl: std::codecvt<char,char,int>::in
+0x1401b4380	not-needed	stl: std::codecvt<char,char,int>::out
+0x1401b43f0	not-needed	stl: std::string checked iterator operator*
+0x1401b4410	not-needed	stl: std::basic_ios<char>::init
+0x1401b44b0	not-needed	stl: std::ios_base::_Init (flags skipws|dec, precision 6, width 0: the same defaults today)
+0x1401b4570	not-needed	stl: std::locale() (global locale, _Incref)
+0x1401b45a0	not-needed	stl: std::ios_base::clear(state)
+0x1401b45d0	not-needed	stl: std::basic_streambuf<char> ctor
+0x1401b46a0	not-needed	stl: std::basic_streambuf<char>::_Init()
+0x1401b4740	not-needed	stl: std::basic_streambuf<char>::_Init(pointers)
+0x1401b4d40	not-needed	stl: std::string checked iterator deref (_SECURE_SCL range check)
+0x1401b4db0	not-needed	stl: std::_Iterator_base::_Has_container
+0x1401b4de0	not-needed	stl: std::codecvt<char,char,int>::unshift
+0x1401b4e30	not-needed	stl: std::string checked iterator ctor
+0x1401b4f90	not-needed	stl: std::basic_streambuf<char>::setp
+0x1401b4fe0	not-needed	stl: std::string checked iterator ctor (range check)
+0x1401b5120	not-needed	stl: std::_Iterator_base ctor
+0x1401b5140	not-needed	stl: std::_Iterator_base ctor (null container)
+0x14050402c	not-needed	crt: std::_Init_locks static initialiser
+0x140504058	not-needed	crt: std::_Init_locks static initialiser
+0x140504078	not-needed	stl: static init of the std::cin filebuf over stdin (__iob_func()+0); std::cin
+0x1405040c4	not-needed	stl: static init of std::cin (basic_ios::init); std::cin
+0x140504130	not-needed	crt: std::_Init_locks static initialiser
+0x140504150	not-needed	stl: static init of the std::cout filebuf over stdout (__iob_func()+0x30, shared FILE buffer); std::cout
+0x14050419c	not-needed	stl: static init of std::cout (basic_ios::init); std::cout
+0x1405041ec	not-needed	crt: std::_Init_locks static initialiser
+0x1404abb94	ported	port/defrt/src/stdlib/legacy_printf.cpp def::rt::crt::dtold (__dtold); not in the ledger: CRT printf of doubles
+0x1404b1c60	ported	port/defrt/src/stdlib/legacy_printf.cpp def::rt::crt::i10_output ($I10_OUTPUT with __multtenpow12/ld12mul inlined); not in the ledger
+0x1404abc6c	ported	port/defrt/src/stdlib/legacy_printf.cpp def::rt::crt::fltout2 (_fltout2); not in the ledger
+0x1404abab8	ported	port/defrt/src/stdlib/legacy_printf.cpp def::rt::crt::fptostr (_fptostr); not in the ledger
+0x14048dfe4	ported	port/defrt/src/stdlib/legacy_printf.cpp cftoe2 (_cftoe2_l); not in the ledger
+0x14048e7ac	ported	port/defrt/src/stdlib/legacy_printf.cpp cftof2 (_cftof2_l); not in the ledger
+0x14048e23c	ported	port/defrt/src/stdlib/legacy_printf.cpp cftoe (_cftoe_l); not in the ledger
+0x14048e970	ported	port/defrt/src/stdlib/legacy_printf.cpp cftof (_cftof_l); not in the ledger
+0x14048ea6c	ported	port/defrt/src/stdlib/legacy_printf.cpp cftog (_cftog_l); not in the ledger
+0x14048de9c	ported	port/defrt/src/stdlib/legacy_printf.cpp cropzeros (_cropzeros_l); not in the ledger
+0x14048de1c	ported	port/defrt/src/stdlib/legacy_printf.cpp forcdecpt (_forcdecpt_l); not in the ledger
+0x14048ccb4	ported	port/defrt/src/stdlib/legacy_printf.cpp def::rt::crt::vformat (e/f/g part of _output_l; other conversions through the UCRT); not in the ledger
+0x1404b4898	verified	port/defrt/src/stdlib/libm.cpp fabs; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b48b8	verified	port/defrt/src/stdlib/libm.cpp fabs, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4d98	verified	port/defrt/src/stdlib/libm.cpp fabsf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4dac	verified	port/defrt/src/stdlib/libm.cpp fabsf, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3960	verified	port/defrt/src/stdlib/libm.cpp ; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3ab0	verified	port/defrt/src/stdlib/libm.cpp sin; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3ab8	verified	port/defrt/src/stdlib/libm.cpp cos; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3ac4	verified	port/defrt/src/stdlib/libm.cpp sind; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3ad4	verified	port/defrt/src/stdlib/libm.cpp cosd; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3ae8	verified	port/defrt/src/stdlib/libm.cpp sin, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3af4	verified	port/defrt/src/stdlib/libm.cpp cos, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3b04	verified	port/defrt/src/stdlib/libm.cpp sind, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3b18	verified	port/defrt/src/stdlib/libm.cpp cosd, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3b30	verified	port/defrt/src/stdlib/libm.cpp sincos: *s = sin; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b491c	verified	port/defrt/src/stdlib/libm.cpp ; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a40	verified	port/defrt/src/stdlib/libm.cpp sinf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a48	verified	port/defrt/src/stdlib/libm.cpp cosf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a54	verified	port/defrt/src/stdlib/libm.cpp sindf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a64	verified	port/defrt/src/stdlib/libm.cpp cosdf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a78	verified	port/defrt/src/stdlib/libm.cpp sinf, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a84	verified	port/defrt/src/stdlib/libm.cpp cosf, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4a94	verified	port/defrt/src/stdlib/libm.cpp sindf, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4aa8	verified	port/defrt/src/stdlib/libm.cpp cosdf, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3b6c	verified	port/defrt/src/stdlib/libm.cpp sincosf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3df0	verified	port/defrt/src/stdlib/libm.cpp tan; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3f18	verified	port/defrt/src/stdlib/libm.cpp tand; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3f28	verified	port/defrt/src/stdlib/libm.cpp tan, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3f34	verified	port/defrt/src/stdlib/libm.cpp tand, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3f48	verified	port/defrt/src/stdlib/libm.cpp atan; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b40c8	verified	port/defrt/src/stdlib/libm.cpp atand; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b40e0	verified	port/defrt/src/stdlib/libm.cpp atan, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b40ec	verified	port/defrt/src/stdlib/libm.cpp atand, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3878	verified	port/defrt/src/stdlib/libm.cpp atan2; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3918	verified	port/defrt/src/stdlib/libm.cpp atan2d; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3930	verified	port/defrt/src/stdlib/libm.cpp atan2, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3940	verified	port/defrt/src/stdlib/libm.cpp atan2d, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3ba4	verified	port/defrt/src/stdlib/libm.cpp ; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3d50	verified	port/defrt/src/stdlib/libm.cpp asin; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3d58	verified	port/defrt/src/stdlib/libm.cpp acos; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3d64	verified	port/defrt/src/stdlib/libm.cpp asind; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3d7c	verified	port/defrt/src/stdlib/libm.cpp acosd; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3d98	verified	port/defrt/src/stdlib/libm.cpp asin, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3da4	verified	port/defrt/src/stdlib/libm.cpp acos, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3db4	verified	port/defrt/src/stdlib/libm.cpp asind, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3dd0	verified	port/defrt/src/stdlib/libm.cpp acosd, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4ac0	verified	port/defrt/src/stdlib/libm.cpp sqrt: an exponent-halving guess and two double Newton steps; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4b48	verified	port/defrt/src/stdlib/libm.cpp sqrt, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4264	verified	port/defrt/src/stdlib/libm.cpp log; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b44c8	verified	port/defrt/src/stdlib/libm.cpp log10; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b44e0	verified	port/defrt/src/stdlib/libm.cpp log, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b44ec	verified	port/defrt/src/stdlib/libm.cpp log10, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b45a0	verified	port/defrt/src/stdlib/libm.cpp logf; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4794	verified	port/defrt/src/stdlib/libm.cpp log10f; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b47ac	verified	port/defrt/src/stdlib/libm.cpp logf, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b47c4	verified	port/defrt/src/stdlib/libm.cpp log10f, by reference; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b47fc	verified	port/defrt/src/stdlib/libm.cpp x**n, n INTEGER*4: binary powering; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4848	verified	port/defrt/src/stdlib/libm.cpp x**n, n INTEGER*8; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4508	verified	port/defrt/src/stdlib/libm.cpp x**n, REAL*4 x, INTEGER*4 n; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b4550	verified	port/defrt/src/stdlib/libm.cpp x**n, REAL*4 x, INTEGER*8 n; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404b3440	verified	port/defrt/src/stdlib/libm.cpp x**y; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x1404a0430	verified	port/defrt/src/stdlib/libm.cpp __remainder_piby2; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x140bb3000	verified	port/defrt/src/stdlib/libm.cpp sin; bit-identical to the binary on the libmdiff sweep; not in the ledger
+0x140bb3490	verified	port/defrt/src/stdlib/libm.cpp cos; bit-identical to the binary on the libmdiff sweep; not in the ledger

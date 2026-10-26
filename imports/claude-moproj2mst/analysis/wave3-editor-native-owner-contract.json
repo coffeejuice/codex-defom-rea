@@ -1,0 +1,114 @@
+{
+  "schema": "editor300-native-owner-contract-v1",
+  "binary": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-native-owner-static.json",
+      "sha256": "0488796eb44dbe53025669626cb20fcae658570a2a96cc277c7a4e982899d6eb"
+    },
+    {
+      "path": "analysis/wave3-editor-native-parent-static.json",
+      "sha256": "3bfeea9ee58d9d19a994f5a34691f045772187c3dc6453a2014b035c2a2568aa"
+    },
+    {
+      "path": "analysis/wave3-editor-forming-factory-v2-static.json",
+      "sha256": "84954c34a20cdf382c75218169bd91ae3b054104944667b892aebb6846132666"
+    },
+    {
+      "path": "analysis/wave3-editor-widget-install-static.json",
+      "sha256": "8e3e7e1d040a8ac1ac9e3061ef6d62487f38f6faa646999bb7ac1b9b46e6454d"
+    },
+    {
+      "path": "analysis/wave3-editor-widget-owner-static.json",
+      "sha256": "9ad307d47d60aee975c3593bfb0744247f03a84c2470f80a16968334df600660"
+    },
+    {
+      "path": "analysis/wave3-editor-widget-receiver-static.json",
+      "sha256": "85bdd8389ae96712db178e9d58d089b07df9b8a09be3a90d7cbcda27bf73cc4f"
+    },
+    {
+      "path": "analysis/wave3-editor-area-constructor-static.json",
+      "sha256": "a08b96a9691c80f6bbccfee85adad0aca2f6910521ba2aab7935994661d4665d"
+    },
+    {
+      "path": "analysis/wave3-editor-widget-slots-static.json",
+      "sha256": "a57c518705c29a40c61adc7b82af4ab4a4a8ff342679c00dc7fbabeb0a342249"
+    },
+    {
+      "path": "analysis/wave3-editor-widget-metadata-static.json",
+      "sha256": "3daf2b89e29e65999e4ffc295724fa66e74312e89611d4def2188a3ed8c11f29"
+    },
+    {
+      "path": "analysis/wave3-editor-widget-delete-static.json",
+      "sha256": "8ec46755b70e95dd9c086f29ed372c4768feec15bea2180d3b9f0800a7f6e743"
+    },
+    {
+      "path": "analysis/wave3-editor-factory-delivery-static.json",
+      "sha256": "182d65eef6b18847cbf2dbe00899918ea7bf1f9db53f0d69da7d0e60c15375a1"
+    },
+    {
+      "path": "analysis/wave2-doe-sim300-constructor-doe-support-decompile.json",
+      "sha256": "c31b3102e98a912fd16d98728b29f8756fa6adc134f774cc53f2727ec04ef433"
+    }
+  ],
+  "factory": {
+    "type": "SfOprBaseFactory",
+    "vtable": "0x1424a5220",
+    "create_slot": "0x8",
+    "entry": "0x1405ff0b0",
+    "caller": "0x1405f36d0",
+    "call_site": "0x1405f4756",
+    "returned_widget_notification": "0x1405f499f: signalShowWidgetInWidgetArea with QWidget* argument",
+    "operation_guard": "0x140130830 stores editor+0x38; resolves operation model via 0x14005f770, then stores editor+0x28 through 0x140377b20",
+    "initial_parent": "0x140130740 passes null to 0x140377950 -> QWidget constructor IAT 0x141e0ba80"
+  },
+  "area": {
+    "type": "SfWidgetArea",
+    "vtable": "0x1429fd168",
+    "constructor": "0x140d14d30",
+    "impl_type": "SfWidgetAreaImpl",
+    "impl_vtable": "0x142a5af88",
+    "impl_pointer_offset": "0x28",
+    "registration": "0x140d14e90",
+    "show": "0x140d488b0 cases0/1 -> 0x140d14fc0 -> 0x140d14f70 -> 0x140dadc20",
+    "attach": "0x140dae1a6 QWidget::setParent(editor,impl+0x28 area), then wrapper 0x140d14fa6 QScrollArea::setWidget(editor)",
+    "ownership_qualification": "Qt area subtree; immediate final Qt viewport parent not claimed from EXE alone",
+    "apply": "0x140dae340 -> current guarded editor vt+0x1c0",
+    "leave": "0x140dae3c0 -> current guarded editor vt+0x1d0"
+  },
+  "delete": {
+    "entry": "0x140dae450",
+    "order": [
+      "resolve current guard +0x18",
+      "editor vt+0x1d0 if cast succeeds",
+      "remove widget from layout",
+      "if impl+0x10 nonzero copy current into pending +0x38",
+      "setParent(null), remove from layout, start timer15, hide",
+      "emit widget-dock removal notification",
+      "QObject::deleteLater pending at0x140dae81d",
+      "clear current +0x18 at0x140dae831"
+    ],
+    "timer": "0x140dae850 checks pending guard, virtual deleting destructor +0x18(flag1), then clears pending guard",
+    "replacement": "0x140dadc20 applies analogous detachment/deferred delete to distinct old current, but without leave virtual in the SfWidgetArea wrapper",
+    "qualification": "Deleting current is deferred; do not reset unique ownership immediately at DeleteWidget signal. Exact event-loop/timer delivery remains dependency."
+  },
+  "constructor_order": [
+    "parentless base and guarded operation/model binding",
+    "UI setup and operation initialization 0x140054540",
+    "GuiModel-owned picking object and editor interaction object",
+    "signal connections and first six temporary allocations",
+    "0x140eb7f50 and second six allocations replacing original pointers",
+    "0x140eb5630 initial nine page fill then six temporary copies",
+    "0x140eb9090 then0x140eb5370; layout activation/processEvents when layout exists",
+    "parentless single-shot interval0 QTimer creation/connection",
+    "0x140eb50f0 repeats stopping/meshing then backup/refill/restore and recovery table UI",
+    "0x140ecf410 and registration then0x140ed1010",
+    "factory returns widget; only now delivered to area"
+  ],
+  "implementation_boundary": "Staged record belongs to session mainwindow widget-area state, not FormingClass. Exact Project/Operation/GuiModel/remesh identities required. Page projection may retain partial pages but is not complete native construction or public Save. Unknown feature context cannot become defaults. Source model uses existing GuiModelGuard; raw Operation identity is compared only against explicit current call binding. Native operation QObject guard, prefixes/tails, attach, timer/delete delivery stay qualified.",
+  "capture_amendments": [
+    "First wave3-editor-forming-factory capture aborted at unwind-less 0x1405ff070 after two asm files. Those files are retained; v2 receipt captures complete requested set. 0x1405ff070 leaf ends RET0x1405ff07e; following bytes belong to neighbors.",
+    "0x140deb5a0 ends RET0x140deb67a; 0x140deb67c onward is jump-table data."
+  ]
+}

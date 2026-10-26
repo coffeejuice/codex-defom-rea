@@ -1,0 +1,36 @@
+{
+  "status": "Separate amendment draft; first6-test draft unchanged; no source edits/builds",
+  "base_receipt": "analysis/wave3-close-effects-module-draft.json",
+  "evidence": "analysis/wave3-close-change-histo-graph-contract.json",
+  "coordination": "DOE peer confirmed second hook after d17b90 type/title/min/max and before d189b0/legend. Shared notifier gates+90/+141 remain root-owned; receiver module does not duplicate them.",
+  "ownership": "Strong lease of actual StudyIo/runtime, weak actual HistogramState registrations, no mirrored registry/flags",
+  "tests": {
+    "first_draft": 6,
+    "additional_isolated": 6,
+    "combined": 12,
+    "executed": false
+  },
+  "artifacts": [
+    {
+      "path": "analysis/close-effects-histogram-amendment/close_effects.hpp",
+      "sha256": "bc407635ef681a5038eda6678a26c073a0be8c186a79450b7e6b7601d7b664d2",
+      "base_sha256": "dac0a5dd6ae02cdc018ef098b92a979e950c7c19fc7cebe7efda9a812c434e99"
+    },
+    {
+      "path": "analysis/close-effects-histogram-amendment/close_effects.cpp",
+      "sha256": "9dbbff8671964f7c42317013f9197ecb3b46abe8af8c3dc43b552ec3e3b9aaef",
+      "base_sha256": "7dc546a278a92924975feba2022404898ccb15530471aebf79d11b04392e6f7a"
+    },
+    {
+      "path": "analysis/close-effects-histogram-amendment/test_close_effects.cpp",
+      "sha256": "a45ceb9a134d7b18106de6937db6ccc1750dc3f24b6eb2387895ad1709fb3a80",
+      "base_sha256": "5335e628d5135898c943e87e22edbda390002ecb8fdc56ea14550a521a6fbbe0"
+    }
+  ],
+  "patch_sha256": "74e1b6d02b2688b9e0cb9a44c5ab6dfc1b8b9afb2e73967cc3e9c232e3b372d0",
+  "qualifications": [
+    "No actual Close invocation or original receiver population observation claimed.",
+    "graphOn=true guards before nested Qt payload; binWidth+10 is never substituted for+b4.",
+    "Default second hook guards, preserving first-only derived effect implementations."
+  ]
+}

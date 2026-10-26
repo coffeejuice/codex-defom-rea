@@ -1,0 +1,21 @@
+{
+  "scope": "Include-only compile repair after parent combined v1 compile failure; semantic production unchanged",
+  "parent_contract": {
+    "path": "analysis/wave2-doe-zero-legend-contract.json",
+    "sha256": "ce15be28869997ba86212fad82e73a7dce73591506ece5abc38cb222e93055b2"
+  },
+  "changed_file": "source/apps/moproj2mst/tests/mdt/test_doe_statevar.cpp",
+  "old_sha256": "f3a8ae66422f2b95f2a3626754ab044beecdae138d64751c9db951230b828aae",
+  "new_sha256": "6423cb61e8724cb4a5d2d7ffd7f93fa8899a15b943b2a9c3b52fe212a7dcf3cf",
+  "repair": "Add m2m/mst/writer.hpp to declare complete mst::OpClass; local Project destruction instantiates its unique_ptr owner.",
+  "semantic_sources_unchanged": true,
+  "all_current_source_hashes": {
+    "source/apps/moproj2mst/include/m2m/doe_statevar.hpp": "2a308659a15c38bdfb369193ee5961c36585d27950e2349bee0def8d6a50023d",
+    "source/apps/moproj2mst/src/doe/statevar.cpp": "7e7bf869bffd79a55da97f94ce8c819abd72eb79e8588079ef1a801514c13524",
+    "source/apps/moproj2mst/tests/mdt/test_doe_statevar.cpp": "6423cb61e8724cb4a5d2d7ffd7f93fa8899a15b943b2a9c3b52fe212a7dcf3cf",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "57a3ff5798cd3d3145a07859d15634352c756f1aa41b65c61cc34bfdfe74695d"
+  },
+  "preflight_amendment": "Tests constructing a local Project must include m2m/mst/writer.hpp for complete owned OpClass destruction, in addition to new helper declarations, CHECK macro protection and exactly one testkit main.",
+  "worker_build_or_test_execution": false,
+  "state": "Immediately refrozen for parent unique-label build retry."
+}

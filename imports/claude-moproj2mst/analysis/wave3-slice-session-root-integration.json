@@ -1,0 +1,110 @@
+{
+  "status": "root source frozen for candidate37; worker constructor repair freeze required before build",
+  "files": [
+    {
+      "path": "source\\apps\\moproj2mst\\include\\m2m\\engine.hpp",
+      "sha256": "9ca7bc643a0b18d652a6648c787f264c5811eb2beefee0cabc1c1b56d2453cd9"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\include\\m2m\\engine_scene.hpp",
+      "sha256": "ef6417ebbd05b2fe263bdb9e29a38bd8afa4682b5f7a6ebf3d387c7a5a492de7"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\include\\m2m\\engine\\conversion_session.hpp",
+      "sha256": "ce327ea47137233bb4ab97146640f31534c99af9feb6a70bec20236662df55cc"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\include\\m2m\\engine\\model_manager.hpp",
+      "sha256": "7c55be276bc833f1681d81ebccbc87612d9e3f61e7d486c9388e43dda7202e59"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\include\\m2m\\doe_io.hpp",
+      "sha256": "ee19e5f796c9d967283ab281251c28cb10327a1e47326b8b83d46852ebc4ed5f"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\engine\\db_load.cpp",
+      "sha256": "949fa57f182c4e3932d460c34d0f2a222bdde834235a94833b3b2fec7877f18f"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\engine\\model_manager.cpp",
+      "sha256": "69f426a43ffead038991178fe7106c3fd3f4b46b93fc4968b48d0dbd2f94972d"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\engine\\conversion_session.cpp",
+      "sha256": "6d7d811a3bc802b239969a3ea47fba048347a8e62491930e953f011ecac9a447"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\engine\\viewer.cpp",
+      "sha256": "e7fb32c0a0401b8b3d0bea2710767f97e57254aaa2c7b31f33df6db15e7c578c"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\engine\\gui_model.cpp",
+      "sha256": "f41a625b8a17601f9363aa5207868d9b8490d1724c099fb39098326e831bfae2"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\doe\\io.cpp",
+      "sha256": "c57394e508d14382395284744bdca13d0fd36b5a81fef161ad2edd943b096334"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\src\\core\\convert.cpp",
+      "sha256": "eb2e36ee37130f8bb411601539480f685f85ebafe962239bc046d0ed072ff216"
+    },
+    {
+      "path": "source\\apps\\moproj2mst\\tests\\mdt\\test_viewer_slice.cpp",
+      "sha256": "59d7adb0d2760f7a258ec6cb083017beb53e0548d50d87d5999cf44802896962"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-slice-ordered-prefix-contract.json",
+      "sha256": "a9bda1f0b0196232a28de1eb828d3e7503688ee75972f350ed325d09105f0193"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-remove-last-order.asm",
+      "sha256": "a951c0d674a1c61d4c94c971134be6840e20a4cc76a3820f04148c37904b483f"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-remove-last-extract.asm",
+      "sha256": "66a68ad82a9a0e27fd31b10565802c0331b21259b3c839d5c84c3fed930c7d38"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-remove-last-pop.asm",
+      "sha256": "a5137e1af5f606a85ebfb86f0a68c09913dcb7df1aee817ce6d5c3c63204e2f6"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-view-remove-last-erase.asm",
+      "sha256": "b4dc60e27fa876d58907f205ca93a83162eb0efe9785900555923aee3a652413"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/V/v1.c",
+      "sha256": "b343633d23fa2283e259a36e7db535c83501fda73c8556be79b6fe83892814e7"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/V/v16.c",
+      "sha256": "adc73c65dabd239a304dab59b7f4843112a847c308a9bf5be91beb71333958f8"
+    }
+  ],
+  "implemented": [
+    "Actual DbHandle owns its counter/nonowning plane list; fresh Session retains allocation heap across DB teardown",
+    "ModelManager captures weak heap binding while Session alive; escaped manager cannot dereference expired session to append a child",
+    "Type4 DB has independent list bound to same process heap",
+    "Actual View lazily owns Slice collection; missing constructor runtime guards before allocation",
+    "Session owns one shared constructor scratch runtime; StudyIo weakly borrows it, including noDB imports; core converter binds it",
+    "Plane values consumed before DB lookup; actual backlinks retained before graphics guard",
+    "View removal extracts visible pointer before full unbind; obj=null precedes Slice cleanup guard and later represented list clears; in-flight allocation retained outside visible list",
+    "Nonfull object rebind reaches Slice adaptation guard after existing object/reps binding, before refresh"
+  ],
+  "validation_pending": [
+    "12 root owner/lifecycle cases",
+    "Slice and StepData worker cases",
+    "Editor snapshot/lifecycle cases",
+    "Full140-program regression and ABI, diagnostic/gap/difference review"
+  ],
+  "qualifications": [
+    "Plane heap is explicit adapter retention at fresh process boundary, not proof of permanent original leak",
+    "Collection constructor normal return projects final shared scratch; native intermediate allocation failure remains unmodeled",
+    "Graphics construction/adaptation and cleanup remain refused at consumers; no complete public DOE lifecycle claim",
+    "Adapter scope destruction of retained objects is not original Close acceptance",
+    "Shared runtime direct diagnostic leases can extend storage; StudyIo does not revive expired runtime"
+  ]
+}

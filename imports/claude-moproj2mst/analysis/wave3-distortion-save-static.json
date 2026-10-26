@@ -1,0 +1,63 @@
+{
+  "schema": "distortion-save-static-v1",
+  "method": "Offline original PE and DUMPBIN; no target execution",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "captures": [
+    {
+      "entry": "0x141367a30",
+      "end": "0x141367b75",
+      "code_sha256": "8bd59087df674f6de697d5cf391782522a5576ceb91acaae0644920ed421a4c4",
+      "artifact": "analysis\\wave3-distortion-save-141367a30.asm",
+      "artifact_sha256": "9bee63c5843bdbe54445ff7b5326957a10e4c0b8aa65ed35acdd845ddcd80fce",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x141367a30,0x141367b74",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\DEF_GUI_MO_64.exe"
+      ]
+    },
+    {
+      "entry": "0x141367b80",
+      "end": "0x141367fd8",
+      "code_sha256": "873608d0f3d9cf0e76691a2f76beb253ef61ff97b4d9c11b364be49f053b1975",
+      "artifact": "analysis\\wave3-distortion-save-141367b80.asm",
+      "artifact_sha256": "5b35da60da7359032a285fa4f5442d0260e7f57f05a191ffaf902f993e6e981a",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x141367b80,0x141367fd7",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\DEF_GUI_MO_64.exe"
+      ]
+    },
+    {
+      "entry": "0x141366d60",
+      "end": "0x141367933",
+      "code_sha256": "ce9db2b17886d9a01bec258027a12470e744ba2552037c4f8d1fb45546f6a0b3",
+      "artifact": "analysis\\wave3-distortion-save-141366d60.asm",
+      "artifact_sha256": "32d82c80a917e6c8d768140f61c559718a1153b62658288ceccec5f887868786",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x141366d60,0x141367932",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\DEF_GUI_MO_64.exe"
+      ]
+    }
+  ],
+  "contracts": [
+    "Properties141367a30 calls MDWZ writer then INI writer unconditionally and returns MDWZ status",
+    "INI141366d60 loops index0 through passCount+1; failed QFile.open skips that index body and proceeds to next file",
+    "freeDist.f91 assignment/reset and OBJPOS generation are inside each successful INI open; sticky stream errors do not stop subsequent body calls",
+    "Input filename QString operator const char uses configured CString codec or defaultLatin1, then QTextStream constchar always fromLatin1 until NUL; output filename uses QString directly. Adapter currently models null CString-codec profile, locale encoding remains ctx.codepage."
+  ],
+  "qualifications": [
+    "Raw captured functions must qualify future source increment; no production changes bound yet",
+    "Historical p1.c imported decompile and bytes agree on failed-open branch, but no runtime failure injection into original",
+    "Nondefault startup CString codec must be explicitly bound before arbitrary language profile claims; retained RFORMAT dependency."
+  ],
+  "additional_evidence": [
+    {
+      "path": "analysis\\wave3-cogging-path-670c4530.asm",
+      "sha256": "2cb2d46a79c9b20359727ae05d4adaaf36ae88a89bb242a3c43a4017e8eb4216"
+    }
+  ]
+}

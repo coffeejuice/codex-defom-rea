@@ -1,0 +1,116 @@
+address	size	role	status	file
+1412b05a0	0x15	SfOprReport +0x280 (empty)	ported	src/ops/report.cpp
+1412b05c0	0x14	SfOprReport +0x298 (P14 body simListNone, P16 one-line override)	p14	src/ops/report.cpp
+14013fb90	0x15	SfOprShapeOptim +0x280 (empty)	ported	src/ops/report.cpp
+14013fbb0	0x14	SfOprShapeOptim +0x298 (P14 body simListNone, P16 one-line override)	p14	src/ops/report.cpp
+1402b5410	0x1e4	SfOprDiestress +0x280 writer	ported	src/ops/diestress.cpp
+1401344a0	0x61	KFREAD 1 + path emitter (Diestress only)	ported	src/ops/diestress.cpp
+1402b95a0		SfOprDiestressProperties +0xc0 post-load (DieStress.Wzd, nStepNumber)	ported	src/ops/diestress.cpp
+14029ad10	0x721	SfOprDiestressBM2D +0x280 writer	ported	src/ops/diestress.cpp
+14029cb50	0x721	SfOprDiestressBM3D +0x280 writer (same code)	ported	src/ops/diestress.cpp
+14029a550	0x15a	BM die object numbers (type 1 or 5)	ported	src/ops/diestress.cpp
+1411b1460	0xbc	SfOprHeatTreat +0x280 writer	ported	src/ops/heattreat.cpp
+1411aee40	0xbc	SfOprHeatTreat2D +0x280 writer	ported	src/ops/heattreat.cpp
+1411b1530	0x95c	HeatTreat body (3D)	ported	src/ops/heattreat.cpp
+1411aef10	0x95c	HeatTreat body (2D, same code)	ported	src/ops/heattreat.cpp
+1411b38e0	0x237	HT_Proc<k>.MOKEY path	ported	src/ops/heattreat.cpp
+1411b0a70	0x1c	HT schedule step count	ported	include/m2m/data/heattreat.hpp
+1411b0a90	0x57	HT schedule step i (get or append)	ported	src/ops/heattreat.cpp
+141681de0	0xf	HT props schedule +0x68	ported	src/ops/heattreat.cpp
+1411c0940		SfOprHeatTreatProperties +0xc0 post-load	moved	MDT L6: src/ops/heattreat_htwz.cpp
+1411b4770		HT load: task folder of the owner OPI	moved	MDT L6: src/ops/heattreat_htwz.cpp
+1411b4870		HT read HeatTreatWizard.HTWZ (fopen rt)	moved	MDT L6: src/ops/heattreat_htwz.cpp
+1411b3820		HTWZ file name	ported	src/ops/heattreat.cpp
+1411b4ab0		HTWZ parser, V3 format (engine tables consumed, not kept)	moved	MDT L6: src/ops/heattreat_htwz.cpp
+1411c2c10		HT step +0x118 setter	ported	src/ops/heattreat.cpp
+1411c2c50		HT START_OPTNO setter (+0x20 if valid)	ported	src/ops/heattreat.cpp
+1411b3440		HT schedule ctor (first = 1, owner)	ported	src/ops/heattreat.cpp
+1411b3020		HT step ctor (+0x118 = "None")	ported	include/m2m/data/heattreat.hpp
+1411bd570		SfOprHeatTreatProperties ctor	ported	src/ops/heattreat.cpp
+1411bd6a0		HT props init (schedule at +0x68)	ported	src/ops/heattreat.cpp
+140af20b0		engine: fgets + sscanf "%i %Flf" (HTWZ use)	ported	src/ops/heattreat.cpp
+140af73f0		engine: table values reader (HTWZ use: tables with +0x40 = 1)	ported	src/ops/heattreat.cpp
+140af04f0		engine: fgets + strtok line tokenizer	ported	src/ops/heattreat.cpp
+140af0640		engine: token k	ported	src/ops/heattreat.cpp
+1411b5e50		HTWZ V1/V2 reader (engine model only; engine values through HtEngineView)	moved	MDT L6: src/ops/heattreat_htwz.cpp
+1411bfd60		HT props +0x58 property tree refresh (no MST field)	moved	MDT L6: src/ops/heattreat_htwz.cpp
+1411b71c0	0x1f7	HT MOKEY side files (plan 2.1)	out-of-scope	
+1411b3540	0x1c4	HT engine defaults (flag only)	moved	MDT L6: src/ops/heattreat_htwz.cpp
+140af7030		engine: ECC edge/face list reader (HTWZ V2 use)	ported	src/ops/heattreat.cpp
+140c7c0e0		engine model is 2D (P15 engineFacts)	seam-p15	src/ops/heattreat.cpp
+140c7c0a0		engine model is 3D (HtEngineView)	seam-p15	src/ops/heattreat.cpp
+140830270		engine object by number (HtEngineView)	seam-p15	src/ops/heattreat.cpp
+140514c40	0x10	HT schedule first step (+0x20)	ported	src/ops/heattreat.cpp
+1412c4c80		HT step user keyword file (+0x118)	ported	src/ops/heattreat.cpp
+1411bd890		HT props: property templates (own tree, no base adders)	out-of-scope	
+1411bf050		HT props: property tree instance (own tree)	out-of-scope	
+140060030	0x65	objItem: object item of the op's project for an id	ported	src/model/items.cpp
+1400690a0	0x3a	cast SfMoItem -> SfMoObjItem	ported	src/model/items.cpp
+1400135a0		mainWindow+0x2b8 registry pointer = Project::registry	model-field	include/m2m/model.hpp
+140068b40		SfMoObjItem+0x40 object data = Item object fields	model-field	include/m2m/model.hpp
+14006b8a0		SfMoItem+0x18 id = Item::id	model-field	include/m2m/model.hpp
+14006c210		manager+0x20 project pointer (implicit: managers live in Project)	model-field	include/m2m/model.hpp
+14006cdd0		manager rowCount() = ItemManager::rows.size()	model-field	include/m2m/model.hpp
+14006b8e0		SfMoItem type name (+0x10, QLatin1String) = Item::kind	model-field	include/m2m/model.hpp
+14006b9c0		setText -> 0x14006bb40	model-field	include/m2m/model.hpp
+14006bb40		QStandardItem::setText = Item::name	model-field	include/m2m/model.hpp
+14006b9f0		text -> 0x14006baf0	model-field	include/m2m/model.hpp
+14006baf0		QStandardItem::text = Item::name	model-field	include/m2m/model.hpp
+14006ba30		SfMoItem+0x28 key path setter = Item::keyPath (P01 addItem)	model-field	src/moproj/read.cpp
+14006b6a0	0x9c	SfMoItem ctor: type "Undefined", id, +0x20/+0x28 null, then 0x14006b7c0	model-default	include/m2m/model.hpp
+14006b7c0	0x4e	SfMoItem init: text "New item" (replaced by the reader's setText), +0x30 = 1	model-default	include/m2m/model.hpp
+140041be0	0x5a	SfMoMatItem ctor (+0x48 phase list) then 0x140041c90	model-default	include/m2m/model.hpp
+140041c90	0x2c	SfMoMatItem init: type "SfMoMatItem", +0x40 MatType = 0	model-default	include/m2m/model.hpp
+1400bd580	0x4b	SfMoLubItem ctor then 0x1400bd610	model-default	include/m2m/model.hpp
+1400bd610	0x1f	SfMoLubItem init: type "SfMoLubItem"	model-default	include/m2m/model.hpp
+1400beba0	0x4b	SfMoEqpItem ctor then 0x1400bec30	model-default	include/m2m/model.hpp
+1400bec30	0x1f	SfMoEqpItem init: type "SfMoEqpItem"	model-default	include/m2m/model.hpp
+1400427e0	0x6a	material manager vt+0x170: new SfMoMatItem(id)	inlined-p01	src/moproj/read.cpp
+140068df0	0x6a	object manager vt+0x170: new SfMoObjItem(id) (ctor 0x1400688f0 is P07)	inlined-p01	src/moproj/read.cpp
+1400bd8a0	0x6a	lubricant manager vt+0x170: new SfMoLubItem(id)	inlined-p01	src/moproj/read.cpp
+1400beec0	0x6a	equipment manager vt+0x170: new SfMoEqpItem(id)	inlined-p01	src/moproj/read.cpp
+14006c120	0xac	SfMoItemManager ctor (+0x20 project)	model-default	include/m2m/model.hpp
+1400425a0	0xd8	material manager ctor (2 columns, signal connect)	model-default	include/m2m/model.hpp
+140068ba0	0xb4	object manager ctor (8 columns)	model-default	include/m2m/model.hpp
+1400bd680	0xb4	lubricant manager ctor (2 columns)	model-default	include/m2m/model.hpp
+1400beca0	0xb4	equipment manager ctor (2 columns)	model-default	include/m2m/model.hpp
+140044a90	0x13a	data root: project record on demand (+0x19c0, ctor 0x140089880)	model-default	include/m2m/model.hpp
+140044c80	0x8b	data root: operation manager on demand (+0x19c8)	model-default	include/m2m/model.hpp
+140044d20	0x8b	data root: object manager on demand (+0x19d0)	model-default	include/m2m/model.hpp
+140044dc0	0x8b	data root: material manager on demand (+0x19d8)	model-default	include/m2m/model.hpp
+140044f00	0x8b	data root: lubricant manager on demand (+0x19e8)	model-default	include/m2m/model.hpp
+140070f10	0x28a	flow chart model ctor (+0x3c = 0, +0x54 = 0; from SUB ctor 0x1400b5470, P03)	model-default	include/m2m/model.hpp
+14014cf20	0x37	flow chart model: append item, returns its index (P03 parseDiagramItem)	model-field	include/m2m/model.hpp
+14014d540	0xcd	flow chart model: successor through the connector (FlowItem::next)	model-field	include/m2m/model.hpp
+1400711a0	0x91e	flow chart copy from another sub-project (only from 0x1400b5680; skips Report/DoeOutput/ShapeOptim when asked); not on the Save path	out-of-scope	
+1412f10d0	0xb3	engine struct ctor (from 0x140089880 project ctor and 0x141da8150): no field the MST reads	out-of-scope	
+1400c4890	0x2c	ctor (from 0x140054950/0x140054f40) of a GUI helper object: no MST state	out-of-scope	
+1412e2450		byte +0x40 setter (StateVars URZ flag)	ported	include/m2m/setters.hpp
+1416cab50		double +0x58 setter (StateVars URZ 3rd value)	ported	include/m2m/setters.hpp
+141632700		byte +0x60 setter (StateVars DRZ flag)	ported	include/m2m/setters.hpp
+1404ce5b0		double +0x68 setter (StateVars DRZ 1st value; ContactBlock GENCTC value)	ported	include/m2m/setters.hpp
+140bb1000		double +0x88 setter (StateVars GRAIN value)	ported	include/m2m/setters.hpp
+140414430		byte +0xd0 setter (StateVars LMTSTR flag)	ported	include/m2m/setters.hpp
+1407b5170		int +0x48 setter (OPI lubricant id)	ported	include/m2m/setters.hpp
+140050c80		OPI setClass (+0x120; engine model cleared when changed)	ported	include/m2m/setters.hpp
+140070920		registry contains	ported	include/m2m/setters.hpp
+1400d0e60		DOE Var+0x30 items getter = doe::Var::items	model-field	include/m2m/mst/doe_model.hpp
+1400d7fc0		DOE item +0x18 getter = doe::Item::before	model-field	include/m2m/mst/doe_model.hpp
+1400d8000		DOE item +0x20 getter = doe::Item::after	model-field	include/m2m/mst/doe_model.hpp
+140817870		DOE Var+0x20 getter = doe::Var::geoType	model-field	include/m2m/mst/doe_model.hpp
+140818420		DOE list[i]+0x28 list copy (bounds-checked); no user in the ported DOE code yet	pending-doe	
+140818490		DOE list[i]+0x30 list copy (bounds-checked); no user in the ported DOE code yet	pending-doe	
+140909c50		DOE .COR file writer (side file, plan 2.1; DOE is M2M_E_UNSUPPORTED)	out-of-scope	
+141432bc0		double +0x38 setter (StateVars DAMAGE value)	ported	include/m2m/setters.hpp
+141163320		double +0x78 setter (StateVars DRZ 3rd value, 3D)	ported	include/m2m/setters.hpp
+1402bb080		SfOprDiestress tree builder (base adders in makeProps)	ported	src/ops/diestress_tree.cpp
+1402b9b60		SfOprDiestress property templates initializer	ported	src/ops/diestress_tree.cpp
+1402bb640		Diestress builder part: EquipmentType children	ported	src/ops/diestress_tree.cpp
+1402bb850		Diestress builder part: EquipmentSpec children by equipment type	ported	src/ops/diestress_tree.cpp
+14029f0a0		SfOprDiestressBM2D/3D tree builder (same tree)	ported	src/ops/diestress_tree.cpp
+14029f680		SfOprDiestressBM property templates initializer	ported	src/ops/diestress_tree.cpp
+1402a0ba0		DiestressBM builder part: EquipmentType children	ported	src/ops/diestress_tree.cpp
+1402a0dd0		DiestressBM builder part: EquipmentSpec children	ported	src/ops/diestress_tree.cpp
+1402b8fb0		SfOprDiestressProperties init: equipment block, templates, builder	ported	src/ops/diestress.cpp
+14029edb0		SfOprDiestressBMProperties init: equipment block at +0x150, templates, builder	ported	src/ops/diestress.cpp
+1402a2a20		equipment block ctor (+0x10 0, +0x14 2, +0x60 0, +0x80 -1, doubles)	ported	src/ops/diestress_tree.cpp

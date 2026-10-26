@@ -1,0 +1,131 @@
+{
+  "schema": "resume46-editor300-v1",
+  "created_utc": "2026-10-24T17:37:52.077784+00:00",
+  "status": "source_ready_focused_compile_pending",
+  "owner": "editor300",
+  "candidate46_reconciliation": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_base.hpp",
+      "expected": "4427afe4be4b6d176a0e030b9fb9de098d106af21a25ae5247d5ad61e645920b",
+      "current_before_edit": "4427afe4be4b6d176a0e030b9fb9de098d106af21a25ae5247d5ad61e645920b",
+      "matched_before_edit": true
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_base.cpp",
+      "expected": "519cf81615f579dc60ceac978e8ef967163e2f39067cd53bb901cae60f3b2b37",
+      "current_before_edit": "519cf81615f579dc60ceac978e8ef967163e2f39067cd53bb901cae60f3b2b37",
+      "matched_before_edit": true
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+      "expected": "2320c353e2125555fd981fbddd73ef84656c4c5cc5ecaf3460458a8db1fd5b5f",
+      "current_before_edit": "2320c353e2125555fd981fbddd73ef84656c4c5cc5ecaf3460458a8db1fd5b5f",
+      "matched_before_edit": true
+    }
+  ],
+  "changes": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_base.cpp",
+      "sha256": "0a8fa1e1dc6a5cdc3f9de87437f3c0b5437c3b0b8f51d493163cbd7d3862ece1"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+      "sha256": "fc02133880d7c9cf254303051cf16dfcf47bc88acdb43add9a668c7994f33b7f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor46-palette-tail-increment.json",
+      "sha256": "35bd530254bddd75a009a9b0c579f15f41b80633061b4604107dee538697e4d5"
+    },
+    {
+      "path": "analysis/wave3-editor46-palette-tail-wrapper-contract.json",
+      "sha256": "98f0ec210ed00ba1a16e5d0e1779f1a11b11490a7cd1399f88acba629146c746"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-static.json",
+      "sha256": "2e594ae36d0c811ed53e77d5f80df614f6bbaab19d3e2e396fa0f7dbedeacc1b"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-6511c090.asm",
+      "sha256": "716cb7f8e726b62960add3b4718c6b48aef1f184e43b6a9e6317101d25bb9d32"
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-6511e6d0.asm",
+      "sha256": "ea2e3922b1c05313b23c3885b86c4ee635fdf61c655b07dc875490896b93de14"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    }
+  ],
+  "binary": {
+    "path": "evidence\\original-binaries\\QtGui4_64.dll",
+    "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "bounded_immutable_helper_captures": [
+    {
+      "start": "0x6511aba0",
+      "end_exclusive": "0x6511abb6",
+      "qualification": "bounded branch slice, not full helper",
+      "code_hex": "40534881ec80000000488b11837a04100f8521010000",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6511aba0,0x6511abb5",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll"
+      ],
+      "stdout": "Microsoft (R) COFF/PE Dumper Version 14.44.35228.0\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n\r\nDump of file C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll\r\n\r\nFile Type: DLL\r\n\r\n  000000006511ABA0: 40 53              push        rbx\r\n  000000006511ABA2: 48 81 EC 80 00 00  sub         rsp,80h\r\n                    00\r\n  000000006511ABA9: 48 8B 11           mov         rdx,qword ptr [rcx]\r\n  000000006511ABAC: 83 7A 04 10        cmp         dword ptr [rdx+4],10h\r\n  000000006511ABB0: 0F 85 21 01 00 00  jne         000000006511ACD7\r\n\r\n  Summary\r\n\r\n      695000 .text\r\n",
+      "stdout_sha256": "19db44e0d255241e6addcb15610b4d56914eeabb2d39446f7e0966fc05a1f3f3"
+    },
+    {
+      "start": "0x6511acd7",
+      "end_exclusive": "0x6511ace2",
+      "qualification": "bounded branch slice, not full helper",
+      "code_hex": "32c04881c4800000005bc3",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6511acd7,0x6511ace1",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll"
+      ],
+      "stdout": "Microsoft (R) COFF/PE Dumper Version 14.44.35228.0\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n\r\nDump of file C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtGui4_64.dll\r\n\r\nFile Type: DLL\r\n\r\n  000000006511ACD7: 32 C0              xor         al,al\r\n  000000006511ACD9: 48 81 C4 80 00 00  add         rsp,80h\r\n                    00\r\n  000000006511ACE0: 5B                 pop         rbx\r\n  000000006511ACE1: C3                 ret\r\n\r\n  Summary\r\n\r\n      695000 .text\r\n",
+      "stdout_sha256": "72693d0c38cbdb2bf77296b94359dd6a2c765da9d051d006198279b315e08be0"
+    }
+  ],
+  "tool": {
+    "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+    "sha256": "12a1cd87238bd66dfdb788b4fcdcb91ce4b3f81236aab12a7a29e5ae1d85af50"
+  },
+  "contract": [
+    "QWidget init6506e710 bypasses isOpaque for style0; style0 remains unchanged.",
+    "isOpaque6511c0ad..c0c8 calls QColor alpha unconditionally before style dispatch.",
+    "Style2..14: helper6511aba0 tests style16 and takes constant false return6511acd7; isOpaque6511c0e4..c1e5 then fails style15/16/17/24 checks and returns false.",
+    "Pattern branch therefore requires known alpha byte but returns nonopaque for every alpha value; no gradient/texture payload or native-opacity helper is reached."
+  ],
+  "focused_tests": {
+    "file": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+    "total_cases": 26,
+    "added_cases": 3,
+    "pattern_combinations": 26,
+    "coverage": [
+      "all styles2..14 with alpha0/255",
+      "missing alpha stops, qualified retry advances without repeated group/QObject prefix",
+      "gradient/texture/invalid styles remain guarded"
+    ],
+    "execution": "pending orchestrator build window"
+  },
+  "source_checks": {
+    "diff_whitespace": "passed git diff --check on edited paths",
+    "immutable_branch_bytes": "passed exact PE byte assertions"
+  },
+  "guard": "public6504abb0 unchanged; application wrappers and setup remain blocked",
+  "limitations": [
+    "No original capture or runtime execution",
+    "No mutable REA database",
+    "No full builds",
+    "No parity or constructor completion claim"
+  ],
+  "next_dependency": "Coordinated focused compile/test then same-runtime post-Open binding and shared post-event/dispatcher continuation; native QPointer guard and ordered notifier remain prerequisites.",
+  "tokens": "unavailable"
+}

@@ -1,0 +1,22 @@
+{
+  "label": "EXECMD 2 absolute program",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nEXECMD 2\nC:\\Windows\\System32\\cmd.exe /c echo m2> EXEC2.TXT\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "EXEC2.TXT",
+      "OUT.KEY"
+    ],
+    "notes": "Absolute argv0 (':' as 2nd char) -> no search; system('\"\"C:\\Windows\\System32\\cmd.exe\" /c echo m2> EXEC2.TXT\"'): EXEC2.TXT = 'm2'."
+  }
+}

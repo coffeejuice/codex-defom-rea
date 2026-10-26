@@ -1,0 +1,95 @@
+{
+  "status": "native_backend_evidence_ready_source_window_pending",
+  "qualification": "Static behavior and a proposed bounded implementation profile. No original DLL loading/execution. No general Qt decoder, locale or device equivalence claim. The existing StudyIo read handle retains its own packet-size/failure qualifications.",
+  "qtcore_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "entrypoints": {
+    "int_operator": "670c60e0",
+    "real_operator": "670c62c0",
+    "atEnd": "670c2660",
+    "getInteger": "670c5210",
+    "getReal": "670c59b0",
+    "localeToDouble": "6704dce0\u21926704c340\u21926704c190/670494b0"
+  },
+  "real_contract": [
+    "Skip QChar spaces; for supported ASCII this is9..13 or32",
+    "Map C-locale ASCII character classes through retained13x10 state table",
+    "A transition to0 or13 ungets the terminating character and excludes it from the numeric string",
+    "Append at most124 characters; after that boundary consume subsequent digit characters and unget the first nondigit",
+    "Empty extracted text fails; nonempty text is converted by the stream QLocale::toDouble, with explicit inf/nan special cases",
+    "Operator writes0 on failure and sets stream status only when prior status is0; status is1 at end else2",
+    "The original file helper ignores stream status and returns QFile open success; its outer atEnd/count loop leaves unreached values at their initial0"
+  ],
+  "integer_profile": [
+    "Original default base0 supports prefix selection, including hex/octal/binary; plain decimal splitting would be an approximation",
+    "First backend can guard signed decimal int32 values with no ambiguous leading-zero forms and only whitespace delimiter/end",
+    "Reject unsupported syntax or range explicitly instead of treating it as original0; expand with original getInteger source later"
+  ],
+  "io_binding": [
+    "QFile exists before ReadOnly open",
+    "Reuse source-verified StudyIo openReadFile native flags:GENERIC_READ,share3,OPEN_EXISTING,normal80,noninheritable",
+    "count0: successful open returns true without readAll, byte decoding or numeric parsing; this is STRAIN_DST behavior",
+    "For count>0, first backend supports ASCII bytes/KnownC, no BOM/Unicode claim; raw partial-read bytes retain original helper open success",
+    "Write uses existing FileDevice and real recovered Stream helper, no rollback or file replacement",
+    "Readable-delete must preserve fopen(rt)\u2192fclose\u2192remove and return true when fopen fails; only NBC failed remove raises its warning"
+  ],
+  "next_tests": [
+    "Native readable-empty enables controls; missing file disables",
+    "Native count0 open does not inspect non-ASCII file data",
+    "Real numeric-prefix/delimiter pushback with a following value",
+    "KnownC decimal int32 boundary; unsupported radix/codec leaves explicit gap",
+    "Native write sharing denial continues later sidecars; readable-delete sharing failure warns onlyNBC"
+  ],
+  "remaining": [
+    "Original whole getInteger automatic-base path",
+    "Qt BOM/Unicode decoder and non-C locale branches",
+    "Exact Qt read packet sizing/dynamic file changes/fault timing",
+    "Positive spring selected editor",
+    "Public initial snapshot composition and external settings/capability state"
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-read-exports.txt",
+      "sha256": "2b4dd8970521b52511bc70b6c791b20e97b8974cacbc0580b363c62ede5cba01"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-read-int-complete.asm",
+      "sha256": "b8a9fcb3e9fd8bdcdd615248008f0df1713c6e72eb7200c903bb73458e92f73b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-read-double-complete.asm",
+      "sha256": "39d552ec0897dc6985e1006919a1e08e31d5a7077d5fa3f13ecb84f9c8c93ae9"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-atend-complete.asm",
+      "sha256": "2332ba77c525952c8c73da391359f3542650a79c030d18047df3a134a558cbaf"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-getreal-complete.asm",
+      "sha256": "801af67ab78706c515c106d0938055d9df5fb28e82a96158380655bbbcf48686"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-getinteger-complete.asm",
+      "sha256": "f7d4f60a403016cd75528362c1f314307a8472e2e63ce71cc4772d1815e177c7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-real-tables.json",
+      "sha256": "b1388f8dc8efc14710e49cbfe8e13230ab300e50eb20fd7d995c6b611e6120a7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-locale-reader-exports.txt",
+      "sha256": "13e998db16c4c7b0c80ffea3a61e02d52b0349e1b9d7c016335f806adb91f9f9"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-real-conversion-leaf.asm",
+      "sha256": "a4cf2f9cb0d00f572744a111a683dcfcbf0b9301ef9df373786fcee9098dfe4a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-qt-textstream-clocale-conversion-complete.asm",
+      "sha256": "2a918ba52bd9524389fe888cb328c490d6a3173478803bd98f931cc0861b54a4"
+    },
+    {
+      "path": "analysis/wave2-doe-read-handle-contract.json",
+      "sha256": "f536f8a42119074436949b5fef06d46c2386d3bb105213dbdb0c5d1df5d29bdf"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "wave3-remesh-open-feature-dependency-v1",
+  "created_utc": "2026-10-24T04:11:48.990684+00:00",
+  "status": "bounded_static_dependency_contract_not_implemented",
+  "evidence": [
+    {
+      "path": "analysis/wave3-remesh-open-lifetime-contract.json",
+      "sha256": "ba7883b3d2dea182c7052fee38196af1dcc11c578cd407664839c0b45987d0ff",
+      "bytes": 7174
+    },
+    {
+      "path": "analysis/wave3-remesh-open-features-static.json",
+      "sha256": "25f46aee6c3920433e5e4dfdb14650bcab3798cc69510e09a8f37bd12e5ee781",
+      "bytes": 2252
+    },
+    {
+      "path": "analysis/wave3-remesh-open-binding-1400aa960.asm",
+      "sha256": "15e4d9433932e99b3b4331380abbe665e2d8e2e1140a42bf210589c301b1a8d0",
+      "bytes": 6957
+    },
+    {
+      "path": "source/docs/re/moproj2mst/mdt/L0/spec_C.md",
+      "sha256": "f0a26a196487b00af043cad76bc0cef21af37db8aca900caf8c9b393aceedff6",
+      "bytes": 42871
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/loader.cpp",
+      "sha256": "5a43a92def8d6d1bd42fa84d5733589d2c0269cf6bec798cd3e04bf12ab19ab3",
+      "bytes": 48830
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/save_current.cpp",
+      "sha256": "266a5e249e6be98f40b14d03b8eaa807fb39dd9ab6309d0be0caade56ea1ecb0",
+      "bytes": 39884
+    }
+  ],
+  "findings": [
+    "0aa960 is before remeshread inOpen and traverses current diagram order, obtains operation feature-string05ef960, converts it toLocal8Bit, queries Project+60 through12ec7b0 and calls12f08d0(true) when cached booleanfalse. It returns true after theloop, ignoring per-feature boolean failures.",
+    "12ec7b0 invokes12e76c0 with a local availability flag. The return byte is false when lookup indicates absence, otherwise the first byte at returnedpointer. Full lookup normalization/ownership remain to recover.",
+    "12f08d0 first checks owner+1498 and calls12eee10 whennegative, storingitsresult; this precedes null/emptyinput checks. Thus even emptyfeature inputs cannot simply be treated as no state effects without checking cache/query behavior.",
+    "For nonemptyinput,12f08d0 mapskey12e7be0, queries12e76c0 with typelocal2, chooses a string based on returnedtype, calls13058a0 and12fd7f0, allocates0x3ea0 and constructs12ee6a0. It setsobject+3e9c=1 and+35b8 fromowner+1498, clear global1446edcf0, then calls12ecbb0.",
+    "Nonnegative12ecbb0result triggers12ee870 and is converted tosuccessbool. Originaltrueargument also invokes12f1eb0. The bool is written into returnedcachepointer. Success inserts ownedpointer intoowner+1458 via12f01d0; failure deletesobjectthroughvirtual0. The method returns thatbool.",
+    "Project gate0aab60(true) repeats0aa960 before converting/queryingthe requestedfeature. Current loader.cpp andsave_current.cpp explicitly omitthisgate; internaleditor300 already accepts explicit external capability observations. Reconstructing the sequencing/cache/ownership is distinct from inventing alwaysavailable answers.",
+    "Normal Closefeaturecleanup Project+60 should be reconciled with0982c0->0aab30 byCloseworker; remeshprocessstorage is a separate owner."
+  ],
+  "qualifications": [
+    "No original license service, installed settings, target process or external execution accessed. No bypass or fabricated license answer implemented.",
+    "The functions called by12f08d0 are not all recovered; their real external effects/results need source-bound observation interfaces and fresh comparison.",
+    "Read-only static work during root buildfreeze; no source or immutablepriorreceipt changed."
+  ],
+  "next": "Root queue Project+60 state/cache ownership and source-bound external result observations. Prioritize minimal lookup/normalization and constructorinitialstate before integrating Openstage; keep actual remeshowner available independently without claiming precedingfeatureeffects complete."
+}

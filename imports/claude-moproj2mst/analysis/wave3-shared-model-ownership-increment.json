@@ -1,0 +1,52 @@
+{
+  "scope": "Shared native model identity and post graph manager ownership declarations",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "215c5919044b0404661e8b0fc26d33b32fcdf435f0d6b9cb60440c1cd1904816"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/db_load.cpp",
+      "sha256": "2c5408d11c01564d461769975b391d51471f897eba9ac21156c9a3057bbaeaa9"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/doe_session_notifications.hpp",
+      "sha256": "2473042bc3970cee52d5417c0b10d06d1f063445d94d126d69f8a0a6df811c3a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-model-owner-identity-contract.json",
+      "sha256": "27f705e0e33e609cb7d7d18bb69b627094f0dd1b3b21a0141e231d452027cae7"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-modelbase-owned-manager-destruction-static.json",
+      "sha256": "d925eb45017115d035abc0f62b8312437831003ceadc4d9120f7aad90e6b3f99"
+    },
+    {
+      "path": "analysis/wave2-doe-default-task-manager-contract.json",
+      "sha256": "c999f44709bf823e29f7288625bfdc2c49f6d428ec230e7584dea16ae89bf4de"
+    },
+    {
+      "path": "analysis/wave3-close-post-graph-manager-landing.json",
+      "sha256": "2dbfe4dc29308461a4ced510f835d5dd7bf2df1f1bd53490b6946988ad27d604"
+    },
+    {
+      "path": "analysis/wave2-doe-model-manager-destructor-amendment.json",
+      "sha256": "814c85d4bfaae100ac66c1591909438bcb369c79350b2fc65d87429b00a69646"
+    }
+  ],
+  "implemented": [
+    "DbHandle is documented as same-object partial SfModelBase/SfMoModel projection, distinct from outer SfModelManager.",
+    "DbHandle constructor records Base/Mo kind and zero modelId+30. Existing Project.dataDb adapter creation uses Mo; type4 secondary DB defaultBase. No selection inferred.",
+    "Lazy postGraphManager+1970 cache is on actual DbHandle. Destructor releases it before reader+40; other managers/Qt callbacks remain qualified.",
+    "Existing SessionNotificationState owns optional ordered weak RemoveGraphItems registrations and explicit coverage qualification; no duplicate suppression state."
+  ],
+  "qualifications": [
+    "Outer native Open append/select positions remain unintegrated; ModelManager is a tested prefix only in this candidate.",
+    "Original missingProject creation/type4 alternate graph factory/populated graph effects remain guarded.",
+    "Existing DbHandle adapter lazy allocation is not equated with native startup registration.",
+    "Native full Close/Qt destruction and external shared lease behavior remain incomplete."
+  ],
+  "validation": "pending root integration"
+}

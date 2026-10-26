@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF two separate loops",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nTWO.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "TWO.DXF",
+      "source": "data/dxf_two_loops.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Two chains -> Fortran status 3 (200): segments in file order, original direction. Prediction (DXF_READER.md model) = observed 2026-10-21: status 3, DIEGEO 1 2 8; segment 1: 1 1 0.0000000000E+000 0.0000000000E+000 4.0000000000E+000 0.0000000000E+000 0.0000000000E+000"
+  }
+}

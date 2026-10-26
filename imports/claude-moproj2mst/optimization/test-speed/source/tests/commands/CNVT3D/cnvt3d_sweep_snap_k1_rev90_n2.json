@@ -1,0 +1,26 @@
+{
+  "label": "CNVT3D sweep revolve 90 nsec 2 near-axis nodes snapped (k=1)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 900,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGEO23 2 1 1\n90.0 0.0 0.001\nGEOSEC 2 4\nMSHSEC 2 2\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "data/sweep_nearaxis.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "NBCD.OUT",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "FUN_140155340 with k!=0: |r|<c -> r=0 in the 2D source (OUT.KEY RZ nodes 1,4 r=0); then same 3D mesh as the axis case"
+  }
+}

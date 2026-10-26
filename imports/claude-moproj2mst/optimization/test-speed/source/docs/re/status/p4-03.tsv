@@ -1,0 +1,77 @@
+address	status	note
+0x14001cdc0	verified	defdbio/src/objcheck/check_chain.cpp empty function (called with the check's second and third arguments); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140163540	verified	defdbio/src/objcheck/volume.cpp object volume (2D: plane strain area, axisymmetric volume, 0 for plane stress; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140167e90	verified	defdbio/src/objcheck/object_check.cpp check one object (see objcheck.hpp); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14016c4e0	ported	defdbio/src/objcheck/object_helpers.cpp mark function *fn as used (1 <= *fn <= *n_fn): used[*fn] = 1, *any = 1
+0x14016c550	verified	defdbio/src/objcheck/object_helpers.cpp clear edge functions whose edge code is 0 (ECDEFN 0xae8/0xaf0, ECTMFN; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14016c780	verified	defdbio/src/objcheck/object_helpers.cpp 3D: delete the symmetry planes (list at +0x2e80) that no node references with; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14016ca40	verified	defdbio/src/objcheck/object_helpers.cpp "%s of Object %6d Undefined" when (mask & DB_STEP_DATA+0x13c) and defined == '?'; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401790a0	ported	defdbio/src/objcheck/object_helpers.cpp some edge has heat exchange code 2 (array +0xb00)
+0x140179150	ported	defdbio/src/objcheck/object_helpers.cpp heat exchange definitions (14019a590 count of +0x2e68+0x78) > 0
+0x140179190	ported	defdbio/src/objcheck/object_helpers.cpp some edge has diffusion code 2 (array +0xb18)
+0x140179240	ported	defdbio/src/objcheck/object_helpers.cpp diffusion definitions > 0
+0x140179280	verified	defdbio/src/objcheck/object_helpers.cpp translation or rotation; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401792d0	verified	defdbio/src/objcheck/object_helpers.cpp the object has a translational movement control (type at +0x21c8); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401797e0	verified	defdbio/src/objcheck/object_helpers.cpp rotation 1, or (3D) rotation 2; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140179840	verified	defdbio/src/objcheck/object_helpers.cpp rotational movement 1 defined (+0x2788 kind 0: +0x27c4 / +0x27c8, kind 1:; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140179900	verified	defdbio/src/objcheck/object_helpers.cpp rotational movement 2 defined (+0x28b8 kind); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401799c0	ported	defdbio/src/objcheck/object_helpers.cpp rotation axis 1 set: 2D always; 3D |axis (+0x27a8)|^2 > 1e-12
+0x140179a90	ported	defdbio/src/objcheck/object_helpers.cpp rotation axis 2 set (3D only; 2D prints a message and returns true)
+0x140179b70	ported	defdbio/src/objcheck/object_helpers.cpp rotational symmetry boundary entries (140186da0 on +0x1ea0) > 0
+0x14017adb0	verified	defdbio/src/objcheck/check_chain.cpp every object of the list (type 7 skipped) through check_object, then: MOVCTL; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401808d0	ported	defdbio/src/objcheck/object_helpers.cpp node block (Cls_14017ef20): make sure the arrays exist, return the coordinates
+0x140184050	verified	defdbio/src/objcheck/object_helpers.cpp element block: density (array 0x2c at +0x50); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401842f0	ported	defdbio/src/objcheck/object_helpers.cpp element block: volume fractions (array 0x31 at +0x78)
+0x140186bc0	ported	defdbio/src/objcheck/object_helpers.cpp 3D: rotational symmetry angle (+0x1b8) >= 1e-20
+0x140186c10	ported	defdbio/src/objcheck/object_helpers.cpp 3D: angle = 0
+0x140186c50	ported	defdbio/src/objcheck/object_helpers.cpp 3D: |axis (+0x1d8)|^2 >= 1e-20
+0x14018b0f0	ported	defdbio/src/objcheck/object_helpers.cpp mesh window block: only +0x30 set (> 0), +0x18..+0x28 and +0x38 zero
+0x14018cd10	verified	verified by p67-2 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp movement block (Cls_14018b220): direction (+0x50..) is not zero (2 components
+0x140194f90	verified	verified by p67-1 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp stroke . unit(dir), 3D or 2D (0 when dir is zero)
+0x1401951d0	ported	defdbio/src/objcheck/object_helpers.cpp range (max - min) of the press curve values (+0x380, count +0x354) when the
+0x1401952e0	verified	verified by p67-1 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp stroke vector: unit(movement direction +0x50) * (stroke - stroke0), or zero
+0x140199cc0	ported	defdbio/src/objcheck/object_helpers.cpp DB_STEP_DATA+0x13c (keyword-group mask the "Undefined" checks test)
+0x14019d5e0	ported	defdbio/src/objcheck/object_helpers.cpp n-th inter-object relation (list at +0x13c8)
+0x1401a9820	ported	defdbio/src/objcheck/object_helpers.cpp relation between objects a and b: 0 when one exists with the right
+0x1401b9d50	ported	defdbio/src/objcheck/check_chain.cpp all four checks run; true when all pass
+0x1401b9de0	ported	defdbio/src/objcheck/check_chain.cpp materials with ANISO data must not be used by deformable objects (2D
+0x1401b9fe0	ported	defdbio/src/objcheck/check_chain.cpp 3D: the workpiece axis (+0x27a8 direction, +0x2790 point) of every object must
+0x1401ba460	ported	defdbio/src/objcheck/check_chain.cpp phase transformation model (14029bb50 on the materials): records TRANS when it
+0x1401ba5a0	ported	defdbio/src/objcheck/check_chain.cpp 3D extrusion runs (+0x848 == 4 or 7): some object must have bearing surfaces
+0x1401bfdf0	verified	defdbio/src/objcheck/check_chain.cpp material checks; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401bfe60	verified	defdbio/src/objcheck/check_chain.cpp inter-material checks; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401bfed0	verified	defdbio/src/objcheck/check_chain.cpp object checks; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1401f3c90	ported	defdbio/src/objcheck/object_helpers.cpp simulation control +0x114
+0x1401fbfc0	ported	defdbio/src/objcheck/object_helpers.cpp some element (+0x9f8, numel +0x884) has material `material`
+0x140201320	ported	defdbio/src/objcheck/object_helpers.cpp some boundary facet node (facets +0xbf8, 4 per facet) has BCC code *code
+0x1402014c0	ported	defdbio/src/objcheck/object_helpers.cpp some boundary facet node has a contact code (< 0) with object `other`
+0x140203fa0	verified	verified by p67-1 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp some node has BCC code 7 or 8 (rotational symmetry), 3 per node
+0x140204040	ported	defdbio/src/objcheck/object_helpers.cpp some node has BCC code 3 (velocity); DOF per node from DB_STEP_DATA+0x1640
+0x14020aa50	verified	defdbio/src/objcheck/object_helpers.cpp with *count: counts nodes with T <= 0 (T < 0 also makes the result true) and; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14020ab60	verified	defdbio/src/objcheck/object_helpers.cpp temperature range: values that differ from the running min / max by more; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140239800	verified	verified by p67-1 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp copy
+0x140239ea0	verified	verified by p67-1 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp s * v
+0x14023aa90	ported	defdbio/src/objcheck/object_helpers.cpp |a - b| < tol in every component
+0x1402575d0	ported	defdbio/src/objcheck/object_helpers.cpp copy the plane's direction (+0x20)
+0x140257670	ported	defdbio/src/objcheck/object_helpers.cpp direction is zero (every |component| <= 1e-6)
+0x140257f70	ported	defdbio/src/objcheck/object_helpers.cpp unlink and delete node from the list (head +0, tail +8, count +0x10)
+0x1402582b0	ported	defdbio/src/objcheck/object_helpers.cpp max(count, largest plane id)
+0x14028d120	ported	defdbio/src/objcheck/object_helpers.cpp material has ANISO data (+0x1e40 != 0)
+0x14028ed70	verified	defdbio/src/objcheck/material_check.cpp one material. Flags at +8: bit 0 plastic, bit 4 elastic, bit 8 thermal.; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14028f130	verified	defdbio/src/objcheck/material_check.cpp "%s of Material %6d Undefined" when defined == '?' (every caller passes '!'); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14028f1c0	verified	defdbio/src/objcheck/material_check.cpp warning when the table has an empty axis or is all zero; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14028f260	verified	defdbio/src/objcheck/material_check.cpp the same as an error; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14029b980	verified	defdbio/src/objcheck/material_check.cpp every material whose +4 is set (1401b0620); oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14030355f	verified	defdbio/src/objcheck/volume.cpp volume enclosed by a closed surface: sum over triangles of (p1 . n) * area / 3.; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140304cb0	ported	defdbio/src/objcheck/volume.cpp 2D: number of nodes whose r is below -0.01 * max(r)
+0x1403054e0	verified	verified by p67-5 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp boundary_edge_index over the object's boundaries (+0xbd8 count, +0xbe0 records)
+0x140305520	verified	verified by p67-5 (P5 gate); was ported; defdbio/src/objcheck/object_helpers.cpp index of boundary edge *edge (1-based over all boundaries, each boundary record
+0x140306940	verified	defdbio/src/objcheck/volume.cpp 2D object: area and volume of revolution of its FE mesh; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140336130	verified	defdbio/src/objcheck/material_check.cpp one material pair: PHASTF, and when it is on (+8) the transformation data; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x140336250	verified	defdbio/src/objcheck/material_check.cpp "%s between Materials (%6d %6d) Undefined" when (mask & DB_STEP_DATA+0x13c) and; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x14033a450	verified	defdbio/src/objcheck/material_check.cpp every pair whose two materials exist and are active; a warning when the model; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1404335e0	verified	defdbio/src/objcheck/volume.cpp area and volume of revolution of numel 4-node elements (elems 1-based, 4 per; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1404337cd	verified	defdbio/src/objcheck/volume.cpp one quadrilateral p = 4 points (r, z): area and its volume of revolution; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1404cce5e	verified	defdbio/src/objcheck/volume.cpp c = a x b; *len = |c|; c / |c| when |c| > 1e-16 (DAT_140bb2668), else *len = 0; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1404d3d43	verified	defdbio/src/objcheck/volume.cpp normal of the triangle p (3 points): (p2 - p1) x (p3 - p1), normalised; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)
+0x1404e29fa	verified	defdbio/src/objcheck/volume.cpp triangle area (Heron). p = 3 points x,y,z. Side i joins point i and i+1 (3 -> 1).; oracle: material/inter-material/object check text equal for 261/261 fully read corpus models (test_objcheck_oracle on kw-merge)

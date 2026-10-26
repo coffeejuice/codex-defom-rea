@@ -1,0 +1,39 @@
+{
+  "scope": "Read-only source review of direct empty sample writer/wrapper; active lifecycle remains unsupported",
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": {
+    "path": "analysis/wave2-doe-wrapper-decompile.json",
+    "sha256": "684bf41c597e16d8f8dd7d40d053aca79d4e0a9ecbc23cc2089f326eeab35834",
+    "functions": [
+      "140915360",
+      "1400d7a80"
+    ]
+  },
+  "reviewed_source_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "78fa790b469ed075b48d029861797c7900f3be15cf28c1c7bcf2b1c80f18e76c",
+    "source/apps/moproj2mst/include/m2m/doe_sample_io.hpp": "038b5162efd7cfdf4aed15110bf69f48862cadadf8837f41796c0d3635e4eb3a",
+    "source/apps/moproj2mst/src/doe/io.cpp": "083f1798f5cc09482c190c51f19d104803ae2fbf9950d34fe53c7d45f31aebb6",
+    "source/apps/moproj2mst/src/doe/sample_io.cpp": "7a7533c9f947eecfccfe076c3475158e497110c0d3611bfad70b300f532211dc",
+    "source/apps/moproj2mst/tests/mdt/test_doe_sample_io.cpp": "accdc12a70bb2676eebf376d1818638369502a298f7893c82e0efb2630c268d4"
+  },
+  "blocking_findings": [],
+  "checked_contract": [
+    "requested mode gate before I/O",
+    "open failure leaves memory and missing parents unchanged",
+    "open truncates directly without mkdir, temporary file or rollback",
+    "mode header plus CRLF; flush at endl boundary",
+    "return depends only on successful open",
+    "write/flush/close errors preserve prior file effects and allow wrapper memory mutation",
+    "requested table nonempty gate; current table clear; requested invalid flag cleared; counts unchanged",
+    "undefined current index refusal follows preceding file effect",
+    "recording is explicit nonmutating simulation"
+  ],
+  "qualification": [
+    "Static review, no original/candidate runtime and no fresh-original parity claim",
+    "Qt/std sharing, race and device-specific behavior remains unverified",
+    "Injected short write proves candidate wrapper response and retained partial file, not original fault capture",
+    "Active parsing/Save and full sample tables are not integrated by this increment"
+  ],
+  "coordinator_validation": "analysis/wave2-doe-sample-io-v1-tests.json",
+  "app_control_used": false
+}

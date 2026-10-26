@@ -1,0 +1,48 @@
+{
+  "status": "Frozen candidate38 narrow correction; no worker build or target runtime",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "sha256": "541c912aa709219a7a903c1b4831009fd50f71a63c5af463938b28b099565953",
+      "bytes": 15153
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "sha256": "e446c39fda6affcb8c0cae7241eb9f97f55089eafdf7455e0c752d14a75a8045",
+      "bytes": 32913
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "sha256": "52ddf3ada041e97183e3dc1c09ad1aea496b07c093eb0b8467ddf42e1be11453",
+      "bytes": 23970
+    },
+    {
+      "path": "analysis/wave3-close-splitter-parent-prefix-landing.json",
+      "sha256": "b78e42cea93c022fbd46d9dc6dbe831fd6a8d011fab6f692cf1eebd2f307e2a4",
+      "bytes": 10423
+    },
+    {
+      "path": "analysis/wave3-closure-next-140dab810.asm",
+      "sha256": "9d4a251a8f46c895c54000b6f987490478680aa8bc27fd7dad398f8c8d038b70",
+      "bytes": 2345
+    },
+    {
+      "path": "analysis/wave3-close-splitter-probe-002-focus-review.json",
+      "sha256": "55e59815e4dfde02ad851c0a8c1edc2bd8cb99a86b71c4cb27a12e4606301a16",
+      "bytes": 4541
+    }
+  ],
+  "changed_paths": [
+    "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+    "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp"
+  ],
+  "behavior": "Dedicated SfSplitView QString+28 remains absent until native QSplitter constructor returns and dab868 constructs it. All current pending stages are earlier. The optional splitViewName API explicitly distinguishes absent native construction from an initialized null QString and from QObject objectName.",
+  "validation": [
+    "Two existing pending-construction checks now assert absent dedicated name; no new cases or constructor completion claim.",
+    "Read-only API search: no old SplitView objectName calls remain in owned or Session integration files.",
+    "git diff --check passed for changed paths.",
+    "ViewManager cpp hash remains52ddf3ada041e97183e3dc1c09ad1aea496b07c093eb0b8467ddf42e1be11453; no cpp change.",
+    "Root owns subsequent build and test execution."
+  ],
+  "scope": "Only header and existing test assertions changed under narrow root release; all other production files and frozen probe scripts remain unchanged."
+}

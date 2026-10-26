@@ -1,0 +1,18 @@
+{
+  "label": "T5-1 DEF_MULTI.INI start-up (no stdin): PROBID, RUNTYP, KFWRIT",
+  "stdin": "",
+  "timeout": 120,
+  "inputs": [
+    {
+      "name": "DEF_MULTI.INI",
+      "text": "PROBID\nMULTI TEST\nRUNTYP 2\nKFWRIT\nOUT.KEY\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "NEWEQ.MSG"
+    ],
+    "notes": "'Multiple operation keyword file reading', exit(0) after 'processed' (no newline); NEWEQ.MSG kept."
+  }
+}

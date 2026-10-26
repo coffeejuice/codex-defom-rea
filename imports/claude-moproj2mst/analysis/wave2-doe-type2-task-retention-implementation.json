@@ -1,0 +1,77 @@
+{
+  "schema": "m2m-doe-type2-task-retention-implementation-v1",
+  "status": "sixownedfiles sourcefrozen forrootcombinedvalidation; worker didnotbuild/runtests",
+  "source": {
+    "source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp": "84163f6528f46d67d81370eec4df91d73f3bffb4247baeeffb8eb444b824c12e",
+    "source/apps/moproj2mst/src/doe/task_runtime.cpp": "cb8149e2c2c012fc65f9579dab8faec8f252f81f8a6ca15b1173add541bf3f03",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_runtime.cpp": "cef52395e1a168348d506c24790e0691575a70a827607c4bd2c83ba9674f6e68",
+    "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "11cea775819c7f2cd2d061040988fe2588d1f201c1797e02d6ea4d8df157f3a3",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "677d19c8f8ebf3190cb7586f7bb7e90a2746637628a12e06ec83dfb2a0e7b9e4",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "1d2af9a4356f5b2aa17c4776928eafa433064cf913bf20e687001c54deca799e"
+  },
+  "evidence": {
+    "analysis/wave2-doe-live-task-registry-ownership-contract.json": "23494cb67a8a58fff7f70ecacbcd6be6fde4c1abfbd80f1e434d6feda9913e2a",
+    "analysis/wave2-doe-global-task-session-list-clear.asm": "170f24fff940c7bb834a99bda03386682a41671419af98a4b2ce0248a57b6b43",
+    "analysis/wave2-doe-global-task-session-list-assign.asm": "4a6789be6dc86a81ca9a1d15e060b3750bfdc78291c54a434bc240f18e0febfd",
+    "analysis/wave2-doe-stepdata-object-plane-list-dealloc.asm": "5b1b552e22a793b08c5e2680906c6b432a0b77dd92e1c7a07d385105b63eb1a9",
+    "analysis/wave2-doe-stepdata-object-plane-list-destructor.asm": "cd16f42b8e8b7c718c1c4029e91f7ad6be61db93811de47816e87196412483ae",
+    "analysis/wave2-doe-stepdata-object-plane-list-node-destroy-complete.asm": "33631822ed994bd2f8dfd5d400bd6b2f5416a5d76a74b85e66819eaa9ba26399",
+    "analysis/wave2-doe-session-inner-clear-closure-decompile.json": "4d1299dca502deae183baaa249502fe5a28656fbe9000574fe615763f3017610",
+    "analysis/wave2-doe-type2-activation-save-decompile.json": "35c95dcf016cd785d4f3720ff39bf635f199f9f635231132a9720669c4e8e4a2"
+  },
+  "ownership_correction": [
+    "ActualType2 b5ad0->643100 setsdocument+29=false.64f8e0 skips Task deletion; actualTaskBase QObject parent0.",
+    "20db90 clearsSessionpointerlist byemptylist18f9e0/assign0ad070, which releasesoldbackingthrough025650->025840constantfalse. Thus no0x60Sessionrecord deletion onthisselectedclearpath. Do not invalidateTask rawSessionbacklink merelyfromlistclear.",
+    "TaskFactory MoData virtual+18=1385a0 clearsmapswithoutbaseTaskdelete-loop. These boundedpaths requireallocationretention; no wholeClose/process-leak absenceclaim."
+  ],
+  "supersedes": [
+    "Earlier immutabletask-import contract saidnextread deletesownedparsedTasks: falseforactualType2.",
+    "Earlier live-task-registry contract proposedrawbacklink danglingafterrecordclear: refine clear=actualrecorddestruction ONLY; Type2 pointerlistclear retainsrecords, soexistingbacklinkremainslive."
+  ],
+  "implementation": [
+    "TaskAllocationStore boundweaklythroughactualStudyIo, rootownssoleConversionSessionstore. CreatesboundedparsedDoeTask listpayload only; thisisnotinitializednative17-prototypefactory/cache. Unknownregisteredclasses/outerglobalTaskapplication remainguarded.",
+    "SessionRecord TaskObserver is nonowning withQPointer-style invalidation. SessionTask hasstableallocationidentity andrawSessionbacklink representedasnull/live/previouslybounddestroyed.658520 order:assignrecordobserver thenupdateTaskbacklink iflive. No deepcopiedTaskstate.",
+    "SessionRecordidentitytoken survivesvector moves, updatingadapterpointertomovedrecord. Actualrecorddestructor nullsinvalidationmapping; rawbacklinkconsumer distinguishesdestroyedrecordfrominitialnull.",
+    "Type2clear resetscurrentSession=-1, resolvesactualretentionowner atpointerlist-clearboundary, movesoldrecordallocationsintosamestore, thenclearscurrentlist/DOMchildren. EarlierTasks/listpayload andbacklinks remainalive. Missingownerrefusesbeforelist/DOMclear aftercurrentreset.",
+    "TaskAllocationStore::releaseAdapterScope() noexcept isidempotent, marksclosed thenreleasesrecords/tasks. ExistingTaskObservers invalidate evenifexternalsharedstoreleaseescapes. Latercreate/retain/diagnosticAt refuse. RootinvokesexplicitlyatConversionSessionadapterfreshprocessboundary, NOT as nativeClose deletion."
+  ],
+  "tests": {
+    "m2m_doe_task_runtime": 8,
+    "m2m_doe_session": 33,
+    "new_session_cases": 4,
+    "coverage": [
+      "distinctactualallocations/nonowningobserverreset",
+      "stableidentityacrossvectorreallocation",
+      "twoSessionobserverssharingoneTask andretaineddisplacedTask",
+      "retainedoldrecord/backlink afterselectedType2clear",
+      "initialnullvsactualrecorddestructionguard",
+      "nullbindingdoesnotdeleteoldTaskorrewriteoldbacklink",
+      "escapedstoreScopeRelease invalidation/idempotence/refusalbeforemove",
+      "moveassignmentinvalidatesonlyreplacedidentity",
+      "missing/expiredconstructorowner beforeappend/payload",
+      "clearownerabsence aftercurrentresetbeforelist/DOMmutation"
+    ]
+  },
+  "preflight": {
+    "whitespace_delimiters_testmain": "passed sixfiles",
+    "git_diff_check": "passed, withdirect checksforignoredimports",
+    "constructor_incomplete_types": "TaskAllocationStorector/dtor outofline; SessionPart explicitlymove-only toavoidvectorcopyfallback",
+    "new_registration": "CMake GLOB CONFIGURE_DEPENDS, noexplicitregistration",
+    "worker_build": false,
+    "worker_tests": false,
+    "target_runtime": false,
+    "gui_control": false,
+    "mutable_db": "heldidle duringrootprobe003; source/immutablePEonly sincepriorboundedexport"
+  },
+  "root_integration": [
+    "StudyIo weaknonnull/idempotent/no-replacement binding andsameConversionSession owner beforeOpen are rootowned; rootexplicitScopeRelease afterstorage/viewteardown.",
+    "Rootmigrates default_session/output_data/repeated-readnotification fixtures; productiondefaultSessioncreate usesexact sameIOboundstore.",
+    "SourcequalifiedRow/StepData/StateVar/sharedViewManager/history contracts unchanged; native17prototypeinitialization/globaltaskcache/rebindoperationtail stillunimplementedguarded."
+  ],
+  "qualifications": [
+    "This repairsactualownershipprojection, notcompleteQObject/Task/preferences/nativefactoryconstruction or appClose. Constructor executionpreferences remainexplicitlyunrecovered/opaque andmustguard atfutureconsumer; noarbitrarydefaults.",
+    "StacktemporarySessionRecord usedbeforeappend canbe destroyed onunsupportedconstructorboundary ifnoownerisavailable. Thisadapter refusal doesnotclaimnativeallocation-failure, partialallocator, Qtrefcount or nativecleanup parity. Allocationfailure duringadapterretention likewiseunmodeled; normalselectedsourceorder iscovered.",
+    "Default-session stagedadapterallocationqualification retained; noearlyDOM/partsessionappend or fakeViewManagergeometry.",
+    "Historical93/98 classifications unchanged; nofreshOpenSaveClosecomparison inthisworker; checkpoint40 priorvalidated145programs remainshistoricalbase."
+  ]
+}

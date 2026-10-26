@@ -1,0 +1,54 @@
+{
+  "method": "PE32+ file-backed reads of ordinary imports/exports and five literal spans; target not executed",
+  "binaries": [
+    {
+      "path": "evidence\\original-binaries\\DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence\\original-binaries\\QtCore4_64.dll",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    }
+  ],
+  "imports": [
+    {
+      "iat": "0x141e05658",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?invokeMethod@QMetaObject@@SA_NPEAVQObject@@PEBDW4ConnectionType@Qt@@VQGenericArgument@@333333333@Z",
+      "export_va": "0x670a83f0"
+    },
+    {
+      "iat": "0x141e05348",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?invokeMethod@QMetaObject@@SA_NPEAVQObject@@PEBDW4ConnectionType@Qt@@VQGenericReturnArgument@@VQGenericArgument@@444444444@Z",
+      "export_va": "0x67121de0"
+    }
+  ],
+  "literals": [
+    {
+      "va": "0x142497750",
+      "text": "2signalLeaveWidgetInWidgetArea()",
+      "hex": "327369676e616c4c65617665576964676574496e57696467657441726561282900"
+    },
+    {
+      "va": "0x142497798",
+      "text": "2signalUpdateDataInWidgetArea()",
+      "hex": "327369676e616c55706461746544617461496e57696467657441726561282900"
+    },
+    {
+      "va": "0x1424977b8",
+      "text": "2signalLeaveWidgetInWidgetArea()",
+      "hex": "327369676e616c4c65617665576964676574496e57696467657441726561282900"
+    },
+    {
+      "va": "0x1429fd020",
+      "text": "1slotUpdateData()",
+      "hex": "31736c6f7455706461746544617461282900"
+    },
+    {
+      "va": "0x1429fd038",
+      "text": "2signalUpdateDataInWidgetArea()",
+      "hex": "327369676e616c55706461746544617461496e57696467657441726561282900"
+    }
+  ]
+}

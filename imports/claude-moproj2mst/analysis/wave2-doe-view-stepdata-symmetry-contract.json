@@ -1,0 +1,61 @@
+{
+  "schema": "m2m-doe-view-stepdata-symmetry-contract-v1",
+  "status": "Static contract; approved5files now implemented, pending root build",
+  "original_gui_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence_sha256": {
+    "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721",
+    "analysis/wave2-doe-stepdata-object-symmetry-writer-decompile.json": "07c388bd777cba3e4b2a9d2934b10e740d7f8a5aecb50c788f0182885ffcfd01",
+    "analysis/wave2-doe-stepdata-object-symmetry-record-decompile.json": "9fea63ce5b5db2cbd8aa175fbbc56465941ea671220b19d2ea2b6998d2aafa4d",
+    "analysis/wave2-doe-stepdata-object-view-constructor-head.asm": "fa78eb347b1c55236384d373b3b07cfa501c31260304709ce03a6f542edfcdf0",
+    "analysis/wave2-doe-stepdata-object-symmetry-constructor.asm": "9f6c0f1e5f19ade5ae486af0a92b162deeada37dd7bbd1a6a5ba610d59273cf8",
+    "analysis/wave2-doe-stepdata-object-symmetry-record-constructor.asm": "8f64e3d045e4a4c77ac456552bef0b4ab8457a4dc87157edaa98865e2cf9a87b",
+    "analysis/wave2-doe-stepdata-object-view-init.asm": "ea23e6571e19dacb58a4ebc7b5e04105a8b5223e957c2745e897a28578344cb1",
+    "analysis/wave2-doe-stepdata-object-symmetry-view-init-leaf.asm": "6f068fcd16dc9ad9bb1448b6826e9fc01177bb390363de19094a01cefe9b6027"
+  },
+  "entry": "c90bd0 converts Object No->existing zero-based view->141200e50. Reuse actual engine::View owner.",
+  "constructor": [
+    "1f07d0->249140(View+348);1f0a50->1ffa50 sets ShowSymm+340=false.",
+    "249140 creates128 entries stride0x108 via2479e0; count+8468=0,min+8438 XYZ0,max+8450 XYZ1,neighbors+846c/+8470=-1.",
+    "2479e0 sets keepOrientation+f8=true,isActive+f9=false,coefficients+c0[4]=0,neighbors+fc/+100=-1. Matrix+40..+bf is not initialized here: optional unavailable, never inferred identity/zero."
+  ],
+  "object_order": [
+    "Raw non-elements/unknown elements ignored in encounter order.",
+    "SfDispOpt settings branch remains guard before unrecovered1411ee800/1411ef300/1411f06f0. Slice remains guard beforefd600/settings/fe310 and restore.",
+    "SfSymmetryInfo stores ShowSymm=(attribute.toInt!=0) BEFORE embedded14124b080; preserve this flag on later guard."
+  ],
+  "symmetry_order": [
+    "No reset; repeated elements overwrite in encounter order, absent elements retain current fields.",
+    "NumOfSymmData text.toInt stores signed count, no clamp/record clear. Min/Max each convertXYZ attrs.toDouble in order. NeighborSymData convertsIndex0/1.toInt.",
+    "Case-sensitive startsWith SfSymmetryData; remove ALL exact occurrences of that substring, then.toInt selects record; invalid/empty suffix0. Guard outside0..127 before native unchecked pointer arithmetic, preserving prior effects.",
+    "1412488a0 record loader: Matrix all16 P0..P15 row-major.toDouble, KeepOrientation/IsActive text.toInt!=0, OglEqn all4 P0..P3.toDouble, NeighborSymData Index0/1.toInt. Encountered group missing attrs convert0; unknown elements ignored. No render/matrix computation or callback."
+  ],
+  "shared_api": {
+    "signature": "doe::ViewStepDataState& engine::viewerStepDataState(GuiModel&,int zeroBasedIndex)",
+    "header": "engine_scene.hpp forward declares m2m::doe::ViewStepDataState",
+    "owner": "Private existing View has by-value doe::ViewStepDataState from new header; no Session duplicate. Getter uses existing viewer/views only, no growth/settings lookup; invalid/null explicit guard.",
+    "root_files": [
+      "include/m2m/engine_scene.hpp",
+      "src/engine/viewer.cpp"
+    ]
+  },
+  "worker_files": [
+    "include/m2m/doe_view_stepdata.hpp",
+    "src/doe/view_stepdata.cpp",
+    "tests/mdt/test_doe_view_stepdata.cpp",
+    "src/doe/stepdata.cpp",
+    "tests/mdt/test_doe_stepdata.cpp"
+  ],
+  "guards_retained": [
+    "SfDispOpt/Slice encountered branches",
+    "Nonempty property-table finalization after child import/current-object refresh",
+    "All Object snapshot writer and matrix consumers; no native snapshot enable"
+  ],
+  "qualifications": [
+    "Shipped-artifact static proof only; no runtime/GUI/study/fresh comparison.",
+    "Existing qualified Qt conversion seam reused; numeric locale, nondecimal/Unicode whitespace/extreme/NaN behavior not newly established.",
+    "Unconsumed native record bytes opaque; optional matrix means original storage unavailable, not observed null.",
+    "View-constructor-head ASM continues into adjacent destructor after1411f0916; only earlier ctor addresses establish constructor effects.",
+    "Native Qt/CRT lifetime/allocation/fault parity not claimed; actual existing View lifecycle reused."
+  ],
+  "next": "Root shared getter/binding, focused and full build/tests. Keep actual finalization/unsupported branches guarded."
+}

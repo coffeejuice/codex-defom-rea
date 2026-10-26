@@ -1,0 +1,448 @@
+{
+  "schema": "wave2-doe-regexp-space-v1",
+  "target": "evidence\\original-binaries\\QtCore4_64.dll",
+  "target_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "image_base": "0x67000000",
+  "method": "Offline DUMPBIN plus PE table evaluation; no DLL load, original execution, UI, build, or REA session",
+  "tool": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+  "tool_sha256": "12a1cd87238bd66dfdb788b4fcdcb91ce4b3f81236aab12a7a29e5ae1d85af50",
+  "reproducer": "tools\\doe_regexp_space_static.py",
+  "reproducer_sha256": "2dec811eadfa89009f5e1b53e993e346fa818fbe5972a26fc43e865dd486b78a",
+  "escape_dispatch": {
+    "subtract": "0x30",
+    "character": "s",
+    "selector_table": "0x67063adc",
+    "selector": 13,
+    "rva_table": "0x67063a98",
+    "case": "0x67062ceb",
+    "preceding_short_escape_characters": "61666e72747600",
+    "preceding_short_escape_values": "070c0a0d090b00",
+    "note": "s is absent from preceding short escapes afnrtv; lexer token reset maps backslash via 0x67064034/0x67063ff4 to 0x67063ef9, calling escape parser at 0x67063efc."
+  },
+  "class": {
+    "category_mask": "0x380",
+    "inclusive_ranges": [
+      [
+        9,
+        13
+      ]
+    ],
+    "negated": false,
+    "reset_mask": "0x67063b6a",
+    "reset_negation": "0x67063bac",
+    "category_add": "0x6705af10",
+    "range_add": "0x67062420",
+    "membership": "0x67059cc0",
+    "category": "0x67069fb0",
+    "cache": "Constructor fills 64 buckets INT_MAX; category add zeroes all buckets; range add invalidates affected buckets with zero. No positive-match cache shortcut."
+  },
+  "call_edges": [
+    {
+      "site": "0x67068740",
+      "target": "0x67066840"
+    },
+    {
+      "site": "0x6706691a",
+      "target": "0x670644e0"
+    },
+    {
+      "site": "0x67066937",
+      "target": "0x670644e0"
+    },
+    {
+      "site": "0x67064808",
+      "target": "0x67059cc0"
+    },
+    {
+      "site": "0x67059d03",
+      "target": "0x67069fb0"
+    }
+  ],
+  "boundary_categories": [
+    {
+      "code_unit": "U+0008",
+      "first_index": 6256,
+      "slot": 6264,
+      "record": 0,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+0009",
+      "first_index": 6256,
+      "slot": 6265,
+      "record": 1,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": true,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+000D",
+      "first_index": 6256,
+      "slot": 6269,
+      "record": 5,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": true,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+000E",
+      "first_index": 6256,
+      "slot": 6270,
+      "record": 0,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+0020",
+      "first_index": 6288,
+      "slot": 6288,
+      "record": 8,
+      "category_byte": 7,
+      "bt_category": 7,
+      "category_match": true,
+      "range_match": false,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+0084",
+      "first_index": 6384,
+      "slot": 6388,
+      "record": 0,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+0085",
+      "first_index": 6384,
+      "slot": 6389,
+      "record": 46,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+0086",
+      "first_index": 6384,
+      "slot": 6390,
+      "record": 0,
+      "category_byte": 10,
+      "bt_category": 10,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+00A0",
+      "first_index": 6416,
+      "slot": 6416,
+      "record": 47,
+      "category_byte": 7,
+      "bt_category": 7,
+      "category_match": true,
+      "range_match": false,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+180E",
+      "first_index": 11024,
+      "slot": 11038,
+      "record": 436,
+      "category_byte": 7,
+      "bt_category": 7,
+      "category_match": true,
+      "range_match": false,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+200A",
+      "first_index": 12144,
+      "slot": 12154,
+      "record": 585,
+      "category_byte": 7,
+      "bt_category": 7,
+      "category_match": true,
+      "range_match": false,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+200B",
+      "first_index": 12144,
+      "slot": 12155,
+      "record": 587,
+      "category_byte": 11,
+      "bt_category": 11,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+200C",
+      "first_index": 12144,
+      "slot": 12156,
+      "record": 588,
+      "category_byte": 11,
+      "bt_category": 11,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    },
+    {
+      "code_unit": "U+2028",
+      "first_index": 12176,
+      "slot": 12184,
+      "record": 602,
+      "category_byte": 8,
+      "bt_category": 8,
+      "category_match": true,
+      "range_match": false,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+2029",
+      "first_index": 12176,
+      "slot": 12185,
+      "record": 603,
+      "category_byte": 9,
+      "bt_category": 9,
+      "category_match": true,
+      "range_match": false,
+      "matches_s": true
+    },
+    {
+      "code_unit": "U+202A",
+      "first_index": 12176,
+      "slot": 12186,
+      "record": 604,
+      "category_byte": 11,
+      "bt_category": 11,
+      "category_match": false,
+      "range_match": false,
+      "matches_s": false
+    }
+  ],
+  "bmp_space_code_units": [
+    "0x9",
+    "0xa",
+    "0xb",
+    "0xc",
+    "0xd",
+    "0x20",
+    "0xa0",
+    "0x1680",
+    "0x180e",
+    "0x2000",
+    "0x2001",
+    "0x2002",
+    "0x2003",
+    "0x2004",
+    "0x2005",
+    "0x2006",
+    "0x2007",
+    "0x2008",
+    "0x2009",
+    "0x200a",
+    "0x2028",
+    "0x2029",
+    "0x202f",
+    "0x205f",
+    "0x3000"
+  ],
+  "captures": [
+    {
+      "output": "analysis\\wave2-doe-regexp-class-init.asm",
+      "sha256": "37989eb7cdf749b960fa530be8a986d63c172e399aeb6ec091c44114efb9ebf0",
+      "decode_begin": "0x6705ada0",
+      "decode_end_inclusive": "0x6705ae76",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "9b43306fe30828b8fd668a5498965953c6c769677df6eea1460339512ae88539",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6705ada0,0x6705ae76",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-token-reset.asm",
+      "sha256": "78d75657fac699202893e17230c8ee29106602911826358042f47a71a3c0a266",
+      "decode_begin": "0x67063b30",
+      "decode_end_inclusive": "0x670640b2",
+      "selected_intervals": [
+        [
+          "0x67063b30",
+          "0x67063c15"
+        ],
+        [
+          "0x67063ed0",
+          "0x67063f20"
+        ]
+      ],
+      "decoded_bytes_sha256": "a406fb98d9d02954ead5d2614e4db373564c33d3113cccd6c41d7fec65cf9e3c",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x67063b30,0x670640b2",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-escape-space.asm",
+      "sha256": "264a09d2b2398650aa8ad354cb25c404a8fe5790ec3955f7b176e3a341cd6b58",
+      "decode_begin": "0x670629d0",
+      "decode_end_inclusive": "0x67063b24",
+      "selected_intervals": [
+        [
+          "0x67062b0e",
+          "0x67062b2f"
+        ],
+        [
+          "0x67062ceb",
+          "0x67062d1a"
+        ]
+      ],
+      "decoded_bytes_sha256": "82307f2c95e5964a001f940a5b4f7c92fc46b0e5593648926fd36b7f292dfab7",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x670629d0,0x67063b24",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-add-categories.asm",
+      "sha256": "1e9c12700094c3f67312c973deff28004be0bff69428246e4226b0da7f5e7506",
+      "decode_begin": "0x6705af10",
+      "decode_end_inclusive": "0x6705af91",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "cdeffcfa6a9810a86fa93271dc7e3c45848b29d97787bb3bd4479d01748c88ed",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x6705af10,0x6705af91",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-add-range.asm",
+      "sha256": "94376a9cc9a5a6f0d96d1b62d1748e449e3ce7a44c89be9ba21abd680b635f4d",
+      "decode_begin": "0x67062420",
+      "decode_end_inclusive": "0x670626b2",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "1ed05716ed118c266d8037e8b913259bb5b78c66f939520bf0ac8b82bb4ef0b9",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x67062420,0x670626b2",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-membership.asm",
+      "sha256": "23a2408263a9b4bb811d9e5fd3fdf642b70824923213431184a96d1547e35473",
+      "decode_begin": "0x67059cc0",
+      "decode_end_inclusive": "0x67059d64",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "42657f7b4093812186dd436545d7dc5ddf2f534534e19cc6a7937633fa720473",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x67059cc0,0x67059d64",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-category.asm",
+      "sha256": "2f383381e887dd6e86bf3997f731053d370f7c8579a03de9794c22a3f7039e97",
+      "decode_begin": "0x67069fb0",
+      "decode_end_inclusive": "0x67069fe9",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "203c0f9318ddb5d8cc6666a6df0c5b58ef4a6251e4b181c2e044055862e3df4f",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x67069fb0,0x67069fe9",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-matcher-calls.asm",
+      "sha256": "5d454e8d6a657a79acd0cf81c1ffdcc07be9df4edbbf59e7d013fef84112e8f6",
+      "decode_begin": "0x670644e0",
+      "decode_end_inclusive": "0x670654e1",
+      "selected_intervals": [
+        [
+          "0x670647e0",
+          "0x670648d8"
+        ]
+      ],
+      "decoded_bytes_sha256": "c982ba404a5df528098d57861c6d61a309ea27170353ce111b406592bb8896cc",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x670644e0,0x670654e1",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-search-calls.asm",
+      "sha256": "bb1105f9263d9a6183c126cb6923ff46b2ec2de079f0e4d1698ec97cfe501949",
+      "decode_begin": "0x67066840",
+      "decode_end_inclusive": "0x67066a30",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "e6dac8300fa582dda88e328c75c786fdc136ea9c425abd123e97df58676ff6e5",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x67066840,0x67066a30",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    },
+    {
+      "output": "analysis\\wave2-doe-regexp-index-in.asm",
+      "sha256": "31b91654e5c8c9d8ca1c75dde66293f04cc820f4703117befdcb13f80cf00859",
+      "decode_begin": "0x670686a0",
+      "decode_end_inclusive": "0x67068764",
+      "selected_intervals": null,
+      "decoded_bytes_sha256": "9b668001dd6253414500a61296c88f805f8183fce0927f96a456fc096d547700",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+        "/disasm:bytes",
+        "/range:0x670686a0,0x67068764",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\QtCore4_64.dll"
+      ]
+    }
+  ],
+  "prior_parser_evidence": [
+    "analysis/wave2-doe-qt-static-receipt.json",
+    "analysis/wave2-doe-doe-sample-parser.asm",
+    "analysis/wave2-doe-qstring-regexp-split.asm",
+    "analysis/wave2-doe-lifecycle.md"
+  ],
+  "source_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_study.hpp": "054d89b06c9c4aec5273400d560eacdbe059850d1e438490c06314450873e2e9",
+    "source/apps/moproj2mst/src/doe/doe_study.cpp": "662a6dd35c428ab85506d8f29ccdc72aada97c61f48a5012e486d4e433966cb1",
+    "source/apps/moproj2mst/tests/mdt/test_doe_study.cpp": "f1fb088c12444197248ac269fe4ba553c03a3cd0b3259c1346f216e30b370c2c"
+  },
+  "qualification": [
+    "Proves shipped Qt regex lowercase s membership for BMP code units; not a claim of full regex engine equivalence.",
+    "Earlier QChar-only U+0085 routing uncertainty is closed by this receipt; earlier immutable evidence is unchanged.",
+    "QString::toDouble first tries default QLocale then C locale; candidate remains C-only. Whitespace recovery does not settle locale-sensitive numeric conversion.",
+    "No runtime tests or builds performed by this worker; coordinator owns focused and full validation."
+  ]
+}

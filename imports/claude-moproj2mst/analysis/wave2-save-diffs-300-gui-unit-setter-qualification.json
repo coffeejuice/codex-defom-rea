@@ -1,0 +1,12 @@
+{
+  "status": "read_only_additional_original_setter_caller_qualification",
+  "prior": "analysis/wave2-save-diffs-300-gui-unit-ctor-contract.json",
+  "new_evidence": [
+    "analysis/wave2-save-diffs-300-gui-unit-setter-callers.json",
+    "analysis/wave2-save-diffs-300-gui-unit-setter-call-sites.asm",
+    "analysis/wave2-save-diffs-300-gui-unit-widget-slot-entry.asm"
+  ],
+  "finding": "Direct setter1403b5560 has two confirmed direct calls in1403b5f50, at1403b64ef/64fb. The caller obtains currentIndex from widget at this+30→+30, then writes1 for index0,else2. The entry also reads widget text. Exact owning UI class is not identified by these fragments.",
+  "qualification": "Existing P17 comments name only NewProject writers, which does not exhaust all possible original session writes: the direct setter UI path must also be considered. This does not invalidate the original global's PEzero-fill fresh startup0 or the GUI SCconstructor's defined pre-owner UNIT store. Do not assume arbitrary original-session unitglobal always equals fresh0 or loaded Project.unit. No claim this widgetslot runs in the requested fresh FileOpen flow.",
+  "bounds": "Caller scan is byte-pattern hints confirmed by exact bounded raw sites, not complete dynamic reachability or all-writer coverage. No UI/class label guessed, no original runtime or source edits. Coordinator informed before shared constructor fix."
+}

@@ -1,0 +1,120 @@
+{
+  "scope": "Independent source review of initial editor300 step-size and stopping pages",
+  "qualification": "Static only; callbacks may be reached through additional Qt signals. Not an implemented complete profile or runtime equivalence proof.",
+  "sources": [
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ebb950.c",
+      "sha256": "567c123c4b97312875eb0d145b82b40d78d95df0f9bf4200b17a031218727671"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebc1f0.c",
+      "sha256": "7623760b1104c3ace3c5ed06262e6af119b92a3061a307f6b88038cef73480de"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ebd180.c",
+      "sha256": "2e4e10bb9a30ae74ccdcae56654fe63a276c338fd1567ae3bd0aa32dbbee0ea8"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ebf8f0.c",
+      "sha256": "cd54c007bad3cedbc1ca34c918bd61942ac5ee1d197c5b7f3dd7b3544805764b"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecc770.c",
+      "sha256": "b1edcf2bba6cd285e55f348e204839f0d3fa90609c09e911b6bf9703ef79d71f"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eccaa0.c",
+      "sha256": "3aefcef8636c90a836f2168e531679e4845fb755036afd7d73d50ad5719aa882"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6440.c",
+      "sha256": "45473fa52ed9be66fd8c5c2afaa5dfbf144c789155ee39b2d40f842f2ef1bf37"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ebe100.c",
+      "sha256": "499d258913aa3662ec346d235eb9aff0c769ca93e6b28f96bd7d22a647a59c13"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ebe800.c",
+      "sha256": "e973900848216e617054da3eb058030385f514104a6165eba47bc0617b526848"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6210.c",
+      "sha256": "0c676935e3f9d3ed820f95477203eecc307f2a48d5b0571219ef6f5bc96bce88"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6da0.c",
+      "sha256": "4fd84cdf9f4152ebc7813b30a77d7b223a7954fd3a3b89d143fe3c0e9f927a7a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec09a0.c",
+      "sha256": "75fb76c8e2f7271f3763b8d03fd07e14e0cf5c56a7bed2e65cfc3f642f12c59c"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb71e0.c",
+      "sha256": "31c63046d9a9df0d7f0cf45ae3c7db3781565f39531195c5408b3d0d44e2d708"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6310.c",
+      "sha256": "c00f4d565bdd8fc2109b7fc39d1c3c0fc96e4726437046517b5260a9417d1da3"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb62e0.c",
+      "sha256": "47be4c0a859cb35c154240377ced4919da74c7a6df396d3620b195af862aacab"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecc540.c",
+      "sha256": "e6ae27a2fa05d3f4ae6fb64c09d718500928309358911d78c24ea9996ac5a104"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140eb9630.c",
+      "sha256": "efaf4e8eb9fee723dc1ecdac1a50f6812080557d5432fc63322527d642758350"
+    }
+  ],
+  "page3": {
+    "fill": "Reads mode via1408da6d0; STPDEF3 selects radio2. Calls ecc770 which changes model DTTYPE to0/1 (radio2 also1). UnlessSTPDEF3, eccaa0 dispatches ecc540 on curve-type selection.",
+    "save_order": "Writes DTTYPE first. Validates numeric fields sequentially, commits each successful field before the next. Invalid validation returns preserve earlier changes. Selectedradio2 additionally rewrites DTMAX1 and alternate DTPMAX fields. Lastcopies editor+e8 curve toSC+1e8 thenrestoresDTTYPE.",
+    "field_order": [
+      "DTMAX1/DSMAX mutually exclusive with other zeroed",
+      "STPDEF",
+      "DEMAX",
+      "3D DPLEN",
+      "3D DTSUB numeric;2D DTSUB frominversecheckbox",
+      "2D DVMAX1/2",
+      "DTPMAX1/2/3",
+      "SLDERR",
+      "2D DTPMAX4/5",
+      "DTTYPE curve copy"
+    ],
+    "unresolved": [
+      "QDoubleValidator/QString locale edge cases",
+      "radio signal delivery order"
+    ],
+    "ecc540": "Sets model DTTYPE from checked radio (radio2 becomes1), enables controls and calls89b450 on editor temporary curve with selectedtype; no direct table-value writes in this body."
+  },
+  "page4": {
+    "fill": "Snapshots formatted TMAX/SMAX/VMIN/LMAX/EMAX; MDSOBJ combos enumerate defined objects with leadingnone and missing storednumbers selectnone. Rotation selection is resolved by eb62e0->eb6310: default objectnumber1; scan objectnumbers1..count for first existing object with any rotation component at29e8/29f0/29f8 different from global sentinel1421ad1d0, setcombo index and returnthatnumber. Ifnone matches, returns1 regardless editor+11c0. ebe800 fills fromthatobject ifitexists.",
+    "apply": "Sequential TMAX/SMAX changes precede PDIE warning branch. Movementkind3/4/7/8/9/10 prompts onlyif anyof6 VMIN/LMAX text-parsed differences exceeds1e-6; rejection skipsVMIN/LMAX but continueslater fields. EMAXinvalid stops tail. MDSOBJ4invalid onlylogs, stilltoDoublewrites and runs tail.",
+    "tail": [
+      "eb6210 parses combos to MDSOBJ1/2",
+      "combo7c0 index toMDSOBJ3",
+      "eb6da0(0,1) writes selectedobject MDSmode/node/coordinates; noobject meansno-op",
+      "ec09a0 withzeroargument isno-op",
+      "eb71e0 writes selectedrotationobject vectors atobject+29e8/+2a00; previousselectionclearedonlywheneditor+11c nonzero/different"
+    ],
+    "unresolved": [
+      "eb6210 selecteditem and combo clamping forholes",
+      "QDoubleValidator locale behavior",
+      "initial UI signal callbacks",
+      "ec9980 MDSOBJ text parser"
+    ],
+    "rotation_correction": "Do not infer no-op from editor+11c==0 or treat eb62e0 as currentcombo text parser. eb6310 inspects model vectors with fallback1.",
+    "rotation_sentinel": {
+      "value": 0.0,
+      "evidence": "analysis/wave2-save-diffs-300-default-sentinels.json"
+    },
+    "repeated_fill": "Constructor calls stopping-page fill140ebd180 again via140eb50f0 after initial all-page fill. Final snapshot must include this repeated fill. Programmatic index changes do not emit activated connections. General fill140eb9630 explicitly blocks title and operation-name signals around setText, so their textChanged connections do not run during that fill.",
+    "save_selection": "eb71e0 reruns eb62e0/eb6310 against the then-current model vectors; do not freeze its objectnumber at Open."
+  },
+  "recommendation": "Do not approximate with SC scalarrounding. Keep editorfilledsnapshot, orderedpartialupdates, temporarycurves and selectedobjectwrites. Narrow unsupportedbranches using sourcepredicates, not successful historical outputs."
+}

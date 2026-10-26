@@ -1,0 +1,21 @@
+{
+  "label": "DEFINT obj1 2D (DEF_INT)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nHAMMER_SI.DB\nDEFINT 1\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAMMER_SI.DB",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "2D path FUN_140155c90: writes DEF_INT.ACT, DEF_REM.INI, <PROBID>.RMS, DEFORM_UIRUNREMESH.DAT; runs 'DEF_INT < DEF_INT.ACT > DEF_INT.OUT' (2D folder); reads HAMMER_SI_REM.KEY with mode 0xf. stdout: 'Data interpolation...HAMMER_SI.DB' then Success/Failure. Watch the '%10d %\n' element-count line of the .RMS (CRT invalid-format behaviour). No exchange files must remain."
+  }
+}

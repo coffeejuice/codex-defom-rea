@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "work_item": "wave2 inherited DB object fallback",
+  "status": "coordinator_combined_v3_build_and_96_ctests_passed",
+  "qualification": {
+    "original_execution": false,
+    "original_gui_equivalence": false,
+    "build_by_this_worker": false,
+    "static_evidence": "Retained decompilation plus exact pdata-bounded original PE byte disassembly; existing recovered engine primitives reused. Decompiler loses return type and a fifth step-reader argument; byte checks resolve both.",
+    "synthetic_test_scope": "Only model reader directory/cache selection is synthetic. Objects are decoded from a copied independently qualified COG_P1_B1.DB; KEY fallback is distinguished with an altered scratch-only object name."
+  },
+  "original": {
+    "kind": "offline_static_disassembly",
+    "target_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "functions": [
+      {
+        "entry": "0x14005cc00",
+        "end_exclusive": "0x14005cccd",
+        "code_sha256": "ac7348b1d65c76f3b925d80cfabd91bde145991174e42174bbe74b5d2e5f5899",
+        "disassembly": "analysis/wave2-db-inheritance-14005cc00-disassembly.txt"
+      },
+      {
+        "entry": "0x14005c890",
+        "end_exclusive": "0x14005cbee",
+        "code_sha256": "67d7aacf0ccf484233243ecbe02553818e7eceb662319e9a60186073ca664401",
+        "disassembly": "analysis/wave2-db-inheritance-14005c890-disassembly.txt"
+      },
+      {
+        "entry": "0x14005b2f0",
+        "end_exclusive": "0x14005bd1c",
+        "code_sha256": "204130e8ac3a4de131f113110eb58e3a3b0736884901c5b85ed6c34f2d58aafc",
+        "disassembly": "analysis/wave2-db-inheritance-14005b2f0-disassembly.txt"
+      },
+      {
+        "entry": "0x14080eb30",
+        "end_exclusive": "0x14080ec2f",
+        "code_sha256": "9a30630e50f54c6568b416097ec92cce64a71a059c768a6d2a5a54f0c0e52276",
+        "disassembly": "analysis/wave2-db-inheritance-14080eb30-disassembly.txt"
+      },
+      {
+        "entry": "0x14080ea20",
+        "end_exclusive": "0x14080eb1f",
+        "code_sha256": "280293db520015a312d6dcc2d8772e7678052326b5cf6f79704b4414a954f05f",
+        "disassembly": "analysis/wave2-db-inheritance-14080ea20-disassembly.txt"
+      }
+    ],
+    "qualification": "Exact pdata-bounded copied original function bytes; DUMPBIN only. No original process/function execution. Decompilation frame artifacts require these byte checks."
+  },
+  "contract": {
+    "entry": "0x14005b2f0 loadInherited",
+    "admission": "Resolved inherited slot has a positive ancestor object code and operation is not chain head.",
+    "simulation": "0x140050b70(op)-1, modeled as nextSim(activeSub,flowNumber(op))-1; last=true.",
+    "query_reader": "0x14005cc00 obtains operation model then its DB reader; refreshIfChanged(false) runs before sim<1 validation; return ignored; no loaded flag gate.",
+    "step_selection": "sim<1 or query step=0 returns false; last=true uses 0x14080eb30 (DEF_PRE1401de530); false uses 0x14080ea20 (DEF_PRE1401de420).",
+    "local_reader": "0x14005c890 resolves activeSubProject, mutable subProjectDbPath(sub,true), checks file; independent DB_STEP_DATA(3) and DbInfo; local8 path, load_db_info(false).",
+    "path_mutation": "Type4 empty DbName is generated and stored by existing mutable P17 path helper; normal subproject uses project path suffix .DB.",
+    "part_chain": "has_previous_part triggers setup_part_chain; no question/dialog on this helper path.",
+    "step_read": {
+      "original": "0x140825540",
+      "primitive": "def::dbio::dbread::fun_1401cc2a0",
+      "arguments": [
+        "temporary",
+        "reader",
+        "step",
+        1,
+        0
+      ]
+    },
+    "object_copy": {
+      "original": "0x140835430",
+      "primitive": "def::model::llobj_copy_from",
+      "object_lookup": "requested slot number via0x140830270",
+      "array_sizes": "temporary.u15f8",
+      "flags": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "destination_number": "retained",
+      "name": "copied"
+    },
+    "bcc_groups": "0x14087e1a0(dst,temporary.u15f8) only after successful object lookup/copy.",
+    "cleanup": "Success byte survives local reader, model, QFile and QString cleanup; no success return guessed from decompile.",
+    "failure": "Missing reader/subproject/file, load_db_info error, raw step read error or missing object returns false; loadInherited then executes preexisting KEY/provider fallback. DB success bypasses initial manager KEY existence check.",
+    "caller_tail": "Object type5, ObjEntry f08 captures prior type; existing mesh/BCC/properties sequence; viewerSync remains at caller tail; bare path returns before tail exactly as before."
+  },
+  "implementation": {
+    "files": [
+      "source/apps/moproj2mst/src/engine/loader.cpp",
+      "source/apps/moproj2mst/tests/mdt/test_db_inheritance.cpp"
+    ],
+    "public_abi_changes": false,
+    "production_helpers": [
+      "copyInheritedObjectFromDbStep",
+      "inheritedObjectFromDb"
+    ],
+    "header_change": "none; includes existing m2m/p17.hpp for mutable helper declaration"
+  },
+  "tests": [
+    {
+      "name": "inherited_db_last_step_ignores_failed_refresh",
+      "covers": [
+        "cached last -2 instead of first99999",
+        "failed refresh retains query cache",
+        "unloaded handle accepted",
+        "DB success without manager KEY",
+        "DB bytes and mtime unchanged"
+      ]
+    },
+    {
+      "name": "inherited_db_reads_active_subproject_path",
+      "covers": [
+        "type4 activeSub DB path selected rather than absent primary or query path"
+      ]
+    },
+    {
+      "name": "inherited_db_missing_file_and_missing_step_use_key",
+      "covers": [
+        "absent active-path DB fallback",
+        "raw step read failure fallback",
+        "scratch KEY name FILE_ONLY distinct from DB Workpiece"
+      ]
+    },
+    {
+      "name": "inherited_db_refresh_precedes_invalid_simulation",
+      "covers": [
+        "previous Report contributes no simulation",
+        "sim0 rejected only after actual reader refresh",
+        "KEY fallback remains"
+      ]
+    }
+  ],
+  "unknowns_and_limits": [
+    "No new original GUI or original-function execution.",
+    "No fresh full Open-Save-Close equivalence claimed; coordinator owns original capture and corpus sweep.",
+    "Multi-part chain follows existing primitive and static call branch; no new split-DB fixture.",
+    "Missing-object and invalid-DB-info failure branches follow direct original guards but have no separate new fixture.",
+    "General engine primitive correctness and complete DB format coverage are outside this bounded correction.",
+    "First-step helper mapping is statically qualified; this caller always passes last=true.",
+    "Existing explicit refusal for inherited BCC definitions and 2D-to3D conversion remains."
+  ],
+  "files": [
+    {
+      "path": "evidence/gui_mo/s1/mdt/L0/B/b1a.c",
+      "sha256": "3a29fc5f3b09f503d58d49930c01ac74b6030d278f4e734654672eb4f4337554"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L0/B/b2a.c",
+      "sha256": "66064ca940d903be6989fcd136277770070a7043e9a8ba50ce3f1b3c6e1aa585"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L0/B/b5a.c",
+      "sha256": "8682459ad4a8ef1e8ed059858aa2d6b6af95a94c802c1a693afbbf1d6d3a0ec5"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/load_d6.c",
+      "sha256": "c7c4da727a9951218818f74d2a073fe14f5e2ee138cbed254ee047192868899b"
+    },
+    {
+      "path": "source/docs/re/moproj2mst/mdt/L0/spec_B.md",
+      "sha256": "83300dea50fb3131735ac8a1ae047abe309090642d45cf31283d494860ddb77d"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/loader.cpp",
+      "sha256": "09c966a4a7badfc91429bd466ea4daa2d2e904215cd2c4a28cd5c72b45109796"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/db_load.cpp",
+      "sha256": "565b06a6246f6b6c9507bb7f700ddb643d4c22c61059f6570e5d8666e05c0d46"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/model/paths.cpp",
+      "sha256": "b033d8c11b31bd98fedf7d77d3c1bd0a71b85dff3a00aea408cddb507a441168"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/model/simcount.cpp",
+      "sha256": "869e3f6a679626de96d881cd12e70716ba168d925da02d5ed8c5930a6196f515"
+    },
+    {
+      "path": "source/port/defdbio/src/db_query/queries.cpp",
+      "sha256": "55b0827cb2ddcb46b67ca07ac6b549604897efaa54ce68e66ffe930540670f44"
+    },
+    {
+      "path": "source/port/defdbio/src/step/db_header_cache.cpp",
+      "sha256": "40b025b8f5f24ee6123007f189f0fcc029f4061aeaff53cc4b0c4b92b466645c"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_db_inheritance.cpp",
+      "sha256": "147d8654b4022fcb446ea86053b6c7ca5313eba8d08f339f282cb9455fe3651e"
+    },
+    {
+      "path": "analysis/wave2-db-inheritance-static-evidence.json",
+      "sha256": "f43312d350c5bd60833fe7b0949112cb35d40e3ca284f4daf3400aea5936fcb1"
+    },
+    {
+      "path": "tools/db_inheritance_static.py",
+      "sha256": "28417a6ca607143c69a69a547abad9f5bc61b8799a31ecf88039c42c9a961f2d"
+    }
+  ],
+  "coordinator_validation": {
+    "reported_by": "root",
+    "result": "DB/DOE v3 full build and96 CTests passed",
+    "qualification": "Coordinator reported test result; not run by this worker. Coordinator added testkit main to new test file."
+  }
+}

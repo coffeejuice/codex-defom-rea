@@ -1,0 +1,29 @@
+{
+  "label": "CNVT3D revolve 360 tet obj2 with CHK_VOL.INI > 0 (deleted by the start cleanup, T8-5)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nGEO23 2 1\n360.0 0.0 0.0\nGEOSEC 2 20\nMSHSEC 2 21\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "CHK_VOL.INI",
+      "text": "1.0\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "T8-5: CNVT3D runs 14013e880(cvt, 1) first (CNVT3D.md 4.1), which deletes CHK_VOL.INI, so the volume step 140140110 / 140141d50 of the tet path never sees it and CHKVOL is not launched (capture run: DEF_AMG3_GUI, MESH3D_GUI, BRKMSH, DEF_INT only). Expected: CHK_VOL.INI deleted, everything else as cnvt3d_revolve360_tet_obj2."
+  }
+}

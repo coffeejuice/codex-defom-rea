@@ -1,0 +1,21 @@
+{
+  "label": "BRDEXT DB lookup by PROBID prefix",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nHAM5.DB\nPROBID\nHAM\nBRDEXT 1\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAM5.DB",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "DB search: HAM5.DB stem starts with PROBID 'HAM' and differs -> suffix '5' (5 >= |step|) -> problem name becomes HAM5, db = <cwd>\\HAM5.DB; AMG_DXT.INI line 1 'HAM5', GEO read from HAM5.GEO. Only one match, so the suspicious qsort comparator is not called."
+  }
+}

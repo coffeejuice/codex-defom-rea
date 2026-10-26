@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES slot (lines+arcs, P order != D order)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nSLOT.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "SLOT.IGS",
+      "source": "data/slot.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "One closed loop: 2 lines, 2 CCW semicircles, one 116 point (ignored). Records sorted by P pointer. Predicted DIEGEO 1 2 4: line (4,0)-(0,0); arc start (0,0) centre (0,1) -180; line (0,2)-(4,2); arc start (4,2) centre (4,1) -180. DEF_IGS.OUT not left."
+  }
+}

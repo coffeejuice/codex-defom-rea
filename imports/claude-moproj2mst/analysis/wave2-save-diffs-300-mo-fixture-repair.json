@@ -1,0 +1,34 @@
+{
+  "status": "mo_fixture_unit_repair_refrozen_for_root_tests",
+  "observed": "Root buildv1 succeeded;3/7 MO cases rejected General/session at guard;4 StepCount cases and all existing composer/snapshot checks passed. Log analysis/wave3-save-dispatch-v1-focused.log.",
+  "cause": "Bare GuiModel ctor runs guiSimCtrlInit; guiNames/other init routines do not assign SC.unit. General correctly requires unit1 or2 and original rejects other unit radio states. New General/composer test fixtures omitted the loaded unit state supplied explicitly by prior helpers fixtures. No fixed numeric value for uninitialized UNIT is claimed.",
+  "repair": "Set SC.unit=1 explicitly in the three General-dependent new MO fixtures. No production guard/behavior or assertion weakened.",
+  "source": {
+    "path": "source\\apps\\moproj2mst\\tests\\mdt\\test_simcontrol300_mo.cpp",
+    "sha256": "985d184578ab234445dea46caefbaf4a20b879f4fbbb36fc5db8b8b60f48bea8",
+    "bytes": 10024
+  },
+  "prior_receipt": {
+    "path": "analysis\\wave2-save-diffs-300-mo-increment.json",
+    "sha256": "2d54fabe310b833ca5d73f1ff0133e62333df6bdfd32295854657554c1b550dc"
+  },
+  "evidence": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/gui_model.cpp",
+      "sha256": "af121ccdc446265821c31341f61fc2510637bf803c2779e73c2a520f3a9d70e1"
+    },
+    {
+      "path": "source/port/defmodel/src/step/sim_ctrl.cpp",
+      "sha256": "a393cc2e5315c75cc7f5631b5130ba9b3e69424d57fda1f4bfcfd067fffb9b6e"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140eb9630.c",
+      "sha256": "efaf4e8eb9fee723dc1ecdac1a50f6812080557d5432fc63322527d642758350"
+    },
+    {
+      "path": "analysis/wave3-save-dispatch-v1-focused.log",
+      "sha256": "4620da4e17183c0d6f3b5baca424b7fc46be142926b4158408d8cbb11d73da73"
+    }
+  ],
+  "validation": "No worker builds/tests. main remains present; diff/trailing whitespace inspection passed. Parent owns rebuild and rerun."
+}

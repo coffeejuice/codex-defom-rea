@@ -1,0 +1,66 @@
+{
+  "scope": "Independent source-closed empty clearSelection on actual existing PostGraphSceneState; public Close invocation remains unintegrated.",
+  "status": "Source frozen for parent-only build; no worker compilation or tests executed.",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp",
+      "sha256": "640390fa62d5ff1852d85a00537ca9171c41860a42b5aa1a6b2a9f19185114ae"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/close_effects.cpp",
+      "sha256": "e69c1ad5058e3f4b988258fa0b6e6206c119624b5fe4f5f769123ff6bce4302f"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_close_effects.cpp",
+      "sha256": "828a188aa38c285ff2ea9d37a38ac531acb2155ee2754470395f723fd2d58d75"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-scene-clear-selection-empty-contract.json",
+      "sha256": "b2ee253870d002f91dbc4ef740d0298cf854fe3e9848fa88463798e4d5d80570"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-selection-item-set-false-static.json",
+      "sha256": "09eeb6000bb3ec929afa1e291906194849fd5d5a1eb408f88e389a1d8af6f58c"
+    }
+  ],
+  "api": [
+    "observeCurrentSelection(unordered_set<const PostGraphSceneItemState*>,uint32_t depth,string qualification) binds explicit current state to this actual scene, validating all nonnull identities against its owned items. This does not invoke native selection or infer Qt constructor state.",
+    "currentSelectedItems,selectionChangeDepth,selectionQualification expose actual selection state and independent coverage; depth remains unknown until supplied.",
+    "invalidateCurrentSelection clears only knowledge qualification, retaining identities and raw depth.",
+    "clearSelection increments known raw32 depth before coverage/nonempty checks. Unsupported continuation preserves prefix and sets an adapter suspension marker; invocation/rebinding cannot replay or overwrite it.",
+    "Qualified complete empty state clears its actual set and decrements native depth, preserving all scene-owned items, text state and population qualification. No selection signal is emitted for native oldNonempty=false."
+  ],
+  "tests": {
+    "previous_cases": 63,
+    "added_cases": 7,
+    "total_cases": 70,
+    "coverage": [
+      "constructor depth/coverage remain unknown even with qualified hidden text population",
+      "qualified empty call and repeated completed call preserve actual text identity/payload",
+      "nested depth and raw32 INC/DEC wrap return exact prior bits",
+      "unknown coverage preserves single depth prefix and rejects reentry/rebind",
+      "nonempty identity set retains actual items and refuses before setSelected callback",
+      "selection invalidation retains identities/depth independently from item coverage",
+      "two scenes maintain separate identities; foreign/null binding refuses before replacement"
+    ]
+  },
+  "preflight": {
+    "all_local_m2m_includes_exist": true,
+    "conflict_markers": 0,
+    "trailing_whitespace": 0,
+    "single_test_main": true,
+    "duplicate_test_names": 0,
+    "manual_api_review": true,
+    "builds_or_execution": "not performed; parent owns validation"
+  },
+  "qualifications": [
+    "No native constructor selection defaults inferred. uint32_t depth preserves native raw32 INC/DEC without signed-overflow undefined behavior.",
+    "Only represented selected identities can be bound; actual other graph/item classes await owned projection.",
+    "The adapter suspension guard is not native failure/exception behavior. Allocator failures and nonempty Qt callbacks remain unrecovered.",
+    "Native selected hash storage allocation is not reproduced byte-for-byte; normal coherent empty-container callback and state semantics are source-closed.",
+    "No duplicate scene, event counter, inferred fresh empty state, ViewManager aliases or lifecycle wiring were introduced. ViewManager files remain frozen."
+  ],
+  "next": "Parent validation; continue source-only first nonempty item callback dependency while parent investigates actual grid startup callbacks."
+}

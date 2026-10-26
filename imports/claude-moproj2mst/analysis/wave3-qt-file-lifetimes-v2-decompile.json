@@ -1,0 +1,249 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "670c7b30",
+      "entry": "670c7b30",
+      "name": "QTemporaryFile",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n/* public: __cdecl QTemporaryFile::QTemporaryFile(class QString const \u0026 __ptr64) __ptr64 */\r\n\r\nQTemporaryFile * __thiscall QTemporaryFile::QTemporaryFile(QTemporaryFile *this,QString *param_1)\r\n\r\n{\r\n  QFilePrivate *pQVar1;\r\n  \r\n                    /* 0xc7b30  301  ??0QTemporaryFile@@QEAA@AEBVQString@@@Z */\r\n  pQVar1 \u003d operator_new(0x140);\r\n  if (pQVar1 \u003d\u003d (QFilePrivate *)0x0) {\r\n    pQVar1 \u003d (QFilePrivate *)0x0;\r\n  }\r\n  else {\r\n    FUN_670b5b30(pQVar1);\r\n    *(undefined ***)pQVar1 \u003d QTemporaryFilePrivate::vftable;\r\n    pQVar1[0x130] \u003d (QFilePrivate)0x1;\r\n    *(Data **)(pQVar1 + 0x138) \u003d \u0026QString::shared_null;\r\n    LOCK();\r\n    _shared_null \u003d _shared_null + 1;\r\n    UNLOCK();\r\n  }\r\n  QFile::QFile((QFile *)this,pQVar1,(QObject *)0x0);\r\n  *(undefined ***)this \u003d vftable;\r\n  QString::operator\u003d((QString *)(*(longlong *)(this + 8) + 0x138),param_1);\r\n  return this;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a61a8",
+          "type": "DATA"
+        },
+        {
+          "from": "6730160c",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "67280280",
+          "type": "DATA"
+        },
+        {
+          "from": "670b74d0",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670b71e0"
+        },
+        {
+          "from": "670ddba8",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670dda80"
+        }
+      ],
+      "known_callees": [
+        "670703d0",
+        "670b4170",
+        "670b5b30",
+        "67178a86"
+      ]
+    },
+    {
+      "requested_address": "670c7d00",
+      "entry": "670c7d00",
+      "name": "setAutoRemove",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: void __cdecl QTemporaryFile::setAutoRemove(bool) __ptr64 */\r\n\r\nvoid __thiscall QTemporaryFile::setAutoRemove(QTemporaryFile *this,bool param_1)\r\n\r\n{\r\n                    /* 0xc7d00  4174  ?setAutoRemove@QTemporaryFile@@QEAAX_N@Z */\r\n  *(bool *)(*(longlong *)(this + 8) + 0x130) \u003d param_1;\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9e2c",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "670b77e9",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670b71e0"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "670c7da0",
+      "entry": "670c7da0",
+      "name": "setFileTemplate",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: void __cdecl QTemporaryFile::setFileTemplate(class QString const \u0026 __ptr64) __ptr64 */\r\n\r\nvoid __thiscall QTemporaryFile::setFileTemplate(QTemporaryFile *this,QString *param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n                    /* 0xc7da0  4277  ?setFileTemplate@QTemporaryFile@@QEAAXAEBVQString@@@Z */\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  QString::operator\u003d((QString *)(lVar1 + 0x138),param_1);\r\n  lVar1 \u003d *(longlong *)(lVar1 + 0xf0);\r\n  if (lVar1 !\u003d 0) {\r\n    FUN_670c76a0(lVar1,param_1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9fc8",
+          "type": "DATA"
+        },
+        {
+          "from": "6730163c",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "670b757c",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670b71e0"
+        }
+      ],
+      "known_callees": [
+        "670703d0",
+        "670c76a0"
+      ]
+    },
+    {
+      "requested_address": "670b6270",
+      "entry": "670b6270",
+      "name": "rename",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Function: __chkstk replaced with injection: alloca_probe */\r\n/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */\r\n/* public: bool __cdecl QFile::rename(class QString const \u0026 __ptr64) __ptr64 */\r\n\r\nbool __thiscall QFile::rename(QFile *this,QString *param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  char cVar2;\r\n  bool bVar3;\r\n  bool bVar4;\r\n  QIODevicePrivate *pQVar5;\r\n  longlong *plVar6;\r\n  uint *puVar7;\r\n  QString *pQVar8;\r\n  longlong lVar9;\r\n  __int64 _Var10;\r\n  undefined8 uVar11;\r\n  uint uVar12;\r\n  undefined1 auStack_10d8 [32];\r\n  uint local_10b8;\r\n  undefined **local_10b0 [2];\r\n  undefined4 local_10a0;\r\n  undefined4 local_109c;\r\n  Data *local_1098;\r\n  undefined **local_1090;\r\n  longlong local_1088;\r\n  undefined4 local_1080 [2];\r\n  Data *local_1078;\r\n  Data *local_1070;\r\n  Data *local_1068;\r\n  Data *local_1060;\r\n  Data *local_1058;\r\n  Data *local_1050;\r\n  undefined1 local_1044 [4];\r\n  undefined8 local_1040;\r\n  char local_1038 [4096];\r\n  ulonglong local_38;\r\n  undefined8 local_30;\r\n  \r\n                    /* 0xb6270  3951  ?rename@QFile@@QEAA_NAEBVQString@@@Z */\r\n  local_30 \u003d 0x670b6283;\r\n  local_1040 \u003d 0xfffffffffffffffe;\r\n  local_38 \u003d DAT_672f3ba0 ^ (ulonglong)auStack_10d8;\r\n  pQVar5 \u003d (QIODevicePrivate *)0x0;\r\n  local_10b8 \u003d 0;\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  if (*(int *)(*(longlong *)(lVar1 + 0xe8) + 8) \u003d\u003d 0) {\r\n    qWarning(\"QFile::rename: Empty or null file name\");\r\n    return false;\r\n  }\r\n  local_1098 \u003d operator_new(0x130);\r\n  if (local_1098 !\u003d (Data *)0x0) {\r\n    pQVar5 \u003d (QIODevicePrivate *)FUN_670b5b30(local_1098);\r\n  }\r\n  QIODevice::QIODevice((QIODevice *)\u0026local_1090,pQVar5,(QObject *)0x0);\r\n  local_1090 \u003d vftable;\r\n  QString::operator\u003d((QString *)(local_1088 + 0xe8),param_1);\r\n  plVar6 \u003d (longlong *)(*(code *)local_1090[0x1b])(\u0026local_1090);\r\n  local_109c \u003d 0xff00000;\r\n  puVar7 \u003d (uint *)(**(code **)(*plVar6 + 0x90))(plVar6,local_1044,\u0026local_109c);\r\n  uVar12 \u003d *puVar7;\r\n  local_1090 \u003d vftable;\r\n  close((QFile *)\u0026local_1090);\r\n  QIODevice::~QIODevice((QIODevice *)\u0026local_1090);\r\n  if ((uVar12 \u0026 0x400000) !\u003d 0) {\r\n    pQVar8 \u003d (QString *)tr((char *)\u0026local_1050,\"Destination file exists\");\r\n    *(undefined4 *)(lVar1 + 0x120) \u003d 10;\r\n    QString::operator\u003d((QString *)(lVar1 + 0x90),pQVar8);\r\n    LOCK();\r\n    *(int *)local_1050 \u003d *(int *)local_1050 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_1050 \u003d\u003d 0) {\r\n      QString::free(local_1050);\r\n    }\r\n    return false;\r\n  }\r\n  unsetError(this);\r\n  (**(code **)(*(longlong *)this + 0x68))(this);\r\n  if (*(int *)(*(longlong *)(this + 8) + 0x120) \u003d\u003d 0) {\r\n    plVar6 \u003d (longlong *)(**(code **)(*(longlong *)this + 0xd8))(this);\r\n    cVar2 \u003d (**(code **)(*plVar6 + 0x50))(plVar6,param_1);\r\n    if (cVar2 !\u003d \u0027\\0\u0027) {\r\n      unsetError(this);\r\n      (**(code **)(**(longlong **)(lVar1 + 0xf0) + 0xc0))(*(longlong **)(lVar1 + 0xf0),param_1);\r\n      QString::operator\u003d((QString *)(lVar1 + 0xe8),param_1);\r\n      return true;\r\n    }\r\n    cVar2 \u003d (**(code **)(*(longlong *)this + 0x58))(this);\r\n    if (cVar2 !\u003d \u0027\\0\u0027) {\r\n      pQVar8 \u003d (QString *)tr((char *)\u0026local_1068,\"Will not rename sequential file using block copy\")\r\n      ;\r\n      *(undefined4 *)(lVar1 + 0x120) \u003d 10;\r\n      QString::operator\u003d((QString *)(lVar1 + 0x90),pQVar8);\r\n      LOCK();\r\n      *(int *)local_1068 \u003d *(int *)local_1068 + -1;\r\n      UNLOCK();\r\n      if (*(int *)local_1068 \u003d\u003d 0) {\r\n        QString::free(local_1068);\r\n      }\r\n      return false;\r\n    }\r\n    QFile((QFile *)local_10b0,param_1);\r\n    uVar12 \u003d 1;\r\n    local_1080[0] \u003d 1;\r\n    cVar2 \u003d (**(code **)(*(longlong *)this + 0x60))(this,local_1080);\r\n    if (cVar2 !\u003d \u0027\\0\u0027) {\r\n      local_10a0 \u003d 10;\r\n      bVar3 \u003d open((QFile *)local_10b0,\u0026local_10a0);\r\n      if (bVar3) {\r\n        bVar3 \u003d false;\r\n        lVar9 \u003d QIODevice::read((QIODevice *)this,local_1038,0x1000);\r\n        while (0 \u003c lVar9) {\r\n          _Var10 \u003d QIODevice::write((QIODevice *)local_10b0,local_1038,lVar9);\r\n          if (lVar9 !\u003d _Var10) {\r\n            pQVar8 \u003d (QString *)QIODevice::errorString((QIODevice *)local_10b0);\r\n            *(undefined4 *)(lVar1 + 0x120) \u003d 10;\r\n            QString::operator\u003d((QString *)(lVar1 + 0x90),pQVar8);\r\n            LOCK();\r\n            *(int *)local_1078 \u003d *(int *)local_1078 + -1;\r\n            UNLOCK();\r\n            if (*(int *)local_1078 \u003d\u003d 0) {\r\n              QString::free(local_1078);\r\n            }\r\n            bVar3 \u003d true;\r\n            break;\r\n          }\r\n          lVar9 \u003d QIODevice::read((QIODevice *)this,local_1038,0x1000);\r\n        }\r\n        if (lVar9 \u003d\u003d -1) {\r\n          pQVar8 \u003d (QString *)QIODevice::errorString((QIODevice *)this);\r\n          *(undefined4 *)(lVar1 + 0x120) \u003d 10;\r\n          QString::operator\u003d((QString *)(lVar1 + 0x90),pQVar8);\r\n          LOCK();\r\n          *(int *)local_1058 \u003d *(int *)local_1058 + -1;\r\n          UNLOCK();\r\n          if (*(int *)local_1058 \u003d\u003d 0) {\r\n            QString::free(local_1058);\r\n          }\r\n          bVar3 \u003d true;\r\n        }\r\n        else if (!bVar3) {\r\n          bVar4 \u003d remove(this);\r\n          if (bVar4) {\r\n            (**(code **)(**(longlong **)(lVar1 + 0xf0) + 0xc0))\r\n                      (*(longlong **)(lVar1 + 0xf0),param_1);\r\n            uVar11 \u003d permissions(this);\r\n            setPermissions(this,uVar11);\r\n            unsetError(this);\r\n            setFileName(this,param_1);\r\n            goto LAB_670b669a;\r\n          }\r\n          pQVar8 \u003d (QString *)tr((char *)\u0026local_1070,\"Cannot remove source file\");\r\n          *(undefined4 *)(lVar1 + 0x120) \u003d 10;\r\n          QString::operator\u003d((QString *)(lVar1 + 0x90),pQVar8);\r\n          LOCK();\r\n          *(int *)local_1070 \u003d *(int *)local_1070 + -1;\r\n          UNLOCK();\r\n          if (*(int *)local_1070 \u003d\u003d 0) {\r\n            QString::free(local_1070);\r\n          }\r\n          bVar3 \u003d true;\r\n        }\r\n        remove((QFile *)local_10b0);\r\nLAB_670b669a:\r\n        (**(code **)(*(longlong *)this + 0x68))(this);\r\n        local_10b0[0] \u003d vftable;\r\n        close((QFile *)local_10b0);\r\n        QIODevice::~QIODevice((QIODevice *)local_10b0);\r\n        return !bVar3;\r\n      }\r\n      (**(code **)(*(longlong *)this + 0x68))(this);\r\n    }\r\n    bVar3 \u003d QIODevice::isOpen((QIODevice *)local_10b0);\r\n    if (bVar3) {\r\n      pQVar8 \u003d (QString *)QIODevice::errorString((QIODevice *)this);\r\n      local_10b8 \u003d 1;\r\n    }\r\n    else {\r\n      pQVar8 \u003d (QString *)QIODevice::errorString((QIODevice *)local_10b0);\r\n      uVar12 \u003d 2;\r\n      local_10b8 \u003d 2;\r\n    }\r\n    *(undefined4 *)(lVar1 + 0x120) \u003d 10;\r\n    QString::operator\u003d((QString *)(lVar1 + 0x90),pQVar8);\r\n    if ((uVar12 \u0026 2) !\u003d 0) {\r\n      local_10b8 \u003d uVar12 \u0026 0xfffffffd;\r\n      LOCK();\r\n      *(int *)local_1060 \u003d *(int *)local_1060 + -1;\r\n      UNLOCK();\r\n      uVar12 \u003d local_10b8;\r\n      if (*(int *)local_1060 \u003d\u003d 0) {\r\n        QString::free(local_1060);\r\n        uVar12 \u003d local_10b8;\r\n      }\r\n    }\r\n    if ((uVar12 \u0026 1) !\u003d 0) {\r\n      LOCK();\r\n      *(int *)local_1098 \u003d *(int *)local_1098 + -1;\r\n      UNLOCK();\r\n      if (*(int *)local_1098 \u003d\u003d 0) {\r\n        QString::free(local_1098);\r\n      }\r\n    }\r\n    local_10b0[0] \u003d vftable;\r\n    close((QFile *)local_10b0);\r\n    QIODevice::~QIODevice((QIODevice *)local_10b0);\r\n  }\r\n  return false;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9ab0",
+          "type": "DATA"
+        },
+        {
+          "from": "67300364",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "6727cfb4",
+          "type": "DATA"
+        },
+        {
+          "from": "670ac4af",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670ac410"
+        },
+        {
+          "from": "670b6839",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670b67c0"
+        },
+        {
+          "from": "670b7734",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670b71e0"
+        }
+      ],
+      "known_callees": [
+        "6701c160",
+        "6701cee0",
+        "670700d0",
+        "670703d0",
+        "670b4670",
+        "670b46b0",
+        "670b4800",
+        "670b4850",
+        "670b4900",
+        "670b4ae0",
+        "670b5110",
+        "670b5b30",
+        "670b5c70",
+        "670b5f30",
+        "670b9f80",
+        "670b9fb0",
+        "670ba3e0",
+        "670ba770",
+        "670bb750",
+        "670bc120",
+        "67178a86",
+        "67178c10",
+        "67179570"
+      ]
+    },
+    {
+      "requested_address": "670b6cf0",
+      "entry": "670b6cf0",
+      "name": "atEnd",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: virtual bool __cdecl QFile::atEnd(void)const __ptr64 */\r\n\r\nbool __thiscall QFile::atEnd(QFile *this)\r\n\r\n{\r\n  bool bVar1;\r\n  char cVar2;\r\n  longlong lVar3;\r\n  longlong lVar4;\r\n  \r\n                    /* 0xb6cf0  1431  ?atEnd@QFile@@UEBA_NXZ */\r\n  lVar4 \u003d *(longlong *)(this + 8);\r\n  if (*(int *)(lVar4 + 0x98) \u003d\u003d 0) {\r\n    bVar1 \u003d QIODevice::isOpen((QIODevice *)this);\r\n    if (!bVar1) {\r\n      return true;\r\n    }\r\n    if (*(char *)(lVar4 + 0xf8) !\u003d \u0027\\0\u0027) {\r\n      *(undefined1 *)(lVar4 + 0xf8) \u003d 0;\r\n      bVar1 \u003d flush(*(QFile **)(lVar4 + 8));\r\n      if (!bVar1) {\r\n        return false;\r\n      }\r\n    }\r\n    cVar2 \u003d (**(code **)(**(longlong **)(lVar4 + 0xf0) + 0x100))(*(longlong **)(lVar4 + 0xf0),0);\r\n    if (cVar2 !\u003d \u0027\\0\u0027) {\r\n      bVar1 \u003d QAbstractFileEngine::atEnd(*(QAbstractFileEngine **)(lVar4 + 0xf0));\r\n      return bVar1;\r\n    }\r\n    lVar3 \u003d (**(code **)(*(longlong *)this + 0x70))(this);\r\n    if (*(longlong *)(lVar4 + 0x128) \u003c\u003d lVar3) {\r\n      lVar4 \u003d (**(code **)(*(longlong *)this + 0x98))(this);\r\n      return lVar4 \u003d\u003d 0;\r\n    }\r\n  }\r\n  return false;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a7350",
+          "type": "DATA"
+        },
+        {
+          "from": "673003c4",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "67229da0",
+          "type": "DATA"
+        },
+        {
+          "from": "6722ccb0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670a7420",
+        "670b5e00",
+        "670ba3e0"
+      ]
+    },
+    {
+      "requested_address": "670b6c80",
+      "entry": "670b6c80",
+      "name": "size",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: virtual __int64 __cdecl QFile::size(void)const __ptr64 */\r\n\r\n__int64 __thiscall QFile::size(QFile *this)\r\n\r\n{\r\n  longlong lVar1;\r\n  bool bVar2;\r\n  longlong *plVar3;\r\n  __int64 _Var4;\r\n  \r\n                    /* 0xb6c80  4545  ?size@QFile@@UEBA_JXZ */\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  if (*(char *)(lVar1 + 0xf8) !\u003d \u0027\\0\u0027) {\r\n    *(undefined1 *)(lVar1 + 0xf8) \u003d 0;\r\n    bVar2 \u003d flush(*(QFile **)(lVar1 + 8));\r\n    if (!bVar2) {\r\n      return 0;\r\n    }\r\n  }\r\n  plVar3 \u003d (longlong *)(**(code **)(*(longlong *)this + 0xd8))(this);\r\n  _Var4 \u003d (**(code **)(*plVar3 + 0x20))(plVar3);\r\n  *(__int64 *)(lVar1 + 0x128) \u003d _Var4;\r\n  return _Var4;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672aa3f8",
+          "type": "DATA"
+        },
+        {
+          "from": "673003b8",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "670c88a1",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c8850"
+        },
+        {
+          "from": "671356e3",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "671355e0"
+        },
+        {
+          "from": "67229d90",
+          "type": "DATA"
+        },
+        {
+          "from": "6722cca0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670b5e00"
+      ]
+    }
+  ]
+}

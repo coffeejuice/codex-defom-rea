@@ -1,0 +1,84 @@
+{
+  "schema": "wave3-remesh-native-reader-increment-v1",
+  "created_utc": "2026-10-24T04:06:30.516522+00:00",
+  "status": "source_frozen_for_root_build_not_tested",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/datafiles.hpp",
+      "bytes": 8110,
+      "sha256": "8bbb05a24dd045212b846f0e5a8049d7395db543bf774413cc9d6cc97804cbbc"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/datafiles/textfile.cpp",
+      "bytes": 2868,
+      "sha256": "48e57cfa86788277f620778f1137794da4c0c100d68b95999a9fb69b1ababd85"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_remesh.hpp",
+      "bytes": 1797,
+      "sha256": "b68999b3ed76a95f327deeeff7bbf7d683807033beb1f5ecb116f4d943cb035e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_remesh.cpp",
+      "bytes": 12172,
+      "sha256": "694c00c9e9fe6dc08949913bfd644c531ba22e430f1a6e3d6250748887ca8b7d"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_remesh.cpp",
+      "bytes": 18762,
+      "sha256": "764ab7603fe56df0d567eefc5a08b4cff11fcac3318b640124164b0c28b280aa"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-native-read-contract.json",
+      "bytes": 6739,
+      "sha256": "bfd5e58835890837235d10ead1586b59c7e05e8b6796a9a77e05a187814bd947"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-memory-increment.json",
+      "bytes": 7427,
+      "sha256": "7fbab72286ebfe09c9740f8b53a6f5a07ce803922d3b64e88db81590da78674f"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-dispatch.asm",
+      "bytes": 20425,
+      "sha256": "e3949d029d8dc84920f7f379c4ff6cbd02c869f30614f95f3776e905bb6fbfc4"
+    }
+  ],
+  "implementation": {
+    "native": "makeNativeRemeshIo accepts an explicit ordinary printable-ASCII drive-absolute directory and only LOCAL_REMESH.DAT/LOC_DEN_CTRL.DAT. CreateFileA GENERIC_READ/shareREAD|WRITE/OPEN_EXISTING/NORMAL with inherited handle, _open_osfhandle(_O_RDONLY|_O_TEXT), _fdopen(rt), pinned4096-byte buffer. Actual incremental fgets, rewind and fclose; no content read at construction. Non-disk handles and unavailable buffer profile refuse.",
+    "bridge": "TextFile::fromLineReader borrows a live fgets callback. Memory-backed behavior unchanged. Callback-backed eof/getc/ungetc/pos/data refuse rather than synthesize nonexistent cursor/data. Existing TokenReader remains unchanged.",
+    "chunk": "readRemesh validates each reached fgets visible C-string prefix, not a preread snapshot. AboveASCII127 or more than128 potential delimiter-separated tokens refuses before tokenization. No validation beyond DONE. Bytes after embeddedNUL are consumed by actual fgets, then invisible to original tokenization. Refusal retains earlier scalar effects and leaves enabled assignment pending.",
+    "cleanup": "Remesh read wrapper now closes files through all supported returns and reached-profile refusals, including primary probe. Unmarked primary rewind and close precede fallback open. Native destructor closes on exceptions. Open failures are null and permit original fallback."
+  },
+  "qualification_amendment": {
+    "prior": "The <=259-token qualification in the immutable memory increment is withdrawn; native-read proposal inherited it.",
+    "original": "Original140906b83..140906b96 indexes table143dd8250 by(count+1)*8 without a bounds check. The fgets line buffer is143dd8660 (140906aaf), offset0x410=130 pointer slots. A129-token line stores the terminating null at index130, overwriting line-buffer bytes.128 tokens plus terminator129 stay before that boundary. Full aliasing behavior for129+ is not reconstructed; this profile explicitly refuses.",
+    "host": "The separate host TokenReader tok_[260] also writes its null terminator at index260 for259 tokens, outside that array. No shared TokenReader code was changed. The128 remesh guard avoids both unrecovered original overlap and host undefined behavior.",
+    "conservatism": "The visible-prefix token estimate intentionally also bounds comment and Raw input, whose actual first strtok may consume fewer tokens. Those larger inputs remain explicitly unsupported rather than accepted with a guessed layout."
+  },
+  "tests": {
+    "total": 19,
+    "new": 8,
+    "names": [
+      "remesh_borrowed_textfile_delegates_fgets_and_refuses_unavailable_cursor_operations",
+      "remesh_native_missing_empty_fallback_and_marked_primary_match_memory",
+      "remesh_native_fgets_text_translation_nul_consumption_eof_and_rewind",
+      "remesh_native_open_does_not_preread_and_fgets_retains_remaining_chunk",
+      "remesh_native_reader_shares_writes_denies_delete_and_releases_handle",
+      "remesh_native_denied_primary_falls_back_and_unmarked_primary_closes_before_fallback",
+      "remesh_reached_chunk_guards_keep_partial_effects_and_do_not_scan_beyond_done",
+      "remesh_native_path_and_fixed_name_profile_fail_before_unqualified_open"
+    ],
+    "status": "not_run_root_owns_all_builds_and_tests",
+    "planned": "Shared callback guard; real missing/empty/fallback/marked primary; CRLF/loneCR/CtrlZ/NUL/partialEOF/rewind; mutate afteropen before firstread; chunk continuation; read-write sharing and delete denial; released handles; firstopen denial; close before fallback; reached late invalid input and128/129 token boundaries for native and memory; paths and fixed names."
+  },
+  "limits": [
+    "Public converter editor300 Open hook remains unintegrated; this is the typed remesh IO/parser boundary.",
+    "No whole editor300 or fresh-original acceptance claim. No GUI, original process, mutable analysis database, build, test execution or fixture edits.",
+    "Current static CRT selected operations are matched to bounded original contract; resource exhaustion/two-byte fallback, nonregular streams, namespace/extended/nonASCII paths and native read-error/device cases remain qualified.",
+    "Original token-table/line overlap for129+ and numeric overflow/hex/nonfinite branches remain queued."
+  ],
+  "next": "Root build/focused remesh+datafiles tests/full regression. Worker next investigates actual ProjectOpen remesh call ordering and owner binding using existing static evidence, without production edits during freeze."
+}

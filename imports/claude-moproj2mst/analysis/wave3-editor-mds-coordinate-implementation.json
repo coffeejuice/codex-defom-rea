@@ -1,0 +1,104 @@
+{
+  "schema": "editor300-mds-coordinate-implementation-v1",
+  "created_utc": "2026-10-24T08:47:55.748735+00:00",
+  "status": "SOURCE FROZEN for root build and validation; not tested by worker",
+  "contract": {
+    "path": "analysis/wave3-editor-mds-coordinate-contract.json",
+    "sha256": "e662f17838820d9451027ba7c7a7c408184bf6604f549dc2a49a080cd18eae5c"
+  },
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "91ec08cb9600a26d7c75bd117ce3f74851167ef5278967d6b00cdea31d8f6c7c"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "d3ea04303be086cbfa38b0ed0506ab0cc2e97a13774f282fe39221a8b8bb4764"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "7c8498be0622edc0255eae9b9b5bdd944c0df1d3b74c081d93121b1ab36fc9ba"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "e094873f83177136d7d0d33b2dd89ef5b4145fdb07eca78e6b4254e365874bbf"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "0d9a74feb34b4c36072936efdd0210794ab3bdae59f97ef2e9dbc3a13d5e7a80"
+    }
+  ],
+  "implemented": [
+    "Retained StoppingWidgetState stores selected IDs, both radio states, node enable/spin enable/coordinate group enable, bounded node values and nonnull remembered coordinate text. The actual internal constructor passes the same state on each stopping refill.",
+    "Mode1 selections now fill source-derived %.3f text, preserving mode, node and coordinates in the live source object until Save. The per-fill invocation trace retains firstNone/secondSelected double fill.",
+    "Save stores selected IDs at the original stopping tail, then looks up each remembered number in the current model. It preserves both-radio enabled check, missing-reference continuation, first then second writes, and rotation reselection afterward.",
+    "All node/unknown-mode fill branches remain guarded. The public editor setup and Save guards remain; this is a consumed-control profile, not a blanket native widget/callback completion claim."
+  ],
+  "contract_amendment": {
+    "reason": "Numeric C locale alone does not establish translated None label bounds. Root approved an explicit label profile seam.",
+    "api": "StoppingWidgetState::labelProfile defaults Unknown. Selected retained fill and selected Apply require AsciiNoActiveTranslator. Existing three-argument fill is explicitly documented as the isolated fixed fresh ASCII/no-active-translator profile.",
+    "actual_owner": "InitialEditorSession does not automatically bind a translator. Direct lifecycle tests seed explicit profile before openInitialEditorInto; actual public setup must later supply its independently established profile. No shared Session/Ctx ownership files were edited.",
+    "native_none": "Original literal142b148a4 is None; formatter142b14ff8 is %-3d - . With no active translator, None label has10 ASCII bytes. Selected labels remain at most96 ASCII bytes plus NUL."
+  },
+  "new_tests": {
+    "snapshot": 7,
+    "lifecycle": 3,
+    "expected_target_case_counts": {
+      "simcontrol300_snapshot": 58,
+      "simcontrol300_lifecycle": 24
+    },
+    "coverage": [
+      "All four selection combinations and exact native fill order.",
+      "%.3f memory, positive/negative rounding to zero, exact -0.0 sign loss, large finite output and Open versus Save timing.",
+      "Retained controls after None, node spin untouched in mode1, mesh enable changes, kind5 enable preservation.",
+      "Both-radio node clearing condition, same-object second write wins, current model relookup and missing first reference continuation.",
+      "Earlier scalar validation preserves prior stores and prevents reference writes; invalid threshold still reaches reference tail.",
+      "Mode0/2/invalid, unbounded/non-ASCII names, duplicate IDs, nonfinite coordinates and unknown translator remain explicit guards;83-character ASCII name plus INT_MAX ID accepted.",
+      "Actual internal initial/repeat/backed refresh lifecycle, retained None state, and explicit unknown-label refusal."
+    ]
+  },
+  "preflight": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "unique_test_cases": 0,
+      "main_count": 0,
+      "conflicts_or_trailing_whitespace": false
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "unique_test_cases": 0,
+      "main_count": 0,
+      "conflicts_or_trailing_whitespace": false
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "unique_test_cases": 0,
+      "main_count": 0,
+      "conflicts_or_trailing_whitespace": false
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "unique_test_cases": 58,
+      "main_count": 1,
+      "conflicts_or_trailing_whitespace": false
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "unique_test_cases": 24,
+      "main_count": 1,
+      "conflicts_or_trailing_whitespace": false
+    }
+  ],
+  "dependency_preflight": [
+    "Both test programs retain one main and unique test names.",
+    "Snapshot retains the root-added direct m2m/mst/writer.hpp include for stack-owned Project; no new incomplete ownership types were introduced.",
+    "Added declarations use already included array/vector/qt4 types. Direct string_view include from the earlier repaired General increment remains."
+  ],
+  "worker_validation": {
+    "builds": 0,
+    "tests_run": 0,
+    "original_runtime_or_gui": false,
+    "mutable_analysis_database_access": false
+  },
+  "next_read_only_action": "Reconcile selected-mode0 behavior: ebe100 checks node without setValue, so it may be separable from mode2 node geometry. Pin disabled-radio ordering and same-state Qt signal behavior; retain source freeze pending parent validation. Also report how actual setup translation can bind the new profile without assuming English."
+}

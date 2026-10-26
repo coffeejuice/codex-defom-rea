@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:34:24.148676+00:00",
+  "reviewer": "validation_helper",
+  "status": "approved_for_preparation_only",
+  "scope": "Bounded independent review of frozen fixture preflight; read-only except this review artifact. No full hash/preflight rerun, original process, GUI, build or external write.",
+  "reviewed_sha256": {
+    "tools/check_gui_trial_preflight.py": "879e6f52019ad9c49b28e07a74a713d76f117618a8a2d779766b2e13513a71bf",
+    "tests/test_gui_trial_preflight.py": "49a8cf0a33443a59d5aaa811127709e26024bdfca902e9774715c2413118d586",
+    "analysis/gui-trial-preflight.json": "db01c19bff4c3f643dd525889d476a851086d4bc8b35df87cc781cf1989c2038",
+    "analysis/gui-fixture-handoff.json": "b9f739afeb7950d425571001b5bce625cfec56c18f52971cc4f05ff95e01dfee"
+  },
+  "handoff_hash_bindings_match": true,
+  "report_input_hash_bindings_match": true,
+  "findings": [
+    {
+      "id": "duplicate_xml_scalar",
+      "priority": "P2",
+      "file": "tools/check_gui_trial_preflight.py",
+      "line": 108,
+      "title": "Reject ambiguous duplicate XML controller properties",
+      "observation": "The properties dictionary keeps only the final Property for each Name. Two conflicting DTMAX or HeatingTime entries therefore pass when the last value matches the expected bound. The consumer precedence has not been established here.",
+      "reproduction": {
+        "fixture": "Existing synthetic TrialPreflightTests setUp fixture in a temporary directory",
+        "mutation": "Prepend <Property><Name>DTMAX</Name><Value>999</Value></Property> inside Properties before the existing DTMAX=0.1",
+        "call": "check_controller(synthetic_root, bounded_metadata)",
+        "actual_errors": [],
+        "actual_preparation_accepted": true
+      },
+      "requested_change": "Collect values by Name and require exactly one DTMAX=0.1 and exactly one HeatingTime=0.1 sec. Add an adverse duplicate-value test; include conflicting values and ideally repeated identical values to reject ambiguous declarations.",
+      "qualification": "This is a preparation checker ambiguity, not evidence that current frozen R4 inputs contain duplicates or that the solver would run unbounded. Runtime execution remains gated separately.",
+      "resolution": "Resolved: require exactly one matching DTMAX/HeatingTime Property and one Value, rejecting conflicting or equal duplicates. Two new tests cover both orders, equal duplicates and multiple Value entries.",
+      "status": "resolved"
+    }
+  ],
+  "accepted_evidence": {
+    "R4_status": "prepared_not_runtime_validated",
+    "source_unchanged_as_reported": true,
+    "pair_equality_as_reported": {
+      "O3/C3": true,
+      "OS/CS": true,
+      "O2/C2": true
+    },
+    "files_hashed": 250,
+    "case_bytes_hashed": 42461178,
+    "max_current_known_generated_path": 60,
+    "historical_results_excluded": true,
+    "large_scope": "metadata_only_not_copied_not_runtime_validated"
+  },
+  "test_review": {
+    "existing_14_test_run": "Accepted root-reported PASS; not rerun redundantly",
+    "meaningful_adverse_coverage": [
+      "Hash manifest mismatch detects modified/missing/extra files",
+      "Stale MPIp4penv rejected even when manifest contains it",
+      "Later included NSTEP override rejected",
+      "Exact path boundary rejects equality to configured limit",
+      "Missing/outside XML references rejected",
+      "Duplicate worker setting/remeshing/multi-operation/deadline rejected",
+      "Historical DB/messages cannot change runtime_acceptance",
+      "2D static identification cannot claim GUI verification"
+    ],
+    "focused_review_execution": "Only one duplicate XML DTMAX synthetic reproduction executed; no live fixtures changed"
+  },
+  "qualifications": [
+    "The path-boundary test checks strict <limit generically using a dynamic threshold; it does not need a platform-specific temporary path exactly 100 characters long.",
+    "The outside-reference test name says even if it exists, but does not create an existing outside file. Source resolves containment before existence, so no production bug was found from that gap.",
+    "No runtime deadline enforcement is implemented or claimed. The runtime supervisor must enforce 120 seconds.",
+    "Preflight proves the reported fixed input files at its capture time. Fresh GUI generation can change controls; effective inputs must be revalidated before execution.",
+    "No speed or token-saving claim is made."
+  ],
+  "next_action": "Orchestrator required integration/preflight checks once; preparation approval is not runtime acceptance.",
+  "prior_reviewed_sha256": {
+    "tools/check_gui_trial_preflight.py": "c07cbb5876eaf82d690c5e50ec9dd552ff80ada20671f44d17f71b6cce783b75",
+    "tests/test_gui_trial_preflight.py": "0e26ef51581b770c7747022f8300b15881d462233e4fa60eb0f187e672773663",
+    "analysis/gui-trial-preflight.json": "4e8dafb2dc258ca5ed9fd67e7185f97c6ff99ec75fbde53a557f1944e1b6b055",
+    "analysis/gui-fixture-handoff.json": "48b21d08116ba5b05fa7c5e31eabc376821f2b1dbf15e3837ad63570fbecca1f"
+  },
+  "repair_review_utc": "2026-10-23T15:36:27.757284+00:00",
+  "narrow_repair_verification": {
+    "fresh_handoff_hashes_match": true,
+    "code_matches_requested_unique_scalar_invariant": true,
+    "adverse_tests_cover_original_reproduction": true,
+    "owner_reported_tests_pass": 16,
+    "tests_rerun_by_reviewer": false,
+    "reason": "Narrow code/test/hash review sufficient; no redundant broad run or live fixture hashing."
+  }
+}

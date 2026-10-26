@@ -1,0 +1,22 @@
+{
+  "label": "ARMCTL 7,abc,-3 9",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nARMCTL 7,abc,-3 9\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "DEF_ARM_CTL.DAT",
+      "OUT.KEY"
+    ],
+    "notes": "Commas separate tokens; atol('abc') = 0; only 3 tokens used: file '7','0','-3'."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "1412ef8b0",
+      "entry": "1412ef8b0",
+      "name": "FUN_1412ef8b0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_1412ef8b0(longlong param_1,char param_2,char param_3)\r\n\r\n{\r\n  byte bVar1;\r\n  int iVar2;\r\n  undefined8 uVar3;\r\n  undefined1 auStack_638 [32];\r\n  ulonglong auStack_618 [2];\r\n  undefined1 auStack_608 [532];\r\n  undefined1 auStack_3f4 [988];\r\n  ulonglong uStack_18;\r\n  \r\n  auStack_618[1] \u003d 0xfffffffffffffffe;\r\n  uStack_18 \u003d uRam0000000143b5e030 ^ (ulonglong)auStack_638;\r\n  if (param_3 !\u003d \u0027\\0\u0027) {\r\n    iVar2 \u003d func_0x0001412e6cb0();\r\n    if (0 \u003c iVar2) {\r\n      FUN_14130b040(auStack_608,iVar2);\r\n      bVar1 \u003d FUN_14130c1a0(auStack_608,0x15);\r\n      *(uint *)(param_1 + 0x3c) \u003d (uint)bVar1;\r\n      bVar1 \u003d FUN_14130c1a0(auStack_608,0x2f);\r\n      *(uint *)(param_1 + 0x40) \u003d (uint)bVar1;\r\n      if ((*(int *)(param_1 + 0x3c) \u003d\u003d 0) \u0026\u0026 (bVar1 \u003d\u003d 0)) {\r\n        uVar3 \u003d 0;\r\n      }\r\n      else {\r\n        uVar3 \u003d 1;\r\n      }\r\n      func_0x0001412e6fb0(param_1,uVar3);\r\n      func_0x0001412e6ff0();\r\n      func_0x0001412e7020();\r\n      FUN_14130b180(auStack_608);\r\n    }\r\n  }\r\n  if (*(int *)(param_1 + 0x3c) \u003d\u003d 0) {\r\n    FUN_1412ef050(param_1,0xffffffff,0xffffffff,2);\r\n  }\r\n  if (*(int *)(param_1 + 0x40) \u003d\u003d 0) {\r\n    FUN_1412ef050(param_1,0xffffffff,0xffffffff,3);\r\n  }\r\n  if (((*(int *)(param_1 + 0x3c) \u003d\u003d 0) \u0026\u0026 (*(int *)(param_1 + 0x40) \u003d\u003d 0)) \u0026\u0026 (param_2 !\u003d \u0027\\0\u0027)) {\r\n    FUN_1412f7e90(auStack_608);\r\n    FUN_141472790(\u0026UNK_142db6ca8,auStack_3f4);\r\n    if (cRam00000001446f0748 !\u003d \u0027\\0\u0027) {\r\n      auStack_618[0] \u003d 0;\r\n      FUN_141306850(auStack_618,\u0026UNK_142db6c78,1);\r\n      FUN_1412f4f60(0x1446f02f0,auStack_618[0],\u0026UNK_142db4b00,0x15b8);\r\n      FUN_1412f51b0(0x1446efe90,auStack_618[0] \u0026 0xffffffff);\r\n      func_0x00014146d898(auStack_618[0]);\r\n    }\r\n    func_0x00014146e9bc(0);\r\n  }\r\n  func_0x00014146df10(uStack_18 ^ (ulonglong)auStack_638);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "1450aabb8",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "1412eae20",
+      "entry": "1412eae20",
+      "name": "FUN_1412eae20",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_1412eae20(undefined8 param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  longlong lVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  longlong lVar5;\r\n  longlong lVar6;\r\n  longlong lVar7;\r\n  undefined8 unaff_RBX;\r\n  undefined8 unaff_RBP;\r\n  longlong lStackX_8;\r\n  longlong lStackX_10;\r\n  longlong lStackX_18;\r\n  undefined4 auStackX_20 [2];\r\n  undefined *puStack_20;\r\n  \r\n  puStack_20 \u003d \u0026UNK_1412eae2f;\r\n  lVar5 \u003d FUN_1417f5860();\r\n  lVar5 \u003d -lVar5;\r\n  *(undefined8 *)(\u0026stack0x00000050 + lVar5) \u003d 0xfffffffffffffffe;\r\n  *(undefined8 *)(\u0026stack0x00001320 + lVar5) \u003d unaff_RBX;\r\n  *(undefined8 *)(\u0026stack0x00001328 + lVar5) \u003d unaff_RBP;\r\n  *(ulonglong *)(\u0026stack0x000012e8 + lVar5) \u003d\r\n       uRam0000000143b5e030 ^ (ulonglong)(\u0026stack0xffffffffffffffe8 + lVar5);\r\n  *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eae70;\r\n  FUN_1412e46a0(\u0026stack0x00000058 + lVar5,0,1);\r\n  *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eae7d;\r\n  func_0x0001412f7e50(\u0026stack0x00000058 + lVar5,0);\r\n  *(undefined4 *)((longlong)auStackX_20 + lVar5) \u003d 3;\r\n  *(undefined4 *)((longlong)auStackX_20 + lVar5 + 4) \u003d 0x68;\r\n  *(undefined4 *)(\u0026stack0x00000030 + lVar5) \u003d 1;\r\n  *(undefined4 *)(\u0026stack0x00000028 + lVar5) \u003d 0;\r\n  *(undefined4 *)(\u0026stack0x00000034 + lVar5) \u003d 0;\r\n  *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaeb1;\r\n  func_0x0001412f2200(\u0026stack0x00000058 + lVar5,(longlong)auStackX_20 + lVar5);\r\n  *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaec0;\r\n  iVar3 \u003d func_0x0001412f21e0(\u0026stack0x00000058 + lVar5,\u0026stack0x00000038 + lVar5);\r\n  do {\r\n    if (iVar3 !\u003d 0x18) {\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eafcc;\r\n      FUN_1412e43e0(\u0026stack0x00000058 + lVar5);\r\ncode_r0x0001412eafcc:\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eafdc;\r\n      func_0x00014146df10(*(ulonglong *)(\u0026stack0x000012e8 + lVar5) ^\r\n                          (ulonglong)(\u0026stack0xffffffffffffffe8 + lVar5));\r\n      return;\r\n    }\r\n    if (((*(int *)(\u0026stack0x00000038 + lVar5) !\u003d 2) || (*(int *)(\u0026stack0x0000003c + lVar5) !\u003d 0x69))\r\n       || (iVar3 \u003d *(int *)(\u0026stack0x0000004c + lVar5), iVar3 \u003c 1)) {\r\ncode_r0x0001412eafb6:\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eafc0;\r\n      FUN_1412e43e0(\u0026stack0x00000058 + lVar5);\r\n      goto code_r0x0001412eafcc;\r\n    }\r\n    *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaefd;\r\n    lVar6 \u003d func_0x00014146c25c((longlong)(iVar3 + 10));\r\n    if (lVar6 \u003d\u003d 0) goto code_r0x0001412eafb6;\r\n    *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf19;\r\n    iVar4 \u003d func_0x0001412f3600(\u0026stack0x00000058 + lVar5,lVar6,iVar3);\r\n    if (iVar4 !\u003d iVar3) {\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eafb5;\r\n      func_0x00014146d898(lVar6);\r\n      goto code_r0x0001412eafb6;\r\n    }\r\n    *(undefined8 *)((longlong)\u0026lStackX_18 + lVar5) \u003d 0;\r\n    *(undefined8 *)((longlong)\u0026lStackX_10 + lVar5) \u003d 0;\r\n    *(undefined8 *)((longlong)\u0026lStackX_8 + lVar5) \u003d 0;\r\n    *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf47;\r\n    FUN_1412e7080((longlong)\u0026lStackX_18 + lVar5,(longlong)\u0026lStackX_10 + lVar5,\r\n                  (longlong)\u0026lStackX_8 + lVar5,lVar6);\r\n    lVar7 \u003d *(longlong *)((longlong)\u0026lStackX_18 + lVar5);\r\n    if (((lVar7 !\u003d 0) \u0026\u0026 (lVar1 \u003d *(longlong *)((longlong)\u0026lStackX_10 + lVar5), lVar1 !\u003d 0)) \u0026\u0026\r\n       (lVar2 \u003d *(longlong *)((longlong)\u0026lStackX_8 + lVar5), lVar2 !\u003d 0)) {\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf73;\r\n      func_0x0001412e75b0(param_1,lVar7,lVar1,lVar2);\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf7b;\r\n      func_0x0001414dfc68(lVar7);\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf83;\r\n      func_0x00014146d898(lVar1);\r\n      *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf8b;\r\n      func_0x00014146d898(lVar2);\r\n    }\r\n    *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eaf93;\r\n    func_0x00014146d898(lVar6);\r\n    *(undefined **)((longlong)\u0026puStack_20 + lVar5) \u003d \u0026UNK_1412eafa2;\r\n    iVar3 \u003d func_0x0001412f21e0(\u0026stack0x00000058 + lVar5,\u0026stack0x00000038 + lVar5);\r\n  } while( true );\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "1450aaa50",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "1412e73d0",
+      "status": "no-function-at-address"
+    },
+    {
+      "requested_address": "1412e7060",
+      "status": "no-function-at-address"
+    }
+  ]
+}

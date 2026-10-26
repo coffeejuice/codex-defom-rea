@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "status": "repaired_and_refrozen_for_orchestrator_review_not_executed",
+  "created_utc": "2026-10-23T15:31:57.816933+00:00",
+  "owner": "validation_helper",
+  "exclusive_files": [
+    "tools/observe_job_helper.js",
+    "tests/test_job_helper_probe.py",
+    "analysis/helper-diagnostic-handoff.json"
+  ],
+  "ownership_frozen": true,
+  "target": {
+    "name": "DEFJobGroupSetup.exe",
+    "architecture": "ia32",
+    "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18",
+    "file_bytes": 1036800,
+    "image_bytes": 1110016
+  },
+  "purpose": "Distinguish configuration-path/read failure from helper network/configuration-fetch failure without changing behavior or collecting license payloads.",
+  "source_bindings": {
+    "fetch": "analysis/helper-config-fetch-rea-evidence.json#fetch / ev_c3ae60792516e85b11b9ba8975fbe2984845bfdae8f84737d16f2a9f93b65478",
+    "file_access": "analysis/helper-config-fetch-rea-evidence.json#file_access_check / ev_f6d69d9c6c26e97c267da28f0c8643772a3e6d81954dbef2a14731042ad8e1fa",
+    "warning": "analysis/helper-config-fetch-rea-evidence.json#warning / ev_08c80b9d1ff2e701714130d94b2c88e2cab18450db662060bdca0d5263899284",
+    "warning_xref": "analysis/helper-warning-rea-evidence.json#xrefs / 0x44357d",
+    "context": "analysis/manager-selected-launch-context.json",
+    "connectivity": "analysis/deform-helper-connectivity.json",
+    "frida_api": "https://frida.re/docs/javascript-api/"
+  },
+  "source_qualification": [
+    "The observed running services and successful TCP connects do not establish a successful helper application protocol exchange.",
+    "The manager selected context is not evidence of the helper child context.",
+    "Configuration-fetch false flag +0x37c can result from file access or header exchange failures; exit zero does not establish helper success.",
+    "Warning-reference hook proves execution reached a warning-string reference, not that a rendered dialog was visible.",
+    "Headers returned outside an active fetch are not attributed to that fetch; cross-thread activity needs independent correlation."
+  ],
+  "identity_guard": [
+    "Before installing hooks: require main module DEFJobGroupSetup.exe, ia32, pointer size 4, SizeOfImage 1110016.",
+    "Read at most expected executable size plus one byte in rb mode, close handle, and require exact file size and SHA-256.",
+    "Validate loaded instruction fingerprints at all eight source-bound RVAs; wildcard only relocatable absolute operands.",
+    "Any identity exception or mismatch emits probe_identity_rejected and installs zero hooks; never override the guard."
+  ],
+  "observations": [
+    "selected DEF_CFG_DIR and working directory",
+    "resolved configuration directory and path",
+    "fopen/fclose access summary and matching CreateFileA/W outcomes",
+    "DNS host/service and return status",
+    "IPv4/IPv6 connect endpoint and return status",
+    "send/recv requested/returned byte counts without reading buffers",
+    "24-byte configuration header return counts",
+    "configuration valid flag",
+    "warning reference execution",
+    "exit API entry"
+  ],
+  "data_bounds": {
+    "ordinary_events": 400,
+    "extra_critical_events": 8,
+    "truncation_receipts": 1,
+    "max_text_characters": 512,
+    "payload_bytes_recorded": 0
+  },
+  "integration_requirements": [
+    "Orchestrator owns lifecycle and all native captures. Review source before runtime use; this handoff authorizes no competing launch, attach, GUI input or mutable REA database.",
+    "Recheck target hash/PID/owned process identity before instrumentation. Do not attach a user-owned helper or reuse a PID without verifying its image and creation context.",
+    "Obtain the actual helper command line, parent PID, explicit/inherited CWD and ownership from the process-start capture. Do not invent Run Options inputs from this probe.",
+    "For a new bounded diagnostic run, use the existing REA start_frida_session/load_frida_script lifecycle under the orchestrator. Load this file before the helper performs its config fetch if the supported provider lifecycle permits. A late attach cannot prove earlier failures.",
+    "Do not acquire GUI input until the supported app-control release/verification prerequisite is resolved. A headless/native observer is not a release workaround.",
+    "Require probe_identity_verified and probe_ready before attributing events. Inspect missing_exports_or_hooks and callback errors; a missing required hook makes that observation inconclusive.",
+    "Preserve the full raw REA Evidence, process launch identity, script SHA-256, final diagnosticstatus counters if obtainable, observer detach receipt and independent process exit status.",
+    "If supported RPC invocation is available, diagnosticstatus reports hook coverage, event counts and dropped events. It is a diagnostic status method, NOT an app-control release operation.",
+    "Close the owned Frida session in finally via supported REA close_frida_session. Detachment is not evidence of app-control release. Do not suppress warnings or change return values to complete the run.",
+    "Correlate file-access result, active_fetch id, network/24-byte counts, valid flag and warning-reference event. Keep instrumented diagnostic results separate from unmodified GUI acceptance.",
+    "Do not rebuild or redeploy reconstructed DEF_PRE_64 v0.2.1 for this diagnostic preparation."
+  ],
+  "limitations": [
+    "Prepared and offline tested only; no helper was launched, attached, injected or controlled by this worker.",
+    "Frida Interceptor observation changes timing and installs instrumentation in memory, although this script does not edit application arguments, registers, return values, files, configuration or network payloads.",
+    "Mocks do not prove installed Frida provider compatibility. API absence is explicitly reported; module exports loaded after installation are not automatically hooked.",
+    "File access through another API can evade CreateFile hooks; source-bound fileCheck still records its low-byte summary, not exact fopen errno.",
+    "DNS return records do not enumerate all resolved addresses. The endpoint used by connect is separately decoded. Asynchronous ConnectEx/WSASend/WSARecv and other network APIs are outside this probe.",
+    "Winsock last_error_snapshot is the hook invocation OS last-error snapshot, not a separately requested WSAGetLastError call; failure return and counts are authoritative observations. A nonblocking pending connect is not final failure.",
+    "No network buffer, configuration payload, key, password or full environment is read or logged. Executable bytes are read only for identity hashing.",
+    "Exit API entry does not prove actual termination and can be missed after abrupt process death. Exit zero alone is not successful setup.",
+    "Event saturation is reported; dropped observations prevent completeness claims. At most eight extra critical events are retained after the ordinary budget.",
+    "No GUI, solver, original/reference output comparison or reconstructed-backend acceptance is established by this preparation."
+  ],
+  "validation": {
+    "command": "python tests/test_job_helper_probe.py",
+    "result": "PASS",
+    "test_count": 11,
+    "tests_elapsed_seconds": 0.362,
+    "scope": "Offline actual-JavaScript mocked-Frida tests and node --check; no app execution",
+    "cases": [
+      "identity rejection installs zero hooks",
+      "selected context and file handle cleanup",
+      "x86 ECX/+0x548 and low return byte",
+      "+0x37c flag and warning reference",
+      "24-byte short/failure results",
+      "network buffer never read",
+      "per-fetch attribution and cleanup",
+      "sockaddr port endianness/IPv6/scope/short input",
+      "DNS and exact config path filtering",
+      "missing export/callback fault/bounded output/exit evidence",
+      "mid-function warning reference uses and executes function callback form"
+    ]
+  },
+  "file_hashes": {
+    "tools/observe_job_helper.js": "8da4e3e0e6028e2173f768701eb228ddf36449614f30eac3d6509ea9739b2747",
+    "tests/test_job_helper_probe.py": "72efd47fb3b6d3f9216d749713a449bf887438a56f80f3fd54b04d899545726f"
+  },
+  "next_ready_task": "Orchestrator review of source bindings, observation-only guarantees, hook coverage and tests; runtime diagnosis remains orchestrator-owned and subject to lifecycle gates.",
+  "prior_file_hashes": {
+    "tools/observe_job_helper.js": "5e6d98e0b560c02f056aa001cc636c10111cc808b47fc7d7ad3177c36df6743a",
+    "tests/test_job_helper_probe.py": "5837c2f05a3273151b1f46dbdc46eaabfbd2ae53cf9c4d1599116f3def94b011"
+  },
+  "updated_utc": "2026-10-23T15:37:23.115115+00:00",
+  "independent_review_repair": {
+    "finding": "warningReference RVA0x4357d is an arbitrary mid-function instruction; generic function-entry onEnter callback object was inappropriate.",
+    "correction": "Added separate instructionProbe that passes a safe function callback to Interceptor.attach at warningReference. Function-entry hooks retain the onEnter/onLeave object form. Identity guard and fingerprint preserved.",
+    "test": "Mock invocation dispatches function callbacks as well as object callbacks. New test asserts callback form, invokes instruction callback and verifies warning-reference evidence with no callback error.",
+    "runtime_executed": false
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "editor300-translator-codec-observation-contract-v1",
+  "created_utc": "2026-10-24T08:58:54.163654+00:00",
+  "status": "static fields supplied to root and closure_next for their already planned bounded startup capture",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-connection-storage-translate-67119b20.asm",
+      "sha256": "b0c5c71194653e2a0f3d7dbefa21b8fa6126da7faed64e1a8cbcbfc85cadbf5b"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-codec-bindings-static.json",
+      "sha256": "80eddd09eae4c07fe6ec5feac43ed5a3ba934545942acf07f6b53d0aaa1adc4b"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-codec-liveness-static.json",
+      "sha256": "d4019957e80bbf85897d2782d9460d646a92f1947d6f233c260c70cc141194a1"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-codec-translator-call-sites.json",
+      "sha256": "ae54b13439e9f1e6256c7d022592453e327cae241d995a3ba888f3feaeab4bc6"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-language-install-chain-static.json",
+      "sha256": "8eeccb46f1688152d88a2954effa41128bd8e3db8215018cb43da7389046d303"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-language-preload-static.json",
+      "sha256": "5788fbef6db4919a88594ccdc0f83a3927e7cec4ed258e1bc8ffc3d78e8dc536"
+    },
+    {
+      "path": "analysis/wave3-editor-startup-translator-static.json",
+      "sha256": "c9d93d7db7840b415bd57b0453a1e7fa2fcc25f21eb817cf2a5c0746549e51f4"
+    },
+    {
+      "path": "evidence/original-binaries/QtCore4_64.dll",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    },
+    {
+      "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    }
+  ],
+  "read_only_fields": {
+    "QtCore_RVA_2f4220": "QCoreApplication pointer; null means no application. Read application+8 to obtain private pointer.",
+    "application_private_98": "Pointer to translator QList data. Read signed32 begin at data+8 and end at data+c; translator pointers occupy data+18+8*index for begin<=index<end. Empty iff begin==end. Preserve raw header and cap observations; malformed bounds are an observation failure, not empty.",
+    "application_10": "Original subclass-owned QTranslator pointer allocated by140002290, even when load fails. Its existence does NOT imply installed-list membership.",
+    "QtCore_RVA_2f4438": "Current locale codec raw pointer. If nonnull, read vtable to identify class/module. Null may later be lazily initialized by codecForLocale; do not call getter during capture.",
+    "QtCore_RVA_2f4440": "Current translation codec raw pointer; setter67177580 writes it. Getter feature test671500f0 is constant true in this binary.",
+    "QtCore_RVA_2f3e10": "Current C-string codec raw pointer; setter67177590 writes it. Getter feature test671500f0 is constant true.",
+    "DEF_GUI_MO_RVA_3d79718": "Language cache used by codec startup before140002290 resolves the language getter. Preserve raw signed value; do not infer it from UI text."
+  },
+  "startup_order": [
+    "QApplication constructor return1400021f7, subclass vtable write140002204, then application setup calls.",
+    "140002227 calls codec configuration1400024f0; returns14000222c. It selects foreign codec names only for language1/2/3/4/7. Language0/default leaves selected codec null and skips setters.",
+    "If codecForName resolves the selected name, setter calls1400026d8/6e3/6ee set locale, translation and C-string codecs respectively. Locale setter6714bc20 writes672f4438 at6714bc8d; supplying null also changes it via fallback670c1fb0.",
+    "140002231 calls translator configuration140002290; returns140002236. It allocates app+10, gets LANGUAGE/catalog filename from1402c7ae0, calls QTranslator::load, and only success reaches installTranslator call1400023fb.",
+    "QtCore installTranslator6711a330 operates on actual app private+98 before potentially emitting LanguageChange event0x59. removeTranslator6711aae0 uses the same list; later membership must be observed or covered by source evidence."
+  ],
+  "capture_recommendation": [
+    "Add these raw fields to each already planned SplitView/grid/View_Default checkpoint; retain loaded module bases/hashes and raw field bytes. No separate worker runtime or probe is requested.",
+    "Record actual stage address and ordering relative to140002236. A pre-constructor empty list or null codec is not the post-startup state.",
+    "Use a bounded pointer list and vtable reads only; no Qt getters, codec-name virtual calls, translation invocation, or object construction.",
+    "At later actual editor setup/Open comparison, bind NoActiveTranslator only to the state established for that stage. Numeric locale and language index alone are insufficient."
+  ],
+  "qualifications": [
+    "The original EXE .text has only the four source-confirmed setter/install call sites listed in the call-sites receipt, plus the two direct application-constructor calls. This scan does not exclude indirect calls, external DLL/plugin behavior or memory writes.",
+    "An empty installed list establishes no active translator at the observed stage. For StoppingLabelProfile::AsciiNoActiveTranslator, the C-string and local codec behavior on ASCII must also be established independently; setup UTF8 translation fallback and MDS local8bit parsing are distinct paths.",
+    "CodecForLocale6714df70 lazily initializes null raw state via6714c840, so raw null cannot be carried unchanged through later QString conversions without source evidence.",
+    "No source changes, worker builds, original-app execution or GUI control were performed for this observation contract."
+  ]
+}

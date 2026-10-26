@@ -1,0 +1,106 @@
+{
+  "schema": "wave2-doe-active-task-checkpoint-v1",
+  "scope": "Seven-function bounded static closure; no source integration or target execution",
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": {
+    "decompile": "analysis\\wave2-doe-active-task-defaults-stepdata-decompile.json",
+    "sha256": "c053c48c87d61f0660968e1e54dbb51f126c660bf8cd76d5364def3b9fef4e08",
+    "literals": "analysis\\wave2-doe-active-task-settings-literals.json",
+    "literals_sha256": "ccd32cbbcb96103a10613982dfdb4a89632d3846af9953362f8ea070a77adff4"
+  },
+  "closed_findings": {
+    "1414033f0": "Base Task reset sets pointer fields null, strings40/70 empty, calls025100 at list98 with integer0, flags a8/a9 false, ac/b0=-1,50/68 true,88=0. It does not clear78/80/90 lists. Do not describe this as replacing every list with defaults;025100 appears to append and repeat-reset semantics require its exact contract. Constructor separately constructs all lists before this call.",
+    "1407415f0": "TaskDoe metadata: General/SfTaskDoe/DOE/DOE, delegated setters.",
+    "140742120": "Allocates16-byte object, calls743dc0; object semantics not yet closed.",
+    "140742180": "Allocates56-byte object, calls744280; object semantics not yet closed.",
+    "1414091b0": "Reads executable/arguments/enabled/workingDir/inputFileNo and input-file descriptors/names from global143d76370. No shown ObjList/OprList edit; do not infer these settings alter Save metadata.",
+    "140c90bd0": "Iterates StepData element children. StateVar invokes d328c0 when flag true; Object Index toInt invokes141200e50 if index<display object count; then d7c260. No lower-bound index check shown.",
+    "140e31960": "When operation/project/session guards succeed, preparesviewer via643540/d3d730/6435e0/d3d8c0 and invokes dock-button update; not a no-op."
+  },
+  "task_vtable_bytes": {
+    "base": "0x1425b4c38",
+    "slots": {
+      "0x218": "0x14140cba0",
+      "0x228": "0x14140d2e0",
+      "0x248": "0x14140d100",
+      "0x250": "0x14140d660",
+      "0x258": "0x14140d6c0",
+      "0x260": "0x14140d720",
+      "0x268": "0x14140d8a0",
+      "0x270": "0x14140da40"
+    },
+    "qualification": "Raw original PE pointers; slot meaning comes from caller decompilation, not symbols."
+  },
+  "fixture_correction": {
+    "input": "evidence\\gui_mo\\oracle_b\\120_B_DOE\\DoeStudies\\DoeStudy1\\Control\\COG_P1_B1.DS",
+    "sha256": "97e4aaa28aa545dd08360e98191fba3b2cfb6c39098e10aeb3b45d02c33e563d",
+    "bytes": 2013,
+    "session_attributes": {
+      "TaskType": "SfTaskDoe",
+      "Title": "",
+      "Steps": "0",
+      "Subtype": "0",
+      "DB_ID": "1",
+      "StepNumber": "-1",
+      "Type": "0",
+      "EntityNo": "0",
+      "Objects": "0"
+    },
+    "session_child_tags": [
+      "Image",
+      "StepData",
+      "GraphicsItems",
+      "SfDispView",
+      "SfTask"
+    ],
+    "StepData_child_tags": [
+      "StateVar"
+    ],
+    "SfTask": "<SfTask>\n    <OprList>\n     <Opr MiddleStep=\"0\" EndStep=\"0\" NumMiddleSteps=\"1\" StartStep=\"0\" No=\"5\" />\n    </OprList>\n    <ObjList>\n     <Object No=\"1\" />\n    </ObjList>\n    <OutputList />\n   </SfTask>\n  ",
+    "supersedes": "Earlier lifecycle claim historical120 lacked SfTask was wrong. Existing-list update applies; preserving task children unchanged is not justified. Input remains historical UI-after training material, not fresh reference."
+  },
+  "next_complete_component": null,
+  "why_no_new_implementation": "Base reset is bounded but not a complete independently observable Open/Save component. StepData import requires StateVar parser and finalizer; task replacement and its read/write lists remain needed before active lifecycle can produce established metadata. Adding detached defaults would duplicate helpers without closing actual lifecycle.",
+  "remaining_exact_callees": {
+    "task_defaults_and_global_identity": [
+      "140025100",
+      "1414037b0",
+      "140743dc0",
+      "140744280",
+      "141411700",
+      "141412100",
+      "140808860",
+      "140808270",
+      "1408085c0",
+      "1407c7d00",
+      "140658520"
+    ],
+    "StepData_StateVar_and_finalizer": [
+      "140c905b0",
+      "140d328c0",
+      "140c90210",
+      "140d7c260"
+    ],
+    "StepData_nonempty_Object": [
+      "141200e50"
+    ],
+    "Task_input_and_existing_list_output": [
+      "14140cba0",
+      "14140d660",
+      "14140d6c0",
+      "14140d720",
+      "14140d8a0",
+      "14140da40"
+    ],
+    "viewer_selection": [
+      "140643540",
+      "140d3d730",
+      "1406435e0",
+      "140d3d8c0"
+    ]
+  },
+  "decision": "Stop static expansion at this checkpoint per coordinator; active Type2 parser/DoeOutput guards retained. Require explicit next implementation boundary before more exports.",
+  "private_ghidra_lock": "released after successful batch; no process remains",
+  "app_control_used": false,
+  "source_edits_this_checkpoint": false
+}

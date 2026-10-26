@@ -1,0 +1,71 @@
+{
+  "scope": "Normal-return QGraphicsScene::clearSelection for an explicitly qualified coherent empty current selected-item set; no assertion that selected lifecycle has this state.",
+  "method": "Offline retained PE/DUMPBIN only. No source changes, builds, runtime or GUI.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-secondary-splitview-contract.json",
+      "sha256": "7d3a50ae6b050fc57eb4b434fbc728154742d3fc180c506a827eec0163b05229"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-qt-scene-clear-selection-static.json",
+      "sha256": "90b214a05f89c49cb180de5014a427dc484ccdf45eee3b1214d8fb387f64e288"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-clear-selection-empty-container-path-static.json",
+      "sha256": "d3dc63564c74acfeb7bea73400991c21bbe85610abcf1b192fb1d6271f313b77"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-clear-selection-iterator-prefix-static.json",
+      "sha256": "258792730202f99ca3cefe93c60373178a0b9b6e467f17d683aabf2adfcf2b71"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-clear-selection-empty-hash-leaves-static.json",
+      "sha256": "17fce2e9c1d96c6f9497659be2a4485b161a65ba0efb0bb05f5f467c22739cd6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-clear-selection-empty-detach-static.json",
+      "sha256": "d99c809c5f7646d73e0da2a702990bccae5d03011283f3067a157c2c5cadb45c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-clear-selection-empty-hash-release-static.json",
+      "sha256": "b177cb8206865808dcd48fa90d303b4acfe2067fe779004092b796df66040cfd"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6509f2b0.asm",
+      "sha256": "472d5ba20c1b9a66a406f7b2f10ac49a88e58bd796b7850a5893ed2776200cd3"
+    }
+  ],
+  "fields": {
+    "scene_private": "*(QGraphicsScene+8)",
+    "selection_change_depth": "int32(private+100)",
+    "selected_set_data": "*(private+108)",
+    "hash_size": "int32(data+14)",
+    "hash_num_buckets": "int32(data+20)",
+    "hash_buckets": "*(data+8), each empty bucket points to data sentinel",
+    "shared_null": "QtCore672f0a08; ref+10=1,size+14=0,numBuckets+20=0,flags+24=1"
+  },
+  "native_order": [
+    "65571720 increments actual selection-change depth before reading whether the current selected-set size is nonzero.",
+    "6552d4b0 ->6552ba30 copies current hash data into iterator, references it and detaches unsharable shared data via6525bd90. A coherent empty set has firstNode==data sentinel, regardless of allocated bucket count.",
+    "67047b20 detach_helper2 can allocate empty header/buckets, but every empty source bucket takes sentinel branch67047c7d and never calls item node-copy callback.",
+    "65571795 exits item loop for empty iterator; QGraphicsItem::setSelected(false)6554f2f0 is never called.",
+    "Snapshot reference is released. QHashData::free_helper670476b0/670476c3 on coherent empty buckets invokes no node callback; its supplied node destructor6509f2b0 is also exact RET.",
+    "655662d0 resets actual selected-set data to QHashData shared_null, releasing prior empty storage as needed; no application callback.",
+    "65571800 decrements selection-change depth. Signal activation occurs only when resulting depth is zero AND old selected set was nonempty. Empty input never emits the signal, including nested depth."
+  ],
+  "implementation_proposal": {
+    "owner": "Use same actual PostGraphSceneState identity already shared by primary/secondary ViewManager and Close, not a separate selection scene.",
+    "state": "Actual selected-item identity set and native int selectionChangeDepth, with independent current-selection coverage qualification. Population coverage and hidden text identities do not imply selection coverage.",
+    "qualified_empty": "Allow only explicit complete empty set state. Preserve depth increment/reset/decrement in source order; selected set remains empty. No notifier counter or callback stand-in.",
+    "guards": "Unavailable selection coverage guards after native depth increment if called as a suspended native-prefix operation. Nonempty selection remains guarded at first item setSelected(false), retaining depth prefix; this makes resumption explicit and avoids replaying an increment. Alternatively expose only a prequalified empty-branch helper and leave caller before native entry when preconditions are unavailable.",
+    "integration": "cc54a0 invokes clearSelection before SfScene cast and top-level histogram/Ptrk queries. Current shared scene-only projection may support qualified SfScene identity but must preserve order; failed cast cannot skip selection effects.",
+    "tests": "Explicit empty state preserves actual text objects and depth; nested depth; independent two-scene identities; unavailable and nonempty coverage refusal; invalidation does not discard selected identities."
+  },
+  "qualifications": [
+    "Normal coherent container state only; allocator failures and exception cleanup are not closed.",
+    "No assumption that constructor emptiness survives scene creation, Open, interaction, graph notifications or previous operations.",
+    "Nonempty item callbacks, itemChange overrides, selection signal recipients and resulting mutation order remain unrecovered.",
+    "Current production Scene has no selected-set projection; this is a source proposal, not integrated Close parity."
+  ],
+  "efficiency": "Immediate helpers were bounded captures. A broad rg in this continuation matched import inventories and produced truncated excess output; follow-up inspections used explicit files/fields. No speed or token savings claim."
+}

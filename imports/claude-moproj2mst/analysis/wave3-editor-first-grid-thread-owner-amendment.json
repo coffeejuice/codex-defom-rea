@@ -1,0 +1,66 @@
+{
+  "schema": "editor300-first-grid-thread-control-block-amendment-v1",
+  "created_utc": "2026-10-24T13:19:24.143571+00:00",
+  "status": "SOURCE REFROZEN before root44 build; no worker compiler/tests",
+  "supersedes_source_freeze": {
+    "path": "analysis\\wave3-editor-first-grid-prefix-increment.json",
+    "sha256": "191cec7e34237752819e264ba474e90dca46c13e45444d3bcfb0ba78f72b75fe"
+  },
+  "finding": "Root code review identified shared_ptr== compares only raw address. A foreign control block can alias that address and pass initial/continued thread checks while replacing the native retaining owner.",
+  "repair": "sameThreadOwner requires nonnull equal raw pointers AND !left.owner_before(right) AND !right.owner_before(left). Applied to parent/current/runtime comparisons and retained cursor continuation. No source-order behavior, constructor boundary or other file changed.",
+  "new_test": "editor_grid_rejects_same_address_thread_with_foreign_lifetime_control_block: initial foreign owner rejected before thread/parent stores, correct real owner permits same pending allocation transfer, later foreign owner rejected without changing actual retained control block or replaying membership.",
+  "preflight": "bounded git diff --check and direct whitespace/conflict/unique-case/single-main checks pass",
+  "editor_grid_cases": 12,
+  "editor_setup_cases": 54,
+  "build_and_tests": "NOT RUN; root required combined validation remains",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "38c82c5784d7df56744f9e3df420f9e2078aeef21c2fe061cd84b65e217cda38",
+      "cases": 0,
+      "changed": false
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "f6b0075090d77c64fef400bc9cb72c63f7558d6734e95b60184b7028dbacab22",
+      "cases": 0,
+      "changed": false
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+      "sha256": "54394238b23ffb0f73988dbeb4eb6550bc99924b1991375050226e27e17d41ec",
+      "cases": 54,
+      "changed": false
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+      "sha256": "bdf2b7f28f82ee5a549908f6d9cb31cad71990e1b9dab2bfd28b6524b057aada",
+      "cases": 0,
+      "changed": false
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp",
+      "sha256": "0fd8354c679b85422f57f39df5251f0ff2a3e65f00d93e33c5dc01d6246faa46",
+      "cases": 0,
+      "changed": false
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_grid.hpp",
+      "sha256": "6bb30a29bdc3d364198201d7a589ea15c97dec7a3b7b4770056cd72f24d1a047",
+      "cases": 0,
+      "changed": false
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_grid.cpp",
+      "sha256": "7271829537e94d186258dd70e87ea36427c7e0dc1feabcbe9d07eefb89783d49",
+      "cases": 0,
+      "changed": true
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_grid.cpp",
+      "sha256": "67b64eac265291d3eba7bcc2e693e928d00e2969e909ee0156cd1eb3fce94924",
+      "cases": 12,
+      "changed": true
+    }
+  ]
+}

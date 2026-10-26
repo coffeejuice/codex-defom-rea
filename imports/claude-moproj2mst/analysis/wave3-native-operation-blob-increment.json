@@ -1,0 +1,29 @@
+{
+  "scope": "Operation Data blobs native QFile attempts during actual project parsing",
+  "qualification_correction": "v2 denial test did not print its target, so the initial material attribution was premature. v3 retained diagnostic identifies ObjProperties00001.KEY from embedded operation Data replay. Open material integration is independently source-backed, not the demonstrated cause of v2 failure.",
+  "original": "0937b0 loops Data children in order, decodes/uncompresses, absolute parent819590, mkpath81afb0(flag1), QFile ctor/path then Open WriteOnly2; successful open writes QByteArray then closes, ignores results. Failed open skips write/close and continues next child; returns true.",
+  "changes": [
+    "NativeOperationBlobs profile enabled before openProject; actual blob writes happen at parser dispatch.",
+    "Use previously recovered QFile FileDevice binary mode and absolute QDir implementation; retain repeated directory attempts.",
+    "Failed open keeps physical prior bytes and supplies no decoded overlay; successful open removes stale overlay.",
+    "Recording mode unchanged; top-level item Data blobs remain separate and queued."
+  ],
+  "tests": [
+    "Existing public ObjProperties denial still requires M2M_OK and later MST; no relaxed expected result.",
+    "Three added cases: ordered repeated Data with NUL/binary bytes; denied open retains prior file/no overlay; repeated directory failures and ignored flush failure."
+  ],
+  "remaining": [
+    "Directory failure modal delivery remains a qualified session dependency.",
+    "No original runtime acceptance; top-level item blobs have distinct add-item/write-status semantics."
+  ],
+  "files_sha256": {
+    "analysis/wave3-native-project-blob-static.json": "fd896c64e688da99599a9d74b94c978872f36e1796222beeae244facbc05d5a2",
+    "analysis\\wave3-native-operation-blob-imports.json": "64387322b0981ccdcca54b15451b62e0dcf6928f90ef3fedd28784f899edf472",
+    "build\\logs\\wave3-taskkeys-legend-remesh-v3-focused.log": "603c01999048f82e1e458f1cd6232bcaa5f45252383132648c19693db9e8527c",
+    "source/apps/moproj2mst/include/m2m/common.hpp": "cda77eedc6947534fbd5f37146cafc204cdad50426df34f882ed4c9af350a4da",
+    "source/apps/moproj2mst/src/core/convert.cpp": "79f689f07ba01cc619fc6c54e9477e3be8eeff099036af0ef1d624565ee542f0",
+    "source/apps/moproj2mst/src/model/props_keys.cpp": "aea4667878bcc35e8261ab295f0b981b73907430f912b33251546db10129c1e9",
+    "source/apps/moproj2mst/src/mst/file_device.cpp": "23a8a7cf973848e09a8fb068d815da2d9a16f4c59db333fb84cf34287a88fca5",
+    "source/apps/moproj2mst/tests/s/test_save_io.cpp": "6877ea8533b6450936dae1e5c27e4248a91f88e263bf99200f9929ce6796d58d"
+  }
+}

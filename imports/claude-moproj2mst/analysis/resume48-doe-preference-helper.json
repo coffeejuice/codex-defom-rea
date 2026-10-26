@@ -1,0 +1,109 @@
+{
+  "schema": "resume48-doe-preference-helper-v1",
+  "utc": "2026-10-24T17:51:03.842642+00:00",
+  "owner": "test_runner_audit / doe_active",
+  "status": "Three owned source/test files frozen for parent candidate48 build; static checks pass; runtime validation pending root.",
+  "purpose": "Implement the source-qualified presence-gates-assignment contract independently of native Task/QObject construction and settings backend.",
+  "source_before": {
+    "archive": "build/wave3-checkpoint47-verified/source.zip",
+    "archive_sha256": "b8188712b4d2feab983d085e97d1a675297b03189698f73b5472d22e57dc871a",
+    "files_sha256": {
+      "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "30b18d2f565ab3f8870cc0f156c29abce880727148a5261e91dc0851e6faaaf8",
+      "source/apps/moproj2mst/src/doe/task_factory.cpp": "1994204fa2599f07dedae5256c3d3e6273e4b124ba163bc516f1e9338cd867c4",
+      "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "39a3a332f14cfc0c2a6b1db02aa5abc0c587bac84cf2fe8ec960b0e2828ed9d6"
+    }
+  },
+  "source_frozen_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "4579d41d3e28b6c1546b810720dde5fd6260343c8a7c3312c2a73d926f72abd3",
+    "source/apps/moproj2mst/src/doe/task_factory.cpp": "5580c19c093ecbd9115499b8a3c9d2d7cbf9d3a596bb2f167f5e9e1d88f169a5",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "f1b5cc3e77331a95591225a70ed8b1a46f0e9f2a798805f814f4d27de1a09d24"
+  },
+  "source_delta": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp",
+      "added_lines": 24,
+      "removed_lines": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/doe/task_factory.cpp",
+      "added_lines": 24,
+      "removed_lines": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp",
+      "added_lines": 90,
+      "removed_lines": 0
+    }
+  ],
+  "evidence_sha256": {
+    "analysis/resume47-doe-preferences-test-design.md": "b6eb409ac6103fc17b8abe2c4bbc257227a9dbbc7fd4c2f13c186a7cc1557b06",
+    "analysis/resume46-doe-active.json": "2c1a2ed75ed2eacbd18ca236e8c3ad9a229401ab1e3724629799d10463fb4320",
+    "analysis/resume46-doe-preferences.asm": "7cf0d134d7f7cdfe8c22700b6986c0df8312008cc8a000ac4c0c1047a8b333fc",
+    "analysis/wave2-doe-session-task-preference-getters-decompile.json": "2baea04073223b8970e12874b5762b58c319c8abd3906f125507b5d39f3bb510",
+    "analysis/wave2-doe-session-task-preference-getters-receipt.json": "de69d1acd40089b037bea05b7757888e11b51297fb399f6969e386bfa740365d",
+    "analysis/wave2-doe-active-task-settings-literals.json": "ccd32cbbcb96103a10613982dfdb4a89632d3846af9953362f8ea070a77adff4",
+    "analysis/wave3-doe-report-qobject-prerequisite-contract.json": "d132044c91c93b2b6b8017acb11f05451e4ef3b4896f83f158aa055d379a5998"
+  },
+  "implemented": {
+    "interface": "doe::IsolatedTaskPreferenceSource: contains(key), stringValue(key), boolValue(key), intValue(key), const queries and virtual destructor. Value methods supply already-converted values; this is explicitly an isolated accessor seam.",
+    "overloads": "readIsolatedTaskPreference(source,const qt::String& key, qt::String&/bool&/int& destination) -> bool.",
+    "source_mapping": {
+      "qt::String": "0x140808860 presence/assignment subset",
+      "bool": "0x140808270 presence/assignment subset",
+      "int": "0x1408085c0 presence/assignment subset"
+    },
+    "behavior": [
+      "Call contains once; on false return false without typed value read or destination assignment.",
+      "On true call matching typed value method once, assign returned value, return true even when that value is false, zero, empty or null.",
+      "Use existing qt::String assignment to retain the supplied null/empty state; no conversion/default value/backend logic is invented."
+    ],
+    "integration": "No call from TaskFactoryRuntime or any production lifecycle path. The native factory implementation after the added isolated overloads is identical to checkpoint47 source archive."
+  },
+  "focused_test": {
+    "file": "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp",
+    "case": "doe_task_preference_isolated_accessors_preserve_missing_and_assign_present_values",
+    "ctest": "m2m.mdt.doe_task_factory",
+    "executable_target": "m2m_mdt_doe_task_factory",
+    "total_cases": 15,
+    "previous_cases": 14,
+    "fixture": "Deterministic in-memory map<qt::String,variant<qt::String,bool,int>> plus ordered contains/string/bool/int call log. Wrong-type fixture values are not used or treated as native QVariant coercion.",
+    "coverage": [
+      "Absent first four source keys preserve nondefault caller string/bool/int values and invoke no value method.",
+      "Present typed nondefault values assign and report true.",
+      "Present non-null empty QString values, false and zero overwrite existing destinations and report true.",
+      "A separately seeded null QString remains null on absence.",
+      "First /exeFileName, /arguments, /exeFileEnabled group follows caller invocation order, with contains immediately preceding its single matching typed value query."
+    ],
+    "constructor_limit": "Test never constructs TaskFactoryRuntime, a native Task, QObject, TaskInfo, or settings backend."
+  },
+  "static_verification": {
+    "result": "PASS",
+    "checks": [
+      "Removing only the added isolated overload block reproduces entire checkpoint47 task_factory.cpp exactly after newline normalization.",
+      "All 14 original factory tests through main remain identical to checkpoint47 source; one case added.",
+      "No trailing whitespace in three owned files.",
+      "Existing qt::String API reviewed: L returns String; isEmpty/isNull used; null/empty distinction checked separately.",
+      "Only declarations, implementation and deterministic fixture/test in the three explicitly owned files changed.",
+      "JSON report parsed and frozen/evidence hashes computed."
+    ],
+    "native_unchanged": {
+      "Report_QObject_guard": true,
+      "createTaskBase": true,
+      "TaskFactoryRuntime_implementation": true,
+      "native_cache_and_TaskInfo_stages": true
+    },
+    "builds_run": 0,
+    "tests_executed": 0,
+    "reason": "Root owns combined builds and test execution; worker freezes source and supplies focused target."
+  },
+  "qualifications": [
+    "This helper is not a native QSettings backend and does not establish storage/profile contents, contains virtual target, key encoding, QVariant coercions, TaskInfo field layout, preferences reachability or constructor/factory completion.",
+    "The native public factory still returns M2M_E_UNSUPPORTED at first Report QObject before TaskInfo/preferences/cache registration.",
+    "Source-qualified independent accessor behavior is implemented; runtime success is not claimed until parent build and focused checks pass."
+  ],
+  "next_action": {
+    "root": "Build candidate48 and run m2m.mdt.doe_task_factory, then required combined regression. Attach actual results to this source freeze.",
+    "native_dependency": "Same-owner QObject shared-empty/TLS/QThreadData qualification remains the first executable active-DOE lifecycle dependency; do not wire isolated source into production merely because its test passes."
+  },
+  "token_measurements": "Unavailable; no token savings estimated."
+}

@@ -1,0 +1,26 @@
+address	status	note
+0x1401cca80	ported	taken by p-dbread; port/defdbio/src/dbread/w3_step_header.cpp read_step_header
+0x1401cd1f0	ported	taken by p-dbread; port/defdbio/src/dbread/w3_arrays.cpp read_arrays (dead partial-load branches ported as written)
+0x1401cf190	ported	taken by p-dbread; w3_arrays.cpp read_single_mar_array (unreachable: 1401d2bb0 is 1)
+0x1401cf220	ported	taken by p-dbread; w3_arrays.cpp read_mar_region (unreachable)
+0x1401d8f40	ported	taken by p-dbread; w3_step_header.cpp step_links_db
+0x1401dd4d0	ported	taken by p-dbread; w3_header_cache.cpp read_header_cache
+0x1401ddb40	ported	taken by p-dbread; w3_header_cache.cpp dir_dim
+0x1401ddba0	ported	taken by p-dbread; w3_header_cache.cpp dir_version
+0x1401dfb80	verified	verified by p67-5 (P5 gate); was ported; taken by p-dbread; w3_header_cache.cpp read_header_cache_entry
+0x1401e1de0	verified	verified by p67-5 (P5 gate); was ported; taken by p-dbread; w3_header_cache.cpp header_layout
+0x1401e6930	ported	taken by p-dbread; w3_header_cache.cpp vector_ctor_iterator (CRT `vector constructor iterator')
+0x140256e20	ported	taken by p-dbread; w3_arrays.cpp realloc_ints
+0x1402571b0	verified	taken by p-dbread; w3_arrays.cpp realloc_doubles; evidence from the p8-09 copy (now a forward): outside packet list (P2 todo, no owner): helpers.cpp; tier-1 test_p8_09_geolib; GFREAD GEO oracle cases (8/8, local merge with p8-01/p67-1/kw-merge)
+0x1403adc74	verified	verified by p67-5 (P5 gate); was ported; taken by p-dbread; w3_ftn.cpp ftn_open_db (print branch DEF_NOT_PORTED: no caller passes 1)
+0x1403da0b6	ported	taken by p-dbread; w3_ftn.cpp ftn_read_step_header (print branch DEF_NOT_PORTED)
+0x1403daf3e	verified	verified by p67-5 (P5 gate); was ported; taken by p-dbread; w3_ftn.cpp ftn_read_step_header_unit (print branch DEF_NOT_PORTED)
+0x1403db9e8	ported	taken by p-dbread; w3_ftn.cpp ftn_read_mar_a (print branch DEF_NOT_PORTED)
+0x1403dc13f	ported	taken by p-dbread; w3_ftn.cpp ftn_read_mar_region (unreachable; print branch DEF_NOT_PORTED)
+0x1403dd16d	ported	taken by p-dbread; w3_ftn.cpp ftn_read_dynamic_counts (print branch DEF_NOT_PORTED)
+0x1403dd950	ported	taken by p-dbread; w3_ftn.cpp dbmadr (print branch DEF_NOT_PORTED)
+0x1401d9210	ported	taken by p-dbread (extra, fnptr ctor); w3_header_cache.cpp hdr_cache_record_init
+0x1401d91a0	ported	taken by p-dbread (extra, thunk to 1401d9210); w3_header_cache.cpp hdr_cache_record_init
+0x1401d9150	ported	taken by p-dbread (extra, fnptr ctor); w3_header_cache.cpp hdr_object_block_init
+0x1401d9120	ported	taken by p-dbread (extra, thunk to 1401d9150); w3_header_cache.cpp hdr_object_block_init
+0x1404b4108	ported	taken by p-dbread (extra, Fortran runtime string compare, not in the ledger); w3_ftn.cpp ftn_compare

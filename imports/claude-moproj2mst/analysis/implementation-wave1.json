@@ -1,0 +1,18 @@
+{
+  "status": "first_implementation_checkpoint_complete",
+  "owner": "/root",
+  "packages": [1, 2, 3],
+  "workers": [
+    {"name": "closure_audit", "model": "gpt-6.1-sol", "effort": "high", "ownership": ["analysis/closure-audit.json", "analysis/closure-audit.md", "admin/audit_converter_closure.py"]},
+    {"name": "test_relocation", "model": "gpt-6.1-sol", "effort": "high", "ownership": ["source/apps/moproj2mst/tests/", "source/apps/moproj2mst/CMakeLists.txt", "admin/run_converter_tests.py", "analysis/test-relocation*"]},
+    {"name": "reference_harness", "model": "gpt-6.1-sol", "effort": "high", "ownership": ["tools/reference_harness/", "analysis/reference-harness*"]}
+  ],
+  "coordinator_ownership": "Shared contracts, plan/state, builds/test execution, integration, original runtime sessions and acceptance",
+  "original_launch_authorized_to_workers": false,
+  "completion_claim": false,
+  "package_status": {"1": "audit/backlog complete; full lifecycle closure remains open", "2": "relocated and 95 tests passing with explicit diagnostic gaps", "3": "reference harness implemented; fresh full original capture pending"},
+  "report": "analysis/implementation-wave1-report.md",
+  "final_build": "analysis/wave1-connector-final-v2-build.json",
+  "final_tests": "analysis/wave1-final-tests.json",
+  "token_measurement": null
+}

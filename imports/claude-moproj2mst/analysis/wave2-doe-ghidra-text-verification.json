@@ -1,0 +1,63 @@
+{
+  "command": [
+    "C:/Tools/jdk-21/bin/java.exe",
+    "-Xmx2G",
+    "-XX:ParallelGCThreads=2",
+    "-XX:CICompilerCount=2",
+    "-Djava.system.class.loader=ghidra.GhidraClassLoader",
+    "-Dfile.encoding=UTF8",
+    "-Duser.country=US",
+    "-Duser.language=en",
+    "-Dsun.java2d.d3d=false",
+    "-Duser.home=C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\runtime\\user",
+    "-Djava.io.tmpdir=C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\runtime\\tmp",
+    "-Dapplication.settingsdir=C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\runtime\\settings",
+    "-Dapplication.cachedir=C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\runtime\\cache",
+    "-cp",
+    "C:/Tools/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Utility/lib/Utility.jar",
+    "ghidra.Ghidra",
+    "ghidra.app.util.headless.AnalyzeHeadless",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\project-copy",
+    "guimo",
+    "-process",
+    "DEF_GUI_MO_64.exe",
+    "-readOnly",
+    "-noanalysis",
+    "-scriptPath",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\tools\\doe_ghidra",
+    "-postScript",
+    "DoeTextIdentity.java",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\analysis\\wave2-doe-ghidra-text-memory.json",
+    "140001000",
+    "31462055",
+    "14528d000",
+    "6520",
+    "-log",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\text-identity-ghidra.log",
+    "-scriptlog",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\doe-ghidra-wave2\\text-identity-script.log"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 17.398,
+  "target_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "sections": [
+    {
+      "name": ".text",
+      "start": "140001000",
+      "length": 31462055,
+      "file_offset": 1024,
+      "sha256": "cc86e752c59cfaa33bb08c219d5d1a6b05af5aafe541831d845b83ab062912d0",
+      "match": true
+    },
+    {
+      "name": "text",
+      "start": "14528d000",
+      "length": 6520,
+      "file_offset": 66757632,
+      "sha256": "181e235217ac75106ea40b9e2ba213fa12f5424fc97d8ba5c2af764b317f18dc",
+      "match": true
+    }
+  ],
+  "all_match": true,
+  "qualification": "Whole initialized executable-section bytes compared; does not establish decompiler types/semantics. No target runtime/shared REA connection."
+}

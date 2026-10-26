@@ -1,0 +1,49 @@
+{
+  "schema": "editor300-lineedit-empty-and-length-amendment-v1",
+  "amends": {
+    "path": "analysis/wave3-editor-operation-name-maxlength-defect.json",
+    "sha256": "01fe1792f21682d3b75e994f7e856207d562d010b3170ea1205c8410398ec7c9"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-string-empty-left-static.json",
+      "sha256": "3d7f56a30de36b1d9408d8058b7b7809d5acaf28b9548890a2f4a75cda7438cb"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-latin1-empty-static.json",
+      "sha256": "0636a5d21ef84fcf76a6c03b13b4631a9cc985bbafd73dd19309c2beaebd02b7"
+    }
+  ],
+  "native_empty": {
+    "constructor": "QLineEdit653bf540 passes a default QString to private init653beb20; QLineControl6537a4f0 creates its stored QString at+10, then653c5260 assigns the supplied string. The initial mask pointer+98 is null and maximum length+4c is32767.",
+    "getter": "QLineEdit::text653bf9b0 calls QLineControl65375720. The getter copies stored+10; if QString::isNull succeeds, it returns QString::fromLatin1(nonnull empty source656af968,-1) instead of returning the null stored value.",
+    "isNull": "QtCore67017c20..67017c2d tests whether data equals shared-null672f0b30. Leaf bytes following this RET are a different function.",
+    "emptyLatin1": "QtCore670741e0 forwards to6706bf40. For a nonnull pointer to zero and length-1, reached branch6706bf67..89 returns shared-empty672f0b50. It is distinct from shared-null672f0b30. The first unwind region covers this complete reached branch; later nonempty conversion is not claimed by this capture.",
+    "consequence": "Fresh control storage is null, but text() is an empty nonnull QString. A reconstructed owned line-edit record needs either both representations or an explicit accessor transformation. Setting every stored QString to nonnull empty would lose internal state."
+  },
+  "native_left": "QtCore QString::left67073ef0 compares requested count to UTF16 length. If count is nonnegative and less than length, it copies that many UTF16 units via6706b320; otherwise it shares the original. Thus the existing ASCII profile can implement the name limit as its first20 characters without changing encoding scope.",
+  "controls": {
+    "count": 97,
+    "same_setup_vtable": "14218c2e8",
+    "inventory_source": {
+      "path": "analysis/wave3-editor-operation-name-maxlength-defect.json",
+      "sha256": "01fe1792f21682d3b75e994f7e856207d562d010b3170ea1205c8410398ec7c9"
+    },
+    "max_length_overrides": [
+      {
+        "ui": "0x128",
+        "value": 256,
+        "setup_line": 1870
+      },
+      {
+        "ui": "0x138",
+        "value": 20,
+        "setup_line": 1956
+      }
+    ],
+    "other_max_length": 32767,
+    "setup_input_masks": 0
+  },
+  "implementation_priority": "Repair the already-supported General name truncation first; retain the unimplemented fresh line-edit storage/accessor projection as a later setup dependency. No need to broaden public editor support or change the shared Qt String class.",
+  "validation": "Static original binary evidence only; no native execution, no worker builds or tests."
+}

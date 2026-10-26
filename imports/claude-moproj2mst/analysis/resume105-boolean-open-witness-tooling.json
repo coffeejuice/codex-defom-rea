@@ -1,0 +1,317 @@
+{
+  "schema": "m2m.cp105.boolean-open-witness-tooling-receipt.v1",
+  "status": "implemented_and_offline_verified",
+  "scope": "retained capture preflight only; no native timing acceptance",
+  "exclusive_files": [
+    "admin/check_boolean_open_witness.py",
+    "analysis/resume105-boolean-open-witness-tooling.json"
+  ],
+  "tool": {
+    "path": "admin/check_boolean_open_witness.py",
+    "sha256": "dcb0bf9af01c3b784f6fb7a614b3b34f682b40d59f3c38c22639968b2959b9b1",
+    "bytes": 18592,
+    "lines": 340,
+    "ast_compile": "passed, in memory",
+    "imports": [
+      "argparse",
+      "copy",
+      "hashlib",
+      "json",
+      "pathlib",
+      "sys"
+    ]
+  },
+  "runs": [
+    {
+      "arguments": [
+        "--self-test"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "status": "valid_preflight_witness_unobserved",
+      "witness_admitted": false
+    },
+    {
+      "arguments": [
+        "--require-witness"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "status": "valid_preflight_witness_unobserved",
+      "witness_admitted": false
+    },
+    {
+      "arguments": [
+        "--capture",
+        "../AGENTS.md"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "status": "rejected_input",
+      "witness_admitted": false
+    },
+    {
+      "arguments": [
+        "--capture",
+        "analysis/resume105-boolean-first-open-witness-boundary.md"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "status": "rejected_input",
+      "witness_admitted": false
+    }
+  ],
+  "retained_inputs_unchanged": {
+    "build/original-editor-probe-004/capture-evidence.json": "e4d0a277c4bbb074fa1e038ce3870e64ebb87ec884665cb1bb0ddd0221f99ced",
+    "analysis/wave3-original-editor-probe-004-receipt.json": "63f392d69d9def0699f963a3722b9f4e0b257c0192ad53f4097a3ea2f5250439",
+    "build/original-editor-probe-004/probe.js": "0251ee49c0378af50e0778c8a584a5243402b10f26ab64fc315466bf10c68203"
+  },
+  "result": {
+    "status": "valid_preflight_witness_unobserved",
+    "valid_preflight": true,
+    "witness_admitted": false,
+    "errors": [],
+    "input_bindings": [
+      {
+        "path": "build/original-editor-probe-004/capture-evidence.json",
+        "sha256": "e4d0a277c4bbb074fa1e038ce3870e64ebb87ec884665cb1bb0ddd0221f99ced",
+        "matches_pin": true
+      },
+      {
+        "path": "analysis/wave3-original-editor-probe-004-receipt.json",
+        "sha256": "63f392d69d9def0699f963a3722b9f4e0b257c0192ad53f4097a3ea2f5250439",
+        "matches_pin": true
+      },
+      {
+        "path": "build/original-editor-probe-004/probe.js",
+        "sha256": "0251ee49c0378af50e0778c8a584a5243402b10f26ab64fc315466bf10c68203",
+        "matches_pin": true
+      }
+    ],
+    "module_identity_authority": "pinned root receipt; not raw expectedFileSha256 alone",
+    "manifest": {
+      "schema": "m2m.boolean-open-selector-preflight.v1",
+      "scope": "retained Editor004 only; no future trace admission",
+      "image_base": "0x140000000",
+      "expected_module_sha256": {
+        "DEF_GUI_MO_64.exe": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+        "QtCore4_64.dll": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+        "QtGui4_64.dll": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+      },
+      "selected_profile": "native CLI startup, current user settings",
+      "selected_fixture": "C:\\PROBLEM\\m2m42\\DB_deconstruction_02.moproj",
+      "boundaries": [
+        {
+          "kind": "CliLoaderReturned",
+          "rva": "0x1c94",
+          "is_whole_open_completion": false
+        },
+        {
+          "kind": "CliPostOpenReturned",
+          "rva": "0x1cae",
+          "is_whole_open_completion": false
+        },
+        {
+          "kind": "CliStartupBranchCompleted",
+          "rva": "0x1e4e",
+          "is_whole_open_completion": true
+        },
+        {
+          "kind": "GuiHandlerReturned",
+          "entry_rva": "0x271b0",
+          "rva": "0x28514",
+          "separate_from_cli_profile": true
+        }
+      ],
+      "callback_selectors": [
+        {
+          "role": "diagram modelUpdated",
+          "rva": "0x183160",
+          "owner": "diagram receiver D; attachment is not OPI/GuiModel"
+        },
+        {
+          "role": "actual registry invocation",
+          "rva": "0x2cf6c6",
+          "requires": "emission/list-entry/receiver-lifetime identity; not registration alone"
+        },
+        {
+          "role": "current widget UpdateData",
+          "rva": "0xdae340",
+          "requires": "actual impl current guard -> Boolean editor E"
+        },
+        {
+          "role": "Boolean Apply",
+          "rva": "0x11e2870",
+          "requires": "entry/normal return, frame/thread identity, editor lifetime"
+        },
+        {
+          "role": "editor guarded OPI resolver",
+          "rva": "0x130af0",
+          "requires": "E+38 resolution result OPI O, not GuiModel"
+        }
+      ],
+      "creation_origins": [
+        {
+          "kind": "postLoadZeroOpiRecords",
+          "call_rva": "0x11df0e9",
+          "normal_return_rva": "0x11df0ee",
+          "primitive_rva": "0x57ba0",
+          "rcx_role": "OPI",
+          "proves_apply": false,
+          "predicate": "OPI slot-record count == 0; not engine object count"
+        },
+        {
+          "kind": "applyWorkpiece",
+          "call_rva": "0x11e2955",
+          "normal_return_rva": "0x11e295a",
+          "primitive_rva": "0x57ba0",
+          "rcx_role": "OPI",
+          "requires": "same nested Apply frame and returned object/number"
+        },
+        {
+          "kind": "applyCutter",
+          "call_rva": "0x11e2bc6",
+          "normal_return_rva": "0x11e2bcb",
+          "primitive_rva": "0x57ba0",
+          "rcx_role": "OPI",
+          "requires": "same nested Apply frame and returned object/number"
+        }
+      ],
+      "creation_scope": "three direct Boolean sites; shared load/row creation remains distinct (CP103)",
+      "future_positive_witness_requirements": [
+        "one process/module/fixture/profile and explicitly selected Open span",
+        "per-thread nested invocation ordinals with missing-return/read-error rejection",
+        "window/project -> actual current impl/editor -> guarded OPI lifetime links",
+        "normal Apply return inside selected Open; add normal return for creation claim",
+        "actual D/emission/receiver links if claiming the modelUpdated route",
+        "actual timer/connection lifetime if claiming an Open-registered timer origin",
+        "gap-free earlier selected coverage for first/absence claims; positive is narrower"
+      ],
+      "forbidden_inferences": [
+        "loader return 1c94 means whole Open returned",
+        "Forming eb26f0 means Boolean 11e2480",
+        "registration or posted/wake record means a live Boolean Apply occurred",
+        "postLoad object, final object count, or file parity identifies an Apply origin",
+        "candidate declared schedule supplies original HWND/serial/postedWake readiness"
+      ]
+    },
+    "coverage": {
+      "coverage_issues": [],
+      "observation_count": 73,
+      "observed_editor_kind": "Forming",
+      "constructor_rva": "0xeb26f0",
+      "selected_prefix": [
+        {
+          "message_index": 53,
+          "ordinal": 1,
+          "tid": 30444,
+          "stage": "mainwindow_return",
+          "data": {
+            "owner": "0xafdce0"
+          }
+        },
+        {
+          "message_index": 54,
+          "ordinal": 2,
+          "tid": 30444,
+          "stage": "native_open_enter",
+          "data": {
+            "path": "C:\\PROBLEM\\m2m42\\DB_deconstruction_02.moproj",
+            "owner": "0xafdce0"
+          }
+        },
+        {
+          "message_index": 55,
+          "ordinal": 3,
+          "tid": 30444,
+          "stage": "project_read_enter",
+          "data": {
+            "project": "0x3797390",
+            "modelChild": "0x3795990"
+          }
+        },
+        {
+          "message_index": 56,
+          "ordinal": 4,
+          "tid": 30444,
+          "stage": "project_read_return",
+          "data": {
+            "result": 1
+          }
+        },
+        {
+          "message_index": 57,
+          "ordinal": 5,
+          "tid": 30444,
+          "stage": "native_open_return",
+          "data": {
+            "project": "0x3797390",
+            "matches": true
+          }
+        },
+        {
+          "message_index": 58,
+          "ordinal": 6,
+          "tid": 30444,
+          "stage": "post_open_enter",
+          "data": {
+            "project": "0x3797390"
+          }
+        },
+        {
+          "message_index": 59,
+          "ordinal": 7,
+          "tid": 30444,
+          "stage": "editor_constructor_enter",
+          "data": {
+            "editor": "0x383e780",
+            "operation": "0x37bdbe0",
+            "postOpen": true
+          }
+        }
+      ],
+      "observed_endpoint": "selected_editor_first_grid_published",
+      "open_boundary_coverage": {
+        "CliLoaderReturned": "observed",
+        "CliPostOpenReturned": "unobserved",
+        "CliStartupBranchCompleted": "unobserved",
+        "GuiHandlerReturned": "different profile; unobserved"
+      },
+      "boolean_apply_within_open": "unobserved",
+      "boolean_apply_creation_within_open": "unobserved",
+      "selected_whole_open_coverage": "incomplete",
+      "native_first_open_apply_timing": "unknown",
+      "witness_admitted": false,
+      "first_or_absence_claim_admitted": false,
+      "interpretation": "unobserved is not proof of no original occurrence"
+    },
+    "effects": "read-only local bytes; stdout only; no original/GUI/debugger/REA calls",
+    "requested_capture": "build/original-editor-probe-004/capture-evidence.json",
+    "tool_sha256": "dcb0bf9af01c3b784f6fb7a614b3b34f682b40d59f3c38c22639968b2959b9b1",
+    "self_tests": {
+      "status": "passed",
+      "count": 12,
+      "cases": [
+        "retained Forming evidence is valid preflight, never witness",
+        "loader return does not close whole Open",
+        "postLoad and two Apply origins have distinct normal returns",
+        "ordinal gap rejected",
+        "truncated stream rejected",
+        "read failure rejected",
+        "false Boolean constructor selector rejected",
+        "foreign Open owner rejected",
+        "injected Apply label cannot manufacture a witness",
+        "changed root receipt rejected",
+        "changed probe rejected",
+        "malformed message shape rejected"
+      ],
+      "scope": "offline checker rules only; synthetic mutations are not native evidence"
+    }
+  },
+  "production_changed": false,
+  "build_performed": false,
+  "original_execution": false,
+  "gui_or_app_control": false,
+  "rea_access": false,
+  "next_dependency": "Reviewed same-instance original trace under existing owned-session/release-safe execution gate; this tool cannot admit future traces."
+}

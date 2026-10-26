@@ -1,0 +1,130 @@
+{
+  "schema": "editor300-parentless-base-cursor-design-v1",
+  "created_utc": "2026-10-24T13:35:55.359888+00:00",
+  "status": "Design only during root44 validation. No implementation source released.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-probe003-base-grid-reconciliation.json",
+      "sha256": "03ff79f428a5846f581a5f0b97b76f476c9c1aff100d284605ab7f2311c824bf"
+    },
+    {
+      "path": "analysis/wave3-editor-shared-qobject-counter-contract.json",
+      "sha256": "882291ec5af40eb036763c7d7b782dd3c0153d60f63eb30ef1bd27174f200253"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-base-grid-dependencies.json",
+      "sha256": "3271d266b33aefd11638327f19208ce57b7fb83a94347b4a90ea925d3a3db935"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65070d70.asm",
+      "sha256": "79542748f0ce31086b76e420ab7024ddd133b5efdfc4f5f13d706e1ab95cc6d4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6505e780.asm",
+      "sha256": "76ea1255e2b25c691ec26bf3198d1ad53e991632b268a9d5c77e0b44c706bd81"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506e4d0.asm",
+      "sha256": "1d2055a58c726de2ca310043f32bff868d0c2658282831ac4da77a214203b200"
+    },
+    {
+      "path": "analysis/wave3-editor-native-parent-140377950.asm",
+      "sha256": "b252fc3bc745f5b40a99295833240ae346b6d6d21dafb987843b6443948e8ee8"
+    },
+    {
+      "path": "analysis/wave3-editor-native-owner-140130740.asm",
+      "sha256": "1ad1a26453389b352e1f49567868492be04eb84772bd75aa6a5beb75ec4bbbe7"
+    }
+  ],
+  "proposed_owned_files": [
+    "source/apps/moproj2mst/include/m2m/engine/editor_base.hpp",
+    "source/apps/moproj2mst/src/engine/editor_base.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp"
+  ],
+  "entry": "StagedEditor300::continueNativeBase(Editor300Binding, const EditorBaseContext&) returns retained EditorBaseReport; factory owns unique EditorBaseConstruction cursor. EditorBaseContext carries exact factory receiver, nonempty evidence qualification, actual current WidgetThreadState lifetime owner. Parent=null and flags=0 are fixed by this native callsite, not configurable defaults.",
+  "identity": "No second WidgetState or runtime. Weak owner links plus actual native liveness; compare shared ownership control blocks as well as raw identity on every retained context. Stored Project/Operation/GuiModel/Remesh binding remains exact. Existing early model guard in StagedEditor300 is an adapter identity token and is not claimed as the later native guard assignment.",
+  "stages": [
+    {
+      "stage": "PrivatePrefix",
+      "source": "65070d99 allocation then6505e79f QObjectPrivate construction; pointer/member defaults through6505e8ca",
+      "effect": "Initialize source-closed QObject/name/filter/child/property empty private state and QWidget private pointer/default members in actual widget; no registry, widgetData, thread retain or counter yet. Native success-allocation profile only."
+    },
+    {
+      "stage": "PrivatePalette",
+      "source": "6505e8d4 ->6504abb0 -> current QApplication palette getter",
+      "effect": "Copy same-runtime current application palette shared data, set source-defined group/resolve bits. Unknown actual current getter input stops before copy, retaining earlier private effects."
+    },
+    {
+      "stage": "PrivateFont",
+      "source": "6505e8de ->651f3560 -> current QApplication font getter",
+      "effect": "Retain actual shared font data then resolveMask0 in source order. It is not a clone and does not use startup font without editor-time qualification."
+    },
+    {
+      "stage": "PrivateLocaleAndTail",
+      "source": "6505e8ef sizePolicy55;6505e900 actual default QLocale, remaining pure member constructors;6505e94f..96c known opacity masks",
+      "effect": "Bind exact default locale value, known source member defaults only. Application-present check6505e972 and fixed header version40804 precede isWidget bit/extended attribute zero stores6505e9a5..bd; missing application does not silently continue."
+    },
+    {
+      "stage": "QObjectConstruction",
+      "source": "65070dc2 ->6712e630(parentnull)",
+      "effect": "Select actual current QThreadData, retain same strong thread owner, then shared process QObject counter increment; source native nullparent skips parent helper. Unknown thread/counter representation is an explicit guard; no parent/child membership."
+    },
+    {
+      "stage": "PaintDeviceAndWidgetClass",
+      "source": "65070dcd QPaintDevice then QWidget vtables65070dd3..e4",
+      "effect": "Source-defined initial native type/paint-device profile belongs to actual widget. Not a separately allocated proxy receiver."
+    },
+    {
+      "stage": "InitRegistry",
+      "source": "6506e501 QApplication GUI test then6506e51e..53b allWidgets conditional insertion",
+      "effect": "Use same runtime registry owner; known absent registry skips exactly, unknown guards. Registry insertion precedes QWidgetData/flags/geometry."
+    },
+    {
+      "stage": "InitData",
+      "source": "6506e554..681",
+      "effect": "Assign actual widgetData, flags0, source low-attribute initialization/raw76/raw16, parentless QRect0,0,639,479, self focus links. Source setters may only be treated as pure after their relevant switch branches close."
+    },
+    {
+      "stage": "ParentlessFlagsDirection",
+      "source": "6506e6d3 adjustFlags0->0x0800f001;6506e6e5 resolveLayoutDirection",
+      "effect": "Read same actual runtime application direction. Equal requested RTL bool/current raw56 branch returns. Changed branch remains guarded until children propagation/raw0x5a recovered, with any reached original write retained."
+    },
+    {
+      "stage": "ParentlessPaletteOpacity",
+      "source": "6506e6ed palette getter ->current group brushrole10 ->isOpaque ->private bit17 ->winUpdateIsOpaque",
+      "effect": "Preserve palette group mutation and source decision. Actual modal predicate remains explicit unknown unless bound; observed group0 does not prove unconditional modalfalse. Supported style1 alpha predicate can use typed qualified QColor value or source-qualified opaque observation; do not invent raw color fields. raw120false closes native opacity helper without OS calls."
+    },
+    {
+      "stage": "SharedTail",
+      "source": "6506e75b onward",
+      "effect": "Delegate same WidgetRuntime/WidgetState to closure WidgetConstructorTail::resume. Tail owns stack Create event through font/attributes/counts/compatibility/notify/raw4a post/privateC8clear/event destruction. Unknown post retains event and call frame."
+    },
+    {
+      "stage": "QWidgetReturned",
+      "source": "65070dff return",
+      "effect": "Only QWidget base completed. SfWidget model/procedure flags and operation-wrapper signal/connect steps follow; no native UI allocation/setup completion claim yet."
+    }
+  ],
+  "shared_interface_dependencies": [
+    "Closure owns source-identical private initialization and current-constructor input binding on existing runtime interning tables; exact API pending. Current observeStartupValues is one-shot and does not qualify later Open inputs.",
+    "Closure owns one process QObject counter, current/max QWidget counters, actual app/layout direction/modal state and font/device/Create/post primitives. Editor cursor only consumes source-ordered methods and reports stages.",
+    "Root owns Session integration: bind factory runtime after representation allocation; run base before counting UI setup allocation as native. Existing isolated projected setup helpers retain declared profile rather than bypassing new native base guard."
+  ],
+  "focused_cases": [
+    "Unbound/foreign/destroyed factory/runtime/current-thread owner rejects without initializing private effects; same-address foreign control block rejected.",
+    "Unknown current application palette guards after earlier private defaults but before font/locale/extended attributes/thread/counter/registry.",
+    "Unknown current font guards after retained palette copy; resume does not create another private owner or recopy completed source fields.",
+    "Unknown locale/application preserves earlier values; no extended-attribute zeros or QObject counter before reached source stage.",
+    "Parentless thread binding + exact shared counter increment happens once before registry and no QObject parent membership.",
+    "Unknown registry stops before widgetData; known absent skips insertion; known present registers exact actual component once.",
+    "Parentless geometry/self focus and flags differ from parented SplitView profile; existing stored mutable widget fields cannot be overwritten by a stale observation.",
+    "Equal direction emits no raw0x5a; changed/unknown direction refuses precisely.",
+    "Unknown modal profile retains adjusted flags/direction and guards before invented palette outcome; known supported profile preserves same palette owner/group semantics.",
+    "Opacity source-style1 changes bit17; raw120false closes no-OS helper. Unknown/other reachable branch retains exact earlier effects.",
+    "Shared tail failed/post guard retains same native Create event and prior counters; resume uses same actual runtime/widget.",
+    "QWidget-returned report alone cannot authorize setup/UI or public300 Save. Wrapper callback gates remain visible."
+  ],
+  "qualification": "This is an implementation proposal, not source completion or test result. Source files remain frozen; parent controls release and builds."
+}

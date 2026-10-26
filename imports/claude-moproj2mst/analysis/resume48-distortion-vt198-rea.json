@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "checkpoint": "resume48",
+  "owner": "distortion_rea",
+  "scope": "Converter only: original SfOprDistortion vt+0x198 default contact pairs and bounded Save callers",
+  "status": "static_contract_recovered_from_verified_PE; connected_Ghidra_pseudocode_unavailable",
+  "authority": {
+    "behavioral_source": "Original DEF_GUI_MO_64.exe PE instructions; Microsoft dumpbin bounded disassembly; manual interpretation",
+    "not_observed": [
+      "Original function execution",
+      "Original fresh-project Save parity",
+      "Connected provider pseudocode",
+      "Exhaustive incoming call graph"
+    ],
+    "source_edits": false,
+    "builds": false,
+    "app_control": false
+  },
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "bytes": 67611136,
+    "fresh_copy": "analysis/resume48-distortion-vt198-rea-session/DEF_GUI_MO_64.exe",
+    "original_preserved": true
+  },
+  "sources": [
+    {
+      "path": "analysis/resume47-operation-override.md",
+      "qualification": "Prior read-only audit identifies the reachable refusal, not the missing method's semantics."
+    },
+    {
+      "path": "source/docs/re/moproj2mst/s/spec.md",
+      "qualification": "Inherited original-qualified common Save, ContactPair and append/mirror contract; class-specific Distortion algorithm absent. Common virtual call independently reverified in this pass."
+    },
+    {
+      "path": "source/docs/re/moproj2mst/mdt/L6/spec.md",
+      "qualification": "Inherited original-qualified Distortion property/data ownership and post-load contract, not pair-selection oracle."
+    },
+    {
+      "path": "source/docs/re/moproj2mst/s1-04/spec.md",
+      "qualification": "Inherited original-qualified DistortionPassData offsets and accessor identities; key scalar/array getters independently reverified in bytes."
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/data/distortion.hpp",
+      "qualification": "Reconstruction source mapped to original data offsets; consulted only for implementation boundary, not oracle."
+    },
+    {
+      "path": "analysis/resume48-distortion-vt198-pe-receipt.json",
+      "qualification": "Verified PE mapping, byte ranges/hashes, RTTI names, exact supporting disassembly hashes."
+    },
+    {
+      "path": "analysis/resume48-distortion-vt198-rea-provider-receipt.json",
+      "qualification": "Connected provider admission/startup failure and successful close receipt. No behavioral Evidence ID was returned."
+    }
+  ],
+  "session": {
+    "provider": "ghidra",
+    "version": "12.1.4",
+    "requested_operation": "procedure_pseudo_code(0x141361f70)",
+    "outcome": "provider_timeout",
+    "startup_deadline_ms": 330000,
+    "retried": false,
+    "closed": true,
+    "close_result": null,
+    "old_databases_or_locks_reused": false,
+    "tool_configuration_changed": false,
+    "limitation": "The first focused query never reached a usable native database. Independent bounded dumpbin inspection supplied the static contract; no successful REA decompile is claimed."
+  },
+  "identity": {
+    "constructor": "0x141361f70",
+    "vtable_install_instruction": "0x141361f96",
+    "vtable": "0x142e23698",
+    "slot_offset": "0x198",
+    "slot_address": "0x142e23830",
+    "slot_file_offset": "0x2e22030",
+    "target": "0x141364140",
+    "body_range": {
+      "start": "0x141364140",
+      "end_exclusive": "0x1413642c4",
+      "bytes": 388,
+      "source": "PE exception RUNTIME_FUNCTION",
+      "last_ret": "0x1413642c2",
+      "trailing_int3": "0x1413642c3"
+    },
+    "body_sha256": "7c3342cf721b2d654eb4d760a823d0909dcbadd5e8018e841bf5bf86708cf547",
+    "dimension_qualification": "Inherited registry/constructor spec maps SfOprDistortion2D and SfOprDistortion3D to this same constructor with +0x60 dimension byte. Constructor byte inspection verifies one installed vtable followed by storing the supplied dimension byte; this override never reads +0x60.",
+    "cast": {
+      "call": "0x1413641c3",
+      "source_rtti": "0x143579b60 .?AVSfOprBaseProperties@@",
+      "target_rtti": "0x1439ee1b0 .?AVSfOprDistortionProperties@@"
+    }
+  },
+  "ordered_behavior": [
+    {
+      "order": 1,
+      "sites": [
+        "0x141364168",
+        "0x14136416d",
+        "0x141364173",
+        "0x141364178"
+      ],
+      "fact": "Construct an empty local list at rsp+0x68, then construct one ContactPair at rsp+0x48. Pair constructor 0x1400657a0 initializes master=1, slave=1, friction=+0.0, IHTC=+0.0, lub byte +0x18=0, flag byte +0x19=1.",
+      "evidence": "body.asm and pair-ctor.asm"
+    },
+    {
+      "order": 2,
+      "sites": [
+        "0x141364185",
+        "0x14136419c",
+        "0x1413641c3"
+      ],
+      "fact": "Read this class's current operation via 0x1405ef2b0, resolve its properties via 0x1405ef320, then pointer dynamic_cast to SfOprDistortionProperties (isReference argument 0).",
+      "evidence": "body.asm; helpers.asm; RTTI bytes"
+    },
+    {
+      "order": 3,
+      "sites": [
+        "0x1413641cd",
+        "0x1413641d5",
+        "0x1413641e2",
+        "0x1413641ea"
+      ],
+      "fact": "Set fixtureCount=0. If cast result is non-null, read its +0x40 DistortionPassData pointer and then signed int +0x04 fixtureCount. Getter 0x14142ff20 is a raw +4 load.",
+      "evidence": "body.asm and helpers.asm"
+    },
+    {
+      "order": 4,
+      "sites": [
+        "0x1413641f3",
+        "0x141364200",
+        "0x141364208"
+      ],
+      "fact": "Set temporary fixture ID=0. Unconditionally read castResult->data (+0x40) and data->workpiece (+0xb4, getter 0x1413651b0). There is no null guard for this second data access.",
+      "evidence": "body.asm and helpers.asm"
+    },
+    {
+      "order": 5,
+      "sites": [
+        "0x141364211",
+        "0x141364216"
+      ],
+      "fact": "Use signed comparison. If workpiece<=0, skip generation and return the empty list.",
+      "evidence": "body.asm"
+    },
+    {
+      "order": 6,
+      "sites": [
+        "0x141364218",
+        "0x141364236",
+        "0x141364241",
+        "0x141364248",
+        "0x141364257"
+      ],
+      "fact": "For signed i=0; i<fixtureCount; ++i, fetch current castResult->data anew and read signed fixtures[i] from data+0xb8+4*i (0x141365210). No clamp, object lookup, ID validity check, duplicate suppression, or self-pair exclusion occurs.",
+      "evidence": "body.asm and helpers.asm"
+    },
+    {
+      "order": 7,
+      "sites": [
+        "0x141364264",
+        "0x14136426c",
+        "0x141364270",
+        "0x14136427f"
+      ],
+      "fact": "Overwrite pair.master=fixtures[i], pair.slave=workpiece, and byte pair+0x18 (lub)=1. Append a copy via 0x1400ad3b0. The ctor's friction=0, IHTC=0, and f19=1 remain unchanged. Preserve fixture order and duplicates.",
+      "evidence": "body.asm; pair-ctor.asm; common ContactPair spec"
+    },
+    {
+      "order": 8,
+      "sites": [
+        "0x141364293",
+        "0x1413642ae",
+        "0x1413642b3"
+      ],
+      "fact": "Copy/construct the local list into the hidden return object (0x140067390), destroy the local list (0x1405e0030), and return the supplied result object's pointer.",
+      "evidence": "body.asm; common inherited QList helper identities"
+    }
+  ],
+  "pair_record": {
+    "size_bytes": 32,
+    "fields": {
+      "+0x00": "master=fixtures[i]",
+      "+0x04": "slave=workpiece",
+      "+0x08": "friction=0.0",
+      "+0x10": "IHTC=0.0",
+      "+0x18": "lub=1",
+      "+0x19": "f19=1"
+    },
+    "padding": "Unspecified padding is not a semantic value.",
+    "note": "The explicit MOV byte [rsp+0x60],1 at 0x141364270 targets +0x18 of the pair whose base is rsp+0x48. It does not target +0x19."
+  },
+  "no_reads_or_calls_in_full_body": [
+    "Engine model/object count, kinds, meshes, or dimensions",
+    "Operation friction/IHTC property defaults",
+    "vt+0x1a0 contact-default callback",
+    "Distortion pass count/passObjects",
+    "Engine inter-object clear or append APIs; this method only returns its local list"
+  ],
+  "bounded_callers": [
+    {
+      "function": "0x14005a8a0",
+      "source": "analysis/resume48-distortion-vt198-save-interobject.asm",
+      "observation": "saveInterObject tests the System lubricant byte at 0x14005a8f2, calls rebuild 0x14005a9b0 at 0x14005a906 when set, then contactFlagsFromEngine 0x1400655d0 at 0x14005a915, then resolves/writes InterObject.KEY. Existing shared Save order remains unchanged."
+    },
+    {
+      "function": "0x14005a9b0",
+      "source": "analysis/resume48-distortion-vt198-caller.asm",
+      "observation": "After model/ICB/System guards, construct temporary DB_STEP_DATA(3), clear engine inter-object list at 0x14005aa9d, optionally import lubricant KEY and select first template, obtain operation class, call [vtable+0x198] at 0x14005ab96. The vtable and ctor establish that a Distortion instance dispatches to 0x141364140."
+    },
+    {
+      "function": "0x14005a9b0",
+      "sites": [
+        "0x14005ad9c",
+        "0x14005add8",
+        "0x14005ae11",
+        "0x14005ae5b"
+      ],
+      "observation": "For each returned record, look up master object; when found pass record.master address and record+0x18 byte (lub=1 here) to 0x140875a20. Whether or not master exists, use template-copy append 0x14035e540 if a template exists, otherwise numeric append 0x14035e6f0 with returned friction/IHTC=0 and f19=1. Existing append/mirror semantics are source-qualified from s/spec.md; not newly decompiled here."
+    }
+  ],
+  "valid_state_contract": {
+    "conditions": [
+      "Active class/current operation has SfOprDistortionProperties and non-null DistortionPassData.",
+      "The reconstruction's fixed fixtures storage contains every referenced fixture index; natural validated boundary is 0<=fixtureCount<=100."
+    ],
+    "result": "workpiece>0: one record per fixture in stored order, including zero/negative/missing/duplicate/self fixture IDs; otherwise empty. With fixtureCount<=0 and valid data, no records. Dimensions do not change this method's records.",
+    "existing_state_dependencies": "DistortionProps::data fixtureCount/workpiece/fixtures already exist in source. No newly unported engine or geometry state is required by this body."
+  },
+  "uncertainty": [
+    {
+      "topic": "Null properties/data",
+      "status": "Static fault inference, not runtime observation",
+      "detail": "The cast is tested only before the optional count read; unconditional +0x40 and +0xb4 loads follow. Returning empty on a failed cast or null data would add behavior absent from these bytes. Exact OS exception, reachability from normal fresh Open, and desired C ABI exposure remain untested."
+    },
+    {
+      "topic": "Malformed fixtureCount beyond fixed storage",
+      "status": "Original unchecked read observed statically; runtime result unknown",
+      "detail": "Getter uses signed index and raw +0xb8+4*i load. Do not claim original clamping or safe bounds behavior. A guarded reconstruction refusal for malformed/unrepresentable state must be documented as a boundary, not native parity."
+    },
+    {
+      "topic": "Complete callers",
+      "status": "Partial",
+      "detail": "This pass verifies the audited Save dispatch and its immediate Save wrapper. Connected Ghidra startup failed, so no exhaustive incoming-reference/caller claim is made."
+    },
+    {
+      "topic": "QList helper internals",
+      "status": "Inherited qualification",
+      "detail": "Ctor/append/return/dtor helper identities derive from prior common representation recovery. Full method instructions and scalar/data getters were independently verified; Qt allocation/failure internals were not re-recovered."
+    },
+    {
+      "topic": "Actual original Save outputs",
+      "status": "Unobserved",
+      "detail": "No app process, GUI session, original function invocation or fresh original Save was executed. Suggested expectations are static derivations and must not be reported as runtime parity."
+    }
+  ],
+  "smallest_implementation_boundary": {
+    "suggestion": "Add only a Distortion-specific default-pair helper and route SfOprDistortion2D/SfOprDistortion3D classDefaultPairs arms to it. Consume the active class/current DistortionProps::data semantics already present; retain the established common contact rebuild/append/mirror/save order.",
+    "required_logic": [
+      "Resolve the active Distortion properties/data under the lifecycle's current-operation contract.",
+      "Read fixtureCount before workpiece, preserve workpiece<=0 empty gate.",
+      "For each stored fixture index in order emit ContactPair{master=fixtureId,slave=workpiece,frc=0,ihtc=0,lub=1,f19=1}.",
+      "Do not reuse baseDefaultPairs, call classContactDefaults, filter fixture IDs, deduplicate, exclude self pairs, or dimension-condition this method."
+    ],
+    "malformed_state": "Do not silently return empty for missing props/data or clamp oversized counts. If reconstruction cannot represent the native invalid-state behavior, keep an explicit qualified refusal there; implementation of crash/error exposure requires separate decision/evidence.",
+    "files_expected_for_parent": "source/apps/moproj2mst/src/engine/save_current.cpp plus focused owned test file; this lane edited neither."
+  },
+  "smallest_tests": [
+    {
+      "id": "distortion_3d_two_fixtures",
+      "setup": "System lubricant enabled, active Distortion3D, valid data fixtureCount=2 fixtures=[3,2], workpiece=1, no lubricant template, engine objects available",
+      "assert": "Returned records (3,1),(2,1), frc=IHTC=0, lub=f19=1. Through common rebuild, four pair records in order (3,1) kind2,(1,3) kind1,(2,1) kind2,(1,2) kind1; 3D flag=1; BCC lubricant receives side byte1."
+    },
+    {
+      "id": "distortion_2d_same_selection",
+      "setup": "Same valid data under Distortion2D",
+      "assert": "Same returned records and order; downstream dimension handling remains the existing shared append contract, with no forced 3D flag write."
+    },
+    {
+      "id": "distortion_empty_gates",
+      "setup": "Valid data workpiece=0 and negative; separately fixtureCount=0 and negative with positive workpiece",
+      "assert": "Empty returned list; common rebuild's prior clear still occurs when System path is reached."
+    },
+    {
+      "id": "distortion_unfiltered_fixture_ids",
+      "setup": "Bounded valid storage, positive workpiece, fixtures including a duplicate, workpiece itself, zero and negative ID",
+      "assert": "Generation preserves all entries and order; do not invent validity/self/duplicate filters."
+    },
+    {
+      "id": "distortion_template",
+      "setup": "Valid fixture pair plus successfully imported first lubricant template with nonzero contact coefficients",
+      "assert": "Class record remains zero numerical defaults/lub1/f19=1; common caller clones template coefficients while assigning IDs, mirrored kind, and dimensional flag. Distinguish class-return expectations from final pair coefficients."
+    },
+    {
+      "id": "distortion_system_guard_and_save_order",
+      "setup": "Compare enabled System path, disabled System path and missing engine model through existing focused harness",
+      "assert": "Only enabled reachable rebuild calls this algorithm. Preserve existing clear/import/defaults/BCC/append/contact-flags/KEY-save sequence."
+    }
+  ],
+  "validation": {
+    "performed": [
+      "Original SHA check and fresh copy SHA admission through connected REA",
+      "PE section mapping of ctor, installed vtable and exact slot qword",
+      "PE exception directory body extent check",
+      "Bounded dumpbin complete body/caller/Save-wrapper/ctor/getters inspection",
+      "RTTI type-name bytes check"
+    ],
+    "not_performed": [
+      "Build",
+      "Unit tests",
+      "Source modifications",
+      "Runtime original capture",
+      "Fresh original comparison"
+    ],
+    "conclusion": "Enough verified static evidence for the bounded valid Distortion default-pair branch; not objective completion or scientific acceptance."
+  },
+  "handoff": "Parent can implement only the bounded valid-data branch from this contract, retaining all source qualifications and the unavailable connected pseudocode status.",
+  "measurements": {
+    "provider_deadline_ms": 330000,
+    "token_usage": "unavailable; not estimated",
+    "speed_or_token_savings_claimed": false
+  }
+}

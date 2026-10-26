@@ -1,0 +1,61 @@
+{
+  "status": "Read-only proposal; no production edits after shared-grid freeze",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-probe004-constructor-tail-reconciliation.json",
+      "sha256": "11b8d10f0e09f89c2555d15c11dc2cba3d0c837070a3ec2c9db0e63757f24dd6"
+    },
+    {
+      "path": "analysis/wave3-close-widget-shared-events-contract.json",
+      "sha256": "77366a6cca1b661b6d3fa3d607b5e61024369c796b75b59c62117b54c10b4746"
+    }
+  ],
+  "api": {
+    "font_data": "Add optional<uint32_t> deviceScreenField3c to WidgetFontDataObservation/State; retain actual shared-data alias and fill-unknown/conflict rules.",
+    "entry": "WidgetRuntimeState::observeStartupConstructorTail(const WidgetConstructorTailObservation&)",
+    "observation_fields": [
+      "weak actual MainView/ViewManager",
+      "qualification string",
+      "existing WidgetFontAlias and optional<uint32_t> field3c",
+      "optional<uint32_t> displayDcAlias (0=known null)",
+      "optional<int32_t> displayLogicalDpiY",
+      "optional<uint16_t> mainViewDpiYOverride",
+      "optional<bool> currentQThreadIsApplicationQThread",
+      "optional<uint32_t> currentWidgetCount,maxWidgetCount",
+      "optional<uint32_t> initialNotifyDepth"
+    ],
+    "owner": "One WidgetDisplayDeviceState in existing WidgetRuntime owns cache identity+DPI value; same runtime owns exact widget globalcounts. Existing WidgetThreadState owns notificationdepth. WidgetState owns optionalDPIoverride and typedpaint-device destination.",
+    "seeding": "Bound to actualMainView/manager after existingvaluebinding before pendingSplitViewallocation; no replacing knowncurrentvalues, no generic observed-success gate.",
+    "event": "WidgetEventState::create() typed retained native-stack raw0x0f. Shared WidgetEventDispatch adds gesture stage before filters; actual currentwidget/ancestor/window/context/exclusivity dependencies.",
+    "cursor": "SplitView retains stackCreateevent and dispatchframe; one-shot FontDevice->Attributes->WidgetCounts->Compatibility->Create->Raw4aPostPending. Create event staysalive across posting guard: native QEventdtor6506e869 is AFTER postreturn6506e857 and private+c8write6506e85d."
+  },
+  "first_supported_scope": [
+    "Metric8 onactualwidgetparentchain uses same actual runtime cachedDC/logicalDPI; guard foreignthread/nullcache/unqualifiedvalue before dependency.",
+    "Match sourcefield38 tocomputedmetric and field3c0; preserve existingFontData/mask, exact temporaryownership. Differentfontcopy remains guarded.",
+    "Write rawattribute34/35, uint32wrapincrement and signedmaximumcomparison. Compatibility nativecreate bypass uses existingactualcompileVersion/attrs.",
+    "Execute typedCreate through sharedruntime; exact normalfalse result computed by source, not input. Stop before raw4a posting until queueintegration."
+  ],
+  "fresh_binding": {
+    "fontAlias": 1,
+    "field3c": 0,
+    "displayDcAlias": 1,
+    "displayLogicalDpiY": 168,
+    "mainViewDpiYOverride": 0,
+    "currentQThreadIsApplicationQThread": true,
+    "currentWidgetCount": 173,
+    "maxWidgetCount": 173,
+    "initialNotifyDepth": 0
+  },
+  "queue_successor": [
+    "Seed one ordered actual queue with19 observed record/event aliases, actualknownMainView/manager weakidentities andopaqueearlierreceivers, never fakeWidgetState.",
+    "Records separate fromeventowners; copiespreserveeventidentity; removaltombstones retainrecord/order.",
+    "Same WidgetState postedCount and WidgetThreadState canWait; typedpostcursor preservesappend->postedbit->count->canWait->unlock->wake.",
+    "Missing dispatcher inputs guard aftercommittedqueueprefix; eventownership/notifierstate cannotbe substitutedbycounters.",
+    "QObject-wide postedcleanup separate fromexact-eventremoval; native teardown parity still guarded."
+  ],
+  "qualifications": [
+    "Original freshstartup inputs only, not editor-time defaults or invariance.",
+    "Root owns Sessionprofile, allbuilds/validation. Remesh uses samewidget/event/threadowner.",
+    "No production edit in proposal; shared6files remain frozen."
+  ]
+}

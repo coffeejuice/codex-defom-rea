@@ -1,0 +1,48 @@
+{
+  "schema": "wave3-editor-timeid-implementation-seam-v1",
+  "created_utc": "2026-10-24T05:15:26.841374+00:00",
+  "status": "prepared_during_furnace_source_freeze",
+  "evidence": {
+    "path": "analysis/wave3-editor-timeid-contract.json",
+    "sha256": "074a71c2990396d08b772c092e729651ad40f5d028161bea65792876bd34a008"
+  },
+  "proposed_files": [
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp"
+  ],
+  "state": "EnvironmentTimeIdState { bool differenceBoundaryChecked=false; vector<array<qt::String,2>> betweenTemperatureRows; vector<qt::String> belowTemperatureRows; vector<qt::String> aboveTemperatureRows; }, retained in EnvironmentPage. Names match original tableBetweenT/tableBelowT/tableAboveT.",
+  "signature": "Keep existing arguments and add defaulted previousDifferenceBoundaryChecked=false to fillEnvironment3D. Actual composer passes pages.environment.timeId.differenceBoundaryChecked before replacing the page snapshot.",
+  "model_effects": "Fill is observational for TIMEID. Initial false comes from the original Qt constructor. Finding ID1 sets the checkbox under the original suppression contract; absent ID1 preserves its prior value. Every fill replaces all row vectors. Apply does not read these display rows or restore TIMEID.",
+  "bounds_and_profiles": [
+    "If n[0]<=0, original does not read axis or values: return empty row vectors and the prior checkbox state.",
+    "If positive, require the reached axis storage. Compare doubles exactly against1/2/3/4; unordered/other axes remain ignored and never require values.",
+    "Only reached ID2/3/4 formatting needs a supported logical values-allocation profile, a values pointer, valid positive component stride, and original signed32 index arithmetic without overflow. Preserve source component indexing, including ID2 reading the next logical value when ncomp==1 and index+1 is still within the allocation.",
+    "KnownC finite-value QString g6 formatting is the initial display profile; formatted nonfinite values and unsupported allocation metadata remain explicit guards. These refusals are reconstruction boundaries, not original validation errors."
+  ],
+  "exact_tests": [
+    {
+      "name": "environment_timeid_displays_original_tables_without_mutating_model",
+      "checks": "Mixed/repeated IDs, unknown IDs, NaN axis, ID1 checkbox, exact g6 text and per-table order; all source arrays/counts/metadata and values retained."
+    },
+    {
+      "name": "environment_timeid_refill_retains_checked_state_but_replaces_rows",
+      "checks": "First fill with ID1 followed by source without ID1 keeps checked when prior state supplied; fresh source without ID1 starts unchecked; all three table rows clear/rebuild independently."
+    },
+    {
+      "name": "environment_timeid_guards_only_reached_values_and_preserves_original_row_overlap",
+      "checks": "ID2/ncomp1 earlier row consumes the next allocated value; last-row overrun refuses. Unknown/ID1-only rows accept absent values and do not demand unused stride metadata. Positive count with missing axis and reached missing values/overflow/nonfinite formatting refuse without SC writes."
+    },
+    {
+      "name": "initial_editor_timeid_final_refill_retains_checkbox_history_and_current_rows",
+      "checks": "Initial source contains ID1; an existing Extra3D initial-read hook changes TIMEID before backed-up refill. Final snapshot keeps checked but displays only the new table rows, with model arrays unaffected by the suppressed callback."
+    },
+    {
+      "name": "initial_editor_timeid_apply_preserves_later_live_model_over_display_snapshot",
+      "checks": "After Open, replace live TIMEID values/counts and metadata. Apply keeps them; it does not rebuild or restore TIMEID from remembered row text. Existing environment and VFACTR behavior still executes."
+    }
+  ],
+  "qualification": "Implementation not started. Root retains source freeze, builds, tests and integration. This seam does not model user-edited table or DiffBnd callbacks or remove public editor300 guard."
+}

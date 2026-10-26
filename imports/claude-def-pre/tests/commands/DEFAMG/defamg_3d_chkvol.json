@@ -1,0 +1,25 @@
+{
+ "label": "DEFAMG obj1 3D with CHK_VOL.INI > 0 present (deleted by the start cleanup, T8-5)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 1200,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nDEFAMG       1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+  },
+  {
+   "name": "CHK_VOL.INI",
+   "text": "1.0\n"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "T8-5: the DEFAMG start cleanup 14013e880 -> 14013ea10 deletes CHK_VOL.INI before the 3D steps, so 140140110 / 140141d50 never see it and CHKVOL is not launched from DEFAMG (only DEF_AMG3_GUI runs in between). Expected: CHK_VOL.INI deleted, everything else as defamg_3d."
+ }
+}

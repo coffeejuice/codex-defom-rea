@@ -1,0 +1,40 @@
+Bounded source evidence, CP65 (read-only)
+
+Current converter: source/apps/moproj2mst/src/qt4/number.cpp, lines 460-475
+
+// QString::toInt(bool*, 10) -> toLongLong (default locale, then C; the same for these inputs),
+// then the int range check.
+int toInt(const String& s, bool* ok)
+{
+    std::string buf;
+    bool my_ok = false;
+    long long v = 0;
+    if (numberToCLocale(s, &buf)) v = bytearrayToLongLong(buf, 10, &my_ok);
+    if (!my_ok || v < INT_MIN || v > INT_MAX) {
+        if (ok) *ok = false;
+        return 0;
+    }
+    if (ok) *ok = true;
+    return static_cast<int>(v);
+}
+
+Current in-scope Open-to-Save apply path: source/apps/moproj2mst/src/engine/simcontrol300.cpp, lines 706-715
+
+    if (form.convergence[0].state == ValidatorState::Invalid)
+        return ApplyResult::ValidationStopped;
+    sc.cvgerr[0] = qt::toDouble(form.convergence[0].text);
+    if (form.convergence[1].state == ValidatorState::Invalid)
+        return ApplyResult::ValidationStopped;
+    sc.cvgerr[1] = qt::toDouble(form.convergence[1].text);
+    sc.defbwd = form.deformationBandwidth ? 1 : 0;
+    sc.tmpbwd = form.thermalBandwidth ? 1 : 0;
+    sc.itrmxd = form.deformationIterations.state == ValidatorState::Invalid
+        ? 200 : qt::toInt(form.deformationIterations.text);
+    sc.itrmxt = form.thermalIterations.state == ValidatorState::Invalid
+        ? 200 : qt::toInt(form.thermalIterations.text);
+
+The qt::toInt wrapper has no radix parameter. Its implementation passes literal base 10 to bytearrayToLongLong. The integer fields above therefore use base 10, not base 0.
+
+Original callsite evidence: analysis/resume48-ppv-writer-contract.md and analysis/resume48-ppv-reader-receipt.txt. Original PPV QString::toInt calls visibly pass `(string, nullptr, 10)`, including its count line and fields. Its writer uses QTextStream insertion, not QString::toInt. Original SW2SP path: analysis/wave2-doe-sim300-extra3d-sidecars-decompile.json, FUN_1410da690 uses QTextStream::operator>>(int&), separately qualified in analysis/resume54-numeric-path-gap.md.
+
+Original QtCore base-0 QString evidence, if needed for API distinction: analysis/resume64-hex-fallback-contract.md and bounded captures `resume64-qstring-toint.asm`, `resume64-qt-integer-parser.asm`, `resume64-qt-base0-parser.asm`, `resume64-qt-base0-parser-tail.asm`.

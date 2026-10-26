@@ -1,0 +1,50 @@
+{
+  "schema": "m2m-doe-view-display-options-successor-v1",
+  "status": "read-only successor; current symmetry5files remain frozen pending coordinator build",
+  "evidence_sha256": {
+    "analysis/wave2-doe-stepdata-object-display-settings-read-decompile.json": "ab8049fdfd5c19edec75fb314573cc8db828dbd0852f652554e3dffdfcea7bc2",
+    "analysis/wave2-doe-stepdata-object-display-settings-leaf.asm": "8ef2aae18843c472d67b86992ff05c5a6ad054e50cd73fb3d9c463dd22dfb5c2",
+    "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721",
+    "source/apps/moproj2mst/src/engine/viewer.cpp": "0f601175421eecbc8f277f23b67ec576b7030c630ba26545e6dbaabb44eb7b4f",
+    "source/port/defmodel/include/defmodel/gui_twins_view.hpp": "fdd666d86c169b29441a52baf1c599b90da8b981e3207e7d4b8b3bf5090cf6b7"
+  },
+  "entry": "141200e50 SfDispOpt branch on the actual existing view",
+  "ordered_contract": [
+    "Get actual settings via1411f1a10 (already ported settingsOf by native object number then list position); null settings skips entire branch.",
+    "Nonnull settings:1411ee800(settings,boundObj,true) resets flags/i4 from bound object and current display preferences; existing setDefaultFlags implements the source-selected object/mesh/geometry branches.",
+    "Then1411ef300(SfDispOpt,settings.flags,settings.i4,boundObj+0x0c). The last integer is native OBJECT KIND, not model dimension or obj+39c0.",
+    "After successful reader,1f06f0 copies settings flag2 to b3c and flag3 to b3d; no other calls."
+  ],
+  "pure_reader": [
+    "Visit direct element children encounter order, no reset on entry. Unknown/raw non-elements ignored.",
+    "DispModeType:QString::toShort(text), failed/overflow0, sign-extend into actual i4.",
+    "DispFlagList: loop0..45; only listed11indices can change. General listed flags are cleared first, then supplied attr.toShort!=0; absent attr staysfalse.",
+    "Special MeshOn(index2)/GeoOn(index3): absent attr clears only if native object kind!=5; object kind5 preserves prior flag. Present attr.toShort==-1 preserves prior flag regardless object kind. Other present values assign convertedShort!=0 (overflow0).",
+    "Other35flag entries unchanged by1411ef300; parent reset effects remain distinct. Repeated DispFlagList/DispModeType apply in order."
+  ],
+  "flag_map": {
+    "0": "SelectionOn",
+    "1": "ObjectOn",
+    "2": "MeshOn",
+    "3": "GeoOn",
+    "4": "TranspOn",
+    "5": "SliceOn",
+    "8": "GeoNodalShadingOn",
+    "9": "MeshNodalShadingOn",
+    "43": "CrossSectionGeoOn",
+    "44": "CrossSectionMeshOn",
+    "45": "TransformCrossSectionOn"
+  },
+  "proposed_shared_seam": "Root-owned engine::readViewerDisplayOptions(GuiModel&,int,const xml::Node&) resolves existing private View/settings, native null/unsafe object boundary, existing default flags, then owned pure parser on actual arrays and cached flags. DOE readObjectStepData receives explicit optional callback for SfDispOpt so exact XML order retained; missing callback keeps existing guard. No settings clone/parallel owner.",
+  "implementation_gate": [
+    "Root authorizes next source release after current build.",
+    "Bind actual Settings.reset current preference qualification; existing kPref4/kPref5 are fixed fresh-CRT profile, not observed arbitrary user preference values.",
+    "Native boundObj null with nonnull settings may reach invalid access; explicit guard rather than safe substitution.",
+    "Tests must distinguish toShort overflow0 from wrapping, missing-vs--1 sentinel, nativekind5 versusdimension, parent reset vs repeated lists, actual settings identity and later XML guard effects."
+  ],
+  "qualifications": [
+    "No app/runtime/study execution or private/shared server mutation. Standalone original GUI export source only.",
+    "Parent file hash reflects source freeze only; not a new build/source receipt.",
+    "No complete viewer settings/geometry/render/checkbox behavior inferred. Slice remains separate guarded dependency."
+  ]
+}

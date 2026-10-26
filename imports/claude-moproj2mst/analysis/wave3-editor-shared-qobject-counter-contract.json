@@ -1,0 +1,24 @@
+{
+  "schema": "editor300-shared-qobject-counter-contract-v1",
+  "created_utc": "2026-10-24T13:30:10.162634+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-6712e630.asm",
+      "sha256": "4ff378bfa7a1ce61b0467bb687dbc4f89fe9f0cfaad45e83718eea2870c873df"
+    },
+    {
+      "path": "analysis/wave3-boolean-timer-qobject-destructor.asm",
+      "sha256": "f3478033c77b2c1d01c8b374c78f0d9e29ec9365095ac247eb760a4ce3b64a52"
+    },
+    {
+      "path": "analysis/wave3-editor-probe003-base-grid-reconciliation.json",
+      "sha256": "03ff79f428a5846f581a5f0b97b76f476c9c1aff100d284605ab7f2311c824bf"
+    }
+  ],
+  "native_owner": "One process-global QtCore+0x2f4344 counter, distinct from QWidget current/max counters and each native thread notify depth. Reconstructed owner is same actual WidgetRuntime, never an editor-local integer.",
+  "construction": "6712e6e0 LOCK ADD dword[672f4344],1 after parent helper returns and before QObject constructor returns. No result-dependent branch; uint32 wrapping bit arithmetic preserves instruction behavior. Unknown absolute base may retain exact increment delta if represented explicitly and never reported as zero or exact count.",
+  "observed_counts": "editor ctor1891 ->1892; grid ctor1892 through ChildAdded, then1893 after counter instruction. Same root-created runtime must avoid replaying increment on cursor resume.",
+  "destruction": "6712fd59 XADD -1 returns oldcount then6712fd62 adds-1 and testszero. Onzero,6712fd6b exchanges processglobal+2f4348 withnull; nonnull target is destroyed67026d40 and freed67178956. Only then parent detach6712fd94 and private destruction. These branches require known exact count or separate source proof; constructor-only symbolic base is not sufficient to run final-object cleanup.",
+  "api_proposal": "Extend existing WidgetRuntime with qualified optional exact QObject count plus explicitly retained constructor delta, and source-private one-time increment used by actual constructor frames. Root/closure own common API; no public counter reset or detached editor value. Destructor remains guarded until its own prerequisites close.",
+  "status": "Read-only proposal; no source edits/builds/tests/runtime"
+}

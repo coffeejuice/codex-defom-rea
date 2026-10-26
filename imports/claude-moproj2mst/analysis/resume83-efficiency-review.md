@@ -1,0 +1,7 @@
+# Efficiency review after checkpoints 80–82
+
+The final source-bound grouped builds took 11.921 seconds at CP80's test-only repair, 96.365 seconds at CP81, and 139.996 seconds at CP82. The complete test launchers took 12.235, 13.719 and 13.390 seconds for 242, 243 and 245 registered tests, with exact fixture manifests unchanged. These build durations represent different source changes, not a controlled speed comparison. CP82 changed widely included model and owner headers; the focused preflight took 33.890 seconds and the remaining full build 98.109 seconds.
+
+The accepted test launcher remains stable near 12–14 seconds, while header-driven compilation and linking dominate these checkpoints. The CP81 disposable experiment verified a leaf-test edit caused only one compile and one link, so the build graph does not rebuild everything for all changes. Future measurements should classify header dependency fanout before attempting a structural build optimization. A C++ parser generalization is being evaluated for reconstruction throughput; any adoption must preserve original status, cursor and output behavior, not merely reduce special-case test count.
+
+No 10× end-to-end speed improvement is established. Preserve grouped focused preflight, complete artifact build, source/binary hashes, full tests, fixture hashing, historical comparisons and ABI gates. Token savings remain unavailable because worker/model token use was not measured.

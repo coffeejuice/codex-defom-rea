@@ -1,0 +1,19 @@
+{
+  "label": "DEFINT unknown object",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nHAMMER_SI.DB\nDEFINT 99\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAMMER_SI.DB",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+    }
+  ],
+  "expect": {
+    "files": [],
+    "notes": "FUN_1401d6ea0 fails -> case returns 2 ('Reading Error'); no 'INFO   : Interpolating' line. Whether KFWRIT after the error still runs depends on the KEY loop's error handling."
+  }
+}

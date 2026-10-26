@@ -1,0 +1,9 @@
+# CP182 root integration
+
+The retained QtCore private initializer flags sequence at RVA `0x131224..0x131232` is represented as four ordered symbolic transitions. Its allocation-bound unknown input `B` remains unknown; the final expression is `(B & 0xfffffcf0) | 0x60`. Every intermediate cursor, prior sparse private field, owner/root/version refusal, and diagnostic stop remains testable. Independent source review passed after a two-genuine-allocation origin inequality assertion was added. This is qualified static PE evidence, not a fresh runtime occurrence.
+
+In a disjoint editor300 lane, `feDefaultPairs` confines its nullable step borrow to an immediate callback while preserving one model lookup, inter-object list clearing, filters and pair order. The direct-helper test covers positive and null-step mechanics; it does not establish public FormingExpress Save equivalence. The first focused build found four test calls in the wrong namespace; the owner corrected those calls and the source-stable focused build passed.
+
+`analysis/wave3-checkpoint182-validation.json` and `build/wave3-checkpoint182-verified/` freeze source SHA-256 `c81935859f844ae473a2dcc2d2be0ed13bf8e0ec7c5b88d62e8bab05dd679db4` over 3,554 files. The full regression registered 361 tests: 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete and no fixture changes. Logged diagnostics did not change against CP181; the historical folder comparison remains 93 SAME/five DIFF. ABI and selected focused suites passed.
+
+CP183 was selected before freeze and immediately assigned: symbolic private return-register identity at RVA `0x131232..0x131235`, plus `baseDefaultPairs` scoped step borrow and direct helper fixture. Stopping cache1 publication, public Open–Save–Close, failure ordering and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

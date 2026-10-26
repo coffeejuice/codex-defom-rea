@@ -1,0 +1,7 @@
+# Efficiency review after checkpoints 79–81
+
+The final source-bound grouped build receipts record 89.848 seconds at CP79, 11.921 seconds at CP80's test-only repair build, and 96.365 seconds at CP81. Their complete test launchers record 15.563, 12.235, and 13.719 seconds respectively, with 238, 242, and 243 registered tests. All three preserve exact fixture manifests and historical comparison coverage. The CP80 build number is an incremental repair after the first CP80 integrated build; it is not a matched full-build speed comparison.
+
+The CP81 disposable CP80-archive experiment (`analysis/resume81-build-invalidation-results.md`) measured zero actions for a no-op build and one compile plus one link after a leaf test timestamp change. It rules out indiscriminate whole-tree recompilation for that leaf case. It does not explain all 100 compiles and 213 links in CP79's later full target; the initial focused target set covered only part of the graph. Retain the current grouped preflight and full artifact build binding rather than weakening validation.
+
+The exact fixture-hash experiment retained the accepted 1 MiB read size; 4 MiB was slower with identical manifests. There is no measured 10× end-to-end gain. Continue independent source lanes and serial grouped integration. A future speed experiment should compare matched source and build states, record compiler/linker action counts, and preserve complete source, binary, fixture and historical bindings. Token savings remain unavailable because model token usage was not measured in these receipts.

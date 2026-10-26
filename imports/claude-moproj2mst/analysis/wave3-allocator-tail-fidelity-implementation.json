@@ -1,0 +1,41 @@
+{
+  "status": "Candidate41 built;focused10/full145 and lowlevel17cases pass; awaiting immutable freeze",
+  "source": {
+    "source/port/defmodel/include/defmodel/llobj/realloc_uninitialized.hpp": "4bd020948d9b990c3e5d23ded2e80f56612d7d5343dab8f031d159e56d0531c2",
+    "source/port/defmodel/src/llobj/cls_14017ef20.cpp": "f294d02a4f0c3e23fa2a4eb53383674f54c4ec8fa54a2936c4a99018e1236f22",
+    "source/port/defmodel/src/llobj/cls_140182880.cpp": "c37c06587c83f86e85b7e970a8b2d6a23806dd7d294713ca9c27869410ae1fa0"
+  },
+  "evidence": {
+    "analysis/wave3-allocator-tail-discrepancy-contract.json": "ec199d935bfcce3e730cdc03277677a04d37a69ca25e711b5984b073d46d22d1",
+    "analysis/wave3-original-allocator-probe-receipt.json": "903e80cc8198cf012bb8b2b246f9de4773c9c5f553fe29254054fb56900e9eeb",
+    "analysis/wave3-ported-allocator-probe-receipt.json": "7b0de03bf09b005e2c503f6eccdcfa1de244d6df5c1a92463629ae80f4d1ce27",
+    "analysis/wave3-faithful-allocator-probe-receipt.json": "4e9c6bc06bfbc81273fa9b0fab9b1d75f1a5410bad5475bd1423eb2bbc515198",
+    "analysis/wave3-allocator-low-level-tests.json": "017818998475552235c8c356bc6e7482f680919418d7c1ccf020cb076628096b",
+    "analysis/wave3-original-secondary-realloc-static.json": "b871e56e32bdc96ff24b8b306447ef5da002f767e71239b955b45f0f1e13e1de"
+  },
+  "change": "Both represented original object-set allocators now use direct uninitialized realloc semantics. Removed nonoriginal old-size query and grown-tail memset from their call paths. Allocation/store/StateVar-resize order unchanged.",
+  "experiments": {
+    "original_nonzero_tails": 8,
+    "legacy_zero_tails": 8,
+    "repaired_nonzero_tails": 6,
+    "repaired_zero_tails": 2,
+    "trials_per_variant": 8,
+    "preserved_prefix_per_variant": 8
+  },
+  "legacy_helper": "realloc_zero_tail.hpp remains unreferenced by production, retained as explicit historical experiment source; no active caller remains.",
+  "validation": {
+    "full_registered": 145,
+    "counts": {
+      "passed": 138,
+      "passed-with-logged-gaps": 6,
+      "passed-with-logged-differences": 1
+    },
+    "changed_diagnostics": [],
+    "lowlevel": "llobj_varsets6,node_access5,gui_twins_view6 existing cases compiled/linked against candidate41 libraries; allpassed"
+  },
+  "qualifications": [
+    "Repair removes a confirmed initialization-policy discrepancy. It does not guarantee identical uninitialized bytes, addresses or heap history.",
+    "Original allocator oversize/OOM/new-handler/errno behavior remains independently unverified; this repair does not claim full CRT reconstruction.",
+    "No historical byte differences changed in this run; undefined-memory inputs are not normalized or declared complete."
+  ]
+}

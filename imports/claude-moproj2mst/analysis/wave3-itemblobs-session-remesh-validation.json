@@ -1,0 +1,142 @@
+{
+  "scope": "Native item blobs, integrated session storage, and bounded native remesh reader",
+  "objective_complete": false,
+  "build": "analysis\\wave3-itemblobs-session-remesh-v2-build.json",
+  "tests": "analysis\\wave3-itemblobs-session-remesh-v2-tests.json",
+  "registered": 122,
+  "counts": {
+    "passed": 115,
+    "passed-with-logged-gaps": 6,
+    "passed-with-logged-differences": 1,
+    "incomplete-output": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "fixture_changes": [],
+  "historical": {
+    "SAME": 93,
+    "DIFF": 5
+  },
+  "historical_diffs": [
+    {
+      "result": "DIFF",
+      "case": "A:RS_55_Multiple_Operations_Example1",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:120_B_DOE",
+      "differ": 1,
+      "missing": 7,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:121_B_DOE_VAR",
+      "differ": 1,
+      "missing": 8,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:122_B_DOE_GEO",
+      "differ": 1,
+      "missing": 10,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:98_B_DS3F",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    }
+  ],
+  "changed_diagnostics": [],
+  "focused": [
+    {
+      "test": "m2m.g0.abi",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792814961048200100\\m2m.g0.abi.log",
+      "sha256": "a42f1102187a43a01bf52d12072ce5359c6bf810f1f6b1c7ee5bfa644307e817",
+      "summary": [
+        "0 of 8 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.g0.abi_original_settings",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792814961048200100\\m2m.g0.abi_original_settings.log",
+      "sha256": "75f729d438c47fa7c3f707ffc4a09ee9203e25f7ded0ff5f538c38afd68035d0",
+      "summary": [
+        "0 of 1 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.conversion_session",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792814961048200100\\m2m.mdt.conversion_session.log",
+      "sha256": "ad63c77ac1c8471f07ddb04e35c44bd2dea217157695145c43ae9be174764713",
+      "summary": [
+        "0 of 7 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_remesh",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792814961048200100\\m2m.mdt.simcontrol300_remesh.log",
+      "sha256": "5dfa051405dca21b70ae03f2961962f5966173a190b85699edf0e132d924ecd4",
+      "summary": [
+        "0 of 19 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.p06.token",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792814961048200100\\m2m.p06.token.log",
+      "sha256": "d5987769aff168bf2e64ba77b9e7c14ffa7b74994956278ddad429da6dc6bf1c",
+      "summary": [
+        "0 of 3 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.s.save_io",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792814961048200100\\m2m.s.save_io.log",
+      "sha256": "87ae8a089b36fe2ea790ec52485c5aca6eb8b1b14cfacf84a49baf8006904fc2",
+      "summary": [
+        "0 of 49 cases failed"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/wave3-native-item-blob-session-increment.json",
+      "sha256": "fadedcb8a968b5bbf97cf7e3997c4db7ba2f061f095462250a68cc5e7723632b"
+    },
+    {
+      "path": "analysis/wave3-itemblobs-compile-repair.json",
+      "sha256": "6f461732058afe0d6e90415489328ecf8d883c6a75fa372b01ea21d8ceac9062"
+    },
+    {
+      "path": "analysis/wave3-session-lifecycle-landing.json",
+      "sha256": "770dea22f26782f48304ecfd4b202c31509ac841eb103620498424bc016907d4"
+    },
+    {
+      "path": "analysis/wave3-remesh-native-reader-increment.json",
+      "sha256": "300e3f4dea0075064df6677a4ec3928da3e4185abbce8363e901c8c6d39f4f05"
+    }
+  ],
+  "qualifications": [
+    "Historical oracles are not fresh original-session acceptance evidence",
+    "CTest success can contain case skips, expected refusals or permissive assertions",
+    "g0.abi real-project assertion permits M2M_OK or M2M_E_UNSUPPORTED",
+    "Deflate external vectors and imported PACK fixture absent unless separately acquired",
+    "s.save_folder is diagnostic: it logs differences/refusals without failing assertions",
+    "Full folder comparator normalizes declared view/banner profiles; inspect raw differences",
+    "No original executable is launched; keyword reference is read as a PE file only",
+    "Remesh native reader remains unbound to public Open; above128 tokens remains explicit original overlapping-memory recovery. Session storage integration is not normal Close completion."
+  ],
+  "next_started": "Bind session-global remesh state to actual Open and editor lifecycle; separate Save dialog answer from output status; continue final DOE selection and Close graph receiver recovery."
+}

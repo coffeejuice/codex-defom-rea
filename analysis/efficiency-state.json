@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "enabled": true,
+  "enabled": false,
   "owner_thread": "01a158d9-cd37-70f1-bb86-4aeb4782972a",
-  "last_review_utc": "2026-10-22T01:13:21.438800+00:00",
-  "last_review_head": "9b00ad412ca49b7f3b493df9174de1168ab0fc6d",
+  "last_review_utc": "2026-10-23T15:59:08.657226+00:00",
+  "last_review_head": "777c08fc7271da0050feb70fe45d895d972728bb",
   "cadence": {
     "recovery_checkpoints": 3,
     "minutes": 60,
@@ -13,7 +13,9 @@
   "baseline": "analysis/efficiency-baseline.json",
   "validation": "analysis/efficiency-tooling-validation.json",
   "policy": "analysis/efficiency-policy.md",
-  "current_external_blockers": [],
+  "current_external_blockers": [
+    "Required GUI release lifecycle unavailable on the current supported tool surface; all remaining acceptance cases depend on it."
+  ],
   "remaining_time_unknown": "Unattributed elapsed time is not assigned to model/network/approval without stronger telemetry.",
   "automation_id": "rea-recovery-efficiency-review",
   "adopted": [
@@ -32,34 +34,29 @@
     "bounded_reasoning_during_verified_waits",
     "measured_resource_guarded_j8_reference_regression"
   ],
-  "pending_measurement": "Compact CTest producer receipt/full stdout bytes recorded;whole-turn/token/time savings unmeasured. Retain4/8 resource policy;new controlled benchmark only if material workload/resources justify it.",
-  "automation_status": "ACTIVE",
+  "pending_measurement": "No controlled end-to-end speed or token measurement; no repeated suites justified.",
+  "automation_status": "DELETED",
   "latest_checkpoint_observation": {
-    "checkpoint": "analysis/prsnam-import-contract.json",
-    "native_imports": 64,
-    "native_handlers": 116,
-    "keywords": 1,
-    "full_regression_seconds": 62.68,
-    "tests_passed": 155,
+    "checkpoint": "analysis/claude-def-pre-import-validation.json",
+    "checkpoint_kind": "portable_project_import_build_tier1",
+    "tests_passed": 217,
+    "full_regression_seconds": 195.92,
     "ctest_jobs": 4,
-    "capture_retry_count": 0,
-    "prototype_capture_retries": 0,
-    "fixture_preflight_corrections": 0,
-    "candidate_corrections_after_native_training": 0,
-    "new_static_provider_queries": 0,
-    "resource_observation": {
-      "logical_processors": 16,
-      "total_memory_bytes": 67768074240,
-      "available_memory_bytes": 30063042560,
-      "recommended_ctest_jobs": 4,
-      "benchmark": "analysis/efficiency-regression-parallelism-20261021.json"
-    },
-    "qualification": "70 files frozen;source-derived positive/EOF/truncation/long-line cases passed.No controlled timing comparison."
+    "build_attempts": 2,
+    "qualification": "Tier1 only; optional skips retained; tier2/tier3 unrun. No full-app completion claim."
   },
-  "latest_review": "analysis/efficiency-review-20261022-prsnam.json",
-  "latest_review_checkpoint": "analysis/prsnam-import-contract.json",
-  "latest_review_qualification": "Completed-turn bounded metadata only. Cached and uncached input and generated/reasoning tokens remain separate in timing artifact;no total token savings or completion-time forecast.",
+  "latest_review": "analysis/gui-parallel-efficiency-review.json",
+  "latest_review_checkpoint": "analysis/gui-validation-final-integration.json",
+  "latest_review_qualification": "User-requested parallelism metadata assessment; disabled automation unchanged. Outstanding assignment overlap is not measured speedup; no serial baseline/token telemetry.",
   "latest_guard_validation": "analysis/trans-coverage-guard-validation.json",
   "latest_retention_validation": "analysis/environment-evidence-retention.json",
-  "latest_compact_view_validation": "analysis/evidence-body-compact-validation.json"
+  "latest_compact_view_validation": "analysis/evidence-body-compact-validation.json",
+  "latest_review_checkpoint_sha256": "fc0542e8c92df19460d1013d0fc8c8bee8f33ca0f6ea190c40bb8cb19992c83b",
+  "actual_goal_observation": {
+    "source": "get_goal",
+    "goal": null,
+    "qualification": "No goal returned currently. Historical blocked status not assumed current; no goal changed."
+  },
+  "disabled_reason": "User requested switching off the scheduled efficiency review.",
+  "manual_review_authorization": "Latest user explicitly requested measuring parallelism. No automation restarted and enabled remains false."
 }

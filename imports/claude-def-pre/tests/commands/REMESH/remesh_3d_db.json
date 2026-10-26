@@ -1,0 +1,22 @@
+{
+ "label": "REMESH obj1 3D from DB (Multiple_Operations_Example1)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 2400,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "DBREAD 0\nMultiple_Operations_Example1.DB\nREMESH       1\nKFWRIT\nOUT.KEY\nGENDB\nOUT.DB\n"
+  },
+  {
+   "name": "Multiple_Operations_Example1.DB",
+   "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/3D/3D_Examples/SI/Multiple_Operations/Multiple_Operations_Example1.DB"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY",
+   "OUT.DB"
+  ],
+  "notes": "Object 1 assumed to be the workpiece (check the DB). Launch order: AMG_DXT3 > DEF_BRD.OUT; DEF_AMG3_GUI < DEF_MGN.ACT > DEF_MGN.OUT; MESH3D_GUI; BRKMSH > BRKMSH.MSG (or a 2nd DEF_AMG3_GUI if mesh.out missing); DEF_REM3_GUI < DEF_INT.ACT > DEF_INT.OUT (reads SCRATCH.KEY, DEF_REM3.INI; result NEWMESH.KEY). If AMG_DXT3 succeeded (DAT_1406e2d78 = 1) DEFAMG writes no NBCD.DAT and does not read NBCD.OUT."
+ }
+}

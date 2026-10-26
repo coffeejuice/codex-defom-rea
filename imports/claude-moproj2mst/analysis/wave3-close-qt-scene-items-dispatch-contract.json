@@ -1,0 +1,50 @@
+{
+  "scope": "Shipped Qt4 QGraphicsScene no-argument items dispatch and concrete index targets; bounded static qualification",
+  "created_utc": "2026-10-24T06:34:07.434356+00:00",
+  "binary": {
+    "path": "evidence/original-binaries/QtGui4_64.dll",
+    "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-qt-scene-all-items-static.json",
+      "sha256": "d15a9f9e9b99bea8b4850a0275912d3ca501664e37b518f241098543bea815dd"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-qt-scene-index-items-static.json",
+      "sha256": "fbaf6c409fe752c01f699334a7d0a25677d6c395d3b3dff1d55f5b37ce4bd797"
+    },
+    {
+      "path": "analysis/wave3-close-scene-initial-text-items-contract.json",
+      "sha256": "d78480d69e7ee013a55149e4efdd53f5a4a5e9c6d8b8280a82f35aede7dd83b2"
+    }
+  ],
+  "bindings": {
+    "app_import141e07ca8": "?items@QGraphicsScene@@QEBA?AV?$QList@PEAVQGraphicsItem@@@@XZ ->QtGui65565710",
+    "QGraphicsSceneBspTreeIndex": {
+      "type_descriptor": "659c7c08",
+      "complete_object_locator": "657cfe08",
+      "vtable": "657489a8",
+      "items_slot78": "6557f730"
+    },
+    "QGraphicsSceneLinearIndex": {
+      "type_descriptor": "659c7a38",
+      "complete_object_locator": "657cfa28",
+      "vtable": "65746c48",
+      "items_slot78": "65567990"
+    }
+  },
+  "observations": [
+    "65565710 loads scene private+8 then index+98, calls its virtual+78 with rawsort1. The wrapper has no item visibility filter.",
+    "Linear target65567990 copies its+10 QList and handles shared list detachment. Its visible body does not inspect any per-item visibility byte.",
+    "BSP target6557f730 first calls6557ee90, combines internal lists+128/+130 and checks+140, skips null pointers while appending; then calls6557f4c0 with rawsortorder and index flag+158. No per-item visibility load appears in the captured body.",
+    "Original QGraphicsScene ctor65575b80 allocates private0x2f8, calls65573e70, then65569e80. Those initializer bodies were not expanded by this bounded batch."
+  ],
+  "qualifications": [
+    "Concrete index vtable targets are bound by PE RTTI/COL, not guessed from symbols. The original default index selection is not yet bound by this receipt.",
+    "Internal BSP list maintenance and sort callbacks remain unexpanded. Do not claim the full index traversal semantics closed solely from wrapper bodies.",
+    "Scene-owned items must not be filtered out merely because adapter hidden=true; no such filter was recovered. Complete current population still needs explicit source/profile coverage.",
+    "No target execution, GUI, build, source or installed app modification."
+  ],
+  "next": "Qualified secondary scene ownership/query projection remains proposal pending root release; no automatic scene or graph absence inference."
+}

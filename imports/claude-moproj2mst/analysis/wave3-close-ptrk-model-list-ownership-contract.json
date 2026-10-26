@@ -1,0 +1,77 @@
+{
+  "scope": "Ownership of model+250 auxiliary pointer list versus manager-owned SfPtrk cache",
+  "method": "Original static instruction-qualified call chains and reused element-destruction leaf; no source changes",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-ptrk-allocation-landing.json",
+      "sha256": "7f75d51ff9eb5fd00baf3eaee9fdc7f97013e2ebab7f63d2dfe78e9aaf1a3ac8"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-model-registration-contract.json",
+      "sha256": "071815066a9381e56a680b0c3950fd03ab409bfecaeb79b0b1a8fc8e872e82de"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-model-list-destruction-static.json",
+      "sha256": "f6e09e24b6b835f4885755707cda4b381644f80732b4ee22a5cbdcb0b58131a0"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-model-list-clear-static.json",
+      "sha256": "fa8da6af1ad32f5d1d62fe69dbc366957a2a49a839d27542cfd3ecfae03efc20"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-model-list-free-static.json",
+      "sha256": "0614792be046f9fd0daa1e0808ef8f839a93d59794aa234c6800c75620ae428c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-aux-list-delete-wrapper-static.json",
+      "sha256": "9e2b1ff259978ff427e012fc3dd4e364a66128a639770842c11e3bbff187aba6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-aux-list-clear-slot-static.json",
+      "sha256": "aa3461db38eaf75524d564f3e01af828a69439773317048c4ed9389f1ff51a87"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-model-aux-list-owner-cleanup-static.json",
+      "sha256": "34834e23686ef7f7350f77d4bd1fcbc09c19cfe09d2d14df8ae31dd059b5481f"
+    },
+    {
+      "path": "analysis/wave2-doe-statevar-colorbar-node-destruct-140025840.asm",
+      "sha256": "2e21e09a998e19f161cd75e5f69aa67e4d0d6adcb6b4782323558c27ae48b89a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14139a720.asm",
+      "sha256": "f8ce6beab43a57ec85ad26b3ee899b004b7ff2a624985cb249d349394bfc9ac8"
+    }
+  ],
+  "imports": {
+    "0x141e041f8": "?qFree@@YAXPEAX@Z",
+    "0x141e042e8": "?deref@QBasicAtomicInt@@QEAA_NXZ",
+    "0x141e042f8": "?ref@QBasicAtomicInt@@QEAA_NXZ"
+  },
+  "list_cleanup": [
+    "c7aa00 calls c91120 at its final cleanup site c7aa68 after c90ff0. The higher-level invocation context remains separate.",
+    "c91120 checks model+250; if nonnull it calls deleting wrapper c91a00(...,1), then stores model+250=null. Null list skips.",
+    "c91a00 invokes d64740 then frees the wrapper when delete bit1 is set.",
+    "d64740 calls15d680 to clear/assign an empty QList and then2081a0 to destroy its storage. 15d680 constructs shared-empty list18f9e0, assigns via15d5e0, destroys temporary.",
+    "15d5e0 and2081a0 decrement QList storage refcount; zero goes to025650. That helper calls025840 over list nodes, then QListData::free.",
+    "025840 compiled paths for element deletion/destruction are both bypassed by constant-false conditions. It performs no pointer-target deletion. 139a720 used by explicit pointer removal is likewise no-op for pointed object."
+  ],
+  "graph_cleanup": [
+    "Manager321520 invokes cached graph virtual deleting destructor and clears its own+4c8. It contains no model lookup or list erase.",
+    "Supported newly constructed SfPtrk graph has null+d0 render child. Its 3d5660 destructor invokes3d5780 (null child skips), member destructors and base destructor. Base3d91a0 only restores its vtable; no QObject/QPointer mechanism applies to this object.",
+    "This establishes no automatic registration invalidation for the supported newly constructed graph. More complex populated render child destructor effects remain unprojected."
+  ],
+  "integration_contract": [
+    "GuiModel owns the lazy registry wrapper/storage, not graph pointees. Releasing its registry must not delete a live manager-owned graph.",
+    "Manager owns graph. Clearing it must not silently prune model registry entries or convert all matching entries to expired weak pointers.",
+    "Retain raw pointer identity or an equivalent explicit nonowning identity representation. If a later operation needs to dereference a dead entry, guard that dependency rather than treating it as absent.",
+    "d64780 tests pointer identity before append. It does not know about object liveness or purge stale entries.",
+    "Shared model field should preserve null-wrapper versus allocated-empty-list distinction because c91070/c91120 allocate/free the wrapper."
+  ],
+  "qualifications": [
+    "No original runtime execution, dangling-pointer dereference, allocator reuse or native crash was tested.",
+    "Higher-level model/data-root cleanup ordering is not established by the local list destructor proof.",
+    "The current17-case allocation module remains frozen; no registration implementation was added."
+  ]
+}

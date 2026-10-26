@@ -1,0 +1,29 @@
+{
+  "status": "implemented_pending_validation",
+  "scope": "C23 chain-head initial Geometry Type editor and its Save dispatch",
+  "evidence": [
+    "analysis/wave2-save-diffs-c23-geometrytype-contract.json",
+    "analysis/wave2-db129-geometrytype-decompile.json",
+    "analysis/wave2-doe-db129-geometrytype-enable-decompile.json"
+  ],
+  "decision": "Original1401c5000 tests isChainHead; a head selects Geometry Type and a non-head Configuration. Geometry Type2D setup defaults1, fill accepts1..4, Save applies remembered selection to SC+0x100. Express-only property setters do not apply to C23.",
+  "qualification": "Static code plus historical129 screenshot/output; no fresh reference acceptance. Non-head Configuration replacement remains prior oracle-based inference. Non-2D C23 editor is explicitly unsupported. Init1410589b0 refreshes tree display; current class vt+260 still under separate review.",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/mst/loader_l5.hpp",
+      "sha256": "4b8b04d5f41ca6c5151825d037f50201ae8f2d97133b2e426cc28279431ab3d0"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/l5_slots.cpp",
+      "sha256": "e53707935cddbe2721f4f02e27ded59e963f8632b3571e959a8bc7bd69f4a660"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/ops/convert23.cpp",
+      "sha256": "d19a7a693615e249c5b185702363e58eaf26af059bbe733633826bfea42dbf23"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_l5_loader.cpp",
+      "sha256": "59685ce411c34ff26ac223ca9bc668a543e902a840ac6bafb564e538c5a5ab54"
+    }
+  ]
+}

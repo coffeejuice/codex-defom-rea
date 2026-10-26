@@ -1,0 +1,25 @@
+{
+  "scope": "Fail closed on malformed continuation cursor before freezing artifacts; keep admin tests inside converter scratch",
+  "source": [
+    {
+      "path": "admin/check_continuation.py",
+      "sha256": "1a9398dab3fcda3cf908fb9e6c5d4905d5676a147d608bf8179ac689984970d0"
+    },
+    {
+      "path": "admin/freeze_checkpoint.py",
+      "sha256": "1725546cfcfbe2901d88f35980ef24818f2933136e0f25c52f3a743fdde52f5e"
+    },
+    {
+      "path": "admin/test_check_continuation.py",
+      "sha256": "2141d5dfdf76dcf7dadd3445f57bc29e1d1eec4e0de6400900a692e6df879ee4"
+    }
+  ],
+  "validation": {
+    "command": "python admin/test_check_continuation.py",
+    "cases": 7,
+    "failed": 0,
+    "seconds": 0.029
+  },
+  "repair_evidence": "analysis/wave3-open-histogram-freeze-state-repair.json",
+  "qualification": "Admin unit tests are separate from registered converter CTest programs; no additional original behavior acceptance."
+}

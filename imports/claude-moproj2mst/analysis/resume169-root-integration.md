@@ -1,0 +1,9 @@
+# CP169 root integration
+
+The retained prototype-one QObject private object now records a known 64-bit zero at `+0x50` through the bounded QtCore `0x1311bf..0x1311c3` instruction cut, then refuses before `+0x58`. The field is absent before the cut. Earlier zero fields, the actual Session root, both shared-null identities and symbolic deltas remain intact. The source also rejects a premature `+0x50` observation before preceding zero writes.
+
+Independent review found a deeper private ownership gap: earlier guards compared the current private pointer with itself. The repair retains the allocation-time private identity separately and rejects a qualified cloned private object before first QList binding/reference mutation and at later phases. The CP169 refusal matrix now reconstructs the pre-write phase before injecting faults and checks no mutation; a cloned-private test proves the identity guard rather than failing an unrelated field check. Final static review accepted the source and tests. The source-stable focused build and complete regression passed.
+
+`analysis/wave3-checkpoint169-validation.json` and `build/wave3-checkpoint169-verified/` freeze source SHA-256 `6a34b2840c233532938b8105175d9112ac906c3f10da95f63317f08a4a9b8e8f` over 3,554 files: 361 registered, 354 clean passes, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete/fixture changes, and no changed logged diagnostics. Historical 93 SAME/five DIFF remains qualified. No GUI control, live REA or original application session was acquired.
+
+CP170 was selected before freeze. Independent evidence and plan review accepted the same-private-object `+0x58` known-zero instruction, stopping before QVector setup; its exclusive owner began after the archive. Public lifecycle and fresh original comparison gates remain open.

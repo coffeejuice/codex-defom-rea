@@ -1,0 +1,46 @@
+{
+  "reviewed_at_utc": "2026-10-24T10:54:40.242082+00:00",
+  "reason": "One-hour safe boundary after probe002 cleanup and before candidate39 build",
+  "verified_checkpoint": 38,
+  "test_programs": 140,
+  "builds": [
+    {
+      "receipt": "analysis\\wave3-slice-mds-modes-v1-build.json",
+      "configure_build_seconds": 49.359,
+      "failed_steps": 0
+    },
+    {
+      "receipt": "analysis\\wave3-stopping-splitter-cleanup-v1-build.json",
+      "configure_build_seconds": 20.625,
+      "failed_steps": 0
+    },
+    {
+      "receipt": "analysis\\wave3-stopping-splitter-cleanup-v2-build.json",
+      "configure_build_seconds": 3.859,
+      "failed_steps": 0
+    },
+    {
+      "receipt": "analysis\\wave3-stopping-splitter-cleanup-v3-build.json",
+      "configure_build_seconds": 12.5,
+      "failed_steps": 0
+    }
+  ],
+  "configure_build_seconds_since_review": 86.343,
+  "wall_seconds_since_review": 3618.024603,
+  "latest_ctest_seconds": 17.563,
+  "wall_qualification": "Elapsed clock time, not active-work duration or measured speedup",
+  "token_usage": null,
+  "speedup": null,
+  "rework": [
+    "Candidate38 v1 test wrongly assumed HeapReAlloc buffer-address stability; original allocator source corrected assertion to owners/extents/coordinate values.",
+    "Independent pre-freeze review found SplitView derived QString initialized too early; v3 fixes timing before full validation.",
+    "Probe002 review fixed actual-window selection and Qt4 QString size offset before launch; one completed capture had zero read errors/truncations and the needed grid phases."
+  ],
+  "actions": [
+    "Retain three workers with exclusive source ownership and one root build/capture.",
+    "Review allocator identity and constructor-member timing against source before tests assert them.",
+    "Continue owned-model handoff/property-table/focus integration already started; immutable reads while source candidates freeze.",
+    "Prefer bounded records and compact JSON fields; avoid printing complete build receipts."
+  ],
+  "next_review": "After checkpoint41 or one hour at next safe boundary"
+}

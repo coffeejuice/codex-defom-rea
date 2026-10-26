@@ -1,0 +1,51 @@
+{
+  "schema": "editor300-qt-combo-selection-contract-v1",
+  "binary_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-combo-selection-static.json",
+      "sha256": "eaf2aaa66e9f3afcaea69de4a20e32cc16d224ae0e96e44a90f198b87b43668c"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-row-selection-static.json",
+      "sha256": "4298013df0010053ad76caa8862c84751f6f037ce915f63cf4da25e8b79c2eb4"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-model-binding-static.json",
+      "sha256": "db8b57a1998944910656f18ab08609195c967d42eccde56825c4e0da9daaef3c"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-meta-dispatch-static.json",
+      "sha256": "21080ff08dc0ab158b1d718590ca1be09e2403add86cf98a4f707a1b82a69db2"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-slot-routing-static.json",
+      "sha256": "f19c2a8d40ec06e5e7f4433eef0d6f22c89bcbd3ce6ed160107894c3a4208cda"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-static-slot-chunks-static.json",
+      "sha256": "0f8146cc1c321740d901624c6f89525c4d84afaed7419217eca7915906a2d800"
+    }
+  ],
+  "default_model": {
+    "ctor": "QComboBox653907f0 -> private ctor65386290 -> init653906a0",
+    "initialization": "653906a0 allocates QStandardItemModel at6552e110 with rows0,columns1 and combo parent, then installs with6538fbc0.",
+    "binding": "6538fbc0 connects rowsInserted(QModelIndex,int,int) to _q_rowsInserted(QModelIndex,int,int), alongside about-to-insert/remove/reset signals. Existing-model branch first disconnects matching routes.",
+    "metadata": "QComboBox static meta656f7b98, strings656f7720, table656f7390; local method20 is _q_rowsInserted(QModelIndex,int,int). Jump table653902c0 index20=65390247, whose tail65390266 enters6538e2c0."
+  },
+  "row_insert_selection": {
+    "entry": "6538e2c0",
+    "reached_guard": "Return if inserting flagprivate+21c!=0 or supplied parent QModelIndex differs from rootprivate+250.",
+    "empty_to_nonempty": "At6538e374..39f, if start==0, end+1==current count, and private+248 persistent current index is invalid, call public setCurrentIndex(0).",
+    "other_case": "If current row differs from saved indexprivate+25c, update widget and emit the private index-change path; this is not modeled by assigning0 universally.",
+    "setter": "6538c150 obtains model index(requested row,modelColumn) and calls6538adf0.",
+    "getter": "65387870 reads row of persistent indexprivate+248; it is not a raw remembered integer field."
+  },
+  "consumed_setup_profile": "The13 recovered setup combo operations clear then insert nonempty lists into untouched fresh native combo models. This supports a bounded initial0 selection after successful insertion when the above native model/index invariants are bound. It does not support arbitrary swapped models, edited/repeated sessions, insertion failures or unknown valid prior selection.",
+  "constructor_order": "These index changes occur during retranslation, before editor internal connections and before editor connectSlotsByName; later explicit constructor connections also have not yet run. Native model housekeeping is distinct from application editor callbacks.",
+  "remaining_before_implementation": [
+    "Pin initial QPersistentModelIndex invalid state and original setup combo model invariants as a compact amendment.",
+    "Preserve source-owned selection rather than enabling a generic Qt combo substitute.",
+    "Keep full setup/public guard; this only closes one consumed dependency."
+  ]
+}

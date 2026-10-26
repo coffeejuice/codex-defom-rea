@@ -1,0 +1,19 @@
+{
+  "label": "MORP too few string lines",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nMORP 1 1\n0.5\nONLY_ONE\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [],
+    "notes": "The string reader consumes 'ONLY_ONE','KFWRIT','OUT.KEY' and then hits EOF -> case returns 2 ('ERROR: Keyword MORP Reading Error. '); no INI written, nothing launched, no OUT.KEY (KFWRIT consumed)."
+  }
+}

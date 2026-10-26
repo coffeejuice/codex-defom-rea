@@ -1,0 +1,26 @@
+{
+  "label": "GFREAD IGES only unsupported entities (TOPBLK)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nTOPBLK.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "TOPBLK.IGS",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/LABS/TOPBLK.IGS"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "DEF_IGS.OUT"
+    ],
+    "notes": "Only 128/402 entities: no points -> code -8; GFREAD reports Done; object 1 geometry unchanged (DIEGEO 1 1 2 as in IN.KEY); empty DEF_IGS.OUT left."
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "m2m-doe-default-zero-range-static-v1",
+  "status": "source closed for fresh MO null-current and suppressed return-query branches; live-current receiver payload remains guarded",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence_sha256": {
+    "analysis/wave2-doe-default-range-proctype-and-lists-decompile.json": "71bf0bed993f9748b38a223e009e3e2549e0313c960b6cc5e0a3d08ea54c5eff",
+    "analysis/wave2-doe-output-default-task-append-decompile.json": "a7bf524fb6e903cebf1a049384c4983a59dcbbaccfc7b48e909a27c7ed3ee237",
+    "analysis/wave3-boolean-open-registration-14002a0e0.c": "e3aaadc9161f9982385071a7671ec2ba7dac1bf692d844f04f96424e3223788e",
+    "analysis/wave3-closure-next-14001d510.asm": "da71426de732f0f2522ee1afcb02562c19d48f3edcbab69d66069fe89d19746a",
+    "analysis/wave3-closure-next-140045780.asm": "7215cb05bfab0dd09cadefe52cf35a902a4998884e60f7ba4b9f218c6cc9be05",
+    "analysis/wave2-doe-default-range-current-subproject.asm": "5097c5dad2141645c37d23e74023594b39d9eca9d1bdddb0272db788ebc28e47",
+    "analysis/wave2-doe-default-session-range-opr-dispatch.asm": "601147629ac138d75fcc49ee79ad76550602713a913e07c9c8642cb88417fc7a",
+    "analysis/wave2-doe-default-range-empty-list-copy.asm": "335ec93ef36388b10f2c53d9111aa7e06d49acbd135189a06c81b95c6676729d",
+    "analysis/wave2-doe-default-range-proctype-leaves.asm": "7973dcde2499d666cd19559dd46d4d4d3800bbd83205bb99bcb8bebd313a32ee",
+    "analysis/wave2-doe-session-notifier-direct-key-candidates.json": "1a947bb2daf487a9e9d8aee1999d09675f2abb6202b3e526ef1847fcbc6cf0d9",
+    "analysis/wave2-doe-session-notifier-map-lifecycle-decompile.json": "ef09c0cca9e3bcc1b4fe88f4228684ef7e199635ab7e5739f4039c6f669a841a",
+    "analysis/wave2-doe-view-manager-pointer-contract.json": "b718801d42cdf82fa38ca642d7705d178e3f5306bb08fda3ff6885771fdce947"
+  },
+  "branch_control": [
+    "64c280 first reads APP+0xc through2cb7a0. It is procType, NOT current selection/global GuiModel pointer.",
+    "Fresh constructor0111c0 tail calls02a0e0(window,null), which calls013d40(window,0,false) before its nullProject branch.",
+    "013d40 obtains045780(manager) currentProject. Fresh manager has no current child; its param2==0/nullProject branch sets APP.procType=5 through2cb780. This precedes controlled FileOpen/project read.",
+    "After successful read postOpen02a0e0 later chooses actual model ordinal and activates subproject. Do not select early or use pending Project just because it is already allocated.",
+    "This contract is selected fresh native MO/MOPROJ lifecycle, not arbitrary later procType changes, scripts or other application modes."
+  ],
+  "mode5_returns": [
+    {
+      "key": "2signalGetOprStringList()",
+      "binding": "0111c0 call0117e6,slotGetOprStringList Mo local59,staticdbafa call038d70 atdbb04",
+      "type": "QStringList",
+      "body": "038d70 calls01d540; null constructs empty QStringList0653e0, else b9a20 payload (unrecovered here)"
+    },
+    {
+      "key": "2signalGetOprNoList()",
+      "binding": "0111c0 call01180a,slotGetOprNoList Mo local60,staticdbb3d call038df0 atdbb47",
+      "type": "QList<int>",
+      "body": "038df0 calls01d540; null constructs empty list18f9e0 and copies via03f680, else b9bf0 payload (unrecovered here)"
+    }
+  ],
+  "current_chain": "01d540 ->01d510 ->0133a0(manager) ->045780 ->guarded current child. Null current returns null BEFORE any lazyProject. If Project present01d540 calls active subproject0a7390. Current-only, never pending/unselected Project fallback.",
+  "query_order_and_effects": [
+    "6477a0 only invokes64c280 when BOTH part bounds0. Queries execute AFTER fresh record/factory and GetCurrentStepViewInfo prefix.",
+    "64c280 mode5 initializes empty QStringList/ID list, invokes2cf740 first strings then IDs. Its shared+141 suppression skips receiver delivery.2cf740 does NOT clearflag90. These keys have known nonempty registration lists: do NOT add emptyKeys or run2cf3c0 reset semantics.",
+    "Unsuppressed/null-current callbacks each source-return empty lists. Suppressed leaves local default lists empty regardless selected current.",
+    "The per-name loop has zero iterations, so output operation list empty;6477a0 writes neither bound. Both0 remain0. No synthetic default operation/selection.",
+    "A live unsuppressed current is unresolved before first receiver payload; preserve prior construction/view-info and guard at that encounter. Do not infer empty from known Project data.",
+    "Other procType else branch uses global current GuiModel2c80f0 ->mainwindow vt+268, then GuiModel DB c7ac90 and DB op list80f690; do not conflate with manager current or claim this mode5 contract recovers it."
+  ],
+  "proposed_independent_increment": "Existing owned Session default helper removes the zero-range refusal only for source-closed null-current or suppressed mode5 query path, instruments actual shared notifier attempts without new flag/map owners, leaves boundsunchanged, then continues detached serializer and existing guards. No ViewManager/Close/core/model shared edits.",
+  "qualification": "Static source path and declared-adapter tests only; no original/candidate runtime, native Qt invocation or whole activeDOE acceptance. Known source registration/delivery qualifications remain. No source change during candidate30 build."
+}

@@ -1,0 +1,22 @@
+{
+  "label": "CNVT3D revolve 90 degrees, 20 sections, workpiece obj2 from its geometry (MSHSEC output 0)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nGEO23 2 1\n90.0 0.0 0.0\nGEOSEC 2 20\nMSHSEC 2 21 0\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY"
+    ],
+    "notes": "p9-05: geometry revolve of the closed 16-point workpiece outline with end caps from the triangulator 14041f830, which seeds its segment order with srand(time(NULL)): the cap faces (first and last 14 of DIEGEO 2 1 336 668) change order and rotation from run to run (3 runs: 2 orderings). Not byte-comparable against a cached run; compare the caps as triangle sets, or pin the port's clock to the run's second. The oracle entry records start_time; with the port's clock pinned to it (DEF_PORT_FIXED_TIME, retries -1/+1/-2/+2 s as cmd_oracle_runner) the caps match byte-exact (tier-1 oracle_caps_at_recorded_start_second: offset 0).",
+    "volatile": "DIEGEO 2 cap faces depend on the second the run starts"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES two loops (Cold_ext)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nCOLDEXT.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "COLDEXT.IGS",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/LABS/Cold_ext.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Two separate loops: the tracer gives up (status 3, code 200) and every entity is written forward in P-pointer order: DIEGEO 1 2 13."
+  }
+}

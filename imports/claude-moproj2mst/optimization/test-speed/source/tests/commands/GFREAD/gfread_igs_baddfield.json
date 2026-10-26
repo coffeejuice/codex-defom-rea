@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES letters in a D-entry field",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nBADD.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "BADD.IGS",
+      "source": "data/baddfield.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "DEF_IGS.OUT"
+    ],
+    "notes": "Field 3 of the first D entry is XX: the internal (8I8,4I2) read has no error branch, so the Fortran runtime aborts: stderr \"? FORTRAN Runtime Error:\" / \"? Illegal character in numeric input\" / \"? READ(UNIT=INTERNAL,...\", exit code -1, no OUT.KEY, empty DEF_IGS.OUT left."
+  }
+}

@@ -1,0 +1,9 @@
+# CP187 root integration
+
+The retained QtCore private initializer now models `RET` at RVA `0x13123f..0x131240` as a qualified symbolic return to caller RVA `0x13141c`, with RSP advancing from `S` to `S+8`. Task RBX, private RAX and restored RDI remain distinct; the cut stops before caller `XOR ESI` and both public/backlink stores. Independent source review and focused factory/Session tests passed.
+
+In a disjoint editor300 lane, `saveBcc` confines the nullable step borrow to an immediate callback without changing its BCC filter, mesh requirement, path or writer order. The direct helper fixture required a repair: the inherited loader strips mesh despite the corpus's `HasMesh` declaration. The corrected test imports real copied `Object00001.KEY` mesh data through the existing model loader after operation loading; focused `m2m.s.save_current` then passed. This is qualified helper mechanics with a synthetic post-load DefineBCC flag, not public BCC Save equivalence. Independent source review passed before the fixture repair; the repair changed only the fixture import and was exercised by focused and full tests.
+
+`analysis/wave3-checkpoint187-validation.json` and `build/wave3-checkpoint187-verified/` freeze source SHA-256 `bbce748276e56aafbacea4c210301ff9fc13c6adc6386d4d67cbe89c7abdad74` over 3,554 files. Complete regression: 361 registered, 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete, no fixture changes and no changed logged diagnostics against CP186. Historical folder comparison remains 93 SAME/five DIFF.
+
+CP188 was selected before freeze: caller `XOR ESI,ESI` at RVA `0x13141c..0x13141e` and a disjoint `contactFlagsFromEngine` scoped step borrow after plan review. Public Open–Save–Close, failure/Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

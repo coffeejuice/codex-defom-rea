@@ -1,0 +1,25 @@
+{
+  "label": "IMPLUB 1 2 0 (2D, -1 codes)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nBCCDEF       2       4       0\n       1      -1      -1\n       2       0      -1\n       3      -1       0\n       4      -1       1\nIMPLUB 1 2 0\nLUB.KEY\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "LUB.KEY",
+      "text": "*\n*  DEFORM-2D V11.0 KEYWORD FILE (Qt)\n*\nCNTACT       1       2       1\nFRCFAC       1       2       1       0    1.2340000000E-001\nIHTCOF       1       2       0    5.6700000000E+000\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Object 2 BCCDEF set to rows with -1 codes first. 2D flag 0: per row the second and later -1 become 0 (row 1 '-1 -1' -> '-1 0'); the rest stays."
+  }
+}

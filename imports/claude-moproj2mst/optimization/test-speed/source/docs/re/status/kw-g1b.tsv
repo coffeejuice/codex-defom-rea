@@ -1,0 +1,87 @@
+# kw-g1b: group 1 Iteration Controls, Processing Conditions, User Defined Variables (ids 61..91).
+# Keyword checklist (all oracle-checked by port/defkey/tests/test_kw_g1b.cpp; corpus by test_kw_g1b_corpus.cpp):
+#   CVGERR id  61  read+write
+#   INIGES id  62  read only (value discarded; never written)
+#   ITRMTH id  63  read+write
+#   SOLMTD id  70  read+write
+#   ITRMXD id  64  read+write
+#   DEFBWD id  65  read+write
+#   SOLMTT id  66  read+write
+#   ITRMXT id  67  read+write
+#   TMPBWD id  68  read+write
+#   LATENT id  69  read+write
+#   FRQNCY id  91  read+write
+#   GEOERR id  71  read+write
+#   PENINF id  72  read+write
+#   UNTE2H id  73  read+write
+#   TINTGF id  74  read+write
+#   BLZMAN id  77  read+write
+#   ENVTMP id  75  read+write
+#   FRNNAM id  76  read+write (written only with ENVTMP 10)
+#   CNVCOF id  78  read+write
+#   ENVMPR id  81  read+write
+#   ENVMPT id  82  read+write
+#   EHRATE id  83  read+write
+#   ENVATM id  79  read+write
+#   ACVCOF id  80  read+write
+#   TIMEID id  84  read+write
+#   ERECID id  85  read+write
+#   NRECID id  86  read+write
+#   USRDEF id  87  read+write
+#   UNNAME id  89  read+write
+#   UENAME id  88  read+write
+#   CVNAME id  90  read+write
+# Reader = cases 0x27..0x45 of 0x14039aa90 and writer = 0x1403d4990 from the Iteration Controls
+# banner to its end: both in this packet's files, shells owned by kw-g1a (not listed here).
+# The ENVTMP 10 region list calls p1-10's Cls_1403753f0::setup_curves/curve/curve_count (branch
+#   claude/p1-10-rebased), over p1-04's Cls_1401364a0 list and p1-06's DYNARY ctor (merged here).
+# 0x1401d0fc0 (kw-g4b) is reached through def::model::call_1401d0fc0 (defmodel/step/name_arrays.hpp): the hook when set, else step_remap_material_state.
+# 0x1401cb910 / 0x1401cb660: name_arrays.cpp calls p1-03's step_free_strings_33a0/33b0.
+# CustomVarDef / list classes are p1-10's (members/custom_state_var.*, taken from 069xoh @af86bbe).
+address	status	note
+0x1401ea4d0	verified	port/defkey/src/kw_g1b/read_g1b.cpp itrmth_valid (ITRMTH 0 ignored: oracle c3_misc)
+0x1401ea570	verified	port/defkey/src/kw_g1b/read_g1b.cpp solmtd_valid (SOLMTD 9 ignored: oracle c3_misc)
+0x1401ea610	verified	port/defkey/src/kw_g1b/read_g1b.cpp solmtt_valid (SOLMTT 6 ignored: oracle c3_misc)
+0x14039d2a0	verified	port/defkey/src/kw_g1b/read_g1b.cpp region_text_entry (ENVTMP 10: oracle c3_misc)
+0x1403d8260	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_cvgerr
+0x1403d82f0	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_geoerr
+0x1403d83a0	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_peninf
+0x1403d8420	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_unte2h
+0x1403d7250	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_tintgf
+0x1403d72d0	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_blzman
+0x1403d6c90	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_envtmp (constant, table and region-list forms)
+0x1403d6f30	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_cnvcof
+0x1403d70c0	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_envatm
+0x1403d7350	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_acvcof (codes 0..3)
+0x1403d75a0	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_envmpr
+0x1403d7620	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_envmpt
+0x1403d76a0	verified	port/defkey/src/kw_g1b/write_g1b.cpp write_ehrate
+0x1403d6ec0	ported	port/defkey/src/kw_g1b/write_g1b.cpp table_envtmp (registry column 3)
+0x1403d7050	ported	port/defkey/src/kw_g1b/write_g1b.cpp table_cnvcof
+0x1403d71e0	ported	port/defkey/src/kw_g1b/write_g1b.cpp table_envatm
+0x1403d7530	ported	port/defkey/src/kw_g1b/write_g1b.cpp table_acvcof
+0x1401cba80	verified	port/defmodel/src/step_names/name_arrays.cpp realloc_node_names (UNNAME round trips)
+0x1401cb7d0	verified	port/defmodel/src/step_names/name_arrays.cpp realloc_element_names (UENAME round trips)
+0x1401d21c0	verified	port/defmodel/src/step_names/name_arrays.cpp resize_node_names
+0x1401d2090	verified	port/defmodel/src/step_names/name_arrays.cpp resize_element_names
+0x1401cbbc0	verified	port/defmodel/src/step_names/name_arrays.cpp node_name_count (rebuild branch 0x1401cf930 unreachable: DEF_NOT_PORTED)
+0x1401cbc80	verified	port/defmodel/src/step_names/name_arrays.cpp element_name_count (rebuild branch 0x1401cfc30 unreachable: DEF_NOT_PORTED)
+0x1401d2b70	ported	port/defmodel/src/step_names/name_arrays.cpp names_up_to_date (always 1)
+0x1401d48d0	ported	port/defmodel/src/step_names/name_arrays.cpp mark_state_var_outputs: returns when 1401d2b70 is true (always); the marking body is unreachable (kwm-audit; default of kw-g2sv's g_hook_1401d48d0)
+0x140323c50	verified	port/defmodel/src/step_names/strtrim.cpp trim_right_blanks (USRDEF/UNNAME/UENAME)
+0x14032f670	verified	port/defmodel/src/cvname/cvname.cpp find (CVNAME oracle c3_tables)
+0x14032f240	verified	port/defmodel/src/cvname/cvname.cpp cv_get_or_add
+0x14032f350	verified	port/defmodel/src/cvname/cvname.cpp cv_set_name
+0x14032f1a0	verified	port/defmodel/src/cvname/cvname.cpp cv_clear_items
+0x14032f5f0	verified	port/defmodel/src/cvname/cvname.cpp cv_append_item
+0x14032f1e0	verified	port/defmodel/src/cvname/cvname.cpp cv_count
+0x14032f210	verified	port/defmodel/src/cvname/cvname.cpp cv_entry
+0x14032ef00	verified	port/defmodel/src/cvname/cvname.cpp cv_def_id
+0x14032efd0	verified	port/defmodel/src/cvname/cvname.cpp cv_def_append
+0x14032f880	verified	port/defmodel/src/cvname/cvname.cpp cv_def_append (push_back)
+0x14032efa0	verified	port/defmodel/src/cvname/cvname.cpp cv_def_item_count
+0x14032ef50	verified	port/defmodel/src/cvname/cvname.cpp cv_def_name
+0x14032f070	verified	port/defmodel/src/cvname/cvname.cpp cv_def_item
+0x14032f8e0	verified	port/defmodel/src/cvname/cvname.cpp cv_def_item (walk)
+0x1403300b0	not-needed	list<CustomVarDef> detach copy: handles are never shared in the port (DEF_NOT_PORTED guard in cvname.cpp)
+0x14032ffa0	not-needed	list<string> detach copy: same reason

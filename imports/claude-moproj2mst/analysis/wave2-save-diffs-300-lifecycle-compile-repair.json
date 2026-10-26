@@ -1,0 +1,16 @@
+{
+  "status": "compile_include_repair_frozen_for_root_rebuild",
+  "cause": "Root combined buildv1 C2039/C3861: def::model::dynary_copy declaration missing in lifecycle.cpp line13",
+  "repair": "Replace unrelated dynary_init.hpp with declaring header defmodel/window/inter_object_ops.hpp, matching existing snapshot implementation; no behavior change",
+  "prior_receipt": {
+    "path": "analysis\\wave2-save-diffs-300-lifecycle-increment.json",
+    "sha256": "6a15c11e9d993516a2a4c43dc1486af2fdf66cbd1ea944ef307c04a516fe49d1"
+  },
+  "source": {
+    "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+    "bytes": 6999,
+    "sha256": "e358916015ea11312aba14d45515a1717449327ca61fca1eecfb6d025b0048ec"
+  },
+  "test_dependency_review": "Lifecycle tests call no dynary_copy directly; their declarations come from composer header. No analogous missing declaration identified.",
+  "validation": "No worker build/tests; root owns rebuild and fullsuite. Owned git diff --check passed."
+}

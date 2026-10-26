@@ -1,0 +1,59 @@
+{
+  "schema": "editor300-parented-grid-update-contract-v1",
+  "created_utc": "2026-10-24T12:19:16.745175+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-first-parented-grid-contract.json",
+      "sha256": "d7dd9c9e02cda9ac7e5a19aa1b0996a065ba01794950258dc2ae2d3c922e9dae"
+    },
+    {
+      "path": "analysis/wave3-editor-first-grid-spacing-static.json",
+      "sha256": "b71b7980639eacd00197c1e0692603c26af8b587832195ae666960b58b7a1b3e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65046b10.asm",
+      "sha256": "e94740557dcc7fc0ca734a3ca26d85bd4de62dc9b78590bd6c018260d2491ed5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65043890.asm",
+      "sha256": "178400713ed6ecf114c19020c48f7a1fc4ecbc3b843af1eea8bf3449bb57ca61"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65046760.asm",
+      "sha256": "7e68b8be52c176e7afa63ac0d7a07b9ce2d1ad3070f5ab74a56b1ba5b7eb7f9a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65045930.asm",
+      "sha256": "36ea904471976e0f87f0f95f2df2ba6492af159608bf40dbdbeb3922b9b45d0f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6503c520.asm",
+      "sha256": "751c8d5fef186dfe259b022c84046ee2fa8787575993ee48f4942f473e62339d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-650449c0.asm",
+      "sha256": "a515e485ce153c519aa143d2250bc45d5d9e10652411e29ff9990b5183e8e3e9"
+    },
+    {
+      "path": "analysis/wave3-close-grid-post-parent-tail-contract-v2.json",
+      "sha256": "5615122ac64bc7fb63684ff73d741f999084c5b61783b8e5589a315c7f702aaa"
+    }
+  ],
+  "ordered_native_effects": [
+    "Fresh QLayoutPrivate65043890 clears flags+9c bits0/3 and sets bits1/2 at650438ee..fa, so its known low flag state begins6. Do not assign the manager helper post-invalidation state2 to this point.",
+    "After child construction returns and fresh installed-layout-null branch succeeds,65046c68 sets flagbit0 (lowflags7),65046c73 publishes editor+A8, and65046c7f calls QLayout::invalidate with secondarybase grid+10.",
+    "65046760 resets geometry QRect endpoints0,0,-1,-1 then65045930 reads flags bit2. Under no intervening mutation,bit2 is set;6504595d clears it (lowflags3),65045968 sees top-level bit0, and65045981 resolves actualeditor parent.",
+    "6504598a allocates0x18 event;650459a1 constructs rawtype0x4c;650459c3 calls QCoreApplication::postEvent(receiver editor,event). This is a reached posting request while QObject/QLayout construction is finishing. Actual queue compression/delivery/dispatcher effects remain separate framework dependencies. No synchronous event-loop execution is implied by the call.",
+    "After QGrid vtables/counts and app UI[0] publication, setSpacing3 at6503c190 writes private+120 and+11c to3 unconditionally, then tail-dispatches QLayoutItem vtable+58. Function ends with tail jump6503c1a7; bytesfrom6503c1b0 belong to next function.",
+    "App forwarding grid invalidate6503c520 ORs dirtyFlags+134 bit2, sets cachedSize+108=-1, then QLayout.invalidate resets geometry and update sees flags+9c bit2 alreadyclear. Without intervening mutation it returns without a second posting request.",
+    "setContentsMargins3,3,3,3 at650449c0 compares private+8c,+90,+94,+98; native fresh values-1 differ, so it writes allfour before virtualinvalidate. With same flag premise this also makes no second posting request.",
+    "First-grid name gridLayout setter follows these effects. Any posted events remain pending until original delivery rather than being applied inline or silently discarded."
+  ],
+  "distinct_flags": "QLayoutPrivate+9c bit2 controls update propagation/posting; QGridLayoutPrivate+134 bit2 is dirty geometry/cache state. They are not the same flag and must not be collapsed.",
+  "qualifications": [
+    "Shared default-manager GridLayoutState currently models row/column1 and layoutFlags2 after parentless margin invalidation. That is an already-qualified manager profile, not a general Qt constructor default.",
+    "Current property probe stops before first grid; it supplies no native observations of these later queue/child effects.",
+    "Existing source guard must remain until prior native property dispatch and parented constructor inputs close. No source edits, worker builds, launches or GUI control were performed."
+  ],
+  "next_action": "After root freezes current candidate and captures editor context, bind native name/resize/property state first. For parented grid, reuse actual widget and event owner primitives while preserving one pending constructor allocation, child membership, installed layout and UI alias stages; root owns any shared GridLayoutState generalization."
+}

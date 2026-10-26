@@ -1,0 +1,70 @@
+{
+  "schema": "editor300-fresh-spin-numeric-increment-v1",
+  "status": "source-frozen-awaiting-root-build",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "faea11db2462c8a30f6ab863d2c93d22b02db20c30a4e90f161bd4667a1716af"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "f154a7751183c8773b42f59963352ae55539e1490708fe8fc44c54d6c706630c"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+      "sha256": "8d17c2a48bb62ccf1536125455f27ca4332379a487d2b5ca5fed258dd628662a"
+    }
+  ],
+  "evidence": {
+    "path": "analysis/wave3-editor-qt-spin-numeric-profile-contract.json",
+    "sha256": "cfe8e40a8d6516dbafc88ec12fbb99cc7b66c0f43c9c782e587ee8b962a9ba1a"
+  },
+  "previous_increment": {
+    "path": "analysis/wave3-editor-fresh-combo-selection-increment.json",
+    "sha256": "c55814f52b8544cd153c201af43c1776046e53f0b8999e721696dc0c7ebe8452"
+  },
+  "changes": [
+    "Explicit SetupSpinProfile with Unknown/FreshNative/CustomControl, bindSpinControls and profile accessor. Unknown/custom refuse before numeric mutation; only Prefix permits initial binding; a qualified state cannot replay or replace its owner.",
+    "Same setup owner contains optional SetupSpinState(minimum,maximum,value,singleStep) for exactly11 source-identified native QSpinBox controls. Existing scalar fields remain explicit setter arguments, distinct from effective numeric state.",
+    "Binding reconstructs native min0/max99/value0/step1 then16 ordered setup setters. Minimum and maximum adjust the opposite bound as the original setters do, then clamp stored value. Value setter bounds its argument; negative step is ignored, matching native setter.",
+    "The original minimum1 changes148/158/1750 from0 to1 before later calls.158 and1750 have no explicit setValue;1740 step10 does not increment value,1718 minimum-999999 retains0, three untouched controls remain0..99/value0/step1.",
+    "No synthetic editor callbacks, full Qt construction, native text formatting, allocator-failure or custom-model behavior is claimed. Spin qualification is independent of combo qualification; both full setup and public completion flags remainfalse."
+  ],
+  "validation": {
+    "worker_builds_or_tests": "none",
+    "test_cases": [
+      "editor_setup_retains_native_slot_identity_without_inventing_widgets",
+      "editor_setup_remesh_groups_retain_initial_checked_and_enable_state",
+      "editor_setup_keeps_unresolved_defaults_separate_from_explicit_calls",
+      "editor_setup_table_minimum_calls_do_not_become_guessed_counts",
+      "editor_setup_connection_installation_does_not_emit_or_synchronize",
+      "editor_setup_internal_duplicate_delivers_twice_without_coalescing",
+      "editor_setup_internal_routes_preserve_owned_receiver_independence",
+      "editor_setup_final_indices_stay_after_translation_and_connections",
+      "editor_setup_automatic_slots_are_plans_not_synthetic_callbacks",
+      "editor_setup_unknown_translation_preserves_prefix_and_blocks_later_stages",
+      "editor_setup_explicit_untranslated_profile_keeps_native_text_and_list_order",
+      "editor_setup_stage_order_never_replays_translations_or_fabricates_callbacks",
+      "editor_setup_consumed_text_belongs_to_its_original_setup_owner",
+      "editor_setup_unqualified_or_custom_combo_models_refuse_without_effects",
+      "editor_setup_fresh_native_combos_start_empty_with_invalid_selection",
+      "editor_setup_insertion_selects_only_thirteen_populated_native_models",
+      "editor_setup_combo_binding_cannot_replay_or_replace_another_owner",
+      "editor_setup_spin_profile_refuses_unqualified_and_custom_controls",
+      "editor_setup_native_spin_numeric_state_matches_all_eleven_controls",
+      "editor_setup_spin_minimum_clamps_without_an_explicit_value_setter",
+      "editor_setup_spin_binding_is_owned_and_cannot_replay_after_translation"
+    ],
+    "static_preflight": {
+      "case_count": 21,
+      "unique_cases": true,
+      "exactly_one_main": true,
+      "native_control_inventory_matches_contract": true,
+      "setter_inventory": 16,
+      "whitespace": "pass",
+      "conflict_markers": "none",
+      "completion_flags": "remainfalse"
+    }
+  },
+  "next_action": "Root integrates and validates21 cases plus candidate regression. Worker continues the next remaining source-bound setup dependency during freeze; do not perform storeSimNames before the guarded native prefix."
+}

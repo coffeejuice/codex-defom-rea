@@ -1,0 +1,114 @@
+[
+ {
+  "label": "GENAXS/v_objpos14_ctl",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_objpos14_ctl.KEY"
+   }
+  ],
+  "comment": "control for GENAXS/objpos14: the two OBJPOS mode 14 lines only"
+ },
+ {
+  "label": "GENAXS/v_clearA_tol10",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_clearA_tol10.KEY"
+   }
+  ],
+  "comment": "pair 4/5 moved +30 in X (10..20, wholly at +X of die 2): GENAXS 7 10 10 -> both pairs clear: no moves, WPAXIS type 7 id 1 = (4 5 10 20), id 2 = (6 7 -90 -80)"
+ },
+ {
+  "label": "GENAXS/v_clearA_tol15",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_clearA_tol15.KEY"
+   }
+  ],
+  "comment": "as v_clearA_tol10 with GENAXS 7 15 15: |cD - c4x| = 15 <= 15 -> pair 4 blocked (opened by u), record id 1 = (6 7 -90 -80)"
+ },
+ {
+  "label": "GENAXS/v_clearA_Bblk",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_clearA_Bblk.KEY"
+   }
+  ],
+  "comment": "pair 4/5 moved +30, GENAXS 7 10 100: pair 4 clear, pair 6 blocked by tolB (85 <= 100): G6 by u, G7 by -u (direction of pair 4/5), record id 1 = (4 5 10 20)"
+ },
+ {
+  "label": "GENAXS/v_tolB85",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_tolB85.KEY"
+   }
+  ],
+  "comment": "GENAXS 7 0 85: |cD - c6x| = 85 <= 85 -> pair 6 blocked as well: both pairs opened, type-7 record deleted"
+ },
+ {
+  "label": "GENAXS/v_tolB8499",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_tolB8499.KEY"
+   }
+  ],
+  "comment": "GENAXS 7 0 84.99: pair 6 clear (same result as corpus15)"
+ },
+ {
+  "label": "GENAXS/v_spring",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "_TEMP_STEP.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Cogging/Cogging_Multiple_Ops_Lab2/_TEMP_STEP.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_spring.KEY"
+   }
+  ],
+  "comment": "spring reset: MOVCTL type 5 of objects 4 and 6 re-entered with t2 = 2.5 / 1.5 (+0x2588) and FORCE 4 = (1 2 3); GENAXS 7 15 15: G4, G5 by (-2.5,0,0); G6, G7 and W by -1.5*(-1,0,0) = (1.5,0,0); spring values and FORCE of 4..7 zeroed; then pair 4 still blocked -> opened by u"
+ }
+]

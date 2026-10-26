@@ -1,0 +1,48 @@
+{
+  "schema": "wave3-editor-temporary-lifetime-amendment-v1",
+  "created_utc": "2026-10-24T05:50:48.867043+00:00",
+  "amends": {
+    "path": "analysis/wave3-editor-acvcof-owner-contract.json",
+    "sha256": "e3176a084484fa30c9716ff937fe518ccb93e7d37d1096bb001e6ce30d440b6b"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-temporary-ctor-static.json",
+      "sha256": "6364c1e067f574d1c4c49c8a389a0b7dafd844a18f6c39bec99c65d2edd3c7f4"
+    },
+    {
+      "path": "analysis/wave3-editor-temporary-dtor-wrapper-static.json",
+      "sha256": "9e86c226c1355e4dfcbd44b41fad4e025266535aa869ea04669a9403ddfbf5a5"
+    },
+    {
+      "path": "analysis/wave3-editor-temporary-dtor-static.json",
+      "sha256": "381e45ba906d1d04163fa308c5f01ece2b54bf907561eb06a6dea7292cbf4c16"
+    },
+    {
+      "path": "analysis/wave3-editor-temporary-cleanup-static.json",
+      "sha256": "79c99a8cfd93439286cc034695886734803d0240691cb68a7c85fde71cba4ba1"
+    },
+    {
+      "path": "analysis/wave3-editor-temporary-default-init-static.json",
+      "sha256": "fafb135fce453b9a74f1191b6fa771a8c10d0cb66dfca756ce9edf81bcedeb4c"
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-allocation-static-static.json",
+      "sha256": "1090a62b7cd2e169a46ba6fa41760ff61f263747003c002c09f723ec7242aa9c"
+    }
+  ],
+  "normal_allocation_path": [
+    "First loop140eb3519..3589 allocates six0x78 objects, default-constructs them with140898dc0, and stores each at editor+c8+i*8. Second loop140eb37a0..381f does the same and overwrites those exact slots.",
+    "Default constructor zeros counts/axes/values/u68 and calls init140899010(type0). Type0 follows unsigned out-of-switch branch1408990e6->140899f06, then allocator14089b840 with ndim0,ncomp1,type0. No nested axis/value allocation is reached. There is no callback/registration/this escape in the selected constructor/init path.",
+    "The code from140899f38 through the unwind-region end is jump-table data, not executed instructions. Only the type0 path through RET140899f34 supports the claim.",
+    "No intervening deletion of first-wave pointers occurs before the overwrite. Default noninterposed allocation therefore leaves six raw0x78 allocations (720 payload bytes, excluding allocator overhead) outside editor ownership. This is a source-derived normal-path leak, not a measured process working-set delta."
+  ],
+  "destruction": [
+    "Scalar deleting wrapper140f34600 calls editor dtor140eb3a60 and frees editor storage only if flags&1.",
+    "Early cleanup140eb52f0 touches only editor+f8 and then clears it. It cannot recover the overwritten six curve slots.",
+    "Dtor140eb3ba5..3c22 visits only current slots+c8..f0 in ascending index order and calls1401009d0(ptr,1). That wrapper calls DYNARY dtor14089b180 then delete; arrays are freed first and nonnull u68 is recursively destroyed by the same wrapper in this GUI build.",
+    "Other editor-owned widgets, data+C0, list+168, UI+140, object+150 and base cleanup remain distinct destructor stages. The headless composer does not yet claim these GUI ownership stages."
+  ],
+  "implementation_qualification": "Current composer represents current curve contents but not the initial orphan allocation wave or original allocation-failure effects. Retain these as architecture/Close acceptance qualifications. Do not claim exact allocator behavior, total heap byte count, or whole-GUI destructor recovery from this bounded source chain.",
+  "next_action": "After ACVCOF mutable-owner integration, root determines the converter internal ownership representation/acceptance accounting for original orphan allocations and explicit destruction order, preserving evidence and avoiding accidental host UB. No source change in this amendment."
+}

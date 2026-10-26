@@ -1,0 +1,25 @@
+# Bounded immutable PE capture: PPV separator global initializer
+Target: evidence/original-binaries/DEF_GUI_MO_64.exe
+Target SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+Image base: 0x140000000
+Function bytes: RVA 0x01d57570..0x01d575c7 (VA 0x141d57570..0x141d575c7)
+Global: 0x1446b4b20 (RVA 0x046b4b20; zero-filled .data virtual tail)
+Pattern data: 0x142a138d0 (RVA 0x02a138d0; file-backed .rdata)
+Pattern bytes: 5c 73 2b 00 = ASCII "\\s+\\0"
+
+Relevant instruction bytes (x64, addresses are VA):
+
+0x141d5757d  48 8d 15 4c c3 cb 00  LEA RDX,[RIP+0x00cbc34c] ; 0x142a138d0
+0x141d57584  48 8d 4c 24 20        LEA RCX,[RSP+0x20]
+0x141d57589  ff 15 f1 ce 0a 00     CALL QWORD PTR [RIP+0x000acef1]
+0x141d57590  45 33 c9              XOR R9D,R9D
+0x141d57593  41 b8 01 00 00 00     MOV R8D,1
+0x141d57599  48 8d 54 24 20        LEA RDX,[RSP+0x20]
+0x141d5759e  48 8d 0d 7b d5 95 02  LEA RCX,[RIP+0x0295d57b] ; 0x1446b4b20
+0x141d575a5  ff 15 cd ca 0a 00     CALL QWORD PTR [RIP+0x000acacd]
+
+The two indirect call targets resolve through the import table to the narrow
+string-construction and QRegExp-construction path, respectively; the argument
+registers above establish the object and pattern relationship. Remaining
+function epilogue/destructor bytes omitted; this receipt is limited to the
+initializer argument setup and constructor call.

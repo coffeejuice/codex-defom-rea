@@ -1,0 +1,76 @@
+{
+  "schema": "editor300-staged-owner-increment-v1",
+  "status": "source-frozen-awaiting-root-build",
+  "native_contract": "analysis/wave3-editor-native-owner-contract.json",
+  "native_contract_sha256": "3d70cad9c2c8d1c0984c9936351baf0d3f80dea31c6d31be4b2e9b25554c766a",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+      "sha256": "5d6a8058921fa1d95050b7ab788828b5f2643ed0f7c6549cbed5d89ab509b033"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp",
+      "sha256": "90dd29eaf7ce0f601cd5ad45de025ef85db9972d3ba7621b18bf57301645a77c"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_owner.cpp",
+      "sha256": "b48927d7193e4ee6db816fbf00d1764832e30920bf7e916d4bb1684ef638fe94"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "8016352516aba36da19052768e1a6918c001f4ac030e402eb94bb68d33f3a62e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "6733035b116e1e395d5d34ca5bd5b6e78cfb16489a902688dce755960fb995f9"
+    }
+  ],
+  "changes": [
+    "New StagedEditor300 record retains exact Project/Operation/GuiModel/Remesh identities, existing nonowning GuiModelGuard, and distinct AwaitingContext/partial/awaiting-native-boundaries states. Root owns widget-area lifetime integration.",
+    "No default feature context or PRE substitution. Actual owner demands MO5 and same explicit Project/Operation context. Caller must supply current binding, never dereferences a stored stale Operation.",
+    "New staged lifecycle routine records each completed initial/repeat/backed-refresh page, temporary copies, backup creation/restoration and reached refusal. Partial state survives unsupported result or an exception. Existing optional convenience helper remains.",
+    "Completed recovered page sequence retains actual same environment temporaries for Apply. Incomplete owner cannot Apply. A second construction request cannot replay stores/I/O and does not erase the first refusal receipt.",
+    "Existing original page ordering/copies and backup restoration on ordinary refusal retained. Owner catches adapter exception solely to retain state and rethrows the same exception."
+  ],
+  "api": {
+    "header": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+    "binding": "Editor300Binding { Project&, Operation&, GuiModel&, RemeshState& }",
+    "constructor": "explicit StagedEditor300(Editor300Binding)",
+    "construct": "const Editor300ConstructionReport& constructPageState(Editor300Binding, Extra3DIo&, const InitialEditorContext&)",
+    "completed_pages": "InitialEditorSession* pageState() noexcept",
+    "partial_pages": "const InitialEditorSession* partialPageState() const noexcept",
+    "report": "const Editor300ConstructionReport& construction() const noexcept",
+    "identity": "bool identityMatches(Editor300Binding) const noexcept",
+    "lifecycle": "void openInitialEditorInto(InitialEditorSession&, GuiModel&, RemeshState&, Extra3DIo&, const InitialEditorContext&, InitialOpenReport&)"
+  },
+  "validation": {
+    "worker_build_or_test_run": false,
+    "direct_whitespace_and_conflict_scan": "passed all five files",
+    "focused_cases": [
+      "editor300_factory_record_requires_real_binding_and_does_not_invent_context",
+      "editor300_constructor_rejects_substituted_context_before_model_or_file_effects",
+      "editor300_missing_initial_observation_keeps_reached_guard_and_forbids_replay",
+      "editor300_environment_refusal_retains_earlier_iteration_and_widget_state",
+      "editor300_second_observation_refusal_preserves_backup_and_full_initial_effects",
+      "editor300_completed_pages_remain_owned_but_do_not_complete_native_constructor",
+      "editor300_borrowed_model_guard_expires_without_extending_operation_model_lifetime",
+      "editor300_adapter_exception_preserves_reached_page_and_propagates_original_exception",
+      "editor300_partial_lifecycle_owner_cannot_be_applied_or_reconstructed_again"
+    ],
+    "case_count": 9,
+    "root_required": [
+      "register owner source and owner test in CMake",
+      "build combined candidate",
+      "owner9 + lifecycle20 + snapshot49 + MO suite focused cases",
+      "full regression and existing historical comparison/ABI gates"
+    ]
+  },
+  "qualification": [
+    "No complete native constructor, public Save success, or GUI claim. Original UI setup, operation initialization, picking owner/receiver setup, callbacks/processEvents between supported page blocks, recovery UI and constructor tail remain explicit pending boundaries.",
+    "Current record is factory-stage diagnostic state. Native factory returns only after full constructor; therefore attach/deliver must remain guarded until those preceding native boundaries are complete.",
+    "Widget-area replacement/Close uses deferred detachment, timer and deleteLater. This increment does not implement immediate reset or complete native destructor.",
+    "Native raw Operation/Project QObject expiration guards remain unrecovered; explicit current binding is mandatory and borrowed stored addresses are only identity tokens.",
+    "Allocation failure, first temporary allocation wave leak, Qt viewport final immediate parent, and event delivery schedules remain qualified."
+  ],
+  "next_executable_action": "Root integrates source-bound factory storage in actual session widget area without changing legacy-supported profile or public Save guard. Worker next investigates smallest constructor prefix/context-provider dependency; no source edits while combined candidate frozen."
+}

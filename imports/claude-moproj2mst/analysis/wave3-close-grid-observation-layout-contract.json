@@ -1,0 +1,94 @@
+{
+  "scope": "Source-bound field map for parent-owned bounded fresh-startup observations; this worker performed no target runtime or app control.",
+  "address_rule": "All addresses are preferred VAs. Translate by actual loaded module base plus RVA; DEF_GUI_MO_64 preferred base140000000, QtGui4_64 base65000000, QtCore4_64 base67000000.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    },
+    {
+      "path": "analysis/wave3-close-grid-layout-ownership-contract.json",
+      "sha256": "0f358f997cba4794bcafcb23c39f0f02aedefab56f58c2572ccf99cff0d7ad5e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6701dac0.asm",
+      "sha256": "c64dd5b5c11d4e48daf880e400d279a19027dbb2d6b3b8ef322319728fd0d938"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6701dae3.asm",
+      "sha256": "9d36f421cdd1d67e274ebf276b42e4ba3351c3cf2b3b8f8d62d92efa99009e0a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6701db8d.asm",
+      "sha256": "3fbafe223cf1173a2a5522ea60b7c3d876886dd08f624017636febabeb549b15"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6701dc80.asm",
+      "sha256": "7fd9d570a5b31e0b6b5d836ea3d0092cd98b0a3597fa53b3873cc56fdd1ffb48"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67119600.asm",
+      "sha256": "668507ba77fd34d44195c72b57ef696948de30db1dd30b8298b706351fa765a4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-671196d0.asm",
+      "sha256": "98160fab0b1815f62be22eeef07ee691e705f43d6830fbb81ea5abd758dbbe31"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712d3f0.asm",
+      "sha256": "4e7740db817888c3626b58afe7ebf6f9c422745439664fc82f13bdb5c6266d1a"
+    }
+  ],
+  "application": {
+    "instance_pointer_global": "QtCore672f4220",
+    "QObject_private": "*(object+8)",
+    "actual_subclass_vtable": "DEF_GUI_MO1420edeb8",
+    "normal_notify_slot": "vtable+58 =140002480 forwarding QApplication::notify"
+  },
+  "internal_callbacks": {
+    "owner_pointer_global": "QtCore672f3c68",
+    "shutdown_byte": "QtCore672f3c70",
+    "vector_data": "*(owner+0)",
+    "vector_count": "int32(vectorData+8)",
+    "type3_list_data": "*(vectorData+10+3*8), only when count>3",
+    "list_begin_end": "int32(listData+8),int32(listData+c)",
+    "entry_i": "raw function pointer *(listData+18+(begin+i)*8)",
+    "dispatch": "6701dc80 snapshots current list, calls every entry and ORs returns; callback args are local void*[receiver,event,&resultByte]. Internal-handled return and resultByte are separate.",
+    "read_only_warning": "Do not call6701dac0 just to inspect: absent owner causes allocation. Raw observations must distinguish absent, empty, unavailable reads and malformed bounds."
+  },
+  "event_filters": {
+    "application_list": "*(applicationPrivate+70)",
+    "receiver_list": "*(receiverPrivate+70)",
+    "list_begin_end": "int32(data+8),int32(data+c)",
+    "entry_i": "guardWrapper=*(data+18+(begin+i)*8); currentFilter=*(guardWrapper+0)",
+    "dispatch": "67119600 application and671196d0 receiver skip null wrappers, require matching thread-data+40, invoke filter vtable+28. True stops. Iteration reads current live list again, not a fixed snapshot.",
+    "qualification": "A pre-event empty read supports only that observed instant. Preserve actual dispatch and return observations if filters or internal callbacks are present."
+  },
+  "ordered_hooks": [
+    {
+      "at": "DEF_GUI_MO140d34e4b",
+      "effect": "call QWidget::setLayout65068490(manager,grid)"
+    },
+    {
+      "at": "QtGui6506868d",
+      "effect": "widget private+A8 installed layout commit precedes QObject::setParent call6506869f"
+    },
+    {
+      "at": "QtCore6712d519",
+      "effect": "child private+10 parent commit; same-thread check precedes actual parent children-list append6712d556"
+    },
+    {
+      "at": "QtCore6712d5b3",
+      "effect": "notifyInternal67119570(app,receiver,parent ChildAdded event raw44) after append; reached if child flags+20 bit20 set, parent bit40 set, child bit1 clear and app exists"
+    },
+    {
+      "at": "QtCore6712d5b8",
+      "effect": "global byte672f1da8 gates extra parent-private+68 vector bookkeeping; empty count+8 causes raw43 event post before guarded child append"
+    },
+    {
+      "at": "QtCore6712d681",
+      "effect": "if child private+20 mask8 clear and private+78 nonnull, call function pointer at672f4358; rcx=private+78,rdx=child QObject,r8=new parent. No additional function-pointer-null check in native branch"
+    }
+  ],
+  "qualification": "The installed QLayout raw44 event and terminal QObject childEvent leaves are source-closed. Actual callback/filter populations, app closing state and post-parent optional hooks remain current-state inputs. No grid continuation or public aliases inferred here."
+}

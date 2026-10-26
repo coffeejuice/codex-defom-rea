@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF no entities",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nEMPTY.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "EMPTY.DXF",
+      "source": "data/dxf_empty.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "No segments: -500, geometry unchanged, GFREAD Done. Prediction = observed 2026-10-21: reader result -500, GFREAD Done, object 1 keeps the IN.KEY curve (DIEGEO 1 1 2)."
+  }
+}

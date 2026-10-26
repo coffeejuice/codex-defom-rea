@@ -1,0 +1,126 @@
+{
+  "schema": "editor300-first-parented-grid-prefix-increment-v1",
+  "created_utc": "2026-10-24T13:15:07.236865+00:00",
+  "status": "SOURCE FROZEN; no worker build or behavioral test executed",
+  "owner": "/root/remesh_native owns the listed eight editor files. Shared GridLayoutState/WidgetState changes belong to closure_next; Session integration/builds belong root.",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "38c82c5784d7df56744f9e3df420f9e2078aeef21c2fe061cd84b65e217cda38",
+      "bytes": 15285,
+      "cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "f6b0075090d77c64fef400bc9cb72c63f7558d6734e95b60184b7028dbacab22",
+      "bytes": 65608,
+      "cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+      "sha256": "54394238b23ffb0f73988dbeb4eb6550bc99924b1991375050226e27e17d41ec",
+      "bytes": 75354,
+      "cases": 54
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+      "sha256": "bdf2b7f28f82ee5a549908f6d9cb31cad71990e1b9dab2bfd28b6524b057aada",
+      "bytes": 5586,
+      "cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp",
+      "sha256": "0fd8354c679b85422f57f39df5251f0ff2a3e65f00d93e33c5dc01d6246faa46",
+      "bytes": 9502,
+      "cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_grid.hpp",
+      "sha256": "6bb30a29bdc3d364198201d7a589ea15c97dec7a3b7b4770056cd72f24d1a047",
+      "bytes": 3116,
+      "cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_grid.cpp",
+      "sha256": "b0adbb69ee0d287681fdb6c263ca75004f57c2a65b1e1d90716fa293f7ab0354",
+      "bytes": 5011,
+      "cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_grid.cpp",
+      "sha256": "2afa333419c5e9bf841d47e48a9c2e40cde48572e982f09322fabb9c16fcecd5",
+      "bytes": 14260,
+      "cases": 11
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-caller-bool-variant-cleanup-contract.json",
+      "sha256": "c00d21810216216f8e7c067afc59fbf87722529ac4b76dc84a7b7650a8432397"
+    },
+    {
+      "path": "analysis/wave3-editor-first-parented-grid-contract.json",
+      "sha256": "d7dd9c9e02cda9ac7e5a19aa1b0996a065ba01794950258dc2ae2d3c922e9dae"
+    },
+    {
+      "path": "analysis/wave3-editor-parented-grid-update-contract.json",
+      "sha256": "02494bdf9b0e79d8f74a5ca7c0fa7115c25b887a3456d796d74d305c5da600dc"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-base-grid-dependencies.json",
+      "sha256": "3271d266b33aefd11638327f19208ce57b7fb83a94347b4a90ea925d3a3db935"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712e630.asm",
+      "sha256": "4ff378bfa7a1ce61b0467bb687dbc4f89fe9f0cfaad45e83718eea2870c873df"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712d3f0.asm",
+      "sha256": "4e7740db817888c3626b58afe7ebf6f9c422745439664fc82f13bdb5c6266d1a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67131160.asm",
+      "sha256": "006a86bf080b956ccfa0885cb2a20313a0c69a198648dd770ea93caf82527aad"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65043890.asm",
+      "sha256": "178400713ed6ecf114c19020c48f7a1fc4ecbc3b843af1eea8bf3449bb57ca61"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6503c5a0.asm",
+      "sha256": "3d6fdcc3f9441eecfd8ad7ef2a68dc9980eeb18d630355d36fac4eca953d2994"
+    }
+  ],
+  "implemented_contract": [
+    "StagedEditor300::continueNativeSetupFirstGrid validates current Project/Operation/GuiModel/remesh/factory/setup identities and property return before any new effects. Original QVariant(boolfalse) caller dtor is separate and occurs once before allocation; dynamic property remains retained.",
+    "Factory owns EditorGridConstruction and pending concrete GridLayoutState. Uses shared ParentedPending profile with rowcol0,margins-1,cache-1 and source-known flag masks. It never invokes manager ensureGridLayout or starts from manager post-invalidation rowcol1/flags2.",
+    "QObject ctor6712e630 selects/refcounts threadData before check_parent_thread and helper. Equal actual current/parent/runtime WidgetThreadState identities close both native selection arms without boolean success input. Missing/different identity guards before any parent store; known unequal-thread warning/null-parent continuation remains queued.",
+    "On equal-owner profile, store weak actualparent, append same grid to actual WidgetState known-child suffix, then transfer same shared record from pending allocation into owned child. Unqualified earlier QObject children remain explicitly unknown prefix. The grid retains actual threadData ownership through shared_ptr; parent reference stays nonowning.",
+    "Fresh QObjectPrivate sendChildEvents bit5=true/isWidgetbit0=false are source-proven. Parent receiveChildEvents bit6 is read only after membership. Unknown parent bit stops there. True stops immediately before rawChildAdded0x44 construction/dispatch. False skips directly fresh-null final child hook and stops before actual globalQObject count increment6712e6e0.",
+    "Sole installed-layout alias remains on actual WidgetState. Setup UI[0] is distinct weak alias, leftnull because no implemented path reaches QLayout installation or QtGrid/app constructor tail. Native factory death invalidates both pending and parented grid diagnostic leases and releases thread references; this is adapter liveness, not a claimed complete Qt destructor implementation."
+  ],
+  "flag_qualification": {
+    "layout9c": "(old&0xfffffff6)|6: knownmask0x0f,value6; highbits notzeroed",
+    "grid134": "(old&0xffffffec)|4: knownmask0x17,value4; bit3/highbits remain unknown",
+    "qobject20": "QObjectPrivate(old&0xfffffcf0)|0x60 makes sendsChildtrue/receivesChildtrue/isWidgetfalse in fresh grid, but does not qualify current editor receiver flags."
+  },
+  "validation": {
+    "static_preflight": "passed bounded whitespace/conflicts, unique cases, direct writer include, one main; git diff --check passed before final qualification comment/test addition and repeated direct scan passed afterward",
+    "editor_grid_case_count": 11,
+    "editor_setup_case_count": 54,
+    "build": "NOT RUN; root responsibility",
+    "tests": "NOT RUN; root responsibility",
+    "required": [
+      "combined build against closure shared grid API",
+      "editor_grid11/editor_setup54/staged owner/lifecycle/Session/shared widget tests",
+      "full regression and historical fixture/ABI checks at checkpoint"
+    ]
+  },
+  "remaining": [
+    "Original parentless QWidget base defaults/Qtvalues/Create/raw0x4a queue must close before production setup advances. No new public constructor or Save success path enabled.",
+    "ChildAdded source event/runtime dispatch, post-parent declarative pending vector/hook ordering, actual globalQObject counter, QLayout installedalias/invalidate/raw0x4c queue, QtGrid size tail/UIpublication/spacing/margins/name remain explicitly queued.",
+    "Successful native allocations only; native null-allocation dereference/host allocation failure equivalence is not repaired or declared complete.",
+    "Historical captures and raw unspecified flag words/padding remain qualified; no startup-to-later-Open invariance introduced."
+  ],
+  "next_action": "After freeze, read-only close first-grid ChildAdded event stack payload/destructor and compare next bundled native CLI editor-base+grid capture when root provides it. Coordinate raw0x44 extension and actual QObject counter/queue owners with closure; do not mutate frozen sources until release."
+}

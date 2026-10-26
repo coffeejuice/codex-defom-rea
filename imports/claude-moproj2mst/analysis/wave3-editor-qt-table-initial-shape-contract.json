@@ -1,0 +1,237 @@
+{
+  "schema": "editor300-qt-table-initial-shape-contract-v1",
+  "status": "bounded-native-model-shape-proof-not-full-table-construction",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-defaults-static.json",
+      "sha256": "ea1b2717b06e4523a7b059cb2a0f1621ce52031429dba890fe97d07b15a23fa3"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-table-count-static.json",
+      "sha256": "fe4c10a47679ad323f943017a02ffd05cea0296ee65e1e18ef27df1df6aa3965"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-table-size-static.json",
+      "sha256": "b68a7ad38538f51f24e802cb4a70f3bab4ae0213d054adc635fb80cf4219df15"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-table-native-model-static.json",
+      "sha256": "7379aeb96b531b4c346fa2d519bfaabc34c97f814b2699cadd3bf17151dc2f02"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-table-header-tail-static.json",
+      "sha256": "2dd1e1eb82f44bc18bbda4937c3cbb900c08cb6bab4c13244812bd8777b35304"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-table-vector-insert-static.json",
+      "sha256": "aab9344665ef37310bb8053d13ffbbf0431ce2df90059517cfc4855ef578f9e7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-table-vector-insert-tail-static.json",
+      "sha256": "77f319f64601fa8f0cc705fa2a5c1f26dc37e3ef6184cf2f9c8daddd431becea"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-explicit-state-source-v2.json",
+      "sha256": "c868aaaf6b6f232537d07acad3e7714363be0b682091606d4a9b9e3c30477ec7"
+    }
+  ],
+  "original_setup": {
+    "path": "analysis/wave2-save-diffs-300-setupui.c",
+    "sha256": "1217ddfefe72fc52f4a963f01cb4f7d10bc3a468d00e7ef1139736979483b8a7"
+  },
+  "native_identity": {
+    "vtable": "14218bfa8",
+    "complete_object_locator": "1430d7bc0",
+    "type_descriptor": "1435a4780",
+    "type_name": ".?AVQTableWidget@@"
+  },
+  "constructor": {
+    "entry": "QTableWidget6550ccf0 calls QTableModel655083f0 withrows0/columns0 at6550cd7f..87, then installs owned model via QTableView654d0510.",
+    "model": "655083f0 sets QTableModel vtable65737398, prototype+10=null, cells+18 vector(rows*columns), vertical headers+20 vector(rows), horizontal headers+28 vector(columns).",
+    "vector": "65506a20 allocates even zero-length storage, then writes size+8=count andcapacity+4=count at65506a70..77. Thus initial0 is explicit; it is not inferred from an uninitialized pointer.",
+    "getters": "QTableWidget columnCount6550f8c0 uses invalid QModelIndex thenmodelvirtual+70=65506090; rowCount654ff380 usesvirtual+68=65506070. Invalid-root branches read vector+28/+20 size respectively."
+  },
+  "column_mutation": {
+    "entry": "setColumnCount65507600 casts actualmodel andtailjumps65505fb0. Negative is no-op. Equal requested count returns without insertion/removal. Growth callsvirtual+d8=65509860 atoldCount withdifference.",
+    "fresh_insert": "65509860 validatespositivecount/0<=position<=columns, begins insertion, grows horizontalheaders with nullpointers via6552a5e0, resizescells to rows*newcolumns foroldcount0, ends insertion.",
+    "vector_tail": "6552a5e0 splitregions6552a60a and6552a6c5 retained; successfulnormal path fillsinsertednullpointers thenadds insertedcount tosize+8 at6552a6bc.",
+    "ordering": "Source fourconditional minimum calls allbranch true on fresh0-column controls;1800 laterunconditional3 seesalready3 andreturnswithout asecondinsert. No original setup row setter or cellinsertion ispresent."
+  },
+  "headers": {
+    "entry": "QTableWidget6550cff0 assigns item+18 owner and callsmodel6550a020.",
+    "extent": "6550a020 splitthrough6550a0e9 boundscheckscolumn anddoesnotgrowheaders; sameitemnoop; oldnonnullitemdeletingdtor, newitemowner/flagbit7, pointerstore thenheaderDataChanged at6550a0d5.",
+    "qualification": "Native model/view callback and deletion behavior is distinct from an implemented shape projection. Header text/resource translation and item representation are not automatically complete."
+  },
+  "controls": [
+    {
+      "ui": "0xfa0",
+      "name": "tableBetweenT",
+      "constructor_line": 19885
+    },
+    {
+      "ui": "0xfc0",
+      "name": "tableBelowT",
+      "constructor_line": 20111
+    },
+    {
+      "ui": "0xfe0",
+      "name": "tableAboveT",
+      "constructor_line": 20291
+    },
+    {
+      "ui": "0x11c0",
+      "name": "usrDefTable",
+      "constructor_line": 22528
+    },
+    {
+      "ui": "0x1800",
+      "name": "m_tvPPVarList",
+      "constructor_line": 30007
+    }
+  ],
+  "ordered_column_calls": [
+    {
+      "ui": "0xfa0",
+      "property": "ColumnCount",
+      "class": "QTableWidget",
+      "value": 2,
+      "line": 19899,
+      "return_address": "0x140f08449",
+      "name": "tableBetweenT",
+      "guard": "columnCount < 2",
+      "phase": "before-retranslation"
+    },
+    {
+      "ui": "0xfc0",
+      "property": "ColumnCount",
+      "class": "QTableWidget",
+      "value": 1,
+      "line": 20125,
+      "return_address": "0x140f08cb6",
+      "name": "tableBelowT",
+      "guard": "columnCount < 1",
+      "phase": "before-retranslation"
+    },
+    {
+      "ui": "0xfe0",
+      "property": "ColumnCount",
+      "class": "QTableWidget",
+      "value": 1,
+      "line": 20305,
+      "return_address": "0x140f09378",
+      "name": "tableAboveT",
+      "guard": "columnCount < 1",
+      "phase": "before-retranslation"
+    },
+    {
+      "ui": "0x1800",
+      "property": "ColumnCount",
+      "class": "QTableWidget",
+      "value": 3,
+      "line": 30021,
+      "return_address": "0x140f2033d",
+      "name": "m_tvPPVarList",
+      "guard": "columnCount < 3",
+      "phase": "before-retranslation"
+    },
+    {
+      "ui": "0x1800",
+      "property": "ColumnCount",
+      "class": "QTableWidget",
+      "value": 3,
+      "line": 30088,
+      "return_address": "0x140f20590",
+      "name": "m_tvPPVarList",
+      "guard": null,
+      "phase": "before-retranslation"
+    }
+  ],
+  "header_installs": [
+    {
+      "ui": "0xfa0",
+      "column": 0,
+      "line": 19917,
+      "return_address": "140f084e5"
+    },
+    {
+      "ui": "0xfa0",
+      "column": 1,
+      "line": 19935,
+      "return_address": "140f08584"
+    },
+    {
+      "ui": "0xfc0",
+      "column": 0,
+      "line": 20143,
+      "return_address": "140f08d52"
+    },
+    {
+      "ui": "0xfe0",
+      "column": 0,
+      "line": 20323,
+      "return_address": "140f0940e"
+    },
+    {
+      "ui": "0x1800",
+      "column": 0,
+      "line": 30039,
+      "return_address": "140f203d9"
+    },
+    {
+      "ui": "0x1800",
+      "column": 1,
+      "line": 30057,
+      "return_address": "140f20478"
+    },
+    {
+      "ui": "0x1800",
+      "column": 2,
+      "line": 30075,
+      "return_address": "140f20517"
+    }
+  ],
+  "expected_before_retranslation": {
+    "0xfa0": {
+      "rows": 0,
+      "columns": 2,
+      "header_columns": [
+        0,
+        1
+      ]
+    },
+    "0xfc0": {
+      "rows": 0,
+      "columns": 1,
+      "header_columns": [
+        0
+      ]
+    },
+    "0xfe0": {
+      "rows": 0,
+      "columns": 1,
+      "header_columns": [
+        0
+      ]
+    },
+    "0x11c0": {
+      "rows": 0,
+      "columns": 0,
+      "header_columns": []
+    },
+    "0x1800": {
+      "rows": 0,
+      "columns": 3,
+      "header_columns": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "scope_limits": [
+    "Shapeprofile assumesactualfreshnativeQTableModel andsuccessfulQtallocation; custommodels/priorrows/replayedsetup/insertfailures stayexplicit.",
+    "Nativeheader/viewcallbacks and appfilters remain separatelyguarded; do not claimfullsetuporpublicSave.",
+    "Allfive tableshavezero rows beforeconstructor/pagefill. Originalunchanged0-row tablesmustnotbe assigned fabricatedinitialrows."
+  ],
+  "next_action": "Propose same-owned explicit actualtable shape distinct from requestedColumnCount/lowerbounds; keep sourcefreeze untilrootreleases. Bindnativeheaderownership onlywhen represented, not by countingnames."
+}

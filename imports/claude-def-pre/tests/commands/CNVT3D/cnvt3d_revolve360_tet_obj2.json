@@ -1,0 +1,25 @@
+{
+  "label": "CNVT3D revolve 360 tet mesh obj2 (RING_SI)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nGEO23 2 1\n360.0 0.0 0.0\nGEOSEC 2 20\nMSHSEC 2 21\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "MGNELM 3rd int absent -> obj+0x2d94=0 -> tet path: DEF_AMG3_GUI, MESH3D_GUI (or BRKMSH/CHKVOL), DEF_INT (dirKind 2) with NEW.MSH/DEF_INT.ACT/DEF_REM.INI/DEF_INT_3DTET.DAT (all deleted). Log stem: DEFORM.LOG expected if model+0x1748 is empty after KFREAD. CONV3D.KEY = 3D KEY of the new model (obj 1 type 7 empty + obj 2 3D). OUT.KEY shows the 2D obj 2 with its mesh replaced by the projected tet points (4-node elements). stdout: 'Conversion succeed'."
+  }
+}

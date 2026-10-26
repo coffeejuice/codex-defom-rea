@@ -1,0 +1,39 @@
+{
+  "script": "analysis/wave3-editor-owned-open-probe-v4.js",
+  "script_sha256": "55e7fe8d67c7b15485a7abe5ff9a1a519cfb8a7e3d644bc9c41365dfa9d9361f",
+  "modules": [
+    {
+      "path": "evidence\\original-binaries\\DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence\\original-binaries\\QtGui4_64.dll",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    },
+    {
+      "path": "evidence\\original-binaries\\QtCore4_64.dll",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    }
+  ],
+  "hooks": {
+    "def_gui_mo_64.exe:10490": "4c8944241848895424104889",
+    "def_gui_mo_64.exe:11a0": "488954241048894c24084881",
+    "def_gui_mo_64.exe:1ca30": "488954241048894c24084881",
+    "def_gui_mo_64.exe:8a9b0": "488954241048894c24084881",
+    "def_gui_mo_64.exe:2a0e0": "488954241048894c24085657",
+    "def_gui_mo_64.exe:eb26f0": "488954241048894c24085748",
+    "def_gui_mo_64.exe:5f770": "48894c24084883ec38488b4c",
+    "def_gui_mo_64.exe:ed9830": "488954241048894c240853b8",
+    "def_gui_mo_64.exe:ed9969": "90488d8c2408020000ff1540",
+    "qtgui4_64.dll:70d70": "48894c2408565741544883ec",
+    "qtcore4_64.dll:12ae10": "48895c240848896c24104889",
+    "qtcore4_64.dll:12e180": "40555657415441554883ec70",
+    "qtcore4_64.dll:119570": "40565741544883ec4048c744"
+  },
+  "qualification": "Original bytes verified from imported immutable PE; passive script prepared only, no runtime execution.",
+  "amends": {
+    "path": "analysis/wave3-editor-owned-open-probe-v3-bindings.json",
+    "sha256": "720fea03e75459687a5dd1d089fba44091ac90440598a57f7ce1e363413d128c"
+  },
+  "amendment": "Capture001 reached02a0e0 during mainwindow constructor, before selected CLI Open. V4 records at most8 preselected calls plus one truncation marker; ignores preselected decoder/Open/Project/postOpen/editor/setup observations. Exact main decoder caller1c52 and Open caller1c94 select the target. After normalOpen begins all prior strict checks remain. Passive hooks may observe ordinary startup dispatch without claiming it belongs to selected Project."
+}

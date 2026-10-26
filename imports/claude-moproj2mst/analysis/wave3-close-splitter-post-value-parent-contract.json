@@ -1,0 +1,61 @@
+{
+  "status": "Read-only local successor closure; no production changes or original execution",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-6506dbd0.asm",
+      "sha256": "732491d42b26315e65e0039309e70d98d72f7d37c7e576e25d83408e2ca02ff8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-post-value-parent-leaves-static.json",
+      "sha256": "0c78d1d751150aa8877e247cd970f256d8c24effadc7d1306c87bd77347c0be1"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-parent-style-getters-static.json",
+      "sha256": "d4353c9abb8d875e6257ed5284ce079b8d5f650925d093ba56ad4dae52fff40d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-style-empty-leaf-static.json",
+      "sha256": "95a093e39b1288d88f54b151ca9ab282a02361bab30e9ce47936867ee871f960"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-style-empty-ret-static.json",
+      "sha256": "14632864ab6cf90dfd52ea32f51a624efbb2fce5b4df7d860af7cf99cb383c5e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-extra-style-defaults-static.json",
+      "sha256": "0779bf80887b992b5a194d2427d56c4dcd705ce3e731d02b45960bbef67ab7b4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-style-null-cast-static.json",
+      "sha256": "ef6c81de599b94946b0e7909e87115a86bb187ec4cdc28021ed76d5b2fe1cc03"
+    }
+  ],
+  "order": "6506dfd7 locale propagation -> conditional enabled65069f00 -> conditional updates65069bd0 -> unconditional inheritStyle6505ef80 -> parent ChildAdded/pending-vector path6506e06c..e18d. Earlier focus/font/palette/locale effects must finish first.",
+  "enabled": {
+    "export": "QWidgetPrivate::setEnabled_helper",
+    "branch": "For requested enable=true, nonwindow receiver consults actual parent disabled bit0. Parent enabled plus receiver disabled=false reaches65069f6e and returns6506a215 without mutations or event dispatch. Requested false with already disabled also returns by inverted-bit comparison.",
+    "guard": "Changing enabled state invokes attribute setter, platform helper, child propagation and raw62 event/virtual callback. Never coerce this into pure flag assignment."
+  },
+  "updates": {
+    "export": "QWidgetPrivate::setUpdatesEnabled_helper",
+    "branch": "For requested true, nonwindow receiver consults parent updates-disabled bit10. Parent updates-enabled and receiver updates-disabled=false reaches65069c2d and returns65069d33 without mutations.",
+    "coverage": "Only prefix and exact shared return tail were needed for this pure branch; middle mutation body is not claimed closed."
+  },
+  "style": {
+    "export": "QWidgetPrivate::inheritStyle at6505ef80 (corrects preliminary opaque-state label)",
+    "pure_branch": [
+      "Receiver extra absent => receiver selected style null and receiver stylesheet null/empty from6505d610. If extra exists, actual style+20 and QString+38 need observation.",
+      "Actual parent extra absent or style+20 null; application stylesheet QString atQtGui659c9738 is empty.",
+      "QMetaObject::cast(nullptr)6711ddd0 returnsnull without virtual call. InheritStyle reaches6505f112, compares old style null with current extra style null, returns6505f14e.",
+      "Temporary QString creation/copy/destruction occurs; no persistent style ownership, attribute change or style callback on this branch."
+    ],
+    "unknown_branch": "Nonnull style/stylesheet may allocate/refcount style proxy or callsetStyle_helper65063c10; those effects stay guarded."
+  },
+  "observation_fields": {
+    "widget": "QWidgetPrivate+88 -> extra; extra+20 style QObject pointer; extra+38 QString object. Extra ctor650604f0 nulls+20 and constructs+38 before pointer is installed by65062f00.",
+    "application": "QtGui base+9c9738 is QString object, proven getter65016ec0.",
+    "QString": "Shared-data pointer atobject+0; QString::isEmpty6701c100 compares signed32 data+8 to0. Size is NOT data+4. No getter need be called by probe."
+  },
+  "implementation_limit": "These are conditional no-persistent-effect branches after earlier value propagation; no present production continuation or complete QWidget constructor is claimed. Current profile must bind actual role/phase and live parent/style identities. Next genuine boundary includes parent raw44 synchronous dispatch, raw43 posted-event allocation and actual weak pending-child vector before child raw15 dispatch.",
+  "root_coordination": "Root reviewed probe002-v2 may add these raw fields to existing role/global snapshots without extra hooks. Worker original and first reviewed script remain immutable; root owns launch/cleanup. Mutable analysis database stays idle."
+}

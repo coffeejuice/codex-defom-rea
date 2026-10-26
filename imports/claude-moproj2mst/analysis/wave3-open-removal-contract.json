@@ -1,0 +1,45 @@
+{
+  "scope": "Original operation Open file-removal order; implementation successor to native whole-model KEY",
+  "evidence": [
+    {
+      "path": "analysis/wave3-open-removal-static.json",
+      "sha256": "38259e8f07c076229bdb37d66110090db069e56b7fc7315d5dfe6b8ee19d905c"
+    },
+    {
+      "path": "analysis/wave3-open-removal-row-static.json",
+      "sha256": "5677ad5afa2b5d92a2efbb00af69e8dd4c5b78ed2d96af2453e4ea2478c9ec3f"
+    },
+    {
+      "path": "analysis/wave3-remesh-qfile-remove-static.json",
+      "sha256": "e08a3a727afbd79190974d6300690a4dac36908af29dfaf53823a9548d0671c4"
+    },
+    {
+      "path": "analysis/wave3-remesh-qfile-remove-leaf.asm",
+      "sha256": "f31a7119b41a20e127f34814f65be564898df4007cdb4486c1e965b5ef37d76f"
+    }
+  ],
+  "imports": {
+    "0x141e03fc8": "QString::isEmpty",
+    "0x141e04258": "QFile::exists(QString)",
+    "0x141e04160": "QFile::remove(QString)"
+  },
+  "import_evidence": "analysis/wave3-closure-next-can-close-static.json",
+  "contracts": [
+    "0x140055360 at 0x14005553c checks stale Restart path existence; 0x14005554e removes it synchronously before restart-off/setup-type decisions. Removal result is ignored.",
+    "0x14081a6e0 returns false for empty path, true for nonexistent path, otherwise QFile::remove result.",
+    "0x14006ccf0 obtains item path via vt+178 and invokes 81a6e0; its return is discarded.",
+    "0x14006ca50 checks row exists, invokes vt+1a8 deletion then takeRow and item destruction without testing deletion success.",
+    "Qt QFile::remove resolves ordinary filesystem backend through 670b61d0->670b4900->670f9000->670ff860 DeleteFileW; failed removal is not a converter exception."
+  ],
+  "current_gap": [
+    "loader.cpp defers stale Restart/object deletes to FileEffects and core later throws on denied DeleteFileW, violating original ordering/continuation",
+    "postload_views.cpp equipment removal defers deletion; equipment add/copy and manager-change side effects have separate remaining qualifications"
+  ],
+  "next_action": "Implement native deletion at original loader/object-manager call sites with full-Save flag and adapter alias guard. Add denied-deletion row/state continuation, immediate success and unchanged recording-mode tests; then recover actual equipment copy/manager-change branches.",
+  "qualifications": [
+    "No original runtime execution",
+    "Full logical row destructor/receiver effects are not closed by these bounded captures",
+    "Qt custom file engines, resource paths and long-path normalization need separate qualification",
+    "Original source evidence establishes behavior; reconstruction tests do not substitute fresh independent comparison"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "status": "Frozen prepared script only; no worker launch, target session or GUI control",
+  "script": {
+    "path": "build/original-splitter-probe-002/probe.js",
+    "sha256": "086b383d3589107f8a5d0f57a31533693122d2b0d3067f145624f6ae7dc5e1b2",
+    "bytes": 22729
+  },
+  "spec": {
+    "path": "analysis/wave3-close-splitter-narrow-successor-observation-spec.json",
+    "sha256": "b17f8e289401bfb9dbdbb614845a5e8cc92e94378f4a1a80098da336cff375e4",
+    "bytes": 16305
+  },
+  "prior_scripts_preserved": [
+    {
+      "path": "build/original-splitter-probe-001/probe.js",
+      "sha256": "7dc68ce7df2b2b51b62b7f8226863acb2cff5b70684739d6d2b8c7a4ca90a7c6",
+      "bytes": 27811
+    },
+    {
+      "path": "build/original-splitter-probe-001/probe-reviewed.js",
+      "sha256": "bbf27a7f01b36fb4711ab46faf1c3cb2c736bbe88f89ffa46b110dfaa1678737",
+      "bytes": 27923
+    }
+  ],
+  "allowed_native_calls": {
+    "SetCurrentDirectoryW": "Root explicit amendment: owned process cwd only; target directory already created in converter scratch. Check returned success.",
+    "GetCurrentDirectoryW": "Root explicit amendment: read back requested actual cwd and emit receipt; no file creation.",
+    "GetACP": "Once at selected grid baseline in original process; uint32/noargs.",
+    "GetOEMCP": "Once paired with GetACP; uint32/noargs."
+  },
+  "scope": [
+    "18 byte-verified hooks bound to immutable original EXE/QtGui/QtCore prologues; loaded-file SHA verification remains root-owned and is not implied by expected SHA metadata.",
+    "Only MainView,manager,splitter,two placeholders,two handles are retained; no mainwindow child inventory, broad QObject/event trace, translator stream or Primary extension.",
+    "All retained argument/retval pointers are copied via ptr(value.toString()); grid and factory retval explicitly copied immediately, fixing probe001 defect.",
+    "No Qt comparison/getter invoked by probe. Equality hooks passively record the exact original native calls and return AL, with raw candidate/current value objects. Unobserved comparisons remain unknown.",
+    "Private QObject/value fields are read only after init entry; QWidgetData dereference waits for source-established assignment at setParent or init return. inSetParent flags meaningfulMask onlybit24.",
+    "Exact rowCount and columnCount storage reads added from raw exported getter leaves6503c210 and6503c220: private+c0/private+c4. No getter invoked.",
+    "Endpoint d35a80 manager return pauses with recv(coordinator_release).wait(); root owns termination, absence verification and session close.",
+    "Explicit state/record/role/value-context/grid limits, error IDs and truncation records. Final capture includes hit counts, open contexts and coverage qualifications."
+  ],
+  "limits": {
+    "roles": 7,
+    "states": 80,
+    "records": 160,
+    "errors": 32,
+    "gridItems": 8,
+    "parentPerRole": 3,
+    "focus": 12,
+    "font": 24,
+    "palette": 24,
+    "locale": 24
+  },
+  "preflight": {
+    "node_version": "v24.19.0",
+    "node_check": [
+      "node",
+      "--check",
+      "build/original-splitter-probe-002/probe.js"
+    ],
+    "node_check_exit": 0,
+    "immutable_manifest_bytes": 18,
+    "no_direct_retained_args_or_retval": true,
+    "native_function_count": 4,
+    "no_target_writes_or_event_calls": true,
+    "runtime_test": false
+  },
+  "qualification": [
+    "The no-cwd-native-call provision in earlier spec is superseded only by root explicit SetCurrentDirectoryW/GetCurrentDirectoryW amendment; no other effects added.",
+    "Buffer and pointer reads can fail; failed reads emit explicit errors rather than fabricated zeros. Finite capture bounds can truncate; reconciliation must retain those limitations.",
+    "No timing/token savings or comparison success is claimed."
+  ]
+}

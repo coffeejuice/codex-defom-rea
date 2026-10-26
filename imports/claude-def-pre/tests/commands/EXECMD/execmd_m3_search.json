@@ -1,0 +1,22 @@
+{
+  "label": "EXECMD 3 DEFORM program search",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 120,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nEXECMD 3\nFIXGEO > EXEC3.TXT\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "EXEC3.TXT",
+      "OUT.KEY"
+    ],
+    "notes": "dirKind 3: 'FIXGEO' found as <base>3D\\FIXGEO.EXE (probe), argv0 = <base>3D\\FIXGEO (unsuffixed); cmd redirects stdout to EXEC3.TXT, which holds 'Error opening FIXGEO.INI!'. (PDA2KEY3 was tried first: without PDA3.INI it waits for console input forever, even with stdin from NUL.)"
+  }
+}

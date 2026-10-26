@@ -1,0 +1,358 @@
+Artifact: evidence/original-binaries/DEF_GUI_MO_64.exe
+SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+Bounded DUMPBIN excerpts and retained source decompilation. Addresses below are from the immutable original PE.
+
+=== Cogging property writer: open and invoke master writer ===
+  00000001407617E0: 48 89 54 24 10     mov         qword ptr [rsp+10h],rdx
+  00000001407617E5: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  00000001407617EA: 48 81 EC A8 00 00  sub         rsp,0A8h
+                    00
+  00000001407617F1: 48 C7 44 24 70 FE  mov         qword ptr [rsp+70h],0FFFFFFFFFFFFFFFEh
+                    FF FF FF
+  00000001407617FA: 48 8D 54 24 48     lea         rdx,[rsp+48h]
+  00000001407617FF: 48 8B 8C 24 B0 00  mov         rcx,qword ptr [rsp+00000000000000B0h]
+                    00 00
+  0000000140761807: E8 74 FD FF FF     call        0000000140761580
+  000000014076180C: 90                 nop
+  000000014076180D: 48 8D 4C 24 50     lea         rcx,[rsp+50h]
+  0000000140761812: FF 15 38 2A 6A 01  call        qword ptr [0000000141E04250h]
+  0000000140761818: 44 0F B7 00        movzx       r8d,word ptr [rax]
+  000000014076181C: 48 8B 94 24 B8 00  mov         rdx,qword ptr [rsp+00000000000000B8h]
+                    00 00
+  0000000140761824: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  0000000140761829: E8 42 31 8A FF     call        0000000140004970
+  000000014076182E: 48 89 44 24 78     mov         qword ptr [rsp+78h],rax
+  0000000140761833: 48 8B 44 24 78     mov         rax,qword ptr [rsp+78h]
+  0000000140761838: 48 89 84 24 80 00  mov         qword ptr [rsp+0000000000000080h],rax
+                    00 00
+  0000000140761840: 4C 8D 44 24 48     lea         r8,[rsp+48h]
+  0000000140761845: 48 8B 94 24 80 00  mov         rdx,qword ptr [rsp+0000000000000080h]
+                    00 00
+  000000014076184D: 48 8D 4C 24 60     lea         rcx,[rsp+60h]
+  0000000140761852: E8 99 30 8A FF     call        00000001400048F0
+  0000000140761857: 48 89 84 24 88 00  mov         qword ptr [rsp+0000000000000088h],rax
+                    00 00
+  000000014076185F: 48 8B 84 24 88 00  mov         rax,qword ptr [rsp+0000000000000088h]
+                    00 00
+  0000000140761867: 48 89 84 24 90 00  mov         qword ptr [rsp+0000000000000090h],rax
+                    00 00
+  000000014076186F: 48 8B 94 24 90 00  mov         rdx,qword ptr [rsp+0000000000000090h]
+                    00 00
+  0000000140761877: 48 8D 4C 24 38     lea         rcx,[rsp+38h]
+  000000014076187C: FF 15 EE 26 6A 01  call        qword ptr [0000000141E03F70h]
+  0000000140761882: 90                 nop
+  0000000140761883: 48 8D 4C 24 60     lea         rcx,[rsp+60h]
+  0000000140761888: FF 15 52 41 6A 01  call        qword ptr [0000000141E059E0h]
+  000000014076188E: 90                 nop
+  000000014076188F: 48 8D 4C 24 58     lea         rcx,[rsp+58h]
+  0000000140761894: FF 15 46 41 6A 01  call        qword ptr [0000000141E059E0h]
+  000000014076189A: 48 8D 4C 24 38     lea         rcx,[rsp+38h]
+  000000014076189F: FF 15 53 3F 6A 01  call        qword ptr [0000000141E057F8h]
+  00000001407618A5: 48 8D 15 50 33 F1  lea         rdx,[0000000142674BFCh]
+                    01
+  00000001407618AC: 48 8B C8           mov         rcx,rax
+  00000001407618AF: E8 24 E4 D0 00     call        000000014146FCD8
+  00000001407618B4: 48 89 44 24 30     mov         qword ptr [rsp+30h],rax
+  00000001407618B9: 48 83 7C 24 30 00  cmp         qword ptr [rsp+30h],0
+  00000001407618BF: 0F 84 86 03 00 00  je          0000000140761C4B
+
+=== Cogging property writer: master return, close, cleanup, and RET ===
+  0000000140761C41: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  0000000140761C46: E8 DD DE D0 00     call        000000014146FB28
+  0000000140761C4B: C7 44 24 68 01 00  mov         dword ptr [rsp+68h],1
+                    00 00
+  0000000140761C53: 48 8D 4C 24 38     lea         rcx,[rsp+38h]
+  0000000140761C58: FF 15 82 3D 6A 01  call        qword ptr [0000000141E059E0h]
+  0000000140761C5E: 90                 nop
+  0000000140761C5F: 48 8D 4C 24 48     lea         rcx,[rsp+48h]
+  0000000140761C64: FF 15 76 3D 6A 01  call        qword ptr [0000000141E059E0h]
+  0000000140761C6A: 90                 nop
+  0000000140761C6B: 48 8B 8C 24 B8 00  mov         rcx,qword ptr [rsp+00000000000000B8h]
+                    00 00
+  0000000140761C73: FF 15 67 3D 6A 01  call        qword ptr [0000000141E059E0h]
+  0000000140761C79: 8B 44 24 68        mov         eax,dword ptr [rsp+68h]
+  0000000140761C7D: 48 81 C4 A8 00 00  add         rsp,0A8h
+                    00
+  0000000140761C84: C3                 ret
+
+=== Master writer second loop (retained evidence/gui_mo/s1/mdt/a8c0.asm) ===
+14076ab77  488b842440030000         MOV RAX,qword ptr [RSP + 0x340]
+14076ab7f  8b80cc000000             MOV EAX,dword ptr [RAX + 0xcc]
+14076ab85  39842490020000           CMP dword ptr [RSP + 0x290],EAX
+14076ab8c  7d4b                     JGE 0x14076abd9
+14076ab8e  4863842490020000         MOVSXD RAX,dword ptr [RSP + 0x290]
+14076ab96  4869c090010000           IMUL RAX,RAX,0x190
+14076ab9d  488b8c2440030000         MOV RCX,qword ptr [RSP + 0x340]
+14076aba5  480381d0000000           ADD RAX,qword ptr [RCX + 0xd0]
+14076abac  4889442430               MOV qword ptr [RSP + 0x30],RAX
+14076abb1  448b842490020000         MOV R8D,dword ptr [RSP + 0x290]
+14076abb9  4183c001                 ADD R8D,0x1
+14076abbd  4c8d8c2420030000         LEA R9,[RSP + 0x320]
+14076abc5  488b942448030000         MOV RDX,qword ptr [RSP + 0x348]
+14076abcd  488b4c2430               MOV RCX,qword ptr [RSP + 0x30]
+14076abd2  e8e9150000               CALL 0x14076c1c0
+14076abd7  eb8d                     JMP 0x14076ab66
+14076abd9  488b842440030000         MOV RAX,qword ptr [RSP + 0x340]
+14076abe1  448b88cc000000           MOV R9D,dword ptr [RAX + 0xcc]
+14076abe8  4c8d05b95cf101           LEA R8,[0x1426808a8]
+14076abef  488d15c25cf101           LEA RDX,[0x1426808b8]
+14076abf6  488b8c2448030000         MOV RCX,qword ptr [RSP + 0x348]
+14076abfe  e8092ed000               CALL 0x14146da0c
+14076ac03  c784249002000000000000   MOV dword ptr [RSP + 0x290],0x0
+14076ac0e  eb11                     JMP 0x14076ac21
+14076ac10  8b842490020000           MOV EAX,dword ptr [RSP + 0x290]
+14076ac17  83c001                   ADD EAX,0x1
+14076ac1a  89842490020000           MOV dword ptr [RSP + 0x290],EAX
+14076ac21  488b842440030000         MOV RAX,qword ptr [RSP + 0x340]
+14076ac29  8b80cc000000             MOV EAX,dword ptr [RAX + 0xcc]
+14076ac2f  39842490020000           CMP dword ptr [RSP + 0x290],EAX
+14076ac36  7d3c                     JGE 0x14076ac74
+14076ac38  48638c2490020000         MOVSXD RCX,dword ptr [RSP + 0x290]
+14076ac40  4869c990010000           IMUL RCX,RCX,0x190
+14076ac47  488b442430               MOV RAX,qword ptr [RSP + 0x30]
+14076ac4c  4803c1                   ADD RAX,RCX
+14076ac4f  4889442430               MOV qword ptr [RSP + 0x30],RAX
+14076ac54  448b842490020000         MOV R8D,dword ptr [RSP + 0x290]
+14076ac5c  4183c001                 ADD R8D,0x1
+14076ac60  488b942448030000         MOV RDX,qword ptr [RSP + 0x348]
+14076ac68  488b4c2430               MOV RCX,qword ptr [RSP + 0x30]
+14076ac6d  e8de1e0000               CALL 0x14076cb50
+14076ac72  eb9c                     JMP 0x14076ac10
+14076ac74  488b8c2428030000         MOV RCX,qword ptr [RSP + 0x328]
+
+=== Record writer first dereference (retained resume62 bounded capture) ===
+  000000014076CB50: 44 89 44 24 18     mov         dword ptr [rsp+18h],r8d
+  000000014076CB55: 48 89 54 24 10     mov         qword ptr [rsp+10h],rdx
+  000000014076CB5A: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  000000014076CB5F: 48 83 EC 38        sub         rsp,38h
+  000000014076CB63: 44 8B 4C 24 50     mov         r9d,dword ptr [rsp+50h]
+  000000014076CB68: 4C 8D 05 69 B6 06  lea         r8,[00000001437D81D8h]
+                    03
+  000000014076CB6F: 33 D2              xor         edx,edx
+  000000014076CB71: 48 8B 4C 24 48     mov         rcx,qword ptr [rsp+48h]
+  000000014076CB76: E8 D5 E8 FF FF     call        000000014076B450
+  000000014076CB7B: 4C 8B 5C 24 40     mov         r11,qword ptr [rsp+40h]
+  000000014076CB80: 45 8B 0B           mov         r9d,dword ptr [r11]
+  000000014076CB83: 4C 8D 05 5A B6 06  lea         r8,[00000001437D81E4h]
+                    03
+  000000014076CB8A: 48 8D 15 5F B6 06  lea         rdx,[00000001437D81F0h]
+                    03
+  000000014076CB91: 48 8B 4C 24 48     mov         rcx,qword ptr [rsp+48h]
+  000000014076CB96: E8 71 0E D0 00     call        000000014146DA0C
+
+=== CRT flush path 0x141476b38 through RET ===
+  0000000141476B38: 48 89 5C 24 08     mov         qword ptr [rsp+8],rbx
+  0000000141476B3D: 48 89 74 24 10     mov         qword ptr [rsp+10h],rsi
+  0000000141476B42: 57                 push        rdi
+  0000000141476B43: 48 83 EC 20        sub         rsp,20h
+  0000000141476B47: 8B 41 18           mov         eax,dword ptr [rcx+18h]
+  0000000141476B4A: 33 F6              xor         esi,esi
+  0000000141476B4C: 48 8B D9           mov         rbx,rcx
+  0000000141476B4F: 24 03              and         al,3
+  0000000141476B51: 3C 02              cmp         al,2
+  0000000141476B53: 75 3F              jne         0000000141476B94
+  0000000141476B55: F7 41 18 08 01 00  test        dword ptr [rcx+18h],108h
+                    00
+  0000000141476B5C: 74 36              je          0000000141476B94
+  0000000141476B5E: 8B 39              mov         edi,dword ptr [rcx]
+  0000000141476B60: 2B 79 10           sub         edi,dword ptr [rcx+10h]
+  0000000141476B63: 85 FF              test        edi,edi
+  0000000141476B65: 7E 2D              jle         0000000141476B94
+  0000000141476B67: E8 DC 2E 00 00     call        0000000141479A48
+  0000000141476B6C: 48 8B 53 10        mov         rdx,qword ptr [rbx+10h]
+  0000000141476B70: 44 8B C7           mov         r8d,edi
+  0000000141476B73: 8B C8              mov         ecx,eax
+  0000000141476B75: E8 2E E9 00 00     call        00000001414854A8
+  0000000141476B7A: 3B C7              cmp         eax,edi
+  0000000141476B7C: 75 0F              jne         0000000141476B8D
+  0000000141476B7E: 8B 43 18           mov         eax,dword ptr [rbx+18h]
+  0000000141476B81: 84 C0              test        al,al
+  0000000141476B83: 79 0F              jns         0000000141476B94
+  0000000141476B85: 83 E0 FD           and         eax,0FFFFFFFDh
+  0000000141476B88: 89 43 18           mov         dword ptr [rbx+18h],eax
+  0000000141476B8B: EB 07              jmp         0000000141476B94
+  0000000141476B8D: 83 4B 18 20        or          dword ptr [rbx+18h],20h
+  0000000141476B91: 83 CE FF           or          esi,0FFFFFFFFh
+  0000000141476B94: 48 8B 4B 10        mov         rcx,qword ptr [rbx+10h]
+  0000000141476B98: 83 63 08 00        and         dword ptr [rbx+8],0
+  0000000141476B9C: 8B C6              mov         eax,esi
+  0000000141476B9E: 48 8B 74 24 38     mov         rsi,qword ptr [rsp+38h]
+  0000000141476BA3: 48 89 0B           mov         qword ptr [rbx],rcx
+  0000000141476BA6: 48 8B 5C 24 30     mov         rbx,qword ptr [rsp+30h]
+  0000000141476BAB: 48 83 C4 20        add         rsp,20h
+  0000000141476BAF: 5F                 pop         rdi
+  0000000141476BB0: C3                 ret
+
+=== CRT close path 0x14146fb28 through RET ===
+  000000014146FB28: 48 89 5C 24 10     mov         qword ptr [rsp+10h],rbx
+  000000014146FB2D: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  000000014146FB32: 57                 push        rdi
+  000000014146FB33: 48 83 EC 30        sub         rsp,30h
+  000000014146FB37: 48 8B D9           mov         rbx,rcx
+  000000014146FB3A: 83 CF FF           or          edi,0FFFFFFFFh
+  000000014146FB3D: 33 C0              xor         eax,eax
+  000000014146FB3F: 48 85 C9           test        rcx,rcx
+  000000014146FB42: 0F 95 C0           setne       al
+  000000014146FB45: 85 C0              test        eax,eax
+  000000014146FB47: 75 24              jne         000000014146FB6D
+  000000014146FB49: E8 E6 45 00 00     call        0000000141474134
+  000000014146FB4E: C7 00 16 00 00 00  mov         dword ptr [rax],16h
+  000000014146FB54: 48 83 64 24 20 00  and         qword ptr [rsp+20h],0
+  000000014146FB5A: 45 33 C9           xor         r9d,r9d
+  000000014146FB5D: 45 33 C0           xor         r8d,r8d
+  000000014146FB60: 33 D2              xor         edx,edx
+  000000014146FB62: 33 C9              xor         ecx,ecx
+  000000014146FB64: E8 FF 09 00 00     call        0000000141470568
+  000000014146FB69: 8B C7              mov         eax,edi
+  000000014146FB6B: EB 26              jmp         000000014146FB93
+  000000014146FB6D: F6 41 18 40        test        byte ptr [rcx+18h],40h
+  000000014146FB71: 74 06              je          000000014146FB79
+  000000014146FB73: 83 61 18 00        and         dword ptr [rcx+18h],0
+  000000014146FB77: EB 18              jmp         000000014146FB91
+  000000014146FB79: E8 1A E1 FF FF     call        000000014146DC98
+  000000014146FB7E: 90                 nop
+  000000014146FB7F: 48 8B CB           mov         rcx,rbx
+  000000014146FB82: E8 15 FF FF FF     call        000000014146FA9C
+  000000014146FB87: 8B F8              mov         edi,eax
+  000000014146FB89: 48 8B CB           mov         rcx,rbx
+  000000014146FB8C: E8 97 E1 FF FF     call        000000014146DD28
+  000000014146FB91: 8B C7              mov         eax,edi
+  000000014146FB93: 48 8B 5C 24 48     mov         rbx,qword ptr [rsp+48h]
+  000000014146FB98: 48 83 C4 30        add         rsp,30h
+  000000014146FB9C: 5F                 pop         rdi
+  000000014146FB9D: C3                 ret
+
+=== Unwind table entries: writer, master writer, record writer ===
+  0001E5B8 007617E0 00761C85 032755E0
+    Unwind version: 1
+    Unwind flags: UHANDLER
+    Size of prologue: 0x1A
+    Count of codes: 2
+    Unwind codes:
+      11: ALLOC_LARGE, size=0xA8
+    Handler: 0146E20C
+
+  0001E90C 0076A8C0 0076AC8D 03276E70
+    Unwind version: 1
+    Unwind flags: EHANDLER UHANDLER
+    Size of prologue: 0x24
+    Count of codes: 3
+    Unwind codes:
+      12: ALLOC_LARGE, size=0x330
+      0B: PUSH_NONVOL, register=rbx
+    Handler: 0146FDE4
+  0001EA68 0076CB50 0076CC44 032774FC
+    Unwind version: 1
+    Unwind flags: None
+    Size of prologue: 0x13
+    Count of codes: 1
+    Unwind codes:
+      13: ALLOC_SMALL, size=0x38
+
+  0001EA74 0076CC50 0076CE3D 0327750C
+
+=== Master writer exception handler thunk through RET ===
+  000000014146FDE4: 48 83 EC 28        sub         rsp,28h
+  000000014146FDE8: 4D 8B 41 38        mov         r8,qword ptr [r9+38h]
+  000000014146FDEC: 48 8B CA           mov         rcx,rdx
+  000000014146FDEF: 49 8B D1           mov         rdx,r9
+  000000014146FDF2: E8 89 FF FF FF     call        000000014146FD80
+  000000014146FDF7: B8 01 00 00 00     mov         eax,1
+  000000014146FDFC: 48 83 C4 28        add         rsp,28h
+  000000014146FE00: C3                 ret
+
+=== Save outer ordering from retained evidence/gui_mo/s1/mdt/save_d0.c, FUN_1400980d0 ===
+      lStack_38 = FUN_1400a74f0(param_1,iStack_50);
+      if ((lStack_38 != 0) && (iStack_64 = FUN_1400b8fb0(lStack_38), iStack_64 != 0x10000)) {
+        return iStack_64;
+      }
+    }
+    uStack_40 = FUN_1400a58b0(param_1);
+    uStack_4c = FUN_140047a40(uStack_40);
+    lVar4 = FUN_140047dc0(uStack_40,&uStack_4c);
+    if (lVar4 != 0) {
+      FUN_140052ec0(lVar4);
+    }
+    cVar1 = FUN_1400983c0(param_1,0);
+    FUN_1400982e0(param_1);
+    cVar2 = FUN_1400a20d0(param_1);
+    if ((cVar2 == '\0') || (cVar1 == '\0')) {
+      uStack_10 = 0;
+    }
+    else {
+      uStack_10 = 1;
+    }
+    uVar5 = (undefined1)uStack_10;
+    uVar3 = func_0x0001402c7ed0();
+    cVar1 = func_0x0001400abcb0(uVar3);
+
+=== Master handler helper 0x14146fd80 through tail jump ===
+  000000014146FD80: 40 53              push        rbx
+  000000014146FD82: 48 83 EC 20        sub         rsp,20h
+  000000014146FD86: 45 8B 18           mov         r11d,dword ptr [r8]
+  000000014146FD89: 48 8B DA           mov         rbx,rdx
+  000000014146FD8C: 4C 8B C9           mov         r9,rcx
+  000000014146FD8F: 41 83 E3 F8        and         r11d,0FFFFFFF8h
+  000000014146FD93: 41 F6 00 04        test        byte ptr [r8],4
+  000000014146FD97: 4C 8B D1           mov         r10,rcx
+  000000014146FD9A: 74 13              je          000000014146FDAF
+  000000014146FD9C: 41 8B 40 08        mov         eax,dword ptr [r8+8]
+  000000014146FDA0: 4D 63 50 04        movsxd      r10,dword ptr [r8+4]
+  000000014146FDA4: F7 D8              neg         eax
+  000000014146FDA6: 4C 03 D1           add         r10,rcx
+  000000014146FDA9: 48 63 C8           movsxd      rcx,eax
+  000000014146FDAC: 4C 23 D1           and         r10,rcx
+  000000014146FDAF: 49 63 C3           movsxd      rax,r11d
+  000000014146FDB2: 4A 8B 14 10        mov         rdx,qword ptr [rax+r10]
+  000000014146FDB6: 48 8B 43 10        mov         rax,qword ptr [rbx+10h]
+  000000014146FDBA: 8B 48 08           mov         ecx,dword ptr [rax+8]
+  000000014146FDBD: 48 03 4B 08        add         rcx,qword ptr [rbx+8]
+  000000014146FDC1: F6 41 03 0F        test        byte ptr [rcx+3],0Fh
+  000000014146FDC5: 74 0C              je          000000014146FDD3
+  000000014146FDC7: 0F B6 41 03        movzx       eax,byte ptr [rcx+3]
+  000000014146FDCB: 83 E0 F0           and         eax,0FFFFFFF0h
+  000000014146FDCE: 48 98              cdqe
+  000000014146FDD0: 4C 03 C8           add         r9,rax
+  000000014146FDD3: 4C 33 CA           xor         r9,rdx
+  000000014146FDD6: 49 8B C9           mov         rcx,r9
+  000000014146FDD9: 48 83 C4 20        add         rsp,20h
+  000000014146FDDD: 5B                 pop         rbx
+  000000014146FDDE: E9 2D E1 FF FF     jmp         000000014146DF10
+
+=== Writer UHANDLER target 0x14146e20c through observed RET ===
+  000000014146E20C: 48 89 5C 24 10     mov         qword ptr [rsp+10h],rbx
+  000000014146E211: 48 89 74 24 18     mov         qword ptr [rsp+18h],rsi
+  000000014146E216: 57                 push        rdi
+  000000014146E217: 48 83 EC 40        sub         rsp,40h
+  000000014146E21B: 49 8B D9           mov         rbx,r9
+  000000014146E21E: 49 8B F8           mov         rdi,r8
+  000000014146E221: 48 8B F1           mov         rsi,rcx
+  000000014146E224: 48 89 54 24 50     mov         qword ptr [rsp+50h],rdx
+  000000014146E229: E8 3E 33 01 00     call        000000014148156C
+  000000014146E22E: 48 8B 53 08        mov         rdx,qword ptr [rbx+8]
+  000000014146E232: 48 89 90 28 01 00  mov         qword ptr [rax+0000000000000128h],rdx
+                    00
+  000000014146E239: E8 2E 33 01 00     call        000000014148156C
+  000000014146E23E: 48 8B 56 38        mov         rdx,qword ptr [rsi+38h]
+  000000014146E242: 48 89 90 30 01 00  mov         qword ptr [rax+0000000000000130h],rdx
+                    00
+  000000014146E249: E8 1E 33 01 00     call        000000014148156C
+  000000014146E24E: 48 8B 53 38        mov         rdx,qword ptr [rbx+38h]
+  000000014146E252: 44 8B 02           mov         r8d,dword ptr [rdx]
+  000000014146E255: 48 8D 54 24 50     lea         rdx,[rsp+50h]
+  000000014146E25A: 4C 8B CB           mov         r9,rbx
+  000000014146E25D: 4C 03 80 28 01 00  add         r8,qword ptr [rax+0000000000000128h]
+                    00
+  000000014146E264: 33 C0              xor         eax,eax
+  000000014146E266: 48 8B CE           mov         rcx,rsi
+  000000014146E269: 89 44 24 38        mov         dword ptr [rsp+38h],eax
+  000000014146E26D: 48 89 44 24 30     mov         qword ptr [rsp+30h],rax
+  000000014146E272: 89 44 24 28        mov         dword ptr [rsp+28h],eax
+  000000014146E276: 4C 89 44 24 20     mov         qword ptr [rsp+20h],r8
+  000000014146E27B: 4C 8B C7           mov         r8,rdi
+  000000014146E27E: E8 39 E1 00 00     call        000000014147C3BC
+  000000014146E283: 48 8B 5C 24 58     mov         rbx,qword ptr [rsp+58h]
+  000000014146E288: 48 8B 74 24 60     mov         rsi,qword ptr [rsp+60h]
+  000000014146E28D: 48 83 C4 40        add         rsp,40h
+  000000014146E291: 5F                 pop         rdi
+  000000014146E292: C3                 ret

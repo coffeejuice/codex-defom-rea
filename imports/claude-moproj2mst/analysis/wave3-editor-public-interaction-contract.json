@@ -1,0 +1,53 @@
+{
+  "schema": "wave3-editor-public-interaction-contract-v1",
+  "created_utc": "2026-10-24T06:28:38.187032+00:00",
+  "status": "bounded static contract; receiver state not implemented",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-public-interaction-vtable.json",
+      "sha256": "a756bb4316210ca278882c6c96e0b6272a1231d3e0a7bc1fc0292e8fd739f920"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-static.json",
+      "sha256": "b603cc9104422dda32b6aa4a23d6ddb0911dfd2317309ee988c188023232ecf6"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-view-static.json",
+      "sha256": "f9a09f3890ccfe2919550263cb92dd0daa4025d4d157ea3dbe075abc0686de5a"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-mode-leaves-static.json",
+      "sha256": "f78a6f622e4e1edbb864d7fda5236a05c30c45ea18913c048636c14158f56484"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-signals.json",
+      "sha256": "50c7040ed805f6b314b5852a0f9e1ddc94cb1606e908cb1733c6d55d5337770e"
+    },
+    {
+      "path": "analysis/wave3-editor-public-view-toggle-static.json",
+      "sha256": "3695304bbd424ff47b5a567690e5ef3cea6a6a95826d4906e2aefda6eb2137c9"
+    }
+  ],
+  "ownership": "Editor+150 holds the interaction object constructed140f341d0: vtable142b1b3e8, editor backpointer+18, guarded view handle+10 and field+20=0. The wrapper functions resolve that view via140c1aef0 on each call, checking once then resolving again before forwarding. A dead view skips forwarding.",
+  "virtual_map": {
+    "58": "1401bc240\u2192141203180(view,interaction,mode)",
+    "60": "1401b2310\u21921412031e0(view,interaction,mode)",
+    "68": "141681cb0\u2192141203d40(view,interaction,mode)",
+    "18": "140f34580 deleting wrapper\u2192140f345c0"
+  },
+  "connect": "141203180 first disconnects this interaction with mode0, then141202e90(view,false), then1412031e0(view,interaction,mode), then14120bdf0. The target connect uses imported QObject::connect with ConnectionType3 and exact signal/slot strings. Mode-specific success invokes141207560; additional fixed connection changes follow the selected mode. It is not a simple numeric mode assignment.",
+  "disconnect": "141203d40 treats mode0 as all families, always attempts the initial WindefToolClicked pair, then relevant mode-specific pairs and fixed tail pairs. Imported QObject::disconnect returns determine whether corresponding counter decrement and occasional mode-specific cleanup occur. Actual connection registry/metadata support determines those booleans; no constant success/failure is established.",
+  "counters": {
+    "add": "141207560 accepts mode1..42, wraps 32-bit increment of view+4278[mode] then view+4278[0].",
+    "remove": "1412075c0 accepts mode1..42. Only if the per-mode signed count is >0 does it decrement that count; it then decrements total only if signed total>0. Existing negative values are retained, not normalized to0.",
+    "qualification": "No claim that one disconnection corresponds to one connection instance. Qt disconnect can remove duplicate connections while this original leaf decrements once; preserve the original result-driven ordering."
+  },
+  "empty_leaves": [
+    "14120bdf0 returns at14120bdf5;14120be00 returns at14120be05. Explicit leaf capture ranges extend past those returns and must not be interpreted as one function.",
+    "141207560 interpreted through REP RET1412075b7..b8;1412075c0 through REP RET141207639..63a."
+  ],
+  "save_obligation": "Apply tail calls140ecd2f0(false), then140ecd430(false), each reaching vt+68(0). The secondary callback repeats rotation selection before disconnect. Outer Save later calls140ece7b0(0) and140eb5500, whose true secondary toggle reaches the connection/reset path again. Mere disconnected final state would lose ordering, counter and selection effects.",
+  "close_obligation": "140f345c0 reinstalls its vtable, calls141681cb0(this,0), then base dtor1401b2060. Deleting wrapper optionally frees object. Thus actual Close/destructor can attempt another disconnect before guarded view handle teardown.",
+  "next_smallest_action": "Recover selected 3D mode2/20 metadata-supported signal pairs and141202ed0 receiver reset used by141202e90(false), then bind connection/guard state to the actual Display/view owner with root. Do not implement a default empty registry without constructor evidence. Empty recovery constructor remains parallel dependency.",
+  "limits": "Static PE only; no source edits, builds, tests, original execution or GUI control. Existing public300 refusal remains. Shared Display ownership belongs to root; closure worker confirmed no overlap with these methods."
+}

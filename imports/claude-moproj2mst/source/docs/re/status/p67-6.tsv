@@ -1,0 +1,26 @@
+address	status	note
+0x140378e00	verified	verified by p5-01 (P5 gate); was ported; port/defcmd/src/contact/contact_cmds.cpp cases 5 and 6 only (cmd_inictc, cmd_genctc); dispatcher wired at the P6-7 gate
+0x1402049b0	verified	port/defcmd/src/contact/contact_cmds.cpp INICTC clear; oracle INICTC/spike_all + all GENCTC 2D cases
+0x1401a2e90	verified	port/defcmd/src/contact/contact_cmds.cpp 2D driver; oracle 13 cases (tests/commands/GENCTC cases.json + cases_p676.json)
+0x1401a3160	verified	port/defcmd/src/contact/contact_cmds.cpp 2D pair worker; oracle incl. rigid and meshed masters
+0x140202a20	verified	port/defcmd/src/contact/contact_cmds.cpp min edge by dimension
+0x1403046a0	verified	port/defcmd/src/contact/contact_cmds.cpp 2D min edge (automatic tolerance, oracle spike_0/tiny/meshed_0)
+0x140202a70	ported	port/defcmd/src/contact/contact_cmds.cpp 3D min edge; not reachable from GENCTC (2D driver only)
+0x140202da0	ported	port/defcmd/src/contact/contact_cmds.cpp element box min by dimension (3D tolerance); needs p67-7 for an oracle run
+0x140202e00	ported	port/defcmd/src/contact/contact_cmds.cpp 3D element box min
+0x1401a6c80	ported	port/defcmd/src/contact/contact_cmds.cpp 3D C++ driver; search behind defcmd/genctc3d_ext.hpp (p67-7); 3D oracle cases wait for p67-7
+0x1401d48d0	ported	port/defcmd/src/contact/contact_ext.cpp DB lazy read: guard 1401d2b70 always 1, body unreachable (DEF_NOT_PORTED kept)
+0x1401d5820	ported	port/defcmd/src/contact/contact_ext.cpp DB lazy read: guard 1401d2bb0 always 1, body unreachable (DEF_NOT_PORTED kept)
+0x140350f12	verified	port/defcmd/src/contact/ctc2d_rigid.cpp rigid master; warnings 1004/1001 byte-identical on stderr (oracle spike_warn, spike_bcc)
+0x140436a9e	verified	port/defcmd/src/contact/ctc2d_rigid.cpp nearest segment
+0x1404345c0	verified	port/defcmd/src/contact/ctc2d_kernels.cpp line kernel
+0x14043574f	ported	port/defcmd/src/contact/ctc2d_rigid.cpp arc kernel (SAVE 14070d834 carried); SPIKE dies have no arcs, so no oracle case reaches it
+0x140435caa	ported	port/defcmd/src/contact/ctc2d_rigid.cpp arc sweep test
+0x140435625	ported	port/defcmd/src/contact/ctc2d_rigid.cpp angle between vectors (ps_atan2)
+0x14043556b	verified	port/defcmd/src/contact/ctc2d_kernels.cpp rotate (ps_sincos); used by the meshed master
+0x14032e34e	verified	port/defcmd/src/contact/ctc2d_rigid.cpp element check (A + (B + C)) * 0.125
+0x14034fc56	verified	port/defcmd/src/contact/ctc2d_meshed.cpp meshed master driver; oracle spike_meshed, spike_meshed_0
+0x140434952	verified	port/defcmd/src/contact/ctc2d_meshed.cpp nearest node/segment with corner rules
+0x140341100	ported	port/defcmd/src/contact/arc_refine.cpp 2D arc contact refinement (OBJPOS interference caller 1403407d7); tier1 only
+0x14034151e	ported	port/defcmd/src/contact/arc_refine.cpp ray/arc contact in angle space; tier1 with test fakes of 1404d93ae/14032beef
+0x1404d93ae	todo	port/defcmd/src/contact/arc_refine_ext.cpp DEF_NOT_PORTED stub; owner def::rt::geoutl

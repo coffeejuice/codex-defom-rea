@@ -1,0 +1,66 @@
+{
+  "schema": "editor300-setup-remesh-radio-contract-v1",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-defaults-static.json",
+      "sha256": "ea1b2717b06e4523a7b059cb2a0f1621ce52031429dba890fe97d07b15a23fa3"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-control-private-static.json",
+      "sha256": "4a94403715e7770c2b737b659b08dea91cb55d2eb5b2cbd73fa1a0cde6a074a7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-control-accessors-static.json",
+      "sha256": "9f1dd1015498e121444797f41225e347ad093c265e472d81a71480303a9dd34b"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-button-mode-static.json",
+      "sha256": "b015bca44cabe1de4a4f1c0819e54573ad47775d6bce358811c6f5e55ee30f99"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-button-mode-complete-static.json",
+      "sha256": "9dc0564a3719f5465ddca985c033abf257e33ef3673ef400081866e11eee3f01"
+    }
+  ],
+  "native_qt_binary_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+  "checked_default": {
+    "initializer": "QtGui4_64!65370be0",
+    "instruction": "65370c4f masks flags at private+204 with FFFFFF80; clears checked bit1",
+    "getter": "65371230..6537123f loads private+204, shifts1, masks1",
+    "checkable": "QRadioButton653f8a70 calls653711f0(true); this updates checkable bit0 and keeps checked bit1 cleared. Complete leaf653711f0..65371219 is in supplemental capture.",
+    "exclusive": "QRadioButton653f8a70 calls653713e0(true), modifying bit3 only."
+  },
+  "groups": [
+    {
+      "parent_ui": "0x9f0",
+      "members": [
+        "0xa00",
+        "0xa08"
+      ],
+      "explicit_selection": "0xa00 Neighbor=true",
+      "result": {
+        "0xa00": true,
+        "0xa08": false
+      }
+    },
+    {
+      "parent_ui": "0xa30",
+      "members": [
+        "0xa40",
+        "0xa48"
+      ],
+      "explicit_selection": "0xa40 Global=false then0xa48 Local=true",
+      "result": {
+        "0xa40": false,
+        "0xa48": true
+      }
+    }
+  ],
+  "parent_source": "wave2-save-diffs-300-setupui.c: native QRadioButton constructor parent for each member; no conflicting later setup checked call for these groups",
+  "qualification": [
+    "Only these two radio groups are resolved to final checked state. Other controls retain requestedChecked as explicit setter evidence and checked=nullopt.",
+    "Requested enabled flags are not effective enabled state through the parent tree. No inference of GUI layout/resource/translator/automatic callback effects.",
+    "Accessor leaf candidates contain neighboring functions after proven RET. Initial40-byte checkable capture truncates an instruction and is superseded only for its tail by complete48-byte capture.",
+    "Qt control private spin/combobox/line-edit captures retained for successors; they are not used to invent those default values in this increment."
+  ]
+}

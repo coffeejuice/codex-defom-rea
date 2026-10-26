@@ -1,0 +1,70 @@
+{
+  "scope": "Read-only successor during combined Session-document build; no new source claims",
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": {
+    "part_dispatch": "analysis/wave2-doe-type2-session-read-failures-decompile.json",
+    "part_metadata": "analysis/wave2-doe-session-root-task-io-decompile.json",
+    "session_records": "analysis/wave2-doe-session-valid-existing-input-decompile.json",
+    "list_dispatch_and_content": "analysis/wave2-doe-task-list-implementation.json",
+    "literal_bindings": "analysis/wave2-doe-session-part-record-order-literals.json",
+    "task_factory_interfaces": "analysis/wave2-doe-session-task-factory-interfaces-decompile.json",
+    "leaf_binders": "analysis/wave2-doe-task-interface-leaves-receipt.json"
+  },
+  "ordered_644440": [
+    "Clear existing part records via646e90 first",
+    "If current root tag equals SessionRoot: allocate658690, append part record to doc+40, then659d90 on this root",
+    "Otherwise search all descendant SessionRoot elements in QDom document order, allocate/append each part before659d90 parsing",
+    "After all parts:6469d0(doc,0),647170(doc,0),647560 currentpart then656220(part,-1)",
+    "With param2 true (actual1), emit signalOpenSession, signalChapterChanged, signalNumChaptersChanged; their consumers still require qualification before ignoring state effects"
+  ],
+  "ordered_659d90": [
+    "Check source root/required qualification, read present OprStartNo/OprEndNo/PartEntityNo via toShort and DisplayName string; missing fields preserve constructor values",
+    "Conditional export flags set through inner session-root model, not Study defaults",
+    "Call650e60(innerModel,root,path,-1,param4,param5)"
+  ],
+  "ordered_650e60": [
+    "Parse Session metadata before Task factory; retain input sibling order",
+    "Read Image and UserDefinedStepList helpers into local records; allocate658130 session record and assign parsed fields",
+    "6584f0 reads QPointer task at record+58; when null, invoke notifier factory with TaskType and task pointer reference, then658520 stores result",
+    "Append session only when Task null OR task vt168 bool equals document type flag28",
+    "After append, set current session index to last and invoke653be0 on Session payload; therefore unsupported payload cannot roll back earlier session record",
+    "653be0 dispatches existing SfTask through task vt218=14140cba0; this connects already recovered operation/object reader in encounter order",
+    "StepData without LayerName dispatches task vt248=14140d100 when param5 false, which applies current display model throughc90bd0; SFDispView/GraphicsItems also have real model/view effects"
+  ],
+  "task_attachment": {
+    "SfTaskDoe_vt218": "0x14140cba0",
+    "existing_module": "readTaskLists",
+    "vt168": "0x1412784d0 returns byte Task+a8, settrue by recovered derived constructor741500",
+    "QPointer_binder": "141411700 only stores owner at interface+8;141412100 only at interface+28, no callback",
+    "separate_global_task_replacement": "e2e320 replaces first SfTaskDoe record task with main-window global task AFTER classData; must not conflate parsed and global state"
+  },
+  "remaining_exact_dependencies": [
+    "658690 part constructor defaults",
+    "658130 session constructor defaults/QPointer",
+    "6469d0/647170/647560 selection and signals",
+    "650e60 Image helper653930 (QImage hex/PNG) and UserDefinedStepList helper6536b0 (comma KeepEmptyParts toInt)",
+    "Factory notifier handler for new/existing SfTaskDoe ownership",
+    "StateVar postparse d16530 dependencies and SfDispView camera application",
+    "QFile size-before-read observation to distinguish genuine empty file from zero-byte failed read"
+  ],
+  "implementation_boundary": "Next extend644440 guard with ordered part/session records and task-list attachment only where constructors/factory branch closed; retain guard at first unsupported model payload. Do not fabricate missing defaults or treat DOM retention as application.",
+  "source_edits": false,
+  "app_control_used": false,
+  "further_evidence": {
+    "record_creation": "analysis/wave2-doe-session-record-creation-order-decompile.json",
+    "selection_fallback": "analysis/wave2-doe-session-default-part-selection-decompile.json"
+  },
+  "selection_correction": [
+    "6469d0(doc,0) ensures first ordinal part exists; if empty,646a60 creates DOM/record and assigns fresh entity id via647660",
+    "647170(doc,0) clears current part and tries entity number0; it is not ordinal selection",
+    "647560->647110 lazily falls back to first ordinal part when entity0 selection did not find a match",
+    "Then656220 sets current session index-1; intermediate selection notifications must not be dropped"
+  ],
+  "constructor_findings": {
+    "658130": "Session record initializes title null, scalar shorts0, StepNumber int-1, UserDefinedStepList empty, Task QPointer+58 null and TaskType Custom;650e60 later assigns parsed TaskType even when absent/empty",
+    "658690": "Part record final defaults: start/end/entity0, display $OPR_RANGE from metadata init, inner64f420 model;6589d0\u2192659020 assigns display after initial null",
+    "64f420": "Inner model captures viewer from mainWindow vt778, owns doc/part pointers, current session index-1, flags28/29/2a false before derived flag setter"
+  },
+  "read_handle_successor": "analysis/wave2-doe-read-handle-contract.json; explicit same-handle size/read source now frozen for parent validation; original size-query failure and full Qt read failure parity remain qualified",
+  "part_prefix_successor": "analysis/wave2-doe-session-part-contract.json; actual bridge now implements ordered clear/create/metadata prefix and guards at first unresolved child or fallback"
+}

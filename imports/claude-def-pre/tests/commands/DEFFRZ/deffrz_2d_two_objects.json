@@ -1,0 +1,21 @@
+{
+  "label": "DEFFRZ 1 2 0.5 2D",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nHAMMER_SI.DB\nDEFFRZ 1 2 0.5\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAMMER_SI.DB",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Source object 2 (topdie) differs from target 1: FRZ1.INI lists 2 as source, value line '0.500000'. Read-back is still the mode-2 path (no temp model)."
+  }
+}

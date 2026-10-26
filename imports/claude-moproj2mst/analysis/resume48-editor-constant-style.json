@@ -1,0 +1,101 @@
+{
+  "schema": "resume48-editor-constant-style-v1",
+  "created_utc": "2026-10-24T17:49:53.795562+00:00",
+  "status": "SOURCE_FROZEN_root_build_pending",
+  "owner": "editor300",
+  "changed_files": [
+    "source/apps/moproj2mst/src/engine/editor_base.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp"
+  ],
+  "source_freeze": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_base.hpp",
+      "sha256": "bd3506fd3fef4776083e04ee5e922899884c02552d135038c40aa0985db5f407",
+      "bytes": 4078
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_base.cpp",
+      "sha256": "7ee9165d16dd0351024bead83e219c9a4c9fb1590a1bdbc955033a39c190f2bd",
+      "bytes": 14124
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+      "sha256": "b9ecaf9a86d8c9dda3e59885e69ab90d7cb442a0fda56abf00640e6879831a66",
+      "bytes": 27022
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/resume47-editor300.json",
+      "sha256": "d602138117e7045313b8fa90b8f123b914893c3c160e2dd94599fafc9ef4d11f"
+    },
+    {
+      "path": "analysis/resume48-editor-next.json",
+      "sha256": "a1cea2207375b91912c2edd81d0f634b4e2a013a17553143d48e82b2acf086a5"
+    },
+    {
+      "path": "analysis/resume46-editor300.json",
+      "sha256": "1a4a7c8284f6783a8544a955128106c738017eafae9e6521362682172e36355a"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-6511c090.asm",
+      "sha256": "716cb7f8e726b62960add3b4718c6b48aef1f184e43b6a9e6317101d25bb9d32"
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-6511e6d0.asm",
+      "sha256": "ea2e3922b1c05313b23c3885b86c4ee635fdf61c655b07dc875490896b93de14"
+    }
+  ],
+  "binary_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+  "original_contract": [
+    "QWidget skips isOpaque for style0; isOpaque consumes alpha before checking style1. These existing branches remain unchanged.",
+    "For every remaining raw style, helper6511aba0 compares style16; all unequal values reach6511acd7 constant false with no payload read.",
+    "isOpaque6511c0e4..c106 then compares style15/16/17/24 by equality. All unequal raw values reach6511c1e3 constant false. This holds for negative and nonstandard raw values too; no range assumption is justified."
+  ],
+  "implementation": [
+    "Replace the invented2..14-only admission range with the original15/16/17/24 equality guards. All other entered style values resolve nonopaque after the existing mandatory alpha read.",
+    "Preserve consumed-alpha cursor, same actual brush owner, opacity mutation/helper order, shared constructor-tail pending behavior and public6504abb0.",
+    "Gradient/texture payloads remain unrecovered and guarded."
+  ],
+  "focused_tests": {
+    "file": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+    "total_cases": 28,
+    "added_cases": 1,
+    "new_case": "editor_base_nonstandard_raw_styles_follow_original_constant_false_branch",
+    "sentinel_styles": [
+      "INT32_MIN",
+      -1,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      "INT32_MAX"
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "combinations": 20,
+    "assertions": [
+      "Missing alpha guards before consumption for each raw style.",
+      "Qualified alpha resolves false with one alpha read/group/QObject prefix and no opacity/native-helper mutation.",
+      "Existing guard loop now names only15/16/17/24; prior alpha-order regression preserves each guard and stable retry effects."
+    ],
+    "execution": "Not executed by worker; root owns focused/full validation."
+  },
+  "source_checks": {
+    "unique_test_names": "passed28",
+    "conflict_markers": "none",
+    "exact_immutable_branch_bytes": "passed",
+    "whitespace": "passed git diff --check on both changed files"
+  },
+  "predecessor_validation": "Orchestrator reported checkpoint47 full150-test pass and27/27 editor cases before this source write window.",
+  "next_dependency": "Root focused/full validation. Gradient15/17 successor needs actual shared stop-vector owner/local copy/detach contract; independent gradient_state worker is qualifying it. Shared QWidget tail, runtime input binding, QPointer/notifier remain constructor dependencies.",
+  "original_runtime": false,
+  "mutable_rea": false,
+  "build_executed_by_worker": false,
+  "token_measurement": "unavailable"
+}

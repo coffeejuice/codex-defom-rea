@@ -1,0 +1,32 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Users\alext\Projects\codex-deform-rea\imports\claude-moproj2mst\evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00000001408531E0: 48 89 54 24 10     mov         qword ptr [rsp+10h],rdx
+  00000001408531E5: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  00000001408531EA: 48 83 EC 28        sub         rsp,28h
+  00000001408531EE: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  00000001408531F3: 48 8B 44 24 38     mov         rax,qword ptr [rsp+38h]
+  00000001408531F8: 48 89 81 30 01 00  mov         qword ptr [rcx+0000000000000130h],rax
+                    00
+  00000001408531FF: 48 8B 44 24 30     mov         rax,qword ptr [rsp+30h]
+  0000000140853204: 48 83 B8 30 01 00  cmp         qword ptr [rax+0000000000000130h],0
+                    00 00
+  000000014085320C: 74 1D              je          000000014085322B
+  000000014085320E: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  0000000140853213: 48 8B 89 30 01 00  mov         rcx,qword ptr [rcx+0000000000000130h]
+                    00
+  000000014085321A: E8 61 D7 8A FF     call        0000000140100980
+  000000014085321F: 8B D0              mov         edx,eax
+  0000000140853221: 48 8B 4C 24 30     mov         rcx,qword ptr [rsp+30h]
+  0000000140853226: E8 A5 A6 3F 00     call        0000000140C4D8D0
+  000000014085322B: 48 83 C4 28        add         rsp,28h
+  000000014085322F: C3                 ret
+
+  Summary
+
+     1E02000 .text

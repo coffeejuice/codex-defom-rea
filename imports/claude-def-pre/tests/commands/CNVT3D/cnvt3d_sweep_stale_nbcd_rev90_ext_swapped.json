@@ -1,0 +1,26 @@
+{
+ "label": "CNVT3D sweep revolve 90 obj3 then extrude obj2 (stale NBCD.OUT)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 900,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nGEO23 3 1\n90.0 0.0 0.0\nGEOSEC 3 4\nMSHSEC 3 2\nGEO23 2 2\n50.0 0.0\nGEOSEC 2 4\nMSHSEC 2 3\nACTOUT 0\nCONV3D.KEY\nCNVT3D 2\n3 2\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "data/sweep_two.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "CONV3D.KEY",
+   "OUT.KEY",
+   "NBCD.OUT",
+   "CONV_STATUS.DAT",
+   "DEF_CNV23.DAT",
+   " .LOG"
+  ],
+  "notes": "T9-4 variant of cnvt3d_sweep_stale_nbcd_rev90_ext with the objects swapped (that order crashes the original in object 3's set-up) RESULT 2026-10-21: crashes too (0xC0000005) right after 'RevolveAngle = 90.000000' of object 3."
+ }
+}

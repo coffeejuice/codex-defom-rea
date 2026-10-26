@@ -1,0 +1,21 @@
+# CP202 visibility hook alternative plan review
+
+Decision: **PASS as a narrowly scoped replacement plan, conditional on the focused fixture and review gates below.** The static evidence supports RVA `0x1547e` as a better candidate for the requested-visibility observation than the failed call-site hook. It does not establish that Frida can intercept this location in the original, nor authorize an original resume.
+
+This was a read-only review. No source or runner was edited, no build or test was run, and no original application, GUI, REA session, parent DMO, or Claude process was launched or attached. Only this review file was written.
+
+## Evidence review
+
+- The proposal's instruction listing is internally consistent: the 24 bytes at RVA `0x1547e` are `48 8b 84 24 50 02 00 00 48 8b 80 20 04 00 00 48 8b 8c 24 50 02 00 00 48`. This includes two complete MOVs, a third complete MOV, and the first byte of the next instruction. Treat this as an exact byte signature, not a 24-byte instruction-aligned patch window. The first 15 bytes are instruction aligned and consist of two ordinary MOV loads.
+- The stated path from the previous conditional branches at `0x15464`/`0x15477` to `0x1547e` is straight-line through the argument setup. `movzx edx,byte [rsp+0x74]` at `0x1549f` consumes the byte later, and the intervening loads neither write that stack byte nor adjust RSP. Sampling at entry is therefore correctly described as the *prepared requested bool*, before the dock virtual call; it is not evidence that the call or downstream behavior occurred.
+- The stack derivation is coherent with the described unwind prologue: saved entry RCX at entry-RSP+8, two pushes (16 bytes), and `sub rsp,0x238` place the saved main pointer at current RSP+`0x250`. The subsequent load from `[main+0x420]` supplies the dock pointer. The callback should use `this.context.rsp`, read memory only, preserve read failures, and record the raw byte.
+- `onEnter` only is the right callback contract for this instruction location. This is not a function entry or return boundary, so `args[]` and an `onLeave` interpretation would be misleading. The callback should not call Qt/native helpers or mutate registers, target memory, return values, or application control flow. Interceptor patching still changes executable code and timing, as the proposal acknowledges.
+- The retained failed attempt is an installation failure with no observations and no resume receipt, so it establishes neither a negative visibility result nor a Save result. The proposed simpler initial instruction sequence is a reason to try a harmless fixture; it is not a proven explanation or fix for the earlier error.
+
+## Runner replacement and gate
+
+Replace only the failed first visibility hook's address, expected bytes, callback and record labeling in the guarded original runner. Keep every other required hook and readiness condition unchanged. The install/readiness barrier must still require every required EXE listener, module-observer continuity, and the late Qt readiness gate before the single permitted resume. On any install error or incomplete readiness, retain the existing no-resume behavior and exact-owned-process held-handle termination/cleanup receipts. Do not weaken coverage or turn a missing observation into a negative result.
+
+Focused gate: first review the diff to confirm only the failed visibility-hook definition/callback is replaced and that install failure still cannot reach resume. Then validate interception in a harmless owned x64 fixture reproducing the exact instruction bytes and stack/main/dock layout, with known raw bool values 0 and 1. Require callback RSP and pointer correlation, continued execution/register preservation, patch/trampoline evidence where observable, detach/restoration, and exact-owned-process cleanup. A fixture pass only qualifies that backend/layout case. Any future original attempt still needs fresh file/module identity and prefix checks, positive all-hook readiness before resume, and the guarded failure cleanup path.
+
+**Conclusion:** accept the alternative as the sole failed-hook replacement candidate for fixture validation and focused source review. Original interception and runtime behavior remain unproved pending those gates.

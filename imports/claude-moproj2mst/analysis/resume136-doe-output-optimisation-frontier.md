@@ -1,0 +1,25 @@
+# CP136: DOE output and optimisation Save frontier
+
+## Finding
+
+No new source-closed public Save cut is available after CP131. Two separate earlier owners still block the active DOE routes, while the newly extended `DEF_DOE.INI` Constraint serializer is a private buffered plan at a later native callsite. It must not be moved earlier to appear integrated.
+
+## Native order and candidate guards
+
+1. Candidate `engine/save_project.cpp` calls `saveCurrentOperation` before `moproj::saveProjectFile`. For an active `SfOprDoeOutput`, `engine/save_current.cpp` refuses its `vt+0x68` at the exact public current-operation boundary. The native counterpart `0x140e2e730` runs first: requests `Control/Regions` creation, cleans its entries, removes the two Common_Mesh files, selects the ROI/common-mesh path and eligible geometry output, then calls the current-operation helper and `.DS` writer `0x140e2fcd0`. That writer needs the actual viewer model and the active SUB's owned output `SessionDocument` at `SP+0x30`; it updates DOE manager values from that document and serializes it through `0x140645030`. Those model/document owners and ordered cleanup/write effects are the earliest missing public DoeOutput Save dependency. The candidate's later `finishCurrentOutputClassData` load helper and B120 `.DS` DBLIST guard do not substitute for it.
+2. If the selected operation reaches the Project-file phase, Type2 Save next reaches its own owned Study/InputTable branch. On ordinary XML return it reaches `DoeTableRefresh`. CP131's private notifier helper now accurately distinguishes a suppressed callee return from unsuppressed dispatch-required, but no production same-Session `+0x141=true` producer is bound. The normal unsuppressed route still lacks invocation-specific key codec/data publication, map/list state, the same-generation `+0x458` receiver and timer, actual slot invocation, and normal slot/dispatcher return. Later PAR/sample calls cannot be moved before this point.
+3. After main-MST output, the outer native Save calls selected DOE/optimisation side-subproject template/parser (`0x1400ba650`) and then `0x1400ba800`. Its Type2 arm validates the selected subproject/manager/task, establishes design rows, writes `DEF_DOE.INI`, attempts another current-PAR write, then creates Solutions/Output directories. The Type3 alternative calls `0x140907a10` to write `<base>.OPT`; it is optimizer-state output, not the Type2 `.DS` document or the Type2 `DEF_DOE.INI` writer. Candidate `writeDefDoeIni` has no production caller (only its definition and direct unit tests); candidate Type3 subproject serialization remains guarded. Neither branch is available as an earlier workaround for the active-operation or Type2 refresh guard.
+
+The current private `writeDefDoeIni` Constraint extension is correctly scoped to its actual Study-owned Constraint records and appends the native `NUM_CON` two-pass text in the buffered `FileEffects` plan, after DOE_DBS and before REGIONS. It does not open/truncate `DEF_DOE.INI`, reproduce native QTextStream partial writes/errors, supply `0x1400ba800`'s selected-subproject/task/design owner, or establish that the writer call was reached. This is useful private value parity, not a Save-side effect.
+
+## Next action
+
+The precise earliest missing owner for an active `SfOprDoeOutput` case is the **same-occurrence current-operation Save context**: its live viewer/model (including the cached common-mesh decision), actual Study-owned `outputDocument`, selected `SfTaskDoe`/manager bindings, and the ordered Control/Regions effects through the `.DS` writer's normal/failed-open result. Resolve that owner before touching the later table notifier. For cases without that operation, independently resolve the unsuppressed DoeTableRefresh runtime witness before adding PAR writers. Keep `writeDefDoeIni` private until the correct post-MST caller, design/session state and immediate output-device contract are bound. Keep the Type3 `.OPT` branch separate.
+
+## Read-only receipts
+
+Source SHA-256: `engine/save_project.cpp` `90A0DDBF6B4C92B4F4FE8BC106AA2E9248F31C84D2A0981D0EE10EDA0BAF2337`; `engine/save_current.cpp` `BA944DADE590FD73CBE16C95A2A83D7F50868B2F1B05370BD477F7611D7F9812`; `moproj/write.cpp` `8AF4BE80324C39E1F8F452D7723BEBD200E4B7372180D8E32C1E6EE32C2399A2`; `doe/doe_study.cpp` `00B2E7AED3D47728F6A54D2EB70BF09B3B93076711FB29C8731FB591394D7423`; `doe/table_owner_state.cpp` `2AB58B2564D08330978679A0FBACAA7C57BEBEB295F394180054051983F4E674`.
+
+Native ordering references: `analysis/wave2-doe-lifecycle.md` (especially “Current-operation Save effects precede project/control Save” and “Remaining Save order”), `analysis/wave2-doe-findings.md` (stage table for `0x1400ba650` / `0x1400ba800`), `analysis/resume123-doe-output-next.md`, `analysis/resume124-doe-output-source-cut.md`, and `analysis/resume135-doe-save-next.md` (Constraint writer owner and later call boundary). CP131's private prefix report is `analysis/resume131-doe-suppressed-prefix.md`.
+
+No source, test, build, GUI, original application, or mutable REA state was changed.

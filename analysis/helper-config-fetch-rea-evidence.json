@@ -1,0 +1,704 @@
+{
+  "warning": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_08c80b9d1ff2e701714130d94b2c88e2cab18450db662060bdca0d5263899284\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x44357d\"},\"raw_result\":{\"value\":\"\\r\\nvoid __fastcall FUN_00443510(QWidget *param_1)\\r\\n\\r\\n{\\r\\n  QString *pQVar1;\\r\\n  QString *pQVar2;\\r\\n  size_t sVar3;\\r\\n  int iVar4;\\r\\n  undefined4 uVar5;\\r\\n  StandardButton SVar6;\\r\\n  StandardButton SVar7;\\r\\n  QString local_840 [4];\\r\\n  QString local_83c [4];\\r\\n  QString local_838 [4];\\r\\n  QString local_834 [4];\\r\\n  QString local_830 [4];\\r\\n  QString local_82c [4];\\r\\n  QString local_828 [4];\\r\\n  QString local_824 [4];\\r\\n  int local_820;\\r\\n  int local_81c;\\r\\n  int local_818;\\r\\n  int local_814;\\r\\n  undefined4 local_810 [223];\\r\\n  char local_494;\\r\\n  uint local_1b8 [51];\\r\\n  undefined1 local_e9;\\r\\n  undefined4 local_e8;\\r\\n  int local_e4;\\r\\n  char local_e0 [204];\\r\\n  uint local_14;\\r\\n  void *local_10;\\r\\n  undefined1 *puStack_c;\\r\\n  int local_8;\\r\\n  \\r\\n  local_8 = 0xffffffff;\\r\\n  puStack_c = &LAB_004ad46d;\\r\\n  local_10 = ExceptionList;\\r\\n  local_14 = DAT_004e1604 ^ (uint)&stack0xfffffffc;\\r\\n  ExceptionList = &local_10;\\r\\n  local_e9 = 1;\\r\\n  FUN_00413910(local_810,'\\\\x01');\\r\\n  local_8 = 0;\\r\\n  if (local_494 == '\\\\0') {\\r\\n    SVar7 = 0x400;\\r\\n    SVar6 = 0x400;\\r\\n    pQVar1 = (QString *)\\r\\n             FUN_004544c0((char *)local_824,\\r\\n                          \\\"License Server is not running.\\\\nYou will not be able to get the latest system configure.\\\\nPress Ok to Quit.\\\"\\r\\n                         );\\r\\n    local_8._0_1_ = 1;\\r\\n    pQVar2 = (QString *)FUN_004544c0((char *)local_828,\\\"DEFORMSetup\\\");\\r\\n    local_8._0_1_ = 2;\\r\\n    local_814 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n    local_8._0_1_ = 1;\\r\\n    QString::~QString(local_828);\\r\\n    local_8 = (uint)local_8._1_3_ << 8;\\r\\n    QString::~QString(local_824);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n    _exit(0);\\r\\n  }\\r\\n  FUN_0045fc40(local_1b8,(uint *)\\\"BatchQueueNumber\\\");\\r\\n  local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\\r\\n  if (local_e4 == 0) {\\r\\n    sVar3 = _strlen(local_e0);\\r\\n    if (sVar3 != 0) {\\r\\n      iVar4 = FUN_0045ae4f(local_e0);\\r\\n      if (iVar4 == 1) {\\r\\n        local_e8 = 1;\\r\\n        _sprintf((char *)local_1b8,\\\"%s%d\\\",\\\"BatchQueueAddress\\\",0);\\r\\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\\r\\n        if (local_e4 != 0) {\\r\\n          SVar7 = 0x400;\\r\\n          SVar6 = 0x400;\\r\\n          pQVar1 = (QString *)\\r\\n                   FUN_004544c0((char *)local_834,\\r\\n                                \\\"Wrong Batch queue server name.\\\\nBatch queue server name error. Please check the system setup.\\\\nPress Ok to Quit.\\\"\\r\\n                               );\\r\\n          local_8._0_1_ = 5;\\r\\n          pQVar2 = (QString *)FUN_004544c0((char *)local_838,\\\"DEFORMSetup\\\");\\r\\n          local_8._0_1_ = 6;\\r\\n          local_81c = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n          local_8._0_1_ = 5;\\r\\n          QString::~QString(local_838);\\r\\n          local_8 = (uint)local_8._1_3_ << 8;\\r\\n          QString::~QString(local_834);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n          _exit(0);\\r\\n        }\\r\\n        FUN_004720e0(param_1 + 0x18,local_e0);\\r\\n        _sprintf((char *)local_1b8,\\\"%s%d\\\",\\\"BatchQueuePort\\\",0);\\r\\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\\r\\n        if (local_e4 != 0) {\\r\\n          SVar7 = 0x400;\\r\\n          SVar6 = 0x400;\\r\\n          pQVar1 = (QString *)\\r\\n                   FUN_004544c0((char *)local_83c,\\r\\n                                \\\"Wrong Batch queue port number.\\\\nBatch queue port number error. Please check the system setup.\\\\nPress Ok to Quit.\\\"\\r\\n                               );\\r\\n          local_8._0_1_ = 7;\\r\\n          pQVar2 = (QString *)FUN_004544c0((char *)local_840,\\\"DEFORMSetup\\\");\\r\\n          local_8._0_1_ = 8;\\r\\n          local_820 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n          local_8._0_1_ = 7;\\r\\n          QString::~QString(local_840);\\r\\n          local_8 = (uint)local_8._1_3_ << 8;\\r\\n          QString::~QString(local_83c);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n          _exit(0);\\r\\n        }\\r\\n        uVar5 = FUN_0045ae4f(local_e0);\\r\\n        FUN_004544a0(param_1 + 0x18,uVar5);\\r\\n        local_8 = 0xffffffff;\\r\\n        FUN_00412510(local_810);\\r\\n        ExceptionList = local_10;\\r\\n        __security_check_cookie(local_14 ^ (uint)&stack0xfffffffc);\\r\\n        return;\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n  SVar7 = 0x400;\\r\\n  SVar6 = 0x400;\\r\\n  pQVar1 = (QString *)\\r\\n           FUN_004544c0((char *)local_82c,\\r\\n                        \\\"Wrong Batch queue server number.\\\\nThere can be only one batch queue server running. Please check the system setup.\\\\nPress Ok to Quit.\\\"\\r\\n                       );\\r\\n  local_8._0_1_ = 3;\\r\\n  pQVar2 = (QString *)FUN_004544c0((char *)local_830,\\\"DEFORMSetup\\\");\\r\\n  local_8._0_1_ = 4;\\r\\n  local_818 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n  local_8._0_1_ = 3;\\r\\n  QString::~QString(local_830);\\r\\n  local_8 = (uint)local_8._1_3_ << 8;\\r\\n  QString::~QString(local_82c);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n  _exit(0);\\r\\n}\\r\\n\\r\\n\",\"limitations\":[\"Ghidra Listing reports a terminal call at 0x443619 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Ghidra Listing reports a terminal call at 0x44372d to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Ghidra Listing reports a terminal call at 0x44382b to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Ghidra Listing reports a terminal call at 0x443934 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\"]},\"normalized_result\":\"\\r\\nvoid __fastcall FUN_00443510(QWidget *param_1)\\r\\n\\r\\n{\\r\\n  QString *pQVar1;\\r\\n  QString *pQVar2;\\r\\n  size_t sVar3;\\r\\n  int iVar4;\\r\\n  undefined4 uVar5;\\r\\n  StandardButton SVar6;\\r\\n  StandardButton SVar7;\\r\\n  QString local_840 [4];\\r\\n  QString local_83c [4];\\r\\n  QString local_838 [4];\\r\\n  QString local_834 [4];\\r\\n  QString local_830 [4];\\r\\n  QString local_82c [4];\\r\\n  QString local_828 [4];\\r\\n  QString local_824 [4];\\r\\n  int local_820;\\r\\n  int local_81c;\\r\\n  int local_818;\\r\\n  int local_814;\\r\\n  undefined4 local_810 [223];\\r\\n  char local_494;\\r\\n  uint local_1b8 [51];\\r\\n  undefined1 local_e9;\\r\\n  undefined4 local_e8;\\r\\n  int local_e4;\\r\\n  char local_e0 [204];\\r\\n  uint local_14;\\r\\n  void *local_10;\\r\\n  undefined1 *puStack_c;\\r\\n  int local_8;\\r\\n  \\r\\n  local_8 = 0xffffffff;\\r\\n  puStack_c = &LAB_004ad46d;\\r\\n  local_10 = ExceptionList;\\r\\n  local_14 = DAT_004e1604 ^ (uint)&stack0xfffffffc;\\r\\n  ExceptionList = &local_10;\\r\\n  local_e9 = 1;\\r\\n  FUN_00413910(local_810,'\\\\x01');\\r\\n  local_8 = 0;\\r\\n  if (local_494 == '\\\\0') {\\r\\n    SVar7 = 0x400;\\r\\n    SVar6 = 0x400;\\r\\n    pQVar1 = (QString *)\\r\\n             FUN_004544c0((char *)local_824,\\r\\n                          \\\"License Server is not running.\\\\nYou will not be able to get the latest system configure.\\\\nPress Ok to Quit.\\\"\\r\\n                         );\\r\\n    local_8._0_1_ = 1;\\r\\n    pQVar2 = (QString *)FUN_004544c0((char *)local_828,\\\"DEFORMSetup\\\");\\r\\n    local_8._0_1_ = 2;\\r\\n    local_814 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n    local_8._0_1_ = 1;\\r\\n    QString::~QString(local_828);\\r\\n    local_8 = (uint)local_8._1_3_ << 8;\\r\\n    QString::~QString(local_824);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n    _exit(0);\\r\\n  }\\r\\n  FUN_0045fc40(local_1b8,(uint *)\\\"BatchQueueNumber\\\");\\r\\n  local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\\r\\n  if (local_e4 == 0) {\\r\\n    sVar3 = _strlen(local_e0);\\r\\n    if (sVar3 != 0) {\\r\\n      iVar4 = FUN_0045ae4f(local_e0);\\r\\n      if (iVar4 == 1) {\\r\\n        local_e8 = 1;\\r\\n        _sprintf((char *)local_1b8,\\\"%s%d\\\",\\\"BatchQueueAddress\\\",0);\\r\\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\\r\\n        if (local_e4 != 0) {\\r\\n          SVar7 = 0x400;\\r\\n          SVar6 = 0x400;\\r\\n          pQVar1 = (QString *)\\r\\n                   FUN_004544c0((char *)local_834,\\r\\n                                \\\"Wrong Batch queue server name.\\\\nBatch queue server name error. Please check the system setup.\\\\nPress Ok to Quit.\\\"\\r\\n                               );\\r\\n          local_8._0_1_ = 5;\\r\\n          pQVar2 = (QString *)FUN_004544c0((char *)local_838,\\\"DEFORMSetup\\\");\\r\\n          local_8._0_1_ = 6;\\r\\n          local_81c = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n          local_8._0_1_ = 5;\\r\\n          QString::~QString(local_838);\\r\\n          local_8 = (uint)local_8._1_3_ << 8;\\r\\n          QString::~QString(local_834);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n          _exit(0);\\r\\n        }\\r\\n        FUN_004720e0(param_1 + 0x18,local_e0);\\r\\n        _sprintf((char *)local_1b8,\\\"%s%d\\\",\\\"BatchQueuePort\\\",0);\\r\\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\\r\\n        if (local_e4 != 0) {\\r\\n          SVar7 = 0x400;\\r\\n          SVar6 = 0x400;\\r\\n          pQVar1 = (QString *)\\r\\n                   FUN_004544c0((char *)local_83c,\\r\\n                                \\\"Wrong Batch queue port number.\\\\nBatch queue port number error. Please check the system setup.\\\\nPress Ok to Quit.\\\"\\r\\n                               );\\r\\n          local_8._0_1_ = 7;\\r\\n          pQVar2 = (QString *)FUN_004544c0((char *)local_840,\\\"DEFORMSetup\\\");\\r\\n          local_8._0_1_ = 8;\\r\\n          local_820 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n          local_8._0_1_ = 7;\\r\\n          QString::~QString(local_840);\\r\\n          local_8 = (uint)local_8._1_3_ << 8;\\r\\n          QString::~QString(local_83c);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n          _exit(0);\\r\\n        }\\r\\n        uVar5 = FUN_0045ae4f(local_e0);\\r\\n        FUN_004544a0(param_1 + 0x18,uVar5);\\r\\n        local_8 = 0xffffffff;\\r\\n        FUN_00412510(local_810);\\r\\n        ExceptionList = local_10;\\r\\n        __security_check_cookie(local_14 ^ (uint)&stack0xfffffffc);\\r\\n        return;\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n  SVar7 = 0x400;\\r\\n  SVar6 = 0x400;\\r\\n  pQVar1 = (QString *)\\r\\n           FUN_004544c0((char *)local_82c,\\r\\n                        \\\"Wrong Batch queue server number.\\\\nThere can be only one batch queue server running. Please check the system setup.\\\\nPress Ok to Quit.\\\"\\r\\n                       );\\r\\n  local_8._0_1_ = 3;\\r\\n  pQVar2 = (QString *)FUN_004544c0((char *)local_830,\\\"DEFORMSetup\\\");\\r\\n  local_8._0_1_ = 4;\\r\\n  local_818 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\\r\\n  local_8._0_1_ = 3;\\r\\n  QString::~QString(local_830);\\r\\n  local_8 = (uint)local_8._1_3_ << 8;\\r\\n  QString::~QString(local_82c);\\r\\n                    /* WARNING: Subroutine does not return */\\r\\n  _exit(0);\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Ghidra Listing reports a terminal call at 0x443619 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Ghidra Listing reports a terminal call at 0x44372d to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Ghidra Listing reports a terminal call at 0x44382b to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Ghidra Listing reports a terminal call at 0x443934 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_08c80b9d1ff2e701714130d94b2c88e2cab18450db662060bdca0d5263899284",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x44357d"
+      },
+      "raw_result": {
+        "value": "\r\nvoid __fastcall FUN_00443510(QWidget *param_1)\r\n\r\n{\r\n  QString *pQVar1;\r\n  QString *pQVar2;\r\n  size_t sVar3;\r\n  int iVar4;\r\n  undefined4 uVar5;\r\n  StandardButton SVar6;\r\n  StandardButton SVar7;\r\n  QString local_840 [4];\r\n  QString local_83c [4];\r\n  QString local_838 [4];\r\n  QString local_834 [4];\r\n  QString local_830 [4];\r\n  QString local_82c [4];\r\n  QString local_828 [4];\r\n  QString local_824 [4];\r\n  int local_820;\r\n  int local_81c;\r\n  int local_818;\r\n  int local_814;\r\n  undefined4 local_810 [223];\r\n  char local_494;\r\n  uint local_1b8 [51];\r\n  undefined1 local_e9;\r\n  undefined4 local_e8;\r\n  int local_e4;\r\n  char local_e0 [204];\r\n  uint local_14;\r\n  void *local_10;\r\n  undefined1 *puStack_c;\r\n  int local_8;\r\n  \r\n  local_8 = 0xffffffff;\r\n  puStack_c = &LAB_004ad46d;\r\n  local_10 = ExceptionList;\r\n  local_14 = DAT_004e1604 ^ (uint)&stack0xfffffffc;\r\n  ExceptionList = &local_10;\r\n  local_e9 = 1;\r\n  FUN_00413910(local_810,'\\x01');\r\n  local_8 = 0;\r\n  if (local_494 == '\\0') {\r\n    SVar7 = 0x400;\r\n    SVar6 = 0x400;\r\n    pQVar1 = (QString *)\r\n             FUN_004544c0((char *)local_824,\r\n                          \"License Server is not running.\\nYou will not be able to get the latest system configure.\\nPress Ok to Quit.\"\r\n                         );\r\n    local_8._0_1_ = 1;\r\n    pQVar2 = (QString *)FUN_004544c0((char *)local_828,\"DEFORMSetup\");\r\n    local_8._0_1_ = 2;\r\n    local_814 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n    local_8._0_1_ = 1;\r\n    QString::~QString(local_828);\r\n    local_8 = (uint)local_8._1_3_ << 8;\r\n    QString::~QString(local_824);\r\n                    /* WARNING: Subroutine does not return */\r\n    _exit(0);\r\n  }\r\n  FUN_0045fc40(local_1b8,(uint *)\"BatchQueueNumber\");\r\n  local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\r\n  if (local_e4 == 0) {\r\n    sVar3 = _strlen(local_e0);\r\n    if (sVar3 != 0) {\r\n      iVar4 = FUN_0045ae4f(local_e0);\r\n      if (iVar4 == 1) {\r\n        local_e8 = 1;\r\n        _sprintf((char *)local_1b8,\"%s%d\",\"BatchQueueAddress\",0);\r\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\r\n        if (local_e4 != 0) {\r\n          SVar7 = 0x400;\r\n          SVar6 = 0x400;\r\n          pQVar1 = (QString *)\r\n                   FUN_004544c0((char *)local_834,\r\n                                \"Wrong Batch queue server name.\\nBatch queue server name error. Please check the system setup.\\nPress Ok to Quit.\"\r\n                               );\r\n          local_8._0_1_ = 5;\r\n          pQVar2 = (QString *)FUN_004544c0((char *)local_838,\"DEFORMSetup\");\r\n          local_8._0_1_ = 6;\r\n          local_81c = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n          local_8._0_1_ = 5;\r\n          QString::~QString(local_838);\r\n          local_8 = (uint)local_8._1_3_ << 8;\r\n          QString::~QString(local_834);\r\n                    /* WARNING: Subroutine does not return */\r\n          _exit(0);\r\n        }\r\n        FUN_004720e0(param_1 + 0x18,local_e0);\r\n        _sprintf((char *)local_1b8,\"%s%d\",\"BatchQueuePort\",0);\r\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\r\n        if (local_e4 != 0) {\r\n          SVar7 = 0x400;\r\n          SVar6 = 0x400;\r\n          pQVar1 = (QString *)\r\n                   FUN_004544c0((char *)local_83c,\r\n                                \"Wrong Batch queue port number.\\nBatch queue port number error. Please check the system setup.\\nPress Ok to Quit.\"\r\n                               );\r\n          local_8._0_1_ = 7;\r\n          pQVar2 = (QString *)FUN_004544c0((char *)local_840,\"DEFORMSetup\");\r\n          local_8._0_1_ = 8;\r\n          local_820 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n          local_8._0_1_ = 7;\r\n          QString::~QString(local_840);\r\n          local_8 = (uint)local_8._1_3_ << 8;\r\n          QString::~QString(local_83c);\r\n                    /* WARNING: Subroutine does not return */\r\n          _exit(0);\r\n        }\r\n        uVar5 = FUN_0045ae4f(local_e0);\r\n        FUN_004544a0(param_1 + 0x18,uVar5);\r\n        local_8 = 0xffffffff;\r\n        FUN_00412510(local_810);\r\n        ExceptionList = local_10;\r\n        __security_check_cookie(local_14 ^ (uint)&stack0xfffffffc);\r\n        return;\r\n      }\r\n    }\r\n  }\r\n  SVar7 = 0x400;\r\n  SVar6 = 0x400;\r\n  pQVar1 = (QString *)\r\n           FUN_004544c0((char *)local_82c,\r\n                        \"Wrong Batch queue server number.\\nThere can be only one batch queue server running. Please check the system setup.\\nPress Ok to Quit.\"\r\n                       );\r\n  local_8._0_1_ = 3;\r\n  pQVar2 = (QString *)FUN_004544c0((char *)local_830,\"DEFORMSetup\");\r\n  local_8._0_1_ = 4;\r\n  local_818 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n  local_8._0_1_ = 3;\r\n  QString::~QString(local_830);\r\n  local_8 = (uint)local_8._1_3_ << 8;\r\n  QString::~QString(local_82c);\r\n                    /* WARNING: Subroutine does not return */\r\n  _exit(0);\r\n}\r\n\r\n",
+        "limitations": [
+          "Ghidra Listing reports a terminal call at 0x443619 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+          "Ghidra Listing reports a terminal call at 0x44372d to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+          "Ghidra Listing reports a terminal call at 0x44382b to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+          "Ghidra Listing reports a terminal call at 0x443934 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return."
+        ]
+      },
+      "normalized_result": "\r\nvoid __fastcall FUN_00443510(QWidget *param_1)\r\n\r\n{\r\n  QString *pQVar1;\r\n  QString *pQVar2;\r\n  size_t sVar3;\r\n  int iVar4;\r\n  undefined4 uVar5;\r\n  StandardButton SVar6;\r\n  StandardButton SVar7;\r\n  QString local_840 [4];\r\n  QString local_83c [4];\r\n  QString local_838 [4];\r\n  QString local_834 [4];\r\n  QString local_830 [4];\r\n  QString local_82c [4];\r\n  QString local_828 [4];\r\n  QString local_824 [4];\r\n  int local_820;\r\n  int local_81c;\r\n  int local_818;\r\n  int local_814;\r\n  undefined4 local_810 [223];\r\n  char local_494;\r\n  uint local_1b8 [51];\r\n  undefined1 local_e9;\r\n  undefined4 local_e8;\r\n  int local_e4;\r\n  char local_e0 [204];\r\n  uint local_14;\r\n  void *local_10;\r\n  undefined1 *puStack_c;\r\n  int local_8;\r\n  \r\n  local_8 = 0xffffffff;\r\n  puStack_c = &LAB_004ad46d;\r\n  local_10 = ExceptionList;\r\n  local_14 = DAT_004e1604 ^ (uint)&stack0xfffffffc;\r\n  ExceptionList = &local_10;\r\n  local_e9 = 1;\r\n  FUN_00413910(local_810,'\\x01');\r\n  local_8 = 0;\r\n  if (local_494 == '\\0') {\r\n    SVar7 = 0x400;\r\n    SVar6 = 0x400;\r\n    pQVar1 = (QString *)\r\n             FUN_004544c0((char *)local_824,\r\n                          \"License Server is not running.\\nYou will not be able to get the latest system configure.\\nPress Ok to Quit.\"\r\n                         );\r\n    local_8._0_1_ = 1;\r\n    pQVar2 = (QString *)FUN_004544c0((char *)local_828,\"DEFORMSetup\");\r\n    local_8._0_1_ = 2;\r\n    local_814 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n    local_8._0_1_ = 1;\r\n    QString::~QString(local_828);\r\n    local_8 = (uint)local_8._1_3_ << 8;\r\n    QString::~QString(local_824);\r\n                    /* WARNING: Subroutine does not return */\r\n    _exit(0);\r\n  }\r\n  FUN_0045fc40(local_1b8,(uint *)\"BatchQueueNumber\");\r\n  local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\r\n  if (local_e4 == 0) {\r\n    sVar3 = _strlen(local_e0);\r\n    if (sVar3 != 0) {\r\n      iVar4 = FUN_0045ae4f(local_e0);\r\n      if (iVar4 == 1) {\r\n        local_e8 = 1;\r\n        _sprintf((char *)local_1b8,\"%s%d\",\"BatchQueueAddress\",0);\r\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\r\n        if (local_e4 != 0) {\r\n          SVar7 = 0x400;\r\n          SVar6 = 0x400;\r\n          pQVar1 = (QString *)\r\n                   FUN_004544c0((char *)local_834,\r\n                                \"Wrong Batch queue server name.\\nBatch queue server name error. Please check the system setup.\\nPress Ok to Quit.\"\r\n                               );\r\n          local_8._0_1_ = 5;\r\n          pQVar2 = (QString *)FUN_004544c0((char *)local_838,\"DEFORMSetup\");\r\n          local_8._0_1_ = 6;\r\n          local_81c = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n          local_8._0_1_ = 5;\r\n          QString::~QString(local_838);\r\n          local_8 = (uint)local_8._1_3_ << 8;\r\n          QString::~QString(local_834);\r\n                    /* WARNING: Subroutine does not return */\r\n          _exit(0);\r\n        }\r\n        FUN_004720e0(param_1 + 0x18,local_e0);\r\n        _sprintf((char *)local_1b8,\"%s%d\",\"BatchQueuePort\",0);\r\n        local_e4 = FUN_00413300(local_810,(byte *)local_1b8,local_e0);\r\n        if (local_e4 != 0) {\r\n          SVar7 = 0x400;\r\n          SVar6 = 0x400;\r\n          pQVar1 = (QString *)\r\n                   FUN_004544c0((char *)local_83c,\r\n                                \"Wrong Batch queue port number.\\nBatch queue port number error. Please check the system setup.\\nPress Ok to Quit.\"\r\n                               );\r\n          local_8._0_1_ = 7;\r\n          pQVar2 = (QString *)FUN_004544c0((char *)local_840,\"DEFORMSetup\");\r\n          local_8._0_1_ = 8;\r\n          local_820 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n          local_8._0_1_ = 7;\r\n          QString::~QString(local_840);\r\n          local_8 = (uint)local_8._1_3_ << 8;\r\n          QString::~QString(local_83c);\r\n                    /* WARNING: Subroutine does not return */\r\n          _exit(0);\r\n        }\r\n        uVar5 = FUN_0045ae4f(local_e0);\r\n        FUN_004544a0(param_1 + 0x18,uVar5);\r\n        local_8 = 0xffffffff;\r\n        FUN_00412510(local_810);\r\n        ExceptionList = local_10;\r\n        __security_check_cookie(local_14 ^ (uint)&stack0xfffffffc);\r\n        return;\r\n      }\r\n    }\r\n  }\r\n  SVar7 = 0x400;\r\n  SVar6 = 0x400;\r\n  pQVar1 = (QString *)\r\n           FUN_004544c0((char *)local_82c,\r\n                        \"Wrong Batch queue server number.\\nThere can be only one batch queue server running. Please check the system setup.\\nPress Ok to Quit.\"\r\n                       );\r\n  local_8._0_1_ = 3;\r\n  pQVar2 = (QString *)FUN_004544c0((char *)local_830,\"DEFORMSetup\");\r\n  local_8._0_1_ = 4;\r\n  local_818 = QMessageBox::warning(param_1,pQVar2,pQVar1,SVar6,SVar7);\r\n  local_8._0_1_ = 3;\r\n  QString::~QString(local_830);\r\n  local_8 = (uint)local_8._1_3_ << 8;\r\n  QString::~QString(local_82c);\r\n                    /* WARNING: Subroutine does not return */\r\n  _exit(0);\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Ghidra Listing reports a terminal call at 0x443619 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x44372d to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x44382b to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x443934 to 0x45b0fb _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "fetch": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_c3ae60792516e85b11b9ba8975fbe2984845bfdae8f84737d16f2a9f93b65478\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x413770\"},\"raw_result\":{\"value\":\"\\r\\n/* WARNING: Function: __alloca_probe replaced with injection: alloca_probe */\\r\\n\\r\\nvoid __fastcall FUN_00413770(void *param_1)\\r\\n\\r\\n{\\r\\n  undefined4 uVar1;\\r\\n  int iVar2;\\r\\n  void *_Memory;\\r\\n  __time64_t _Var3;\\r\\n  undefined4 local_1818;\\r\\n  undefined4 local_1814;\\r\\n  undefined4 local_1810;\\r\\n  undefined4 local_180c;\\r\\n  char *local_1804;\\r\\n  char local_1800 [1624];\\r\\n  int local_11a8 [1126];\\r\\n  uint local_10;\\r\\n  void *local_c;\\r\\n  undefined1 *puStack_8;\\r\\n  uint local_4;\\r\\n  \\r\\n  local_4 = 0xffffffff;\\r\\n  puStack_8 = &LAB_004acf06;\\r\\n  local_c = ExceptionList;\\r\\n  local_10 = DAT_004e1604 ^ (uint)&local_1818;\\r\\n  ExceptionList = &local_c;\\r\\n  FUN_00413650(local_1800);\\r\\n  local_4 = 0;\\r\\n  uVar1 = FUN_00410fc0((int)local_1800);\\r\\n  if ((char)uVar1 == '\\\\0') {\\r\\n    *(undefined1 *)((int)param_1 + 0x37c) = 0;\\r\\n  }\\r\\n  else {\\r\\n    FUN_0040dbc0(local_11a8,'\\\\x01',1);\\r\\n    local_4 = CONCAT31(local_4._1_3_,1);\\r\\n    FUN_00409b00(local_11a8,0);\\r\\n    FUN_0040b930(&local_1818);\\r\\n    local_1818 = 0x13;\\r\\n    local_1814 = 0x2e;\\r\\n    local_180c = 0xffffffff;\\r\\n    local_1804 = (char *)0x0;\\r\\n    local_1810 = 0;\\r\\n    iVar2 = FUN_0040e320(local_11a8,&local_1818);\\r\\n    if (iVar2 == 0x18) {\\r\\n      iVar2 = FUN_0040e2f0(local_11a8,&local_1818);\\r\\n      if (iVar2 == 0x18) {\\r\\n        if (0 < (int)local_1804) {\\r\\n          _Memory = _malloc((size_t)(local_1804 + 100));\\r\\n          FUN_0040f530(local_11a8,(SOCKET)_Memory,local_1804);\\r\\n          FUN_00412c00(param_1,(int)_Memory,(int)local_1804);\\r\\n          _Var3 = __time64((__time64_t *)0x0);\\r\\n          *(__time64_t *)((int)param_1 + 0x650) = _Var3;\\r\\n          _free(_Memory);\\r\\n        }\\r\\n      }\\r\\n      else {\\r\\n        *(undefined1 *)((int)param_1 + 0x37c) = 0;\\r\\n      }\\r\\n    }\\r\\n    else {\\r\\n      *(undefined1 *)((int)param_1 + 0x37c) = 0;\\r\\n    }\\r\\n    local_4 = local_4 & 0xffffff00;\\r\\n    FUN_0040d9b0(local_11a8);\\r\\n  }\\r\\n  local_4 = 0xffffffff;\\r\\n  FUN_00412510((undefined4 *)local_1800);\\r\\n  ExceptionList = local_c;\\r\\n  __security_check_cookie(local_10 ^ (uint)&local_1818);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"limitations\":[]},\"normalized_result\":\"\\r\\n/* WARNING: Function: __alloca_probe replaced with injection: alloca_probe */\\r\\n\\r\\nvoid __fastcall FUN_00413770(void *param_1)\\r\\n\\r\\n{\\r\\n  undefined4 uVar1;\\r\\n  int iVar2;\\r\\n  void *_Memory;\\r\\n  __time64_t _Var3;\\r\\n  undefined4 local_1818;\\r\\n  undefined4 local_1814;\\r\\n  undefined4 local_1810;\\r\\n  undefined4 local_180c;\\r\\n  char *local_1804;\\r\\n  char local_1800 [1624];\\r\\n  int local_11a8 [1126];\\r\\n  uint local_10;\\r\\n  void *local_c;\\r\\n  undefined1 *puStack_8;\\r\\n  uint local_4;\\r\\n  \\r\\n  local_4 = 0xffffffff;\\r\\n  puStack_8 = &LAB_004acf06;\\r\\n  local_c = ExceptionList;\\r\\n  local_10 = DAT_004e1604 ^ (uint)&local_1818;\\r\\n  ExceptionList = &local_c;\\r\\n  FUN_00413650(local_1800);\\r\\n  local_4 = 0;\\r\\n  uVar1 = FUN_00410fc0((int)local_1800);\\r\\n  if ((char)uVar1 == '\\\\0') {\\r\\n    *(undefined1 *)((int)param_1 + 0x37c) = 0;\\r\\n  }\\r\\n  else {\\r\\n    FUN_0040dbc0(local_11a8,'\\\\x01',1);\\r\\n    local_4 = CONCAT31(local_4._1_3_,1);\\r\\n    FUN_00409b00(local_11a8,0);\\r\\n    FUN_0040b930(&local_1818);\\r\\n    local_1818 = 0x13;\\r\\n    local_1814 = 0x2e;\\r\\n    local_180c = 0xffffffff;\\r\\n    local_1804 = (char *)0x0;\\r\\n    local_1810 = 0;\\r\\n    iVar2 = FUN_0040e320(local_11a8,&local_1818);\\r\\n    if (iVar2 == 0x18) {\\r\\n      iVar2 = FUN_0040e2f0(local_11a8,&local_1818);\\r\\n      if (iVar2 == 0x18) {\\r\\n        if (0 < (int)local_1804) {\\r\\n          _Memory = _malloc((size_t)(local_1804 + 100));\\r\\n          FUN_0040f530(local_11a8,(SOCKET)_Memory,local_1804);\\r\\n          FUN_00412c00(param_1,(int)_Memory,(int)local_1804);\\r\\n          _Var3 = __time64((__time64_t *)0x0);\\r\\n          *(__time64_t *)((int)param_1 + 0x650) = _Var3;\\r\\n          _free(_Memory);\\r\\n        }\\r\\n      }\\r\\n      else {\\r\\n        *(undefined1 *)((int)param_1 + 0x37c) = 0;\\r\\n      }\\r\\n    }\\r\\n    else {\\r\\n      *(undefined1 *)((int)param_1 + 0x37c) = 0;\\r\\n    }\\r\\n    local_4 = local_4 & 0xffffff00;\\r\\n    FUN_0040d9b0(local_11a8);\\r\\n  }\\r\\n  local_4 = 0xffffffff;\\r\\n  FUN_00412510((undefined4 *)local_1800);\\r\\n  ExceptionList = local_c;\\r\\n  __security_check_cookie(local_10 ^ (uint)&local_1818);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_c3ae60792516e85b11b9ba8975fbe2984845bfdae8f84737d16f2a9f93b65478",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x413770"
+      },
+      "raw_result": {
+        "value": "\r\n/* WARNING: Function: __alloca_probe replaced with injection: alloca_probe */\r\n\r\nvoid __fastcall FUN_00413770(void *param_1)\r\n\r\n{\r\n  undefined4 uVar1;\r\n  int iVar2;\r\n  void *_Memory;\r\n  __time64_t _Var3;\r\n  undefined4 local_1818;\r\n  undefined4 local_1814;\r\n  undefined4 local_1810;\r\n  undefined4 local_180c;\r\n  char *local_1804;\r\n  char local_1800 [1624];\r\n  int local_11a8 [1126];\r\n  uint local_10;\r\n  void *local_c;\r\n  undefined1 *puStack_8;\r\n  uint local_4;\r\n  \r\n  local_4 = 0xffffffff;\r\n  puStack_8 = &LAB_004acf06;\r\n  local_c = ExceptionList;\r\n  local_10 = DAT_004e1604 ^ (uint)&local_1818;\r\n  ExceptionList = &local_c;\r\n  FUN_00413650(local_1800);\r\n  local_4 = 0;\r\n  uVar1 = FUN_00410fc0((int)local_1800);\r\n  if ((char)uVar1 == '\\0') {\r\n    *(undefined1 *)((int)param_1 + 0x37c) = 0;\r\n  }\r\n  else {\r\n    FUN_0040dbc0(local_11a8,'\\x01',1);\r\n    local_4 = CONCAT31(local_4._1_3_,1);\r\n    FUN_00409b00(local_11a8,0);\r\n    FUN_0040b930(&local_1818);\r\n    local_1818 = 0x13;\r\n    local_1814 = 0x2e;\r\n    local_180c = 0xffffffff;\r\n    local_1804 = (char *)0x0;\r\n    local_1810 = 0;\r\n    iVar2 = FUN_0040e320(local_11a8,&local_1818);\r\n    if (iVar2 == 0x18) {\r\n      iVar2 = FUN_0040e2f0(local_11a8,&local_1818);\r\n      if (iVar2 == 0x18) {\r\n        if (0 < (int)local_1804) {\r\n          _Memory = _malloc((size_t)(local_1804 + 100));\r\n          FUN_0040f530(local_11a8,(SOCKET)_Memory,local_1804);\r\n          FUN_00412c00(param_1,(int)_Memory,(int)local_1804);\r\n          _Var3 = __time64((__time64_t *)0x0);\r\n          *(__time64_t *)((int)param_1 + 0x650) = _Var3;\r\n          _free(_Memory);\r\n        }\r\n      }\r\n      else {\r\n        *(undefined1 *)((int)param_1 + 0x37c) = 0;\r\n      }\r\n    }\r\n    else {\r\n      *(undefined1 *)((int)param_1 + 0x37c) = 0;\r\n    }\r\n    local_4 = local_4 & 0xffffff00;\r\n    FUN_0040d9b0(local_11a8);\r\n  }\r\n  local_4 = 0xffffffff;\r\n  FUN_00412510((undefined4 *)local_1800);\r\n  ExceptionList = local_c;\r\n  __security_check_cookie(local_10 ^ (uint)&local_1818);\r\n  return;\r\n}\r\n\r\n",
+        "limitations": []
+      },
+      "normalized_result": "\r\n/* WARNING: Function: __alloca_probe replaced with injection: alloca_probe */\r\n\r\nvoid __fastcall FUN_00413770(void *param_1)\r\n\r\n{\r\n  undefined4 uVar1;\r\n  int iVar2;\r\n  void *_Memory;\r\n  __time64_t _Var3;\r\n  undefined4 local_1818;\r\n  undefined4 local_1814;\r\n  undefined4 local_1810;\r\n  undefined4 local_180c;\r\n  char *local_1804;\r\n  char local_1800 [1624];\r\n  int local_11a8 [1126];\r\n  uint local_10;\r\n  void *local_c;\r\n  undefined1 *puStack_8;\r\n  uint local_4;\r\n  \r\n  local_4 = 0xffffffff;\r\n  puStack_8 = &LAB_004acf06;\r\n  local_c = ExceptionList;\r\n  local_10 = DAT_004e1604 ^ (uint)&local_1818;\r\n  ExceptionList = &local_c;\r\n  FUN_00413650(local_1800);\r\n  local_4 = 0;\r\n  uVar1 = FUN_00410fc0((int)local_1800);\r\n  if ((char)uVar1 == '\\0') {\r\n    *(undefined1 *)((int)param_1 + 0x37c) = 0;\r\n  }\r\n  else {\r\n    FUN_0040dbc0(local_11a8,'\\x01',1);\r\n    local_4 = CONCAT31(local_4._1_3_,1);\r\n    FUN_00409b00(local_11a8,0);\r\n    FUN_0040b930(&local_1818);\r\n    local_1818 = 0x13;\r\n    local_1814 = 0x2e;\r\n    local_180c = 0xffffffff;\r\n    local_1804 = (char *)0x0;\r\n    local_1810 = 0;\r\n    iVar2 = FUN_0040e320(local_11a8,&local_1818);\r\n    if (iVar2 == 0x18) {\r\n      iVar2 = FUN_0040e2f0(local_11a8,&local_1818);\r\n      if (iVar2 == 0x18) {\r\n        if (0 < (int)local_1804) {\r\n          _Memory = _malloc((size_t)(local_1804 + 100));\r\n          FUN_0040f530(local_11a8,(SOCKET)_Memory,local_1804);\r\n          FUN_00412c00(param_1,(int)_Memory,(int)local_1804);\r\n          _Var3 = __time64((__time64_t *)0x0);\r\n          *(__time64_t *)((int)param_1 + 0x650) = _Var3;\r\n          _free(_Memory);\r\n        }\r\n      }\r\n      else {\r\n        *(undefined1 *)((int)param_1 + 0x37c) = 0;\r\n      }\r\n    }\r\n    else {\r\n      *(undefined1 *)((int)param_1 + 0x37c) = 0;\r\n    }\r\n    local_4 = local_4 & 0xffffff00;\r\n    FUN_0040d9b0(local_11a8);\r\n  }\r\n  local_4 = 0xffffffff;\r\n  FUN_00412510((undefined4 *)local_1800);\r\n  ExceptionList = local_c;\r\n  __security_check_cookie(local_10 ^ (uint)&local_1818);\r\n  return;\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "constructor": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_d6d5ba164a9e0b0e7a54eb97926f42be52f6b9032c4bb8bc3278e43a93b5899d\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x413650\"},\"raw_result\":{\"value\":\"\\r\\nvoid __fastcall FUN_00413650(char *param_1)\\r\\n\\r\\n{\\r\\n  char cVar1;\\r\\n  char *pcVar2;\\r\\n  int iVar3;\\r\\n  undefined1 auStack_418 [4];\\r\\n  char *local_414;\\r\\n  char local_410 [1024];\\r\\n  uint local_10;\\r\\n  void *local_c;\\r\\n  undefined1 *puStack_8;\\r\\n  undefined4 local_4;\\r\\n  \\r\\n  local_4 = 0xffffffff;\\r\\n  puStack_8 = &LAB_004acebd;\\r\\n  local_c = ExceptionList;\\r\\n  local_10 = DAT_004e1604 ^ (uint)auStack_418;\\r\\n  ExceptionList = &local_c;\\r\\n  local_414 = param_1;\\r\\n  FUN_00409b20((undefined4 *)param_1);\\r\\n  local_4 = 0;\\r\\n  *(undefined ***)param_1 = DEFConfiguration::vftable;\\r\\n  FUN_00479830((int *)(param_1 + 0x510));\\r\\n  local_4._0_1_ = 1;\\r\\n  FUN_00479830((int *)(param_1 + 0x52c));\\r\\n  local_4 = CONCAT31(local_4._1_3_,2);\\r\\n  param_1[0x50d] = '\\\\0';\\r\\n  FUN_00409b00(param_1,0);\\r\\n  param_1[0x548] = '\\\\0';\\r\\n  FUN_004111a0(local_410);\\r\\n  pcVar2 = local_410;\\r\\n  do {\\r\\n    cVar1 = *pcVar2;\\r\\n    pcVar2 = pcVar2 + 1;\\r\\n  } while (cVar1 != '\\\\0');\\r\\n  if (pcVar2 != local_410 + 1) {\\r\\n    pcVar2 = local_410;\\r\\n    iVar3 = (int)(param_1 + 0x548) - (int)pcVar2;\\r\\n    do {\\r\\n      cVar1 = *pcVar2;\\r\\n      pcVar2[iVar3] = cVar1;\\r\\n      pcVar2 = pcVar2 + 1;\\r\\n    } while (cVar1 != '\\\\0');\\r\\n  }\\r\\n  param_1[0x37c] = '\\\\x01';\\r\\n  param_1[0x37d] = '\\\\0';\\r\\n  param_1[0x445] = '\\\\0';\\r\\n  param_1[0x650] = '\\\\0';\\r\\n  param_1[0x651] = '\\\\0';\\r\\n  param_1[0x652] = '\\\\0';\\r\\n  param_1[0x653] = '\\\\0';\\r\\n  param_1[0x654] = '\\\\0';\\r\\n  param_1[0x655] = '\\\\0';\\r\\n  param_1[0x656] = '\\\\0';\\r\\n  param_1[0x657] = '\\\\0';\\r\\n  FUN_00413160(param_1);\\r\\n  ExceptionList = local_c;\\r\\n  __security_check_cookie(local_10 ^ (uint)auStack_418);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"limitations\":[]},\"normalized_result\":\"\\r\\nvoid __fastcall FUN_00413650(char *param_1)\\r\\n\\r\\n{\\r\\n  char cVar1;\\r\\n  char *pcVar2;\\r\\n  int iVar3;\\r\\n  undefined1 auStack_418 [4];\\r\\n  char *local_414;\\r\\n  char local_410 [1024];\\r\\n  uint local_10;\\r\\n  void *local_c;\\r\\n  undefined1 *puStack_8;\\r\\n  undefined4 local_4;\\r\\n  \\r\\n  local_4 = 0xffffffff;\\r\\n  puStack_8 = &LAB_004acebd;\\r\\n  local_c = ExceptionList;\\r\\n  local_10 = DAT_004e1604 ^ (uint)auStack_418;\\r\\n  ExceptionList = &local_c;\\r\\n  local_414 = param_1;\\r\\n  FUN_00409b20((undefined4 *)param_1);\\r\\n  local_4 = 0;\\r\\n  *(undefined ***)param_1 = DEFConfiguration::vftable;\\r\\n  FUN_00479830((int *)(param_1 + 0x510));\\r\\n  local_4._0_1_ = 1;\\r\\n  FUN_00479830((int *)(param_1 + 0x52c));\\r\\n  local_4 = CONCAT31(local_4._1_3_,2);\\r\\n  param_1[0x50d] = '\\\\0';\\r\\n  FUN_00409b00(param_1,0);\\r\\n  param_1[0x548] = '\\\\0';\\r\\n  FUN_004111a0(local_410);\\r\\n  pcVar2 = local_410;\\r\\n  do {\\r\\n    cVar1 = *pcVar2;\\r\\n    pcVar2 = pcVar2 + 1;\\r\\n  } while (cVar1 != '\\\\0');\\r\\n  if (pcVar2 != local_410 + 1) {\\r\\n    pcVar2 = local_410;\\r\\n    iVar3 = (int)(param_1 + 0x548) - (int)pcVar2;\\r\\n    do {\\r\\n      cVar1 = *pcVar2;\\r\\n      pcVar2[iVar3] = cVar1;\\r\\n      pcVar2 = pcVar2 + 1;\\r\\n    } while (cVar1 != '\\\\0');\\r\\n  }\\r\\n  param_1[0x37c] = '\\\\x01';\\r\\n  param_1[0x37d] = '\\\\0';\\r\\n  param_1[0x445] = '\\\\0';\\r\\n  param_1[0x650] = '\\\\0';\\r\\n  param_1[0x651] = '\\\\0';\\r\\n  param_1[0x652] = '\\\\0';\\r\\n  param_1[0x653] = '\\\\0';\\r\\n  param_1[0x654] = '\\\\0';\\r\\n  param_1[0x655] = '\\\\0';\\r\\n  param_1[0x656] = '\\\\0';\\r\\n  param_1[0x657] = '\\\\0';\\r\\n  FUN_00413160(param_1);\\r\\n  ExceptionList = local_c;\\r\\n  __security_check_cookie(local_10 ^ (uint)auStack_418);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_d6d5ba164a9e0b0e7a54eb97926f42be52f6b9032c4bb8bc3278e43a93b5899d",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x413650"
+      },
+      "raw_result": {
+        "value": "\r\nvoid __fastcall FUN_00413650(char *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  char *pcVar2;\r\n  int iVar3;\r\n  undefined1 auStack_418 [4];\r\n  char *local_414;\r\n  char local_410 [1024];\r\n  uint local_10;\r\n  void *local_c;\r\n  undefined1 *puStack_8;\r\n  undefined4 local_4;\r\n  \r\n  local_4 = 0xffffffff;\r\n  puStack_8 = &LAB_004acebd;\r\n  local_c = ExceptionList;\r\n  local_10 = DAT_004e1604 ^ (uint)auStack_418;\r\n  ExceptionList = &local_c;\r\n  local_414 = param_1;\r\n  FUN_00409b20((undefined4 *)param_1);\r\n  local_4 = 0;\r\n  *(undefined ***)param_1 = DEFConfiguration::vftable;\r\n  FUN_00479830((int *)(param_1 + 0x510));\r\n  local_4._0_1_ = 1;\r\n  FUN_00479830((int *)(param_1 + 0x52c));\r\n  local_4 = CONCAT31(local_4._1_3_,2);\r\n  param_1[0x50d] = '\\0';\r\n  FUN_00409b00(param_1,0);\r\n  param_1[0x548] = '\\0';\r\n  FUN_004111a0(local_410);\r\n  pcVar2 = local_410;\r\n  do {\r\n    cVar1 = *pcVar2;\r\n    pcVar2 = pcVar2 + 1;\r\n  } while (cVar1 != '\\0');\r\n  if (pcVar2 != local_410 + 1) {\r\n    pcVar2 = local_410;\r\n    iVar3 = (int)(param_1 + 0x548) - (int)pcVar2;\r\n    do {\r\n      cVar1 = *pcVar2;\r\n      pcVar2[iVar3] = cVar1;\r\n      pcVar2 = pcVar2 + 1;\r\n    } while (cVar1 != '\\0');\r\n  }\r\n  param_1[0x37c] = '\\x01';\r\n  param_1[0x37d] = '\\0';\r\n  param_1[0x445] = '\\0';\r\n  param_1[0x650] = '\\0';\r\n  param_1[0x651] = '\\0';\r\n  param_1[0x652] = '\\0';\r\n  param_1[0x653] = '\\0';\r\n  param_1[0x654] = '\\0';\r\n  param_1[0x655] = '\\0';\r\n  param_1[0x656] = '\\0';\r\n  param_1[0x657] = '\\0';\r\n  FUN_00413160(param_1);\r\n  ExceptionList = local_c;\r\n  __security_check_cookie(local_10 ^ (uint)auStack_418);\r\n  return;\r\n}\r\n\r\n",
+        "limitations": []
+      },
+      "normalized_result": "\r\nvoid __fastcall FUN_00413650(char *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  char *pcVar2;\r\n  int iVar3;\r\n  undefined1 auStack_418 [4];\r\n  char *local_414;\r\n  char local_410 [1024];\r\n  uint local_10;\r\n  void *local_c;\r\n  undefined1 *puStack_8;\r\n  undefined4 local_4;\r\n  \r\n  local_4 = 0xffffffff;\r\n  puStack_8 = &LAB_004acebd;\r\n  local_c = ExceptionList;\r\n  local_10 = DAT_004e1604 ^ (uint)auStack_418;\r\n  ExceptionList = &local_c;\r\n  local_414 = param_1;\r\n  FUN_00409b20((undefined4 *)param_1);\r\n  local_4 = 0;\r\n  *(undefined ***)param_1 = DEFConfiguration::vftable;\r\n  FUN_00479830((int *)(param_1 + 0x510));\r\n  local_4._0_1_ = 1;\r\n  FUN_00479830((int *)(param_1 + 0x52c));\r\n  local_4 = CONCAT31(local_4._1_3_,2);\r\n  param_1[0x50d] = '\\0';\r\n  FUN_00409b00(param_1,0);\r\n  param_1[0x548] = '\\0';\r\n  FUN_004111a0(local_410);\r\n  pcVar2 = local_410;\r\n  do {\r\n    cVar1 = *pcVar2;\r\n    pcVar2 = pcVar2 + 1;\r\n  } while (cVar1 != '\\0');\r\n  if (pcVar2 != local_410 + 1) {\r\n    pcVar2 = local_410;\r\n    iVar3 = (int)(param_1 + 0x548) - (int)pcVar2;\r\n    do {\r\n      cVar1 = *pcVar2;\r\n      pcVar2[iVar3] = cVar1;\r\n      pcVar2 = pcVar2 + 1;\r\n    } while (cVar1 != '\\0');\r\n  }\r\n  param_1[0x37c] = '\\x01';\r\n  param_1[0x37d] = '\\0';\r\n  param_1[0x445] = '\\0';\r\n  param_1[0x650] = '\\0';\r\n  param_1[0x651] = '\\0';\r\n  param_1[0x652] = '\\0';\r\n  param_1[0x653] = '\\0';\r\n  param_1[0x654] = '\\0';\r\n  param_1[0x655] = '\\0';\r\n  param_1[0x656] = '\\0';\r\n  param_1[0x657] = '\\0';\r\n  FUN_00413160(param_1);\r\n  ExceptionList = local_c;\r\n  __security_check_cookie(local_10 ^ (uint)auStack_418);\r\n  return;\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "file_access_check": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_f6d69d9c6c26e97c267da28f0c8643772a3e6d81954dbef2a14731042ad8e1fa\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x410fc0\"},\"raw_result\":{\"value\":\"\\r\\nundefined4 __fastcall FUN_00410fc0(int param_1)\\r\\n\\r\\n{\\r\\n  char *_Filename;\\r\\n  char cVar1;\\r\\n  uint in_EAX;\\r\\n  char *pcVar2;\\r\\n  FILE *_File;\\r\\n  int iVar3;\\r\\n  \\r\\n  _Filename = (char *)(param_1 + 0x548);\\r\\n  if (_Filename != (char *)0x0) {\\r\\n    pcVar2 = _Filename;\\r\\n    do {\\r\\n      cVar1 = *pcVar2;\\r\\n      pcVar2 = pcVar2 + 1;\\r\\n    } while (cVar1 != '\\\\0');\\r\\n    in_EAX = 0;\\r\\n    if (pcVar2 != (char *)(param_1 + 0x549)) {\\r\\n      _File = _fopen(_Filename,\\\"r\\\");\\r\\n      in_EAX = 0;\\r\\n      if (_File != (FILE *)0x0) {\\r\\n        iVar3 = _fclose(_File);\\r\\n        return CONCAT31((int3)((uint)iVar3 >> 8),1);\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n  return in_EAX & 0xffffff00;\\r\\n}\\r\\n\\r\\n\",\"limitations\":[]},\"normalized_result\":\"\\r\\nundefined4 __fastcall FUN_00410fc0(int param_1)\\r\\n\\r\\n{\\r\\n  char *_Filename;\\r\\n  char cVar1;\\r\\n  uint in_EAX;\\r\\n  char *pcVar2;\\r\\n  FILE *_File;\\r\\n  int iVar3;\\r\\n  \\r\\n  _Filename = (char *)(param_1 + 0x548);\\r\\n  if (_Filename != (char *)0x0) {\\r\\n    pcVar2 = _Filename;\\r\\n    do {\\r\\n      cVar1 = *pcVar2;\\r\\n      pcVar2 = pcVar2 + 1;\\r\\n    } while (cVar1 != '\\\\0');\\r\\n    in_EAX = 0;\\r\\n    if (pcVar2 != (char *)(param_1 + 0x549)) {\\r\\n      _File = _fopen(_Filename,\\\"r\\\");\\r\\n      in_EAX = 0;\\r\\n      if (_File != (FILE *)0x0) {\\r\\n        iVar3 = _fclose(_File);\\r\\n        return CONCAT31((int3)((uint)iVar3 >> 8),1);\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n  return in_EAX & 0xffffff00;\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_f6d69d9c6c26e97c267da28f0c8643772a3e6d81954dbef2a14731042ad8e1fa",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x410fc0"
+      },
+      "raw_result": {
+        "value": "\r\nundefined4 __fastcall FUN_00410fc0(int param_1)\r\n\r\n{\r\n  char *_Filename;\r\n  char cVar1;\r\n  uint in_EAX;\r\n  char *pcVar2;\r\n  FILE *_File;\r\n  int iVar3;\r\n  \r\n  _Filename = (char *)(param_1 + 0x548);\r\n  if (_Filename != (char *)0x0) {\r\n    pcVar2 = _Filename;\r\n    do {\r\n      cVar1 = *pcVar2;\r\n      pcVar2 = pcVar2 + 1;\r\n    } while (cVar1 != '\\0');\r\n    in_EAX = 0;\r\n    if (pcVar2 != (char *)(param_1 + 0x549)) {\r\n      _File = _fopen(_Filename,\"r\");\r\n      in_EAX = 0;\r\n      if (_File != (FILE *)0x0) {\r\n        iVar3 = _fclose(_File);\r\n        return CONCAT31((int3)((uint)iVar3 >> 8),1);\r\n      }\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+        "limitations": []
+      },
+      "normalized_result": "\r\nundefined4 __fastcall FUN_00410fc0(int param_1)\r\n\r\n{\r\n  char *_Filename;\r\n  char cVar1;\r\n  uint in_EAX;\r\n  char *pcVar2;\r\n  FILE *_File;\r\n  int iVar3;\r\n  \r\n  _Filename = (char *)(param_1 + 0x548);\r\n  if (_Filename != (char *)0x0) {\r\n    pcVar2 = _Filename;\r\n    do {\r\n      cVar1 = *pcVar2;\r\n      pcVar2 = pcVar2 + 1;\r\n    } while (cVar1 != '\\0');\r\n    in_EAX = 0;\r\n    if (pcVar2 != (char *)(param_1 + 0x549)) {\r\n      _File = _fopen(_Filename,\"r\");\r\n      in_EAX = 0;\r\n      if (_File != (FILE *)0x0) {\r\n        iVar3 = _fclose(_File);\r\n        return CONCAT31((int3)((uint)iVar3 >> 8),1);\r\n      }\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "load_file": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_548a0cb3b9b13749f79e186189406349daa9e3b828e21368884dcb35aa89dad2\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x413160\"},\"raw_result\":{\"value\":\"\\r\\nvoid __fastcall FUN_00413160(char *param_1)\\r\\n\\r\\n{\\r\\n  uint *puVar1;\\r\\n  uint uVar2;\\r\\n  char *pcVar3;\\r\\n  uint *puVar4;\\r\\n  char unaff_DI;\\r\\n  char **ppcVar5;\\r\\n  char *local_4;\\r\\n  \\r\\n  puVar1 = (uint *)(param_1 + 0x548);\\r\\n  puVar4 = puVar1;\\r\\n  do {\\r\\n    uVar2 = *puVar4;\\r\\n    puVar4 = (uint *)((int)puVar4 + 1);\\r\\n  } while ((char)uVar2 != '\\\\0');\\r\\n  local_4 = (char *)((int)puVar4 - (int)(param_1 + 0x549));\\r\\n  if (local_4 == (char *)0x0) {\\r\\n    pcVar3 = param_1;\\r\\n    if (DAT_004f0618 != '\\\\0') {\\r\\n      ppcVar5 = &local_4;\\r\\n      FUN_0040b950((int *)ppcVar5,\\\"DEFConfiguration::loadConfigureFromFile(), load from file:\\\",\\r\\n                   (char *)0x1,unaff_DI);\\r\\n      FUN_0040b950((int *)&local_4,\\\"DEFORM_NLM_CONF\\\",(char *)0x1,(char)ppcVar5);\\r\\n      FUN_00408b40(&DAT_004f01f8,local_4,\\\".\\\\\\\\network_license\\\\\\\\DEFConfiguration.cpp\\\",0x9f);\\r\\n      FUN_0045a17b(local_4);\\r\\n      pcVar3 = local_4;\\r\\n    }\\r\\n    local_4 = pcVar3;\\r\\n    FUN_00412fc0(param_1,(uint *)\\\"DEFORM_NLM_CONF\\\");\\r\\n    return;\\r\\n  }\\r\\n  local_4 = param_1;\\r\\n  if (DAT_004f0618 != '\\\\0') {\\r\\n    ppcVar5 = &local_4;\\r\\n    local_4 = (char *)0x0;\\r\\n    FUN_0040b950((int *)ppcVar5,\\\"DEFConfiguration::loadConfigureFromFile(), load from file:\\\",\\r\\n                 (char *)0x1,unaff_DI);\\r\\n    FUN_0040b950((int *)&local_4,(char *)puVar1,(char *)0x1,(char)ppcVar5);\\r\\n    FUN_00408b40(&DAT_004f01f8,local_4,\\\".\\\\\\\\network_license\\\\\\\\DEFConfiguration.cpp\\\",0xad);\\r\\n    FUN_0045a17b(local_4);\\r\\n  }\\r\\n  FUN_00412fc0(param_1,puVar1);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"limitations\":[]},\"normalized_result\":\"\\r\\nvoid __fastcall FUN_00413160(char *param_1)\\r\\n\\r\\n{\\r\\n  uint *puVar1;\\r\\n  uint uVar2;\\r\\n  char *pcVar3;\\r\\n  uint *puVar4;\\r\\n  char unaff_DI;\\r\\n  char **ppcVar5;\\r\\n  char *local_4;\\r\\n  \\r\\n  puVar1 = (uint *)(param_1 + 0x548);\\r\\n  puVar4 = puVar1;\\r\\n  do {\\r\\n    uVar2 = *puVar4;\\r\\n    puVar4 = (uint *)((int)puVar4 + 1);\\r\\n  } while ((char)uVar2 != '\\\\0');\\r\\n  local_4 = (char *)((int)puVar4 - (int)(param_1 + 0x549));\\r\\n  if (local_4 == (char *)0x0) {\\r\\n    pcVar3 = param_1;\\r\\n    if (DAT_004f0618 != '\\\\0') {\\r\\n      ppcVar5 = &local_4;\\r\\n      FUN_0040b950((int *)ppcVar5,\\\"DEFConfiguration::loadConfigureFromFile(), load from file:\\\",\\r\\n                   (char *)0x1,unaff_DI);\\r\\n      FUN_0040b950((int *)&local_4,\\\"DEFORM_NLM_CONF\\\",(char *)0x1,(char)ppcVar5);\\r\\n      FUN_00408b40(&DAT_004f01f8,local_4,\\\".\\\\\\\\network_license\\\\\\\\DEFConfiguration.cpp\\\",0x9f);\\r\\n      FUN_0045a17b(local_4);\\r\\n      pcVar3 = local_4;\\r\\n    }\\r\\n    local_4 = pcVar3;\\r\\n    FUN_00412fc0(param_1,(uint *)\\\"DEFORM_NLM_CONF\\\");\\r\\n    return;\\r\\n  }\\r\\n  local_4 = param_1;\\r\\n  if (DAT_004f0618 != '\\\\0') {\\r\\n    ppcVar5 = &local_4;\\r\\n    local_4 = (char *)0x0;\\r\\n    FUN_0040b950((int *)ppcVar5,\\\"DEFConfiguration::loadConfigureFromFile(), load from file:\\\",\\r\\n                 (char *)0x1,unaff_DI);\\r\\n    FUN_0040b950((int *)&local_4,(char *)puVar1,(char *)0x1,(char)ppcVar5);\\r\\n    FUN_00408b40(&DAT_004f01f8,local_4,\\\".\\\\\\\\network_license\\\\\\\\DEFConfiguration.cpp\\\",0xad);\\r\\n    FUN_0045a17b(local_4);\\r\\n  }\\r\\n  FUN_00412fc0(param_1,puVar1);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_548a0cb3b9b13749f79e186189406349daa9e3b828e21368884dcb35aa89dad2",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x413160"
+      },
+      "raw_result": {
+        "value": "\r\nvoid __fastcall FUN_00413160(char *param_1)\r\n\r\n{\r\n  uint *puVar1;\r\n  uint uVar2;\r\n  char *pcVar3;\r\n  uint *puVar4;\r\n  char unaff_DI;\r\n  char **ppcVar5;\r\n  char *local_4;\r\n  \r\n  puVar1 = (uint *)(param_1 + 0x548);\r\n  puVar4 = puVar1;\r\n  do {\r\n    uVar2 = *puVar4;\r\n    puVar4 = (uint *)((int)puVar4 + 1);\r\n  } while ((char)uVar2 != '\\0');\r\n  local_4 = (char *)((int)puVar4 - (int)(param_1 + 0x549));\r\n  if (local_4 == (char *)0x0) {\r\n    pcVar3 = param_1;\r\n    if (DAT_004f0618 != '\\0') {\r\n      ppcVar5 = &local_4;\r\n      FUN_0040b950((int *)ppcVar5,\"DEFConfiguration::loadConfigureFromFile(), load from file:\",\r\n                   (char *)0x1,unaff_DI);\r\n      FUN_0040b950((int *)&local_4,\"DEFORM_NLM_CONF\",(char *)0x1,(char)ppcVar5);\r\n      FUN_00408b40(&DAT_004f01f8,local_4,\".\\\\network_license\\\\DEFConfiguration.cpp\",0x9f);\r\n      FUN_0045a17b(local_4);\r\n      pcVar3 = local_4;\r\n    }\r\n    local_4 = pcVar3;\r\n    FUN_00412fc0(param_1,(uint *)\"DEFORM_NLM_CONF\");\r\n    return;\r\n  }\r\n  local_4 = param_1;\r\n  if (DAT_004f0618 != '\\0') {\r\n    ppcVar5 = &local_4;\r\n    local_4 = (char *)0x0;\r\n    FUN_0040b950((int *)ppcVar5,\"DEFConfiguration::loadConfigureFromFile(), load from file:\",\r\n                 (char *)0x1,unaff_DI);\r\n    FUN_0040b950((int *)&local_4,(char *)puVar1,(char *)0x1,(char)ppcVar5);\r\n    FUN_00408b40(&DAT_004f01f8,local_4,\".\\\\network_license\\\\DEFConfiguration.cpp\",0xad);\r\n    FUN_0045a17b(local_4);\r\n  }\r\n  FUN_00412fc0(param_1,puVar1);\r\n  return;\r\n}\r\n\r\n",
+        "limitations": []
+      },
+      "normalized_result": "\r\nvoid __fastcall FUN_00413160(char *param_1)\r\n\r\n{\r\n  uint *puVar1;\r\n  uint uVar2;\r\n  char *pcVar3;\r\n  uint *puVar4;\r\n  char unaff_DI;\r\n  char **ppcVar5;\r\n  char *local_4;\r\n  \r\n  puVar1 = (uint *)(param_1 + 0x548);\r\n  puVar4 = puVar1;\r\n  do {\r\n    uVar2 = *puVar4;\r\n    puVar4 = (uint *)((int)puVar4 + 1);\r\n  } while ((char)uVar2 != '\\0');\r\n  local_4 = (char *)((int)puVar4 - (int)(param_1 + 0x549));\r\n  if (local_4 == (char *)0x0) {\r\n    pcVar3 = param_1;\r\n    if (DAT_004f0618 != '\\0') {\r\n      ppcVar5 = &local_4;\r\n      FUN_0040b950((int *)ppcVar5,\"DEFConfiguration::loadConfigureFromFile(), load from file:\",\r\n                   (char *)0x1,unaff_DI);\r\n      FUN_0040b950((int *)&local_4,\"DEFORM_NLM_CONF\",(char *)0x1,(char)ppcVar5);\r\n      FUN_00408b40(&DAT_004f01f8,local_4,\".\\\\network_license\\\\DEFConfiguration.cpp\",0x9f);\r\n      FUN_0045a17b(local_4);\r\n      pcVar3 = local_4;\r\n    }\r\n    local_4 = pcVar3;\r\n    FUN_00412fc0(param_1,(uint *)\"DEFORM_NLM_CONF\");\r\n    return;\r\n  }\r\n  local_4 = param_1;\r\n  if (DAT_004f0618 != '\\0') {\r\n    ppcVar5 = &local_4;\r\n    local_4 = (char *)0x0;\r\n    FUN_0040b950((int *)ppcVar5,\"DEFConfiguration::loadConfigureFromFile(), load from file:\",\r\n                 (char *)0x1,unaff_DI);\r\n    FUN_0040b950((int *)&local_4,(char *)puVar1,(char *)0x1,(char)ppcVar5);\r\n    FUN_00408b40(&DAT_004f01f8,local_4,\".\\\\network_license\\\\DEFConfiguration.cpp\",0xad);\r\n    FUN_0045a17b(local_4);\r\n  }\r\n  FUN_00412fc0(param_1,puVar1);\r\n  return;\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "path": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_74d8de2810ee1584cca91cad6b19a0a38ee924eef605196705a21126425dbae0\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x4111a0\"},\"raw_result\":{\"value\":\"\\r\\nvoid __cdecl FUN_004111a0(undefined1 *param_1)\\r\\n\\r\\n{\\r\\n  undefined1 *local_408;\\r\\n  char local_404 [1024];\\r\\n  uint local_4;\\r\\n  \\r\\n  local_4 = DAT_004e1604 ^ (uint)&local_408;\\r\\n  local_408 = param_1;\\r\\n  *param_1 = 0;\\r\\n  FUN_00411000(local_404);\\r\\n  FUN_00411040((int *)&local_408,local_404,\\\"DEFORM_NLM_CONF\\\");\\r\\n  __security_check_cookie(local_4 ^ (uint)&local_408);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"limitations\":[]},\"normalized_result\":\"\\r\\nvoid __cdecl FUN_004111a0(undefined1 *param_1)\\r\\n\\r\\n{\\r\\n  undefined1 *local_408;\\r\\n  char local_404 [1024];\\r\\n  uint local_4;\\r\\n  \\r\\n  local_4 = DAT_004e1604 ^ (uint)&local_408;\\r\\n  local_408 = param_1;\\r\\n  *param_1 = 0;\\r\\n  FUN_00411000(local_404);\\r\\n  FUN_00411040((int *)&local_408,local_404,\\\"DEFORM_NLM_CONF\\\");\\r\\n  __security_check_cookie(local_4 ^ (uint)&local_408);\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_74d8de2810ee1584cca91cad6b19a0a38ee924eef605196705a21126425dbae0",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x4111a0"
+      },
+      "raw_result": {
+        "value": "\r\nvoid __cdecl FUN_004111a0(undefined1 *param_1)\r\n\r\n{\r\n  undefined1 *local_408;\r\n  char local_404 [1024];\r\n  uint local_4;\r\n  \r\n  local_4 = DAT_004e1604 ^ (uint)&local_408;\r\n  local_408 = param_1;\r\n  *param_1 = 0;\r\n  FUN_00411000(local_404);\r\n  FUN_00411040((int *)&local_408,local_404,\"DEFORM_NLM_CONF\");\r\n  __security_check_cookie(local_4 ^ (uint)&local_408);\r\n  return;\r\n}\r\n\r\n",
+        "limitations": []
+      },
+      "normalized_result": "\r\nvoid __cdecl FUN_004111a0(undefined1 *param_1)\r\n\r\n{\r\n  undefined1 *local_408;\r\n  char local_404 [1024];\r\n  uint local_4;\r\n  \r\n  local_4 = DAT_004e1604 ^ (uint)&local_408;\r\n  local_408 = param_1;\r\n  *param_1 = 0;\r\n  FUN_00411000(local_404);\r\n  FUN_00411040((int *)&local_408,local_404,\"DEFORM_NLM_CONF\");\r\n  __security_check_cookie(local_4 ^ (uint)&local_408);\r\n  return;\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "directory": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_6d01031ce4e27744017616d0d81bd4aa34e7c974e8116417b11231dbf9d163be\",\"subject\":{\"name\":\"DEFJobGroupSetup.exe\",\"digest\":{\"sha256\":\"bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18\"},\"local_path\":\"C:\\\\Program Files\\\\SFTC\\\\DEFORM\\\\v11.0.2\\\\DEFJobGroupSetup.exe\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v5\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x411000\"},\"raw_result\":{\"value\":\"\\r\\nvoid __cdecl FUN_00411000(undefined1 *param_1)\\r\\n\\r\\n{\\r\\n  char cVar1;\\r\\n  char *pcVar2;\\r\\n  char *pcVar3;\\r\\n  int iVar4;\\r\\n  \\r\\n  *param_1 = 0;\\r\\n  pcVar2 = _getenv(\\\"DEF_CFG_DIR\\\");\\r\\n  if (pcVar2 != (char *)0x0) {\\r\\n    pcVar3 = pcVar2;\\r\\n    do {\\r\\n      cVar1 = *pcVar3;\\r\\n      pcVar3 = pcVar3 + 1;\\r\\n    } while (cVar1 != '\\\\0');\\r\\n    if (3 < (uint)((int)pcVar3 - (int)(pcVar2 + 1))) {\\r\\n      iVar4 = (int)param_1 - (int)pcVar2;\\r\\n      do {\\r\\n        cVar1 = *pcVar2;\\r\\n        pcVar2[iVar4] = cVar1;\\r\\n        pcVar2 = pcVar2 + 1;\\r\\n      } while (cVar1 != '\\\\0');\\r\\n    }\\r\\n  }\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"limitations\":[]},\"normalized_result\":\"\\r\\nvoid __cdecl FUN_00411000(undefined1 *param_1)\\r\\n\\r\\n{\\r\\n  char cVar1;\\r\\n  char *pcVar2;\\r\\n  char *pcVar3;\\r\\n  int iVar4;\\r\\n  \\r\\n  *param_1 = 0;\\r\\n  pcVar2 = _getenv(\\\"DEF_CFG_DIR\\\");\\r\\n  if (pcVar2 != (char *)0x0) {\\r\\n    pcVar3 = pcVar2;\\r\\n    do {\\r\\n      cVar1 = *pcVar3;\\r\\n      pcVar3 = pcVar3 + 1;\\r\\n    } while (cVar1 != '\\\\0');\\r\\n    if (3 < (uint)((int)pcVar3 - (int)(pcVar2 + 1))) {\\r\\n      iVar4 = (int)param_1 - (int)pcVar2;\\r\\n      do {\\r\\n        cVar1 = *pcVar2;\\r\\n        pcVar2[iVar4] = cVar1;\\r\\n        pcVar2 = pcVar2 + 1;\\r\\n      } while (cVar1 != '\\\\0');\\r\\n    }\\r\\n  }\\r\\n  return;\\r\\n}\\r\\n\\r\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_6d01031ce4e27744017616d0d81bd4aa34e7c974e8116417b11231dbf9d163be",
+      "subject": {
+        "name": "DEFJobGroupSetup.exe",
+        "digest": {
+          "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x411000"
+      },
+      "raw_result": {
+        "value": "\r\nvoid __cdecl FUN_00411000(undefined1 *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  char *pcVar2;\r\n  char *pcVar3;\r\n  int iVar4;\r\n  \r\n  *param_1 = 0;\r\n  pcVar2 = _getenv(\"DEF_CFG_DIR\");\r\n  if (pcVar2 != (char *)0x0) {\r\n    pcVar3 = pcVar2;\r\n    do {\r\n      cVar1 = *pcVar3;\r\n      pcVar3 = pcVar3 + 1;\r\n    } while (cVar1 != '\\0');\r\n    if (3 < (uint)((int)pcVar3 - (int)(pcVar2 + 1))) {\r\n      iVar4 = (int)param_1 - (int)pcVar2;\r\n      do {\r\n        cVar1 = *pcVar2;\r\n        pcVar2[iVar4] = cVar1;\r\n        pcVar2 = pcVar2 + 1;\r\n      } while (cVar1 != '\\0');\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+        "limitations": []
+      },
+      "normalized_result": "\r\nvoid __cdecl FUN_00411000(undefined1 *param_1)\r\n\r\n{\r\n  char cVar1;\r\n  char *pcVar2;\r\n  char *pcVar3;\r\n  int iVar4;\r\n  \r\n  *param_1 = 0;\r\n  pcVar2 = _getenv(\"DEF_CFG_DIR\");\r\n  if (pcVar2 != (char *)0x0) {\r\n    pcVar3 = pcVar2;\r\n    do {\r\n      cVar1 = *pcVar3;\r\n      pcVar3 = pcVar3 + 1;\r\n    } while (cVar1 != '\\0');\r\n    if (3 < (uint)((int)pcVar3 - (int)(pcVar2 + 1))) {\r\n      iVar4 = (int)param_1 - (int)pcVar2;\r\n      do {\r\n        cVar1 = *pcVar2;\r\n        pcVar2[iVar4] = cVar1;\r\n        pcVar2 = pcVar2 + 1;\r\n      } while (cVar1 != '\\0');\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  }
+}

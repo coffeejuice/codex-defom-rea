@@ -1,0 +1,104 @@
+{
+  "schema": "editor300-stopping-save-remap-test-amendment-v1",
+  "created_utc": "2026-10-24T10:36:39.002602+00:00",
+  "status": "six sources refrozen for parent candidate38v2; no worker build or test",
+  "amends": "analysis/wave3-editor-stopping-partial-node-implementation.json",
+  "original_receipt_immutable": true,
+  "failure": "Parent candidate38v1 built; focused12of13 programs passed. New lifecycle case failed only nodes.u008==ownedCoordinates after Apply. Snapshot73 cases passed. Raw focused failure retained by parent.",
+  "diagnosis": "An incorrect test ownership invariant required address stability through full Apply. Open simcontrol backup copies SimControl only; the failure occurs later. Advanced Apply140ec7500 reaches14082a360(step,0), then every valid object14086d7f0 calls node allocator140854370 unconditionally. At1408543aa it calls1414753c4(oldPointer,n*dims0*8), and141475415 reaches imported HeapReAlloc(heap,flags0,old,size). Original stores returned pointer at1408543b7. The empty recovery tail repeats Advanced. Same-width allocation may move; the object/node-set owner and existing bytes are the valid invariants.",
+  "changes": [
+    "Only test_simcontrol300_lifecycle.cpp changed; no production changes. Removed allocator-address equality.",
+    "Seed nonzero/signed coordinate sentinels after complete Open; assert exact object and DB_STEP_DATA owner identity, logical node count1, width3 and all three prefix doubles after Advanced at first Extra3D side effect, and again after the repeated recovery-tail remap.",
+    "Retain original remembered MDS node/rounded-value Save assertions and require recovery tail Completed. No new helper/hooks or altered production algorithm."
+  ],
+  "qualification": "Inherited realloc_zero_tail zeroing of grown heap tail is a separate existing reconstruction normalization. Original HeapReAlloc flags0 does not zero a grown tail. This test uses unchanged 24-byte coordinate prefix; it validates neither growth normalization nor allocator address equivalence. Parent is notified for queue reconciliation.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-stopping-splitter-cleanup-v1-focused-failure.json",
+      "sha256": "70522d7efa3893c3997f08eb5750a6c7a30f3b6c2edd39290caf1083bd9edfc2"
+    },
+    {
+      "path": "analysis/wave3-editor-stopping-partial-node-implementation.json",
+      "sha256": "ae2be9b4b4eb716f14e9fb6d1e9a101fd37fc3af278854c341a753ca6e1b4080"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-advanced-contract.json",
+      "sha256": "532487e05a0e51fb9730489543b406b981dfe39d9f2904ad36ddb0b2c37eb206"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-advanced-twin-comparison.json",
+      "sha256": "f25d7079f4f14349878ee84967eff38ca02f6f210bf3822d14a4ec2cbf42f7ec"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-advanced-twin-object-remap-gui.asm",
+      "sha256": "0a9d1d19cc4b005b8038aa66fe126d8b3305aaa517db2a9a342d2c98f36e79c2"
+    },
+    {
+      "path": "analysis/wave3-editor-stopping-save-remap-static.json",
+      "sha256": "3847a79ba376f843d21e419da755bb66448536665a07696dd79103a08b1a6a0f"
+    },
+    {
+      "path": "analysis/wave3-editor-stopping-save-realloc-thunk-static.json",
+      "sha256": "da00128f884d40621f598bfa382c09b25ddcc00ea2f0dfc8c127c6f60b8e8807"
+    },
+    {
+      "path": "analysis/wave3-editor-stopping-save-realloc-binding.json",
+      "sha256": "b8713de72d6393bcd88f991986c9f8996eefac8104a908d2da58c48a088f397c"
+    },
+    {
+      "path": "source/port/defmodel/src/material/state_remap.cpp",
+      "sha256": "a543a4dc1df8e78e7aa2be1da7335e4f5cbbf97d229371a37421ec0517bb77f9"
+    },
+    {
+      "path": "source/port/defmodel/src/llobj/cls_14017ef20.cpp",
+      "sha256": "1f2302ce4c1851234e5b308a0fa2f980125b45c6e58a22974667e0169583057d"
+    },
+    {
+      "path": "source/port/defmodel/include/defmodel/llobj/realloc_zero_tail.hpp",
+      "sha256": "e614095eeb835704946e1b40b3873e85132c8fdbda6aedf832d5564c50802e17"
+    }
+  ],
+  "source_freeze": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "0b4caf5a882040684b974ccc5cf6c5e9ba1327663db8744f7fad4edf34c475c0"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "c8d3ea9b32f225def3aac10a50768184cb848dee4acf0f1ad4a776e945b7e1b5"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "c9e5ee0306e1f98015d1b6f12ca7dcc0843beb55689284a037e93303243fe03b"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "2445354c1aab8df22ab96b394c7d84c97ce36c1bb5739f6f388538e3aba1d112"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "ee0bf071911857dd8a13e65bd4ef3acfeb1b9440b1cb13b2be19c7d0caff3b4a"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "06bc41655485221a3855a7522940436c8ba1247f8967d27fb60547445e808ebb"
+    }
+  ],
+  "static_preflight": [
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "cases": 73,
+      "one_main": true,
+      "unique_case_names": true
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "cases": 28,
+      "one_main": true,
+      "unique_case_names": true
+    }
+  ],
+  "diff_check": "git diff --check -- apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp in source returned0",
+  "validation": "Pending parent build38v2 and focused/full regression; no worker execution",
+  "successor": "After parent candidate38 freeze, implement accepted one-way setup handoff with post-allocation bindSetupOwner and weak liveness token; source remains frozen until release."
+}

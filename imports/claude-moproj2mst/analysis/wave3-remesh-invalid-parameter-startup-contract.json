@@ -1,0 +1,121 @@
+{
+  "schema": "wave3-remesh-invalid-parameter-startup-v1",
+  "created_utc": "2026-10-24T04:35:56.334657+00:00",
+  "status": "static_contract_complete_no_source_change",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-remesh-invalid-initializer-startup-hints.json",
+      "sha256": "d93252f0bc36b56b12c307effca443391e80d3d291b9ba0b112e0a93b03efbfa",
+      "bytes": 869
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-handler-hints.json",
+      "sha256": "58534257e71785a1587c3d1896a509fd4625cd03f121504aed80eaacf951322d",
+      "bytes": 572
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-handler-setter-call-hints.json",
+      "sha256": "235e8a9882a9ce6c1178ca3064a59edd9e5ac8c9eacc7fcb38962d9adc4fe765",
+      "bytes": 252
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-handler-aligned-setter.asm",
+      "sha256": "36a61e60c67900c537739f94dcf4b80fc54274f1b1db5d5daaca8d7684ee22c4",
+      "bytes": 397
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-encoded-null.asm",
+      "sha256": "754265c1c7fd32f1ac3b1ee9a3ee272f2435630b0f931254138771e6002b385f",
+      "bytes": 987
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-handler-initializer-static.json",
+      "sha256": "71a1d26b530fe9c34a51d96b1417fd0a5554032c52c60ceb42be3a3bca701307",
+      "bytes": 994
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-startup-chain-static.json",
+      "sha256": "2aaf71729a662fc03ba47276e41b244c22185542f498e7537749f03d9af64ac1",
+      "bytes": 1631
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-entry-dispatch-static.json",
+      "sha256": "249ce1c0bb1f07accdc7dab1cc78769583a45da39cc80408b362d964523aaa0d",
+      "bytes": 989
+    },
+    {
+      "path": "analysis/wave3-remesh-save-invalid-static.json",
+      "sha256": "63bdcbc4b38ea8824b6f6241e1aa9d8e3e5926fca097756f97248f5802417359",
+      "bytes": 979
+    },
+    {
+      "path": "analysis/wave3-remesh-default-invalid-static.json",
+      "sha256": "a1ce41fe604ee453609e70b07356a4ef34bd18088608ce9c836b58689ebc533f",
+      "bytes": 982
+    },
+    {
+      "path": "analysis/wave3-remesh-invalid-debug-leaf.asm",
+      "sha256": "6beb078fc7bcc2c8a21edbb5b2085be2afb51f1dcaaa83bc5672db2b8c4aab22",
+      "bytes": 919
+    },
+    {
+      "path": "analysis/wave3-remesh-save-writer-static.json",
+      "sha256": "3e12333df68f839013026e01eebdc45d83b24fd7e4113d2bb907abb7296cb577",
+      "bytes": 1613
+    }
+  ],
+  "terminal_imports": [
+    {
+      "iat": "0x141e03188",
+      "dll": "KERNEL32.dll",
+      "name": "GetCurrentProcess"
+    },
+    {
+      "iat": "0x141e03308",
+      "dll": "KERNEL32.dll",
+      "name": "UnhandledExceptionFilter"
+    },
+    {
+      "iat": "0x141e03310",
+      "dll": "KERNEL32.dll",
+      "name": "SetUnhandledExceptionFilter"
+    },
+    {
+      "iat": "0x141e03318",
+      "dll": "KERNEL32.dll",
+      "name": "RtlCaptureContext"
+    },
+    {
+      "iat": "0x141e03340",
+      "dll": "KERNEL32.dll",
+      "name": "IsDebuggerPresent"
+    },
+    {
+      "iat": "0x141e03580",
+      "dll": "KERNEL32.dll",
+      "name": "TerminateProcess"
+    }
+  ],
+  "startup_chain": [
+    "PE entrypoint 0x141470dc0 calls cookie initializer then jumps to 0x141470c28.",
+    "0x141470cce calls 0x141481708 before later application main call 0x141470d7e -> 0x140001410.",
+    "0x14148170e first calls initializer 0x14146e9f4.",
+    "0x14146e9fa calls 0x1414813e0, which clears ECX and jumps to imported EncodePointer at IAT 0x141e03420.",
+    "0x14146ea15 passes that encoded null to aligned leaf 0x141470438, which writes global 0x1446ffb40."
+  ],
+  "failed_open_contract": [
+    "Enabled Save helper 0x1400abcc0 does not check fopen result before first fprintf at 0x14146da0c. Null FILE sets errno 22 and invokes 0x141470568.",
+    "Dispatcher loads global 0x1446ffb40, decodes via DecodePointer at IAT 0x141e03428, and calls any nonnull handler. If a custom handler returns, fprintf may return -1 and later calls remain reachable; do not conflate that path with the default.",
+    "For initialized null handler, dispatcher calls leaf 0x1414834f0: only clear global dword 0x1450540e8 then return. It then invokes 0x141470440.",
+    "Default handler prepares exception code 0xC0000417, calls the recorded unhandled-exception APIs, then GetCurrentProcess and TerminateProcess with 0xC0000417 at 0x14147054e..556. Under ordinary Win32 behavior this terminates the process: later remesh fprintf calls, fclose, Save reporting, and Close are not executed. Earlier project/properties/MST effects survive."
+  ],
+  "qualification": [
+    "The constructor-time encoded-null assignment and its position before main are directly bound. Selected .text RIP-relative MOV/XCHG/LEA scans only find the setter write and dispatcher read; direct E8 scans find one setter call and no absolute pointer literals for setter or initializer. These are bounded hints, not a complete proof against computed aliases, dynamically injected code, or external debugger changes.",
+    "Default termination inference applies to the fresh original profile with no subsequent custom invalid-parameter handler or foreign modification. No original failure was induced and no fresh runtime termination observation is claimed.",
+    "Only 0x1414834f0..4f7 is interpreted in the debug-leaf capture; subsequent bytes belong to another function. The earlier encoded-null range is interpreted only through 0x1414813f2; trailing bytes are excluded.",
+    "The runtime-function capture helper had no unwind entry for leaf 0x1414834f0 and failed before creating evidence. The explicit aligned leaf capture resolves that local tool limitation; no repeated identical retry."
+  ],
+  "implementation_implication": "Keep the existing explicit failed-open unsupported boundary until root selects a faithful process-terminal state / isolated CLI outcome representation. Never call host fprintf(nullptr), silently continue, delete earlier effects, or report ordinary successful Close. Source remains frozen for root validation.",
+  "next_executable_action": "After source release, implement the already retained bounded raw spill representation first. Root can bind a typed original-terminal outcome for default failed-open and determine fresh independent process validation without exposing the host test runner to CRT abort."
+}

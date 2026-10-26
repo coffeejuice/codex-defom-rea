@@ -1,0 +1,77 @@
+{
+  "scope": "Direct SfGraphicsView event/hide bindings and created-widget Hide helper callback boundary",
+  "method": "Immutable app+QtGui PE and bounded DUMPBIN, static only",
+  "binaries": [
+    {
+      "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence/original-binaries/QtGui4_64.dll",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-qt-graphics-view-hide-callbacks-static.json",
+      "sha256": "3d1b746d2c7658dfa57c7fbcd5c33dbfff6fd44430b564f186d5b65d40437f66"
+    },
+    {
+      "path": "analysis/wave3-close-qt-hide-false-prefix-contract.json",
+      "sha256": "824ef0ca9d0ac27cbc569d50bc9c79d2eaaf5ad60513eb9a9833dfabdd968272"
+    }
+  ],
+  "actual_view_vtable": "142a4f928 SfGraphicsView",
+  "slots": [
+    {
+      "offset": "0x20",
+      "thunk": "0x1414955c6",
+      "bytes": "ff25fc1d9700",
+      "IAT": "0x141e073c8",
+      "symbol": "?event@QGraphicsView@@MEAA_NPEAVQEvent@@@Z"
+    },
+    {
+      "offset": "0x28",
+      "thunk": "0x140138628",
+      "bytes": "ff25f2bdcc01",
+      "IAT": "0x141e04420",
+      "symbol": "?eventFilter@QObject@@UEAA_NPEAV1@PEAVQEvent@@@Z"
+    },
+    {
+      "offset": "0x58",
+      "thunk": "0x14013876c",
+      "bytes": "ff255e37cd01",
+      "IAT": "0x141e0bed0",
+      "symbol": "?setVisible@QWidget@@UEAAX_N@Z"
+    },
+    {
+      "offset": "0x128",
+      "thunk": "0x14149589c",
+      "bytes": "ff25ae249700",
+      "IAT": "0x141e07d50",
+      "symbol": "?showEvent@QGraphicsView@@MEAAXPEAVQShowEvent@@@Z"
+    },
+    {
+      "offset": "0x130",
+      "thunk": "0x1401388e6",
+      "bytes": "ff256433cd01",
+      "IAT": "0x141e0bc50",
+      "symbol": "?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z"
+    }
+  ],
+  "direct_hideEvent_leaf": "QWidget::hideEvent exports6509f2b0; exact body is C2 00 00 (ret0), with no state writes/calls. Capture padding after6509f2b2 excluded. This leaf is not the full hide/event pipeline.",
+  "QGraphicsView_event": "655878c0 handles only raw6/0x33 in its special private-flag branch; other event types forward QAbstractScrollArea::event654287b0. Event filters and base handlers remain unexpanded.",
+  "created_hide_helper": "650700b0 takes QWidget private state; after platform/parent work and setAttribute(raw11,false), calls65099730(private), reads current visible bit15 and conditionally setAttribute(raw15,false), then constructs QHideEvent via65032630 and synchronously sends it at65070210. It subsequently traverses copied QObject children, filters widget/window/hidden state, changes visibility of qualifying children and sends further QHideEvents. Additional layout/focus/platform effects remain unexpanded.",
+  "exact_exports": {
+    "65068fe0": "QWidget::setAttribute(Qt::WidgetAttribute,bool)",
+    "65032630": "QHideEvent::QHideEvent()",
+    "654287b0": "QAbstractScrollArea::event(QEvent*)"
+  },
+  "qualifications": [
+    "A pure default hideEvent leaf does not license eliding sendEvent, event filters, child traversal or prior platform/global state.",
+    "A child that is currently not visible still needs the earlier exact explicit-hidden guard from setVisible(false), or the complete remaining path; no new no-op case inferred here.",
+    "Actual SfGraphicsView receives inherited QWidget::setVisible and hideEvent via bound vtable; other widget classes need their own bindings.",
+    "No source/API change in this receipt; Close63 remains frozen for shared ViewManager integration."
+  ],
+  "next": "Use exact early-return only when actual current raw widget state is represented. Keep remaining callback guard; root current shared-owner/lookup work does not need full Qt hide reconstruction."
+}

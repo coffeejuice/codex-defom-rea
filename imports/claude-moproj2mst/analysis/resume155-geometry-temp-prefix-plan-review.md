@@ -1,0 +1,29 @@
+# CP155 independent plan review: geometry temp0 prefix
+
+## Result
+
+The proposed one-shot temp0 experiment has a defensible candidate-only boundary and preserves the current host-owned CowVector, provided the implementation follows the exact stop and retention rules below. A same-run original pointer/heap witness is not needed to create a **candidate-owned** private heap and observe one candidate HeapAlloc call. The plan correctly excludes original parity, native malloc/operator-new return, zero-copy, request8, body/slot publication and every free.
+
+One concrete test-plan defect must be corrected before implementation: the proposed hidden geometry child is described as selecting one registered Testkit case and then calling `testkit::run_all()`. The current `testkit::run_all()` executes every registered case and has no filter parameter, and the geometry test's `main()` takes no arguments. Running it as written would run the parent launcher recursively and consume/reject the one-shot role. Since the exclusive write set prohibits changing shared Testkit, use a test-file-local child dispatcher: accept the private scenario argument in `main(argc, argv)`, invoke only the selected static case function directly, and return the local Testkit failure count; parent mode continues to call `run_all()`. Alternatively create a dedicated child test executable/target. Do not call `run_all()` in child mode.
+
+## Ownership and state boundary
+
+A separate `defrt::ModuleHeapRole` is preferable to reusing `FeatureCrtRuntime`: the latter is explicitly owned by a test process and its map/proxy ledger is not a GuiModel allocator. The proposed role can create one candidate private heap in the module containing its implementation and retain the one occurrence process-wide. It must not accept caller-supplied handles or free T when model/frame ownership ends. Role preparation and all report storage must complete before HeapCreate/HeapAlloc; no fallback heap, reset/rebind, HeapDestroy, HeapFree, or allocation from a destructor is allowed.
+
+The app binding should observe a GuiModel weak guard and DB/step/frame/receiver identities, while the module-retained pending call owns the role and opaque T. Never dereference old geometry addresses once the model/frame guard expires. The only fresh receiver authority comes from the current CP152 `GeometrySyncAccess` frame and its actual ordinal0 lookup. Retaining one one-byte block is a deliberate, bounded incomplete resource, not normal production cleanup. It is only credible with the stated one-attempt-per-process/module budget and sticky no-replay behavior.
+
+For an enabled call, preserve CP152's actual lookup and setters. Then revalidate the current frame/model/step/object/table/receiver/type/id, D profile, post-setter cur/prev values, unique empty values body and null actual slot. Seal the occurrence and call HeapAlloc(current candidate role, flags0, length1) for the statically qualified original request0 shape. Retain the actual raw return and stop immediately. Null and nonnull both remain raw HeapAlloc outcomes; no new-mode, handler, errno, exception, or wrapper return is inferred. All value body fields/refcount/capacity and slot remain unchanged; whole-leaf count remains zero; no request8 or reader continuation occurs. Unbound CP152 behavior remains as-is.
+
+HeapCreate and the compatibility call are candidate owner setup, not evidence that native startup happened during this geometry call. A `HeapCreate` null or missing/unavailable role cannot authorize another heap or an allocation attempt. A null HeapAlloc consumes the one-shot budget and parks before the native null path's unknown work.
+
+## Minimal exclusive change/test set
+
+The proposed exclusive files are narrowly sufficient for this temporary-only increment: new `defrt/module_heap_role.hpp/.cpp`; new app-private `geometry_temp_prefix.hpp/.cpp`; `viewer.cpp`; `test_geometry_a_producer.cpp`; a lower-level `test_geometry_temp_module_heap.cpp`; and an implementation receipt. No CowVector/StateVar, FeatureCrtRuntime, public ABI, engine header or CMake edit is needed if the independent project really discovers `defrt/src`, app `src`, and app `tests` through its `CONFIGURE_DEPENDS` globs. Verify the generated target/test name during static CMake preflight before claiming `m2m.model.geometry_temp_module_heap` exists; file glob discovery alone does not establish its exact registered name.
+
+The one-shot production owner makes in-process iteration invalid. Use a test-file-local private child dispatcher or a dedicated scenario executable so each actual-role scenario gets a fresh process. Test actual HeapCreate/HeapSetInformation inputs and receipts, and actual candidate HeapAlloc flags/length/return. Test valid scalar branches at both versions in separate child processes, repeated refresh/repair refusal, no request8/body/slot/free/copy/Stop, and owner/frame expiry while reading only retained role reports. Exercise late lookup mutations and unbound CP152 regressions separately. Declared null/failure models must be explicitly marked as modeled and carry no real HANDLE/T authority; they cannot substitute for actual Win32 results. No forced OOM or invalid handles.
+
+## Qualifications
+
+A successful run establishes only candidate process/module heap setup and one raw candidate HeapAlloc occurrence, with bounded pending retention. It does not bind that heap to the original process slot, prove the original same-run receiver/allocation identity, or complete the source malloc/operator-new wrapper. It does not qualify request8, payload/body ownership, clone, clear, destruction, HeapFree error mapping, CRT exception/errno/FLS/PTD behavior, or original heap teardown. Keep all those paths guarded until their ownership/failure closure is separately established.
+
+Static plan review only. No source/build/test, GUI/original execution, or mutable REA access was performed.

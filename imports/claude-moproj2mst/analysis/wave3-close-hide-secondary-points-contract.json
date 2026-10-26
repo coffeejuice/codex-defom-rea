@@ -1,0 +1,31 @@
+{
+  "scope": "Conditional SfSV2PointsManager HideSecondaryWidget forwarding refinement",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "method": "Original PE plus bounded offline DUMPBIN; no target execution or source edits",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-points-container-leaves-static.json",
+      "sha256": "aac237458c2200c21c219dd9af406ed84f30bb109ae3d33bd2339e273bedb5bc"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-points-container-static.json",
+      "sha256": "b4406484b5b240400688afec93e521ec1ea6de1bf577faba512215e88445d1ae"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-points-continuation-static.json",
+      "sha256": "3968242b00e49aa25a399ca46b6649e8b9553c8a214ea489e3d75de58742fa39"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-points-leaves-static.json",
+      "sha256": "cc6ae96fb43f0eac6cff7a99fa9155a7ae3bc53d3726b225269160c95046c03f"
+    }
+  ],
+  "order": [
+    "1760b40 widget+a0/a1 guards precede everything.",
+    "175fad0 returns mainwindow virtual+278: both inspected main vtables bind c9c130. It obtains scene+10 display and cf94f0 reads actual display main+1a0. No+1e0 override on this helper.",
+    "If current model null, return; otherwise c91070 lazily creates8-byte model+250 list via d64710. It is not a pure getter.",
+    "d647d0->d64bf0 finds first pointer equal to the widget via088be0(start0), removes its list slot with8188f0 and returns true; when absent returnsfalse. Inline pointer destructor139a720 is a fixed no-op. It does not delete the widget.",
+    "Then widget+18 dword=0;175f990->1762080 clears widget+10 QMap by assigning shared_null with reference counting. Nonempty detached map cleanup invokes key/value destructors002f80 and1247790; value payload details remain unprojected."
+  ],
+  "qualification": "For a represented live widget the operation changes actual model registration list and actual map, not a counter. Missing main/model permits the earlier exact return. Do not assume the widget or map absent from fresh constructor state. Nonempty map payload destruction remains guarded until represented."
+}

@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD STL bounds, endsolid without name",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.STL\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.STL",
+      "source": "data/stl_bigbounds_noname.stl"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Same as gfread_stl_bigbounds but the last line is 'endsolid' alone: observed 9 points and 3 triangles: fscanf('%*s %*s %f %f %f') returns 0 (not -1) once the first %*s has matched, so the stale extra facet is read for every ASCII file that ends with an endsolid line."
+  }
+}

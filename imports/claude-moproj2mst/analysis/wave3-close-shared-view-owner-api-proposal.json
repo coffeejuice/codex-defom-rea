@@ -1,0 +1,54 @@
+{
+  "scope": "Read-only shared SfViewManager/SplitView owner requirements for root; one shared owner for Close and DOE, no Close duplicate",
+  "source_checkpoint": "Close63 files frozen; parent owns shared type/session implementation",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-default-splitter-ownership-contract.json",
+      "sha256": "d623bef49c31e9de10434cbaed642ca4b4f72b2cce29d94c4db82b74b4370e05"
+    },
+    {
+      "path": "analysis/wave3-close-secondary-splitview-contract.json",
+      "sha256": "7d3a50ae6b050fc57eb4b434fbc728154742d3fc180c506a827eec0163b05229"
+    },
+    {
+      "path": "analysis/wave3-close-hide-secondary-splitview-contract.json",
+      "sha256": "fc23ae849ac29c0ba9ef3835a818d1928e1145b1c77db7c3b9a14dce548c55c1"
+    },
+    {
+      "path": "analysis/wave3-close-secondary-view-attachment-contract.json",
+      "sha256": "4029335a1c0bb05c91a66b76271c41707af93311930d3a8a719377a38fd236c1"
+    },
+    {
+      "path": "analysis/wave3-close-scene-initial-text-items-contract.json",
+      "sha256": "d78480d69e7ee013a55149e4efdd53f5a4a5e9c6d8b8280a82f35aede7dd83b2"
+    }
+  ],
+  "owner_graph": [
+    "Session/main-window projection keeps actual SfMoMainView owner, whose QWidget child is SfViewManager. mainwindow+148 is a weak lifetime guard; main-view private+30 is another reference, not an independent registry.",
+    "ViewManager actual grid layout+28 is guarded/lazy. Its cell(0,0) refers to an actual QWidget whose SfSplitView metaobject cast can fail. The named SplitView_Main lookup must preserve that cast and unguarded null layout-item dereference boundary.",
+    "SplitView carries ordered actual QWidget children and owns their parent-lifetime relationship. A child lifetime handle clears on deletion independently of raw cache/backlink reassignment. Mainwindow+138/+140 view caches are weak references to those actual widgets, not duplicate children.",
+    "Graphics-view widget stores actual scene weak binding (d8a140 writes+28 then calls setScene). Scene identity must reuse existing PostGraphSceneState/embedded Display for SfScene; known failed casts and unknown representation stay separate."
+  ],
+  "minimal_queries": [
+    "Resolve current window+148 weak manager result; known null returns before lazy layout lookup in Close.",
+    "Resolve named SplitView_Main and child(index) with exact index/count behavior. Existing qualified layout may answer; missing layout enters native allocation/cache/install prefix and cannot be silently treated as absent child.",
+    "Read current effective QWidget visibility from actual widget state with qualification; own hidden bit alone is insufficient because ancestors affect visibility.",
+    "Read actual graphics-view scene and distinguish ordinary QGraphicsScene from SfScene. Close clearSelection occurs before SfScene cast, requiring base-scene selection effects or a guard at that exact point.",
+    "For HideSecondary, child1 null skips hide; live child must apply actual QWidget hide and qualified synchronous callbacks. Do not substitute child deletion or erase child membership."
+  ],
+  "mutations_and_guards": [
+    "Constructor View_Default explicitly requests Primary insertion atindex0; no later child-population completeness follows.",
+    "Both d36170 role strings Primary and Secondary route to d34ad0 in this binary.",
+    "dabbd0 normalizes invalid index to0, compares existing and replacement identity, skips equality, hides and deletes different nonnull old child, then inserts nonnull replacement. dabf00 additionally shows requested nonnull widget after helper returns.",
+    "Unsupported Qt hide/delete/reparent callbacks must guard after the preceding source-closed mutations, preserving actual reached ownership state.",
+    "Changing layout or moving/deleting widgets invalidates only dependent coverage; do not erase scene text items or infer all collections empty."
+  ],
+  "scene_requirements_shared_with_doe": [
+    "Current scene geometry needs qualification. Constructor cca680 calls ccb980(scene,0,0,width,height) atcca76b, but ccb980 and subsequent viewport/scene changes are not closed by this lane. No default zero geometry.",
+    "items() ownership vector is allocation order, not Qt stacking order. DOE traversal requires qualified current Qt order over same owned identities.",
+    "Snapshot text classification uses pointer equality to databaseNameItem/stepNumberItem, according to DOE peer; those identities already exist in PostGraphSceneState.",
+    "Visible text serialization requires actual geometry/formatting fields, and Close selection clearing requires actual selection state. Those are separate later amendments to shared scene projection, not invented defaults."
+  ],
+  "recommended_minimum": "Root may initially support qualified existing default-layout child lookup and known-null child return using actual ownership, while guarding lazy construction, unknown casts/visibility and Qt callbacks. Broader typed widget ownership can then expand at recovered constructors.",
+  "coordination": "Root owns type/header/session interfaces and all builds. DOE supplies snapshot-specific view/item requirements. Close owns3effectfiles only, presently frozen; any future shared scene field edit requires coordination."
+}

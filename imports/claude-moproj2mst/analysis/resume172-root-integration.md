@@ -1,0 +1,9 @@
+# CP172 root integration
+
+The retained Report QObject private object now binds private `+0x68` to the same Session root's qualified `QVectorData::shared_null` identity through QtCore `0x1311c7..0x1311d2`. The reference marker remains false and its symbolic delta unchanged. The constructor stops before the atomic increment. Earlier QList/QString bindings, four known-zero private fields, allocation-time private identity, ownership and reentry checks remain explicit. The final CP172 matrix covers malformed predecessor, owner, binding and completion states with no-mutation snapshots; independent review accepted its reachable-case coverage.
+
+The source-stable focused build, factory/Session tests and full regression passed. `analysis/wave3-checkpoint172-validation.json` and `build/wave3-checkpoint172-verified/` freeze source SHA-256 `b54f1403980ed2369e4f1db81870129654a93c484c42ac330dcf0f684720b1c8` over 3,554 files: 361 registered, 354 clean passes, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete/fixture changes, and no changed logged diagnostics. Historical 93 SAME/five DIFF remains qualified.
+
+The same checkpoint includes a focused public C ABI regression for Unicode-safe diagnostic truncation. `m2m.g0.abi` passed all ten cases; this establishes adapter buffer behavior only. The PACK fixture's independent focused pass remains in `analysis/resume171-root-integration.md` and does not alter the frozen full-suite gap classification.
+
+CP173 was selected before freeze: the QVector shared-null atomic reference increment at `0x1311d2..0x1311da`, with a separate first editor300 `opStep` raw-return closure cut in disjoint engine files. Public lifecycle and fresh original comparison gates remain open. No GUI control, original application or live REA session was acquired.

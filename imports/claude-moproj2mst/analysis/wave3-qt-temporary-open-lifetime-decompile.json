@@ -1,0 +1,209 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "670c7c90",
+      "entry": "670c7c90",
+      "name": "~QTemporaryFile",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: virtual __cdecl QTemporaryFile::~QTemporaryFile(void) __ptr64 */\r\n\r\nvoid __thiscall QTemporaryFile::~QTemporaryFile(QTemporaryFile *this)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n                    /* 0xc7c90  539  ??1QTemporaryFile@@UEAA@XZ */\r\n  *(undefined ***)this \u003d vftable;\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  QFile::close((QFile *)this);\r\n  if ((*(int *)(*(longlong *)(lVar1 + 0xe8) + 8) !\u003d 0) \u0026\u0026 (*(char *)(lVar1 + 0x130) !\u003d \u0027\\0\u0027)) {\r\n    QFile::remove((QFile *)this);\r\n  }\r\n  QFile::~QFile((QFile *)this);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a6560",
+          "type": "DATA"
+        },
+        {
+          "from": "67301624",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "67189d1d",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67189d10"
+        },
+        {
+          "from": "67280314",
+          "type": "DATA"
+        },
+        {
+          "from": "6718f63d",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "6718f630"
+        },
+        {
+          "from": "670b77f4",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670b71e0"
+        },
+        {
+          "from": "670c7fd1",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c7f80"
+        },
+        {
+          "from": "670ddbd6",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670dda80"
+        },
+        {
+          "from": "670c7f98",
+          "type": "DATA",
+          "owner": "670c7f80"
+        }
+      ],
+      "known_callees": [
+        "670b4900",
+        "670b5f30",
+        "670b6190"
+      ]
+    },
+    {
+      "requested_address": "670c7de0",
+      "entry": "670c7de0",
+      "name": "fileEngine",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: virtual class QAbstractFileEngine * __ptr64 __cdecl QTemporaryFile::fileEngine(void)const\r\n   __ptr64 */\r\n\r\nQAbstractFileEngine * __thiscall QTemporaryFile::fileEngine(QTemporaryFile *this)\r\n\r\n{\r\n  longlong lVar1;\r\n  void *pvVar2;\r\n  QAbstractFileEngine *pQVar3;\r\n  undefined8 in_R9;\r\n  undefined8 uVar4;\r\n  \r\n                    /* 0xc7de0  2300  ?fileEngine@QTemporaryFile@@UEBAPEAVQAbstractFileEngine@@XZ */\r\n  uVar4 \u003d 0xfffffffffffffffe;\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  if (*(longlong *)(lVar1 + 0xf0) \u003d\u003d 0) {\r\n    if (*(int *)(*(longlong *)(lVar1 + 0xe8) + 8) \u003d\u003d 0) {\r\n      pvVar2 \u003d operator_new(0x18);\r\n      if (pvVar2 \u003d\u003d (void *)0x0) {\r\n        pQVar3 \u003d (QAbstractFileEngine *)0x0;\r\n      }\r\n      else {\r\n        pQVar3 \u003d (QAbstractFileEngine *)FUN_670c75c0(pvVar2,lVar1 + 0x138,1,in_R9,uVar4);\r\n      }\r\n      *(QAbstractFileEngine **)(lVar1 + 0xf0) \u003d pQVar3;\r\n    }\r\n    else {\r\n      pvVar2 \u003d operator_new(0x18);\r\n      if (pvVar2 \u003d\u003d (void *)0x0) {\r\n        pQVar3 \u003d (QAbstractFileEngine *)0x0;\r\n      }\r\n      else {\r\n        pQVar3 \u003d (QAbstractFileEngine *)FUN_670c75c0(pvVar2,lVar1 + 0xe8,0,in_R9,uVar4);\r\n      }\r\n      *(QAbstractFileEngine **)(lVar1 + 0xf0) \u003d pQVar3;\r\n    }\r\n  }\r\n  else {\r\n    pQVar3 \u003d *(QAbstractFileEngine **)(lVar1 + 0xf0);\r\n  }\r\n  return pQVar3;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a80e4",
+          "type": "DATA"
+        },
+        {
+          "from": "67301648",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "67280350",
+          "type": "DATA"
+        },
+        {
+          "from": "6722cd00",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670c75c0",
+        "67178a86"
+      ]
+    },
+    {
+      "requested_address": "670c7e90",
+      "entry": "670c7e90",
+      "name": "open",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* protected: virtual bool __cdecl QTemporaryFile::open(class QFlags\u003cenum QIODevice::OpenModeFlag\u003e)\r\n   __ptr64 */\r\n\r\nbool __thiscall\r\nQTemporaryFile::open(QTemporaryFile *this,undefined4 *param_2,undefined8 param_3,undefined8 param_4)\r\n\r\n{\r\n  longlong lVar1;\r\n  bool bVar2;\r\n  longlong lVar3;\r\n  QString *pQVar4;\r\n  undefined4 local_res8 [2];\r\n  undefined4 local_res18 [2];\r\n  Data *local_res20;\r\n  undefined8 uVar5;\r\n  \r\n                    /* 0xc7e90  3335\r\n                       ?open@QTemporaryFile@@MEAA_NV?$QFlags@W4OpenModeFlag@QIODevice@@@@@Z */\r\n  uVar5 \u003d 0xfffffffffffffffe;\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  if (*(int *)(*(longlong *)(lVar1 + 0xe8) + 8) !\u003d 0) {\r\n    lVar3 \u003d (**(code **)(*(longlong *)this + 0xd8))();\r\n    lVar3 \u003d *(longlong *)(lVar3 + 8);\r\n    if (((*(longlong *)(lVar3 + 0x70) !\u003d 0) || (*(int *)(lVar3 + 0x98) !\u003d -1)) ||\r\n       (*(longlong *)(lVar3 + 0x78) !\u003d -1)) {\r\n      local_res8[0] \u003d *param_2;\r\n      QIODevice::setOpenMode((QIODevice *)this,local_res8);\r\n      return true;\r\n    }\r\n  }\r\n  local_res18[0] \u003d *param_2;\r\n  bVar2 \u003d QFile::open((QFile *)this,local_res18);\r\n  if (bVar2) {\r\n    pQVar4 \u003d (QString *)\r\n             (**(code **)(**(longlong **)(lVar1 + 0xf0) + 0xa0))\r\n                       (*(longlong **)(lVar1 + 0xf0),\u0026local_res20,0,param_4,uVar5);\r\n    QString::operator\u003d((QString *)(lVar1 + 0xe8),pQVar4);\r\n    LOCK();\r\n    *(int *)local_res20 \u003d *(int *)local_res20 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_res20 \u003d\u003d 0) {\r\n      QString::free(local_res20);\r\n    }\r\n    bVar2 \u003d true;\r\n  }\r\n  else {\r\n    bVar2 \u003d false;\r\n  }\r\n  return bVar2;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9110",
+          "type": "DATA"
+        },
+        {
+          "from": "67301654",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "67280398",
+          "type": "DATA"
+        },
+        {
+          "from": "6722cc88",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "670703d0",
+        "670b4ae0",
+        "670bc1f0"
+      ]
+    },
+    {
+      "requested_address": "670c76a0",
+      "entry": "670c76a0",
+      "name": "FUN_670c76a0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_670c76a0(longlong param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  QString *pQVar2;\r\n  Data *local_20;\r\n  Data *local_18;\r\n  \r\n  lVar1 \u003d *(longlong *)(param_1 + 8);\r\n  if (*(char *)(param_1 + 0x10) !\u003d \u0027\\0\u0027) {\r\n    pQVar2 \u003d (QString *)FUN_670eed10(\u0026local_20);\r\n    QString::operator\u003d((QString *)(lVar1 + 0x20),pQVar2);\r\n    QString::operator\u003d((QString *)(lVar1 + 0x28),pQVar2 + 8);\r\n    *(undefined2 *)(lVar1 + 0x30) \u003d *(undefined2 *)(pQVar2 + 0x10);\r\n    *(undefined2 *)(lVar1 + 0x32) \u003d *(undefined2 *)(pQVar2 + 0x12);\r\n    *(undefined2 *)(lVar1 + 0x34) \u003d *(undefined2 *)(pQVar2 + 0x14);\r\n    LOCK();\r\n    *(int *)local_18 \u003d *(int *)local_18 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_18 \u003d\u003d 0) {\r\n      QString::free(local_18);\r\n    }\r\n    LOCK();\r\n    *(int *)local_20 \u003d *(int *)local_20 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_20 \u003d\u003d 0) {\r\n      QString::free(local_20);\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "673015dc",
+          "type": "DATA"
+        },
+        {
+          "from": "67280100",
+          "type": "DATA"
+        },
+        {
+          "from": "670c7dcc",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c7da0"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "670703d0",
+        "670eed10"
+      ]
+    },
+    {
+      "requested_address": "670f9160",
+      "entry": "670f9160",
+      "name": "rename",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* public: virtual bool __cdecl QFSFileEngine::rename(class QString const \u0026 __ptr64) __ptr64 */\r\n\r\nbool __thiscall QFSFileEngine::rename(QFSFileEngine *this,QString *param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  char cVar2;\r\n  undefined8 uVar3;\r\n  QString *pQVar4;\r\n  undefined8 in_R9;\r\n  undefined4 local_res8;\r\n  undefined4 local_resc;\r\n  Data *local_res18;\r\n  undefined8 uVar5;\r\n  Data *local_20;\r\n  Data *local_18;\r\n  \r\n                    /* 0xf9160  3950  ?rename@QFSFileEngine@@UEAA_NAEBVQString@@@Z */\r\n  uVar5 \u003d 0xfffffffffffffffe;\r\n  lVar1 \u003d *(longlong *)(this + 8);\r\n  local_res8 \u003d 0;\r\n  local_resc \u003d 0;\r\n  uVar3 \u003d FUN_670eed10(\u0026local_20);\r\n  cVar2 \u003d FUN_670ff780(lVar1 + 0x20,uVar3,\u0026local_res8,in_R9,uVar5);\r\n  LOCK();\r\n  *(int *)local_18 \u003d *(int *)local_18 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_18 \u003d\u003d 0) {\r\n    QString::free(local_18);\r\n  }\r\n  LOCK();\r\n  *(int *)local_20 \u003d *(int *)local_20 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_20 \u003d\u003d 0) {\r\n    QString::free(local_20);\r\n  }\r\n  if (cVar2 \u003d\u003d \u0027\\0\u0027) {\r\n    pQVar4 \u003d (QString *)QSystemError::toString((QSystemError *)\u0026local_res8);\r\n    QAbstractFileEngine::setError((QAbstractFileEngine *)this,10,pQVar4);\r\n    LOCK();\r\n    *(int *)local_res18 \u003d *(int *)local_res18 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_res18 \u003d\u003d 0) {\r\n      QString::free(local_res18);\r\n    }\r\n  }\r\n  return (bool)cVar2;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9aac",
+          "type": "DATA"
+        },
+        {
+          "from": "67303640",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "6728b5c8",
+          "type": "DATA"
+        },
+        {
+          "from": "670c7175",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c7150"
+        },
+        {
+          "from": "67234708",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "670a7a40",
+        "670eed10",
+        "670ff780",
+        "67141320"
+      ]
+    }
+  ]
+}

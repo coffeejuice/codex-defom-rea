@@ -1,0 +1,56 @@
+{
+  "schema": "m2m-model-manager-prefix-implementation-v1",
+  "status": "source ready for coordinator build; worker did not build or run tests",
+  "source_sha256": {
+    "source/apps/moproj2mst/include/m2m/engine/model_manager.hpp": "237cc6d33263c34d7131557d4400e807a67a9c1e8d2696ee5063acbc8488a794",
+    "source/apps/moproj2mst/src/engine/model_manager.cpp": "eb4605470e93fe307e8f2068dc4b4bedb878e86b760d49b42059b1af7165da52",
+    "source/apps/moproj2mst/tests/mdt/test_model_manager.cpp": "342bb5ecc25bd0b83c875099b826568f75ddec430ec67c17601638b75a97268e"
+  },
+  "evidence_sha256": {
+    "analysis/wave2-doe-default-task-manager-contract.json": "c999f44709bf823e29f7288625bfdc2c49f6d428ec230e7584dea16ae89bf4de",
+    "analysis/wave2-doe-output-default-task-model-manager-list-leaves-decompile.json": "b3c2a0545583c07607dd75b8b9432ec96e5805ab7e359db18961fc937e2d31d5",
+    "analysis/wave2-doe-model-manager-ordinal-bounds.asm": "2c0e42acb36dde3e430e67057f31781de4075f149f0036176b32646c07314117",
+    "analysis/wave2-doe-model-manager-id-leaves.asm": "cb6ccdcd3544f13bf362b0215dd9b84e448abd33917b5e38f2bc28955bef4ffa",
+    "analysis/wave3-boolean-close-140c78300.c": "2105176fb68b77a9e1b6549360587cfdee088471985ebaaefea02ee19d3067e2",
+    "analysis/wave3-close-model-owner-identity-contract.json": "27f705e0e33e609cb7d7d18bb69b627094f0dd1b3b21a0141e231d452027cae7"
+  },
+  "shared_dependencies": {
+    "DbHandle.modelId": "std::int32_t initialized0, coordinator-owned same-object ModelBase/MoModel projection",
+    "DbHandle.kind": "const Kind Base/Mo established by actual constructor; coordinator-owned",
+    "ConversionSession": "coordinator binds actual shared manager; registration/selection must not be invented in lazy projectDb getter"
+  },
+  "implemented": [
+    "fresh ordered owned list/weak current",
+    "ordinal bounds c79100/c794d0",
+    "positive ID lookup c78ee0; live current ID may be negative",
+    "current validates live weak pointer AND list membership",
+    "member-only selection retains current for null/nonmember",
+    "first-unused-positive ID; explicit unsupported overflow guard",
+    "post-path c79390 prefix assigns ID before append without changing current",
+    "c78300 projected ordered ownership release, list clear, then current clear"
+  ],
+  "qualifications": [
+    "No full native factory, QObject parent/child destruction or Qt receiver lifetime equivalence is claimed. External shared leases can extend represented child lifetime.",
+    "appendCreatedModel must only be called after actual constructor/path helper; null/duplicate inputs explicitly guard the unrepresented seam, rather than fabricate original failure return. Original allocator-null proceeds to unsafe dereference; duplicate cannot arise from fresh native factory.",
+    "Native two QObject::connect registrations occur AFTER the implemented append prefix; they are not invoked by this module. Exact raw connection type3 retained; no inferred enum spelling.",
+    "Actual Open registration/selection routing remains coordinator-owned and must be recovered before claiming runtime integration.",
+    "Existing default SfTaskDoe guard remains; no constructed Session is appended ahead of original64fc30 serializer."
+  ],
+  "tests": {
+    "target": "m2m_model_manager",
+    "cases": 6,
+    "coverage": [
+      "empty constructor",
+      "ordered append/ID/kind/path and no automatic current",
+      "member/ordinal selection and rejected selection retention",
+      "live changed/negative ID, ID gap reuse",
+      "null/duplicate explicit guard no preceding effects",
+      "owned child lifetime and external adapter lease qualification"
+    ],
+    "worker_checks": [
+      "git diff --check passed",
+      "declared header/source/test main and shared field types inspected; no compiler/test execution"
+    ]
+  },
+  "next": "Coordinator integrates actual manager session seam and validates combined candidate; DOE continues default-task serialization/current-model source recovery."
+}

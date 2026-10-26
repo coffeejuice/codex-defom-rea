@@ -1,0 +1,87 @@
+{
+  "schema": "m2m-doe-live-task-registry-ownership-contract-v1",
+  "status": "read-only architecture contract; source frozen after verified40 while root41 builds",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "owner_graph": [
+    "Actual SfMoMainWindow+4a0 lazilyowns SfTaskFactory (ctor7c79b0,vt14272b028).01d960 storesfactory beforeallocating SfMoTaskFactoryData0x20 (1375d0,vt1421b09e8).",
+    "Factory+8 stores concrete data before7c7a70 invokes data virtual+8=137610. BaseData7c7f70 constructs maps+8(metadata) and+10(TaskQObject*), stores raw Factory backlink+18.",
+    "7c8140 gets actual TaskInfo via141403790, assigns that info factorybacklink via14140e350, writes metadata+8 and rawTask+10 under actualmetadataName14140e5d0. Source initialization137610 constructs/registers17prototypes in encounterorder; existing known-class inventory is qualified but full constructorobservables remain unclosed.",
+    "TaskBase141403210 uses QObject(parent0). Actual Type2 Session taskfield+58 is QPointer, not owner. Source658520 assigns it then141403800 stores raw Sessionrecord pointer at Task+30 if tasklive.",
+    "Sessionrecord0x60 and TaskQObject identities are distinct. Existing vector<SessionRecord> canrelocate and unique_ptr<Task> perrecord cannot express nativecache/rebinding; proposed shared owner must correct these actual identities, notcopy payloads."
+  ],
+  "cache_and_rebind": [
+    "7c7d90 fresh-create:missingkey->null; presentkey->data virtual+10=137ca0.137ca0 removes requested key from BOTH maps, constructs fresh requestedTask and registersit. d12810 removal destroys key/mapnode, no TaskQObject virtualdelete in selectedbody.",
+    "7c7d00 lookup ONLY: testsfactoryData+10 containsrequestedkey; ifpresent returnsrawmapvalue; ifmissing returnsnull. It doesnotcreate/clone orconsume executionpreferences.",
+    "e2e320 afterloadClassData:6482c0(manager,SfTaskDoe,0) selects session; actualmainwindow dynamiccast determineswhether01d960/getTask branch runs;7c7d00(SfTaskDoe) then658520 assigns selectedsession task andbacklink. Do not assume dynamiccast success from Project/DB existence.",
+    "Example supported semantic target:A andB fresh-created for twoSfTaskDoe sessions; cachelatest=B. Rebindingfirstselectedsession tolookup resultB means bothsessions referenceB andB.rawSessionBacklink nowfirstsession. A remainsalive underthese selectedpaths. This issource-derived identity behavior to preserve, not a requesttofix nativebehavior."
+  ],
+  "specific_deletion_paths": [
+    "b5ad0 Type2 uses010330(type==2)->643100(parentmainwindow,param3true,param4false,param5false). So document+29=false.",
+    "64f8e0 clears innerrecord list andDOM children; ONLY if outerdocument645010(+29)==true doesit iterateand delete eachliveSessionTask. Actual Type2false skips Taskdeletion.",
+    "SfTaskFactory deletingdtor7c7e60->7c79e0 first invokes actualdata virtual+18, then deletesfactorydata. ActualMoData+18=1385a0 clears maps+10 then+8; it doesNOTcallbaseclear7c8060 (which would delete Tasks). MoDatadtor138610->base7c7fe0 onlymapdtors.",
+    "These paths establishbounded allocationretention across Type2clear/rebind/directfactoryteardown. Other explicitTaskdeletion/wholeClose/processshutdown remain unclosed; do not label a wholeprocess leak proof."
+  ],
+  "supersedes": [
+    {
+      "receipt": "analysis/wave2-doe-session-task-import-contract.json",
+      "claim": "Next read deletes owned parsed Tasks",
+      "correction": "False for actualType2 document+29=false. Old receipt immutable; current unique ownership was a limited typedprojection that must not feed newly reached sharedcache consumers."
+    }
+  ],
+  "proposed_architecture": {
+    "actual_owner": "ConversionSession represents originalfreshprocess/mainwindow lifetime; holds sole TaskFactoryRuntime/adapterTaskAllocationStore owner, lazily at actual01d960 point. StudyIo binds weak lease to SAME owner; no perProject duplicate factory/cache.",
+    "task_identity": "Stable TaskQObject-equivalent allocation identity with weak/nonowning Session refs and rawcache reference semantics. Explicit native deletion invalidates allQPointer observers. Ordinary referencecounting/independent uniqueTask perSession is not sufficient.",
+    "displaced_allocation": "Removing cacheentry and replacingSession+58 do notdelete previousTask inthese paths. Retain displaced allocation separately until source-proven explicitdelete or scoped adapterfreshprocess destruction; record native-lifetime qualification.",
+    "session_identity": "Use stable heaprecord owner or stable identity/control mapping across vectorrelocation. Task+30 rawbacklink distinguishesinitialnull fromdanglingSession afterrecordclear; guard actualfuture danglingconsumer, do not silentlyturn rawdangling intoQPointer-null behavior.",
+    "initialization_gate": "Full17prototypeconstructor observables/prefs notclosed. Keep explicit initializationscope/profile/firstmissingconstructor guard ratherthan fabricate populated nativecache. Existing isolated import projection is not constructor-completion evidence.",
+    "minimal_files": [
+      "new include/m2m/doe_task_runtime.hpp",
+      "new src/doe/task_runtime.cpp",
+      "new tests/mdt/test_doe_task_runtime.cpp",
+      "owned doe_session_records.hpp/session_records.cpp and sessiontests for actualidentity/rebind",
+      "StudyIo binding only withrootcoordination; root owns ConversionSession/core/sharedhooks",
+      "noop.cpp tail binding only afteractualowner/context and sourceguards agreed"
+    ]
+  },
+  "essential_remaining": [
+    "Prototype initialization137610: firstconstructor7b89e0(SfTaskReport), other16 constructorobservables (includingcommonTask metadata/preferences) beforeclaimingactual native lazyfactory populated.",
+    "Factorylookup maphelpers070920/c75050/subscript andTaskInfo gettername/backlink leaves need bounded binding if not alreadyretained; logicalQString-key semantics/sourceapplicationeffects muststayqualified.",
+    "SessionRecord storage/destruction method20db90 and current partclear/applicationcaller lifetimes mustmatch accepted stableidentity representation, includingQtQPointer null and native rawTask+30 danglingguard.",
+    "e2e320 tail after658520: propsLoad054350, optionalstepcallbacke31c30, classvirtual+2b0, viewport054250,secondarymodel lookup,and2ca890. Keep firstunrecovered guard; no fullactive enable fromregistryprefix."
+  ],
+  "evidence": {
+    "analysis/wave2-doe-type2-session-load-dom-decompile.json": "fb638b8e6574306a37cd1987842c7eb73a4823859625b0b6de07227839f7a80e",
+    "analysis/wave2-doe-session-task-registry-owner-decompile.json": "b5b1d0510a380949b0c0f1a1bab916f92807285ea2bfb5829336ae937c95d702",
+    "analysis/wave2-doe-session-task-registry-content-decompile.json": "c7c14861013ef85e57c7741ef3980990db9bbeffffe42fc0b1a3896057fdd08b",
+    "analysis/wave2-doe-session-task-registry-create-decompile.json": "4ee1c25053f2b28733b048b4fdd6561a67ceb209dc280d2d389f77ee4099c346",
+    "analysis/wave2-doe-session-task-payload-entry-decompile.json": "ed5205a9142040bb4cacb28d68b6351175f3f0f1a300bbca30408fe9c99ecef5",
+    "analysis/wave2-doe-session-inner-clear-closure-decompile.json": "4d1299dca502deae183baaa249502fe5a28656fbe9000574fe615763f3017610",
+    "analysis/wave2-doe-sim300-constructor-doe-support-decompile.json": "c31b3102e98a912fd16d98728b29f8756fa6adc134f774cc53f2727ec04ef433",
+    "analysis/wave2-doe-type2-activation-save-decompile.json": "35c95dcf016cd785d4f3720ff39bf635f199f9f635231132a9720669c4e8e4a2",
+    "analysis/wave2-doe-type2-session-read-failures-decompile.json": "ade93e39a9800f3d39321e55ef1bb29a6af0db58017d8d82ae6002679463c877",
+    "analysis/wave2-doe-global-task-factory-cache-base-remove-decompile.json": "239c726ac3e11f7bba7eadb4308e822d5f6c1366dcf09c07f329f2326d422d87",
+    "analysis/wave2-doe-session-task-import-contract.json": "2ebb106c86ae980dcde195933b93c6c9314cbf1e7e70a4a308ae521b8689957a",
+    "analysis/wave2-doe-global-task-base-data-clear.asm": "5b13283a19e4cb6ae82620da773027c4df2da477d59275486a3b066a0867efe6",
+    "analysis/wave2-doe-global-task-base-data-deleting-dtor.asm": "51eba52c04821df97a50d62354a16c5f9fd6429282443fb2b1477db30db8b5dc",
+    "analysis/wave2-doe-global-task-base-data-dtor.asm": "eadf7e82f232a6ec525477b998d0a10cc6c8bc2c4651fd4331b2b1954d314784",
+    "analysis/wave2-doe-global-task-clear-delete-flag.asm": "b85d6efe014ed995af225f19c8bec1263028d42d7d9018040b1209d5056a2f8c",
+    "analysis/wave2-doe-global-task-constructor.asm": "d2a26a5e6145074bde9ce8d15bd63b4554c3769a9ecb3e7f5c54172f19f38f07",
+    "analysis/wave2-doe-global-task-factory-deleting-dtor.asm": "f9d7abc3f52cad83483f8768bbc610ed4fce1bec34800972c9ea0aae5c5bb76c",
+    "analysis/wave2-doe-global-task-factory-dtor.asm": "5da21a84b81274ffbc8bd47af49de6ae49a7acbd8c9b8849e3a810f86efde949",
+    "analysis/wave2-doe-global-task-get-task.asm": "765adb5414308bc619369ed5497786837b348337e7ae143ed04acf104eb06610",
+    "analysis/wave2-doe-global-task-mo-data-clear.asm": "4b59f82ecf93a02bfcc87a7fb55bbcfa1ecbc86c8532fcbcd8c6588a04e2cbb6",
+    "analysis/wave2-doe-global-task-mo-data-deleting-dtor.asm": "b9ae144fc34e6fac1542c14b6483992b867b0460d0ca7a0e5b8ed186cb8aa5d9",
+    "analysis/wave2-doe-global-task-mo-data-dtor.asm": "50de0a792d02077a20f34bce9001f5feeceffb3258acb6e6c6520f0e1448527f",
+    "analysis/wave2-doe-global-task-mo-factory-constructor.asm": "c023b52ac833c21b56a4752d2e03a1c9e81c3535fc573abecc679ed2b84358f0",
+    "analysis/wave2-doe-global-task-part-document-owner.asm": "ffe70a2f6ed0e1215f82e879351bb9aeb5b1da38bf88d90d82a00b661d0e2a8e",
+    "analysis/wave2-doe-global-task-register.asm": "f0be67bd95755a9f5abcd7731387697740400e14c9c24b2cecf47224b4979d3b",
+    "analysis/wave2-doe-global-task-task-session-backlink.asm": "68ad99ba63ce5b83ec827b565c6ed070b1957a3a50aca888ac4be5432c31582b"
+  },
+  "runtime_and_edit_state": {
+    "source_edits": false,
+    "worker_build_tests": false,
+    "target_runtime": false,
+    "gui_control": false,
+    "mutable_ghidra": "two-body directcache-base/remove export completed/released; nowidle"
+  }
+}

@@ -1,0 +1,11 @@
+# CP168 root integration
+
+The retained prototype-one QObject private object now records a known 64-bit zero at `+0x48` through the bounded QtCore `0x1311bb..0x1311bf` instruction cut, then refuses before `+0x50`. The field is absent before that cut. Its predecessor `+0x40` write now rejects an already observed `+0x48` before mutation, closing the ordering defect identified by independent review. Both root-owned shared-null identities, their symbolic deltas, the same private object, and earlier known fields remain intact. Later constructor work, TaskInfo and public DOE completion remain guarded.
+
+The source review also required broader CP168 pre-write refusal evidence. The repair added a malformed-predecessor test and a 16-case matrix covering root ownership, aliases, binding and commit markers, address points, backlinks and phase, with retained-state checks. Independent review accepted the final source/test hashes. The source-stable build, focused factory/DOE Session suites and complete regression passed.
+
+`analysis/wave3-checkpoint168-validation.json` and `build/wave3-checkpoint168-verified/` freeze source SHA-256 `245f20b987a4bcb93f8b5ba0b74255a8bc266112d4d43443099a39cc8b212bd5` over 3,554 files: 361 registered, 354 clean passes, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete/fixture changes, and no changed logged diagnostics. Historical 93 SAME/five DIFF remains qualified. No GUI control, live REA or original application session was acquired.
+
+Independent headless-oracle and high-impact audits found no source-bound original CLI Save or Close command and no other public lifecycle source cut supported by retained evidence. A further static Report Save/default-branch trace still leaves the same-instance document owner and accepted Close occurrence unbound. These findings are in `analysis/resume168-headless-oracle-next.md`, `analysis/resume168-high-impact-next.md` and `analysis/resume169-report-owner-next.md`. They constrain public claims but do not block the reviewed native constructor cut.
+
+CP169 was selected before freeze. Independent evidence and plan review accepted the next same-private-object `+0x50` known-zero instruction; its exclusive source owner began after the archive. Public lifecycle and fresh original comparison gates remain open.

@@ -1,0 +1,91 @@
+{
+  "scope": "SfMainWindowMo construction -> SfMoMainView -> View_Default SplitView_Main ownership prefix; Close HideSecondary receiver distinction",
+  "method": "Immutable PE, retained disassembly and offline bounded DUMPBIN. Static evidence, no target runtime, GUI, build or production edit.",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-construction-routing-static.json",
+      "sha256": "cce6330e502ec3d93429ee4841a5a19ac9cbba3a7d87848966c74deb2112ef85"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-layout-setup-caller-static.json",
+      "sha256": "7c4bbc2fee87096420f882740a871c438efe9d6e82f9f081f4e4deac9c0ba9f6"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-default-owner-prefix-static.json",
+      "sha256": "b28e8690d4175a313fd9739901709aa9e10f580fe856c9a5de0072c6ab8f5076"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-primary-insertion-static.json",
+      "sha256": "fa31a2f1beeaa1fa8c9771eb67d0c6e0cf2e84e7753a3c934ada8868d505647c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-primary-widget-insert-static.json",
+      "sha256": "ede6f4070745b2c7622bf32fc2d555573b641eda0cf04a64c85c5ca567ccba54"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-primary-insert-implementation-static.json",
+      "sha256": "42df99f95e47b183a6d925d3b05c5f7fab52fa5e167e7fdbe865360e9f47a967"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-mainwindow-construction-static.json",
+      "sha256": "42e07ec08a49e5bdcbbc3b2646860f23ae820491f2d5d5ee704d6b1916f93250"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-initial-ui-prefix-static.json",
+      "sha256": "21bcc6d7c50991638f7515ec484de3310c7419f42b7705ea7512baaa754b8a7b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-splitter-startup-entry-static.json",
+      "sha256": "0f737e1042cf636b29267ebc1f8a8dfb421403d93f821048f1c131ddabcc099b"
+    },
+    {
+      "path": "analysis/wave3-close-hide-secondary-splitview-contract.json",
+      "sha256": "fc23ae849ac29c0ba9ef3835a818d1928e1145b1c77db7c3b9a14dce548c55c1"
+    },
+    {
+      "path": "analysis/wave3-close-secondary-view-attachment-contract.json",
+      "sha256": "4029335a1c0bb05c91a66b76271c41707af93311930d3a8a719377a38fd236c1"
+    }
+  ],
+  "construction_chain": [
+    "010490 assigns native vtable1420fb108 then calls0111c0 at010598. 0111c0 calls base c999e0, virtual+2c0=011020 and then012040 at0111f5. Earlier/later UI effects remain separate.",
+    "012040 calls012ea0;012ea0 allocates0x38, constructs0e9400(this,mainwindow,null), stores result to mainwindow+250, then calls01a970. 0e9400 installs SfMoMainView vtable1421872a8.",
+    "0e9400 creates SfViewManager via d34730(parent=this), asks d35a80(manager,View_Default) at0e9c3d, obtains mainwindow virtual+790=c9bc00 current guarded view+138 and invokes d36170(manager,Primary,view) at0e9c7e. It stores manager through mainwindow virtual+7c0=ca6240 guarded+148 and in main-view private+30.",
+    "d34730 constructs QWidget(parent), guarded+28 and QString+30, calls d34850->d34920 cleanup, then registers four view-manager notification methods via d34870. These registration keys are distinct from SplitView HideSecondary.",
+    "d35a80 returns early when incoming layout name equals manager+30. Otherwise it clears old layout through d34920. Exact View_Default calls d349a0(manager,orientation1), then stores layout name; other names build other widget arrangements and are not treated as default.",
+    "d349a0 clears layout, obtains grid layout, allocates0x30 SfSplitView via dab810(orientation,parent=manager), names it SplitView_Main and adds it to the grid. dab810 registers its own CloseSecondary and HideSecondary callbacks through daba80."
+  ],
+  "primary_insertion": [
+    "d36170 compares Primary then Secondary. Both recognized roles call d34ad0 in this binary; no alternate role routing is invented.",
+    "d34ad0 searches SplitView_Main through d34bd0; null splitter returns. A found splitter receives dabf00(splitter,widget).",
+    "dabf00 calls dabbd0(index0,widget) unconditionally, then QWidget::show on a nonnull requested widget.",
+    "dabbd0 normalizes negative or >=count index to0; asks QSplitter::widget(index). Existing==requested returns immediately. A different nonnull existing widget is hidden, then virtual+18 called with raw deletion flag1. A nonnull replacement is passed to QSplitter::insertWidget(index,widget). Null replacement therefore removes an existing widget without inserting a substitute.",
+    "This proves one explicit Primary insertion request on the recovered default constructor path; it does not prove the complete current child collection after constructor callbacks, later UI setup or Open mutations."
+  ],
+  "registration_literals": {
+    "142a06560": "2signalMakeLayoutInViewManager()",
+    "142a065a0": "2signalSetWidgetInViewManager()",
+    "142a065d8": "2signalRefreshSceneInViewManager()",
+    "142a06610": "2signalGetSceneInViewManager()"
+  },
+  "hide_contrast": [
+    "Existing contract dac040 -> dabcb0(index1) checks QSplitter::count and hides a nonnull secondary child. It neither calls dabbd0 nor deletes the child.",
+    "The Qt hide event effects and all actual live registered receiver populations still require qualification. Primary insertion is not evidence that every live splitter has no secondary child at Close.",
+    "No claim is made that editor operation widgets use this splitter route; that owner is investigated separately by remesh_native."
+  ],
+  "implementation_requirements": [
+    "An eventual splitter owner must preserve actual child identities and replacement ordering; a diagnostic child count is insufficient.",
+    "View-manager+148 must remain a weak lifetime binding. Primary/secondary view caches+138/+140 are separate from scene caches+120/+128 and from splitter child indices.",
+    "For the next RemoveGraphItems increment, qualified no-match scene traversal can progress to the unconditional HideSecondary boundary without fabricating receiver population or completing Close."
+  ],
+  "remaining": [
+    "Qt insertion/hide callbacks and actual runtime child mutations",
+    "d34bd0 named find ownership implementation",
+    "Full fresh-session registration/population coverage across remaining UI setup and Open",
+    "Live accepted Close integration and shared mainwindow owner binding"
+  ]
+}

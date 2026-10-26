@@ -1,0 +1,66 @@
+{
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "target": "0x143d91238",
+  "pe_initial_known_span": {
+    "section": ".data",
+    "virtual_start": "0x14354c000",
+    "virtual_size": 28349252,
+    "raw_size": 8561664,
+    "delta": 8671800,
+    "known_span_bytes": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "intervening_19_1f": "00000000000000",
+    "zero_fill": true
+  },
+  "vectors": [
+    {
+      "token": "12.500000",
+      "length": 9,
+      "before_hex": "000000000000f43f0111223344556677333333333333f33f0101",
+      "after_hex": "31322e35303030303000223344556677333333333333f33f0101",
+      "uniform_bits": "0x30303030352e3231",
+      "contact_byte": 48,
+      "intervening_hex": "00223344556677",
+      "scaling_bits": "0x3ff3333333333333",
+      "surface_byte": 1,
+      "enabled_byte": 1
+    },
+    {
+      "token": "1234567890123456",
+      "length": 16,
+      "before_hex": "000000000000f43f0111223344556677333333333333f33f0101",
+      "after_hex": "31323334353637383930313233343536003333333333f33f0101",
+      "uniform_bits": "0x3837363534333231",
+      "contact_byte": 57,
+      "intervening_hex": "30313233343536",
+      "scaling_bits": "0x3ff3333333333300",
+      "surface_byte": 1,
+      "enabled_byte": 1
+    },
+    {
+      "token": "123456789012345678901234",
+      "length": 24,
+      "before_hex": "000000000000f43f0111223344556677333333333333f33f0101",
+      "after_hex": "3132333435363738393031323334353637383930313233340001",
+      "uniform_bits": "0x3837363534333231",
+      "contact_byte": 57,
+      "intervening_hex": "30313233343536",
+      "scaling_bits": "0x3433323130393837",
+      "surface_byte": 0,
+      "enabled_byte": 1
+    },
+    {
+      "token": "1234567890123456789012345",
+      "length": 25,
+      "before_hex": "000000000000f43f0111223344556677333333333333f33f0101",
+      "after_hex": "3132333435363738393031323334353637383930313233343500",
+      "uniform_bits": "0x3837363534333231",
+      "contact_byte": 57,
+      "intervening_hex": "30313233343536",
+      "scaling_bits": "0x3433323130393837",
+      "surface_byte": 53,
+      "enabled_byte": 0
+    }
+  ],
+  "qualification": "PE loader initial byte values before constructor; constructor writesknownfields but notintervening+19..1f. Vectorseed deliberately usesnonzerointerveningbytes toshow preservation afterearlierwrites; itis not a freshdefaultclaim. Knownspan ends+29 inclusive; nosizeof0x30or beyondassertion. Vectorsarebytecopy derivations, notruntimecapture.",
+  "tool_repair": "Initial extraction assertioncaughtincorrectzero-tailpaddinglength beforeartifactwrite; corrected per-byte42-bytewindow, no originalfilemutation."
+}

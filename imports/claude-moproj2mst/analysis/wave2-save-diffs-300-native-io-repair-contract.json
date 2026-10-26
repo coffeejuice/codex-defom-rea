@@ -1,0 +1,184 @@
+{
+  "status": "focused_native_delete_repair_frozen_for_root_build",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "tool": {
+    "path": "tools/save_diff_native_delete_contract.py",
+    "bytes": 6300,
+    "sha256": "843c43a290b920ac85386edf26f410ec0a485f49e4375ee096eae7e3e806fd5c"
+  },
+  "original_evidence": {
+    "path": "analysis/wave2-save-diffs-300-native-delete-original.asm",
+    "bytes": 72920,
+    "sha256": "95cbbff7d2db0c1418d4941fc5c1df267619808e7bb6fdefe31ce75c16b71e56"
+  },
+  "bounded_functions": [
+    {
+      "name": "delete helper",
+      "begin": "0x1407fbc10",
+      "end": "0x1407fbc6d",
+      "unwind": {
+        "begin": "0x1407fbc10",
+        "end_exclusive": "0x1407fbc6d",
+        "unwind_info": "0x1432a6c10",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "fopen sets sharing0x40",
+      "begin": "0x14146fcd8",
+      "end": "0x14146fce3",
+      "unwind": null
+    },
+    {
+      "name": "fsopen narrow byte checks",
+      "begin": "0x14146fba0",
+      "end": "0x14146fcd5",
+      "unwind": {
+        "begin": "0x14146fba0",
+        "end_exclusive": "0x14146fcd5",
+        "unwind_info": "0x14347c038",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "fclose",
+      "begin": "0x14146fb28",
+      "end": "0x14146fb9e",
+      "unwind": {
+        "begin": "0x14146fb28",
+        "end_exclusive": "0x14146fb9e",
+        "unwind_info": "0x14347c014",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "remove and forwarding entry",
+      "begin": "0x14146fd48",
+      "end": "0x14146fd7e",
+      "unwind": {
+        "begin": "0x14146fd48",
+        "end_exclusive": "0x14146fd77",
+        "unwind_info": "0x14317ff5c",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "rt parser -> narrow sopen",
+      "begin": "0x1414820ac",
+      "end": "0x141482374",
+      "unwind": {
+        "begin": "0x1414820ac",
+        "end_exclusive": "0x141482374",
+        "unwind_info": "0x14347ce48",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "sopen wrapper",
+      "begin": "0x1414883ec",
+      "end": "0x14148841e",
+      "unwind": {
+        "begin": "0x1414883ec",
+        "end_exclusive": "0x14148841e",
+        "unwind_info": "0x1433e7cb8",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "sopen dispatcher",
+      "begin": "0x1414882b4",
+      "end": "0x1414883ea",
+      "unwind": {
+        "begin": "0x1414882b4",
+        "end_exclusive": "0x1414883ea",
+        "unwind_info": "0x14347d21c",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    },
+    {
+      "name": "sopen leaf -> CreateFileA",
+      "begin": "0x1414879c4",
+      "end": "0x1414881c2",
+      "unwind": {
+        "begin": "0x1414879c4",
+        "end_exclusive": "0x1414881c2",
+        "unwind_info": "0x14347d1e0",
+        "qualification": "runtime unwind region, not proof of whole logical procedure"
+      }
+    }
+  ],
+  "imports": [
+    {
+      "iat_va": "0x141e03210",
+      "dll": "KERNEL32.dll",
+      "symbol": "CreateFileA"
+    },
+    {
+      "iat_va": "0x141e03280",
+      "dll": "KERNEL32.dll",
+      "symbol": "DeleteFileA"
+    },
+    {
+      "iat_va": "0x141e035e8",
+      "dll": "KERNEL32.dll",
+      "symbol": "GetLastError"
+    }
+  ],
+  "mode_literal": {
+    "va": "0x14385aee4",
+    "ascii": "rt"
+  },
+  "original_contract": [
+    "1407fbc10 passes its char* argument unchanged to static fopen14146fcd8 with narrow mode rt, then fclose14146fb28 and remove14146fd78.",
+    "fopen forwarding entry sets sharing0x40 (_SH_DENYNO); fsopen checks filename and mode as individual bytes, not UTF16.",
+    "For rt, parsed file flags are text0x4000, read-only0. Native sopen leaf calls imported CreateFileA with GENERIC_READ, FILE_SHARE_READ|WRITE3 (no DELETE), OPEN_EXISTING3, FILE_ATTRIBUTE_NORMAL0x80, SECURITY_ATTRIBUTES length24/null descriptor/inheritTRUE.",
+    "remove14146fd78 forwards to14146fd48 and imported DeleteFileA, using the same narrow char* filename unchanged.",
+    "fopen failure returns true; successful fopen is closed before remove; remove0 returns true, any remove failure returns false. No pre-delete QFile exists test.",
+    "Extra3D callers pass fixed ASCII relative sidecar literals. No QString-to-narrow directory encoding is established by this helper; original CWD is part of its lifecycle."
+  ],
+  "repair": [
+    "Replace _wfopen/_wremove and extended win32Path substitution with std::fopen(nativeASCII,rt), std::fclose and std::remove.",
+    "Factory guard requires fully absolute ordinary drive or UNC directory, ASCII without control/NUL, no extended/device namespace, and length including slash plus longest fixed sidecar below MAX_PATH. No file mutation precedes this guard.",
+    "Delete also guards its resolved filename to prevent arbitrary supplied Unicode helper paths from silently using different semantics.",
+    "The ASCII/ordinary-path guard is this adapter's supported profile. It does not claim the original rejects ASCII relative sidecars under Unicode or long CWD; that original lifecycle mapping remains a recovery dependency."
+  ],
+  "source_v2": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_io.hpp",
+      "bytes": 4051,
+      "sha256": "4b735448d27995963333eb0b00e32e6caa30b475a5323b2981e786dce2361150"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_native_io.cpp",
+      "bytes": 8374,
+      "sha256": "9b91f24021932cea77e5b37c8d9ab49c44daef5828a6f223517806ad55a4c03e"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_native_io.cpp",
+      "bytes": 7880,
+      "sha256": "fe0cb5123614e9609d6a72d5e715a3d240818cf33274710b39f9ca4907a068dc"
+    }
+  ],
+  "prior_v1": {
+    "path": "analysis/wave2-save-diffs-300-native-io-increment.json",
+    "bytes": 7607,
+    "sha256": "252b1c820abdd5334bd38ad7351ebc46ce1739ba30c2f95931b8dfac3f73d174"
+  },
+  "validation": {
+    "v1": "Parent reports buildv1 and10 focused CTests passed, native backend7 cases passed; superseded source checkpoint, not accepted final validation.",
+    "v2": "Not run by worker; root owns rebuild/tests. git diff --check passed before freeze.",
+    "native_cases": [
+      "native_extra3d_empty_files_enable_and_zero_count_probe_does_not_decode",
+      "native_extra3d_real_reader_preserves_prefix_pushback_and_failure_continuation",
+      "native_extra3d_integer_and_decoder_profiles_are_explicit",
+      "native_extra3d_write_denial_keeps_existing_prefix_and_continues_other_files",
+      "native_extra3d_readable_delete_failure_warns_only_nbc_and_continues",
+      "native_extra3d_read_open_denial_is_remembered_as_disabled",
+      "native_extra3d_missing_parents_are_not_created_and_directory_is_explicit",
+      "native_extra3d_directory_and_delete_path_profiles_are_explicit"
+    ],
+    "native_cases_count": 8,
+    "expected_editor_helper_cases": 48
+  },
+  "qualification": "Static PE reads and bounded DUMPBIN only; no original runtime, DLL loading, app control or fixture mutations. Current runtime CRT resource-limit behavior is not proved identical to the original static CRT. Public editor300 Save remains refused, and other numeric/codec/spring profile guards remain explicit."
+}

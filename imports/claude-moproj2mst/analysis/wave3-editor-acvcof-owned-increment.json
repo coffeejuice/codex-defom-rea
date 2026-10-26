@@ -1,0 +1,92 @@
+{
+  "schema": "wave3-editor-acvcof-owned-increment-v1",
+  "created_utc": "2026-10-24T06:04:36.177043+00:00",
+  "status": "source_frozen_awaiting_root_build_and_tests",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-acvcof-owner-contract.json",
+      "sha256": "e3176a084484fa30c9716ff937fe518ccb93e7d37d1096bb001e6ce30d440b6b",
+      "bytes": 4068
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-implementation-seam.json",
+      "sha256": "f61a5c22461b91ca60d7b1a7e1b63aefd715a820f33b6f8c37cbccc69ec0c103",
+      "bytes": 5686
+    },
+    {
+      "path": "analysis/wave3-editor-acvcof-signals-vectors.json",
+      "sha256": "99255293d12caec71dbc5b024309e784b74a50b16bd94aa34693814ce475dcc4",
+      "bytes": 6759
+    },
+    {
+      "path": "analysis/wave3-editor-temporary-lifetime-amendment.json",
+      "sha256": "10702db720ee54f3a2d54a2f533ccf6baa967142b0f6d770aaf6a1b8536cffc5",
+      "bytes": 3785
+    }
+  ],
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "22559d7d0ff97083315b9773e0b2c3d68d98ac747ef860aea73d7b448b86b471",
+      "bytes": 16402
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "e981ea0236c65e8a6bd97405716ee715ee28a96b45ac648b3a938fc26a868fac",
+      "bytes": 44554
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_lifecycle.hpp",
+      "sha256": "fa858c0ef3cf519cb973c3472343db4bd0b4cd8a496f49d0461859c26918d543",
+      "bytes": 3272
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "60137647ff6aed93e5f594e8aa9b4edc0ff05618239121bff71c495023aed238",
+      "bytes": 8776
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "a646c7f8fd068d99966844da24fc4fd78979cefbcdc123cfd593e27081209df5",
+      "bytes": 60750
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "3731418908c25ba899e5b141343486e40b5ed2d0b2f234cf21ff2080edae5e98",
+      "bytes": 30585
+    }
+  ],
+  "implementation": [
+    "InitialEditorSession constructs one EnvironmentCurveTemporaries owner for four current curve objects before initial dispatch. EnvironmentPage.curves aliases those exact objects through const shared pointers; no independent curve owner is manufactured during composed fill.",
+    "Original initial copy slots copy four environment curves, then step curve, then view-factor state. Backed-up refresh copies the same environment objects before fill, then restores SC without replacing page pointers or undoing callback writes to owners.",
+    "ACVCOF fill chooses variable radio from3/12/1, otherwise constant for ndim0 or the retained ENVATM ndim boolean for nonzero ndim. The callback writes currentCurveIndex3, live var, and owner var. Selection0 changes only live ndim0; it never writes temporary ndim at fill.",
+    "Recognized nonzero variable with ndim0 remains a table-radio branch and Save copies its raw constant member, without g6 conversion. Ordinary ncomp1 fallback collapse retains counts/arrays at callback, then original copy/restore produces retained positive count metadata with null arrays.",
+    "Nonconstant ACVCOF requires explicit valid owners, distinct from live SC curves and from one another. Composed Apply refuses replaced owner references before any effects. Existing isolated no-owner constant profile remains source-compatible.",
+    "Multicomponent fallback-to-constant collapse remains explicitly unsupported, along with unknown allocation/borrowed layouts and owned nested curves. Public editor300 refusal remains."
+  ],
+  "new_tests": [
+    "environment_acvcof_callback_matrix_keeps_existing_temporary_identity",
+    "environment_acvcof_save_uses_owned_curve_and_skips_unselected_text",
+    "environment_acvcof_missing_invalid_owner_and_multicomponent_collapse_are_guarded",
+    "initial_editor_acvcof_collapse_retains_count_history_and_owner_links",
+    "initial_editor_acvcof_final_refill_mutates_owner_before_model_restore",
+    "initial_editor_replaced_environment_owner_refuses_before_any_effect"
+  ],
+  "coverage": "20 branch-derived callback combinations; six recognized-variable Save combinations including ndim0 and multicomponent tables; explicit identity/enable state; no callback array free; stale count retention after actual backup; final model var99 versus temporary var3; missing/aliased/replaced owners; guarded multicomponent collapse; latest live state versus remembered owner.",
+  "case_counts": {
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp": 47,
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp": 18
+  },
+  "validation": {
+    "whitespace": "all six files checked directly, passed",
+    "build": "not run; root owns builds",
+    "tests": "not run; root execution required",
+    "fresh_original": "not run; source-derived expectations"
+  },
+  "remaining_qualifications": [
+    "Original first-wave orphan allocations, exact destructor order and allocation-failure effects remain explicitly recorded, not claimed as reproduced.",
+    "Other editor pages and public integration remain incomplete.",
+    "Nonfinite formatted constant members remain guarded even when their constant controls are disabled."
+  ],
+  "next_action": "Root builds and runs snapshot47/lifecycle18 plus required regressions. Worker preserves freeze, then source-binds the remaining multicomponent ACVCOF collapse profile through existing GUI copy/count/allocation evidence."
+}

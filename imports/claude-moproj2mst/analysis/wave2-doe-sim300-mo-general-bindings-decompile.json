@@ -1,0 +1,53 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "1412eef80",
+      "entry": "1412eef80",
+      "name": "FUN_1412eef80",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined4\r\nFUN_1412eef80(undefined8 param_1,undefined4 param_2,undefined4 param_3,undefined8 param_4)\r\n\r\n{\r\n  undefined4 uVar1;\r\n  longlong lVar2;\r\n  undefined8 *puVar3;\r\n  undefined8 in_stack_ffffffffffffffe8;\r\n  \r\n  uVar1 \u003d (undefined4)((ulonglong)in_stack_ffffffffffffffe8 \u003e\u003e 0x20);\r\n  lVar2 \u003d FUN_14146eabc(0x3ea0);\r\n  if (lVar2 \u003d\u003d 0) {\r\n    puVar3 \u003d (undefined8 *)0x0;\r\n  }\r\n  else {\r\n    uVar1 \u003d 1;\r\n    puVar3 \u003d (undefined8 *)FUN_1412ee6a0(lVar2,param_1,param_2,param_3,\u0026UNK_142db4ce8,1);\r\n  }\r\n  FUN_1412f5570(0x1446efe90,(ulonglong)puVar3 \u0026 0xffffffff,0x3ea0,\u0026UNK_142db4b00,\r\n                CONCAT44(uVar1,0x119f));\r\n  FUN_1412e67d0(puVar3,param_4);\r\n  uVar1 \u003d FUN_1412e4b90(puVar3);\r\n  FUN_1412f51b0(0x1446efe90,(ulonglong)puVar3 \u0026 0xffffffff);\r\n  if (puVar3 !\u003d (undefined8 *)0x0) {\r\n    (**(code **)*puVar3)(puVar3,1);\r\n  }\r\n  return uVar1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "1450aaba0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "1412fab10",
+      "entry": "1412fab10",
+      "name": "FUN_1412fab10",
+      "completed": true,
+      "error": "",
+      "c": "\r\nbool FUN_1412fab10(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 uVar2;\r\n  undefined4 uVar3;\r\n  undefined *puVar4;\r\n  undefined *puVar5;\r\n  \r\n  iVar1 \u003d func_0x0001412e6910();\r\n  if (iVar1 !\u003d 0) {\r\n    if (param_1 \u003d\u003d 2) {\r\n      uVar2 \u003d func_0x0001412fd7f0();\r\n      uVar3 \u003d func_0x0001413058a0();\r\n      puVar5 \u003d \u0026UNK_142db5448;\r\n      puVar4 \u003d \u0026UNK_142db56f0;\r\n    }\r\n    else {\r\n      uVar2 \u003d func_0x000141330840();\r\n      uVar3 \u003d func_0x00014138d440();\r\n      puVar5 \u003d \u0026UNK_142db5320;\r\n      puVar4 \u003d \u0026UNK_142db56e0;\r\n    }\r\n    iVar1 \u003d FUN_1412eef80(puVar4,uVar3,uVar2,puVar5);\r\n    return 0 \u003c iVar1;\r\n  }\r\n  return false;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "1450ab65c",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140130e50",
+      "entry": "140130e50",
+      "name": "FUN_140130e50",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined4 FUN_140130e50(longlong *param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined4 uStack_10;\r\n  \r\n  uStack_10 \u003d 3;\r\n  lVar1 \u003d (**(code **)(*param_1 + 0x198))(param_1);\r\n  if (lVar1 !\u003d 0) {\r\n    uStack_10 \u003d FUN_140c7fee0(lVar1);\r\n  }\r\n  return uStack_10;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14505d0c8",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "schema": "resume51-doe-second-font-helper-v1",
+  "utc": "2026-10-24T18:49:26.656211+00:00",
+  "owner": "test_runner_audit / doe_active",
+  "status": "Three DOE source/test files frozen; static checks passed; root build/test pending.",
+  "purpose": "Implement isolated source-qualified second current-font value assignment, preserving exact data owner and supplied mask even when the data identity is unchanged.",
+  "source_before": {
+    "verified_checkpoint": 49,
+    "archive": "build/wave3-checkpoint49-verified/source.zip",
+    "archive_sha256": "af9ee081673afe4dabc5be9cff8107da67c55e46c36d80e3be7d3931d91bcae6",
+    "files_sha256": {
+      "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "1d5d13c205660c8f0bf36f8eb28955c5948abaa0f468534308e1f52576c34b7b",
+      "source/apps/moproj2mst/src/doe/task_factory.cpp": "b41fdc07913a8a15711798324bfcfc7feec5d7abe171e5c342190bc45222369a",
+      "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "040c8408f768c2552a89bb403f92bd097cbc3acd7a3fcf34a915661d87a68bbc"
+    }
+  },
+  "source_frozen_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "058761d59a0cd6d67c9ddbcad6fa59ad608c1046fbf523de2ee5def9dc9a3fcd",
+    "source/apps/moproj2mst/src/doe/task_factory.cpp": "88a0a355496a69d515d59affb01e4543b8ac7206cd1764a8302e1d6130830d7d",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "d8bd6ac3b984e4cdc6aef18bec6d187a2544b7d2eaeb8be93b53cb5568981ae9"
+  },
+  "source_delta": [
+    {
+      "file": "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp",
+      "added": 6,
+      "removed": 0
+    },
+    {
+      "file": "source/apps/moproj2mst/src/doe/task_factory.cpp",
+      "added": 7,
+      "removed": 0
+    },
+    {
+      "file": "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp",
+      "added": 57,
+      "removed": 0
+    }
+  ],
+  "evidence_sha256": {
+    "analysis/resume50-doe-taskinfo-binding.md": "576859764a6c123181424f1e33a34103bb393350d8a068b06d9342339c0de839",
+    "analysis/resume48-doe-taskinfo-next.md": "32716851017617077f8ad96e13f9a2b99d0995ec64f9019ae5cb96cd7eb56a8a",
+    "analysis/resume49-doe-default-font-helper.json": "b652fd2d7ba945826f0afdf9c0d67773ae216f943a54d5c911fc2a2a975cdea6",
+    "analysis/wave2-doe-task-prototype-taskinfo-private-constructor.asm": "172e1daaf0e6d57fde2153eb64694da2486bc4500d2d840b5f064000b83d980a",
+    "analysis/wave3-closure-next-651f3060.asm": "e10223f224873b6508885795bb924687e304d499141ec7a24070ad50bd5d53f8",
+    "analysis/wave3-closure-next-6501b330.asm": "60ae5bc355a02e2d7c3f5e9e1419b2d97c3a12a890712b475a1ee097d7b44130",
+    "analysis/wave3-doe-report-qobject-prerequisite-contract.json": "d132044c91c93b2b6b8017acb11f05451e4ef3b4896f83f158aa055d379a5998",
+    "analysis/wave3-checkpoint49-validation.json": "6a525fad3b7950d9a3f8e0a207794e8f2958139a5ec9f44848ef30ff93f56b3e",
+    "build/wave3-checkpoint49-verified/receipt.json": "fbf593fe9d637113807fa90a0c9c86f23c3255842cf19a84d44c2eaa16586945"
+  },
+  "implementation": {
+    "signature": "void doe::assignIsolatedTaskInfoSecondFontValue(engine::WidgetFontValue& destination, const engine::WidgetFontValue& secondCurrentApplicationFont)",
+    "source_sites": "TaskInfo private14140e910: second QApplication::font14140ea36, QFont assignment14140ea5c -> QtGui651f3060, then temporary destruction14140ea68.",
+    "effect": "Assign exact supplied shared_ptr FontData owner to destination.data; unconditionally assign supplied resolveMask next. No same-data early return, mask-zero helper call, current-font query, allocation/interning or native constructor-stage commit.",
+    "native_distinction": "Original QFont data helper may skip equal-data reference work, but assignment651f3078-651f3081 always stores the second source mask. The isolated value helper preserves that rule; native atomic references/temp/destructor effects remain unmodeled.",
+    "callers": "Only isolated tests call the new helper; native TaskFactoryRuntime/TaskInfo/public factory remains unchanged and guarded."
+  },
+  "focused_tests": {
+    "target": "m2m_mdt_doe_task_factory",
+    "ctest": "m2m.mdt.doe_task_factory",
+    "previous_cases": 17,
+    "current_cases": 19,
+    "added": [
+      "doe_taskinfo_isolated_second_font_copies_mask_when_data_is_unchanged",
+      "doe_taskinfo_isolated_second_font_replaces_data_owner_and_preserves_null_mask"
+    ],
+    "coverage": [
+      "The first default-font helper produces mask0, then second assignment with SAME data preserves supplied nonzero mask.",
+      "Another same-data value with a different mask overwrites the destination mask; input/current runtime value stay unchanged.",
+      "Exact shared control-block identity remains the supplied owner; self-assignment retains data/mask.",
+      "Assignment from a distinct runtime with the same observation alias replaces the old owner; old weak observer expires after only destination retained it.",
+      "Destination retains incoming owner after runtime/input fixture destruction.",
+      "Explicit null-data input releases the old owner and preserves its own nonzero mask, rather than forcing0; source null value remains unchanged."
+    ],
+    "scope": "Uses existing explicit isolated FontData fixtures. No actual QApplication lookup or native Report/TaskInfo construction; source values are supplied to the helper.",
+    "executed_by_worker": false
+  },
+  "static_checks": {
+    "result": "PASS",
+    "checks": [
+      "Removing only new helper block exactly reproduces checkpoint49 task_factory.cpp after newline normalization, including first-font/preference helpers and every native factory guard.",
+      "Removing only two new test cases exactly reproduces checkpoint49 test source; all prior17 cases unchanged.",
+      "Assignment order is data then mask with no conditional early return.",
+      "All helper references are restricted to declaration, definition and isolated tests in the three announced files.",
+      "No trailing whitespace; report JSON parsed; source/evidence hashes recorded."
+    ],
+    "builds": 0,
+    "runtime_tests": 0
+  },
+  "limits": [
+    "Value-level shared_ptr ownership is not actual native Qt atomic refcount or destructor parity.",
+    "No native caller is wired, no guard advances, no PIMPL is committed and no TaskInfo/factory completion is claimed.",
+    "Actual first and second application-font observations, shared QObject/TLS/ref owners and in-place constructor frame still gate native integration.",
+    "The new second-font helper preserves mask; it must not replace the first default-font mask-zero helper."
+  ],
+  "next_action": "Root builds the combined candidate, runs focused m2m.mdt.doe_task_factory and required regression, then records results against these exact source hashes. Native Report QObject prerequisite remains unchanged.",
+  "token_measurements": "Unavailable; no efficiency savings claimed."
+}

@@ -1,0 +1,1032 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-23T15:28:43.835010+00:00",
+  "status": "static_contract_ready_for_independent_review",
+  "scope": "Frozen DEF_PRE_64 v0.2.1 GUI/controller validation; route analysis is not functional-equivalence acceptance.",
+  "candidate": {
+    "version": "0.2.1",
+    "sha256": "7e9d043f19d453d9f1d3cae217b17eaaf0bd70f55a29979741729ab2a1f7c9c5",
+    "deployment_evidence": "deployment"
+  },
+  "counts": {
+    "direct_mo_callers": 4,
+    "accepted_backend_cases": 0,
+    "observed_candidate_invocations": 0,
+    "confirmed_external_PRE64_GUI_executions": 0
+  },
+  "binaries": {
+    "mo": {
+      "name": "DEF_GUI_MO_64.exe",
+      "digest": {
+        "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+      },
+      "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+      "format": "pe",
+      "architecture": "x86_64"
+    },
+    "controller": {
+      "name": "DEF_ARM_CTL3.com",
+      "digest": {
+        "sha256": "ff70236709a21c1459ffc85db35a8b293afcce0a487bf1114edf815e91b9f991"
+      },
+      "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_ARM_CTL3.com",
+      "format": "pe",
+      "architecture": "x86"
+    },
+    "arm": {
+      "name": "DEF_ARM.com",
+      "digest": {
+        "sha256": "24a53a2ceff6d54232ff3ebd7fe89a91cb9a0ee48fed1abd303aa470a01513a1"
+      },
+      "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_ARM.com",
+      "format": "pe",
+      "architecture": "x86"
+    },
+    "solver": {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_SIM_64.exe",
+      "sha256": "0033d5998fdde7c6e21674f966c06c9dcb7dd1d3ee0b2a5df56cf2b00dd65eca",
+      "bytes": 32305664,
+      "machine": "0x8664",
+      "matches": [
+        {
+          "offset": 30454264,
+          "value": "/DEF_SIM_64.amake/1.5/Wed Feb 22 15:20:02 2012//"
+        },
+        {
+          "offset": 30580888,
+          "value": "Record[%d] Pid_DEF_PRE = %d"
+        },
+        {
+          "offset": 30581888,
+          "value": "Record Pid_DEF_PRE = %d"
+        },
+        {
+          "offset": 30606272,
+          "value": "3D_DEF_PRE"
+        },
+        {
+          "offset": 30606520,
+          "value": "2D_DEF_PRE"
+        },
+        {
+          "offset": 30630412,
+          "value": "SYSTEM"
+        },
+        {
+          "offset": 30895642,
+          "value": "CreateProcessA"
+        },
+        {
+          "offset": 30929628,
+          "value": " Please Go Through DEF_PRE to Prepare Data!"
+        },
+        {
+          "offset": 30929712,
+          "value": "1002(/,' ******* ERROR *******',/,          ' Inconsistent Step No.!',/,          ' Please Go Through DEF_PRE to Prepare Data!')"
+        },
+        {
+          "offset": 31983552,
+          "value": "64bit.dat"
+        }
+      ],
+      "qualification": "Bounded ASCII inventory only; absence is not proof of no process-launch behavior."
+    }
+  },
+  "source_catalog": {
+    "mo_success": {
+      "path": "build/gui-validation/mo-caller1-cli.json",
+      "sha256": "85740c8f178046cfd0c6d29d064a9a594af109961f4305d78e46f4433151f8c6",
+      "bytes": 23365,
+      "kind": "REA decompiler evidence",
+      "json_selector": "/data",
+      "evidence_id": "ev_a5155741f623131e7d15def518da53a78e5fc6fd74114fecf39eccf91e40f2dd",
+      "subject": {
+        "name": "DEF_GUI_MO_64.exe",
+        "digest": {
+          "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+        "format": "pe",
+        "architecture": "x86_64"
+      },
+      "qualification": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output."
+      ]
+    },
+    "mo_launcher": {
+      "path": "build/gui-validation/mo-launch-focused.c",
+      "sha256": "78e7aec832e83561e64a61bc5b536046cd9e8b9676ee8a4047cf63ef11988d9a",
+      "bytes": 43329,
+      "kind": "supplementary Ghidra focused decompilation",
+      "qualification": "No auto-analysis; manually disassembled entry points; inferred names/types. Not an original source file or an independent runtime observation."
+    },
+    "mo_routes": {
+      "path": "build/gui-validation/mo-route-focused.c",
+      "sha256": "09f28b7b8c24959d442a48b1430d76125410e5c5f770477ac9a922888119bd2a",
+      "bytes": 46562,
+      "kind": "supplementary Ghidra focused decompilation",
+      "qualification": "No auto-analysis; manually disassembled entry points; inferred names/types. Not an original source file or an independent runtime observation."
+    },
+    "mo_classes": {
+      "path": "build/gui-validation/mo-label-focused.c",
+      "sha256": "17b856f6fe0aee66269f851d6b19fe02b42702bbf6d6e80583a00abd4eb8dc74",
+      "bytes": 4615,
+      "kind": "supplementary Ghidra focused decompilation",
+      "qualification": "No auto-analysis; manually disassembled entry points; inferred names/types. Not an original source file or an independent runtime observation."
+    },
+    "mo_setup": {
+      "path": "build/gui-validation/mo-ui-label-focused.c",
+      "sha256": "33308a84e889460cef3d52fb5d002924a34c2cf5c39108224c31a0d5a633839b",
+      "bytes": 30017,
+      "kind": "supplementary Ghidra focused decompilation",
+      "qualification": "No auto-analysis; manually disassembled entry points; inferred names/types. Not an original source file or an independent runtime observation."
+    },
+    "mo_labels": {
+      "path": "build/gui-validation/mo-ui-text-focused.c",
+      "sha256": "7bc44562ae7cc9305f36d0fd31b5427a0a40fb9291eedba51a920f9ed32f514d",
+      "bytes": 5444,
+      "kind": "supplementary Ghidra focused decompilation",
+      "qualification": "No auto-analysis; manually disassembled entry points; inferred names/types. Not an original source file or an independent runtime observation."
+    },
+    "mo_convert": {
+      "path": "build/gui-validation/mo-convert-mirror-focused.c",
+      "sha256": "b6fe1e9797bb14e7fe0c77d9c2014d05717b5bdb5305ab21d2f02f7b5612ef8c",
+      "bytes": 41433,
+      "kind": "supplementary Ghidra focused decompilation",
+      "qualification": "No auto-analysis; manually disassembled entry points; inferred names/types. Not an original source file or an independent runtime observation."
+    },
+    "mo_meta": {
+      "path": "build/gui-validation/mo-meta-extended.json",
+      "sha256": "6a24d5364194d30f6ed176ae2dfbac791d0a498d55fe3689d957012adf29d586",
+      "bytes": 682,
+      "kind": "raw PE metadata candidates"
+    },
+    "mo_meta_refs": {
+      "path": "build/gui-validation/mo-meta-references.json",
+      "sha256": "da2ea7c6a7446b09df14cfd873ecdfb81eb2bd07b692c5385dc86ea9506e986d",
+      "bytes": 1023,
+      "kind": "raw PE metadata references"
+    },
+    "mo_ctor": {
+      "path": "build/gui-validation/mo-constructor-candidates.json",
+      "sha256": "15fea0d81cd3cb6b022c5e60f4c4aea763a26cb186729f8ee04b64bfc726464d",
+      "bytes": 1619,
+      "kind": "raw PE RTTI constructor candidates"
+    },
+    "controller": {
+      "path": "analysis/controller-invocation-rea-evidence.json",
+      "sha256": "ef243df4e3a2f2ddcc2da233f3d1df1b431cdb198a45e45fa6fc74b5ddff87b8",
+      "bytes": 95467,
+      "kind": "REA decompiler evidence",
+      "json_selector": "/code/structuredContent",
+      "evidence_id": "ev_cbf84f7da2363832d02d8f88a76a1d8671acf9b3f92c936569fc3eaad95478ef",
+      "subject": {
+        "name": "DEF_ARM_CTL3.com",
+        "digest": {
+          "sha256": "ff70236709a21c1459ffc85db35a8b293afcce0a487bf1114edf815e91b9f991"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_ARM_CTL3.com",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "qualification": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "Ghidra Listing reports a terminal call at 0x401dfe to 0x41d2e7 _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x4024f3 to 0x41d2e7 _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return."
+      ]
+    },
+    "controller_system": {
+      "path": "analysis/controller-launch-helper-rea-evidence.json",
+      "sha256": "587d57d12ddc2034ec241fa4d4872673232d163cd744b691744a2da543c7049e",
+      "bytes": 31291,
+      "kind": "REA decompiler evidence",
+      "json_selector": "/0x401170/structuredContent",
+      "evidence_id": "ev_49bba7d74d4c0715af6a533ce1874b7dd64c923cd163da65cea69b8b9ad53520",
+      "subject": {
+        "name": "DEF_ARM_CTL3.com",
+        "digest": {
+          "sha256": "ff70236709a21c1459ffc85db35a8b293afcce0a487bf1114edf815e91b9f991"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_ARM_CTL3.com",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "qualification": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output."
+      ]
+    },
+    "arm": {
+      "path": "analysis/arm-invocation-rea-evidence.json",
+      "sha256": "3b35451bd26a3fcce179f5df26dafff6fa18522a9ca80e58ded01b684ed99b7f",
+      "bytes": 1182378,
+      "kind": "REA decompiler evidence",
+      "json_selector": "/code/0x40681a/structuredContent",
+      "evidence_id": "ev_7023335782519249b7e42dbec0de65357af6db7ad2b9857d7c47f83ba5a8cfa7",
+      "subject": {
+        "name": "DEF_ARM.com",
+        "digest": {
+          "sha256": "24a53a2ceff6d54232ff3ebd7fe89a91cb9a0ee48fed1abd303aa470a01513a1"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_ARM.com",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "qualification": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "Ghidra Listing reports a terminal call at 0x40477f to 0x4b19f4 _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x4049e5 to 0x4b19f4 _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x4073d1 to 0x4b19f4 _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return.",
+        "Ghidra Listing reports a terminal call at 0x4073fe to 0x4b19f4 _exit (external=false, thunk=false, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return."
+      ]
+    },
+    "arm_system": {
+      "path": "analysis/arm-launch-helper-rea-evidence.json",
+      "sha256": "4fcfd574a9c54d07312c21902b19bcb30bb0a987f3d825e0e0ad924767d1e06b",
+      "bytes": 21065,
+      "kind": "REA decompiler evidence",
+      "json_selector": "/structuredContent",
+      "evidence_id": "ev_cc376615f6552048d2b19b77900dcc9c62ca10bbdaed68241d5f80daac25e549",
+      "subject": {
+        "name": "DEF_ARM.com",
+        "digest": {
+          "sha256": "24a53a2ceff6d54232ff3ebd7fe89a91cb9a0ee48fed1abd303aa470a01513a1"
+        },
+        "local_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\3D\\DEF_ARM.com",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "qualification": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output."
+      ]
+    },
+    "solver_inventory": {
+      "path": "analysis/solver-preliminary-launch-inventory.json",
+      "sha256": "dc107ad782803186e723a2412bb55b2a6f2fa559a4e719a791bf709fe40485b4",
+      "bytes": 5413,
+      "kind": "bounded ASCII inventory only"
+    },
+    "observed_generation": {
+      "path": "analysis/mo-generate-db-observation.json",
+      "sha256": "de07ea501973e0633f1a2dc3433ab37e573f6bc550012db1aa9323943576258a",
+      "bytes": 1262895,
+      "kind": "instrumented runtime observation",
+      "json_selector": "/structuredContent",
+      "evidence_id": "ev_322205f8f30ef1392714f903468d701dd12524f0c149b0fb81f78eebab16032e",
+      "subject": null,
+      "qualification": []
+    },
+    "observed_options": {
+      "path": "analysis/mo-run-options-observation.json",
+      "sha256": "29946e39909a7857335d94c150c83bf95734e1a2ea8ab87d5151bb499782d124",
+      "bytes": 1265095,
+      "kind": "instrumented runtime observation",
+      "json_selector": "/structuredContent",
+      "evidence_id": "ev_1c4f7b1e1d809152d42f7daa401b9023b921aa5a8050d280b65b6dd8d836c4ee",
+      "subject": null,
+      "qualification": []
+    },
+    "deployment": {
+      "path": "analysis/gui-validation-deployment-check.json",
+      "sha256": "947e332e2ad1c24f458ae13f93f86190b4883080a8c4626c6d8482f8e4e59b1b",
+      "bytes": 907,
+      "kind": "deployment hash census"
+    },
+    "prior_state": {
+      "path": "analysis/def-pre-gui-validation-history-20261023.json",
+      "sha256": "b09d2f1f0486581a4f03fd6dc4316dd619cea12f8f50156646edebf54c766665",
+      "bytes": 4256,
+      "kind": "retained historical test ledger"
+    },
+    "control_gate": {
+      "path": "analysis/gui-control-lifecycle-assessment.json",
+      "sha256": "5a1657cabd718a7674a2a70aaf350d4186e85bc19704e5a96318c55cb5d79d0b",
+      "bytes": 1193,
+      "kind": "supported API lifecycle assessment"
+    },
+    "mo_call_args": {
+      "path": "build/gui-validation/mo-callsite-arguments.txt",
+      "sha256": "81f05ea6bb18600951e610da4776c08485498bdaf9e25f3d67fce2c2a6a762b1",
+      "bytes": 3414,
+      "kind": "known-entry disassembly; x64 call arguments",
+      "qualification": "No auto-analysis; known entries disassembled. Inferred pseudocode types; actual instruction bytes retained separately for the four caller argument values."
+    },
+    "mo_alternate": {
+      "path": "build/gui-validation/mo-alternate-dispatch.c",
+      "sha256": "6990c27b17ebf7df31916f52753bdc8a7ad976b28a39724840f434a067274233",
+      "bytes": 287,
+      "kind": "focused Ghidra decompilation",
+      "qualification": "No auto-analysis; known entries disassembled. Inferred pseudocode types; actual instruction bytes retained separately for the four caller argument values."
+    },
+    "mo_alternate_inner": {
+      "path": "build/gui-validation/mo-alternate-dispatch-inner.c",
+      "sha256": "6d5db5a6fd355687f853e40ea6939ede7a55312a44bad0dec21346efeda85d90",
+      "bytes": 16113,
+      "kind": "focused Ghidra decompilation",
+      "qualification": "No auto-analysis; known entries disassembled. Inferred pseudocode types; actual instruction bytes retained separately for the four caller argument values."
+    },
+    "mo_shell": {
+      "path": "build/gui-validation/mo-shell-dispatch.c",
+      "sha256": "ad1cac63a1a560e67d59166083f8268ff2ef9e89573f4a006f95529b92a9c905",
+      "bytes": 1628,
+      "kind": "focused static dispatcher evidence",
+      "qualification": "No auto-analysis; names/types inferred. Read-only PE bindings identify literals; no runtime child observation."
+    },
+    "mo_dispatch_strings": {
+      "path": "build/gui-validation/mo-alternate-dispatch-imports.json",
+      "sha256": "5649cb0811d4ca20dc354673e7f0853fcafe063a5f8921df631fb00a69e8a75a",
+      "bytes": 1251,
+      "kind": "focused static dispatcher evidence",
+      "qualification": "No auto-analysis; names/types inferred. Read-only PE bindings identify literals; no runtime child observation."
+    }
+  },
+  "raw_pe_bindings": {
+    "method": "Read-only PE section RVA-to-file-offset translation with Python struct; ASCII NUL strings and little-endian 64-bit pointers. No target process run.",
+    "source_path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+    "source_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "image_base": "0x140000000",
+    "strings": [
+      {
+        "address": "0x1421408b0",
+        "ascii_z": "DEF_PRE.TDB"
+      },
+      {
+        "address": "0x1421408a0",
+        "ascii_z": "DEF_PRE3.TDB"
+      },
+      {
+        "address": "0x1421408c0",
+        "ascii_z": "DEF_MULTI.INI"
+      },
+      {
+        "address": "0x1421408d0",
+        "ascii_z": "DEF_PRE.MSG"
+      },
+      {
+        "address": "0x1421408f8",
+        "ascii_z": "64bit.dat"
+      },
+      {
+        "address": "0x142140908",
+        "ascii_z": "64BIT.DAT"
+      },
+      {
+        "address": "0x142140928",
+        "ascii_z": "DEF_PRE.EXE"
+      },
+      {
+        "address": "0x142140918",
+        "ascii_z": "DEF_PRE_64.EXE"
+      },
+      {
+        "address": "0x1421408e0",
+        "ascii_z": "DEF_PRE > DEF_PRE.MSG"
+      },
+      {
+        "address": "0x1421409b8",
+        "ascii_z": "2signalSubmitProcesstoRun()"
+      },
+      {
+        "address": "0x1421a47c8",
+        "ascii_z": "Run Simulation"
+      },
+      {
+        "address": "0x1421a47a8",
+        "ascii_z": "Start from last negative step"
+      },
+      {
+        "address": "0x1421a4780",
+        "ascii_z": "Start from beginning (Initial Run)"
+      },
+      {
+        "address": "0x1421a4758",
+        "ascii_z": "Restart from selected simulation"
+      },
+      {
+        "address": "0x142b0ff20",
+        "ascii_z": "Generate Database"
+      },
+      {
+        "address": "0x142b0f558",
+        "ascii_z": "_TEMP_STEP.KEY"
+      },
+      {
+        "address": "0x142215680",
+        "ascii_z": "  Generate 3D object for only unconverted objects ...\n  "
+      },
+      {
+        "address": "0x142215698",
+        "ascii_z": " only unconverted objects ...\n  "
+      },
+      {
+        "address": "0x142215658",
+        "ascii_z": "  Generate 3D object for all ...\n  "
+      },
+      {
+        "address": "0x14385cac0",
+        "ascii_z": "DEFORM_PC_PATH"
+      },
+      {
+        "address": "0x14385caec",
+        "ascii_z": ".EXE"
+      },
+      {
+        "address": "0x14385caf4",
+        "ascii_z": ".COM"
+      },
+      {
+        "address": "0x142f05178",
+        "ascii_z": "COMSPEC"
+      },
+      {
+        "address": "0x142f05170",
+        "ascii_z": "/c"
+      },
+      {
+        "address": "0x142f05168",
+        "ascii_z": "cmd.exe"
+      }
+    ],
+    "pointers": [
+      {
+        "address": "0x142172c10",
+        "value": "0x1400df2b0"
+      },
+      {
+        "address": "0x142207620",
+        "value": "0x1401cc740"
+      },
+      {
+        "address": "0x142ac7518",
+        "value": "0x140e2b560"
+      },
+      {
+        "address": "0x142b0fbc0",
+        "value": "0x140eaeba0"
+      },
+      {
+        "address": "0x1430b8280",
+        "value": "0x140eaeba0"
+      }
+    ],
+    "qt_string_tables": [
+      {
+        "address": "0x142172bc0",
+        "bytes_hex": "536653696d52756e0000736c6f744f6b436c69636b65642829006e4f7072496e64657800736c6f744f7065726174696f6e496e6465784368616e67656428696e74",
+        "nul_separated_ascii": [
+          "SfSimRun",
+          "",
+          "slotOkClicked()",
+          "nOprIndex",
+          "slotOperationIndexChanged(int"
+        ]
+      },
+      {
+        "address": "0x1422075c0",
+        "bytes_hex": "53664f7072436f6e766572743244746f33440000626f6f6c0062446f666f72416c6c4f626a6563747300736c6f7447656e6572617465416c6c28626f6f6c2900736c6f7447656e657261746541",
+        "nul_separated_ascii": [
+          "SfOprConvert2Dto3D",
+          "",
+          "bool",
+          "bDoforAllObjects",
+          "slotGenerateAll(bool)",
+          "slotGenerateA"
+        ]
+      },
+      {
+        "address": "0x142ac74e0",
+        "bytes_hex": "53664f7072436f70794d6972726f720000626f6f6c00736c6f7447656e6572617465416c6c",
+        "nul_separated_ascii": [
+          "SfOprCopyMirror",
+          "",
+          "bool",
+          "slotGenerateAll"
+        ]
+      }
+    ]
+  },
+  "common_mo_launcher": {
+    "address": "0x1400a2200",
+    "evidence": [
+      {
+        "source": "mo_launcher",
+        "location": "lines174-710"
+      }
+    ],
+    "preconditions": [
+      "Non-null operation and project context.",
+      "Selected simulation index must map to a known operation entry."
+    ],
+    "cwd": "QDir::setCurrent(project-derived path) before relative marker checks. Exact runtime path must be captured.",
+    "inputs": [
+      "Writes DEF_MULTI.INI through FUN140132100, then removes it after dispatch. Exact generated contents must be captured before deletion."
+    ],
+    "temporary_outputs": [
+      "Deletes prior DEF_PRE.TDB or DEF_PRE3.TDB according to FUN14005f1c0(operation).",
+      "Deletes prior DEF_PRE.MSG."
+    ],
+    "dispatch": {
+      "marker_selected_process": {
+        "condition": "param4 == 0 OR param5 != 0",
+        "marker_names": [
+          "64bit.dat",
+          "64BIT.DAT"
+        ],
+        "present": "DEF_PRE_64.EXE",
+        "absent": "DEF_PRE.EXE",
+        "dispatch": "Qt signalSubmitProcesstoRun; requests DEF_PRE.MSG output",
+        "qualification": "A selected executable name is static intent. Actual resolved path, start success, parent/PID and deployed hash require runtime capture."
+      },
+      "alternate": {
+        "condition": "param4 != 0 AND param5 == 0",
+        "callee": "0x14081f500",
+        "arguments": [
+          1,
+          "DEF_PRE > DEF_PRE.MSG"
+        ],
+        "qualification": "Wrapper calls helper with third argument0. Helper consults DEFORM_PC_PATH, probes bare token/.EXE/.COM, and constructs a quoted command for mode1. FUN14147521c prepares COMSPEC or cmd.exe with /c, establishing shell dispatch. The command remains DEF_PRE, without64 suffix substitution in this selected path; resolved child path must be captured.",
+        "chain": [
+          "0x14081f500",
+          "0x14081ebc0(mode1, command, dimension0)",
+          "0x14147521c",
+          "COMSPEC or cmd.exe /c",
+          "resolved DEF_PRE command"
+        ],
+        "evidence": [
+          {
+            "source": "mo_alternate",
+            "location": "lines6-9"
+          },
+          {
+            "source": "mo_alternate_inner",
+            "location": "lines45-189"
+          },
+          {
+            "source": "mo_shell",
+            "location": "FUN14147521c; COMSPEC/cmd.exe and /c literals"
+          },
+          {
+            "source": "mo_dispatch_strings",
+            "location": "raw literals and function bytes"
+          }
+        ]
+      }
+    }
+  },
+  "routes": [
+    {
+      "id": "mo_run_simulation",
+      "source_binary": "mo",
+      "static_class": "SfSimRun",
+      "gui_command": {
+        "label": "Run Simulation",
+        "label_role": "dialog window title, not a proven menu path",
+        "source": {
+          "source": "mo_labels",
+          "location": "0x14012db80, lines30-33; string0x1421a47c8"
+        }
+      },
+      "chain": [
+        "Qt method0 slotOkClicked() at0x1400df2b0",
+        "0x14012bcc0",
+        "0x1400a2200"
+      ],
+      "callsite": "0x14012c233",
+      "conditions": [
+        "Start from beginning sets selected simulation1. Restart from selected simulation parses the first displayed section as integer.",
+        "Launcher called only when selected simulation >0. Last-negative option follows its existing-DB checks and does not enter this positive-index branch."
+      ],
+      "launcher_flags": {
+        "param4": 1,
+        "param5": 0,
+        "qualification": "MOV byte[RSP+0x20],0 at0x14012c215 and MOV R9B,1 at0x14012c21a prove flags(1,0) under Windows x64 ABI; decompiler wide stack expression is qualified by exact bytes."
+      },
+      "dispatch_class": "unadorned_DEF_PRE_shell_dispatch_not_marker_selected_Qt_route",
+      "inputs": [
+        "operation selection",
+        "selected simulation or initial run",
+        "generated DEF_MULTI.INI"
+      ],
+      "expected_outputs": [
+        "DEF_PRE.MSG",
+        "operation-specific temporary database/keyword artifacts; exact content requires runtime capture"
+      ],
+      "evidence": [
+        {
+          "source": "mo_success",
+          "location": "normalized_result lines1-165"
+        },
+        {
+          "source": "mo_routes",
+          "location": "0x1400df2b0 lines15-29"
+        },
+        {
+          "source": "mo_classes",
+          "location": "0x141cadd20 lines149-160"
+        },
+        {
+          "source": "mo_launcher",
+          "location": "lines800-884"
+        },
+        {
+          "source": "mo_call_args",
+          "location": "0x14012c233 and immediately preceding argument setup"
+        },
+        {
+          "source": "mo_alternate",
+          "location": "FUN14081f500 -> FUN14081ebc0(param1,param2,0)"
+        },
+        {
+          "source": "mo_alternate_inner",
+          "location": "lines45-189"
+        },
+        {
+          "source": "mo_shell",
+          "location": "FUN14147521c command interpreter arguments"
+        }
+      ],
+      "unknowns": [
+        "No observed v0.2.1 process-start event for this command."
+      ],
+      "executable_selection": "Requests DEF_PRE command through DEFORM_PC_PATH resolution and .EXE/.COM existence checks; no64 suffix or64bit marker test in selected helper. Exact resolved child path remains runtime-dependent."
+    },
+    {
+      "id": "mo_convert_2d_to_3d",
+      "source_binary": "mo",
+      "static_class": "SfOprConvert2Dto3D",
+      "gui_command": {
+        "label": null,
+        "description": "2D-to-3D operation slotGenerateAll(bool)/slotGenerateAll(); nearby status messages say Generate 3D object for all / only unconverted objects. These are status text, not verified button/menu labels."
+      },
+      "chain": [
+        "Qt metacall0x1401cc740 methods0/1",
+        "0x1401cae90",
+        "0x1400a2200"
+      ],
+      "callsite": "0x1401caf9c",
+      "conditions": [
+        "Operation/model/project lookups must succeed before call.",
+        "Selected operation simulation index is FUN140050b70 output."
+      ],
+      "launcher_flags": {
+        "param4": "operation virtual function+0x110 result",
+        "param5": 1
+      },
+      "dispatch_class": "marker_selected_Qt_external_process_route",
+      "inputs": [
+        "operation/model",
+        "selected simulation",
+        "generated DEF_MULTI.INI"
+      ],
+      "expected_outputs": [
+        "temporary KEY selected by0x1401c6f20",
+        "DEF_PRE.MSG",
+        "conversion STEP.KEY/NEWGEO.GEO used by surrounding conversion branch"
+      ],
+      "evidence": [
+        {
+          "source": "mo_launcher",
+          "location": "0x1401cae90 lines982-1016"
+        },
+        {
+          "source": "mo_routes",
+          "location": "0x1401cc740 lines580-601;0x1401c6f20 lines849-902"
+        },
+        {
+          "source": "mo_convert",
+          "location": "0x1401c9d80 and0x1401d0890; generation status strings and downstream files"
+        },
+        {
+          "source": "mo_call_args",
+          "location": "0x1401caf9c and immediately preceding argument setup"
+        }
+      ],
+      "unknowns": [
+        "Exact current GUI command and reachable operation configuration require supported GUI session.",
+        "No child process or reconstructed v0.2.1 execution observed."
+      ]
+    },
+    {
+      "id": "mo_copy_mirror",
+      "source_binary": "mo",
+      "static_class": "SfOprCopyMirror",
+      "gui_command": {
+        "label": null,
+        "description": "Copy/mirror operation slotGenerateAll(); exact visible control label unverified."
+      },
+      "chain": [
+        "Qt metacall0x140e2b560 method0",
+        "0x140e29270",
+        "0x1400a2200"
+      ],
+      "callsite": "0x140e29346",
+      "conditions": [
+        "Operation/model/project lookups must succeed."
+      ],
+      "launcher_flags": {
+        "param4": 1,
+        "param5": 0
+      },
+      "dispatch_class": "unadorned_DEF_PRE_shell_dispatch_not_marker_selected_Qt_route",
+      "inputs": [
+        "operation/model",
+        "simulation index",
+        "generated DEF_MULTI.INI"
+      ],
+      "expected_outputs": [
+        "temporary KEY selected by0x140e285a0",
+        "DEF_PRE.MSG"
+      ],
+      "evidence": [
+        {
+          "source": "mo_launcher",
+          "location": "0x140e29270 lines1034-1054"
+        },
+        {
+          "source": "mo_routes",
+          "location": "0x140e2b560 lines794-807;0x140e285a0 lines905 onward"
+        },
+        {
+          "source": "mo_call_args",
+          "location": "0x140e29346 and immediately preceding argument setup"
+        },
+        {
+          "source": "mo_alternate",
+          "location": "FUN14081f500 -> FUN14081ebc0(param1,param2,0)"
+        },
+        {
+          "source": "mo_alternate_inner",
+          "location": "lines45-189"
+        },
+        {
+          "source": "mo_shell",
+          "location": "FUN14147521c command interpreter arguments"
+        }
+      ],
+      "unknowns": [
+        "The shared SfOprConvert2Dto3D_TEMP_STEP.KEY literal does not make this a conversion command.",
+        "No observed v0.2.1 process-start event."
+      ],
+      "executable_selection": "Requests DEF_PRE command through DEFORM_PC_PATH resolution and .EXE/.COM existence checks; no64 suffix or64bit marker test in selected helper. Exact resolved child path remains runtime-dependent."
+    },
+    {
+      "id": "mo_generate_database",
+      "source_binary": "mo",
+      "static_class": "SfPreGenDb / SfPreGenDbExpress",
+      "gui_command": {
+        "label": "Generate Database",
+        "label_role": "button text at form offset0x30; dialog title itself is SfPreGenDb in retained retranslate function",
+        "source": {
+          "source": "mo_labels",
+          "location": "0x140eb20c0 lines94-117; string0x142b0ff20"
+        }
+      },
+      "chain": [
+        "shared virtual method0x140eaeba0 (vtable slot57)",
+        "0x140eaf030",
+        "conditional0x1400a2200"
+      ],
+      "callsite": "0x140eaf4dd",
+      "conditions": [
+        "Operation and project non-null; operation object and its validation virtual calls must succeed.",
+        "State==1 follows an existing result branch. In other states, additional operation eligibility checks may return before preprocessing.",
+        "Launcher branch requires (!FUN14005f230(operation) OR !operation.vfunc+0x1f8()) AND operation.vfunc+0x108()!=0."
+      ],
+      "launcher_flags": {
+        "param4": "operation virtual function+0x110 result",
+        "param5": 0
+      },
+      "dispatch_class": "conditional_alternate_or_marker_selected_Qt_route",
+      "inputs": [
+        "operation state",
+        "selected simulation",
+        "generated DEF_MULTI.INI",
+        "_TEMP_STEP.KEY target"
+      ],
+      "expected_outputs": [
+        "DEF_PRE.MSG",
+        "_TEMP_STEP.KEY for model reload",
+        "DB generation may occur in other paths without this launcher"
+      ],
+      "evidence": [
+        {
+          "source": "mo_launcher",
+          "location": "0x140eaf030 lines1112-1224"
+        },
+        {
+          "source": "mo_routes",
+          "location": "0x140eaeba0 lines810-846"
+        },
+        {
+          "source": "mo_ctor",
+          "location": "SfPreGenDb/SfPreGenDbExpress vtable candidates"
+        },
+        {
+          "source": "mo_classes",
+          "location": "0x140eae990 and0x1417e47f0"
+        },
+        {
+          "source": "mo_call_args",
+          "location": "0x140eaf4dd and immediately preceding argument setup"
+        }
+      ],
+      "unknowns": [
+        "Semantic names of validation virtual flags are not recovered; numerical conditions are preserved rather than guessed.",
+        "Observed GUI Generate Database succeeded without a captured child; this does not validate v0.2.1 or prove no child in every branch."
+      ]
+    },
+    {
+      "id": "controller_master_rebuild",
+      "source_binary": "controller",
+      "gui_command": {
+        "label": null,
+        "description": "Controller internal master-file rebuild route; full GUI wrapper-to-controller invocation not yet captured."
+      },
+      "chain": [
+        "DEF_ARM_CTL3.COM FUN004019b0",
+        "DEF_RDMS3.EXE",
+        "DEF_MULTI.INI presence",
+        "FUN00401170 -> _system -> DEF_PRE.EXE"
+      ],
+      "conditions": [
+        "Master-file/rebuild path reached after controller status checks.",
+        "DEF_RDMS3.EXE produces DEF_MULTI.INI."
+      ],
+      "executable_selection": "Literal DEF_PRE.EXE; no PRE64 substitution in retained launch helper.",
+      "inputs": [
+        "project/master sequence",
+        "DEF_MULTI.INI"
+      ],
+      "expected_outputs": [
+        "DEF_PRE.TDB/DEF_PRE.DB preparation",
+        "controller log append"
+      ],
+      "evidence": [
+        {
+          "source": "controller",
+          "location": "normalized_result lines280-329"
+        },
+        {
+          "source": "controller_system",
+          "location": "FUN00401170"
+        }
+      ],
+      "unknowns": [
+        "Actual resolved full32-bit executable path/child chain not yet observed.",
+        "No claim that this32-bit executable cannot launch further descendants; direct request is32-bit."
+      ]
+    },
+    {
+      "id": "arm_mode7_prepare",
+      "source_binary": "arm",
+      "gui_command": {
+        "label": null,
+        "description": "Controller-driver continuation requested by REMESH.SCR code7."
+      },
+      "chain": [
+        "DEF_ARM.COM FUN004042b0",
+        "REMESH.SCR mode7",
+        "FUN00401be0 -> _system -> selected DEF_PRE executable"
+      ],
+      "conditions": [
+        "At startup, existence check of64bit.DAT sets DAT00541de0.",
+        "After solver/control stage, REMESH.SCR first record equals7; following record identifies next-run preparation."
+      ],
+      "executable_selection": "DAT00541de0 true -> DEF_PRE_64.EXE; false -> DEF_PRE.EXE.",
+      "command_suffix": "< DEF_PRE3.INP > DEF_PRE3.OUT",
+      "inputs": [
+        "DEF_PRE3.INP",
+        "DEF_PRE3.INI generated with RUNTYP3/DBREAD/PROBID/NSTART",
+        "source DB/run state"
+      ],
+      "expected_outputs": [
+        "DEF_PRE3.OUT",
+        "DEF_PRE3.DB and preparation artifacts checked/cleaned by driver"
+      ],
+      "evidence": [
+        {
+          "source": "arm",
+          "location": "normalized_result lines131-132,880-982"
+        },
+        {
+          "source": "arm_system",
+          "location": "FUN00401be0"
+        }
+      ],
+      "unknowns": [
+        "No runtime v0.2.1 invocation captured.",
+        "One-operation/one-step test need not reach continuation; do not introduce multi-operation loop to force coverage."
+      ]
+    },
+    {
+      "id": "arm_after_remesh",
+      "source_binary": "arm",
+      "gui_command": {
+        "label": null,
+        "description": "Driver preprocessing after remeshing/interpolation."
+      },
+      "chain": [
+        "DEF_ARM.COM FUN004042b0",
+        "REMESH.SCR mode3 and remesh/interpolation path",
+        "FUN00401be0 -> _system -> selected DEF_PRE executable"
+      ],
+      "conditions": [
+        "Remesh/interpolation branch succeeds and expected NEWMESH.KEY is present.",
+        "Uses same startup64bit.DAT-derived flag."
+      ],
+      "executable_selection": "DAT00541de0 true -> DEF_PRE_64.EXE; false -> DEF_PRE.EXE.",
+      "command_suffix": "< DEF_PRE3.INP > DEF_PRE3.OUT",
+      "inputs": [
+        "DEF_PRE3.INP",
+        "DEF_PRE3.INI",
+        "NEWMESH.KEY",
+        "current DB/remesh state"
+      ],
+      "expected_outputs": [
+        "DEF_PRE3.OUT",
+        "DEF_PRE3.DB and rebuilt-state artifacts checked/cleaned by driver"
+      ],
+      "evidence": [
+        {
+          "source": "arm",
+          "location": "normalized_result lines984 onward, especially remesh/interpolation checks and1638-1652"
+        },
+        {
+          "source": "arm_system",
+          "location": "FUN00401be0"
+        }
+      ],
+      "runtime_test_status": "out_of_scope_for_current_no_remeshing_stage",
+      "unknowns": [
+        "No reconstructed v0.2.1 runtime observation; do not enable remeshing merely to obtain one."
+      ]
+    }
+  ],
+  "runtime_observations": [
+    {
+      "id": "generate_db_prior",
+      "classification": "instrumented_GUI_only_observation",
+      "evidence": [
+        {
+          "source": "observed_generation",
+          "location": "normalized_result.messages"
+        },
+        {
+          "source": "prior_state",
+          "location": "generation observation"
+        }
+      ],
+      "summary": "Prior guarded GUI generated110080-byte DB with no child launch in retained capture. QAccessible-null guard affects runtime; direct-child hook coverage is bounded. Not an acceptance pass."
+    },
+    {
+      "id": "run_options_prior",
+      "classification": "instrumented_helper_invocation_observed",
+      "evidence": [
+        {
+          "source": "observed_options",
+          "location": "normalized_result.messages child_launch"
+        }
+      ],
+      "summary": "MO PID29240 launched DEF_GUI_SIMGRP23.EXE PID28280 and DEFJobGroupSetup.exe PID5240; helper warned before solver setup. No PRE64 launch captured."
+    }
+  ],
+  "ordinary_open_save": "Treat as GUI-only unless a later bounded process capture demonstrates preprocessor invocation. No assertion of global absence.",
+  "solver_scope": "Only bounded ASCII inventory of DEF_SIM_64.exe. No complete solver control-flow recovery or direct PRE64 launch proof. Strong launch claims here belong to controller/ARM driver code.",
+  "acceptance_gate": [
+    "observed GUI/controller invocation of candidate",
+    "executed candidate version/hash",
+    "successful processing",
+    "original-reference comparison under established masks",
+    "correct GUI reopen from disk"
+  ],
+  "next_runtime_checks": [
+    "Supported verified app-control release lifecycle first.",
+    "Capture exact process starts/arguments/PID/PPID/CWD/executable hash and generated command files.",
+    "Use independent C:/PROBLEM copies with full paths<100.",
+    "Run only authorized one-operation/one-step/local-worker controller case, deadline120seconds; retain no-PRE result as route observation rather than backend acceptance.",
+    "Compare against preserved originals on separate copies and reopen outputs."
+  ],
+  "global_qualifications": [
+    "Four direct callers of a preprocessor helper do not establish four launches of DEF_PRE_64. Run Simulation and CopyMirror use flags(1,0), selecting a different command-resolution branch.",
+    "Static decompilation is evidence of reachable branch logic, not proof that a particular GUI gesture exercised it.",
+    "No final GUI acceptance cases are complete.",
+    "Exact menu navigation and live conditions remain unverified.",
+    "Earlier timeout receipts analysis/mo-caller1-evidence.json and analysis/mo-launch-rea-evidence.json are excluded as behavioral proof.",
+    "No GUI control acquired, binaries launched, build run or installed deployment changed by this worker."
+  ],
+  "arm_pre64_string_xrefs": {
+    "addresses": [
+      "0x40681a",
+      "0x406bf5"
+    ],
+    "evidence": {
+      "source": "arm",
+      "location": "source file pre_xrefs.structuredContent.normalized_result"
+    },
+    "qualification": "Both references belong to FUN004042b0; per-branch behavior is cited by normalized pseudocode ranges rather than assigning an unverified xref-to-branch ordering."
+  }
+}

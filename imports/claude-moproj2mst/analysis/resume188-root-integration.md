@@ -1,0 +1,9 @@
+# CP188 root integration
+
+The retained QtCore caller now models `XOR ESI,ESI` at RVA `0x13141c..0x13141e`: RSI becomes zero; supported arithmetic flags are recorded, with AF remaining undefined. The qualified private initializer return, stack and distinct register tokens remain intact. The cut stops before the unconditional jump and public/backlink stores. Independent source review and focused constructor/Session tests passed.
+
+In a disjoint editor300 lane, `contactFlagsFromEngine` confines its nullable step/pair reads to an immediate callback while preserving branch and flag order. The direct helper fixture covers enabled pair flags, stale-flag clearing and null-step RAII restoration; it does not directly cover zero-pair enumeration or public Save reachability. Independent source review and focused `m2m.s.save_current` tests passed.
+
+`analysis/wave3-checkpoint188-validation.json` and `build/wave3-checkpoint188-verified/` freeze source SHA-256 `ee24a73f69f34365f87349515a7e48baee38dcc16f56fb2be79cb9ebc807ee14` over 3,554 files. Complete regression: 361 registered, 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete, no fixture changes and no changed logged diagnostics against CP187. Historical folder comparison remains 93 SAME/five DIFF.
+
+CP189 was selected before freeze: the caller's unconditional jump at RVA `0x13141e..0x131420` to `0x131425`, plus the remaining `saveMaterials` raw step-borrow cut after plan review. A read-only batching review recommended preserving jump/publication as separate boundaries; its projected command-time benefit is not a measured end-to-end saving. Public Open–Save–Close, failure/Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

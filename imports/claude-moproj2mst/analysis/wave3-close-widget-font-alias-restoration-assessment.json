@@ -1,0 +1,146 @@
+{
+  "purpose": "Assess whether retained later font aliases prove the first SplitView font-device matching branch without another capture.",
+  "status": "Matching branch remains unproved. Keep WidgetFontDevicePending. No production edit, original process, GUI control or build.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-widget-font-device-successor-contract.json",
+      "sha256": "94ad7ecc2b2629bae7ed5f5fe80ffdbf3b2f94c9e5961cd4d9cd682347eb96fb"
+    },
+    {
+      "path": "analysis/wave3-close-widget-values-probe003-contract.json",
+      "sha256": "afd59ae155af959d59d8e1bfe3d99c0b7cf31e6b2003e24393819ba97887cbb0"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-frame-splitter-post-font-prefix-static.json",
+      "sha256": "14c598cd9ba5273e5ae1751a52588d0a8b45ed09923fd7a0cbd395342239acb9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-font-style-geometry-static.json",
+      "sha256": "c7bdc62a9144f6041bfc50dd841804c81eb4acbd93fb1509ba4a7809e0205d97"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-default-wake-v2-static.json",
+      "sha256": "6736597a44520381b85e005ef9f3248f8dbb39cba92b0a40bd44a7bff6e5ea81"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-widget-post-compression-static.json",
+      "sha256": "50a199f4773623e684598cb8fa54369bf7e13a17c2e086e18d89b4b130002dba"
+    },
+    {
+      "path": "analysis/wave3-closure-next-653b2470.asm",
+      "sha256": "56141dd36166d2fba54bb54a7ba3c6b6b6774d20c0d4de81716b612537d1b9aa"
+    },
+    {
+      "path": "analysis/wave3-closure-next-65403210.asm",
+      "sha256": "0cf8bfe97747465623b2f0ed787e1457d33015ce5c313c9aeed09dc3149ce5ba"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140dab810.asm",
+      "sha256": "9d4a251a8f46c895c54000b6f987490478680aa8bc27fd7dad398f8c8d038b70"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140dab900.asm",
+      "sha256": "59c4651c251ba5a9912d53cba7ac927f4db59ea947d0aee92932ab9259a6412f"
+    },
+    {
+      "path": "build/original-splitter-probe-003/probe.js",
+      "sha256": "8a8d54f8c530c76443d14a9c21fadeb63f95d076fc96536d90dbc0c6c709626d"
+    },
+    {
+      "path": "build/original-splitter-probe-003/capture-evidence.json",
+      "sha256": "ae7f9f9eadfcb91b22a0c2149d573234618eb2401ea0c461cebcb86b9a971f14"
+    }
+  ],
+  "runtime_evidence_id": "ev_0bb817392be0ac96bc66521a39f484315645fdecad6ba833eb761d6ccd25f555",
+  "observations": [
+    {
+      "stateId": 1,
+      "role": "splitter",
+      "object": "0x3ff4000",
+      "vtable": {
+        "name": "QtGui4_64.dll",
+        "base": "0x53e20000",
+        "rva": "0x6ab898"
+      },
+      "font": {
+        "object": "0x5154bd0",
+        "data": "0x4fd84d0",
+        "word8": 0,
+        "dataField38": 168
+      }
+    },
+    {
+      "stateId": 11,
+      "role": "splitter",
+      "object": "0x3ff4000",
+      "vtable": {
+        "name": "QtGui4_64.dll",
+        "base": "0x53e20000",
+        "rva": "0x6ab898"
+      },
+      "font": {
+        "object": "0x5154bd0",
+        "data": "0x4fd84d0",
+        "word8": 0,
+        "dataField38": 168
+      }
+    },
+    {
+      "stateId": 14,
+      "role": "splitter",
+      "object": "0x3ff4000",
+      "vtable": {
+        "name": "DEF_GUI_MO_64.exe",
+        "base": "0x7ff7c94b0000",
+        "rva": "0x2a5a638"
+      },
+      "font": {
+        "object": "0x5154bd0",
+        "data": "0x4fd84d0",
+        "word8": 0,
+        "dataField38": 168
+      }
+    },
+    {
+      "stateId": 15,
+      "role": "splitter",
+      "object": "0x3ff4000",
+      "vtable": {
+        "name": "DEF_GUI_MO_64.exe",
+        "base": "0x7ff7c94b0000",
+        "rva": "0x2a5a638"
+      },
+      "font": {
+        "object": "0x5154bd0",
+        "data": "0x4fd84d0",
+        "word8": 0,
+        "dataField38": 168
+      }
+    }
+  ],
+  "source_order": [
+    "First setParent returns to QWidgetPrivate::init6506e4d0 before font-device constructor651f2e30.",
+    "Font-device constructor calls actual metric8; matching requires source data+38 equal result and data+3c zero. Neither +3c nor metric result/DC cache was sampled by probe003.",
+    "After font assignment the QWidget constructor sets raw attributes0x22/0x23, increments current/max widget counts, sends synchronous raw0x0f Create and posts owned raw0x4a.",
+    "QFrame653b2470 then installs QFrame vtables and calls6505e420(private,0x35,null). That helper obtains widget style or QApplication::style and invokes actual style virtual+0xb8 with the widget.",
+    "QSplitter65403210 installs its vtables/orientation and calls6506db20 sizePolicy, which can call65062460 geometry propagation.",
+    "Original dab810 then installs SfSplitView vtables, constructs derived QString, and calls dab900. dab900 constructs a complete parentless placeholder QWidget before the second parent_enter observation28.",
+    "Probe003 states14/15 therefore occur after the above interval, not immediately after the font-device assignment."
+  ],
+  "bounded_source_findings": {
+    "style_owner": "QApplication::style65026100 first reads QtGui+0x9c9688; nonnull is returned directly. Null can construct/polish a style and mutate app palette/font. No probe003 sample binds that owner or its virtual+0xb8 destination. The known VistaStyle event-filter identity alone is insufficient to identify this getter result.",
+    "frame_effect": "6505e420 calls QStyleOption initialization and style virtual+0xb8, then writes private bytes+138..13b from returned rectangle differences (or zero if invalid). Current-style virtual effects remain qualified.",
+    "size_policy": "65062460 can invalidate an actual layout-item cache at private+c0, tests fixed-size extra fields, then skips geometry propagation if window or hidden; otherwise it may call parent layout virtual invalidate or post raw0x4c. There is no direct font assignment in this body, but arbitrary layout receivers were not proved absent for the entire interval.",
+    "compression": "Original application vtable1420edeb8+68 is14013873c, an FF25 thunk through141e0bf68 to QApplication::compressEvent6501e3e0. Raw0x4a falls through to QtCore67119880, which returns false for that type without queue scanning/deletion.",
+    "priority": "QtCore6711bfd0 sets r8d=0 then jumps6711ae90: constructor postEvent priority is source-proven zero.",
+    "wake": "QEventDispatcherWin32::wakeUp67141b70 increments private+a8; with nonnull private+98 HWND and successful private+b4 compare-exchange0->1 it calls PostMessageW(HWND,0x401,0,0). Dispatcher identity and fields were not sampled."
+  },
+  "inference": {
+    "valid": "Observed first-parent-return and later split-as-parent font owners match, including mask0 and field38=168.",
+    "not_established": "These endpoints do not rule out an intervening replacement and restoration, so they cannot establish data+3c=0 or metric8=168 at the earlier call.",
+    "precision": "No restoration was observed or asserted. A sufficient no-restoration proof is absent because concrete intervening dynamic receivers are not bound. Even a proved same-data branch would not establish the earlier cached-DC acquisition state."
+  },
+  "next": "Prepare one bundled passive observation covering exact first-split font-device output, metric/DC/thread owners, constructor counters, Create inputs, real post-event queue/dispatcher, and concrete frame style identity. Root alone decides, launches and cleans the owned process.",
+  "coverage": "Only the retained selected constructor chain and the exact raw0x4a compression path; no global write-coverage claim.",
+  "efficiency_note": "Reused probe003 and bounded constructor captures. One local geometry/style getter batch and two queue-related leaf batches resolved exact prerequisites. Initial no-unwind wrapper export was rejected before writing; retried as exact 8-byte tail-jump leaf. No additional runtime request was executed."
+}

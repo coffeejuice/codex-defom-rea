@@ -1,0 +1,65 @@
+{
+  "schema": "editor300-mds-coordinate-profile-investigation-v1",
+  "status": "bounded-next-profile-candidate-not-implemented",
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ebd180.c",
+      "sha256": "2e4e10bb9a30ae74ccdcae56654fe63a276c338fd1567ae3bd0aa32dbbee0ea8"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6440.c",
+      "sha256": "45473fa52ed9be66fd8c5c2afaa5dfbf144c789155ee39b2d40f842f2ef1bf37"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ed97c0.c",
+      "sha256": "d10528c652e202903dfb782b7f266b4525c42bfe2bec5be183757340bb3033fc"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ebe100.c",
+      "sha256": "499d258913aa3662ec346d235eb9aff0c769ca93e6b28f96bd7d22a647a59c13"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6da0.c",
+      "sha256": "4fd84cdf9f4152ebc7813b30a77d7b223a7954fd3a3b89d143fe3c0e9f927a7a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6210.c",
+      "sha256": "0c676935e3f9d3ed820f95477203eecc307f2a48d5b0571219ef6f5bc96bce88"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec98e0.c",
+      "sha256": "12ea61299c19a4736a273e86be496bd9d7c9516ce86bdd2e124f0a3ba77bfca4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec09a0.c",
+      "sha256": "75fb76c8e2f7271f3763b8d03fd07e14e0cf5c56a7bed2e65cfc3f642f12c59c"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-object-label-parser-static.json",
+      "sha256": "25ffec7c2b82ac44f55467d4fd65702accb68742acd3c52ab5cdf3416aa88380"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-constructor-connections.json",
+      "sha256": "1621275823b3e0dfb75cc8822ae961a13a8e701de6a70f690bba3bda9ee50335"
+    }
+  ],
+  "known": [
+    "Current fillStopping3D refuses any stored MDS number matching an existing object whose kind is not7. This is still a deliberate guard, not closed by setup-default recovery.",
+    "Original fill140ebd180 inserts None then every eligible object into both selectors. It selects matching object numbers, runs140eb6440 for both, then140ebe100(0) and(1). Programmatic selector changes have no activated(int) callback; the constructor connects activated(int), not currentIndexChanged, for those selectors.",
+    "140eb6440 leaves node-radio enable unchanged for missing/kind5 objects; otherwise140ed97c0 returns true iff nodecount+87c is nonzero (kind5 special case). False sets coordinate radio true and disables node radio; true enables node radio.",
+    "140ebe100 chooses the first reference only when argument0 and first selected ID>0. Otherwise it falls through to second-reference handling when its ID>0, so firstNone/secondSelected fills the second twice. Preserve that decision.",
+    "For a selected object with mode at+1ec8 equal1,140ebe100 checks the coordinate radio, leaves node spin unchanged, and fills three coordinates from+1ed0/+1ed8/+1ee0 using %.3f. For mode2 it also sets node spin from+1ee8, which can emit slotRefNodeChanged and remains a separate geometry dependency.",
+    "Both node spins start0 in the newly recovered fresh setup profile. Their valueChanged(int) signals connect to slotRefNodeChanged; selected coordinate-mode1 paths do not call setValue and avoid that node callback.",
+    "140eb6da0 at Save writes object mode1 when coordinate radio checked; writes node0 if both node radios are disabled, otherwise writes the selected spin value. The check spans both reference-radio enabled states, not just the active side. Then converts all three coordinate text fields with toDouble and writes them. First reference precedes second, so same-object selections retain last-write order.",
+    "140ec09a0 only invokes the view helper if both selected IDs>0 and its flag argument is nonzero; the recovered Save passes a zero flag.",
+    "Original label formatter140ec98e0 uses %-3d - followed by object name. Parser140ec9980 copies currentText.toLocal8Bit into a bounded stack area using unchecked strcpy then sscanf %d. A future supported profile must qualify complete label length/encoding rather than pretending arbitrary names are safe."
+  ],
+  "candidate": "Fresh 3D coordinate-mode1 MDS selections, retaining selected IDs, actual node enable state and remembered %.3f coordinate text, appears separable from node geometry. Keep kind5/custom-state/profile exceptions explicit until radio groups, label byte bounds and formatter behavior are pinned.",
+  "required_before_code": [
+    "Pin the two native radio parent groups and automatic/explicit callback absence for coordinate radio changes.",
+    "Bind source label length/encoding guard to actual object name layout and scan semantics.",
+    "Verify %.3f text including negative zero and large finite values with existing formatter contract.",
+    "Represent repeated fill and two references on one object; test Save ordering and retained prior writes."
+  ],
+  "next_action": "Prioritize approved General name truncation repair first. Parent chooses this reachable-path increment after the smaller setup dependencies; no production changes or public guard relaxation in this investigation."
+}

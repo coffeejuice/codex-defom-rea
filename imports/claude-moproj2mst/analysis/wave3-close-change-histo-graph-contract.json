@@ -1,0 +1,41 @@
+{
+  "scope": "Second StateVar notify=true signalChangeHistoGraph receiver",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "method": "Original PE and bounded offline DUMPBIN, no original runtime or production edits",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-change-histo-dispatch-static.json",
+      "sha256": "c904112ae25cc79a43d623ddb5dfa78b085ef0eacebd7d4b46666c06c665481c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-histo-guard-static.json",
+      "sha256": "9fc406ae84ab6e151a8ca7142940a872c2831b993adb5ba203fb6002a1bc5b87"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-histo-owner-static.json",
+      "sha256": "b30ec89847e851866f6dfd2ad411fc09a344916d138bc1c85441d6de61f7a1ec"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-histo-registration-static.json",
+      "sha256": "a319994bc4f2cb4dcac52a10d0f3ff4a796d1667a695bf658e8fcc58b100bd27"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-histo-slot-static.json",
+      "sha256": "bf792a3c29139944c3a7aab528bc957a307242e41240c7f647e3b2f6982cb522"
+    }
+  ],
+  "producer": "d17b90 called later by d16530 emits2signalChangeHistoGraph literal142a01188 under its notify flag; shared apply peer retains exact producer ordering.",
+  "ownership_and_binding": [
+    "Existing model.doeStepData->stateVar->histogram represents this original SfStateVarHistogram; do not duplicate that state in CloseEffects.",
+    "411640 constructor installs vtable14236e2b8, calls defaults4117b0 and registration411700. The latter registers signalChangeHistoGraph at411728 to slotChangeHistoGraph literal14236df28.",
+    "Class strings142426a90 identify SfStateVarHistogram; metadata table1424269f0 has5 methods, local1 is slotChangeHistoGraph.53cf20 delegates QObject metacall then53cd80 local1 calls413f00."
+  ],
+  "slot_order": [
+    "413f00 calls pure getter4117e0 which loads byte this+0x14 (graphOn). False returns without any further call or mutation.",
+    "True passes this+0x38 to8e0550, a pure getter of int at argument+0x7c (receiver+0xb4), then rereads graphOn and calls4122f0(receiver,graphOn,nestedInt).",
+    "This nested integer is not receiver+0x10 binWidth represented by current HistogramState. Do not substitute that field.",
+    "4122f0 additionally resolves global mainwindow, current root and manager, state-variable reads, virtual graph operations and412430. Enabled rendering/Qt payload remains unsupported."
+  ],
+  "integration": "A later second StateVarPlotEffects hook may dispatch the actual StateVarRuntime.histogramRegistrations weak receivers for this key. Known off receivers can complete; known on receivers must guard before reading unsupported nested payload; expired receiver entries skip only the local snapshot. Registration coverage must remain qualified, not defaulted empty.",
+  "qualification": "Current XML can set graphOn true. Constructor=false is not a fresh-run invariant. This receipt establishes an exact conditional leaf and does not claim second notification or accepted Close is integrated."
+}

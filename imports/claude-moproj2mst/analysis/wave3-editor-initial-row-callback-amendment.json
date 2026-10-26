@@ -1,0 +1,36 @@
+{
+  "schema": "editor300-initial-row-callback-binding-amendment-v1",
+  "created_utc": "2026-10-24T10:40:22.847767+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-state-static.json",
+      "sha256": "56f2bc9b21cf8e00f69bdaf31495008f28da1a18e7100f03d0be116b44547c88"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-metadata.json",
+      "sha256": "e94f0260b6b86e45669941dd900d4347722611b0a299fdfd9e4fd50cf2148195"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-private-static.json",
+      "sha256": "b761c996f7df37525d4612377d28d373d5d4a4bfb5de306e1fa9b64e417e73f7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-fresh-profile-amendment.json",
+      "sha256": "b043eccb4835fcc092a5c323f83e08c2ce1d2c5e5b44737d05d796af7c30818a"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-insertion-655028c0.asm",
+      "sha256": "2f23dc82d0da555fcff3c3ab54f9407a506855c08a0e6480a3c4aeb828931f46"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-insertion-complete-static.json",
+      "sha256": "25a41532bc60c2647ea7aa71329833d144f4f0563ecec890519586385950ecd0"
+    }
+  ],
+  "closed_default": "Selection private ctor654f1800 calls import65698820 for current persistent index at+A0. Existing combo-profile import binding identifies QPersistentModelIndex6710ccc0, which sets null; established primitive getter yields invalid row-1. No additional QtCore export was needed.",
+  "closed_callback": "QListWidget metaobject65734d08 local19 is _q_emitCurrentItemChanged(QModelIndex,QModelIndex). qt_static_metacall65503dc0 maps19\u219265503f32\u2192private655000f0. It resolves current/previous row objects, then activates local6 currentItemChanged at655001f2, followed by local7 currentTextChanged at65500265 and local8 currentRowChanged at655002d6. Actual editor connection targets local6 only. Retain this ordering if later callbacks become reachable.",
+  "conditional_transition": "QItemSelectionModel654f10d0 stores a different current index before selection effects and currentChanged. Same index does not activate currentChanged. Native fresh invalid\u2192valid row0 therefore reaches editor callback provided constructor/setup event context has not changed selection or blocked signals. Arbitrary/custom model/filter contexts remain outside that qualification.",
+  "insertions": "Setup creates ten list items and does not explicitly set current row/item or sorting mode. Native constructor initializes sorting flag+42c=false. Item ctor65503610 appends through model655028c0 and standard row insertion notifications. QListView rowsInserted654c1d20 performs layout scheduling and tails base654a5c10; base invisible branch starts timer0, not direct current selection. Rendering/layout dependencies are not expanded beyond effects capable of reaching in-scope callbacks.",
+  "capture_qualification": "Insertion first capture retained655028c0 ASM then failed because654a5c10 has no unwind entry; no receipt was emitted for that initial batch. The immutable raw ASM is separately hashed here. Supplemental128-byte leaf includes a different function from654a5c40; base rowsInserted is only654a5c10 through tail branches654a5c2f/654a5c39. No neighboring bytes support the claim.",
+  "remaining_native_gate": "Initial row callback still needs actual GuiModel-owned picking/interaction effects; capturing the Qt forwarding chain is not implementation or permission to bypass public setup/constructor guard. One-way setup-owner handoff remains the selected implementation successor after checkpoint38."
+}

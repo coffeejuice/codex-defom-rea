@@ -1,0 +1,210 @@
+{
+  "qualification": "Compare original GUI/native instruction shapes; no binary loading or execution.\n\nExternal absolute references are paired, not proved equivalent. Internal branch\nlocations are normalized to offsets. This is bounded structure evidence only.\n",
+  "binaries": [
+    {
+      "path": "evidence\\gui_mo\\DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence\\original-binaries\\DEF_PRE_64.exe",
+      "sha256": "f78a2a5c3ebb3c1affca3d2d0ea31f0ed802f6fe1e9083168681502ac6cea794"
+    }
+  ],
+  "results": [
+    {
+      "label": "remap",
+      "gui": [
+        "0x14082a360",
+        "0x14082a9f9"
+      ],
+      "native": [
+        "0x1401d0fc0",
+        "0x1401d1659"
+      ],
+      "instruction_count": [
+        268,
+        268
+      ],
+      "normalized_instruction_shapes_equal": true,
+      "first_difference": null,
+      "external_reference_pairs": [
+        [
+          "0x14084e8e0",
+          "0x14017a6c0"
+        ],
+        [
+          "0x14084e920",
+          "0x14017a700"
+        ],
+        [
+          "0x1408316d0",
+          "0x1401d8340"
+        ],
+        [
+          "0x140b172d0",
+          "0x1401d8fa0"
+        ],
+        [
+          "0x1401cc700",
+          "0x1401d8fb0"
+        ],
+        [
+          "0x1407d3070",
+          "0x14019a280"
+        ],
+        [
+          "0x14084eca0",
+          "0x14017aa80"
+        ],
+        [
+          "0x140834fa0",
+          "0x140160f10"
+        ],
+        [
+          "0x14084eaa0",
+          "0x14017a880"
+        ],
+        [
+          "0x140835430",
+          "0x1401613a0"
+        ],
+        [
+          "0x1408296c0",
+          "0x1401d0320"
+        ],
+        [
+          "0x14086d7f0",
+          "0x140199650"
+        ],
+        [
+          "0x14084ed10",
+          "0x14017aaf0"
+        ],
+        [
+          "0x14082f8c0",
+          "0x1401d64f0"
+        ],
+        [
+          "0x1408bc900",
+          "0x14029c870"
+        ],
+        [
+          "0x1408bc880",
+          "0x14029c7f0"
+        ],
+        [
+          "0x14084ed90",
+          "0x14017ab70"
+        ],
+        [
+          "0x14084e960",
+          "0x14017a740"
+        ]
+      ],
+      "captures": [
+        {
+          "path": "analysis\\wave2-save-diffs-300-advanced-twin-remap-gui.asm",
+          "sha256": "11f044545ca48c2e13a91cf5df5f776dfec9b615e9d10b04dd4232ba5760759c"
+        },
+        {
+          "path": "analysis\\wave2-save-diffs-300-advanced-twin-remap-native.asm",
+          "sha256": "7267e99065fcc2368867a45e8b2eb530dac7dd59c33fce08b381cf81baa4f94e"
+        }
+      ]
+    },
+    {
+      "label": "sizes",
+      "gui": [
+        "0x1408296c0",
+        "0x140829d4b"
+      ],
+      "native": [
+        "0x1401d0320",
+        "0x1401d09ab"
+      ],
+      "instruction_count": [
+        331,
+        331
+      ],
+      "normalized_instruction_shapes_equal": true,
+      "first_difference": null,
+      "external_reference_pairs": [
+        [
+          "0x140100980",
+          "0x140158e90"
+        ],
+        [
+          "0x14035b400",
+          "0x1400015f0"
+        ],
+        [
+          "0x14082f8c0",
+          "0x1401d64f0"
+        ],
+        [
+          "0x140065560",
+          "0x1400015e0"
+        ]
+      ],
+      "captures": [
+        {
+          "path": "analysis\\wave2-save-diffs-300-advanced-twin-sizes-gui.asm",
+          "sha256": "4058501c47f3692421b03e38545b667db38c73ca2d3dd22e83f7dd5646078a98"
+        },
+        {
+          "path": "analysis\\wave2-save-diffs-300-advanced-twin-sizes-native.asm",
+          "sha256": "8e643df27379d70f2fece264ffb5a00e8e00e44934e6e777ddfdcc6d64c7bb77"
+        }
+      ]
+    },
+    {
+      "label": "object-remap",
+      "gui": [
+        "0x14086d7f0",
+        "0x14086d87a"
+      ],
+      "native": [
+        "0x140199650",
+        "0x1401996da"
+      ],
+      "instruction_count": [
+        30,
+        30
+      ],
+      "normalized_instruction_shapes_equal": true,
+      "first_difference": null,
+      "external_reference_pairs": [
+        [
+          "0x140856a60",
+          "0x140182840"
+        ],
+        [
+          "0x140854370",
+          "0x140180150"
+        ],
+        [
+          "0x140859750",
+          "0x140185530"
+        ],
+        [
+          "0x140859710",
+          "0x1401854f0"
+        ],
+        [
+          "0x140857990",
+          "0x140183770"
+        ]
+      ],
+      "captures": [
+        {
+          "path": "analysis\\wave2-save-diffs-300-advanced-twin-object-remap-gui.asm",
+          "sha256": "0a9d1d19cc4b005b8038aa66fe126d8b3305aaa517db2a9a342d2c98f36e79c2"
+        },
+        {
+          "path": "analysis\\wave2-save-diffs-300-advanced-twin-object-remap-native.asm",
+          "sha256": "d10e6252805ae9cb422c6977cef187fdeaad0936c58ae1756a45cf5e46aabe19"
+        }
+      ]
+    }
+  ]
+}

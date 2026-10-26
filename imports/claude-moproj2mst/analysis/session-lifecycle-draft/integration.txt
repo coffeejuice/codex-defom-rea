@@ -1,0 +1,115 @@
+Purpose
+
+This draft supplies the ownership/binding shell needed to integrate existing
+DiagramLifecycleEvents and real Boolean reselection with the current converter.
+It is outside source/, is not built, and is not a claim of Close parity.
+
+Minimal production landing
+
+1. Add the two proposed files under engine only after parent source release.
+   Parent owns CMake and core/convert.cpp. Existing lifecycle_events and
+   boolean_lifecycle helpers require no behavior changes for this shell.
+
+2. In core/convert.cpp::run replace the local Project p / ProjectScope scope
+   pair with ConversionSession session(driver); Project& p=session.project().
+   Keep GuiStartupUnitScope before session construction. The driver must be
+   declared before the session and own any diagram-view projection separately
+   from Project so a post-Close fit can run after project destruction.
+
+3. The source-proven diagram model is SubProject::flow. It is not the GUI
+   engine model held in Operation::engineModel. Commit each actual recovered
+   nonnull setModel separately: 0a7b90 ->0a89e0 and 038380 ->view+1b8 are two
+   registration sites on the qualified Open path. Do not unconditionally add
+   two timers at the end of openActiveOperation or assume every path reaches
+   both. Commit methods cover logical binding/timer state only; the other
+   native170430 mutations must remain separately implemented or guarded.
+
+4. Root's recovered original Save wrapper supplies dispatchAt at the exact
+   processEvents call140098129 before subproject validation/current-operation
+   Save. Nested modal dialogs and any later pump need their own source site
+   and occurrence. DueObservation distinguishes an original trace from an
+   explicit adapter schedule, and records logical timer IDs in delivery order.
+   nullopt is unavailable evidence; an empty observed list is explicit zero
+   delivery. Neither means native elapsed time was measured. Preserve the C
+   ABI by putting this input in internal/C++ profiles; do not add ABI flags.
+
+5. Every delivered live timer invokes the real fit boundary first. Missing
+   fit/view state throws M2M_E_UNSUPPORTED after the timer is consumed. Fit is
+   not a counter or a call to the current fixed-profile moproj::viewCentre.
+   It includes invalidation, zoom-level storage and zoom signals before the
+   then-current model/item is looked up. Drivers may rebind during callbacks.
+
+6. With a current item, clickAndUpdateMainView is a required full effect
+   boundary. The default refuses; it does not silently call only the Boolean
+   leaf. A source-qualified driver can invoke applyBooleanSelection at the
+   recovered editor point, which calls the existing real replacement/refill
+   helper. Remaining signal recipients, fit and main-view effects must be
+   implemented or explicitly guarded. No synthetic test driver is a production
+   implementation of these boundaries.
+
+7. Root's Close logic still owns proc-type guard, default dialog decisions,
+   nested Save answer, display(0,0,true), conditional secondary split-view
+   callback, RemoveGraphItems and cleanup order. Only after the actual normal
+   null-rebind effects call commitNullDiagramBinding, then
+   releaseProjectAfterCloseEffects at the original model-release point.
+   A cancelled Close leaves the project/binding/timers alive. No auto-double-
+   Save is introduced by this shell. Qt Save answer, file-write-success byte,
+   adapter Result and Close decision remain separate root-owned integration.
+
+Display lifetime
+
+The current source's Project declares display after operations, so ordinary
+member destruction releases display first. displayShow(A), displayShow(B)
+leaves A.display pointing at the display even though it is no longer d.main.
+The session captures Project's actual shared Display immediately before
+destroying the Project. This retains the display while every operation model
+destructor calls displayForget, including A. The retained display is accessible
+after project release and dies with the session. It retains its existing named
+and second-owned models; this draft does not change their ownership or invent
+cross-project reuse. A single project can be created per session.
+
+The capture also occurs on adapter exception cleanup, so a throw after lazy
+display creation cannot bypass it. This is ordinary storage cleanup, explicitly
+not original Close replay. If future code replaces/resets Project.display while
+models still point to it, acquire the session lease before that operation or
+move allocation ownership fully to the session; that path is not present in the
+inspected production source. External shared GuiModel owners outliving this
+session are outside the current conversion-owned-model contract.
+
+ProjectScope is owned by the shell and reset before Project storage release;
+this matches the previous local-scope destruction ordering and prevents a
+dangling adapter thread-local currentProject. This adapter detail is not a claim
+about the original process global's teardown ordering.
+
+Validation after parent release
+
+- Build the session files with the existing full converter targets; no build
+  has run for this draft.
+- Two actual GuiModels shown successively: preserve a weak Display reference,
+  release Project and verify the display stays alive until session destruction.
+  Include a throw after lazy display creation. Use ASan where supported or a
+  native memory checker; a weak pointer alone does not prove absence of UAF.
+- Two nonnull binding commits create distinct timers. After null commit and
+  project release both remain pending. A due callback fits before observing
+  null and never enters the Boolean helper; use an isolated driver fixture to
+  check shell ordering, labelled separately from real fit/notification parity.
+- Fit callback changes the binding/current item; resolve the changed values
+  after fit and verify the original selection chain uses them.
+- Missing observation, wrong pump occurrence, missing fit, and missing click
+  effects are distinct unsupported boundaries. A missing fit consumes its
+  already-dispatched timer; subsequent timers remain pending.
+- In a qualified real Boolean driver/fixture, deliver two timers and inspect
+  the actual model/editor/side-file effects. A counter-only fixture cannot
+  establish AddNew/refill fidelity. Reuse existing Boolean helper regression.
+- Root separately validates original Save answer versus write status, default
+  Close cancellation, accepted Close post-answer callbacks, C ABI compatibility
+  and fresh original comparisons. None is established by this shell draft.
+
+Open design limits
+
+The draft's binding uses the actual current SubProject and its flow.activeItem.
+It assumes binding commit/null transitions accompany removal of that model.
+General tree-selection branches, arbitrary model replacement and destruction
+of the entire session reentrantly during its own callback are not recovered.
+The effect-driver interface is intentionally a guard boundary until those
+effects have implementations and evidence; it is not a completion waiver.

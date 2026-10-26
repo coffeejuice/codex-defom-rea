@@ -1,0 +1,266 @@
+{
+  "startedUtc": "2026-10-26T04:35:19.302Z",
+  "moduleUrl": "file:///C:/Users/alext/AppData/Roaming/npm/node_modules/rea-agents/node_modules/frida/build/src/frida.js",
+  "exe": "C:\\Program Files\\Python312\\python.exe",
+  "cwd": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\admin",
+  "maxSeconds": 20,
+  "helperPath": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\admin\\owned_suspended_process.py",
+  "receipts": [
+    {
+      "event": "created",
+      "exit_code": 259,
+      "exit_verified": false,
+      "gui_control_acquired": false,
+      "identity": {
+        "argv": [
+          "c:\\program files\\python312\\python.exe",
+          "-I",
+          "-S",
+          "-c",
+          "import time; time.sleep(60)"
+        ],
+        "canonical_image": "c:\\program files\\python312\\python.exe",
+        "creation_filetime": 134374629199401220,
+        "cwd": "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\admin",
+        "host": "Sim2",
+        "launcher_pid": 25604,
+        "pid": 9352,
+        "primary_tid": 23016,
+        "sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a"
+      },
+      "state": "suspended",
+      "wait_result": 258
+    },
+    {
+      "event": "endpoint",
+      "reason": "terminate_command"
+    },
+    {
+      "event": "cleanup",
+      "exit_code": 57857,
+      "exit_verified": true,
+      "handles_closed": true,
+      "state": "exited",
+      "termination_attempts": [
+        {
+          "api_succeeded": true,
+          "exit_code": 57857,
+          "exit_verified": true,
+          "requested_exit_code": 57857,
+          "source": "final_cleanup",
+          "wait_result": 0,
+          "winerror": null
+        }
+      ],
+      "termination_requested": true,
+      "wait_result": 0
+    }
+  ],
+  "stages": [
+    {
+      "name": "local-device",
+      "utc": "2026-10-26T04:35:19.870Z"
+    },
+    {
+      "name": "validated-owned-create-suspended",
+      "utc": "2026-10-26T04:35:19.944Z"
+    },
+    {
+      "name": "attached",
+      "utc": "2026-10-26T04:35:20.051Z"
+    },
+    {
+      "name": "script-loaded",
+      "utc": "2026-10-26T04:35:20.053Z"
+    },
+    {
+      "name": "script-ready",
+      "utc": "2026-10-26T04:35:20.053Z"
+    }
+  ],
+  "failures": [
+    {
+      "stage": "script-ready",
+      "name": "Error",
+      "message": "script unload timed out after 2000 ms",
+      "code": null,
+      "details": null,
+      "stack": "Error: script unload timed out after 2000 ms\n    at Timeout.<anonymous> (file:///C:/Users/alext/Projects/codex-deform-rea/imports/claude-moproj2mst/admin/resume202_visibility_fixture_preflight.mjs:24:106)\n    at listOnTimeout (node:internal/timers:635:17)\n    at process.processTimers (node:internal/timers:571:7)"
+    }
+  ],
+  "readiness": {
+    "kind": "fixture-result",
+    "passed": true,
+    "pid": 9352,
+    "arch": "x64",
+    "fridaRuntimeVersion": "17.23.2",
+    "scriptRuntime": "QJS",
+    "code": "0x1ba3fe00000",
+    "site": "0x1ba3fe00040",
+    "siteOffset": 64,
+    "main": "0x1ba3fe10440",
+    "dock": "0x1ba3fdff1f0",
+    "vtable": "0x1ba3fdffe20",
+    "candidateHex": "488b842450020000488b8020040000488b8c2450020000488b8920040000488b000fb6542474",
+    "before64": "488b842450020000488b8020040000488b8c2450020000488b8920040000488b000fb6542474498900498948084189501089d04881c478020000c30000000000",
+    "patched64": "e9c303ecff0f1f00488b8020040000488b8c2450020000488b8920040000488b000fb6542474498900498948084189501089d04881c478020000c30000000000",
+    "restored64": "488b842450020000488b8020040000488b8c2450020000488b8920040000488b000fb6542474498900498948084189501089d04881c478020000c30000000000",
+    "changedByteOffsets": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "changedSpanBytes": 7,
+    "observations": [
+      {
+        "sequence": 1,
+        "tid": 39392,
+        "rsp": "0xa909d6e780",
+        "main": "0x1ba3fe10440",
+        "dock": "0x1ba3fdff1f0",
+        "requestedRaw": 0,
+        "match": true
+      },
+      {
+        "sequence": 2,
+        "tid": 39392,
+        "rsp": "0xa909d6e780",
+        "main": "0x1ba3fe10440",
+        "dock": "0x1ba3fdff1f0",
+        "requestedRaw": 1,
+        "match": true
+      }
+    ],
+    "runs": [
+      {
+        "phase": "baseline",
+        "requested": 0,
+        "returned": 0,
+        "rax": "0x1ba3fdffe20",
+        "rcx": "0x1ba3fdff1f0",
+        "edx": 0
+      },
+      {
+        "phase": "baseline",
+        "requested": 1,
+        "returned": 1,
+        "rax": "0x1ba3fdffe20",
+        "rcx": "0x1ba3fdff1f0",
+        "edx": 1
+      },
+      {
+        "phase": "hooked",
+        "requested": 0,
+        "returned": 0,
+        "rax": "0x1ba3fdffe20",
+        "rcx": "0x1ba3fdff1f0",
+        "edx": 0
+      },
+      {
+        "phase": "hooked",
+        "requested": 1,
+        "returned": 1,
+        "rax": "0x1ba3fdffe20",
+        "rcx": "0x1ba3fdff1f0",
+        "edx": 1
+      },
+      {
+        "phase": "restored",
+        "requested": 0,
+        "returned": 0,
+        "rax": "0x1ba3fdffe20",
+        "rcx": "0x1ba3fdff1f0",
+        "edx": 0
+      },
+      {
+        "phase": "restored",
+        "requested": 1,
+        "returned": 1,
+        "rax": "0x1ba3fdffe20",
+        "rcx": "0x1ba3fdff1f0",
+        "edx": 1
+      }
+    ],
+    "listenerDetached": true
+  },
+  "pythonSha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+  "helperSha256": "305d1036dc65ede44485aed49714f07290d65aaadbf1dbac11b3867a8e0c31e0",
+  "agentSha256": "86fbc278d6015b04db91204600e939729eea7497e52d4b0d61c3a903ea67a034",
+  "runnerSha256": "88d3c6ebeeb3dd88618114ed563bc2d5489fa3f5138148d10cbc9a8b696e5a97",
+  "fridaVersion": "17.23.2",
+  "helperArgv": [
+    "-I",
+    "-S",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\admin\\owned_suspended_process.py",
+    "--exe",
+    "C:\\Program Files\\Python312\\python.exe",
+    "--cwd",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\admin",
+    "--sha256",
+    "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "--max-seconds",
+    "20",
+    "--",
+    "-I",
+    "-S",
+    "-c",
+    "import time; time.sleep(60)"
+  ],
+  "created": {
+    "event": "created",
+    "exit_code": 259,
+    "exit_verified": false,
+    "gui_control_acquired": false,
+    "identity": {
+      "argv": [
+        "c:\\program files\\python312\\python.exe",
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(60)"
+      ],
+      "canonical_image": "c:\\program files\\python312\\python.exe",
+      "creation_filetime": 134374629199401220,
+      "cwd": "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\admin",
+      "host": "Sim2",
+      "launcher_pid": 25604,
+      "pid": 9352,
+      "primary_tid": 23016,
+      "sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a"
+    },
+    "state": "suspended",
+    "wait_result": 258
+  },
+  "helperExit": {
+    "code": 0,
+    "signal": null
+  },
+  "cleanup": {
+    "event": "cleanup",
+    "exit_code": 57857,
+    "exit_verified": true,
+    "handles_closed": true,
+    "state": "exited",
+    "termination_attempts": [
+      {
+        "api_succeeded": true,
+        "exit_code": 57857,
+        "exit_verified": true,
+        "requested_exit_code": 57857,
+        "source": "final_cleanup",
+        "wait_result": 0,
+        "winerror": null
+      }
+    ],
+    "termination_requested": true,
+    "wait_result": 0
+  },
+  "localProcessAfter": null,
+  "fridaProcessAfter": null,
+  "finishedUtc": "2026-10-26T04:35:22.296Z",
+  "outcome": "FAIL / incomplete"
+}

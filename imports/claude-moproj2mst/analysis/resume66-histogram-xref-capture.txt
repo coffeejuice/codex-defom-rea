@@ -1,0 +1,10 @@
+Checkpoint 66 REA bounded xref attempt
+Target SHA-256: fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc
+Target: evidence/original-binaries/DEF_GUI_MO_64.exe
+Provider selected by REA: Ghidra 12.1.4
+Operation: xrefs(address=0x140c15910)
+Result: provider_timeout; Ghidra did not finish importing/analyzing within 330000 ms startup deadline.
+Evidence set: none (query did not complete).
+Lifecycle: opened exact-hash PE; closed active target with close_binary; result null, no snapshot saved.
+
+Exact unresolved edge requested: caller/dispatch into manager wrapper 0x140c15910, then first consumer of returned RAX (scene addItem, manager+0x10 guarded registration, or another owner store). No caller or post-return consumer can be named from this REA request because it produced no xrefs.

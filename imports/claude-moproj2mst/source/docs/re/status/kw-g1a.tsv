@@ -1,0 +1,36 @@
+# Known divergence (not reproducible, not matched): GEOTYP read after RZ in 2D changes the BCCDEF/BCCDFN
+#   width (model+0x1640/0x1644 via FUN_1401d0fc0 -> 1401d09c0) while 140199650 only reallocs the per-node
+#   int arrays (realloc, no re-layout), so the original writes heap garbage in BCCDEF/BCCDFN. The port does
+#   the same width update and realloc (call_1401d0fc0); the newly grown bytes differ (heap contents).
+address	status	note
+0x14039aa90	ported	port/defkey/src/kw_g1a/group1_shell.cpp read_group1 (switch); cases 0x00..0x26 (ids 22..60) in read_g1a.cpp; cases 0x27..0x45 are kw-g1b's (kw_g1b.hpp, linked when present)
+0x1403d4990	ported	group1_shell.cpp write_group1; Process Definition + Stopping & Step Controls in write_g1a.cpp write_sections; the last three sections are kw-g1b's
+0x1403d6580	ported	write_g1a.cpp write_stnout (STNOUT)
+0x1403d6620	ported	write_g1a.cpp write_elmnod (ELMNOD)
+0x1403d7720	ported	write_g1a.cpp write_emax (EMAX, registry column 2)
+0x1403d77a0	ported	write_g1a.cpp write_tmax (TMAX, registry column 2)
+0x1403d7820	ported	write_g1a.cpp write_smax (SMAX, registry column 2)
+0x1403d7910	ported	write_g1a.cpp write_vmin (VMIN, registry column 2)
+0x1403d7a00	ported	write_g1a.cpp write_lmax (LMAX, registry column 2)
+0x1403d7af0	ported	write_g1a.cpp write_demax (DEMAX, registry column 2)
+0x1403d7b70	ported	write_g1a.cpp write_dsmax (DSMAX, registry column 2)
+0x1403d7bf0	ported	write_g1a.cpp write_dtmax (DTMAX, registry column 2)
+0x1403d7ce0	ported	write_g1a.cpp write_dttype (DTTYPE table, registry column 2)
+0x1403d7e80	ported	write_g1a.cpp dttype_table (DTTYPE registry column 3)
+0x1403d7ef0	ported	write_g1a.cpp write_slderr (SLDERR, registry column 2)
+0x1403d7f70	ported	write_g1a.cpp write_dtpmax (DTPMAX, registry column 2)
+0x1403d80a0	ported	write_g1a.cpp write_dvmax (DVMAX, registry column 2)
+0x1403d8130	ported	write_g1a.cpp write_mdsobj (MDSOBJ, registry column 2)
+0x1403d81d0	ported	write_g1a.cpp write_cnterr (CNTERR, registry column 2)
+0x1401f3e90	ported	sim_ctrl_ops.cpp set_trans0 (Cls_1401e7b10 accessor)
+0x1401f3eb0	ported	sim_ctrl_ops.cpp set_trans1
+0x1401f3c10	ported	sim_ctrl_ops.cpp trans0
+0x1401f3c30	ported	sim_ctrl_ops.cpp trans1
+0x1401f3ff0	ported	sim_ctrl_ops.cpp set_smode (SMODE reader side effect on TRANS)
+0x1401f3f80	ported	sim_ctrl_ops.cpp recompute_smode (KEY writer, after SIMNAM)
+0x1401ee580	ported	sim_ctrl_ops.cpp time_flag (S+0x240 = dttype.u58)
+0x14039d2b0	ported	sim_ctrl_ops.cpp set_odmax
+0x1403d8490	ported	sim_ctrl_ops.cpp get_odmax
+0x1401f4100	ported	sim_ctrl_ops.cpp reset_unit_defaults (UNIT; constants checked against the binary's doubles)
+0x1401d6ea0	ported	sim_ctrl_ops.cpp find_object (DSMAX_NSTEP)
+0x14017aaf0	ported	sim_ctrl_ops.cpp find_in_list (object list walk by id at +8)

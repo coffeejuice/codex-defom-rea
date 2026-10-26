@@ -1,0 +1,13 @@
+{
+ "label": "MENU5 obj2 die geometry 7 Generate Mesh 3D with CHK_VOL.INI > 0 (CHKVOL, T8-5, for p10-02)",
+ "stdin": "\n2\n1\nIN.KEY\n\nE\n5\n5\n1\n7\n\nE\nE\n8\nOUT.KEY\n\nE\nY\n",
+ "timeout": 1200,
+ "inputs": [
+  {"name": "IN.KEY", "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"},
+  {"name": "CHK_VOL.INI", "text": "1.0\n"}
+ ],
+ "expect": {
+  "files": ["OUT.KEY"],
+  "notes": "T8-5 (packet p8-06; the menu path belongs to p10-02). Main menu 2 -> 1 reads IN.KEY, E back, 5 Object Data Modification (object 2), 5 Rigid Die/Object Border Definition, type 1 (Polygons) -> die geometry menu 1400162e0, 7 Generate Mesh -> 140002690: 3D model and surface geometry (140160cc0) -> _MeshGenBase, 14013ee00 surface step, and when the surface mesh was read (state 1) the volume step 140140110 -- without the start cleanup 14013e880, so CHK_VOL.INI survives: 140140110 rewrites it with TRGVOL only when obj+0x2098 != -1, TRGVOL > 0 and |v - TRGVOL| > 1e-6 (here unchanged), and after BRKMSH 140141d50 reads '%lf' 1.0 > 0 and launches 'CHKVOL > CHK_VOL.MSG' (3D folder), then deletes CHK_VOL.MSG. Then 8 saves OUT.KEY. Capture run with tools/extprobe wrappers shows the launches."
+ }
+}

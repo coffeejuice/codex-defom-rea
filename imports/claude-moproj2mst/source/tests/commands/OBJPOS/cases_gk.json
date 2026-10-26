@@ -1,0 +1,87 @@
+[
+ {
+  "label": "OBJPOS/gk-tensor-y_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Spike_ForgingBlow2.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Forging/Spike_ForgingBlow2.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "gk_tensor_y_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 3, tensor kernel FUN_140325884: object 1 (tet mesh, STRESS and STNCMP 4978x6 non-zero) rotated 30 deg about the y axis through (0,0,0): degenerate frame branch (r1 = 0 < 1e-12, T = [1,0,0, 0,s,t, 0,-t,s]); STRESS kind 1, STNCMP kind 2 (shear halved/doubled), S' = Q S Q^T (OBJPOS_geo_kernels.md 1.2); GENDB keeps full bits"
+ },
+ {
+  "label": "OBJPOS/gk-tensor-obl_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Spike_ForgingBlow2.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Forging/Spike_ForgingBlow2.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "gk_tensor_obl_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 3, tensor kernel with a general frame: object 1 rotated -37.5 deg about axis (1,1,1) through (1,2,3); r1 >= 1e-12 branch of the frame, all 9 Q terms non-zero (OBJPOS_geo_kernels.md 1)"
+ },
+ {
+  "label": "OBJPOS/gk-6-tri_3d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Spike_ForgingBlow2.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/EN/Forging/Spike_ForgingBlow2.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "gk_m6tri_3d.KEY"
+   }
+  ],
+  "comment": "3D mode 6 on a mesh-only tet object: FUN_1401fe7d0 builds a temporary surface from the mesh, all faces triangles -> FUN_1403e8510 triangle quadrature (3-point rule); the printed origin is CENTER = (Ix/V, Iy/V, Iz/V) (OBJPOS_geo_kernels.md 2)"
+ },
+ {
+  "label": "OBJPOS/gk-tensor_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/ResistanceSpotWelding/Resistance_Spot_Welding_elstoplastic_model_with_phase_transformation_Hold_cycle_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "gk_tensor_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 3, tensor kernel FUN_14032e585 on object 1 (STRESS, STNCMP 1265x4); seed replaced after the oracle run (DEF_BOOLEAN_OUT.KEY fails KFREAD)"
+ },
+ {
+  "label": "OBJPOS/gk-4-type2_2d",
+  "args": [],
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "HT_QUENCH1_SI.KEY",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/HeatTreat/HT_QUENCH1_SI.KEY"
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "gk_mirror_type2_2d.KEY"
+   }
+  ],
+  "comment": "2D mode 4 on a type-2 (6-value record) die edge: object 2 mirrored at the line (0,0)-(0,1); record end points mirrored, r5 negated then zeroed for line records (FUN_14045a140), end points swapped and record order reversed (FUN_1402788a0 / FUN_14041f590) (OBJPOS_geo_kernels.md 4.2)"
+ }
+]

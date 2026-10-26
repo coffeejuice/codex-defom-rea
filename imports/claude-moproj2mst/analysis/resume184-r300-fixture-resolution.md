@@ -1,0 +1,19 @@
+# CP184 R300 fixture resolution: `saveMaterials`
+
+## Decision
+
+The existing corpus Save sweep does not yet prove a reachable material loop. The source-ready fixture is the direct internal-helper pattern already present in `tests/s/test_save_current.cpp`: copied corpus `46_MO2_Boolean_Oprations/MO2_Boolean_Oprations.moproj`, operation ID 2, opened and activated, then its loader slot is installed and `OpClass::loadOperation` is called to populate the real `GuiModel::step`. Existing code establishes this fixture is loadable as `SfOprHeatTransferExpress2D`; it does not establish the material count or that any non-type-2 material is present. A direct `engine::saveMaterials(p, *op, fx)` helper test is therefore the appropriate closure fixture, labeled synthetic helper mechanics rather than public Save.
+
+`saveMaterials` is declared in `engine_internal.hpp`, so tests can invoke it without exposing a new API. Reuse the `Ctx`/`ProjectScope`/`M2M_CORPUS` setup and loader sequence from `base_default_pairs_step_scope`; do not call public `saveCurrentOperation` to infer this helper's reachability. Before asserting emitted writes, inspect the loaded step's `0x1320` material count and each indexed list node using `material_list_nth`. Require at least one eligible material (`mat != nullptr && type != 2`) and ideally at least one excluded type-2/null slot. If fixture predicates fail, use a narrowly synthetic material-list fixture only if it preserves the real loaded operation/model invariants; do not silently count an empty-list call as loop coverage.
+
+## Observable assertions
+
+Use default `FileEffects` (non-native task keys), so each eligible call should populate the `writes` map through `captureKey`; assert exact `materialDefaultFile(p, no)` paths and nonempty generated KEY bytes for eligible material numbers, and absence of paths for skipped entries. Assert iteration follows original 1..n list order (the resulting map is not ordered, so retain an observed ordered path trace only if the existing effect API supports it; otherwise assert exact set and static-review loop order). Do not assert byte-for-byte native/oracle equivalence from this helper test. A corpus end-to-end test can supplement this only after an actually dispatched, non-skipped fixture is identified and its produced material KEY set is shown to cover the helper.
+
+For null-step coverage, seed a real step with a material list, then detach `m->step` under a noncopyable RAII guard analogous to the existing `DetachedStep` in `base_default_pairs_step_scope`. Call `saveMaterials`, assert writes and deletes remain empty and the detached saved step's list count is unchanged. On normal and exceptional scope exit, verify restoration of the original step pointer, model identity, and material-list count. Since `saveMaterials` returns void, the evidence is absence of effects and preservation of state, not a return value.
+
+## Scope and readiness
+
+The code cut is source-ready after verifying the precise test ownership/hash against CP183's concurrent integration. Keep the one `opModel` lookup, null check before count/list access, ascending count/list traversal, null/type-2 exclusion, material-number read, path derivation, and synchronous `saveMaterialKey` call inside the immediate callback. No pointer escapes. Do not add geometry/Stopping admission guards or modify `saveMaterialKey`/Save dispatch.
+
+The current evidence does not establish that any case in `save_current_oracle_b` reaches this helper: its sweep only checks Save outcomes and includes skipped/interactive/open cases; class-specific dispatch may bypass material saving. Thus the narrow helper test is necessary unless a non-skipped case is separately traced to this call and shown to contain an eligible material. This closure covers only local `saveMaterials` pointer borrowing and does not close other Save owners or the broader parked-model admission issue.

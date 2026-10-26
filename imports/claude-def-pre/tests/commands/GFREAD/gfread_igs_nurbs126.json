@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES 126 rational B-spline",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nNB126.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "NB126.IGS",
+      "source": "data/nurbs126.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "126 quarter circle sampled at 30 parameter values (29 segments) + 2 lines: DIEGEO 1 2 31, loop traced from the end of the 126 backwards: first segment (0,1)-(0.04923366385,0.99878728784)."
+  }
+}

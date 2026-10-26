@@ -1,0 +1,60 @@
+{
+  "schema": "resume46-editor300-next-v1",
+  "created_utc": "2026-10-24T17:42:16.629882+00:00",
+  "status": "evidence_ready_source_frozen_for_combined_build",
+  "owner": "editor300",
+  "source_before": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_base.hpp",
+      "sha256": "4427afe4be4b6d176a0e030b9fb9de098d106af21a25ae5247d5ad61e645920b"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_base.cpp",
+      "sha256": "0a8fa1e1dc6a5cdc3f9de87437f3c0b5437c3b0b8f51d493163cbd7d3862ece1"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+      "sha256": "fc02133880d7c9cf254303051cf16dfcf47bc88acdb43add9a668c7994f33b7f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-6511c090.asm",
+      "sha256": "716cb7f8e726b62960add3b4718c6b48aef1f184e43b6a9e6317101d25bb9d32"
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-6511e6d0.asm",
+      "sha256": "ea2e3922b1c05313b23c3885b86c4ee635fdf61c655b07dc875490896b93de14"
+    },
+    {
+      "path": "analysis/resume46-editor300.json",
+      "sha256": "1a4a7c8284f6783a8544a955128106c738017eafae9e6521362682172e36355a"
+    },
+    {
+      "path": "analysis/resume46-focused-a-build.json",
+      "sha256": "1011bc247017287965959093e7b263925fd1ea6e78042df1f6ea3e91be743a8f"
+    }
+  ],
+  "predecessor_validation": "Orchestrator reported focused candidate build and m2m.mdt.editor_base passed.",
+  "contract": [
+    "At6511c0ad..c0be, every entered QBrush::isOpaque call consumes QColor alpha and computes alpha==255 before checking style1 at6511c0c4.",
+    "QColor::alpha6511e6d0 reads exactly byte[color+5] and returns.",
+    "QWidget6506e710..c bypasses isOpaque for style0; this must not consume alpha.",
+    "Unknown nonzero-style alpha therefore blocks before unresolved gradient/texture dispatch; known alpha advances to that guard exactly once."
+  ],
+  "planned_changes": [
+    "Retain actual shared brush owner weakly and consumed alpha comparison in the constructor call frame.",
+    "Add BrushStyleDispatch stage and BrushAlphaConsumed effect, preserving unsupported-style/public guards.",
+    "Test missing alpha then qualified retry for unresolved styles, repeated guard retries without repeated alpha consumption, and style0 bypass."
+  ],
+  "testing": {
+    "status": "not_started_no_source_write",
+    "focused_target": "m2m.mdt.editor_base",
+    "root_owns_build": true
+  },
+  "next_dependency": "Root combined candidate freeze must complete before next source edit. Shared constructor tail and same-runtime binding, native QPointer and notifier closure remain full-constructor dependencies.",
+  "original_capture": false,
+  "mutable_rea": false,
+  "build_executed_by_worker": false,
+  "tokens": "unavailable"
+}

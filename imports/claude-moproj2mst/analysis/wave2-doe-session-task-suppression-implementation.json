@@ -1,0 +1,70 @@
+{
+  "schema": "m2m-doe-session-task-suppression-v1",
+  "status": "two owned source files frozen for parent candidate44; no worker build or tests run",
+  "source": {
+    "source/apps/moproj2mst/src/doe/session_records.cpp": {
+      "sha256": "b7b13c8a3b1b629a78a0fca89730fb40b578785e8369e3f88d86f048369bb242",
+      "balanced_delimiters": true,
+      "trailing_whitespace": false
+    },
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": {
+      "sha256": "55658ec377b68896476b7021948eb0b51ecb31611cab603dfc4fea25bd25ba3c",
+      "balanced_delimiters": true,
+      "trailing_whitespace": false,
+      "test_cases": 39,
+      "testkit_main_present": true
+    }
+  },
+  "original_binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": {
+    "analysis/wave2-doe-session-valid-existing-input-decompile.json": "e1e3598d484e64e286ab36a5fa11d11aa598a6d25efcd316a671d2e38a743c54",
+    "analysis/wave2-doe-session-task-return-notifier.asm": "0bd183505687db84a4a550ac418b05717d7bb42276328b99832de74be9904284"
+  },
+  "native_protocol": {
+    "caller": "0x140650e60",
+    "notifier": "0x1402cf740",
+    "key": "2signalCreateTaskBase()",
+    "key_va": "0x1424e3c98",
+    "argument_type": "QString",
+    "argument_type_va": "0x1424e3c80",
+    "argument": "parsed TaskType unchanged",
+    "return_type": "SfTaskBase *",
+    "return_type_va": "0x1424e3c88",
+    "return_initial_value": "null",
+    "gate": "2cf771 loads global+141;2cf77a jne2cfac3 epilogue before key/map/receiver lookup",
+    "flag90": "no reset in return notifier; distinct from2cf3c0"
+  },
+  "changes": [
+    "Re-read actual StudyIo shared suppression at createTask entry, before class recognition, missing-key resolution or constructor allocation. Suppressed return remains null, including SfTaskDoe and unsupported Custom.",
+    "Record allocation/metadata and later nonowning append/current index, named-model clear and child encounter order unchanged. Null Task skips SfTask and no-LayerName StepData, but layered StepData and preallocation Image handling remain independent.",
+    "No empty-key allowlist addition, fake registration/cache initialization, duplicate notifier state, flag90 mutation or factory creation for suppressed branch."
+  ],
+  "focused_cases": {
+    "target": "m2m_doe_session",
+    "total": 39,
+    "added": 4,
+    "coverage": [
+      "suppressed DOE and Custom preserve parsed type, null Task, record append before each clear, skip populated Task payload and no-layer StepData",
+      "callback changes shared gate between records; second record creates actual distinct Task with record backlink and ObjList, no return-notifier flag90 reset",
+      "layered StepData still refuses after record append and named clear under suppression",
+      "Image diagnostic/PNG refusal still precedes record allocation and named clear under suppression"
+    ]
+  },
+  "preflight": {
+    "delimiter_lexer": "pass",
+    "trailing_whitespace": "none",
+    "test_main": "present",
+    "git_diff_check": "pass",
+    "tests_executed": false,
+    "build_executed": false
+  },
+  "qualifications": [
+    "Unsuppressed SfTaskDoe remains existing bounded parsed constructor projection; actual lazy17-prototype factory initialization/preferences/metadata/Qt lifetime remain guarded/unrecovered. This correction does not claim complete unsuppressed factory behavior.",
+    "Shared session notification ownership is actual existing StudyIo binding; current factory helper does not add a return-notifier diagnostic attempt or model an empty registration list for this known registered key.",
+    "Task/Session allocation retention and adapter scope cleanup qualifications from checkpoint43 remain unchanged; no whole native Close or QObject parity claim.",
+    "Source-backed focused cases await parent build and execution. Historical93/98 and checkpoints42/43 are immutable prior results, not validation of this new correction."
+  ]
+}

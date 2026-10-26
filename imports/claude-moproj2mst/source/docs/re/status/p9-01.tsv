@@ -1,0 +1,51 @@
+address	status	note
+0x140007660	not-needed	std::ostream << const char* (STL instantiation); 14013c970 writes the same bytes with fprintf
+0x14013c320	verified	delete CONV_STATUS.DAT; oracle cnvt3d_no_actout (file compared byte for byte)
+0x14013c6b0	verified	log to CONV_STATUS.DAT / <stem>.LOG / stdout; oracle no_actout (files and stdout); .DB stem: unit test with a 1401b1520 stand-in (p8-08)
+0x14013c970	verified	DEF_CNV23.DAT; oracle no_actout (byte compare)
+0x14013d760	verified	$BGN$; oracle no_actout
+0x14013d790	verified	$END$; oracle no_actout
+0x1401467f0	ported	CNVT3D converter (cnvt3d::convert); verified on n0 and no_actout (generator 140147b70 p9-03 and the p8-08 copies stood in); kinds 2/4 and a written 3D KEY not yet reached by a case
+0x140147f90	ported	mesh-window conversion; build 1402ba500 (p9-04, merged) and window+0x220 _OBJ_GEO3D copy (kw-g3 keeps it unconstructed: stub 1402f9b60) not exercised
+0x140148750	ported	run in no_actout (3D model not written there)
+0x140159000	verified	identity; oracle no_actout
+0x140159970	ported	CowList::pop_front (defmodel/sdctl/cow.hpp); unit test
+0x140159a40	ported	CowList::mutable_front (cow.hpp); unit test
+0x140159f30	ported	erase(iterator), folded into CowList::pop_front (cow.hpp)
+0x140189110	verified	GEO23 mode > 0; oracle no_actout
+0x140198d30	ported	cut-plane faces of a partial revolve (cnvt3d::mark_cut_faces); kind 4 path only, not reached by a case
+0x1401a91d0	ported	model data copy; p8-08 parts (1401e8040/1401e84f0/1401ea900/14029b630/140339d30) behind Cnvt3dExt stubs
+0x1401b1970	verified	fwrite of the file wrapper; oracle no_actout
+0x1401e89c0	ported	3D sim-control part a
+0x1401e91d0	ported	sim-control axis swap; unit test
+0x1401e9c50	ported	3D sim-control part b (dead remapping kept)
+0x1401eb220	ported	3D sim-control part c
+0x1401f36f0	ported	sim-control copy
+0x1401fa150	ported	empty
+0x140205e40	ported	assign surface patches (cnvt3d::assign_patches)
+0x14021d4c0	ported	object property copy; run in no_actout (3D model not written)
+0x14021d630	ported	TRGVOL from volumes (dbio::objcheck::obj_volume)
+0x14021ef80	ported	movement copy with axis mapping; run in no_actout
+0x14021f160	ported	+0x1ea0 copy with swap; unit test
+0x14021f760	ported	mesh-window list copy
+0x140220390	ported	FIXGEO options ctor (defmodel/geoprim/fixgeo.hpp); unit test
+0x140220420	ported	FIXGEO options dtor (empty)
+0x140259170	ported	WPAXIS kind-4 axis code; unit test
+0x14025a270	ported	find/create WPAXIS kind-4 record; unit test
+0x14025a360	ported	WPAXIS axis of the kind-4 record; unit test
+0x140266860	ported	window shape = 3
+0x14027cc00	ported	outline file writer; unit test
+0x14027ce90	ported	outline file reader; unit test
+0x14027ece0	ported	FIXGEO (defmodel, launch through g_fixgeo_launch set by defcmd); unit test with a recorded launch
+0x14027efa0	ported	negative-x check; unit test
+0x14027f450	ported	point array getter
+0x14029b6c0	ported	-> 14029b630 (p8-08, Cnvt3dExt stub)
+0x140339dc0	ported	-> 140339d30 (p8-08, Cnvt3dExt stub)
+0x1402059a0	ported	extra (unowned P2, callee of 140198d30/140205e40): rebuild surface patches (cnvt3d::rebuild_patches)
+0x14023c770	ported	extra (unowned P2): plane distance; unit test
+0x14023e050	ported	extra (unowned P2): triangle normal; unit test
+0x140258ed0	ported	extra (unowned P2): WPAXIS +0x08 setter; p9/p10 integration: forwards to the p-dbread W1 body (w1_blocks.cpp)
+0x140258f50	ported	extra (unowned P2): WPAXIS +0x20 setter; p9/p10 integration: forwards to the p-dbread W1 body (w1_blocks.cpp)
+0x140258fd0	ported	extra (unowned P2): WPAXIS +0x68 setter (normalised); p9/p10 integration: forwards to the p-dbread W1 body (w1_blocks.cpp)
+0x140259060	ported	extra (unowned P2): WPAXIS +0x80 setter (normalised); unit test; p9/p10 integration: forwards to the p-dbread W1 body (w1_blocks.cpp)
+0x1402590f0	ported	extra (unowned P2): WPAXIS +0x98 setter; p9/p10 integration: forwards to the p-dbread W1 body (w1_blocks.cpp)

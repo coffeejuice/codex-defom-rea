@@ -1,0 +1,24 @@
+{
+  "label": "CNVT3D extrude tet obj2",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nGEO23 2 2\n50.0 0.0\nGEOSEC 2 20\nMSHSEC 2 21\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "Extrude length 50 from z=0: log lines 'ExtrudeStartLocation = 0.000000', 'ExtrudeLength = 50.000000'; wpaxis entry type 1 A=(0,0,0) B=(0,0,50); object rotated +90 about x when CRDSYS != 2."
+  }
+}

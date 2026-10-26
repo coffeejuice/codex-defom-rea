@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:33:01.710851+00:00",
+  "reviewer": "validation_fixtures",
+  "status": "external_capability_blocker_confirmed_for_current_surface",
+  "question": "Is a supported Windows app-control release operation plus explicit release verification currently exposed?",
+  "conclusion": "No such operation or verification status is documented or exposed in the examined installed and available tool surface. Do not acquire a new GUI-control session under the current user gate.",
+  "release_operation": null,
+  "release_receipt_or_status": null,
+  "current_desktop_control_state": "unverified; not observed by this review",
+  "scope_qualification": "This is a bounded finding for currently installed documentation and exposed tools. It does not establish global impossibility, undocumented implementation behavior, or the state of another version.",
+  "local_sources": [
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1016.62342\\skills\\computer-use\\SKILL.md",
+      "sha256": "8211e4b11a19a0dc4f0ace91096c74c5b36037ca4cb2c8988f0f535bb209e951"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1016.62342\\docs\\api.md",
+      "sha256": "c36d005fb98ed79837a1a5d4605ebad036cec95864e5646f451425163d5c16af"
+    },
+    {
+      "path": "C:\\Users\\alext\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1016.62342\\docs\\guidance.md",
+      "sha256": "b171b26bc19f49226bb594bf3ed3f36666e5dd063a996c297986b2b461ac8efd"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\AGENTS.md",
+      "sha256": "d8de6042af42b2b40cbdb6c279db6fff3e26e5ef4cbaab786b65c10ada6aef37"
+    },
+    {
+      "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\analysis\\gui-control-lifecycle-assessment.json",
+      "sha256": "5a1657cabd718a7674a2a70aaf350d4186e85bc19704e5a96318c55cb5d79d0b"
+    }
+  ],
+  "supported_sky_methods": [
+    "list_windows",
+    "get_window",
+    "list_apps",
+    "launch_app",
+    "get_window_state",
+    "click",
+    "press_key",
+    "type_text",
+    "scroll",
+    "set_value",
+    "drag",
+    "perform_secondary_action",
+    "activate_window"
+  ],
+  "api_findings": {
+    "interface": "Window2ComputerUseClient",
+    "method_count": 13,
+    "window_state_fields": [
+      "accessibility",
+      "screenshots",
+      "window"
+    ],
+    "window_state_qualification": "These describe a selected app window and do not expose ownership/release confirmation.",
+    "release_or_status_method_documented": false,
+    "guidance_interruption_rule": "Stop issuing app input when the tool reports an ended turn or user stop.",
+    "guidance_reset_rule": "Reset is described as helper recovery only, not as a control-release guarantee."
+  },
+  "tool_metadata_findings": [
+    {
+      "tool": "mcp__node_repl__js_reset",
+      "documented_effect": "Reset JavaScript kernel and clear bindings",
+      "release_guarantee": false,
+      "called": false
+    },
+    {
+      "tool": "mcp__cua_repl",
+      "documented_scope": "Native computer APIs disabled; browser control entrypoints available",
+      "release_guarantee_for_windows_sky": false,
+      "called": false
+    },
+    {
+      "inspection": "Available nested tool names matching computer/cua/sky and release/control-status patterns",
+      "result": "No dedicated Windows app-control release or ownership-status tool exposed",
+      "invoked_gui_tool": false
+    }
+  ],
+  "official_sources": [
+    {
+      "url": "https://learn.chatgpt.com/docs/computer-use#windows-foreground-use",
+      "retrieval": "Fetched full official Computer Use page using fetch_openai_doc after official documentation search",
+      "finding": "Windows Computer Use acts on the active desktop and foreground. The page does not specify a callable release operation or release receipt."
+    },
+    {
+      "url": "https://learn.chatgpt.com/docs/computer-use#safety-guidance",
+      "retrieval": "Same fetched page",
+      "finding": "User takeover/stop guidance is present; it is not a documented agent-callable release-and-verify API."
+    }
+  ],
+  "searches": [
+    "Windows computer use release control",
+    "Windows Computer Use stop release session API",
+    "Computer Use release control"
+  ],
+  "search_qualification": "Search results alone do not prove absence; the conclusion is anchored to the full installed supported API and fetched official page. Unrelated Responses/API Linux integration examples do not establish a Windows plugin lifecycle operation.",
+  "actions_not_taken": [
+    "No GUI acquisition or window listing/state capture",
+    "No @oai/sky initialization",
+    "No app launch or native input",
+    "No REPL reset",
+    "No settings or permissions changes",
+    "No undocumented helper or emergency-stop bypass"
+  ],
+  "required_external_change": "Expose and document a supported release operation with a receipt or ownership-status observation suitable for explicit verification.",
+  "orchestrator_handoff": [
+    "Keep GUI-dependent cases blocked by the existing lifecycle gate; continue independent analysis and preparation.",
+    "Recheck only after a concrete supported tool/documentation capability change.",
+    "Physical Escape stops GUI input and leaves an interrupted action outcome unknown until legitimately reobserved; it does not cancel the overall plan.",
+    "Do not claim app control is off based on JS reset, debugger detach, app termination, idle time or this documentation review."
+  ],
+  "freeze": "Final review file; no prior frozen fixture files changed.",
+  "measurement": {
+    "elapsed_seconds_after_initial_orientation": 116.662,
+    "scope": "Wall time from tool metadata discovery through official searches, fetched documentation/API review and artifact creation; excludes initial skill/state orientation.",
+    "speedup_claim": null
+  }
+}

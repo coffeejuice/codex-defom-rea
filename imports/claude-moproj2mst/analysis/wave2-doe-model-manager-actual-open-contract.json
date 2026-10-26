@@ -1,0 +1,77 @@
+{
+  "schema": "m2m-model-manager-actual-open-static-v1",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence_sha256": {
+    "analysis/wave2-doe-output-default-task-open-and-manager-dtor-decompile.json": "70d504aeefb3b2f19fdab354934967be76c30df35ef02d47d4899163da02825e",
+    "analysis/wave2-doe-output-default-task-open-current-selection-decompile.json": "7108601e819ec7f9ece2d5ada259455ccc548ae1b801336a90b713ef925f4cb4",
+    "analysis/wave2-doe-output-default-task-open-failure-path-kind-decompile.json": "956f60d5da53bcf6676dc6ddb5c7c1b53f4416569734ebbaab06d326f08dab06",
+    "analysis/wave2-doe-output-default-task-model-manager-register-decompile.json": "61078de53c378d892520b2e838f7e8f3fc32f7de56ebca36607b8756715e3fc2",
+    "analysis/wave2-doe-model-manager-open-registration.asm": "f6b0431afa7aa6a590927532bcfd320cfa215dd7ac7e78f5bd12425c1983b33f",
+    "analysis/wave2-doe-model-manager-postopen-selection.asm": "a2a0817b64fced8633f88538295348598c3eaaaf9de8c96e1d258c458913389d",
+    "analysis/wave3-boolean-open-registration-14002a0e0.c": "e3aaadc9161f9982385071a7671ec2ba7dac1bf692d844f04f96424e3223788e",
+    "evidence/gui_mo/s1/s1-01/dc/act1.c": "d272ac7ac84393f847cdc7455be987c177b7de4e81cd8896aa5c8fc4c590dd91",
+    "evidence/gui_mo/s1/s1-01/dc/open0.c": "42a4c638ad7508addbe14e3d43c363a54f3cd24720dbda979c07deaed373703b",
+    "analysis/wave2-doe-model-manager-slotmodelchanged-dispatch.asm": "b0ff4be28336006c058295170b489ca3b7fc1fecc3de9ca880103712c86f8560",
+    "analysis/wave2-doe-model-manager-destructor-amendment.json": "814c85d4bfaae100ac66c1591909438bcb369c79350b2fc65d87429b00a69646"
+  },
+  "qualification": "Static original PE/decompile/retained sources only; no runtime or GUI. Corrected branch condition below supersedes an earlier coordination message that reversed extension dispatch.",
+  "native_open_entry": "File-dialog0271b0 calls01ca30 then02a0e0.01ca30 marks legacy-extension match and uses native branch ONLY when mark==0.",
+  "extension_control": {
+    "legacy_import_matches": [
+      "dprj",
+      "d2prj",
+      "d3prj",
+      "d2mo",
+      "d3mo",
+      "d2md",
+      "dmd",
+      "mdt"
+    ],
+    "legacy_branch": "mark!=0\u219201c2f0 import/dialog. Native .moproj is absent from that match set and follows mark==0 branch.",
+    "evidence_selection": "01ca30 decompile lines66..145 includes short-circuit assignments/goto and actual if(cStack140==0); raw bounded whole unwind region also retained.818b50 constructs dot-prefixed suffix then QString.endsWith(CaseInsensitive0)."
+  },
+  "ordered_native_branch": [
+    "If input matches .DB, manager key/path copies input; otherwise818d50 changes suffix to .DB at01cea9.",
+    "Manager lookupc78c10 at01cf0c, if found shows already-open information and returnsnull.",
+    "If absent c79390 at01d085 creates Mo child, sets/cleans path, assigns first unused ID, appends, registers two QObject connections. Current remains whatever manager already held. Fresh manager has null current.",
+    "dynamic_cast Mo, lazy Project044a90 at01d0d3; actual same child Project+8 backlink.",
+    "08a9b0 project read at01d0f6 with ORIGINAL supplied input path, after model registration but before postOpen current selection.",
+    "If returned08a9b0 boolfalse,044bf0 calls982c0 then0453e0 on child+19c0 Project, clears that backlink. It does not remove child from manager in its body. This is not inferred from XML parse failure:08a9b0 accepted-suffix return is independently qualified from P+55.",
+    "On accepted branch01ca30 returnsProject;0271b0 subsequently calls02a0e0(Project)."
+  ],
+  "post_open_selection": [
+    "02a0e0 calls0a5890(Project) at02a163 to get same registered model child.",
+    "c79ee0 at02a17e computes ordered LIST ORDINAL, not model ID; absent=-1.",
+    "02a9b0 at02a19c receives ordinal, subproject index0 and true.",
+    "02a9b0 may act on existing old current and045870 reset before comparing0457f0 current ordinal. For fresh null-current these old-current bodies skip.",
+    "If requested ordinal differs,045840\u2192045730 selects list ordinal through c78bb0, then mainwindow virtual+2c0 refresh.",
+    "Then045780 obtains newly currentProject,2ca9f0 busytrue,0a7250 activates subproject0,038380 binds view,virtual+7f0, busyfalse. DefaultTask reads occurring earlier must not be assigned this later current ID."
+  ],
+  "connections": {
+    "point": "c79390 AFTER ID/list append; QObject::connect registration is not an emit",
+    "sender": "actual new ModelBase/MoModel child",
+    "receiver": "manager+10 mainwindow",
+    "raw_connection_type": 3,
+    "enum_spelling": "not yet source-bound; do not label queued or direct from raw3",
+    "bindings": [
+      {
+        "signal": "2signalModelChanged(SfStepData *)",
+        "slot": "1slotModelChanged(SfStepData *)"
+      },
+      {
+        "signal": "2signalModelUpdated()",
+        "slot": "1slotModelUpdated()"
+      }
+    ],
+    "first_receiver_binding": "Mo Qtmetadata string14216f2d0/data14216e830 localmethod98 slotModelChanged(SfStepData*), staticdb1a0 jump-table0dc900 case0dc5cf\u2192vtable+728, actualMo table1420fb108\u219203cd30. Receiver effects pending.",
+    "second_receiver": "inherited SfMainWindowBase slotModelUpdated Qtmetadata dispatch pending",
+    "emission_gate": "Logical connection registration may be projected with actual sender/owner identities; actual emitted callbacks and type3 dispatch/event ordering remain guarded until source closed. Do not declare whole factory/Open complete from append helper."
+  },
+  "live_doe_binding": {
+    "owner": "same actual ConversionSession ModelManager shared into StudyIo",
+    "setter": "void StudyIo::bindModelManager(std::shared_ptr<engine::ModelManager> owner); nonnull/idempotent same owner/reject replacement",
+    "getter": "engine::ModelManager* StudyIo::modelManager() const noexcept; null means unavailable, not observed empty manager",
+    "consumer": "defaultTask queries currentModelId() live at6477a0 DB_ID calculation; no copied integer and no eager selection before original postOpen phase."
+  },
+  "source_status": "ModelManager7 cases validated by coordinator at checkpoint26; StudyIo binding is next authorized edit; Open/core/ConversionSession remain coordinator owned."
+}

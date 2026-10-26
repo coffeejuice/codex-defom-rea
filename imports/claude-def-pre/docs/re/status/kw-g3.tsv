@@ -1,0 +1,73 @@
+address	status	note
+0x140388fb0	verified	port/defkey/src/kw_g3/read_g3.cpp read_keyword (group 3 parser, all 11 keywords) (oracle: tests/data/kw_g3 round trips, 406 corpus KEY round trips)
+0x1403c9ad0	verified	port/defkey/src/kw_g3/write_g3.cpp write_inter_objects
+0x1403c8560	verified	port/defkey/src/kw_g3/write_g3.cpp write_pair (CNTACT + windows + record chain)
+0x1403c9be0	verified	port/defkey/src/kw_g3/write_g3.cpp write_frcfac
+0x1403caa40	verified	port/defkey/src/kw_g3/write_g3.cpp write_frcrot
+0x1403ca830	verified	port/defkey/src/kw_g3/write_g3.cpp write_ihtcof
+0x1403cad60	verified	port/defkey/src/kw_g3/write_g3.cpp write_sepres
+0x1403caf20	verified	port/defkey/src/kw_g3/write_g3.cpp write_sepden
+0x1403cb0a0	verified	port/defkey/src/kw_g3/write_g3.cpp write_intrst
+0x1403cbce0	verified	port/defkey/src/kw_g3/write_g3.cpp write_cntmth
+0x1403cb840	verified	port/defkey/src/kw_g3/write_g3.cpp write_wmodel
+0x1403cbb10	verified	port/defkey/src/kw_g3/write_g3.cpp write_rgdcnt
+0x1403cab90	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_frcrot
+0x1403cb3e0	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_ihtcof
+0x1403cae30	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_sepres
+0x1403cafb0	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_sepden
+0x1403cb1f0	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_intrst
+0x1403cb5f0	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_frcfac
+0x1403cba00	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_wmodel
+0x1403cbbd0	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_rgdcnt
+0x1403cbdf0	ported	port/defkey/src/kw_g3/registry_g3.cpp handler2_cntmth
+0x1403cac80	ported	port/defkey/src/kw_g3/registry_g3.cpp handler3_frcrot
+0x1403cb520	ported	port/defkey/src/kw_g3/registry_g3.cpp handler3_ihtcof
+0x1403cb300	ported	port/defkey/src/kw_g3/registry_g3.cpp handler3_intrst
+0x1403cb740	ported	port/defkey/src/kw_g3/registry_g3.cpp handler3_frcfac
+0x14041b7d0	verified	port/defkey/src/kw_g3/window_io.cpp window_read_points_3d; all shapes incl. 3 (fills the window OBJ_GEO3D +0x220: node count, indexed nodes, element count, 5-int element lines; indices not checked); shape 3 reached by MGUSER 3D only (tests: test_kw_g3_window3d, no shape-3 window in the corpus)
+0x14041b6a0	verified	port/defkey/src/kw_g3/window_io.cpp window_read_points_2d
+0x1402f4890	verified	port/defkey/src/kw_g3/window_io.cpp window_write_points; all shapes incl. 3 (OBJ_GEO3D nodes and elements, always indexed); KEY round trip in test_kw_g3_window3d (MGUSER shape 3)
+0x1400015d0	verified	port/defmodel/src/window/inter_object_ops.cpp pair_count
+0x1401faaa0	verified	port/defmodel/src/window/inter_object_ops.cpp pair_append
+0x1401fac90	verified	port/defmodel/src/window/inter_object_ops.cpp pair_nth
+0x1401facf0	verified	port/defmodel/src/window/inter_object_ops.cpp pair_find
+0x1401f9e80	verified	port/defmodel/src/window/inter_object_ops.cpp pair_copy_keep_ids (mirror)
+0x1401f9900	verified	port/defmodel/src/window/inter_object_ops.cpp pair_copy
+0x1401f9d50	verified	port/defmodel/src/window/inter_object_ops.cpp friction_copy
+0x1401f9e10	verified	port/defmodel/src/window/inter_object_ops.cpp ihtcof_copy
+0x14012eff0	verified	port/defmodel/src/window/inter_object_ops.cpp dynary_copy (DYNARY family, not in key-common API); not in the ledger
+0x14019a590	verified	port/defmodel/src/window/window_list.cpp winlist_count
+0x1402694a0	verified	port/defmodel/src/window/window_list.cpp winlist_new
+0x1402693f0	verified	port/defmodel/src/window/window_list.cpp winlist_link
+0x14025c8e0	ported	port/defmodel/src/window/window_list.cpp winlist_link (setter inlined)
+0x140269900	verified	port/defmodel/src/window/window_list.cpp winlist_nth
+0x140269bc0	verified	port/defmodel/src/window/window_list.cpp winlist_extend
+0x140269340	verified	port/defmodel/src/window/window_list.cpp winlist_copy
+0x14025c100	verified	port/defmodel/src/window/llwindef_data.cpp LLWINDEF_DATA ctor; _OBJ_GEO3D at 0x220 kept opaque (1402f9020 not called)
+0x14025c6e0	ported	port/defmodel/src/window/llwindef_data.cpp LLWINDEF_DATA dtor; 1402f91f0 (_OBJ_GEO3D dtor) not called
+0x14026a380	ported	port/defmodel/src/window/llwindef_data.cpp vtable slot 0 (scalar deleting dtor) = delete; p1-06 Cls_140269250::clear calls it
+0x14025c350	verified	port/defmodel/src/window/llwindef_data.cpp window_init; _OBJ_GEO3D vtable slot 2 reset on +0x220 (kwm-audit)
+0x14025c870	ported	port/defmodel/src/window/llwindef_data.cpp window_init (owner-3D test inlined)
+0x14025c8b0	ported	port/defmodel/src/window/llwindef_data.cpp window_init (dimension setter inlined)
+0x14025d0a0	verified	port/defmodel/src/window/llwindef_data.cpp window_free; 1402f9340 (_OBJ_GEO3D clear) on +0x220 (kwm-audit)
+0x14025d1a0	verified	port/defmodel/src/window/llwindef_data.cpp window_reset
+0x14025c9b0	verified	port/defmodel/src/window/llwindef_data.cpp window_copy; _OBJ_GEO3D copy (1402f9360/1402f9b60) on +0x220 (kwm-audit)
+0x14025c930	verified	port/defmodel/src/window/llwindef_data.cpp window_is_2d
+0x14025c970	verified	port/defmodel/src/window/llwindef_data.cpp window_is_3d
+0x140263450	ported	port/defmodel/src/window/llwindef_data.cpp window_set_shape
+0x1402635d0	ported	port/defmodel/src/window/llwindef_data.cpp window_geometry_kind
+0x140263cb0	verified	port/defmodel/src/window/llwindef_data.cpp window_alloc_points
+0x140263360	verified	port/defmodel/src/window/llwindef_data.cpp window_free_points
+0x1402633d0	ported	port/defmodel/src/window/llwindef_data.cpp window_free_faces
+0x140263dc0	ported	port/defmodel/src/window/llwindef_data.cpp window_alloc_faces
+0x140263fc0	ported	port/defmodel/src/window/llwindef_data.cpp window_point; shape-3 kind: 140006410 on +0x220 (kwm-audit)
+0x140264090	ported	port/defmodel/src/window/llwindef_data.cpp window_face
+0x140264750	ported	port/defmodel/src/window/llwindef_data.cpp window_set_face_mid
+0x140264800	ported	port/defmodel/src/window/llwindef_data.cpp window_set_face_at
+0x140264850	ported	port/defmodel/src/window/llwindef_data.cpp window_set_face
+0x140267760	ported	port/defmodel/src/window/llwindef_data.cpp window_build_faces
+0x140267560	ported	port/defmodel/src/window/llwindef_data.cpp window_rim_point (result in g_dat_1406feac0)
+0x1402640f0	ported	port/defmodel/src/window/llwindef_data.cpp window_axis
+0x140267490	ported	port/defmodel/src/window/llwindef_data.cpp largest_component
+0x14023b110	ported	port/defmodel/src/window/llwindef_data.cpp vadd
+0x14023b3a0	ported	port/defmodel/src/window/llwindef_data.cpp vdot

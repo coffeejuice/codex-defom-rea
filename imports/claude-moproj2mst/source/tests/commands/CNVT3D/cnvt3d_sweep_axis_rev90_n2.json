@@ -1,0 +1,26 @@
+{
+  "label": "CNVT3D sweep revolve 90 nsec 2 nodes on axis",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 900,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGEO23 2 1\n90.0 0.0 0.001\nGEOSEC 2 4\nMSHSEC 2 2\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "data/sweep_axis.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "NBCD.OUT",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "c=0.001: nodes 1,4 on axis kept once; elem 1 at s=1 dropped, s=2 spans layers 0..2; 0.9 scaling of layer-2/0 nodes"
+  }
+}

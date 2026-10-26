@@ -1,0 +1,58 @@
+{
+  "scope": "Display selected-model override needed by graph notification receivers; read-only projection requirements",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-display-override-candidates.json",
+      "sha256": "0e4a57b459349344005d1ad4a4d698cf1704944c69c9ec5f3178607848534fd8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-display-override-lifetime-static.json",
+      "sha256": "250e60e5b92e83a5d109fb8ea06110b82051ec4a7a9d629d77235fd0aed2d488"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-display-override-assignment-static.json",
+      "sha256": "5a3b38bea419f221a48095e61726c1d9bcb4d5d04ae49df87802a5dd8d423cac"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d0d610.asm",
+      "sha256": "14fbd8b699f493dd7353198a4a1213d367604fc054f72bb55ccea33c5c944303"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140cbc920.asm",
+      "sha256": "7a5864778bfa6e2ed120a628cac18e566cb2603a1ab09945b7ac378f3ba78f8f"
+    },
+    {
+      "path": "analysis/wave2-doe-statevar-legend-size-leaf-14015d170.asm",
+      "sha256": "ed047bb7116d6a5a37223cdb3289d732942a1ec20a0e16bb7097278afd40f179"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer_camera.cpp",
+      "sha256": "e9b4e639ec2f75051610e141f319ea95e7de7dc7d2e722104d61f16f52372232"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_scene.hpp",
+      "sha256": "6df200ba2bdd14fbb9fc43be0273bc336fcbbe7045c89410d1c3409029ec7331"
+    }
+  ],
+  "method": "Bounded displacement candidate scan followed by instruction-verified original lifetime/selection routines",
+  "established": [
+    "d0d610 returns guarded Display+1a0 main unless guarded+1e0 is nonnull, in which case returnsoverride.",
+    "cf8b00 constructs+1e0 with15d170, a purezeroqword initializer. cf9150 clears it throughcbc920(0). cf8fa0 tears down guard viacbc900.",
+    "cbc920 changes the guarded pointer only if its value differs; c5ba00 assigns another guard value unless self-assignment. Both delegate to QMetaObject::changeGuard import141e058b0.",
+    "d0d3d0 captures prior selectedmodel (main withoverride), clears+1e0, then searches its named-model entries for pointer equality, then +1c8, +1a0, +1b8 inthatorder. On firstmatch it invokes the respective existing controller helper before assigning+1e0 frommatchingmodel. It returns priorselectedmodel.",
+    "That controller/helper work remains unprojected in thisreceipt; no syntheticsetter is a complete implementation ofd0d3d0.",
+    "Current Display and DisplayModels source at captured hashes have no+1e0 equivalent; main/displayShown are not substitutes."
+  ],
+  "qualifications": [
+    "57 displacement byte-patterncandidates were bounded to0xcf0000..0xd10000; stack/vtableoffset occurrences wereexcluded fromthechosenreceiverfield paths afterinstructionreview. This isnot an exhaustivewholebinarywriteset.",
+    "Constructor-null doesnotprove nullafterOpen/Save, because explicitselection canchange it.",
+    "QPointer lifetime is partofrequiredmodel; a rawpointerfieldwithoutmodeldetach cleanup is insufficient.",
+    "No source changes or guardrelaxation follow automatically."
+  ],
+  "proposed_next": [
+    "Add an actual nonowning guarded override toDisplay only withsession-owned modeldetach handling.",
+    "Expose selectedmodel getter asmain/override semantics separatefromshownselector.",
+    "Retain guardsatunrecoveredcontroller work when implementingselection."
+  ]
+}

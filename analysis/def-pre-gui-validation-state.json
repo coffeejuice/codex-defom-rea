@@ -1,0 +1,292 @@
+{
+  "schema_version": 2,
+  "updated_utc": "2026-10-23T15:59:08.657226+00:00",
+  "overall": {
+    "status": "blocked",
+    "objective": "Complete adaptive GUI/controller compatibility validation; broader recovery remains incomplete",
+    "next_action": "On a concrete supported app-control capability change, verify release plus receipt/status, then resume owned-session stability isolation and actual GUI-child observation; do not repeat completed preparation.",
+    "stop_policy": "Only completion, explicit cancellation, enforced tool stop or exhaustion of executable recovery paths",
+    "blocker": "Required GUI release lifecycle unavailable on the current supported tool surface; all remaining acceptance cases depend on it."
+  },
+  "candidate": {
+    "version": "0.2.1",
+    "sha256": "7E9D043F19D453D9F1D3CAE217B17EAAF0BD70F55A29979741729AB2A1F7C9C5",
+    "deployment_evidence": "analysis/gui-post-diagnostic-invariants.json"
+  },
+  "gui_control": {
+    "status": "release_unverified",
+    "release_capability": "unsupported",
+    "acquired_this_turn": false,
+    "ownership": "No GUI control acquired during parallel preparation/native diagnostics; prior manager identity observation is historical.",
+    "last_action": {
+      "outcome": "unknown",
+      "description": "Prior file-list selection interrupted by reported physical Escape"
+    },
+    "cleanup_evidence": "analysis/gui-control-lifecycle-review.json",
+    "resume_rule": "Require supported verified release lifecycle and fresh window selection",
+    "native_diagnostics": "H1/H2 used native instrumentation only; both owned helpers terminated and sessions detached. This is not a GUI control-release receipt."
+  },
+  "tasks": [
+    {
+      "id": "reconcile",
+      "status": "complete",
+      "depends_on": [],
+      "requires_gui": false,
+      "kind": "analysis",
+      "evidence": [
+        "analysis/def-pre-gui-validation-history-20261023.json"
+      ]
+    },
+    {
+      "id": "control_release",
+      "status": "blocked",
+      "depends_on": [],
+      "requires_gui": false,
+      "kind": "analysis",
+      "blocker": "Current supported Windows tool surface exposes no release operation plus release receipt/status; user requires both before GUI input.",
+      "evidence": [
+        "analysis/gui-control-lifecycle-review.json"
+      ]
+    },
+    {
+      "id": "static_routes",
+      "status": "complete",
+      "depends_on": [],
+      "requires_gui": false,
+      "kind": "analysis",
+      "evidence": [
+        "analysis/gui-invocation-route-map.json",
+        "analysis/gui-route-independent-review.json"
+      ],
+      "qualification": "Static MO/controller branch contract complete for identified callers; actual child paths require capture. Solver inventory is not full solver code analysis."
+    },
+    {
+      "id": "helper_connection",
+      "status": "complete",
+      "depends_on": [],
+      "requires_gui": false,
+      "kind": "analysis",
+      "evidence": [
+        "analysis/helper-launch-context-findings.json",
+        "analysis/helper-H1-supervisor.json",
+        "analysis/helper-H2-supervisor.json"
+      ],
+      "qualification": "Only the reproduced independent native helper configuration fetch is resolved; the earlier GUI warning cause and full helper workflow remain unverified."
+    },
+    {
+      "id": "fixtures_and_comparators",
+      "status": "complete",
+      "depends_on": [],
+      "requires_gui": false,
+      "kind": "analysis",
+      "evidence": [
+        "analysis/gui-fixture-handoff.json",
+        "analysis/gui-trial-preflight.json",
+        "analysis/gui-validation-comparator-contract.json",
+        "analysis/gui-post-diagnostic-invariants.json"
+      ],
+      "qualification": "R4 static preparation only; 2D GUI verification and large-project full copies remain deferred until GUI prerequisites."
+    },
+    {
+      "id": "gui_stability",
+      "status": "blocked",
+      "depends_on": [
+        "control_release"
+      ],
+      "requires_gui": true,
+      "kind": "analysis",
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "small3d_unchanged",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "helper_gui_verification",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "helper_connection"
+      ],
+      "requires_gui": true,
+      "kind": "analysis",
+      "blocker": "Supported release lifecycle unavailable; actual GUI-launched helper child context and full setup remain unobserved."
+    },
+    {
+      "id": "small3d_object_edit",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "small3d_material_edit",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "small3d_controls_edit",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "preview_export",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate.",
+      "qualification": "Only execute commands confirmed by the route map and observed GUI; do not manufacture coverage by replacing 32-bit DEF_PRE."
+    },
+    {
+      "id": "small2d_equivalents",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "small2d_conversion",
+      "status": "blocked",
+      "depends_on": [
+        "small2d_equivalents",
+        "static_routes"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "blocker": "Supported GUI release lifecycle unavailable, plus verified 2D GUI fixture and conversion prerequisites are not yet observed.",
+      "acceptance": {},
+      "qualification": "SfOprConvert2Dto3D::slotGenerateAll is the strongest mapped MO marker-selected route; exact GUI command and runtime child still need observation."
+    },
+    {
+      "id": "large_selected_step",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "static_routes",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    },
+    {
+      "id": "controller_one_step",
+      "status": "blocked",
+      "depends_on": [
+        "gui_stability",
+        "helper_gui_verification",
+        "fixtures_and_comparators"
+      ],
+      "requires_gui": true,
+      "kind": "backend_case",
+      "acceptance": {},
+      "blocker": "Depends on control_release: supported release and verification capability unavailable; no new GUI input authorized under current gate."
+    }
+  ],
+  "observations": [
+    {
+      "id": "generation",
+      "result": "110080-byte DB generated; no child invocation observed; not backend acceptance",
+      "evidence": "analysis/mo-generate-db-observation.json"
+    },
+    {
+      "id": "run_options",
+      "result": "Helper connection warning; services running; no solver run",
+      "evidence": "analysis/mo-run-options-observation.json"
+    },
+    {
+      "id": "accessibility_crash",
+      "result": "Qt accessibility stack; process-local guard diagnostic only",
+      "evidence": "analysis/mo-accessibility-crash-evidence.json"
+    },
+    {
+      "id": "manager_context",
+      "result": "Historical manager13628 had expected DEF_CFG_DIR and CWD; earlier GUI helper argv/CWD were captured, but its DEF_CFG_DIR and configuration fetch remain unobserved. Independent native H1/H2 context is recorded separately.",
+      "evidence": "analysis/manager-selected-launch-context.json"
+    },
+    {
+      "id": "native_helper_H1_H2",
+      "result": "Independent native H1 empty-path failure corrected in H2 child environment; valid configuration flag, not GUI acceptance. Both helpers terminated at owned 45-second diagnostic deadlines.",
+      "evidence": "analysis/helper-launch-context-findings.json"
+    },
+    {
+      "id": "parallel_preparation",
+      "result": "27 combined offline tests passed; updated canonical-path preflight repair independently passed its 16-test suite. No backend acceptance or full application completion.",
+      "evidence": "analysis/gui-fixture-handoff.json"
+    }
+  ],
+  "history": "analysis\\def-pre-gui-validation-history-20261023.json",
+  "constraints": {
+    "test_root": "C:/PROBLEM",
+    "max_path_exclusive": 100,
+    "solver_deadline_seconds": 120,
+    "restore_originals": false,
+    "source_projects_read_only": true
+  },
+  "parallel_execution": "analysis/gui-validation-parallel-state.json",
+  "resume_cursor": {
+    "first": "control_release",
+    "then": [
+      "gui_stability",
+      "helper_gui_verification",
+      "small3d_unchanged",
+      "small3d_object_edit",
+      "small3d_material_edit",
+      "small3d_controls_edit",
+      "preview_export",
+      "small2d_equivalents",
+      "small2d_conversion",
+      "large_selected_step",
+      "controller_one_step"
+    ],
+    "required_external_change": "Supported release operation with explicit receipt or observable release status.",
+    "recheck_trigger": "Concrete tool/documentation capability change, not elapsed time or repeated identical retry.",
+    "candidate_version": "0.2.1",
+    "reviewed_helper_context": "analysis/gui-helper-resume-contract.json"
+  },
+  "integration_report": "analysis/gui-validation-integration-report.md"
+}

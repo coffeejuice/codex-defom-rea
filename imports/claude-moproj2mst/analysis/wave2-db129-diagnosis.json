@@ -1,0 +1,16 @@
+{
+  "capture": "analysis\\wave2-db129-capture.json",
+  "status": "diagnosis_in_progress_no_production_edit",
+  "facts": {
+    "axis": "Candidate DTUPAXIS/CRDSYS3; historical0",
+    "mesh_weights": "Candidate MGWSTN/MGWSTR1 versus historical0.25; MGWCUV1 versus0.5, all3objects",
+    "missing": "Operations/Task00002/SfOprConvert2Dto3D_TEMP_STEP.KEY",
+    "fixture_qualification": "mkdbstep2.py creates this case by changing operation2 to Convert2Dto3D while retaining a3D database; preserve original behavior even for this unusual combination."
+  },
+  "candidate_chain": {
+    "loader": "src/engine/l5_slots.cpp c23Load sets st.loading around baseLoad; c23SyncTail returns while loading; work-model serialization depends on st.work",
+    "evidence": "evidence/gui_mo/s1/mdt/L5/d0.c0x1401c3a60 corroborates loading guard and conditional work serialization",
+    "unresolved": "Whether original DB activation creates/synchronizes work model through another UI transition; mesh settings initialization and axis editor lifecycle also require tracing."
+  },
+  "no_blanket_fix": "Do not hardcode historical values or force c23SyncTail during guarded load without original call-chain evidence."
+}

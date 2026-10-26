@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-24",
+  "scope": "Read-only metadata and retained receipt audit for m2m.s.save_folder; no fixture content was read or hashed by this audit.",
+  "save_folder": {
+    "cases": 98,
+    "latest_receipt": "analysis/test-relocation-results.json",
+    "latest_run": "build/test-runs/1792854086489696400",
+    "case_seconds": 18.5023,
+    "historical_split": "A fresh re-save corpus plus B historical oracle-B cases; the retained result reports 93 adjusted matches, five differing cases, 30 differing/missing/extra files total, zero refusals."
+  },
+  "fixture_sha": {
+    "roots": 4,
+    "files": 16728,
+    "bytes": 1867669827,
+    "one_snapshot_warm_seconds": 20.681,
+    "snapshots_per_full_run": 2,
+    "observed_full_launcher_seconds": 58.598,
+    "observed_ctest_seconds": 18.563,
+    "observed_non_ctest_seconds": 40.035,
+    "limitations": [
+      "The 20.681-second sample is one read-only warm-cache timing of the legacy serial snapshot, not a repeated median.",
+      "The retained launcher timing phases are not included in this audit's summarized report; the 40.035-second subtraction includes both hashes and all other launcher overhead.",
+      "Do not infer that fixture hashing alone costs 41.362 seconds: cache state and phase timing differ, and two snapshot durations cannot be extrapolated from one sample."
+    ]
+  },
+  "metadata_views": {
+    "corpus_A_current_tree": {"case_directories": 56, "files": 2114, "bytes": 311285240, "method": "Read directory entries and file sizes only."},
+    "corpus_B_current_tree": {"case_directories": 34, "files": 1079, "bytes": 66781512, "method": "Read directory entries and file sizes only."},
+    "oracle_B_current_tree": {"directories_including_before_and_diff": 403, "files": 14440, "bytes": 1464352698, "method": "Read directory entries and file sizes only; this is a preserved evidence tree, not the per-run copy set."},
+    "stale_or_unmatched_manifest_warning": "The copied_files/copied_bytes columns in the two inspected case manifests both total 9,972 files / 1,988,067,981 bytes and include two ~838 MB projects that are not present in the current corpus tree. Treat those manifest totals as planned/recorded corpus metadata, not current per-case bytes consumed by this sweep."
+  },
+  "heavy_cases_from_manifest_metadata": [
+    {"case": "29_2026_04_INC718_diam_450_Option_1_v35", "recorded_input_files": 3915, "recorded_input_bytes": 838639889, "qualification": "Manifest-only; absent from current corpus directory inventory."},
+    {"case": "30_2026_06_Inc718_diam_420_v41", "recorded_input_files": 3914, "recorded_input_bytes": 838142852, "qualification": "Manifest-only; absent from current corpus directory inventory."},
+    {"case": "26_Inc718_D420_GFM_V_DIES_Angle2_19", "recorded_input_files": 45, "recorded_input_bytes": 25731815},
+    {"case": "25_Inc718_D420_GFM_V_DIES_Angle2_18", "recorded_input_files": 41, "recorded_input_bytes": 25667521},
+    {"case": "28_Inc718_D420_GFM_V_DIES_Angle2_18", "recorded_input_files": 41, "recorded_input_bytes": 25667521},
+    {"case": "50_MO2_Extrusion_and_Boolean_Cycles", "recorded_input_files": 131, "recorded_input_bytes": 12603349},
+    {"case": "47_MO2_Extrusion_and_Boolean_Cycles", "recorded_input_files": 131, "recorded_input_bytes": 12023971}
+  ],
+  "per_case_io": {
+    "measured": false,
+    "reason": "The retained JUnit and CTest logs contain case classifications, summary tallies, and aggregate elapsed time, but no per-case copy/read byte counters or phase timings. The separately retained folder-profile specification documents instrumentation but explicitly says it has not been built or run. This read-only task does not run that instrumentation.",
+    "output_bytes": "Unknown per case. Existing diagnostic diff rows count changed/missing/extra files, not total output bytes."
+  },
+  "likely_io_contention": [
+    "The sweep itself is one CTest executable and serially handles the 98 cases, so CTest -j does not parallelize this critical path.",
+    "Each case recursively copies a project tree, invokes conversion and enumerates/reads files for comparison; the largest current corpus cases are ~25.7 MB and ~130 files, while historical manifest rows include two anomalous ~838 MB records absent from the current tree.",
+    "The two full fixture SHA snapshots read 1.87 GB each and compete with any concurrent CTest reads/copies for cache and storage bandwidth. Current evidence does not isolate that contention or attribute the sweep's 18.5 seconds to specific phases.",
+    "Sharding cases could increase simultaneous copy/compare traffic and make disk or antivirus contention worse; benchmark before assuming workers improve elapsed time."
+  ],
+  "benchmark_matrix": {
+    "fixed_controls": ["Same candidate binary and source fingerprint", "Same fixture root contents and complete before/after SHA manifests", "Same 98-case membership/order and comparison rules", "Same machine, storage target, antivirus state, and isolated run directories"],
+    "variants": [
+      {"dimension": "case_workers", "values": [1, 2, 4, 8, 10], "note": "Only after deterministic isolated case partitioning exists; keep the existing serial executable as control."},
+      {"dimension": "fixture_hash_workers", "values": [1, 2, 4, 8], "note": "Bounded hashing only; verify byte-for-byte mapping and insertion order against serial hashing."},
+      {"dimension": "cache_state", "values": ["warm", "cold/OS cache-cleared when safely available"], "note": "Do not conflate; label cold condition and repeat separately."},
+      {"dimension": "overlap", "values": ["hashes and tests sequential", "existing full launcher sequence"], "note": "Do not add overlap without measuring storage contention and fixture quiescence."}
+    ],
+    "repetitions": "At least 5 paired repetitions per supported configuration, alternating order; report median, range, and individual phase times.",
+    "phase_capture": ["full launcher wall", "inventory", "before SHA", "CTest total", "per-case copy/conversion/comparison/cleanup", "after SHA", "JUnit/report"],
+    "acceptance_equivalence": ["Same statuses, skips/refusals and raw/adjusted diagnostics", "Same per-case outputs and file hashes", "Same complete before/after fixture manifests", "Same ABI/regression results and report membership"]
+  }
+}

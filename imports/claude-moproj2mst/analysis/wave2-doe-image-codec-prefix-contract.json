@@ -1,0 +1,77 @@
+{
+  "schema": "m2m-doe-image-codec-prefix-v1",
+  "scope": "Actual first Session Image codec and original diagnostic prefix; guard before QImage/PNG reader for all decoded data",
+  "source_hashes": {
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "17cdb17e397dc2ddb82f033807f42fe3d62d8881e278396b86834dc686f1282d",
+    "source/apps/moproj2mst/include/m2m/doe_session_records.hpp": "bf505c11e70ac8106dd83a699bc7bd3fbe75569480d3d2df161881a0c8c3bb47",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "7248642aecbbe103a5c923605b8072fdb6c65cb70974b0b5b1d20c4592ad9d1e",
+    "source/apps/moproj2mst/src/doe/session.cpp": "954c4cb89a39d5d954dc911e4a1591f5c93ac078b0084352895f25e70e153692",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "0e76376bea474916b555b17dcf92bc43852d7128facdd287eb98729db986565e"
+  },
+  "root_binding_hashes": {
+    "source/apps/moproj2mst/include/m2m/common.hpp": "d99553c9bdab354a6b1d324c11acc25f2a9982376682f71eae187e8bf965eed6",
+    "source/apps/moproj2mst/src/core/convert.cpp": "7ee658577555cde8070a85d001757ead554db1fee85aead96a89cd1b448f22ae"
+  },
+  "evidence_hashes": {
+    "analysis/wave2-doe-session-task-payload-entry-decompile.json": "ed5205a9142040bb4cacb28d68b6351175f3f0f1a300bbca30408fe9c99ecef5",
+    "analysis/wave2-doe-image-qtcore-exports.json": "e236d71dd82cfe1fbcb4cf8cf697e463a1d9d3534dac2cc51b7d1e9444293608",
+    "analysis/wave2-doe-image-qUncompress-6702e800.asm": "363120494553dc509211bd47384f9f6191853afff38da0b718f876d345e6fb70",
+    "analysis/wave2-doe-image-qtgui-exports.json": "ecaa86596d57dfb8483276d8ed9bdb84b18e8005d5b7e5d2f846829520549e56",
+    "analysis/wave2-doe-image-loadfromdata-receipt.json": "71396cf3ca5154d455b887e10dc7f2b2425ec4d4844b0d3df9fc12ae4883ea99",
+    "analysis/wave2-doe-image-fromdata-650b5410.asm": "18876d0f92d06e1606602b03db14c40b7d9f7500d175c14876435a2840470458",
+    "source/apps/moproj2mst/include/m2m/blob.hpp": "3db47e0ba45c076a170009922bd0701bc2da6adfb45ce82c8366ddd8e2244fd3",
+    "source/apps/moproj2mst/src/moproj/blob.cpp": "afba156492c1872776849263c29358d5c066c10b9722e190373a229c0166e5e1",
+    "source/apps/moproj2mst/src/model/props_keys.cpp": "f8e9245fa163a1de5625cd015f8160a1f0d94cb073d93285e77cacc943eece70"
+  },
+  "qtcore_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "literal_bindings": [
+    {
+      "va": "0x671b03e8",
+      "ascii": "qUncompress: Input data is corrupted",
+      "raw_hex": "71556e636f6d70726573733a20496e707574206461746120697320636f72727570746564"
+    },
+    {
+      "va": "0x671b0410",
+      "ascii": "qUncompress: Data is null",
+      "raw_hex": "71556e636f6d70726573733a2044617461206973206e756c6c"
+    }
+  ],
+  "warning_export": [
+    {
+      "name": "?qWarning@@YAXPEBDZZ",
+      "va": "0x6701cee0"
+    }
+  ],
+  "ordered_contract": [
+    "653930 first direct Image child only. QString text\u2192toAscii\u2192QByteArray fromHex\u2192original0ab710 qUncompress\u2192QImage loadFromData(PNG). Image helper precedes SessionRecord creation and task factory.",
+    "Reuse existing qt::toAscii/fromHex/qUncompress supported seam, no new inflater or copied expected image bytes. Warning callback occurs before guard at QImage.",
+    "Shipped QtCore6702e800: nonnull pointer with n<4 or n==4 nonzero hint emits671b03e8 throughqWarning6701cee0 then returns empty. Four zero bytes return empty without warning.",
+    "StudyIo noteQtWarning appends diagnostic observation before optional configured sink. SessionImportContext.reportQtWarning is required when codec warns; missing callback guards instead of silently losing it.",
+    "Root core binds sink immediately after native/recording factory beforeopenProject, appending Ctx.originalDiagnostics. Ctx.warnings/STRICT/ABI message assembly unchanged.",
+    "Shipped QtGui65090d80 wrapper calls650b92f0;650b92f0 calls650b5410 even for empty bytes;650b5410 constructs QBuffer/QImageReader and callsread650c3560. No unproven zero-length bypass/null-image result is assumed.",
+    "After codec diagnostic, guard before QImage reader. No Session appended, current index remains preceding value, no clearNamedModels or Task payload effects for this Image Session."
+  ],
+  "diagnostic_qualification": "Original qWarning message/order observed in an explicit per-conversion channel. Exact installed Qt message handler, stderr/debugger/UI logging route is not reconstructed. Diagnostics never promoted into converter ABI warnings or STRICT errors.",
+  "codec_qualification": "Reuses imported self-contained Qt4-style codec seam; full shipped zlib allocation/retry/fault parity remains qualified. Direct small-input branches are byte-backed; successful nonempty PNG decoding remains unsupported.",
+  "tests": {
+    "status": "Frozen for parent combined build",
+    "session_cases": 25,
+    "new_cases": 4,
+    "coverage": [
+      "empty/corrupt Image exact diagnostic before append/PNG guard",
+      "zero-hint and valid zlib stream no diagnostic; first Image only",
+      "missing warning callback guards; StudyIo records before sink callback",
+      "actual bridge STRICT retains originalDiagnostics while ABI warnings empty"
+    ],
+    "worker_checks": [
+      "git diff --check passed; no worker build/runtime"
+    ]
+  },
+  "remaining": [
+    "QImageReader/PNG successful and failed/empty decode results and diagnostics",
+    "Task constructor execution preferences/global Task ownership remain queued",
+    "StepData/StateVar model import and fallback/selection/notifications",
+    "No active DOE Save completion or fresh original acceptance"
+  ],
+  "app_control_used": false
+}

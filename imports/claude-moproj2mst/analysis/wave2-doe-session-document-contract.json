@@ -1,0 +1,75 @@
+{
+  "schema": "wave2-doe-session-document-v1",
+  "scope": "Reachable DoeOutput ordered model reset/show and Type2 document preparation; guard before644440 part/session/task/model import",
+  "source_files": {
+    "source/apps/moproj2mst/include/m2m/doe_session.hpp": "1f8db39fd3a4c25685611378eccc43528ae73b07f42d35258576dd9bb58cf361",
+    "source/apps/moproj2mst/src/doe/session.cpp": "a800666771071ed408b5897bfab0765d7f6cedad450fcd1ee57b7dfa873836de",
+    "source/apps/moproj2mst/include/m2m/doe_study.hpp": "5c732df88170c190364447577395537edf6c729ae209607fb782864cbeba425f",
+    "source/apps/moproj2mst/src/ops/noop.cpp": "0bdedc46f25716d5a4c4e4173a9346d556458abe4def4ea9f766bec81be9bf78",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "575bc1f0f4a992426ddf3376bbf6f247bdbf85d51acb887bbf320b0d3580e0f3",
+    "source/apps/moproj2mst/include/m2m/mst/writer.hpp": "c6e4e6a64b0e4c9aa4109e03ec0cfbe2c9edcf661316fce289f1b0fe1bfdceed",
+    "source/apps/moproj2mst/src/engine/class_slots.cpp": "374f94d383196c816d7fe70efe6969b92787572a7b27ed13891a1974aceaef36"
+  },
+  "ownership": "Worker DOE+noop+tests; coordinator shared LoaderSlots header/install bindings",
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-type2-activation-save-decompile.json",
+      "sha256": "35c95dcf016cd785d4f3720ff39bf635f199f9f635231132a9720669c4e8e4a2"
+    },
+    {
+      "path": "analysis/wave2-doe-type2-session-load-dom-decompile.json",
+      "sha256": "fb638b8e6574306a37cd1987842c7eb73a4823859625b0b6de07227839f7a80e"
+    },
+    {
+      "path": "analysis/wave2-doe-type2-session-read-failures-decompile.json",
+      "sha256": "ade93e39a9800f3d39321e55ef1bb29a6af0db58017d8d82ae6002679463c877"
+    },
+    {
+      "path": "analysis/wave2-doe-sample-default-session-root-decompile.json",
+      "sha256": "d723275e735bf6eaf9e7bd788d2c2d83107eb421b8ca616d87e8e14b09cad514"
+    },
+    {
+      "path": "analysis/wave2-doe-wrapper-decompile.json",
+      "sha256": "684bf41c597e16d8f8dd7d40d053aca79d4e0a9ecbc23cc2089f326eeab35834"
+    }
+  ],
+  "contract": [
+    "Existing DoeOutput source dimension/model reset preserved, then installed showModel callback reaches existing engine displayShow before classData",
+    "Standalone operation-writer target uses only nullable LoaderSlots pointers; no direct engine/DOE symbols in noop.cpp",
+    "Study owns lazy SessionDocument as representation of its Type2 SP+30 document; no shared model.hpp changes",
+    "Fresh document has SessionFile doctype and PartRoot; separate partRoot reference retained",
+    "Reset clears filename then removes direct PartRoot and appends fresh root without replacing document/doctype; foreign-root multiple-root branch explicitly guarded",
+    "Read stores path before open; ordinary complete failed-open/empty-file read keeps prior DOM",
+    "Nonempty input replaces old DOM with constructor default before parse; valid input replaces document and points partRoot at documentElement",
+    "Malformed XML refuses after destructive old-DOM replacement; no invented Qt partial malformed-DOM content or success",
+    "CR-bearing non-Text .DS input refuses after replacement because reused XML seam drops CR in Text mode",
+    "ClassData continues only through document preparation, then explicit644440 session/task/model guard; no global Task replacement or StepData/view import skipped as successful behavior"
+  ],
+  "tests_added": 6,
+  "test_scope": [
+    "Fresh/reset root identity and doctype preservation",
+    "Failed open and empty read preserve prior DOM but change filename",
+    "Valid nonempty replacement retaining task children without claiming model application",
+    "Malformed/CR guard after destructive replacement and foreign reset guard",
+    "Actual virtual classData bridge, repeated reset/read and following guard",
+    "Actual virtual loadOperation reset/show before document guard"
+  ],
+  "validation": {
+    "worker_diff_check": "passed",
+    "coordinator_build_tests": "pending",
+    "worker_builds": 0,
+    "target_runtime_executed": false,
+    "app_control_used": false
+  },
+  "limitations": [
+    "No full active DOE recovery or fresh-original acceptance",
+    "Original QFile size is checked before reading; current raw-byte interface does not distinguish a nonempty file yielding zero bytes on read failure from a real empty file. Root notified; device/read-error equivalence not claimed.",
+    "Malformed Qt partial-DOM state and foreign/multiple root outcomes remain guarded",
+    "CR-bearing .DS input unsupported; LF XML reuses existing XML seam",
+    "Part/session records, task factory/global replacement, StateVar/SfDispView and GraphicsItems effects remain unresolved at explicit guard",
+    "ReadAttempt.readSucceeded reflects stream flag after iterator extraction, not independent device completeness",
+    "Original allocation failure is not fabricated"
+  ],
+  "successor": "Close actual Session task factory and payload import, then extend beyond644440 guard in source order."
+}

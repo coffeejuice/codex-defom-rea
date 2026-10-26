@@ -1,0 +1,97 @@
+{
+  "status": "bounded_remesh_memory_reader_and_open_assignment_frozen_for_root_build",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_remesh.hpp",
+      "bytes": 1480,
+      "sha256": "4f9d7ed2c495730cd48eba35cfa86429b6a2eee53ae3b721802741e9f8517ba8"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_remesh.cpp",
+      "bytes": 6446,
+      "sha256": "6619f9e0cc90ce73df1b12d18ef15ca1d08793ce8635d64521a7ea4dbeb6e2c7"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_remesh.cpp",
+      "bytes": 9815,
+      "sha256": "405a25b92d89057d050dce2ceae03e4c9ba762ae7bcde67255c4699f35812ad6"
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-raw-contract.json",
+      "bytes": 7932,
+      "sha256": "79f5324a57b08f98a934392b67f82be723dac46c642274cc0777c329044737ef"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-representation-contract.json",
+      "bytes": 4962,
+      "sha256": "911dd41cd2e7c31928843923d2f0990e19b27d3b754d520a2d8b42be1f1a5cc3"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-1400ab170.c",
+      "bytes": 4618,
+      "sha256": "5b7fdb6f23c260699aa57e71f25c5a9b989896d8a4cca8c3a95cee621c947c1a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-reader.asm",
+      "bytes": 13531,
+      "sha256": "f88cf1a7e439056f28477e7408090511915d2b6a3beb40e6e5d60f6949b928af"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/datafiles.hpp",
+      "bytes": 7864,
+      "sha256": "406d8e075166f19e6fcfc889f5887b1a04ae06c5cc70f25974dc33270a3288c6"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/datafiles/token.cpp",
+      "bytes": 5217,
+      "sha256": "3c56020a595e356e3a6c51a177c6470c88ae63622d85a6256ef4dc298e5bde9e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/datafiles/textfile.cpp",
+      "bytes": 2122,
+      "sha256": "8eaa390fbda4d6dc59c0a7f7aeb7c0505d8d659ff05b633d552ce18c143f5846"
+    }
+  ],
+  "representation": "Original Raw4 string-copy is represented through9 knownbytes+10..18. Prefix plusNUL overwrites exactdouble bytes preserving suffix, including duplicate-token effects. Length8 terminatingNUL sets contactfalse. Length>=9 or embeddedNUL refuses before helper stores. memcpy avoids floating arithmetic/NaNcanonicalization and avoids arbitrary bool representations or unknownpadding writes.",
+  "reader": {
+    "interface": "RemeshIo::openRead(fixed narrow literal) ->owned RemeshReadFile with tokens(),rewind(),close(). tokens() is existing TextFile on qualified memory input. File lifecycle calls are observable; native CRT backend not implemented.",
+    "profile": "Explicit KnownC plus actualLC_NUMERIC=C; ASCII/noNUL input, physicalchunks<=1999bytes and<=259tokens is an interface precondition of this isolated typedmemory profile. This is not yet a guard accepting arbitrary native files; native fgets integration must validate chunks as reached. Publicmode300 remainsrefused.",
+    "primary": "OpenLOCAL_REMESH.DAT, scan firstword of each originalUpper/kNewLine line untilKEYWORD_DRIVEN orDONE/EOF, rewind evenwithoutmarker. Ifnomarker closeprimary and openLOC_DEN_CTRL.DAT; bothopenfailreturnsfalse withoutscalarstores. Markerprimaryreplaysfrombeginning, includingearlierdata lines.",
+    "conversion": "Use unchanged TokenReader Text3 to obtain the same selectedtoken/state as Int5/Double10, then apply recovered conversion separately: bounded signeddecimalprefix int32 with originalnonnumeric0; D/d->E thenC-locale strtod. Text3 andtypes5/10 share tokenization; originalDouble mutation of oldtoken is unobserved because nextkeyword forces newphysical line. Raw4 is useddirectly, preserving same-line nexttoken vsfreshRawwholeline distinction.",
+    "numeric_limits": "Integer overflow, hexadecimalfloat, nonfinite/range strtod branches explicitlyunsupported ratherthan guessed. EOF integer reuses lastassigned sharedlocal; firstunassigned useunsupported. EOF double keepsdestination, thenoriginalscalingclamp stillruns. Othernumericnonnumeric-prefix andfinite decimal behavior follows existing CRT conversion seam.",
+    "fields": "Methodclamp0..5, booleanInt!=0, filterdouble, uniformRawoverwrite, scalingclamp1..10, surfaceboolean; unknownkeywordsignored. Keyword>=208bytesguards originalstack-bufferextent. DONE/EOFterminates; readableemptyreturns true. Earlierstores preserved beforeunsupported; reachedfile closes.",
+    "enabled": "readRemesh returns optional originalbool separately; loadRemeshAtProjectOpen assigns state.enabled onlyoncompleted originalreturn, preserving unsupported priorstate. This composes the source-defined assignment at a typedprojectOpen seam; root-owned actual public activation hook is not wired yet."
+  },
+  "tests": {
+    "cases": [
+      "remesh_raw_prefix_preserves_double_suffix_and_other_fields_without_numeric_parse",
+      "remesh_eight_character_token_clears_contact_then_duplicate_preserves_new_suffix",
+      "remesh_raw_spill_and_non_source_embedded_nul_refuse_before_helper_writes",
+      "remesh_missing_files_return_false_and_project_open_assigns_enabled_after_return",
+      "remesh_marker_probe_rewinds_unmarked_local_before_empty_fallback_success",
+      "remesh_keyword_marker_selects_primary_then_reader_replays_earlier_lines_and_scalar_order",
+      "remesh_raw_uses_next_current_token_or_whole_fresh_raw_line",
+      "remesh_late_unsupported_token_preserves_prior_stores_and_does_not_set_enabled",
+      "remesh_missing_integer_uses_existing_shared_local_but_refuses_its_first_indeterminate_use",
+      "remesh_missing_real_keeps_destination_before_original_scaling_clamp",
+      "remesh_unrecovered_numeric_profiles_refuse_after_prefix_and_unknown_locale_opens_nothing"
+    ],
+    "count": 11,
+    "method": "MemoryIo with real unchangedTextFile/TokenReader and explicitopen/rewind/closeevents; exactderivedbitconstants; primary/fallback/empty/missing; allscalarkeywords, originalclamps, Rawselectiondifference, sharedintegerEOF, retaineddoubleEOF, partialeffects/refusal andlocaleguard. No realfilesystem writes.",
+    "checks": {
+      "declaring_header_used": true,
+      "token_declaring_header": true,
+      "enum_declarations": true,
+      "original_parser_composed": true,
+      "project_enabled_composed": true,
+      "test_main": true,
+      "no_trailing_whitespace": true
+    },
+    "status": "not_run_worker_root_owns_build_and_execution",
+    "registration": "Existing CONFIGURE_DEPENDS source/test globs shouldregisterm2m_mdt_simcontrol300_remesh. Declaringheaders/enums/main and usedhelperreturncontracts reviewed; no workerconfigure/build/tests."
+  },
+  "next": "Sourcefrozen for combined rootbuild. Evidence-only native narrowfopen(rt)/fgets/rewind/close successor; coordinate borrowedlineinput support without changing sharedTokenReader source. Do not reusewideifstream orwrite-onlyCoggingFile as nativeproof. ActualrootProjectOpen/Save hooks follow nativeacceptance, not thismemorytestcomponent alone.",
+  "limits": "Public incompletepath guard unchanged. No sharedtoken source ororiginalfixtures modified, nooriginalruntime/appcontrol/captures/builds/testexecution. Nativeopen/sharing/readfailure/encoding/rewind semantics remain unimplemented and explicitlyqualified; no fullconvertercompletionclaim."
+}

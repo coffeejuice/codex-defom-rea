@@ -1,0 +1,57 @@
+{
+  "schema": "wave3-editor-environment-table-increment-v1",
+  "created_utc": "2026-10-24T05:46:01.837677+00:00",
+  "status": "source_frozen_awaiting_root_build_and_tests",
+  "contract": {
+    "path": "analysis/wave3-editor-environment-table-contract.json",
+    "sha256": "624e8c378dd612f3c4ef5023831651a4540332b1173e64ba622bdb49992a6062",
+    "bytes": 6026
+  },
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "c036fdd19a09570b8f8073d4021b5c9f70da654d2054dceb256d8e3276975dee",
+      "bytes": 15702
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "4162298942829fb90cadd10dc14c10013f9a4f96c1b5093e1e6a5a207fe66395",
+      "bytes": 42004
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "0d88caba381b869022e2ba7304712a4ce5b363de36fd1aafe9d323ad16c54394",
+      "bytes": 55523
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "28fc251a21f81aac65cb8537367fcef653e2447cdc723ca7b521fc1c735ee261",
+      "bytes": 26456
+    }
+  ],
+  "implementation": [
+    "ENVTMP/CNVCOF/ENVATM record constant/table radio selection and constant-input/unit/definition enable state. Final composer refill already retains this state without a new interface.",
+    "Finite constant text is populated in both modes. Apply reads constant text and sets ndim0 only when the remembered constant radio is checked; table mode copies the actual remembered temporary without rounding any table byte.",
+    "The existing source-matched field-aware DYNARY copy is used. Metadata copied by the original is restored; destination u58 for non-type80 and u60 remain live, as before.",
+    "Known owned ndim1..3 tables with nonnegative counts, positive component count, no signed32 value-count overflow and qualified axis/value shape are supported. Empty tables preserve their nonzero ndim. Borrowed or missing storage and unknown metadata remain explicit boundaries.",
+    "Existing ACVCOF constant/var0 guard and public editor300 refusal remain. The earlier environment unknown-profile test now uses ndim4 because an empty ndim1 CNVCOF is source-supported."
+  ],
+  "new_tests": [
+    "environment_table_curves_keep_owned_data_and_skip_constant_validation",
+    "environment_mixed_modes_copy_before_scalar_validation_stop",
+    "environment_table_profile_accepts_empty_and_guards_unknown_layouts",
+    "initial_editor_environment_table_modes_follow_final_fill_and_remembered_owners"
+  ],
+  "coverage": "Three curves with1D/2D/3D axes and multicomponent arrays; raw quiet-NaN payload preservation; exact unrounded constant member in table mode; ignored invalid/misleading table-mode text; metadata copy omissions; deep owner separation; mixed constant/table scalar-stop order; empty/overflow/borrowed/missing storage; final constructor mode change before backup/refill and later live mutation.",
+  "case_counts": {
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp": 44,
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp": 15
+  },
+  "validation": {
+    "whitespace": "all four files checked directly, passed",
+    "build": "not run; root owns builds",
+    "tests": "not run; root execution required",
+    "fresh_original": "not run; static contract only"
+  },
+  "next_action": "Root builds/runs focused snapshot44/lifecycle15 and required regressions. Worker preserves source freeze and continues ACVCOF mutable-temporary owner contract, followed by editor destructor/duplicate-allocation qualification."
+}

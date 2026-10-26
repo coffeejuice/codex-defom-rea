@@ -1,0 +1,106 @@
+{
+  "schema": "resume49-doe-default-font-helper-v1",
+  "utc": "2026-10-24T18:25:44.931773+00:00",
+  "owner": "test_runner_audit / doe_active",
+  "status": "Owned source/test frozen; static verification passed; parent build/runtime tests pending.",
+  "purpose": "Implement isolated source-qualified TaskInfo default-QFont value rule while preserving actual shared FontData owner and the native factory guard.",
+  "source_before": {
+    "checkpoint": 48,
+    "archive": "build/wave3-checkpoint48-verified/source.zip",
+    "archive_sha256": "030174fd39bd425f7687103c48a7296853eca3dd7284dd256935ad66403e01d7",
+    "files_sha256": {
+      "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "4579d41d3e28b6c1546b810720dde5fd6260343c8a7c3312c2a73d926f72abd3",
+      "source/apps/moproj2mst/src/doe/task_factory.cpp": "5580c19c093ecbd9115499b8a3c9d2d7cbf9d3a596bb2f167f5e9e1d88f169a5",
+      "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "f1b5cc3e77331a95591225a70ed8b1a46f0e9f2a798805f814f4d27de1a09d24"
+    }
+  },
+  "source_frozen_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "1d5d13c205660c8f0bf36f8eb28955c5948abaa0f468534308e1f52576c34b7b",
+    "source/apps/moproj2mst/src/doe/task_factory.cpp": "b41fdc07913a8a15711798324bfcfc7feec5d7abe171e5c342190bc45222369a",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "040c8408f768c2552a89bb403f92bd097cbc3acd7a3fcf34a915661d87a68bbc"
+  },
+  "source_delta": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp",
+      "added_lines": 7,
+      "removed_lines": 1
+    },
+    {
+      "path": "source/apps/moproj2mst/src/doe/task_factory.cpp",
+      "added_lines": 7,
+      "removed_lines": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp",
+      "added_lines": 70,
+      "removed_lines": 0
+    }
+  ],
+  "evidence_sha256": {
+    "analysis/resume48-doe-taskinfo-next.md": "32716851017617077f8ad96e13f9a2b99d0995ec64f9019ae5cb96cd7eb56a8a",
+    "analysis/wave2-doe-task-prototype-qt-default-font.asm": "1e816c4d5df5edc117db15ae602bc7ad75fbe283c4353614eb2ef356786c81f9",
+    "analysis/wave2-doe-task-prototype-taskinfo-private-constructor.asm": "172e1daaf0e6d57fde2153eb64694da2486bc4500d2d840b5f064000b83d980a",
+    "analysis/wave2-doe-task-public-qobject-ownership-contract.json": "81e05b0f2aee8014da834c2a3db46df6eea09a6a01e6744498e4ee3d9afd9a32",
+    "analysis/wave3-doe-report-qobject-prerequisite-contract.json": "d132044c91c93b2b6b8017acb11f05451e4ef3b4896f83f158aa055d379a5998",
+    "analysis/resume48-doe-preference-helper.json": "6e2264c4b15750eb1da1cd59c858069eb9065f772982638dcb4a244f3c7d48ca",
+    "analysis/wave3-checkpoint48-validation.json": "0eb986e377f6fc183cc31b8e96cbe8d61fdc50753913fca5dce00086f7342ca5",
+    "build/wave3-checkpoint48-verified/receipt.json": "6b9f33b6e0e1389a771e44857e74461cd4c3a347788c9e068c2e078b6ff693ef"
+  },
+  "helper": {
+    "name": "m2m::doe::isolatedTaskInfoDefaultFontValue",
+    "signature": "engine::WidgetFontValue(const engine::WidgetFontValue& firstCurrentApplicationFont)",
+    "source": "QtGui4_64.dll 0x651f3560, invoked for TaskInfo private+30 at original 0x14140e989. Original copies current application FontData identity and writes destination resolve mask0.",
+    "effect": "Return WidgetFontValue using exact supplied shared_ptr<const WidgetFontDataState> and resolveMask0. No new FontData allocation/interning, source mutation, cache, current-font lookup, Qt refcount emulation or TaskInfo stage commit.",
+    "declaration": "Existing DOE header forward-declares WidgetFontValue; implementation includes existing engine/view_manager.hpp for the value definition. No shared engine header/API changes.",
+    "reachability": "Only explicitly isolated tests invoke helper. Native TaskFactoryRuntime implementation and all existing preference helpers remain unchanged from checkpoint48."
+  },
+  "tests": {
+    "file": "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp",
+    "target": "m2m_mdt_doe_task_factory",
+    "ctest": "m2m.mdt.doe_task_factory",
+    "previous_cases": 15,
+    "current_cases": 17,
+    "added_cases": [
+      "doe_taskinfo_isolated_default_font_preserves_supplied_owner_and_localizes_mask",
+      "doe_taskinfo_isolated_default_font_distinguishes_null_data_from_unavailable_value"
+    ],
+    "fixture": "Minimal isolated MainView/manager/WidgetRuntime observation supplies interned FontData through existing startup API. Two independent runtimes deliberately use the same observation alias1 but own distinct control blocks. No grid/editor or TaskInfo construction runs.",
+    "coverage": [
+      "Returned raw pointer and shared ownership control block match supplied font; resolveMask becomes0.",
+      "Input font mask and runtime font identity/mask remain unchanged.",
+      "Second input from a distinct runtime with same alias1 produces its own supplied owner, preserving earlier result and preventing alias-only caching.",
+      "A returned font value keeps the exact data owner alive after its fixture/runtime/input values leave scope; resetting the last returned shared_ptr expires the weak observer.",
+      "Explicit null-data value with nonzero mask yields null data/mask0 without mutating input; absent optional application-font observation stays absent and is never converted to a fabricated value."
+    ],
+    "executed": false,
+    "execution_owner": "root"
+  },
+  "static_verification": {
+    "result": "PASS",
+    "checks": [
+      "Every previous preference helper and all TaskFactoryRuntime implementation from first existing accessor definition to file end match checkpoint48 archive after newline normalization.",
+      "All prior15 test cases through main match checkpoint48 archive unchanged; two cases added.",
+      "Three owned files have no trailing whitespace.",
+      "Shared WidgetRuntime observeStartupValues owner checks and minimal optional field requirements reviewed for the isolated fixture.",
+      "WidgetFontValue holds shared_ptr<const WidgetFontDataState> plus uint32 resolveMask; declaration/definition/type includes reviewed.",
+      "Helper references occur only in its declaration/definition and isolated tests; no production call path wired.",
+      "Report JSON parsed and all source/evidence hashes computed."
+    ],
+    "native_Report_QObject_guard_unchanged": true,
+    "native_public_factory_guard_unchanged": true,
+    "builds_run": 0,
+    "runtime_tests_run": 0
+  },
+  "scope_and_limits": [
+    "Only three announced DOE-owned source/test files changed. No shared build/CMake/plan edits, target process execution, GUI control or mutable REA operation.",
+    "Helper models only value alias/mask behavior. It does not reproduce native atomic FontData refcounts, temporary destruction, QFont allocation/error paths, current settings/profile, TaskInfo construction/publication or factory registration.",
+    "Existing WidgetRuntime startup-font value does not prove the later actual TaskInfo first-read or second-read font. Native integration still requires qualified current values at each source call site.",
+    "This helper must not be used for the second explicit application-font assignment, which preserves its own resolve mask.",
+    "No native QObject/TaskInfo guard is relaxed. Source is ready for parent validation, not a passing-build or lifecycle-completion claim."
+  ],
+  "next": {
+    "root": "Build candidate49, run focused CTest m2m.mdt.doe_task_factory, then required combined regression. Parent owns all build/test execution.",
+    "native_RDOE_dependency": "Source-qualified same-owner QObject/shared-empty/TLS/QThreadData completion and in-place TaskInfo constructor frame with two current-font observations before lifecycle use."
+  },
+  "token_measurements": "Unavailable; no speed/token savings claimed."
+}

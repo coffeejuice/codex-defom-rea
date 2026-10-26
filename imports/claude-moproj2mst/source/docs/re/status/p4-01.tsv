@@ -1,0 +1,78 @@
+address	status	note
+0x140002800	not-needed	stl: std::string::size (was inlined in menu7 ends_with, now def::rt::str_ends_with)
+0x140002a60	ported	port/def_pre/src/menu7.cpp vsprintf_s into a 200-byte buffer
+0x140004ca0	not-needed	library: istream sentry/buffer read of getline (std::cin.getline in port/def_pre/src/menu7.cpp)
+0x1400071c0	not-needed	library: istream getline helper (std::cin.getline in port/def_pre/src/menu7.cpp)
+0x140007460	not-needed	library: istream::getline(buf, 256) (std::cin.getline in port/def_pre/src/menu7.cpp)
+0x140008600	ported	port/def_pre/src/menu7.cpp read an integer in [lo, hi]
+0x140009c50	ported	port/def_pre/src/menu7.cpp read one answer line
+0x140009e90	ported	port/def_pre/src/menu7.cpp wait for <CR>
+0x14000a370	ported	port/def_pre/src/menu7.cpp menu 7, DB generation
+0x14001cd50	ported	port/defdbio/src/gendb/driver.cpp error report (code, value, value): empty in this build
+0x14001cdb0	ported	port/defdbio/src/gendb/driver.cpp (the stage report it calls: empty in this build)
+0x140159010	ported	port/defdbio/src/gendb/frame.cpp the model's own DB info object (+0x3390)
+0x140160bf0	verified	verified by p67-1 (P5 gate); was ported; port/defdbio/src/gendb/frame.cpp object has a mesh (+0x87c != 0)
+0x1401b0870	ported	port/def_pre/src/menu7.cpp "%d"
+0x1401b0940	ported	port/def_pre/src/menu7.cpp prefix compare
+0x1401b0cc0	ported	port/def_pre/src/menu7.cpp forwards to def::rt::str_ends_with (owner p8-08, defrt/stdlib/str_ends_with.cpp)
+0x1401b1060	ported	port/def_pre/src/menu7.cpp trim
+0x1401b1390	ported	port/def_pre/src/menu7.cpp digits only
+0x1401b1d70	not-needed	library: std::string::resize(n) (VS2008), std::string::resize in port/def_pre/src/menu7.cpp
+0x1401b37e0	not-needed	library: std::string::resize(n, NUL), std::string::resize in port/def_pre/src/menu7.cpp
+0x1401b85d0	verified	verified by p67-5 (P5 gate); was ported; port/defdbio/src/gendb/driver.cpp remove the file if it exists
+0x1401b8bf0	ported	port/defdbio/src/gendb/driver.cpp _chdir
+0x1401b9810	ported	port/defdbio/src/gendb/driver.cpp may a step of version *cur go into a DB of version *db
+0x1401b9940	ported	port/defdbio/src/gendb/driver.cpp GENDB entry
+0x1401b9a40	ported	port/defdbio/src/gendb/driver.cpp (the indirect-writing branch: returns 0, writes nothing)
+0x1401b9c00	ported	port/defdbio/src/gendb/driver.cpp version check of an existing DB
+0x1401ba780	ported	port/defdbio/src/gendb/driver.cpp the file opens for reading
+0x1401bb550	ported	port/defdbio/src/gendb/driver.cpp write the step to the DB
+0x1401bcbb0	ported	port/defdbio/src/gendb/driver.cpp the step write
+0x1401bffb0	ported	port/defdbio/src/gendb/frame.cpp DB header of the step
+0x1401c03f0	ported	port/defdbio/src/gendb/region_tables.cpp region widths
+0x1401c1980	ported	port/defdbio/src/gendb/region_tables.cpp region starts, 3D
+0x1401c2d10	ported	port/defdbio/src/gendb/region_tables.cpp region starts, 2D
+0x1401c4560	ported	port/defdbio/src/gendb/frame.cpp buffer lengths and the zeroed buffers
+0x1401c4840	ported	port/defdbio/src/gendb/frame.cpp the address tables into IIAD1 and IIAD2
+0x1401c5260	ported	port/defdbio/src/gendb/frame.cpp the objects' dynamic arrays into the DB core's tables
+0x1401c53d0	ported	port/defdbio/src/gendb/frame.cpp sizes of every object's records; true if there is any
+0x1401c54b0	ported	port/defdbio/src/gendb/driver.cpp after a successful write: empty in this build
+0x1401c54c0	ported	port/defdbio/src/gendb/driver.cpp progress stage
+0x1401c5630	ported	port/defdbio/src/gendb/frame.cpp simulation mode of the directory entry
+0x1401c5690	ported	port/defdbio/src/gendb/driver.cpp direct DB writing flag (+0x8)
+0x1401c57f0	ported	port/defdbio/src/gendb/frame.cpp std::vector size() wrapper, inlined at its two uses
+0x1401cafe0	ported	port/defdbio/src/gendb/frame.cpp width code of ELMNOD option slot k
+0x1401d7eb0	ported	port/defdbio/src/gendb/driver.cpp set the remesh flag
+0x1401d7ed0	ported	port/defdbio/src/gendb/driver.cpp remesh flag (+0x2f89)
+0x1401dc3a0	ported	port/defdbio/src/gendb/driver.cpp name and version of a new DB
+0x1401ddc10	ported	port/defdbio/src/gendb/driver.cpp highest version in the directory
+0x1401e1f60	ported	port/defdbio/src/gendb/driver.cpp place the step in the directory
+0x140220910	ported	port/defdbio/src/gendb/frame.cpp push_back of a COW int vector
+0x140235800	ported	port/defdbio/src/gendb/db_header_io.cpp local date
+0x140235870	ported	port/defdbio/src/gendb/db_header_io.cpp (_localtime64, inlined)
+0x140235890	ported	port/defdbio/src/gendb/db_header_io.cpp (_time64, inlined)
+0x14025a870	ported	port/defdbio/src/gendb/frame.cpp unlink a node and delete it through its virtual dtor; true if it was found
+0x14025b700	ported	port/defdbio/src/gendb/frame.cpp the record's size into the int or the real list
+0x14025b780	ported	port/defdbio/src/gendb/frame.cpp put one record into the next int or real slot of the tables
+0x14025b980	ported	port/defdbio/src/gendb/frame.cpp the record holds data (kind != 0 and a positive size)
+0x14025bbc0	ported	port/defdbio/src/gendb/frame.cpp sizes of one object's records (empty records dropped first)
+0x14025bc60	ported	port/defdbio/src/gendb/frame.cpp remove every record without data
+0x14025be70	ported	port/defdbio/src/gendb/frame.cpp put every record of one object
+0x1403ae0b6	ported	port/defdbio/src/gendb/db_header_io.cpp open the DB unit
+0x1403b3f73	ported	port/defdbio/src/gendb/db_header_io.cpp directory words of the step to write
+0x1403b400b	ported	port/defdbio/src/gendb/db_header_io.cpp record 2 of the file
+0x1403bc2c4	ported	port/defdbio/src/gendb/db_header_io.cpp set up the dynamic-array tables for the step to write
+0x1403bc640	ported	port/defdbio/src/gendb/db_header_io.cpp RFREE the dynamic arrays of the tables
+0x140444283	ported	port/defdbio/src/gendb/db_header_io.cpp (copy n characters, by 140469eb6 one at a time; inlined)
+0x14044a4b1	ported	port/defdbio/src/gendb/db_header_io.cpp ADJUSTL (NUL counts as blank), returns the trimmed length
+0x140199cc0	ported	port/defdbio/src/gendb/frame.cpp sim control: SMODE (+0x13c of the model); ported here, listed outside p4-01 (p4-03)
+0x1401cc180	ported	port/defdbio/src/gendb/frame.cpp stored version word (+0x1b64); ported here, listed outside p4-01 (other packet)
+0x14019a2f0	ported	port/defdbio/src/gendb/region_tables.cpp (model +0xcc, inlined); ported here, listed outside p4-01 (other packet)
+0x140199d60	ported	port/defdbio/src/gendb/region_tables.cpp (model +0xd0, inlined); ported here, listed outside p4-01 (other packet)
+0x140199d80	ported	port/defdbio/src/gendb/region_tables.cpp (model +0xd4, inlined); ported here, listed outside p4-01 (other packet)
+0x1403bcda9	ported	port/defdbio/src/gendb/db_header_io.cpp get / put real dynamic array k; ported here, listed outside p4-01 (P2)
+0x1403bcaa6	ported	port/defdbio/src/gendb/db_header_io.cpp get / put int dynamic array k; ported here, listed outside p4-01 (P2)
+0x140220810	not-needed	library: vector push_back (CowVector insert in port/defdbio/src/gendb/frame.cpp)
+0x140469eb6	ported	port/defdbio/src/gendb/db_header_io.cpp (one character); ported here, listed outside p4-01 (P2)
+0x1403ae06f	ported	port/defdbio/src/gendb/db_header_io.cpp CLOSE(unit) (FUN_1404b53a4 of the Fortran runtime); ported here, listed outside p4-01 (Fortran runtime)
+0x1404b33e4	ported	port/defdbio/src/gendb/db_header_io.cpp CHARACTER assignment with blank padding; ported here, listed outside p4-01 (Fortran runtime)

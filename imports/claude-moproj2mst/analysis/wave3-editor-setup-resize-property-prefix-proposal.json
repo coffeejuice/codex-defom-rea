@@ -1,0 +1,87 @@
+{
+  "schema": "editor300-native-setup-prefix-proposal-v1",
+  "created_utc": "2026-10-24T11:23:25.729852+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-setup-native-property-successor-contract.json",
+      "sha256": "3bb53402b095b64ec07b3dabb4291a306396f84f21ee4fbeb0094ad8b1a661d5"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-name-store-static.json",
+      "sha256": "750e631080136c881891ce9d7160af2f1d29c9d2a3a075754e27370b16c84d2e"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-initial-resize-static.json",
+      "sha256": "45430f38968b07bb1e0983d32a66779c532619ad20b513f16d06bdce711bc610"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-resize-branches-static.json",
+      "sha256": "a3232d9a4f32065699815a6c86d7f4169e9cdeb9d41e7bdd535cced6e60bc514"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-resize-event-bindings.json",
+      "sha256": "761b13a2b2ed0bab5b489c5d4382a3714baef81136ad7fbb99445e145d198ce5"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6506c950.asm",
+      "sha256": "49504514e7be5c14bd57ce8e108afa44b5a648a05bbc72a280307ddd1007934a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6712caf0.asm",
+      "sha256": "56a20fea009822726e9b95941a554d0607319eb4b698cb4d158077fffeb21282"
+    },
+    {
+      "path": "analysis/wave3-close-grid-immediate-notify-contract.json",
+      "sha256": "55518ab4dbbad4a2b7625c51ea5687158eabf89f174fab6bdf190b30010d9c5c"
+    },
+    {
+      "path": "analysis/wave3-close-grid-observed-style-filter-contract.json",
+      "sha256": "ca9edbcd025fade3c5e8faa4c5f38c531967ae7e766eabcf47bc239737390183"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-setupui.c",
+      "sha256": "1217ddfefe72fc52f4a963f01cb4f7d10bc3a468d00e7ef1139736979483b8a7"
+    }
+  ],
+  "order": [
+    "Native setup140ed9830 reads objectName; when empty constructs SfPreSimControl300 using QString::fromUtf8, then calls setObjectName. Nonempty name skips setter.",
+    "QObject::setObjectName6712ae10 compares old/new only if private+78 declarative hook data exists; assigns private+30 at6712ae51 before optional objectNameChanged callback through global672f4360 at6712ae62. Callback absence/current hook context cannot be inferred from startup. objectName getter6712adf0 ends RET6712ae0a, not trailing setter bytes.",
+    "QWidget::resize(477,390)650599b0 delegates QSize overload6506b5e0: set raw attribute42 true, then inspect Created60 (private+1c8 bit28). Created branch6506b60e uses native geometry/window path65099da0, remains guarded.",
+    "Uncreated branch6506b67b obtains min/max from QWidgetPrivate extra+40/+44/+48/+4c; absent extra supplies min0,0 and max0xffffff,0xffffff. Requested QSize is boundedTo(max), then expandedTo(min), in that order. QRect::setSize writes widgetData+14 preserving x1/y1, then sets raw attribute35 true. setAttribute35 and42 select direct epilogue650696f1; no callback in these selected stores.",
+    "QVariant(false) is constructed before setProperty. Known native metadata has no sizeGripEnabled static property. Negative index path commits extraData name/value arrays before constructing QDynamicPropertyChangeEvent0xaa. Do not reinterpret as QDialog setter.",
+    "Pending event retains exact same editor identity, ASCII property name, type0xaa, accepted true and spontaneous false. Stop before notifyInternal while actual callback/filter population is unqualified. No first-grid allocation, storeSimNames, picking or page progression is permitted by this prefix alone."
+  ],
+  "receiver_proof": {
+    "slot": "editor142b165b8+20->14013898e->IAT141e0ba58->QWidget::event6506c950",
+    "event170": "QWidget main case6506d668 compares property first12bytes with _q_customDpi. sizeGripEnabled differs, reaching6506d759 destructor then6506d767 QObject::event. QObject6712caf0 type170 takes6712cec5, raw<1000 branch6712cedf returnsfalse, RET6712ceeb. No receiver state write on selected path.",
+    "filter_qualification": "Observed Vista-style class eventFilter65362520 raw0xaa skips special switches and forwards false QObject filter. Class behavior is source-closed; actual editor-time installed filter population is NOT established. QInternal and application/object filter mechanisms reuse existing sibling contracts; no runtime observation is extended through Open."
+  },
+  "proposed_files": [
+    "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+    "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+    "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+    "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp"
+  ],
+  "api_shape": {
+    "entry": "StagedEditor300::beginNativeSetupPrefix(Editor300Binding, const NativeSetupObservation&) -> const NativeSetupPrefixReport&; factory validates same actual Project/Operation/GuiModel/Remesh identity and same bound live EditorSetupState before forwarding. One attempt, no replay.",
+    "context": "NativeSetupObservation carries exact StagedEditor300 receiver identity, provenance text and optional current objectName, declarative-hook-data presence, QWidget Created state, QRect endpoints and min/max extra-data profile. Native metadata and fresh empty dynamic-property table are explicit profiles. Missing values remain unknown; a caller cannot pass a synthetic dispatch-success bool.",
+    "ownership": "The bound EditorSetupState owns one native-prefix record, associated with exact factory identity. The factory only exposes that same record through its existing weak setup guard; no second geometry/property copy is created in Session. Setup control projections remain separately qualified constructor evidence. All new mutators reject sealed or late/page-constructed state.",
+    "pending_event": "Factory can expose a typed immutable pending-property-event description only while binding/setup/model are alive. Receiver and owner pointers are opaque identity tokens, never dereferenced by the request; it carries original event fields/source addresses and does not constitute native event delivery or successful setup. Root retains actual event/framework adapter ownership.",
+    "profile_scope": "Known native metadata with fresh empty property table is concrete. Unknown/custom metadata or preexisting dynamic properties stop before unsupported property mutation. Created widget branch stops after reached attribute42. Unknown name hook stops after reached name store. Geometry/constraint unknowns stop after earlier reached effects.",
+    "continuation": "No dispatch-completion or setup-completion API in this increment. Later actual context can release a distinct source-backed continuation without replaying constructor effects."
+  },
+  "focused_tests": [
+    "Exact owner mismatch/expired setup/model rejected without native writes.",
+    "Unknown objectName stops before setter; retained nonempty name bypasses declarative setter hook.",
+    "Empty name stores UTF8 literal before unknown/present hook refusal; known absent hook reaches resize.",
+    "Attribute42 retained before unknown/created-true branch; no later geometry or property writes.",
+    "Known uncreated no-extra profile writes477x390 while preserving x1/y1, then attribute35.",
+    "Explicit constraints demonstrate boundedTo(max) then expandedTo(min), including inconsistent min>max.",
+    "Unknown geometry/meta/property table retains preceding name/resize; no property fabricated.",
+    "Fresh native property table stores false before pending0xaa; exact event name, accepted/nonspontaneous and receiver identity.",
+    "Repeat attempt does not replay writes or replace context; page seal/late binding rejects mutation.",
+    "Source guard still prevents setup completion, first grid, storeSimNames and picking."
+  ],
+  "limits": "Static immutable analysis only. No source changes, builds, target execution, GUI or mutable analysis DB. Parent checkpoint41 source freeze remains in force. root Session adapter stays parent-owned."
+}

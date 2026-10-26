@@ -1,0 +1,25 @@
+{
+  "label": "IMPLUB 1 2 1 (3D, -1 codes)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nBCCDEF       2       5       0\n       1      -1      -1      -1\n       2    -201    -201       0\n       3      -1    -201       0\n       4       0      -1      -1\n       5    -201      -1       0\nIMPLUB 1 2 1\nLUB.KEY\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "LUB.KEY",
+      "text": "*\n*  DEFORM-3D V11.0 KEYWORD FILE (Qt)\n*\nCNTACT       1       2       1\nFRCFAC       1       2       1       0    1.2340000000E-001\nIHTCOF       1       2       0    5.6700000000E-003\nCNTMTH       1       2       0\n"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Flag 1: per row the first -1 becomes -201, later -1 become 0; a -201 counts as seen."
+  }
+}

@@ -1,0 +1,17 @@
+item	kind	spec	tests	external_program	headless_verdict	status	notes
+DEFAMG	command 293	docs/re/commands/DEFAMG.md	8	DEF_AMG / DEF_AMG3_GUI, MESH3D_GUI, BRKMSH, CHKVOL	headless (CHKVOL not reached)	spec-complete	mesher output files only described as consumed
+REMESH	command 291	docs/re/commands/REMESH.md	6	AMG_DXT(3) + DEFAMG chain + DEF_INT / DEF_REM3_GUI	2D ok; 3D interpolation fails on this PC (32-bit DEF_REM, mpich.dll missing)	spec-complete	
+BRDEXT	command 292	docs/re/commands/BRDEXT.md	5	AMG_DXT / AMG_DXT3	headless	spec-mostly	qsort comparator, FUN_140249700 open
+DEFINT	command 294	docs/re/commands/DEFINT.md	4	DEF_INT / DEF_REM3_GUI	2D ok; 3D fails on this PC (see REMESH)	spec-complete	
+DEFFRZ	command 296	docs/re/commands/DEFFRZ.md	5	DEF_FRZ / DEF_FRZ3	headless	spec-complete	meaning of double arg and 7 read-back numbers unknown
+MORP	command 297	docs/re/commands/MORP.md	3	DEF_MORP2.EXE / DEF_MORP3.EXE	headless	spec-complete	
+GFREAD	command 298	docs/re/commands/GFREAD.md	10	PDA2KEY3, STB2KEY3 (3D)	STB2KEY3 ok; PDA2KEY3 hangs without PDA3.INI	spec-partial	STL/GEO/IGES/DXF/NASTRAN parsers located only
+GENINT	command 15	docs/re/commands/GENINT.md	3	none	n/a	spec-complete	
+IMPLUB	command 16	docs/re/commands/IMPLUB.md	4	none	n/a	spec-complete	
+IMPEQP	command 17	docs/re/commands/IMPEQP.md	3	none	n/a	spec-complete	
+ARMCTL	command 21	docs/re/commands/ARMCTL.md	3	none	n/a	spec-complete	
+EXECMD	command 11	docs/re/commands/EXECMD.md	4	any	n/a	spec-complete	
+CNVT3D	command 287	docs/re/commands/CNVT3D.md	8	DEF_AMG3_GUI, MESH3D_GUI, BRKMSH, DEF_INT, DEF_AMG, FIXGEO.EXE	headless	spec-mostly	sweep algorithms summarised only
+MENU9	menu	docs/re/commands/MENU9_2D3D.md	3	none	n/a	spec-complete	stub
+FILE_INPUT	menu 2	docs/re/commands/FILE_INPUT_MENU.md	8	DEF_CVT3	never found with install layout (dirKind 0)	spec-complete	selection range lo/hi unknown
+DXF_IGES	readers	docs/re/commands/DXF_IGES_READERS.md	(via GFREAD)	DEF_IGS, FIXGEO (dead code except FUN_14027ece0)	n/a	spec-mostly	DXF entity handlers open

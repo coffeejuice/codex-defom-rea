@@ -1,0 +1,67 @@
+{
+  "schema": "m2m-doe-slice-constructor-scratch-amendment-v1",
+  "status": "repair5files SOURCE FROZEN; no worker build/tests; root candidate37 pending",
+  "supersedes": "Earlier prefix receipt a93c36f4069761c143f266efddaf71b7f77fa395968138b21f203fa54e692ff8 is immutable and incomplete for the newly recovered constructor global. This amendment binds the repair.",
+  "owned_source_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_slice.hpp": "0d08cae8db209d39f7b5c61b098d832058ede4cc3192bd2d54d7dd4cb81b7cd3",
+    "source/apps/moproj2mst/src/doe/slice.cpp": "e7e68ed6b906b9a150ce1fd79ccf388cb1dc7c17068f23f8bc8858d471895614",
+    "source/apps/moproj2mst/tests/mdt/test_doe_slice.cpp": "e04d445615e5b44e2304bc4ebce3e476df339ff16d63c27522b5e4f79847dac8",
+    "source/apps/moproj2mst/src/doe/stepdata.cpp": "0b0118fb1d3797329bf138bb02784fa23daa0332674af4a2533845a794c263b3",
+    "source/apps/moproj2mst/tests/mdt/test_doe_stepdata.cpp": "018411cb3591e35650de96b5c2d6b574a0047a5a80980d4e92bb06c9c54118f9"
+  },
+  "evidence_sha256": {
+    "analysis/wave2-doe-stepdata-object-slice-collection-base-record-decompile.json": "83afc65ab37b8c3a28bec53b35d5ad2783e19d63c888e0f2c9ab1673dcbf5fa5",
+    "analysis/wave2-doe-stepdata-object-slice-collection-members-decompile.json": "9224d0b70e954ab63cb6244b7b92edb054a465fc4860dd7c3fed69f18f906990",
+    "analysis/wave2-doe-stepdata-object-slice-opaque-constructor-leaves-decompile.json": "9ec9b99f05bc9a06beefd51c39103db3db372a6e0eb20a2dae07061af455b2df",
+    "analysis/wave2-doe-stepdata-object-slice-matrix-initializers-decompile.json": "3e863eac69f35e3ce86c370f87b483413354ddf611be30ef0aa6987e3b3479ad",
+    "analysis/wave2-doe-stepdata-object-slice-collection-opaque-record-wrapper.asm": "8d2f6551e91cc510ea856c19af2358f34f9517169faa3ce7f1202dce9e7bc9bf",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-order.asm": "a951c0d674a1c61d4c94c971134be6840e20a4cc76a3820f04148c37904b483f",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-extract.asm": "66a68ad82a9a0e27fd31b10565802c0331b21259b3c839d5c84c3fed930c7d38",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-pop.asm": "a5137e1af5f606a85ebfb86f0a68c09913dcb7df1aee817ce6d5c3c63204e2f6",
+    "analysis/wave2-doe-stepdata-object-view-remove-last-erase.asm": "b4dc60e27fa876d58907f205ca93a83162eb0efe9785900555923aee3a652413"
+  },
+  "root_integration_receipt": "analysis/wave3-slice-session-root-integration.json",
+  "root_integration_sha256": "160fd54fd649507ec6977173bd78c15f27689f0ad41904f17f2042d4ceff47c4",
+  "constructor_effect": [
+    "df3be0 constructs four records throughdf3fa0->df07f0(nullplane,nullbackend,true)->1afa10->1afa30.",
+    "1afa30 visits selector1b0730 indices0..77, copying16bytes each. Selector has no calls and writes process-globalRGBA143d82540..54c. Finalcase77writes fourfloat1 bits3f800000 (literal1421ebc3c).",
+    "SliceConstructorRuntime holds ONE shared process scratch as optionalrawbits, initiallyunavailable. Factory allocation precedes finalscratch update; update precedesreturn and callerView+338 commit. Native constructorView identity and unavailablemodel remain distinct.",
+    "StepData captures localshared runtime lease from actualStudyIo weakbinding; no runtime inferred from DB. NoDB Slice still performs constructorglobal effect. Runtime unavailable guards before NEWcollection construction.",
+    "No perView scratch clone; root actualSession owns sharedruntime; StudyIo weak binding and lifecycle guards belong to root."
+  ],
+  "ordered_cleanup_proof": [
+    "c82b70 calls c91ea0(list+18) which saveslastpointer, calls c91f50->066f10->importedQtCore QListData::erase(IAT141e058a8), thenreturns savedView.",
+    "Visible listremoval occurs before c82bb2 unbindfull; actualView vt+18 destructor is laterc82be5. Root pendingRemoval retains in-flight orphan atunsupportedboundary without syntheticdeferred nativeexecution.",
+    "Unbind sourceobjnull precedesfourunrepresentedauxclears; fullSlice cleanup precedesrepresented curves/mesh/georep/itemclears. Nonfulladaptation happens afterrepbuild and beforecallerrefresh."
+  ],
+  "failure_qualification": [
+    "Finalscratch projection describes successful construction; intermediate selector colors have no callbacks within selector/copyloop. Internal memberallocation failures can leave scratchmutated before constructorfailure without Viewcommit; not emulated or claimed equivalent.",
+    "Native allocation/exception/CRT heap failures and globalconcurrency remain qualified. Existing opaque membermatrix fields are not consumed before backendguard; remaining constructor primitivehelper details retained for successor review.",
+    "Raw list erase order is staticallybound; full renderer/view cleanup and normalClose plane deletion remain guarded."
+  ],
+  "apis": [
+    "SliceConstructorRuntime{optional<array<uint32_t,4>> colorScratchBits;}",
+    "unique_ptr<SliceCollectionState> createSliceCollection(const void* actualView,SliceConstructorRuntime&)",
+    "Root readViewerSlice(...,SliceConstructorRuntime* runtime=nullptr)",
+    "Root StudyIo.bindSliceConstructorRuntime(shared_ptr) / sliceConstructorRuntimeOwner() weaklock"
+  ],
+  "focused_tests": {
+    "m2m_doe_slice": 18,
+    "m2m_doe_view_stepdata": 17,
+    "m2m_doe_stepdata": 11,
+    "new_worker_cases_total": 22,
+    "new_repair_cases": 2,
+    "root_owner_cases": 12,
+    "repair_coverage": [
+      "Actualsharedscratch changesbefore latercoefficientguard",
+      "Two constructorsshare same processruntime, noViewcopies",
+      "StepData NoDB suppliedRecordingStudyIo runtimemutates scratch thenrealpropertytable/currenteffects beforecheckboxguard"
+    ]
+  },
+  "preflight": [
+    "One main per test target; setContent5arguments, CHECK templatecommas, fullSliceRuntime/io includes and sharedlease capture checked.",
+    "Root four-argreadViewerSlice and createSliceCollection call inspected.",
+    "Owned trailingwhitespace scan clean; git diff --check clean trackedchanges. No worker tests or builds."
+  ],
+  "next": "Keepallsourcefrozen during rootcandidate37. Constructor/member/render successor evidence read-only; no broadclosure or acceptance claim."
+}

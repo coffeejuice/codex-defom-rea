@@ -1,0 +1,113 @@
+address	status	note
+0x1401999c0	not-needed	empty dtor of the LLOBJ_DATA sub-object at 0x10 (Cls_140199970); p1-04 tags it in the LLOBJ_DATA dtor
+0x1401999d0	not-needed	one-line reset LLOBJ_DATA u39c8 = 0, u39d0 = 0 (ctor 14015ec80, 140199b10); p1-04 absorbs it with an @src tag
+0x140199b10	not-needed	LLOBJ_DATA: free(u39c8) then 1401999d0 (callers 14015fbf0, 14015f0b0); p1-04 absorbs it
+0x140199b60	not-needed	LLOBJ_DATA: free(u39d8), u39d8 = 0, u39d4/u39e0..u39ec = 0, u39f0 = 1 (caller 14015fbf0); p1-04 absorbs it
+0x140199c50	not-needed	one-line getter int at +0x10 (material list Cls_14029b4c0 at DB_STEP_DATA+0x1328 and the p1-08 mesh code); owners absorb it
+0x140199c60	not-needed	one-line test 0 < *p (callers 140197b40, 140164d50, p1-04); owner absorbs it
+0x140199d00	not-needed	one-line setter DB_WRITE_VAR::u114 = *arg (callers 1401baf30 p1-03, 14016cf10 p1-04); owners absorb it
+0x140199d40	not-needed	one-line setter DB_WRITE_VAR::u118 = *arg (1401baf30, 14016cf10)
+0x140199f30	ported	port/defmodel/src/sdctl/step_timer.cpp StepTimer::reset
+0x14019a0e0	not-needed	one-line setter DB_WRITE_VAR::u11c = *arg (1401baf30, 140175db0, 140176830)
+0x14019a120	not-needed	one-line setter DB_WRITE_VAR::u124 = *arg (1401baf30, 140175db0, 140176830)
+0x14019a160	not-needed	one-line setter DB_WRITE_VAR::u128 = *arg (1401baf30, 140175db0)
+0x14019a1a0	not-needed	one-line setter DB_WRITE_VAR::u12c = *arg (1401baf30, 140175db0)
+0x14019a1e0	not-needed	one-line setter DB_WRITE_VAR::u130 = *arg (1401baf30, 140175db0)
+0x14019a290	not-needed	scalar deleting dtor of LLOBJ_DATA (dtor 14015f790), i.e. C++ delete; p1-04
+0x14019a2d0	not-needed	one-line setter DB_WRITE_VAR::u110 = *arg (1401baf30, 14017b370, 14017cb60)
+0x14019a310	not-needed	one-line setter DB_WRITE_VAR::u0d0 = *arg (1401baf30, 14017b370)
+0x14019a330	not-needed	one-line setter DB_WRITE_VAR::u0d4 = *arg (1401baf30, 14017b370)
+0x14019a370	not-needed	one-line setter +0x138 = arg of Cls_14017ef20 (LLOBJ_DATA+0x8a0; callers 14017efc0, 1403de2a0); p1-04 absorbs it
+0x14019a3f0	not-needed	one-line setter +0xf8 = arg of Cls_140182880 (LLOBJ_DATA+0x9e0; callers 140182920, 1403de2a0); p1-04
+0x14019a450	not-needed	one-line test +0xf8 == 3 of Cls_140182880 (callers 140183c20, 140184ac0); p1-04
+0x14019a4b0	not-needed	one-line setter +0x68 = arg of Cls_140185570 (LLOBJ_DATA+0xae8; callers 1401855d0, 1403de2a0); p1-04
+0x14019a670	ported	ported by kw-g2geo (kw-merge gate); was not-needed; scalar deleting dtor of the StateVar class whose dtor is 140301990 (p1-09), i.e. C++ delete
+0x14019a6b0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector ctor
+0x14019a720	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector dtor
+0x14019a740	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::resize
+0x14019a7d0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::clear
+0x14019a860	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::mutable_at
+0x14019a910	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector dtor
+0x14019a9d0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector dtor
+0x14019aa90	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector dtor
+0x14019ab10	ported	port/defmodel/src/layout/sdctl_ptr_list_obj_geo2d.cpp dtor
+0x14019ab50	ported	port/defmodel/src/layout/sdctl_ptr_list_obj_geo2d.cpp slot 0
+0x14019ab70	ported	port/defmodel/src/layout/sdctl_g_list.cpp slot 0
+0x14019abb0	ported	port/defmodel/src/layout/sdctl_ptr_list_obj_geo2d.cpp slot 1
+0x14019ac40	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList ctor
+0x14019acb0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList copy ctor (Ghidra: std::locale::locale)
+0x14019acf0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList dtor
+0x14019ad10	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::push_back
+0x14019ad70	ported	port/defmodel/src/layout/sdctl_ptr_list_obj_geo2d.cpp scalar deleting dtor (C++ delete)
+0x14019adb0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::mutable_end
+0x14019ade0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::erase
+0x14019ae60	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::detach
+0x14019af20	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::push_back (end())
+0x14019af60	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::detach
+0x14019af90	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVectorBody ctor
+0x14019afe0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release
+0x14019b040	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::clear
+0x14019b0e0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release
+0x14019b1e0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release
+0x14019b310	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release
+0x14019b3c0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::release
+0x14019b420	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release (body scalar deleting dtor)
+0x14019b460	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release (body scalar deleting dtor)
+0x14019b4a0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release (body scalar deleting dtor)
+0x14019b4e0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector dtor (eh vector deleting dtor of the element array)
+0x14019b570	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::release (body scalar deleting dtor)
+0x14019b5b0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::release (body scalar deleting dtor)
+0x14019b5f0	not-needed	stl: std::list iterator ctor, replaced by std::list (CowListBody)
+0x14019b610	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVectorBody dtor
+0x14019b640	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVectorBody dtor
+0x14019b670	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector dtor (Destroy of the element array)
+0x14019b6c0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVectorBody dtor
+0x14019b6f0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVector::insert
+0x14019b780	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::detach
+0x14019b980	ported	port/defmodel/src/layout/sdctl_ptr_list_obj_geo2d.cpp slot 4 (owns != 0 needs p1-07 OBJ_GEO2D, guarded)
+0x14019b9e0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::detach
+0x14019ba60	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowList::mutable_at
+0x14019bac0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowListBody ctor
+0x14019bb70	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowListBody dtor
+0x14019bbf0	not-needed	stl: std::list _Insert (node alloc + link before the sentinel), replaced by std::list::push_back
+0x14019bce0	not-needed	stl: std::list node value ctor (int), replaced by std::list
+0x14019bd00	not-needed	stl: std::list sentinel node ctor (identity), replaced by std::list
+0x14019bd10	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowVectorBody::insert_n (_Insert_n, growth policy kept)
+0x14019c0a0	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowListBody clone
+0x14019c550	ported	port/defmodel/include/defmodel/sdctl/cow.hpp CowListBody clone
+0x14019c6d0	not-needed	stl: std::list iterator copy, replaced by std::list
+0x14019c6f0	not-needed	stl: std::list iterator != (Ghidra: CFileTimeSpan::operator!=), replaced by std::list
+0x14019c730	not-needed	stl: std::list iterator deref (node + 0x10), replaced by std::list
+0x14019c750	not-needed	stl: std::list iterator post-increment, replaced by std::list
+0x14019c7a0	not-needed	stl: std::list sentinel node ctor (identity), replaced by std::list
+0x14019c820	not-needed	stl: std::list iterator ctor, replaced by std::list
+0x14019c840	not-needed	stl: std::list iterator copy, replaced by std::list
+0x14019c860	not-needed	stl: std::list iterator !=, replaced by std::list
+0x14019c8a0	not-needed	stl: std::list iterator deref, replaced by std::list
+0x14019c8c0	not-needed	stl: std::list iterator post-increment, replaced by std::list
+0x14019c910	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::copy_backward
+0x14019c970	ported	port/defmodel/include/defmodel/sdctl/cow.hpp cow_detail::fill
+0x14019c9c0	not-needed	stl: std::list _Insert (8-byte value), replaced by std::list
+0x14019cc30	not-needed	stl: std::list node value ctor (8-byte), replaced by std::list
+0x14019cc60	ported	port/defmodel/src/sdctl/step_timer.cpp StepTimer ctor
+0x140330ea0	ported	port/defmodel/src/layout/sdctl_g_list.cpp slot 5
+0x1403321a0	ported	port/defmodel/src/layout/sdctl_g_list.cpp slot 1 clear (the +0x30 helper path is guarded; 140333230 is p1-10)
+0x1403330c0	ported	port/defmodel/src/layout/sdctl_ptr_collection.cpp scalar deleting dtor (C++ delete)
+0x140333120	ported	port/defmodel/src/layout/sdctl_g_list.cpp scalar deleting dtor (C++ delete)
+0x140333f50	ported	port/defmodel/src/layout/sdctl_ptr_collection.cpp slot 3
+0x140330ee0	ported	port/defmodel/src/layout/sdctl_g_list.cpp ctor (ledger P2, needed by the class)
+0x140333090	ported	port/defmodel/src/layout/sdctl_ptr_collection.cpp ctor (ledger P2)
+0x14019aae0	ported	port/defmodel/src/layout/sdctl_ptr_list_obj_geo2d.cpp ctor (ledger P2)
+0x140331030	ported	port/defmodel/src/layout/sdctl_g_list.cpp dtor (p1-10 row, Sdctl class, agreed with coordinator)
+0x140333100	ported	port/defmodel/src/layout/sdctl_ptr_collection.cpp dtor (p1-10 row, Sdctl class, agreed with coordinator)
+0x140199dc0	ported	port/defmodel/src/sdctl/step_timer.cpp StepTimer::start (ledger P2)
+0x140199df0	ported	port/defmodel/src/sdctl/step_timer.cpp StepTimer::checkpoint (ledger P2)
+0x140199eb0	ported	port/defmodel/src/sdctl/step_timer.cpp StepTimer::stop (ledger P2)
+0x140199f20	ported	port/defmodel/include/defmodel/sdctl/step_timer.hpp StepTimer::report, empty (ledger P2)
+0x140199f50	ported	port/defmodel/src/sdctl/step_timer.cpp StepTimer::clock_ms (ledger P2)
+0x14019ccb0	not-needed	StepTimer dtor, empty: implicit destructor (not in the ledger)
+0x140503880	ported	port/defmodel/src/sdctl/step_timer.cpp global g_timer_read_elem_integer_info (p1-02 row, asked by coordinator)
+0x140503980	ported	port/defmodel/src/sdctl/step_timer.cpp global g_timer_read_record (p1-02 row)
+0x1405039c0	ported	port/defmodel/src/sdctl/step_timer.cpp global g_timer_read_arrays (p1-02 row)
+0x140503a00	ported	port/defmodel/src/sdctl/step_timer.cpp global g_timer_read_obj_state_variable (p1-02 row)
+0x140503a40	ported	port/defmodel/src/sdctl/step_timer.cpp global g_timer_read_obj_node_state_variable (p1-02 row)

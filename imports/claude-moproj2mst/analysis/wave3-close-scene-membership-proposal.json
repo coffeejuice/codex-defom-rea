@@ -1,0 +1,59 @@
+{
+  "scope": "Next owned-scene membership boundary proposal; not production implementation",
+  "created_utc": "2026-10-24T06:31:40.945403+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-scene-initial-text-items-contract.json",
+      "sha256": "d78480d69e7ee013a55149e4efdd53f5a4a5e9c6d8b8280a82f35aede7dd83b2"
+    },
+    {
+      "path": "analysis/wave3-close-secondary-view-attachment-contract.json",
+      "sha256": "4029335a1c0bb05c91a66b76271c41707af93311930d3a8a719377a38fd236c1"
+    },
+    {
+      "path": "analysis/wave3-close-histogram-enabled-prefix-landing.json",
+      "sha256": "84b77b5921aa9dc95cfae0510bf4092f45b3b4d78bf258d5eff6842eb3b92c15"
+    }
+  ],
+  "purpose": "Allow the exact c0d7e0 no-match branch using real scene-owned item identities, while preserving graph/Qt population gaps.",
+  "owned_fields": [
+    {
+      "owner": "PostGraphSceneState",
+      "proposal": "ordered unique ownership of concrete scene item objects, plus a separately qualified completeness marker; initial Display binding alone leaves membership unavailable",
+      "why": "QGraphicsScene::items includes non-graph objects; manager graphItems is a different guarded list and cannot replace scene membership."
+    },
+    {
+      "owner": "Scene text object",
+      "proposal": "concrete SfGraphicsTextItem projection retaining native text ($DBNAME / Step $STEPNO), Display identity, hidden state and exact native class identity",
+      "why": "The constructor actually allocates/adds these objects; count or graph-absent Boolean would lose identities and mutable state."
+    },
+    {
+      "owner": "HistogramGraphBinding",
+      "proposal": "optional qualified secondary PostGraphSceneBinding, distinct from primary binding and manager construction-time cached scene",
+      "why": "c0d7e0 obtains current global+788 secondary scene. A qualified null pointer is still an unsupported native items() dereference, not an empty scene."
+    }
+  ],
+  "operations": [
+    "Constructor text-addition commit must append the two actual objects only at its recovered allocation/addItem points; it must not silently mark full scene membership as known.",
+    "Source or explicit declared profile must independently qualify complete current scene membership; missing qualification guards.",
+    "The source-closed first query can inspect known text objects and return no-match only after all current items are proven nonmatching. An unknown item remains guarded, even if all known items are text.",
+    "Do not provide arbitrary graph constructors or type labels as substitutes for unrecovered graph object creation/ownership.",
+    "Any actual matching SfHistoChart/SfGraphItem namedSfHistoChart must guard at or invoke the full shared Hide notification. No deletion is in c0d7e0."
+  ],
+  "source_scope": [
+    "Only existing owned close_effects.hpp/.cpp/test_close_effects.cpp after explicit root release; actual Session primary/secondary binding remains root-owned."
+  ],
+  "limits": [
+    "This proposal does not claim full Qt SfGraphicsTextItem constructor/render/font effects recovered. A pure Close type query may use proven concrete identity, but full constructor parity remains separately qualified.",
+    "No native fresh graph-absence inference: later Open operations and framework callbacks can mutate scene membership.",
+    "Normal Close RemoveGraphItems still always needs HideSecondary after selective cleanup, even for a no-match scene."
+  ],
+  "validation_plan": [
+    "distinct primary/secondary scene identities and text object lifetimes",
+    "unknown membership guard remains after histogram graphOn clears",
+    "qualified null secondary keeps native dereference guard",
+    "no-match preserves both initial text objects and existing fields",
+    "current binding changes affect next dispatch; cached manager scene not substituted",
+    "matching or unknown graph cannot silently return success"
+  ]
+}

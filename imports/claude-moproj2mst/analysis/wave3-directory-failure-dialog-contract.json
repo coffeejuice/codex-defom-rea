@@ -1,0 +1,85 @@
+{
+  "schema": "wave3-directory-failure-dialog-contract-v1",
+  "method": "Offline original PE and bounded DUMPBIN; no target runtime, DLL load, UI, Ghidra mutation, build or production edit.",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qtgui_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+  "findings": [
+    {
+      "id": "DFD1",
+      "kind": "static_observation",
+      "sites": [
+        "14081b24e",
+        "654767c0",
+        "65476640"
+      ],
+      "contract": "Failed mkpath with dialogs enabled constructs legacy QMessageBox with icon1, first button0x400 and next two0, null parent. Constructor invokes init helper65476640, which converts and adds each numeric button."
+    },
+    {
+      "id": "DFD2",
+      "kind": "static_observation",
+      "sites": [
+        "65473ad0",
+        "65473b34",
+        "6539cd98",
+        "6539cdb9",
+        "6539aea5"
+      ],
+      "contract": "Conversion returns0x400 unchanged (AND0xfffffcff); zero stayszero. Add0 returnsnull; 0x400 creates one button, with literal OK or &OK according to style. Literal locations6569d9f8 and656fcb64 inspected directly. No alternative action is added."
+    },
+    {
+      "id": "DFD3",
+      "kind": "static_observation",
+      "sites": [
+        "654766dd",
+        "654766e9",
+        "654766f5",
+        "65476719",
+        "6539ad74",
+        "6539cbfc",
+        "6539c267",
+        "6539c555"
+      ],
+      "contract": "No legacy Default flag0x100 or Escape flag0x200 is passed. OK maps button role0 and is stored as first role0 button. QDialogButtonBox event17 (Show) chooses first role0 button as default if no competing preexisting default; setDefault(true) at6539c55f. Fresh one-button dialog therefore has OK as its default answer. showEvent also resolves lone button as escape candidate at65475f1d..65475f32."
+    },
+    {
+      "id": "DFD4",
+      "kind": "static_observation",
+      "sites": [
+        "14081b268",
+        "14081b286"
+      ],
+      "contract": "Caller executes QDialog::exec, ignores result, destroys QMessageBox, and returns1. Default answer cannot change this helper return."
+    },
+    {
+      "id": "DFD5",
+      "kind": "static_observation",
+      "sites": [
+        "654594f5",
+        "65459507",
+        "671186a4",
+        "671186ec"
+      ],
+      "contract": "QDialog::exec invokes QEventLoop::exec with0x40. QEventLoop ORs0x24 and repeatedly invokes current-thread dispatcher+0x58 until exit. This includes wait flag4, unlike Save processEvents(flags0). Modal failure dialog is a nested event-dispatch opportunity."
+    }
+  ],
+  "integration": "Represent default OK and ignored answer, but retain explicit modal dispatch boundary. Do not infer an empty delivered-timer set merely because default answer is used; readiness and time-to-answer remain schedule inputs.",
+  "qualifications": [
+    "Static recovery, not observed dialog execution. OS delivery/order and elapsed modal time remain unknown.",
+    "Normal allocation and fresh standard style scope; arbitrary injected plugins/translation and allocation failure are not generalized.",
+    "Some leaf/prefix selections include incomplete tail instructions; claims cite only complete selected instructions, with continuation selections for referenced branches. Unwind boundaries are not treated as complete logical procedure boundaries.",
+    "This does not close other dialogs or all possible nested event loops."
+  ],
+  "evidence_sha256": {
+    "analysis/wave3-closure-next-dialog-auto-default-static.json": "bbf752cff71a6a76dac72641d2fb5bb84965a9271b3657d7777c1e349c528ea3",
+    "analysis/wave3-closure-next-dialog-button-map-static.json": "746af3b9a9ef41e1c4dc1e6154c34ef28a6d0fcbbf99c2c4b8390fcc310efa5c",
+    "analysis/wave3-closure-next-dialog-buttons-static.json": "cbed21071eb7f75fc0da75bae1f03134505a18e87a0007ae3144870e12e6d268",
+    "analysis/wave3-closure-next-dialog-default-static.json": "e4c8e05d76101aa988dc98c395a6d37a2af93df8ac4a6002f750601842cb7f83",
+    "analysis/wave3-closure-next-dialog-ok-label-static.json": "af3a19bc7c9a5e1acc028d3536748acf1ad26242842063d64c1a1cf5dd3a5477",
+    "analysis/wave3-closure-next-dialog-role-static.json": "e0aaf72089311f1514b0373eeabfe1c12740e0fca7af19d867de1ad2d9db9808",
+    "analysis/wave3-closure-next-dialog-setup-static.json": "c2b86230d35b1fb41d07f721eea29cb6e17790c115a5f57306ca06a76b8085da",
+    "analysis/wave3-closure-next-dialog-static.json": "fb3bdefc4069e796c58afa75fc17ec365b27c3bc508733e28d031106044857f4",
+    "analysis/wave3-closure-next-modal-loop-static.json": "b6a1a30ae489a72f53287581c819ce738fba4edd9911041b867e5d2b0270fa83",
+    "analysis/wave3-earlier-save-14081afb0.asm": "a9df7d8c1f7b7e73f7070a4361e60726427035c3631b5505577f9716395ad156",
+    "analysis/wave3-boolean-timer-contract.json": "63ee9c2bca39e6b14ba2866a0ffc7a8caf5b389f49d4b41530d84e4f6145cdb0"
+  }
+}

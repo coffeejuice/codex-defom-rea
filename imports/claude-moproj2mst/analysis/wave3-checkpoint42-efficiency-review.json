@@ -1,0 +1,36 @@
+{
+  "at_utc": "2026-10-24T12:28:23.195544+00:00",
+  "trigger": "One hour since previous review; safe boundary after owned capture cleanup",
+  "prior_review": "analysis\\wave3-checkpoint41-efficiency-review.json",
+  "prior_checkpoint": 41,
+  "checkpoint": 42,
+  "elapsed_clock_seconds": 3811.013913,
+  "builds": 1,
+  "configure_build_seconds": 26.86,
+  "latest_ctest_seconds": 17.813,
+  "captures": [
+    {
+      "receipt": "analysis/wave3-original-splitter-probe-003-receipt.json",
+      "outcome": "selected startup parent capture completed"
+    },
+    {
+      "receipt": "analysis/wave3-original-editor-probe-001-receipt.json",
+      "outcome": "probe phase guard stopped before Open; corrected"
+    },
+    {
+      "receipt": "analysis/wave3-original-editor-probe-002-receipt.json",
+      "outcome": "native CLI Open reached selected editor setup endpoint"
+    }
+  ],
+  "token_measurement": null,
+  "speedup_claim": null,
+  "interpretation": "Elapsed clock includes research, tool latency and integration; it is not measured active coding time or agent speedup.",
+  "decisions": [
+    "Retain one root plus three workers with exclusive ownership and root-only builds/captures.",
+    "Use source-confirmed native CLI Open for bounded editor investigations; qualify its timing separately from interactive Open.",
+    "Bundle next font/device, widget counters, Create/postEvent and style observations; avoid one-field runtime probes.",
+    "Use one actual WidgetRuntime-owned event queue across startup/editor lanes; no duplicate queue or event-count substitutes.",
+    "Limit file inventory to relevant analysis paths; avoid broad scans of deliberately restricted test scratch.",
+    "Continue implementation immediately; no acceptance weakening from passing checkpoint42."
+  ]
+}

@@ -1,0 +1,17 @@
+# Resume 202 passive-runner absence receipt diagnosis
+
+## Finding
+
+The `processAbsenceVerified: false` value in `analysis/resume202-passive-oracle-run-2026-10-26T04-28-23-604Z/summary.json` is caused by an unset session-cleanup field, not by a live PID in the receipts. The held-handle helper reports `exit_verified: true`, `handles_closed: true`, `state: "exited"`, and `wait_result: 0`; `helperExit.code` is 0, so `heldHandleExitVerified` is true. Same-device enumeration saved `present: null` and set `fridaAbsent: true`; Windows CIM inspection saved `{raw:"", value:null}` and set `windowsAbsent: true`. Consequently `ownedPidObservedAbsent` is true. The summary has `sessionCleanupSettled: null`, which makes the final conjunction false.
+
+In `admin/frida_original_save_probe.mjs`, cleanup only assigns `result.sessionCleanupSettled` inside `if(session&&!session.isDetached)`. The observed attach had already emitted `sessionDetachedReason: "process-terminated"`, so that condition is false. `sessionCleanupSettled` remains its initial unset value (`null` in the serialized summary), even though an already-detached session is settled. The same gap can occur when there is no session object at all. This is the direct false-negative defect.
+
+## Smallest safe correction
+
+Make the cleanup result total: after attempting any required unload/detach, assign `sessionCleanupSettled` on every path. Treat no session as settled; for an existing session, use its observed detached state after cleanup. Keep exceptions and unsettled state false, and retain the current timeout/error receipts. For example, preserve the existing guarded unload/detach operations, then set the field from `!session || session.isDetached === true` when no cleanup error occurred; set it false in the detach failure/timeout path. Do not infer session settlement from PID absence or helper exit alone.
+
+The Windows empty result is consistent with PowerShell's no-output behavior when `Get-CimInstance` returns no rows and the pipeline reaches `ConvertTo-Json`; `.trim()` therefore yields an empty string and the wrapper records `value: null`. Here the code maps that null to absent, and the independent same-device receipt also reports no matching PID. For clearer fail-closed semantics, the smallest hardening is to have PowerShell emit an explicit wrapper with a `present` boolean and the selected process row(s), then require a valid wrapper and `present === false`. An empty/unparseable response should be an inspection failure, not absence. This is a receipt-clarity improvement; it is not the cause of this run's false `processAbsenceVerified` value.
+
+## Capture status is separate
+
+This run did not complete the passive startup capture. It stopped at `held_handle_ready`: Frida reported `unable to intercept function at 00007FF648E554A4`. The target was held suspended and the readiness check failed before the resume command. The terminal reason is `hook_error`, with zero observations, no module-ready receipts, missing hooks/modules, and `coverageComplete` and `captureComplete` both false. The helper's verified termination and independent PID-absence observations establish cleanup for PID 33884; they do not turn the incomplete runtime trace into a completed capture. Root's separate escalated CIM and REA checks further corroborate absence, but should remain separately identified evidence rather than be merged into this runner's raw receipt.

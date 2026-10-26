@@ -1,0 +1,48 @@
+{
+  "schema": "m2m-doe-task-factory-fixed-registration-v1",
+  "purpose": "Qualify the shipped fixed registration-call inventory for CreateTaskBase, without claiming all possible dynamic registration states.",
+  "evidence": {
+    "analysis/wave2-doe-session-notifier-call-instructions.json": "e1a357a697a2f3fd1de4a56eee1fcbf5470cd25ef7a1bf93e32e60b957dbbd4a",
+    "analysis/wave2-doe-session-notifier-direct-key-candidates.json": "1a947bb2daf487a9e9d8aee1999d09675f2abb6202b3e526ef1847fcbc6cf0d9",
+    "analysis/wave2-doe-task-factory-mainwindow-registration.asm": "17dd07c8fa81ee34f264ff3428857eab27518d24440a5fa1d59fb94790b26226",
+    "analysis/wave2-doe-task-factory-registration-other1.asm": "5964c1963e60533b29167fbdf2767e5856fc112d822c725d1b58a4f582431b3e",
+    "analysis/wave2-doe-task-factory-registration-other2.asm": "f8cf9e3531a2722c16bc4b28ed17876a9f98f8826b6278536fa5f5745c5d66f4",
+    "analysis/wave2-doe-session-notifier-register-binding-decompile.json": "9aaddb2a4b4c519b81d44d6b2e6c6f7a1d0f2539e4644c632a5b96973868d271",
+    "analysis/wave2-doe-session-task-factory-handler-decompile.json": "9c5058b2c36cb06f588a9ef6e19fb5c40c99ea3c747986c2cb29a4a6934e023d",
+    "analysis/wave2-doe-session-task-registry-owner-decompile.json": "b5b1d0510a380949b0c0f1a1bab916f92807285ea2bfb5829336ae937c95d702",
+    "analysis/wave2-doe-session-task-registry-content-decompile.json": "c7c14861013ef85e57c7741ef3980990db9bbeffffe42fc0b1a3896057fdd08b",
+    "analysis/wave3-editor-shared-qobject-counter-contract.json": "882291ec5af40eb036763c7d7b782dd3c0153d60f63eb30ef1bd27174f200253"
+  },
+  "inventory": {
+    "verified_direct_calls": 348,
+    "literal_shape": 346,
+    "CreateTaskBase_matches": 1,
+    "match": {
+      "call": "0x140011fcb",
+      "caller": "0x1400111c0",
+      "global": "0x143d76700",
+      "signal_literal_va": "0x1420f9948",
+      "signal": "2signalCreateTaskBase()",
+      "slot_literal_va": "0x1420f9930",
+      "slot": "1slotCreateTaskBase()",
+      "receiver": "actual mainwindow this, r8 from stack60",
+      "fifth_flag": 0
+    },
+    "other_two_calls": [
+      {
+        "call": "0x1415852ad",
+        "literal_va": "0x142f2c868",
+        "signal": "2signalUpdateWindefShapeNo()"
+      },
+      {
+        "call": "0x1415868e2",
+        "literal_va": "0x142f30140",
+        "signal": "2signalUpdateWindefShapeNo()"
+      }
+    ],
+    "other_shape_resolution": "Both pass qFlagLocation(char const*) result to rdx; IAT141e03eb0 import ?qFlagLocation@@YAPEBDPEBD@Z. Selected call instructions and adjacent setup are validated; initial/final partial instructions in bounded ranges are not used."
+  },
+  "registration_semantics": "2cfbe0 strips initial Qt marker then truncates first opening parenthesis, yielding slotCreateTaskBase. Fifthflag0 appends only if same receiver+baremethod is not already present; it does not replace the list. Fifthflag1 prepends. Actual receiver binding and its lifetime must use same shared notifier owner.",
+  "qualified_scope": "One actual mainwindow registration from the complete retained direct shipped registration-API call set. This supports an explicitly qualified fixed-startup singleton profile. It is not a whole-program proof excluding future runtime/dynamic/out-of-inventory registrations or that all startup constructor effects were executed. Unavailable population remains distinct from empty.",
+  "next_guard": "First Report QObject(parent=null) constructor selects/references Qt thread before process QObject counter. No general completed base seam exists. Keep TaskInfo/font/metadata/preferences and prototype caches unreached."
+}

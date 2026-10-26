@@ -1,0 +1,350 @@
+{
+  "schema": "wave3-boolean-timer-contract-v1",
+  "status": "event_conditional_callback_route_closed; adapter_schedule_not_qualified",
+  "method": "Fixed original/QtCore PE metadata, bounded DUMPBIN selections and qualified private read-only Ghidra; no original/runtime/UI execution.",
+  "supersedes_only": [
+    "Earlier unresolved modelUpdated route in wave3-boolean-open-sequence-contract; earlier artifacts remain immutable."
+  ],
+  "binary_sha256": {
+    "DEF_GUI_MO_64.exe": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "QtCore4_64.dll": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+  },
+  "schedule": {
+    "receiver": "Main-window lazy diagram view 012fa0 -> ctor14ef60, RTTI SfDiagCellEditor; base SfDiagEditor.",
+    "function": "0x140170430 (vt+0x1b8), nonnull attachment schedules QTimer::singleShot(1000, this, 1modelUpdated()) at0x14017085f.",
+    "multiplicity": "No equality early return, saved timer ID, cancellation or coalescing in setModel. 02a9b0 ->0a7250 ->0a7b90 attaches through0a89e0 ->012fa0; following038380 uses same012fa0 and attaches again. This successful active-subproject path therefore requests two timers with nonnull model. Other paths may request more; no global count claimed.",
+    "synchronous_model168": "Flow model ctor070f10 secondary vt14213ba88+168=088680. It visits restartGiven operations,86fe0 ->86e60 creates/clears restart QIcon via view+238=181c80 and graphics item icon field+120. It does not call the global tree/editor selection in these selected bodies; not whole descendant callgraph coverage."
+  },
+  "delivery_chain": [
+    {
+      "site": "Qt67134d90 nonzero interval ->67134870",
+      "behavior": "Allocates QSingleShotTimer; parent=current event dispatcher; connect timeout to receiver modelUpdated with raw type3, normalized Auto0 by671315c0."
+    },
+    {
+      "site": "Qt671348dd ->6712b1e0 ->6710c5a0",
+      "behavior": "Registers requested interval1000 with current thread dispatcher; no dispatcher yields zero timer ID/no registered timeout."
+    },
+    {
+      "site": "Qt67134ca0",
+      "behavior": "On timer event kills positive timer ID, sets -1, activates timeout, immediately deletes timer via67129f60. Each timer is separate."
+    },
+    {
+      "site": "Qt metadata1421de840 local23 ->18bb30 case18c194 ->vt278 ->183160",
+      "behavior": "modelUpdated first calls view+388 fit; then reads current attached model (viewprivate+18), and its CURRENT item via model+100. Null model/item skips diagram click."
+    },
+    {
+      "site": "183160 keys1421d8328/348 -> main setup0111c0 registration -> custom notifier2cf3c0",
+      "behavior": "Direct signalDiagItemClicked(ISfDiagItem*) then UpdateMainView; receiver slot metadata local53 ->0db1a0 case0db9f4 ->0387b0."
+    },
+    {
+      "site": "0387b0 ->038950 ->d3b300 ->d3b7d0 ->f36d0",
+      "behavior": "Active project and !loadingSub(+54) gate; uses then-current item ID, no scheduled snapshot."
+    },
+    {
+      "site": "f36d0 nonProcess item with existing property editor index!=0",
+      "behavior": "UpdateDataInWidgetArea -> existing editor apply1411e2870; Leave; invoke item factory -> new editor constructor/fill1411e25b0; ShowWidget. Each delivered selection replaces/refills the editor; repeated apply of one stale AddNew snapshot is wrong."
+    }
+  ],
+  "lifetime": {
+    "null_rebind": "Does not cancel old timers. Live receiver callback still fits; null attached model skips selection.",
+    "receiver_destroy": "QObject destructor6712f870 incoming list at+50 clears connection receiver+8 at6712fc5b; activation6712eed3..eeda skips null receiver. Timer itself is dispatcher child, not receiver child.",
+    "dispatcher_destroy": "QObject parent/child lifetime removes timer children; timer destructor67134c40 kills positive timer then QObject destruction. No arbitrary cross-thread lifecycle parity claimed.",
+    "callback_rebind": "Receiver is captured, model/item are resolved at delivery. Rebinding before timeout changes target."
+  },
+  "pump_boundaries": {
+    "open_parse": "08a9b0 flags0 processEvents before parsing, and cursor helper2ca7a0 flags1 pump. These occur before later02a0e0 subproject binding timers in normal fresh Open; no claim all indirect modal branches exhausted.",
+    "save_entry": "0980d0 requires0a4090 then calls IAT141e04448 at098129 with flags0 before subproject validation0b8fb0 and current-operation Save052ec0 at0981e1.",
+    "qt_variant": "IAT maps processEvents(QFlags) to6711d130 (not time-limit overload6711d190). Calls thread dispatcher vt58 once if present.",
+    "win32": "Exported vt6723f7e8+58=67144490. Native message dispatch at671449cf; zero-timeout poll67144a35. Blocking wait67144b46 requires flags&4 at67144acc..acf, absent flags0. It can deliver due timer messages but does not wait1000ms for not-yet-due timers."
+  },
+  "adapter_boundary": {
+    "current": "convert.cpp openActiveOperation is synchronous; no Qt dispatcher/logical timer state. Subsequent Save uses existing source-proven updateDataInWidgetArea. Immediate adapter schedule supplies zero explicitly delivered timer events.",
+    "proposed": "Session/dispatcher-owned DiagramLifecycleEvents: distinct receiver/timer IDs, interval1000 retained; schedule once per nonnull binding; null rebind retains queue; receiver destruction disconnects only; explicit due timer IDs delivered at logical pump. Delivery callback resolves then-current model/item and invokes replacement-selection chain, never Boolean apply alone.",
+    "root_binding": "Events and receiver identity must survive project Close if main-window view survives. Project can clear attachment without destroying receiver. No wallclock, sleep, automatic due inference, public ABI change or unconditional extra apply."
+  },
+  "unknowns": [
+    "Actual elapsed time and OS timer readiness for historical fresh-session captures; screenshot does not establish timer count or exact dispatch phase.",
+    "Whether operation-load descendant methods/message receivers enter further nested event loops on every supported branch; selected absence is not complete negative callgraph proof.",
+    "Precise Win32 timer/coarse interval delivery latency, allocation failures and cross-thread view/dispatcher behavior are not reconstructed.",
+    "Historical DB133 final saved files match via Save apply, but exact earlier Open-time model state needs a deterministic fresh reference action/dispatch schedule with callback evidence."
+  ],
+  "qt_metadata": [
+    {
+      "table": "0x1421de840",
+      "strings": "0x1421def20",
+      "local_id": 23,
+      "signature_va": "0x1421df370",
+      "signature": "modelUpdated()"
+    },
+    {
+      "table": "0x14216e830",
+      "strings": "0x14216f2d0",
+      "local_id": 53,
+      "signature_va": "0x14216faa7",
+      "signature": "slotDiagItemClicked(ISfDiagItem*)"
+    }
+  ],
+  "vtable_slots": [
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "table": "0x1421cded8",
+      "offset": "0x278",
+      "target": "0x140183160"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "table": "0x1421d8e98",
+      "offset": "0x278",
+      "target": "0x140183160"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "table": "0x14213ba88",
+      "offset": "0x168",
+      "target": "0x140088680"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "table": "0x14213ba88",
+      "offset": "0x100",
+      "target": "0x14014d7d0"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "table": "0x1421cded8",
+      "offset": "0x238",
+      "target": "0x140181c80"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "table": "0x6723dad8",
+      "offset": "0x30",
+      "target": "0x67134ca0"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "table": "0x6723dad8",
+      "offset": "0x18",
+      "target": "0x67134c40"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "table": "0x6723f7e8",
+      "offset": "0x58",
+      "target": "0x67144490"
+    }
+  ],
+  "code_regions": [
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140170430",
+      "end_exclusive": "0x14017086f",
+      "sha256": "19bcb242fdde81ff2755044fa588d8bcd4e704768c2762a4534de392fa85d8ef",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140183160",
+      "end_exclusive": "0x14018360a",
+      "sha256": "853f97ad70413250cbea1cf7451b6bba42bc6e3f94f9fe5ecb1d398125aaf3e2",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x1400387b0",
+      "end_exclusive": "0x140038843",
+      "sha256": "1910c19549678180e1c176bbd49d723f7c0d4ec6e060198ffddb2b984efa10d6",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140088680",
+      "end_exclusive": "0x1400888d2",
+      "sha256": "f02f10b65977f96edfaf9c51432fe9a4f4132970f9597d135578e137372e586f",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140086e60",
+      "end_exclusive": "0x140086fd2",
+      "sha256": "6972d7582b3859756a4eaa332632a91b5edadc21f9f64c1bdea5aa39de898d88",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140181c80",
+      "end_exclusive": "0x140181cf1",
+      "sha256": "6738003cf729b22e682a0df93416870beb24ab20decbfc676d8328e1b63541e8",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x1400a89e0",
+      "end_exclusive": "0x1400a8a46",
+      "sha256": "c6d23f099470f42a05a54ab18d6be6292dec4704a6a5fcac4012d5a9492b1af2",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x1400a7b90",
+      "end_exclusive": "0x1400a80d6",
+      "sha256": "86ae4aef1616e6e99da04937c71f237a871a976f83e0ad9b49dadce74b6438a6",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140038380",
+      "end_exclusive": "0x140038633",
+      "sha256": "c19fa447a37699e08029a6047a8d96424d1e45ea9ba39ab706f63536cac346eb",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x1400980d0",
+      "end_exclusive": "0x1400982ac",
+      "sha256": "16c31d2deb0724547b82bf35ecd5384173cc60f1b38f2c4a962997dd9c2b8045",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x67134d90",
+      "end_exclusive": "0x67135074",
+      "sha256": "7abffdd5c8932bd45867c21476b64fb0d05b488a3f655ceb74587328758ce36b",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x67134870",
+      "end_exclusive": "0x671348fd",
+      "sha256": "5c18bff0069361403edf333affc137fb21dae5a0fde9d0939e7c2792fc7b954c",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x67134ca0",
+      "end_exclusive": "0x67134cde",
+      "sha256": "0475c3932940d2e3a86ad251a410482ef8e37e4491276d02352258f9f1fab27b",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x67134c40",
+      "end_exclusive": "0x67134c9d",
+      "sha256": "b6cf292e54374adfab204f6bb48d67eca7ea2b26b7ff8e7176309ef3ebd3bc19",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x6712b1e0",
+      "end_exclusive": "0x6712b232",
+      "sha256": "1f79b932429ea6d2f5329c972b890f633c9c058fc1366f77b3220c7e6555f406",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x67129f60",
+      "end_exclusive": "0x67129f79",
+      "sha256": "b0c45540ddf2a5ab614cccc09bc93533e3f868333712b660d0271233c416fc2e",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x6710c5a0",
+      "end_exclusive": "0x6710c5ed",
+      "sha256": "86acc883d415c14b9a44d5ac8ca69c7a250e8f027d94f53801acec3bfd7de2e2",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x6712f870",
+      "end_exclusive": "0x6712fdbf",
+      "sha256": "e629e2450ab541e6cfc9370ae975aa17e3911537c42d54fd923f35d3bcc29693",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x6712ec70",
+      "end_exclusive": "0x6712f570",
+      "sha256": "26b77edf041acec591001596542be2f0100a07556b4eab0584d8cdc5bdf7fb48",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x6711d130",
+      "end_exclusive": "0x6711d185",
+      "sha256": "dcf96e14966d1ab8a330fbdce4237b7e9ca3f0193bcd57ea04c758de5bdcf460",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "QtCore4_64.dll",
+      "begin": "0x67144490",
+      "end_exclusive": "0x67144c73",
+      "sha256": "b095a443c9a747fb7ebb70f54127fea959e4e1091ca4ab5139b8bd4232af0d59",
+      "qualification": "runtime unwind region, not proof of whole logical procedure"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "begin": "0x140004a60",
+      "end_exclusive": "0x140004a7a",
+      "sha256": "ff8ad4c55c4a0417ec68d56b9b8725dad0c83c0303c9b351ee3a1eb0be7e22c6",
+      "qualification": "Exact disassembled leaf ending RET; no pdata entry."
+    }
+  ],
+  "evidence_sha256": {
+    "analysis/wave2-db133-boolean-contract.json": "1862dbf63c609a9aa943751becb5417e3688897893bce5821bd16d5ab8dbea72",
+    "analysis/wave2-db133-open-lifecycle.json": "82ff5ead28846fad5dd98df56eb397879e3747466a8f8f78f70cf12e0e8e3983",
+    "analysis/wave2-doe-boolean-model168-final-decompile.json": "834f7626d57197ff53e98fd15e8cdcfdab3f4f3def4993ed44d7d595c724b236",
+    "analysis/wave2-doe-boolean-model168-marker-decompile.json": "3182990fcccce765de66a7cdaa38884976b77f260685701ef8bda9267e61858f",
+    "analysis/wave2-doe-boolean-open-native-view-decompile.json": "cbc7c9149fd00e300dda0d810b7b43028680384f0125ecb3658a505f69b6b2ab",
+    "analysis/wave2-doe-boolean-open-view-binding-decompile.json": "1c0691541794d1f0daaa2aa3b163beee7b588b0c99cddf53812fb6ec9a66700b",
+    "analysis/wave2-doe-ghidra-receipt.json": "bd3f6d5f69b73f2d0206377edf260e0a1049a30e9e592d95f693e51c370a9d55",
+    "analysis/wave2-doe-ghidra-text-verification.json": "843b2166c4e3fcfb805c115667d47aefc117019453708b38672a927ce32a9bb2",
+    "analysis/wave3-boolean-close-flush-contract.json": "4f9e677670d7c7c275ccec74e3676dd17cf08cafe19ef6aa0190f0d3f8f6acd2",
+    "analysis/wave3-boolean-diagclick-1400387b0.asm": "39fa45dd3bf7792aaada78ad70486cb3851f1c990d6396ee105d40d23574aad0",
+    "analysis/wave3-boolean-diagclick-14003f670.asm": "678b636323fb20048726b945e5588da3ce57decb2db513b9e42e206bf15b0e2b",
+    "analysis/wave3-boolean-external-callback-contract.json": "f5b1ff592135f9b72de7f5734c1157a7b937e666d3c6c8f4ae44d7e6174f2ede",
+    "analysis/wave3-boolean-main-diagclick-metacall.asm": "a3e8fda5167d8837f9fd0a3698055a2dbcddd8305c3ec1955075a22fdea640b3",
+    "analysis/wave3-boolean-model168-140086e60.c": "5f4963556f6c3f9b9bb518270b3ed716dd74b607716df45284b61fc47508763d",
+    "analysis/wave3-boolean-model168-140086fe0.c": "94502a69ee0727b1cca39f161216c61babb49036456b504cc141b83637b159a5",
+    "analysis/wave3-boolean-model168-140088680.c": "9b13bce4a9fa35d8ce4e6ae23c8c4b684993e777dbf58a4ca76f748e4110a7bb",
+    "analysis/wave3-boolean-modelupdated-metacall.asm": "13ebfa67d82021f9a6c827a044b7389fa2d93045241c7af2ffcb94e61c2f1401",
+    "analysis/wave3-boolean-open-model-1400111c0.asm": "f9f78f69236143b5a255e8439c448785e93ced5e5ec41252edacde678ec72f17",
+    "analysis/wave3-boolean-open-model-140088680.asm": "46e2894a744ad8bf0ceecca87664936694856b8f0003b16fe79cfc0d8d04367d",
+    "analysis/wave3-boolean-open-model-1400b5a70.asm": "d5bb2a6fc6f40d0a7e0fb37165232948211c9d94a81c8099293cddc6cdf93a39",
+    "analysis/wave3-boolean-open-model-14014d7d0.asm": "b42d2c62c845cebc3400d9a969288ee00213d99d59df8743db7e76db768532df",
+    "analysis/wave3-boolean-open-model-140183160.asm": "370093dcd43955e18064af45980ef7523c81779e929abf83949622caeb0eec98",
+    "analysis/wave3-boolean-open-sequence-contract.json": "fc6562b8380b3a3d61de2634991f9f86b0379d22af2775104e6a059f07a17822",
+    "analysis/wave3-boolean-save-pump-140004a60.asm": "539e92055299d11545c0e5b25b070f97351e72a1f2f82b71b0639082ecef162a",
+    "analysis/wave3-boolean-save-pump-14008a9b0.asm": "8f4bffd1a8655f30972facc5037684d99b6a996309f2b8561f2c38575390dd4a",
+    "analysis/wave3-boolean-save-pump-1400980d0.asm": "0e5a4d4bc4873a90aa00768679f5778a68aba5147809b5402db0c717b3e1c1ce",
+    "analysis/wave3-boolean-save-pump-6711d130.asm": "1309f8158a0c2f8bc662d6081cc64f649c0258a371537852993805e512724851",
+    "analysis/wave3-boolean-save-pump-67144490.asm": "0d264898134afa803786e42f51ed7b63dfa43ff99c87ffb8520d513d2e1db8a9",
+    "analysis/wave3-boolean-timer-140086e60.asm": "40c97c51505bff5d93cefd6973d979e3a2306d0dcf65074ecc8af046c84cf54d",
+    "analysis/wave3-boolean-timer-1400a7b90.asm": "5d5b02ae40ac4d8edc355f644e779548ee51a0dbd9ef2d245d8eb6d73c7be23b",
+    "analysis/wave3-boolean-timer-1400a89e0.asm": "849258e405e917a9823d4a31d221cba05afd4f8dd0c906c81151b08d6281cc20",
+    "analysis/wave3-boolean-timer-14016dbe0.asm": "a70df41ce2cb487da178e378248b56f50295fe7c195cf58e5df20dcdd97d4cca",
+    "analysis/wave3-boolean-timer-14016dc70.asm": "f68eec9cf0030fb602a6df0bc2b454bd2e9a842575ccdb58572a63f4bce80072",
+    "analysis/wave3-boolean-timer-140170430.asm": "990eeb72652151a1ea1120c2ac386dbd7cef20a718692a875003945998c40315",
+    "analysis/wave3-boolean-timer-140181c80.asm": "b45b3af58b6d44d78d58f7d8d7e4ad8b41a0f80927899104d6801147a1e04a64",
+    "analysis/wave3-boolean-timer-6710c5a0.asm": "f19154b1b395e98bb644efa65310c888c68d90baa072606ef23f94d509d42907",
+    "analysis/wave3-boolean-timer-67129f60.asm": "ed817e283af356965784180cd7cdcf813106602c37e628ebba93c2cfc094fdbf",
+    "analysis/wave3-boolean-timer-6712b1e0.asm": "e9aa4011b28a9ae7f7ccedb9f5cec932d698e479289f332f007baa52e60b0212",
+    "analysis/wave3-boolean-timer-67134870.asm": "a9940d798c6fc735ea25b931234d954699fdcfce17e84a51f2fa00382cd16648",
+    "analysis/wave3-boolean-timer-67134c40.asm": "c76f09297f2dad4aa3956f1a6e8df784fd700fb1c6f2d540383bc7fa1bb832ae",
+    "analysis/wave3-boolean-timer-67134ca0.asm": "f80b697f34b4a1151dcb7880829e411455a08374e846343ae55da017c8f6d39a",
+    "analysis/wave3-boolean-timer-67134d90.asm": "14eca2a51bd8c4795a240911ffe3d4bab9776640e27158d1972676fc0cf05573",
+    "analysis/wave3-boolean-timer-qobject-destructor.asm": "f3478033c77b2c1d01c8b374c78f0d9e29ec9365095ac247eb760a4ce3b64a52",
+    "evidence/gui_mo/L5d/f36d0.c": "84b69ca0fdd5bd95a1712bd788e751d0331716c707735110217cfea1bbb8f8bd",
+    "evidence/gui_mo/s1/mdt/L0/C/c3.c": "80e15d5b7c2917c835f5f8a7c4d76325f1cd3304b0f1fa9f89ad77194f0f8da4",
+    "evidence/gui_mo/s1/mdt/save_d0.c": "dda9512051bcdc1b094da9455934e27139df9c38057473d537ee4198cd7933b9",
+    "evidence/gui_mo/s1/s1-01/dc/act1.c": "d272ac7ac84393f847cdc7455be987c177b7de4e81cd8896aa5c8fc4c590dd91",
+    "evidence/gui_mo/s1/s1-01/dc/open0.c": "42a4c638ad7508addbe14e3d43c363a54f3cd24720dbda979c07deaed373703b",
+    "evidence/gui_mo/s1/s1-05/sub0_s101.c": "aacc46bc344504b40d52e7661cabfb06c7086d102770770713dd21590e4e2d5f",
+    "source/apps/moproj2mst/include/m2m/mst/loader_l5.hpp": "44cb678960d3f7d746fe29b26edd54b4361ae83408b4a153e08eadf828e4ab88",
+    "source/apps/moproj2mst/src/core/convert.cpp": "7ee658577555cde8070a85d001757ead554db1fee85aead96a89cd1b448f22ae",
+    "source/apps/moproj2mst/src/engine/boolean_editor.cpp": "5aab83cb71d5eedc69ad1476c4e5ff2adc566687655694e59e3c3d949ff9a44f",
+    "source/apps/moproj2mst/src/engine/loader.cpp": "09c966a4a7badfc91429bd466ea4daa2d2e904215cd2c4a28cd5c72b45109796",
+    "source/apps/moproj2mst/src/engine/postload_views.cpp": "ad5a074d98a5ee765ae13ef1d37b3f6588108370fb81ee7942a7497e5ba31fa3",
+    "source/apps/moproj2mst/src/ops/boolean.cpp": "4d881b968ca13eb9e78fb57114b4e062358f870e2a075f7c9ce7740cecb2ab8e"
+  }
+}

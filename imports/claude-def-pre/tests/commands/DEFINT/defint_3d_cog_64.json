@@ -1,0 +1,25 @@
+{
+ "label": "DEFINT obj1 3D (DEF_REM3_GUI) with 64bit.DAT",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 600,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "DBREAD 0\nCOG_P1_B1.DB\nDEFINT 1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "COG_P1_B1.DB",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB"
+  },
+  {
+   "name": "64bit.DAT",
+   "text": ""
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "As defint_3d_cog.json, with an empty 64bit.DAT in the run directory: the 3D .com wrappers (DEF_REM3_GUI 0x401240, DEF_AMG3_GUI, MESH3D_GUI) then run their 64-bit programs (DEF_REM_64.EXE ...), as in a GUI project directory. 3D path FUN_140156950: DEF_INT.ACT ('\n'), DEF_REM3.INI (PROBID, DB, step, obj, 1, 102), SCRATCH.KEY (RZ/ELMCON/MTLGRP); runs 'DEF_REM3_GUI < DEF_INT.ACT > DEF_INT.OUT' (3D folder); reads NEWMESH.KEY (mode 0xf) and FLDGEO.KEY if produced."
+ }
+}

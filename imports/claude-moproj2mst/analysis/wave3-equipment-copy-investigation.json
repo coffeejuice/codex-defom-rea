@@ -1,0 +1,30 @@
+{
+  "scope": "Equipment copy-and-append failure dependency; bounded static investigation",
+  "evidence": [
+    {
+      "path": "analysis/wave3-equipment-copy-static.json",
+      "sha256": "fd78c153fcc6c5a607cba87f32181467b4ae1d36f8776ef40d6e9945e422158d"
+    },
+    {
+      "path": "analysis/wave3-equipment-copy-qt-exports.json",
+      "sha256": "0dffd3dcf364fc449f5185f7e564ca2e58e9d1de15ed30488090c98f2a667f72"
+    },
+    {
+      "path": "analysis/wave3-equipment-copy-qt-static.json",
+      "sha256": "51a7a05efa56251d80d3d83b276f04e9eaf2a3ab11ddd6b8c544aa570293c6cf"
+    }
+  ],
+  "established": [
+    "Manager06c610 resolves source via vt230, checks source exists before selecting ID, computes target, calls vt238 copy helper, and appends a row only when its result is true; false returns-1.",
+    "Equipment vt238=0bf310 constructs source file info/name, attempts target parent creation, checks/removes existing target while ignoring removal result, then returns QFile::copy success.",
+    "Qt static QFile::copy670b7880 constructs QFile(source) and invokes member670b71e0.",
+    "Member copy rejects existing target before source engine copy. At670b738d it calls engine vt48; success returns true. Failure enters source-open mode1 at670b73ba and a separate fallback path, so a direct CopyFile-only substitute is incomplete."
+  ],
+  "implementation_gap": "postload_views.cpp addEquipment currently appends a row and records bytes without observing copy failure; createEquipment uses memory bytes instead of the original temporary source file ownership.",
+  "next_action": "Resolve QFSFileEngine vt48 and copy fallback temporary/open/read/write/rename/cleanup ordering before integrating native equipment creation; preserve original temporary-name/source path and item append decision.",
+  "qualification": [
+    "Not a complete Qt copy recovery",
+    "Read-only binary captures; no runtime execution",
+    "Current raw comparison behavior retained until source path and fault effects are reconstructed"
+  ]
+}

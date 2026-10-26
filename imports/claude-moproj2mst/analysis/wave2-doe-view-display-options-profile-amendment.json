@@ -1,0 +1,62 @@
+{
+  "schema": "m2m-doe-view-display-preferences-probe-amendment-v1",
+  "supersedes": "No earlier immutable receipt is changed. This adds independent fresh-startup evidence to the previous static FreshCrtDefaults qualification.",
+  "source_receipt": "analysis/wave3-original-grid-tail-probe-receipt.json",
+  "source_receipt_sha256": "840ae054dd8e5e273640cb4e8f205c89dbaa0ad0c1db2a97037a6b632c14c54b",
+  "status_evidence": "build/original-startup-probe-002/status-evidence.json",
+  "status_evidence_sha256": "d3d0ca364a9e909efe4b84d27cfeb8053fd1389660014e0d4fcd3f5c1a80a36f",
+  "module_binding_receipt": "analysis/wave3-original-grid-probe-module-binding.json",
+  "module_binding_sha256": "110d930907f689d5f6819f0ba772f41848d3589091ee9b0963e90bf3672de09b",
+  "observations": [
+    {
+      "stage": "before_grid_allocation",
+      "preferences": [
+        1,
+        1
+      ]
+    },
+    {
+      "stage": "before_set_layout",
+      "preferences": [
+        1,
+        1
+      ]
+    },
+    {
+      "stage": "before_parent_helper",
+      "preferences": [
+        1,
+        1
+      ]
+    },
+    {
+      "stage": "after_parent_helper",
+      "preferences": [
+        1,
+        1
+      ]
+    },
+    {
+      "stage": "after_set_layout",
+      "preferences": [
+        1,
+        1
+      ]
+    },
+    {
+      "stage": "grid_cache_committed",
+      "preferences": [
+        1,
+        1
+      ]
+    }
+  ],
+  "conclusion": "At the six retained fresh-startup grid stages, actual display preference bytes are1/1 and agree with the existing source-selected FreshCrtDefaults reset.",
+  "qualifications": [
+    "Fresh startup grid prefix only, no full Open Save Close comparison",
+    "Loaded module file hashes bound separately in wave3-original-grid-probe-module-binding.json",
+    "Raw memory observation does not establish all prior callback behavior",
+    "Coordinator owned the process/probe/cleanup; this worker performed read-only evidence review only.",
+    "These observations do not establish arbitrary persisted preferences, later user/control changes, all prior callbacks, or fresh full Open/Save/Close equivalence."
+  ]
+}

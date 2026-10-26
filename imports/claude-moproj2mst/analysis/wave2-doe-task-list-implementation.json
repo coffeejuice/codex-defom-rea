@@ -1,0 +1,105 @@
+{
+  "schema": "wave2-doe-task-list-implementation-v1",
+  "scope": "Separate SfTask operation/object list seam; no Task defaults/reset or active lifecycle integration",
+  "source_files": {
+    "source/apps/moproj2mst/include/m2m/doe_task_lists.hpp": {
+      "sha256": "08a5cf2affd57d057fa97a8c503482ebd21b935ebdaff98e0e1acc264a51ad16",
+      "bytes": 1531
+    },
+    "source/apps/moproj2mst/src/doe/task_lists.cpp": {
+      "sha256": "d194d53a9a92d52fc6884c1cf7d77c6763b8aef3a0c23c49b901b3e5a01b20ea",
+      "bytes": 3279
+    },
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_lists.cpp": {
+      "sha256": "82417aaa976ef0c964cffda02a496c9f93bdda9eb4b8ae81dffce62e3f30e513",
+      "bytes": 5135
+    }
+  },
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave2-doe-task-list-read-update-decompile.json",
+      "sha256": "a25dc7d65140f29172b99d8dd7b7ee80b4c593ae3225fe9c60e4cf8fe771a725"
+    },
+    {
+      "path": "analysis/wave2-doe-task-list-content-decompile.json",
+      "sha256": "d20845734ace865b9f8b23ca9297f3467f835064f42b5d4eff2615b7415b0d07"
+    },
+    {
+      "path": "analysis/wave2-doe-task-list-reader-clears-decompile.json",
+      "sha256": "f4d43bebae56d849d0c7c2c58a84605e45def8884896cb387c461b2170f290fa"
+    },
+    {
+      "path": "analysis/wave2-doe-task-opr-getters-receipt.json",
+      "sha256": "3984f4d80e7a4232d6c1627c0b086d0900d108b9afc34b0e092aba76b8ac562d"
+    },
+    {
+      "path": "analysis/wave2-doe-task-membership-receipt.json",
+      "sha256": "40d2254bed0d6abfbc30aa3b2845d03223e406bac9112be54cca495a7609fe9e"
+    },
+    {
+      "path": "analysis/wave2-doe-task-list-content-literals.json",
+      "sha256": "0ceac7b0ff7bc4b2673ca336d4e99d615526c5ca2a32704b95c05c8a1a527379"
+    }
+  ],
+  "functions": {
+    "dispatch": "14140cba0",
+    "operation_list_read": [
+      "14140ce80",
+      "14140c780",
+      "141410580"
+    ],
+    "object_list_read": [
+      "14140cf00",
+      "141410bb0",
+      "1400251d0",
+      "140004a20"
+    ],
+    "existing_child_update": [
+      "14140d2e0",
+      "14140d660",
+      "14140d6c0"
+    ],
+    "serializers": [
+      "141410df0",
+      "141411150"
+    ],
+    "empty_output_clear": [
+      "14140cf80",
+      "14140a7c0"
+    ]
+  },
+  "contract": [
+    "Encounter child lists in XML order; each matching OprList or ObjList clears corresponding state before reading, so last matching occurrence wins including empty lists",
+    "Absent list children retain prior list state; unknown and non-element children at task/list level are ignored",
+    "Operation No and NumMiddleSteps use QString toShort sign extension; StartStep/EndStep/MiddleStep use converted short!=0",
+    "Short conversion failure or overflow gives0, never int16 wrapping; reused existing Qt int seam plus short range guard",
+    "Operation duplicates remain in encounter order",
+    "Object No uses short conversion and appends only if absent; retained membership helper bytecode compares int equality",
+    "Serialization preserves ordered caller-supplied entries including object duplicates; operation boolean attributes written0/1",
+    "Update replaces each existing OprList/ObjList iff corresponding state nonempty; empty state preserves existing DOM, absent children never inserted",
+    "State represents no output payloads; empty OutputList accepted, any raw child including comment refuses at encounter, preserving earlier list mutations; update retains existing OutputList because task output state empty"
+  ],
+  "tests_added": 6,
+  "validation": {
+    "worker_diff_check": "passed",
+    "coordinator_build_tests": "Full103 CTests passed:96 without logged gaps/differences,6 with logged gaps,1 historical diagnostic with logged differences;6/6 new task-list cases passed. Zero fixture changes. Historical93SAME/5DIFF unchanged.",
+    "worker_builds": 0,
+    "target_runtime_executed": false,
+    "shared_rea_session": false,
+    "original_fixtures_modified": false,
+    "coordinator_build_receipt": "analysis/wave2-snapshot-tasklists-v1-build.json",
+    "coordinator_validation": "analysis/wave2-snapshot-tasklists-validation.json",
+    "frozen_binaries": "build/wave2-snapshot-tasklists-verified",
+    "qualification": "Static reconstruction/unit/regression checkpoint, not fresh-original acceptance or full raw-byte parity; active DOE remains unsupported."
+  },
+  "limitations": [
+    "Not connected to active SfDoeStudy, DoeOutput, SessionRoot or global Task registry",
+    "Does not establish original task defaults, reset behavior or session-selected list identity",
+    "Populated OutputList polymorphic behavior unsupported, no default output fabrication",
+    "Reused Qt integer conversion locale/Unicode edge equivalence not newly established here",
+    "Original allocation failure/out-of-bounds branches are not claimed reproduced",
+    "No fresh-original acceptance or complete DOE lifecycle claim"
+  ],
+  "private_ghidra_lock": "released"
+}

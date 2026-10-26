@@ -1,0 +1,54 @@
+# CP112: Project feature ownership blocks accepted Close cleanup
+
+The next concrete lifecycle gap is the **same Project's inline feature context at native Project+0x60**, not a missing process-wide reset. The public converter has actual Session→ModelManager→Mo→Project storage ownership, but no source-qualified producer for this separate feature context or its entries. Open's feature registration is expressly omitted; native accepted Close releases those entries before Project deletion. A new successful Close/reset helper would therefore invent its owner and predecessor effects. No source/model/test patch was made in this lane.
+
+CP110's `resume110-close-after-save-failure.md` remains controlling: public `core/convert.cpp` returns an adapter result after Open/Save and has no normal FileCloseAll call. Native Close re-reads current busy/main, can run nested Save, completes accepted child callbacks and refreshes, then destroys owned children before clearing manager current. Project/MST writer false does not authorize Close or null the Project. Qualified default remesh terminal handling does not return/unwind to any Close. This audit adds one bounded owner dependency inside that still-guarded accepted teardown; it does not bypass CP110's earlier startup/main/modal/receiver frontier.
+
+## Candidate ownership and the omitted phase
+
+`ConversionSession::~ConversionSession` (`conversion_session.cpp:207`) explicitly performs adapter cleanup: revoke read/trace receipts, release Project storage, destroy receiver/dispatcher, release MainView and other adapter scopes. `releaseProjectStorage:429` retains Display, clears the thread-local Project scope, destroys Project and only afterward clears its Mo backlink if it still aliases the destroyed Project. The separately registered Mo slot owners survive that storage release until their owning ModelManager teardown, as CP102's actual registered ownership test already established. This is useful adapter ownership, not evidence that feature release, native diagram null-rebind or FileCloseAll ran.
+
+`moproj/read.cpp:55` explicitly leaves `0x1400aa960` feature-cache registration unrecovered, then calls actual Session-owned remesh loading. The process remesh state and feature context are different owners. `loader.cpp:1069` and `save_current.cpp:750` likewise identify the omitted `0x1400aab60` feature gate. A reconstructed Open which has bypassed these operations cannot infer native feature bytes as zero, absent, unavailable or already released at Close. Conversely, Session destruction is not proof of a native feature release or global reset.
+
+Retained Close sequence is exact: `Mo+0x19c0` nonnull →`0x140044bf0`→Project cleanup `0x1400982c0`→`0x1400aab30`→`0x1412f1190(Project+0x60)`; only afterward Project deleting destructor/diagram/null/SubProject sequence, then clear Mo Project backlink, then five model slots. `0aab30` returns true **after** the feature operation; that literal return does not erase it. `12f1190` visits29 fixed feature names, calling `12f0da0` in order. The bounded old evidence does not establish engine-wide cache/timer/notifier/remesh clearing there.
+
+## Newly closed constructor and lookup evidence
+
+Offline PE disassembly identifies the actual producer call: Project constructor `0x140089880` computes `this+0x60` at089913 and calls **`0x1412f10d0` at089917**, before storing the constructor's model pointer at Project+8. It is an inline Project-owned context, not a Session-global replacement or guessed GUI owner.
+
+`12f10d0` first calls **`12f1060(context+0x1458)` at12f10e4**. This is the first unresolved constructor effect, preceding all later initialization. Only after return does it store signed context+1498=-1 at12f10f0, clear context+3c/+40, call12e6fb0/12e6ff0/12e7020, clear+44, initialize five string/storage regions at+48/+c48/+1048/+848/+448, and finally store context+1450=null. The candidate must not publish a fully initialized feature owner or initialized flag bytes by applying these late stores before the initial map constructor and intervening callees complete.
+
+The full lookup `12e76c0` is now bounded and contains no calls. It sets the availability output byte true, optionally initializes the supplied type DWORD2, compares fixed feature names, returns addresses of individual context bytes, changes the optional type to3 in its second name group, and on unknown name sets availability=false and returns context+1448. The register r9 itself is never overwritten. Therefore the existing `12ec7b0` and `12f0da0` comparisons against r9b after passing r9=0 really compare against zero on this exact function; this closes CP62's narrowly unresolved register-contract question. It does not manufacture any feature-byte values.
+
+Release `12f0da0` calls that lookup, skips immediately when availability=false or the selected state byte is0, otherwise enters12e5780/provider/map/deleting-virtual effects. The known map is at context+1458 (absolute Project+14b8); query cache is context+1498 (Project+14f8); unknown-key fallback byte is context+1448 (Project+14a8). Owner byte offsets and the fixed name comparisons do not by themselves establish contents, map allocation/lifetime or provider results.
+
+The query cache producer also cannot be modeled as a pure assigned integer: `12f08d0` calls `12eee10` when context+1498<0 **before** null/empty feature-name guards. Newly bounded `12eee10` allocates0x3ea0, constructs via12ee570, calls12f5570 with process-global context1446efe90, writes temporary+0xd04=0, calls12f7e50 and12eaae0, then deletes the temporary through virtual0 before returning the captured integer. Its nominal null-allocation branch continues toward dereferencing the same null temporary; no safer success default is justified. Actual provider/cache initialization is a real predecessor even for a later empty-name input.
+
+## Why no detached pure model was added
+
+A model supplied invented feature bytes could trivially reproduce `if absent or false then skip`; it would not advance the missing actual owner producer. Publishing constructor values before unresolved12f1060/callees would also falsify allocation/failure ordering. The native selected-byte lookup is source-closed as an operation, but the state transition needed by this actual Session lifecycle is not: neither the corresponding context allocation/construction nor Open registration/provider mutations are bound. CP110's same main/accepted-Close cursor is independently still required before any native cleanup integration. This lane therefore retains the actual guards and reports the exact next action rather than adding a disconnected helper whose passing tests could be mistaken for lifecycle coverage.
+
+The smallest next executable research action is read-only bounded capture of `0x1412f1060`, `0x1412e6fb0`, `0x1412e6ff0` and `0x1412e7020` from the same retained PE, starting with the actual first map-constructor call. A concrete command is:
+
+```text
+python admin/capture_pe_ranges.py --prefix resume113-feature-constructor-next --entry 0x1412f1060 --entry 0x1412e6fb0 --entry 0x1412e6ff0 --entry 0x1412e7020
+```
+
+Inspect runtime-function bounds and following tails before claiming logical completion. Then identify the map sentinel/allocation failure and flag-byte initialization contracts, and design an isolated constructor state cursor that refuses at the first unported allocation/provider effect. Root can subsequently assign a source binding to the actual Project constructor owner; do not add per-Session reset, always-available feature answers or a licensed-provider substitute. Only after actual Open's0aa960 traversals/source feature-string producers and query/registration effects are bound can the same feature owner supply meaningful skip/release cleanup state. The retained feature vocabulary suggests licensing semantics, but this audit does not execute, bypass or invent any provider behavior.
+
+Required later tests: constructor first-effect ordering and allocation failure with no later field publication; known versus unknown lookup and exact byte/type offsets, zero-valued state skip versus nonzero provider guard; negative cache query before null/empty name; same owner identity through actual Open/Save and nested Save; partial registration/failure residue retained; accepted cleanup visits actual29 names and clears each actual entry only at its source success branch; Project/feature owner remains alive through required deletes and Mo backlink remains nonnull until Project destructor returns. These must remain separate from native FileCloseAll admission, GUI callbacks and external terminal-process observations. No test or model from this lane claims those witnesses.
+
+## Evidence receipt
+
+Original retained DEF_GUI_MO_64 v11.0.2 SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`; no reconstructed instance or deployment was inspected. `admin/capture_pe_ranges.py` used installed DUMPBIN14.44.35228.0 against immutable file bytes and .pdata bounds, without executing the original. New artifacts are uniquely named; raw disassembly artifact hashes below are not live execution Evidence IDs.
+
+| Capture | End-exclusive bounds | Raw artifact SHA-256 |
+| --- | --- | --- |
+| `resume112-feature-owner-140089880.asm` |140089880..14008a3b1|`24a34f65dfdde858df38e7f6704be2b9efc0627e271ab23f10b8aa8121243711`|
+| `resume112-feature-owner-1412e76c0.asm` |1412e76c0..1412e7bd2|`6c13e8ad33b184e9a63c687fc307d1cc01962498fb030fea8887dc4481757a54`|
+| `resume112-feature-owner-1412eee10.asm` |1412eee10..1412eeead|`5705b7e2157ae1bde9c6c64754297236e0cdeb3953083df71138313067740af2`|
+| `resume112-feature-constructor-1412f10d0.asm` |1412f10d0..1412f1183|`38e87349cb26103cb4f4d593fa0ac441ff4b5706283645e6cfdf00255cbe6e62`|
+
+Commands, tool/binary hashes and boundaries are retained in `resume112-feature-owner-static.json` and `resume112-feature-constructor-static.json`. Source read hashes: conversion_session.cpp `f1ff5d1c3934b1daa769f58c233b397a48c6eacb7cfdf790dba36edfea820604`; moproj/read.cpp `da7bb6b87bd70c771c5b0fa25a9eaec2ef6a0139684d00ce503ce0270bc5e145`; core/convert.cpp `71fe67b9c6be7bde83001e663aa7c50f01c4a6421f357c0db893a5df0a0bd632`; model/project_owned_storage.cpp `cb21a607853408ebaae8050037c468f61f51b230a1f96c6705497fd0c9165797`. Retained CP110 Close report SHA `818298bbcb5f73fe11d1c98fd2c9754ea5d79ef6f99d61394ee8137e7a57aa0c`; CP62 reset report `da0a6d265eb4c8e0d3e0581816a0ffa720bc294fc64ef7c8f0ffbf5e85941f29`; feature dependency JSON `6113e97475b2e56d076e292e5284a6dff20943dcf6126270b23db64a579fe401`.
+
+Only this unique report, four unique bounded ASM captures and their two compact capture receipts were written. No shared/production source, CMake, build/test execution, GUI, original execution, live provider or mutable REA operation occurred.

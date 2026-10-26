@@ -1,0 +1,119 @@
+{
+  "schema": "wave3-editor-furnace-guard-correction-v1",
+  "created_utc": "2026-10-24T04:58:39.424910+00:00",
+  "status": "static_correction_ready_source_frozen",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-furnace-copy-static.json",
+      "sha256": "0be25d6ebfb476e1177480667ab686992ddfe98ba98cfeb684cca0c1873d1c25",
+      "bytes": 979
+    },
+    {
+      "path": "analysis/wave3-editor-furnace-environment-copy-static.json",
+      "sha256": "1aa0ab7582bba81b074806e49b3819df7cc48e1cd79c31561fb05561e4964c12",
+      "bytes": 991
+    },
+    {
+      "path": "analysis/wave3-editor-furnace-owned-copy-static.json",
+      "sha256": "fe92bbf1e768a3cca3a46ba278000b28f32b936afce8134bbabc06ae3decc3bb",
+      "bytes": 985
+    },
+    {
+      "path": "analysis/wave3-editor-viewfactor-fill-apply-static.json",
+      "sha256": "1c065a5b4403e19515ab53e312a64532448cab6b5ba6e04215e66eaf9c5b9eb1",
+      "bytes": 1634
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ec9b30.c",
+      "sha256": "ccf2ddaa67191023a17ee68f336e3a46796d23096cd9a8b093a8d93015b63574",
+      "bytes": 5148
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eccb50.c",
+      "sha256": "d85a6bf505e45c19b9b5aa96dbd29688e7745c3f22d963001f4d8e980a7929b0",
+      "bytes": 1172
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecb340.c",
+      "sha256": "84eb3c518d394e7c9c16abb6ae49927ff8d57e5e2d092ab9de40c8d1b2d821b5",
+      "bytes": 2509
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eca080.c",
+      "sha256": "f24120bfb69c5b267e9affbeccd54733ad92987500597cb64329ced95315018e",
+      "bytes": 1555
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-slot-map.json",
+      "sha256": "9bbf83751e7f7606f039392b6e775f9a20cf3984fb1e3654b9e32c6d4a669661",
+      "bytes": 19742
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-environment-contract.json",
+      "sha256": "2903cc24f464ae4f77a41b2dd29964e1ce9462d3775f9dfb293b1712350c3a76",
+      "bytes": 9142
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-backup-unit-repair.json",
+      "sha256": "33d39e32ecde69da480953cfa02d381a3134ad1c7b943fd25809514774379449",
+      "bytes": 7097
+    }
+  ],
+  "implementation_dependencies": [
+    {
+      "path": "source/port/defcmd/src/p8_08/model_copy.cpp",
+      "sha256": "c3ade7207a700deb008203f8c9a196934865faefaee5dc1c5265736388d80c57",
+      "bytes": 17543
+    },
+    {
+      "path": "source/port/defmodel/include/defmodel/layout/cls_1401e7b10.hpp",
+      "sha256": "17eb03167c9ea4e236c0ba0e8a00953cc4f022e51294d74483f81599b03a2371",
+      "bytes": 10581
+    },
+    {
+      "path": "source/port/defmodel/include/defmodel/layout/cls_1403753f0.hpp",
+      "sha256": "5910306098394740ecab974e625622ec5bcdd3dfccb0f926d8d812aa4a5f1d39",
+      "bytes": 2687
+    }
+  ],
+  "correction": "The initial environment profile guarded furnace_on==0 without a demonstrated editor branch. The investigation initially looked for a furnace checkbox, but the retained editor300 slot map has no such control, and the environment fill/apply/constant-copy bodies neither branch on nor write SC+3c0. That guard excludes otherwise recovered behavior and should be removed; do not invent a furnace checkbox or Save-time furnace snapshot.",
+  "original_environment_contract": [
+    "SC+3c0 is a byte furnace enable flag; the separate owned furnace starts at SC+440. Environment fill 0x140ec3fa0 operates on ENVTMP and its constant/table controls, CNVCOF/ENVATM/ACVCOF, pressure/scalars, VFACTR and TIMEID. No furnace-flag test is present.",
+    "The constant ENVTMP callback 0x140eccb50 updates radio selections and enable states only. Constant Apply 0x140ec9b30 copies the four remembered environment curves; environment Apply 0x140ec50f0 then processes seven scalars and VFACTR. Neither assigns the furnace flag, name, curve list or furnace flags.",
+    "Consequently ordinary environment conversion can round ENVTMP g6 text while leaving the current furnace flag and owned furnace state untouched. A later change to that live furnace state must not be reverted from an invented editor snapshot."
+  ],
+  "constructor_copy_contract": [
+    "Existing final refresh 0x140ecb340 creates an initialized SC backup, deep-copies current SC into it, refills pages, then invokes the same field-aware copy back.",
+    "GUI dispatcher 0x1408df7b0 calls seven helpers; the environment helper is 0x1408d6a50. Its aligned instructions copy +3a8/+3b8, ENVTMP+3c8, furnace+440, CNVCOF+4c0, ENVATM+538, ACVCOF+5b0, TIMEID and later curves, then remaining scalars. It omits +3c0, matching existing native sim_copy_environment.",
+    "GUI furnace-copy 0x1409f0230 reads source list count, clears/setup destination list, copies each curve through the recovered DYNARY copier, and strcpy-copies the name. Existing native furnace_copy has the same field-aware sequence. It does not copy the +58..6f byte flags wholesale.",
+    "The active flag does not activate a new branch in this copy sequence. Preserve its original omission rather than repairing the copy into whole-object assignment. The existing initialized-backup contract still applies."
+  ],
+  "planned_changes": [
+    "Remove only furnace_on!=0 from fillEnvironment3D refusal and update the public helper comment that currently says furnace off.",
+    "Do not add new furnace state to EnvironmentPage or modify native model copy functions, Session/Ctx/core, original evidence, public editor300 guard or unrelated environment restrictions."
+  ],
+  "exact_tests": [
+    {
+      "name": "environment_active_furnace_flag_and_live_owned_state_are_not_editor_snapshot_fields",
+      "setup": "For active byte values 1,2,255, initialize a normal 3D model and distinct ENVTMP value, furnace name, first curve value and furnace byte flags. Fill succeeds. Mutate the live furnace flag/name/curve/byte flags after fill.",
+      "acceptance": "Apply performs existing ENVTMP rounding, but retains every later live furnace value without normalization or snapshot restoration."
+    },
+    {
+      "name": "initial_editor_active_furnace_survives_backup_refresh_and_apply_retains_later_live_state",
+      "setup": "Initialize the existing supported full editor profile with active furnace, a normal constructed curve list, distinct name/first curve value/metadata, and nondefault byte flags. Open through actual composer.",
+      "acceptance": "Open succeeds, preserving original flag and furnace content through backup/refill. Mutate the live furnace after Open; composed Apply retains those later changes while applying remembered ordinary environment controls."
+    },
+    {
+      "name": "environment_unrecovered_profiles_refuse_before_mutating_input",
+      "setup": "Amend the existing furnace-only refusal assertion into active-furnace plus still-unsupported TIMEID or variable-curve cases.",
+      "acceptance": "Other unknown branches still refuse without changing active furnace state; no broad profile relaxation."
+    }
+  ],
+  "qualification": [
+    "This is a correction of one evidence-disproved helper guard, not a claim that every active-furnace public lifecycle or loader/serializer branch is recovered. The public editor300 dispatch remains guarded.",
+    "Retained static code and the existing valid constructed/loaded model profile are the oracle for this increment; malformed furnace strings/lists and arbitrary memory corruption are not newly accepted.",
+    "The field-aware copy is not a whole-struct copy: untouched fields and original omissions remain intact. No original runtime or app-control session was used."
+  ],
+  "next_action": "After root releases VFACTR validation freeze, edit simcontrol300.hpp/.cpp and snapshot/lifecycle tests only, run no worker builds, record immutable implementation receipt, and freeze for root validation."
+}

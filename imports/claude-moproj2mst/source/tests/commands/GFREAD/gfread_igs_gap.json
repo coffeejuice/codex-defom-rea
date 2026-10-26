@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES endpoints within tolerance",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nGAP.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "GAP.IGS",
+      "source": "data/gap.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Square with corner gaps <= 3e-4 (tol = 0.01f*1.9999): matched endpoints replaced by their x/y midpoint. DIEGEO 1 2 4 rows (2,5e-5)-(0,0), (0,0)-(1.5e-4,2.0001), (1.5e-4,2.0001)-(2,2), (2,2)-(2,5e-5)."
+  }
+}

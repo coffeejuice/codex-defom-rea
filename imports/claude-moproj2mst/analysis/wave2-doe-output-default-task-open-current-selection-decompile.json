@@ -1,0 +1,68 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140c79ee0",
+      "entry": "140c79ee0",
+      "name": "FUN_140c79ee0",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Removing unreachable block (ram,0x000140c7a07f) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c79fd5) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c79f8b) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c79f48) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c7a022) */\r\n\r\nint FUN_140c79ee0(longlong param_1,longlong param_2,undefined8 param_3,undefined8 param_4)\r\n\r\n{\r\n  char cVar1;\r\n  undefined8 uVar2;\r\n  longlong lVar3;\r\n  longlong *plVar4;\r\n  longlong lVar5;\r\n  int iStack_70;\r\n  int iStack_6c;\r\n  undefined1 auStack_68 [32];\r\n  undefined1 *puStack_48;\r\n  undefined8 uStack_40;\r\n  undefined8 uStack_38;\r\n  undefined8 uStack_30;\r\n  undefined8 uStack_28;\r\n  undefined8 uStack_20;\r\n  int *piStack_18;\r\n  undefined8 uStack_10;\r\n  \r\n  uStack_40 \u003d 0xfffffffffffffffe;\r\n  iStack_70 \u003d 0;\r\n  iStack_6c \u003d -1;\r\n  FUN_14006daf0(auStack_68,param_1 + 0x18,param_3,param_4,0);\r\n  puStack_48 \u003d auStack_68;\r\n  do {\r\n    uStack_30 \u003d 0;\r\n    uVar2 \u003d func_0x000140dfc380(puStack_48,0);\r\n    cVar1 \u003d FUN_140dfc080(uVar2);\r\n    if (cVar1 \u003d\u003d \u0027\\0\u0027) {\r\n      FUN_140c51520(auStack_68);\r\n      return iStack_6c;\r\n    }\r\n    uStack_28 \u003d 0;\r\n    lVar3 \u003d func_0x000140dfc380(puStack_48,0);\r\n    plVar4 \u003d (longlong *)FUN_14064f400(lVar3 + 0x10);\r\n    lVar3 \u003d *plVar4;\r\n    while( true ) {\r\n      uStack_10 \u003d 0;\r\n      lVar5 \u003d func_0x000140dfc380(puStack_48,0);\r\n      if (*(int *)(lVar5 + 8) \u003d\u003d 0) break;\r\n      if (lVar3 \u003d\u003d param_2) {\r\n        iStack_6c \u003d iStack_70;\r\n        break;\r\n      }\r\n      iStack_70 \u003d iStack_70 + 1;\r\n      uStack_20 \u003d 0;\r\n      lVar5 \u003d func_0x000140dfc380(puStack_48,0);\r\n      piStack_18 \u003d (int *)(lVar5 + 8);\r\n      *piStack_18 \u003d *piStack_18 + -1;\r\n    }\r\n    uStack_38 \u003d 0;\r\n    lVar3 \u003d func_0x000140dfc380(puStack_48,0);\r\n    func_0x000140de9800(lVar3 + 0x10);\r\n  } while( true );\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e790",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "1400457f0",
+      "entry": "1400457f0",
+      "name": "FUN_1400457f0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 FUN_1400457f0(undefined8 param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined8 uVar2;\r\n  \r\n  lVar1 \u003d FUN_140c78ad0(param_1);\r\n  if (lVar1 \u003d\u003d 0) {\r\n    uVar2 \u003d 0xffffffff;\r\n  }\r\n  else {\r\n    uVar2 \u003d FUN_140c79ee0(param_1,lVar1);\r\n  }\r\n  return uVar2;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057cc8",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140045840",
+      "entry": "140045840",
+      "name": "FUN_140045840",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140045840(undefined8 param_1,undefined8 param_2)\r\n\r\n{\r\n  FUN_140045730(param_1,param_2);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057cd4",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140045870",
+      "entry": "140045870",
+      "name": "FUN_140045870",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140045870(undefined8 param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  longlong lVar2;\r\n  \r\n  lVar1 \u003d FUN_140045780(param_1);\r\n  if (lVar1 !\u003d 0) {\r\n    lVar2 \u003d FUN_140045590(param_1,lVar1);\r\n    if (lVar2 !\u003d 0) {\r\n      lVar2 \u003d FUN_140044c80(lVar2);\r\n      if (lVar2 !\u003d 0) {\r\n        FUN_1400480a0(lVar2);\r\n      }\r\n    }\r\n    FUN_1400a72e0(lVar1,0xffffffff);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057ce0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF tolerance from last-segment quirk",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nTOLQ.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "TOLQ.DXF",
+      "source": "data/dxf_tol_quirk.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Size uses the last segment end (arc centre): tol 0.05, so the 0.07 gap stays open. Prediction (DXF_READER.md model) = observed 2026-10-21: status 0, DIEGEO 1 2 4; segment 1: 1 1 0.0000000000E+000 1.0070000000E+001 1.0000000000E+001 1.0000000000E+001 0.0000000000E+000"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "label": "GFREAD IGES letters in a sequence field",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nBADSEQ.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "BADSEQ.IGS",
+      "source": "data/badseq.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "DEF_IGS.OUT"
+    ],
+    "notes": "Cols 74-80 of the first S record are letters: the (A72,A1,I7) read of pass 1 fails (status 1 -> code -4); GFREAD reports Done, geometry unchanged, empty DEF_IGS.OUT left."
+  }
+}

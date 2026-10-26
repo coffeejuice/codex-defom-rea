@@ -63,6 +63,17 @@ public:
         int status = 1;
         int conversions = -1;
     };
+    struct MotionHeaderRead {
+        int selector = 0;
+        std::array<double, 7> values{};
+        int status = 1;
+        int conversions = -1;
+    };
+    struct FloatSixRead {
+        std::array<double, 6> values{};
+        int status = 1;
+        int conversions = -1;
+    };
     struct MixedIntegerRealRead {
         std::array<int, 2> integers{};
         double real_value = 0.0;
@@ -184,6 +195,8 @@ public:
     [[nodiscard]] FloatTripleRead real_triple(); // 414c20, three real destinations.
     [[nodiscard]] FloatTripleRead real_triple_clear_single(); // 414d10.
     [[nodiscard]] FloatFiveRead real_five(); // 414f50, five zeroed destinations.
+    [[nodiscard]] FloatSixRead real_six(); //415080,six zeroed destinations.
+    [[nodiscard]] MotionHeaderRead motion_header(); //415d70,%i then seven reals.
     [[nodiscard]] IntegerTripleRealRead integer_triple_real(); // 4164e0.
     [[nodiscard]] FloatQuadRead real_quad(); // 414e40, four zeroed destinations.
     [[nodiscard]] IntegerArrayRead integer_array10(); // 4147e0 temporary scan.

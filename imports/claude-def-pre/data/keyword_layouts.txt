@@ -1,0 +1,23 @@
+# Starter layout table (replaced by the full table). See include/deform/layout.hpp.
+TITLE | global | observed | - | TEXT |
+OPRNAM | global | observed | - | TEXT |
+SIMNAM | global | observed | - | TEXT |
+MTNAME | material | observed | mat:I | TEXT |
+OBJNAM | object | observed | obj:I | TEXT |
+PRSNAM | object | observed | obj:I | TEXT |
+UNNAME | global | observed | flag:I n:I | n*TEXT |
+UENAME | global | observed | flag:I n:I | n*TEXT |
+CURSIM | global | observed | sim:I opr:I flag:I | - |
+NSTART | global | observed | step:I | - |
+TNOW | global | observed | time:R dt:R flag:I t2:R | - |
+OBJTYP | object | observed | obj:I type:I flag:I | - |
+RZ | object | observed | obj:I n:I | n*(node:I xyz:R*3) |
+DRZ | object | observed | obj:I n:I default:R | n*(node:I v:R*3) |
+URZ | object | observed | obj:I n:I default:R | n*(node:I v:R*3) |
+NDTMP | object | observed | obj:I n:I default:R | n*(node:I t:R) |
+ELMCON | object | observed | obj:I n:I nnode:I | n*(elem:I nodes:I*nnode) |
+STRAIN | object | observed | obj:I n:I default:R | n*(elem:I v:R) |
+STRESS | object | observed | obj:I n:I default:R | n*(elem:I s:R*6) |
+STNCMP | object | observed | obj:I n:I ncomp:I default:R | n*(elem:I e:R*ncomp) |
+USRELM | object | observed | obj:I n:I default:R nvar:I | n*(elem:I v:R*nvar) |
+DIEGEO | object | observed | obj:I type:I nnode:I npoly:I | nnode*(node:I xyz:R*3) npoly*(poly:I nodes:I*4) |

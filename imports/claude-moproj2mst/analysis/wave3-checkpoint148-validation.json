@@ -1,0 +1,147 @@
+{
+  "scope": "CP148 actual fixed 24-byte geometry copy through Stop/retirement, wired DOE Output mkdir/model Save prefix, and SPRING2 decimal low-dword wrap",
+  "objective_complete": false,
+  "build": "analysis\\resume148-repair1-build.json",
+  "tests": "analysis\\resume148-repair1-tests.json",
+  "registered": 354,
+  "counts": {
+    "passed": 347,
+    "passed-with-logged-gaps": 6,
+    "passed-with-logged-differences": 1,
+    "incomplete-output": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "fixture_changes": [],
+  "historical": {
+    "SAME": 93,
+    "DIFF": 5
+  },
+  "historical_diffs": [
+    {
+      "result": "DIFF",
+      "case": "A:RS_55_Multiple_Operations_Example1",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:120_B_DOE",
+      "differ": 1,
+      "missing": 7,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:121_B_DOE_VAR",
+      "differ": 1,
+      "missing": 8,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:122_B_DOE_GEO",
+      "differ": 1,
+      "missing": 10,
+      "extra": 0,
+      "comparator_adjustments": ""
+    },
+    {
+      "result": "DIFF",
+      "case": "B:98_B_DS3F",
+      "differ": 1,
+      "missing": 0,
+      "extra": 0,
+      "comparator_adjustments": ""
+    }
+  ],
+  "changed_diagnostics": [],
+  "reviewed_diagnostic_changes": [],
+  "focused": [
+    {
+      "test": "m2m.doe.output_save_prefix",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792947475589045100\\m2m.doe.output_save_prefix.log",
+      "sha256": "7839940c6a00c27b7b4fdcef98c15daf664c4915890378359bbb067251638d44",
+      "summary": [
+        "0 of 4 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.geometry_a_producer",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792947475589045100\\m2m.mdt.geometry_a_producer.log",
+      "sha256": "9d34a5bd4436227f64acb84b57e38c33f6845d54866607f040ea845f3e0d1d96",
+      "summary": [
+        "0 of 17 cases failed"
+      ]
+    },
+    {
+      "test": "m2m.mdt.simcontrol300_spring_reader",
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792947475589045100\\m2m.mdt.simcontrol300_spring_reader.log",
+      "sha256": "a96681663b9380b7e897e85816e55e34bf6ee0126a08f3d3eeeb279172b6d069",
+      "summary": [
+        "0 of 2 cases failed"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/resume148-geometry-equal-copy.md",
+      "sha256": "91aa2ed7e69589a6fccc5b2f96a932ab71b8ab03ddfa75f65af55d2418fcb799"
+    },
+    {
+      "path": "analysis/resume148-geometry-equal-copy-implementation.md",
+      "sha256": "a318c4f6876b8d0c326f92e89b49833720cfbd25834f64b4402adda71787bf5d"
+    },
+    {
+      "path": "analysis/resume148-geometry-copy-source-values-addendum.md",
+      "sha256": "b87db4d41518c752c216b4e93a55ad38a439681e50368fc186313c56c708526c"
+    },
+    {
+      "path": "analysis/resume148-geometry-copy-test-recheck.md",
+      "sha256": "9dc6e5020c9284c75420bcbcfb9643555c206abbde7474fcc93670f227cf580a"
+    },
+    {
+      "path": "analysis/resume149-doe-output-wired-next.md",
+      "sha256": "cd860bda8cc9bc80f6069ec81498def69bc07dde9a752463fffa3d0b63dd7b88"
+    },
+    {
+      "path": "analysis/resume149-doe-output-wired-implementation.md",
+      "sha256": "0ed9196bb5323b1c38ea4d26f94d89cc7301b288e994966ec42355e5e398c60b"
+    },
+    {
+      "path": "analysis/resume149-doe-output-wired-review.md",
+      "sha256": "008a037f75f112bec46505e9e7aacc32f97092886f2aa542ea5a4d66dbc1e372"
+    },
+    {
+      "path": "analysis/resume148-format-next-admission.md",
+      "sha256": "6ad71b04ce9ce7657b945d2980e370aea39a236e763c7500c4bfecedeb818ca0"
+    },
+    {
+      "path": "analysis/resume148-spring-decimal-implementation.md",
+      "sha256": "5c24f9795562d050f65b9919e19739364914a4800872d7eb04fd8e4689e87993"
+    },
+    {
+      "path": "analysis/resume148-spring-decimal-eof-addendum.md",
+      "sha256": "542b3b1b886408d22e865244651f314ad81b5b034b5b26106b8030fcdaf7a8d3"
+    },
+    {
+      "path": "analysis/resume148-spring-decimal-review.md",
+      "sha256": "c54792bb1ae33c4b3e8640d9450b7176e29b299cbc8494f63c55f894e51128af"
+    }
+  ],
+  "qualifications": [
+    "Historical oracles are not fresh original-session acceptance evidence",
+    "CTest success can contain case skips, expected refusals or permissive assertions",
+    "g0.abi real-project assertion permits M2M_OK or M2M_E_UNSUPPORTED",
+    "Deflate external vectors and imported PACK fixture absent unless separately acquired",
+    "s.save_folder is diagnostic: it logs differences/refusals without failing assertions",
+    "Full folder comparator normalizes declared view/banner profiles; inspect raw differences",
+    "No original executable is launched; keyword reference is read as a PE file only",
+    "Fresh original GUI comparison remains blocked by unverified app-control release; historical 93 SAME/5 DIFF are action/path-qualified, not current raw-byte acceptance."
+  ],
+  "next_started": "Checkpoint149: qualify next same-invocation geometry recipient or nonempty sizing, exact DOE Regions device/cleanup and remaining reachable format/operation branches; preserve public and fresh-original guards."
+}

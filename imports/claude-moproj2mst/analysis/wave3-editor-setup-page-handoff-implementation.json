@@ -1,0 +1,124 @@
+{
+  "schema": "editor300-actual-setup-page-handoff-implementation-v1",
+  "created_utc": "2026-10-24T10:54:38.367558+00:00",
+  "status": "five source files frozen for parent integration/build; no worker execution claim",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "77fad47c096f256f28c5edde8cb95d1ccba2215d033cda32121bcbea3d220028",
+      "bytes": 9543
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "8bf9bf2100f860fa8825a2c53931037965c14a6e1806b5ce537e9b801d658401",
+      "bytes": 54159
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+      "sha256": "779231d44ffb5e4aa0dd582370ccc5f528e03d5fc39ba9ab0e50e821c89f52d0",
+      "bytes": 42227
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300_owner.hpp",
+      "sha256": "2844b89f6282a67294a8f7102fec94070b5331e0c8344e4280376a03429bfac7",
+      "bytes": 4007
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp",
+      "sha256": "0fd40322e867973f499a965339c560accb884cec41514db714a98770e2ece308",
+      "bytes": 4940
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-setup-page-handoff-allocation-amendment.json",
+      "sha256": "e8eef225d3a57cad39a6cc4230b05495b81960244b70e82cd022d2608a541709",
+      "bytes": 2942
+    },
+    {
+      "path": "analysis/wave3-editor-setup-page-handoff-design.json",
+      "sha256": "ae253462d3d10217830900914ffecc2df841404f13c0902aad2c6172482f964d",
+      "bytes": 6331
+    },
+    {
+      "path": "analysis/wave3-editor-actual-setup-page-successor-contract.json",
+      "sha256": "6b0063f92dc7cbb45e93d8f7a7227d8503660a52def5e08248760cc016d6e4ea",
+      "bytes": 10206
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-contract.json",
+      "sha256": "e662f17838820d9451027ba7c7a7c408184bf6604f549dc2a49a080cd18eae5c",
+      "bytes": 10768
+    },
+    {
+      "path": "analysis/wave3-editor-setup-retranslation-input-contract.json",
+      "sha256": "e38479fa2075e1b4a110d827cbeb4fd407107cf26e529c80a7a433b891de5669",
+      "bytes": 9916
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-numeric-profile-contract.json",
+      "sha256": "cfe8e40a8d6516dbafc88ec12fbb99cc7b66c0f43c9c782e587ee8b962a9ba1a",
+      "bytes": 17119
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-fresh-profile-amendment.json",
+      "sha256": "b043eccb4835fcc092a5c323f83e08c2ce1d2c5e5b44737d05d796af7c30818a",
+      "bytes": 4395
+    },
+    {
+      "path": "analysis/wave3-editor-picking-constructor-successor-contract.json",
+      "sha256": "acb53bb248f26dd722ba9a88281110aed1e2a31f15e951195cf96105d19b0b6a",
+      "bytes": 4446
+    }
+  ],
+  "api": {
+    "bind": "bool StagedEditor300::bindSetupOwner(EditorSetupState&) noexcept after factory allocation then setup allocation; one shot even if same owner, rejects invalid/late/already-owned replacement. Setup owner destruction expires weak guard without extending its lifetime.",
+    "profiles": "At Prefix bindComboModels(FreshDefaultQtModel), bindSpinControls(FreshNative), bindStoppingControls(FreshNativeTree). FreshNativeTree explicitly qualifies plain MDS radio parent/local enable state; unknown/custom remain unsupported.",
+    "construction": "Existing identity/context checks remain first. A previously bound expired setup refuses before page allocation. Otherwise allocate single retained InitialEditorSession, hand off from exact setup to exact factory destination, then call original page composer. Unbound one-arg construction remains explicitly isolated legacy helper profile.",
+    "handoff": "Validate prerequisite state and exact identities before changing pages/sealing. Transfer actual translated MDS and rotation text, two reference radio/spin/enables and mode7c0. Current pre-page toggle receiver effects preserved. Failure leaves setup unsealed and unstarted pages retained.",
+    "history": "After handoff, constructorControl/control are immutable historical evidence. Every setup live mutator rejects; receiveInternalToggled throws named logic_error. Current callbacks and Apply own typed pages. Setup may die after handoff without invalidating live page owner.",
+    "report": "Editor300ConstructionReport adds setupBindIssue and optional setupHandoff. BindingIssue adds SetupOwnerExpired/SetupPrerequisite; failed attempt cannot replay constructor/page effects."
+  },
+  "source_mapping": {
+    "radios": "6a0/738 explicitly checked via140eee062/140ef0036; 6b0/748 fresh unchecked under qualified plain separate parents690/728.",
+    "spins": "6a8/740 fresh value0/min0 with max999999 via140eee1dd/140ef01b1; requested setters retained separately.",
+    "enabled": "Fresh explicit parent tree resolves node radios/spins enabled. Coordinate groups6b8/750 explicitly disabled at140eee4bc/140ef0490. No generic default effective enable state synthesized.",
+    "coords": "Retranslation controls6d0/6e0/6f0,768/778/788 and848/850/858,888/890/898 hold literal0 under existing NoActiveTranslator profile; current setup strings transferred, not recreated at fill.",
+    "mode": "Fresh selector708/7a0 empty index-1; mode7c0 four original entries with actual initial index0. ASCII stopping label profile separately explicit."
+  },
+  "source_tests": {
+    "program": "test_editor_setup",
+    "previous_cases": 21,
+    "current_cases": 32,
+    "new_cases": [
+      "editor_setup_mds_parent_tree_requires_explicit_fresh_profile",
+      "editor_setup_factory_binding_preserves_allocation_order_and_exact_identity",
+      "editor_setup_handoff_requires_exact_factory_and_retained_page_destination",
+      "editor_setup_missing_handoff_prerequisites_preserve_unsealed_setup_and_unstarted_pages",
+      "editor_setup_handoff_retains_translated_controls_before_first_page_refusal",
+      "editor_setup_handoff_preserves_reached_toggle_deliveries_without_synthesizing_radio_changes",
+      "editor_setup_sealed_history_rejects_all_live_mutators",
+      "editor_setup_live_pages_keep_constructor_text_after_none_refills_and_outlive_history",
+      "editor_setup_expired_owner_refuses_before_page_allocation_or_model_effects",
+      "editor_setup_invalid_or_already_started_factory_does_not_claim_setup",
+      "editor_setup_bound_factory_validates_current_context_before_handoff"
+    ],
+    "executed_by_worker": false
+  },
+  "preflight": {
+    "single_main": true,
+    "unique_test_cases": true,
+    "direct_Project_destructor_header": "m2m/mst/writer.hpp",
+    "direct_layout_header": "defmodel/layout/db_step_data.hpp",
+    "whitespace_and_conflict_scan": "passed all five files",
+    "git_diff_check": "returned0 but all five files are untracked; direct text scan used rather than claiming tracked diff coverage"
+  },
+  "limits": [
+    "Public setup140ed9830/storeSimNames/picking/initial-row and later constructor boundaries remain unchanged and unresolved; this is consumed-control ownership handoff, not full native setup completion.",
+    "No m2m C ABI change. Session allocation/bind integration belongs to root. Parent must build and run focused setup/owner/lifecycle/Session cases and required regression.",
+    "No worker build, runtime/GUI, mutable DB, original comparison or tests executed. FreshNativeTree and language profiles are explicit qualifications, not inferred from sampled startup state.",
+    "Lifetime token and prepare-before-handoff are reconstruction ownership mechanics; original allocator-failure behavior is not claimed by this projection."
+  ],
+  "graphics_order_qualification": "Next picking dependency141203140 clears only0x1000 bytes at+7c, then glSelectBuffer registers0x1000 GLuint entries (0x4000 bytes). Preserve ordered graphics/context side effect; do not substitute total zero-fill or omit call.",
+  "next_executable_action": "Keep five source files frozen for root validation. Continue read-only picking initialization and interaction/initial-row dependencies from retained immutable captures, resolving smallest reached effects; no shared DB access."
+}

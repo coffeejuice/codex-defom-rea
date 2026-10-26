@@ -1,0 +1,76 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file imports\claude-moproj2mst\evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0000000141470A78: 48 89 5C 24 18     mov         qword ptr [rsp+18h],rbx
+  0000000141470A7D: F2 0F 11 44 24 08  movsd       mmword ptr [rsp+8],xmm0
+  0000000141470A83: 57                 push        rdi
+  0000000141470A84: 48 83 EC 40        sub         rsp,40h
+  0000000141470A88: 66 0F 57 C9        xorpd       xmm1,xmm1
+  0000000141470A8C: BF C0 FF 00 00     mov         edi,0FFC0h
+  0000000141470A91: B9 80 1F 00 00     mov         ecx,1F80h
+  0000000141470A96: 48 8B D7           mov         rdx,rdi
+  0000000141470A99: 0F 29 74 24 30     movaps      xmmword ptr [rsp+30h],xmm6
+  0000000141470A9E: 66 0F 28 F0        movapd      xmm6,xmm0
+  0000000141470AA2: F2 0F 11 4C 24 58  movsd       mmword ptr [rsp+58h],xmm1
+  0000000141470AA8: E8 AF 36 01 00     call        000000014148415C
+  0000000141470AAD: 0F B7 4C 24 56     movzx       ecx,word ptr [rsp+56h]
+  0000000141470AB2: 48 8B D8           mov         rbx,rax
+  0000000141470AB5: B8 F0 7F 00 00     mov         eax,7FF0h
+  0000000141470ABA: 66 23 C8           and         cx,ax
+  0000000141470ABD: 66 3B C8           cmp         cx,ax
+  0000000141470AC0: 75 6D              jne         0000000141470B2F
+  0000000141470AC2: 66 0F 28 C6        movapd      xmm0,xmm6
+  0000000141470AC6: E8 A5 34 01 00     call        0000000141483F70
+  0000000141470ACB: 83 E8 01           sub         eax,1
+  0000000141470ACE: 74 4E              je          0000000141470B1E
+  0000000141470AD0: 83 E8 01           sub         eax,1
+  0000000141470AD3: 74 34              je          0000000141470B09
+  0000000141470AD5: 83 F8 01           cmp         eax,1
+  0000000141470AD8: 74 1C              je          0000000141470AF6
+  0000000141470ADA: BA 15 00 00 00     mov         edx,15h
+  0000000141470ADF: 66 0F 28 DE        movapd      xmm3,xmm6
+  0000000141470AE3: 66 0F 28 D6        movapd      xmm2,xmm6
+  0000000141470AE7: 48 89 5C 24 20     mov         qword ptr [rsp+20h],rbx
+  0000000141470AEC: 8D 4A F3           lea         ecx,[rdx-0Dh]
+  0000000141470AEF: E8 14 32 01 00     call        0000000141483D08
+  0000000141470AF4: EB 5E              jmp         0000000141470B54
+  0000000141470AF6: 66 0F 28 CE        movapd      xmm1,xmm6
+  0000000141470AFA: 4C 8B C3           mov         r8,rbx
+  0000000141470AFD: B9 15 00 00 00     mov         ecx,15h
+  0000000141470B02: E8 35 31 01 00     call        0000000141483C3C
+  0000000141470B07: EB 4B              jmp         0000000141470B54
+  0000000141470B09: 48 8B D7           mov         rdx,rdi
+  0000000141470B0C: 48 8B CB           mov         rcx,rbx
+  0000000141470B0F: E8 48 36 01 00     call        000000014148415C
+  0000000141470B14: 66 0F 57 35 14 32  xorpd       xmm6,xmmword ptr [00000001421D3D30h]
+                    D6 00
+  0000000141470B1C: EB 0B              jmp         0000000141470B29
+  0000000141470B1E: 48 8B D7           mov         rdx,rdi
+  0000000141470B21: 48 8B CB           mov         rcx,rbx
+  0000000141470B24: E8 33 36 01 00     call        000000014148415C
+  0000000141470B29: 66 0F 28 C6        movapd      xmm0,xmm6
+  0000000141470B2D: EB 25              jmp         0000000141470B54
+  0000000141470B2F: 8B 44 24 54        mov         eax,dword ptr [rsp+54h]
+  0000000141470B33: 48 8B D7           mov         rdx,rdi
+  0000000141470B36: 48 8B CB           mov         rcx,rbx
+  0000000141470B39: 0F BA F0 1F        btr         eax,1Fh
+  0000000141470B3D: 89 44 24 5C        mov         dword ptr [rsp+5Ch],eax
+  0000000141470B41: 8B 44 24 50        mov         eax,dword ptr [rsp+50h]
+  0000000141470B45: 89 44 24 58        mov         dword ptr [rsp+58h],eax
+  0000000141470B49: E8 0E 36 01 00     call        000000014148415C
+  0000000141470B4E: F2 0F 10 44 24 58  movsd       xmm0,mmword ptr [rsp+58h]
+  0000000141470B54: 48 8B 5C 24 60     mov         rbx,qword ptr [rsp+60h]
+  0000000141470B59: 0F 28 74 24 30     movaps      xmm6,xmmword ptr [rsp+30h]
+  0000000141470B5E: 48 83 C4 40        add         rsp,40h
+  0000000141470B62: 5F                 pop         rdi
+  0000000141470B63: C3                 ret
+  0000000141470B64: CC                 int         3
+
+  Summary
+
+     1E02000 .text

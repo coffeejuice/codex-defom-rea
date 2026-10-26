@@ -1,0 +1,493 @@
+--- a/source/apps/moproj2mst/include/m2m/common.hpp
++++ b/source/apps/moproj2mst/include/m2m/common.hpp
+@@ -33,9 +33,17 @@
+ // Stub body for a seam function: M2M_STUB(0x140131680, "mst header")
+ #define M2M_STUB(addr, name) ::m2m::not_ported(addr, name)
+ 
++// Explicit snapshot of the original settings singleton for one conversion. The original
++// constructor 0x1400403c0 initializes +0xc90 to zero; 0x140040810 can load the persisted
++// Setting/MoInputMode. Reading a user's installation settings is outside this adapter.
++struct OriginalSettings {
++    int moInputMode = 0;
++};
++
+ // Per-call state that is not part of the original's model. Replaces the original's process
+ // globals that are not MST-writer state (those are in mst/state.hpp).
+ struct Ctx {
++    OriginalSettings originalSettings;
+     unsigned flags = 0;          // M2M_FLAG_*
+     unsigned codepage = 1252;    // output code page (m2m_set_codepage)
+     int guiUnitOverride = 0;     // m2m_set_gui_unit: 0 = derive (P17 guiStartupUnit), 1 SI, 2 English
+--- a/source/apps/moproj2mst/include/m2m/model.hpp
++++ b/source/apps/moproj2mst/include/m2m/model.hpp
+@@ -246,6 +246,8 @@
+ 
+ // ---- project (P, s1-01 9.1) ----------------------------------------------------------------------
+ struct Project {
++    // Per-conversion snapshot, not an original Project member/layout field.
++    OriginalSettings originalSettings;
+     int tokMode = 0;               // +0x00 KEY tokenizer mode
+     int f10 = 5;                   // +0x10
+     String path;                   // +0x18 .moproj path (cleaned)
+--- a/source/apps/moproj2mst/include/m2m/convert.hpp
++++ b/source/apps/moproj2mst/include/m2m/convert.hpp
+@@ -25,6 +25,13 @@
+ Result convert(const std::u16string& moproj, const std::u16string& outMst, unsigned flags,
+                unsigned codepage, int guiUnit = 0, const std::u16string& deformDir = {});
+ 
++// Explicit original settings for this call; old overloads above/below retain mode 0.
++// Nonzero mode selects editor 300 for active Forming; its Save is explicitly unsupported
++// until its full widget apply is recovered. No environment is read by this C++ entry point.
++Result convert(const std::u16string& moproj, const std::u16string& outMst, unsigned flags,
++               unsigned codepage, int guiUnit, const std::u16string& deformDir,
++               const OriginalSettings& settings);
++
+ // A file besides the MST that the Save writes (M2M_FLAG_WRITE_MDT): absolute path, bytes.
+ using SideBytes = std::vector<std::pair<std::u16string, std::string>>;
+ 
+@@ -37,4 +44,8 @@
+                       unsigned codepage, std::string& mst, std::u16string& outPath, SideBytes& side,
+                       int guiUnit = 0, const std::u16string& deformDir = {});
+ 
++Result convertToBytes(const std::u16string& moproj, const std::u16string& outMst, unsigned flags,
++                      unsigned codepage, std::string& mst, std::u16string& outPath, SideBytes& side,
++                      int guiUnit, const std::u16string& deformDir, const OriginalSettings& settings);
++
+ }  // namespace m2m
+--- a/source/apps/moproj2mst/src/core/convert.cpp
++++ b/source/apps/moproj2mst/src/core/convert.cpp
+@@ -143,7 +143,7 @@
+ 
+ Result run(const std::u16string& moproj, const std::u16string& outMst, unsigned flags, unsigned codepage,
+            int guiUnit, const std::u16string& deformDir, std::string& mst, std::u16string& outPath,
+-           SideBytes* side, bool writeFile)
++           SideBytes* side, bool writeFile, const OriginalSettings& settings)
+ {
+     // The engine (the DEF_PRE port: the project DB reader's Fortran units, KEY reader and model
+     // globals) is process-wide state, as in the original's single process. Conversions therefore
+@@ -152,6 +152,7 @@
+     std::lock_guard<std::mutex> engineLock(engineMutex);
+     Result r;
+     Ctx ctx;
++    ctx.originalSettings = settings;
+     ctx.flags = flags;
+     ctx.codepage = codepage;
+     ctx.guiUnitOverride = guiUnit;
+@@ -172,6 +173,7 @@
+         // 0x14001ca30: data root for changeSuffix(file, ".DB"), then the project ctor with its dir/base.
+         const qt::String db = app::changeSuffix(file, qt::L(".DB"));
+         initProject(p, qt::absolutePath(db), qt::completeBaseName(db));
++        p.originalSettings = ctx.originalSettings;
+         makeRegistry(p);
+         if (!openProject(p, file, ctx)) throw Error(M2M_E_PARSE, "Error on reading project file!");
+         activateSubProject(p, 0, ctx);
+@@ -258,23 +260,37 @@
+ Result convert(const std::u16string& moproj, const std::u16string& outMst, unsigned flags, unsigned codepage,
+                int guiUnit, const std::u16string& deformDir)
+ {
++    return convert(moproj, outMst, flags, codepage, guiUnit, deformDir, OriginalSettings{});
++}
++
++Result convert(const std::u16string& moproj, const std::u16string& outMst, unsigned flags, unsigned codepage,
++               int guiUnit, const std::u16string& deformDir, const OriginalSettings& settings)
++{
+     std::string mst;
+     std::u16string outPath;
+-    return run(moproj, outMst, flags, codepage, guiUnit, deformDir, mst, outPath, nullptr, true);
++    return run(moproj, outMst, flags, codepage, guiUnit, deformDir, mst, outPath, nullptr, true, settings);
+ }
+ 
+ Result convertToBytes(const std::u16string& moproj, const std::u16string& outMst, unsigned flags,
+                       unsigned codepage, std::string& mst, std::u16string& outPath, int guiUnit)
+ {
+-    return run(moproj, outMst, flags, codepage, guiUnit, {}, mst, outPath, nullptr, false);
++    return run(moproj, outMst, flags, codepage, guiUnit, {}, mst, outPath, nullptr, false, OriginalSettings{});
+ }
+ 
+ Result convertToBytes(const std::u16string& moproj, const std::u16string& outMst, unsigned flags,
+                       unsigned codepage, std::string& mst, std::u16string& outPath, SideBytes& side,
+                       int guiUnit, const std::u16string& deformDir)
+ {
++    return convertToBytes(moproj, outMst, flags, codepage, mst, outPath, side, guiUnit, deformDir,
++                          OriginalSettings{});
++}
++
++Result convertToBytes(const std::u16string& moproj, const std::u16string& outMst, unsigned flags,
++                      unsigned codepage, std::string& mst, std::u16string& outPath, SideBytes& side,
++                      int guiUnit, const std::u16string& deformDir, const OriginalSettings& settings)
++{
+     side.clear();
+-    return run(moproj, outMst, flags, codepage, guiUnit, deformDir, mst, outPath, &side, false);
++    return run(moproj, outMst, flags, codepage, guiUnit, deformDir, mst, outPath, &side, false, settings);
+ }
+ 
+ }  // namespace m2m
+--- a/source/apps/moproj2mst/src/dll/abi.cpp
++++ b/source/apps/moproj2mst/src/dll/abi.cpp
+@@ -5,6 +5,7 @@
+ 
+ #include <atomic>
+ #include <cstring>
++#include <limits>
+ #include <mutex>
+ #include <string>
+ 
+@@ -22,6 +23,45 @@
+ {
+     std::lock_guard<std::mutex> lock(g_deformDirLock);
+     return g_deformDir;
++}
++
++// Adapter contract: snapshot once per C ABI call, never consult the original INI.
++// Unset/empty means 0. Otherwise accept optional +/- and ASCII decimal digits only,
++// within signed 32-bit range. Invalid input is an adapter argument error.
++m2m::OriginalSettings originalSettings()
++{
++    std::wstring value(16, L'\0');
++    for (;;) {
++        SetLastError(ERROR_SUCCESS);
++        const DWORD n = GetEnvironmentVariableW(L"M2M_MO_INPUT_MODE", value.data(),
++                                                static_cast<DWORD>(value.size()));
++        if (n == 0) {
++            if (GetLastError() == ERROR_SUCCESS || GetLastError() == ERROR_ENVVAR_NOT_FOUND) return {};
++            throw m2m::Error(M2M_E_ARG, "cannot read M2M_MO_INPUT_MODE");
++        }
++        if (n < value.size()) { value.resize(n); break; }
++        value.resize(n); // required size includes NUL; retry if concurrently changed
++    }
++    std::size_t i = 0;
++    const bool negative = value[0] == L'-';
++    if (negative || value[0] == L'+') ++i;
++    const auto invalid = []() -> void {
++        throw m2m::Error(M2M_E_ARG, "M2M_MO_INPUT_MODE must be a signed 32-bit decimal integer");
++    };
++    if (i == value.size()) invalid();
++    const std::uint64_t limit = negative ? 2147483648ull : 2147483647ull;
++    std::uint64_t magnitude = 0;
++    for (; i < value.size(); ++i) {
++        if (value[i] < L'0' || value[i] > L'9') invalid();
++        const auto digit = static_cast<unsigned>(value[i] - L'0');
++        if (magnitude > (limit - digit) / 10) invalid();
++        magnitude = magnitude * 10 + digit;
++    }
++    m2m::OriginalSettings result;
++    result.moInputMode = negative
++        ? (magnitude == 2147483648ull ? (std::numeric_limits<int>::min)() : -static_cast<int>(magnitude))
++        : static_cast<int>(magnitude);
++    return result;
+ }
+ 
+ void putMsgW(const std::string& utf8, wchar_t* msg, size_t chars)
+@@ -111,9 +151,12 @@
+             putMsgW("no project path", msg, msg_chars);
+             return M2M_E_ARG;
+         }
+-        m2m::Result r = m2m::convert(fromWide(moproj_path), fromWide(out_mst_path), flags, g_codepage.load(), g_guiUnit.load(), deformDir());
++        m2m::Result r = m2m::convert(fromWide(moproj_path), fromWide(out_mst_path), flags, g_codepage.load(), g_guiUnit.load(), deformDir(), originalSettings());
+         putMsgW(r.message, msg, msg_chars);
+         return r.code;
++    } catch (const m2m::Error& e) {
++        putMsgW(e.what(), msg, msg_chars);
++        return e.code;
+     } catch (...) {
+         putMsgW("internal error", msg, msg_chars);
+         return M2M_E_INPUT;
+@@ -133,9 +176,12 @@
+             putMsgUtf8("path is not valid UTF-8", msg, msg_bytes);
+             return M2M_E_ARG;
+         }
+-        m2m::Result r = m2m::convert(in, out, flags, g_codepage.load(), g_guiUnit.load(), deformDir());
++        m2m::Result r = m2m::convert(in, out, flags, g_codepage.load(), g_guiUnit.load(), deformDir(), originalSettings());
+         putMsgUtf8(r.message, msg, msg_bytes);
+         return r.code;
++    } catch (const m2m::Error& e) {
++        putMsgUtf8(e.what(), msg, msg_bytes);
++        return e.code;
+     } catch (...) {
+         putMsgUtf8("internal error", msg, msg_bytes);
+         return M2M_E_INPUT;
+--- a/source/apps/moproj2mst/include/m2m/mst/loader_l3.hpp
++++ b/source/apps/moproj2mst/include/m2m/mst/loader_l3.hpp
+@@ -31,6 +31,9 @@
+     void (*hteObjectTreeAdd)(OpClass&, Project&, Operation&) = nullptr;      // 0x1413e6520 / 0x1413e5c60
+     // Forming / Forming2D at Save: the "Simulation controls" editor (SfPreSimControl) fill 0x1417ec030
+     // and apply 0x1417ec870
++    // 300 constructor Open fill 0x140eb26f0 -> 0x140eb5630 -> 0x140ec19f0,
++    // recovered CG toggled callback 0x140ed01b0 only; other widget behavior is incomplete.
++    void (*formingSimControl300Open)(Project&, Operation&) = nullptr;
+     bool (*formingSimControlApply)(OpClass&, Project&, Operation&, engine::FileEffects&) = nullptr;
+ };
+ inline LoaderSlotsL3 g_loaderSlotsL3{};
+--- a/source/apps/moproj2mst/src/ops/family.cpp
++++ b/source/apps/moproj2mst/src/ops/family.cpp
+@@ -178,8 +178,10 @@
+     bool objectTreeFill(Project& p, Operation& op, engine::FileEffects& fx) override
+     {
+         objectTreeAdd(p, op, fx);
+-        // the tree's first item, "Simulation controls" (SfPreSimControl, vtable 0x1430c3ed8), is the
+-        // editor the GUI shows
++        // Factory 0x1405ff0b0: mode!=0 constructs SfPreSimControl300; mode0 constructs
++        // SfPreSimControl100. Retain the inherited mode0 approximation for now.
++        simControl300Shown_ = p.originalSettings.moInputMode != 0;
++        if (simControl300Shown_) l3Slot(g_loaderSlotsL3.formingSimControl300Open)(p, op);
+         simControlShown_ = &op;
+         return false;
+     }
+@@ -188,6 +190,9 @@
+     bool updateDataInWidgetArea(Project& p, Operation& op, engine::FileEffects& fx) override
+     {
+         if (simControlShown_ != &op) return false;
++        // 300 vt+0x1c0 applies all pages, unlike the inherited small-editor helper.
++        // Do not silently run that different editor for newly exposed settings state.
++        if (simControl300Shown_) not_ported(0x140eb5180, "SfPreSimControl300 Save apply");
+         return l3Slot(g_loaderSlotsL3.formingSimControlApply)(*this, p, op, fx);
+     }
+     // vt+0x228  @src 0x140c07130 (Forming) / 0x140c04fa0 (Forming2D): tree states 0x1405eea60,
+@@ -199,6 +204,7 @@
+     }
+ 
+ private:
++    bool simControl300Shown_ = false;
+     const Operation* simControlShown_ = nullptr;
+ };
+ 
+--- a/source/apps/moproj2mst/src/engine/loader_l3.cpp
++++ b/source/apps/moproj2mst/src/engine/loader_l3.cpp
+@@ -8,6 +8,7 @@
+ // 0x141401bd0, creating an equipment item) refuse with M2M_E_UNSUPPORTED at the point the original
+ // would start changing state.
+ #include <cmath>
++#include <emmintrin.h>
+ #include <memory>
+ #include <string>
+ 
+@@ -653,6 +654,32 @@
+ // turn; a widget's value is what its setter leaves (QSpinBox clamps to the range of setupUi
+ // 0x1417ed690, a line edit keeps the "%.6g <unit>" text).
+ 
++// @src 0x140ed01b0  SfPreSimControl300::on_m_rbtnDefSolCG_toggled(true).
++// Reached on construction/Open only for the selected active Forming editor300:
++// 0x140eb26f0 -> 0x140eb5630 -> 0x140eb80c0(page0) -> 0x140ec19f0.
++// 0x140ec21b6 checks the CG radio only for SOLMTD==2. False toggles are display-only.
++void formingSimControl300Open(Project& p, Operation& op)
++{
++    GuiModel* m = opModel(p, op);
++    Cls_1401e7b10* sc = m ? m->simCtl() : nullptr;
++    if (!sc || sc->solmtd != 2) return;
++    if (sc->u2e8 != 4) {
++        sc->u2e8 = 4;
++        sc->solmtd_p[0] = 2.0;
++        sc->solmtd_p[1] = 4.0;
++        sc->solmtd_p[2] = 1.0;
++        sc->solmtd_p[3] = 1.0;
++    }
++    // Preserve the original CVTTSD2SI semantics, including indefinite INT_MIN for
++    // NaN/infinity/out-of-range. A C++ double-to-int cast would be undefined there.
++    const auto integer = [](double v) { return _mm_cvttsd_si32(_mm_set_sd(v)); };
++    const int first = integer(sc->solmtd_p[0]);
++    if (first < 0 || first > 2) sc->solmtd_p[0] = 2.0;
++    if (integer(sc->solmtd_p[1]) <= 0) sc->solmtd_p[1] = 1.0;
++    const int fourth = integer(sc->solmtd_p[3]);
++    if (fourth != 1 && fourth != 5) sc->solmtd_p[3] = 1.0;
++}
++
+ int spinClamp(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }
+ 
+ // "%.6g" text of the step-size line edits, read back by the units parser 0x1402ede00
+@@ -729,6 +756,7 @@
+ 
+ void installLoaderSlotsL3()
+ {
++    mst::g_loaderSlotsL3.formingSimControl300Open = &formingSimControl300Open;
+     mst::g_loaderSlotsL3.formingSimControlApply = &formingSimControlApply;
+     mst::g_loaderSlotsL3.formingLoadPrologue = &formingLoadPrologue;
+     mst::g_loaderSlotsL3.formingPostLoad = &formingPostLoad;
+--- a/source/apps/moproj2mst/include/moproj2mst.h
++++ b/source/apps/moproj2mst/include/moproj2mst.h
+@@ -76,6 +76,13 @@
+ 
+ M2M_API int m2m_api_version(void);
+ 
++/* Adapter settings contract (not an original environment interface): each conversion reads
++   M2M_MO_INPUT_MODE once. Unset or empty = 0; otherwise optional +/- and decimal digits in
++   signed 32-bit range; invalid values return M2M_E_ARG. It supplies Setting/MoInputMode
++   explicitly without reading the original installation's INI. Nonzero selects the active
++   Forming editor300; its unrecovered Save returns M2M_E_UNSUPPORTED. Mode0 retains existing
++   behavior. No ABI signatures, flags or API version change. */
++
+ /* out_mst_path NULL: <project folder>/<project base name>.MST, as the original. */
+ M2M_API int m2m_convert_w(const wchar_t *moproj_path, const wchar_t *out_mst_path,
+                           unsigned flags, wchar_t *msg, size_t msg_chars);
+--- a/source/apps/moproj2mst/tests/g0/test_abi_original_settings.cpp
++++ b/source/apps/moproj2mst/tests/g0/test_abi_original_settings.cpp
+@@ -0,0 +1,49 @@
++// ctest-labels: abi
++#define WIN32_LEAN_AND_MEAN
++#include <windows.h>
++#include <cstring>
++#include <initializer_list>
++#include <string>
++#include <testkit/check.hpp>
++#include "moproj2mst.h"
++
++namespace {
++struct EnvironmentMode {
++    bool present = false;
++    std::wstring prior;
++    EnvironmentMode() {
++        wchar_t buffer[32768];
++        SetLastError(ERROR_SUCCESS);
++        DWORD n = GetEnvironmentVariableW(L"M2M_MO_INPUT_MODE", buffer, 32768);
++        present = n != 0 || GetLastError() == ERROR_SUCCESS;
++        if (n) prior.assign(buffer, n);
++    }
++    ~EnvironmentMode() { SetEnvironmentVariableW(L"M2M_MO_INPUT_MODE", present ? prior.c_str() : nullptr); }
++    void set(const wchar_t* value) { REQUIRE(SetEnvironmentVariableW(L"M2M_MO_INPUT_MODE", value) != FALSE); }
++};
++}
++
++TEST_CASE(adapter_settings_parse_each_call)
++{
++    EnvironmentMode env;
++    // A nonexistent input reaches the existing Open error only after successful adapter parsing.
++    // These calls never create output or consult installation settings.
++    for (const wchar_t* value : std::initializer_list<const wchar_t*>{nullptr, L"", L"0", L"1", L"-1", L"+1", L"00001",
++                                L"2147483647", L"-2147483648"}) {
++        env.set(value);
++        CHECK_EQ(m2m_convert_w(L"C:/no/such/m2m-settings.moproj", nullptr, 0, nullptr, 0), M2M_E_OPEN);
++        CHECK_EQ(m2m_convert_utf8("C:/no/such/m2m-settings.moproj", nullptr, 0, nullptr, 0), M2M_E_OPEN);
++    }
++    for (const wchar_t* value : {L" ", L" 1", L"1 ", L"0x1", L"+", L"-", L"1.0",
++                                L"2147483648", L"-2147483649", L"99999999999999999"}) {
++        env.set(value);
++        char message[256] = {};
++        CHECK_EQ(m2m_convert_w(L"C:/no/such/m2m-settings.moproj", nullptr, 0, nullptr, 0), M2M_E_ARG);
++        CHECK_EQ(m2m_convert_utf8("C:/no/such/m2m-settings.moproj", nullptr, 0, message, sizeof message), M2M_E_ARG);
++        CHECK(std::strstr(message, "M2M_MO_INPUT_MODE") != nullptr);
++    }
++    env.set(L"0");
++    CHECK_EQ(m2m_convert_w(L"C:/no/such/m2m-settings.moproj", nullptr, 0, nullptr, 0), M2M_E_OPEN);
++}
++
++int main() { return testkit::run_all(); }
+--- a/source/apps/moproj2mst/tests/mdt/test_simcontrol300.cpp
++++ b/source/apps/moproj2mst/tests/mdt/test_simcontrol300.cpp
+@@ -0,0 +1,118 @@
++// ctest-labels: m2m-mdt
++#include "../support/test_paths.hpp"
++#include <testkit/check.hpp>
++#include <defmodel/layout/cls_1401e7b10.hpp>
++#include <limits>
++#include "m2m/convert.hpp"
++#include "m2m/engine.hpp"
++#include "m2m/model.hpp"
++#include "m2m/qt4path.hpp"
++#include "m2m/mst/loader_l3.hpp"
++#include "m2m/mst/writer.hpp"
++#include "../../src/engine/engine_internal.hpp"
++
++using namespace m2m;
++namespace {
++std::filesystem::path input() {
++    return m2m_test::configuredPath("M2M_ORACLE_B") / "RS_55_Multiple_Operations_Example1_before" /
++           "Multiple_Operations_Example1.moproj";
++}
++struct Fixture {
++    Project p;
++    Ctx ctx;
++    ProjectScope scope;
++    engine::FileEffects effects;
++    Fixture(int mode) : scope(p) {
++        const qt::String file{input().u16string()};
++        const auto db = app::changeSuffix(file, qt::L(".DB"));
++        initProject(p, qt::absolutePath(db), qt::completeBaseName(db));
++        p.originalSettings.moInputMode = mode;
++        ctx.originalSettings = p.originalSettings;
++        makeRegistry(p);
++        REQUIRE(openProject(p, file, ctx));
++        activateSubProject(p, 0, ctx);
++        engine::openActiveOperation(p, ctx, effects);
++    }
++    Operation& op() { auto* op = operationById(p, 2); REQUIRE(op != nullptr); return *op; }
++    def::model::Cls_1401e7b10& sc() {
++        auto* model = engine::opModel(p, op()); REQUIRE(model != nullptr);
++        auto* sc = model->simCtl(); REQUIRE(sc != nullptr); return *sc;
++    }
++};
++}
++
++TEST_CASE(default_mode_keeps_inherited_open_values)
++{
++    Fixture f(0);
++    CHECK_EQ(f.sc().solmtd, 2);
++    CHECK_EQ(f.sc().u2e8, 4);
++    for (double v : f.sc().solmtd_p) CHECK(v == 0.0);
++}
++
++TEST_CASE(editor300_open_corrects_only_active_model)
++{
++    Fixture f(1);
++    // Independent expectation: original callback0x140ed01b0 and retained RS55 Save row.
++    CHECK_EQ(f.sc().solmtd, 2);
++    CHECK(f.sc().solmtd_p[0] == 0.0);
++    CHECK(f.sc().solmtd_p[1] == 1.0);
++    CHECK(f.sc().solmtd_p[2] == 0.0);
++    CHECK(f.sc().solmtd_p[3] == 1.0);
++    auto* inactive = operationById(f.p, 1); REQUIRE(inactive != nullptr);
++    auto* model = engine::opModel(f.p, *inactive); REQUIRE(model != nullptr);
++    auto* other = model->simCtl(); REQUIRE(other != nullptr);
++    other->solmtd = 2; other->u2e8 = 4;
++    for (double& v : other->solmtd_p) v = 0.0;
++    mst::g_loaderSlotsL3.formingSimControl300Open(f.p, f.op());
++    for (double v : other->solmtd_p) CHECK(v == 0.0);
++    // Creating the inactive same-class model above changes OpClass::current.
++    // Restore the active editor before testing the actual Save dispatch.
++    opBase(f.op())->current = &f.op();
++    bool refused = false;
++    try { engine::SaveEffects saved; engine::saveCurrent(f.p, f.ctx, saved); }
++    catch (const NotPorted& e) { refused = e.src == 0x140eb5180; }
++    CHECK(refused);
++}
++
++TEST_CASE(original_cg_parameter_boundaries)
++{
++    Fixture f(1);
++    auto& sc = f.sc();
++    auto fill = [&] { mst::g_loaderSlotsL3.formingSimControl300Open(f.p, f.op()); };
++    sc.u2e8 = 0;
++    fill();
++    CHECK_EQ(sc.u2e8, 4);
++    CHECK(sc.solmtd_p[0] == 2.0); CHECK(sc.solmtd_p[1] == 4.0);
++    CHECK(sc.solmtd_p[2] == 1.0); CHECK(sc.solmtd_p[3] == 1.0);
++    sc.solmtd_p[0] = -0.9; sc.solmtd_p[1] = 1.9; sc.solmtd_p[2] = -77.0; sc.solmtd_p[3] = 5.9;
++    fill(); // original tests truncated integers but preserves accepted source doubles
++    CHECK(sc.solmtd_p[0] == -0.9); CHECK(sc.solmtd_p[1] == 1.9);
++    CHECK(sc.solmtd_p[2] == -77.0); CHECK(sc.solmtd_p[3] == 5.9);
++    sc.solmtd_p[0] = 3.0; sc.solmtd_p[1] = 0.9; sc.solmtd_p[3] = 2.0;
++    fill();
++    CHECK(sc.solmtd_p[0] == 2.0); CHECK(sc.solmtd_p[1] == 1.0); CHECK(sc.solmtd_p[3] == 1.0);
++    sc.solmtd_p[0] = (std::numeric_limits<double>::quiet_NaN)();
++    sc.solmtd_p[1] = (std::numeric_limits<double>::infinity)();
++    sc.solmtd_p[3] = 2147483648.0;
++    fill();
++    CHECK(sc.solmtd_p[0] == 2.0); CHECK(sc.solmtd_p[1] == 1.0); CHECK(sc.solmtd_p[3] == 1.0);
++    sc.solmtd = 1; sc.u2e8 = 0;
++    for (double& v : sc.solmtd_p) v = 0.0;
++    fill();
++    CHECK_EQ(sc.u2e8, 0);
++    for (double v : sc.solmtd_p) CHECK(v == 0.0);
++}
++
++TEST_CASE(explicit_settings_adapter_does_not_approximate300_save)
++{
++    std::string mst;
++    std::u16string output;
++    SideBytes side;
++    OriginalSettings settings; settings.moInputMode = 1;
++    const auto result = convertToBytes(input().u16string(), {}, 0, 1252, mst, output, side, 0, {}, settings);
++    CHECK_EQ(result.code, M2M_E_UNSUPPORTED);
++    CHECK(result.message.find("0x140eb5180") != std::string::npos);
++    CHECK(mst.empty()); CHECK(side.empty());
++}
++
++int main() { return testkit::run_all(); }

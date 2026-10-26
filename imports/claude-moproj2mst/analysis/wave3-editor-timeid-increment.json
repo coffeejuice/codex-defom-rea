@@ -1,0 +1,79 @@
+{
+  "schema": "wave3-editor-timeid-implementation-receipt-v1",
+  "created_utc": "2026-10-24T05:23:02.826427+00:00",
+  "status": "source_frozen_awaiting_root_build_and_tests",
+  "contracts": [
+    {
+      "path": "analysis/wave3-editor-timeid-contract.json",
+      "sha256": "074a71c2990396d08b772c092e729651ad40f5d028161bea65792876bd34a008",
+      "bytes": 8738
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-seam.json",
+      "sha256": "589c776e0413c055ab79792115195b36768f999167f80e5a08ed9dcf34a906f3",
+      "bytes": 4360
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-allocation-contract.json",
+      "sha256": "82ba125730031051d6a4b19d00b59ed01f2b0f24a2b88807d908583c0715c83b",
+      "bytes": 2389
+    }
+  ],
+  "source_files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "sha256": "ccb23ac4d8064f8a7441d4b7e804621c17794f4f2514f2c9c5110dad9fdd8660",
+      "bytes": 15124
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "sha256": "b67fc483e9c6cd0a7635126ce7e44f8a7c18d39298a05cb85b3b250cc6aa54a3",
+      "bytes": 40614
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_lifecycle.cpp",
+      "sha256": "341e7c9f09c4a3c693b4fb50772b8d53285e7b6116f68dad5f64dd7812444ea2",
+      "bytes": 8427
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "sha256": "9f023946ecd586f52264c30f3e24fcdbffc377e14825d217ad649ad912996453",
+      "bytes": 49345
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp",
+      "sha256": "1988bd7e143cb1476b8fc401de7affdb2de6b5435407d302f6f634d9ed1ddc16",
+      "bytes": 24294
+    }
+  ],
+  "implementation": [
+    "EnvironmentTimeIdState records the remembered checkbox and the three cleared/refilled table row vectors; fillEnvironment3D takes the previous checkbox with defaultfalse.",
+    "Composer passes the same retained page checkbox on initial and backed-up refresh. ID1 sets checked under the original suppression contract; absence never resets it.",
+    "All IDs use exact double equality. Other/NaN axes skip display values. ID2 reads two values; IDs3/4 read one, with original row stride, finite KnownC g6 display, and explicit reached memory/index boundaries.",
+    "Environment Apply ignores the display snapshot and retains latest live TIMEID. The existing field-aware constructor backup remains unchanged.",
+    "Only the empty-TIMEID guard was replaced. Public editor300, other page/profile guards and external bindings remain unchanged."
+  ],
+  "new_tests": [
+    "environment_timeid_displays_original_tables_without_mutating_model",
+    "environment_timeid_refill_retains_checked_state_but_replaces_rows",
+    "environment_timeid_guards_only_reached_values_and_preserves_original_row_overlap",
+    "initial_editor_timeid_final_refill_retains_checkbox_history_and_current_rows",
+    "initial_editor_timeid_apply_preserves_later_live_model_over_display_snapshot"
+  ],
+  "case_counts": {
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp": 41,
+    "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp": 14
+  },
+  "validation": {
+    "whitespace_check": "five files checked directly; no trailing whitespace",
+    "git_diff_check": "passed; source subtree is untracked from outer repository so this is not a patch completeness claim",
+    "build": "not run; root owns builds",
+    "behavioral_tests": "not run; root validation required",
+    "fresh_original_comparison": "not run"
+  },
+  "qualification": [
+    "Initial/repeat no-user-interaction path only; arbitrary checkbox/table edits remain separate callbacks.",
+    "Unsupported allocation or nonfinite formatting does not emulate original faults or partially exposed widget rows. No successful public300 claim."
+  ],
+  "next_action": "Root runs focused snapshot/lifecycle and regression tests. Worker preserves this source freeze and investigates the next environment nonconstant-curve dependency using original evidence."
+}

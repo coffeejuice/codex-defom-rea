@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF ARC 300..30 with extrusion (0,0,-1)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nWRAP.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "WRAP.DXF",
+      "source": "data/dxf_arc_wrap.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "ARC extrusion is not stored (no mirror); sweep 90 degrees. Prediction (DXF_READER.md model) = observed 2026-10-21: status 0, DIEGEO 1 2 1; segment 1: 1 2 2.5000000000E+000 -5.9807621135E-001 1.0000000000E+000 2.0000000000E+000 9.0000000000E+001"
+  }
+}

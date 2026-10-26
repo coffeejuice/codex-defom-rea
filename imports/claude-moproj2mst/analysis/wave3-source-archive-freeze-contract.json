@@ -1,0 +1,8 @@
+{
+  "reason": "Source hashes alone do not preserve historical candidate contents after later source edits",
+  "change": "Future checkpoint freeze retains complete source.zip, reads every entry back, reproduces build source fingerprint/filecount, and checks live tree unchanged; immutable receipt binds archiveSHA256",
+  "historical_qualification": "Earlier checkpoints retain binaries/build source hashes/contracts but no source archive from this freeze tool. This change does not retroactively claim their exact source trees were archived.",
+  "scope": "Converter subtree only; no Git staging/commits or parent checkout changes",
+  "tool_sha256": "cec2df1e5333a550a657463bf8f0ea6160299373e1d2b89de449b4fc282d3800",
+  "validation": "Archive round-trip verified at next checkpoint freeze; no separate synthetic test needed"
+}

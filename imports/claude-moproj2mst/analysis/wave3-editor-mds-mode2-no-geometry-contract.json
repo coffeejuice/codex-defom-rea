@@ -1,0 +1,92 @@
+{
+  "schema": "editor300-mds-mode2-no-geometry-contract-v1",
+  "created_utc": "2026-10-24T09:12:08.462165+00:00",
+  "status": "Read-only successor proposal; six mode0 source files remain frozen for root validation.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-mds-node-callback-static.json",
+      "sha256": "072a2a03a4c4c8338fbfbb7a002bcf689968e20e2c1099659e43a152103bfecc"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-location-static.json",
+      "sha256": "f3297f4801716a0c0e84705872a91a3bb922633d97b4c749417f330119098c20"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-callback-static.json",
+      "sha256": "c5c9567ee392245eae47a5ae570918d7c5ea64cb7335c0b28b13984bf18e776c"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-reference-display-static.json",
+      "sha256": "aa4e7310daefe332a65184a71067c5a7926eb28cffa5698a79dd6091e032e9d0"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-model-sync-static.json",
+      "sha256": "ac07a9010e7adb0b01c6aa32c1badd9d5141b8056d44f42f4350e08a1bcf23b4"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-sync-predicate-dependencies-static.json",
+      "sha256": "2c80982526387cf7285e4f8b36103449c539049e4f25aba6a67b5d33251a77fa"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-storage-twins-complete-static.json",
+      "sha256": "0930186c52caae61d363be746010b4260b9bdf43e02c83784894a1fd5da2692e"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-allocator-dependencies-static.json",
+      "sha256": "d351258d33ce9cca65e351c5c60cf146dd9804320b0ce1dc6c3a706673304930"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-variable-vtables.json",
+      "sha256": "c75bc593fd0d62d8a24ea38afdf6113303b6170829b2b6b71d38d0a495978091"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-node-variable-key-zero-static.json",
+      "sha256": "9a6a1c2eed74cd46140bedb98b37efd007a1beb81787e7063d5f8fe400fc48a2"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-numeric-profile-contract.json",
+      "sha256": "cfe8e40a8d6516dbafc88ec12fbb99cc7b66c0f43c9c782e587ee8b962a9ba1a"
+    }
+  ],
+  "native_order": [
+    "140ebe100 sets node radio for mode2, then QSpinBox::setValue with object+1ee8; setup bounds are 0..999999. Qt emits valueChanged(int) only when the bounded value differs from the retained spin value.",
+    "140ecda10 identifies the sender spin, reads both selected object IDs, and calls 140eb59a0 for this selected object/new node.",
+    "140eb59a0 returns false before any coordinate getter when object is missing, node <= 0, or signed node > object+880. False returns from the callback before coordinate text or the follow-up coordinate-entered slot.",
+    "A successful node lookup formats callback coordinates, calls 140ece5c0 -> 140eb5b00 -> optional 140eb6180 on stack vectors. The coordinate-entered tail has no direct model or viewer store, but its node lookups repeat allocate/sync getters.",
+    "After the setValue callback returns, 140ebe100 overwrites all three coordinate texts from stored object MDS coordinates using %.3f. Save later parses those remembered texts."
+  ],
+  "proposed_profile": {
+    "allowed": [
+      "Source mode2 with unchanged clamped spin: no valueChanged callback, irrespective of geometry availability.",
+      "Source mode2 with changed clamped spin rejected by the original signed node-count precheck: record new spin; callback returns false and reaches no geometry getter.",
+      "First-None/second-selected repeated fill retains exact second-only double invocation: the second setValue is unchanged and cannot emit another callback."
+    ],
+    "guarded": [
+      "Changed positive clamped node <= object+880 requires the successful geometry dependency; keep explicit refusal until its effects and bounds are closed.",
+      "Unknown translated-label profile and unrelated existing guards remain unchanged."
+    ],
+    "files_after_root_release": [
+      "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "source/apps/moproj2mst/tests/mdt/test_simcontrol300_lifecycle.cpp"
+    ]
+  },
+  "gui_native_difference": {
+    "gui_predicate": "14082bf10 returns false exactly when owner+1b58 == 0 AND owner dimension(+1c) == 3 AND signed step_version(+1b64) >= 6000. It returns true otherwise.",
+    "shared_native_predicate": "Source defmodel::names_up_to_date implements its native 1401d2b70 as always true. Do not substitute this for the GUI predicate without an explicit reached-state qualification.",
+    "allocation": "140854af0 -> 140854200 key0 allocates zeroed signed32(n*dims[0]) doubles at set+8 when absent, calls the registered StateVar dispatch, then invokes GUI model sync. No allocation failure or overflow equivalence is claimed.",
+    "statevar": "The 28 GUI registered variable IDs match the current native port and exclude id0; normal slot2 accepts matching id or -1, post slot2 matching id only. Key0 does not resize their arrays, but the collection indexing can detach its COW body when refcount>1.",
+    "future": "Bind actual same-owner step and array extent before successful geometry support; retain GUI sync branch as explicit dependency. Existing viewer.cpp uses the shared native accessor and warrants separate root audit for the false-predicate state."
+  },
+  "planned_tests": [
+    "Clamping -1/0/1/999999/1000000 against retained spin; source values unchanged during fill.",
+    "Changed out-of-range callback preserves null coordinate storage and still gets stored %.3f MDS texts.",
+    "Unchanged positive spin with valid node count does not allocate absent coordinate storage.",
+    "Changed valid-node path remains refused without losing prior model state.",
+    "Second-only double fill and Save retained node behavior, including existing both-disabled node reset.",
+    "Actual InitialEditorSession repeat fill uses the same retained spin and context label profile."
+  ],
+  "worker_builds_or_tests": 0,
+  "runtime_or_gui_used": false
+}

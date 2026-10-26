@@ -1,0 +1,48 @@
+{
+  "scope": "Immediate ignored-result file removal in actual full-Save operation Open and object refresh",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "215c5919044b0404661e8b0fc26d33b32fcdf435f0d6b9cb60440c1cd1904816"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/loader.cpp",
+      "sha256": "1572157543c0664cff78544b88595546f341bd6251b2f1dad98084518871a5fc"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/core/convert.cpp",
+      "sha256": "b88568f5824e172bfcb3d1acd9e3d66e71863796875258dffca6ff9addd5beac"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/s/test_save_io.cpp",
+      "sha256": "0c871a8bc67ee58a670daad19598d56c8b2a8256fc35cf816103e9fb3d1f38f5"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-open-removal-contract.json",
+      "sha256": "d8af268b321ec23a889c529b31f80825e42f2851b7d34a315d46392c94ad6297"
+    }
+  ],
+  "implemented": [
+    "Real full-Save profile enables immediate native removal before operation Open and during Save. Legacy recording flags preserve deferred behavior.",
+    "Object refresh probes actual filesystem, removes immediately, then removes row irrespective of DeleteFileW success; no queued retry.",
+    "Stale Restart deletion occurs after its single explicit exists probe and before restart/setup decisions; ignored failure continues loading.",
+    "Ordinary drive-absolute UTF16 paths below MAX_PATH use DeleteFileW without CRT probe or long-path extension. Adapter alias guard executes before deletion.",
+    "Unresolved prior deferred write to same path stays guarded; successful native removal erases stale overlay. Denial retains file."
+  ],
+  "tests": [
+    "immediate file removal before row mutation",
+    "denied deletion still drops unused row",
+    "unchanged recorded mode",
+    "adapter alias preserves file and row",
+    "stale Restart success/denial both continue load"
+  ],
+  "qualifications": [
+    "No fresh original execution. Native QFile custom file engines/resource/UNC/extended/long paths remain guarded.",
+    "This closes the file syscall/row-prefix order, not full original QObject item destructor/receiver effects.",
+    "Equipment removal/copy has separate unresolved manager/fallback behavior.",
+    "Ordinary OS races and asynchronous external modifications are not controlled by these tests."
+  ],
+  "validation": "pending root focused/full suite"
+}

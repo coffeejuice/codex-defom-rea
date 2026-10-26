@@ -1,0 +1,140 @@
+address	status	note
+0x14012fd30	ported	port/defcmd/src/ifd/path/path_table.cpp: path::dynary_reshape (DYNARY method, new)
+0x14012fd80	verified	verified by p4-04 (P5 gate); was ported; port/defcmd/src/ifd/path/path_table.cpp: path::table_all_zero (DYNARY method)
+0x140134de0	ported	port/defcmd/src/ifd/path/path_table.cpp: path::path_speed_to_time (DYNARY method)
+0x1401350e0	ported	port/defcmd/src/ifd/path/path_table.cpp: path::path_point (DYNARY method)
+0x1401351c0	ported	port/defcmd/src/ifd/path/path_table.cpp: path::path_at_time (DYNARY method)
+0x140135bc0	ported	port/defcmd/src/ifd/path/path_table.cpp: path::path_transform (DYNARY method)
+0x14017ed40	ported	port/defcmd/src/ifd/d2/objects.cpp: loop record bbox (Cls_14017e740 method as free function); oracle 18 2D cases pass (CRT atan stand-in)
+0x140183cb0	verified	port/defcmd/src/ifd/drv/ifd3d.cpp: element connectivity (oracle deformable/tet cases)
+0x14018cd10	verified	port/defcmd/src/ifd/drv/router.cpp: MOVCTL direction present (oracle movctldir cases)
+0x140194cb0	ported	port/defcmd/src/ifd/path/path_move.cpp: path::movement_position (Cls_14018b220 method)
+0x140194d40	ported	port/defcmd/src/ifd/path/path_move.cpp: path::movement_path_matrix (Cls_14018b220 method)
+0x14019a620	ported	port/defcmd/src/ifd/d2/objects.cpp: assign wrapper; oracle 18 2D cases pass (CRT atan stand-in)
+0x14019eb60	verified	port/defcmd/src/ifd/drv/router.cpp: move wrapper (oracle)
+0x14019ec30	ported	port/defcmd/src/ifd/path/path_branch.cpp: fun_14019ec30; n-th object (14017aa80) by abs id
+0x14019ed10	ported	port/defcmd/src/ifd/path/path_move.cpp: fun_14019ed10; uses step_object_at (1401d6ed0) over model+0x1378
+0x14019fa00	verified	port/defcmd/src/ifd/drv/router.cpp: router (oracle: test_ifd_oracle 46/46)
+0x14019fb50	ported	port/defcmd/src/ifd/path/path_branch.cpp: fun_14019fb50; header arg list verified against listing (tol = arg 5, n/list = args 9/10)
+0x14019ffc0	ported	port/defcmd/src/ifd/path/path_branch.cpp: path::fun_14019ffc0; listing compares (NaN len taken, d<=len ordered)
+0x1401a0300	verified	port/defcmd/src/ifd/drv/router.cpp: direction choice, coupled minimum (oracle)
+0x1401a0a10	verified	port/defcmd/src/ifd/drv/router.cpp: kernel + move (oracle)
+0x1401a0b00	verified	port/defcmd/src/ifd/drv/router.cpp: 2D/3D kernel switch (oracle)
+0x1401a0bd0	verified	port/defcmd/src/ifd/drv/router.cpp: 2D kernel + move (oracle)
+0x1401a0c70	ported	port/defcmd/src/ifd/d2/driver.cpp: 2D driver; tier-1 end-to-end; replaces the stub in pending_stubs.cpp; oracle 18 2D cases pass (CRT atan stand-in)
+0x1401a1370	ported	port/defcmd/src/ifd/d2/driver.cpp: 2D kernel; tier-1 two-rectangle case (tolerance; CRT atan/atan2 test stand-ins); oracle 18 2D cases pass (CRT atan stand-in)
+0x1401a28c0	ported	port/defcmd/src/ifd/d2/objects.cpp: rotated boundary of an object; oracle 18 2D cases pass (CRT atan stand-in)
+0x1401a3a00	verified	port/defcmd/src/ifd/drv/router.cpp: 3D kernel + move (oracle)
+0x1401a3aa0	verified	port/defcmd/src/ifd/drv/ifd3d.cpp: 3D kernel with backwards retry (oracle 28 3D cases)
+0x1401a3ea0	verified	port/defcmd/src/ifd/drv/ifd3d.cpp: load/rotate S and T (oracle)
+0x1401a5470	verified	port/defcmd/src/ifd/drv/ifd3d.cpp: rigid-rigid two passes (oracle die cases)
+0x1401f3ae0	ported	port/defcmd/src/ifd/path/path_move.cpp: sim_time on Cls_1401e7b10 tnow1/tnow2/tnow3 (no existing port found)
+0x1401f3b30	ported	port/defcmd/src/ifd/path/path_move.cpp: set_sim_time
+0x1401ff7f0	ported	port/defcmd/src/ifd/d2/objects.cpp: outer die curve; uses p67-1 ext::has_geometry (140160cc0); oracle 18 2D cases pass (CRT atan stand-in)
+0x1401ffa90	ported	port/defcmd/src/ifd/d2/objects.cpp: outer mesh loop (score 1111); oracle 18 2D cases pass (CRT atan stand-in)
+0x1402007d0	ported	port/defcmd/src/ifd/path/path_move.cpp: path::place_on_path (LLOBJ_DATA method); translate via ext::translate(&int32 0,&char 1) - original passes two bytes
+0x14021e470	ported	port/defcmd/src/ifd/path/path_move.cpp: path::movement_on_path (Cls_14018b220 method)
+0x14021ee40	ported	port/defcmd/src/ifd/path/path_move.cpp: path::movement_path_curve (Cls_14018b220 method)
+0x1402204a0	ported	port/defcmd/src/ifd/d2/objects.cpp: pow by squaring (with 140221390); oracle 18 2D cases pass (CRT atan stand-in)
+0x140221390	ported	port/defcmd/src/ifd/d2/objects.cpp: absorbed into fun_1402204a0; oracle 18 2D cases pass (CRT atan stand-in)
+0x140225640	verified	port/defcmd/src/ifd/cube/cube_lib.cpp: tier-1: create_build_clean_lifecycle
+0x140225820	verified	port/defcmd/src/ifd/cube/cube_lib.cpp: tier-1: create_build_clean_lifecycle
+0x140225af0	ported	port/defcmd/src/ifd/cube/cube_lib.cpp: oracle 3D cases pass
+0x140225ff0	ported	port/defcmd/src/ifd/cube/cube_lib.cpp: oracle 3D cases pass
+0x140226150	verified	port/defcmd/src/ifd/cube/cube_lib.cpp: type 1 full; types 0/2-7 insertion DEF_NOT_PORTED; pow via def::rt::libm::crt_pow (stub) or test hook g_test_pow; tier-1: division_count/divisions, lifecycle, die tests
+0x140228c60	verified	port/defcmd/src/ifd/cube/cube_lib.cpp: exact != 0 path (1404040c0) DEF_NOT_PORTED; kernel passes exact 0; tier-1: die column queries
+0x140229f30	verified	port/defcmd/src/ifd/cube/cube_lib.cpp: CRT qsort replaced by std::sort (equal ints indistinguishable); tier-1: result_list_sorted_with_duplicates
+0x140231b10	ported	port/defcmd/src/ifd/cube/cube_lib.cpp: oracle 3D cases pass
+0x140231d00	verified	port/defcmd/src/ifd/cube/cube_lib.cpp: tier-1: result_list_sorted_with_duplicates
+0x140233ef0	ported	ported by p67-7-cube (P5 gate); was todo; port/defcmd/src/ifd/cube/cube_lib.cpp: DEF_NOT_PORTED: not reached by the interference kernel (type 1, exact 0)
+0x140239700	ported	port/defcmd/src/ifd/cube/vec.cpp: callee; oracle 3D cases pass
+0x140239fb0	ported	port/defcmd/src/ifd/cube/vec.cpp: callee; oracle 3D cases pass
+0x14023a1b0	ported	port/defcmd/src/ifd/cube/vec.cpp: callee; oracle 3D cases pass
+0x14023a4b0	ported	port/defcmd/src/ifd/cube/vec.cpp: callee; oracle 3D cases pass
+0x14023aa90	ported	port/defcmd/src/ifd/cube/vec.cpp: oracle 3D cases pass
+0x140240b40	verified	port/defcmd/src/ifd/cube/vec.cpp: tier-1: box_overlap_inclusive
+0x140240d80	ported	port/defcmd/src/ifd/cube/vec.cpp: oracle 3D cases pass
+0x1402416d0	ported	port/defcmd/src/ifd/path/path_table.cpp: path::mat3_mul_vec (listing-checked order)
+0x140256dc0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140256e20	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140257150	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140279960	ported	port/defcmd/src/ifd/d2/objects.cpp: OBJ_GEO2D bbox with arcs (method as free function); oracle 18 2D cases pass (CRT atan stand-in)
+0x14027a720	ported	port/defcmd/src/ifd/d2/objects.cpp: rounded-corner circle (type-1 curves only; not reached on the 2D path); oracle 18 2D cases pass (CRT atan stand-in)
+0x14027ab80	ported	port/defcmd/src/ifd/d2/objects.cpp: arc bbox incl. 8 quadrant tables 1405e7770..; uses CRT atan2 stub; oracle 18 2D cases pass (CRT atan stand-in)
+0x14027e990	ported	port/defcmd/src/ifd/d2/objects.cpp: zero-length row removal (OBJ_GEO2D method as free function); oracle 18 2D cases pass (CRT atan stand-in)
+0x140306a70	ported	port/defcmd/src/ifd/d2/objects.cpp: zero-length removal over curves; oracle 18 2D cases pass (CRT atan stand-in)
+0x14030bba0	ported	port/defcmd/src/ifd/d2/kernels.cpp: segment kernel, listing-checked; oracle 18 2D cases pass (CRT atan stand-in)
+0x14032bd2a	ported	port/defcmd/src/ifd/d2/kernels.cpp: arc span test; oracle 18 2D cases pass (CRT atan stand-in)
+0x14032beef	ported	port/defcmd/src/ifd/d2/kernels.cpp: angle (Fortran ATAN2); oracle 18 2D cases pass (CRT atan stand-in)
+0x14033f2bf	ported	port/defcmd/src/ifd/d2/sampling.cpp: loop rotation, listing-checked incl. NaN compares; oracle 18 2D cases pass (CRT atan stand-in)
+0x14033f8d4	ported	port/defcmd/src/ifd/d2/sampling.cpp: root finder incl. tol=0 quirk; oracle 18 2D cases pass (CRT atan stand-in)
+0x14033fdb8	ported	port/defcmd/src/ifd/d2/sampling.cpp: shoelace; oracle 18 2D cases pass (CRT atan stand-in)
+0x14033fe8e	ported	port/defcmd/src/ifd/d2/sampling.cpp: area function; oracle 18 2D cases pass (CRT atan stand-in)
+0x14033ffb8	ported	port/defcmd/src/ifd/d2/sampling.cpp: context; oracle 18 2D cases pass (CRT atan stand-in)
+0x14033ffe0	ported	port/defcmd/src/ifd/d2/sampling.cpp: mesh sampler, listing-checked; oracle 18 2D cases pass (CRT atan stand-in)
+0x140340273	ported	port/defcmd/src/ifd/d2/sampling.cpp: curve sampler; Fortran WRITE 1001 reproduced to stderr (unit 0 assumed); oracle 18 2D cases pass (CRT atan stand-in)
+0x1403407d7	ported	port/defcmd/src/ifd/d2/kernels.cpp: arc kernel, listing-checked; oracle 18 2D cases pass (CRT atan stand-in)
+0x140341100	ported	port/defcmd/src/ifd/d2/kernels.cpp: arc refinement driver, transcribed from listing; oracle 18 2D cases pass (CRT atan stand-in)
+0x14034151e	ported	port/defcmd/src/ifd/d2/kernels.cpp: arc refinement core, transcribed from listing; only early paths unit-tested; oracle 18 2D cases pass (CRT atan stand-in)
+0x1403460c2	ported	port/defcmd/src/ifd/d2/sampling.cpp: context; oracle 18 2D cases pass (CRT atan stand-in)
+0x1403460e7	ported	port/defcmd/src/ifd/d2/sampling.cpp: context; oracle 18 2D cases pass (CRT atan stand-in)
+0x14034c209	ported	port/defcmd/src/ifd/d2/sampling.cpp: box + ext; oracle 18 2D cases pass (CRT atan stand-in)
+0x1403539a1	verified	port/defcmd/src/ifd/drv/ftn_ray.cpp: Fortran distance driver (oracle incl. flag 1 overlap)
+0x1403541fc	verified	port/defcmd/src/ifd/drv/ftn_ray.cpp: ray of one node onto the faces (oracle)
+0x140378c20	verified	port/defcmd/src/ifd/drv/case_body.cpp: id in coupled list (oracle auto-coupledexcluded)
+0x140378c80	verified	port/defcmd/src/ifd/drv/case_body.cpp: automatic search candidates (oracle auto cases)
+0x140382350	not-needed	std::vector in case_body.cpp (ctor)
+0x1403823c0	not-needed	std::vector in case_body.cpp (dtor)
+0x1403823e0	not-needed	std::vector in case_body.cpp (size)
+0x140382400	not-needed	std::vector in case_body.cpp (at)
+0x140382440	not-needed	std::vector in case_body.cpp (push_back)
+0x1403824e0	not-needed	std::vector in case_body.cpp (clear)
+0x14039d2d0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x14039d3a0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x14039d450	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x14039d570	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x1403fed00	ported	port/defcmd/src/ifd/cube/locator.cpp: oracle 3D cases pass
+0x1403feec0	ported	port/defcmd/src/ifd/cube/locator.cpp: callee; oracle 3D cases pass
+0x1403ff870	ported	port/defcmd/src/ifd/cube/locator.cpp: callee; oracle 3D cases pass
+0x1403ff890	verified	port/defcmd/src/ifd/cube/locator.cpp: tier-1: locator_division_clamp
+0x1403ff970	verified	port/defcmd/src/ifd/cube/locator.cpp: tier-1: locator_box_and_cell_size
+0x140400330	ported	ported by p67-7-cube (P5 gate); was todo; port/defcmd/src/ifd/cube/cube_lib.cpp: DEF_NOT_PORTED: not reached by the interference kernel (type 1, exact 0)
+0x140401050	verified	port/defcmd/src/ifd/cube/locator.cpp: tier-1: insert tests incl. pcube path
+0x140401c40	ported	ported by p67-7-cube (P5 gate); was todo; port/defcmd/src/ifd/cube/cube_lib.cpp: DEF_NOT_PORTED: not reached by the interference kernel (type 1, exact 0)
+0x1404021a0	ported	ported by p67-7-cube (P5 gate); was todo; port/defcmd/src/ifd/cube/cube_lib.cpp: DEF_NOT_PORTED: not reached by the interference kernel (type 1, exact 0)
+0x140402c40	ported	ported by p67-7-cube (P5 gate); was todo; port/defcmd/src/ifd/cube/cube_lib.cpp: DEF_NOT_PORTED: not reached by the interference kernel (type 1, exact 0)
+0x1404040c0	ported	ported by p67-7-cube (P5 gate); was todo; port/defcmd/src/ifd/cube/cube_lib.cpp: DEF_NOT_PORTED: not reached by the interference kernel (type 1, exact 0)
+0x1404044c0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140404780	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x1404047a0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x1404047f0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140404850	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140404c40	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140405010	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x1404050b0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140405150	ported	port/defcmd/src/ifd/cube/cells.cpp: oracle 3D cases pass
+0x140405350	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140405540	verified	port/defcmd/src/ifd/cube/cells.cpp: tier-1: cell_list_grow_and_reset
+0x1404056c0	ported	port/defcmd/src/ifd/cube/cells.cpp: oracle 3D cases pass
+0x1404056e0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140405720	ported	port/defcmd/src/ifd/cube/cells.cpp: oracle 3D cases pass
+0x1404057a0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140405c80	ported	port/defcmd/src/ifd/cube/cells.cpp: oracle 3D cases pass
+0x1404062e0	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140406300	ported	port/defcmd/src/ifd/cube/cells.cpp: oracle 3D cases pass
+0x140406360	ported	port/defcmd/src/ifd/cube/cells.cpp: oracle 3D cases pass
+0x140406510	ported	port/defcmd/src/ifd/cube/cells.cpp: callee; oracle 3D cases pass
+0x140437b3b	ported	port/defrt/src/ftn/helpers.cpp: already ported (column_min_max), called; oracle 18 2D cases pass (CRT atan stand-in)
+0x140453010	ported	port/defcmd/src/ifd/cube/pcube.cpp: oracle 3D cases pass
+0x1404531b0	ported	port/defcmd/src/ifd/cube/pcube.cpp: oracle 3D cases pass
+0x140453300	ported	port/defcmd/src/ifd/cube/pcube.cpp: oracle 3D cases pass
+0x1404535e0	ported	port/defcmd/src/ifd/cube/pcube.cpp: oracle 3D cases pass
+0x1404537f0	verified	port/defcmd/src/ifd/cube/pcube.cpp: tier-1: pcube_basic_cases
+0x140453850	ported	port/defcmd/src/ifd/cube/pcube.cpp: oracle 3D cases pass
+0x140453c40	verified	port/defcmd/src/ifd/cube/pcube.cpp: tier-1: pcube_basic_cases
+0x140453e80	ported	port/defcmd/src/ifd/cube/pcube.cpp: oracle 3D cases pass
+0x140454110	verified	port/defcmd/src/ifd/cube/pcube.cpp: tier-1: pcube_basic_cases
+0x140484558	not-needed	-: CRT fabs: std::fabs
+0x140484644	not-needed	-: CRT sqrt: std::sqrt (sqrtsd)
+0x140484ab8	not-needed	-: abs(int): inline in 140401050
+0x140486e8c	not-needed	port/defcmd/src/ifd/cube/locator.cpp: CRT ceil: std::ceil (same for finite/inf)

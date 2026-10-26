@@ -1,0 +1,116 @@
+{
+  "scope": "read-only static PE facts; no native occurrence/owner address/branch values supplied",
+  "binaries": {
+    "DEF_GUI_MO_64.exe": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "QtGui4_64.dll": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+  },
+  "tree_primary_vtable": "0x142a0b158",
+  "tree_slots": [
+    {
+      "offset": "0x1a8",
+      "entry": "0x140138d06",
+      "IAT": "0x141e06f98",
+      "symbol": "?setSelectionModel@QTreeView@@UEAAXPEAVQItemSelectionModel@@@Z",
+      "QtGui_export": "0x654dd3d0"
+    },
+    {
+      "offset": "0x1e0",
+      "entry": "0x140138d30",
+      "IAT": "0x141e06f60",
+      "symbol": "?reset@QTreeView@@UEAAXXZ",
+      "QtGui_export": "0x654e5790"
+    },
+    {
+      "offset": "0x1e8",
+      "entry": "0x140138d36",
+      "IAT": "0x141e06f58",
+      "symbol": "?setRootIndex@QTreeView@@UEAAXAEBVQModelIndex@@@Z",
+      "QtGui_export": "0x654dd390"
+    },
+    {
+      "offset": "0x220",
+      "entry": "0x140138d60",
+      "IAT": "0x141e06f20",
+      "symbol": "?selectionChanged@QTreeView@@MEAAXAEBVQItemSelection@@0@Z",
+      "QtGui_export": "0x654dfc00"
+    },
+    {
+      "offset": "0x228",
+      "entry": "0x140138d66",
+      "IAT": "0x141e06f18",
+      "symbol": "?currentChanged@QTreeView@@MEAAXAEBVQModelIndex@@0@Z",
+      "QtGui_export": "0x654dfa70"
+    }
+  ],
+  "selection_model_primary_vtable": "0x657330d8",
+  "selection_model_clear_slot68": "0x654f2590",
+  "selection_model_reset_slot70": "0x654f0620",
+  "QtGui_imports": {
+    "0x656976d8": "?blockSignals@QObject@@QEAA_N_N@Z",
+    "0x656968e8": "?changeGuard@QMetaObject@@SAXPEAPEAVQObject@@PEAV2@@Z",
+    "0x656968b0": "?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z",
+    "0x65696d78": "?start@QBasicTimer@@QEAAXHPEAVQObject@@@Z",
+    "0x65696d48": "?stop@QBasicTimer@@QEAAXXZ",
+    "0x656976e8": "?removeEventFilter@QObject@@QEAAXPEAV1@@Z",
+    "0x65697218": "?deleteLater@QObject@@QEAAXXZ",
+    "0x65698820": "??0QPersistentModelIndex@@QEAA@XZ",
+    "0x65696a30": "??0QObject@@IEAA@AEAVQObjectPrivate@@PEAV0@@Z"
+  },
+  "connection_literals": {
+    "0x6571d238": "2selectionChanged(QItemSelection,QItemSelection)",
+    "0x6572af40": "1selectionChanged(QItemSelection,QItemSelection)",
+    "0x656f98e0": "2currentChanged(QModelIndex,QModelIndex)",
+    "0x6572af10": "1currentChanged(QModelIndex,QModelIndex)",
+    "0x6572af80": "QAbstractItemView::setSelectionModel() failed: Trying to set a selection model, which works on a different model than the view."
+  },
+  "typed_field_relations": {
+    "view_model": "QObject private+0x280",
+    "view_selection_guard": "QObject private+0x2a0",
+    "view_root_index": "QObject private+0x308",
+    "layout_pending_byte": "QObject private+0x3a2",
+    "layout_basic_timer": "QObject private+0x3a4",
+    "new_selection_model_guard": "QItemSelectionModel private+0x88",
+    "new_selection_current_holder": "QItemSelectionModel private+0xa0"
+  },
+  "file_backed_spans": [
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "va": "0x142a0b300",
+      "size": 8,
+      "hex": "068d134001000000",
+      "sha256": "52bceceb7273dcd71ce01d28d3063eec0118e75603d06d9312350f1966e89519"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "va": "0x142a0b338",
+      "size": 24,
+      "hex": "308d134001000000368d1340010000003c8d134001000000",
+      "sha256": "95ac4cc9bf398bd8604c5d941ef26ec941c9fffade459491cda967c3f1164e68"
+    },
+    {
+      "binary": "DEF_GUI_MO_64.exe",
+      "va": "0x142a0b378",
+      "size": 16,
+      "hex": "608d134001000000668d134001000000",
+      "sha256": "6bc7f035695092c9ad20448cf658a2a00886547b58e4d5c2bec22ae3d760cab7"
+    },
+    {
+      "binary": "QtGui4_64.dll",
+      "va": "0x65733140",
+      "size": 16,
+      "hex": "90254f650000000020064f6500000000",
+      "sha256": "0398e6efc2446766059fd21b58418c732f7e7f9df2d05e2f8fccec51be6f2e01"
+    }
+  ],
+  "static_receipts": [
+    "analysis/resume114-boolean-abstract-reset-static.json",
+    "analysis/resume114-boolean-abstract-selection-model-static.json",
+    "analysis/resume114-boolean-abstract-setmodel-static.json",
+    "analysis/resume114-boolean-selection-new-static.json",
+    "analysis/resume114-boolean-selection-private-static.json",
+    "analysis/resume114-boolean-selection-reset-static.json",
+    "analysis/resume114-boolean-tree-reset-static.json",
+    "analysis/resume114-boolean-tree-root-index-static.json",
+    "analysis/resume114-boolean-tree-selection-model-static.json"
+  ]
+}

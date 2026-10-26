@@ -1,0 +1,77 @@
+{
+  "schema": "resume47-editor300-alpha-order-v1",
+  "created_utc": "2026-10-24T17:45:06.176409+00:00",
+  "status": "SOURCE_FROZEN_focused_build_pending",
+  "owner": "editor300",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_base.hpp",
+      "sha256": "bd3506fd3fef4776083e04ee5e922899884c02552d135038c40aa0985db5f407",
+      "bytes": 4078
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_base.cpp",
+      "sha256": "0585beb518d47f089d99f748e3cde88fc6074bfae6e61904081e7bd08efa1013",
+      "bytes": 13974
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+      "sha256": "97bfa6a2e73bbc042e9d68ad890df045cebf2be3b485b578536fdfa5619e58ab",
+      "bytes": 25699
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/resume46-editor300.json",
+      "sha256": "1a4a7c8284f6783a8544a955128106c738017eafae9e6521362682172e36355a"
+    },
+    {
+      "path": "analysis/resume46-editor300-next.json",
+      "sha256": "d797884416b47bc48e8501cfa60bb5586b748fc646c5b889947dceee47325189"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-6511c090.asm",
+      "sha256": "716cb7f8e726b62960add3b4718c6b48aef1f184e43b6a9e6317101d25bb9d32"
+    },
+    {
+      "path": "analysis/wave3-editor-wrapper-palette-6511e6d0.asm",
+      "sha256": "ea2e3922b1c05313b23c3885b86c4ee635fdf61c655b07dc875490896b93de14"
+    },
+    {
+      "path": "analysis/wave3-checkpoint46-validation.json",
+      "sha256": "54824cf07cea4070b0c7c40ed754234c3c2d47260bfbfdf07cf1b418a5657dc9"
+    }
+  ],
+  "predecessor": "Checkpoint46 validated150 tests; editor_base26/26, confirmed by orchestrator and linked validation receipt.",
+  "implementation": [
+    "Every entered nonzero window brush isOpaque call consumes the exact QColor alpha byte before dispatching style, as6511c0ad..c0c8 requires.",
+    "One BrushAlphaConsumed effect and retained BrushStyleDispatch cursor represent the reached original call frame.",
+    "Call frame retains a weak reference to actual runtime-interned brush data and the consumed alpha==255 comparison; it adds no second mutable palette/brush state or lifetime extension.",
+    "Unknown alpha blocks before unresolved gradient/texture paths. Qualified alpha resumes to the existing precise unsupported style guard. Repeated retries do not replay the consumed read/group/QObject prefix.",
+    "Style0 bypass still consumes no alpha. Solid and simple-pattern supported results remain unchanged."
+  ],
+  "focused_tests": {
+    "file": "source/apps/moproj2mst/tests/mdt/test_editor_base.cpp",
+    "total_cases": 27,
+    "added_cases": 1,
+    "new_case": "editor_base_unresolved_style_consumes_alpha_before_retaining_dispatch_guard",
+    "coverage": [
+      "styles15/16/17/24: absent alpha stops before dispatch, qualified alpha reaches unresolved guard, retries have stable effects",
+      "solid and patterned branches consume alpha once, including alpha0 result",
+      "style0 bypass consumes no alpha",
+      "native-opacity pending helper does not replay brush alpha consumption"
+    ],
+    "execution": "Root owns build and integration; not run by worker for this increment"
+  },
+  "source_checks": {
+    "unique_test_names": "passed27",
+    "conflict_markers": "none",
+    "whitespace": "passed git diff --check on all three edited source paths"
+  },
+  "guards": "public6504abb0, gradient/texture/invalid-style behavior, native window helper, QWidget wrapper and setup guards preserved",
+  "next_dependency": "Root focused m2m.mdt.editor_base compile/test and integration. Full constructor progression still needs shared post-event/dispatcher tail, exact runtime input binding, native QPointer ownership and ordered notifier closure.",
+  "original_capture": false,
+  "mutable_rea": false,
+  "build_executed_by_worker": false,
+  "token_measurement": "unavailable"
+}

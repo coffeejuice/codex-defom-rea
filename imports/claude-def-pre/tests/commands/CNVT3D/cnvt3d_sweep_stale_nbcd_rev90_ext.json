@@ -1,0 +1,26 @@
+{
+ "label": "CNVT3D sweep revolve 90 obj2 then extrude obj3 (stale NBCD.OUT)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 900,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nGEO23 2 1\n90.0 0.0 0.0\nGEOSEC 2 4\nMSHSEC 2 2\nGEO23 3 2\n50.0 0.0\nGEOSEC 3 4\nMSHSEC 3 3\nACTOUT 0\nCONV3D.KEY\nCNVT3D 2\n2 3\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "data/sweep_two.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "CONV3D.KEY",
+   "OUT.KEY",
+   "NBCD.OUT",
+   "CONV_STATUS.DAT",
+   "DEF_CNV23.DAT",
+   " .LOG"
+  ],
+  "notes": "T9-4: object 3 (copy of object 2) is extruded from z=0 after the partial revolve of object 2 wrote NBCD.OUT; the extrude's read-back 140141580 finds the stale file, and its layer-0 nodes coincide with the revolve's start face, so object 3 gets BCCDEF/BCCDFN codes from object 2's NBCD.OUT (CNVT3D_SWEEP.md 8, [inferred]) RESULT 2026-10-21: the original crashes (exit 0xC0000005) in object 3's set-up before 'Generate geometry:' (object 2's revolve and NBCD.OUT completed); data/sweep_two.KEY's copied object 3 is not accepted, so the stale read-back is still not observed. Needs a 3-object seed made by DEF_PRE itself."
+ }
+}

@@ -1,0 +1,19 @@
+# CP181 R300 Express Save SimControl source review
+
+## Verdict and binding
+
+**Accept the released Express Save source/test pair for source-bound compilation and tests.** Static review found the heat-mode short circuit, one model lookup, geometry refusal point, per-object read/write order and nullable skip unchanged. The acquired SimControl is confined to the synchronous loop callback. No compile or runtime pass is claimed by this review.
+
+Reviewed SHA-256 values match `analysis/resume181-r300-closure-implementation.md`: `source/apps/moproj2mst/src/engine/save_l3.cpp` is `1a7c6de08abcb97906518549dbdaf0dc1568d444c2167dc70eb69a2f1f1befe0` (CP180 `7c89166e6d2fede2b110578c332ecb690e62d94d180ae6d27be72c30759684a1`); `source/apps/moproj2mst/tests/mdt/test_engine_l3.cpp` is `a9a151d214960df4bfeeb4153ce673651642c3553b3290dfe8cbba0086f8931b` (CP180 `c24892241818ed286c8cda68136cdae53dafa2d9e3e2a179dae1bb0c4a4982cb`). Exported `include/moproj2mst.h` remains `34e55cdd58280b056d21e94986c11ac32ccea6f9a6c956d5dad32dbb9864fc40`; CP163 `simcontrol300.cpp` remains `67b144f6df3e95843c82eae1a77389e5cfab8b65e2534419d3eae4e7f9d34dae`.
+
+## Call order and borrow audit
+
+`expressSaveOperation` still calls `heatExpressMode(op, "SfOprHeatExpress")` and returns before a model lookup when false. It then calls `opModel(p, op)` once and returns for a missing model. The immediately invoked `void` lambda takes `m->simCtl()` as its argument; C++ evaluates this argument before entering the callback, so `GuiModel::requireGeometrySyncAvailable()` still runs before `objectCount()` or any object field effect. A null control returns before the count. The callback captures only the model pointer by value, does not queue work, and does not store or return the borrowed control or object pointer.
+
+Inside the callback, `objectCount()` is read once. The loop still visits `objectAt(i + 1)` in ascending order, skips null/kind 0/kind 3, computes `fabs(old upper - old lower) / 2`, writes upper `+0x1f00 = SC+0x3d0 + d`, then lower `+0x1ef8 = SC+0x3d0 - d`. The SimControl value is read at each original write, not precomputed or moved before the loop. No new guard, lookup, file effect or cache1 path was added. The public C ABI and model layout are unchanged. Other raw Express Save aliases, including `feDefaultPairs` and `feSaveSimNames`, remain out of scope.
+
+## Fixture and acceptance gate
+
+The extended `heat_express_3d` case uses the copied corpus's admitted operation/model, requires a real object whose kind is eligible, and sets reversed endpoints (lower 83, upper 19) plus environment temperature 211. `fabs(19 - 83) / 2` is 32, so the required lower 179 and upper 243 establish a nonzero recentering on the positive path. The case then sets new object sentinels, moves the actual model step out only around a direct second call, restores it on normal and exceptional exits, and checks unchanged fields plus the same cached model, step and object. The existing CP180 TMAX branch/null-step assertions remain in the same test executable. This null-step call is an internal synthetic fixture, not evidence that public Save reaches that state, and it does not park the geometry barrier.
+
+Root should build these exact hashes, run `m2m.mdt.engine_l3` (confirm the extended case executes), `m2m.s.save_current`, `m2m.mdt.save_l2`, `m2m.mdt.simcontrol300_stopping_cached`, and `m2m.g0.abi`, then the complete source-stable suite and freeze. Rollback restores the production/test pair to the CP180 hashes above. Public `GuiModel::step`/`simCtl()` and the aggregate parked-model gate remain open; this cut does not authorize Stopping cache1. Original qualification remains DEF_GUI_MO_64 v11.0.2, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`. No source, build, test, GUI/app-control, original execution, live REA, shared state or deployment was changed by this review.

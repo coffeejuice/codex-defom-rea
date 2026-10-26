@@ -1,0 +1,66 @@
+{
+  "scope": "Complete source-closed Display selection and secondary model guards",
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine_scene.hpp",
+      "sha256": "31867cc93ceb3a7507bda4a2016a3884ca5d9e0f334f783762b957ab0b8a4fa2"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer_camera.cpp",
+      "sha256": "7d39155f63e8f16d890daa72d45755f19d9dc9cd572528e4e6882032a3c8d21e"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/scene.cpp",
+      "sha256": "795636121460e9285f99721b9f0362d6693750be2eece29811abdddbd707afe7"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/l5_slots.cpp",
+      "sha256": "bf24d2de7d6119eb16da3766f185035529ea7a50247bb4ea8cabe02d0d5bc4b2"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_display_selection.cpp",
+      "sha256": "fbefeb5f3241b46defd978e2b4d888f4cf28ea4959869826835f896c620dc82d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-display-select-other-helpers-static.json",
+      "sha256": "cf168ae99b6dc8ede4ac6afc45ca428de06561551a90f0c917d3fc584a3b3645"
+    },
+    {
+      "path": "analysis/wave3-display-secondary-init-static.json",
+      "sha256": "f8832cb18c2d9a81c1fae264ca48979660be19d71c90c419a7f629dabb82aa30"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d0d3d0.asm",
+      "sha256": "0378de8317ee02f755a2e04601b0a4927cd5c39e65d62a4a1df052dcfdb5d8ac"
+    },
+    {
+      "path": "analysis/wave3-close-display-select-main-contract.json",
+      "sha256": "81adb6e1b9c056a78baf79cbd131f01ed542cb8184004f7b5fcf98a6573d2889"
+    }
+  ],
+  "capture_qualification_amendment": "The preserved other-helpers static receipt has a stale global qualification naming unwind regions. Its per-capture explicit bounded-leaf boundaries are correct. Only d122c0..d122ce, cf9f50..cf9f61, cf9c70..cf9c81 (inclusive RET) are claimed as these three helpers; following padding/functions are not part of the claim.",
+  "implemented": [
+    "Named holder+8, third+1d0 and second+1c0 helpers are pure true stores, with no calls or conditional branches before RET.",
+    "Selection captures previous selected model, clears override, selects first matching named/third/main/second in order including null equality, sets only that shown flag and copies its guard; unmatched leaves override empty.",
+    "Second and third use the existing model lifetime token independently of model.display backlink. Guard clearing does not reset shown flags. cf9b90/cf9e80 initialize secondary guards and flags empty/false."
+  ],
+  "tests": {
+    "target": "m2m.mdt.display_selection",
+    "cases": 10,
+    "coverage": [
+      "null selection still sets third flag",
+      "named/third/main/second aliases",
+      "retained shown flags across unmatched selection and model destruction",
+      "all guards expire after backlink changes",
+      "null named holder before null third"
+    ]
+  },
+  "qualifications": [
+    "Existing named-model unique ownership projection is not redesigned; selection consumes its actual current holder state.",
+    "Model reset is distinct from destruction. Full original reentrant destructor and Display reset remain separate recovery items.",
+    "No fresh original runtime capture or public normal Close integration."
+  ],
+  "validation": "pending focused/full suite"
+}

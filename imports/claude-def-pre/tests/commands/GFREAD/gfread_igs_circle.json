@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD IGES full circle 100",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nCIRC.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "CIRC.IGS",
+      "source": "data/circle.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Arc with start == end: swept angle computed as 0 (no 360 correction in the pass-2 path): DIEGEO 1 2 1, row 2 (2,0) centre (1,0) angle 0."
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "status": "bounded_static_trace_complete_earlierOpenTimingUnresolved",
+  "purpose": "Locate earlier Open-time Boolean Cutter apply without assuming postLoad mutation.",
+  "confirmed_edges": [
+    {
+      "from": "14003a3c0 slotProjectChanged",
+      "to": "140038950",
+      "condition": "activation succeeds and active id>-1",
+      "evidence": "s1/mdt/L0/C/c3a.c41"
+    },
+    {
+      "from": "140038950",
+      "to": "140d3b300",
+      "condition": "140048280 succeeds (returns true early for already-active id)",
+      "evidence": "s1/mdt/L0/C/c4s.c642+"
+    },
+    {
+      "from": "140d3b300",
+      "to": "setCurrentIndex(row0), then140d3b7d0(row0,false)",
+      "condition": "tree has model",
+      "evidence": "s1/moproj/g3.c388+"
+    },
+    {
+      "from": "140054950 postLoadViews tree path",
+      "to": "1402ceae0 signalRefreshTree",
+      "condition": "after tree fill/add",
+      "evidence": "s1/mdt/L2/s5a.c140+"
+    },
+    {
+      "from": "1402ceae0",
+      "to": "1403d0a70",
+      "condition": "notifier+0x141==0",
+      "evidence": "L5d/ceae0.c"
+    },
+    {
+      "from": "SfTreeView meta slot0",
+      "to": "140d3aa60 slotRefresh",
+      "condition": "Qt signal dispatch",
+      "evidence": "L5d/tv.c1+"
+    },
+    {
+      "from": "140d3aa60 slotRefresh",
+      "to": "set model/selection model; expand eachrootitem via140d3a880",
+      "condition": "nonnull model",
+      "evidence": "L5d/tv.c69+"
+    },
+    {
+      "from": "140038850",
+      "to": "140048640",
+      "condition": "procType5 and recursionguard clear",
+      "evidence": "L5d/v158.c"
+    },
+    {
+      "from": "140048640",
+      "to": "currentclass vt+0x158 =1405f36d0",
+      "condition": "current item/class and tree item exist",
+      "evidence": "L5d/v158.c"
+    },
+    {
+      "from": "1405f36d0 onTreeItemClicked",
+      "to": "signalUpdateDataInWidgetArea",
+      "condition": "nonProcessitem, existingpropertyeditor(index!=0), beforeLeave/factoryreplacement",
+      "evidence": "L5d/f36d0.c475..626; literal142497798"
+    },
+    {
+      "from": "140dae340",
+      "to": "editor vt+0x1c0 =1411e2870 forSfObjectSetupBool",
+      "condition": "nonnullcurrentwidget andcastvalid",
+      "evidence": "s1/mdt/L4/wa3.c22+"
+    },
+    {
+      "from": "140d3b7d0",
+      "to": "globaltreeclicksignal via1402cf3c0",
+      "condition": "resolvedtreeitemnonnull andviewmodeguardpasses; thirdargfalsebypassesone viewmode1gate",
+      "evidence": "analysis/wave2-save-diffs-300-support-140d3b7d0.c; matchingoriginalbytehashreceipt"
+    }
+  ],
+  "remaining_unknowns": [
+    "Whether first setCurrentIndex Qtcallbacks oranotherrefresh constructs Object editor before explicit140d3b300->140d3b7d0 first-row click.",
+    "Synchronous global treeclick/updateData signal wiring andexactcount at initialOpenpoint remainunproven.",
+    "No production lifecycle change justified by current static evidence."
+  ],
+  "source_mutations": false,
+  "runtime_or_UI_control": false,
+  "files": [
+    {
+      "path": "evidence/gui_mo/L5d/f36d0.c",
+      "sha256": "84b69ca0fdd5bd95a1712bd788e751d0331716c707735110217cfea1bbb8f8bd"
+    },
+    {
+      "path": "evidence/gui_mo/L5d/v158.c",
+      "sha256": "9a4b334ec9e93879ba3a4c4988469570bfee291371cd33ae13d474b083a317ce"
+    },
+    {
+      "path": "evidence/gui_mo/L5d/tv.c",
+      "sha256": "746f7952d3d247cc9f4a3cf0a44e7070dd3aac3319423bfa56578f4bb2373de3"
+    },
+    {
+      "path": "evidence/gui_mo/L5d/ceae0.c",
+      "sha256": "280e6ca46540e7d4aa61b042bb229fc9ca7bdd6b51edc61e8ee1f5db4852f0e4"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L2/s5a.c",
+      "sha256": "76c892b9fc1a8fd5ab1e9e2b19ea73affd3a6f108db7c86817e44e58700639b9"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L0/C/c3a.c",
+      "sha256": "bb318d885b73b9352fb31490534eee6371ace83c7807c1360122166f70f43475"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L0/C/c4s.c",
+      "sha256": "0d377a1a9eb50ca91f8b4865a7b86da79115e902226b3ad90fc5535547f9469f"
+    },
+    {
+      "path": "evidence/gui_mo/s1/moproj/g3.c",
+      "sha256": "3d0b02d510779f17af2e11c9a29fb722c97f296461fd72ba33ef035ea1ed3a69"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L4/wa2.c",
+      "sha256": "5202f15b3752f8cee0958ead24a2c0f72a395bd8245e6f743910d05d2f47e128"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L4/wa3.c",
+      "sha256": "7bfa33074b0c64578812871de4206dfd0391a1e446109676dfba5262cb2f5ea1"
+    },
+    {
+      "path": "evidence/gui_mo/s1/vtables.tsv",
+      "sha256": "b5c2274f95bebd3a0d7f16917937d0974d5f16e1840125f6e314a21787a571f4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140d3b7d0.c",
+      "sha256": "81373cd00fea90aa27b7e3a3b410480045f3cd8ae803fb29c759a425dd483422"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140d3a880.c",
+      "sha256": "accee6d64a22094f07a59a050cf77051f9a2800cbe8ef2279d784eb12e5d55ae"
+    },
+    {
+      "path": "analysis/wave2-db133-open-static-evidence.json",
+      "sha256": "603c29f94cab8bb73b004343758b7687b62a6fd975c1b5713fda5eb3f7ee9409"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/L4/tr.c",
+      "sha256": "cc840cf99a9cdd2d21c7c8e45a969f0542189249876b830f052413f4b920dd1e"
+    },
+    {
+      "path": "evidence/gui_mo/s1/s1-01/dc/opr2.c",
+      "sha256": "11b50d99773a642c0b8fd4afbf5dd67b2017087a9e4c87a06e5cec95995f48fa"
+    }
+  ],
+  "negative_findings": [
+    {
+      "edge": "leave/replacement ->editorvt+0x1d0",
+      "finding": "Does not itself create Boolean Cutter. SfObjectSetupBool vt1d0=140131160 is mov[rsp+8],rcx;ret (6bytes), verifiedofflineDUMPBIN.",
+      "evidence": [
+        "s1/vtables.tsv23112",
+        "originalbytes140131160..140131166"
+      ]
+    },
+    {
+      "edge": "slotRefresh ->140d3a880",
+      "finding": "Only setExpanded(index,storedflag) and recursive children; no item click/current-selection/apply call.",
+      "evidence": "analysis/wave2-save-diffs-300-support-140d3a880.c; offlineexact205bytes"
+    },
+    {
+      "edge": "Boolean treebuild ->140d40d50(tree,0)",
+      "finding": "Appends separator item, not first-row selection.",
+      "evidence": "evidence/gui_mo/s1/mdt/L4/tr.c12+"
+    },
+    {
+      "edge": "flattenedSfDragDropModelvt138=d49080",
+      "finding": "Unrelatedclass-tablematch; functiononlyQStringformatting; notactiveobject-treeattach."
+    },
+    {
+      "edge": "actualobject-treevt138=dd3cf0",
+      "finding": "Ctorc4890 installs vtable14215e7b8; PEpointervt+138=14215e8f0 resolvesdd3cf0, a16-byte no-op. Itdoesnotinitializeorselecteditor.",
+      "evidence": "analysis/wave2-db133-open-static-evidence.json"
+    }
+  ]
+}

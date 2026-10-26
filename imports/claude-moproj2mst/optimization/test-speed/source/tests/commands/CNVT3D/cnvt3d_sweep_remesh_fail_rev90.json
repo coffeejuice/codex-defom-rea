@@ -1,0 +1,25 @@
+{
+ "label": "CNVT3D sweep revolve 90 remesh to 0 quads (failed remesh)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 900,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nGEO23 2 1\n90.0 0.0 0.0\nGEOSEC 2 4\nMSHSEC 2 3\nMGNELM 2 5 1 1\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "data/sweep_offaxis.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "CONV3D.KEY",
+   "OUT.KEY",
+   "CONV_STATUS.DAT",
+   "DEF_CNV23.DAT",
+   " .LOG"
+  ],
+  "notes": "T9-4: MGNELM 1st int 5 != 2 elements -> 140148960 with target 1/(3-1) = 0: the 2D remesh / DEF_INT fail or return nothing usable; neither result is tested, the sweep runs on whatever mesh the object has (CNVT3D_SWEEP.md 2.1) RESULT 2026-10-21: DEF_PRE hangs (oracle timeout 900 s) after 'Interpolate SV On 2D Quad Mesh ...', i.e. inside the DEF_INT launch of 140146050 on the 0-quad remesh; not a usable tier-2 case."
+ }
+}

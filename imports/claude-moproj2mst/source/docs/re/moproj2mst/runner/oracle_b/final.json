@@ -1,0 +1,269 @@
+[
+ {
+  "case": "59_B_HT3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprHeatTreat",
+    "name": "Heat Treat",
+    "objs_from": 1,
+    "obj_types": [
+     1
+    ]
+   }
+  ],
+  "files": {
+   "Operations/Task00003/HeatTreatWizard.HTWZ": "HEAT_TREATMENT_SPECS_FILE_V3\nNO_MEDIA  1\nMEDIA   1\nWater quench\nNO_ZONES   1\nZONE   0\nCNVCOF 0 5000.0\nRADIATION 0\nACVCOF 0 0.0\nNO_ECTMFN  0\nNO_PROCS  3\nPROC 1 120.0 1 0 0 0 0 0 0 {DIR}/UserHT.KEY 0\nPROC 2 60.0 1 0 0 0 0 0 0\nPROC 3 30.0 1 0 0 0 0 0 0 None 0\nSTART_OPTNO  2\n",
+   "UserHT.KEY": "copy:Operations/Task00001/SimCtrl.KEY"
+  }
+ },
+ {
+  "case": "60_B_HT2",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprHeatTreat2D",
+    "name": "Heat Treat",
+    "objs_from": 1,
+    "obj_types": [
+     1
+    ]
+   }
+  ],
+  "files": {
+   "Operations/Task00004/HeatTreatWizard.HTWZ": "HEAT_TREATMENT_SPECS_FILE_V3\nNO_MEDIA  1\nMEDIA   1\nWater quench\nNO_ZONES   1\nZONE   0\nCNVCOF 0 5000.0\nRADIATION 0\nACVCOF 0 0.0\nNO_ECTMFN  0\nNO_PROCS  3\nPROC 1 120.0 1 0 0 0 0 0 0 {DIR}/UserHT.KEY 0\nPROC 2 60.0 1 0 0 0 0 0 0\nPROC 3 30.0 1 0 0 0 0 0 0 None 0\nSTART_OPTNO  1\n",
+   "UserHT.KEY": "copy:Operations/Task00001/SimCtrl.KEY"
+  }
+ },
+ {
+  "case": "61_B_DS3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprDiestress",
+    "name": "Die Stress",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "62_B_BM2",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprDiestressBM2D",
+    "name": "Die Stress BM",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "63_B_BM3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprDiestressBM3D",
+    "name": "Die Stress BM",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "64_B_RPT",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprReport",
+    "name": "Report",
+    "objs_from": null,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "65_B_SOPT",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprShapeOptim",
+    "name": "Shape Optimization",
+    "objs_from": null,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "66_B_DIS3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprDistortion3D",
+    "name": "Distortion",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {
+   "Operations/Task00003/MachDistortion.MDWZ": "WZD_MACHDIST_WORKPIECE_OBJECT_NO\n  * OBJECT # FOR WORKPIECE \n1\n\nWZD_MACHDIST_NUM_FIXTURES\n  * NUMBER OF FIXTURES AND THEIR OBJECT #\n0\n\nWZD_MACHDIST_NUM_PASSES\n  * NUMBER OF PASSES AND THEIR OBJECT #\n2\n2\n3\n\nBEGIN_FREE_DIST_BCC_INFO\nBCC_INIT    \t0\nFIXEDNODE    \t0\nFIXEDCOORD    \t0\t0\t0\nFIXED_Z_COORD    \t0\t0\t0\nFIXED_X_COORD    \t0\t0\t0\nFIXED_Y_COORD    \t0\t0\t0\nAUTO    \t0\nFIXEDZNODE    \t0\nFIXEDZANGLE    \t0\nFIXEDXNODE    \t0\nFIXEDXANGLE    \t0\nFIXEDYNODE    \t0\nFIXEDYANGLE    \t0\nEND_FREE_DIST_BCC_INFO\n INIT_VEL_BCC\t0\nDONE\n"
+  }
+ },
+ {
+  "case": "67_B_DIS2",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprDistortion2D",
+    "name": "Distortion",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {
+   "Operations/Task00004/MachDistortion.MDWZ": "WZD_MACHDIST_WORKPIECE_OBJECT_NO\n  * OBJECT # FOR WORKPIECE \n1\n\nWZD_MACHDIST_NUM_FIXTURES\n  * NUMBER OF FIXTURES AND THEIR OBJECT #\n0\n\nWZD_MACHDIST_NUM_PASSES\n  * NUMBER OF PASSES AND THEIR OBJECT #\n2\n2\n3\n\nBEGIN_FREE_DIST_BCC_INFO\nBCC_INIT    \t0\nFIXEDNODE    \t0\nFIXEDCOORD    \t0\t0\t0\nFIXED_Z_COORD    \t0\t0\t0\nFIXED_X_COORD    \t0\t0\t0\nFIXED_Y_COORD    \t0\t0\t0\nAUTO    \t0\nFIXEDZNODE    \t0\nFIXEDZANGLE    \t0\nFIXEDXNODE    \t0\nFIXEDXANGLE    \t0\nFIXEDYNODE    \t0\nFIXEDYANGLE    \t0\nEND_FREE_DIST_BCC_INFO\n INIT_VEL_BCC\t0\nDONE\n"
+  }
+ },
+ {
+  "case": "68_B_BOOL3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprBoolean3D",
+    "name": "Boolean",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "69_B_CNV",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprConvert2Dto3D",
+    "name": "2D to 3D",
+    "objs_from": 1,
+    "obj_types": [
+     1
+    ]
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "70_B_PRE3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprPre3D",
+    "name": "Pre",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "71_B_PRE2",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprPre2D",
+    "name": "Pre",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "72_B_HTF",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprHTFurnace",
+    "name": "HT Furnace",
+    "objs_from": 1,
+    "obj_types": [
+     1
+    ]
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "73_B_HTX3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprHeatTransferExpress",
+    "name": "Heat Transfer Express",
+    "objs_from": 1,
+    "obj_types": [
+     1
+    ]
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "74_B_MB2",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprMultiBlow2D",
+    "name": "Multi Blow",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "75_B_MB3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprMultiBlow3D",
+    "name": "Multi Blow",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "76_B_FE2",
+  "base": "51_MO2_Operation_Cycles2",
+  "append": [
+   {
+    "type": "SfOprFormingExpress2D",
+    "name": "Forming Express",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ },
+ {
+  "case": "77_B_FE3",
+  "base": "57_Gear_blank",
+  "append": [
+   {
+    "type": "SfOprFormingExpress",
+    "name": "Forming Express",
+    "objs_from": 1,
+    "obj_types": null
+   }
+  ],
+  "files": {}
+ }
+]

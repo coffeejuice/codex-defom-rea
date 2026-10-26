@@ -1,0 +1,89 @@
+{
+  "schema": "wave3-diagram-modelupdated-fit-prefix-v1",
+  "status": "direct_original_fit_effects_bound; live_view_state_and_signal_recipients_pending",
+  "method": "Offline PE and bounded DUMPBIN; no original/candidate runtime, GUI, build, shared Ghidra or production changes.",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "callback_boundary": "183160 modelUpdated invokes diagram virtual+0x388 =174120 BEFORE reading its current attached model/item. A null-bound receiver therefore still performs this prefix; it skips the later click only after prefix returns.",
+  "ordered_effects": [
+    "Read scene from view.private(+0x28)+0x08; QGraphicsScene::itemsBoundingRect into a QRectF. If QRectF::isValid is false, replace with(0,0,double(private+0x128),double(private+0x12c)). These signed integer fallback dimensions are state, not assumed constants.",
+    "QRectF::adjust(-40,-40,20,20), then QGraphicsView::fitInView(rect, aspect mode1/KeepAspectRatio). The resulting transform depends on actual viewport, scrollbar/layout and prior transform state.",
+    "Call QGraphicsScene::invalidate(sceneRect, SceneLayers0xffff), then QGraphicsScene::update(default empty QRectF). These occur even for a null-bound diagram model.",
+    "Read QGraphicsView::matrix().m11() into scale. Call180fb0(private,scale), store its integer result into private+0x54.",
+    "Emit local signal0 zoomLevelChanged(int) through18d2c0 / QMetaObject::activate using stored private+0x54; then emit local signal1 zoomScaleChanged(double) through18d310 with scale. Both activate the same metaobject143d821c0, in that order.",
+    "Only when all prefix calls and signal callbacks return does183160 resolve the then-current model/item and run or skip selection. Signal callbacks are therefore before the model lookup, not after it."
+  ],
+  "zoom_level_calculation": {
+    "entry": "140180fb0",
+    "finite_normal_domain": [
+      "Read width and height of the full sceneRect, not the adjusted item rectangle.",
+      "If width>height, extent=width and viewportExtent=viewport.width(); otherwise extent=height and viewportExtent=viewport.height().",
+      "minimumScale = double(viewportExtent) * 0.949999988079071 / extent.",
+      "If scale<1, level = truncateTowardZero((scale-1)*10/(1-minimumScale)); otherwise level = truncateTowardZero((scale-1)/0.30000001192092896).",
+      "No clamp appears in this body. The constants are exact doubles promoted from their original float values; do not replace with decimal0.95 or0.3 when matching bit-sensitive arithmetic."
+    ],
+    "exceptional_domain": "Native SSE comisd branch behavior and cvttsd2si are retained in assembly. This finite formula does not claim NaN, infinite, zero-extent, singular-transform or overflow reconstruction."
+  },
+  "adapter_implication": [
+    "A delivered timer cannot be reduced to Boolean apply or an inert fit counter. The callback needs actual diagram-view state or an explicit qualified fit projection and signal receiver profile.",
+    "moproj::viewCentre currently calculates a fixed fresh-Open serialization transform using Project.diagramViewHeight and imported geometry assumptions. It does not own or update arbitrary session transform, selection, invalidation, zoom state or callback delivery. Do not silently reuse it as a generic modelUpdated fit implementation.",
+    "No inference that post-Close scene contents are empty, fallback dimensions are unchanged, or zoom recipients are absent is made here."
+  ],
+  "signals": [
+    {
+      "local_id": 0,
+      "address": "0x1421def31",
+      "signature": "zoomLevelChanged(int)"
+    },
+    {
+      "local_id": 1,
+      "address": "0x1421def4a",
+      "signature": "zoomScaleChanged(double)"
+    }
+  ],
+  "constants": {
+    "0x1421ce520": 20.0,
+    "0x1421d94d8": -40.0,
+    "0x1421d3d18": 0.949999988079071,
+    "0x1421d9538": 0.30000001192092896,
+    "0x1421249e0": 1.0,
+    "0x142142078": 10.0
+  },
+  "imports": {
+    "0x141e07c40": "?itemsBoundingRect@QGraphicsScene@@QEBA?AVQRectF@@XZ",
+    "0x141e055f8": "?isValid@QRectF@@QEBA_NXZ",
+    "0x141e05780": "?adjust@QRectF@@QEAAXNNNN@Z",
+    "0x141e07c38": "?fitInView@QGraphicsView@@QEAAXAEBVQRectF@@W4AspectRatioMode@Qt@@@Z",
+    "0x141e07690": "?sceneRect@QGraphicsScene@@QEBA?AVQRectF@@XZ",
+    "0x141e07c30": "?invalidate@QGraphicsScene@@QEAAXAEBVQRectF@@V?$QFlags@W4SceneLayer@QGraphicsScene@@@@@Z",
+    "0x141e07c28": "?update@QGraphicsScene@@QEAAXAEBVQRectF@@@Z",
+    "0x141e07c20": "?matrix@QGraphicsView@@QEBA?AVQMatrix@@XZ",
+    "0x141e07c18": "?m11@QMatrix@@QEBANXZ",
+    "0x141e04668": "?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z",
+    "0x141e0b568": "?viewport@QAbstractScrollArea@@QEBAPEAVQWidget@@XZ",
+    "0x141e06e10": "?width@QWidget@@QEBAHXZ",
+    "0x141e07dd8": "?height@QWidget@@QEBAHXZ"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-boolean-timer-contract.json",
+      "sha256": "63ee9c2bca39e6b14ba2866a0ffc7a8caf5b389f49d4b41530d84e4f6145cdb0"
+    },
+    {
+      "path": "analysis/wave3-normal-close-diagram-lifetime-contract.json",
+      "sha256": "82ee52146337e99c4f5472fb6105468134ee70b6a1836a6af69c66e080bfa21c"
+    },
+    {
+      "path": "analysis/wave3-closure-next-diagram-fit-prefix-static.json",
+      "sha256": "a349e735c69e02d0dd47272ea2b46b68ee02c2ff63dc06ea799c2075083db011"
+    },
+    {
+      "path": "analysis/wave3-closure-next-diagram-fit-zoom-static.json",
+      "sha256": "a79765b0861ce7b66c97e373e4f834ca8530ac888d4913dcde4cad6872ac45fa"
+    }
+  ],
+  "candidate_source_at_audit": {
+    "path": "source/apps/moproj2mst/src/moproj/write.cpp",
+    "sha256": "6df9a21b4dd9847b50ad17ddc3af48252ed49ce11369b36267abbc6f614d3299"
+  },
+  "tool_sha256": "933702f3c5a8683d1b8fcada6b4b191e4d2658b44dcc7e82763df57aed497055"
+}

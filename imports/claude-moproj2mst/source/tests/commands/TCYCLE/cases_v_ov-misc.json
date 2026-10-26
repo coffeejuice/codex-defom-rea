@@ -1,0 +1,138 @@
+[
+ {
+  "label": "TCYCLE/v_base25",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_base25.KEY"
+   }
+  ],
+  "comment": "DBREAD 25 and KFWRIT only: reference for the v_t25 cases (DTMAX of step 25 as stored in the DB)"
+ },
+ {
+  "label": "TCYCLE/v_t25_corpus",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_t25_corpus.KEY"
+   }
+  ],
+  "comment": "TCYCLE 1 0 5 0 0 after DBREAD 25 (time-based step, DTMAX printed): span = H3(25) - H2(-25) = 11.87 - 10.79475098 = 1.07524902; DTMAX = 5 - span = 3.92475098"
+ },
+ {
+  "label": "TCYCLE/v_t25_pos",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_t25_pos.KEY"
+   }
+  ],
+  "comment": "TCYCLE 10 2 1000000 0 0 after DBREAD 25: DTMAX = (3e6 - 1.07524902)/10"
+ },
+ {
+  "label": "TCYCLE/v_t25_shift1",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_t25_shift1.KEY"
+   }
+  ],
+  "comment": "TCYCLE 4 0 1000000 2.5 0 after DBREAD 25: SimNo 7-1 = 6 measured, span = H3(24) - H2(-13) = 10.79475098 - 9.41 = 1.38475098; DTMAX = (1e6 - (1.38475098 + 2.5))/4"
+ },
+ {
+  "label": "TCYCLE/v_t25_shift2",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_t25_shift2.KEY"
+   }
+  ],
+  "comment": "TCYCLE 4 1 1000000 2.5 1.5 after DBREAD 25: SimNo 7-2 = 5 measured, span = H3(12) - H2(-12) = 9.41 - 8.3 = 1.11; DTMAX = (2e6 - ((1.11 + 2.5) + 1.5))/4"
+ },
+ {
+  "label": "TCYCLE/v_t25_exceed",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_t25_exceed.KEY"
+   }
+  ],
+  "comment": "TCYCLE 1 0 0 0 0 after DBREAD 25: \"ERROR: Total cycle time(1.07525) has exceeded defined cycle time(0)\", DTMAX = -1.07524902 stored and printed"
+ },
+ {
+  "label": "TCYCLE/v_t25_gendb",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_t25_gendb.KEY"
+   }
+  ],
+  "comment": "TCYCLE 10 2 1000000 0 0 after DBREAD 25, GENDB NEW.DB, then DBREAD -26 from NEW.DB: OUT2.KEY shows the DTMAX stored by GENDB"
+ },
+ {
+  "label": "TCYCLE/v_gendb24_read",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+   {
+    "name": "COG_P1_B1.DB",
+    "source": "C:/Users/alext/Projects/DEFORM_corpus/db/COG_P1_B1.DB",
+    "link": true
+   },
+   {
+    "name": "CMD.KEY",
+    "source": "v_gendb24_read.KEY"
+   }
+  ],
+  "comment": "as TCYCLE/gendb (step 24, DSMAX mode), then DBREAD -25 from NEW.DB: is the TCYCLE DTMAX in the DB?"
+ }
+]

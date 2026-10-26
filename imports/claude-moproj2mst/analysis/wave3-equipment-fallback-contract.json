@@ -1,0 +1,43 @@
+{
+  "scope": "QFile copy fallback after native CopyFileW failure",
+  "evidence": [
+    {
+      "path": "analysis/wave3-equipment-engine-copy-static.json",
+      "sha256": "6b5eb5f2161124749a40b46949143ab63301d416ce6beecda37f4d72382e2021"
+    },
+    {
+      "path": "analysis/wave3-equipment-copy-win32-static.json",
+      "sha256": "5e46f489eebad6b1fdde5cacbb196db3e2d0d0cf4481422f6b99336b05188f22"
+    },
+    {
+      "path": "analysis/wave3-equipment-copy-qt-static.json",
+      "sha256": "51a7a05efa56251d80d3d83b276f04e9eaf2a3ab11ddd6b8c544aa570293c6cf"
+    },
+    {
+      "path": "analysis/wave3-equipment-fallback-data.json",
+      "sha256": "2a32656efe6bea5d2c2a863c42281e4742fe6524db448e5a77f11db8e2d4a83c"
+    },
+    {
+      "path": "analysis/wave3-equipment-fallback-exports.json",
+      "sha256": "f6f6fc9d32f853d80131ed4c890e724bc99c89664408cdf13e4ebc4e27557338"
+    }
+  ],
+  "contracts": [
+    "QFSFileEngine copy670f9090\u2192670ff6a0 converts filesystem entries, calls CopyFileW(source,destination,TRUE) at670ff706. Failure obtains GetLastError, returnsfalse to member copy.",
+    "QFile copy member670b71e0 fallback opens source mode1. Source-open failure sets CopyError14 and returnsfalse.",
+    "Construct temporary with template %1/qt_temp.XXXXXX using destination parent. Attempt open mode3; if unsuccessful, replace template with tempPath and retry mode3. Bothfail remove temporary, close source, set error and returnfalse.",
+    "Copy loop reads at most4096 bytes while not atEnd; positive read count increments total, then writes that many bytes. Unequal write closes source and sets error. Nonpositive read leaves loop.",
+    "Compare total bytes to source size; mismatch is failure. On otherwise-success, rename temporary to destination; failure closes source and sets CopyError. On rename success setAutoRemove(false).",
+    "Temporary destructor runs before final success processing. On success copy source permissions to destination ignoring return, close source, clear error, returntrue. Failure returnsfalse after automatic temporary cleanup."
+  ],
+  "remaining": [
+    "QTemporaryFile name generation/open flags/collision retry/autoRemove destructor",
+    "QFile rename fallback ordering and errors",
+    "Source/destination QFile stream read/write/atEnd/size on the Windows backend",
+    "Native equipment create temporary-source lifetime and manager append/failure dependencies"
+  ],
+  "qualification": [
+    "Static original-binary evidence only; no native equipment copy path enabled by this investigation.",
+    "No replacement of fallback with a single CopyFileW call or atomic adapter writer."
+  ]
+}

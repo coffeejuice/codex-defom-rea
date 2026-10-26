@@ -1,0 +1,90 @@
+{
+  "schema": "resume48-boolean-queue-helper-v1",
+  "utc": "2026-10-24T17:53:05.285450+00:00",
+  "status": "source frozen for root build/integration; no worker build/tests run",
+  "source": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+      "sha256": "a3c7cff4a57a51b84c8cf4dd17999f8790c20e9448aada9eae70bd8456f4175a",
+      "bytes": 36450,
+      "test_cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/view_manager.cpp",
+      "sha256": "69e4b6f1e88644502abb047824db88bab7d511d7dc76c3f3943986f1d0ea66b7",
+      "bytes": 73924,
+      "test_cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_view_manager.cpp",
+      "sha256": "1e3bbb0c3c340a38d434afce90da3c3b83f68fdc7960da18c85f84f11f7dfe7e",
+      "bytes": 74362,
+      "test_cases": 80
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp",
+      "sha256": "e75a9f7631dab2202a894310e94adfbda0906232074a6b57c8ab1531cd55b4ec",
+      "bytes": 8895,
+      "test_cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/widget_events.cpp",
+      "sha256": "1ddfbe54765865f795262f93279a9ae2db36d6b640eedcce54b7c0c6f2ca14aa",
+      "bytes": 23861,
+      "test_cases": 0
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_widget_events.cpp",
+      "sha256": "9a815b7ff87bd0fd1862cebdc7047f5e899326738f4a1c917a09d2138b0ecc1b",
+      "bytes": 23411,
+      "test_cases": 26
+    }
+  ],
+  "worker_changed": [
+    "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp",
+    "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp",
+    "source/apps/moproj2mst/src/engine/widget_events.cpp",
+    "source/apps/moproj2mst/tests/mdt/test_widget_events.cpp"
+  ],
+  "evidence": [
+    {
+      "path": "analysis/resume47-boolean-cleanup-contract.md",
+      "sha256": "b7cb3bde92b875779e51bf97eb96bdfb2ca3b8f31567545641b2e9a9136e6dec"
+    }
+  ],
+  "implemented": [
+    "Complete qualified queue observation tied to actual shared WidgetThreadState, record aliases, distinct heap-event aliases, same native receiver component/control block and receiver-owned posted count; no default empty queue.",
+    "Receiver/type cleanup selects receiver affinity or explicit current thread for null receiver; requested raw46 maps to43; zero receiver posted count returns after represented lock/unlock.",
+    "Unique-backing admitted plain QtGui QEvent raw4a/raw4c cleanup decrements receiver count, clears posted bit, collects events and tombstones record pointers under lock. Nonzero native cleanupControl38 retains tombstones and bounds.",
+    "Zero cleanupControl38 swaps surviving record identities, releases trailing records, and performs native unique QList tail erase; odd whole-population erase advances begin while other trailing erases shrink end.",
+    "Native event deletion/liveness effects occur after unlock in match order. Plain-QEvent deleting destructor is closed only for explicitly qualified class/type with cleared posted flag. Diagnostic effect trace preserves ordering without introducing native callbacks."
+  ],
+  "guards": [
+    "Unknown/incomplete queue populations, live owner/control-block/thread mismatch, duplicate aliases, inconsistent receiver count, repeated queue observation, expired native owner",
+    "Shared backing/unknown cleanupControl38 beyond zero-count early exit",
+    "Matched raw43 container cleanup, unknown dynamic event destructor or unclosed event type",
+    "Allocation failure and original native exception paths not claimed; diagnostic/deletion storage reserved before entering selected native successful path",
+    "Constructor PostPending and public Boolean path remain guarded; no posting API, actual dispatcher state, wake execution, callback/native Close completion or receiver deletion inferred"
+  ],
+  "tests_added": [
+    "widget_queue_receiver_cleanup_compacts_before_unlocked_deleting_destructors",
+    "widget_queue_nonzero_cleanup_control_retains_tombstones_and_record_identity",
+    "widget_queue_type_filter_keeps_same_receiver_nonmatching_event",
+    "widget_queue_whole_odd_population_erase_advances_native_begin",
+    "widget_queue_observation_rejects_partial_duplicate_and_foreign_owners",
+    "widget_queue_unclosed_payload_backing_and_wrong_thread_are_guarded_before_entry"
+  ],
+  "preflight": {
+    "source_guard_retained": true,
+    "new_tests_present": true,
+    "actual_receiver_counter_field_and_friend": true,
+    "heap_stack_types_separate": true,
+    "removal_declarations_match": true,
+    "lock_release_precedes_event_deletion": true,
+    "odd_whole_tail_native_begin_branch": true
+  },
+  "root_validation_required": "Compile and run test_widget_events (26 cases), test_view_manager, source integration and required full candidate regression. Worker did not run compiler or tests.",
+  "compile_risk": "Manual declarations/definitions and current peer includes inspected; compilation and focused test outcomes are pending root. No shared CMake or root-owned source edits.",
+  "next_dependency": "After helper validation root may bind same-process startup queue/wake observations to a future posting continuation; do not cross constructor PostPending from helper success. Native QObjectPrivate Close integration remains separate.",
+  "tokens": "unavailable"
+}

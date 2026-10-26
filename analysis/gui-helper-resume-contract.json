@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "utc": "2026-10-23T15:54:44.828210+00:00",
+  "owner": "validation_helper",
+  "status": "frozen_future_GUI_resume_contract_blocked_by_control_lifecycle",
+  "scope": "Documentation handoff only. No application execution, GUI/native tool use, builds, source edits or further experiments were performed.",
+  "evidence_sha256": {
+    "analysis/helper-H1-final-evidence.json": "3011ae900de35d81ed2c0562c78ccec37a3bb7b6172b84babbd6f6b8e35e2f78",
+    "analysis/helper-H2-final-evidence.json": "5aefddda48d67187ae3fe9425a4e6871f87e608881d28afaf6f41c8b80b65172",
+    "analysis/helper-H1-supervisor.json": "34facfd811c6ff6fb5af2c7c02bb328a3f8178abad6bae07aecc872c1e6e3977",
+    "analysis/helper-H2-supervisor.json": "ae0ed62329b82a527f6e28eb84c92470d30b7269a235bb562e62919eabb2f085",
+    "analysis/helper-launch-context-findings.json": "47e27eefab75388a3ae0f214509c1e4b8678d1d90492eceaf58cc0d8f12822de",
+    "analysis/mo-run-options-observation.json": "29946e39909a7857335d94c150c83bf95734e1a2ea8ab87d5151bb499782d124",
+    "analysis/gui-control-lifecycle-assessment.json": "5a1657cabd718a7674a2a70aaf350d4186e85bc19704e5a96318c55cb5d79d0b",
+    "analysis/helper-diagnostic-handoff.json": "9c7608ba4a692c1ec509005d7f538e24af18e5c1bbc219cdcb5377c6b7c7bb36",
+    "tools/observe_job_helper.js": "8da4e3e0e6028e2173f768701eb228ddf36449614f30eac3d6509ea9739b2747"
+  },
+  "prerequisite": {
+    "must_pass_before_GUI_input": "A supported app-control release operation plus verifiable receipt/status must be available and demonstrated.",
+    "current_recorded_status": "unsupported_release_api / release unverified",
+    "record": "analysis/gui-control-lifecycle-assessment.json",
+    "cleanup_rule": "Release and verify after success, failure, exception or interruption before unrelated analysis. Respect enforced stops; Escape interrupts GUI input without cancelling the overall plan.",
+    "prohibited_substitutes": [
+      "JS reset",
+      "Debugger detach",
+      "Closing DEFORM",
+      "Undocumented helper or emergency-stop bypass"
+    ],
+    "until_resolved": "Keep GUI cases blocked. Native diagnostics cannot satisfy GUI acceptance."
+  },
+  "expected_helper_context": {
+    "image": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEFJobGroupSetup.exe",
+    "sha256": "bef1dc1b7839b1a5f0b7d42933d1b59817397f0dfcb2315dfac350d33f6e7e18",
+    "architecture": "ia32",
+    "selected_environment": {
+      "DEF_CFG_DIR": "C:\\Program Files\\SFTC\\DEFORM\\Configuration"
+    },
+    "application_resolved_config_path": "C:\\Program Files\\SFTC\\DEFORM\\Configuration\\DEFORM_NLM_CONF",
+    "observation_requirement": "Observe the actual GUI-created helper child Win32 environment and the application-resolved directory/path; the manager environment is insufficient. Do not infer CRT getenv state solely from GetEnvironmentVariableW.",
+    "cwd_qualification": "H2 configuration fetch succeeded with checkout CWD unchanged. The prior GUI child inherited C:\\PROBLEM\\R1\\C instead. Neither CWD is prescribed for a future GUI child: record its actual explicit/inherited CWD and compare against that trial. No CWD change is currently justified for the configuration fetch."
+  },
+  "argument_contract": {
+    "REA_spawn_convention": "For a supported independent REA spawn, supply argument tokens only; REA prepends the executable. Do not include a second executable token. This rule does not rewrite the GUI-generated command line.",
+    "prior_GUI_raw_command": "DEFJobGroupSetup.exe  -pp C:\\PROBLEM\\R1\\C -pid COG_P1_B1.DB -dim 3 -jt MO -embed 56699",
+    "prior_GUI_capture": {
+      "parent_pid": 29240,
+      "child_pid": 5240,
+      "utc": "2026-10-23T12:10:03.115Z",
+      "application_parameter": null,
+      "explicit_working_directory": null,
+      "inherited_working_directory": "C:\\PROBLEM\\R1\\C",
+      "launch_success": true
+    },
+    "limitations": [
+      "The historical -embed 56699 is a session-specific window handle. Never reuse it for a fresh process; capture the new GUI-generated value.",
+      "H1/H2 independent native launches omitted -embed and did not exercise embedding or GUI Run Options integration.",
+      "The old GUI parent had an accessibility diagnostic guard, so this observation is instrumented evidence.",
+      "A relative command line and null application parameter do not by themselves prove the child resolved executable path/hash. Verify both for the new child.",
+      "Keep actual token grouping (-dim 3, -jt MO), project path and DB name from the new invocation. Do not invent or normalize unknown GUI arguments."
+    ]
+  },
+  "H1_H2_proof": {
+    "H1": "In owned PID 32824, absent DEF_CFG_DIR and application-resolved empty path led to source-bound file-access false, configuration valid flag 0 and warning-reference execution (sequences 168-174).",
+    "H2": "In owned PID 5756, documented child DEF_CFG_DIR was present; the app resolved/opened stock configuration, exchanged required 24-byte headers and received 474 bytes counted without payload capture, then returned configuration valid flag 1 (sequences 185-207). No warning-reference event appeared in 221 retained messages, without truncation.",
+    "comparison_qualification": "H2 corrected both duplicated argv and child environment. This is not a strict one-variable A/B, but the source-bound failed and corrected fetch conditions are directly observed.",
+    "not_proven": [
+      "Cause of the earlier GUI-launched helper warning",
+      "Successful complete Run Options setup or embedded UI",
+      "Natural successful helper exit; both diagnostic helpers were stopped at their own 45-second deadline",
+      "GUI/controller invocation or acceptance of reconstructed DEF_PRE_64 v0.2.1",
+      "Solver completion or generated-output equivalence"
+    ]
+  },
+  "next_observation": {
+    "trigger": "After the release gate is resolved, the orchestrator performs Run Options in an independently owned MO session using a fresh short-path project.",
+    "required_record": "Correlate the GUI action timestamp and MO parent PID with the actually created helper child PID/creation time, resolved executable path/hash, raw command line including its live embed handle, explicit/inherited CWD, selected DEF_CFG_DIR, application-resolved config path, file-access result, scoped header exchange, valid flag and warning-reference outcome.",
+    "critical_distinction": "These records must come from the helper created by MO, not another independent REA-spawned helper. If capture attaches after the configuration fetch, mark that decision unobserved rather than inferring it from H2.",
+    "instrumentation_label": "Source-bound probes and any accessibility guard make a run instrumented diagnostic evidence; record them separately from unmodified GUI acceptance.",
+    "metadata_only": "No raw license/network payloads, full environment or configuration contents are required."
+  },
+  "cleanup_and_solver_scope": {
+    "ownership": "Record PID, creation time, parent chain and image before cleanup; terminate only verified trial-owned processes. Never operate a user-owned session or broad name-matched process set.",
+    "instrumentation_cleanup": "Close owned native observer sessions with supported receipts; debugger detachment is not app-control release.",
+    "GUI_cleanup": "Supported control release plus verification remains separately mandatory.",
+    "solver_limits": "Only after confirmed GUI/controller route and fresh bounded-input validation: one operation, one solver step, one local worker, 120-second job deadline. No MPI, remeshing or multi-operation loop. Preserve installed controllers/solver binaries.",
+    "deadline_evidence": "Use an actual supervisor, capture start/end/deadline/owned cleanup and outcome. A metadata field alone does not enforce 120 seconds.",
+    "coverage_limit": "A normal one-step no-remesh solver route may not invoke reconstructed DEF_PRE_64 v0.2.1. Record the observed chain; do not force remeshing to manufacture coverage."
+  },
+  "acceptance": {
+    "native_helper_fetch_correction_is_GUI_pass": false,
+    "required_backend_gates": [
+      "Observed actual GUI/controller invocation",
+      "Verified executed candidate version/hash",
+      "Successful expected processing",
+      "Independent original replay and matching outputs within established masks",
+      "Correct data reopened from disk in GUI"
+    ],
+    "deployment": "Keep recorded candidate DEF_PRE_64 v0.2.1 fixed unless an established defect requires a rebuild; preserve adjacent originals, never restore them automatically. Reverify deployed hashes before future attribution.",
+    "project_paths": "Independent projects under C:\\PROBLEM; every input/generated full path shorter than 100 characters."
+  },
+  "compact_resume_checklist": [
+    "Release API and verified cleanup capability established before GUI input",
+    "Fresh owned MO/project and bounded capture identity recorded",
+    "Actual GUI child command/parent/path/hash/CWD observed",
+    "Actual child DEF_CFG_DIR plus app-resolved config path observed",
+    "Scoped file/header/flag/warning results retained without payloads",
+    "Embedding and full setup outcomes reported separately from H2 fetch proof",
+    "Owned process/observer cleanup and GUI release each verified",
+    "Only bounded 120-second solver scope; all backend acceptance gates remain required"
+  ],
+  "frozen": true
+}

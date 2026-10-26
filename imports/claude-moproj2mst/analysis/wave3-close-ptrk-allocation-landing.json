@@ -1,0 +1,107 @@
+{
+  "scope": "Qualified actual SfPtrk cache allocation and owned cleanup; selected-model registration remains guarded",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "classes": [
+    {
+      "vtable": "0x142360b00",
+      "rtti_type_descriptor": "0x143656828",
+      "name": ".?AVSfPtrk@@"
+    },
+    {
+      "vtable": "0x142366160",
+      "rtti_type_descriptor": "0x143658528",
+      "name": ".?AVSfStepSelectionData@@"
+    },
+    {
+      "vtable": "0x1423698c0",
+      "rtti_type_descriptor": "0x143704ee8",
+      "name": ".?AVSfPointSelectionData@@"
+    },
+    {
+      "vtable": "0x142414348",
+      "rtti_type_descriptor": "0x143736fb8",
+      "name": ".?AVSfObjectSelectionData@@"
+    },
+    {
+      "vtable": "0x14230db98",
+      "rtti_type_descriptor": "0x1436362b8",
+      "name": ".?AVSfPtrkManager@@"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-ptrk-graph-constructor-contract.json",
+      "sha256": "f7fc594fb2083450c9896bec0fd8510368ea01106230c9cf7181bd214abea166"
+    },
+    {
+      "path": "analysis/wave3-close-ptrk-model-registration-contract.json",
+      "sha256": "071815066a9381e56a680b0c3950fd03ab409bfecaeb79b0b1a8fc8e872e82de"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-ownership-destructors-static.json",
+      "sha256": "c712ed767b0912302d40b0dab55abebac6064a8368bf6ad0c349c8debd03ca76"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-owned-cache-static.json",
+      "sha256": "3082854d565d965238b6ee09b6b1e34b561c4d0321b8e93ec99275caeab08937"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-new-graph-cleanup-static.json",
+      "sha256": "07c3fce0f3240b7a38cd08bd99f9176d6dfcd1bee19a2e4d52af90789d7ed4e4"
+    }
+  ],
+  "ownership": [
+    "309cc0 nonnull-parent constructor calls321500, which stores manager+4c8=null.",
+    "31fab0 allocates SfPtrk and stores+4c8 before current-model lookup/registration.",
+    "309fb0 destructor calls321520: if cache nonnull, invoke graph deleting destructor then clear+4c8.",
+    "SfPtrk deleting destructor3d9220 invokes3d5660. Its dynamic-child cleanup3d5780 deletes only nonnull+d0; the new supported graph constructor sets+d0=null."
+  ],
+  "implementation": [
+    "PtrkGraphManagerState owns a unique_ptr<PtrkGraphState>. Newly allocated graph+f1 is false, distinct from manager+4d0.",
+    "Enabled dispatch commits allocation once then refuses at31fab0 current-model/registration boundary. This occurs even for plotVar0 or graph+f1=false.",
+    "Repeated dispatch preserves cache identity and live graph flag. clearCachedGraph and manager destruction delete the owned cache without resetting manager flag."
+  ],
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/close_effects.hpp",
+      "sha256": "8216746a08cdd6657f65b28e14c2e3142c18122bb30733da732d6fc63c4fd811"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/close_effects.cpp",
+      "sha256": "0c928f1fbc60d0fbbd95534732d4a69ab31d1d6d00b38b62df4076cd766c2846"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_close_effects.cpp",
+      "sha256": "218c6130a1b400c356280c6620e2241c9e104bc47835e3fb48dbbe78107b5d72"
+    }
+  ],
+  "tests": {
+    "isolated_case_count": 17,
+    "new_cases": 5,
+    "coverage": [
+      "Allocation survives the exact subsequent guard; caller StateVar remains untouched.",
+      "Cached identity and live graph flag survive repeated guard and off-state dispatch.",
+      "Prior adapter identity/owner guards prevent allocation.",
+      "First enabled receiver retains allocation; later receiver remains untouched.",
+      "Explicit cleanup is idempotent, preserves manager flag, and subsequent allocation restores graph constructor flag; expired manager registration is retained."
+    ],
+    "execution": "Not run by worker; root exclusive build authority"
+  },
+  "qualifications": [
+    "Supported graph projection covers owned allocation/cache identity and f1 flag only. Other constructor scalar/selection fields are not read before this guard; their recovered values remain in evidence. Populated native render payloads are unsupported.",
+    "Native graph allocation and destructor do not establish actual manager creation during public Open or complete accepted Close.",
+    "No successful nonnull model registration path, detached registration map, guessed Display override or synthetic effect counter added.",
+    "Original malloc failure/resource-exhaustion behavior was not exercised; this increment uses the existing C++ allocation model."
+  ],
+  "minimum_shared_followup": {
+    "GuiModel": "Actual lazy model+250 auxiliary drawing registry. Store non-owning references to actual manager-owned SfPtrk objects; do not give model independent graph ownership. Exact removal/destruction lifetime needs binding before choosing guarded/raw handle semantics.",
+    "Display": "Actual QPointer-like override for+1e0 and getter d0d610: main unless override nonnull. Model detach must clear override. Current DisplayModels does not represent it.",
+    "Mutator_sites": [
+      "cf8b00 construction: override=null; cf9150 reset: clear override; cf8fa0 destructor: release guard.",
+      "d0d3d0 selection: named, third(+1c8), main(+1a0), second(+1b8), invoking source helper before committing override. Unknown helper effects remain guarded.",
+      "31fab0: resolve current global-selected model on every call, then lazyc91070 registry, then d64780 pointer-identity duplicate suppression and append.",
+      "321520 manager cleanup: delete graph then cache=null. Existing model registry removal behavior has not been proven for this deletion."
+    ]
+  },
+  "freeze": "Worker source edits complete; root may build this17-case module."
+}

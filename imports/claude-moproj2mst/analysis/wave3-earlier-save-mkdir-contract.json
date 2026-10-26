@@ -1,0 +1,39 @@
+{
+  "method": "Bounded offline PE instruction/IAT review; no original execution",
+  "sources": [
+    {
+      "path": "analysis/wave3-earlier-save-140051190.asm",
+      "sha256": "f8a51675f48905992f5e07580bf692b41aad70f93a6ee43f5107f84b4bc56a12"
+    },
+    {
+      "path": "analysis/wave3-earlier-save-14008c630.asm",
+      "sha256": "c16ec16b48c6871b304e04031d585d50d432de77e1df319dc2aa2c9ff18b191b"
+    },
+    {
+      "path": "analysis/wave3-earlier-save-14081afb0.asm",
+      "sha256": "a9df7d8c1f7b7e73f7070a4361e60726427035c3631b5505577f9716395ad156"
+    }
+  ],
+  "imports": {
+    "0x141e044c0": "??0QString@@QEAA@XZ",
+    "0x141e04060": "??0QDir@@QEAA@AEBVQString@@@Z",
+    "0x141e03fd0": "?setPath@QDir@@QEAAXAEBVQString@@@Z",
+    "0x141e04038": "?mkpath@QDir@@QEBA_NAEBVQString@@@Z",
+    "0x141e0b7c8": "??0QMessageBox@@QEAA@AEBVQString@@0W4Icon@0@HHHPEAVQWidget@@V?$QFlags@W4WindowType@Qt@@@@@Z",
+    "0x141e0b9f8": "?exec@QDialog@@QEAAHXZ",
+    "0x141e0b850": "??1QMessageBox@@UEAA@XZ"
+  },
+  "contracts": [
+    "051190 calls helper81afb0(taskDir,true), then08c630(project) without checking status",
+    "08c630 calls same helper for five project folders in fixed order and conditionally DieStress for activeSub.type4; no status gates",
+    "81afb0 constructs QDir from currentPath, calls mkpath then exists; only failed exists plus dialogs=true enters QMessageBox construction/exec",
+    "81b22e passes StandardButton0x400; exec result is discarded;81b286 stores returntrue for all outcomes"
+  ],
+  "implementation_gap": "makeFolders currently records directory paths; root applyEffects later creates and throws on errors, which is later and has different failure propagation",
+  "next_action": "Recover Qt recursive mkdir ordinary-Windows path attempts and exact dialog enum/default, then native directory effects at original makeFolders call; preserve explicit event-pump qualification for modal dialog",
+  "qualifications": [
+    "QMessageBox0x400 and constructor parameter mapping still require Qt enum/source verification before default-button claim",
+    "Native KEY writer path and CRT failure behavior remain separate dependencies before earlier HeatTreat Save-current direct integration",
+    "Do not apply generic atomic flush earlier: its throwing behavior contradicts this recovered helper"
+  ]
+}

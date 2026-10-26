@@ -1,0 +1,90 @@
+{
+  "scope": "Accepted Close: first downstream HideSecondaryWidget receiver and graph collection removal refinement",
+  "method": "Immutable original PE and offline bounded DUMPBIN; no GUI, target runtime or production edits",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-child-static.json",
+      "sha256": "f3272d37b3aad66ed2ca5495b7deed36e10f1f9c48db2503fab9dbd286012d52"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-dispatch-static.json",
+      "sha256": "a90bda1121e98b0ae69575a39143e4f642ddcb159efdaeea4d8ae8adc4e6ddd7"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-metacall-static.json",
+      "sha256": "ca98c0c0320324ae34364750bf1141552afd9c8d66f775aefa5cae42c7d5dd4a"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-metadata-static.json",
+      "sha256": "59de536b085048d38eca8baa79d2944c709b14b1ebd5f867d8465923f346b41e"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-other-owners-static.json",
+      "sha256": "80ac0eeed1260d770ba402b9371431b1ff979da95029d1bcc7f4f1775ed2ca6b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-other-registrations-static.json",
+      "sha256": "2fc1d652a14dc5d0dd37c0935545476cabb22945c7a6e045cf9a03941657a006"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-owner-static.json",
+      "sha256": "01a644d827ae8ba55528635dc3d339d5e2ed780d7e3f3c2a40f246fe979a3e95"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-hide-secondary-slot-static.json",
+      "sha256": "5875c24e1bcb5a56553753fbef030bb6ce98134891ac0a821a3d0ca72376c586"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    }
+  ],
+  "graph_collection_refinement": {
+    "entry": "140c170b0",
+    "operations": [
+      "QListData::at(index) IAT141e04208, copy pointed wrapper",
+      "destroy/remove wrapper via dd77d0 then QListData::remove(index) IAT141e058a0",
+      "return copy of removed wrapper"
+    ],
+    "implication": "c15db0 increments its index after removing a match; do not replace the helper with deleting every same-name entry without preserving that progression. Item deletion still follows the returned pointer."
+  },
+  "split_receiver": {
+    "class": "SfSplitView",
+    "construction": "d349a0 allocates0x30 and constructs dab810; base is QSplitter(orientation,parent). Constructor installs142a5a638 and calls daba80 registration function.",
+    "registration": "daba80 maps signalHideSecondaryWidgetInSplitView to slotHideSecondaryWidget(). The same function separately maps signalCloseSecondaryWidgetInSplitView to slotCloseSecondaryWidget().",
+    "metadata": "Static initializer bytes1d60660..1d60698 populate global446b8440 with QSplitter::staticMetaObject, strings142a6d940, table142a6d870. Table has7 methods; local5 is slotHideSecondaryWidget. dd7a00 delegates QSplitter metacall, then dd7850 maps local5 through jump-table entrydd7900 to dac040.",
+    "slot": "dac040 obtains child index1 through dabcb0. dabcb0 returns null if index<0 or index>=QSplitter::count(); otherwise QSplitter::widget(index). A nonnull child is passed to QWidget::hide (IAT141e0bbb0). No child deletion in this slot.",
+    "qualification": "Qt hide synchronous event effects are not expanded. The selected run must establish actual splitter instantiation and child state; this receipt does not infer fresh absence or that only one splitter is registered."
+  },
+  "remaining_receiver_candidates": [
+    {
+      "registration": "1416b7920",
+      "slot": "slotGraphClosed()",
+      "class_vtable": "142fb8e98",
+      "metacall": "14175f5a0",
+      "creator": "140cddc50",
+      "state": "Registration confirmed; slot effects/instantiation dependency next."
+    },
+    {
+      "registration": "1416baeb0",
+      "slot": "slotSetGraphOff()",
+      "class_vtable": "142fbce18",
+      "constructor": "1416b7bd0",
+      "state": "Registration confirmed; slot effects/instantiation pending."
+    },
+    {
+      "registration": "1416bf6e0",
+      "slot": "slotSetGraphOff()",
+      "class_vtable": "142fc13f8",
+      "constructor": "1416bf560",
+      "state": "Registration confirmed; slot effects/instantiation pending."
+    }
+  ],
+  "qualifications": [
+    "Retained direct-key candidate scan is not a proof of an exhaustive registration set.",
+    "Original notifier ordering/delivery rules remain those of existing contracts; no timer due-time inference added.",
+    "No accepted Close replay is claimed integrated by this receipt."
+  ],
+  "next": "Resolve14175f5a0 localGraphClosed and140cddc50 lazy-owner state; bound two SetGraphOff slots separately."
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "m2m-doe-stepdata-object-writer-implementation-v1",
+  "status": "five owned source files frozen; pending root actual-view seam and combined validation",
+  "contract": {
+    "path": "analysis/wave2-doe-stepdata-object-writer-contract.json",
+    "sha256": "d2169e61bf22b64d98c8fac914a0154ac319ed987c329c42ef328e3cf4bf74c7"
+  },
+  "owned_source": {
+    "source/apps/moproj2mst/include/m2m/doe_view_stepdata.hpp": "71a75e8c2eb4e51b539aefa208c64130f9ab9f78ece4123a93d71d25029e4100",
+    "source/apps/moproj2mst/src/doe/view_stepdata.cpp": "f03c65b5a57a4385ffd31c6d7ee447a1d065ac39210de38640028d333ececbbc",
+    "source/apps/moproj2mst/tests/mdt/test_doe_view_stepdata.cpp": "8b43e37da1a70f14610e3c31e5e8b75d0b1e4c8502c48978ae8df14ad3cb3d39",
+    "source/apps/moproj2mst/src/doe/stepdata.cpp": "1017119fe11cfcf3268e3b0eb639c3b524360e97a0304058e1d6c0099254ae5f",
+    "source/apps/moproj2mst/tests/mdt/test_doe_stepdata.cpp": "1d9367ab9d5fc8c6ad16bcd1e540152e11be00fd73dbaf31111958e5014142d0"
+  },
+  "apis": [
+    "doe::writeDisplayOptionFields(xml::Node&,span<const uint8_t,46>,int32 mode,int32 actualObjectKind)",
+    "doe::writeObjectSymmetry(const ViewStepDataState&,xml::Node& object)",
+    "StepData calls root engine::writeViewerStepDataObjects(GuiModel&,xml::Node&) only after StateVar is fully appended. Root owns actual View/Settings routing and Slice payload encounter guard."
+  ],
+  "focused_cases": {
+    "m2m_doe_view_stepdata": 25,
+    "new_pure_writer_cases": 8,
+    "m2m_doe_stepdata": 17,
+    "new_actual_writer_cases": 3
+  },
+  "checks": [
+    "Pure flags writer preserves unsignedbytes and exact attribute insertion; kind5 Mesh/Geo=-1; otherkinds bool1 for nonzero Mesh/Geo; unusedslots omitted; no input mutation.",
+    "Symmetry writes signed count and headers before indexed records; zero skips evenShowtrue; negative emitsheaders but norecords. Required optionalmatrix guarded atfirstP0, priorattachedrecord preserved; unsafeindex128 guards after128complete records and emptyrecord128.",
+    "ShippedQDom doubleattrs reuse existing source-bound def::rt::crt::snprintf %.16g and <=0 QStringg6 fallback, as established in datafiles/qdom_write.cpp. Decimalprecision test distinguishes g16 fromg6.",
+    "Actual noDB Slice graphicCount0 writes emptyObject evenallocated collection; unknownfreshmatrix notread because symmetrycount0. EarliercompletedObject remains appended before laterobject matrixrefusal. No writerpropertytable/current-object mutation."
+  ],
+  "static_preflight": {
+    "whitespace_and_delimiters": "passed five files",
+    "test_main": "present both test files",
+    "git_diff_check": "passed; ignored imported files also directly checked",
+    "test_execution": false,
+    "worker_build": false,
+    "target_runtime": false,
+    "gui_control": false,
+    "mutable_ghidra": "three bounded direct-serializer exports completed/released before source implementation; currently idle/free"
+  },
+  "remaining": [
+    "Root shared engine seam/declaration and actual bound View/Settings tests, separate root receipt.",
+    "External old snapshot-writer guard tests/header comments require root migration; root notified. No explicit CMake source/test registration needed.",
+    "Populated Slice graphics payload, absent symmetry matrices/native invalid record storage, later shared ViewManager snapshot and outer activeDOE lifecycle remain guarded/qualified; no complete public parity claim.",
+    "No fresh original OpenSaveClose comparison performed in this worker; historical93/98 classification unchanged.",
+    "Adapter XML/ownership and allocation/refcount/CRT global-locale qualifications remain as existing contracts; no arbitrary persisted-preference or native fault parity claim."
+  ]
+}

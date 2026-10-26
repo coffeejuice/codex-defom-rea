@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF only an ARC of radius 0",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nR0.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "R0.DXF",
+      "source": "data/dxf_arc_r0.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Segment count drops to 0 after the -500 check: FUN_14040ba80 returns -1, GFREAD Failed, geometry unchanged. Prediction = observed 2026-10-21: reader result -1, GFREAD Failed, object 1 keeps the IN.KEY curve (DIEGEO 1 1 2)."
+  }
+}

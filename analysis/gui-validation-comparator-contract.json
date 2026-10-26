@@ -1,0 +1,82 @@
+{
+  "comparator": {
+    "path": "C:\\Users\\alext\\Projects\\codex-deform-rea\\build\\claude-def-pre\\defcmp\\Release\\defcmp.exe",
+    "sha256": "3e3c4943d669d7d53829ad6171212fe4448a16c7ef336fe7d613dac757f87e0b",
+    "contract": "imports/claude-def-pre/harness/defcmp/README.md"
+  },
+  "cases": {
+    "key": {
+      "argv": [
+        "compare",
+        "--kind",
+        "key",
+        "EXPECTED.KEY",
+        "ACTUAL.KEY"
+      ],
+      "rule": "byte equality; no added masks"
+    },
+    "db": {
+      "argv": [
+        "compare",
+        "--kind",
+        "db",
+        "--mask",
+        "default",
+        "EXPECTED.DB",
+        "ACTUAL.DB"
+      ],
+      "mask_fields": [
+        "smi3",
+        "smi4",
+        "istart"
+      ],
+      "rule": "All unmasked bytes exact; mismatch locations decoded by comparator"
+    },
+    "messages": {
+      "argv": [
+        "compare",
+        "--kind",
+        "transcript",
+        "--root",
+        "EXPECTED_DIR=<CASE>",
+        "--root",
+        "ACTUAL_DIR=<CASE>",
+        "EXPECTED.log",
+        "ACTUAL.log"
+      ],
+      "rule": "Existing date/time/path normalization only; no extra regex/version masks"
+    },
+    "exit_status": {
+      "rule": "exact equality; expected success independently required"
+    }
+  },
+  "edit_candidates": [
+    {
+      "case": "object",
+      "id": 1,
+      "field": "NDTMP uniform initial temperature",
+      "old": 1100,
+      "new": 1090,
+      "units": "C",
+      "qualification": "Source KEY and earlier GUI observation agree; fresh UI edit still required"
+    },
+    {
+      "case": "material",
+      "id": 1,
+      "field": "MASDEN constant mass density",
+      "old": 8.19e-09,
+      "new": 8.2e-09,
+      "qualification": "Source KEY scalar selected; verify UI label/units and acceptance before edit"
+    },
+    {
+      "case": "simulation",
+      "field": "DTMAX",
+      "old": 0.1,
+      "new": 0.05,
+      "units": "sec",
+      "qualification": "Source XML and KEY agree; fresh UI edit still required"
+    }
+  ],
+  "status": "prepared_not_executed",
+  "gui_acceptance": false
+}

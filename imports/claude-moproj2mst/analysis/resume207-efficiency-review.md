@@ -1,0 +1,32 @@
+# CP207 converter efficiency review
+
+## Scope and measured timing
+
+This review compares the CP206 reconstructed-converter candidate run, two incomplete original-app raw runs, and the runner implementation/review timestamps. It does not modify runtime code or evidence. Token telemetry is absent; no token-speed claim is supportable.
+
+The candidate conversion's process receipt is the only precise short stage interval: 09:09:15.268–09:09:15.332 UTC, **63.5 ms**. The before manifest was written at 09:08:56 and after manifest at 09:09:54, a **58-second receipt envelope** spanning copy/verification, launch, and post-run manifest work; it is not conversion runtime. The 27-file source fixture became 29 files, with the project rewritten and `Gear_blank.KEY` plus `DieStress.Wzd` added. The converter exited 0 and wrote a 2,718-byte MST. This measures candidate work only, not fidelity against the original Open→Save→Close lifecycle.
+
+The two original-app probes each have timestamped stage receipts. CP206 run 1 spans 09:46:02.455–09:46:07.733 UTC (**5.278 s**); run 2 spans 11:33:28.746–11:33:33 UTC (about **4.3 s**, stage timestamps rounded to seconds). Both include setup through the five-second natural-exit window and cleanup/fixture checks; they exclude the human implementation, reviews, and idle time between runs. Both were INCOMPLETE. Run 1 installed four hooks and retained only zero counters before natural AV exit. Run 2 retained a compact first-AV core showing an unmapped execute fault at `0x7ff632e30008`, `RCX=0x32c63f0`, and zero visits at all four hook sites. The fixture digest and cleanup checks passed, but it did not establish the CP205 fault path or producer/consumer state.
+
+Implementation and review file timestamps give a useful chronology, not active labor duration: first runner implementation 09:13:35Z; initial focused review 09:45:27Z; first run began 09:46:02Z. The first run exposed message loss. The runner repair was saved 11:32:32Z; the parity HOLD was recorded 11:32:03Z and the repair PASS 11:33:01Z; second run began 11:33:28Z. The **1 h 46 min** between implementation and repaired run is elapsed wall time, not attributable work. The narrower PASS-to-run interval is **27 seconds**, while the second raw run itself lasted roughly 4.3 seconds. The review correctly required a strict parity gate before trusting retained hook records.
+
+## Avoidable cost and fidelity boundary
+
+The four instruction-level interceptors changed the original execution enough that CP206's second observed fault was an unmapped execute AV before any selected callback. This establishes probe-path divergence under this instrumentation, not which hook caused it. The two runs cost about 9.6 seconds of measured receipt-window time, but repeated identical probes are low-value: they do not supply evidence that the target followed CP205's QtCore `QListData::size` path. The first run's split AV messages also lost the detailed fault; the compact core repaired that particular evidence gap, but still yielded a different fault path. This is instrument-induced uncertainty, not a reason to weaken the process, fixture, or review gates.
+
+The candidate conversion is dramatically shorter than the raw capture window, but these are different questions and command profiles. The original CLI crashed during Open before return; the reconstructed converter ran `--write-save` and produced artifacts. Treating the 63.5 ms as a speed comparison would conflate a successful alternate path with an uncompleted reference workflow.
+
+The Git snapshot scale supplied by the parent task is **15,155 nonignored files / 456 MB**. That is a material repeated-context and snapshot cost, but no timing receipt quantifies its actual delay in CP206. Preserve exact evidence and pinned fixtures while narrowing routine work to converter sources, build outputs needed for the current candidate, and cited reports; do not omit or prune required evidence to make snapshots smaller. Prefer a lightweight, scoped evidence index or targeted file reads over repeatedly enumerating or ingesting the full snapshot. Keep the frozen candidate and raw receipts immutable.
+
+## Fastest fidelity-preserving next workflow
+
+1. Stop repeating the same four-hook original run. First use retained CP205/CP206 evidence and a bounded static/disassembly review to choose one lower-impact function-boundary or supported debugger observation. Require that its uninstrumented/low-instrumentation first AV matches CP205's module, RVA, access, and relevant call chain before interpreting hook observations.
+2. Keep the original-run gate closed until a single focused probe has a reviewed capture contract, a compact first-AV receipt, bounded evidence, and the existing owned-process, natural-exit, absence, detach, and unchanged-fixture checks. One discriminating run is preferable to another broad set of observers; do not trade away cleanup or evidence completeness.
+3. In parallel with that static selection, finish the converter-side B98 candidate analysis from the already captured before/after manifests and output hash. Separate field-level Open/Save/Close compatibility questions from the original crash-capture question. This advances useful converter work without another original launch.
+4. For future checkpoints, record UTC start/end receipts for candidate preparation, each review, launch/capture, and post-run qualification, plus worker start/end only where available. Report measured stage durations and distinguish them from timestamp envelopes and idle gaps. Keep token counts unavailable until actual telemetry exists.
+
+This sequence avoids spending another probe cycle on hooks already associated with path divergence, preserves the original fault as the fidelity discriminator, and uses the already-fast candidate run to progress converter comparison independently.
+
+## Evidence
+
+`analysis/resume205-efficiency-review.md`; `analysis/resume206-b98-candidate-comparison.md`; `analysis/resume206-b98-candidate-before.json`; `analysis/resume206-b98-candidate-process.json`; `analysis/resume206-b98-candidate-after.json`; `analysis/resume206-null-owner-runner-implementation.md`; `analysis/resume206-null-owner-runner-review-3.md`; `analysis/resume206-null-owner-runner-review-4.md`; `analysis/resume206-null-owner-probe-outcome.md`; `analysis/resume206-probe-message-loss.md`; and `analysis/resume206-probe-path-divergence.md`.

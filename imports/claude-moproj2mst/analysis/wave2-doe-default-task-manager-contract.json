@@ -1,0 +1,84 @@
+{
+  "schema": "m2m-doe-default-task-manager-static-v1",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "status": "evidence-only; no production edits; implementation waits actual shared manager/current-child ownership",
+  "evidence_sha256": {
+    "analysis/wave2-doe-output-default-task-append-decompile.json": "a7bf524fb6e903cebf1a049384c4983a59dcbbaccfc7b48e909a27c7ed3ee237",
+    "analysis/wave2-doe-output-default-task-current-db-decompile.json": "cf91452c456859c27ca87d8a06e2658e13cd9b788c5fa437cff643ac690def20",
+    "analysis/wave2-doe-output-default-task-data-root-init-decompile.json": "32f7c3921a747cf5b976eb5fcce40be66317d03aafec955e7d038c673641451f",
+    "analysis/wave2-doe-output-default-task-factory-type-decompile.json": "8b5ad46e0ae0ac0e90480d3674269c5f0e3c725c6732c1c34d49cbe1ae81cc8a",
+    "analysis/wave2-doe-output-default-task-inputs-decompile.json": "27f16c346bc98afbe7913a10351b0a736a946c061f96201bef745a9f2485fc14",
+    "analysis/wave2-doe-output-default-task-map-and-dbid-decompile.json": "6c2a984434c5e40b55110f0b74eb050b7a148779493fe803763a2ba2396c5357",
+    "analysis/wave2-doe-output-default-task-model-manager-base-decompile.json": "40a6254b37602e3a60ca2c3dda354ce0175ababf59520e199605e5b94c67b293",
+    "analysis/wave2-doe-output-default-task-model-manager-ctor-decompile.json": "2bce9198499b1c382b74ac8381f85d3c0e7664e188c2e898339519bd6e17fdb2",
+    "analysis/wave2-doe-output-default-task-model-manager-id-decompile.json": "8bb06574eea454e8d63c6b188efe57ed2dacd06d600dce38b89e8320c59a17a4",
+    "analysis/wave2-doe-output-default-task-model-manager-register-decompile.json": "61078de53c378d892520b2e838f7e8f3fc32f7de56ebca36607b8756715e3fc2",
+    "analysis/wave2-doe-output-default-task-model-manager-select-decompile.json": "d4bc9595d32489c2c4c9f1ee439fd99da4717c027b6fa01eed1e303962bdc8e8",
+    "analysis/wave2-doe-output-default-task-model-root-creation-decompile.json": "b8f8bf2958f23c4347412171ac66639af6162175b401b93489e6f17d521d26e5",
+    "analysis/wave2-doe-output-default-task-root-owner-decompile.json": "c9cc7f26323d0d63714ab6bed50e5f18148be07947581cb8019ba42fb904d921",
+    "analysis/wave2-doe-output-default-task-serialize-decompile.json": "ee06f99d6c4e6ab13e4c675707ae2640b0ac9bcd2a80d90fd91a69cac88b5f49",
+    "analysis/wave2-doe-output-default-task-wrapper-decompile.json": "fc08f770106194d3ea79773f87038b65c5fdd0b2d7bec12b70dfd1e3d089b024",
+    "analysis/wave2-doe-output-default-task-current-selection.asm": "6e3c66e61ba9255e4fc7c6c7401d9573390664d137b72e991304eafd7dffab4a",
+    "analysis/wave2-doe-session-task-import-contract.json": "2ebb106c86ae980dcde195933b93c6c9314cbf1e7e70a4a308ae521b8689957a",
+    "analysis/wave2-doe-session-notifier-direct-key-candidates.json": "1a947bb2daf487a9e9d8aee1999d09675f2abb6202b3e526ef1847fcbc6cf0d9"
+  },
+  "qualification": "Read-only private Ghidra snapshot plus retained raw PE/DUMPBIN. No target execution, app control, builds, runtime failure observation or fresh-original acceptance.",
+  "corrections": [
+    "Outer object is SfModelManager/SfMoModelManager, not SfDataRoot. Its +18 is an ordered QList of child model pointers, not a key map.",
+    "cda460 is SfModelBase on the same native object as derived043fe0 SfMoModel and existing partial DbHandle projection; current manager is a separate object.",
+    "7cb760 is reverse enum lookup int-to-QString, not a map setter."
+  ],
+  "manager": {
+    "creation": "mainwindow0133f0 allocates0x28,045420 invokes basec781d0 and installs vt142115f68; base vt1428fa478",
+    "fields": {
+      "0x10": "nonowning main-window owner; QObject parent is null",
+      "0x18": "ordered owning QList<ModelBase*>; native destructor/clear deletes children",
+      "0x20": "QPointer current child, initially null via c782b0"
+    },
+    "registration": "c79390: virtual+68 creates child (derived045490 allocates0x19f0 via043fe0), cdcdc0 sets path, c79470 chooses first unused positive int ID via c78ee0, cdd740 stores child+30, append to list, connect two signals. Current is not changed here.",
+    "selection": "c78bb0 only assigns current when supplied pointer is a list member. c78ad0 returns guarded current only while still in list. c78b60 returns -1 without valid current; otherwise c79cd0 returns matched child+30.",
+    "project_selection": "045670 scans ordered children, casts ModelBase to MoModel, obtains lazy Project044a90, selects matching Project throughc78bb0 and returns true. Missing lazy Project constructor is not silently executed by reconstruction.045730 selects child by ordinal. c9bc30 nonnull input selects child before further refresh/notification work."
+  },
+  "default_task": {
+    "entry": "actual6482c0 missing SfTaskDoe calls6477a0(doc,-1,0,key); ctor6433a0 sets doc mode+68=1",
+    "inputs": "mode1/index-1 reads mainwindow virtual+240\u2192c9bf10\u2192managerc78b60. Child ID int narrows to signed16 in record; no current manager returns-1. Cannot substitute operationNo, Project number, active subproject ID or constant.",
+    "title": "SfTaskDoe absent from complete12-entry7cb7b0 map: resulting title is null QString, not translated DOE.",
+    "type": "7cb730 ABI confirmed QString argument. Fixed7cb350 enum map has no SfTaskDoe;7cbd50\u21927cbe20 returns default int0. Store low16 Type=0.",
+    "order": [
+      "allocate record0x60 via658130; assign null QImage",
+      "assign null title, Type0, Subtype0, DB_ID from actual manager, TaskType SfTaskDoe, owning part guard",
+      "create fresh Task through signalCreateTaskBase return-value dispatch only if current Task null; store result",
+      "emit signalGetCurrentStepViewInfo with record pointer",
+      "if part operationStart and operationEnd both0, collect operation records via64c280, set range first/last entityNo if list nonempty",
+      "serialize DOM via64fb80\u219264fc30 BEFORE appending record pointer to part sessions",
+      "append record, obtain count, return record"
+    ],
+    "factory_binding_reuse": "signalCreateTaskBase registration mainwindow0111c0 at011fcb targets1slotCreateTaskBase. Existing immutable session-task-import contract binds Qtmethod18\u219203c6b0\u219201d960\u21927c7d90\u2192137ca0 fresh SfTaskDoe creation. Registry/preferences remain the same qualified projection; no new global Task substitution.",
+    "notifications": {
+      "2signalCreateTaskBase()": [
+        {
+          "call": "0x140011fcb",
+          "constant_rdx": "0x1420f9948",
+          "constant_rcx": "0x143d76700",
+          "literal_candidate": "2signalCreateTaskBase()",
+          "owner": "0x1400111c0",
+          "argument_setup_bytes": "488d1584790e02488d0d3547d603"
+        }
+      ],
+      "2signalGetCurrentStepViewInfo()": []
+    },
+    "serialization_blockers": [
+      "64fc30 creates detached Session DOM metadata, may derive StepNumber from display-main/current task, always saves null/current QImage into QBuffer then compresses/hex appends Image.",
+      "Then task vt+98 model payload, optional mainwindow vt+7b8 hook, cd57b0 display payload, task vt+220 and cd5980 append require exact live model context/ordering. Do not append session early or claim completed default construction."
+    ],
+    "operation_range_dependency": "64c280 uses global inputmode==5 return-value notifier operation lists; otherwise global current GUI model\u2192c7ac90 StepData\u219280f690 operation list. No operation list fabricated from Task lists."
+  },
+  "proposed_shared_projection": {
+    "owner": "actual ConversionSession/main-window equivalent owns ModelManager; Projects do not each manufacture a private global registry",
+    "child": "retain existing shared_ptr<DbHandle> as same-object ModelBase/MoModel projection; add native int ID initialized0, model-kind qualification, and original Project backlink as source closes",
+    "manager": "ordered owned child list plus weak current child; membership validation required, separate absent current from unavailable manager. All default-task and Close consumers share this identity.",
+    "open_binding": "root must bind actual original registration/current-selection positions rather than register/select whenever projectDb() is lazily requested.",
+    "ownership": "Root owns shared model/core/engine interfaces; DOE files unchanged until agreed contract."
+  },
+  "next": "Bind shared root/current-child proposal with coordinator and closure lane; then close smallest default-task prefix/DOM serialization branch without claiming active lifecycle complete."
+}

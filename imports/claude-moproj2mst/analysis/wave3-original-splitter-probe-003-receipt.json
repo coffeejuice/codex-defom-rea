@@ -1,0 +1,101 @@
+{
+  "status": "Completed owned startup capture; PID absence verified and Frida closed",
+  "utc": "2026-10-24T11:32:44.152339+00:00",
+  "evidence_id": "ev_0bb817392be0ac96bc66521a39f484315645fdecad6ba833eb761d6ccd25f555",
+  "pid": 34156,
+  "session_id": "caff8407-3331-4160-b6ae-8040bdd0db22",
+  "modules": [
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+      "base": "0x7ff7c94b0000",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtCore4_64.dll",
+      "base": "0x53b00000",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160"
+    },
+    {
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtGui4_64.dll",
+      "base": "0x53e20000",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    }
+  ],
+  "script": {
+    "path": "build\\original-splitter-probe-003\\probe.js",
+    "sha256": "8a8d54f8c530c76443d14a9c21fadeb63f95d076fc96536d90dbc0c6c709626d"
+  },
+  "counts": {
+    "records": 165,
+    "states": 56,
+    "failedReads": 0,
+    "callbackErrors": 0,
+    "parent": 6,
+    "font": 6,
+    "palette": 6,
+    "locale": 6,
+    "events": 14,
+    "fontResolve": 6,
+    "paletteResolve": 6,
+    "fontLookup": 6,
+    "paletteLookup": 6,
+    "widgetPalette": 12,
+    "opacity": 6
+  },
+  "messages": 254,
+  "errors": [],
+  "truncations": [],
+  "installed_hooks": [
+    "def_gui_mo_64.exe:e9400",
+    "def_gui_mo_64.exe:d34730",
+    "def_gui_mo_64.exe:d35a80",
+    "def_gui_mo_64.exe:dab810",
+    "qtcore4_64.dll:119570",
+    "qtcore4_64.dll:11ae90",
+    "qtcore4_64.dll:38f0",
+    "qtgui4_64.dll:70d70",
+    "qtgui4_64.dll:402b00",
+    "qtgui4_64.dll:6e4d0",
+    "qtgui4_64.dll:6dbd0",
+    "qtgui4_64.dll:611d0",
+    "qtgui4_64.dll:68080",
+    "qtgui4_64.dll:5f940",
+    "qtgui4_64.dll:214d0",
+    "qtgui4_64.dll:20be0",
+    "qtgui4_64.dll:1f3ca0",
+    "qtgui4_64.dll:4a2f0",
+    "qtgui4_64.dll:64410",
+    "qtgui4_64.dll:65ee0"
+  ],
+  "cleanup": {
+    "session_id": "caff8407-3331-4160-b6ae-8040bdd0db22",
+    "device_id": "local",
+    "target": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+    "pid": 34156,
+    "mode": "spawn",
+    "state": "paused",
+    "cleanup_required": false,
+    "absence_verified": true,
+    "session_closed": true,
+    "gui_input_acquired": false
+  },
+  "raw_files": {
+    "absence-evidence.json": "7682f73153cdb8cb0f9ec5a40be7382a7242102e8f055a4f9e56901e34adc7a7",
+    "capture-evidence.json": "ae7f9f9eadfcb91b22a0c2149d573234618eb2401ea0c461cebcb86b9a971f14",
+    "close-evidence.json": "b53d8b7832810f75d86584dbc495295037f01103e868dcf359d1be54012afdc5",
+    "load-evidence.json": "4940293eabd96e9e1b02a4148bfca4bfe150b3f89a50b2e5ff6006c8596fab21",
+    "owned-process.json": "259a42f9c25ba37721e99192024f849a87b18eb50436941c1e3508941d5438a9",
+    "resume-evidence.json": "6e2c9a7a7856fc510dcfd80f66d6d611219ef819e60a108c92358cf3ea0837f9",
+    "start-evidence.json": "56bbec521316f9008c94ceaab5187dd740de6308bc6b8694439fb66b45b8f46d",
+    "termination-evidence.json": "62dcbc395bed86d93abebf919e50921762a4873e6b8252c72cf3d2df8113b961"
+  },
+  "qualifications": [
+    "Startup through d35a80 return only; no project Open/Save/Close acceptance.",
+    "Passive selected cache/value/parent observations; no Qt getter calls or event pump.",
+    "No GUI input/control acquired. Target termination is not a GUI-control release.",
+    "No full MainView child enumeration or general Qt behavior coverage claim.",
+    "Raw QLocale eight-byte capture includes padding; only two uint16 fields are meaningful.",
+    "Frida close reports target state unknown; separate process enumeration proves PID absence.",
+    "Full inline Evidence retained. Source interpretation and implementation validation remain separate."
+  ]
+}

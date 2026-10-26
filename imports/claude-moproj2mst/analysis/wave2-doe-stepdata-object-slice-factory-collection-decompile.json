@@ -1,0 +1,38 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "1411fe3f0",
+      "entry": "1411fe3f0",
+      "name": "FUN_1411fe3f0",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n\r\nundefined8 FUN_1411fe3f0(undefined8 param_1,double *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  undefined8 *puVar2;\r\n  longlong lVar3;\r\n  double *pdVar4;\r\n  undefined1 *puVar5;\r\n  double dStack_f8;\r\n  double dStack_f0;\r\n  double dStack_e8;\r\n  longlong lStack_e0;\r\n  undefined1 auStack_d8 [8];\r\n  undefined8 uStack_d0;\r\n  undefined1 auStack_c8 [8];\r\n  double dStack_c0;\r\n  double dStack_b8;\r\n  double dStack_b0;\r\n  undefined1 auStack_a8 [8];\r\n  longlong lStack_a0;\r\n  char cStack_98;\r\n  double *pdStack_90;\r\n  double *pdStack_88;\r\n  int iStack_80;\r\n  undefined8 uStack_78;\r\n  longlong lStack_70;\r\n  undefined1 auStack_68 [32];\r\n  undefined1 auStack_48 [32];\r\n  undefined8 uStack_28;\r\n  undefined8 uStack_20;\r\n  \r\n  uStack_28 \u003d 0xfffffffffffffffe;\r\n  auStack_c8[0] \u003d 1;\r\n  auStack_a8[0] \u003d 1;\r\n  auStack_d8[0] \u003d 0;\r\n  uStack_d0 \u003d 0;\r\n  if (*param_2 \u003d\u003d _UNK_1421ad1d0) {\r\n    if (param_2[1] \u003d\u003d _UNK_1421ad1d0) {\r\n      if (param_2[2] \u003d\u003d _UNK_1421ad1d0) {\r\n        dStack_f8 \u003d 0.0;\r\n        dStack_f0 \u003d 0.0;\r\n        dStack_e8 \u003d 0.0;\r\n      }\r\n      else {\r\n        dStack_f8 \u003d 0.0;\r\n        dStack_f0 \u003d 0.0;\r\n        dStack_e8 \u003d (double)((ulonglong)param_2[3] ^ _UNK_1421d3d30) / param_2[2];\r\n      }\r\n    }\r\n    else {\r\n      dStack_f8 \u003d 0.0;\r\n      dStack_f0 \u003d (double)((ulonglong)param_2[3] ^ _UNK_1421d3d30) / param_2[1];\r\n      dStack_e8 \u003d 0.0;\r\n    }\r\n  }\r\n  else {\r\n    dStack_f8 \u003d (double)((ulonglong)param_2[3] ^ _UNK_1421d3d30) / *param_2;\r\n    dStack_f0 \u003d 0.0;\r\n    dStack_e8 \u003d 0.0;\r\n  }\r\n  dStack_c0 \u003d *param_2;\r\n  dStack_b8 \u003d param_2[1];\r\n  dStack_b0 \u003d param_2[2];\r\n  lStack_e0 \u003d FUN_1411f1980(param_1);\r\n  if (lStack_e0 !\u003d 0) {\r\n    pdStack_90 \u003d (double *)0x0;\r\n    pdStack_88 \u003d (double *)0x0;\r\n    cStack_98 \u003d \u0027\\0\u0027;\r\n    lStack_a0 \u003d func_0x000140c7ac30(lStack_e0);\r\n    if (lStack_a0 !\u003d 0) {\r\n      iStack_80 \u003d 0;\r\n      while (iVar1 \u003d FUN_140004ae0(lStack_a0 + 0x18), iStack_80 \u003c iVar1) {\r\n        puVar2 \u003d (undefined8 *)FUN_140160c10(lStack_a0 + 0x18,iStack_80);\r\n        uStack_d0 \u003d *puVar2;\r\n        pdStack_90 \u003d (double *)FUN_140304730(uStack_d0);\r\n        if ((((*pdStack_90 \u003d\u003d dStack_f8) \u0026\u0026 (pdStack_90[1] \u003d\u003d dStack_f0)) \u0026\u0026\r\n            (pdStack_90[2] \u003d\u003d dStack_e8)) \u0026\u0026\r\n           (((pdStack_88 \u003d (double *)func_0x000141165850(uStack_d0), *pdStack_88 \u003d\u003d dStack_c0 \u0026\u0026\r\n             (pdStack_88[1] \u003d\u003d dStack_b8)) \u0026\u0026 (pdStack_88[2] \u003d\u003d dStack_b0)))) {\r\n          cStack_98 \u003d \u0027\\x01\u0027;\r\n          break;\r\n        }\r\n        iStack_80 \u003d iStack_80 + 1;\r\n      }\r\n      if (cStack_98 \u003d\u003d \u0027\\0\u0027) {\r\n        *(int *)(lStack_a0 + 0x10) \u003d *(int *)(lStack_a0 + 0x10) + 1;\r\n        lStack_70 \u003d FUN_14146eabc(0xa8);\r\n        if (lStack_70 \u003d\u003d 0) {\r\n          uStack_20 \u003d 0;\r\n        }\r\n        else {\r\n          uStack_20 \u003d FUN_1401af770(lStack_70,*(undefined4 *)(lStack_a0 + 0x10));\r\n        }\r\n        uStack_78 \u003d uStack_20;\r\n        uStack_d0 \u003d uStack_20;\r\n        FUN_14172d7e0(lStack_a0 + 0x18,\u0026uStack_d0);\r\n        pdVar4 \u003d \u0026dStack_f8;\r\n        puVar5 \u003d auStack_68;\r\n        for (lVar3 \u003d 0x18; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n          *puVar5 \u003d *(undefined1 *)pdVar4;\r\n          pdVar4 \u003d (double *)((longlong)pdVar4 + 1);\r\n          puVar5 \u003d puVar5 + 1;\r\n        }\r\n        FUN_1401b25e0(uStack_d0,auStack_68);\r\n        pdVar4 \u003d \u0026dStack_c0;\r\n        puVar5 \u003d auStack_48;\r\n        for (lVar3 \u003d 0x18; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n          *puVar5 \u003d *(undefined1 *)pdVar4;\r\n          pdVar4 \u003d (double *)((longlong)pdVar4 + 1);\r\n          puVar5 \u003d puVar5 + 1;\r\n        }\r\n        FUN_1401b2570(uStack_d0,auStack_48);\r\n        func_0x0001401b24b0(uStack_d0,auStack_c8);\r\n        func_0x0001401b24d0(uStack_d0,auStack_a8);\r\n        func_0x000140304800(uStack_d0,auStack_d8);\r\n      }\r\n    }\r\n  }\r\n  return uStack_d0;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "1450a4984",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140df8110",
+      "entry": "140df8110",
+      "name": "FUN_140df8110",
+      "completed": true,
+      "error": "",
+      "c": "\r\nlonglong FUN_140df8110(longlong param_1,undefined8 param_2)\r\n\r\n{\r\n  FUN_140df3be0(param_1);\r\n  FUN_14018f9e0(param_1 + 0x3f88);\r\n  FUN_14036c7c0(param_1 + 0x3fa0);\r\n  *(undefined8 *)(param_1 + 0x3f40) \u003d 0;\r\n  *(undefined8 *)(param_1 + 0x3f38) \u003d param_2;\r\n  *(undefined8 *)(param_1 + 0x3f48) \u003d 0;\r\n  *(undefined8 *)(param_1 + 0x3f50) \u003d 0;\r\n  *(undefined4 *)(param_1 + 0x3f58) \u003d 0;\r\n  *(undefined8 *)(param_1 + 0x3f60) \u003d 0;\r\n  *(undefined4 *)(param_1 + 0x3f28) \u003d 0;\r\n  *(undefined4 *)(param_1 + 0x3f68) \u003d 0;\r\n  *(undefined4 *)(param_1 + 0x3f90) \u003d 0;\r\n  *(undefined1 *)(param_1 + 0x3f94) \u003d 1;\r\n  *(undefined8 *)(param_1 + 0x3f98) \u003d 0;\r\n  return param_1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145099608",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

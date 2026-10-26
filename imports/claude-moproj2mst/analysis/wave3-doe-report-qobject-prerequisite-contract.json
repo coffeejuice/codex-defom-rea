@@ -1,0 +1,44 @@
+{
+  "schema": "wave3-doe-report-qobject-prerequisite-contract-v1",
+  "status": "static qualification complete; no newly executable QObject effects are closed",
+  "scope": "Checkpoint46 DOE subsystem only; pending first Report QObject(parent=null); preserve guard before TaskInfo",
+  "base_evidence": {
+    "ownership_contract": {
+      "path": "analysis/wave2-doe-task-public-qobject-ownership-contract.json",
+      "sha256": "81e05b0f2aee8014da834c2a3db46df6eea09a6a01e6744498e4ee3d9afd9a32"
+    },
+    "shared_counter_contract": "analysis/wave3-editor-shared-qobject-counter-contract.json",
+    "native_prefix_receipt": "analysis/wave2-doe-native-task-factory-prefix-implementation.json"
+  },
+  "native_effects_established_but_not_sufficient_to_execute": [
+    "QtCore4_64.dll public QObject(parent=null) entry is 671313d0; its private initializer commits shared empty-container references/backlinks before currentThreadData, then stores the selected QThreadData and increments its refcount, and only then increments process QObject counter 672f4344 at 67131488.",
+    "The private initializer writes the qualified field subset and mask 0x36f/value 0x60; untouched bits are not inferred as zero.",
+    "A missing TLS index and a null TLS value have additional native allocation/adoption paths and are not part of the qualified fast path.",
+    "The existing WidgetRuntimeState owns the process QObject counter delta; WidgetThreadState currently models notify-depth only and has no QThreadData identity, TLS index/value, or QThreadData reference count."
+  ],
+  "closure_assessment": {
+    "shared_empty_container_owner": "not closed: assembly establishes reference increments and shared addresses, but the existing WidgetRuntimeState has no owner/state for these shared Qt refcounts; adding a factory-local count would violate the shared-owner contract.",
+    "thread_tls_fast_path": "not closed: existing WidgetThreadState has no qualified TLS-index/current-QThreadData observation or actual QThreadData owner/refcount seam. notifyDepth is explicitly insufficient.",
+    "stable_pending_allocation": "already retained by TaskAllocationStore::prototypes_ as unique_ptr<PendingTaskPrototype>; the existing pending allocation must remain the same object and must not be replaced by parsed SessionTask projection.",
+    "counter_commit": "not authorized before private and thread-reference stages; existing WidgetRuntimeState::commitQObjectConstruction is counter-only and cannot certify those prior effects.",
+    "taskinfo": "remains guarded; current font and TaskInfo metadata must be sampled at their native call sites after the QObject base completes."
+  },
+  "implementation_decision": "No QObject/private/thread/counter state changes are safe in the DOE subsystem alone. Retain the existing M2M_E_UNSUPPORTED guard at the first Report QObject call. This is a positive safety result, not a completed QObject implementation.",
+  "minimum_evidence_and_integration_needed": [
+    "Root-owned shared WidgetRuntime API for the actual shared empty-container refcount identities and exact observed deltas, with common ownership across constructor frames.",
+    "A source-qualified observation of the existing TLS-nonnull fast path: actual TLS index, selected QThreadData identity, and refcount base or exact symbolic delta, all bound to the same existing WidgetThreadState.",
+    "An in-place per-allocation constructor frame/native identity on the retained PendingTaskPrototype, with once-only resumable stages and owner validation; no replacement allocation.",
+    "Only after those prerequisites: private-state effects, thread ref, then shared QObject counter in native order. Keep guards for unqualified TLS branches, cleanup/destructor paths, and all TaskInfo effects."
+  ],
+  "source_hashes_at_review": {
+    "source/apps/moproj2mst/include/m2m/engine/widget_events.hpp": "ee3dc13813813f316a7389ffd2438d1643708c3d560af383e283e7606c87b2b",
+    "source/apps/moproj2mst/include/m2m/engine/view_manager.hpp": "c218e5cce91b5a42dcf4f918e6ae8d1e91f8c64cf0e28076af5678ced91bb020",
+    "source/apps/moproj2mst/src/engine/view_manager.cpp": "f06dc13a80eccf5966994735546e3cee22e465722f0172173d4bc4195e925637",
+    "source/apps/moproj2mst/src/doe/task_factory.cpp": "1994204fa2599f07dedae5256c3d3e6273e4b124ba163bc516f1e9338cd867c4",
+    "source/apps/moproj2mst/src/doe/task_runtime.cpp": "ded750f5fb1fd47e279d33283842daeb0271a598c11083cc8eff7c1fa2306762"
+  },
+  "changes": [
+    "Added this bounded analysis contract only. No source or test files changed.",
+    "No build, test, original capture, GUI action, or mutable REA database operation was performed."
+  ]
+}

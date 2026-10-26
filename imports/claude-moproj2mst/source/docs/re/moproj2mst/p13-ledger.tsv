@@ -1,0 +1,40 @@
+address	role	file	status	note
+14134dcc0	Cycle +0x280 writer	src/ops/cycle.cpp	ported	members x count; curItem = member (plan 2.1)
+14134d2e0	Cycle init (key)	src/ops/cycle.cpp	ported	
+14134e0b0	Cycle +0x88 name "Cycle"	src/ops/cycle.cpp	ported	
+14134e890	CycleProperties ctor / CycleData (14134e960, 14134ef10)	src/ops/cycle.cpp	ported	makeProps
+14134dc50	Cycle +0x190 dim	src/ops/cycle.cpp	ported	base when no current/member/engine model; with an engine model the model dim 140c7fee0 is a NotPorted stub (no engine model in the converter)
+14134daf0	Cycle +0xe0 model of first member	src/ops/cycle.cpp	ported	via hasEngineModel (P15)
+14134e280	Cycle +0x298	(P14 simcount)	delegated	one-line override under __has_include(simcount.hpp)
+141352540	Group +0x280 (empty)	src/ops/noop.cpp	ported	
+141352560	Group +0x88 name "Cycle"	src/ops/noop.cpp	ported	
+140e32970	DoeOutput +0x280 (empty)	src/ops/noop.cpp	ported	
+140e31830	DoeOutput +0x88 name "DOE Output"	src/ops/noop.cpp	ported	
+140e32990	DoeOutput +0x298 (empty)	(P14 simListNone)	delegated	
+140e329d0	DoeOutput +0x190 dim	src/ops/noop.cpp	ported	calls P03 flowOperations 0x1400b94f0 (local stub src/stubs/p13_p03_pending.cpp)
+140e326f0	DoeOutput current project	src/ops/noop.cpp	ported	
+140e32740	DoeOutput active sub-project	src/ops/noop.cpp	ported	
+1400b82e0	last operation of a sub-project	src/ops/noop.cpp	ported	
+1400b5db0	last operation id	src/ops/noop.cpp	ported	
+1400b9b10	operation ids of 1400b94f0	src/ops/noop.cpp	ported	
+1400b94f0	operations of a sub-project (flow walk)	(P03)	delegated	declared in src/ops/p13.hpp until P03 adds it to model.hpp
+141361f70	Distortion ctor (OB+0x60 2D flag)	src/ops/distortion.cpp	ported	
+141362e90	Distortion +0x280	src/ops/distortion.cpp	ported	spec-only, tier-1 vectors
+141362f60	Distortion pass writer	src/ops/distortion.cpp	ported	spec-only, tier-1 vectors
+141363fc0	Distortion SIMNAM	src/ops/distortion.cpp	ported	
+141362b70	Distortion +0x88 "Machining Distortion"	src/ops/distortion.cpp	ported	
+1413690c0	DistortionPassData ctor	include/m2m/data/distortion.hpp	ported	
+1413666a0	DistortionPassData defaults	include/m2m/data/distortion.hpp	ported	
+141366710	DistortionPassData reset	include/m2m/data/distortion.hpp	ported	
+1413651f0	pass object getter	src/ops/distortion.cpp	ported	
+1401cc6b0	props+0x40 getter	src/ops/distortion.cpp	ported	also simdata::distortionPasses (P14 seam)
+140cbc690	pass count getter	src/ops/distortion.cpp	ported	
+140cbc680	first pass getter	src/ops/distortion.cpp	ported	
+141365c60	DistortionProperties +0xc0 post-load	src/ops/distortion_load.cpp	ported	
+141367fe0	post-load: owner task dir	src/ops/distortion_load.cpp	ported	
+1413680e0	MachDistortion.MDWZ reader	src/ops/distortion_load.cpp	ported	trailing 14005f770 not called (return value only)
+1413667b0	MDWZ file name	src/ops/distortion_load.cpp	ported	
+141163cc0	free-distortion BCC block reader	src/ops/distortion_load.cpp	ported	EOF guard added (original loops forever)
+1411631e0	free-distortion BCC block ctor	include/m2m/data/distortion.hpp	ported	setters write zeros (not decompiled)
+140f8a540	INIT_VEL_BCC setter	src/ops/distortion_load.cpp	ported	
+1400600a0	object item by number	src/ops/distortion.cpp	ported	= objItem(objId(no-1)) (14005fc50)

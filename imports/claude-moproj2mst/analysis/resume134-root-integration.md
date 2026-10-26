@@ -1,0 +1,9 @@
+# CP134 root integration
+
+Four bounded source cuts are integrated: exact-frame geometry retirement inside the initial synchronous borrow, exact two-row SPRING2 `018\r\n` parsing, the FeatureMap sentinel HeapFree return continuation, and the bound private editor300 titleChanged callback. Public editor admission, unsupported DOE branches, incomplete geometry paths, and Project/Close remain guarded.
+
+Source contracts and independent reviews are `analysis/resume134-geometry-frame-retirement.md`, `analysis/resume134-geometry-retirement-source-review.md`, `analysis/resume134-spring-two-row-octal.md`, `analysis/resume134-spring-two-row-review.md`, `analysis/resume134-feature-sentinel-free.md`, `analysis/resume134-editor-title-changed.md`, `analysis/resume134-editor-title-review.md`, and `analysis/resume134-preflight-audit.md`. The sentinel-free independent review is retained separately. All owners released their source before the grouped build.
+
+The final build receipt is `analysis/resume134-final-build.json`, source SHA-256 `e52d0f8a59e46b3c251f71f1088233694e5554165e63cbf8fc420208926da911` over 3,475 source files; configure, focused preflight, and full build passed with stable source. The five focused CTest targets passed. The full four-job regression passed with 319 registered: 312 clean, six with logged gaps, one with a logged difference, zero failed/skipped/incomplete, stable source and binaries, and no fixture changes. Raw launcher output is `build/logs/resume134-final-full.stdout.json`. The historical 93 SAME/five DIFF comparison is unchanged and remains qualified historical evidence; no fresh original run occurred. No GUI-control session was acquired.
+
+The selected successor is CP135: admit the exact two-row `0b12\r\n` SPRING2 continuation and investigate the private Type3 SUB optimizer owner prefix separately. Neither cut implies public Type3/DOE admission.

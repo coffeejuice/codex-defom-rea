@@ -1,0 +1,93 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "670c7740",
+      "entry": "670c7740",
+      "name": "FUN_670c7740",
+      "completed": true,
+      "error": "",
+      "c": "\r\nbool FUN_670c7740(QAbstractFileEngine *param_1,uint *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  longlong lVar2;\r\n  bool bVar3;\r\n  char cVar4;\r\n  undefined8 uVar5;\r\n  QString *pQVar6;\r\n  int iVar7;\r\n  uint uVar8;\r\n  uint local_res18 [2];\r\n  Data *local_res20;\r\n  Data *local_a8;\r\n  undefined4 local_a0;\r\n  undefined4 local_9c;\r\n  Data *local_98;\r\n  char *local_90;\r\n  Data *local_88;\r\n  Data *local_80;\r\n  Data *local_70;\r\n  Data *local_68;\r\n  Data *local_58;\r\n  Data *local_50;\r\n  undefined8 local_40;\r\n  \r\n  local_40 \u003d 0xfffffffffffffffe;\r\n  lVar2 \u003d *(longlong *)(param_1 + 8);\r\n  *param_2 \u003d *param_2 | 3;\r\n  local_res18[0] \u003d *param_2;\r\n  if (param_1[0x10] \u003d\u003d (QAbstractFileEngine)0x0) {\r\n    bVar3 \u003d QFSFileEngine::open((QFSFileEngine *)param_1,local_res18);\r\n    return bVar3;\r\n  }\r\n  FUN_670ef040(lVar2 + 0x20,\u0026local_a8);\r\n  iVar1 \u003d *(int *)(local_a8 + 8);\r\n  uVar8 \u003d 0;\r\n  iVar7 \u003d iVar1;\r\n  if (iVar1 !\u003d 0) {\r\n    do {\r\n      iVar7 \u003d iVar7 + -1;\r\n      if ((iVar7 \u003c iVar1) \u0026\u0026\r\n         (*(short *)(*(longlong *)(local_a8 + 0x10) + (longlong)iVar7 * 2) \u003d\u003d 0x58)) {\r\n        uVar8 \u003d uVar8 + 1;\r\n      }\r\n      else {\r\n        if (5 \u003c uVar8) goto LAB_670c780d;\r\n        if ((iVar7 \u003c iVar1) \u0026\u0026\r\n           (*(short *)(*(longlong *)(local_a8 + 0x10) + (longlong)iVar7 * 2) \u003d\u003d 0x2f)) break;\r\n        uVar8 \u003d 0;\r\n      }\r\n    } while (iVar7 !\u003d 0);\r\n    if (5 \u003c uVar8) goto LAB_670c780d;\r\n  }\r\n  local_90 \u003d \".XXXXXX\";\r\n  QString::append((QString *)\u0026local_a8,(QLatin1String *)\u0026local_90);\r\nLAB_670c780d:\r\n  uVar5 \u003d FUN_670eed50(\u0026local_70,\u0026local_a8,0);\r\n  uVar5 \u003d FUN_67101990(\u0026local_88,uVar5);\r\n  FUN_670efb20(uVar5,\u0026local_res20);\r\n  LOCK();\r\n  *(int *)local_80 \u003d *(int *)local_80 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_80 \u003d\u003d 0) {\r\n    QString::free(local_80);\r\n  }\r\n  LOCK();\r\n  *(int *)local_88 \u003d *(int *)local_88 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_88 \u003d\u003d 0) {\r\n    QString::free(local_88);\r\n  }\r\n  LOCK();\r\n  *(int *)local_68 \u003d *(int *)local_68 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_68 \u003d\u003d 0) {\r\n    QString::free(local_68);\r\n  }\r\n  LOCK();\r\n  *(int *)local_70 \u003d *(int *)local_70 + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_70 \u003d\u003d 0) {\r\n    QString::free(local_70);\r\n  }\r\n  uVar8 \u003d 0;\r\n  iVar1 \u003d *(int *)(local_res20 + 8);\r\n  while (iVar1 !\u003d 0) {\r\n    iVar7 \u003d iVar1 + -1;\r\n    if ((iVar7 \u003c *(int *)(local_res20 + 8)) \u0026\u0026\r\n       (*(short *)(*(longlong *)(local_res20 + 0x10) + (longlong)iVar7 * 2) \u003d\u003d 0x58)) {\r\n      uVar8 \u003d uVar8 + 1;\r\n      iVar1 \u003d iVar7;\r\n    }\r\n    else {\r\n      if (5 \u003c uVar8) break;\r\n      uVar8 \u003d 0;\r\n      iVar1 \u003d iVar7;\r\n    }\r\n  }\r\n  local_a0 \u003d 0;\r\n  local_9c \u003d 0;\r\n  cVar4 \u003d FUN_670c73d0(lVar2 + 0x78,\u0026local_res20,iVar1,uVar8,\u0026local_a0);\r\n  if (cVar4 \u003d\u003d \u0027\\0\u0027) {\r\n    pQVar6 \u003d (QString *)QSystemError::toString((QSystemError *)\u0026local_a0);\r\n    QAbstractFileEngine::setError(param_1,5,pQVar6);\r\n    LOCK();\r\n    *(int *)local_98 \u003d *(int *)local_98 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_98 \u003d\u003d 0) {\r\n      QString::free(local_98);\r\n    }\r\n    LOCK();\r\n    *(int *)local_res20 \u003d *(int *)local_res20 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_res20 \u003d\u003d 0) {\r\n      QString::free(local_res20);\r\n    }\r\n    LOCK();\r\n    *(int *)local_a8 \u003d *(int *)local_a8 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_a8 \u003d\u003d 0) {\r\n      QString::free(local_a8);\r\n    }\r\n    bVar3 \u003d false;\r\n  }\r\n  else {\r\n    pQVar6 \u003d (QString *)FUN_670eed90(\u0026local_58,\u0026local_res20,0);\r\n    QString::operator\u003d((QString *)(lVar2 + 0x20),pQVar6);\r\n    QString::operator\u003d((QString *)(lVar2 + 0x28),pQVar6 + 8);\r\n    *(undefined2 *)(lVar2 + 0x30) \u003d *(undefined2 *)(pQVar6 + 0x10);\r\n    *(undefined2 *)(lVar2 + 0x32) \u003d *(undefined2 *)(pQVar6 + 0x12);\r\n    *(undefined2 *)(lVar2 + 0x34) \u003d *(undefined2 *)(pQVar6 + 0x14);\r\n    LOCK();\r\n    *(int *)local_50 \u003d *(int *)local_50 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_50 \u003d\u003d 0) {\r\n      QString::free(local_50);\r\n    }\r\n    LOCK();\r\n    *(int *)local_58 \u003d *(int *)local_58 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_58 \u003d\u003d 0) {\r\n      QString::free(local_58);\r\n    }\r\n    param_1[0x10] \u003d (QAbstractFileEngine)0x0;\r\n    *(uint *)(lVar2 + 0x38) \u003d *param_2;\r\n    *(undefined1 *)(lVar2 + 0xa0) \u003d 0;\r\n    *(uint *)(lVar2 + 0xa4) \u003d *(uint *)(lVar2 + 0xa4) \u0026 0xfffffff7;\r\n    LOCK();\r\n    *(int *)local_res20 \u003d *(int *)local_res20 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_res20 \u003d\u003d 0) {\r\n      QString::free(local_res20);\r\n    }\r\n    LOCK();\r\n    *(int *)local_a8 \u003d *(int *)local_a8 + -1;\r\n    UNLOCK();\r\n    if (*(int *)local_a8 \u003d\u003d 0) {\r\n      QString::free(local_a8);\r\n    }\r\n    bVar3 \u003d true;\r\n  }\r\n  return bVar3;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "673015e8",
+          "type": "DATA"
+        },
+        {
+          "from": "67280194",
+          "type": "DATA"
+        },
+        {
+          "from": "6722c980",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "670703d0",
+        "67070500",
+        "670a7a40",
+        "670c73d0",
+        "670ea5c0",
+        "670eed50",
+        "670eed90",
+        "670ef040",
+        "670efb20",
+        "67101990",
+        "67141320"
+      ]
+    },
+    {
+      "requested_address": "670c71e0",
+      "entry": "670c71e0",
+      "name": "FUN_670c71e0",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n\r\nundefined8\r\nFUN_670c71e0(QAbstractFileEngine *param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)\r\n\r\n{\r\n  Data *local_res8 [4];\r\n  \r\n  (**(code **)(*(longlong *)param_1 + 0x30))(param_1,0,param_3,param_4,0xfffffffffffffffe);\r\n  local_res8[0] \u003d \u0026QString::shared_null;\r\n  LOCK();\r\n  _shared_null \u003d _shared_null + 1;\r\n  UNLOCK();\r\n  QAbstractFileEngine::setError(param_1,8,(QString *)local_res8);\r\n  LOCK();\r\n  *(int *)local_res8[0] \u003d *(int *)local_res8[0] + -1;\r\n  UNLOCK();\r\n  if (*(int *)local_res8[0] \u003d\u003d 0) {\r\n    QString::free(local_res8[0]);\r\n  }\r\n  return 1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "67301594",
+          "type": "DATA"
+        },
+        {
+          "from": "6727ffec",
+          "type": "DATA"
+        },
+        {
+          "from": "6722c988",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670700d0",
+        "670a7a40"
+      ]
+    },
+    {
+      "requested_address": "670c7a70",
+      "entry": "670c7a70",
+      "name": "FUN_670c7a70",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined1 FUN_670c7a70(QFSFileEngine *param_1)\r\n\r\n{\r\n  longlong lVar1;\r\n  bool bVar2;\r\n  \r\n  lVar1 \u003d *(longlong *)(param_1 + 8);\r\n  QFSFileEngine::close(param_1);\r\n  bVar2 \u003d QFSFileEngine::remove(param_1);\r\n  if (bVar2) {\r\n    FUN_670c7340(lVar1 + 0x20);\r\n    return 1;\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "673015f4",
+          "type": "DATA"
+        },
+        {
+          "from": "6722c9b8",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": [
+        "670c7340",
+        "670ea7d0",
+        "670f9000"
+      ]
+    }
+  ]
+}

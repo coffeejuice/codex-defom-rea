@@ -1,0 +1,19 @@
+# CP85: legacy integer ladder after one-value parser routing
+
+## Reachability finding
+
+In `source/apps/moproj2mst/src/engine/simcontrol300_native_io.cpp`, the exact-profile branches in `readDecimalInt` are unreachable at every current call site. The only call is in `NativeExtra3DIo::readInts`, where the fallback call supplies `false`. A one-element `SW2SP.DAT` span is intercepted earlier by `parseQt4Base0Int`; all other paths and all multi-element spans reach `readDecimalInt(..., false)`. Consequently, every branch conditioned on `allowSw2spOneIntProfile` is dead under current source routing, including the accumulated exact cases for binary, uppercase hex, octal, overflow, and comma delimiters.
+
+The helper does not alter behavior for other filenames or counts: the new route requires both `values.size() == 1` and exact `path.u16() == u"SW2SP.DAT"`. `SPRING.INI` has a one-element count span but fails that filename comparison and retains the existing strict integer route. Multi-element `SW2SP.DAT` spans also retain the old route. The generic `readDecimalInt` branches not conditioned on the flag remain reachable for those callers, including its lowercase `0x` handling and its existing signed/uppercase-prefix fallback. They should not be removed as part of the dead SW2SP cleanup.
+
+Static call-site review found no other call to `readDecimalInt`. The in-scope production caller in `simcontrol300_io.cpp` creates `std::array<int, 1> integer{}` and passes it for `SW2SP.DAT`; this agrees with the original Extra3D Open call qualification in `analysis/resume71-sw2sp-multivalue-boundary.md`, which records the native reader's count as one. That same report says the generic native reader's loop does not establish an original multi-value SW2SP path. Thus a multi-read parser expansion is not the next fidelity step for the reachable Open path.
+
+## Recommended cleanup
+
+After root accepts CP84's build and release-active tests, the smallest safe cleanup is to remove the `allowSw2spOneIntProfile` parameter and its now-dead conditional special cases from `readDecimalInt`, leaving its ordinary non-SW2SP behavior byte-for-byte equivalent. Keep `parseQt4Base0Int` routing in `readInts` as the sole one-value SW2SP implementation. Keep the filename/count gates, ASCII input gate, file-open decision, and `SPRING.INI` code unchanged. Before deleting dead code, use existing non-SW2SP tests for lowercase hex, signed/uppercase-prefix fallback, strict decimal, and unsupported radix cases as a behavioral comparison; do not “simplify” the generic branches while making the cleanup.
+
+Do not use multi-value SW2SP tests to claim original equivalence. If a future recovered caller requests multiple integers from this stream, the next meaningful task is a separate stateful QTextStream model: preserve sticky status (the int operator checks preexisting stream status), device `atEnd`, per-extraction cursor, and character-level `ungetChar` behavior. In particular, PE review shows binary zero-digit failure restores the saved `b` and `0`, while hex zero-digit failure consumes `0x` and only ungets the next character. A byte offset alone may not represent Qt's normalized QChar pushed back into the buffer. Current one-value tests intentionally model a fresh stream and do not prove subsequent extraction semantics.
+
+## Evidence boundary
+
+The 20-row one-value oracle and PE mapping evidence are in `analysis/resume83-sw2sp-parser-independent-review.md`; the corrected algorithm, one-value route, and scope limits are in `analysis/resume84-sw2sp-parser-plan.md`. `analysis/resume71-sw2sp-multivalue-boundary.md` qualifies the reachable original call count and separates it from the generic native loop. No new PE capture or original-process execution was needed for this static reachability audit. No source, test, build, GUI, or REA state was changed in CP85.

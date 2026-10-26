@@ -1,0 +1,141 @@
+{
+  "status": "isolated_meshing_helpers_implemented_public_save_still_refused",
+  "original_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "source_qualification": "Retained original decompiles plus bounded direct PE disassembly. Original bytes remain the oracle; no target executable/DLL was executed. No source-level broad mesh-copy analogy is used.",
+  "correction": "Original GUI14085e050 is a115-byte leaf copying exactly four doubles at+b8,+c0,+d0,+c8. It is NOT the port's broad meshgen_copy140189b70, and does not copy shapes, dimensions or owning arrays.",
+  "fill": {
+    "entry": "140ec0a40",
+    "eligible": "140ed97c0: object+87c!=0 OR object kind(+c)==5",
+    "order": "Display label format '%d - %s'; helper1400fcc50 imports QtPrivate::QStringList_sort. For positive unique object numbers, decimal prefix order determines label order, e.g.10 before2.",
+    "snapshot": "Four scalars per eligible object, retained number, and selected form0's text/radios/spin. Each constructor fill sets previous selection=-1 before rebuilding, so no stale widget values are first applied.",
+    "first_form": "Interference displays abs(value) as g6, negative radio only when value<0; size ratio and tolerance display g6; node count uses original CVTTSD2SI then QSpinBox clamp0..1000000000.",
+    "unvisited": "No text or spin conversion occurs for the other temporary entries. Their scalar bits are retained. Other native mesh fields are untouched by this editor copy."
+  },
+  "apply": {
+    "entry": "140ec1350 ->140eceb60(current0)",
+    "first_form": "Interference becomes abs(parsed text), negated for negative radio; size ratio parses directly; tolerance becomes abs(parsed text); node count becomes the remembered spin value as double.",
+    "copyback": "Each remembered number is looked up in current model; if present, only+b8,+c0,+d0,+c8 are copied. A missing object is skipped like the original.",
+    "global": "Enabled flag is written. If disabled, all other remesh state remains current. If enabled, method is radio1/3; scaling parses then clamps1..10 with original comparison order; state+4 becomes inverse checkbox. Other global fields are untouched."
+  },
+  "guards": [
+    "model dimension3",
+    "positive unique eligible object numbers",
+    "finite first selected form's four scalar values",
+    "finite enabled remesh scaling factor",
+    "no inference of license/ambient settings or project-file state"
+  ],
+  "remesh_state": {
+    "singleton": "getter1402c7ed0 returns143d91238",
+    "static_init": "141cd9ba0 calls ctor1402cc4e0 on singleton",
+    "fields": {
+      "+0": "method int default1; getter1413ee240/setter14092db70",
+      "+4": "good internal element changeable bool defaulttrue; getter140e7b830/setter140e7b850",
+      "+8": "filter distance double default0",
+      "+10": "uniform internal edge length double default0",
+      "+18": "improve contact elements bool defaultfalse",
+      "+20": "scaling factor double default1.2; getter140b7bfc0/setter140dbba90",
+      "+28": "good surface element changeable bool defaulttrue",
+      "+29": "enabled bool defaultfalse; getter1400abcb0/setter1400ab150"
+    },
+    "initial_ui": "setupUi selects remesh method radio1 and enabled radio; fill then selects disabled/enabled from explicit state. Stored method other than1/3 leaves the initial method1 radio. Disabled scaling text is constant1.2.",
+    "project_open": "Retained Open14008a9b0 calls reader1400ab170 after setting project current directory, then assigns enabled from returned AL. Reader checks LOCAL_REMESH.DAT for KEYWORD_DRIVEN, otherwise falls back LOC_DEN_CTRL.DAT. If both files are absent it returnsfalse before writing state. Full reader disassembly confirms bool result omitted by Ghidra's void declaration.",
+    "project_save": "Retained1400980d0 removes LOCAL_REMESH.DAT when disabled, otherwise writer1400abcc0 emits it. File I/O binding is not implemented by these isolated editor helpers.",
+    "first_complete_profile_candidate": "Fresh per-call constructor state plus BOTH remesh files absent gives a source-proven disabled branch. Nonempty file parsing/writing remains a separate successor, not silently ignored."
+  },
+  "tests": {
+    "snapshot_cases_total": 21,
+    "new_cases": 5,
+    "coverage": [
+      "remembered model values and lexicographic10-before2 selection",
+      "only first entry rounds; unvisited scalar precision and NaN payload survive",
+      "unrelated native mesh bytes remain unchanged",
+      "mesh flag OR kind5 eligibility",
+      "CVTT conversion before node spin clamp, including aboveINT_MAX",
+      "negative zero selects nonnegative radio",
+      "explicit remesh defaults, remembered controls, conditional field writes and1..10 clamp"
+    ],
+    "execution": "worker did not build or execute; root owns combined validation",
+    "prior_validation": "Root reported104 tests passed before this increment; analysis/wave3-lazy-sim300-validation.json"
+  },
+  "limitations": [
+    "Public editor300 Save still refuses; no RS55 or fresh original acceptance claim",
+    "Project remesh reader/writer lifecycle binding remains unimplemented",
+    "Environment/advanced/extra3D/recovery composition and external capability binding remain before public integration",
+    "The first bytes of exploratory remesh-reader-tail.asm were captured from an unaligned address and are not interpreted. The complete instruction-aligned remesh-reader.asm is authoritative.",
+    "Token usage unavailable; no token efficiency claim"
+  ],
+  "sources": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/simcontrol300.hpp",
+      "bytes": 9244,
+      "sha256": "214b7bd0ee1c511dcb6e4c4ca8477acd865293ec3eebbf73ff14b3e99f5bbd16"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300.cpp",
+      "bytes": 22014,
+      "sha256": "4f46eeabb3f3236d14d6880bf8a2279c639b7d54c3abd2551ab34fc1dfa989f9"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+      "bytes": 23589,
+      "sha256": "cc197c0ed68ac7f079c2c272ee7494949a4346657be856dc1e96d5eae7200805"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-fill-140ec0a40.c",
+      "bytes": 7675,
+      "sha256": "241216a6b6bb51d6f8e04f62a635c4d3daa1378271392a12109950dcc6be1f84"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-apply-140ec1350.c",
+      "bytes": 4223,
+      "sha256": "d3b041dfb0f7a1d43fbbc43d9e70d26fe88b97443bfb3ef89418cffa42cea20d"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eceb60.c",
+      "bytes": 7394,
+      "sha256": "8ef0bddd07f59fa2ffb008c3fc7276d8249700a787afa943c6f4041671f10894"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ed97c0.c",
+      "bytes": 300,
+      "sha256": "d10528c652e202903dfb782b7f266b4525c42bfe2bec5be183757340bb3033fc"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-mesh-copy-entry.asm",
+      "bytes": 6957,
+      "sha256": "a0ec3a0e808d58e59868b227c6cb78e82cd7517eff7308a193b41a998f5124a8"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-mesh-list-imports.json",
+      "bytes": 749,
+      "sha256": "5edc05a1a17e130dbd9c7d39d40be274858c0f5ade3a5c83706f0d17a86cbba4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-ctor.asm",
+      "bytes": 2399,
+      "sha256": "92988ee35ed3a647a195e81a5efe63aeeb220d03a0beb6e0d50f6a1d590b5c8a"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-static-init.asm",
+      "bytes": 588,
+      "sha256": "07c2c16247a088fc1cd665e9ce2a6c015b208c2b5a6814059a0d5470ccbf5ba7"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-constants.json",
+      "bytes": 405,
+      "sha256": "9508e30a74fc1436d996371abfacac26bce23181a3b08b0a2efcbc62dfc67ff3"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-ctors-remesh-decompile.json",
+      "bytes": 12172,
+      "sha256": "15b8b9ac44eb88eee28322d1fd5adac7dbfd56cf3ada4bd6b278f89df0867c45"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-reader.asm",
+      "bytes": 13531,
+      "sha256": "f88cf1a7e439056f28477e7408090511915d2b6a3beb40e6e5d60f6949b928af"
+    }
+  ]
+}

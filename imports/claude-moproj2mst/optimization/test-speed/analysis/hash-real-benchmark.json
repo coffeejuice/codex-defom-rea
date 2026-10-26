@@ -1,0 +1,175 @@
+{
+  "started_utc": "2026-10-24T16:24:44.529869+00:00",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "inventory": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1792854086489696400\\inventory.json",
+  "roots": [
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\gui_mo\\DEF_GUI_MO_64.exe",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\gui_mo\\oracle_b",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\gui_mo\\s1\\corpus",
+    "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\test-rea\\COG_P1_B1"
+  ],
+  "cache_policy": "No OS cache clearing. First pass cache state uncontrolled; subsequent passes reuse the same corpus. No concurrent root CTest or other assigned heavy fixture I/O.",
+  "source_sha256": {
+    "admin\\run_converter_tests.py": "5c0bf4c356a02a8e1e443e68414e9ef46755fc727ee847e8f1e3126062017750",
+    "admin\\fixture_hash_fast.py": "2d85151bcf8449537b5ba7539d28505b5b7a2e1f07be2be3998c7304ca67b87f"
+  },
+  "samples": [
+    {
+      "repeat": 1,
+      "engine": "serial",
+      "workers": 1,
+      "seconds": 20.45867,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 1,
+      "engine": "threaded",
+      "workers": 1,
+      "seconds": 15.426449,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 1,
+      "engine": "threaded",
+      "workers": 2,
+      "seconds": 10.872229,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 1,
+      "engine": "threaded",
+      "workers": 4,
+      "seconds": 10.505029,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 1,
+      "engine": "threaded",
+      "workers": 8,
+      "seconds": 10.70639,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 1,
+      "engine": "threaded",
+      "workers": 10,
+      "seconds": 11.397874,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 2,
+      "engine": "threaded",
+      "workers": 10,
+      "seconds": 11.426115,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 2,
+      "engine": "threaded",
+      "workers": 8,
+      "seconds": 10.772826,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 2,
+      "engine": "threaded",
+      "workers": 4,
+      "seconds": 11.271533,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 2,
+      "engine": "threaded",
+      "workers": 2,
+      "seconds": 10.789322,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 2,
+      "engine": "threaded",
+      "workers": 1,
+      "seconds": 14.944802,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    },
+    {
+      "repeat": 2,
+      "engine": "serial",
+      "workers": 1,
+      "seconds": 14.587203,
+      "mapping_and_order_equal": true,
+      "entries": 16728
+    }
+  ],
+  "unique_files": 16728,
+  "unique_bytes": 1867669827,
+  "snapshot_ordered_sha256": "7298eaa8e734a682c11dd6e09b97996421e8b4474246be380bbf3b3eb22cda69",
+  "completed_utc": "2026-10-24T16:27:17.956756+00:00",
+  "summary": [
+    {
+      "engine": "serial",
+      "median_seconds": 17.5229365,
+      "min_seconds": 14.587203,
+      "max_seconds": 20.45867
+    },
+    {
+      "engine": 1,
+      "median_seconds": 15.1856255,
+      "min_seconds": 14.944802,
+      "max_seconds": 15.426449
+    },
+    {
+      "engine": 2,
+      "median_seconds": 10.830775500000001,
+      "min_seconds": 10.789322,
+      "max_seconds": 10.872229
+    },
+    {
+      "engine": 4,
+      "median_seconds": 10.888281,
+      "min_seconds": 10.505029,
+      "max_seconds": 11.271533
+    },
+    {
+      "engine": 8,
+      "median_seconds": 10.739608,
+      "min_seconds": 10.70639,
+      "max_seconds": 10.772826
+    },
+    {
+      "engine": 10,
+      "median_seconds": 11.411994499999999,
+      "min_seconds": 11.397874,
+      "max_seconds": 11.426115
+    }
+  ],
+  "recommendation": {
+    "workers": 2,
+    "status": "worthwhile opt-in; retain serial default until full launcher equivalence and timings pass",
+    "warm_serial_seconds": 14.587203,
+    "two_worker_median_seconds": 10.830775500000001,
+    "warm_serial_speedup": 1.3468290428510865,
+    "warm_serial_reduction_percent": 25.75152686913317,
+    "estimated_two_snapshot_saving_seconds": 7.512854999999998,
+    "estimate_qualification": "Arithmetic estimate from isolated snapshots, not a measured full-launcher reduction. Two repetitions do not establish a statistically reliable winner among 2/4/8 workers."
+  },
+  "limitations": [
+    "No cold-cache condition was established; first serial 20.459 s is not a cold-cache claim.",
+    "Later serial 14.587 s shows cache/order sensitivity; serial pooled median overstates likely warm benefit.",
+    "No persistent hash cache was used; every fixture occurrence was read each pass.",
+    "Benchmark did not run CTest, launch originals, alter fixture files, or clear OS caches.",
+    "No full-launcher speedup or token savings measured.",
+    "Runner source was concurrently integrated after import; source_sha256 identifies the originally loaded benchmark source. The callable serial snapshot was preserved by its owner."
+  ]
+}

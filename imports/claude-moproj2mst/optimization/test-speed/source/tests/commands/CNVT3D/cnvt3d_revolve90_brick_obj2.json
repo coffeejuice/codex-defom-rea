@@ -1,0 +1,26 @@
+{
+  "label": "CNVT3D revolve 90 brick obj2",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nMGNELM 2 1000 0 1\nGEO23 2 1\n90.0 0.0 0.0\nGEOSEC 2 10\nMSHSEC 2 11\nACTOUT 0\nCONV3D.KEY\nCNVT3D 1\n2\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "CONV3D.KEY",
+      "OUT.KEY",
+      "NBCD.OUT",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "MGNELM 2D 3rd int = 1 -> brick sweep (kind 4); MGNELM 1st int 1000 != element count -> 2D remesh (DEF_AMG) + DEF_INT first. Angle < 360 -> NBCD.OUT written by FUN_140148f70 with 601/602 symmetry codes and read back (left on disk). MGNELM field order is inferred from dbmap/object.md."
+  }
+}

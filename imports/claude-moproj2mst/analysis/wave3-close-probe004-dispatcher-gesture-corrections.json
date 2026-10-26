@@ -1,0 +1,54 @@
+{
+  "scope": "Probe004 dispatcher and gesture refcount corrections; no amendment to frozen script or Evidence",
+  "evidence": [
+    {
+      "path": "analysis/wave3-original-splitter-probe-004-receipt.json",
+      "sha256": "edadc1a656191b75f9cbc4666ee5439c973f6b3bdbf6b6a46cf5002102e1faed"
+    },
+    {
+      "path": "build/original-splitter-probe-004/probe.js",
+      "sha256": "582b6291dc9abc631048732631bac058f8697d69049bb28a2a4c496e73f394b1"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-dispatcher-win32-wake-thunk-static.json",
+      "sha256": "2b477fceda4751f267f23fdf83d1bfb2f77d30e2db41827e701724d32c70be34"
+    },
+    {
+      "path": "analysis/wave3-closure-next-67141b70.asm",
+      "sha256": "6949b93ac56f20790204f57351050845a6a76c7f9e4ed10866481ff61deaeddb"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6507e340.asm",
+      "sha256": "609d339fedfa48e99a2c0111a3526d623ebaa41f8015168ea4302dc9381689a4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-6500e040.asm",
+      "sha256": "f5f66b112305a2652f1d8dfb02bc5169dc55fce76c93d357bb1d132e6b391829"
+    }
+  ],
+  "dispatcher": {
+    "actual_vtable": "QtGui4_64.dll+0x6adb68",
+    "slot": "0x98",
+    "slot_target": "0x655e0ca0",
+    "thunk": "655e0ca0 FF 25 72 69 0B 00; jmp qword [65697618]",
+    "import": "QEventDispatcherWin32::wakeUp",
+    "core_export": "0x67141b70",
+    "this_adjustment": false,
+    "native_effects": [
+      "private=*(this+8); atomic32 increment private+a8",
+      "if private+98 HWND nonnull, compareExchange private+b4 0->1",
+      "successful CAS calls PostMessageW(HWND,0x401,0,0); return ignored"
+    ],
+    "probe_defect": "Dispatcher type recognizer admitted direct Core target only and rejected this exact GUI import thunk. No Win32-specific fields were read; equal state11 says only opaque identity fields unchanged.",
+    "future_read": "Admit exact GUI+5e0ca0 with verified loaded import target Core+141b70 (or direct Core target), then read same private HWND+98/serial+a8/postedWake+b4."
+  },
+  "gesture_map": {
+    "refcount_offset": "0x68",
+    "size_offset": "0x70",
+    "first_node_offset": "0x8",
+    "probe_defect": "004 gestureMap refs=data.readS32 incorrectly read sentinel low pointer bits, not refcount. Counts/entries remain valid.",
+    "future_read": "data.add(0x68).readS32()",
+    "qualification": "003 did not read refs. Its separate same-identity allocate-before-release/no-restoration inference remains separate. 004 direct refs must never seed exclusivity. Exact unchanged before/after map identity can be combined with closed callback source to infer absence of detach, never called a directly observed refcount."
+  },
+  "rework": "Two script recognizer/offset defects retained; do not repeat broad004 capture. Root may consume corrected fields in already planned bounded editor capture."
+}

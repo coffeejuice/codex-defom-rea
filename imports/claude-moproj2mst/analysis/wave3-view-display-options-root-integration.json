@@ -1,0 +1,19 @@
+{
+  "status": "source frozen; candidate35 pending",
+  "scope": "SfDispOpt reset/import/cache on actual existing View Settings",
+  "evidence": [
+    "analysis/wave2-doe-view-display-options-successor.json",
+    "analysis/wave2-doe-view-display-options-implementation.json",
+    "analysis/wave3-original-grid-tail-probe-receipt.json"
+  ],
+  "source": {
+    "source/apps/moproj2mst/include/m2m/engine_scene.hpp": "ead1fc3e053ec038f3e3e6f7a6a0047580309eacd488ba16155061ff2ead9c0e",
+    "source/apps/moproj2mst/src/engine/viewer.cpp": "3ac181d60e4bf71f5fb0c3f3ce14c87cd349d4768f23466f58e5588878faf43a",
+    "source/apps/moproj2mst/tests/mdt/test_viewer_display_options.cpp": "001d56fca6bc8fe4eb84760ccd3f9f6cba8700fd2e7213796529f02db234e562"
+  },
+  "tests": "5 actual-owner integration cases: null settings, retained effects before Slice, repeated reset, object-number Settings selection, unbound object guard",
+  "qualifications": [
+    "FreshCrtDefaults1/1 observed at startup; arbitrary persisted/current preference mutations remain open",
+    "No Slice/finalization/snapshot guard removal; diagnostic snapshot does not own Settings"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "scope": "Accepted Close notify=true ChangePtrkGraph receiver; exact supported off-state leaf, guarded enabled-state continuation",
+  "method": "Original PE plus bounded offline DUMPBIN; no target execution or source edits",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-dispatch-static.json",
+      "sha256": "f241f2eab4e0ab80f20fa6c0154ca418b02d9d2494a10edd7b50dd17ff213108"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-guards-static.json",
+      "sha256": "efb947459bc7ca2ea479fd2b3b3f553b08c2259f343feb5239f1254bc4275bf9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-lazy-guard-static.json",
+      "sha256": "0205e9e6eb6c570b1ed194317a39b4b948959a827c5c38e8fa51af243ff92ee8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-metacalls-static.json",
+      "sha256": "ab9adabb0752c7f76635828746864b9347bbcefac6a8721b11e7814dfe4bdb40"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-model-and-allocation-static.json",
+      "sha256": "5598f96822de7b509364bff5db806df7e63edea2b94bf18b40dc52396538c7a9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-owner-static.json",
+      "sha256": "4fabdf80d59a06378d0185fa499ef6601536a8d32cee528e22c5a13a3c0be5fe"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-registration-static.json",
+      "sha256": "762de21347538fb5c27c7bfb130faaa238db68d45d75043952f5aba2af68db86"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-slot-static.json",
+      "sha256": "16b823bdba5c6832eb447a0b0f7e3d52fecfb931129c8cbe3a697c03e7c3c4b7"
+    }
+  ],
+  "binding": [
+    "Verified constructor309cc0 registers global143d76700 signalChangePtrkGraph at309eff, slotChangePtrkGraph literal14230c3e0, receiver this.",
+    "Constructor installs vtable14230db98. Class string14235cdd0 is SfPtrkManager; metadata table14235cc60 has15 methods, local1 is slotChangePtrkGraph. 3d54e0->3d5200 jump-table3d53d8 entry1 is3d527d ->322420.",
+    "Lazy getter cdd980 allocates0x4e0 receiver under owner+0x1978, parent=owner. Registration depends on construction; no fresh absence proof. Constructor nonnull-parent branch initializes graphOn byte+0x4d0=false before registering."
+  ],
+  "slot_order": [
+    "3215c0 is pure byte load manager+0x4d0. False returns immediately with no calls or mutation after that getter. This is an implementable state-qualified receiver leaf.",
+    "True calls321660, which calls31fab0. 31fab0 checks manager+0x4c8, can allocate0xf8 graph object via3d55c0, stores it, and when current model exists obtains its lazy+0x250 list via c91070 and passes graph to d64780. This prefix occurs even if the later variable check returns0.",
+    "321660 returns false if graph pointer null, otherwise reads graph byte+0xf1 via pure getter3d7500. False returns from slot.",
+    "Then30a2b0 gets global mainwindow via30a290 and calls virtual+0x268. Actual SfMoMainWindow vtable1420fb108 binds+268 to01d770: get scene via+778, then scene+0x10 display, d0d610 reads main+1a0 with nonnull display+1e0 override. This differs from cfac50 shown-model selector.",
+    "Null model returns. Nonnull model goes through lazy StateVar getter c905b0 then pure getter066760 reads actual state+0x4c plotVar. If zero, slot returns before30ad90 and further graph work.",
+    "Only remaining nonzero branch runs30ad90,322170,321b10(...,0),3216a0. It remains unsupported in this increment."
+  ],
+  "integration_requirements": [
+    "Typed receiver must be bound to actual owned SfPtrkManager-equivalent state, not a default success callback.",
+    "Known graphOn=false supports exact return, even though receiver exists. Unavailable receiver/flag state must guard.",
+    "Do not treat plotVar0 as a replacement for earlier graphOn/graph-availability checks: enabled path has allocation/list-registration effects first.",
+    "Do not substitute Operation.engineModel or current diagram model for the receiver model:01d770 uses display main and+1e0 override. Current DisplayModels lacks+1e0; enabled-path binding requires explicit extension or guard.",
+    "Constructor-false does not prove the flag stays false through Open/Save. Alternative signals/mutations remain to bind.",
+    "Retained registration inventory identifies this binding; dynamic receiver population/order still belongs to notifier state."
+  ],
+  "next": "Implement minimal typed graphOff receiver under explicitly bound runtime state after root assignment; keep enabled graph path guarded until graph object/list effects and display override are represented."
+}

@@ -1,0 +1,67 @@
+{
+  "reviewed_at_utc": "2026-10-24T07:53:16.206284+00:00",
+  "reason": "Three frozen checkpoints30,31,32; safe boundary after candidate32 freeze",
+  "previous_tests": 133,
+  "latest_tests": 135,
+  "build_attempts": [
+    {
+      "label": "wave3-public-factory-close-v1",
+      "seconds": 16.094,
+      "exit_codes": [
+        0,
+        0
+      ],
+      "source_stable": true
+    },
+    {
+      "label": "wave3-shared-view-setup-v1",
+      "seconds": 10.265,
+      "exit_codes": [
+        0,
+        2
+      ],
+      "source_stable": true
+    },
+    {
+      "label": "wave3-shared-view-setup-v2",
+      "seconds": 4.359,
+      "exit_codes": [
+        0,
+        4294967295
+      ],
+      "source_stable": true
+    },
+    {
+      "label": "wave3-shared-view-setup-v3",
+      "seconds": 8.484,
+      "exit_codes": [
+        0,
+        0
+      ],
+      "source_stable": true
+    },
+    {
+      "label": "wave3-early-scene-range-v1",
+      "seconds": 45.781,
+      "exit_codes": [
+        0,
+        0
+      ],
+      "source_stable": true
+    }
+  ],
+  "configure_build_seconds": 84.983,
+  "wall_seconds_since_review": 3422.812,
+  "wall_time_qualification": "Elapsed clock time, not active-work measurement or measured speedup",
+  "latest_ctest_seconds": 18.5,
+  "token_usage": null,
+  "token_measurement": "Unavailable; no token savings claim",
+  "lessons": [
+    "Root incorrectly used std::string empty on qt::String test; check actual local type API before assertions.",
+    "Worker initial editor test omitted main; all subsequent worker freezes now check exactly one entry point.",
+    "Shared engine.hpp comment correction triggered broad rebuild; group shared-header changes deliberately and record build cost.",
+    "Reused startup captures across editor and Close workers, and source-proven current-null versus live operation callbacks; no duplicate original runtime sessions.",
+    "Keep partial ownership, isolated helpers and public lifecycle completion distinct;135passing programs is not a fidelity denominator."
+  ],
+  "next_review": "After checkpoint35 or one hour at the next safe boundary"
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "resume119-feature-proxy-allocator-inputs-v1",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "imports": [
+    {
+      "iat": "0x141e032f8",
+      "dll": "KERNEL32.dll",
+      "name": "HeapFree"
+    },
+    {
+      "iat": "0x141e03380",
+      "dll": "KERNEL32.dll",
+      "name": "HeapAlloc"
+    },
+    {
+      "iat": "0x141e03428",
+      "dll": "KERNEL32.dll",
+      "name": "DecodePointer"
+    },
+    {
+      "iat": "0x141e03488",
+      "dll": "KERNEL32.dll",
+      "name": "HeapSetInformation"
+    },
+    {
+      "iat": "0x141e03490",
+      "dll": "KERNEL32.dll",
+      "name": "HeapCreate"
+    },
+    {
+      "iat": "0x141e03498",
+      "dll": "KERNEL32.dll",
+      "name": "HeapDestroy"
+    },
+    {
+      "iat": "0x141e035e8",
+      "dll": "KERNEL32.dll",
+      "name": "GetLastError"
+    }
+  ],
+  "runtime_slots": [
+    {
+      "address": "0x144700810",
+      "role": "EXE static-CRT private heap handle; actual runtime value/liveness required"
+    },
+    {
+      "address": "0x144700858",
+      "role": "malloc new-mode DWORD; not read on HeapAlloc success"
+    },
+    {
+      "address": "0x1447006e0",
+      "role": "encoded new-handler slot; actual decode/current callback required on allocation failure"
+    }
+  ],
+  "heap_producer": {
+    "entry": "0x141484800",
+    "source_caller": "0x141470ca3",
+    "heap_create_arguments": [
+      0,
+      4096,
+      0
+    ],
+    "handle_store": "0x141484818",
+    "heap_set_information_arguments": {
+      "class": 0,
+      "value_dword": 2,
+      "bytes": 4,
+      "result_ignored": true
+    }
+  },
+  "free_contract": {
+    "entry": "0x141471b7c",
+    "null_returns_before_heap_read": true,
+    "heap_free_flags": 0,
+    "failure_tail": "0x141474134 errno pointer ->GetLastError->0x1414740ec mapping->errno store"
+  },
+  "other_heap_destroy_observations": [
+    {
+      "entry": "0x141e00764",
+      "heap_slot": "0x144701508",
+      "qualification": "different global heap owner, not0x144700810"
+    },
+    {
+      "entry": "0x1414edeb8",
+      "heap_slot": "object+8",
+      "qualification": "different object-owned heap; not proof of CRT-heap lifetime"
+    }
+  ],
+  "raw_artifacts": [
+    {
+      "artifact": "analysis\\resume119-feature-allocator-141471b7c.asm",
+      "bytes": 1567,
+      "sha256": "d8ad91d7c47a3f6610809dee457c102415bbc6b5550267d3a8b96860b3b597af"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-allocator-14147489c.asm",
+      "bytes": 3500,
+      "sha256": "9c524ffaeda19a20d8d5da27ca5fcb7def4b8eb1a4554353348ccb968b731d8a"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-allocator-141481ce8.asm",
+      "bytes": 1386,
+      "sha256": "97fe49c6eddb760751666fd63243e86e7df417ad73fda68f9ce5f67c976080ae"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-heap-lifetime-141470c28.asm",
+      "bytes": 7824,
+      "sha256": "dce84f25fc57bf7a407e23126fb051e9bd1f6b59dc24aa5bb0a598682836c481"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-heap-lifetime-1414edeb8.asm",
+      "bytes": 1771,
+      "sha256": "5e9680c8c70b54560ee51d4360e4fcbe7fb054a400d1f23228a61fac6ef3ce99"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-heap-lifetime-141e00764.asm",
+      "bytes": 1181,
+      "sha256": "557063f6f53e4150ffb1dd493cb50c3cf4255d09f501b2db7f23fe2c357d56db"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-heap-producer-1414813ec.asm",
+      "bytes": 1515,
+      "sha256": "f137b8a809f2d4cfda488e0ded3c07b9280d8e70e59647376eb3bfa6449fb6e9"
+    },
+    {
+      "artifact": "analysis\\resume119-feature-heap-producer-141484800.asm",
+      "bytes": 1535,
+      "sha256": "a9efa00fe5209dffb9572fbeb0b604120b79a7a42d410255a199d00d0ca098bd"
+    }
+  ],
+  "qualification": "Static PE/import/source evidence only; no live heap/handler/errno value, allocation success, heap destruction, Project continuation or original execution is observed."
+}

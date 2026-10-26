@@ -1,0 +1,70 @@
+{
+  "scope": "Enabled histogram ChangeHistoGraph with selected variable0; exact next graphOn mutation and scene notification dependency",
+  "method": "Original retained PE and offline bounded DUMPBIN only; no runtime or production edits",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-change-histo-graph-contract.json",
+      "sha256": "6ce854330eac26e0b77191dec308fb40f8ff179dbc331924c02fdb4d885fee88"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-histo-zero-off-dependency-static.json",
+      "sha256": "f068a857dd2fe70343978c5a6ed8acaf911bb18a958f2c5b052374d3ea447327"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-histo-zero-remove-slot-static.json",
+      "sha256": "79d89a63afba10d40adae1fb67721506a8f0d4260f0a40cc717177e78ab3a378"
+    },
+    {
+      "path": "analysis/wave3-close-remove-graphs-contract.json",
+      "sha256": "11fb5935a271534bca69792e51731eb7a4d5568b8b4fd5e759f03f1dc87ba042"
+    },
+    {
+      "path": "analysis/wave3-close-hide-secondary-splitview-contract.json",
+      "sha256": "fc23ae849ac29c0ba9ef3835a818d1928e1145b1c77db7c3b9a14dce548c55c1"
+    }
+  ],
+  "literals": {
+    "0x14236e058": {
+      "text": "SfHistoChart",
+      "file_offset": 37144664
+    },
+    "0x14281c110": {
+      "text": "SfHistoChart",
+      "file_offset": 42051856
+    },
+    "0x14281c120": {
+      "text": "2signalHideSecondaryWidgetInSplitView()",
+      "file_offset": 42051872
+    },
+    "0x143706c40": {
+      "text": ".?AVSfHistoChart@@",
+      "file_offset": 57691200
+    }
+  },
+  "virtual_bindings": {
+    "MoMainWindow+238": "1420fb108+238 ->01d440",
+    "SfPstGraphManager+88": "14281c298+88 ->c0d7e0"
+  },
+  "order": [
+    "413f00 reads actual histogram+14; false returns. True reads nested+38+7c, rereads+14, calls4122f0.",
+    "4122f0 requires nonnull global mainwindow, calls mainwindow+238 for data root and lazycdd8e0 (root+1970). This can invoke data-root+58 graph-manager factory before StateVar lookup.",
+    "414030 calls413fe0 ->global mainwindow+268 for then-current model, then lazyc905b0 StateVar. Thus it does not select receiver-owned StateVar or necessarily caller model. In Mo, +268 uses display main with+1e0 override as earliercontract.",
+    "4122f0 initializes local plotVar=0, replacing it from StateVar+4c if nonnull. With notifyflagtrue but selectedplotVar0 it calls412430.",
+    "412430 first411800(false), purewrite histogram+14=false. Only then it checks global mainwindow/data root, obtains graph-managercdd8e0 again, calls virtual+88 with QString SfHistoChart.",
+    "Derived graph-manager+88 is c0d7e0. It reads secondary QGraphicsScene via mainwindow+788 and obtains its items snapshot. The scene is not checked for null before items().",
+    "c0d7e0 scans matching generic graph name or designated chart RTTI. For SfHistoChart, dedicated literalbranch casts toRTTI143706c40 and setsfound ifnonnull. A found match causes2cf3c0 signalHideSecondaryWidgetInSplitView afteriteration; notfound skips thatemit. No graph deletion is established by thisquery."
+  ],
+  "integration_consequence": [
+    "An enabled histogram with selectedvariable0 is not an immediate no-op: graph-manager lazycreation can precede the actual flagclear and conditionalHide notification.",
+    "Current guard before nested field remains appropriate until actual selectedmodel, graphmanager and secondaryscene query are represented.",
+    "A future exact prefix must clear actual HistogramState::graphOn only after preceding graph-manager/StateVar effects succeed; do not clear it beforeunknownowner work.",
+    "The nestedfield result is not consumed on the selectedvariable0 branch, but its access alone does not eliminate earlier manager/selection dependencies."
+  ],
+  "qualifications": [
+    "No fresh emptysecondaryscene or graphmanagerabsence assumed.",
+    "No same-state identity asserted between emission caller and receiver global-selected StateVar.",
+    "Complete generic graphitem lifetime/destructor semantics and Qt hide effects remainunrecovered.",
+    "All three new Close effects files remainfrozen andunchanged."
+  ]
+}

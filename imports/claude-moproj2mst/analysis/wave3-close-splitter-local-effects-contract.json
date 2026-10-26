@@ -1,0 +1,48 @@
+{
+  "scope": "Exact local effects after a new splitter handle returns; static evidence only, no target runtime or production edits",
+  "binary_sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+  "evidence": [
+    {"path": "analysis/wave3-closure-next-close-default-splitter-insertion-local-effects-static.json", "sha256": "c4927a8a9e51dce249504de48f32d4b01cd42415be6541b7497ff93dcfdcfc7c"},
+    {"path": "analysis/wave3-closure-next-close-default-splitter-lower-list-move-static.json", "sha256": "e2b52b47b4fa951d72dc38bc7433217e3596a3bef1d23626202225e2abfff58e"},
+    {"path": "analysis/wave3-close-default-splitter-native-prefix-contract.json", "sha256": "db9fe3d17c500328301e4c2047d7324e345e7104c22ad8ce3ae73b38650a03ec"},
+    {"path": "analysis/wave3-closure-next-6506c950.asm", "sha256": "49504514e7be5c14bd57ce8e108afa44b5a648a05bbc72a280307ddd1007934a"},
+    {"path": "analysis/wave3-closure-next-6712caf0.asm", "sha256": "56a20fea009822726e9b95941a554d0607319eb4b698cb4d158077fffeb21282"},
+    {"path": "analysis/wave3-close-grid-observed-style-filter-contract.json", "sha256": "ca9edbcd025fade3c5e8faa4c5f38c531967ae7e766eabcf47bc239737390183"}
+  ],
+  "lower": {
+    "export": "QWidget::lower at650688f0",
+    "caller_order": "654039a0 stores handle at record+20 and placeholder at record+18, calls lower(placeholder) at65403b54, then inserts the logical record at65403b67. The record is not yet in splitter+210 during lower's event.",
+    "nonwindow_prefix": [
+      "Read actual QObject parent and its actual private+18 child list. If fewer than2 entries, return without an event.",
+      "Find the actual widget identity in that list. If its index differs from0, call65501520(list,index,0). This helper conditionally detaches shared list backing then calls imported QListData::move via65697020.",
+      "When the child is uncreated but its parent is created, call65067900 before the later event. Otherwise an original index0 returns without an event; other indices continue.",
+      "If the child is created, call platform helper65097050(private). Then construct raw event0x7e, synchronously send it to the same child, and destroy the event."
+    ],
+    "implication": "QObject child order is not placeholder/handle allocation order. The actual child list and logical-record list must remain distinct, with source-ordered lower effects and event guards.",
+    "unresolved": "Created/platform branches and arbitrary event callback populations are not closed by this leaf. Missing parent membership is not assigned invented normal behavior."
+  },
+  "raw7e_leaf_receivers": {
+    "QWidget": "For the actual placeholder QWidget receiver, disabled-switch byte6506d808=1 selects6506c9ba; body-switch byte6506d9a0=52 selects6506d767, which forwards QObject::event.",
+    "QObject": "6712caf0 treats0x7e as outside builtin1..0x47 and below custom1000, then returnsfalse at6712cedf without calling customEvent.",
+    "observed_style_class": "QWindowsStyle::eventFilter65362520 raw0x7e minus6 is0x78, greater than range0x5e, so it takes6536289a directly to pure QObject::eventFilter false. No out-of-range switch-table byte is a valid target.",
+    "limit": "These are only exact receiver/style leaves. QApplication gesture/layout/internal/filter population and affinity must still be qualified for the actual event point."
+  },
+  "recalculate": {
+    "entry": "65404920(private,splitter-visible-bit)",
+    "early_effects": [
+      "Iterate actual logical records in order. For each, read its widget hidden bit and call its actual handle virtual+58 setVisible with !(allEarlierWidgetsHidden || currentWidgetHidden). The call precedes any late inactive branch.",
+      "Track whether all widgets are hidden or collapsed. If all are, find the first nonhidden widget and clear its record flags bit0.",
+      "Read actual QFrame frameWidth. Size-hint/min/max calculations occur for nonhidden widget records, with actual handle sizeHint and widget helpers; hidden-only records skip those calculations."
+    ],
+    "inactive_tail": "Only at65404c6f is the original second argument read. False stores private+21d=1 at65404cdd and returns. It does not bypass earlier handle visibility calls, record changes or geometry reads.",
+    "active_tail": "True sets widget constraints, may update minimum size for window type, calls splitter layout65403f00 and QWidget updateGeometry65062590. These remain unavailable dependencies.",
+    "limit": "No constructor-wide harmless recalc or direct dirty-bit substitute is justified. Even hidden/inactive input reaches each concrete handle setVisible."
+  },
+  "set_collapsible": {
+    "entry": "65401ef0(widget,index,bool)",
+    "valid_index": "Read actual record at index; flags=(flags & ~6) | (bool ? 2 : 0). No notification or layout call occurs on this branch.",
+    "invalid_index": "Tailcalls qWarning through65696998; do not silently accept an absent record.",
+    "constructor": "dab900 calls index0,true then index1,true only after both insertion calls return; HideSecondary follows. Five application notifier registrations remain later."
+  },
+  "next": "Use parent-owned combined capture for current identities, child order, event points, hidden/created predicates and callback coverage; preserve the first unsupported effect in any typed implementation. Frozen probe records all event types, including0x7e; no probe amendment was needed."
+}

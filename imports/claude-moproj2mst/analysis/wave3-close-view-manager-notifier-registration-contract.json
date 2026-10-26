@@ -1,0 +1,71 @@
+{
+  "scope": "d34870 exact four constructor registrations and native ordering/invoke policy",
+  "method": "Retained app PE instructions, literals and peer-retained register/deferred dispatcher bodies; no target execution",
+  "binary": {
+    "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-140d34870.asm",
+      "sha256": "d769351ed5c5f9b7498368305ad3091b4e785beaa94ac2b0d03917c138f1bd06"
+    },
+    {
+      "path": "analysis/wave2-doe-session-notifier-register-binding-decompile.json",
+      "sha256": "9aaddb2a4b4c519b81d44d6b2e6c6f7a1d0f2539e4644c632a5b96973868d271"
+    },
+    {
+      "path": "analysis/wave2-doe-session-notifier-retained-1402cf3c0-d1c.c",
+      "sha256": "5d208d8e096036772ba21cd636e87c2394aa4de6e9bae88977f40b9ea65e2214"
+    }
+  ],
+  "registrations": [
+    {
+      "site": "140d34898",
+      "key_address": "142a06560",
+      "key": "2signalMakeLayoutInViewManager()",
+      "slot_address": "142a06548",
+      "slot": "1slotMakeLayout()",
+      "bare_method": "slotMakeLayout"
+    },
+    {
+      "site": "140d348bc",
+      "key_address": "142a065a0",
+      "key": "2signalSetWidgetInViewManager()",
+      "slot_address": "142a06588",
+      "slot": "1slotSetWidget()",
+      "bare_method": "slotSetWidget"
+    },
+    {
+      "site": "140d348e0",
+      "key_address": "142a065d8",
+      "key": "2signalRefreshSceneInViewManager()",
+      "slot_address": "142a065c0",
+      "slot": "1slotRefreshScene()",
+      "bare_method": "slotRefreshScene"
+    },
+    {
+      "site": "140d34904",
+      "key_address": "142a06610",
+      "key": "2signalGetSceneInViewManager()",
+      "slot_address": "142a06600",
+      "slot": "1slotGetScene()",
+      "bare_method": "slotGetScene"
+    }
+  ],
+  "same_for_all": {
+    "notifier": "global143d76700",
+    "receiver": "r8=this actual constructed SfViewManager",
+    "registration_function": "1402cfbe0",
+    "fifth_argument_byte": 0,
+    "raw_Qt_invocation_type_in_2cf3c0": 1
+  },
+  "flag_policy": [
+    "Flag0 scans current key-list: same guarded receiver identity (067260 compare) AND same stripped bare method suppress insertion; otherwise append via2d0580.",
+    "Flag!=0 inserts at index0 via2d0650 without that dedup branch. This is registration ordering/dedup policy, not Qt connection type.",
+    "Method marker is stripped and text after first opening parenthesis removed. Registered empty-parenthesis literal does not independently prove actual Qt slot payload arity.",
+    "Native allocates receiver node before dedup; duplicate allocation lifetime is unclosed. The four unique constructor keys do not enter a duplicate branch in a known fresh registry."
+  ],
+  "lifetime": "Register weak handles to the same actual manager owner. Expired entries remain in global population; dispatch skips them in its local copy. Unknown population must not default to empty.",
+  "qualification": "Constructing an isolated binding is not proof the original runtime constructor ran or that other registrations are absent."
+}

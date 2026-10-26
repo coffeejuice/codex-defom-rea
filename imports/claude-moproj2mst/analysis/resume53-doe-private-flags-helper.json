@@ -1,0 +1,88 @@
+{
+  "schema": "resume53-doe-private-flags-helper-v1",
+  "utc": "2026-10-24T19:08:02.491535+00:00",
+  "owner": "test_runner_audit / doe_active",
+  "status": "Three exclusive new DOE files frozen; static checks passed; parent build and focused execution pending.",
+  "purpose": "Represent only the original QObject private+20 supplied-word transformation while preserving every untouched bit and all public DOE guards.",
+  "source_frozen_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_qobject_private_flags.hpp": "01b4c13b5551c1c98ff29243f54ea41b8cfdc2a280cafd4e96bd08b3d550b07b",
+    "source/apps/moproj2mst/src/doe/qobject_private_flags.cpp": "a7ae0ee63e97c58bf461aed5415777d3bb49e372a814dfd0e107bfea30a663cc",
+    "source/apps/moproj2mst/tests/mdt/test_doe_qobject_private_flags.cpp": "7d4c51e06f4380f579af8b209bada3c7b7812d81ae1c68e32ee3301f2cc22fc4"
+  },
+  "preexisting_files_unchanged": {
+    "baseline_archive": "build/wave3-checkpoint50-verified/source.zip",
+    "archive_sha256": "6dce27f667a31a3c2d5f0c1708a71502b7dcb00fc5cbaed4d2a11ea65468a2af",
+    "verified_sha256": {
+      "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "058761d59a0cd6d67c9ddbcad6fa59ad608c1046fbf523de2ee5def9dc9a3fcd",
+      "source/apps/moproj2mst/src/doe/task_factory.cpp": "88a0a355496a69d515d59affb01e4543b8ac7206cd1764a8302e1d6130830d7d",
+      "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "d8bd6ac3b984e4cdc6aef18bec6d187a2544b7d2eaeb8be93b53cb5568981ae9"
+    },
+    "comparison": "Exact bytes match checkpoint50 source archive."
+  },
+  "evidence_sha256": {
+    "analysis/resume52-doe-report-next.md": "d5c98bbe0a6799780c33356917c528587059d464703786f0bffa064b7a4133b9",
+    "analysis/wave2-doe-task-qobject-private-initializer.asm": "beb76f3a7a4b089aa59dc17336c9ae41fb1498fa9fe92e440b3538eb6ff4aa07",
+    "analysis/wave2-doe-task-base-public-qobject-constructor.asm": "945960cbfd88a502ae6797cc14b7c37d5d4094818883a2ca8dfea2735462f207",
+    "analysis/wave2-doe-task-public-qobject-ownership-contract.json": "81e05b0f2aee8014da834c2a3db46df6eea09a6a01e6744498e4ee3d9afd9a32",
+    "analysis/wave3-doe-report-qobject-prerequisite-contract.json": "d132044c91c93b2b6b8017acb11f05451e4ef3b4896f83f158aa055d379a5998",
+    "build/wave3-checkpoint50-verified/receipt.json": "e0ddeb31045b3e490f44c4b0a7b758f4577ab0722412e8f90d7cdea2035270d1"
+  },
+  "source_contract": {
+    "target": "evidence/original-binaries/QtCore4_64.dll",
+    "target_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+    "image_base": "0x67000000",
+    "selection_va": "0x67131224",
+    "selection_rva": "0x131224",
+    "selection_bytes": "8b432025f0fcffff83c860894320",
+    "selection_sha256": "841574798a97e10cba0dcfe2aa6864bfb1735a61a94c13d4ba6c13b21ef6fb45",
+    "operation": "Load previous private+20 dword; AND0xfffffcf0; OR0x60; store dword. Known output bits mask0x36f/value0x60; preserve all bits outside mask0x36f.",
+    "qualification": "Exact immutable opcode/value contract, not a captured runtime private word or whole QObject initializer."
+  },
+  "helper": {
+    "signature": "std::uint32_t doe::isolatedQObjectPrivateFlags(std::uint32_t previousWord) noexcept",
+    "effect": "Return (previousWord & 0xfffffcf0u) | 0x60u. No pointer reads/writes, zero-fill of unknown private memory, global reference/TLS/counter changes, TaskInfo or QObject completion.",
+    "binding": "Declaration, definition and isolated tests only; native Report/public factory paths do not call it."
+  },
+  "focused_tests": {
+    "source": "source/apps/moproj2mst/tests/mdt/test_doe_qobject_private_flags.cpp",
+    "ctest": "m2m.mdt.doe_qobject_private_flags",
+    "executable_target": "m2m_mdt_doe_qobject_private_flags",
+    "cases": 2,
+    "names": [
+      "doe_qobject_private_flags_isolated_known_bits_follow_native_word_writes",
+      "doe_qobject_private_flags_isolated_preserves_every_unwritten_bit_and_input"
+    ],
+    "coverage": [
+      "Explicit inputs0/all-set/0x80000010/0x80 have source-derived expected outputs.",
+      "Bits0,1,2,3,8,9 are cleared and bits5,6 forced across five supplied patterns.",
+      "For each of24 untouched bits (4,7,10..31), independently verify both supplied set and clear values survive.",
+      "High/mixed supplied pattern0xa5a5a590 produces0xa5a5a4f0 and caller input remains unchanged."
+    ],
+    "executed_by_worker": false
+  },
+  "registration": {
+    "source": "Existing CONFIGURE_DEPENDS recursive src/*.cpp glob; no CMake edit.",
+    "test": "Existing tests/mdt/test_*.cpp glob derives the new executable/CTest; testkit main and m2m-mdt/mdt-l6/m2m-mdt-l7 labels present."
+  },
+  "static_checks": {
+    "result": "PASS",
+    "checks": [
+      "All three announced new paths absent from checkpoint50 archive before this increment.",
+      "Existing three TaskFactoryRuntime/helper/test files remain byte-identical to checkpoint50; native guard unchanged.",
+      "Opcode selection rehashed from immutable QtCore PE and exact14 bytes verified.",
+      "Known/preserved mask invariants checked over each bit supplied set and clear; explicit expected values independently confirmed.",
+      "Only new declaration/definition/test references found; no native integration.",
+      "No trailing whitespace; two cases/testkit main present; report JSON parsed and hashes retained."
+    ],
+    "builds": 0,
+    "runtime_tests": 0
+  },
+  "limits": [
+    "The old private word is an explicit input; unavailable original allocation bits must not be passed as invented zero.",
+    "Pure value projection does not certify shared-null references, TLS/QThreadData, backlinks, native allocation/unwind or cleanup.",
+    "Report QObject/TaskInfo/public factory guards remain unchanged.",
+    "No shared build/CMake/plan/source files were edited; root owns compilation and test execution."
+  ],
+  "next_action": "Root builds combined candidate, runs m2m.mdt.doe_qobject_private_flags and required regression, then records results against this source freeze. Active Report progression still requires the qualified shared-owner/TLS/constructor-frame dependency.",
+  "token_measurements": "Unavailable; no speed/token-saving claim."
+}

@@ -1,0 +1,9 @@
+# CP192 root integration
+
+The retained QtCore caller now models `MOV [RSP+0x58],RAX` at RVA `0x13142c..0x131431` as a symbolic spill of the qualified private token into entry-stack slot `[S+0x60]`. Public task `+0x08` already holds that token; private `+0x08` remains zero until the next separate instruction. Independent source review and focused factory/Session tests passed with all prior diagnostic stops retained.
+
+In a disjoint editor300 lane, `htSubTypeDefaults` confines its step-owned SimControl alias to an immediate callback while preserving internal linkage, subtype priority, `propsSetHeatingTime` before `tmax` and environment writes, and existing geometry/null admission. Its installed `htPostLoad` corpus-08 fixture exercises the Transfer branch in SI and non-SI units. Direct Rest/Dwell/furnace/overlap and null-owner/detached-step fixture coverage remains qualified because a test-only export would change internal linkage and same-owner loading rejects the detached case earlier. Independent source review and focused L2 tests passed.
+
+`analysis/wave3-checkpoint192-validation.json` and `build/wave3-checkpoint192-verified/` freeze source SHA-256 `68f895a1c12febb82af093277e80c637421ca37108134b245b271ba9ff13c0a5` over 3,554 files. Complete regression: 361 registered, 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete, no fixture changes and no changed logged diagnostics against CP191. Historical folder comparison remains 93 SAME/five DIFF.
+
+CP193 was selected before freeze: the private `+0x08` reverse task backlink at RVA `0x131431..0x131435`, plus a bounded audit of the next genuinely unclosed editor300 step-owned alias. Public Open–Save–Close, failure/Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

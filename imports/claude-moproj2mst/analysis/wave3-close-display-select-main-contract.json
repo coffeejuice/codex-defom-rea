@@ -1,0 +1,56 @@
+{
+  "scope": "Minimum faithful MAIN-only branch of Display selected-model operation d0d3d0",
+  "method": "Original offline instruction-complete helper and comparisons; shared source remains root-owned",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-display-selected-model-contract.json",
+      "sha256": "07aa8710a5e3115b42dce910496012ecafe973def70b5440ae6c0760f5586bd8"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-display-select-main-helper-static.json",
+      "sha256": "e422c1318e28f98786b6335045cdb58c3388ba5b1113d144dc0cf5cdf85faa1d"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-display-select-main-comparisons-static.json",
+      "sha256": "a83d260849975bf116e414f9cdc7ee46868df8921575220a6796ba9e20293135"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d0d3d0.asm",
+      "sha256": "0378de8317ee02f755a2e04601b0a4927cd5c39e65d62a4a1df052dcfdb5d8ac"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c5ba00.asm",
+      "sha256": "30a445cd4bc2d0fe089ea8d7eaf1916e15d04e53289ffb463b55489ad96470fc"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/viewer_camera.cpp",
+      "sha256": "e9b4e639ec2f75051610e141f319ea95e7de7dc7d2e722104d61f16f52372232"
+    }
+  ],
+  "helper": "cf96f0 consists only of this+1a8=true and return; maps to existing Display.mainShown. No fit, Qt widget operation, signals or renderer calls occur in this helper.",
+  "branch_order": [
+    "Capture prior selected model: main unless existing override nonnull.",
+    "Clear override first throughcbc920(0).",
+    "Traverse named entries in QMap key order and compare each actual guarded model to requested pointer. Matching named entry takes priority and calls its ownhelper before override assignment.",
+    "If no named match, compare third(+1c8) torequested pointer. Matching third takes priority before main.",
+    "If no prior match, compare main(+1a0). On match callcf96f0 (mainShown=true), assign main guard tooverride throughc5ba00, and return prior selectedmodel.",
+    "Only if no main match does second(+1b8) branch run. If all miss, override remainscleared and prior selectedmodel isreturned."
+  ],
+  "comparison_qualification": [
+    "067260 loads QPointer via purec1aef0 and compares raw value withrequested pointer. Null equalsnull; a null request is not automatically a no-op.",
+    "d12200 returns namedholder QPointer via purec1aef0. Main also appearing asnamed or third must take that earlier branch."
+  ],
+  "integration": [
+    "Root may implement MAIN branch using actual mainShown field and its new guarded override/lifetime owner.",
+    "Guard a reached unimplemented named/third branch after overrideclear, preserving that partial mutation. Do not bypass earlier matches by checking main first.",
+    "Do not emit fit/update/zoom/other side effects fromcf96f0; those are not partofthishelper."
+  ],
+  "validation_suggestions": [
+    "Old override is returned and new override becomesmain; mainShown becomestrue.",
+    "Earlier alias ofmain in named/third reaches its guard before MAIN helper.",
+    "Null input matches nullthird beforemain when no earliernamednull match.",
+    "Unmatched input leavesoverridecleared and returnspriorselected."
+  ],
+  "source_changes": "None by worker; root implementing shared Display/GuiModel fields."
+}

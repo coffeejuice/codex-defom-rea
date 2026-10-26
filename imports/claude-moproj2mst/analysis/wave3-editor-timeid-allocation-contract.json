@@ -1,0 +1,30 @@
+{
+  "schema": "wave3-editor-timeid-allocation-contract-v1",
+  "created_utc": "2026-10-24T05:23:02.823415+00:00",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-timeid-allocation-static-static.json",
+      "sha256": "1090a62b7cd2e169a46ba6fa41760ff61f263747003c002c09f723ec7242aa9c",
+      "bytes": 1141
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-count-shape-14089bc90.asm",
+      "sha256": "5bceeba0b93149c1fba95cca199cf69bba14b0c012644e4d84e11f6ee25451b2",
+      "bytes": 4134
+    },
+    {
+      "path": "analysis/wave3-editor-timeid-shape-leaf-static.json",
+      "sha256": "f8e6089bbe483625abfe948e7be696799bb05d8aeca8e11c3f635f9a63682d96",
+      "bytes": 1197
+    }
+  ],
+  "original": "DEF_GUI_MO_64.exe SHA256 fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "findings": [
+    "GUI allocator14089b840 frees arrays, clamps shape via14089b970, allocates n[i] doubles for every positive count with i<ndim, then allocates count14089bc90 doubles at +48.",
+    "GUI count14089bc90 seeds ncomp, and for ndim!=0 multiplies n[i] using signed32 imul. A negative final count becomes0. Its ndim0 special property cases do not apply to the selected ndim1 profile.",
+    "Shape leaf14089b970..14089b9d2 clamps negative counts to0 and ncomp<=0 to1. The captured bytes after that RET belong to padding/another function and are not part of this claim.",
+    "Known ndim1 allocation and non-overflow positive n[0]*ncomp give the exact selected value extent. Original display140ec4970 reads row*ncomp and, for ID2, row*ncomp+1. ID2/ncomp1 overlap is valid only while that second index remains within this extent."
+  ],
+  "capture_qualification": "The combined count/shape request captured the count unwind region and then stopped because the shape leaf has no unwind entry. That preserved count artifact was inspected through RET14089bd59. A separate explicitly bounded leaf capture resolved the shape evidence; no existing artifact was overwritten.",
+  "implementation_boundary": "The reconstruction rejects unknown reached allocation profiles and signed32 overflow instead of reproducing host out-of-bounds access. Unknown/ID1 axes require no values allocation. Positive row counts still presume the model-owned axis pointer describes its recorded n[0] doubles; arbitrary corrupt pointer capacity is outside the contract."
+}

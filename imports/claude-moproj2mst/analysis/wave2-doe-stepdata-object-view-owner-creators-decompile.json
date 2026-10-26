@@ -1,0 +1,38 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140c82930",
+      "entry": "140c82930",
+      "name": "FUN_140c82930",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140c82930(longlong param_1,int *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  undefined8 uStack_38;\r\n  undefined8 uStack_30;\r\n  longlong lStack_28;\r\n  undefined8 uStack_20;\r\n  undefined8 uStack_18;\r\n  \r\n  uStack_20 \u003d 0xfffffffffffffffe;\r\n  iVar1 \u003d FUN_140004ae0(param_1 + 0x18);\r\n  if (iVar1 !\u003d *param_2) {\r\n    while (iVar1 \u003d FUN_140004ae0(param_1 + 0x18), *param_2 \u003c iVar1) {\r\n      FUN_140c82b70(param_1);\r\n    }\r\n    while (iVar1 \u003d FUN_140004ae0(param_1 + 0x18), iVar1 \u003c *param_2) {\r\n      lStack_28 \u003d FUN_14146eabc(0x87c0);\r\n      if (lStack_28 \u003d\u003d 0) {\r\n        uStack_18 \u003d 0;\r\n      }\r\n      else {\r\n        uStack_18 \u003d FUN_1411f07d0(lStack_28,param_1);\r\n      }\r\n      uStack_30 \u003d uStack_18;\r\n      uStack_38 \u003d uStack_18;\r\n      FUN_14172d7e0(param_1 + 0x18,\u0026uStack_38);\r\n    }\r\n    FUN_140c82a20(param_1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508ece8",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140c82d50",
+      "entry": "140c82d50",
+      "name": "FUN_140c82d50",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 FUN_140c82d50(longlong param_1,int *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  undefined8 uVar2;\r\n  undefined8 *puVar3;\r\n  undefined8 uStack_38;\r\n  undefined8 uStack_30;\r\n  longlong lStack_28;\r\n  undefined4 auStack_20 [2];\r\n  undefined8 uStack_18;\r\n  undefined8 uStack_10;\r\n  \r\n  uStack_18 \u003d 0xfffffffffffffffe;\r\n  if (*param_2 \u003c 1) {\r\n    uVar2 \u003d 0;\r\n  }\r\n  else {\r\n    while( true ) {\r\n      iVar1 \u003d FUN_140004ae0(param_1 + 0x18);\r\n      if (*param_2 \u003c\u003d iVar1) break;\r\n      lStack_28 \u003d FUN_14146eabc(0x87c0);\r\n      if (lStack_28 \u003d\u003d 0) {\r\n        uStack_10 \u003d 0;\r\n      }\r\n      else {\r\n        uStack_10 \u003d FUN_1411f07d0(lStack_28,param_1);\r\n      }\r\n      uStack_30 \u003d uStack_10;\r\n      uStack_38 \u003d uStack_10;\r\n      FUN_14172d7e0(param_1 + 0x18,\u0026uStack_38);\r\n    }\r\n    auStack_20[0] \u003d FUN_140004ae0(param_1 + 0x18);\r\n    FUN_140c82930(param_1,auStack_20);\r\n    puVar3 \u003d (undefined8 *)FUN_14014b5b0(param_1 + 0x18,*param_2 + -1);\r\n    uVar2 \u003d *puVar3;\r\n  }\r\n  return uVar2;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508ed48",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

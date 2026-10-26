@@ -1,0 +1,9 @@
+# CP183 root integration
+
+The retained QtCore initializer now models `mov rax,rbx` at RVA `0x131232..0x131235` as a symbolic return-register identity tied to the existing private allocation. It stops before the epilogue. Previous symbolic flags expression, sparse stores, owner and root guards, and diagnostic stop budgets remain. Independent source review passed. The first focused test run found an older CP170 fixture rewind that retained the new CP182/183 fields; the owner cleared those fields in the fixture while preserving its original exact refusal checks. The source-stable focused run then passed.
+
+In the disjoint editor300 lane, `baseDefaultPairs` uses one model lookup and a nullable immediate callback. A direct helper case on a copied corpus operation tests ordered scalar output, list clearing, null-step return and RAII restoration. This qualifies helper mechanics, not public Save dispatch or original runtime equivalence. Independent source review and the executed `m2m.s.save_current` case passed.
+
+`analysis/wave3-checkpoint183-validation.json` and `build/wave3-checkpoint183-verified/` freeze source SHA-256 `6a39f4e66779999e9f59e894be2c7404bf29af3d0c3b3f0ff1b74d5eb8e53a86` over 3,554 files. The complete regression registered 361 tests: 354 clean, six logged-gap suites, one diagnostic-difference suite, zero failed/skipped/incomplete and no fixture changes. Logged diagnostics did not change against CP182; historical folder comparison remains 93 SAME/five DIFF. Focused factory, Session, Save, Stopping and ABI tests passed.
+
+CP184 was selected before freeze: symbolic saved-RBX restoration at RVA `0x131235..0x13123a`, plus a conditional `saveMaterials` scoped step borrow after resolving its fixture eligibility. Public lifecycle, failure and Close, cache1 publication and fresh original comparison remain open. No GUI control, original application or mutable REA database was used.

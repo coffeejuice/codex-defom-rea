@@ -1,0 +1,127 @@
+{
+  "schema": "editor300-actual-setup-page-composition-successor-v1",
+  "created_utc": "2026-10-24T10:26:34.163662+00:00",
+  "status": "bounded static reconciliation; proposed integration remains guarded",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-constructor-prefix-contract.json",
+      "sha256": "df9c9a07f9d11072208148c534b92d6619de9fd339ce7338507bfea02d6fb670"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-coordinate-contract.json",
+      "sha256": "e662f17838820d9451027ba7c7a7c408184bf6604f549dc2a49a080cd18eae5c"
+    },
+    {
+      "path": "analysis/wave3-editor-setup-explicit-state-source-v2.json",
+      "sha256": "c868aaaf6b6f232537d07acad3e7714363be0b682091606d4a9b9e3c30477ec7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-spin-numeric-profile-contract.json",
+      "sha256": "cfe8e40a8d6516dbafc88ec12fbb99cc7b66c0f43c9c782e587ee8b962a9ba1a"
+    },
+    {
+      "path": "analysis/wave3-editor-public-picking-owner-amendment.json",
+      "sha256": "366f8ef8b0a427a9dc5e11950fbaea47091d29513c086f83b948d2b9a624ca12"
+    },
+    {
+      "path": "analysis/wave3-editor-public-interaction-contract.json",
+      "sha256": "99e4eba643d39674c61c7e58997e6739ff1763f859073458c446fdcb77c501d5"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb26f0.c",
+      "sha256": "9f708926ec67808b7af7e8bd4a56725ee679e2b09cf464558ad9f091822f995c"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140ecb6f0.c",
+      "sha256": "9470b4afb037e32842964375f9e1ea3032b421617739155eb6f14ac391b522e4"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb5500.c",
+      "sha256": "cee64835a04481c167ba4eb711e99c36defe02f6aa15ad5ba0861e8b71bbfbc3"
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-support-140eb6210.c",
+      "sha256": "0c676935e3f9d3ed820f95477203eecc307f2a48d5b0571219ef6f5bc96bce88"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-static.json",
+      "sha256": "336f73305fd914eb0a43a844946e92643f23d93f52ce70533bee260aeba1b22b"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-private-static.json",
+      "sha256": "b761c996f7df37525d4612377d28d373d5d4a4bfb5de306e1fa9b64e417e73f7"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-bindings.json",
+      "sha256": "568ac3bca21a3a6ee7d6c78790dde04530913b4c81e97f0c2da3118a6fcfcdbc"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-initial-row-dispatch-static.json",
+      "sha256": "d8c04f1f0e05905eadf491b343d7070836496eb2334cd322ff47938c13d917da"
+    },
+    {
+      "path": "analysis/wave3-editor-observed-language-binding.json",
+      "sha256": "941cb30e15b6411ff723e21390a853888ddbcb023668ce63e5e91aa92e9e383c"
+    }
+  ],
+  "inspected_source": [
+    {
+      "path": "source/apps/moproj2mst/src/engine/conversion_session.cpp",
+      "sha256": "771febfd0fddea00b08137930967cc3348d965d96106759efd8f0cfb3566cfe8"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/simcontrol300_owner.cpp",
+      "sha256": "90dd29eaf7ce0f601cd5ad45de025ef85db9972d3ba7621b18bf57301645a77c"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "faea11db2462c8a30f6ab863d2c93d22b02db20c30a4e90f161bd4667a1716af"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "f154a7751183c8773b42f59963352ae55539e1490708fe8fc44c54d6c706630c"
+    },
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine.hpp",
+      "sha256": "9ca7bc643a0b18d652a6648c787f264c5811eb2beefee0cabc1c1b56d2453cd9"
+    }
+  ],
+  "current_actual_owner": "ConversionSession::beginEditor300Factory retains one EditorSetupState and one StagedEditor300 for exact Project/Operation/GuiModel/Remesh identities. It currently stops at native setup140ed9830 before storeSimNames or page fills. StagedEditor300::constructPageState allocates a separate InitialEditorSession and receives no SetupState reference. GuiModel owns auxiliaryDrawings(+250), but has no reconstructed picking(+248) member.",
+  "already_closed_defaults": {
+    "MDS": "Plain QRadioButton parent groups690 and728; node6a0/738 checked true, coordinate6b0/748 unchecked; node spins6a8/740 min0 max999999 value0; coordinate groups6b8/750 locally disabled. Source contract already retained; no new export needed.",
+    "setup_projection_gap": "EditorSetupState records requestedChecked for node radios but resolves checked only for remesh radios. Fresh spin profile already resolves both MDS values. Fresh combo profile has21 controls including references708/7a0. These facts can be reconciled into actual setup state, not invented at page fill.",
+    "language": "Captured empty installed translator list and ASCII codec path qualify only sampled startup boundaries. Do not extend unchanged translator state through Open without a source or observation qualification."
+  },
+  "ordered_native_prefix": [
+    "140eb26f0 base and zeroed UI owner;140ed9830 complete setup including retranslation, internal connections, final stack/tab indices and automatic slots.",
+    "140054540(operation) stores simulation names only after setup returns.",
+    "Guarded GuiModel getter140377b50; lazy GuiModel+248 picking140c90f10; editor-owned interaction140f341d0 stored+150.",
+    "ecf300/ecf320 status0; hideUI16f0; stackUI1700 index0; explicit constructor connections.",
+    "UI8 QListWidget::setCurrentRow(0) occurs AFTER connection currentItemChanged(QListWidgetItem*,QListWidgetItem*) to slotCtrlEntryPressed(QListWidgetItem*)=140ecb6f0. Potential synchronous callback must be resolved before advancing.",
+    "Checkbox pointer array; first six temporary allocations; cursor fields;140eb7f50 recovery table; item8 icon; output pointers; second six temporary allocations; editor+b8/bc=0.",
+    "Only now140eb5630 initial page fill, starting with another140eb5500. Existing page composition is a recovered later segment, not native-prefix completion.",
+    "Validators/palette/layout/processEvents/timer/repeat refresh and factory attachment follow."
+  ],
+  "row_callback": {
+    "handler": "140ecb6f0 first calls140eb5500; reads current row; sets advanced tab enabled from global1446ee587 and checkUIa8; maps rows0..9 to stacks[0,8,1,2,3,4,5,6,7,9]. Unknown rows remain unqualified original uninitialized-local behavior.",
+    "fresh_branch": "140eb5500 reads both reference labels via140eb6210, then row+1 and editor+bc+1. Fresh row0 selects else branch regardless of uninitialized+bc:ecd430(true),ecd2f0(false),vt+1b0 receiver\u219214120b2c0, GuiModel\u2192140c83ca0(0,0,1). These picking/reset effects cannot be replaced by final stack0.",
+    "Qt_setter": "QtGui65500520 creates index(row,0) via native list model virtual+58. It calls QItemSelectionModel654f10d0 using command3 for selectionMode1,0 for mode0,12h otherwise. Current index comparison precedes assignment; differing index is stored before selection virtual+60 and currentChanged activation at654f11ee. Same index does not emit currentChanged, although nonzero selection commands still call select.",
+    "Qt_binding": "QListWidget init654ffb20 allocates native list model657351c8 and registers selectionModel currentChanged(QModelIndex,QModelIndex)\u2192list _q_emitCurrentItemChanged(QModelIndex,QModelIndex) at654ffca3. Exact literal addresses retained in bindings receipt. Setter difference proves emission conditional on actual index, not current default.",
+    "next_missing": "Pin fresh selection model initial persistent invalid index and item insertion non-selection effects; close metadata dispatcher to currentItemChanged, and source model index(row0) validity. Existing actual application/filter setup remains separately guarded."
+  },
+  "proposed_seam": {
+    "ownership": "Use an exact non-owning reference to the Session-owned EditorSetupState in the staged factory; preserve Project/Operation/GuiModel/Remesh identity validation. Retained InitialEditorSession remains owned once by StagedEditor300. No independent default SetupState or copy of process remesh.",
+    "seed": "At the source-legal initial-page entry, initialize required remembered widgets from that exact resolved setup record. Required unknown controls/profile fail explicitly; unknown context must not overwrite already explicit retained state. Bind MDS radios/spins/coordinate text and language profile, then expand only controls actually consumed by next supported page profile.",
+    "staging": "Record native constructor progress separately from page progress. Refuse before any later page/model mutation at unresolved setup, lazy picking, connection or initial-row callback stage. A recovered seed operation alone does not permit storeSimNames or initialOpen.",
+    "owner": "Parent owns Session/editor_setup/GuiModel/shared integration; worker source files remain frozen for candidate38."
+  },
+  "acceptance_proposal": [
+    "Exact setup identity from Session is required; swapped setup or unrelated Project/Operation/GuiModel is rejected without replay.",
+    "Known fresh node/coordinate checked and spin values match existing original contracts; unknown/custom profiles do not fall back.",
+    "Changed initial row emits callback after current index store; same row retains no currentChanged but models reached selection effects.",
+    "Constructor failure at callback preserves earlier setup/name/interaction effects and no page fills; later initial fill repeats reset in original order.",
+    "Actual pages consume retained controls across fills; no clone or default overwrite; public Save refusal remains until later native boundaries close."
+  ],
+  "next_executable_action": "Read captured Qt list dispatcher/index/selection constructor to close the fresh-row callback precondition, then coordinate the smallest actual setup-owner binding with parent. Do not edit frozen sources or run builds.",
+  "limits": "Static original PE and existing imported decompiles only; no runtime, GUI, database access, new original comparison or test execution. Candidate38 source freeze unchanged; no completion claim."
+}

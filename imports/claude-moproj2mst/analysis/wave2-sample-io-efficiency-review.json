@@ -1,0 +1,25 @@
+{
+  "scope": "Converter checkpoint review; parent MOVCTL ledger unchanged",
+  "metadata": "analysis/wave2-sample-io-efficiency-metadata.json",
+  "metadata_qualification": "Bounded4MiB tail contains no completed turns. Current-turn token attribution unavailable.",
+  "observed": {
+    "configure_seconds": 1.016,
+    "build_seconds": 8.187,
+    "ctest_seconds": 19.625,
+    "registered": 101,
+    "ctest_jobs": 8,
+    "fixture_changes": 0,
+    "build_repairs": 0,
+    "test_repairs": 0,
+    "output_issue": "Several evidence/report reads were truncated after broad nested selections; exact-field selections subsequently used."
+  },
+  "adopted_change": "Select nested report counts and requested function bodies by known schema before printing; avoid printing test case arrays or full artifact lists. Private Ghidra function schema uses entry/c and requires direct selection when shared helper returns scoped not_found.",
+  "validation_preserved": [
+    "Full101 suite with retained logs",
+    "Source/build hashes",
+    "Fixture manifest comparison",
+    "Original-source contract and injected/native failure tests"
+  ],
+  "speedup_claim": null,
+  "token_savings_claim": null
+}

@@ -1,0 +1,20 @@
+# CP186 R300 `saveInterObject` plan review
+
+## Verdict
+
+**Plan mechanics: pass, with a pre-edit source identity blocker.** The proposed lexical borrow boundary is safe for the current implementation: `saveInterObject` performs one `opModel(p, op)` lookup, reads `m->step.get()`, and returns on null before contact work or file effects. `rebuildSystemContacts` reacquires the same operation model through `withOpStep`, mutates the existing step's inter-object list, and does not replace `m->step`; `contactFlagsFromEngine` then reads that model step. Keeping the step pointer live through those operations and the synchronous `writeTaskKey` call preserves its current validity. `writeTaskKey` invokes the passed file/stream writer inline, and neither `captureKey` nor the native path stores the callback. An immediately invoked callback whose argument is `DB_STEP_DATA*` can therefore scope the same borrow across the complete body without changing the one model lookup or callback ordering. Keep its captures limited to the existing `p`, `op`, and `fx` references; do not return or retain the pointer.
+
+The retained source qualification in `source/docs/re/moproj2mst/s/spec.md` §1 and §2 agrees on the native sequence: optional system-lubricant contact rebuild, INICTC flag synchronization, InterObject path, then `W_INTEROBJ` (`0x140896030`). It records overwrite/open behavior and the verified `write_inter_objects` body. This supports the proposed ordering and serializer preservation. I found no need to consult a live REA/analysis database; none was accessed.
+
+## Fixture review
+
+The proposed operation-2 fixture is reachable by the same corpus open, subproject activation, loader-slot installation, model reset, and operation load sequence already used in `base_default_pairs_step_scope` and `save_materials_step_scope`. Those examples also establish the internal-helper forward-declaration pattern. The detached `unique_ptr` guard pattern is noncopyable and restores ownership on normal return, assertion-driven early return, and exception unwinding.
+
+For the present-step case, seed a *validly shaped* pair with object IDs and kind consistent with the loaded model if the loaded step has no pairs. A bare zero-initialized `pair_append` node proves nonempty count but may not exercise meaningful `contactFlagsFromEngine` indexing or a representative writer input. Keep any synthetic list mutation confined to the discarded project. In the null-step case, call only `saveInterObject` while detached and check false, empty writes/deletes, and unchanged saved list count; after guard destruction check model/step identity and count. These are helper mechanics only and cannot support a claim about public Save admission/dispatch or native byte equivalence.
+
+## Blocker and next action
+
+The proposal's expected `save_current.cpp` SHA-256 (`36b3b12693fd5c2b3d4f4bde9ec486a9b673f7575da4b6d94903de19ceb0cf8b`) does **not** match the file at review time (`dfc90650f638389644301fca786b447a581f75ac749de444653eb0b8e5bedd54`). The test-file hash matched the proposal at the first check (`aec6e922352e31123545270266576f7c9c1e9cd16e9cdf7ae30290b4fb530c37`), but changed during this review; the latest observed hash is `4bebfa62f75f939d3940f2da3627269ac11e53f475239b1944a7fa9995a62acf`. The current `saveInterObject` body still matches the reviewed call sequence. Both candidate files appear untracked in this imported subtree, so Git status alone does not establish a single-owner edit boundary. This concurrent identity change strengthens the pre-edit blocker: reconcile current candidate contents and confirm ownership before proceeding.
+
+Before editing, the owner should re-check current ownership and hashes, inspect/reconcile the production-file delta against the current source, and update the candidate identity. Then implement the closure and focused helper test, keeping `writeTaskKey` unchanged and checking the static acceptance items from the plan. No source, test, build, GUI/app-control session, REA database, or shared state was changed during this review; only this review report is to be added.
+

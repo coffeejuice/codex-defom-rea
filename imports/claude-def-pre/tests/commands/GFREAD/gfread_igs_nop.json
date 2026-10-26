@@ -1,0 +1,26 @@
+{
+  "label": "GFREAD IGES without P section",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nNOP.IGS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "NOP.IGS",
+      "source": "data/nop.igs"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "DEF_IGS.OUT"
+    ],
+    "notes": "EOF before the P section: the _TMP_SFTC copy fails its size check (CRLF file read in text mode, fread < st_size, error 9) so no copy is written -> status 2 -> code -4; GFREAD still reports Done, object geometry unchanged; the empty DEF_IGS.OUT is left."
+  }
+}

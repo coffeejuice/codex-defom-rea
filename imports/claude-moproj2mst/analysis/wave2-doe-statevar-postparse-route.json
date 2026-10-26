@@ -1,0 +1,36 @@
+{
+  "scope": "Actual d328c0 postparse route, read-only successor beyond current source guard",
+  "evidence_hashes": {
+    "analysis/wave2-doe-stepdata-statevar-callbacks-decompile.json": "fc732aea06085067cb8a061f9270d9bb3c55f51bfed53f5948c629253986b8a9",
+    "analysis/wave2-doe-session-statevar-view-readers-decompile.json": "da1a1d01f4f79faf5211d2f2fdf5e0215f6ae3aeafedc09ace112c9bae510733",
+    "analysis/wave2-doe-stepdata-ctors-remesh-decompile.json": "15b8b9ac44eb88eee28322d1fd5adac7dbfd56cf3ada4bd6b278f89df0867c45",
+    "analysis/wave2-doe-stepdata-statevar-control-order-decompile.json": "4ef612fef7fd4aad7cd0789a369fcd4ff48c82e5b0ceb4d24dc794c3637c7fe6",
+    "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721",
+    "analysis/wave2-doe-statevar-postparse-bracket-receipt.json": "682d5c948f7efc09b0700b4101d1255321d883442e7a91065ec8cf58311ee860"
+  },
+  "route": [
+    "d328c0 ->d15b40 sets localboolfalse ->d15b80(state,&var,&component,&false)",
+    "d15b80 firstd25340 setsstate+450=true, thend16530(...,-1,-1,null), then onnormalreturnd25360 sets+450=false",
+    "d16530 callsd15bf0 normalization, d302f0(state,null,var), writes+4c/+50, skipsdirect142a01168 notifier becauseparam4=false",
+    "d16ae0(state,-1) runswith+450=true, so any globalrenderingbranchfornonzero var is eligible; zero var insteadcallsd16340, stillunrecovered",
+    "d30480(state,&true); ifvar20000d30170(state,-1)",
+    "d17b90 computes900/1000 capabilities via pured25810/d25a50, resolvestypevia82cf50 andrange/visibilitywork; skipsdirect142a01188 notifier becauseparam4=false",
+    "d18980 ->d189b0(state,-1,0), d15fb0(state,&var), d16a80 ->displaycff380",
+    "Returntod15b80 clears+450; onlyafterreturn c90bd0 continueschildren/propertytablefinalization"
+  ],
+  "superseded_inferences": [
+    "Initial statement d25810 mutatesglobalplotstate wasincorrect; it is apurecapabilityquery",
+    "Statement freshconstructor+450=false skips d16ae0 globalbranchduringXMLpostparse wasincorrect: wrapperd25340 setsittrue",
+    "Broad statement bothdirectnotifiers executeonXMLroute wasincorrect: d15b40 passesfalse. Nestednotification/helpereffectsareseparateandremainunresolved."
+  ],
+  "implemented_source": "Current statevar.cpp guards BEFOREd15b40, so noneoftheseunrecoveredpostparseeffectsareclaimedexecuted. Constructor/histogram/scalarprefixunchanged.",
+  "remaining": [
+    "d16340 zero-var rendering clear",
+    "82cf50 type resolution",
+    "d24880 allowedplotmodes",
+    "d267a0 range normalization",
+    "cff380 displaypropertytablelifecycle andnestednotificationconsumers",
+    "Globalrenderingstate143d781e0/e7/e8 plusd2d55e0 actualnotificationroute"
+  ],
+  "runtime": "No target/runtime/DLL/appcontrol"
+}

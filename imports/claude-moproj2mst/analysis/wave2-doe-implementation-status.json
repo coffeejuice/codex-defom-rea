@@ -1,0 +1,120 @@
+{
+  "schema": "wave2-doe-implementation-status-v1",
+  "scope": "Ordered Type2 activation, same-handle Session read, Task-list/Image codec prefix and unvalidated bounded StepData display-MAIN import; full active model/Save architecture incomplete",
+  "source_files": {
+    "source/apps/moproj2mst/include/m2m/doe_study.hpp": {
+      "sha256": "9fa11f11c12dd8ede5dedae3fff25f590db6d8a05b7eed9b3d90a185e3f01995",
+      "bytes": 8402
+    },
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": {
+      "sha256": "18595f0642034b365853eafc58e7d506067859b9c645bc6bdfd2ed56f5d5db53",
+      "bytes": 1239
+    },
+    "source/apps/moproj2mst/src/doe/doe_study.cpp": {
+      "sha256": "547a22ffd03d9d8f75a1ab23b9ba0aff84c6a756fd02fe604100c20138ae94ee",
+      "bytes": 21993
+    },
+    "source/apps/moproj2mst/src/doe/io.cpp": {
+      "sha256": "1a24d85987cd36ae1ddfeede341f27282b0d8494811361729ecf7e49bead1df0",
+      "bytes": 1804
+    },
+    "source/apps/moproj2mst/src/model/subproject.cpp": {
+      "sha256": "c30cadbb1a4d8dae351f06920cc60d2aacebdc0876c69031fa442cfc3549b33f",
+      "bytes": 34143
+    },
+    "source/apps/moproj2mst/tests/mdt/test_doe_study.cpp": {
+      "sha256": "0d2d1a1e8d6443bf7a68c3fe504d0f3be6ef160aa032880e6718528adae0a2a1",
+      "bytes": 14455
+    }
+  },
+  "shared_coordinator_hooks": [
+    "include/m2m/model.hpp:ownedDoeStudy,Project::doeIo",
+    "src/core/convert.cpp:Native only writeFile&&WRITE_SAVE before openProject"
+  ],
+  "validation": {
+    "worker_diff_check": "passed",
+    "worker_builds": 0,
+    "worker_original_or_candidate_runtime": false,
+    "isolated_sample_suite": "coordinator reported DB/DOE96 pass before constructor increment",
+    "constructor_increment_tests": "Coordinator reports all17 DOE unit cases passed, including all4 new I/O/constructor cases",
+    "coordinator_candidate_only_capture": "analysis/wave2-doe127-constructor-v1-capture.json",
+    "candidate_capture_qualification": "No original execution; historical empty-directory inventory fidelity unknown; no directory parity or acceptance",
+    "full_suite_report": "Combined100-check result:99 v1 passes plus corrected P03 focused v2 rerun pass; coordinator verified only P03 test executable changed and production artifact hashes unchanged. Not a full v2 rerun.",
+    "historical_file_suite_report": "Coordinator reports93SAME/5DIFF; historical action-scope qualifications remain, not fresh acceptance",
+    "p03_v2_log": "build/logs/wave2-boolean-doe-v2-subproject.log",
+    "p03_v2_xml": "build/logs/wave2-boolean-doe-v2-subproject.xml",
+    "latest_checkpoint": "analysis/wave3-distortion-cogging-validation.json",
+    "latest_checkpoint_result": "Full110 CTests passed (103 plain,6 logged-gap,1 historical diagnostic differences); Session21/21. Candidate regression only, not fresh original acceptance. New Image25 cases are source-frozen pending next full receipt."
+  },
+  "original_binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "private_ghidra_code_identity": "analysis/wave2-doe-ghidra-text-verification.json",
+  "recording_mode": "Explicit simulation, no fixture mutation, not real-I/O parity",
+  "native_mode": "Actual directory results; stop first false, constructor ignores return; no rollback or post-creation recheck",
+  "limitations": [
+    "Type2 activation, Session records/Task-list projection implemented; Image PNG, StateVar/in-range Object, fallback/selection, global Task replacement and DoeOutput Save remain guarded",
+    "Full sampling and Type3 remain unsupported",
+    "Default-QLocale numeric equivalence unverified; regex U+0085 nonseparator classification recovered separately",
+    "Exact concurrent Qt/std filesystem race behavior unverified",
+    "No fresh original comparison or acceptance for constructor increment",
+    "Historical120-122 remain action-scope mismatched, not measured missing-feature counts"
+  ],
+  "next_reference": {
+    "fixture": "evidence/gui_mo/oracle_b/127_B_DOE_OPEN_before",
+    "separate_disposable_copy": true,
+    "static_prediction": "Fresh default-main Open creates naturally absent DoeStudy1/Solutions and Output; inactive study bytes preserved",
+    "runtime": "Not executed; app control not used in current phase",
+    "fixture_identity": "analysis/wave2-doe-constructor-reference.json"
+  },
+  "contract": "analysis/wave2-doe-lifecycle.md",
+  "source_files_qualification": "Historical constructor implementation snapshot before coordinator sample-I/O extension; hashes are not current source freeze.",
+  "later_increment": {
+    "contract": "analysis/wave2-doe-sample-io-contract.json",
+    "worker_review": "analysis/wave2-doe-sample-io-review.json",
+    "coordinator_tests": "analysis/wave2-doe-sample-io-v1-tests.json",
+    "qualification": "Full101 CTest pass, includes5 new direct-I/O cases; unchanged fixtures; historical diagnostic93SAME/5DIFF. No original parity or active lifecycle acceptance."
+  },
+  "active_task_checkpoint": "analysis\\wave2-doe-active-task-checkpoint.json",
+  "task_list_increment": "analysis/wave2-doe-task-list-implementation.json",
+  "regex_classification": "analysis/wave2-doe-regexp-space-contract.json",
+  "lazy_activation_checkpoint": "analysis/wave2-doe-lazy-activation-validated.json",
+  "session_document_checkpoint": "analysis/wave2-doe-session-document-contract.json",
+  "session_successor": "analysis/wave2-doe-session-record-successor.json",
+  "requested_io_incomplete": "Same opened ReadOnly handle now supplies size before read/reset; validated9-case checkpoint. Unknown size remains explicit guard, exact Qt packet/fault/device behavior unverified; do not infer zero size from returned bytes.",
+  "session_task_prefix": {
+    "contract": "analysis/wave2-doe-session-task-import-contract.json",
+    "compile_repair": "analysis/wave2-doe-session-task-import-compile-repair.json",
+    "validation": "analysis/wave2-doe-session-task-import-validated.json",
+    "qualification": "Bounded fresh Task selection state only; constructor execution preferences and complete registry/QObject architecture remain unrecovered."
+  },
+  "image_codec_prefix": {
+    "contract": "analysis/wave2-doe-image-codec-prefix-contract.json",
+    "status": "Validated25 Session cases in full112-CTest candidate; root wave3-wizard-native-validation.json",
+    "diagnostic": "StudyIo.qtWarnings and root Ctx.originalDiagnostics separate from ABI warnings/STRICT; exact Qt installed handler routing not reconstructed.",
+    "validated": "analysis/wave2-doe-image-codec-prefix-validated.json"
+  },
+  "stepdata_successor": "analysis/wave2-doe-stepdata-successor.json",
+  "stepdata_prefix": {
+    "contract": "analysis/wave2-doe-stepdata-prefix-contract.json",
+    "repair": "analysis/wave2-doe-stepdata-prefix-link-repair.json",
+    "status": "Validated6 StepData/26 Session cases in full115 CTests; later working source has unbuilt StateVar increment",
+    "cases": {
+      "new_stepdata": 6,
+      "session": 26
+    },
+    "scope": "Actual display-MAIN callback, empty-view property-table finalization/current-object refresh, no-main skip; populated branches guard at ordered encounter",
+    "validated": "analysis/wave2-doe-stepdata-prefix-validated.json"
+  },
+  "statevar_prefix": {
+    "contract": "analysis/wave2-doe-statevar-prefix-contract.json",
+    "status": "Validated8StateVar/27Session cases in full118 CTests; laterworking source has unbuiltcolorbarclone",
+    "context": "Explicit immutable profile/globalsnapshot; defaultunavailable remainsguarded",
+    "global_state": "StudyIo singleproject palettecopy/deferredregistration observations; fullprocessglobalnotification/Close incomplete",
+    "validated": "analysis/wave2-doe-statevar-prefix-validated.json"
+  },
+  "colorbar_clone": {
+    "contract": "analysis/wave2-doe-colorbar-clone-contract.json",
+    "status": "Frozen15StateVar/28Session cases,pending rootvalidation",
+    "inputs": "Explicit optional colorbarlistsnapshot; defaultunavailable guards",
+    "ownership": "Scoped pointarena retainsoriginal orphanpayloads; process-globalClose/allocator parity unclaimed"
+  }
+}

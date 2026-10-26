@@ -1,0 +1,66 @@
+{
+  "scope": "Ptrk model+250 registration effects; source guard unchanged",
+  "method": "Bounded static original PE/DUMPBIN; no runtime or source changes",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-list-insert-static.json",
+      "sha256": "2e9050196fdc033d2ba65f0eacba1594242f7519057965bd7f885429c2778d90"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-list-leaves-static.json",
+      "sha256": "f098d8f3eb67a3dc3fecea607cf8dc29c5e22f568ab866a77cc1bf8e8ea69f57"
+    },
+    {
+      "path": "analysis/wave3-closure-next-1413886d0.asm",
+      "sha256": "00ebf1993ad7bae60a16faa7ce89b8b77b4963c02414f16fc26edf2ed1c6aa2f"
+    },
+    {
+      "path": "analysis/wave2-doe-task-membership-140004a20.asm",
+      "sha256": "8fa51de84d0b04c1d5fed5540b483fe971ee0bde597eb3a394d6fdf0bff193f3"
+    },
+    {
+      "path": "analysis/wave3-closure-next-14031fab0.asm",
+      "sha256": "68196d941eb92e025fe526c3d304bbffd6e286fdd66a3674a5bcd9273d090a70"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140c91070.asm",
+      "sha256": "de5d1025f9155878d329b08c0bfb184dc3d0f7fb04ab349a45be399672634e75"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d64710.asm",
+      "sha256": "322c8db77acbd9830e7f8cf37dcf5bb90e380b841e3be3e36184f4a45d0c7f08"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d64780.asm",
+      "sha256": "8b827cf338a8e168894463bbd5078cebe5476e1ce92fe4bb2c9edce6c610bda6"
+    }
+  ],
+  "imports": {
+    "0x141e041e0": "?begin@QListData@@QEBAPEAPEAXXZ",
+    "0x141e041f0": "?end@QListData@@QEBAPEAPEAXXZ",
+    "0x141e041e8": "?detach_grow@QListData@@QEAAPEAUData@1@PEAHH@Z",
+    "0x141e04200": "?append@QListData@@QEAAPEAPEAXXZ",
+    "0x141e042d8": "??9QBasicAtomicInt@@QEBA_NH@Z",
+    "0x141e042e8": "?deref@QBasicAtomicInt@@QEAA_NXZ"
+  },
+  "order": [
+    "31fab0 checks cached manager+4c8; after optional allocation it separately checks the graph is nonnull and reads current model through30a2b0. This registration section runs for cached graphs too.",
+    "For nonnull model, c91070 allocates an8-byte list wrapper if model+250 is null; d64710 initializes its QList via18f9e0.",
+    "d64780 invokes2178c0 to search current list. 2178c0 walks from QListData::end backwards tobegin, compares each stored qword directly to supplied graph pointer (13886d0 is inline-node identity), and writes a bool wrapper through002860.",
+    "004a20 returns null for false and the bool wrapper address for true. d64780 returns without mutation if found; otherwise invokes2d0580 with the graph pointer address.",
+    "2d0580 tests shared list refcount. A shared list uses2d09f0->QListData::detach_grow; unshared live branch builds temporary inline node, invokes QListData::append, then writes its qword into returned node. de9b40 actual compiled branch delegates8-byte inline copy to14146f100."
+  ],
+  "established": [
+    "Membership is pointer identity, not graph title/id/value. Existing duplicates are not removed; successful search prevents another append.",
+    "Registration is per selected model. Repeated getter calls can register same cached graph in a different selected model list.",
+    "There is no graph flag or plotVar test before registration in31fab0."
+  ],
+  "qualifications": [
+    "Logical membership branch and append/delegate order are established. CRT8-byte copy and Qt shared-data allocation/error internals are not re-expanded here.",
+    "No claim about list ownership/destructor of graph pointers follows from registration alone.",
+    "No projected list or graph state has been added toproduction; enabled receiver remains guarded.",
+    "Current main-selected model still requires original display+1e0 override, distinct from shown-model selector."
+  ],
+  "next": "Retain as next typed graph projection input; source-build result and root integration assignment take priority."
+}

@@ -1,0 +1,99 @@
+{
+  "schema": "wave3-close-post-answer-inputs-v1",
+  "status": "caller_and_state_inputs_source_bound; shared_render_legend_and_notification_closure_pending",
+  "method": "Offline PE and bounded DUMPBIN, reusing byte-qualified private decompile receipts. No original runtime or GUI; no production changes.",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "entry": "140d0e540(SfGLDisplay*, &variable0, &component0, &notifyTrue)",
+  "position": "After current-operation Save answer is accepted by044110, before signalRemoveGraphItems, manager Close, project destruction and diagram null attachment.",
+  "proven_inputs_and_dispatch": [
+    "Main-window+0x120 pointer, projected by main virtual+0x288 as pointer+0x10, supplies the display receiver. Zero/null pointer skips this callback. Exact virtual slots are in close-save-return-contract.",
+    "cfac50 selects a displayed GuiModel: shown main+0x1a0 first, shown third+0x1c8 next, last shown named model from+0x1d8 next, then shown second+0x1b8 fallback. It can substitute the second under its final display/type condition. These are existing display links, not the diagram receiver+0x2c8.",
+    "d0e540 also reads main+0x1a0, second+0x1b8 and d0cb50(display,true). The latter can lazily allocate the 0x130-byte display controller through d41bd0 when display+0x840 is null; this call is not a pure getter.",
+    "For the selected nonnull GuiModel, c905b0 obtains its StateVar object and d15b80 runs with variable0, component0, notifyTrue. d15b80 brackets d16530(...,-1,-1,null) with state+0x450=true/false.",
+    "d0e540 computes ranges through its dimension-dependent helpers, then visits shown named models from display+0x1d8. For each eligible named model it calls d30090(range), then d161f0(state,&variable0,&component0,&notifyTrue,-1,2). d161f0 similarly brackets d16530 with+0x450=true/false.",
+    "At the tail, if the main-window pointer exists and the first integer remains0, invoke main virtual+0x360. Exact primary table1420fb108+0x360 contains140cc54a0. This callback is not elided."
+  ],
+  "statevar_transition": [
+    "d16530 runs d15bf0 on current object views, d302f0 cached-data handling, then stores variable to state+0x4c and component to+0x50. For these supplied inputs both stored values are0.",
+    "Because notifyTrue, d16530 invokes notifier2cf3c0 with literal2signalChangePtrkGraph() before render updates. Fresh XML postparse uses notifyFalse; its skipped-direct-notification inference does not apply to Close.",
+    "d16ae0 checks variable first: variable0 callsd16340 to clear per-view plots. Its nonzero-variable global rendering mutations are not made eligible merely by+0x450=true. Thus this receipt supersedes the intermediate message that the Close bracket alone activates those global writes.",
+    "Then d30480(state,&true), skip var20000-only d30170, d17b90, d18980->d189b0, d15fb0, d16a80->display cff380. This is the shared DOE postparse dependency chain, with Close notification/mode inputs retained.",
+    "d30090 looks up the requested variable id in143d76360 via2d7a80 and calls virtual+0x28 only for nonnull lookup. No assumption that registry id0 is absent is made.",
+    "Neither the displayed-model selector nor the StateVar update is proof that all transitive notifications are harmless or that no pending timer can affect current attachment. Keep these effects separate from the proven diagram null-rebind contract."
+  ],
+  "notification_literal": {
+    "address": "0x142a01168",
+    "text": "2signalChangePtrkGraph()",
+    "raw_sha256": "156abf1d57eaf5fdb1d23beb817e94e7f3f75422d96c67294156d511e60692d2"
+  },
+  "integration_boundary": {
+    "required_profile_inputs": [
+      "main display pointer availability",
+      "shown main/second/third/named GuiModel links and types",
+      "display controller+0x840 availability/state",
+      "StateVar current object views and cached-data state",
+      "registry lookup and notification recipients"
+    ],
+    "safe_projection": "Represent an explicit callback invocation with the exact (0,0,true) inputs and order. Source-proven StateVar writes/notifications can be projected when the shared render dependencies are supported. Do not default unavailable display state to an empty scene or declare this a no-op.",
+    "shared_unresolved_work": "DOE render/legend ownership and global/notification receiver state remain an existing gate; this worker does not duplicate that investigation or claim its completion."
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-save-return-contract.json",
+      "sha256": "811a759327378fcfd34e1afa2a964e14ddb9466fd15d2a222b5acdc862997871"
+    },
+    {
+      "path": "analysis/wave2-doe-statevar-postparse-route.json",
+      "sha256": "a05a3883dcf8f53c619b606dbc4a4bb27e98639564e9429b2985a141fdb3b201"
+    },
+    {
+      "path": "analysis/wave2-doe-ghidra-text-verification.json",
+      "sha256": "843b2166c4e3fcfb805c115667d47aefc117019453708b38672a927ce32a9bb2"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-statevar-control-order-receipt.json",
+      "sha256": "761c75129575096d0c892b6ccf0e27ca80371833354127f5e4cdb36c2323bfb1"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-statevar-control-order-decompile.json",
+      "sha256": "4ef612fef7fd4aad7cd0789a369fcd4ff48c82e5b0ceb4d24dc794c3637c7fe6"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-statevar-postparse-receipt.json",
+      "sha256": "12099aafa365e267231984c8d8b31baea071b47d05f90318c61ea3ea4979e84c"
+    },
+    {
+      "path": "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json",
+      "sha256": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721"
+    },
+    {
+      "path": "analysis/wave2-doe-session-statevar-view-readers-receipt.json",
+      "sha256": "f760852be3f521aa6e8de1ededd948a5cab9d5db383944298601127da7b3b330"
+    },
+    {
+      "path": "analysis/wave2-doe-session-statevar-view-readers-decompile.json",
+      "sha256": "da1a1d01f4f79faf5211d2f2fdf5e0215f6ae3aeafedc09ace112c9bae510733"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-post-answer-static.json",
+      "sha256": "73a3090211e81d729515861772831298f03eb4184c9fd1eb5f82b6608f48d432"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-getters-static.json",
+      "sha256": "585ea9932f6fcaa22f278b5b86ebfd90e15a0e4d1b76dcdb19dedb6cfe295f04"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-scene-mutations-static.json",
+      "sha256": "66ff71eef826782fb73155e5efd9845753dcae6b4543a9706b8ecfd16c781e52"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-display-state-static.json",
+      "sha256": "6dfcce5cd219b63be0bc287a0a09866d414a7b15b695900f6dd39f46f39af417"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-display-zero-static.json",
+      "sha256": "29b517ce5fec0042e52ae9e7a1e31d6699798df8529ec303d008e9b08ad2bfd7"
+    }
+  ],
+  "tool_sha256": "f6ef94ce71506bf4aaf7c6afd89699712e522d2fa4ef26cb6facc7a53ffd98e4"
+}

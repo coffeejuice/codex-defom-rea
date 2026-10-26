@@ -1,0 +1,112 @@
+{
+  "scope": "Corrected actual View_Default successor ownership and exact resume point after observed-profile grid cache",
+  "method": "Retained instruction/IAT binding plus bounded immutable PE/DUMPBIN only; no target runtime, GUI, builds or production edits after grid continuation freeze",
+  "supersedes_partial": {
+    "path": "analysis/wave3-close-default-splitter-ownership-contract.json",
+    "sha256": "d623bef49c31e9de10434cbaed642ca4b4f72b2cce29d94c4db82b74b4370e05",
+    "correction": "Prior construction_chain incorrectly said SfSplitView parent=manager. d349f3 calls QWidget::parentWidget(manager), giving actual MainView, before QSplitter ctor; subsequent grid add reparenting is a separate operation. Derived initialization also constructs two real placeholder widgets."
+  },
+  "evidence": [
+    {
+      "path": "analysis/wave3-close-default-splitter-ownership-contract.json",
+      "sha256": "d623bef49c31e9de10434cbaed642ca4b4f72b2cce29d94c4db82b74b4370e05"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-derived-initialize-static.json",
+      "sha256": "a08ec792a2878bdf4e8fc3f3405e03ecd5cafebf54b99342e4a5da92f75d6023"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-qt-constructor-add-static.json",
+      "sha256": "72deb5334357137d197b1e49732e54d46293e990bdde01c12b2b334736526c64"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-default-splitter-private-frame-prefix-static.json",
+      "sha256": "fa763b67b9e0d0b45ee14c7246d01b78808cf0ca455db305310baa52bc5b2aa4"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d35a80.asm",
+      "sha256": "c1627e8fe76166def17d39041d92ef9b6b16800675b91ed42b56b86529d3eb56"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d34920.asm",
+      "sha256": "38d5530d9f69d05fdac339cc5381e8bd300df45747e7049327ee351723476982"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d349a0.asm",
+      "sha256": "aa6e74db45dd3c32e4c02c82d0bbebc6a47603311a0be4cf30a7dfaeb55d9e06"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d34da0.asm",
+      "sha256": "8794692689daa5aec1fb5165b45563eb8293f9b33a70d25ecf594605c9ea9b1f"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140d34d50.asm",
+      "sha256": "bcb3f81f73f317e3cf28b09b9ac32f455b7c0758e68e0330fa2582b3a135ba7b"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140dab810.asm",
+      "sha256": "9d4a251a8f46c895c54000b6f987490478680aa8bc27fd7dad398f8c8d038b70"
+    },
+    {
+      "path": "analysis/wave3-closure-next-140daba80.asm",
+      "sha256": "ffdccd9c8b248d1c78b8cb3651f7226ddd7d1cbcb298c08b387e01e6beb620ac"
+    }
+  ],
+  "fresh_grid_cursor": {
+    "pre_grid_calls": [
+      "d35a80 compares incoming View_Default with current null/empty manager QString+30; not equal",
+      "d35ad6 calls d34920; d349c2 calls d34920; d34db7 calls d34920",
+      "Every fresh call obtains null guarded manager+28 via c1aef0, takes d3493a->d34986 and returns without deletion or state/name writes",
+      "d34d50 calls d34da0, then commits guarded manager+28 only after setLayout returns"
+    ],
+    "resume": "d349d4, splitter allocation, after d349cf d34d50 returned. Do not restart d35a80/d349a0 because clear would now delete the cached grid.",
+    "layout_name_commit": "d3614e assigns input QLatin1String to manager+30 only after d349a0 returns; null layoutName before splitter construction is faithful."
+  },
+  "constructor_order": [
+    "d349d4 allocates0x30 for SfSplitView",
+    "d349f3 IAT141e09da0 is QWidget::parentWidget; QtGui65009150 forwards QObject::parent via IAT65696868. Its result becomes r8 to dab810. Actual nonnull ViewManager parent is MainView.",
+    "dab810 calls QSplitter(orientation1,actual MainView) through IAT141e0a1e0 before derived vtable142a5a638/142a5a600 install and QString+28 default construction.",
+    "dab900 allocates first concrete QWidget0x28 with parentnull/flags0, then QSplitter::addWidget(this,placeholder0). Repeats for distinct placeholder1. Both app vtable1420fbde8/1420fbdb0 are installed after QWidget ctor.",
+    "dab900 calls setCollapsible(0,true), setCollapsible(1,true), then dac040 HideSecondary. This precedes all five application-notifier registrations in daba80.",
+    "dab810 returns; d349a0 calls dabb50 to assign QString+28=SplitView_Main. This is a dedicated SfSplitView name, not QObject::setObjectName.",
+    "d34aaa calls QGridLayout::addWidget(grid,splitter,row0,col0,alignment0), then d349a0 returns; d35a80 only then assigns View_Default.",
+    "Primary insertion follows; retained dabbd0 hides and deletes different existing index0 placeholder before insertion, and dabf00 shows requested nonnull Primary."
+  ],
+  "notifier_registration_order": [
+    {
+      "key": "2signalShowPrimaryWidgetInSplitView()",
+      "slot": "1slotShowPrimaryWidget()"
+    },
+    {
+      "key": "2signalShowSecondaryWidgetInSplitView()",
+      "slot": "1slotShowSecondaryWidget()"
+    },
+    {
+      "key": "2signalHidePrimaryWidgetInSplitView()",
+      "slot": "1slotHidePrimaryWidget()"
+    },
+    {
+      "key": "2signalHideSecondaryWidgetInSplitView()",
+      "slot": "1slotHideSecondaryWidget()"
+    },
+    {
+      "key": "2signalCloseSecondaryWidgetInSplitView()",
+      "slot": "1slotCloseSecondaryWidget()"
+    }
+  ],
+  "notifier_policy": "All five use2cfbe0 raw fifth0, shared actual global notifier owner. Raw fifth0 is append-with-dedup policy, not Qt connection type. Do not commit these before constructor succeeds.",
+  "qt_grid_add_order": [
+    "65040290 checks widget and nonnegative row/column, calls65045540 QLayout::addChildWidget BEFORE allocating/storing grid layout item.",
+    "65045540 obtains actual layout parentWidget65044aa0 and splitter QObject parent. If unequal it treats old-parent match as absent and invokes QWidget::setParent65070a60(splitter,manager) at650455f3. Therefore grid insertion changes actual QObject parent MainView->manager before GridLayoutItem allocation.",
+    "The helper may first remove prior layout ownership based on widget attribute7, then computes parent-visible/deferred-show conditions; reparent callbacks and delayed show are still unclosed current-state dependencies.",
+    "650402ee calls65043930 widget-item factory;65040344 inserts concrete grid box, then65040350 invalidates. Do not conflate grid-item ownership with QObject widget ownership."
+  ],
+  "remaining": [
+    "QSplitter concrete QFrame/QWidget constructor callbacks and parent MainView receiver effects",
+    "actual placeholder QWidget constructors, QSplitter insertion/handle allocations and hide callback effects",
+    "QLayout addChildWidget prechecks/reparent callbacks and optional delayed show before item insertion",
+    "actual primary graphics view identity, QWidget visibility and insertion cleanup",
+    "full fresh session listener/population coverage and public Close replay"
+  ],
+  "next_smallest": "Inspect QSplitter private/QFrame->QWidget construction prefix and exact MainView child-event route. Keep two placeholders and ownership transition in design before implementation."
+}

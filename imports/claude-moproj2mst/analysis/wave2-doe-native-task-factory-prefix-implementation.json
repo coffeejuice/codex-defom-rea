@@ -1,0 +1,89 @@
+{
+  "schema": "m2m-doe-native-task-factory-prefix-v1",
+  "status": "eleven owned source files frozen for parent candidate45; no worker build or test execution",
+  "source": {
+    "source/apps/moproj2mst/include/m2m/doe_task_factory.hpp": "30b18d2f565ab3f8870cc0f156c29abce880727148a5261e91dc0851e6faaaf8",
+    "source/apps/moproj2mst/src/doe/task_factory.cpp": "c046ac632a4af3c87aed9f66f13c37c052e782842b39e5b10029921ace061b6e",
+    "source/apps/moproj2mst/tests/mdt/test_doe_task_factory.cpp": "39a3a332f14cfc0c2a6b1db02aa5abc0c587bac84cf2fe8ec960b0e2828ed9d6",
+    "source/apps/moproj2mst/include/m2m/doe_task_runtime.hpp": "3d59535b1771173dfdbdd2bef5ae6637867336544e3487a4d4b683dcab6274ae",
+    "source/apps/moproj2mst/src/doe/task_runtime.cpp": "ded750f5fb1fd47e279d33283842daeb0271a598c11083cc8eff7c1fa2306762",
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "3207aaa840a4774ac2323fcef675363c08eeca75c8baec2e9b84a7bceff69192",
+    "source/apps/moproj2mst/src/doe/io.cpp": "4a9574161317572c651a3df0757138c3cceb8bb252a376d360c5bbbb77e63db2",
+    "source/apps/moproj2mst/include/m2m/doe_session_notifications.hpp": "be68879bf7756a67b229662d5d2397f16d89668c3accf277c7a97b442c5ad625",
+    "source/apps/moproj2mst/src/doe/session_notifications.cpp": "066eb200da45c48a0efc0a96c5093eaf5236946eab2abc929b0d89f07072c09d",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "8e8410f7fb4596bc62e752b02969208e51c9cfcfab402ba72727885bb3f50794",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "15e79e1253325b95c9a4ed696d8801ea08b1d9662b50ca6e68c335c720d397a5"
+  },
+  "evidence": {
+    "analysis/wave2-doe-task-factory-fixed-registration-contract.json": "76422d0f57ac2d79cdaa001abf51d1d47f8bbd3a4d9d6eb5d2b9632ba79a2311",
+    "analysis/wave2-doe-task-factory-prefix-api-proposal.json": "d0be839928cc62bffe213dba3c6263772f57c3b7f4904c987e454aa008e1d6e4",
+    "analysis/wave2-doe-session-task-suppression-implementation.json": "a27273249a467e9c6c71d6e8a790e54790d11c69198f87595a25707dd277dffe",
+    "analysis/wave2-doe-session-task-registry-owner-decompile.json": "b5b1d0510a380949b0c0f1a1bab916f92807285ea2bfb5829336ae937c95d702",
+    "analysis/wave2-doe-session-task-registry-content-decompile.json": "c7c14861013ef85e57c7741ef3980990db9bbeffffe42fc0b1a3896057fdd08b",
+    "analysis/wave2-doe-task-registry-leaf-1407c7a70.asm": "cd66c4ec0ea6d40188f4aeea947b18b155aa07363c32a6b19708200a24df3d2f",
+    "analysis/wave2-doe-global-task-factory-cache-base-remove-decompile.json": "239c726ac3e11f7bba7eadb4308e822d5f6c1366dcf09c07f329f2326d422d87",
+    "analysis/wave2-doe-sim300-constructor-doe-support-decompile.json": "c31b3102e98a912fd16d98728b29f8756fa6adc134f774cc53f2727ec04ef433",
+    "analysis/wave3-editor-shared-qobject-counter-contract.json": "882291ec5af40eb036763c7d7b782dd3c0153d60f63eb30ef1bd27174f200253"
+  },
+  "purpose": "Replace the implicit production parsed-Task projection with actual main-window return dispatch and the source-closed lazy factory/data constructor prefix. Guard the first unresolved QObject base before TaskInfo or factory cache initialization.",
+  "api": {
+    "runtime": "doe::TaskFactoryRuntime(shared_ptr<TaskAllocationStore>, shared_ptr<engine::WidgetRuntimeState>={}) defaults Native; Session owns the actual main-window holder. Merely constructing holder does not construct native factory/data.",
+    "io": "StudyIo::bindTaskFactoryRuntime(const shared_ptr<TaskFactoryRuntime>&), taskFactoryRuntimeOwner() const noexcept -> shared_ptr<TaskFactoryRuntime>. Weak binding; nonnull, same pointer+control-block idempotence, no replacement even after expiry.",
+    "notifier": "SessionNotificationState::createTaskBaseRegistrations optional<TaskFactoryRegistrationList>{entries of weak runtime+bareMethod, qualification, mapKeyPresent}. Actual ordered population unavailable differs from explicitly empty. Root owns actual singleton source qualification and Session binding.",
+    "dispatch": "dispatchCreateTaskBase(StudyIo&, const qt::String&) -> TaskObserver; suppression before all lookup. Actual QString argument unchanged; initial null return; local weak-list snapshot, expired/released receiver skipped without pruning persistent list; recognized method invokes runtime. No flag90 reset.",
+    "projection": "bindBoundedParsedDoeProjection(io,store) returns required retained runtime lease. Explicit isolated fixture setup only, no production fallback. Static boundedParsedDoeProjection(store) is likewise named and reports profile. No native constructor/cache completion claim.",
+    "lifetime": "TaskFactoryRuntime::releaseAdapterScope() idempotently invalidates receiver even escaped shared leases; root must call at actual adapter process boundary. It drops factory/data, not store-owned pending Task allocations. Native normal Close deletion remains unclaimed.",
+    "pending_allocation": "TaskAllocationStore::allocatePendingReportPrototype() retains a non-QObject allocation descriptor at native137610 new0xc0. retainedPrototypeCount/At diagnostics; no TaskObserver or native field defaults. Same sole store as Session records and Tasks.",
+    "source_registration": "CMake existing recursive CONFIGURE_DEPENDS source/tests globs; no explicit registration changes required."
+  },
+  "ordered_prefix": [
+    "650e60 Image/metadata/usersteps and actual store-owned SessionRecord allocation remain before return-value factory dispatch. Task assignment/list append/named clear/child payloads occur only after dispatch returns; new native guard preserves retained record without appending.",
+    "2cf740 shared+141 suppression returns before registration/runtime/factory checks. Unsuppressed unavailable population guards; explicitly absent empty key is inserted at map lookup, existing empty/expired lists remain distinct. Known fixed startup CreateTaskBase registration is not added to the empty-key allowlist.",
+    "01d960 constructs/commits mainwindow+4a0 SfTaskFactory; constructs MoData base maps initially empty with actual factory backlink;7c7a70 commits factory+8 before137610 initialization.",
+    "137610 allocates first0xc0 Report before7b89e0->157ead0->1403210 invokes QObject(parent=null). Runtime retains that allocation descriptor and guards at this QObject call. nextPrototypeOrdinal0, metadata/task caches empty, initialization incomplete.",
+    "Report QObject6712e630 thread/private initialization and shared counter are unresolved as a complete base. No TaskInfo wrapper/PIMPL, FontData read, current font mask, icon/colors, metadata translation, preferences, cache registration, second prototype or RegionDelete registration is claimed or performed.",
+    "Retried adapter suspension does not replay raw allocations; this is not native exception/retry/OOM behavior. Unsupported branch retains the established prefix until explicit adapter scope cleanup."
+  ],
+  "tests": {
+    "m2m_doe_task_factory": 14,
+    "m2m_doe_session": 41,
+    "session_cases_added_since44": 2,
+    "factory_coverage": [
+      "suppression before unavailable owners/population",
+      "unknown population distinct from empty",
+      "native factory/data/backlink/raw Report commits before QObject guard",
+      "unknown requested key still initializes native factory before lookup",
+      "repeat guard does not replay allocation or cache initialization",
+      "expired allocation owner guards after factory/data commits",
+      "explicit bounded profile creates distinct projected Tasks without native initialization",
+      "observed empty list map insertion without flag90 reset",
+      "expired receiver snapshot skip without persistent pruning",
+      "ordered receivers preserve first effect before second guard",
+      "binding idempotence/replacement/released receiver behavior",
+      "factory scope release retains store-owned raw allocation until separate adapter store release",
+      "expired bound owner cannot be replaced",
+      "return slot overwritten by last receiver in order"
+    ],
+    "session_coverage": [
+      "native guard retains parsed record before append/current-index/named-clear/task payload",
+      "suppression appends null Task while native runtime remains lazy and unknown registration population unconsumed"
+    ],
+    "fixture_migration": "Owned ReadIo and direct record-retention fixture explicitly retain bounded projection runtime. Parent owns external default/output/notification/ConversionSession fixture migrations."
+  },
+  "preflight": {
+    "balanced_delimiter_lexer": "pass for11 files",
+    "trailing_whitespace": "none",
+    "testkit_main": "present in both changed/new tests",
+    "git_diff_check": "pass",
+    "build_executed": false,
+    "tests_executed": false
+  },
+  "qualifications": [
+    "This is a reachable guarded native prefix, not complete 17-prototype factory, Task constructor, QObject/thread/refcount/OOM/unwind parity or active DOE acceptance.",
+    "Actual WidgetRuntime is weakly bound and available for the successor. FontData/current mask must be consumed at both actual TaskInfo source points after QObject completes; startup probes do not prove later font invariance.",
+    "Typed fixed registration profile covers retained shipped direct registration-call inventory only. Other dynamic/out-of-inventory population remains unqualified; no singleton inferred merely from one known call.",
+    "Allocation descriptors, construction snapshots and adapter suspension are reconstruction state, not additional native persistent fields or a claim that unsupported guards reproduce original C++ exceptions.",
+    "Checkpoint44 Session39/39 and148 programs were prior validated source. All new45 source awaits parent build/tests; historical93/98 is unchanged prior qualified evidence, not fresh validation of this increment."
+  ],
+  "successor": "Close actual parentless QObject private/thread initialization on the same shared WidgetRuntime/thread/counter owners with closure; only then consume current FontData and TaskInfo metadata. Retain preferences and remaining16 constructors/registration in exact order."
+}

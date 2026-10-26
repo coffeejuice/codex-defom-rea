@@ -1,0 +1,46 @@
+{
+  "schema": "wave3-remesh-rawspill-representation-v1",
+  "created_utc": "2026-10-24T04:28:53.984753+00:00",
+  "status": "static_contract_source_change_pending_root_release",
+  "evidence": [
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-raw-contract.json",
+      "sha256": "79f5324a57b08f98a934392b67f82be723dac46c642274cc0777c329044737ef",
+      "bytes": 7932
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-representation-contract.json",
+      "sha256": "911dd41cd2e7c31928843923d2f0990e19b27d3b754d520a2d8b42be1f1a5cc3",
+      "bytes": 4962
+    },
+    {
+      "path": "analysis/wave3-remesh-rawspill-layout.json",
+      "sha256": "1b6404d96fc78c0293daf0991ea71abf7f1e5b99793e2ccb293c7e3a51fbf8bc",
+      "bytes": 2788
+    },
+    {
+      "path": "analysis/wave3-remesh-save-writer-static.json",
+      "sha256": "3e12333df68f839013026e01eebdc45d83b24fd7e4113d2bb907abb7296cb577",
+      "bytes": 1613
+    },
+    {
+      "path": "analysis/wave2-save-diffs-300-remesh-token-copy.asm",
+      "sha256": "6dc1e060fb303e53a34ac7061c3db19dce8d14249bee9435b7d58d0e0b8149f9",
+      "bytes": 2633
+    }
+  ],
+  "source_behavior": "TokenReaderRaw4 passesselectedCstringtooriginalstrcpy14146fec0 atsingleton+10. There isno numericparseor boundcheck. Knownfieldspanthrough+29 permitsboundedrepresentationof26bytes+10..29; token<=25plusNUL fits. Longerstrings stillneedlaterglobalextent/ownershiprecovery, notsizeof0x30assumption.",
+  "raw_flags": "Writer0abeb4 movzx r9d,byte[singleton+18] then%d prints rawcontactbyte;0abf64 does samefor+28surfacebyte. C++bool normalization iswrongforrawASCIIoverwrites:12.500000 writes0x30 tocontactand NULat+19; absentlatercontactkeyword, Save mustprint48, not1. Readercontact/surfaceIntkeywords explicitly assignnormalized !=0 at their later positions.",
+  "layout": "Preserve uniformdouble8bytes,contactuint8,sevenexplicitinterveningbytes+19..1f,scalingdouble8bytes,surfaceuint8,enabledbyte. Buildlocal26-bytearrayfromcurrentfields/rawbytes,copyselectedtextplusNUL,unpackwithmemcpy. Do not dependon C++objectpadding or copy through invalidbool representations. No arithmeticonpotentialNaNbits.",
+  "initialization": "PEsingleton143d91238 lies .data virtualzero-filltail: delta8671800 exceedsrawsize8561664. Allknown42bytes arezero beforeconstructor. Constructorwritesfielddefaultsanddoesnotwrite+19..1f; thoseinterveningbytes startzero in freshsession butmustretainlaterrawcopies. Otherpaddingspanoutside+10..29 isnotrequiredfor thisboundedhelper.",
+  "proposal": "Change improveContact andgoodSurfaceChangeable to uint8_t (optionally enabled to uint8_t foruniformrawstorage), addarray<byte,7> forinterveningbytes; existingtruthinessusesstaytruthiness, writerintcasts preserve rawvalue. Keep enabledProjectOpen assignment AFTERreaderreturn asoriginal: a25byte token canclear+29 duringreader, then successfulOpen sets1. Shorterduplicatecopies retain untouchedsuffix/contact/padding/scalingfields.",
+  "tests": [
+    "9-byte12.500000 ->contact48,paddingfirst0,scalingbitsretained; writerprintscontact48 beforelaternormalizingread.",
+    "16-byte string terminator overwriteslowbyte ofscaling; exactbits3ff3333333333300 derivedfrom1.2.",
+    "24-byte string terminatorclearssurface;25-byte string givessurface53 andclearEnabled; ProjectOpenlaterassignstrueafterreadsuccess.",
+    "Shortduplicateafterlargespillpreservesoutsidecopiedprefix.26+refusesbeforelocalcopy; earlierreaderfieldsremain.",
+    "NativeSavegenerated9-byteuniformroundtrip is acceptedundernewrepresentation, retainsoriginaltext-as-doublebug, andlatercontactkeywordoverwritesrawcontactinfileorder."
+  ],
+  "qualification": "Staticderivedvectors only; no sourceedits duringrootbuild, runtimecapture, appcontrolorbuild. No claimofbehaviorbeyondknown+29span. Widerstrcpy corruptionstaysqueued.",
+  "next": "Rootreleaseaftercheckpoint; implementexplicitrawbytesandbounded26-bytehelper,amendprior<=8profile/testexpectationswithoutdeletinghistoricalevidence."
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "wave2-doe-task-list-contract-v1",
+  "scope": "Existing SfTask list dispatch/update, static only; content reader/serializer closure incomplete",
+  "evidence": {
+    "six_body_export": "analysis\\wave2-doe-task-list-read-update-decompile.json",
+    "sha256": "a25dc7d65140f29172b99d8dd7b7ee80b4c593ae3225fe9c60e4cf8fe771a725",
+    "existing_wrapper_export": "analysis\\wave2-doe-doe-task-session-update-decompile.json",
+    "wrapper_sha256": "9708c6aa01bd0d045576c3cfdb8734eaa2b5ffd60238801e262dc645c8bdf7ad",
+    "literals": "analysis/wave2-doe-task-list-read-update-literals.json"
+  },
+  "established": [
+    "14140cba0 traverses child siblings in document order, ignores non-elements and unmatched tags; dispatches every OprList,ObjList,OutputList, including repeated children",
+    "Read dispatch does not itself clear lists; actual reset/append/duplicates/conversions depend on virtual child readers",
+    "14140d2e0 traverses live childNodes in order, replaces each existing OprList iff operation list nonempty, each existing ObjList iff object list nonempty",
+    "With empty state lists original existing OprList/ObjList DOM remains unchanged; absent list children are not appended",
+    "OutputList update is in-place via vt270 iff task output list nonempty",
+    "14140d660 and d6c0 delegate Opr/Obj serialization to141410df0/141411150 with finalflag0",
+    "14140d720 creates OutputList and serializes output objects through vt30",
+    "14140d8a0 selects output object by one-based index and invokes vt38/48",
+    "14140da40 walks raw child siblings by index against output-object list, invokes vt60 even with null toElement for non-element child when object exists; do not silently filter element nodes",
+    "14140ce80 clears operation state via14140c780 before actual141410580 reader",
+    "14140cf00 clears object list via0424b0 before actual141410bb0 reader",
+    "141411150 creates ObjList and appends one Object No=int per ordered input entry; duplicates preserved",
+    "141410df0 creates OprList and appends Opr with five attributes from record getters; record field/width contracts not yet proven",
+    "14140cf80 clears output state via14140a7c0, iterates every raw child, invokes task vt1d0 with signals blocked, then output vt28; empty node has no iteration, but output clearing still occurs"
+  ],
+  "read_vtable_slots": {
+    "base": "0x1425b4c38",
+    "pointers": {
+      "0x230": "0x14140ce80",
+      "0x238": "0x14140cf00",
+      "0x240": "0x14140cf80"
+    },
+    "qualification": "Raw immutable PE pointers; no runtime"
+  },
+  "essential_unresolved": {
+    "operation_state_clear": "0x14140c780",
+    "operation_content_reader": "0x141410580",
+    "object_int_content_reader": "0x141410bb0",
+    "output_state_clear": "0x14140a7c0",
+    "operation_record_getters": [
+      "0x1403ed890",
+      "0x1403ed9d0",
+      "0x1403eda10",
+      "0x1403eda50",
+      "0x1403eda90"
+    ],
+    "populated_OutputList": "Task vt1d0 and concrete output vt28; also original raw-child/null-element behavior must be retained."
+  },
+  "smallest_next_boundary": "Object int-list reader141410bb0 plus closed411150 serializer can close object-only read/update without Task reset. Opr/Obj module additionally needs operation clear14140c780, reader141410580 and record getter byte contracts. Empty OutputList acceptance needs output clear14140a7c0; populated output remains unsupported.",
+  "decision": "Final authorized five-body batch exposed delegated readers. Stop without speculative module or tests; report exact dependencies. No additional exports or source edits at this checkpoint.",
+  "source_edits": false,
+  "target_runtime_executed": false,
+  "shared_rea_session": false,
+  "private_project_lock": "released",
+  "followup_content_batch": {
+    "path": "analysis\\wave2-doe-task-list-content-decompile.json",
+    "sha256": "d20845734ace865b9f8b23ca9297f3467f835064f42b5d4eff2615b7415b0d07",
+    "functions": [
+      "14140ce80",
+      "14140cf00",
+      "14140cf80",
+      "141410df0",
+      "141411150"
+    ],
+    "all_completed": true
+  },
+  "later_resolution": {
+    "implementation": "analysis/wave2-doe-task-list-implementation.json",
+    "evidence": "analysis/wave2-doe-task-list-reader-clears-decompile.json",
+    "qualification": "Coordinator authorized actual reader/clear closure after prior checkpoint stop. Separate Opr/Obj module implemented; no active lifecycle/reset wiring. Prior stop/dependency fields describe historical checkpoints."
+  }
+}

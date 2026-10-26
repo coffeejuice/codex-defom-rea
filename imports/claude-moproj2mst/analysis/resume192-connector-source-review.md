@@ -1,0 +1,25 @@
+# CP192 connector independent source review
+
+Pass for integration of the bounded caller spill. No source blocker found. This is a read-only source and test-source review; compilation and executable acceptance remain integration requirements.
+
+Reviewed `resume192-connector-next.md`, `resume192-connector-plan-review.md`, `resume192-connector-implementation.md`, current factory implementation and headers, focused test source, and the qualification in `resume163-connector-qobject-static.json` before interpreting its retained caller listing. The qualification limits that listing to an unwind region, not a complete logical function or runtime proof. QtCore SHA-256 is `bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160`; retained caller listing SHA-256 is `6c8b6eb8379080b7790c812f50d7f523891366e518c94e5a38652a39f798dee9`.
+
+## Instruction and state boundary
+
+The retained listing lines 35–38 establish `mov r12,rax`, then `48 89 44 24 58` at preferred address `0x6713142c`, followed by `mov [rax+8],rbx` at `0x67131431` and `test rdi,rdi` at `0x67131435`. The implementation admits only `[0x13142c,0x131431)`. `task_factory.cpp:792` records the qualified returned private token; the phase advances to `BeforePrivateTaskBacklink`, whose derived cursor is `0x131431` (`doe_task_runtime.hpp:216`). Live RSP is validated as `S+8`, making `[RSP+0x58]` exactly `[S+0x60]`. The separate saved RBX, RDI and return-lineage records are retained.
+
+Public task+8 remains a value-bearing private identity plus publication marker. `qualifyRetainedZeroPrefix` accepts that relation at the successor, rejects private reverse publication and completion, and the flags-loop admission still requires private+8 to equal qualified zero. The new switch case writes only the spill observation; it has no reverse store, register, flag, RSP, reference-count, allocation-count or completion update. The terminal loop refuses before executing another instruction.
+
+## Admission and reentry
+
+The successor is included in phase-sensitive public publication, R12, returned/restored-register, XOR, stack and retained zero-prefix validation. The spill guard at `task_factory.cpp:212–225` requires live owner pointer equality and shared-control-block equality, Report ordinal, task/private identities, module, initializer entry, CALL/RET lineage, exact instruction RVA and both slot offsets. Every earlier phase forbids a spill observation before resumed writes. Existing admission retains Report kind and sizes, address points, widget/shared-null roots and control blocks, committed references, sparse zeros, initializer version and flags-expression provenance. Invalid budgets are rejected before factory allocation or prefix mutation.
+
+The record uses a static module string view and weak ownership. Record construction and optional assignment do not allocate; compile-time checks at test lines 7012–7014 cover nonthrowing move construction, optional move assignment and record-to-optional assignment. The final phase commit follows the record assignment. At terminal reentry the exact spill is checked before budget handling, including budget zero. A consistent rewind clears the slot and restores the predecessor phase; phase-only rewind fails the early phase-qualified spill guard. Cursor is derived, so no independently stale cursor can be admitted.
+
+## Test-source coverage
+
+The full-state snapshot includes spill fields, weak owner pointer/control block, derived cursor, other frame fields, sparse fields, construction/cache state, retained allocations and shared-null reference state. The positive CP192 test removes exactly spill plus phase to compare with its predecessor, then restores and compares terminal snapshots across all 15 valid budgets and all three task keys. It checks slot arithmetic, exact token/provenance, public task+8 publication, private+8 zero, absent reverse publication and false completion flags, then exercises consistent rewind/resume and invalid budgets 15 and maximum size.
+
+The focused source contains 18 spill corruption cases at budgets zero and 14 with all three task keys, including missing/expired/foreign owner, matching pointer with foreign control block, ordinal, both identities, module/lineage/instruction/offset corruption and phase-only rewind. Premature spill is tested at every earlier enum phase. Every intermediate budget 0–14 is reentered and resumed; production default reaches only the spill terminal. The inherited 118-case corruption matrix runs at predecessor and successor, with all three task keys and unchanged snapshots; its reentry budget is 14. Expired widget-root refusal is covered at both boundaries. Historical tests pin predecessor budgets.
+
+No source, build, executable test, GUI session, REA database, external evidence or deployment was changed by this review. Native faults, concurrency visibility, concrete pointer bits and full construction success remain unestablished. Integration must compile and run the focused target and required source-stable suite before frozen-candidate acceptance.

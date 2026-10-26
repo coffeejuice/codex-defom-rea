@@ -1,0 +1,177 @@
+{
+  "scope": "Static-only original Convert2Dto3D initial tree/editor selection; no source changes to L5, no target execution",
+  "reference": {
+    "path": "evidence/gui_mo/DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+  },
+  "qualification": "Preserved Ghidra decompiles are checked against bounded dumpbin disassembly and original literal bytes. A visible first-row selection is established independently in retained129 opened.png by coordinator. This report does not claim complete Qt event routing or all GeometryType widget behavior.",
+  "tree": {
+    "function": "0x1401c5000",
+    "preserved_source": "evidence/gui_mo/s1/mdt/L5/v0.c:102",
+    "predicate": "0x140050bc0 calls0x140055150 active-flow getter and0x140086720 predecessor lookup with operation+0x108 ID; returns false without flow, otherwise predecessor==-1",
+    "port_helper": "source/apps/moproj2mst/src/model/opinfo.cpp:291 isChainHead",
+    "true_rows": [
+      "GeometryType (Geometry Type)",
+      "Configuration"
+    ],
+    "false_rows": [
+      "Configuration"
+    ],
+    "tail": [
+      "0x140d40d50(tree,0)",
+      "0x140d3d8c0(tree)"
+    ],
+    "mode_relation": "This branch uses chain-head state, not MoInputMode.",
+    "pseudocode": [
+      "objectTreeAdd(op); clear/rebuild tree;",
+      "if isChainHead(op): append GeometryType; append Configuration; else append Configuration;",
+      "append other class-specific items; select row0; finish tree;"
+    ]
+  },
+  "factory": {
+    "derived": "0x1401cca90 (evidence/gui_mo/s1/mdt/L5/w5.c:3)",
+    "specific_keys": {
+      "Object": "no custom widget (falls through)",
+      "Configuration": "0x1401e1a80 SfConv23Config",
+      "Geometry": "0x1401d9920",
+      "Mesh": "0x1401d1b80",
+      "Convert": "0x1401ce7c0"
+    },
+    "fallback": "0x1405ff0b0; first key0x1424a4fd8 GeometryType directly creates0x1410580a0 regardless of MoInputMode",
+    "base_preserved_source": "evidence/gui_mo/s1/mdt/L3/psc/ff.c:239",
+    "mode_relation": "The derived factory has no mode getter; base GeometryType branch precedes and does not consult mode-dependent choices."
+  },
+  "geometry_type": {
+    "class": "SfGeometryType",
+    "vtable": "0x142b794f8",
+    "constructor": "0x1410580a0..0x141058170",
+    "constructor_steps": [
+      "base editor0x140130740(op,0)",
+      "install class vtables; allocate zeroed UI0xb0 bytes at editor+0x48",
+      "setupUi0x141058f20",
+      "editor+0x50=0",
+      "fill0x1410582d0"
+    ],
+    "metadata_slots": {
+      "0x1b8": "0x1410582d0 fill",
+      "0x1c0": "0x141058600 apply",
+      "0x1c8": "0x1410581e0",
+      "0x1d0": "0x141058240 leaving"
+    },
+    "setup_defaults": [
+      {
+        "instruction": "0x141059736",
+        "ui_field": "0x28",
+        "object_name": "rdBtnAxisym",
+        "checked": true
+      },
+      {
+        "instruction": "0x14105a536",
+        "ui_field": "0x80",
+        "object_name": "m_rdoBtnWholePart",
+        "checked": true
+      },
+      {
+        "instruction": "0x14105aa0c",
+        "ui_field": "0x08",
+        "stack_index": 0
+      }
+    ],
+    "fill_dispatch": "0x1410582d0: is3D0x140c7c0a0\u21920x1410584a0; else is2D0x140c7c0e0\u21920x141058370; then0x1410589b0 display fill",
+    "fill_2d": "0x141058370 selects stack page0, skips absent/3D model; gets SC0x140c7b2d0; GEOTYP(SC+0x100)1\u2192ui+0x28,2\u21920x38,3\u21920x48,4\u21920x58. Unknown leaves setup default checked.",
+    "radio_mapping": {
+      "1": "rdBtnAxisym ui+0x28",
+      "2": "rdBtnPlane ui+0x38",
+      "3": "rdBtnTorsion ui+0x48",
+      "4": "rdBtnPlaneStress ui+0x58"
+    },
+    "save_dispatch": "0x141058600: 3D\u21920x141058830, else2D\u21920x141058670; no refreshSlotItems call in this wrapper",
+    "apply_2d": "0x141058670 obtains model and SC, skips3D/absent SC; isChecked(ui28/38/48/58) writes GEOTYP1/2/3/4 respectively. For1/2 only, a successful SfOprExpressProperties cast additionally writes Express data0x1413f72d0; Convert2Dto3DProperties does not match.",
+    "apply_2d_does_not_write": [
+      "WPAXIS",
+      "SC+0x2c38",
+      "GEO23 configuration data",
+      "Convert2Dto3D work model",
+      "TEMP_STEP.KEY"
+    ],
+    "leaving": "0x141058240 compares model geometry type against editor+0x50 and can reset a separate model block via0x14082a360 for2D and changed type; this is distinct from Save apply and is not asserted equivalent to an empty destructor."
+  },
+  "recommendation": "For chain-head C23 select/retain GeometryType editor state and use its Save dispatch; do not run Configuration init/apply/init unconditionally. Keep Configuration state only for the non-head branch. Preserve post-load TEMP_STEP behavior separately; this report does not establish every file-write cause.",
+  "artifacts": [
+    {
+      "path": "analysis\\wave2-save-diffs-c23-factory.asm",
+      "bytes": 10006,
+      "sha256": "4e93015f946fa4c6e96eae109a218c91892f51c5f45d3b66e9d1fa61c3e12884"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-c23-literals.json",
+      "bytes": 1310,
+      "sha256": "c0471295b1f304796fdcd6125988fe743e888008ee62b7ea1acd03ea48cff207"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-c23-mode-hints.json",
+      "bytes": 3441,
+      "sha256": "b88978a3fcdef990d2826b32478e3e68c1b8d9caa7c122031a72355faedb79aa"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-c23-tree-hints.json",
+      "bytes": 9170,
+      "sha256": "0573a531f4fab6bf8649ee30878f39887d0f0e689f5325d840b2b0803f25f447"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-c23-tree-predicate.asm",
+      "bytes": 1303,
+      "sha256": "4add8def85974f45122376fc9fc621fdfef2ce8919b8b6993390d7637ca99ddb"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-apply-hints.json",
+      "bytes": 1163,
+      "sha256": "ef9aa952b7b948da0f512ca64b7a904578c309a4936277826f619653e86cd4f5"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-base-hints.json",
+      "bytes": 1033,
+      "sha256": "f40e0293e5365cbc4e65572f6cb9d04cebb6c45990dc75616ae47d1d66c49aa5"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-constructor.asm",
+      "bytes": 3583,
+      "sha256": "a1b0950b10beacfce83bf02c5c35bfd6eb88616615de2116eb4fffa6a236ab91"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-ctor-hints.json",
+      "bytes": 850,
+      "sha256": "b40249853ba822fb759521ad4e055958d62e214ed0449043d774b6f31953ebb7"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-fill-apply.asm",
+      "bytes": 40434,
+      "sha256": "cebe04c8b4ba1fdf64cd2257975ba71b5f751e15374972d4283712a428e9f70d"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-hints.json",
+      "bytes": 1151,
+      "sha256": "95caf36a84d427f2dae14d25806714a27dfff26d518c6a87b62910b002c817a9"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-setupui.asm",
+      "bytes": 65586,
+      "sha256": "675b744ed666ee8661ad0007372ae8917e3675125d6349f3b9b67ce31f314a89"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-subapply-hints.json",
+      "bytes": 1013,
+      "sha256": "b1c477af292cece7864a51a55a857cd337e46f0b5c9c84455ec8346aef57da2b"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-ui-hints.json",
+      "bytes": 693,
+      "sha256": "237942c15bcc68bfe30f0b11f6122b4a1dc4b593abdb0d9be4865f082cf72d01"
+    },
+    {
+      "path": "analysis\\wave2-save-diffs-geometrytype-ui-names.json",
+      "bytes": 1861,
+      "sha256": "432b37beca1d36626db776c697c8981effaa16175923c6085d03a19098d8a035"
+    }
+  ]
+}

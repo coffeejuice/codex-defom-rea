@@ -1,0 +1,56 @@
+{
+  "schema": "editor300-gui-lazy-coordinate-reader-reconciliation-v1",
+  "created_utc": "2026-10-24T09:32:06.287856+00:00",
+  "status": "Existing source identified; GUI predicate and shared integration remain unresolved. No source edits.",
+  "evidence": [
+    {
+      "path": "analysis/wave3-editor-mds-gui-coordinate-lazy-read-static.json",
+      "sha256": "fdaf6471e8e369d9b36db2314cedec7a1be9f28104691c4369bd7db58281d60b"
+    },
+    {
+      "path": "analysis/wave3-editor-mds-gui-coordinate-lazy-file-read-static.json",
+      "sha256": "bb3a36f353942d40dab879edb6d44ffe74207f749c6ac5f131f880b83ae871ef"
+    },
+    {
+      "path": "source/port/defmodel/src/node_access/pending.cpp",
+      "sha256": "411a8dd04121d7ae27f20d8980780387970ada1163662267343bfa9831dd1efb"
+    },
+    {
+      "path": "source/port/defdbio/src/dbread/w2_objarrays.cpp",
+      "sha256": "c567ec0c3391507f438bfe66f5121aa25dab577f40592d5a84164d4133152359"
+    },
+    {
+      "path": "source/port/defdbio/include/defdbio/dbread/w2.hpp",
+      "sha256": "ac5ada504545294321a4a8d0446093d50d19778205f9c54ab72297fcc9f787a7"
+    },
+    {
+      "path": "source/port/defdbio/tests/test_dbread_w2_obj.cpp",
+      "sha256": "a35317ba9bd74a8acd95ce1d8ae7f9b548b722128bf76a99ed81afc99468b95b"
+    }
+  ],
+  "reconciliation": {
+    "stale_stub": "defmodel::fun_1401d4400 remains DEF_NOT_PORTED in node_access/pending.cpp. Its native caller assumes an always-true currentness predicate.",
+    "implemented_helper": "def::dbio::dbread::read_single_a_array already implements the same named native function1401d4400 in w2_objarrays.cpp. Do not repeat that entire recovery or treat the stub as proof no helper exists.",
+    "remaining_difference": "Its nested read_single_a_array_from_file calls native names_up_to_date, which always returns true. That is not the GUI82bf10 condition and suppresses the reached GUI file body.",
+    "integration": "No claim that the existing helper is wired into the GUI node getter. Defmodel and defdbio remain separate libraries; do not create a circular dependency or silently change native shared semantics."
+  },
+  "gui_region_zero_route": [
+    "854af0 passes key0 to82dca0. On false82bf10, its key0 branch calls82d7d0(owner,&region11,&flag1).",
+    "82d7d0 chooses the current dimension index tables first, then rejects invalid/already-read region. It starts timers, invokes828060, then assigns the chosen array to current objects in position order, skipping null/kind7/byte+3610 objects.",
+    "For the actual flag1 and ordinary node region, it calls the node-array assignment. The file-part return is void and does not stop the subsequent object loop.",
+    "828060 returns if DB pointer is null; otherwise it queries step_dir_sizes825440 before re-evaluating82bf10. The size query can update step_version.",
+    "After that it validates region0..279, emits the missing-step-header diagnostic when u1b68 or u1b6c is0, and returns when region already read.",
+    "It allocates missing A storage as u2b24+2 doubles, marks an empty region read without file access, or resolves the step file and calls Fortran A-region readerb38d57.",
+    "After the Fortran call it marks u26c4[region]=1 without branching on ierr. Preserve that failure continuation."
+  ],
+  "next_smallest_shared_change_if_in_scope": "Audit the GUI/native helper equivalence and provide a live currentness predicate/profile through the existing outer and nested reader, preserving the old native entry semantics. Evaluate the predicate again after directory lookup; a captured bool would be wrong. Root must coordinate ownership of defdbio shared files before any edit.",
+  "acceptance_needed": [
+    "Initial currentness true: no lazy reader effects.",
+    "Initial false with already-read region: dimension-table selection still occurs; file and object assignment do not.",
+    "Initial false, directory changes version below6000: nested currentness becomes true and returns before file read, while outer assignment continues.",
+    "Missing DB/header, empty region, read failure, object skip/order and node assignment retain original partial effects.",
+    "Independent original comparison is still required; current native tests only cover early exits/directory sizing and cannot establish GUI lazy-load fidelity."
+  ],
+  "worker_builds_or_tests": 0,
+  "runtime_or_gui_used": false
+}

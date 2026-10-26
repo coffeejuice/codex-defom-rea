@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD DXF binary header",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 1\nBIN.DXF\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    },
+    {
+      "name": "BIN.DXF",
+      "source": "data/dxf_binary.dxf"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "Binary DXF rejected (-10000): geometry unchanged, GFREAD Done. Prediction = observed 2026-10-21: reader result -10000, GFREAD Done, object 1 keeps the IN.KEY curve (DIEGEO 1 1 2)."
+  }
+}

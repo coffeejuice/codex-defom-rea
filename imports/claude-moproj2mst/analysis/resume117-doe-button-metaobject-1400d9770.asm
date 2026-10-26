@@ -1,0 +1,31 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Users\alext\Projects\codex-deform-rea\imports\claude-moproj2mst\evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00000001400D9770: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  00000001400D9775: 48 83 EC 38        sub         rsp,38h
+  00000001400D9779: 48 8B 4C 24 40     mov         rcx,qword ptr [rsp+40h]
+  00000001400D977E: 48 83 C1 08        add         rcx,8
+  00000001400D9782: E8 C9 F2 FF FF     call        00000001400D8A50
+  00000001400D9787: 48 83 78 28 00     cmp         qword ptr [rax+28h],0
+  00000001400D978C: 74 19              je          00000001400D97A7
+  00000001400D978E: 48 8B 4C 24 40     mov         rcx,qword ptr [rsp+40h]
+  00000001400D9793: 48 83 C1 08        add         rcx,8
+  00000001400D9797: E8 B4 F2 FF FF     call        00000001400D8A50
+  00000001400D979C: 48 8B 40 28        mov         rax,qword ptr [rax+28h]
+  00000001400D97A0: 48 89 44 24 20     mov         qword ptr [rsp+20h],rax
+  00000001400D97A5: EB 0C              jmp         00000001400D97B3
+  00000001400D97A7: 48 8D 05 52 48 CA  lea         rax,[0000000143D7E000h]
+                    03
+  00000001400D97AE: 48 89 44 24 20     mov         qword ptr [rsp+20h],rax
+  00000001400D97B3: 48 8B 44 24 20     mov         rax,qword ptr [rsp+20h]
+  00000001400D97B8: 48 83 C4 38        add         rsp,38h
+  00000001400D97BC: C3                 ret
+
+  Summary
+
+     1E02000 .text

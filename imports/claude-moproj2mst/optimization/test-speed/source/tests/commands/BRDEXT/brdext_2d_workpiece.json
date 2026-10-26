@@ -1,0 +1,22 @@
+{
+  "label": "BRDEXT obj1 2D (AMG_DXT)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "DBREAD 0\nHAMMER_SI.DB\nPROBID\nHAMMER_SI\nBRDEXT 1\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "HAMMER_SI.DB",
+      "source": "C:/Program Files/SFTC/DEFORM/v11.0.2/2D/2D_Examples/SI/MultipleHammerOperations/HAMMER_SI.DB"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "HAMMER_SI.GEO"
+    ],
+    "notes": "2D object: AMG_DXT.INI (HAMMER_SI, step, 1); runs 'AMG_DXT > DEF_BRD.OUT' (2D folder); reads HAMMER_SI.GEO into object 1's geometry (OUT.KEY geometry of obj 1 changes). On success HAMMER_SI.GEO/.RES/NBCD.DAT stay in the directory. DB lookup finds no '<PROBID><suffix>.DB' and falls back to HAMMER_SI.DB."
+  }
+}

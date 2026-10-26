@@ -1,0 +1,49 @@
+# CP194 R300 next alias owner after furnacePostLoad
+
+## Decision and binding
+
+GO for `htPostLoad` in `source/apps/moproj2mst/src/engine/loader_l2.cpp:222-297`, paired only with `source/apps/moproj2mst/tests/mdt/test_loader_l2.cpp` (registered `m2m.mdt.loader_l2`, target `m2m_mdt_loader_l2`). Its line-247 `Cls_1401e7b10* sc = opSimCtl(p, op)` remains an unscoped actual-step alias across subtype selection, object admission, nested defaults and conditional STNOUT/ELMNOD writes. This is a genuine remaining owner, with a reachable positive fixture through an existing public slot. The immediate furnacePostLoad callback from CP193 is already present.
+
+Compared both files byte-for-byte against `build/wave3-checkpoint193-verified/source.zip` (archive entries omit `source/`); both match. SHA-256: loader `b82fdbc181ad55d25d74a5ded03d8876619676b86fda3428eb509e522ea31b62`; test `34e4d9b1568fb5211067259a982ba66ea20871bbb402979e474e7d84166f39b2`.
+
+## Smallest complete source cut
+
+Keep the opening model lookup/null return, properties dynamic cast/null return, `keyRes`, scratch allocation, predecessor lookup and conditional predecessor KEY read exactly where they are. Replace only the line-247 alias declaration and its complete consuming remainder with an immediately invoked, nonstored void lambda accepting `Cls_1401e7b10* sc`, invoked once with the unchanged `opSimCtl(p, op)` expression. Captures should explicitly retain the used enclosing references/values (`p`, `op`, `m`, `pr`, `prev`, `keyRes`, `scratch`) without returning or storing any step-owned alias. The existing early return in that remainder becomes a return from the callback; it still ends the owner because no executable statements follow the callback. Keep scratch destruction after callback completion, as before.
+
+The callback begins before `int v = subTypeIndex(op.subType)` and includes every following statement through the final `if (op.oprFlag == 0)` block. Wrapping only the final array stores would move acquisition past observable subtype/object/default work and is inadmissible. Do not reacquire sc, replace it with withOpStep/withPropsStep, or derive it from direct step storage. Preserve this order:
+
+1. Acquire sc after predecessor KEY read and before subtype reads/assignments.
+2. Select subtype with existing case-insensitive priority and predecessor/chain-head conditions, then recalculate its index.
+3. Read model object count, calculate minimum predecessor-slot count and OprFlag-zero adjustment.
+4. Preserve the OprFlag-nonzero/object-present early return. Preserve slotObject admission and the existing add-object unsupported throw, with no added object creation.
+5. Only for OprFlag zero, call the already scoped `htSubTypeDefaults(p, *pr)` first. Only afterward, when predecessor exists and keyRes is zero, copy seven STNOUT then ten ELMNOD elements in their existing loops/order.
+
+`opSimCtl` keeps its nested opModel lookup and `m->simCtl()` path. `GuiModel::simCtl` (`gui_model.cpp:179-183`) checks geometry availability before nullable-step admission. Consequently geometry refusal at that acquisition remains after scratch allocation/predecessor file read but before subtype changes, object checks and defaults. Do not describe it as refusing before every function effect. Ordinary null sc has no explicit check here: paths that do not reach the final array copy may never dereference it; the copy path dereferences it unchecked. Preserve this branch-dependent policy, including nested defaults' separate lookup/null behavior. Model-null and wrong-properties returns remain outside the cut. These are reconstruction source facts, not independently recovered native null/geometry behavior.
+
+This is lexical alias confinement. It does not pin model ownership, prevent arbitrary reentry or replacement, invalidate previously issued aliases, make public GuiModel::step private, or complete the parked Stopping barrier.
+
+## Reachable fixture and independent expected values
+
+Add `heat_transfer_postload_step_scope` in the existing test file. Reuse openCorpus/load/ProjectScope and configured `08_HEAT1/HEAT1.moproj`, whose fixture is present under `evidence/gui_mo/s1/corpus`. Use operations 1 and 2, retain all project/model/property owners, and perform the initial operation-2 load before assertions. Require HeatTransferProps and owner identity, cached model/step/control, OpClass, and the installed `mst::g_loaderSlotsL2.htPostLoad` pointer (`include/m2m/mst/loader_l2.hpp:15`). Set `cls->current = op` before direct slot calls. No new export, header or forward-declaration seam is needed.
+
+Use the existing `heat1_first_setup_defaults` route: predecessor op1 subtype `Heat in furnace`, operation 2 OprFlag zero, operation 2 subtype `Transfer through air`. The subtype stays Transfer; n becomes one and the inherited existing object satisfies admission. The actual predecessor Task00001/SimCtrl.KEY exists. Its retained literal STNOUT is `{0,0,0,0,1,0,0}` and ELMNOD has count 10 followed by ten zeros. These were read directly in this audit. Do not write a fixture KEY or compute expected arrays using the production reader.
+
+Before direct invocation, seed each destination STNOUT and ELMNOD element to a different nondefault sentinel (e.g. 70+i and 90+i); seed TMAX/ENVTMP mode/value and property heating text distinctly, set unit 1 and unrelated NSTEP 37. Call the installed postload slot directly. Require exact seven/ten array literals above, TMAX 15, ENVTMP ndim zero/value 20, heating text `15 sec`, subtype Transfer, unit/NSTEP unchanged and original model/step/control/property/common/owner identities. This makes the final copy observable; the older first-setup test explicitly says its default-valued destination did not prove the copy occurred.
+
+Exercise the actual early-return branch separately on the same loaded operation: set OprFlag to nonzero (1), retain valid Transfer subtype, require slot 0 holds an engine object and objectCount >=1, seed arrays and defaults/property text again, invoke only this slot, and require all sentinels unchanged. That proves the lambda's return retains the original branch exit and skips defaults/copy. Reuse existing objId/slotHoldsObject and model object helpers for preconditions; if unavailable in test headers, assert the existing loaded object's presence and bind the slot code through already exposed model data rather than inventing an export. Restore OprFlag if subsequent checks depend on it.
+
+For both calls, snapshot all six FileEffects collection sizes after setup and require unchanged sizes; retain operation/property/common identity, object count and relevant slot identity. Do not assume setup effects are empty. Identity assertions support same-owner mechanics; static review proves the callback is immediate/nonstored. No null-step or arbitrary owner replacement is required. The unavailable add-object behavior remains refused and is not converted into a synthetic positive branch. Root owns focused L2 execution, independent source review and required source-stable full regression/freeze; this audit executed none.
+
+## CP173 reconciliation and excluded cuts
+
+CP173's table is a historical direct-token inventory, not current closure proof. The current withOpStep/withPropsStep migrations, props sync, material/interobject/contact/BCC/restart/equipment/storeSimNames save scopes, and L3/L6 scoped saves must not be repeated. CP192 htSubTypeDefaults and CP193 furnacePostLoad are closed lexical owners. Furnace property-copy/thermal-reset borrowers already have enclosing callbacks or tiny null-check/use scopes; another callback around them does not close a new substantial owner. The two TRANS one-store setters, scene nested SimControl if-initializers, sync NSTART initializer and final tiny formingSimControl300Open use likewise do not justify new callback-only phases.
+
+`htPostLoad` is newly selected because its unscoped SimControl alias is derived through opSimCtl, missed by the original direct `.step` token inventory, and spans real control flow before its final consumers. It is smaller and more directly testable than equipmentSync's joint control/object/file effects, L5 scratch/actual-step process/apply chains or L6 model-copy routes. Pointer-return APIs opSimCtl/slotObject remain open seams; this cut must not claim to close those APIs globally. Original-bound editor construction that stops before unimplemented native UI code cannot be made a positive route through a synthetic mainwindow or fixture-only branch.
+
+## Native qualifications and remaining limits
+
+Read `source/docs/re/moproj2mst/mdt/L2/spec.md` introduction and section 2, plus ledger row 4. They qualify the basis as historical static analysis of DEF_GUI_MO_64.exe, annotated d0a.c..d5a.c and ht_post.asm, Ghidra copy gproj_L2. The `0x141354ce0` entry is labelled asm checked and records properties admission, DB_STEP_DATA(3), predecessor KEY reset/mode (1/0), result default 2, subtype selection, count/admission/unsupported object-creation path, then OprFlag-zero defaults followed by conditional STNOUT/ELMNOD. Ledger binds it to this source owner and the class's vt+0xc0. The named historical decompile/assembly files are absent from the converter inventory; this is retained annotated native evidence, not newly inspected original assembly or a fresh runtime trace.
+
+Corpus08 exercises the actual reconstructed HeatTransfer route; the new direct slot fixture isolates it from later load/property-copy effects. Matching source mechanics or suite results would not establish original runtime equivalence, native null behavior, same-occurrence reader continuation or public GUI Open/Save proof. Stronger claims remain outside this pair and subject to the standing evidence/GUI-release gates.
+
+Only this report was written. No source/test/build, executable/deployment, GUI/app-control, live REA, mutable analysis DB or shared plan/state was changed or run.

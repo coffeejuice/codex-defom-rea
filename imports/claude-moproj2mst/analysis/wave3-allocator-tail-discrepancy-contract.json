@@ -1,0 +1,37 @@
+{
+  "status": "Confirmed original-versus-reconstruction discrepancy; production repair scheduled immediately after candidate40 freeze",
+  "evidence": {
+    "analysis/wave3-original-allocator-probe-receipt.json": "903e80cc8198cf012bb8b2b246f9de4773c9c5f553fe29254054fb56900e9eeb",
+    "analysis/wave3-ported-allocator-probe-receipt.json": "7b0de03bf09b005e2c503f6eccdcfa1de244d6df5c1a92463629ae80f4d1ce27",
+    "analysis/wave3-original-secondary-realloc-static.json": "b871e56e32bdc96ff24b8b306447ef5da002f767e71239b955b45f0f1e13e1de",
+    "analysis/wave3-editor-stopping-save-realloc-binding.json": "b8713de72d6393bcd88f991986c9f8996eefac8104a908d2da58c48a088f397c",
+    "analysis/wave3-editor-stopping-save-realloc-thunk-static.json": "da00128f884d40621f598bfa382c09b25ddcc00ea2f0dfc8c127c6f60b8e8807",
+    "analysis/wave2-save-diffs-300-advanced-twin-object-remap-gui.asm": "0a9d1d19cc4b005b8038aa66fe126d8b3305aaa517db2a9a342d2c98f36e79c2",
+    "analysis/wave2-save-diffs-300-advanced-twin-object-remap-native.asm": "d10e6252805ae9cb422c6977cef187fdeaad0936c58ae1756a45cf5e46aabe19",
+    "source/port/defmodel/include/defmodel/llobj/realloc_zero_tail.hpp": "e614095eeb835704946e1b40b3873e85132c8fdbda6aedf832d5564c50802e17"
+  },
+  "source_contract": [
+    "Original object remap14086d7f0 calls140854370 for+8a0 and140857990 for+9e0; source twin matches port alloc140180150 and140183770.",
+    "Both original allocation bodies call1414753c4 directly; existing-pointer positive-size path callsHeapReAlloc(heap,0,old,size), no grown-tail memset or old-size query.",
+    "Legacy port helper calls_msize thenstd::realloc thenzeroes bytes beyond old allocatedsize; header explicitly describes deliberate output normalization."
+  ],
+  "experiments": {
+    "original": {
+      "trials": 8,
+      "preserved_prefix": 8,
+      "nonzero_grown_tail": 8
+    },
+    "port": {
+      "trials": 8,
+      "preserved_prefix": 8,
+      "zero_grown_tail": 8,
+      "old_allocated_bytes": 32
+    }
+  },
+  "next_action": "Replace the two represented object-set allocator callers with uninitialized realloc semantics; preserve baseline archives and compare focused/full tests. Retain every new raw difference and classify undefined-memory effects rather than reinstating unsupported zeroing to pass historical output.",
+  "qualification": [
+    "Controlled allocation histories differ between CRTs; this compares tail-initialization semantics, not addresses/exact uninitialized values or normal conversion outcomes.",
+    "Original CRT null/zero/oversize/OOM/new-handler/errno and modern CRT differences remain separate contracts; removing the added memset does not prove full allocator parity.",
+    "No live original process or GUI control remains."
+  ]
+}

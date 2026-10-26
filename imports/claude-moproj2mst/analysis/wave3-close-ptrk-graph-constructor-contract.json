@@ -1,0 +1,50 @@
+{
+  "scope": "Read-only bounded enabled Ptrk graph allocation defaults; source guards unchanged",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "method": "Offline retained DUMPBIN and direct PE; no original execution or source mutation",
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-change-ptrk-model-and-allocation-static.json",
+      "sha256": "5598f96822de7b509364bff5db806df7e63edea2b94bf18b40dc52396538c7a9"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-defaults-static.json",
+      "sha256": "905b699b23555b9054ded02bc46972e01889bc842bb9b9e0ba085371e7e85dbc"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-enable-leaf-static.json",
+      "sha256": "0a434c310caa10e4f4bfe1e3520ce8ca5667f020913edf0fa665db31e63128fe"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-constructor-leaves-static.json",
+      "sha256": "f88310d013ec75590c31d8087face8863adcca376ed3b9e58d13bd58e2563a00"
+    },
+    {
+      "path": "analysis/wave3-closure-next-close-ptrk-graph-payload-defaults-static.json",
+      "sha256": "19c345f8e2f590880d5c60f8db1041f1fbb9fac117f84605807e78b9feca08d1"
+    },
+    {
+      "path": "analysis/wave3-close-change-ptrk-graph-contract.json",
+      "sha256": "d7fe12c90de8d1bd65efee5d1afd6b13de4ccfc83f4816650673c2c4a47133b7"
+    }
+  ],
+  "constructor_order": [
+    "3d55c0 calls base3d9170, installs vtable142360b00, constructs members at+18,+48,+78 through3ed6f0, member+a8 through40e230, member+c0 through531270, then3d5700.",
+    "Base3d9170->3d91c0 writes byte+8=true and int+c=-1. Final3d5700 virtual+28 binds141464350 and writes int+c=0.",
+    "Each3ed6f0 member uses3ed760->3ed790: signed fields+8,+c,+10,+18,+20=-1; +1c,+28=1; bytes+24,+25,+26=false. No whole-object zero initialization inferred.",
+    "40e230 initializes a QList at member+10 via18f9e0 and40e2d0->40e300 writes member+8=0. 531270->5312e0->531310 writes member+8=0,+c=-1.",
+    "Final3d5700 writes graph+d8,+e0,+d0=null and byte+10=false;3ed9b0(graph+78,0) overwrites graph+98=0;3d7520(graph,false) writes graph+f1=false."
+  ],
+  "conclusion": [
+    "New graph byte+f1 is false independently of manager graphOn+4d0.",
+    "Enabled manager with absent graph still executes allocation/storage and possible model+250 registration in31fab0 before321660 reads graph+f1 and returns false.",
+    "plotVar0 remains insufficient to bypass this earlier mutation prefix."
+  ],
+  "qualifications": [
+    "Constructor defaults apply only at new construction; subsequent writes remain possible.",
+    "Unwritten fields are unknown, not zero. Member field semantics are not assigned beyond evidence.",
+    "Model+250 registration list semantics and main display+1e0 override remain unimplemented; current enabled-receiver refusal stays required.",
+    "No new graph object or registration implementation is included in Close effects landing."
+  ],
+  "next": "Classify direct manager graphOn setter callers against actual session input/load path; preserve qualified unknown population until source-bound."
+}

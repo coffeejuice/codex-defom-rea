@@ -1,0 +1,47 @@
+{
+  "scope": "Six additional Save task KEY writer families integrated into native converter ordering",
+  "status": "implemented_pending_validation",
+  "original": [
+    "140896030 InterObject: name/open gate, banner, interobject body, ignored fclose; GUI caller14005a8a0 updates contacts before writer.",
+    "140895f30 object: normalize output number, name/open gate, then +1744 flags and object lookup/body; ignored fclose.",
+    "140896360 MeshSettings: name/open gate, banner before object lookup; absent object closes banner-only file and returns3.",
+    "140896280 ObjProperties: name/open gate, banner, object lookup then OTPRNG/OPSTOP; ignored fclose.",
+    "140896840 equipment: open fails3 before object lookup/banner/movement/reference/keywords; ignore fclose.",
+    "1408959e0 material: name validation and material lookup before opening; comments/header/material/mixture/phase calls; early statuses still close and ignore fclose.",
+    "All six mode literals are wt; GUI wrappers select QString::toLocal8Bit."
+  ],
+  "implementation": [
+    "Ported stream bodies reused by original file wrappers and converter direct writes.",
+    "Native writes happen at dispatch, erase stale overlay only after successful truncate, no parent creation/atomic replacement/replay.",
+    "Equipment now receives owning Project to invalidate its overlay; Open remains recorded because its FileEffects native flag is false.",
+    "Public converter enables nativeTaskKeys for Save; per-dispatch alias callback rejects target before its truncation, an adapter rule. Earlier writes can already have occurred."
+  ],
+  "validation_required": [
+    "Public denied InterObject/ObjProperties/material opens continue to MST without replacing denied file.",
+    "Object open failure retains flags and prior bytes; successful open sets0x3000 and clears stale overlay.",
+    "Direct writer composition matches recorded bytes for all generated files, including explicit MeshSettings; equipment ignores flush failure and releases stream.",
+    "Material missing-number lookup leaves target intact; output alias preserves target and project.",
+    "Full regression, logged diagnostics, fixture immutability and ABI."
+  ],
+  "remaining": [
+    "RzElmCon/BccDef original failed-body stream leaks need explicit session ownership before native migration.",
+    "Restart whole-model KEY, GeoConvt class-specific writers, Open writers, HeatTreat schedule/write-readback remain queued.",
+    "CRT descriptor/allocation exhaustion and native locale startup remain qualified.",
+    "No fresh original runtime acceptance in this increment."
+  ],
+  "files_sha256": {
+    "analysis/wave3-native-key-wrapper-static.json": "9ba26435ea08ba4fcdf8ff5b4c3cb27c5a6e3f62361cab89bbca1204c9ae50b3",
+    "analysis/wave3-native-key-bodies-static.json": "5eb2055943da2d9d32d6532ecff6a110134887c768543a3f543cc7b1814565ce",
+    "analysis/wave3-native-key-body-modes.json": "c9dda487021ca557ddf6187b6c574792b1c1455816f9a28d8642e7af8ce1a71b",
+    "source/port/defkey/include/defkey/item_writers.hpp": "d510acaabc6a73324dba88722fcefa7e4e819bad013d9dc9470dd478312eb020",
+    "source/port/defkey/src/item_writers/task_key_writers.cpp": "175488ac21d47f4e4d5afafb7ffd69d97155d60e18a9c00540713dc01f0fb84b",
+    "source/port/defkey/src/item_writers/material_key.cpp": "fcf3babfa7a1c5d0f2dc43703793e1a15114ca053e43c366f05b13511a590c76",
+    "source/port/defkey/src/item_writers/equipment_key.cpp": "a3b8819374c3c980886c31debf80ad07755bc6aa19958ed9370290a12ab70221",
+    "source/apps/moproj2mst/include/m2m/engine.hpp": "eade76c0089db3120fe61de1b7deaa20786f1040908352a4b2f0576ac350b927",
+    "source/apps/moproj2mst/src/engine/engine_internal.hpp": "185c57125820b4fc5fb91af8265a96740c598a6b59965111932a283ff6d43d37",
+    "source/apps/moproj2mst/src/engine/save_current.cpp": "7ca0aa195c6f5f85fcba0e7245e06867fbcd35e18ef4fa8f7516f644ee2ba9ef",
+    "source/apps/moproj2mst/src/engine/db_load.cpp": "d67d6b4a420391f79aa7f96d1c802da2eb7911cefed585c0fb2321257efd1ea2",
+    "source/apps/moproj2mst/src/core/convert.cpp": "c1855e08deacf7069ba32561ac4936f7dd77e84453ac92d2b2f9c7262f57c5a5",
+    "source/apps/moproj2mst/tests/s/test_save_io.cpp": "714473fccf71e092498545ea4131d527341aaa0b9df9cbf7e70a20d07bc323a1"
+  }
+}

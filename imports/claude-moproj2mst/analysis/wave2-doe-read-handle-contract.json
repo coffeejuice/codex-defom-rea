@@ -1,0 +1,61 @@
+{
+  "schema": "m2m-doe-read-handle-contract-v1",
+  "scope": "Type2 Session document open/size/read phase only; downstream part/session/task/model guard remains",
+  "original_gui_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "original_qtcore_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "source_hashes": {
+    "source/apps/moproj2mst/include/m2m/doe_io.hpp": "0bfecaddf6f413a2999196e6c03c90c9f528ec1cd6398f9f9d39618a60bbfd91",
+    "source/apps/moproj2mst/include/m2m/doe_session.hpp": "dc4dc1b68d745e9c4fcc7c65e0f3848b912c4329da4727b15203566260a9591b",
+    "source/apps/moproj2mst/src/doe/io.cpp": "3ef7e95b22b35f7e64ce6a71f72edeb7fc2f057a4bfd5a2d6c0c6cbba6e6dd87",
+    "source/apps/moproj2mst/src/doe/session.cpp": "5ea9076cb4c516f24b6319db6359eea56b376573c37135119667efe018eb3940",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session.cpp": "7d3375609776491db0f7c9cb6c45ed3ab6b97d5e4536ebe4f1d4b647aff3df46"
+  },
+  "evidence_hashes": {
+    "analysis/wave3-boolean-save-io-670f8150.asm": "ff277e8261ff4d259becec152c51f069e4f07673dcde9d77558b77eb67154010",
+    "analysis/wave3-boolean-save-io-670b4ae0.asm": "c87ddf13bd980206d6eb7a0277361d9b534dc9b2abd84d0d32c96cc4c4116fa3",
+    "analysis/wave3-boolean-save-io-670ea5c0.asm": "0e304d0f2ae06e37e604bf96bf8584ae96cdab997e33408c365d10b808067199",
+    "analysis/wave2-doe-type2-session-read-failures-decompile.json": "ade93e39a9800f3d39321e55ef1bb29a6af0db58017d8d82ae6002679463c877"
+  },
+  "ordered_contract": [
+    "645dc0 remembers filename before opening ReadOnly (without Text)",
+    "Failed open leaves prior document untouched",
+    "Query size on the opened file before a read; zero size leaves prior document untouched and does not read",
+    "Nonzero size discards prior DOM and creates fresh SessionFile/PartRoot before read/setContent",
+    "Read result may be empty or partial; no rollback restores old DOM",
+    "Current XML seam explicitly guards CR-bearing and malformed input after replacement; exact Qt partial malformed DOM remains unsupported"
+  ],
+  "native_open_contract": {
+    "function": "Qt nativeOpen0x670f8150",
+    "qfile_route": "670b4ae0 passes mode|0x20; ReadOnly mode1 has no Text bit",
+    "access": "GENERIC_READ0x80000000",
+    "share": "FILE_SHARE_READ|FILE_SHARE_WRITE=3 (no FILE_SHARE_DELETE)",
+    "disposition": "OPEN_EXISTING3",
+    "attributes": "FILE_ATTRIBUTE_NORMAL0x80",
+    "security": "SECURITY_ATTRIBUTES{24,null,FALSE}, null template",
+    "implementation": "Own HANDLE until scope exit; GetFileSizeEx and ReadFile use this handle; no later filesystem pathname stat, mkdir, write, replacement or rollback"
+  },
+  "observations": "ReadAttempt now records open, size query/result, read attempt/result and returned raw bytes separately. Existing PAR/InputTable readFile seam is unchanged and has no size observation.",
+  "recording": "Explicit simulated overlay uses a snapshot memory handle; otherwise native read-only handle. Simulation is not evidence of original I/O parity.",
+  "unknown_size": "Explicit unsupported guard after open and filename update, before reset/read. No zero-size inference from bytes; original size-query failure behavior not claimed recovered.",
+  "tests": {
+    "status": "Source ready and frozen; parent combined build/test pending",
+    "session_cases": 9,
+    "added": [
+      "known nonzero size plus failed empty read checks DOM replacement before read",
+      "known zero size skips even when later bytes would exist",
+      "unknown size guards without guessing and preserves prior DOM",
+      "native handle distinct open/size/read observations and sharing conflict; absent parent preserved; actual zero-size skip; simulated overlay no disk write"
+    ],
+    "worker_checks": [
+      "git diff --check passed; no worker build or app execution"
+    ]
+  },
+  "qualifications": [
+    "Same Win32 ReadOnly open flags are source-backed; this is not complete Qt/std/native filesystem equivalence under every device, sharing race or injected OS failure",
+    "Native ReadFile uses 65536-byte chunks; exact Qt read packet sizing/error propagation remains unmeasured",
+    "Handle must remain within StudyIo lifetime; current Session call owns it locally",
+    "Injected failure tests demonstrate candidate ordering and guard behavior, not an original runtime fault observation",
+    "No fresh original comparison, active study execution, Session record creation, StepData or camera payload application is established"
+  ],
+  "app_control_used": false
+}

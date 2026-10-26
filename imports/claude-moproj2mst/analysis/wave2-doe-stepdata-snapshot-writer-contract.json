@@ -1,0 +1,95 @@
+{
+  "schema": "m2m-doe-stepdata-snapshot-writer-v1",
+  "status": "source frozen for parent combined build; no worker compilation/test execution",
+  "source_sha256": {
+    "source/apps/moproj2mst/include/m2m/doe_statevar.hpp": "23a49480a62fb21caecf0a0b882a0351acc2ce95df42a778370efc68cc2d3a5d",
+    "source/apps/moproj2mst/src/doe/statevar.cpp": "140a583bf2f156da5f08cf8d5c28cffad9803294f7f188de73ec759a1badd81d",
+    "source/apps/moproj2mst/include/m2m/doe_stepdata.hpp": "7bb34629b0ab102323383ce0aed769af42406278024cc32666a9fb9561ce7131",
+    "source/apps/moproj2mst/src/doe/stepdata.cpp": "d6ab3c28b20b57a552509f383d9730f809e15ab4f2512ebb9450ade4b7b6dc33",
+    "source/apps/moproj2mst/src/doe/session_records.cpp": "d4041c21c53ca0867650629f81fb4c650b053354a512a4b09e01c63aaf285e9f",
+    "source/apps/moproj2mst/tests/mdt/test_doe_default_session.cpp": "1e0f4c4fdf99ccabc332adc6f46e4d284a7bec789934c1aefd075695ba3c2e03",
+    "source/apps/moproj2mst/tests/mdt/test_doe_snapshot_write.cpp": "80778dc6f24bede91c64f27903483d022873e81a7220a444d73f84e60a15e7c8",
+    "source/apps/moproj2mst/src/doe/session_notifications.cpp": "c7c655f83a9d49fe02856e9b8234f0f5661ebba589484b327dfbb4ae89556aad",
+    "source/apps/moproj2mst/tests/mdt/test_doe_session_notifications.cpp": "e881112408e33281333fa42351de71a39dc1bd0e0d1fbda4ca884c448fd09a6b"
+  },
+  "evidence_sha256": {
+    "analysis/wave2-doe-default-task-stepdata-snapshot-decompile.json": "f7267cde546ec4cf4542a56a0a70d4437bb3be73fa38720e5bd45d0370d3b79f",
+    "analysis/wave2-doe-default-task-statevar-writer-decompile.json": "2641b72b26db8cfaed6376fc8666e136467527a36eb726d25f1d53e8979b3932",
+    "analysis/wave2-doe-default-task-histogram-writer-decompile.json": "e3bf6e82bdd487dc941f4d901aa5570a7f4d094c707bb1d6c585e0ed0d2b2111",
+    "analysis/wave2-doe-stepdata-statevar-callbacks-decompile.json": "fc732aea06085067cb8a061f9270d9bb3c55f51bfed53f5948c629253986b8a9",
+    "analysis/wave2-doe-stepdata-statevar-constructor-read-decompile.json": "d68d778a9764e1e6edeaf52eac6e0935820a8c56b9b1fc14d0839f57983bf94d",
+    "analysis/wave2-doe-default-task-return-spelling-ruled-out.json": "cbc2ec1c5e7c1184965e786842cd775486057575df47ad950299e6c3b16c99cf",
+    "analysis/wave2-doe-session-notifier-direct-key-candidates.json": "1a947bb2daf487a9e9d8aee1999d09675f2abb6202b3e526ef1847fcbc6cf0d9",
+    "analysis/wave2-doe-session-empty-dispatch-contract.json": "b0aa2ab8a2c1932cdb1724d047ec05cee9ffdefa5853c97eb85b5b6162c3371e",
+    "source/apps/moproj2mst/src/qt4/number.cpp": "bf90da77dc90b3adce1f688b897207686b430ab56bf6a149725a8e3f28d51ee6"
+  },
+  "ordered_contract": [
+    "Actual default6477a0\u219264fc30\u2192Taskvt98=141403b40 creates detached StepData and invokes c90640(true). The new owned writer is wired at that exact formerly guarded call.",
+    "c90640 first creates detached StateVar, calls lazy c905b0 then d318e0, and appends StateVar only after success.",
+    "d318e0 appends10scalar child elements in exact source order. First6 use signed decimal ints; rangeMin/Max,min/max use original QString.number(double,g,6) through existing supported Qt numeric helper. It appends to existing destination; no clearing/replacing.",
+    "Use actual GuiModel.doeStepData.stateVar. Only absent StateVar invokes the existing explicit-profile/global constructor; no arbitrary current settings/global inputs are invented. No XML read/reset/apply/postparse/colorbar/legend work is performed.",
+    "AFTER all10fields,d314d0(true) lazily constructs Histogram only if absent, retaining existing constructor/deferred registration projection. This does not reset any existing Histogram or register it again.",
+    "Only graphOn true appends SVHistoGraph with413b70 BinWidth and GraphOn. The native writer only consumes these2fields, never enabled graph renderer/nested Qt plot state. Canonical graphOn bool arises from recovered ctor/XML/UI inputs; byte==1 serialization maps to1.",
+    "c90640 next loops live view list. Empty list completes; populated list guards before first unrecovered Object payload, retaining prior StateVar XML/constructor/registrations. Object is not appended before its writer returns.",
+    "Default staging appends the completed StepData to detached Session only after c90640 returns; it still guards at actual mainwindow+7b8 QPointer(+148) snapshot hook. No SessionRoot DOM/session-list append or full active enable.",
+    "Equipment add/remove uses same empty no-arg key2signalMoEquipManagerChanged; ID/-1 diagnostic argument never changes receiver selection. Shared suppressed branch preservesflag90/no insertion; unsuppressed clearsflag90 before key insertion/reuse."
+  ],
+  "statevar_order": [
+    "SVColorBarNo",
+    "SVType",
+    "SVPlotVar",
+    "SVPlotCompNo",
+    "SVPlotType",
+    "SVRangeType",
+    "SVRangeMin",
+    "SVRangeMax",
+    "SVMin",
+    "SVMax",
+    "SVHistoGraph"
+  ],
+  "native_scalar_offsets": {
+    "colorbarNo": "40",
+    "type": "48",
+    "plotVar": "4c",
+    "plotCompNo": "50",
+    "plotType": "44",
+    "rangeType": "54",
+    "rangeMin": "58",
+    "rangeMax": "60",
+    "minimum": "68",
+    "maximum": "70"
+  },
+  "qualifications": [
+    "Existing StateVar constructor/settings/global palette, deferred Histogram QObject payload/lifetime qualifications remain; no complete native Qt architecture claim.",
+    "Existing Qt number(double) port is reused with explicitg/6; tests do not independently establish all Qt numeric-format edge cases or fresh-original equality.",
+    "Nonzero plotVar can serialize without rendering/evaluating it because original writer reads fields only. Apply/postparse/auxiliary markers remain unchanged, even if pending/unconsumed.",
+    "Null-image default-only branch and staged arena qualifications remain in preceding frozen contract; imported images still guarded.",
+    "Equipment fixed registration inventory348verified calls has no matching key. This is scoped fixed-original API proof, not arbitrary dynamic/plugin absence. No new notifier owner.",
+    "Return-type-space defect hypothesis was source-ruled-out; baseline constructor unchanged. No native/candidate runtime, app control, fixture mutation or builds by this worker."
+  ],
+  "tests": {
+    "new_snapshot_target": "m2m_doe_snapshot_write",
+    "new_snapshot_cases": 6,
+    "default_session_cases": 7,
+    "session_notification_cases": 9,
+    "coverage": [
+      "source-order/signed/nonzero/rawmarker serialization with g6 doubles",
+      "lazy explicit ctor/global palette and four registrations once, repeated append semantics",
+      "missing constructor profile leaves destination/state unchanged",
+      "actual live Histogram enabled/disabled snapshots preserve binWidth/flags and identity",
+      "empty StepData writer preserves model/property table and completes",
+      "nonempty views retain StateVar before payload guard",
+      "production staged default appends actual StepData before hook guard",
+      "equipment shared suppression/map/flag/diagnostic ID boundaries"
+    ],
+    "preflight": [
+      "declaring headers/simCtl types inspected",
+      "new test main and counts statically verified",
+      "local Project test includes mst/writer.hpp",
+      "known viewerBox true return contract reused",
+      "git diff --check passed"
+    ],
+    "execution": "pending coordinator"
+  },
+  "successor": "Recover actual mainwindow+148/+7b8 snapshot-hook ownership/conditional branch next, then remaining display payload/task list serializer and original late Session append. Keep populated views/regions/constraints and outer active/globalTask guards until separately closed."
+}

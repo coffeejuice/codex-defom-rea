@@ -1,0 +1,56 @@
+{
+  "schema": "wave3-qt-standalone-decompile-v1",
+  "program": "QtCore4_64.dll",
+  "executable_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "6701c0f0",
+      "entry": "6701c0f0",
+      "name": "qrand",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* int __cdecl qrand(void) */\r\n\r\nint __cdecl qrand(void)\r\n\r\n{\r\n  int iVar1;\r\n  \r\n                    /* WARNING: Could not recover jumptable at 0x6701c0f0. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n                    /* 0x1c0f0  3594  ?qrand@@YAHXZ */\r\n  iVar1 \u003d rand();\r\n  return iVar1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a951c",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "from": "670579b4",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "67057940"
+        },
+        {
+          "from": "670c7468",
+          "type": "UNCONDITIONAL_CALL",
+          "owner": "670c73d0"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "6701c0e0",
+      "entry": "6701c0e0",
+      "name": "qsrand",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* void __cdecl qsrand(unsigned int) */\r\n\r\nvoid __cdecl qsrand(uint param_1)\r\n\r\n{\r\n                    /* WARNING: Could not recover jumptable at 0x6701c0e0. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n                    /* 0x1c0e0  3596  ?qsrand@@YAXI@Z */\r\n  srand(param_1);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "672a9524",
+          "type": "DATA"
+        },
+        {
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+# CP143: integrate the high-record A producer and park before assignment
+
+The smallest integrated cut is the actual high-version/non-null-DB **fresh A allocation plus empty selected-region cache commit**, then an intentional stop before the caller's arrays checkpoint. Retain a durable barrier installed before the query, so the new cache1 state cannot allow a later invocation to skip the unfinished reader. Do not release equal-width copying, reader completion or a second getter in this cut.
+
+Only this report was written. No source/build/test execution, GUI/original launch or mutable REA occurred. Proposed write set: `src/engine/viewer.cpp`, NEW `tests/mdt/test_geometry_a_producer.cpp`, and an implementation receipt. Root owns CMake/new test registration. No shared header or existing test file is required.
+
+## Corrections and established evidence
+
+CP142's wording that the high-record query was unimplemented was too broad. Current `viewer.cpp:769..777` already calls actual `step_dir_sizes`, then returns `HighVersionDbLoaderPending`. What is absent is allocation/cache continuation and a durable **high** barrier. Existing low-record frame and exact retirement must remain unchanged.
+
+The existing `bc::calloc_doubles` also reproduces the native allocation diagnostic (`bc/boundary_topology.cpp:78..86`); reuse it rather than add an allocator. Original allocator literals were verified directly: `14387b4fc` = `DOUBLE`, `14387b508` = `ERROR    `, `14387b518` = `%s Error when allocating %s memory of size %d\n`.
+
+Original immutable EXE SHA-256 remains `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`. Full native loader `[140828060,1408283d5)` hash was rechecked as `cb9d5ee4388c41ed115d75b236989b9f4cebf0bbe36ed3264d206508e70be796`. CP142 pins allocation/cache block `[1408281fb,140828275)` hash `286c53802c1db4aacf4fa6489fa9656c89577c20e3a037b246b0142f79b804f3`, allocator `[1409c83b0,1409c8408)` hash `2ca64c1da768dd96662135394af3e2d8621a13a257c78ab42d2ebb046ea00ef4`, and GUI names predicate `[14082bf10,14082bf5a)` hash `c6e2177bc1357b7f5fe80b828e89967a50695d4d953c557bfa3aeea90eb06ace`. These are PE byte ranges, not a new runtime capture.
+
+## Exact admitted order
+
+1. Keep existing actual optional-node COW, actual dimension/index selection, node Start and ReadSingleAArrayFromDB checkpoints. Keep the Project-owned strong DbHandle, exact reader identity, current directory receipt and in-range actual step.u740 checks. The directory query uses actual step.u740; its nominal step argument is unused (`w2_objarrays.cpp:505..521`).
+2. For the additional producer profile only, prepare the frame with the same actual model/view/item/geometry/mesh/node/element/DB/receipt identities as the low frame. Install that exact frame inside the first existing `withStep` callback **before** the query. Keep a strong DbHandle for this live callback. Never acquire a parked step again.
+3. Invoke actual `step_dir_sizes` once, retain outputs/result and postVersion, then mark QueryCommitted. It reads record sizes/version and sets actual step_version when different. Recheck the actual current step, id11, high postVersion and producer prerequisites after the query. A failed/unqualified result leaves the installed frame parked with its committed effects.
+4. Apply the actual GUI predicate: u1b58=0, dimension3 and postVersion>=6000 means false/updating. Do not call the DEF_PRE port's constant-true names fold. Native loader additionally checks region range, nonzero MAR/A header lengths and cache0 before allocation.
+5. Require fresh actual step.u1b78==nullptr and bounded nonnegative u2b24 with `u2b24 <= INT32_MAX-2`. Compute the positive count `u2b24+2` without signed overflow. Call existing `bc::calloc_doubles(count)`, publish its result into actual +1b78 in native order, and record the exact pointer/count in the local frame as an **observational producer receipt**. The step owns/frees the allocation; the frame must not acquire another owner or infer extent from +1b6c/+1b74. Mark AAllocationCommitted after publication. On allocation failure, retain the diagnostic/null publication and park before unrecovered continuation; do not force cache1 to claim a successful span.
+6. For selected length `u2b28[11]==0`, commit actual cache `u26c4[11]=1` at native `828265`, then mark EmptyRegionCacheCommitted. Native jumps to loader return at `828270`. Stop here, before the caller arrays checkpoint at `14082d8c0..8db`, any main-object assignment, node Stop, coordinate return or builder.
+
+For a minimal admission, require positive existing header-length fields, fresh A, bounded count, empty region and cache0 in a read-only preflight before selecting this new framed branch, and recheck them after query. This is a candidate support boundary, not a claim that native executes those checks early. Existing unqualified high profiles can retain their current query-and-guard behavior. Existing nonnull A, nonempty selected regions/file reads, header diagnostics, negative/overflow counts and unresolved producers remain guarded. Low records still take their current low frame; never relax its postVersion<6000 retirement predicate.
+
+The frame needs only private new producer stage(s) and observed allocation pointer/count, optionally an explicit high-producer kind. It must remain installed after cache commit. Existing `GeometrySyncAccess::pending` then blocks refresh/scene/mutator bypass even if raw cache/version fields are later changed. Do not call `completeInitialCoordinateRead`, clear the frame, or treat the produced buffer as a general cross-invocation span capability.
+
+## Second-getter consequence and limits
+
+No second getter is executed by this prefix. Its first getter is unfinished at the chosen boundary. On a future fully qualified continuation, cache1 would cause the builder's second coordinate getter to perform its normal COW and cached sync return: **one reader, two coordinate getters**, unlike CP137 null DB/cache0's two readers. Fresh allocation must not be rolled back to preserve the old repeated-reader expectation.
+
+The allocated span is zero initialized and has exactly `u2b24+2` doubles on success. This establishes its real producer inside the actual step. It does not certify a preexisting A pointer, destination coordinate allocation, decoded nonempty region data, copy offsets or main-node ownership. Equal-width assignment and high-frame retirement remain separate guarded work. No public editor/import gate is released.
+
+## Focused standalone test contract
+
+- Reuse the actual owned Project/DbHandle/directory fixture pattern from `test_viewer_box.cpp:2231`, with a copied DB fixture and current receipt. Select a high record, actual same-step optional mesh, positive header preconditions, fresh A, cache0, empty selected region and small maximum lengths0/1/4. Verify query version/output effects, a real nonnull allocation of2/3/6 zero doubles, unchanged MAR and +1b74, cache1, current step/DB identity and owned model destruction. No file-array read occurs on this branch.
+- Assert exactly one coordinate COW and node timer count2 (Start/Read), no arrays checkpoint/Stop and unknown scene. Cover optional widths0/4 and metadata2/3 to prove those later builder layouts do not advance this boundary. Include an initial negative arrays-timer count: producer/cache effects still precede that unreached caller guard.
+- Repeat viewerRefresh and public scene/mutator probes after park: no second COW/query/allocation, stable produced pointer/count and no cache bypass. A declared raw cache reset must not turn the frame into a resume capability. Preserve prefix effects rather than restore the allocation.
+- Keep missing/wrong actual DB owner, expired directory receipt, out-of-range step index, existing A, nonempty selected region, missing header-length preconditions and negative/overflow maximum length outside the new admission. Do not provoke real OOM with a huge test allocation. Allocator-failure handling can remain structurally guarded using the existing diagnostic routine.
+- Retain all existing low-record exact-frame, CP141 no-copy, equal-width refusal and CP140 width-zero tests unchanged. Register a root-owned target `m2m_mdt_geometry_a_producer`, suggested CTest `m2m.mdt.geometry_a_producer`, with the same DB fixture configuration as viewer_box.
+
+This plan is source-ready for the stated **producer prefix and sticky stop**, not for a complete geometry read. No source edit is authorized by this report itself; root assignment is the next step.

@@ -1,0 +1,53 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140c781d0",
+      "entry": "140c781d0",
+      "name": "FUN_140c781d0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 *\r\nFUN_140c781d0(undefined8 *param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)\r\n\r\n{\r\n  __0QObject__QEAA_PEAV0__Z(param_1,0,param_3,param_4,0xfffffffffffffffe);\r\n  *param_1 \u003d \u0026UNK_1428fa478;\r\n  FUN_14018f9e0(param_1 + 3);\r\n  func_0x00014015d170(param_1 + 4);\r\n  param_1[2] \u003d param_2;\r\n  FUN_140c782b0(param_1);\r\n  return param_1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e5ec",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140c78ee0",
+      "entry": "140c78ee0",
+      "name": "FUN_140c78ee0",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Removing unreachable block (ram,0x000140c79088) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c78fde) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c78f94) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c78f51) */\r\n/* WARNING: Removing unreachable block (ram,0x000140c7902b) */\r\n\r\nundefined8 FUN_140c78ee0(longlong param_1,int param_2,undefined8 param_3,undefined8 param_4)\r\n\r\n{\r\n  undefined8 uVar1;\r\n  char cVar2;\r\n  int iVar3;\r\n  undefined8 uVar4;\r\n  longlong lVar5;\r\n  undefined8 *puVar6;\r\n  undefined8 uStack_70;\r\n  undefined1 auStack_68 [32];\r\n  undefined1 *puStack_48;\r\n  undefined8 uStack_40;\r\n  undefined8 uStack_38;\r\n  undefined8 uStack_30;\r\n  undefined8 uStack_28;\r\n  undefined8 uStack_20;\r\n  int *piStack_18;\r\n  undefined8 uStack_10;\r\n  \r\n  uStack_40 \u003d 0xfffffffffffffffe;\r\n  if (param_2 \u003c 1) {\r\n    uStack_70 \u003d 0;\r\n  }\r\n  else {\r\n    uStack_70 \u003d 0;\r\n    FUN_14006daf0(auStack_68,param_1 + 0x18,param_3,param_4,0);\r\n    puStack_48 \u003d auStack_68;\r\n    while( true ) {\r\n      uStack_30 \u003d 0;\r\n      uVar4 \u003d func_0x000140dfc380(puStack_48,0);\r\n      cVar2 \u003d FUN_140dfc080(uVar4);\r\n      if (cVar2 \u003d\u003d \u0027\\0\u0027) break;\r\n      uStack_28 \u003d 0;\r\n      lVar5 \u003d func_0x000140dfc380(puStack_48,0);\r\n      puVar6 \u003d (undefined8 *)FUN_14064f400(lVar5 + 0x10);\r\n      uVar4 \u003d *puVar6;\r\n      while( true ) {\r\n        uStack_10 \u003d 0;\r\n        lVar5 \u003d func_0x000140dfc380(puStack_48,0);\r\n        uVar1 \u003d uStack_70;\r\n        if ((*(int *)(lVar5 + 8) \u003d\u003d 0) ||\r\n           (iVar3 \u003d func_0x000140cdd720(uVar4), uVar1 \u003d uVar4, iVar3 \u003d\u003d param_2)) break;\r\n        uStack_20 \u003d 0;\r\n        lVar5 \u003d func_0x000140dfc380(puStack_48,0);\r\n        piStack_18 \u003d (int *)(lVar5 + 8);\r\n        *piStack_18 \u003d *piStack_18 + -1;\r\n      }\r\n      uStack_70 \u003d uVar1;\r\n      uStack_38 \u003d 0;\r\n      lVar5 \u003d func_0x000140dfc380(puStack_48,0);\r\n      func_0x000140de9800(lVar5 + 0x10);\r\n    }\r\n    FUN_140c51520(auStack_68);\r\n  }\r\n  return uStack_70;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e6ac",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140c78e80",
+      "entry": "140c78e80",
+      "name": "FUN_140c78e80",
+      "completed": true,
+      "error": "",
+      "c": "\r\nlonglong FUN_140c78e80(undefined8 param_1,undefined8 param_2)\r\n\r\n{\r\n  undefined8 uStack_18;\r\n  \r\n  uStack_18 \u003d FUN_140c78c10(param_1,param_2);\r\n  if (uStack_18 \u003d\u003d 0) {\r\n    uStack_18 \u003d FUN_140c79390(param_1,param_2);\r\n  }\r\n  return uStack_18;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508e6a0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

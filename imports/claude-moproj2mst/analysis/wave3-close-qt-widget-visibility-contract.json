@@ -1,0 +1,71 @@
+{
+  "scope": "Source-bound current QWidget visibility read and first Hide dispatch for shared actual view owners",
+  "method": "Immutable shipped original QtGui and application PE; offline bounded DUMPBIN, no target runtime/GUI",
+  "binaries": [
+    {
+      "path": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+      "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc"
+    },
+    {
+      "path": "evidence/original-binaries/QtGui4_64.dll",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "analysis/wave3-closure-next-close-qt-widget-visibility-leaves-static.json",
+      "sha256": "4182523c9ad198c97079c4543bec0f65fda6c4c8b6372ecb8ccd88b68ae17142"
+    }
+  ],
+  "isVisible": {
+    "export": "?isVisible@QWidget@@QEBA_NXZ",
+    "exact_body": "655dfaf0..655dfafc inclusive",
+    "effect": "Read qword(widget+20), then dword(private+8), shift15 and mask1; return. No calls or ancestor traversal in getter.",
+    "state_requirement": "Actual current effective-visible bit. How prior parent/child/widget operations propagate it is separate; own explicit hidden bit is not enough."
+  },
+  "hide": {
+    "export": "?hide@QWidget@@QEAAXXZ",
+    "exact_body": "65400460..65400468 inclusive",
+    "effect": "Load actual widget vtable, edx=0, tailcall virtual+58. Not a direct visibility-bit store."
+  },
+  "actual_view_setVisible_bindings": [
+    {
+      "vtable": "0x142a4f928",
+      "slot": "0x58",
+      "thunk": "0x14013876c",
+      "bytes": "ff255e37cd01",
+      "IAT": "0x141e0bed0",
+      "symbol": "?setVisible@QWidget@@UEAAX_N@Z"
+    },
+    {
+      "vtable": "0x142a5a638",
+      "slot": "0x58",
+      "thunk": "0x14013876c",
+      "bytes": "ff255e37cd01",
+      "IAT": "0x141e0bed0",
+      "symbol": "?setVisible@QWidget@@UEAAX_N@Z"
+    },
+    {
+      "vtable": "0x142a06d98",
+      "slot": "0x58",
+      "thunk": "0x14013876c",
+      "bytes": "ff255e37cd01",
+      "IAT": "0x141e0bed0",
+      "symbol": "?setVisible@QWidget@@UEAAX_N@Z"
+    },
+    {
+      "vtable": "0x1421872a8",
+      "slot": "0x58",
+      "thunk": "0x14013876c",
+      "bytes": "ff255e37cd01",
+      "IAT": "0x141e0bed0",
+      "symbol": "?setVisible@QWidget@@UEAAX_N@Z"
+    }
+  ],
+  "qualification": [
+    "These four known native widget classes inherit the same setVisible import. Other actual widget classes require their own dispatch binding.",
+    "QtGui setVisible export65070410 body/callbacks not expanded by this receipt.",
+    "Explicit captures include adjacent padding/next-function bytes after the stated exact body ends; those bytes are excluded from the leaf claims.",
+    "No visibility initialization or parent propagation inferred; no GUI observation performed."
+  ]
+}

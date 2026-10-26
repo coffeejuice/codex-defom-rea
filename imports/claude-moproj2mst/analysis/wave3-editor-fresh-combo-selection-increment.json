@@ -1,0 +1,71 @@
+{
+  "schema": "editor300-fresh-combo-selection-increment-v1",
+  "status": "source-frozen-awaiting-root-build",
+  "files": [
+    {
+      "path": "source/apps/moproj2mst/include/m2m/engine/editor_setup.hpp",
+      "sha256": "74586e45d97439545556a319d223c69cd8215be5e8f6a797818ae421691aa819"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/engine/editor_setup.cpp",
+      "sha256": "e77756eed86e891d7fe4f8b54d1b46625e2c18933c0117254e5e18456e78a676"
+    },
+    {
+      "path": "source/apps/moproj2mst/tests/mdt/test_editor_setup.cpp",
+      "sha256": "65b94ffbae80b0d3c1ff84658e2c3350cc8a0b6f5b5b2aabd39676d3f9de66ff"
+    }
+  ],
+  "contracts": [
+    {
+      "path": "analysis/wave3-editor-qt-combo-selection-contract.json",
+      "sha256": "f4644e004b587746a0accdbd7918b4a3f168124ad34aed6091350131e116ea11"
+    },
+    {
+      "path": "analysis/wave3-editor-qt-combo-fresh-profile-amendment.json",
+      "sha256": "b043eccb4835fcc092a5c323f83e08c2ce1d2c5e5b44737d05d796af7c30818a"
+    },
+    {
+      "path": "analysis/wave3-editor-consumed-translation-increment.json",
+      "sha256": "74285134015aba4d09ad122c43049a9a1afb5a4f3be03e462c412f524d44e570"
+    }
+  ],
+  "changes": [
+    "Explicit SetupComboModelProfile binding at Prefix. Unknown and CustomModel refuse before any model mutation, preserving all previously recovered scalar state. The caller can qualify FreshDefaultQtModel afterward; a successful binding cannot be replaced or replayed.",
+    "Exactly21 source-identified native QComboBox controls own empty row vectors and invalid current index(-1), based on Qt QStandardItemModel(0,1) and QPersistentModelIndex constructor/row evidence. Non-combo controls remain unmodeled.",
+    "Consumed translation requires the model qualification as well as NoActiveTranslator. Each of13 original clear/nonempty-insert operations retains clear before string evaluation, then sets actual selection0 via the source-bound rowsInserted empty-to-nonempty branch. The8 remaining combos retain-1.",
+    "Actual comboCurrentIndex remains separate from explicit requestedCurrentIndex setter arguments. Later10 requested indices target other widgets and do not fabricate a combo selection. No editor callbacks occur during the earlier translation stage.",
+    "Same EditorSetupState owns all model items and selection. Native full setup and public completion flags remainfalse, constructor boundary remains unresolved. This profile does not cover swapped models, preexisting selections, native insertion failures, arbitrary app filters or later page fills."
+  ],
+  "validation": {
+    "worker_builds_or_tests": "none",
+    "test_cases": [
+      "editor_setup_retains_native_slot_identity_without_inventing_widgets",
+      "editor_setup_remesh_groups_retain_initial_checked_and_enable_state",
+      "editor_setup_keeps_unresolved_defaults_separate_from_explicit_calls",
+      "editor_setup_table_minimum_calls_do_not_become_guessed_counts",
+      "editor_setup_connection_installation_does_not_emit_or_synchronize",
+      "editor_setup_internal_duplicate_delivers_twice_without_coalescing",
+      "editor_setup_internal_routes_preserve_owned_receiver_independence",
+      "editor_setup_final_indices_stay_after_translation_and_connections",
+      "editor_setup_automatic_slots_are_plans_not_synthetic_callbacks",
+      "editor_setup_unknown_translation_preserves_prefix_and_blocks_later_stages",
+      "editor_setup_explicit_untranslated_profile_keeps_native_text_and_list_order",
+      "editor_setup_stage_order_never_replays_translations_or_fabricates_callbacks",
+      "editor_setup_consumed_text_belongs_to_its_original_setup_owner",
+      "editor_setup_unqualified_or_custom_combo_models_refuse_without_effects",
+      "editor_setup_fresh_native_combos_start_empty_with_invalid_selection",
+      "editor_setup_insertion_selects_only_thirteen_populated_native_models",
+      "editor_setup_combo_binding_cannot_replay_or_replace_another_owner"
+    ],
+    "static_preflight": {
+      "unique_cases": 17,
+      "exactly_one_main": true,
+      "direct_iterator_include": true,
+      "whitespace": "pass",
+      "conflict_markers": "none",
+      "completion_flags": "remainfalse"
+    }
+  },
+  "integration": "Root owns actual Session binding and validation; default EditorSetupState stays unknown. Existing source call inventory contained no production translateConsumedControls call.",
+  "next_action": "Root builds and validates17case target with full candidate. Worker audits the smallest remaining consumed default/constructor prerequisite read-only during freeze."
+}

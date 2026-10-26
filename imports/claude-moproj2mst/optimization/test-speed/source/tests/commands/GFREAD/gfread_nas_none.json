@@ -1,0 +1,25 @@
+{
+  "label": "GFREAD NASTRAN no supported element",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nGFREAD 4\nIN.NAS\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+    },
+    {
+      "name": "IN.NAS",
+      "source": "data/nas_none.nas"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "No CTETRA/CTRIA3/CHEXA first token: the 4-line 'Supported mesh type not found' text, reader returns 1 with no data, both stores fail -> Failed."
+  }
+}

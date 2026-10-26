@@ -406,6 +406,36 @@ void root_table_state(const PropertyTable& table, int next_index = -1) {
     std::cout << '}';
 }
 
+void object_motion_fields(const ObjectMotion& m) {
+    const std::array<int, 11> integers{m.mode_0x21c8, m.field_0x22c0,
+        m.field_0x2360, m.integers_0x25a0[0], m.integers_0x25a0[1],
+        m.field_0x2620, m.field_0x2624, m.field_0x2670, m.field_0x2674,
+        m.field_0x2780, m.field_0x2784};
+    std::vector<double> reals;
+    const auto append = [&](const auto& values) {
+        reals.insert(reals.end(), values.begin(), values.end());
+    };
+    append(m.direction_0x21b0);
+    reals.push_back(m.field_0x22c8);
+    append(m.values_0x22e8);
+    reals.insert(reals.end(), {m.field_0x2348, m.field_0x2350, m.field_0x2358});
+    append(m.values_0x23e0);
+    append(m.values_0x2478);
+    append(m.values_0x2588);
+    append(m.values_0x2628);
+    append(m.values_0x2768);
+    std::cout << "{\"integers\":";
+    numbers(integers);
+    std::cout << ",\"flag2490\":" << (m.flag_0x2490 ? 1 : 0) << ",\"reals_hex\":";
+    raw_values(std::span(reals));
+    std::cout << ",\"tables\":[";
+    for (std::size_t i = 0; i < m.tables.size(); ++i) {
+        if (i) std::cout << ',';
+        root_table_state(m.tables[i]);
+    }
+    std::cout << "]}";
+}
+
 void relation_property_fields(const RelationRecord& relation) {
     const auto offset_key = [](int offset) {
         std::ostringstream key;
@@ -1044,6 +1074,8 @@ void state(const ObjectModel& model) {
         emit_quoted(hex(object->name));
         std::cout << ",\"prsnam_0x2160_hex\":";
         emit_quoted(hex(object->prsnam_0x2160));
+        std::cout << ",\"motion\":";
+        object_motion_fields(object->motion);
         std::cout << ",\"direct_imports\":{\"scalars_0x1ea0_hex\":";
         raw_values(std::span(object->direct.scalars_0x1ea0));
         std::cout << ",\"planar\":";

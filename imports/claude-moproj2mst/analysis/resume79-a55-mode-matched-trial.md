@@ -1,0 +1,33 @@
+# CP79 A55 action/mode qualification and trial plan
+
+## Finding
+
+The retained A55 pair is a valid raw comparison of two artifacts, but it is not yet a mode-equivalent acceptance comparison. Original runner `evidence/gui_mo/oracle_b/_tools/rs.py` copies the corpus project to `RS_55_Multiple_Operations_Example1_before` and `RS_55_Multiple_Operations_Example1`, renames the corpus MST to `.MST.corpus`, then starts one fresh original process for the case and performs File→Open, File→Save, File→Close. Open/save dialogs are answered with Enter; the close prompt is answered No; the owned process exits. The retained per-case log says one close dialog, save completed with exit 0, and 3,541-byte MST. It does not record process ID, INI path/hash, `MoInputMode`, mode changes, active editor creation or the CG toggle.
+
+The candidate folder comparator copies the `RS_55..._before` project and calls the C++ `m2m::convert(..., M2M_FLAG_WRITE_SAVE, 1252)` overload with no `OriginalSettings` (`tests/s/test_save_folder.cpp:runCase`). That overload supplies default `moInputMode=0`. The candidate and original therefore may have used different editor modes. The retained generic Oracle-B `DEFORM-MO.ini` backup says `MoInputMode=1` (SHA-256 `909d618a352e7f1c972a53b887aa5978e933d875ff4b260a8dd107fa4797b4af`), but its timestamp and contents do not bind it to the A55 original process; it is not a replacement for process-settings provenance.
+
+The raw file delta remains exact and narrow: `Operations/Task00002/SimCtrl.KEY` is 2,146 bytes on both sides; candidate/original differ only at byte offsets 1439 and 1455, values `0` vs `1`. Following `SOLMTD 2 4`, the parameter sequence is `[0,0,0,0]` vs `[0,1,0,1]`. Original static PE evidence says the mode factory chooses editor100 for mode 0 and editor300 for nonzero. In the editor300 iteration fill, `SOLMTD==2` checks the CG radio; only an unchecked→checked transition emits `toggled(true)` to method 64. With count 4, that callback predicts exactly second/fourth values `[0,1,0,1]`; it leaves first/third unchanged. These rules are bound to the retained binary hash, not an execution trace for this A55 event.
+
+## Static qualification available without GUI
+
+- The original runner proves a per-case fresh process and Open→Save→Close action sequence, not an action-edited project session. The saved `.moproj`/MST are the outcomes of that action. It does not prove the global mode used by that process.
+- The settings backup makes mode 1 plausible, while `test_save_folder.cpp` proves the candidate historical sweep defaulted to mode 0. This is a genuine comparator confounder candidate, not a proven explanation.
+- Retained `opened.png` metadata/context puts the Simulation Controls pane on Operation 2 near Save. It does not prove the global mode, editor300 factory, initial CG checked state, or callback dispatch. A displayed “Deformation” operation label is not `MoInputMode`.
+- Candidate `tests/mdt/test_simcontrol300.cpp` covers the narrow mode-dependent CG model rule and active/inactive-model limits. The public mode-1 route currently stops at `0x6504abb0` before widget setup, auto-connect and iteration fill. It cannot currently produce a mode-1 full-Save comparison. Mode-0 public candidate output bypasses the CG callback chain.
+
+Therefore the exact two-byte mutation is source-explained conditionally, but neither “candidate bug” nor “mode mismatch” is yet established for fresh A55 Open–Save. Do not normalize it in the KEY reader/writer or apply it globally.
+
+## Smallest equivalent-mode original trial after gate release
+
+First wait until the supported control-release API and verifiable release receipt/status exist; current retained queue status is `blocked_external_gui_release` / release unavailable. The trial below is conditional and is not authorization to acquire control now.
+
+1. **Bind the actual original setting without changing it.** Immediately before the owned launch, record the exact `DEFORM-MO.ini` path the process will read, its SHA-256, parsed `[Setting] MoInputMode`, and any explicit command-line/profile source. Preserve the file unchanged. Do not assume the generic backup is the active file and do not force a new mode through an unqualified setting path.
+2. **Use one pristine, short disposable input.** Hash the complete retained `RS_55_Multiple_Operations_Example1_before` tree and `Operations/Task00002/SimCtrl.KEY`; copy it under `C:\PROBLEM\a55r\run\` with all full paths below 100 characters. Record original executable identity and process ID. Perform the recorded Open→Save→Close sequence with the same dialog policy; do not edit the project or its settings.
+3. **Capture only the decisive passive checkpoints.** At process startup and through Open, record any global mode setter/action. At first Forming fill, record current tree operation, Task00002 `SC+0x2e4` solver, `SC+0x2e8` count, `SC+0x2f0..0x308` values, CG radio state before and after initial Iteration fill, whether `setChecked(true)` changes state and method 64 is delivered, and model values after the callback. Record Task00001 unchanged as the negative control. Save raw project tree and both SimCtrl files/hashes before closing the owned process.
+4. **Run candidate only in the proven mode on the reset pristine copy.** If original mode is 0, use the mode-0 candidate and compare complete raw outputs at the identical root. If original mode is nonzero, today's public candidate is expected to refuse at `0x6504abb0`; preserve that refusal as a source guard receipt, not as a parity result. A mode-1 parity comparison requires completing and testing the candidate editor300 setup/fill prefix before rerunning against the same pristine inputs and mode. Never compare mode-0 candidate output with mode-nonzero original output as equivalent.
+
+Interpret the capture as follows: mode 0 excludes this editor300 callback as the cause; mode nonzero plus active Task00002, solver 2, successful editor setup, unchecked→checked and delivered method 64 predicts `[0,1,0,1]`; if any precondition is absent, keep the source attribution open and use the observed first divergent event. An already-checked CG button may not emit `toggled(true)` on `setChecked(true)`, so recording only the final value is insufficient.
+
+## Gate and scope
+
+The current recovery-status receipt says remaining acceptance is blocked by unsupported GUI release lifecycle. No app/process was launched, inspected or controlled for this review. No source/build/test/fixture/settings file or mutable REA state was changed. This report proposes the smallest mode-matched capture and preserves the historical raw mismatch until that capture or equivalent retained process-settings evidence exists.

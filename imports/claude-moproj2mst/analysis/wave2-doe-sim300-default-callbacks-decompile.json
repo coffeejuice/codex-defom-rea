@@ -1,0 +1,158 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140eb6310",
+      "entry": "140eb6310",
+      "name": "FUN_140eb6310",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n\r\nvoid FUN_140eb6310(longlong *param_1,int *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  longlong lVar2;\r\n  longlong lVar3;\r\n  int iStack_1c;\r\n  \r\n  *param_2 \u003d 1;\r\n  lVar2 \u003d (**(code **)(*param_1 + 0x198))(param_1);\r\n  if (lVar2 !\u003d 0) {\r\n    iVar1 \u003d FUN_140c7c1a0(lVar2);\r\n    for (iStack_1c \u003d 0; iStack_1c \u003c iVar1; iStack_1c \u003d iStack_1c + 1) {\r\n      lVar3 \u003d FUN_140c7aed0(lVar2,iStack_1c + 1);\r\n      if ((lVar3 !\u003d 0) \u0026\u0026\r\n         (((*(double *)(lVar3 + 0x29e8) !\u003d _UNK_1421ad1d0 ||\r\n           (*(double *)(lVar3 + 0x29f0) !\u003d _UNK_1421ad1d0)) ||\r\n          (*(double *)(lVar3 + 0x29f8) !\u003d _UNK_1421ad1d0)))) {\r\n        *param_2 \u003d iStack_1c + 1;\r\n        _setCurrentIndex_QComboBox__QEAAXH_Z(*(undefined8 *)(param_1[0x28] + 0x838),iStack_1c);\r\n        return;\r\n      }\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c140",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecf980",
+      "entry": "140ecf980",
+      "name": "FUN_140ecf980",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n\r\nvoid FUN_140ecf980(longlong *param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined8 uVar2;\r\n  \r\n  if ((int)param_1[0x2c] \u003d\u003d 0) {\r\n    lVar1 \u003d FUN_140130f90(param_1);\r\n    if (param_2 \u003d\u003d 0) {\r\n      if (0 \u003c *(int *)(lVar1 + 0xa74)) {\r\n        FUN_14089b1f0(lVar1 + 0xa58);\r\n      }\r\n      *(undefined4 *)(lVar1 + 0xa74) \u003d 0;\r\n      *(undefined4 *)(lVar1 + 0xa98) \u003d 0;\r\n    }\r\n    else if (param_2 \u003d\u003d 2) {\r\n      if (0 \u003c *(int *)(lVar1 + 0xa74)) {\r\n        FUN_14089b1f0(lVar1 + 0xa58);\r\n      }\r\n      *(undefined4 *)(lVar1 + 0xa74) \u003d 1;\r\n      *(undefined4 *)(lVar1 + 0xa98) \u003d 1;\r\n      FUN_14089b840(lVar1 + 0xa58);\r\n      **(undefined8 **)(lVar1 + 0xa80) \u003d _DAT_1421249e0;\r\n      **(undefined8 **)(lVar1 + 0xaa0) \u003d 0;\r\n    }\r\n    uVar2 \u003d (**(code **)(*param_1 + 0x198))(param_1);\r\n    uVar2 \u003d FUN_140c7acd0(uVar2);\r\n    FUN_14082aaa0(uVar2,0x22);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c620",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecfab0",
+      "entry": "140ecfab0",
+      "name": "FUN_140ecfab0",
+      "completed": true,
+      "error": "",
+      "c": "\r\n/* WARNING: Globals starting with \u0027_\u0027 overlap smaller symbols at the same address */\r\n\r\nvoid FUN_140ecfab0(longlong param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140130f90(param_1);\r\n  if (param_2 \u003d\u003d 0) {\r\n    **(undefined8 **)(lVar1 + 0x378) \u003d 0;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1370),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 1) {\r\n    **(undefined8 **)(lVar1 + 0x378) \u003d _UNK_1421d3c90;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1370),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 2) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1370),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c62c",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecfb90",
+      "entry": "140ecfb90",
+      "name": "FUN_140ecfb90",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ecfb90(longlong param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140130f90(param_1);\r\n  if (param_2 \u003d\u003d 0) {\r\n    *(undefined8 *)(*(longlong *)(lVar1 + 0x378) + (longlong)*(int *)(lVar1 + 0x32c) * 8) \u003d 0;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1398),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 1) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1398),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c638",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecfc30",
+      "entry": "140ecfc30",
+      "name": "FUN_140ecfc30",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ecfc30(longlong param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140130f90(param_1);\r\n  if (param_2 \u003d\u003d 0) {\r\n    *(undefined8 *)(*(longlong *)(lVar1 + 0x378) + (longlong)(*(int *)(lVar1 + 0x32c) \u003c\u003c 1) * 8) \u003d 0\r\n    ;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x13c0),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 1) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x13c0),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c644",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecfcd0",
+      "entry": "140ecfcd0",
+      "name": "FUN_140ecfcd0",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ecfcd0(longlong param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140130f90(param_1);\r\n  if (param_2 \u003d\u003d 0) {\r\n    *(undefined8 *)(*(longlong *)(lVar1 + 0x378) + (longlong)(*(int *)(lVar1 + 0x32c) * 3) * 8) \u003d 0;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x13f0),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 1) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x13f0),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c650",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecfd70",
+      "entry": "140ecfd70",
+      "name": "FUN_140ecfd70",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ecfd70(longlong param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140130f90(param_1);\r\n  if (param_2 \u003d\u003d 0) {\r\n    *(undefined8 *)(*(longlong *)(lVar1 + 0x378) + (longlong)(*(int *)(lVar1 + 0x32c) \u003c\u003c 2) * 8) \u003d 0\r\n    ;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1418),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 1) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1418),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c65c",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ecfe10",
+      "entry": "140ecfe10",
+      "name": "FUN_140ecfe10",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ecfe10(longlong param_1,int param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140130f90(param_1);\r\n  if (param_2 \u003d\u003d 0) {\r\n    *(undefined8 *)(*(longlong *)(lVar1 + 0x378) + (longlong)(*(int *)(lVar1 + 0x32c) * 5) * 8) \u003d 0;\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1440),0);\r\n  }\r\n  else if (param_2 \u003d\u003d 1) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1440),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c668",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ed7e10",
+      "entry": "140ed7e10",
+      "name": "FUN_140ed7e10",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ed7e10(longlong param_1,undefined4 param_2)\r\n\r\n{\r\n  int iVar1;\r\n  undefined8 uVar2;\r\n  undefined4 *puVar3;\r\n  longlong lVar4;\r\n  int iStack_58;\r\n  longlong lStack_50;\r\n  int iStack_48;\r\n  int iStack_44;\r\n  undefined1 auStack_40 [32];\r\n  longlong lStack_20;\r\n  undefined8 uStack_18;\r\n  undefined4 uStack_10;\r\n  \r\n  uStack_18 \u003d 0xfffffffffffffffe;\r\n  uVar2 \u003d FUN_140130af0(param_1);\r\n  lStack_20 \u003d FUN_14005a400(uVar2);\r\n  uVar2 \u003d FUN_140130af0(param_1);\r\n  lStack_50 \u003d func_0x0001401cc700(uVar2);\r\n  iStack_44 \u003d _currentRow_QTableWidget__QEBAHXZ\r\n                        (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1800));\r\n  if (iStack_44 \u003c 0) {\r\n    iStack_44 \u003d 0;\r\n    _blockSignals_QObject__QEAA_N_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1800),1);\r\n    _setCurrentCell_QTableWidget__QEAAXHH_Z\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1800),0,0);\r\n    _blockSignals_QObject__QEAA_N_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1800),0);\r\n  }\r\n  FUN_140d49e30(auStack_40);\r\n  iStack_48 \u003d 0;\r\n  if (lStack_20 !\u003d 0) {\r\n    iStack_48 \u003d FUN_140004ae0(lStack_20);\r\n  }\r\n  if ((iStack_44 \u003c iStack_48) || (iVar1 \u003d FUN_140004ae0(lStack_50), iStack_48 + iVar1 \u003c\u003d iStack_44))\r\n  {\r\n    lStack_50 \u003d lStack_20;\r\n    iStack_58 \u003d iStack_44;\r\n  }\r\n  else {\r\n    iStack_58 \u003d iStack_44 - iStack_48;\r\n  }\r\n  uStack_10 \u003d param_2;\r\n  switch(param_2) {\r\n  case 0:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),0);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 0;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 2;\r\n    break;\r\n  case 1:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),0);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 0;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 3;\r\n    break;\r\n  case 2:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 0;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 4;\r\n    break;\r\n  case 3:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 0;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 5;\r\n    break;\r\n  case 4:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 0;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 6;\r\n    break;\r\n  case 5:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 0;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 7;\r\n    break;\r\n  case 6:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 1;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 1;\r\n    break;\r\n  case 7:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 1;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 2;\r\n    break;\r\n  case 8:\r\n    (**(code **)(**(longlong **)(*(longlong *)(param_1 + 0x140) + 0x17c0) + 0x58))\r\n              (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x17c0),1);\r\n    puVar3 \u003d (undefined4 *)FUN_140067100(lStack_50,iStack_58);\r\n    *puVar3 \u003d 1;\r\n    lVar4 \u003d FUN_140067100(lStack_50,iStack_58);\r\n    *(undefined4 *)(lVar4 + 4) \u003d 3;\r\n  }\r\n  FUN_140ed4bb0(param_1);\r\n  _selectRow_QTableView__QEAAXH_Z\r\n            (*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0x1800),iStack_44);\r\n  FUN_140ed6460(param_1,iStack_44,0);\r\n  func_0x000140cac130(auStack_40);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c7ac",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140ed0820",
+      "entry": "140ed0820",
+      "name": "FUN_140ed0820",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140ed0820(longlong param_1,int param_2)\r\n\r\n{\r\n  if (param_2 \u003d\u003d 0) {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0xda0),0);\r\n  }\r\n  else {\r\n    _setEnabled_QWidget__QEAAX_N_Z(*(undefined8 *)(*(longlong *)(param_1 + 0x140) + 0xda0),1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14509c6d4",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+ "label": "REMESH obj1 2D from KEY only (interpolation skipped)",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 900,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nREMESH       1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/EN/NAFEMS_benchmarks/NAFEMS_T2_EN.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "model+0x1748 (DB path) empty -> '         Skip data interpolation'; BRDEXT behaviour with an empty DB path: see BRDEXT.md; DEFAMG 2D as in DEFAMG/defamg_2d_geo. Expected stdout ends: INFO   : Interpolating data - Done / INFO   : Remeshing - Done."
+ }
+}

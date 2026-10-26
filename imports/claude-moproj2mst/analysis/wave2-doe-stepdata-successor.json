@@ -1,0 +1,41 @@
+{
+  "scope": "Read-only next StepData lifecycle contract after frozen Image codec prefix; no new implementation yet",
+  "evidence_hashes": {
+    "analysis/wave2-doe-active-task-defaults-stepdata-decompile.json": "c053c48c87d61f0660968e1e54dbb51f126c660bf8cd76d5364def3b9fef4e08",
+    "analysis/wave2-doe-stepdata-statevar-finalizer-decompile.json": "3f8e923f48538cf0454b6e119572b2528bd61e1d7edb26be50102432f09a6e96",
+    "analysis/wave2-doe-stepdata-ctors-remesh-decompile.json": "15b8b9ac44eb88eee28322d1fd5adac7dbfd56cf3ada4bd6b278f89df0867c45",
+    "analysis/wave2-doe-sim300-constructor-doe-support-decompile.json": "c31b3102e98a912fd16d98728b29f8756fa6adc134f774cc53f2727ec04ef433",
+    "analysis/wave2-doe-stepdata-primary-iteration-c7b1a0.asm": "76d3b09525513a27dfcad0228dd9ae08d218bd908b06af3bc409624f15f3f16a",
+    "analysis/wave2-doe-stepdata-object-statevar-postparse-decompile.json": "ccaea5bb20af19717cf1a1d590f83955140cae175300aa6b222e447c1d549721",
+    "source/port/def_pre/src/menu56_common.cpp": "d3fdb14976f4b522c4b320e0ce7a8c01329c9d1ad96df836a85bc5800292e223",
+    "source/port/def_pre/include/def_pre/menu56.hpp": "387bd7916fd9e36f44752845035c06585ab1e482632a00bbf98b8c7da4b5cfdc",
+    "source/apps/moproj2mst/src/engine/viewer.cpp": "7c845f1d29cca26ed73cc86fe8b6052a2e4770a2a973286f3f152f693fefa691"
+  },
+  "actual_owner": "Task14140d100 gets main-window viewer, then display MAIN GuiModel via cf94f0. It returns unchanged if main-window/display main is absent. Do not substitute Operation.model.",
+  "c90bd0_order": [
+    "Iterate all raw children; skip non-elements/unknown elements",
+    "StateVar calls lazy model+240 c905b0 and d328c0 only when parameter3 true (actual true)",
+    "Object No\u2192toInt; call141200e50 only if index<viewer-list count. Negative index is not rejected by original and can reach invalid QList access: candidate must guard before undefined access rather than silently skip",
+    "After all children, lazy model+230 property table c90210/d78100, thend7c260 finalizer"
+  ],
+  "empty_viewer_finalizer": [
+    "d7c260 copies viewer list, calls c7b1a0(model,1) before loop",
+    "c7b1a0 returns int via GUI823ca0, verified PRE twin1caa00; reuse def::pre::step_current_object(step,true), already linked def_pre_core",
+    "Existing helper refreshes DB_STEP_DATA.u1b4c: reset beyond last id, else choose first deformable/rigid only when current0; negative values are not normalized when last>=current",
+    "Zero viewer items skip checkbox/settings loop; retain table-created ownership state. Nonempty finalizer and in-range Object remain guarded until exact view settings import/checkbox effects close"
+  ],
+  "minimal_shared_interface": {
+    "GuiModel": "shared_ptr<doe::StepDataState> doeStepData",
+    "StepDataState": "propertyTableCreated bool; inline resetPropertyTable clears only this marker, preserving state container for future separately owned StateVar",
+    "reset": "gui_model.cpp at c902c0 point beforestate100=0 invokes state.resetPropertyTable if container exists",
+    "viewerItemCount": "const GuiModel& accessor returns existing private Viewer::views.size() or0, never allocates. DB object count is not equivalent; viewerBox can grow a view without a DB object.",
+    "owned_callback": "SessionImportContext.readStepData(Node) resolves display MAIN; only no-LayerName Task route uses it. LayerName cd5d90 remains separately guarded"
+  },
+  "next_payload_evidence": {
+    "Object141200e50": "Export complete; calls view/settings helpers1411ee800/eeaf0/ef300,1411f1a10,1411fd600,1411fe310,14124b080. Need exact fields/branches before view mutation.",
+    "StateVar": "d16530 has non-loop mutations/notifications before/after per-view loops. New d17b90 reads d247c0/d25810 even with zero objects; d16a80 invokes displaycff380; d18980 forwardsd189b0. Cannot equate zero objects with no effect.",
+    "constructor_globals": "Colorbar default143d763c4/title143d763d8 and constructed histogram/auxiliary fields remain source/profile dependencies; no guessed reset defaults."
+  },
+  "architecture_qualification": "Property-table marker is a bounded empty-view state projection, not a complete Qt model/selection QObject. StateVar lifecycle must remain GUI-model-owned and survive model reset; do not declare architecture complete from marker alone.",
+  "app_control_used": false
+}

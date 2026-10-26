@@ -1,0 +1,21 @@
+{
+ "label": "DEFAMG obj1 3D",
+ "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+ "timeout": 1200,
+ "inputs": [
+  {
+   "name": "CMD.KEY",
+   "text": "KFREAD\nIN.KEY\nDEFAMG       1\nKFWRIT\nOUT.KEY\n"
+  },
+  {
+   "name": "IN.KEY",
+   "source": "C:/Users/alext/Projects/DEFORM_corpus/key/3D/SI/Forging/UPSET_Brick.KEY"
+  }
+ ],
+ "expect": {
+  "files": [
+   "OUT.KEY"
+  ],
+  "notes": "stdout lines: INFO   : Generating mesh - Object 1... |          Success | INFO   : Generating mesh - Done. 3D branch: DEF_AMG3.INI, <prob>.GEO (surface DIEGEO 56 nodes/54 polys, quads split), NBCD.DAT only if surface polygons carry BC codes, DSTPAR.DAT (MGNELM a 2000, MGSIZR 2), DEF_MGN.ACT '5 N 7 e Y'; 'DEF_AMG3_GUI < DEF_MGN.ACT > DEF_MGN.OUT' (3D folder) -> MESH3D.INP read back; then DEF_MGN.ACT '5 N 6 e Y', MESH3D.SCR, MESH3D.INP rewritten, 'MESH3D_GUI'; mesh.out present -> BRKMSH.INI + 'BRKMSH > BRKMSH.MSG' -> SCRATCH.KEY (RZ/ELMCON) read; else second DEF_AMG3_GUI. OUT.KEY: tetra mesh (ELMCON n 4), MGNELM a unchanged (2000 >= 1), MGWUSR 2nd real (0x2d98) rewritten to the size factor r, weights normalised."
+ }
+}

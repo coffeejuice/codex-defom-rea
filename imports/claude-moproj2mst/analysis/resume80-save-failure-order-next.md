@@ -1,0 +1,17 @@
+# CP80: strongest established simultaneous Save failure order
+
+## Established order and effects
+
+For the ordinary Type-0 native Save path, original `FUN_1400980d0` calls current-operation Save, project writer `0x1400983c0`, property-save loop `0x1400982e0`, MST writer `0x1400a20d0`, then local-remesh handling. There is no branch on the project writer Boolean before property/MST calls; the remesh tail is reached after either project or MST returns false. The native function combines the two writer Booleans but returns the earlier validation/status local (`analysis/save-semantics.md`; original decompile `evidence/gui_mo/s1/s1-02/a4s.c`). Thus “project error wins” or “MST error wins” describes only the candidate adapter's mapped result, not the original GUI Save return.
+
+Current `src/core/convert.cpp` implements a later adapter precedence: remesh refusal first, MST failure second, project failure third. Pair coverage now targets the first two levels separately: CP77 injects a project post-close false and physically denies the MST open, while remesh completes; CP74 injects project false with MST success and denies enabled remesh open. CP77's corrected assertion compares `cannot open MST ` plus each run's own scratch path. Its focused rerun is pending in the current receipts; do not report it as passed based on the earlier path-mismatch failure.
+
+For the original enabled remesh failed-open branch, static `analysis/wave3-remesh-invalid-parameter-startup-contract.json` qualifies the unchecked `fopen` result flowing into `fprintf(NULL)` and the initialized default handler's `TerminateProcess(0xC0000417)` route. Under that profile, earlier project/property/MST effects survive but no normal Save status or subsequent Close occurs. The candidate maps its guard to `M2M_E_UNSUPPORTED`; that is not the original GUI return. A custom invalid-parameter handler that returns is a separate, unbound profile.
+
+## Smallest remaining diagnostic
+
+If a third adapter-precedence check is useful, combine the existing CP77 disposable setup with CP74's remesh denial: at the project `aboutToClose` callback, seed and write-lock both the MST destination and `LOCAL_REMESH.DAT`; keep `LOC_DEN_CTRL.DAT` as the already-loaded enable source. Then the scripted project result is false, MST Open fails, and remesh Open fails in source order. Assert only the candidate-visible consequences: prior Boolean BWZ/INI effects remain; MST and remesh sentinels are retained; `SaveCallState` records project false and MST attempted/returned/false; final adapter result is the remesh guard's `M2M_E_UNSUPPORTED` rather than either `M2M_E_WRITE`.
+
+This adds a direct three-level precedence check and combines the two preserved output sentinels, but it is low priority: pairwise source order is already covered, and the original default-handler path terminates before a returned status can be compared. It must be labeled candidate-only; no assertion should claim original `M2M_E_UNSUPPORTED`, normal return, or Close behavior. No additional original static dependency is required to predict the candidate sequence. For original runtime outcome beyond the statically qualified invalid-parameter route, the dependency is a fresh, isolated original failure capture with the actual handler profile; none is retained, so do not emulate a process crash in the test runner.
+
+No source, test, build, GUI, or mutable REA changes were made for CP80.

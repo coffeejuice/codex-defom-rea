@@ -1,0 +1,21 @@
+{
+  "label": "EXECMD 0 relative program",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 600,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nIN.KEY\nEXECMD 0\ncmd /c echo m0> EXEC0.TXT\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "IN.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY"
+    ],
+    "notes": "dirKind 0: 'cmd' probed as <base>cmd, .EXE, .COM; not found -> argv0 = <base>cmd. DEFORM_PC_PATH unset -> base '' -> cmd from PATH runs, EXEC0.TXT = 'm0'; set (normal install) -> '<base>cmd' not found, no EXEC0.TXT. Record which."
+  }
+}

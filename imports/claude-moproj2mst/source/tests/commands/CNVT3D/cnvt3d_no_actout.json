@@ -1,0 +1,24 @@
+{
+  "label": "CNVT3D without ACTOUT (save fails)",
+  "stdin": "\n2\n1\nCMD.KEY\n\nE\nE\nY\n",
+  "timeout": 1200,
+  "inputs": [
+    {
+      "name": "CMD.KEY",
+      "text": "KFREAD\nRING_SI.KEY\nGEO23 1 1\n360.0 0.0 0.0\nGEOSEC 1 20\nCNVT3D 1\n1\nKFWRIT\nOUT.KEY\n"
+    },
+    {
+      "name": "RING_SI.KEY",
+      "source": "C:/Users/alext/Projects/DEFORM_corpus/key/2D/SI/Forging/RING_SI.KEY"
+    }
+  ],
+  "expect": {
+    "files": [
+      "OUT.KEY",
+      "CONV_STATUS.DAT",
+      "DEF_CNV23.DAT",
+      " .LOG"
+    ],
+    "notes": "model+0x140 empty -> FUN_1401c5810 returns 1 -> 'Conversion failed'; keyword still returns 0 so KFWRIT runs."
+  }
+}

@@ -1,0 +1,7 @@
+# CP70 grouped builder failure-path fix
+
+Grouped configure-reuse now stops immediately when the configure, focused-preflight, or full-build command returns nonzero, even if the command also observed source or CMake-cache drift. It preserves the failed step’s exit code and before/after fingerprints, returns nonzero, records a phase-specific failure status, and leaves `source_stable_during_build` false. It does not configure/retry after a compile, link, or configure command failure; the repaired attempt must use a new label. Successful grouped receipts still require every recorded command step to exit zero.
+
+Added mock tests for nonzero configure, preflight, and full-build commands that simultaneously mutate source. Each test asserts exactly one attempt in the failed phase, no later phase or retry, a nonzero function result, the failed step code in the receipt, zero reconfiguration count, and no stable success claim. Existing success, source/cache drift retry, retry-bound, grouped CLI receipt, and legacy focused-only tests remain passing.
+
+Focused validation: `python -m unittest discover -s admin/tests -p test_build_candidate_grouped.py -v` passed all 13 tests. `python -m py_compile admin/build_candidate.py admin/tests/test_build_candidate_grouped.py` passed. No real build or source/build/fixture operation was run. `python admin/check_continuation.py` reports `CONTINUE`, objective incomplete, 15 remaining items, and no errors.

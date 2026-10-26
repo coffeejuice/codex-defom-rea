@@ -1,0 +1,42 @@
+{
+  "schema": "m2m-early-scene-display-increment-v1",
+  "status": "source awaiting coordinator integration validation",
+  "objective_complete": false,
+  "evidence": [
+    "analysis/wave3-close-scene-owner-identity-contract.json",
+    "analysis/wave3-root-scene-order-window-base-static.json",
+    "analysis/wave3-root-scene-order-base-static.json",
+    "analysis/wave3-root-scene-order-dispatch-static.json",
+    "analysis/wave3-close-default-splitter-ownership-contract.json",
+    "analysis/wave2-doe-view-manager-pointer-contract.json"
+  ],
+  "source_order": [
+    "Derived010490 calls basec98b00 at0104d2 before installing its MO vtable.",
+    "Basec98b00 installs basevt14290ac88 atc98b77 and calls ca5850 atc98e3b.",
+    "ca5850 constructs separate primary and secondary SfScene via cca680, each embedding its own Display at+10. Primary is bound atca59d3 and secondary atca5b0e; intervening attachment/connections remain explicit constructor dependencies.",
+    "Only after base return does derived010490 call0111c0. Its c999e0 virtual+2e0 selects0133f0, which creates ModelManager via045420. Later012040->012ea0 constructs SfMoMainView.",
+    "Scene dimensions are constructor inputs read using QSize::width/height; historical postOpen viewport dimensions do not prove these inputs."
+  ],
+  "implemented": [
+    "Session owns distinct primary/secondary PostGraphSceneState and distinct Display states before ModelManager, MainView and adapter Project allocation.",
+    "Project.display aliases the session primary Display instead of making a separate lazy owner. Primary/secondary survive Project storage release and remain separate across sessions.",
+    "DisplayGeometryProfile explicitly distinguishes unresolved geometry from the historical OracleB camera adapter. No optional dimensions are present before a profile is applied; private zero storage is never presented as known native geometry.",
+    "The legacy projectDisplay helper retains prior camera output by applying OracleB3363x1709 adjusted for diagram height, now identified as historical. It never initializes secondary geometry by copying primary dimensions.",
+    "Existing model destruction tests continue to require the actual display owner to survive every Project-owned GuiModel destructor."
+  ],
+  "qualifications": [
+    "This integrates recovered owner identities and lifetime, not all native QGraphicsScene/SfScene constructor effects, viewport attachment, fonts, text membership or signal callbacks.",
+    "Source-proven first/second scene allocations have intervening effects that are not simulated by C++ allocation timing. Full constructor failure/interruption equivalence remains pending.",
+    "Current scene item population remains unqualified; no empty-scene or completed text-construction inference is made.",
+    "Scene/Display diagnostic shared leases and original QObject/embedded-object teardown are not claimed identical. Normal native Close and final mainwindow destruction remain queued.",
+    "Historical geometry is not fresh original-session evidence and must not be used to silently authorize DOE snapshot geometry.",
+    "No public full-save guard or fresh-comparison acceptance gate is released."
+  ],
+  "tests": [
+    "Session preOpen actual primary/secondary identities, Project primary alias, null shown models, explicit unknown geometry and unknown item coverage",
+    "Historical profile applies to primary only and preserves diagram-height adjustment",
+    "Both scene displays survive Project release, differ in a fresh session, and release at session storage destruction",
+    "Existing real GuiModel teardown lifetime cases and full output regression"
+  ],
+  "next": "Continue concrete layout/event dependency, native View_Default/Primary insertion, scene constructor completion and eventual same-owner DOE snapshot/Close integration."
+}

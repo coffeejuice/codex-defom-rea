@@ -1,5 +1,13 @@
 # DEFORM database loader reconstruction
 
+The imported Claude DEF_PRE C++ application and its supporting libraries, tests,
+and recovery documentation are in [imports/claude-def-pre](imports/claude-def-pre/IMPORT.md).
+Build that application separately with
+`pwsh -NoProfile -File tools/build_claude_def_pre.ps1`; its executable is
+`build/claude-def-pre/Release/DEF_PRE_64.exe`. The import preserves the existing loader
+and recovered-state work described below. Import validation is recorded in
+[analysis/claude-def-pre-import-validation.json](analysis/claude-def-pre-import-validation.json).
+
 This C++20 library reads DEFORM databases independently of the original program.
 It reconstructs the loading routines associated with `datarm23.f` in
 `source/DEF_PRE_64.exe`, using REA/Ghidra analysis and comparisons with the running

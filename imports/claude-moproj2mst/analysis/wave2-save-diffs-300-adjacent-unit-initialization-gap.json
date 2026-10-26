@@ -1,0 +1,14 @@
+{
+  "status": "read_only_shared_native_initialization_gap_reported_to_coordinator",
+  "scope": "Adjacent to worker-owned loaded-SC backup repair; no shared source edits authorized or made by worker. This is C++ defined-initialization analysis, not original runtime/constructor equivalence evidence.",
+  "source_chain": [
+    {"path": "source/apps/moproj2mst/src/engine/gui_model.cpp", "line": 140, "finding": "GuiModel constructs make_unique<DB_STEP_DATA>(dim), then calls guiSimCtrlInit."},
+    {"path": "source/port/defmodel/src/step/db_step_data.cpp", "line": 24, "finding": "User-provided DB_STEP_DATA ctor constructs SimControl member, then calls sim_ctrl_set_owner before any UNIT assignment; later step_init calls sim_ctrl_init again."},
+    {"path": "source/port/defmodel/src/step/sim_ctrl.cpp", "line": 21, "finding": "User-provided SimControl ctor sets owner=null only; UNIT has no member initializer. Owner/init writes owner then calls environment init, which reads UNIT twice."},
+    {"path": "source/port/defmodel/src/step/db_write_var.cpp", "line": 10, "finding": "Base constructor sets dimension3 before owner init, so dimension is defined; it does not initialize the nested simulation UNIT."}
+  ],
+  "implication": "Heap allocation is not a C++ language-level zero-initialization guarantee for these user-provided constructors. Assigning fixture UNIT after GuiModel construction fixes subsequent helper profile inputs but cannot remove earlier initialization reads. Incidental zero heap/stack contents and passing tests cannot prove absence of UB.",
+  "existing_backup_repair": "Worker-owned backup.unit=sc.unit is still correct: its source has already passed loadedUNIT1/2 guard. Its bounded pre-deep-copy audit does not certify earlier model construction.",
+  "required_decision": "Coordinator owns any shared native initialization repair and its default/loaded-state semantics. Choose an explicitly documented defined adapter initialization before first owner/init; do not claim original ctor stores UNIT without exact original evidence. No worker recommendation to guess license/unit state or modify unrelated production behavior.",
+  "validation": "Read-only source graph only; no builds/tests/runtime/captures/fixture mutation. Parent informed before next freeze."
+}

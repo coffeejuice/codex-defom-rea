@@ -1,0 +1,18 @@
+{
+  "schema": "editor300-operation-name-limit-compile-amendment-v1",
+  "created_utc": "2026-10-24T08:32:43.422597+00:00",
+  "amends": {
+    "path": "analysis/wave3-editor-operation-name-limit-repair.json",
+    "sha256": "9a9c86b4c73eb4d4cfcf88a1b5afe54602a717490f0bda758eeb683959143385"
+  },
+  "status": "root repaired direct include; candidate35v2 validation pending",
+  "failure": "Root reported candidate35v1 snapshot compilation failure: the new stack-owned m2m::Project requires a complete mst::OpClass destructor. model.hpp provides only the forward declaration.",
+  "repair": "Root added direct #include <m2m/mst/writer.hpp> in test_simcontrol300_snapshot.cpp. Worker did not edit sources or build.",
+  "changed_file": {
+    "path": "source/apps/moproj2mst/tests/mdt/test_simcontrol300_snapshot.cpp",
+    "sha256": "d5111303b7a10dfb6c8f1c930846b7c2c7e06be65b3c6e86819ecf96e2a46a62"
+  },
+  "behavioral_change": false,
+  "preflight_lesson": "When a test introduces stack-owned Project, include the direct writer.hpp definition needed by its contained unique_ptr<OpClass> destructor; checking only direct names and main count is insufficient.",
+  "qualification": "Prior immutable source receipt remains intact. This amendment does not claim the failed candidate passed; parent owns rebuild and validation."
+}

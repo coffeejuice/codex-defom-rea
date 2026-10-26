@@ -1,0 +1,68 @@
+{
+  "schema": "wave2-doe-standalone-decompile-v1",
+  "program": "DEF_GUI_MO_64.exe",
+  "executable_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "qualification": "Read-only private snapshot. Static decompilation and database references; no original runtime or shared REA session. Indirect calls may remain unresolved.",
+  "functions": [
+    {
+      "requested_address": "140045670",
+      "entry": "140045670",
+      "name": "FUN_140045670",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined1 FUN_140045670(undefined8 param_1,longlong param_2)\r\n\r\n{\r\n  int iVar1;\r\n  undefined8 uVar2;\r\n  longlong lVar3;\r\n  int iStack_20;\r\n  \r\n  iVar1 \u003d FUN_140c79ca0(param_1);\r\n  iStack_20 \u003d 0;\r\n  while( true ) {\r\n    if (iVar1 \u003c\u003d iStack_20) {\r\n      return 0;\r\n    }\r\n    uVar2 \u003d FUN_140c79100(param_1,iStack_20);\r\n    lVar3 \u003d FUN_14146f8fc(uVar2,0,0x143569448,0x143569470,0);\r\n    if ((lVar3 !\u003d 0) \u0026\u0026 (lVar3 \u003d FUN_140044a90(lVar3), lVar3 \u003d\u003d param_2)) break;\r\n    iStack_20 \u003d iStack_20 + 1;\r\n  }\r\n  FUN_140c78bb0(param_1,uVar2);\r\n  return 1;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057ca4",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140045730",
+      "entry": "140045730",
+      "name": "FUN_140045730",
+      "completed": true,
+      "error": "",
+      "c": "\r\nbool FUN_140045730(undefined8 param_1,undefined4 *param_2)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 \u003d FUN_140c79100(param_1,*param_2);\r\n  if (lVar1 !\u003d 0) {\r\n    FUN_140c78bb0(param_1,lVar1);\r\n  }\r\n  return lVar1 !\u003d 0;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057cb0",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140c9bc30",
+      "entry": "140c9bc30",
+      "name": "FUN_140c9bc30",
+      "completed": true,
+      "error": "",
+      "c": "\r\nvoid FUN_140c9bc30(longlong *param_1,longlong param_2)\r\n\r\n{\r\n  undefined8 uVar1;\r\n  undefined1 *puVar2;\r\n  longlong lVar3;\r\n  undefined1 *puVar4;\r\n  longlong alStackX_10 [3];\r\n  undefined1 auStack_178 [16];\r\n  undefined1 auStack_168 [16];\r\n  undefined1 auStack_158 [16];\r\n  undefined1 auStack_148 [16];\r\n  undefined1 auStack_138 [16];\r\n  undefined1 auStack_128 [16];\r\n  undefined1 auStack_118 [16];\r\n  undefined1 auStack_108 [16];\r\n  undefined1 auStack_f8 [16];\r\n  undefined1 auStack_e8 [16];\r\n  undefined1 auStack_d8 [16];\r\n  undefined1 auStack_c8 [16];\r\n  undefined1 auStack_b8 [16];\r\n  undefined1 auStack_a8 [16];\r\n  undefined1 auStack_98 [16];\r\n  undefined1 auStack_88 [16];\r\n  undefined1 auStack_78 [16];\r\n  undefined1 auStack_68 [16];\r\n  undefined1 auStack_58 [16];\r\n  undefined1 auStack_48 [16];\r\n  undefined1 auStack_38 [16];\r\n  undefined1 auStack_28 [24];\r\n  \r\n  alStackX_10[0] \u003d param_2;\r\n  if (param_2 !\u003d 0) {\r\n    uVar1 \u003d func_0x000140c9b7c0(param_1);\r\n    FUN_140c78bb0(uVar1,alStackX_10[0]);\r\n  }\r\n  (**(code **)(*param_1 + 0x2c0))(param_1);\r\n  puVar2 \u003d (undefined1 *)FUN_140025080(auStack_d8,\u0026UNK_142907828,alStackX_10);\r\n  puVar4 \u003d auStack_28;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d auStack_28;\r\n  puVar4 \u003d auStack_e8;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_178,0,0);\r\n  puVar4 \u003d auStack_38;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_168,0,0);\r\n  puVar4 \u003d auStack_48;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_158,0,0);\r\n  puVar4 \u003d auStack_58;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_148,0,0);\r\n  puVar4 \u003d auStack_68;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_138,0,0);\r\n  puVar4 \u003d auStack_78;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_128,0,0);\r\n  puVar4 \u003d auStack_88;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_118,0,0);\r\n  puVar4 \u003d auStack_98;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_108,0,0);\r\n  puVar4 \u003d auStack_a8;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d (undefined1 *)__0QGenericArgument__QEAA_PEBDPEBX_Z(auStack_f8,0,0);\r\n  puVar4 \u003d auStack_b8;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  puVar2 \u003d auStack_e8;\r\n  puVar4 \u003d auStack_c8;\r\n  for (lVar3 \u003d 0x10; lVar3 !\u003d 0; lVar3 \u003d lVar3 + -1) {\r\n    *puVar4 \u003d *puVar2;\r\n    puVar2 \u003d puVar2 + 1;\r\n    puVar4 \u003d puVar4 + 1;\r\n  }\r\n  FUN_1402cf3c0(0x143d76700,\u0026UNK_142907838,auStack_c8,auStack_b8,auStack_a8,auStack_98,auStack_88,\r\n                auStack_78,auStack_68,auStack_58,auStack_48,auStack_38);\r\n  return;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "14508fc78",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    },
+    {
+      "requested_address": "140045490",
+      "entry": "140045490",
+      "name": "FUN_140045490",
+      "completed": true,
+      "error": "",
+      "c": "\r\nundefined8 FUN_140045490(void)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined8 uStack_10;\r\n  \r\n  lVar1 \u003d FUN_14146eabc(0x19f0);\r\n  if (lVar1 \u003d\u003d 0) {\r\n    uStack_10 \u003d 0;\r\n  }\r\n  else {\r\n    uStack_10 \u003d FUN_140043fe0(lVar1,0);\r\n  }\r\n  return uStack_10;\r\n}\r\n\r\n",
+      "references_to_entry": [
+        {
+          "from": "145057c80",
+          "type": "DATA"
+        }
+      ],
+      "known_callees": []
+    }
+  ]
+}

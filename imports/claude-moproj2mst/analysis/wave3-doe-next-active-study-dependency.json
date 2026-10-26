@@ -1,0 +1,51 @@
+{
+  "schema": "wave3-doe-next-active-study-dependency-v1",
+  "status": "no source-qualified active-study variable/output/optimization branch is currently reachable for implementation",
+  "scope": "DOE-owned subsystem; static source/evidence review only; no build, test, capture, GUI, or REA mutation",
+  "smallest_candidates_reviewed": [
+    {
+      "branch": "empty sample-table direct writer/load wrapper",
+      "evidence": "analysis/wave2-doe-sample-io-contract.json",
+      "state": "already implemented and focused/full-suite validated as a direct helper; explicitly not wired into unsupported active-study parsing",
+      "source": ["source/apps/moproj2mst/src/doe/sample_io.cpp", "source/apps/moproj2mst/include/m2m/doe_sample_io.hpp"],
+      "why_not_ready": "The remaining work is to connect it to the active study Open/Save sequence. That sequence cannot reach task/sample handling while native first Report construction remains guarded."
+    },
+    {
+      "branch": "StateVar and Histogram import/output",
+      "evidence": ["analysis/wave2-doe-statevar-prefix-contract.json", "analysis/wave2-doe-default-task-statevar-writer-receipt.json", "analysis/wave2-doe-default-task-histogram-writer-receipt.json"],
+      "state": "bounded parser/writer evidence exists, but statevar constructor prefix requires explicit current settings/global palette inputs and the task writers belong to the uninitialized native TaskInfo/prototype path",
+      "why_not_ready": "No active native TaskInfo/task cache or initialized prototype exists; current public QObject guard stops before TaskInfo, font reads, preferences, metadata translation and cache registration. Detached helper tests cannot establish reachable active-study effects."
+    },
+    {
+      "branch": "optimization Type=3 output",
+      "evidence": "analysis/wave2-doe-findings.md",
+      "state": "writer evidence is distinct from Type=2 .DS behavior; Type=3 creates a separate optimization object and emits .OPT",
+      "why_not_ready": "Actual selected Type=3 manager construction/ownership and Open/Save dispatch are not integrated; implementing output before that state exists would fabricate reachability."
+    }
+  ],
+  "blocking_native_dependency": {
+    "guard": "source/apps/moproj2mst/src/doe/task_factory.cpp:76-81",
+    "guard_behavior": "retains the first 0xc0 Report allocation in TaskAllocationStore and returns M2M_E_UNSUPPORTED before TaskInfo initialization",
+    "latest_contract": "analysis/wave3-doe-report-qobject-prerequisite-contract.json",
+    "latest_capture_plan": "analysis/wave3-doe-report-qobject-capture-plan.json",
+    "evidence_needed": [
+      "Actual original Report factory path reaching public QObject at 141403222 -> QtCore 671313d0, with fresh-process module identity and same raw object identity throughout.",
+      "Same-call shared-null refcount before/after observations for QListData (+0x2f0a50, two increments), QString (+0x2f0b30) and QVectorData (+0x2f0bb8), establishing a shared WidgetRuntime owner rather than factory-local copies.",
+      "Existing TLS-nonnull QThreadData path at QtCore +0x12aca0: TLS index (+0x2f08e8), actual TlsGetValue result, selected QThreadData pointer, and refcount before/after helper +0x27630, bound to the same WidgetThreadState.",
+      "Implementation and focused tests for stable in-place PendingTaskPrototype identity and once-only native constructor stages; only then may public QObject counter +0x2f4344 advance after thread-ref completion.",
+      "After base completion, source-qualified current FontData, TaskInfo metadata/preferences and exact 17-prototype factory order/cache effects. Preserve guards for unqualified font/settings or cleanup paths."
+    ]
+  },
+  "next_action": "Keep the native Report guard. Root must serialize the planned original capture; after evidence, integrate shared owners and constructor frame, validate that prefix, then select the first reachable variable/sample/output branch. Do not implement detached active-study behavior ahead of this dependency.",
+  "source_basis": [
+    "analysis/wave2-doe-sample-io-contract.json",
+    "analysis/wave2-doe-statevar-prefix-contract.json",
+    "analysis/wave2-doe-default-task-statevar-writer-decompile.json",
+    "analysis/wave2-doe-default-task-histogram-writer-decompile.json",
+    "analysis/wave2-doe-findings.md",
+    "analysis/wave2-doe-task-public-qobject-ownership-contract.json",
+    "analysis/wave3-doe-report-qobject-prerequisite-contract.json",
+    "analysis/wave3-doe-report-qobject-capture-plan.json"
+  ],
+  "changes": "Analysis dependency record only; no source or tests changed."
+}

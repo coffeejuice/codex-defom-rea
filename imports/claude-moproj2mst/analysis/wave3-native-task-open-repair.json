@@ -1,0 +1,32 @@
+{
+  "scope": "Repair focused failures without relaxing material-denial requirement",
+  "failures": [
+    "Object tests wrongly used DB-inherited Boolean fixture with no positive file-backed object IDs; switched only direct-writer rig to existing49 active file-backed model.",
+    "Public denied-material test exposed real deferred Open writes before Save; kept public M2M_OK/retained-bytes requirement and corrected Open writer integration."
+  ],
+  "original_evidence": [
+    "0538f0 at053a8a selects same toLocal8Bit IAT141e03f50 as captured Save wrapper; at053ae9 calls8959e0 then ignores return.",
+    "0569d0 at056d62 uses same codec, at056dbc calls8959e0 after material renumber/path update; no return-status branch.",
+    "8959e0 name/material lookup before open, ignored close, independently recovered in prior receipt."
+  ],
+  "changes": [
+    "Native material writer shared by Save, Open DB sync and Open renumber paths; no recorder replay in native calls.",
+    "Open FileEffects enables already-qualified nativeTaskKeys before active operation loading, including existing object/equipment calls. Remaining Open copy/blob/delete writers still recorded.",
+    "Adapter target-alias callback bound before Open; target protected before its truncation, no claim of transaction rollback."
+  ],
+  "remaining": [
+    "Original Open blob/copy/delete order remains explicitly incomplete.",
+    "Bcc/Rz abnormal stream lifetime, restart/GeoConvt/HeatTreat schedule and full Close remain pending."
+  ],
+  "status": "implemented_pending_v3_build",
+  "files_sha256": {
+    "analysis/wave3-native-open-material-static.json": "01321fcb5698f56e23588426a4f070a3aad4f2d9453466ee7de52b09eae7510c",
+    "source/apps/moproj2mst/src/engine/engine_internal.hpp": "87e77af46855efd94406db87bc7f8c6de80f7ee0202ee79041768fbad71ab468",
+    "source/apps/moproj2mst/src/engine/save_current.cpp": "266a5e249e6be98f40b14d03b8eaa807fb39dd9ab6309d0be0caade56ea1ecb0",
+    "source/apps/moproj2mst/src/engine/loader.cpp": "5a43a92def8d6d1bd42fa84d5733589d2c0269cf6bec798cd3e04bf12ab19ab3",
+    "source/apps/moproj2mst/src/engine/db_load.cpp": "1ba4c2483cc2e0274b528e32f2e91262e9615f04f0981898f08157613353fecf",
+    "source/apps/moproj2mst/src/core/convert.cpp": "33814591259fd8885873ff02250f17902e0b038ed7d8c471ad00e5f367a4c72c",
+    "source/apps/moproj2mst/tests/s/test_save_io.cpp": "d18cc121d2e745795c22b52596648d0481c2a3e7cd4a198c81e53095ac7370b7",
+    "build\\logs\\wave3-taskkeys-legend-remesh-v2-focused.log": "ffe10f4012ecbf3912fa38b044ba5ba760293b67c3f54397d04e49066f51e851"
+  }
+}

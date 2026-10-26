@@ -1,0 +1,80 @@
+{
+  "schema": "editor300-probe003-base-grid-reconciliation-v1",
+  "created_utc": "2026-10-24T13:30:10.160098+00:00",
+  "status": "Read-only reconciliation; eight source files frozen awaiting root44 validation",
+  "evidence": [
+    {
+      "path": "analysis/wave3-original-editor-probe-003-receipt.json",
+      "sha256": "ed7bb6626f6da2cfdd18f115503b5c7261fbe50a8ac605dd286d8b906148d2d3"
+    },
+    {
+      "path": "build/original-editor-probe-003/capture-evidence.json",
+      "sha256": "42fe8c13cfafe22d9beeac4cf87c95f48635e8f91af399241366f836e7bc6a2b"
+    },
+    {
+      "path": "build/original-editor-probe-003/probe.js",
+      "sha256": "e860e7ca70b0ea24a5846b6d2f8a04f0e47cd55a8b83d37bdb7ea9dd4bc9ee41"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-base-grid-dependencies.json",
+      "sha256": "3271d266b33aefd11638327f19208ce57b7fb83a94347b4a90ea925d3a3db935"
+    },
+    {
+      "path": "analysis/wave3-editor-parentless-opacity-static.json",
+      "sha256": "2e594ae36d0c811ed53e77d5f80df614f6bbaab19d3e2e396fa0f7dbedeacc1b"
+    },
+    {
+      "path": "analysis/wave3-editor-grid-child-event-continuation-contract.json",
+      "sha256": "b0bc220042051d220a7ad6fed52b1f5f49cc3d0f9ac6ca6a17ffb5d201facf38"
+    },
+    {
+      "path": "analysis/wave3-editor-parented-grid-update-contract.json",
+      "sha256": "02494bdf9b0e79d8f74a5ca7c0fa7115c25b887a3456d796d74d305c5da600dc"
+    }
+  ],
+  "owned_capture": {
+    "endpoint": "140ed9a11 immediately after UI[0] publication and before first spacing setter",
+    "pid": 16024,
+    "cleanup": "Root independently verified absence and closed Frida; no GUI input was acquired",
+    "records": 65,
+    "states": 30,
+    "errors": 0,
+    "fixture_changes": 0
+  },
+  "actual_identities": {
+    "editor": "0x350e780",
+    "operation": "0x348dbe0",
+    "operation_model": "0x346a1a0",
+    "project": "0x3467390",
+    "project_model_distinct": "0x3465990",
+    "grid": "0x14155630",
+    "same_threadData": "0x3110c70",
+    "same_QThread": "0x3110b90"
+  },
+  "parentless": [
+    "Records8..11: actual editor QObject constructor thread binds before counter1891 ->1892. Parent is null, private flags97; no parent-child notification occurs.",
+    "Records12..21/states2..4: initial parentless window geometry0,0,639,479 and adjusted windowFlags0x0800f001. Application layoutDirection0; raw56/57 false before and after resolveLayoutDirection. Source6506a510 compares requested==1 to current raw56 and returns without mutation/events when equal.",
+    "Brush getter record15 uses group4/current and role10; actual QPalette data0x3beedb0 yields returned brush0x3beee08, exactly data+8+10*8, hence consumed current group0. Brush data0x43c8db0 style1; isOpaque true observed atrecord17.",
+    "Opacity decision1 changes only private+1d8 bit17: raw69905 ->200977. Records19/20 show winUpdateIsOpaque65097940 called and returned. Source first requires window then raw120; actual extended thirdword0 makes raw120 false, so it returns650979cf without reaching native window APIs. No interpretation of unrelated raw bits.",
+    "Source QBrush6511c090 style1 returns QColor alpha==255; exact opaque=true observation therefore implies alpha() result255 for this call. Raw QColor spec/channels were not captured and are not invented.",
+    "Records22..30: QFont constructor uses exact editor QPaintDevice and actual thread/TLS. Device metric168 equals existing font field38; resulting font shares same data0x44f9810/mask0. Common shared font/device primitive remains closure lane.",
+    "Records31..41: widget count760 ->761/max761; Create0x0f returnsfalse; one raw0x4a post occurs before QWidget init returns. Shared queue/depth/dispatcher mechanics are closure lane. Create event stack destruction is later than post, so a guarded post must keep event alive.",
+    "Wrapper checkpoints42..46 retain same actual widget. SfWidget vtable then operation-base vtable then editor vtable; operation model guard refers to operation model, not distinct project child. Source model/procedure wrapper effects are not implicitly implemented by recording arrival."
+  ],
+  "grid": [
+    "Records49..51/states18: one actual allocation, rows0/cols0, known layout lowflags6 and dirtybits4, margins-1/cache-1. QObject vtable and null parent/installed/UI aliases before parent helper; same actual thread.",
+    "Records52/53/state19: helper has assigned parent and appended sole child to previously observed empty QObject list. ChildAdded raw44 payload is exact actual grid. Native rows/cols remain0, layoutflags6, counter1892, QObject vtable, installed and UI aliasesnull. Notification returnsTRUE.",
+    "Record54 follows helper return with counter still1892; record55 after locked increment shows1893. No premature counter store during callback. Post-parent declarativeflag0 and hooknull qualify the observed no-extra-bookkeeping route, not all sessions.",
+    "State21 before install: QLayout vtable, lowflags7, editor installed aliasnull. Records57..63/state23 show same actualgrid installed and lowflags3 during raw0x4c posting while rows/cols still0/UIaliasnull.",
+    "Record64/state29: after QGrid ctor returns rows/cols1, QtGrid vtable; UIaliasnull. Record65/state30: app forwarding vtable and UI[0] set to samegrid. No spacing/margins/name setter yet; margins remain-1."
+  ],
+  "qualifications": [
+    "Native CLI startup/Open before mainwindow show/event-loop. Not interactive File/Open timing, full editor, Save or Close acceptance.",
+    "Selected palette-enter/return hook records are absent despite hook installation. Do not claim direct getter-entry/return capture; current group0 is supported by exact returned brush address and surrounding palette snapshots plus original source.",
+    "Parentless palette getter still consumes actual application modal predicate6507fc60 via65022040 when attribute15false. Probe003 did not retain that global directly. No unconditional modalfalse seed from observed output or startup timing.",
+    "Private/global numeric values qualify this actual capture only. Native high flag bits, padding and unrelated QColor fields remain unspecified.",
+    "Observed empty editor child list can seed an explicit observed profile; generic prefix remains unknown and must not be overwritten with an empty list.",
+    "Base completion and application wrapper/model guard effects must be explicitly reconstructed before the existing setup guard can be removed."
+  ],
+  "next_action": "Agree one shared runtime process-counter and font/Create/post APIs with closure. Add an actual-owner parentless base cursor, preserving source prefix and explicit modal/palette context guard; then compose source-closed ChildAdded/post-parent/counter into existing same-grid cursor after root releases source. No bypass of existing public/base guard."
+}
