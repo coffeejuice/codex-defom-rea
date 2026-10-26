@@ -1,0 +1,13 @@
+# CP270 Stopping owner implementation review — PASS
+
+The production substitution and actual-entry tests satisfy the reviewed rank-3 contract. No defects found.
+
+applyStopping3D changes only its first nullable-step/dimension term to model.dimension()!=3. model.object(0), MDS mode bounds, widget profile and selected-reference/label admission remain in the same short-circuit order. Missing step/non-3 still return UnsupportedSnapshot before object(0) or supplied control writes. Valid parked 3D still reaches object(0)'s guard before widgets/control stores, while parked non-3 refuses earlier. No new admission, cache, normalization or lifetime/currentness claim is introduced.
+
+All later behavior is untouched: tmax then smax validation/partial commits, primary-die lookup/movement-dependent limit policy, vmin/lmax and emax, MDS conversion/reference stores/callbacks and current-model rotation writes. Existing partial-validation tests remain meaningful; this review does not call later ValidationStopped mutation-free. Prior CP268 transition, CP269 fill, CP260 const Apply and CP263 mutable Apply queries remain at lines 1203, 1251, 1308 and 1330. The concurrent fill hunk visible in the working diff is preserved CP269 work, not a new CP270 change.
+
+Both new tests obtain a valid StoppingPage from a real ordinary 3D model and call the actual applyStopping3D entry. Their output SimControl belongs to a separate live controlOwner. Resetting missingStepModel therefore does not dangle the supplied reference. Distinct tmax/smax/emax sentinels plus full SimControl byte comparisons detect stores, and missing-step no-recreation is explicit. Unlike an invalid-widget/mode fixture, the filled page has valid admission values, so an unrelated preflight refusal does not mask the intended model-dimension rejection. No fabricated object storage, unsafe pointer use or new external fixture is introduced.
+
+`analysis/cp270-stopping-owner-build.json` records successful configure/build of the focused snapshot target, source_stable_during_build true and matching fingerprint `95f649b6aa1411df889ba4980a73520dc6f613ce1ec35cc11da556e163eb7d12`. Inspected LastTest.log records the exact snapshot test passed with 0/92 cases failing. Current source/test and receipt hashes match the worker report. This is focused source-stable evidence, not root's complete regression/freeze or a guarantee about earlier lifecycle page effects.
+
+The internal caller and retained native/profile qualifications stay as reviewed. No public ordinary-MO GUI reachability, new original runtime behavior, C ABI/layout or broad ownership closure is established. Only this review report was written; no source/test/build, shared recovery state, original process, GUI or mutable REA changes were made.

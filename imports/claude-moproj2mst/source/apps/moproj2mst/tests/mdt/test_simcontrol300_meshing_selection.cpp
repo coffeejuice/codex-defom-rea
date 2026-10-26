@@ -229,6 +229,34 @@ TEST_CASE(meshing_selection_spin_conversion_and_missing_live_object_keep_origina
     CHECK(applyMeshingSelection3D(empty, remesh, *page) == ApplyResult::Completed);
 }
 
+TEST_CASE(meshing_fill_rejects_non3d_and_missing_step_without_recreating_model_state)
+{
+    RemeshState state; state.enabled = 1;
+    state.scalingFactor = 2.25;
+    const auto before = state;
+
+    engine::GuiModel twoD(nullptr, 2);
+    CHECK(twoD.dimension() == 2);
+    CHECK(!fillMeshing3D(twoD, state));
+    CHECK(twoD.dimension() == 2); CHECK_EQ(twoD.objectCount(), 0);
+
+    engine::GuiModel missingStep(nullptr, 3);
+    missingStep.step.reset();
+    CHECK(missingStep.dimension() == 0);
+    CHECK(!fillMeshing3D(missingStep, state));
+    CHECK(!missingStep.step); CHECK(missingStep.dimension() == 0);
+
+    CHECK_EQ(state.method, before.method);
+    CHECK_EQ(state.goodInternalChangeable, before.goodInternalChangeable);
+    CHECK_EQ(state.filterDistance, before.filterDistance);
+    CHECK_EQ(state.uniformInternalEdge, before.uniformInternalEdge);
+    CHECK_EQ(state.improveContact, before.improveContact);
+    CHECK(state.contactToScalingBytes == before.contactToScalingBytes);
+    CHECK_EQ(state.scalingFactor, before.scalingFactor);
+    CHECK_EQ(state.goodSurfaceChangeable, before.goodSurfaceChangeable);
+    CHECK_EQ(state.enabled, before.enabled);
+}
+
 namespace {
 struct MxcsrFixture {
     unsigned entry = _mm_getcsr();

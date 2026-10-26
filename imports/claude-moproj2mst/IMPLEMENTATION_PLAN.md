@@ -3967,3 +3967,48 @@ Checkpoint269 has started the separately reviewed `fillMeshing3D` dimension
 owner query. Preserve its initial scaling short-circuit and subsequent object
 enumeration/initial-load order; root is snapshotting CP268 before source edit.
 
+Checkpoint269 is independently reviewed and frozen in
+`build/wave3-checkpoint269-verified/`. The fill admission now uses GuiModel's
+dimension query. Review caught an initially confounded test: infinite enabled
+scaling would reject regardless of dimension. The fixture was corrected to
+finite scaling and the focused target passed. The bound 369-test suite passed
+with 362 clean, six logged gaps, one diagnostic difference, no fixture
+changes and historical 93 SAME/five DIFF.
+
+Checkpoint270 has started the independently reviewed stopping Apply dimension
+owner query. Preserve object(0)'s geometry admission, widget validation and
+all later partial-store/rotation effects. Tests must use an independently
+live control when the model step is absent.
+
+Checkpoint270 is independently reviewed and frozen in
+`build/wave3-checkpoint270-verified/`. Stopping Apply's initial dimension
+query is model-owned; actual-entry absent/non-3D tests use an independent
+live control and the snapshot/lifecycle targets passed. The bound 369-test
+suite passed with 362 clean, six logged gaps, one diagnostic difference, no
+fixture changes and historical 93 SAME/five DIFF. Partial validation effects
+and public Editor300 reachability remain separate.
+
+Checkpoint271 has started the separately reviewed stopping Fill dimension
+query migration. Preserve object(0)'s following geometry guard and all fill
+effects; use genuine absent-step fixtures for admission tests.
+
+Checkpoint271 is independently reviewed and frozen in
+`build/wave3-checkpoint271-verified/`. Stopping Fill's initial query is
+model-owned and its following object(0) guard remains ordered. The initial
+test macro compile failure and repaired actual-entry fixture are retained;
+snapshot/lifecycle targets passed. The bound 369-test suite passed with 362
+clean, six logged gaps, one diagnostic difference, no fixture changes and
+historical 93 SAME/five DIFF.
+
+Checkpoint272 has started independent scene/display and Save ownership audits
+to identify a new source-ready converter leaf. Public GUI, accepted Close and
+DOE branches retain their exact missing original-occurrence gates.
+
+Checkpoint272 found two disjoint source-ready leaves and both designs are
+independently reviewed PASS. Save moves its ordered four-field simulation-name
+commit behind one GuiModel control admission and must prove real MultiBlow
+Save callers execute. Viewer Slice rebind bypasses adaptation for a canonical
+live 2D owner after binding, leaving the collection untouched; foreign/parked
+owners and 3D adaptation remain guarded. Root will integrate them on one
+source-stable candidate after exclusive source ownership is released.
+

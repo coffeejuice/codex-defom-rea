@@ -1075,7 +1075,7 @@ StoppingFillReport fillStopping3DInto(StoppingPage& form, const SimControl& sc,
     GuiModel& model, NumericLocale locale)
 {
     StoppingFillReport report;
-    if (!model.step || model.step->dimension != 3 || model.object(0)) {
+    if (model.dimension() != 3 || model.object(0)) {
         report.issue = StoppingFillIssue::InvalidModel; return report;
     }
     if (locale != NumericLocale::KnownC) {
@@ -1127,7 +1127,7 @@ StoppingFillReport fillStopping3DInto(StoppingPage& form, const SimControl& sc,
 // logs in the original; it still converts text and executes the tail.
 ApplyResult applyStopping3D(SimControl& sc, GuiModel& model, const StoppingPage& form)
 {
-    if (!model.step || model.step->dimension != 3 || model.object(0) || form.mdsModeCombo < -1 ||
+    if (model.dimension() != 3 || model.object(0) || form.mdsModeCombo < -1 ||
         form.mdsModeCombo > 3 || !stoppingWidgetProfile(form.widgets)) return ApplyResult::UnsupportedSnapshot;
     if ((form.widgets.references[0].selectedObject || form.widgets.references[1].selectedObject) &&
         form.widgets.labelProfile != StoppingLabelProfile::AsciiNoActiveTranslator)
@@ -1248,7 +1248,7 @@ MeshingObjectReport transitionMeshingObject3D(GuiModel& model, MeshingPage& form
 // filled without first applying stale controls. 14085e050 copies four doubles.
 std::optional<MeshingPage> fillMeshing3D(GuiModel& model, const RemeshState& state)
 {
-    if (!model.step || model.step->dimension != 3 ||
+    if (model.dimension() != 3 ||
         (state.enabled && !std::isfinite(state.scalingFactor))) return std::nullopt;
     MeshingPage form;
     for (int i = 1; i <= model.objectCount(); ++i) {

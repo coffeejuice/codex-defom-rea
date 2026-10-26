@@ -379,6 +379,83 @@ TEST_CASE(stopping_snapshots_scalars_but_reselects_rotation_at_save)
     CHECK(field<double>(second, 0x2a00) == 4.23457);
 }
 
+TEST_CASE(stopping_apply_rejects_non3d_before_touching_independent_control)
+{
+    engine::GuiModel formModel(nullptr, 3);
+    auto validForm = fillStopping3D(*formModel.simCtl(), formModel, NumericLocale::KnownC);
+    REQUIRE(validForm.has_value());
+
+    engine::GuiModel non3dModel(nullptr, 2);
+    engine::GuiModel controlOwner(nullptr, 3);
+    auto& independentControl = *controlOwner.simCtl();
+    independentControl.tmax = 17.25;
+    independentControl.smax[0] = 18.5;
+    independentControl.emax = 19.75;
+    std::array<std::byte, sizeof(SimControl)> before{};
+    std::memcpy(before.data(), &independentControl, sizeof(SimControl));
+    CHECK(applyStopping3D(independentControl, non3dModel, *validForm) == ApplyResult::UnsupportedSnapshot);
+    CHECK(std::memcmp(before.data(), &independentControl, sizeof(SimControl)) == 0);
+}
+
+TEST_CASE(stopping_apply_rejects_missing_step_without_recreating_or_touching_control)
+{
+    engine::GuiModel formModel(nullptr, 3);
+    auto validForm = fillStopping3D(*formModel.simCtl(), formModel, NumericLocale::KnownC);
+    REQUIRE(validForm.has_value());
+
+    engine::GuiModel missingStepModel(nullptr, 3);
+    missingStepModel.step.reset();
+    engine::GuiModel controlOwner(nullptr, 3);
+    auto& independentControl = *controlOwner.simCtl();
+    independentControl.tmax = 27.25;
+    independentControl.smax[2] = 28.5;
+    independentControl.emax = 29.75;
+    std::array<std::byte, sizeof(SimControl)> before{};
+    std::memcpy(before.data(), &independentControl, sizeof(SimControl));
+    CHECK(applyStopping3D(independentControl, missingStepModel, *validForm) == ApplyResult::UnsupportedSnapshot);
+    CHECK(missingStepModel.step == nullptr);
+    CHECK(std::memcmp(before.data(), &independentControl, sizeof(SimControl)) == 0);
+}
+
+TEST_CASE(stopping_fill_rejects_non3d_and_missing_step_at_entry)
+{
+    engine::GuiModel formModel(nullptr, 3);
+    StoppingPage page{};
+    page.widgets.labelProfile = StoppingLabelProfile::AsciiNoActiveTranslator;
+    REQUIRE(fillStopping3DInto(page, *formModel.simCtl(), formModel, NumericLocale::KnownC).complete());
+    page.timeMaximum.text = qt::L("retained time");
+    page.rotationVector[0] = qt::L("retained rotation");
+    page.widgets.references[0].coordinates[0] = qt::L("retained coordinate");
+
+    engine::GuiModel controlOwner(nullptr, 3);
+    auto& independentControl = *controlOwner.simCtl();
+    independentControl.tmax = 37.25;
+    independentControl.smax[1] = 38.5;
+    independentControl.emax = 39.75;
+    std::array<std::byte, sizeof(SimControl)> before{};
+    std::memcpy(before.data(), &independentControl, sizeof(SimControl));
+
+    engine::GuiModel non3dModel(nullptr, 2);
+    auto report = fillStopping3DInto(page, independentControl, non3dModel, NumericLocale::KnownC);
+    CHECK(!report.complete()); CHECK(report.issue == StoppingFillIssue::InvalidModel);
+    CHECK(report.stage == StoppingFillStage::Preflight);
+    CHECK(page.timeMaximum.text == qt::L("retained time"));
+    CHECK(page.rotationVector[0] == qt::L("retained rotation"));
+    CHECK(page.widgets.references[0].coordinates[0] == qt::L("retained coordinate"));
+    CHECK(non3dModel.step != nullptr);
+    CHECK(std::memcmp(before.data(), &independentControl, sizeof(SimControl)) == 0);
+
+    engine::GuiModel missingStepModel(nullptr, 3);
+    missingStepModel.step.reset();
+    report = fillStopping3DInto(page, independentControl, missingStepModel, NumericLocale::KnownC);
+    CHECK(!report.complete()); CHECK(report.issue == StoppingFillIssue::InvalidModel);
+    CHECK(report.stage == StoppingFillStage::Preflight);
+    CHECK(missingStepModel.step == nullptr);
+    CHECK(page.timeMaximum.text == qt::L("retained time"));
+    CHECK(page.rotationVector[0] == qt::L("retained rotation"));
+    CHECK(page.widgets.references[0].coordinates[0] == qt::L("retained coordinate"));
+    CHECK(std::memcmp(before.data(), &independentControl, sizeof(SimControl)) == 0);
+}
 TEST_CASE(stopping_invalid_threshold_still_executes_rotation_tail)
 {
     engine::GuiModel model(nullptr, 3); auto& sc = *model.simCtl();
