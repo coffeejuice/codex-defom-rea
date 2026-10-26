@@ -64,8 +64,8 @@ namespace crt = def::key::crt;
 bool eq(const char* a, const char* b) { return std::strcmp(a, b) == 0; }   // 0x14146f040
 int number(const LLOBJ_DATA* o) { return *at<std::int32_t>(o, 8); }
 
-bool is2D(const GuiModel* m) { return m && m->step && *at<std::int32_t>(m->step.get(), 0x1c) == 2; }   // 0x140c7c0e0
-bool is3D(const GuiModel* m) { return m && m->step && *at<std::int32_t>(m->step.get(), 0x1c) == 3; }   // 0x140c7c0a0
+bool is2D(const GuiModel* m) { return m && m->dimension() == 2; }   // 0x140c7c0e0
+bool is3D(const GuiModel* m) { return m && m->dimension() == 3; }   // 0x140c7c0a0
 
 // @src 0x1411c2730  zone j of a medium, appended (new DYNARY) when j is not an index
 DYNARY* zoneAt(HTMedia& md, int j)

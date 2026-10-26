@@ -465,6 +465,11 @@ TEST_CASE(oracle_b_124_db_step_load)
     CHECK_EQ(o.op->id, 2);
     REQUIRE(o.ctx.warnings.size() == 1);                   // the Setup Type question
     CHECK(o.ctx.warnings[0].find("[Op. 4] EXIT") != std::string::npos);
+    auto* loadedModel = engine::opModel(o.p, *o.op);
+    REQUIRE(loadedModel != nullptr);
+    const int fixtureSelectedStep = def::dbio::query::op_first_step(*engine::projectDb(o.p)->reader, 4);
+    CHECK_EQ(fixtureSelectedStep, -4);
+    CHECK_EQ(loadedModel->step->u744, fixtureSelectedStep);
     // .moproj after the GUI's Save: StartStepNo -4, RestartKey RestartStep.KEY, OprFlag 1
     CHECK_EQ(o.op->nstartGiven, 1);
     CHECK_EQ(o.op->startStepNo, -4);

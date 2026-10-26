@@ -275,7 +275,7 @@ static InitialApplyReport applyInitialEditorPageStateBound(InitialEditorSession&
 {
     InitialApplyReport report;
     if (!session.pageStateComplete || &model != session.sourceModel || !session.sourceControl ||
-        model.simCtl() != session.sourceControl || &remesh != session.sourceRemesh) {
+        !model.matchesCurrentSimControl(session.sourceControl) || &remesh != session.sourceRemesh) {
         report.outcome = ApplyResult::UnsupportedSnapshot;
         return report;
     }
@@ -322,7 +322,7 @@ static InitialApplyReport applyInitialEditorPageStateBound(InitialEditorSession&
     pages.meshing.objects.clear();
     // Extra3D performs external I/O and can run a callback that replaces the
     // current step. Do not pass a now-dangling control reference to the tail.
-    if (actualOperation && model.simCtl() != session.sourceControl) {
+    if (actualOperation && !model.matchesCurrentSimControl(session.sourceControl)) {
         report.recoveryTail = ApplyResult::UnsupportedSnapshot;
         report.outcome = ApplyResult::UnsupportedSnapshot;
         return report;

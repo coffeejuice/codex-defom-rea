@@ -860,6 +860,27 @@ TEST_CASE(initial_editor_actual_operation_mismatch_refuses_before_pages_or_io)
     CHECK(!report.recoveryTail); CHECK(io.effects.empty()); CHECK_EQ(sc.nstep, 99);
 }
 
+TEST_CASE(initial_editor_preflight_rejects_replaced_step_without_effects)
+{
+    engine::GuiModel model(nullptr, 3); auto& original = *model.simCtl(); initialize(original);
+    RemeshState remesh; Io io;
+    auto session = openInitialEditor(model, remesh, io, context()); REQUIRE(session);
+    original.nstep = 99;
+    std::unique_ptr<def::model::DB_STEP_DATA> retainedStep;
+    retainedStep = std::move(model.step);
+    REQUIRE(retainedStep);
+    model.step = std::make_unique<def::model::DB_STEP_DATA>(3);
+    auto* const replacementControl = model.simCtl(); REQUIRE(replacementControl);
+    replacementControl->nstep = 177;
+    const auto report = applyInitialEditorPageState(*session, model, remesh, io,
+        static_cast<const std::vector<RecoveryEntry>*>(nullptr),
+        static_cast<const std::vector<RecoveryEntry>*>(nullptr));
+    CHECK(report.outcome == ApplyResult::UnsupportedSnapshot);
+    for (const auto& page : report.pages) CHECK(!page);
+    CHECK(!report.recoveryTail); CHECK(io.effects.empty());
+    CHECK_EQ(original.nstep, 99); CHECK_EQ(replacementControl->nstep, 177);
+}
+
 TEST_CASE(initial_editor_actual_operation_rechecks_control_after_extra3d_callback)
 {
     Project project;
@@ -868,12 +889,16 @@ TEST_CASE(initial_editor_actual_operation_rechecks_control_after_extra3d_callbac
     Operation operation; operation.project = &project;
     operation.engineModel = std::make_shared<engine::GuiModel>(nullptr, 3);
     auto& model = *operation.engineModel;
-    initialize(*model.simCtl());
+    auto& sc = *model.simCtl(); initialize(sc);
     RemeshState remesh; Io io;
     auto session = openInitialEditor(model, remesh, io, context()); REQUIRE(session);
+    std::unique_ptr<def::model::DB_STEP_DATA> retainedStep;
+    sc.nstep = 99;
+    session->pages.meshing.objects.push_back(MeshObjectSnapshot{1, 1.0, 2.0, 3.0, 4.0});
     project.recoveryA->push_back(RecoveryEntry{0, 0.0, 41, 2.5, 3.5});
     bool replaced = false;
     io.duringFirstEffect = [&] {
+        retainedStep = std::move(model.step);
         model.step = std::make_unique<def::model::DB_STEP_DATA>(3);
         replaced = true;
     };
@@ -882,6 +907,8 @@ TEST_CASE(initial_editor_actual_operation_rechecks_control_after_extra3d_callbac
     REQUIRE(report.pages[index(Page::Extra3D)]); REQUIRE(report.recoveryTail);
     CHECK(*report.recoveryTail == ApplyResult::UnsupportedSnapshot);
     CHECK(report.outcome == ApplyResult::UnsupportedSnapshot);
+    CHECK_EQ(sc.nstep, 23); // Apply overwrote the post-Open sentinel before tail refusal.
+    CHECK(session->pages.meshing.objects.empty()); // The temporary list was cleared before identity refusal.
     REQUIRE(model.simCtl());
     CHECK_EQ(model.simCtl()->nrecid.n[0], 0);
 }

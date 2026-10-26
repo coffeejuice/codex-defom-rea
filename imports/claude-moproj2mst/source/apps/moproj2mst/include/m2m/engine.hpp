@@ -197,8 +197,11 @@ public:
 
     // @src 0x140c7b2d0  sim control (step+0x750), null without a step
     def::model::Cls_1401e7b10* simCtl() const;
+    bool matchesCurrentSimControl(const def::model::Cls_1401e7b10* expected) const;
     // Furnace load prologue; a missing step remains a no-op.
     void setFurnaceLoadTnow3();
+    // Continuation of the already-admitted DB-step loader branch.
+    void setLoadedStepNumberAfterAdmission(int stepNumber);
     // Furnace post-load defaults; requires the existing step just like the legacy unchecked caller.
     void initializeFurnacePostLoadDefaults();
     // Editor title event: reject non-ASCII/oversize input, then barrier, identity check and copy.

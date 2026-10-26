@@ -1,0 +1,19 @@
+# R233: bounded original Close/failure static probe
+
+## Decision
+
+No new accepted-Close or failure-unwind fact is available from this probe. Keep the public normal-Close guard and the partial-Open failure cleanup gates. The CP228 and CP233 queue conclusions agree: the later loader, editor and furnace owner commands do not identify a delivered Close, its nested Save return, post-answer owner state, or a reached loader failure unwind. A passing candidate build or candidate cleanup is not an original occurrence.
+
+## Source qualification and bounded receipts
+
+- Original target: `evidence/original-binaries/DEF_GUI_MO_64.exe`, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`. The retained x64 PE evidence is qualified as the original DEF_GUI_MO_64 under the DEFORM v11.0.2 installation; the installed PE has no populated FileVersion/ProductVersion fields (`resume224-original-type4-reachability.md`). This is original static evidence, not a fresh execution.
+- `wave3-normal-close-guard-contract.json` source-binds the process-type/can-close checks, fresh Windows-style default Yes, nested Project Save while attached, answer remapping, and post-answer callbacks before detach. Its default-answer result is a static style inference; event delivery and actual nested Save return remain unobserved for an accepted Close.
+- `wave3-close-model-owner-identity-contract.json`, `resume214-close-ownership.md`, and `resume81-report-close-pe.md` bind the distinct outer manager/Mo child/Project chain and conditional Project/SubProject/document destruction. In particular, the Report `SubProject+0x30` QPointer deletion is conditional on a still-live guard. These sources do not bind a same-owner accepted Close occurrence to that destructor chain.
+- `resume81-report-close-pe.md` finds direct Project-release helper callers in Open failure and `0x1400440c0`, while `wave3-normal-close-diagram-lifetime-contract.json` further qualifies the conditional native cleanup path. Neither yields live owner generations, callback effects, or a per-return partial-Open allocation state. A direct-call census cannot exclude indirect or parent-driven destruction.
+- The REA `binary_session({})` status query returned `open=false`, `cleanup_pending=false`, `analysis_run=null`, with no target path or SHA. It starts no analysis. There was therefore no existing bound analysis target for a direct, short read-only Close or failure query. I did not open one or mutate a Ghidra database. CP224's fresh x64 `procedure_pseudo_code(0x14008b410)` had already ended in `provider_timeout` after the 330000 ms Ghidra startup deadline, with no Evidence ID, and its session was closed and verified. That timeout is a provider limitation, not a negative code result. This probe generated no REA Evidence ID.
+
+## Smallest next investigation
+
+When a supported original observation path is available, capture one fresh successful Open followed by accepted normal Close on the same owner: main, outer manager, Mo child, Project/SubProject, and document identities with allocation generations; nested Save answer and integer return; callback effects; both live document-slot reads; selected deleting virtual, destructor entry/return, and QObject parent/child order. For each relevant post-allocation loader/Open failure return, separately correlate the manager child and Project state with prior durable file/process effects. Static contracts alone cannot promote either sequence to an observed occurrence.
+
+Only this report was written. No original process, GUI/app-control session, build, test, source edit, or mutable REA session was used. The parent adaptive GUI queue remains blocked by the unavailable supported control-release operation and verifiable release receipt (`python tools/gui_validation_status.py`: `release_ready=false`).

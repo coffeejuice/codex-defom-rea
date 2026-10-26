@@ -2838,6 +2838,10 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.owner() == &model);
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
+    refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
+    auto heldParkedStep = std::move(model.step);
+    refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
+    model.step = std::move(heldParkedStep);
     refused([&] { (void)pendingModel.simGeometryTypeIf2D(); });
     refused([&] { (void)pendingModel.lastObjectNumber(); });
     refused([&] { (void)model.applyEditorFrequencyIndexIfControlMatches(nullptr, 0, 2); });

@@ -919,7 +919,7 @@ void decideAndLoad(Project& p, Operation& op, bool withObjects, Ctx& ctx, FileEf
         ns = -(ns + 1);
     }
     sc->nstart = ns;
-    m->step->u744 = step;                                   // 0x140c7acd0(m)->+0x744
+    m->setLoadedStepNumberAfterAdmission(step);              // 0x140c7acd0(m)->+0x744
     sc->tnow3 = 1;                                          // SC+0x650
     sc->tnow2 = 0.0;                                        // SC+0x648
     op.nstartGiven = 1;                                     // 0x14005a2c0

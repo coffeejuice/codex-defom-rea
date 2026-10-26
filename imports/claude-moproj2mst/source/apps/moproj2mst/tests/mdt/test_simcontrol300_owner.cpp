@@ -186,6 +186,31 @@ TEST_CASE(editor300_completed_pages_remain_owned_but_do_not_complete_native_cons
     CHECK(!InitialApplyReport::completeForPublicSave);
 }
 
+TEST_CASE(simcontrol_identity_query_matches_current_nullable_control_without_dereference)
+{
+    engine::GuiModel model(nullptr, 3);
+    model.step = std::make_unique<def::model::DB_STEP_DATA>(3);
+    auto* current = &model.step->sim_ctrl;
+    CHECK(model.matchesCurrentSimControl(current));
+    def::model::Cls_1401e7b10 other{};
+    CHECK(!model.matchesCurrentSimControl(&other));
+    CHECK(!model.matchesCurrentSimControl(nullptr));
+    model.step = nullptr;
+    CHECK(!model.matchesCurrentSimControl(current));
+    CHECK(model.matchesCurrentSimControl(nullptr));
+}
+
+TEST_CASE(editor300_page_state_rejects_replaced_step_control_identity)
+{
+    Fixture f; StagedEditor300 owner(f.binding()); Io io;
+    owner.constructPageState(f.binding(), io, f.context()); REQUIRE(owner.pageState());
+    // Keep the original allocation alive so identity mismatch is isolated from reuse.
+    std::unique_ptr<def::model::DB_STEP_DATA> oldStep = std::move(f.operation.engineModel->step);
+    f.operation.engineModel->step = std::make_unique<def::model::DB_STEP_DATA>(3);
+    CHECK(!owner.pageState());
+    REQUIRE(owner.partialPageState());
+}
+
 TEST_CASE(editor300_borrowed_model_guard_expires_without_extending_operation_model_lifetime)
 {
     Fixture f; StagedEditor300 owner(f.binding()); Io io;

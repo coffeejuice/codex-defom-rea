@@ -218,9 +218,21 @@ Cls_1401e7b10* GuiModel::simCtl() const
     return step ? &step->sim_ctrl : nullptr;
 }
 
+bool GuiModel::matchesCurrentSimControl(const Cls_1401e7b10* expected) const
+{
+    requireGeometrySyncAvailable();
+    const auto* current = step ? &step->sim_ctrl : nullptr;
+    return current == expected;
+}
+
 void GuiModel::setFurnaceLoadTnow3()
 {
     if (step) step->sim_ctrl.tnow3 = 1;
+}
+
+void GuiModel::setLoadedStepNumberAfterAdmission(int stepNumber)
+{
+    step->u744 = stepNumber;
 }
 
 void GuiModel::initializeFurnacePostLoadDefaults()

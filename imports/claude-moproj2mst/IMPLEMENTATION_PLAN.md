@@ -3534,3 +3534,60 @@ sites. The corrected DB-loaded step-number owner command and page-state
 identity query remain ready successor candidates, while Save and accepted Close
 still require same-owner original lifecycle witnesses.
 
+Checkpoint233 is independently reviewed and frozen in
+`build/wave3-checkpoint233-verified/`. The focused HeatTreat target passed 17
+cases; the bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The owner query replaces only two raw scalar predicates; broader object and
+control aliases remain.
+
+Checkpoint234 has started the DB-loaded step-number owner command in the
+already admitted loader branch. Keep the initial `simCtl()` geometry refusal
+before adjusted `nstart`, the `u744` write at its existing point, and the
+following `tnow3`, `tnow2` and operation state writes. No second guard may be
+inserted after `nstart` mutation. Prove the call route through the operation
+level DB-load test, rather than lower-level DB reader tests alone.
+
+Checkpoint234 is independently reviewed and frozen in
+`build/wave3-checkpoint234-verified/`. The operation-level DB-load test now
+checks the selected native step through the actual Open route and passed seven
+cases. The bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The worker's focused runner completed a full source-stable build, which root
+reused rather than rebuilding. The new owner command assumes the already
+admitted step; it does not close loader ownership or original failure parity.
+
+Checkpoint235 has started the reviewed editor page-state current-control
+identity query. Preserve eager model lookup, OPI/page short circuits, one
+geometry guard, nullable pointer equality and the current `noexcept` caller
+behavior. This is an adapter-side ownership migration, not an original editor
+handler parity claim.
+
+Checkpoint235 is independently reviewed and frozen in
+`build/wave3-checkpoint235-verified/`. Direct tests cover retained-step
+replacement and the parked query with a temporarily absent step; no parked
+`pageState() noexcept` call was run in the shared test process. Focused owner,
+Stopping and viewer targets passed 84 cases. The bound 369-test suite passed
+with 362 clean, six logged gaps, one diagnostic difference, no fixture changes
+and historical 93 SAME/five DIFF. Raw public step replacement and the cached
+expected pointer remain open ownership limitations.
+
+Checkpoint236 has started two initial editor page-state identity checks using
+the CP235 query. Keep each comparison at its current preflight or post-Extra3D
+position and preserve partial side effects and geometry refusal ordering.
+Other raw control borrows in that lifecycle remain outside this bounded leaf.
+
+Checkpoint236 is independently reviewed and frozen in
+`build/wave3-checkpoint236-verified/`. The strengthened post-Extra3D test
+proves the earlier `nstep` store and meshing-temporary clear before identity
+refusal. Focused lifecycle, owner, Stopping and viewer targets passed 117
+cases. The bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+This removes two transient identity borrows; the cached control and later
+page Apply aliases remain.
+
+Checkpoint237 has started the reviewed FormingExpress dimension-flag owner
+command. Preserve the existing model/control admission and order of writes;
+the alternate branch means non-2D, including values other than 3. Direct
+command tests are needed because no FormingExpress corpus case is retained.
+

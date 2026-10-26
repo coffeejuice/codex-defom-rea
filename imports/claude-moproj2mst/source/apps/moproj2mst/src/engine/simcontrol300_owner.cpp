@@ -240,7 +240,7 @@ InitialEditorSession* StagedEditor300::pageState() noexcept
     auto* model = model_.get();
     if (report_.state != Editor300ConstructorState::AwaitingNativeBoundaries ||
         !pages_ || !pages_->pageStateComplete || !model ||
-        pages_->sourceModel != model || pages_->sourceControl != model->simCtl()) return nullptr;
+        pages_->sourceModel != model || !model->matchesCurrentSimControl(pages_->sourceControl)) return nullptr;
     return pages_.get();
 }
 
