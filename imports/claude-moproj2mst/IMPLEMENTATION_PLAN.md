@@ -3803,3 +3803,68 @@ query unguarded scalar dimension only after a nonnull control, then apply
 numeric-locale admission and source/page publication in their existing order.
 This removes one direct public-step read without claiming native null policy.
 
+Checkpoint253 is independently reviewed and frozen in
+`build/wave3-checkpoint253-verified/`. The lifecycle, dimension and viewer
+targets passed; the bound 369-test suite passed with 362 clean, six logged
+gaps, one diagnostic difference, no fixture changes and historical 93 SAME/
+five DIFF. Its absent-step fixture now removes storage rather than using a
+live zero-dimensional step.
+
+Checkpoint254 has started the reviewed secondary-display publication-order
+repair. On the canonical empty-secondary path, transfer the newly constructed
+model to the display before backlink and control queries. A later parked-main
+guard error must leave the secondary published and owned, with no rollback;
+constructor failure remains before transfer. Publicly inconsistent owner/guard
+aliases and original allocator or Qt guard exceptions remain separate limits.
+
+Checkpoint254 is independently reviewed and frozen in
+`build/wave3-checkpoint254-verified/`. Display-selection, viewer and L5 tests
+passed; the bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The parked-main test covers the reconstructed geometry guard after
+publication, not original Qt guard or allocation failure.
+
+Checkpoint255 has started the reviewed SPRING combo-label producer migration.
+Preserve unguarded object count, each numbered guarded lookup, original label
+format and zero-count behavior; retain deferred production after sidecar reads
+and the existing fallback policy when the producer returns no labels.
+
+Checkpoint255 is independently reviewed and frozen in
+`build/wave3-checkpoint255-verified/`. Lifecycle, SPRING page I/O and viewer
+targets passed; the bound 369-test suite passed with 362 clean, six logged
+gaps, one diagnostic difference, no fixture changes and historical 93 SAME/
+five DIFF. Placeholder formatting follows the CP120 correction
+`0   - None`; reconstructed name/count caps remain separately qualified.
+
+Checkpoint256 has started the reviewed MultiBlow Save-time PDIE owner command.
+Preserve the first nullable control check, the second control resolution and
+native provider call before the PDIE store. Keep C++ evaluation-order and
+unchecked second-access qualifications explicit, and distinguish executed
+Save-hook cases from skips in historical optional fixtures.
+
+Checkpoint256 is independently reviewed and frozen in
+`build/wave3-checkpoint256-verified/`. MultiBlow Save and viewer owner targets
+passed; all three optional Oracle B Save cases actually executed and passed.
+The bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+Current C++ provider order and native cached-control order remain distinct;
+full `.moproj` equality and fresh original timing are not claimed.
+
+Checkpoint257 has started the independently reviewed scene fit refresh repair.
+Restore shown main, secondary and third refreshes in native slot order before
+box and camera work. Keep model cache effects separate from the still incomplete
+multi-model scene-box union and reset-view selection.
+
+Checkpoints257/258 are jointly reviewed and frozen in
+`build/wave3-checkpoint257-258-verified/`. The scene fit now refreshes shown
+secondary and third model caches after main; Advanced Apply's final false
+material-state remap is a named GuiModel owner command. The viewer, snapshot
+and lifecycle targets passed; the bound 369-test suite passed with 362 clean,
+six logged gaps, one diagnostic difference, no fixture changes and historical
+93 SAME/five DIFF. The scene-box union/radius and wider editor lifecycle remain
+separate.
+
+Checkpoint259 has started the reviewed fixed-slot scene-box union repair.
+Add shown secondary and third box contributions in native order, preserving
+the current separate radius qualification and actual-caller camera tests.
+

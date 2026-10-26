@@ -1,6 +1,7 @@
 // ctest-labels: m2m-mdt isolated-close-effects
 #include <testkit/check.hpp>
 #include <defmodel/layout/db_step_data.hpp>
+#include <defmodel/layout/cls_1401e7b10.hpp>
 #include "m2m/engine.hpp"
 #include "m2m/engine_auxiliary.hpp"
 #include "m2m/engine_scene.hpp"
@@ -137,12 +138,19 @@ TEST_CASE(display_second_preserves_live_dimensions_including_present_zero)
     for (const int dimension : {2, 3, 0}) {
         Project project;
         GuiModel main(nullptr, dimension);
+        REQUIRE(main.simCtl());
+        main.simCtl()->geotyp = 173;
         displayShow(project, &main);
         auto& display = *project.display;
 
         GuiModel* second = displaySecond(display);
         REQUIRE(second != nullptr);
         CHECK_EQ(second->dimension(), dimension);
+        CHECK(second->display == &display);
+        REQUIRE(second->simCtl());
+        CHECK_EQ(second->simCtl()->geotyp, 173);
+        CHECK(displayMain(display) == &main);
+        CHECK(!displayModels(display).secondShown && !displayModels(display).keepSecond);
         CHECK(displaySecond(display) == second);
         CHECK(displayModels(display).secondOwned.get() == second);
     }

@@ -113,7 +113,12 @@ void multiBlowSaveNames(mst::OpClass& c, Project& p, Operation& op, FileEffects&
     GuiModel* m = opModel(p, op);          // 0x1405ef2b0 -> 0x14005f770
     if (!m) return;
     if (!m->simCtl()) return;              // 0x140c7b2d0
-    m->simCtl()->pdie1 = vt120();          // second 0x140c7b2d0, SC+0x168 = vt+0x120
+    // Preserve current C++20 RHS-before-LHS order. Native 0x140602780 caches the
+    // second control before vt+0x120 instead; the registered provider is pure 2.
+    // Stable synchronous storage after the first admission is the bounded domain.
+    // The owner's null no-op is a safe API contract, not the native unchecked access.
+    const int primary = vt120();
+    m->setMultiBlowPrimaryDie(primary);    // second admission, SC+0x168 only
 }
 
 // @src 0x140602230  (the base 0x1405f1e10 is empty) -> 0x140602260

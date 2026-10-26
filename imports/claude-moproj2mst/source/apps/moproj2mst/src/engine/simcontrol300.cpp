@@ -1553,7 +1553,7 @@ ApplyResult applyAdvanced3D(SimControl& sc, GuiModel& model, const AdvancedPage&
     for (int i = 0; i < 7; ++i) sc.stnout[i] = form.outputFlags[i] ? 1 : 0;
     for (int i = 0; i < 3; ++i) sc.elmnod[i] = form.elementNodeOptions[i];
     sc.pdie2 = form.secondaryDieNumber;
-    def::model::step_remap_material_state(*model.step, false);
+    model.remapEditorAdvancedState();
     return ApplyResult::Completed;
 }
 

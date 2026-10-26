@@ -33,7 +33,7 @@ namespace m2m::doe { struct StepDataState; class SlicePlaneStore; class StudyXml
 
 namespace m2m::engine {
 
-namespace simcontrol300 { struct StepCountContext; struct StepCountPage; struct MeshObjectSnapshot; }
+namespace simcontrol300 { struct StepCountContext; struct StepCountPage; struct MeshObjectSnapshot; struct SpringComboLabels; }
 
 using def::model::DB_STEP_DATA;
 using def::model::LLOBJ_DATA;
@@ -214,6 +214,8 @@ public:
     void initializeFurnacePostLoadDefaults();
     // MultiBlow load prologue control defaults; absent step/control is a no-op.
     void initializeMultiBlowLoadControl();
+    // MultiBlow save value command: one simCtl admission; absent control is a no-op.
+    void setMultiBlowPrimaryDie(int primary);
     // Editor title event: reject non-ASCII/oversize input, then barrier, identity check and copy.
     // expected is the legacy raw pointer identity token; the command never dereferences it.
     bool copyEditorTitleIfControlMatches(const def::model::Cls_1401e7b10* expected,
@@ -225,7 +227,10 @@ public:
     bool applyEditorFrequencyTextIfControlMatches(
         const def::model::Cls_1401e7b10* expected, int row, const String& deliveredText);
     // Apply the finite four-field editor meshing projection to the current object number.
+    bool copyEditorSpringComboLabels(simcontrol300::SpringComboLabels& result) const;
     void copyEditorMeshingObjectValues(const simcontrol300::MeshObjectSnapshot& value);
+    // Existing live-step command used as the final Advanced Apply state remap.
+    void remapEditorAdvancedState();
     // @src 0x140822210 (GUI twin of DEF_PRE 0x1401c8f70): set UNIT and reset defaults on change.
     void setModelUnit(std::int32_t unit, bool reset);
     // @src 0x140c7b370  viewer geometry type; 0 without a 2D step/control

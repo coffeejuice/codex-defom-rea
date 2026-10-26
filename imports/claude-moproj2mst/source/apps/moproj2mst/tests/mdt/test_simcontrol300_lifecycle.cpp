@@ -34,11 +34,13 @@ struct Device final : mst::OutputDevice {
 struct Io final : Extra3DIo {
     Io() : Extra3DIo(1252) {}
     bool nbcExists = true;
+    int readCalls = 0;
     std::function<void()> duringInitialRead, duringFirstEffect;
     std::vector<std::string> effects;
     std::string nbcBytes;
     bool readDoubles(const qt::String& path, std::span<double> output) override
     {
+        ++readCalls;
         std::fill(output.begin(), output.end(), 0.0);
         if (path != qt::L("NBC.DAT")) return false;
         if (duringInitialRead) {
@@ -49,9 +51,10 @@ struct Io final : Extra3DIo {
     }
     bool readInts(const qt::String&, std::span<int> output) override
     {
+        ++readCalls;
         std::fill(output.begin(), output.end(), 0); return false;
     }
-    bool readSprings(std::vector<SpringRecord>& output) override { output.clear(); return false; }
+    bool readSprings(std::vector<SpringRecord>& output) override { ++readCalls; output.clear(); return false; }
     void firstEffect()
     {
         if (duringFirstEffect) {
@@ -105,6 +108,53 @@ void timeIdTable(def::model::DYNARY& table, std::initializer_list<double> ids,
     std::copy(ids.begin(), ids.end(), table.axis[0]);
     std::copy(values.begin(), values.end(), table.values);
 }
+}
+
+TEST_CASE(initial_editor_dimension_preflight_preserves_admission_and_locale_order)
+{
+    auto checkRefusal = [](int dimension, bool absentStep, InitialOpenIssue expected) {
+        engine::GuiModel model(nullptr, 3);
+        if (absentStep) model.step.reset();
+        else model.step->dimension = dimension;
+        if (absentStep) REQUIRE(!model.step);
+        RemeshState remesh; Io io; InitialEditorSession session; InitialOpenReport report;
+        auto invalidLocale = context(); invalidLocale.numericLocale = NumericLocale::Unrecovered;
+        openInitialEditorInto(session, model, remesh, io, invalidLocale, report);
+        CHECK(report.stage == InitialOpenStage::Preflight);
+        CHECK(report.issue == expected);
+        CHECK(session.constructionStarted); CHECK(!session.pageStateComplete);
+        CHECK(!report.reachedPage);
+        for (bool reached : report.initialPages) CHECK(!reached);
+        for (bool reached : report.repeatPages) CHECK(!reached);
+        for (bool reached : report.refreshedPages) CHECK(!reached);
+        CHECK(!session.sourceModel); CHECK(!session.sourceControl); CHECK(!session.sourceRemesh);
+        if (absentStep) CHECK(!model.step);
+        else CHECK(model.step && model.dimension() == dimension);
+        CHECK(io.readCalls == 0); CHECK(io.effects.empty());
+    };
+    checkRefusal(2, false, InitialOpenIssue::InvalidModel);
+    checkRefusal(0, false, InitialOpenIssue::InvalidModel);
+    checkRefusal(0, true, InitialOpenIssue::InvalidModel);
+
+    engine::GuiModel validModel(nullptr, 3); RemeshState validRemesh; Io validIo;
+    InitialEditorSession validSession; InitialOpenReport validReport;
+    auto invalidLocale = context(); invalidLocale.numericLocale = NumericLocale::Unrecovered;
+    openInitialEditorInto(validSession, validModel, validRemesh, validIo, invalidLocale, validReport);
+    CHECK(validReport.stage == InitialOpenStage::Preflight);
+    CHECK(validReport.issue == InitialOpenIssue::UnrecoveredNumericLocale);
+    CHECK(!validReport.reachedPage); CHECK(!validSession.sourceModel);
+    CHECK(validIo.readCalls == 0); CHECK(validIo.effects.empty());
+
+    engine::GuiModel retryModel(nullptr, 3); retryModel.step->dimension = 2;
+    RemeshState retryRemesh; Io retryIo; InitialEditorSession retrySession;
+    InitialOpenReport retryReport; openInitialEditorInto(retrySession, retryModel,
+        retryRemesh, retryIo, context(), retryReport);
+    retryModel.step->dimension = 3;
+    openInitialEditorInto(retrySession, retryModel, retryRemesh, retryIo, context(), retryReport);
+    CHECK(retryReport.stage == InitialOpenStage::Preflight);
+    CHECK(retryReport.issue == InitialOpenIssue::AlreadyStarted);
+    CHECK(!retryReport.reachedPage); CHECK(!retrySession.sourceModel);
+    CHECK(retryIo.readCalls == 0); CHECK(retryIo.effects.empty());
 }
 
 TEST_CASE(initial_editor_session_remembers_open_state_through_save_and_real_deep_temporaries)
@@ -979,6 +1029,106 @@ TEST_CASE(initial_editor_remesh_widgets_write_same_owner_without_restoring_other
         CHECK(owner.filterDistance == 77.0); CHECK(owner.uniformInternalEdge == 1.25);
         CHECK(owner.improveContact); CHECK(!owner.goodSurfaceChangeable);
     }
+}
+
+namespace {
+SpringComboLabels springSentinel()
+{
+    return {{qt::L("prior-first"), qt::L("prior-tail")}, {qt::L("prior-second")}, 17, 29};
+}
+void checkSpringSentinel(const SpringComboLabels& labels)
+{
+    CHECK((labels.first == std::vector<qt::String>{qt::L("prior-first"), qt::L("prior-tail")}));
+    CHECK((labels.second == std::vector<qt::String>{qt::L("prior-second")}));
+    CHECK_EQ(labels.firstCurrentIndex, 17); CHECK_EQ(labels.secondCurrentIndex, 29);
+}
+void checkSpringCatalog(const SpringComboLabels& labels, const std::vector<qt::String>& expected)
+{
+    CHECK(labels.first == expected); CHECK(labels.second == expected);
+    CHECK_EQ(labels.firstCurrentIndex, 0); CHECK_EQ(labels.secondCurrentIndex, 0);
+}
+}
+
+TEST_CASE(editor_spring_labels_zero_count_and_absent_step_replace_owned_output)
+{
+    engine::GuiModel model(nullptr, 3);
+    REQUIRE(model.objectCount() == 0);
+    auto labels = springSentinel();
+    CHECK(model.copyEditorSpringComboLabels(labels));
+    checkSpringCatalog(labels, {qt::L("0   - None")});
+    model.step.reset();
+    labels = springSentinel();
+    CHECK(model.copyEditorSpringComboLabels(labels));
+    checkSpringCatalog(labels, {qt::L("0   - None")});
+}
+
+TEST_CASE(editor_spring_labels_dense_number_order_kind7_and_owned_strings)
+{
+    engine::GuiModel model(nullptr, 3);
+    for (int i = 1; i <= 3; ++i) {
+        auto* object = model.objectWrap(i, true, false); REQUIRE(object);
+        field<std::int32_t>(object, 0xc) = i == 2 ? 7 : 1;
+        std::strcpy(&field<char>(object, 0x828), i == 1 ? "First" : "Third");
+    }
+    // Kind 7 is skipped before its malformed name is examined.
+    std::memset(&field<char>(model.object(2), 0x828), 0xff, 0x54);
+    auto labels = springSentinel();
+    CHECK(model.copyEditorSpringComboLabels(labels));
+    const std::vector<qt::String> expected{qt::L("0   - None"), qt::L("1   - First"), qt::L("3   - Third")};
+    checkSpringCatalog(labels, expected);
+    std::strcpy(&field<char>(model.object(1), 0x828), "Changed");
+    std::memset(&field<char>(model.object(2), 0x828), 0, 0x54);
+    field<std::int32_t>(model.object(2), 0xc) = 1;
+    model.step.reset();
+    checkSpringCatalog(labels, expected);
+}
+
+TEST_CASE(editor_spring_labels_hole_and_count_caps_preserve_all_output)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto* object = model.objectWrap(1, true, false); REQUIRE(object);
+    field<std::int32_t>(object, 0xc) = 1;
+    std::strcpy(&field<char>(object, 0x828), "Admitted before hole");
+    const auto actualCount = model.step->u1378;
+    REQUIRE(actualCount == 1);
+    for (int count : {2, -1, 4097}) {
+        // Retain real allocation ownership; only the reported count is scoped.
+        model.step->u1378 = count;
+        auto labels = springSentinel();
+        const bool copied = model.copyEditorSpringComboLabels(labels);
+        model.step->u1378 = actualCount;
+        CHECK(!copied); checkSpringSentinel(labels);
+    }
+}
+
+TEST_CASE(editor_spring_labels_name_and_formatted_buffer_boundaries)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto* object = model.objectWrap(1, true, false); REQUIRE(object);
+    field<std::int32_t>(object, 0xc) = 1;
+    auto* name = &field<char>(object, 0x828);
+    auto setName = [&](const std::string& value) {
+        std::memset(name, 0, 0x54); std::memcpy(name, value.data(), value.size());
+    };
+    for (const auto& invalid : {std::string(0x54, 'N'), std::string("bad\x80", 4),
+             std::string(58, 'L')}) {
+        setName(invalid);
+        auto labels = springSentinel();
+        CHECK(!model.copyEditorSpringComboLabels(labels)); checkSpringSentinel(labels);
+    }
+    // Six prefix bytes plus 57 name bytes produces the last admitted length, 63.
+    setName(std::string(57, 'L'));
+    auto labels = springSentinel();
+    CHECK(model.copyEditorSpringComboLabels(labels));
+    checkSpringCatalog(labels, {qt::L("0   - None"), qt::String::latin1("1   - " + std::string(57, 'L'))});
+    setName("");
+    CHECK(model.copyEditorSpringComboLabels(labels));
+    checkSpringCatalog(labels, {qt::L("0   - None"), qt::L("1   - ")});
+    // A terminator at the last scanned index is found, but formatting still refuses.
+    setName(std::string(0x53, 'N'));
+    labels = springSentinel();
+    CHECK(!model.copyEditorSpringComboLabels(labels)); checkSpringSentinel(labels);
+    setName("Restored");
 }
 
 TEST_CASE(initial_editor_spring_combo_projection_observes_model_after_scalar_sidecar_reads)

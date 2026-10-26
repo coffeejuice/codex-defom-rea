@@ -13,18 +13,30 @@
 #include <filesystem>
 #include <fstream>
 #include <iterator>
+#include <array>
+#include <cstring>
+#include <defmodel/layout/db_step_data.hpp>
 #include <set>
 #include <string>
 
 #include "m2m/engine.hpp"
+#include "m2m/engine_multiblow.hpp"
 #include "m2m/model.hpp"
 #include "m2m/mst/writer.hpp"
 #include "m2m/qt4path.hpp"
 
+namespace m2m::mst { void installLoaderSlots(); }
 namespace fs = std::filesystem;
 using namespace m2m;
 
 namespace {
+
+int providerCalls = 0;
+int countedPrimaryDie()
+{
+    ++providerCalls;
+    return 37;
+}
 
 std::string readAll(const fs::path& f)
 {
@@ -90,7 +102,13 @@ Result runCase(const char* caseB, const char* moproj, const std::set<std::string
     try {
         op = engine::openActiveOperation(p, ctx, open);
         if (!op) return Result::Fail;
+        auto* model = engine::opModel(p, *op);
+        REQUIRE(model);
+        REQUIRE(model->simCtl());
+        model->simCtl()->pdie1 = 73; // Save must restore the class's pure v120() == 2.
         engine::saveCurrentOperation(p, *op, ctx, save);
+        REQUIRE(model->simCtl());
+        CHECK_EQ(model->simCtl()->pdie1, 2);
     } catch (const Error& e) {
         if (e.code != M2M_E_UNSUPPORTED) throw;
         std::printf("SKIP %s: %s\n", caseB, e.what());
@@ -152,6 +170,46 @@ Result runCase(const char* caseB, const char* moproj, const std::set<std::string
 }
 
 }  // namespace
+
+TEST_CASE(multiblow_save_names_counted_provider_without_oracle_files)
+{
+    Project project;
+    ProjectScope scope(project);
+    mst::installLoaderSlots();
+    const auto key = qt::L("MultiBlowSaveTest");
+    project.registry.emplace(key, std::make_unique<mst::OpClass>(key));
+    auto& klass = *project.registry.at(key);
+    Operation operation;
+    operation.project = &project;
+    operation.classKey = key;
+    operation.opClass = &klass;
+    operation.engineModel = std::make_shared<engine::GuiModel>(nullptr, 3);
+    auto& model = *operation.engineModel;
+    engine::FileEffects effects;
+    auto* const step = model.step.get();
+    REQUIRE(step);
+    step->sim_ctrl.nstep = 123;
+    step->sim_ctrl.tnow3 = 19;
+    step->sim_ctrl.pdie1 = 37;
+    std::array<unsigned char, sizeof(def::model::DB_STEP_DATA)> expected{};
+    std::memcpy(expected.data(), step, expected.size());
+    step->sim_ctrl.pdie1 = 71;
+    providerCalls = 0;
+    engine::multiBlowSaveNames(klass, project, operation, effects, countedPrimaryDie);
+    CHECK_EQ(providerCalls, 1);
+    CHECK(model.step.get() == step);
+    CHECK(std::memcmp(expected.data(), step, expected.size()) == 0);
+    CHECK(effects.writes.empty()); CHECK(effects.deletes.empty());
+
+    // First-null admission returns before evaluating the value provider.
+    // This is distinct from the old unchecked second dereference precondition.
+    model.step.reset();
+    providerCalls = 0;
+    engine::multiBlowSaveNames(klass, project, operation, effects, countedPrimaryDie);
+    CHECK_EQ(providerCalls, 0);
+    CHECK(!model.step); CHECK(!model.viewer);
+    CHECK(effects.writes.empty()); CHECK(effects.deletes.empty());
+}
 
 TEST_CASE(save_multiblow3d_93)
 {

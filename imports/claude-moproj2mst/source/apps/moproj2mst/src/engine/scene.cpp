@@ -57,10 +57,11 @@ GuiModel* displaySecond(Display& d)
     GuiModel* b = displayMain(d);                            // 0x140cf94f0
     if (!b) return nullptr;
     auto m = std::make_unique<GuiModel>(nullptr, b->dimensionOr(3));   // new 0x278, 0x140c7a6b0(mem, 0x140c7fee0(b))
-    m->display = &d;                                         // 0x140c7ade0
-    if (def::model::Cls_1401e7b10* sc = m->simCtl())         // 0x140c7b2d0
+    displaySetSecond(d, std::move(m));                       // 0x140cbc920(+0x1b8), before backlink/control queries
+    GuiModel* second = dm.second.get();
+    second->display = &d;                                    // 0x140c7ade0
+    if (def::model::Cls_1401e7b10* sc = second->simCtl())    // 0x140c7b2d0
         if (const def::model::Cls_1401e7b10* bsc = b->simCtl()) sc->geotyp = bsc->geotyp;   // +0x100
-    displaySetSecond(d, std::move(m));                       // 0x140cbc920(+0x1b8)
     return dm.second.get();
 }
 

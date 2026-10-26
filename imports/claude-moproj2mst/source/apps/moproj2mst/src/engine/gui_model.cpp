@@ -19,6 +19,7 @@
 #include <defmodel/llobj_ctor/llobj_ctor.hpp>
 #include <defmodel/step/db_step.hpp>
 #include <defmodel/mesh2d/material_ops.hpp>
+#include <defmodel/material/state_remap.hpp>
 #include <defmodel/step/db_step.hpp>
 
 #include "cogging_save.hpp"
@@ -31,6 +32,7 @@
 #include "m2m/doe_stepdata.hpp"
 #include "m2m/engine/picking_owner.hpp"
 #include "m2m/engine/simcontrol300.hpp"
+#include "m2m/engine/simcontrol300_io.hpp"
 
 namespace m2m::engine {
 
@@ -256,6 +258,11 @@ void GuiModel::copyEditorMeshingObjectValues(const simcontrol300::MeshObjectSnap
     *at<double>(object, 0x2dd8) = value.nodeCount;
 }
 
+void GuiModel::remapEditorAdvancedState()
+{
+    def::model::step_remap_material_state(*step, false);
+}
+
 void GuiModel::setFurnaceLoadTnow3()
 {
     if (step) step->sim_ctrl.tnow3 = 1;
@@ -283,6 +290,13 @@ void GuiModel::initializeMultiBlowLoadControl()
     if (!control) return;
     control->dttype.u58 = 0;
     control->nstep = 10000;
+}
+
+void GuiModel::setMultiBlowPrimaryDie(int primary)
+{
+    auto* control = simCtl();
+    if (!control) return;
+    control->pdie1 = primary;
 }
 
 bool GuiModel::copyEditorTitleIfControlMatches(const Cls_1401e7b10* expected,
@@ -435,6 +449,45 @@ LLOBJ_DATA* GuiModel::objectAt(int no) const
     requireGeometrySyncAvailable();
     if (!step) return nullptr;
     return step->objects.at(no);                               // 14017aa80
+}
+
+bool GuiModel::copyEditorSpringComboLabels(simcontrol300::SpringComboLabels& result) const
+{
+    // 140ec8b00 builds visible "%-3d - name" combo text, with a zero/None
+    // placeholder, then walks object(i) by object number. 140ec8da0 later
+    // parses that text's first integer; QVariant item data is not consulted.
+    const int count = objectCount();
+    if (count < 0 || count > 4096) return false; // bounded reconstruction admission
+    simcontrol300::SpringComboLabels labels{};
+    labels.first.reserve(static_cast<std::size_t>(count) + 1);
+    auto append = [&](int number, std::string_view name) {
+        // The native search copies the local-8-bit label into a stack buffer
+        // unchecked. Admit only short ASCII labels whose byte conversion is
+        // unambiguous. The original builder formats the signed decimal number.
+        for (unsigned char c : name)
+            if (c < 0x20 || c > 0x7e) return false;
+        char buffer[64];
+        const int n = std::snprintf(buffer, sizeof(buffer), "%-3d - %.*s",
+            number, static_cast<int>(name.size()), name.data());
+        if (n < 0 || n >= static_cast<int>(sizeof(buffer))) return false;
+        labels.first.push_back(qt::String::latin1(std::string_view(buffer,
+            static_cast<std::size_t>(n))));
+        return true;
+    };
+    if (!append(0, "None")) return false;
+    for (int i = 1; i <= count; ++i) {
+        const auto* object = this->object(i);
+        if (!object) return false;
+        if (*at<const std::int32_t>(object, 0xc) == 7) continue;
+        const auto* name = at<const char>(object, 0x828);
+        std::size_t length = 0;
+        while (length < 0x54 && name[length] != '\0') ++length;
+        if (length == 0x54 || !append(*at<const std::int32_t>(object, 8),
+                std::string_view(name, length))) return false;
+    }
+    labels.second = labels.first;
+    result = std::move(labels);
+    return true;
 }
 
 int GuiModel::objectCount() const

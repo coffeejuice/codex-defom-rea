@@ -268,6 +268,10 @@ BoxD sceneBox(Display& d)
 void fit(Display& d)
 {
     if (d.main.get() && d.mainShown) viewerRefresh(*d.main.get());     // 0x140c8e640
+    if (d.models.second.get() && d.models.secondShown)
+        viewerRefresh(*d.models.second.get());
+    if (d.models.third.get() && d.models.thirdShown)
+        viewerRefresh(*d.models.third.get());
     // 0x140cfe0f0: the box radius through 0x140cfdc60 (0x140c8f830 per model); taken here from the
     // same scene box (0x140c8f830 not traced; it only gates the store below at radius >= 0.001)
     const BoxD box = sceneBox(d);

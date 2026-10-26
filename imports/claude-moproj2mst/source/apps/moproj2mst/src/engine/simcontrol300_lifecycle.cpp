@@ -6,8 +6,6 @@
 #include <defmodel/window/inter_object_ops.hpp>
 #include <defmodel/layout/db_step_data.hpp>
 #include <defmodel/step/db_step.hpp>
-#include <cstdio>
-#include <string>
 #include <vector>
 
 namespace m2m::engine::simcontrol300 {
@@ -46,43 +44,6 @@ void copyEnvironmentTemporaries(InitialEditorSession& session, const SimControl&
     session.viewFactorDefinition = sc.vfactr_n;
 }
 
-std::optional<SpringComboLabels> springComboItemLabels(GuiModel& model)
-{
-    // 140ec8b00 builds visible "%-3d - name" combo text, with a zero/None
-    // placeholder, then walks object(i) by object number. 140ec8da0 later
-    // parses that text's first integer; QVariant item data is not consulted.
-    const int count = model.objectCount();
-    if (count < 0 || count > 4096) return std::nullopt; // bounded reconstruction admission
-    SpringComboLabels labels;
-    labels.first.reserve(static_cast<std::size_t>(count) + 1);
-    auto append = [&](int number, std::string_view name) {
-        // The native search copies the local-8-bit label into a stack buffer
-        // unchecked. Admit only short ASCII labels whose byte conversion is
-        // unambiguous. The original builder formats the signed decimal number.
-        for (unsigned char c : name)
-            if (c < 0x20 || c > 0x7e) return false;
-        char buffer[64];
-        const int n = std::snprintf(buffer, sizeof(buffer), "%-3d - %.*s",
-            number, static_cast<int>(name.size()), name.data());
-        if (n < 0 || n >= static_cast<int>(sizeof(buffer))) return false;
-        labels.first.push_back(qt::String::latin1(std::string_view(buffer,
-            static_cast<std::size_t>(n))));
-        return true;
-    };
-    if (!append(0, "None")) return std::nullopt;
-    for (int i = 1; i <= count; ++i) {
-        const auto* object = model.object(i);
-        if (!object) return std::nullopt;
-        if (*at<const std::int32_t>(object, 0xc) == 7) continue;
-        const auto* name = at<const char>(object, 0x828);
-        std::size_t length = 0;
-        while (length < 0x54 && name[length] != '\0') ++length;
-        if (length == 0x54 || !append(*at<const std::int32_t>(object, 8),
-                std::string_view(name, length))) return std::nullopt;
-    }
-    labels.second = labels.first;
-    return labels;
-}
 } // namespace
 
 void openInitialEditorInto(InitialEditorSession& session, GuiModel& model,
@@ -95,7 +56,7 @@ void openInitialEditorInto(InitialEditorSession& session, GuiModel& model,
     }
     session.constructionStarted = true;
     auto* control = model.simCtl();
-    if (!control || !model.step || model.step->dimension != 3) {
+    if (!control || model.dimension() != 3) {
         report.issue = InitialOpenIssue::InvalidModel;
         return;
     }
@@ -167,7 +128,11 @@ void openInitialEditorInto(InitialEditorSession& session, GuiModel& model,
         case Page::Advanced: supported = retain(pages.advanced, fillAdvanced3D(sc, model, context.numericLocale)); break;
         case Page::Extra3D: {
             supported = retain(session.extra3d, fillExtra3D(io, context.numericLocale,
-                [&model] { return springComboItemLabels(model); }));
+                [&model]() -> std::optional<SpringComboLabels> {
+                    SpringComboLabels labels{};
+                    if (!model.copyEditorSpringComboLabels(labels)) return std::nullopt;
+                    return labels;
+                }));
             break;
         }
         }

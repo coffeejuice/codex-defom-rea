@@ -57,6 +57,7 @@
 
 #include "m2m/engine.hpp"
 #include "m2m/engine/simcontrol300.hpp"
+#include "m2m/engine/simcontrol300_io.hpp"
 #include "m2m/engine/simcontrol300_owner.hpp"
 #include "m2m/engine_scene.hpp"
 #include "m2m/doe_property_table.hpp"
@@ -437,6 +438,33 @@ TEST_CASE(vdie42_cogging_viewer_boxes)
     CHECK(!engine::viewerBox(*m, 0, mn, mx));
 }
 
+TEST_CASE(multiblow_primary_die_command_changes_only_pdie_and_does_not_recreate_step)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto* const step = model.step.get();
+    REQUIRE(step);
+    auto& control = step->sim_ctrl;
+    control.pdie1 = 71;
+    control.nstep = 123;
+    control.dttype.u58 = 7;
+    control.tnow3 = 19;
+    std::array<unsigned char, sizeof(def::model::DB_STEP_DATA)> expected{};
+    // Snapshot the entire expected step with only the target field changed.
+    control.pdie1 = 37;
+    std::memcpy(expected.data(), step, expected.size());
+    control.pdie1 = 71;
+    model.setMultiBlowPrimaryDie(37);
+    CHECK(model.step.get() == step);
+    CHECK(std::memcmp(expected.data(), step, expected.size()) == 0);
+    CHECK(!model.viewer);
+
+    engine::GuiModel absent(nullptr, 3);
+    absent.step.reset();
+    absent.setMultiBlowPrimaryDie(99);
+    CHECK(!absent.step);
+    CHECK(!absent.viewer);
+}
+
 TEST_CASE(viewer_sync_uses_tail_number_and_keeps_null_object_shortcut_before_allocation)
 {
     engine::GuiModel model(nullptr, 3);
@@ -601,6 +629,62 @@ TEST_CASE(geometry_item_rect_refresh_and_missing_source_keep_original_state_orde
     engine::viewerSync(m, object, true);  // rebind drops the item and creates empty item0
     REQUIRE(engine::viewerSceneBox(m, valid, mn, mx));
     CHECK(!valid);
+}
+
+TEST_CASE(display_refresh_scene_refreshes_only_shown_main_secondary_and_third_caches)
+{
+    engine::GuiModel main(nullptr, 3);
+    engine::GuiModel third(nullptr, 3);
+    auto* thirdCurve = geometryLine(third, 4.0);
+    Project project;
+    ProjectScope scope(project);
+    auto* mainCurve = geometryLine(main, 2.0);
+    engine::displayRefreshScene(project, &main);
+    REQUIRE(project.display);
+
+    auto* secondary = engine::displaySecond(*project.display);
+    REQUIRE(secondary);
+    auto* secondaryCurve = geometryLine(*secondary, 3.0);
+    auto& models = engine::displayModels(*project.display);
+    models.third.reset(&third);
+
+    const auto checkX = [](engine::GuiModel& model, float low, float high) {
+        bool valid = false;
+        float mn[3] = {}, mx[3] = {};
+        REQUIRE(engine::viewerSceneBox(model, valid, mn, mx));
+        CHECK(valid && mn[0] == low && mx[0] == high);
+    };
+    const auto moveCurve = [](def::model::OBJ_GEO2D* curve, double halfExtent) {
+        REQUIRE(curve);
+        curve->points[0] = -halfExtent;
+        curve->points[3] = halfExtent;
+    };
+
+    // Hidden secondary/third caches remain stale while the actual caller fits main.
+    moveCurve(mainCurve, 5.0); moveCurve(secondaryCurve, 6.0); moveCurve(thirdCurve, 7.0);
+    checkX(main, -2.0f, 2.0f); checkX(*secondary, -3.0f, 3.0f); checkX(third, -4.0f, 4.0f);
+    engine::displayRefreshScene(project, &main);
+    checkX(main, -5.0f, 5.0f); checkX(*secondary, -3.0f, 3.0f); checkX(third, -4.0f, 4.0f);
+
+    // Enabling only secondary refreshes its cache, but the hidden third remains stale.
+    models.secondShown = true;
+    moveCurve(secondaryCurve, 8.0);
+    engine::displayRefreshScene(project, &main);
+    checkX(*secondary, -8.0f, 8.0f); checkX(third, -4.0f, 4.0f);
+
+    // Both shown secondary and third are refreshed during the same caller visit.
+    models.thirdShown = true;
+    moveCurve(secondaryCurve, 10.0); moveCurve(thirdCurve, 11.0);
+    engine::displayRefreshScene(project, &main);
+    checkX(*secondary, -10.0f, 10.0f); checkX(third, -11.0f, 11.0f);
+
+    // Normal teardown clears the canonical secondary guard and its owner.
+    engine::displayDropSecond(*project.display);
+    CHECK(!models.second.get() && !models.secondOwned);
+    // A shown third remains refreshable with the naturally empty secondary slot.
+    moveCurve(thirdCurve, 9.0);
+    engine::displayRefreshScene(project, &main);
+    checkX(third, -9.0f, 9.0f);
 }
 
 TEST_CASE(empty_and_populated_geometry_mesh_rectangles)
@@ -2819,6 +2903,8 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     engine::displayShow(outgoingDisplayProject, &model);
     REQUIRE(outgoingDisplayProject.display);
     const auto outgoingDisplay = outgoingDisplayProject.display;
+    REQUIRE(model.simCtl());
+    *engine::at<std::int32_t>(&step.sim_ctrl, 0x100) = 173; // source GEOTYP before parking
     fixture.records()[0].version = 5999;
     fixture.records()[0].hsize = 123; fixture.records()[0].mar_size = 456; fixture.records()[0].a_size = 789;
     step.u1b58 = 0; step.step_version = 11000; step.u26c4[0x0b] = 0; step.u740 = 0;
@@ -2910,6 +2996,7 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
     refused([&] { model.initializeMultiBlowLoadControl(); });
+    refused([&] { model.setMultiBlowPrimaryDie(777); });
     refused([&] { model.setHeatTreatPropertyStepDefinition(0); });
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
     engine::simcontrol300::StepCountContext parkedStepContext{5, {},
@@ -2930,6 +3017,14 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     refused([&] { (void)model.applyEditorFrequencyIndexIfControlMatches(nullptr, 0, 2); });
     refused([&] { (void)model.applyEditorFrequencyTextIfControlMatches(nullptr, 0, qt::L("1")); });
     refused([&] { (void)pendingModel.object(1); });
+    REQUIRE(pendingModel.objectCount() > 0);
+    engine::simcontrol300::SpringComboLabels parkedLabels{
+        {qt::L("parked-first")}, {qt::L("parked-second")}, 31, 47};
+    refused([&] { (void)pendingModel.copyEditorSpringComboLabels(parkedLabels); });
+    CHECK((parkedLabels.first == std::vector<qt::String>{qt::L("parked-first")}));
+    CHECK((parkedLabels.second == std::vector<qt::String>{qt::L("parked-second")}));
+    CHECK_EQ(parkedLabels.firstCurrentIndex, 31); CHECK_EQ(parkedLabels.secondCurrentIndex, 47);
+
     engine::simcontrol300::MeshObjectSnapshot parkedMeshingObject{};
     parkedMeshingObject.number = 1;
     parkedMeshingObject.interference = 913.25;
@@ -3031,6 +3126,60 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(outgoingDisplayProject.display == outgoingDisplay);
     CHECK(engine::displayMain(*outgoingDisplay) == &model); CHECK(model.display == outgoingDisplay.get());
     checkSameCamera(outgoingCamera, engine::displayCamera(outgoingDisplayProject));
+
+    // This compound caller constructs legitimately before its main-control query
+    // refuses. Keep it after the pure-refusal timer/index-table snapshots above:
+    // new-model initialization may change globals; it must not change the parked main.
+    auto& outgoingModels = engine::displayModels(*outgoingDisplay);
+    REQUIRE(!outgoingModels.second.get()); REQUIRE(!outgoingModels.secondOwned);
+    const auto* parkedStep = model.step.get();
+    std::vector<unsigned char> parkedObject(sizeof *firstObject);
+    std::memcpy(parkedObject.data(), firstObject, parkedObject.size());
+    const auto firstCurrent = firstVariables.body(), secondCurrent = secondVariables.body();
+    const auto firstCount = firstVariables.use_count(), secondCount = secondVariables.use_count();
+    std::int32_t defaultGeotyp = 0;
+    {
+        engine::GuiModel ordinary(nullptr, step.dimension);
+        REQUIRE(ordinary.simCtl());
+        defaultGeotyp = *engine::at<std::int32_t>(&ordinary.step->sim_ctrl, 0x100);
+    }
+    REQUIRE(defaultGeotyp != 173);
+    bool secondaryRefused = false;
+    try { (void)engine::displaySecond(*outgoingDisplay); }
+    catch (const Error& error) {
+        secondaryRefused = true;
+        CHECK_EQ(error.code, M2M_E_UNSUPPORTED);
+        CHECK(std::string(error.what()) == "geometry query is parked before unrecovered reader continuation");
+    }
+    CHECK(secondaryRefused);
+    auto* partialSecond = outgoingModels.second.get(); REQUIRE(partialSecond);
+    CHECK(outgoingModels.secondOwned.get() == partialSecond);
+    CHECK(partialSecond->display == outgoingDisplay.get());
+    CHECK_EQ(partialSecond->dimension(), step.dimension);
+    REQUIRE(partialSecond->simCtl());
+    CHECK_EQ(*engine::at<std::int32_t>(&partialSecond->step->sim_ctrl, 0x100), defaultGeotyp);
+    CHECK(!outgoingModels.secondShown && !outgoingModels.keepSecond);
+    engine::GuiModelGuard partialGuard(partialSecond);
+    // The still-parked main would throw again if the reuse branch queried it.
+    CHECK(engine::displaySecond(*outgoingDisplay) == partialSecond);
+    CHECK(outgoingModels.secondOwned.get() == partialSecond);
+    refused([&] { (void)model.simCtl(); });
+    engine::displayDropSecond(*outgoingDisplay);
+    CHECK(!partialGuard.get()); CHECK(!outgoingModels.second.get()); CHECK(!outgoingModels.secondOwned);
+    CHECK(model.step.get() == parkedStep);
+    CHECK(std::memcmp(beforeEntries.data(), model.step.get(), beforeEntries.size()) == 0);
+    CHECK(std::memcmp(parkedObject.data(), firstObject, parkedObject.size()) == 0);
+    CHECK(firstVariables.body() == firstCurrent); CHECK(secondVariables.body() == secondCurrent);
+    CHECK(firstVariables.use_count() == firstCount); CHECK(secondVariables.use_count() == secondCount);
+    CHECK(std::memcmp(tableBefore.data(), model.tableF8, sizeof model.tableF8) == 0);
+    CHECK(std::memcmp(tableDoublesBefore.data(), model.tableF8d, sizeof model.tableF8d) == 0);
+    CHECK(std::memcmp(tableBoxBefore.data(), model.tableF8box, sizeof model.tableF8box) == 0);
+    CHECK(model.state100 == stateBefore); CHECK(model.pdie() == pdieBefore);
+    CHECK(model.viewer == viewerBefore); CHECK(model.viewerMirrorPlanes == mirrorStateBeforeEntries);
+    CHECK(model.pendingPickingConstruction() == pickingBefore);
+    CHECK(engine::displayMain(*outgoingDisplay) == &model); CHECK(model.display == outgoingDisplay.get());
+    checkSameCamera(outgoingCamera, engine::displayCamera(outgoingDisplayProject));
+    pollWithoutEffects();
 
     // These external fixture changes cannot start a different cached call or
     // repair/reselect process-global table state on a parked retry.
