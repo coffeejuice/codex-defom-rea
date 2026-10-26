@@ -4062,3 +4062,5 @@ identify another independently source-ready implementation leaf. Retain the
 public and failure-path guards until the exact original caller/effect contract
 is available.
 
+
+Checkpoint275-277 retained static audits did not clear a public source leaf. The post-bind node tail has a finite byte-fill loop but lacks vector size/access/resize and positive-node caller state; the 2D/3D color helpers lack selected mode, runtime palette or callback effects. DOE key publication, whole-model KEY Save failure ordering and the B98 creator trace remain same-occurrence evidence-gated. A bounded read-only PE disassembly follow-up is testing color and node helper contracts without creating REA analysis state. Preserve these HOLD qualifications and continue with the next exact missing dependency.
