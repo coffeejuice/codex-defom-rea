@@ -492,17 +492,7 @@ void feDimFlags(Project& p, Operation& op)
 {
     GuiModel* m = opModel(p, op);
     if (!m || !m->step) return;
-    DB_STEP_DATA* s = m->step.get();
-    if (!modelIs2D(*m)) {
-        *at<std::int32_t>(s, 0xa34) = 2;
-        *at<std::int32_t>(s, 0xa68) = 2;
-        *at<std::int32_t>(s, 0xa30) = 2;
-    } else {
-        *at<std::int32_t>(s, 0xa34) = 1;
-        *at<std::int32_t>(s, 0xa68) = 1;
-        *at<std::int32_t>(s, 0xa30) = 1;
-        *at<std::int32_t>(s, 0x1118) = 0;
-    }
+    m->setFormingExpressDimensionFlags();
 }
 
 // vt+0xb8  @src 0x14141bc90

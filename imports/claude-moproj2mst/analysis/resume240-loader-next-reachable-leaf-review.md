@@ -1,0 +1,13 @@
+# CP240 loader next-reachable-leaf review
+
+## Verdict: PASS, with a test-fixture precision note
+
+Both callers are live in `loader_l3.cpp`. `expressBasePostLoad` reaches the count after its prior model/property/data checks when `merge` is true; `hteObjectTreeAdd` reaches it only for heat-transfer type 0, more than one operation object slot, a non-null model, and while its `objectCount()`-bounded loop runs. Replacing only each `step_count_objects(m->step.get())` expression preserves the existing short-circuit/loop/refusal ordering and text. Do not replace the `objectCount()` loop bound or merge the query into broader loader work.
+
+The native helper is exactly the proposed operation: it reads the step's `u1378` count, iterates list positions 1 through that count, calls `step_object_at`, and counts only non-null objects for which `llobj_not_kind7` is true (`kind != 7`). It dereferences `s` immediately and has no null-step fallback. The callers test `m` but not `m->step`, so the new query must preserve the live-step precondition and must not synthesize zero or introduce a geometry refusal. A direct delegation from the owner command preserves this behavior; keep the command limited to the two existing sites (or otherwise document the same precondition). It returns a scalar and does not mutate model state.
+
+The test idea is sound, with one terminology detail to preserve: `step_count_objects` indexes **positions in the linked object list**, not object IDs. Removing object number 2 from a list containing objects 1, 2, 3 does not necessarily make lookup position 2 null; object 3 may shift into that position, and the unchanged `u1378` can make a later position return null. Arrange/verify a null positional lookup explicitly (for example, the existing tests demonstrate unlinking an object while preserving the step count) rather than assuming an object-number gap yields a null count entry. Then compare the owner result against the native helper and assert it differs from total `objectCount()` in the intended mixed fixture. Existing viewer-box tests already demonstrate ordinary plus kind-7 counting but do not cover the owner query or either refusal caller.
+
+Configured metadata identifies the L3 CTest target as `m2m.mdt.engine_l3`; the proposed direct test should be registered there or in its own confirmed Testkit target. L3 source/spec and menu56 port annotations establish the routine and refusal behavior from decompilation/source evidence. They do not show a fresh original run or accepted FormingExpress corpus occurrence; the plan correctly limits the test claim to converter regression evidence.
+
+No source/build/shared-state/GUI/REA changes were made; no tests were run.

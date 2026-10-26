@@ -300,10 +300,10 @@ TEST_CASE(remesh_v2_preparation_failure_is_before_launch_and_inspection_failure_
     result = run(config); finished(result);
     CHECK(result.disposition == th::Disposition::HarnessFailure); CHECK(result.stopReason == th::StopReason::Inspection);
     CHECK(state->inspected); CHECK(state->heldAtInspection); CHECK(state->destroyed); CHECK(!result.caseInspected);
-    config = options(th::ChildCase::Returned, 50); state = std::make_shared<LeaseState>();
+    config = options(th::ChildCase::Returned, 500); state = std::make_shared<LeaseState>();
     config.prepareOwnedCase = [state](const fs::path& path) {
         auto lease = std::make_unique<Lease>(path, state);
-        Sleep(60); // bounded preparation overrun must not resume or launch any child
+        Sleep(600); // exceed the deadline beyond Windows timer-tick variance
         return lease;
     };
     result = run(config);

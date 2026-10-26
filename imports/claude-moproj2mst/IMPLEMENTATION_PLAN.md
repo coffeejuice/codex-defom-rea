@@ -3591,3 +3591,55 @@ command. Preserve the existing model/control admission and order of writes;
 the alternate branch means non-2D, including values other than 3. Direct
 command tests are needed because no FormingExpress corpus case is retained.
 
+Checkpoint237 is independently reviewed and frozen in
+`build/wave3-checkpoint237-verified/`. Direct tests cover dimensions 2, 3 and
+7, including the non-2D sentinel; the focused L3 target passed seven cases.
+The bound 369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. FormingExpress
+caller dispatch and original runtime parity remain unobserved.
+
+Checkpoint238 has started the reviewed `modelIs2D` scalar-query migration in
+the loader. Preserve nullable-step behavior without adding a geometry guard;
+add direct absent-step coverage because existing dimension tests only cover
+2D and 3D models. The editor NSTART value projection is a separate dependency.
+
+Before implementation, CP238 was superseded: CP237 had removed the sole call
+to `modelIs2D`, leaving only unused helper definitions. Editing that helper
+would not exercise a reachable loader path. The read-only reconciliation is
+`analysis/resume238-loader-candidate-reconciliation.md`; no CP238 candidate
+was built or frozen.
+
+Checkpoint239 has started the independently reviewed OperationInfo cleanup
+cache-presence migration. Use `Operation::hasEngineModel()` at four later
+reappearance fences, preserving stage-specific refusal order. Do not use the
+unrelated free `hasEngineModel(op)` helper or alter the earlier weak-owner
+observation.
+
+Checkpoint239 is independently reviewed and frozen in
+`build/wave3-checkpoint239-verified/`. The focused staged cleanup target passed
+42 cases; the bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+Only four cache-presence fences changed; the earlier owner observation and
+ObjectKey limitations remain.
+
+Checkpoint240 has started the reviewed editor NSTART StepCount value boundary.
+Keep the operation flag store before the single guarded current-control lookup,
+preserve the prior-checkbox three-argument fill, and publish the completed
+page only after success. The page still carries the existing Operation pointer;
+this migration confines the native control alias, not all page ownership.
+
+Checkpoint240 is independently reviewed and frozen in
+`build/wave3-checkpoint240-verified/`. The first full suite exposed one
+unrelated Windows timing test with a 60 ms sleep against a 50 ms deadline;
+its test-only margin was widened to 600/500 ms and reviewed without changing
+supervisor code or assertions. The repaired source-bound full suite passed
+with 362 clean, six logged gaps, one diagnostic difference, no fixture changes
+and historical 93 SAME/five DIFF. The focused NSTART, Stopping, viewer and
+terminal-harness targets passed 89 cases. OPI ownership and cache1 remain open.
+
+Checkpoint241 has started the reviewed live L3 non-kind-7 object-count owner
+query. Preserve each caller's existing merge/loop guard and unchecked
+null-step precondition. The test fixture must verify a null linked-list
+position, not infer one from an object-ID gap; no current corpus case proves
+the caller refusals.
+

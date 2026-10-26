@@ -41,6 +41,27 @@ using namespace m2m;
 
 namespace {
 
+TEST_CASE(forming_express_dimension_flag_command)
+{
+    for (const int dimension : {2, 3, 7}) {
+        engine::GuiModel model(nullptr, dimension);
+        auto* step = model.step.get();
+        REQUIRE(step != nullptr);
+        *engine::at<std::int32_t>(step, 0xa34) = -11;
+        *engine::at<std::int32_t>(step, 0xa68) = -12;
+        *engine::at<std::int32_t>(step, 0xa30) = -13;
+        *engine::at<std::int32_t>(step, 0x1118) = 77;
+
+        model.setFormingExpressDimensionFlags();
+
+        const std::int32_t expected = dimension == 2 ? 1 : 2;
+        CHECK_EQ(*engine::at<std::int32_t>(step, 0xa34), expected);
+        CHECK_EQ(*engine::at<std::int32_t>(step, 0xa68), expected);
+        CHECK_EQ(*engine::at<std::int32_t>(step, 0xa30), expected);
+        CHECK_EQ(*engine::at<std::int32_t>(step, 0x1118), dimension == 2 ? 0 : 77);
+    }
+}
+
 Project* openCorpus(Project& p, Ctx& ctx, const char* caseDir, const char* moproj)
 {
     const char* corpus = std::getenv("M2M_CORPUS");

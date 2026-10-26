@@ -33,6 +33,8 @@ namespace m2m::doe { struct StepDataState; class SlicePlaneStore; class StudyXml
 
 namespace m2m::engine {
 
+namespace simcontrol300 { struct StepCountContext; struct StepCountPage; }
+
 using def::model::DB_STEP_DATA;
 using def::model::LLOBJ_DATA;
 
@@ -198,6 +200,12 @@ public:
     // @src 0x140c7b2d0  sim control (step+0x750), null without a step
     def::model::Cls_1401e7b10* simCtl() const;
     bool matchesCurrentSimControl(const def::model::Cls_1401e7b10* expected) const;
+    // Synchronously project a completed editor page while the current control is borrowed.
+    // The page retains its separately qualified legacy Operation* context.
+    bool refillEditorStepCountIfControlMatches(
+        const def::model::Cls_1401e7b10* expected,
+        const simcontrol300::StepCountContext& context, bool priorNstartChecked,
+        simcontrol300::StepCountPage& result) const;
     // Furnace load prologue; a missing step remains a no-op.
     void setFurnaceLoadTnow3();
     // Continuation of the already-admitted DB-step loader branch.
@@ -224,6 +232,8 @@ public:
     // Requires an existing step; the legacy null-step path is unchecked.
     // This staged command does not extend StepIdentity invalidation coverage.
     void setDimension(int dim);
+    // @src 0x141424af0  FormingExpress per-step dimension flags; no geometry admission check.
+    void setFormingExpressDimensionFlags();
     // @src 0x140c7c220 -> 0x1408301c0  tail object number; 0 without a step
     int lastObjectNumber() const;
     // @src 0x140c7b720  reset: viewer list, +0x30, DB_STEP_DATA clear (1401cb400), +0x230, +0x100

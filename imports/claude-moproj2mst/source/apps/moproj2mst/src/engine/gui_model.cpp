@@ -30,6 +30,7 @@
 
 #include "m2m/doe_stepdata.hpp"
 #include "m2m/engine/picking_owner.hpp"
+#include "m2m/engine/simcontrol300.hpp"
 
 namespace m2m::engine {
 
@@ -225,6 +226,18 @@ bool GuiModel::matchesCurrentSimControl(const Cls_1401e7b10* expected) const
     return current == expected;
 }
 
+bool GuiModel::refillEditorStepCountIfControlMatches(
+    const Cls_1401e7b10* expected, const simcontrol300::StepCountContext& context,
+    bool priorNstartChecked, simcontrol300::StepCountPage& result) const
+{
+    const auto* control = simCtl();
+    if (!control || control != expected) return false;
+    auto refill = simcontrol300::fillStepCount(*control, context, priorNstartChecked);
+    if (!refill) return false;
+    result = std::move(*refill);
+    return true;
+}
+
 void GuiModel::setFurnaceLoadTnow3()
 {
     if (step) step->sim_ctrl.tnow3 = 1;
@@ -322,6 +335,18 @@ void GuiModel::setDimension(int dim)
     requireGeometrySyncAvailable();
     const std::int32_t d = dim;
     step->set_dimension(&d);
+}
+
+void GuiModel::setFormingExpressDimensionFlags()
+{
+    if (!step) return;
+    auto* nativeStep = step.get();
+    const bool is2D = nativeStep->dimension == 2;
+    const std::int32_t value = is2D ? 1 : 2;
+    *at<std::int32_t>(nativeStep, 0xa34) = value;
+    *at<std::int32_t>(nativeStep, 0xa68) = value;
+    *at<std::int32_t>(nativeStep, 0xa30) = value;
+    if (is2D) *at<std::int32_t>(nativeStep, 0x1118) = 0;
 }
 
 int GuiModel::lastObjectNumber() const

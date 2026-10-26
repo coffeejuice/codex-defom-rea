@@ -56,6 +56,7 @@
 #include <defrt/stdlib/legacy_printf.hpp>
 
 #include "m2m/engine.hpp"
+#include "m2m/engine/simcontrol300.hpp"
 #include "m2m/engine_scene.hpp"
 #include "m2m/doe_property_table.hpp"
 #include "m2m/model.hpp"
@@ -2839,6 +2840,16 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
+    engine::simcontrol300::StepCountContext parkedStepContext{5, {},
+        engine::simcontrol300::MoStepCountContext{nullptr}};
+    engine::simcontrol300::StepCountPage parkedStepPage{101, 102, 103, 104,
+        engine::simcontrol300::MoStepCountContext{nullptr}, true};
+    refused([&] { (void)model.refillEditorStepCountIfControlMatches(
+        nullptr, parkedStepContext, false, parkedStepPage); });
+    CHECK_EQ(parkedStepPage.start, 101); CHECK_EQ(parkedStepPage.steps, 102);
+    CHECK_EQ(parkedStepPage.increment, 103); CHECK_EQ(parkedStepPage.primaryDie, 104);
+    REQUIRE(parkedStepPage.mo); CHECK(parkedStepPage.mo->operation == nullptr);
+    CHECK(parkedStepPage.nstartChecked);
     auto heldParkedStep = std::move(model.step);
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
     model.step = std::move(heldParkedStep);

@@ -133,7 +133,7 @@ OperationInfoCleanupOutcome attemptOperationInfoObjectListCleanup(
         unavailable("object cleanup requires the completed Props/cache-null skips");
     }
     if (operation.props) unavailable("Props appeared after the source null skip");
-    if (operation.engineModel) unavailable("Engine cache appeared after the source null skip");
+    if (operation.hasEngineModel()) unavailable("Engine cache appeared after the source null skip");
 
     const auto count = operation.objs.size();
     switch (progress.stage_) {
@@ -187,7 +187,7 @@ OperationInfoCleanupOutcome attemptOperationInfoPositionListCleanup(
         unavailable("position cleanup requires the completed Props/cache-null and empty-object steps");
     }
     if (operation.props) unavailable("Props appeared after the source null skip");
-    if (operation.engineModel) unavailable("Engine cache appeared after the source null skip");
+    if (operation.hasEngineModel()) unavailable("Engine cache appeared after the source null skip");
     if (!operation.objs.empty()) unavailable("Objects appeared after the source empty-list skip");
 
     const auto count = operation.objpos.size();
@@ -238,7 +238,7 @@ OperationInfoCleanupOutcome attemptOperationInfoRecoveryWrapperCleanup(
         unavailable("recovery wrapper cleanup requires all explicit preceding null/empty steps");
     }
     if (operation.props) unavailable("Props appeared after the source null skip");
-    if (operation.engineModel) unavailable("Engine cache appeared after the source null skip");
+    if (operation.hasEngineModel()) unavailable("Engine cache appeared after the source null skip");
     if (!operation.objs.empty()) unavailable("Objects appeared after the source empty-list skip");
     if (!operation.objpos.empty()) unavailable("Positions appeared after the source empty-list skip");
 
@@ -288,7 +288,7 @@ OperationInfoCleanupOutcome attemptOperationInfoRecoveryFlagsCleanup(
         unavailable("recovery flags cleanup requires all explicit preceding null/empty steps including null recovery wrapper");
     }
     if (operation.props) unavailable("Props appeared after the source null skip");
-    if (operation.engineModel) unavailable("Engine cache appeared after the source null skip");
+    if (operation.hasEngineModel()) unavailable("Engine cache appeared after the source null skip");
     if (!operation.objs.empty()) unavailable("Objects appeared after the source empty-list skip");
     if (!operation.objpos.empty()) unavailable("Positions appeared after the source empty-list skip");
     if (operation.recoveryB) unavailable("Recovery wrapper appeared after the source null skip");

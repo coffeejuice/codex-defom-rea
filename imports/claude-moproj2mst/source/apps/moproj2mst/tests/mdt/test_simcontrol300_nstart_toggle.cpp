@@ -92,6 +92,79 @@ void refusedBeforeStore(const StepCountToggleReport& report)
     CHECK(report.stage == StepCountToggleStage::Preflight);
     CHECK(!report.operationFlagStored); CHECK(!report.pageRefilled);
 }
+StepCountPage sentinel(Operation& operation)
+{
+    return {101, 102, 103, 104, MoStepCountContext{&operation}, true};
+}
+void unchanged(const StepCountPage& page, const Operation& operation)
+{
+    CHECK_EQ(page.start, 101); CHECK_EQ(page.steps, 102);
+    CHECK_EQ(page.increment, 103); CHECK_EQ(page.primaryDie, 104);
+    REQUIRE(page.mo); CHECK(page.mo->operation == &operation);
+    CHECK(page.nstartChecked);
+}
+}
+
+TEST_CASE(nstart_model_refill_matches_current_control_and_publishes_only_complete_page)
+{
+    Fixture f; auto& model = *f.operation.engineModel;
+    auto* current = model.simCtl(); REQUIRE(current);
+    auto page = sentinel(f.operation);
+    auto context = f.stepContext();
+    CHECK(!model.refillEditorStepCountIfControlMatches(nullptr, context, false, page));
+    unchanged(page, f.operation);
+    auto oldStep = std::move(model.step);
+    model.step = std::make_unique<def::model::DB_STEP_DATA>(3);
+    CHECK(!model.refillEditorStepCountIfControlMatches(current, context, false, page));
+    unchanged(page, f.operation);
+    model.step.reset();
+    CHECK(!model.refillEditorStepCountIfControlMatches(nullptr, context, false, page));
+    CHECK(!model.refillEditorStepCountIfControlMatches(current, context, false, page));
+    unchanged(page, f.operation);
+    model.step = std::move(oldStep);
+    context.applicationMode = 0;
+    CHECK(!model.refillEditorStepCountIfControlMatches(current, context, false, page));
+    unchanged(page, f.operation);
+    context = f.stepContext();
+    f.operation.nstartGiven = 1;
+    CHECK(model.refillEditorStepCountIfControlMatches(current, context, true, page));
+    CHECK_EQ(page.start, 6); CHECK_EQ(page.steps, 23);
+    CHECK_EQ(page.increment, 3); CHECK_EQ(page.primaryDie, 7);
+    REQUIRE(page.mo); CHECK(page.mo->operation == &f.operation);
+    CHECK(page.nstartChecked);
+    CHECK_EQ(current->nstart, -7); CHECK_EQ(current->nstep, 23);
+    CHECK_EQ(current->stpinc, 3); CHECK_EQ(current->pdie1, 7);
+    CHECK_EQ(f.operation.startStepNo, 10);
+    CHECK_EQ(f.operation.nstartGiven, 1);
+}
+
+TEST_CASE(nstart_model_refill_preserves_prior_checkbox_for_key_and_null_operation)
+{
+    Fixture f; auto& model = *f.operation.engineModel;
+    auto* current = model.simCtl(); REQUIRE(current);
+    auto context = f.stepContext();
+    auto page = sentinel(f.operation);
+    f.operation.restartGiven = 1; REQUIRE(startsFromKey(f.operation));
+    for (bool prior : {false, true}) {
+        CHECK(model.refillEditorStepCountIfControlMatches(current, context, prior, page));
+        CHECK_EQ(page.nstartChecked, prior); CHECK_EQ(page.start, -7);
+    }
+    context.mo->operation = nullptr;
+    for (bool prior : {false, true}) {
+        CHECK(model.refillEditorStepCountIfControlMatches(current, context, prior, page));
+        CHECK_EQ(page.nstartChecked, prior); CHECK_EQ(page.start, -7);
+    }
+    context = f.stepContext();
+    f.operation.restartGiven = 0; REQUIRE(!startsFromKey(f.operation));
+    f.operation.nstartGiven = 1;
+    f.setClass(true);
+    for (bool prior : {false, true}) {
+        CHECK(model.refillEditorStepCountIfControlMatches(current, context, prior, page));
+        CHECK(page.nstartChecked); CHECK_EQ(page.start, 6);
+    }
+    f.setClass(false);
+    CHECK(model.refillEditorStepCountIfControlMatches(current, context, true, page));
+    CHECK(!page.nstartChecked); CHECK_EQ(page.start, -7);
 }
 
 TEST_CASE(nstart_toggle_stores_given_then_refills_all_current_controls_without_save)

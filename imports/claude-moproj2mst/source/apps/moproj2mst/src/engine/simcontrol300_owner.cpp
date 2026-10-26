@@ -263,13 +263,10 @@ StepCountToggleReport StagedEditor300::toggleNstart(Editor300Binding binding,
     binding.operation.nstartGiven = checked ? 1 : 0;
     report.stage = StepCountToggleStage::OperationFlagStored;
     report.operationFlagStored = true;
-    auto* control = binding.model.simCtl();
-    // Candidate guard: do not dereference a stale source control or substitute
-    // a replacement. The preceding native-ordered flag store remains visible.
-    if (!control || control != pages_->sourceControl) return report;
-    auto refill = fillStepCount(*control, currentContext, checked);
-    if (!refill) return report;
-    pages_->pages.stepCount = std::move(*refill);
+    StepCountPage refill{};
+    if (!binding.model.refillEditorStepCountIfControlMatches(
+            pages_->sourceControl, currentContext, checked, refill)) return report;
+    pages_->pages.stepCount = std::move(refill);
     report.stage = StepCountToggleStage::Complete;
     report.pageRefilled = true;
     report.outcome = ApplyResult::Completed;
