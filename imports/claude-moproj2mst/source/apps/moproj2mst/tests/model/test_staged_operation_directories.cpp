@@ -103,6 +103,25 @@ TEST_CASE(staged_open_operation_directory_decisions_use_effective_ids_and_surviv
         CHECK(context.stagedOperationDirectoryDecisions[5 + i] == expected[i].u16());
         CHECK(context.stagedOperationDirectoryDecisions[10 + i] == expected[i].u16());
     }
+    REQUIRE(project.operations.size() == 4);
+    REQUIRE(context.stagedOperationDirectoryAttempts.size() == 18);
+    std::size_t attempt = 0;
+    for (std::size_t operationIndex : {std::size_t{0}, std::size_t{1}, std::size_t{2}}) {
+        const Operation& operation = *project.operations[operationIndex];
+        const int expectedId = operationIndex == 2 ? 1 : static_cast<int>(operationIndex + 1);
+        CHECK(operation.id == expectedId);
+        CHECK(context.stagedOperationDirectoryAttempts[attempt].path == taskDirAbs(operation).u16());
+        CHECK(context.stagedOperationDirectoryAttempts[attempt].returnPolicy ==
+              StagedOperationDirectoryReturnPolicy::ReturnIgnored);
+        ++attempt;
+        for (const auto& path : expected) {
+            CHECK(context.stagedOperationDirectoryAttempts[attempt].path == path.u16());
+            CHECK(context.stagedOperationDirectoryAttempts[attempt].returnPolicy ==
+                  StagedOperationDirectoryReturnPolicy::ReturnIgnored);
+            ++attempt;
+        }
+    }
+    CHECK(project.operations[3]->id == -7);
     // applyEffects consumes FileEffects only; these staged decisions do not enter it.
     engine::FileEffects effects;
     CHECK(effects.mkdirs.empty());

@@ -581,7 +581,7 @@ void saveCoggingMdts(Project& p, const std::string& header, bool produce, std::v
         Operation* cur = activeOperation(p);
         if (cur && cur->props) {
             auto* cp = dynamic_cast<CoggingProps*>(cur->props.get());
-            if (cp && cp->model && !cur->engineModel)
+            if (cp && cp->model && !cur->hasEngineModel())
                 unsupported("the project's active operation \"" + cur->name.utf8() +
                             "\" is a cogging operation that was not opened and saved first "
                             "(saveActiveCogging, spec section 6)");

@@ -114,6 +114,7 @@ TEST_CASE(output_save_successful_mkdir_reaches_actual_existing_model_then_cleanu
 {
     Rig rig;
     rig.operation->engineModel = std::make_shared<engine::GuiModel>(nullptr, 3);
+    CHECK(rig.operation->hasEngineModel());
     const auto model = rig.operation->engineModel;
     const auto sentinel = rig.regions() / "retained.txt";
     write(sentinel, "not enumerated or removed");
@@ -134,6 +135,7 @@ TEST_CASE(output_save_failed_mkdir_preserves_attempt_and_stops_before_model_gett
     const auto blocker = rig.regions();
     write(blocker, "blocking file");
     REQUIRE(!rig.operation->engineModel);
+    CHECK(!rig.operation->hasEngineModel());
 
     CHECK(rig.saveRefusal().find(modalGuard) != std::string::npos);
 
@@ -149,10 +151,12 @@ TEST_CASE(output_save_successful_mkdir_runs_actual_lazy_operation_model_producer
 {
     Rig rig;
     REQUIRE(!rig.operation->engineModel);
+    CHECK(!rig.operation->hasEngineModel());
 
     CHECK(rig.saveRefusal().find(cleanupGuard) != std::string::npos);
 
     REQUIRE(rig.operation->engineModel != nullptr);
+    CHECK(rig.operation->hasEngineModel());
     CHECK_EQ(rig.operation->engineModel->f25c, 0); // Later ROIs getter was not invoked.
     REQUIRE(rig.saved.step2.directoryAttempts.size() == 1);
     CHECK(rig.saved.step2.directoryAttempts.front().succeeded);

@@ -550,16 +550,14 @@ bool is2D(const LLOBJ_DATA* o)
 // 140c7c0e0 / 140c7c0a0: engine present and engine+0x1c == 2 / 3
 int modelDim(const GuiModel& m)
 {
-    return m.step ? *at<std::int32_t>(m.step.get(), 0x1c) : 0;
+    return m.dimension();
 }
 
 // @src 0x140c7b370  geometry type of the model's sim control (+0x100), 0 without one or for a
 // model that is not 2D
 int simGeometryType(const GuiModel& m)
 {
-    const def::model::Cls_1401e7b10* sc = m.simCtl();                // 0x140c7b2d0
-    if (!sc || modelDim(m) != 2) return 0;                            // 0x140c7c0e0
-    return *at<std::int32_t>(const_cast<def::model::Cls_1401e7b10*>(sc), 0x100);
+    return m.simGeometryTypeIf2D();
 }
 
 void unbind(View& view, bool full);

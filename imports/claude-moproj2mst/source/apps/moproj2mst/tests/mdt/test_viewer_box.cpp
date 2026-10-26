@@ -2701,11 +2701,19 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
         auto* const object = control.object(1); REQUIRE(object);
         CHECK(control.objectAt(1) == object); CHECK(control.objectWrap(1, false, false) == object);
         CHECK(control.simCtl() != nullptr); (void)control.material(1);
+        control.step->dimension = 3;
+        CHECK_EQ(control.dimension(), 3);
+        CHECK_EQ(control.simGeometryTypeIf2D(), 0); // the loaded step is 3D
+        *engine::at<std::int32_t>(&control.step->sim_ctrl, 0x100) = 37;
+        control.step->dimension = 2;
+        CHECK_EQ(control.simGeometryTypeIf2D(), 37);
+        control.step->dimension = 3;
         control.setPdie(1); CHECK(control.pdie() == 1); CHECK(control.objectCount() > 0);
         const auto countBeforeDelete = control.objectCount();
         engine::deleteObject(control, 1);
         CHECK(control.objectCount() == countBeforeDelete - 1); CHECK(control.object(1) == nullptr);
         mst::g_loaderSlots.setDimension(control, 2); CHECK(engine::guiModelDim(control) == 2);
+        CHECK_EQ(control.dimension(), 2);
         int accessInvocations = 0;
         CHECK(engine::GuiModelAccess::withStep(control, [&](def::model::DB_STEP_DATA* step) {
             ++accessInvocations;
@@ -2713,6 +2721,8 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
         }));
         CHECK(accessInvocations == 1);
         engine::GuiModel empty(nullptr, 3); int noStep = 0;
+        empty.step.reset(); CHECK_EQ(empty.simGeometryTypeIf2D(), 0);
+        CHECK_EQ(empty.dimension(), 0);
         CHECK(!engine::readDbEntry(empty, &noStep, false)); CHECK(!engine::readDbStep(empty, &noStep, false));
         CHECK(engine::modelDbReader(empty) == nullptr);
         Project displayProject;
@@ -2816,6 +2826,8 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
             refused([&] { engine::viewerRebuild(model, reset, contacts); });
     }
     const auto& pendingModel = model;
+    CHECK_EQ(pendingModel.dimension(), step.dimension);
+    CHECK_EQ(engine::guiModelDim(pendingModel), step.dimension);
     int requestedNumber = 99; bool mark5 = true;
     doe::PropertyTableState parkedPropertyTable(model);
     parkedPropertyTable.markPopulationUnrecovered();
@@ -2823,6 +2835,7 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.owner() == &model);
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
+    refused([&] { (void)pendingModel.simGeometryTypeIf2D(); });
     refused([&] { (void)pendingModel.object(1); });
     refused([&] { (void)pendingModel.objectAt(1); });
     refused([&] { (void)pendingModel.material(1); });

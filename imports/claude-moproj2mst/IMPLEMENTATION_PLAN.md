@@ -3357,3 +3357,65 @@ Checkpoint221 examines the preceding task-directory attempt and ignored
 helper returns for internal Open ordering. Public mkdir effects still require
 a same-occurrence original call/result and failure-order witness.
 
+Checkpoint221 is frozen in `build/wave3-checkpoint221-verified/`. Per-call
+Open metadata now records the positive-ID task-directory attempt before the
+five project paths and conditional Type-4 `DieStress` path, retaining repeated
+attempts and partial-parse prefixes. All returns are explicitly marked
+ignored. The earlier project-only decision vector remains intact; no attempt
+performs I/O or enters FileEffects. Independent source review, focused tests,
+and the 366-test bound suite passed (359 clean, six logged gaps, one
+diagnostic difference, no fixture changes; historical 93 SAME/five DIFF).
+See `analysis/resume221-task-dir-static-review.md`,
+`analysis/resume221-task-attempt-review.md`, and
+`analysis/wave3-checkpoint221-validation.json`.
+
+Checkpoint222 addresses editor300's public `GuiModel::step` and other raw
+aliases as a dependency-ordered ownership migration. Cache1 and the
+unobserved original widget/event path remain guarded throughout that work.
+
+Checkpoint222's first observation-only `StepIdentity` batch is frozen in
+`build/wave3-checkpoint222-verified/`. A weak lifetime-control identity and
+monotonic reset generation now distinguish model reuse and native reset without
+granting step access. The public `step` replacement bypass remains explicit;
+this batch is not ownership closure. Independent source review and the bound
+367-test suite passed (360 clean, six logged gaps, one diagnostic difference,
+no fixture changes; historical 93 SAME/five DIFF). See
+`analysis/resume222-step-identity-review.md` and
+`analysis/wave3-checkpoint222-validation.json`.
+
+Checkpoint223 has started a first model-owned value operation for the viewer's
+2D simulation geometry type. Preserve the existing barrier-first refusal,
+null/non-2D zero result, and native field value. The editor cache1 continuation
+stays refused. Object-key, operation-cache, DOE, Boolean and Open-effect lanes
+have separate bounded contracts/evidence assignments; no lane may infer an
+original same-occurrence witness from a candidate-only result.
+
+Checkpoint223's value operation is frozen in `build/wave3-checkpoint223-verified/`.
+The viewer no longer takes a raw simulation-control pointer for that geometry
+type read. Independent review, the focused 56-case viewer target, and the
+source-bound 367-test suite passed (360 clean, six logged gaps, one diagnostic
+difference, no fixture changes; historical 93 SAME/five DIFF). This leaf does
+not close other raw aliases. The proposed Type-4 Open parser test was withheld:
+the current parser visits operations before non-main subprojects, so a fixture
+cannot make Type-4 active at that hook. Original 64-bit call order is under a
+separate REA review; no directory effect has been enabled.
+
+Checkpoint224 has started two exclusive source lanes: an unguarded scalar
+dimension read owned by `GuiModel`, and a read-only operation-cache presence
+query for the Cogging Save gate. Both preserve the existing null, lifetime and
+refusal behavior, and neither grants editor cache1 continuation.
+
+Checkpoint224's two source lanes are independently reviewed and frozen in
+`build/wave3-checkpoint224-verified/`. The grouped focused preflight first
+caught two unsupported `CHECK_FALSE` test macros; replacing them with supported
+`CHECK(!...)` passed both focused targets, then the complete source-bound
+367-test suite. The result remains 360 clean, six logged gaps, one diagnostic
+difference, zero failures, no fixture changes, historical 93 SAME/five DIFF.
+The cache and step fields remain public; this is a leaf migration only. See
+`analysis/wave3-checkpoint224-validation.json`.
+
+Checkpoint225 audits actual object mutation routes before adding ObjectKey
+metadata. Another independent lane is mapping a named shared-owner comparison
+for the operation cache. Neither changes native storage or editor admission
+until the source and evidence dependencies are resolved.
+

@@ -4,6 +4,7 @@
 // are implemented in viewer.cpp; successful model creation is not full UI recovery.
 #include <cstdio>
 #include <cstring>
+#include <limits>
 
 #include <defcmd/key_file.hpp>
 #include <defcmd/key_import.hpp>
@@ -31,7 +32,33 @@
 
 namespace m2m::engine {
 
-struct GuiModelLifetime { GuiModel* value; };
+struct GuiModelLifetime {
+    GuiModel* value;
+    std::uint64_t stepGeneration = 1;
+    bool stepObservationLive = true;
+};
+
+bool StepIdentity::operator==(const StepIdentity& other) const noexcept
+{
+    return generation_ == other.generation_
+        && !owner_.owner_before(other.owner_) && !other.owner_.owner_before(owner_);
+}
+
+bool StepIdentity::isCurrent() const noexcept
+{
+    const auto live = owner_.lock();
+    return live && live->stepObservationLive && generation_ == live->stepGeneration;
+}
+
+StepIdentity GuiModel::stepIdentity() const noexcept
+{
+    return StepIdentity(lifetime_, lifetime_->stepGeneration);
+}
+
+bool GuiModel::isCurrentStepIdentity(const StepIdentity& identity) const noexcept
+{
+    return identity == stepIdentity() && identity.isCurrent();
+}
 
 void GuiModelGuard::reset(GuiModel* model)
 {
@@ -163,6 +190,9 @@ GuiModel::GuiModel(DbHandle* h, int dim)
 
 GuiModel::~GuiModel()
 {
+    // Retire observations before cleanup; keep the existing guard/member lifetime
+    // ordering. No token locks or dereferences the GuiModel itself.
+    lifetime_->stepObservationLive = false;
     // c7aa00 ends by deleting the +250 wrapper, before member/QObject cleanup.
     // Its earlier reset/other cleanup remains separately qualified; reset()
     // itself must preserve this list. Pointees belong to their native managers.
@@ -182,6 +212,18 @@ Cls_1401e7b10* GuiModel::simCtl() const
     return step ? &step->sim_ctrl : nullptr;
 }
 
+int GuiModel::simGeometryTypeIf2D() const
+{
+    requireGeometrySyncAvailable();
+    if (!step || step->dimension != 2) return 0;
+    return *at<std::int32_t>(&step->sim_ctrl, 0x100);
+}
+
+int GuiModel::dimension() const noexcept
+{
+    return step ? step->dimension : 0;
+}
+
 PendingPickingOwner& GuiModel::beginPickingConstructionPrefix()
 {
     requireGeometrySyncAvailable();
@@ -196,6 +238,11 @@ void GuiModel::reset()
 {
     requireGeometrySyncAvailable();
     if (!step) return;
+    // Check before the first destructive effect, and never wrap to revive a token.
+    // This adapter observation is deliberately not a native admission authority.
+    if (lifetime_->stepGeneration == std::numeric_limits<std::uint64_t>::max())
+        throw Error(M2M_E_UNSUPPORTED, "step identity generation exhausted before reset");
+    ++lifetime_->stepGeneration;
     viewerClear(*this);                    // 0x140c82c70; 0x140c8ba80: +0x30 (viewer) dropped
     // 0x140c82c70 / 0x140c8ba80: viewer item list and +0x30 (viewer, packet V); of the items only
     // the CopyMirror plane counts are kept (MDT L5)

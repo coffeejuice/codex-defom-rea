@@ -193,6 +193,7 @@ public:
     const engine::OperationInfoModelCache& operationInfoModelCache() const noexcept {
         return operationInfoModelCache_;
     }
+    bool hasEngineModel() const noexcept { return static_cast<bool>(engineModel); }
     // Future qualified OPI driver must complete payload/member cleanup first.
     // No normal destruction or public Close path commits this automatically.
     bool commitOperationInfoQObjectBoundary(const std::string& qualification) {

@@ -60,6 +60,13 @@ bool parseOperation(Project& p, const xml::Node& e, bool withProps, int ordinal,
                 ? std::optional<int>(activeSub->type) : std::nullopt;
             detail::collectOperationProjectDirectoryDecisions(
                 projectDir(p), id, activeSubType, decisions);
+            if (id >= 1) {
+                ctx.stagedOperationDirectoryAttempts.push_back(
+                    {taskDirAbs(*item).u16(), StagedOperationDirectoryReturnPolicy::ReturnIgnored});
+            }
+            for (const String& path : decisions)
+                ctx.stagedOperationDirectoryAttempts.push_back(
+                    {path.u16(), StagedOperationDirectoryReturnPolicy::ReturnIgnored});
             for (const String& path : decisions)
                 ctx.stagedOperationDirectoryDecisions.push_back(path.u16());
         } else if (tag == L("SubType")) {

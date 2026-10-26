@@ -75,6 +75,22 @@ struct AuxiliaryDrawList;
 class PendingPickingOwner;
 class PostGraphManagerState;
 
+// Observation only: the weak owner identity and storage generation never grant
+// native access. Only GuiModel can issue a bound token; default tokens are inert.
+class StepIdentity {
+public:
+    StepIdentity() = default;
+    bool isCurrent() const noexcept;
+    bool operator==(const StepIdentity& other) const noexcept;
+    bool operator!=(const StepIdentity& other) const noexcept { return !(*this == other); }
+private:
+    friend struct GuiModel;
+    StepIdentity(const std::shared_ptr<GuiModelLifetime>& owner, std::uint64_t generation)
+        : owner_(owner), generation_(generation) {}
+    std::weak_ptr<GuiModelLifetime> owner_;
+    std::uint64_t generation_ = 0;
+};
+
 // Nonowning QObject-style model guard. It remains valid across display backlink
 // changes and expires with the model, without extending the model's ownership.
 class GuiModelGuard {
@@ -149,12 +165,18 @@ public:
     GuiModel(const GuiModel&) = delete;
     GuiModel& operator=(const GuiModel&) = delete;
 
+    // Covers constructor/reset/destruction only during the legacy migration.
+    // Direct public step replacement and other destructive loaders still bypass
+    // invalidation. Currentness cannot authorize native access or publication.
+    StepIdentity stepIdentity() const noexcept;
+    bool isCurrentStepIdentity(const StepIdentity& identity) const noexcept;
+
     // Explicit lazy-getter prefix. Native +248 publication is unavailable until
     // its constructor returns; this stops before the unresolved graphics call.
     PendingPickingOwner& beginPickingConstructionPrefix();
     const PendingPickingOwner* pendingPickingConstruction() const noexcept { return pickingConstruction_.get(); }
 
-    std::unique_ptr<DB_STEP_DATA> step;    // +0xe0 (0x140c7acd0)
+    std::unique_ptr<DB_STEP_DATA> step;    // LEGACY public +0xe0; bypasses identity on replacement
     DbHandle* db = nullptr;                // +0xd8: the DB handle (P+8 for vt+0x1b0 models); null = none
     std::int32_t tableF8[16] = {};         // +0xf8 .. +0x13c ints of 0x140c7d3a0
     double tableF8d[6] = {};               // +0x138 .. doubles of 0x140c7d3a0 (rows 0 and 1)
@@ -174,6 +196,10 @@ public:
 
     // @src 0x140c7b2d0  sim control (step+0x750), null without a step
     def::model::Cls_1401e7b10* simCtl() const;
+    // @src 0x140c7b370  viewer geometry type; 0 without a 2D step/control
+    int simGeometryTypeIf2D() const;
+    // @src 0x140c7c0e0 / 0x140c7c0a0  unguarded native step dimension; 0 without a step
+    int dimension() const noexcept;
     // @src 0x140c7b720  reset: viewer list, +0x30, DB_STEP_DATA clear (1401cb400), +0x230, +0x100
     void reset();
     // @src 0x140c7ae80  object by number (140830270 -> 14017aaf0)

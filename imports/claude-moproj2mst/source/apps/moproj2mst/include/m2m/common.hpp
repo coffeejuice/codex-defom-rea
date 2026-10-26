@@ -48,6 +48,16 @@ struct OriginalSettings {
     std::shared_ptr<const doe::StateVarConstructorContext> doeStateVarConstructor;
 };
 
+// Ordered metadata for the Open-time directory attempts represented by the
+// operation parser. These are requests with ignored returns, not filesystem
+// effects and never feed FileEffects or a writer.
+enum class StagedOperationDirectoryReturnPolicy { ReturnIgnored };
+struct StagedOperationDirectoryAttempt {
+    std::u16string path;
+    StagedOperationDirectoryReturnPolicy returnPolicy =
+        StagedOperationDirectoryReturnPolicy::ReturnIgnored;
+};
+
 // Per-call state that is not part of the original's model. Replaces the original's process
 // globals that are not MST-writer state (those are in mst/state.hpp).
 struct Ctx {
@@ -69,6 +79,9 @@ struct Ctx {
     // Ordered, source-backed Open directory requests recorded during operation parsing.
     // Staged metadata only; these paths are not FileEffects and are never applied here.
     std::vector<std::u16string> stagedOperationDirectoryDecisions;
+    // Full task-first then project-directory order; project-only decisions
+    // above retain their existing five/six-path contract.
+    std::vector<StagedOperationDirectoryAttempt> stagedOperationDirectoryAttempts;
     // Full native Save only: step5 writers perform their original immediate
     // file attempts while the already-open MST stream is being generated.
     bool nativeMstSideFiles = false;
