@@ -248,6 +248,32 @@ TEST_CASE(props_step_null_and_explicit_control)
     checkMissing();                    // present model with a null step
     CHECK_EQ(probe.lookups, 5);         // four readers plus heating time
 
+    probe.model.step = std::make_unique<Step>(3);
+    for (const int unit : {1, 2, -37}) {
+        probe.model.step->sim_ctrl.unit = unit;
+        int observed = 918;
+        CHECK(probe.model.readPropertyHeatingTimeUnit(observed));
+        CHECK_EQ(observed, unit);
+        CHECK_EQ(probe.model.step->sim_ctrl.unit, unit);
+    }
+    probe.model.step.reset();
+    int absentUnit = 731;
+    CHECK(!probe.model.readPropertyHeatingTimeUnit(absentUnit));
+    CHECK_EQ(absentUnit, 731);
+    probe.model.step = std::make_unique<Step>(3);
+    probe.model.step->sim_ctrl.unit = 1;
+    pr.common.reset();
+    const int beforeHeating = probe.lookups;
+    engine::propsSetHeatingTime(p, pr, 7.25);
+    CHECK_EQ(probe.lookups, beforeHeating + 1);
+    REQUIRE(pr.common != nullptr);
+    CHECK_EQ(pr.common->heatingTime.utf8(), std::string("7.25 sec"));
+    CHECK_EQ(probe.model.step->sim_ctrl.unit, 1);
+    engine::propsSetHeatingTime(p, pr, 8.5);
+    CHECK_EQ(probe.lookups, beforeHeating + 2);
+    CHECK_EQ(pr.common->heatingTime.utf8(), std::string("8.5 sec"));
+    CHECK_EQ(probe.model.step->sim_ctrl.unit, 1);
+
     def::model::Cls_1401e7b10 sc;
     sc.unit = 1;
     sc.nstep = 23;
@@ -268,7 +294,7 @@ TEST_CASE(props_step_null_and_explicit_control)
     CHECK_EQ(pr.common->envTemp.utf8(), std::string("70 C"));
     CHECK_EQ(pr.common->convection.utf8(), std::string("0.125 N/sec/mm/C"));
     CHECK(!owner.engineModel);
-    CHECK_EQ(probe.lookups, 5);         // explicit sc does not call classModel
+    CHECK_EQ(probe.lookups, beforeHeating + 2); // explicit sc does not call classModel
 }
 
 TEST_CASE(props_l2_oracle_b)

@@ -1,5 +1,6 @@
 // ctest-labels: m2m-mdt isolated-close-effects
 #include <testkit/check.hpp>
+#include <defmodel/layout/db_step_data.hpp>
 #include "m2m/engine.hpp"
 #include "m2m/engine_auxiliary.hpp"
 #include "m2m/engine_scene.hpp"
@@ -96,6 +97,84 @@ TEST_CASE(selection_named_then_third_then_main_then_second_preserves_other_flags
     CHECK(models.second.get() == nullptr);
     CHECK(displaySelectedModel(display) == &main); // guard expires with the actual owned model
     CHECK(models.secondShown); // deletion does not invoke the flag reset helper
+}
+
+TEST_CASE(display_second_uses_default_dimension_when_main_step_is_absent_and_reuses_owned_model)
+{
+    Project project;
+    auto main = std::make_unique<GuiModel>(nullptr, 2);
+    displayShow(project, main.get());
+    auto& display = *project.display;
+    auto& models = displayModels(display);
+    main->step.reset();
+    CHECK(displayMain(display) == main.get());
+    CHECK(!main->step);
+
+    GuiModel* second = displaySecond(display);
+    REQUIRE(second != nullptr);
+    CHECK_EQ(second->dimension(), 3);
+    CHECK(second->display == &display);
+    CHECK(models.second.get() == second);
+    CHECK(models.secondOwned.get() == second);
+    CHECK(displayMain(display) == main.get());
+    CHECK(!main->step);
+
+    CHECK(displaySecond(display) == second);
+    CHECK(models.secondOwned.get() == second);
+    main.reset();
+    CHECK(displayMain(display) == nullptr);
+    CHECK(displaySecond(display) == second);
+
+    displayDropSecond(display);
+    CHECK(models.second.get() == nullptr);
+    CHECK(models.secondOwned == nullptr);
+    CHECK(displaySecond(display) == nullptr);
+    CHECK(models.secondOwned == nullptr);
+}
+
+TEST_CASE(display_second_preserves_live_dimensions_including_present_zero)
+{
+    for (const int dimension : {2, 3, 0}) {
+        Project project;
+        GuiModel main(nullptr, dimension);
+        displayShow(project, &main);
+        auto& display = *project.display;
+
+        GuiModel* second = displaySecond(display);
+        REQUIRE(second != nullptr);
+        CHECK_EQ(second->dimension(), dimension);
+        CHECK(displaySecond(display) == second);
+        CHECK(displayModels(display).secondOwned.get() == second);
+    }
+}
+
+TEST_CASE(named_model_copies_live_main_dimension_and_existing_name_precedes_missing_step_refusal)
+{
+    for (const int dimension : {2, 3, 0}) {
+        Project project;
+        GuiModel main(nullptr, dimension);
+        displayShow(project, &main);
+        auto& display = *project.display;
+
+        auto* named = displayNamedModel(display, qt::L("DimensionProbe"));
+        REQUIRE(named != nullptr);
+        CHECK_EQ(named->dimension(), dimension);
+        CHECK(named->display == &display);
+        REQUIRE(displayModels(display).named.size() == 1);
+        CHECK(displayNamedModel(display, qt::L("DimensionProbe")) == named);
+        CHECK_EQ(displayModels(display).named.size(), 1u);
+
+        main.step.reset();
+        CHECK(displayNamedModel(display, qt::L("DimensionProbe")) == named);
+        bool refused = false;
+        try {
+            (void)displayNamedModel(display, qt::L("NewName"));
+        } catch (const Error& error) {
+            refused = true;
+            CHECK_EQ(error.code, M2M_E_UNSUPPORTED);
+        }
+        CHECK(refused);
+    }
 }
 
 TEST_CASE(third_alias_wins_over_main_and_main_wins_over_second)

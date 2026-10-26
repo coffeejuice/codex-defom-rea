@@ -1,0 +1,11 @@
+# CP251 MultiBlow control implementation review — PASS
+
+The test-only HOLD is resolved. The new unrelated STPINC sentinel is seeded to 2718 before actual class-prologue dispatch and asserted unchanged immediately after the two final-word/base/TRANS checks. This meaningfully detects accidental broader control reset/default work. No outstanding defects found.
+
+The previously reviewed production conclusion remains: the void command is not noexcept, calls simCtl once, returns for absent control, then writes only dttype.u58=0 followed by nstep=10000. The caller preserves base load → setTrans2 → setTrans1 → final opModel/null return → command and removes its prior final accessor. Earlier provider/guard effects remain independent. Direct absent-step no-recreation and direct parked refusal tests remain supported by the earlier focused viewer result and whole-step/state comparisons.
+
+`analysis/cp251-multiblow-control-repair-build.json` records successful configure/build of the changed MultiBlow target with source_stable_during_build true and matching fingerprint `a4704e8cfac417519b6e0776f09ea25a832894c3bf30b250a7c3b65c435345fe`. LastTest.log records m2m.mdt.multiblow_load passed with 0/6 cases failing. Current test SHA-256 is `06f802892a7ac5f4bb27dc6478008848a6f6018adb7c6fe61da4ded21379b65a`; current rebuilt executable SHA-256 is `4623d3efc696faf4c647df3bdd28b649987761e0d49762b85265dc9a5ca86d16`, both matching the repair note. Earlier hashes in the implementation report describe the pre-repair run. Only the MultiBlow test changed for this repair, so the single changed-target rerun is adequate alongside the preceding two-target focused result.
+
+Retained L4 assembly/decompile establishes the original static order; historical Oracle B saved outcomes do not dynamically witness the transient prologue. The reclassified corpus test remains reconstructed fixture evidence. No full regression/freeze, new original execution, C ABI/layout/identity/cache change or global ownership closure is claimed. Concurrent CP249 heating-unit hunks stay outside this review.
+
+This supersedes the earlier HOLD after checking its sole required correction and focused repair receipt. Only this review report was written. No source/test/build, shared recovery state, original process, GUI or mutable REA changes were made.

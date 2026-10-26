@@ -29,7 +29,7 @@ GuiModel* displayNamedModel(Display& d, const String& name)
         if (n.name == name) return n.model.get();            // 0x140d12200
     GuiModel* b = displayMain(d);                            // 0x140cf94f0
     if (!b || !b->step) unsupported("named model without a main model (0x140c7fee0 dereferences it)");
-    const int dim = b->step->dimension;                      // 0x140c7fee0 -> 0x140100980 (+0x1c)
+    const int dim = b->dimension();                          // 0x140c7fee0 -> 0x140100980 (+0x1c)
     auto m = std::make_unique<GuiModel>(nullptr, dim);       // new 0x278, 0x140c7a6b0(mem, dim)
     if (name == qt::L("ROIs"))                               // 0x1429f8118
         m->step->u3400 = 1;                                  // 0x140831650(step, 1)
@@ -56,7 +56,7 @@ GuiModel* displaySecond(Display& d)
     if (dm.second.get()) return dm.second.get();             // 0x140c1aef0(+0x1b8)
     GuiModel* b = displayMain(d);                            // 0x140cf94f0
     if (!b) return nullptr;
-    auto m = std::make_unique<GuiModel>(nullptr, guiModelDim(*b));   // new 0x278, 0x140c7a6b0(mem, 0x140c7fee0(b))
+    auto m = std::make_unique<GuiModel>(nullptr, b->dimensionOr(3));   // new 0x278, 0x140c7a6b0(mem, 0x140c7fee0(b))
     m->display = &d;                                         // 0x140c7ade0
     if (def::model::Cls_1401e7b10* sc = m->simCtl())         // 0x140c7b2d0
         if (const def::model::Cls_1401e7b10* bsc = b->simCtl()) sc->geotyp = bsc->geotyp;   // +0x100

@@ -466,6 +466,8 @@ TEST_CASE(viewer_sync_uses_tail_number_and_keeps_null_object_shortcut_before_all
     engine::GuiModel absent(nullptr, 3);
     absent.step.reset();
     CHECK_EQ(absent.lastObjectNumber(), 0);
+    absent.initializeMultiBlowLoadControl();
+    CHECK(!absent.step);
     engine::viewerSync(absent, nullptr, false);
     CHECK(!absent.step); CHECK(!absent.viewer);
 }
@@ -520,6 +522,8 @@ TEST_CASE(viewer_rebuild_preserves_normal_flags_and_missing_step_shortcut_before
     engine::GuiModel absent(nullptr, 2);
     absent.step.reset();
     CHECK_EQ(absent.lastObjectNumber(), 0);
+    absent.initializeMultiBlowLoadControl();
+    CHECK(!absent.step);
     for (const bool reset : {false, true}) {
         for (const bool contacts : {false, true}) {
             engine::viewerRebuild(absent, reset, contacts);
@@ -2339,6 +2343,9 @@ TEST_CASE(geometry_parked_reaction_callback_projects_controls_before_model_guard
             std::string(error.what()).find("geometry query is parked") != std::string::npos;
     }
     CHECK(caught);
+    int parkedUnit = -900;
+    CHECK(model.readPropertyHeatingTimeUnit(parkedUnit));
+    CHECK_EQ(parkedUnit, 1);
     CHECK_EQ(page.acvcofControls.selection, 2);
     CHECK(!page.acvcofControls.constantInputEnabled);
     CHECK(!page.acvcofControls.constantUnitEnabled);
@@ -2902,6 +2909,7 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.owner() == &model);
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
+    refused([&] { model.initializeMultiBlowLoadControl(); });
     refused([&] { model.setHeatTreatPropertyStepDefinition(0); });
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
     engine::simcontrol300::StepCountContext parkedStepContext{5, {},

@@ -78,7 +78,9 @@ TEST_CASE(multiblow_prologue_and_class_data)
     m->reset();
     def::model::Cls_1401e7b10* sc = m->simCtl();
     REQUIRE(sc != nullptr);
+    sc->nstep = 31415;
     sc->dttype.u58 = 1;
+    sc->stpinc = 2718;
     sc->trans[0] = sc->trans[1] = 0;
     c->loadPrologue(p, *op);
     CHECK_EQ(sc->tnow3, 1);                 // base 0x1405f1bb0
@@ -87,6 +89,7 @@ TEST_CASE(multiblow_prologue_and_class_data)
     CHECK_EQ(sc->trans[1], 1);
     CHECK_EQ(sc->dttype.u58, 0);            // 0x1408da6f0(sc, &0)
     CHECK_EQ(sc->nstep, 10000);             // MOV [RAX+0x16c], 0x2710
+    CHECK_EQ(sc->stpinc, 2718);             // unrelated control field preserved
     const int before = sc->nstep;
     c->loadClassData(p, *op);               // 0x140602760: nothing
     CHECK_EQ(sc->nstep, before);

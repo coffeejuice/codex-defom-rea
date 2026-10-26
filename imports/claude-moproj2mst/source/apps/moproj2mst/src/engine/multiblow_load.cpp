@@ -54,11 +54,7 @@ void multiBlowLoadPrologue(mst::OpClass& c, Project& p, Operation& op)
     setTrans1(p, op, true);                // 0x1405ef750(self, 1) again (MDT L2)
     GuiModel* m = opModel(p, op);          // 0x1405ef2b0 -> 0x14005f770
     if (!m) return;
-    Cls_1401e7b10* sc = m->simCtl();       // 0x140c7b2d0
-    if (!sc) return;
-    const std::int32_t mode = 0;
-    sc->dttype.u58 = mode;                 // 0x1408da6f0(sc, &0): SC+0x240 (DTTYPE mode)
-    sc->nstep = 10000;                     // SC+0x16c
+    m->initializeMultiBlowLoadControl();
 }
 
 void multiBlowLoadClassData(mst::OpClass&, Project&, Operation&)

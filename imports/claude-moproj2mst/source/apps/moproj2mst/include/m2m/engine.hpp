@@ -212,6 +212,8 @@ public:
     void setLoadedStepNumberAfterAdmission(int stepNumber);
     // Furnace post-load defaults; requires the existing step just like the legacy unchecked caller.
     void initializeFurnacePostLoadDefaults();
+    // MultiBlow load prologue control defaults; absent step/control is a no-op.
+    void initializeMultiBlowLoadControl();
     // Editor title event: reject non-ASCII/oversize input, then barrier, identity check and copy.
     // expected is the legacy raw pointer identity token; the command never dereferences it.
     bool copyEditorTitleIfControlMatches(const def::model::Cls_1401e7b10* expected,
@@ -231,6 +233,8 @@ public:
     // @src 0x140c7c0e0 / 0x140c7c0a0  unguarded native step dimension; 0 without a step
     int dimension() const noexcept;
     int dimensionOr(int whenNoStep) const noexcept;
+    // Value-only nullable property read; intentionally has no geometry admission.
+    bool readPropertyHeatingTimeUnit(int& result) const noexcept;
     // @src 0x140c7acd0 / 0x140c7ff30  guarded native virtual dimension setter.
     // Requires an existing step; the legacy null-step path is unchecked.
     // This staged command does not extend StepIdentity invalidation coverage.

@@ -277,6 +277,14 @@ void GuiModel::initializeFurnacePostLoadDefaults()
     }
 }
 
+void GuiModel::initializeMultiBlowLoadControl()
+{
+    auto* control = simCtl();
+    if (!control) return;
+    control->dttype.u58 = 0;
+    control->nstep = 10000;
+}
+
 bool GuiModel::copyEditorTitleIfControlMatches(const Cls_1401e7b10* expected,
     std::string_view ascii)
 {
@@ -351,6 +359,13 @@ int GuiModel::dimension() const noexcept
 int GuiModel::dimensionOr(int whenNoStep) const noexcept
 {
     return step ? step->dimension : whenNoStep;
+}
+
+bool GuiModel::readPropertyHeatingTimeUnit(int& result) const noexcept
+{
+    if (!step) return false;
+    result = step->sim_ctrl.unit;
+    return true;
 }
 
 void GuiModel::setDimension(int dim)

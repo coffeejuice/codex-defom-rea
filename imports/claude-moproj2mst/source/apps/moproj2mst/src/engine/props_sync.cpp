@@ -98,10 +98,12 @@ bool propsStepByFromSimCtl(Project& p, Props& pr, Cls_1401e7b10* sc)
 // 0x1405f8590 (QMetaObject::activate, props signal 1) is UI.
 void propsSetHeatingTime(Project& p, Props& pr, double t)
 {
-    withPropsStep(p, pr, [&](DB_STEP_DATA* s) {
-        if (!s) throw Error(M2M_E_UNSUPPORTED, "operation load: heating time without an engine model (0x1405fcb90 reads a null model)");
-        B(pr).heatingTime = valueWithUnit(t, 0, s->sim_ctrl.unit);
-    });
+    if (!pr.owner) throw Error(M2M_E_UNSUPPORTED, "operation load: heating time without an engine model (0x1405fcb90 reads a null model)");
+    GuiModel* model = opModel(p, *pr.owner);
+    int unit = 0;
+    if (!model || !model->readPropertyHeatingTimeUnit(unit))
+        throw Error(M2M_E_UNSUPPORTED, "operation load: heating time without an engine model (0x1405fcb90 reads a null model)");
+    B(pr).heatingTime = valueWithUnit(t, 0, unit);
 }
 
 }  // namespace m2m::engine

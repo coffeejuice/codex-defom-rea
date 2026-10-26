@@ -3752,3 +3752,54 @@ Preserve one explicit-project owner-model provider lookup, a nullable unguarded
 unit read, then unit formatting before the property block assignment. Do not
 substitute `simCtl()` geometry admission or claim native null-owner policy.
 
+Checkpoint249 is independently reviewed and frozen in
+`build/wave3-checkpoint249-verified/`. The focused property and viewer tests
+passed, and the bound 369-test suite passed with 362 clean, six logged gaps,
+one diagnostic difference, no fixture changes and historical 93 SAME/five
+DIFF. The loader's later raw-control alias and Report ownership remain open.
+
+Checkpoint250 has started the reviewed live-step named-display dimension read
+migration. Keep the existing-name lookup ahead of creation, the converter's
+explicit absent-main/step refusal, and later named-model effects in order.
+The retained original getter defaults to 3 without a step; that converter
+refusal is an unresolved adapter difference, not evidence of native parity.
+
+Checkpoint250 is independently reviewed and frozen in
+`build/wave3-checkpoint250-verified/`. The display-selection and viewer tests
+passed, and the bound 369-test suite passed with 362 clean, six logged gaps,
+one diagnostic difference, no fixture changes and historical 93 SAME/five
+DIFF. The native no-step default remains a separately qualified discrepancy.
+
+Checkpoint251 has started the reviewed MultiBlow prologue control command.
+Keep base load and both TRANS setters before one guarded nullable control
+lookup; then write DTTYPE mode zero and NSTEP 10000 in that order. Missing
+step remains a guarded no-op, and a parked geometry query must refuse before
+either write. This finite migration does not close broader loader ownership.
+
+Checkpoint251 is independently reviewed and frozen in
+`build/wave3-checkpoint251-verified/`. The actual MultiBlow prologue and viewer
+targets passed, and the bound 369-test suite passed with 362 clean, six logged
+gaps, one diagnostic difference, no fixture changes and historical 93 SAME/
+five DIFF. The fixture reclassifies a corpus operation; transient write order
+is retained static evidence, not a fresh original execution trace.
+
+Checkpoint252 has started the independently reviewed secondary-display no-step
+dimension correction. The original normal path uses fallback dimension 3 and
+skips main GEOTYP copy on nullable control; the converter currently chooses 0.
+Change only that constructor argument and test the actual display owner path.
+Original publication before backlink/control and converter geometry admission
+remain distinct effect-order discrepancies to recover separately.
+
+Checkpoint252 is independently reviewed and frozen in
+`build/wave3-checkpoint252-verified/`. Display-selection and L5 loader targets
+passed; the bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The no-step result is source-qualified for a stable successful prefix, not a
+fresh naturally reached original Open occurrence.
+
+Checkpoint253 has started the reviewed initial Editor300 dimension preflight
+migration. Retain constructionStarted before one guarded `simCtl()` lookup;
+query unguarded scalar dimension only after a nonnull control, then apply
+numeric-locale admission and source/page publication in their existing order.
+This removes one direct public-step read without claiming native null policy.
+
