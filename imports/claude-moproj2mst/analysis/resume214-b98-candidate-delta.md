@@ -1,0 +1,25 @@
+# CP214 B98 encoded-path candidate delta
+
+## Conclusion
+
+CP213 closes the input-domain ambiguity that invalidated the earlier literal `-f` B98 comparison: the fresh original received the correctly encoded 34-unit path, passed duplicate/factory/cast/Project prerequisites, returned acceptance AL=1, and returned a nonzero Project pointer from outer Open. The disposable project gained only an empty `Lubricants` directory during that instrumented occurrence. This does not establish full initialization, Save, Close, or instrumentation neutrality.
+
+Against that boundary, current public m2m candidate behavior is structurally compatible at the *outer accepted-project* decision: `openProject` accepts `.moproj`, retains its Project even if XML read status is false, and returns true after its tail; `convert.cpp` tests that acceptance result separately from `openedOk` in the full-session path, then selects and activates the candidate model. The candidate does not expose native duplicate lookup/factory/cast/Project getters as public boundaries; CP211's typed-child projection is an internal correspondence only. No accepted CP213 value proves candidate GUI lifecycle equivalence.
+
+## Evidence crosswalk
+
+- CP213 independent review, `analysis/resume213-original-capture-review.md`, records exact decoded path equality at outer and acceptance entries; duplicate return 0; factory, cast, and Project nonzero; acceptance AL=1; and outer return `0x32c5110`. The captured disposable-tree delta is solely the new empty `Lubricants` directory. The original identity is installed v11.0.2 `DEF_GUI_MO_64.exe`, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`; it is not a reconstructed executable. Cleanup of the owned process is verified, but capture completion flags remain false because of the recorded helper stdin write-after-end error. Do not relabel the immutable capture as complete.
+- Candidate `source/apps/moproj2mst/src/moproj/read.cpp:29-65` sets `openedOk=false`, normalizes a recognized `.moproj` path, calls `openProjectDb`, assigns `readProjectFile` to `openedOk`, does tail work, and returns true. The accepted-suffix result is therefore intentionally not the XML-read status.
+- Candidate `source/apps/moproj2mst/src/core/convert.cpp:241-249` rejects false `acceptedProject`; full-session conversion allows false `openedOk`, selects its registered model, then activates subproject zero. Legacy conversion without a Session still maps false `openedOk` to parse failure.
+- Candidate `read.cpp:239-265` creates/writes inline item blobs only when `ctx.nativeItemBlobs` is enabled. The native blob path attempts `nativeMkpathAbsolute` and records the attempt before opening the file. This is the candidate's relevant path to directory side effects, but it does not show that B98 candidate Open creates precisely the observed empty `Lubricants` directory: the CP206 B98 candidate run used `--write-save`, and CP208 attributes its `.moproj`, KEY, Wzd, and MST changes to later Save/conversion stages, not Open.
+- `analysis/resume212-cpp-implication.md` and `analysis/resume212-cli-decoder-independent.md` explicitly supersede the earlier malformed-literal CLI interpretation. CP211's suite receipt is candidate validation only; it cannot establish native acceptance for the CP213 invocation.
+
+## Next bounded increment
+
+Add a candidate-only B98 Open-boundary regression around the actual decoded path and the same copied 27-file fixture, without `--write-save`: assert the `.moproj` suffix is accepted, record `openedOk` separately, preserve the pre/post file-and-directory manifest, and bind the test to the B98 fixture hash. This tests the candidate's current Open contract and will show whether its Open path produces the `Lubricants` directory. Do not infer that it should merely because CP213 observed it: that directory's creator and timing were not identified by the manifests. If the test shows no such directory, the exact missing original witness is a qualified creator/call-site or a second before/after snapshot bracketing the relevant Open stage; do not add unconditional directory creation from this one end-state observation.
+
+For any later public behavior choice, the remaining exact gap is lifecycle scope: CP213 observes outer Open return only. It did not observe `postOpen`, selection/activation callbacks, XML-read success (`Project+0x55`), Save, or accepted Close. Keep the present accepted-suffix/read-status separation; no candidate source change is justified by CP213 alone.
+
+## Limits
+
+This is a source-and-receipt comparison, not a new candidate run or fresh original run. No build/test was run. The CP213 reader's QString snapshot has stated structural/readability and race limitations, hook neutrality is unproven, and normal outer return does not prove complete Open initialization. The directory manifest establishes the new directory's existence on the disposable clone, not which routine created it or whether a Save occurred. The candidate B98 receipts from CP206/CP208 used a full `--write-save` operation and are not an Open-only comparator.

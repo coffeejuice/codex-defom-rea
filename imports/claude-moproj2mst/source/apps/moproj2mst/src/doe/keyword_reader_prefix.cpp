@@ -150,6 +150,9 @@ RetainedProfile retainedProfile(const xml::Node& keyword)
     if (source && source->notifier) {
         // Derived0d25a0 sends int operation first, then bool true. Validate the
         // reached caller identities only now, retaining its constructor prefix.
+        if (!source->readerIo || source->readerIo != source->notifier->io)
+            throw Error(M2M_E_UNSUPPORTED,
+                "DoeVariables reader 0x14090ee20: notifier StudyIo differs from the I/O that read InputTable bytes");
         const auto outcome = enterSetOprHasDoeNotifierPrefix(*source->notifier, study, 1, true);
         if (outcome == SetOprHasDoeEntryOutcome::SuppressedCalleeReturned)
             throw Error(M2M_E_UNSUPPORTED,

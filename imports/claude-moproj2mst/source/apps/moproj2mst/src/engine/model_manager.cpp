@@ -132,15 +132,22 @@ void ModelManager::clear() noexcept
     connections_.clear(); // QObject disconnection projection; no receiver invoked
 }
 
-std::shared_ptr<DbHandle> currentSubProjectDbOwner(ModelManager& manager)
+Project* currentProjectForManager(ModelManager& manager)
 {
     auto* model = manager.currentModel();
-    if (!model || model->kind != DbHandle::Kind::Mo) return {};
+    if (!model || model->kind != DbHandle::Kind::Mo) return nullptr;
     auto* project = model->moProject;
     if (!project)
         throw Error(M2M_E_UNSUPPORTED, "Current Mo model requires unrecovered lazy Project reconstruction");
     if (project->dataDb.get() != model)
         throw Error(M2M_E_UNSUPPORTED, "Current Mo Project backlink has a different model owner");
+    return project;
+}
+
+std::shared_ptr<DbHandle> currentSubProjectDbOwner(ModelManager& manager)
+{
+    auto* project = currentProjectForManager(manager);
+    if (!project) return {};
     auto* sub = activeSubProject(*project);
     if (!sub || !sub->project) return {};
     if (sub->project != project)

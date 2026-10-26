@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 #include "m2m/common.hpp"
@@ -232,6 +233,26 @@ TEST_CASE(keyword_notifier_wired_suppression_preserves_flag_and_stops_before_nam
     CHECK(study->headerVariableOwners[0]->index == -1 && study->selectedVariableIndex == 0);
     CHECK(rig.session.project().doeIo->reads().size() == 1);
     CHECK(rig.session.project().doeIo->textWrites().size() == rig.seedWrites);
+}
+
+TEST_CASE(keyword_notifier_rejects_io_different_from_input_table_reader)
+{
+    Rig rig;
+    auto& project = rig.session.project();
+    const auto study = rig.sub->ownedDoeStudy;
+    const auto owner = rig.session.sessionNotificationStateOwner();
+    auto foreignReaderIo = doe::makeRecordingStudyIo();
+    auto source = doe::InputTableSource{rig.control + qt::L("DoeInputTable.XML"), rig.context(), foreignReaderIo.get()};
+    owner->flag90 = true;
+    const auto attempts = owner->attempts.size();
+    const auto message = refused([&] {
+        (void)doe::readInputTableFromSource(rig.bytes, *study, std::move(source));
+    });
+    CHECK(message.find("notifier StudyIo differs from the I/O that read InputTable bytes") != std::string::npos);
+    CHECK(owner->flag90 && owner->attempts.size() == attempts);
+    REQUIRE(study->headerVariableOwners.size() == 1);
+    constructorOnly(*study->headerVariableOwners[0]);
+    CHECK(project.doeIo->reads().empty()); // Direct source fixture bypasses lazy file I/O.
 }
 
 TEST_CASE(keyword_notifier_source_less_and_legacy_lazy_calls_keep_previous_boundary)

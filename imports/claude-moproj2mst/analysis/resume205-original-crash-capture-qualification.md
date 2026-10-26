@@ -1,5 +1,12 @@
 # CP205 same-run original startup crash capture
 
+**CP212 qualification:** The `-f` value in this owned command was a literal
+Windows path. The original main expects four hexadecimal characters per
+UTF-16 code unit and the literal's 34-character length causes an out-of-range
+final decode iteration. This capture proves the recorded fault for that
+malformed CLI input, not valid B98 Open failure or Save behavior. See
+`analysis/resume212-cli-decoder-independent.md`.
+
 ## Source and boundary
 
 The owned-process probe retained the raw run at `analysis/resume205-original-crash-stack-2026-10-26T08-58-00-325Z/`. The installed original `DEF_GUI_MO_64.exe` is v11.0.2, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`. It was launched once, suspended, with `-m open -f C:\PROBLEM\p202a\Gear_blank.moproj`; the helper validated its exact process handle, PID 31656, image, arguments, cwd and project hash before direct Frida attach. The injected script registered only `Process.setExceptionHandler` and sent handler-ready before the one resume. It returned `false` on the first access violation. No GUI input or app-control session was acquired.

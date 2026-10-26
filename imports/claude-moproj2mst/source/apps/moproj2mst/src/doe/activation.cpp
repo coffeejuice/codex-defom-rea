@@ -46,7 +46,7 @@ void readLazyStudy(Study& study, const xml::Node& element, const String& studies
     if (!io.readFile(input, bytes))
         io.setLastError(qt::arg(L("Failed to open file, %1"), input));
     else {
-        InputTableSource source{input, std::nullopt};
+        InputTableSource source{input, std::nullopt, &io};
         if (notifierContext) source.notifier = *notifierContext; // Per-call value of borrowed identities.
         (void)readInputTableFromSource(bytes, study, std::move(source)); // ignored parent result
     }

@@ -1,0 +1,264 @@
+{
+  "mode": 5,
+  "injectFailure": false,
+  "baseline": false,
+  "rejectPatch": true,
+  "rawLines": [
+    "{\"event\": \"created\", \"exit_code\": 259, \"exit_verified\": false, \"gui_control_acquired\": false, \"identity\": {\"argv\": [\"c:\\\\users\\\\alext\\\\projects\\\\codex-deform-rea\\\\imports\\\\claude-moproj2mst\\\\scratch\\\\cp210p01\\\\fixture.exe\", \"5\"], \"canonical_image\": \"c:\\\\users\\\\alext\\\\projects\\\\codex-deform-rea\\\\imports\\\\claude-moproj2mst\\\\scratch\\\\cp210p01\\\\fixture.exe\", \"creation_filetime\": 134374912268301884, \"cwd\": \"c:\\\\users\\\\alext\\\\projects\\\\codex-deform-rea\\\\imports\\\\claude-moproj2mst\\\\scratch\\\\cp210p01\", \"host\": \"Sim2\", \"launcher_pid\": 38792, \"pid\": 42288, \"primary_tid\": 13360, \"sha256\": \"6f1ab2fa4bdf47a80ceda881f293e522333fae551a8c30a9e1d15600b473a83c\"}, \"state\": \"suspended\", \"wait_result\": 258}\r",
+    "{\"event\": \"endpoint\", \"reason\": \"terminate_command\"}\r",
+    "{\"event\": \"cleanup\", \"exit_code\": 57857, \"exit_verified\": true, \"handles_closed\": true, \"state\": \"exited\", \"termination_attempts\": [{\"api_succeeded\": true, \"exit_code\": 57857, \"exit_verified\": true, \"requested_exit_code\": 57857, \"source\": \"final_cleanup\", \"wait_result\": 0, \"winerror\": null}], \"termination_requested\": true, \"wait_result\": 0}\r"
+  ],
+  "messages": [
+    {
+      "type": "send",
+      "payload": {
+        "kind": "install-readiness-failure",
+        "pid": 42288,
+        "processCreationFiletime": "134374912268301884",
+        "reason": "requires_e9_rel32_and_unchanged_full_prefix_suffix",
+        "patches": [
+          {
+            "name": "outer",
+            "rva": 4496,
+            "address": "0x7ff64ed91190",
+            "before": "488954241048894c24084881ecd8010000",
+            "after": "e973eefeff48894c24084881ecd8010000",
+            "redirectKind": "e9-rel32",
+            "redirectSize": 5,
+            "suffixUnchanged": true,
+            "displacement": -70029,
+            "redirectDestination": "0x7ff64ed80008",
+            "gatePassed": true
+          },
+          {
+            "name": "duplicate",
+            "rva": 4580,
+            "address": "0x7ff64ed911e4",
+            "before": "488954241048894c24084881ecb8000000",
+            "after": "e91ff0feff48894c24084881ecb8000000",
+            "redirectKind": "e9-rel32",
+            "redirectSize": 5,
+            "suffixUnchanged": true,
+            "displacement": -69601,
+            "redirectDestination": "0x7ff64ed80208",
+            "gatePassed": true
+          },
+          {
+            "name": "factory",
+            "rva": 4628,
+            "address": "0x7ff64ed91214",
+            "before": "488954241048894c24084883ec48",
+            "after": "e9eff1feff48894c24084883ec48",
+            "redirectKind": "e9-rel32",
+            "redirectSize": 5,
+            "suffixUnchanged": true,
+            "displacement": -69137,
+            "redirectDestination": "0x7ff64ed80408",
+            "gatePassed": true
+          },
+          {
+            "name": "cast",
+            "rva": 4670,
+            "address": "0x7ff64ed9123e",
+            "before": "48895c241048897424185741544155415641574883ec60",
+            "after": "e9c5f3feff48897424185741544155415641574883ec60",
+            "redirectKind": "e9-rel32",
+            "redirectSize": 5,
+            "suffixUnchanged": true,
+            "displacement": -68667,
+            "redirectDestination": "0x7ff64ed80608",
+            "gatePassed": true
+          },
+          {
+            "name": "project",
+            "rva": 4740,
+            "address": "0x7ff64ed91284",
+            "before": "48894c24084881ec8800000048c7442448feffffff",
+            "after": "e97ff5feffcc81ec8800000048c7442448feffffff",
+            "redirectKind": "e9-rel32",
+            "redirectSize": 5,
+            "suffixUnchanged": false,
+            "displacement": -68225,
+            "redirectDestination": "0x7ff64ed80808",
+            "gatePassed": false
+          },
+          {
+            "name": "acceptance",
+            "rva": 4792,
+            "address": "0x7ff64ed912b8",
+            "before": "488954241048894c24084881ec68010000",
+            "after": "e94bf7feff48894c24084881ec68010000",
+            "redirectKind": "e9-rel32",
+            "redirectSize": 5,
+            "suffixUnchanged": true,
+            "displacement": -67765,
+            "redirectDestination": "0x7ff64ed80a08",
+            "gatePassed": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "error",
+      "description": "Error: Installed hook redirect failed pre-resume five-byte gate",
+      "stack": "Error: Installed hook redirect failed pre-resume five-byte gate\n    at <eval> (/script1.js:138)",
+      "fileName": "/script1.js",
+      "lineNumber": 138,
+      "columnNumber": 1
+    }
+  ],
+  "failures": [
+    "Error: fixture patch gate rejected"
+  ],
+  "helperPid": 38792,
+  "created": {
+    "event": "created",
+    "exit_code": 259,
+    "exit_verified": false,
+    "gui_control_acquired": false,
+    "identity": {
+      "argv": [
+        "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\scratch\\cp210p01\\fixture.exe",
+        "5"
+      ],
+      "canonical_image": "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\scratch\\cp210p01\\fixture.exe",
+      "creation_filetime": 134374912268301890,
+      "cwd": "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\scratch\\cp210p01",
+      "host": "Sim2",
+      "launcher_pid": 38792,
+      "pid": 42288,
+      "primary_tid": 13360,
+      "sha256": "6f1ab2fa4bdf47a80ceda881f293e522333fae551a8c30a9e1d15600b473a83c"
+    },
+    "state": "suspended",
+    "wait_result": 258
+  },
+  "filetime": "134374912268301884",
+  "agentSha256": "2bdd89c7a54fec567f835587490e8ec67cbc48d9561eafdedb9d4543ddca9e51",
+  "installReadinessFailure": {
+    "kind": "install-readiness-failure",
+    "pid": 42288,
+    "processCreationFiletime": "134374912268301884",
+    "reason": "requires_e9_rel32_and_unchanged_full_prefix_suffix",
+    "patches": [
+      {
+        "name": "outer",
+        "rva": 4496,
+        "address": "0x7ff64ed91190",
+        "before": "488954241048894c24084881ecd8010000",
+        "after": "e973eefeff48894c24084881ecd8010000",
+        "redirectKind": "e9-rel32",
+        "redirectSize": 5,
+        "suffixUnchanged": true,
+        "displacement": -70029,
+        "redirectDestination": "0x7ff64ed80008",
+        "gatePassed": true
+      },
+      {
+        "name": "duplicate",
+        "rva": 4580,
+        "address": "0x7ff64ed911e4",
+        "before": "488954241048894c24084881ecb8000000",
+        "after": "e91ff0feff48894c24084881ecb8000000",
+        "redirectKind": "e9-rel32",
+        "redirectSize": 5,
+        "suffixUnchanged": true,
+        "displacement": -69601,
+        "redirectDestination": "0x7ff64ed80208",
+        "gatePassed": true
+      },
+      {
+        "name": "factory",
+        "rva": 4628,
+        "address": "0x7ff64ed91214",
+        "before": "488954241048894c24084883ec48",
+        "after": "e9eff1feff48894c24084883ec48",
+        "redirectKind": "e9-rel32",
+        "redirectSize": 5,
+        "suffixUnchanged": true,
+        "displacement": -69137,
+        "redirectDestination": "0x7ff64ed80408",
+        "gatePassed": true
+      },
+      {
+        "name": "cast",
+        "rva": 4670,
+        "address": "0x7ff64ed9123e",
+        "before": "48895c241048897424185741544155415641574883ec60",
+        "after": "e9c5f3feff48897424185741544155415641574883ec60",
+        "redirectKind": "e9-rel32",
+        "redirectSize": 5,
+        "suffixUnchanged": true,
+        "displacement": -68667,
+        "redirectDestination": "0x7ff64ed80608",
+        "gatePassed": true
+      },
+      {
+        "name": "project",
+        "rva": 4740,
+        "address": "0x7ff64ed91284",
+        "before": "48894c24084881ec8800000048c7442448feffffff",
+        "after": "e97ff5feffcc81ec8800000048c7442448feffffff",
+        "redirectKind": "e9-rel32",
+        "redirectSize": 5,
+        "suffixUnchanged": false,
+        "displacement": -68225,
+        "redirectDestination": "0x7ff64ed80808",
+        "gatePassed": false
+      },
+      {
+        "name": "acceptance",
+        "rva": 4792,
+        "address": "0x7ff64ed912b8",
+        "before": "488954241048894c24084881ec68010000",
+        "after": "e94bf7feff48894c24084881ec68010000",
+        "redirectKind": "e9-rel32",
+        "redirectSize": 5,
+        "suffixUnchanged": true,
+        "displacement": -67765,
+        "redirectDestination": "0x7ff64ed80a08",
+        "gatePassed": true
+      }
+    ]
+  },
+  "cleanup": {
+    "event": "cleanup",
+    "exit_code": 57857,
+    "exit_verified": true,
+    "handles_closed": true,
+    "state": "exited",
+    "termination_attempts": [
+      {
+        "api_succeeded": true,
+        "exit_code": 57857,
+        "exit_verified": true,
+        "requested_exit_code": 57857,
+        "source": "final_cleanup",
+        "wait_result": 0,
+        "winerror": null
+      }
+    ],
+    "termination_requested": true,
+    "wait_result": 0
+  },
+  "stdoutEnded": true,
+  "helperExit": {
+    "code": 0,
+    "signal": null
+  },
+  "partialLine": "",
+  "detached": true,
+  "windowsAfter": {
+    "raw": "{\"pid\":42288,\"present\":false,\"processes\":[]}",
+    "parsed": {
+      "pid": 42288,
+      "present": false,
+      "processes": []
+    }
+  },
+  "fridaAfter": [],
+  "absent": true,
+  "snapshotParity": false,
+  "eventKinds": [],
+  "passed": true
+}

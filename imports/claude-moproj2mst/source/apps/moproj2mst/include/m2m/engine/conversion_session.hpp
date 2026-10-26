@@ -40,6 +40,14 @@ struct BooleanTraceDueResult;
 namespace simcontrol300 { class StagedEditor300; class EditorSetupState; }
 
 class ConversionSession;
+struct DbHandle;
+
+namespace detail {
+// Candidate partial-class projection of the outer loader's SfModelBase* to
+// SfMoModel*. This uses only the immutable candidate kind; it does not model
+// native factory execution or RTTI side effects.
+DbHandle* outerLoaderMoChild(DbHandle*) noexcept;
+}
 
 // Each hook represents actual recovered effects. A trace entry or counter alone
 // does not implement either boundary. The default implementation refuses.

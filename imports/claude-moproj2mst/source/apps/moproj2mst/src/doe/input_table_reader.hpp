@@ -34,6 +34,9 @@ struct InputTableNotifierContext {
 struct InputTableSource {
     qt::String fileName;
     std::optional<InputTableNotifierContext> notifier;
+    // Exact StudyIo used by the lazy caller to read these bytes. The notifier
+    // entry independently compares it with the caller-retained live context.
+    StudyIo* readerIo = nullptr;
 };
 
 // Own the exact caller value through parsing/unwinding. Bytes-only public

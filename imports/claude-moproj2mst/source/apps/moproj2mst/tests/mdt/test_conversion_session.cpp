@@ -103,6 +103,33 @@ TEST_CASE(session_open_model_registration_precedes_project_read_and_selection)
     expectUnsupported([&] { manager->emitModelSignal(*project.dataDb, "2signalModelUpdated()"); });
 }
 
+TEST_CASE(outer_loader_candidate_mo_projection_uses_kind_and_follows_signal_registration)
+{
+    Project unrelatedProject;
+    engine::DbHandle base(engine::DbHandle::Kind::Base);
+    base.moProject = &unrelatedProject;
+    CHECK(engine::detail::outerLoaderMoChild(nullptr) == nullptr);
+    CHECK(engine::detail::outerLoaderMoChild(&base) == nullptr);
+
+    engine::DbHandle mo(engine::DbHandle::Kind::Mo);
+    CHECK(mo.moProject == nullptr && !mo.loaded && !mo.pathSet);
+    CHECK(engine::detail::outerLoaderMoChild(&mo) == &mo);
+
+    ShellDriver driver;
+    Session session(driver);
+    session.prepareProjectModel(qt::L("C:/PROBLEM/ModelOpen/unread.DB"));
+    auto& project = session.project();
+    REQUIRE(project.dataDb);
+    CHECK(project.dataDb->kind == engine::DbHandle::Kind::Mo);
+    CHECK(project.dataDb->moProject == nullptr);
+    REQUIRE(session.modelManagerOwner()->connections().size() == 2);
+    CHECK(session.modelManagerOwner()->connections()[0].sender.lock() == project.dataDb);
+    CHECK(session.modelManagerOwner()->currentModel() == nullptr);
+    // initProject and the construction/backlink commit occur only after prepare.
+    session.commitProjectModelConstruction();
+    CHECK(project.dataDb->moProject == &project);
+}
+
 TEST_CASE(session_model_selection_resolves_pointer_ordinal_and_clears_project_backlink_after_release)
 {
     ShellDriver driver;
@@ -165,6 +192,53 @@ TEST_CASE(current_subproject_resolver_uses_live_manager_and_actual_child_ownersh
     CHECK(!engine::currentSubProjectDbOwner(*manager)); // failed native Mo cast
     manager->selectModel(project.dataDb.get());
     CHECK(engine::currentSubProjectDbOwner(*manager) == project.dataDb);
+}
+
+TEST_CASE(current_project_resolver_returns_owner_before_active_subproject_resolution)
+{
+    ShellDriver driver;
+    Session session(driver);
+    auto manager = session.modelManagerOwner();
+    CHECK(engine::currentProjectForManager(*manager) == nullptr);
+    session.prepareProjectModel(qt::L("C:/PROBLEM/ModelOwner/recovery.DB"));
+    initProject(session.project(), qt::L("C:/PROBLEM/ModelOwner"), qt::L("recovery"));
+    session.commitProjectModelConstruction();
+    CHECK(engine::currentProjectForManager(*manager) == nullptr); // registered, not selected
+    session.commitProjectModelSelection();
+    auto& project = session.project();
+    project.activeSub = 99;
+    CHECK(engine::currentProjectForManager(*manager) == &project);
+    CHECK(!engine::currentSubProjectDbOwner(*manager));
+
+    auto base = std::make_shared<engine::DbHandle>();
+    manager->appendCreatedModel(base);
+    manager->selectModel(base.get());
+    CHECK(engine::currentProjectForManager(*manager) == nullptr); // failed Mo projection
+    manager->selectModel(project.dataDb.get());
+    CHECK(engine::currentProjectForManager(*manager) == &project);
+}
+
+TEST_CASE(current_project_resolver_guards_missing_project_and_inconsistent_backlink)
+{
+    ShellDriver driver;
+    Session session(driver);
+    auto manager = session.modelManagerOwner();
+    session.prepareProjectModel(qt::L("C:/PROBLEM/ModelOwner/recovery.DB"));
+    initProject(session.project(), qt::L("C:/PROBLEM/ModelOwner"), qt::L("recovery"));
+    session.commitProjectModelConstruction();
+    session.commitProjectModelSelection();
+    auto& project = session.project();
+    auto model = project.dataDb;
+    project.dataDb = std::make_shared<engine::DbHandle>();
+    expectUnsupported([&] { engine::currentProjectForManager(*manager); });
+    expectUnsupported([&] { engine::currentSubProjectDbOwner(*manager); });
+    project.dataDb = model;
+    model->moProject = nullptr;
+    expectUnsupported([&] { engine::currentProjectForManager(*manager); });
+    expectUnsupported([&] { engine::currentSubProjectDbOwner(*manager); });
+    CHECK(model->moProject == nullptr); // no invented lazy allocation or null success
+    model->moProject = &project;
+    CHECK(engine::currentProjectForManager(*manager) == &project);
 }
 
 TEST_CASE(current_subproject_resolver_guards_missing_project_after_storage_release)

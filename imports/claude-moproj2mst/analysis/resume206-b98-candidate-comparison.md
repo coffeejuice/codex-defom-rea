@@ -1,5 +1,12 @@
 # CP206 B98 converter candidate comparison
 
+**CP212 qualification:** The original CLI side of the proposed comparison
+passed a literal `-f` path to a four-hex-digit-per-UTF-16 decoder. Its
+malformed 34-character argument is outside the decoder's valid domain.
+The converter's B98 Save receipt remains valid for the candidate, but the
+original crash is not a valid B98 Open comparator. See
+`analysis/resume212-cli-decoder-independent.md`.
+
 The frozen CP201 reconstructed converter was tested on a fresh complete copy of the B98 Gear project, without running or controlling the original application. The source was `evidence/gui_mo/oracle_b/98_B_DS3F_before`; all 27 copied files in `C:\PROBLEM\b98cp201\project` were checked by relative path, length and SHA-256 before execution (`resume206-b98-candidate-before.json`). The copied `Gear_blank.moproj` SHA-256 was `e769faf514b335d56ffbb22f2c76490d029f2714ada9b26a75496fbd62ade7fd`, matching the original crash fixture.
 
 The exact frozen executable `build/wave3-checkpoint201-verified/moproj2mst.exe` had SHA-256 `0b531be96af428c53031700ee62cfd193cea73f879563499878e8dc367831fa3`. It ran the public command-line conversion with an explicit output path, `--write-save`, the installed DEFORM directory, and `--isolated-save`. The reconstructed process returned `0` in the recorded 09:09:15.268–09:09:15.332 UTC interval (`resume206-b98-candidate-process.json`). The isolated supervisor's source returns the worker's code directly on a normal worker return and writes its special receipt only for a qualified terminal case; no receipt file is expected or present on this normal path. There was no captured stderr/stdout text (the PowerShell pipeline produced no console file).

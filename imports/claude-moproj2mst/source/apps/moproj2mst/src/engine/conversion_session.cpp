@@ -23,6 +23,11 @@
 #include "../doe/flow_receiver_witness.hpp"
 
 namespace m2m::engine {
+DbHandle* detail::outerLoaderMoChild(DbHandle* child) noexcept
+{
+    return child && child->kind == DbHandle::Kind::Mo ? child : nullptr;
+}
+
 namespace {
 [[noreturn]] void unsupported(const char* text)
 {
@@ -292,7 +297,10 @@ void ConversionSession::prepareProjectModel(const qt::String& databasePath)
     dbSetPath(*model, databasePath, false); //c79390 before native ID/list append
     modelManager_->appendCreatedModel(model);
     modelManager_->registerModelSignals(model);
-    p.dataDb = std::move(model); //same native child passed into Project constructor
+    auto* typedChild = detail::outerLoaderMoChild(model.get());
+    if (!typedChild)
+        unsupported("registered Open model is not the candidate Mo child type");
+    p.dataDb = std::move(model); //same typed child passed into Project construction
 }
 
 void ConversionSession::commitProjectModelConstruction()

@@ -127,6 +127,7 @@ function injectedSource(creationFiletimeExact) {
     actualHooks.push({ name: hook.name, rva: hook.rva, address: text(address), bytes, callerRva: hook.callerRva });
   }
   function emit(kind, body) {
+    if (!first) return;
     if (counts[kind] >= ${EVENT_CAP_PER_KIND} || total >= ${EVENT_CAP_TOTAL}) { overflow[kind]++; return; }
     counts[kind]++; total++;
     send({ kind: 'hook', event: kind, sequence: ++sequence, pid: Process.id,
@@ -477,31 +478,39 @@ async function run() {
       core.disposition === 'return_false_continue_natural_exception';
     const av = result.firstAccessViolation;
     result.exceptionRecordQualified = av?.kind === 'first-access-violation' && av.pid === childIdentity?.pid &&
+      av.processCreationFiletime === creationFiletimeExact && av.tid === core?.tid &&
       av.exceptionType === 'access-violation' && typeof av.exceptionAddress?.address === 'string' &&
       typeof av.rip?.address === 'string' && av.faultingInstruction?.module?.name &&
       av.registers && Object.keys(av.registers).length >= 10 && Array.isArray(av.accurateBacktrace) &&
       av.accurateBacktrace.length > 0 && av.accurateBacktrace.every(frame => typeof frame.address === 'string') &&
+      av.rip.address?.toLowerCase() === core?.rip?.toLowerCase() &&
+      av.registers.rcx?.toLowerCase() === core?.rcx?.toLowerCase() &&
+      av.memoryOperation?.operation === core?.memoryOperation?.operation &&
+      av.memoryOperation?.address?.toLowerCase() === core?.memoryOperation?.address?.toLowerCase() &&
       av.disposition === 'return_false_continue_natural_exception';
-    const chain = av?.accurateBacktrace?.filter(frame => frame.module?.name?.toLowerCase() === 'def_gui_mo_64.exe')
-      .map(frame => frame.module.offset?.toLowerCase()) ?? [];
+    const frames = av?.accurateBacktrace ?? [];
     const selectedChain = ['0xa7510', '0xeb1ec', '0xeaa7a'];
-    const chainAt = chain.indexOf(selectedChain[0]);
+    const chainAt = frames.findIndex(frame => frame.module?.path?.toLowerCase() === EXE.toLowerCase() &&
+      frame.module.offset?.toLowerCase() === selectedChain[0]);
     result.cp205FaultPath = result.firstAvCoreQualified && result.exceptionRecordQualified &&
       core.ripModule?.name?.toLowerCase() === 'qtcore4_64.dll' && core.ripModule?.offset?.toLowerCase() === '0x32c0' &&
+      core.ripModule?.path?.toLowerCase() === path.join(path.dirname(EXE), 'QtCore4_64.dll').toLowerCase() &&
       core.memoryOperation?.operation === 'read' && core.memoryOperation?.address?.toLowerCase() === '0x58' &&
       core.rcx?.toLowerCase() === '0x58' && chainAt >= 0 &&
-      selectedChain.every((offset, index) => chain[chainAt + index] === offset);
+      selectedChain.every((offset, index) => frames[chainAt + index]?.module?.path?.toLowerCase() === EXE.toLowerCase() &&
+        frames[chainAt + index]?.module?.offset?.toLowerCase() === offset);
     const owners = throughCore.filter(event => event.event === 'owner-enter');
     const entries = throughCore.filter(event => event.event === 'producer-enter');
     const returns = throughCore.filter(event => event.event === 'producer-return');
     const paired = returns.flatMap(ret => {
-      const entry = entries.find(item => item.tid === ret.tid && item.invocationId === ret.invocationId &&
+      const matchingEntries = entries.filter(item => item.tid === ret.tid && item.invocationId === ret.invocationId &&
         item.objectO === ret.objectO && item.inputRcx === ret.inputRcx && item.returnAddress === ret.returnAddress &&
         item.sequence < ret.sequence);
-      const owner = owners.find(item => item.tid === ret.tid && item.invocationId === ret.invocationId &&
-        item.objectO === ret.objectO && item.sequence < (entry?.sequence ?? 0));
+      const matchingOwners = owners.filter(item => item.tid === ret.tid && item.invocationId === ret.invocationId &&
+        item.objectO === ret.objectO && item.sequence < (matchingEntries[0]?.sequence ?? 0));
       const sameFault = ret.tid === core?.tid && core?.activeInvocations?.includes(ret.invocationId);
-      return entry && owner && sameFault ? [{ owner, entry, returned: ret }] : [];
+      return matchingEntries.length === 1 && matchingOwners.length === 1 && sameFault
+        ? [{ owner: matchingOwners[0], entry: matchingEntries[0], returned: ret }] : [];
     });
     result.sameInvocationPairs = paired;
     const moduleBase = result.handlerReady?.module?.base;
@@ -520,19 +529,27 @@ async function run() {
     else if (!result.pairQualification.unique || !result.pairQualification.exactCallers ||
       !result.pairQualification.sameCreationThreadInvocation || !result.pairQualification.noAmbiguity)
       result.causalClassification = 'same_fault_path_producer_indeterminate';
+    else if (!/^0x[0-9a-f]+$/i.test(paired[0].returned.producerP ?? ''))
+      result.causalClassification = 'same_fault_path_producer_indeterminate';
     else result.causalClassification = paired[0].returned.producerP?.toLowerCase() === '0x0'
       ? 'same_fault_path_producer_returned_zero' : 'same_fault_path_producer_returned_nonzero';
     result.captureComplete = result.firstAvCoreQualified === true && result.exceptionRecordQualified === true &&
       result.hookEvidenceQualified === true && (!result.cp205FaultPath ||
         result.hookCoverage.allEventsObserved && result.pairQualification.noAmbiguity) &&
-      result.cleanupVerified && result.processAbsent &&
-      result.sessionDetached === true && result.fixtureComparison?.unchanged === true && result.failures.length === 0;
+      result.cleanupVerified && result.processAbsent && result.helperStdoutClosed === true && helperError === null &&
+      result.helperStdinError == null &&
+      result.scriptUnloadSettled === true && result.sessionDetached === true &&
+      result.fixtureComparison?.unchanged === true && result.failures.length === 0;
     try { if (result.fixtureAfter) save(out, 'fixture-after.json', result.fixtureAfter); }
     catch (error) { result.failures.push({ stage: 'fixture-after-retention', message: String(error?.message ?? error) }); result.captureComplete = false; }
     try { writeRaw(); result.rawHelperReceiptsRetained = true; }
     catch (error) { result.rawHelperReceiptsRetained = false; result.failures.push({ stage: 'raw-helper-retention', message: String(error?.message ?? error) }); }
     result.captureComplete = result.captureComplete && result.rawHelperReceiptsRetained === true && result.failures.length === 0;
     result.outcome = result.captureComplete ? 'CAPTURE_COMPLETE' : 'INCOMPLETE';
+    if (!result.captureComplete) {
+      result.tentativeCausalClassification = result.causalClassification;
+      result.causalClassification = 'incomplete';
+    }
     try { save(out, 'summary.json', result); }
     catch (error) { result.captureComplete = false; result.outcome = 'INCOMPLETE'; result.retentionError = String(error?.message ?? error); }
   }

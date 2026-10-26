@@ -2,6 +2,67 @@
 
 ## Latest checkpoint and successor
 
+Checkpoint212 corrected the B98 CLI oracle contract. The owned six-hook
+original occurrence passed independent raw review: the outer loader reached
+its acceptance reader, which returned zero; the outer loader returned zero,
+then the same QtCore callback fault and natural cleanup occurred. **This run
+used a malformed literal `-f` argument.** Exact-PE decoder analysis shows main
+passes `-f` through a four-hex-digits-per-UTF-16-code-unit conversion before
+Open. The literal Windows path has invalid groups and length not divisible by
+four, so this occurrence does not establish a valid B98 Open failure, a
+public converter mismatch, or any Save/Close result. Preserve all raw
+receipts, but qualify earlier CP205–CP211 B98 crash interpretations by their
+literal command. See `analysis/resume212-outer-capture-independent-review.md`,
+`analysis/resume212-original-trial-release.md`, and the CP212 CLI decoder
+reports. No public behavior should be changed from the malformed run.
+
+The successor is an independently reviewed, encoded `-f` owned Open
+observation with an exact disposable fixture and bounded process cleanup.
+It must record the decoded runtime path and original Open result. If the
+valid Open remains in the GUI event loop, intentional termination of only
+that owned child is a cleanup receipt, not evidence of Save or Close.
+
+Checkpoint211 is frozen in `build/wave3-checkpoint211-verified/`. Exact-PE RTTI
+descriptors identify the outer cast as `SfModelBase* -> SfMoModel*`; an
+independent review supports the candidate `DbHandle::Kind::Mo` projection.
+The new internal gate runs after model signal registration and before Project
+publication, without inventing a native factory outcome. The grouped Release
+build and complete regression passed: 361 registered, 354 clean, six logged
+gaps, one diagnostic difference, no failures or fixture changes; historical
+93 SAME/five DIFF remain. See `analysis/resume211-rtti-review.md`,
+`analysis/resume211-typed-gate-review.md`, and
+`analysis/wave3-checkpoint211-validation.json`. The original outer-loader
+null predicate and successful Save/accepted Close are still unresolved.
+
+The successor is an exact-owned original observation of the first failed
+`1ca30` prerequisite. CP210/211 prepared a six-function Frida observer with
+false launch guards. Its actual-code mock and disposable native trials pass,
+including exact-prologue five-byte redirect verification and a pre-resume
+abort on a patch mismatch. Independent release review remains required before
+one original trial. A Windows debug-event observer remains a separately
+guarded fallback; it has no original launch path yet.
+
+Checkpoint209 independently qualified the CP207 owned original capture. In the
+fault-active `eaf60` invocation, the exact caller-qualified `1d510` call
+returned zero before the same QtCore read at `0x58` seen at CP205; the child
+exited naturally and the 27-file fixture remained unchanged. This does not
+select the zero route inside `45780`/`44a90` or prove the subsequent store.
+Copied-PE branch review also corrected the Open interpretation: main passes
+the outer `1ca30` loader result directly to `postOpen`, and the captured
+`2signalRefreshMainView()` site at `2a720` belongs to its **null-result arm**.
+The B98 CLI run therefore cannot be treated as a successful Open followed by
+a generic refresh crash. See `analysis/resume209-capture-independent-review.md`,
+`analysis/resume209-headless-entry.md` and
+`analysis/resume209-outer-loader-independent-review.md`.
+
+The immediate successor is to identify the original outer-loader null
+predicate and its candidate-state correspondence, then choose a faithful
+public representation. A reviewed internal current-Project resolver is in
+focused/full integration; it preserves existing guards and does not alter
+public Open/Save behavior. The child-only Windows debug-event prototype passed
+its fixtures but is not ready for an original run; preserve its independent
+review holds. No GUI-control session is authorized until release status exists.
+
 Checkpoint207 selected a narrower observation method after CP206's four-hook
 path divergence. The first stage observes the `eaf60` function entry and the
 caller-qualified `1d510` return, with a compact first-AV receipt. It does not
@@ -9,10 +70,11 @@ patch the four adjacent instruction sites. Any original run must reproduce
 CP205's QtCore read at `0x58` and matching callback stack before producer data
 can be used to explain the crash. REA's exposed Windows runtime tools do not
 provide a non-injected instruction snapshot; a Windows debug-event fallback
-is being assessed in parallel. See `analysis/resume207-function-hook-plan.md`,
+was assessed in parallel. See `analysis/resume207-function-hook-plan.md`,
 `analysis/resume207-rea-runtime-alternative.md` and
-`analysis/resume207-efficiency-review.md`. A default-disabled owned runner is
-under implementation and review; no CP207 original capture has occurred yet.
+`analysis/resume207-efficiency-review.md`. The two-function owned runner passed
+a harmless callback fixture and independent review, captured one complete
+same-path original occurrence, and has been returned to its false launch guard.
 
 Checkpoint206 compared the frozen CP201 converter with a fresh, hash-verified
 B98 Gear project copy in `C:\PROBLEM\b98cp201`. The public `--write-save`
@@ -3131,3 +3193,77 @@ wall time or measured multi-agent savings. CP164 keeps the grouped focused
 compile/runtime gate before full linking and the complete source-bound suite;
 review the exact changed-target test contract before starting it. Token and
 worker-hour measurements remain unavailable.
+
+Checkpoint213 independently qualified one correctly encoded, owned original
+Open occurrence. The runtime QString matched the 34-unit B98 path at the
+outer and acceptance boundaries; duplicate returned zero, factory/cast/Project
+returned nonzero, acceptance AL was one, and outer Open returned a nonzero
+Project pointer. The raw capture remains `INCOMPLETE` because the runner sent
+terminate again after ending helper stdin; held-child termination, handle
+closure and Windows/Frida absence succeeded. The preserved source fixture was
+unchanged; the disposable project gained an empty `Lubricants` directory.
+Keep the immutable receipt and its independent qualification together. The
+idempotent command-channel repair passed review and remains disabled. See
+`analysis/resume213-original-capture-review.md` and
+`analysis/resume213-cleanup-fix-review.md`.
+
+Checkpoint214 began with a fresh `C:\PROBLEM\p214a` clone. The
+next original observation must bind the postOpen entry/return, fresh current
+Project and activation call/return; nonzero outer Open alone does not establish
+completed Open. The nine-hook probe is in development and requires exact
+activation-instruction relocation testing and independent review before one
+owned original run. Active DOE CP145 notifier entry was reconciled as already
+implemented and focused-tested, so that increment is not repeated. The
+remaining public DOE, editor300, Boolean, failure and Close guards stay in
+place. See `analysis/resume214-postopen-probe-plan.md`,
+`analysis/resume214-postopen-static-review.md`, and
+`analysis/resume214-doe-notifier-implementation.md`.
+
+Checkpoint214 independently qualified one instrumented original v11.0.2
+postOpen occurrence: the loader's Project was delivered, became current,
+returned normally from activation with index zero, and postOpen returned to
+the CLI caller. The held child was intentionally terminated with verified
+handle closure and Windows/Frida absence. The disposable project again gained
+an empty `Lubricants` directory, whose exact creator remains unbound. The
+candidate-only B98 Open test accepts and reads the project but leaves its tree
+unchanged. The 362-test source-bound regression passed with 355 clean, six
+logged gaps and one diagnostic difference; historical comparison remains 93
+SAME/five DIFF. Candidate source and binaries are frozen in
+`build/wave3-checkpoint214-verified/`. The original capture establishes this
+bounded activation chain, not all view/parser effects, Save or Close. See
+`analysis/resume214-original-postopen-review.md`,
+`analysis/resume214-b98-open-test.md` and
+`analysis/wave3-checkpoint214-validation.json`.
+
+Checkpoint215 mapped the original diagram/view call chain and Project+0x55
+XML read-status store from copied-PE evidence. The additional original-process
+observer worker was stopped by automated cybersecurity filtering before a
+source freeze; its draft has all three release guards false and provides no
+new original runtime witness. The fresh `C:\PROBLEM\p215a` fixture remains
+unused. Continue source and test work while that observation route remains
+unresolved; see `analysis/resume215-observer-interruption.md`.
+
+The independent source increment for CP215 gives the Type2 lazy InputTable
+reader its own borrowed StudyIo identity and rejects a mismatched notifier
+context after the committed constructor prefix, before notifier flag effects.
+Focused testing and independent review passed. The full source-bound suite
+again passed 362/362 (355 clean, six logged gaps, one diagnostic difference,
+zero fixture changes); source and binaries are frozen in
+`build/wave3-checkpoint215-verified/`. See
+`analysis/resume215-doe-io-identity.md`,
+`analysis/resume215-doe-io-review.md` and
+`analysis/wave3-checkpoint215-validation.json`.
+
+Checkpoint216 continues independent evidence-backed source recovery. The
+diagram/view and XML runtime values, active DOE receiver/callback path, Save,
+accepted Close and remaining acceptance gates are still open.
+
+The CP213–215 safe-boundary efficiency review is
+`analysis/resume215-efficiency-review.md`. CP214 and CP215 362-test launchers
+took 34.750 s and 34.562 s respectively (CTest 17.359 s and 17.203 s).
+These single incremental runs do not establish a repeatable speedup; token
+and agent effort telemetry remain unavailable. Retain complete source,
+binary and fixture checks. Add compact monotonic phase timing to future fresh
+fixture preparation before comparing copy methods. Review again after three
+checkpoints or one hour at a safe boundary.
+

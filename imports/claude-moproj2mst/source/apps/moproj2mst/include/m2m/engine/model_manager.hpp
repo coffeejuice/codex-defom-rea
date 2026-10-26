@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+namespace m2m { struct Project; }
 namespace m2m::doe { class SlicePlaneHeap; }
 
 namespace m2m::engine {
@@ -104,6 +105,13 @@ private:
     std::vector<ModelSignalConnection> connections_;
     ModelManagerConstructorPrefixReceipt constructorPrefix_;
 };
+
+// 045780 ->c78ad0 ->Mo cast ->044a90's existing Project field.
+// The actual current must be live AND a manager list member. Absent current
+// or failed Mo projection returns null. Missing lazy Project construction and
+// inconsistent backlinks stay guarded; this does not recover01d510/0133a0's
+// caller-main+50/cast binding or the postOpen receiver graph.
+Project* currentProjectForManager(ModelManager& manager);
 
 // 01d440 ->01d510 ->045780 ->current Mo child ->Project ->active subproject.
 // Return the actual owner identity. Missing lazy Project/type4 construction is

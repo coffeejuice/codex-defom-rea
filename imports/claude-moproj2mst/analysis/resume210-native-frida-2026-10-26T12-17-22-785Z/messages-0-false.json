@@ -1,0 +1,179 @@
+[
+  {
+    "type": "send",
+    "payload": {
+      "kind": "handler-ready",
+      "pid": 26268,
+      "platform": "windows",
+      "arch": "x64",
+      "module": {
+        "name": "fixture.exe",
+        "path": "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\scratch\\cp210n03\\fixture.exe",
+        "base": "0x7ff675f50000",
+        "size": 126976
+      },
+      "hooks": [
+        {
+          "name": "outer",
+          "rva": 4297,
+          "address": "0x7ff675f510c9",
+          "bytes": "488954241048894c24084881ecd8010000",
+          "callerRva": 4291
+        },
+        {
+          "name": "duplicate",
+          "rva": 4381,
+          "address": "0x7ff675f5111d",
+          "bytes": "909090909090909090909090909090909090909090909090",
+          "callerRva": 4319
+        },
+        {
+          "name": "factory",
+          "rva": 4428,
+          "address": "0x7ff675f5114c",
+          "bytes": "909090909090909090909090909090909090909090909090",
+          "callerRva": 4329
+        },
+        {
+          "name": "cast",
+          "rva": 4475,
+          "address": "0x7ff675f5117b",
+          "bytes": "909090909090909090909090909090909090909090909090",
+          "callerRva": 4339
+        },
+        {
+          "name": "project",
+          "rva": 4522,
+          "address": "0x7ff675f511aa",
+          "bytes": "909090909090909090909090909090909090909090909090",
+          "callerRva": 4349
+        },
+        {
+          "name": "acceptance",
+          "rva": 4569,
+          "address": "0x7ff675f511d9",
+          "bytes": "909090909090909090909090909090909090909090909090",
+          "callerRva": 4359
+        }
+      ],
+      "registrationCallCompleted": true
+    }
+  },
+  {
+    "type": "send",
+    "payload": {
+      "kind": "hook",
+      "event": "outer-enter",
+      "sequence": 1,
+      "pid": 26268,
+      "processCreationFiletime": "134374906434294097",
+      "tid": 29616,
+      "invocationId": "1",
+      "main": "0x700000",
+      "pathQString": "0x7018d8",
+      "entryRsp": "0xd4c190f7c8",
+      "returnAddress": "0x7ff675f510c3",
+      "next": 0,
+      "stopped": false,
+      "invalid": false
+    }
+  },
+  {
+    "type": "send",
+    "payload": {
+      "kind": "hook",
+      "event": "duplicate-return",
+      "sequence": 2,
+      "pid": 26268,
+      "processCreationFiletime": "134374906434294097",
+      "tid": 29616,
+      "invocationId": "1",
+      "main": "0x700000",
+      "returnAddress": "0x7ff675f510df",
+      "entryRsp": "0xd4c190f5e8",
+      "rawReturn": "0x1",
+      "lowByte": 1,
+      "failed": true,
+      "normalReturn": true
+    }
+  },
+  {
+    "type": "send",
+    "payload": {
+      "kind": "hook",
+      "event": "outer-return",
+      "sequence": 3,
+      "pid": 26268,
+      "processCreationFiletime": "134374906434294097",
+      "tid": 29616,
+      "invocationId": "1",
+      "main": "0x700000",
+      "pathQString": "0x7018d8",
+      "entryRsp": "0xd4c190f7c8",
+      "returnAddress": "0x7ff675f510c3",
+      "next": 1,
+      "stopped": true,
+      "invalid": false,
+      "pending": null,
+      "rawReturn": "0x0",
+      "normalReturn": true
+    }
+  },
+  {
+    "type": "send",
+    "payload": {
+      "kind": "first-av-core",
+      "pid": 26268,
+      "processCreationFiletime": "134374906434294097",
+      "tid": 29616,
+      "activeInvocations": [],
+      "exceptionType": "access-violation",
+      "rip": "0x7ff675f5109e",
+      "rcx": "0x700000",
+      "exceptionAddress": "0x7ff675f5109e",
+      "memoryOperation": {
+        "operation": "write",
+        "address": "0x58"
+      },
+      "memoryOperationError": null,
+      "ripModule": {
+        "name": "fixture.exe",
+        "path": "c:\\users\\alext\\projects\\codex-deform-rea\\imports\\claude-moproj2mst\\scratch\\cp210n03\\fixture.exe",
+        "base": "0x7ff675f50000",
+        "offset": "0x109e"
+      },
+      "ripModuleError": null,
+      "hookSnapshot": {
+        "boundedStateInvalid": false,
+        "sequence": 3,
+        "counts": {
+          "outer-enter": 1,
+          "duplicate-return": 1,
+          "factory-return": 0,
+          "cast-return": 0,
+          "project-return": 0,
+          "acceptance-return": 0,
+          "outer-return": 1
+        },
+        "overflow": {
+          "outer-enter": 0,
+          "duplicate-return": 0,
+          "factory-return": 0,
+          "cast-return": 0,
+          "project-return": 0,
+          "acceptance-return": 0,
+          "outer-return": 0
+        },
+        "rejected": {
+          "outerCaller": 0,
+          "helperCaller": 0,
+          "noUniqueOwner": 0,
+          "outerLeaveMismatch": 0,
+          "order": 0,
+          "overlap": 0
+        }
+      },
+      "disposition": "return_false_continue_natural_exception"
+    }
+  }
+]

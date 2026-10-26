@@ -1,0 +1,1008 @@
+{
+  "outcome": "PASS",
+  "scope": "read-only retained-receipt and pinned-PE audit; no relaunch",
+  "originalSha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "byteChecks": [
+    {
+      "name": "outer",
+      "originalRva": "0x1ca30",
+      "fixtureRva": "0x1190",
+      "exactPrefix": "488954241048894c24084881ecd8010000",
+      "verifiedBytes": 17
+    },
+    {
+      "name": "duplicate",
+      "originalRva": "0xc78c10",
+      "fixtureRva": "0x11e4",
+      "exactPrefix": "488954241048894c24084881ecb8000000",
+      "verifiedBytes": 17
+    },
+    {
+      "name": "factory",
+      "originalRva": "0xc79390",
+      "fixtureRva": "0x1214",
+      "exactPrefix": "488954241048894c24084883ec48",
+      "verifiedBytes": 14
+    },
+    {
+      "name": "cast",
+      "originalRva": "0x146f8fc",
+      "fixtureRva": "0x123e",
+      "exactPrefix": "48895c241048897424185741544155415641574883ec60",
+      "verifiedBytes": 23
+    },
+    {
+      "name": "project",
+      "originalRva": "0x44a90",
+      "fixtureRva": "0x1284",
+      "exactPrefix": "48894c24084881ec8800000048c7442448feffffff",
+      "verifiedBytes": 21
+    },
+    {
+      "name": "acceptance",
+      "originalRva": "0x8a9b0",
+      "fixtureRva": "0x12b8",
+      "exactPrefix": "488954241048894c24084881ec68010000",
+      "verifiedBytes": 17
+    }
+  ],
+  "trials": [
+    {
+      "mode": 5,
+      "baseline": true,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    },
+    {
+      "mode": 0,
+      "baseline": false,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    },
+    {
+      "mode": 1,
+      "baseline": false,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    },
+    {
+      "mode": 2,
+      "baseline": false,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    },
+    {
+      "mode": 3,
+      "baseline": false,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    },
+    {
+      "mode": 4,
+      "baseline": false,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    },
+    {
+      "mode": 5,
+      "baseline": false,
+      "checks": {
+        "noHookOrScriptErrors": true,
+        "noRejectedCallbacks": true,
+        "noStateOverflow": true,
+        "primaryThread": true,
+        "creationIdentity": true,
+        "exactHelperCallers": true,
+        "failureFlags": true
+      }
+    }
+  ],
+  "observableBranches": [
+    {
+      "mode": 0,
+      "name": "outer",
+      "entry": "0x7ff64ed91190",
+      "entryPatch": "e973eefeff",
+      "visibleDeflector": "0x7ff64ed80008",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80008",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8000e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1674e460000",
+      "expectedNormalContinuation": "0x7ff64ed91195",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 0,
+      "name": "duplicate",
+      "entry": "0x7ff64ed911e4",
+      "entryPatch": "e91ff0feff",
+      "visibleDeflector": "0x7ff64ed80208",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80208",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8020e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1674e460000",
+      "expectedNormalContinuation": "0x7ff64ed911e9",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 0,
+      "name": "factory",
+      "entry": "0x7ff64ed91214",
+      "entryPatch": "e9eff1feff",
+      "visibleDeflector": "0x7ff64ed80408",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80408",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8040e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1674e460000",
+      "expectedNormalContinuation": "0x7ff64ed91219",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 0,
+      "name": "cast",
+      "entry": "0x7ff64ed9123e",
+      "entryPatch": "e9c5f3feff",
+      "visibleDeflector": "0x7ff64ed80608",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80608",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8060e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1674e460000",
+      "expectedNormalContinuation": "0x7ff64ed91243",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 0,
+      "name": "project",
+      "entry": "0x7ff64ed91284",
+      "entryPatch": "e97ff5feff",
+      "visibleDeflector": "0x7ff64ed80808",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80808",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8080e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1674e460000",
+      "expectedNormalContinuation": "0x7ff64ed91289",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 0,
+      "name": "acceptance",
+      "entry": "0x7ff64ed912b8",
+      "entryPatch": "e94bf7feff",
+      "visibleDeflector": "0x7ff64ed80a08",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80a08",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed80a0e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1674e460000",
+      "expectedNormalContinuation": "0x7ff64ed912bd",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 1,
+      "name": "outer",
+      "entry": "0x7ff64ed91190",
+      "entryPatch": "e973eefeff",
+      "visibleDeflector": "0x7ff64ed80008",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80008",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8000e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2088f610000",
+      "expectedNormalContinuation": "0x7ff64ed91195",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 1,
+      "name": "duplicate",
+      "entry": "0x7ff64ed911e4",
+      "entryPatch": "e91ff0feff",
+      "visibleDeflector": "0x7ff64ed80208",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80208",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8020e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2088f610000",
+      "expectedNormalContinuation": "0x7ff64ed911e9",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 1,
+      "name": "factory",
+      "entry": "0x7ff64ed91214",
+      "entryPatch": "e9eff1feff",
+      "visibleDeflector": "0x7ff64ed80408",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80408",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8040e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2088f610000",
+      "expectedNormalContinuation": "0x7ff64ed91219",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 1,
+      "name": "cast",
+      "entry": "0x7ff64ed9123e",
+      "entryPatch": "e9c5f3feff",
+      "visibleDeflector": "0x7ff64ed80608",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80608",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8060e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2088f610000",
+      "expectedNormalContinuation": "0x7ff64ed91243",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 1,
+      "name": "project",
+      "entry": "0x7ff64ed91284",
+      "entryPatch": "e97ff5feff",
+      "visibleDeflector": "0x7ff64ed80808",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80808",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8080e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2088f610000",
+      "expectedNormalContinuation": "0x7ff64ed91289",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 1,
+      "name": "acceptance",
+      "entry": "0x7ff64ed912b8",
+      "entryPatch": "e94bf7feff",
+      "visibleDeflector": "0x7ff64ed80a08",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80a08",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed80a0e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2088f610000",
+      "expectedNormalContinuation": "0x7ff64ed912bd",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 2,
+      "name": "outer",
+      "entry": "0x7ff64ed91190",
+      "entryPatch": "e973eefeff",
+      "visibleDeflector": "0x7ff64ed80008",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80008",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8000e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x219dba70000",
+      "expectedNormalContinuation": "0x7ff64ed91195",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 2,
+      "name": "duplicate",
+      "entry": "0x7ff64ed911e4",
+      "entryPatch": "e91ff0feff",
+      "visibleDeflector": "0x7ff64ed80208",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80208",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8020e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x219dba70000",
+      "expectedNormalContinuation": "0x7ff64ed911e9",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 2,
+      "name": "factory",
+      "entry": "0x7ff64ed91214",
+      "entryPatch": "e9eff1feff",
+      "visibleDeflector": "0x7ff64ed80408",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80408",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8040e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x219dba70000",
+      "expectedNormalContinuation": "0x7ff64ed91219",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 2,
+      "name": "cast",
+      "entry": "0x7ff64ed9123e",
+      "entryPatch": "e9c5f3feff",
+      "visibleDeflector": "0x7ff64ed80608",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80608",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8060e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x219dba70000",
+      "expectedNormalContinuation": "0x7ff64ed91243",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 2,
+      "name": "project",
+      "entry": "0x7ff64ed91284",
+      "entryPatch": "e97ff5feff",
+      "visibleDeflector": "0x7ff64ed80808",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80808",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8080e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x219dba70000",
+      "expectedNormalContinuation": "0x7ff64ed91289",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 2,
+      "name": "acceptance",
+      "entry": "0x7ff64ed912b8",
+      "entryPatch": "e94bf7feff",
+      "visibleDeflector": "0x7ff64ed80a08",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80a08",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed80a0e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x219dba70000",
+      "expectedNormalContinuation": "0x7ff64ed912bd",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 3,
+      "name": "outer",
+      "entry": "0x7ff64ed91190",
+      "entryPatch": "e973eefeff",
+      "visibleDeflector": "0x7ff64ed80008",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80008",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8000e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x231cc7b0000",
+      "expectedNormalContinuation": "0x7ff64ed91195",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 3,
+      "name": "duplicate",
+      "entry": "0x7ff64ed911e4",
+      "entryPatch": "e91ff0feff",
+      "visibleDeflector": "0x7ff64ed80208",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80208",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8020e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x231cc7b0000",
+      "expectedNormalContinuation": "0x7ff64ed911e9",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 3,
+      "name": "factory",
+      "entry": "0x7ff64ed91214",
+      "entryPatch": "e9eff1feff",
+      "visibleDeflector": "0x7ff64ed80408",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80408",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8040e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x231cc7b0000",
+      "expectedNormalContinuation": "0x7ff64ed91219",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 3,
+      "name": "cast",
+      "entry": "0x7ff64ed9123e",
+      "entryPatch": "e9c5f3feff",
+      "visibleDeflector": "0x7ff64ed80608",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80608",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8060e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x231cc7b0000",
+      "expectedNormalContinuation": "0x7ff64ed91243",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 3,
+      "name": "project",
+      "entry": "0x7ff64ed91284",
+      "entryPatch": "e97ff5feff",
+      "visibleDeflector": "0x7ff64ed80808",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80808",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8080e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x231cc7b0000",
+      "expectedNormalContinuation": "0x7ff64ed91289",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 3,
+      "name": "acceptance",
+      "entry": "0x7ff64ed912b8",
+      "entryPatch": "e94bf7feff",
+      "visibleDeflector": "0x7ff64ed80a08",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80a08",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed80a0e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x231cc7b0000",
+      "expectedNormalContinuation": "0x7ff64ed912bd",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 4,
+      "name": "outer",
+      "entry": "0x7ff64ed91190",
+      "entryPatch": "e973eefeff",
+      "visibleDeflector": "0x7ff64ed80008",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80008",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8000e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2de7ba30000",
+      "expectedNormalContinuation": "0x7ff64ed91195",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 4,
+      "name": "duplicate",
+      "entry": "0x7ff64ed911e4",
+      "entryPatch": "e91ff0feff",
+      "visibleDeflector": "0x7ff64ed80208",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80208",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8020e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2de7ba30000",
+      "expectedNormalContinuation": "0x7ff64ed911e9",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 4,
+      "name": "factory",
+      "entry": "0x7ff64ed91214",
+      "entryPatch": "e9eff1feff",
+      "visibleDeflector": "0x7ff64ed80408",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80408",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8040e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2de7ba30000",
+      "expectedNormalContinuation": "0x7ff64ed91219",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 4,
+      "name": "cast",
+      "entry": "0x7ff64ed9123e",
+      "entryPatch": "e9c5f3feff",
+      "visibleDeflector": "0x7ff64ed80608",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80608",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8060e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2de7ba30000",
+      "expectedNormalContinuation": "0x7ff64ed91243",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 4,
+      "name": "project",
+      "entry": "0x7ff64ed91284",
+      "entryPatch": "e97ff5feff",
+      "visibleDeflector": "0x7ff64ed80808",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80808",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8080e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2de7ba30000",
+      "expectedNormalContinuation": "0x7ff64ed91289",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 4,
+      "name": "acceptance",
+      "entry": "0x7ff64ed912b8",
+      "entryPatch": "e94bf7feff",
+      "visibleDeflector": "0x7ff64ed80a08",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80a08",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed80a0e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x2de7ba30000",
+      "expectedNormalContinuation": "0x7ff64ed912bd",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 5,
+      "name": "outer",
+      "entry": "0x7ff64ed91190",
+      "entryPatch": "e973eefeff",
+      "visibleDeflector": "0x7ff64ed80008",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80008",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8000e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1f814030000",
+      "expectedNormalContinuation": "0x7ff64ed91195",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 5,
+      "name": "duplicate",
+      "entry": "0x7ff64ed911e4",
+      "entryPatch": "e91ff0feff",
+      "visibleDeflector": "0x7ff64ed80208",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80208",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8020e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1f814030000",
+      "expectedNormalContinuation": "0x7ff64ed911e9",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 5,
+      "name": "factory",
+      "entry": "0x7ff64ed91214",
+      "entryPatch": "e9eff1feff",
+      "visibleDeflector": "0x7ff64ed80408",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80408",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8040e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1f814030000",
+      "expectedNormalContinuation": "0x7ff64ed91219",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 5,
+      "name": "cast",
+      "entry": "0x7ff64ed9123e",
+      "entryPatch": "e9c5f3feff",
+      "visibleDeflector": "0x7ff64ed80608",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80608",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8060e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1f814030000",
+      "expectedNormalContinuation": "0x7ff64ed91243",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 5,
+      "name": "project",
+      "entry": "0x7ff64ed91284",
+      "entryPatch": "e97ff5feff",
+      "visibleDeflector": "0x7ff64ed80808",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80808",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed8080e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1f814030000",
+      "expectedNormalContinuation": "0x7ff64ed91289",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    },
+    {
+      "mode": 5,
+      "name": "acceptance",
+      "entry": "0x7ff64ed912b8",
+      "entryPatch": "e94bf7feff",
+      "visibleDeflector": "0x7ff64ed80a08",
+      "deflectorFirstTwoInstructions": [
+        {
+          "address": "0x7ff64ed80a08",
+          "size": 6,
+          "mnemonic": "push",
+          "opStr": "qword ptr [rip - 0xe]"
+        },
+        {
+          "address": "0x7ff64ed80a0e",
+          "size": 6,
+          "mnemonic": "jmp",
+          "opStr": "qword ptr [rip + 2]"
+        }
+      ],
+      "decodedIndirectJumpTarget": "0x1f814030000",
+      "expectedNormalContinuation": "0x7ff64ed912bd",
+      "continuationQualification": "expected_entry_plus_5_not_observed_private_invoke_trampoline"
+    }
+  ]
+}
