@@ -1,0 +1,114 @@
+*-------------------------------------------------------------------------*
+*  MASTER FILE FOR DEFORM MUlTIPLE OPERATION SIMULATION                   *
+*                                                                         *
+*  Integrated 2D / 3D                                                     *
+*                                                                         *
+*!MASTERFORMAT 4                                                          *
+*-------------------------------------------------------------------------*
+*!TITLE  
+*!GEOTYP 0
+*!UNIT   1
+*
+*-------------------------------------------------------------------------*
+
+
+*-------------------------------------------------------------------------*
+*                                                                         *
+* Main Project                                                            *
+*                                                                         *
+*-------------------------------------------------------------------------*
+*!MAINPRJ 
+*!PRJNAM Gear_blank
+*
+*-------------------------------------------------------------------------*
+
+*-------------------------------------------------------------------------*
+SIMULATION	1
+*!SIMTYP  	SfOprForming
+*-------------------------------------------------------------------------*
+DIM    	3
+NSTART    	-1
+MDSOBJ    	  0       0       0    0.0000000000E+000
+TNOW	   	  -1E21       0       1
+KFREAD    	1
+Operations/Task00001/SimCtrl.KEY
+KFREAD    	1
+Materials/Material00002.KEY
+OBJTYP		1	0
+KFREAD    	1
+Objects/Object00001.KEY
+MTLGRP    	1	0	2
+OBJTYP		2	0
+KFREAD    	1
+Objects/Object00002.KEY
+OBJTYP		3	0
+KFREAD    	1
+Objects/Object00003.KEY
+CNTACT    	0
+KFREAD    	1
+Operations/Task00001/InterObject.KEY
+KFREAD    	1
+Operations/Task00001/MeshSettings00001.KEY
+IMPEQP    	1
+Equipments/Equipment00002.KEY
+IMPEQP    	2
+Equipments/Equipment00001.KEY
+IMPEQP    	3
+Equipments/Equipment00003.KEY
+INICTC    	1
+GENCTC    	0
+OPRNAM
+Forming
+SIMNAM
+Forming
+CURSIM    	1	1	0
+GENDB     	2	1	0
+Gear_blank.DB
+
+*-------------------------------------------------------------------------*
+SIMULATION	2
+*!SIMTYP  	SfOprForming
+*-------------------------------------------------------------------------*
+DBREAD    	0
+Gear_blank.DB
+MDSOBJ    	  0       0       0    0.0000000000E+000
+TNOW	   	  -1E21       0       1
+KFREAD    	1
+Operations/Task00002/SimCtrl.KEY
+OBJTYP		2	0
+KFREAD    	1
+Objects/Object00005.KEY
+OBJTYP		3	0
+KFREAD    	1
+Objects/Object00006.KEY
+CNTACT    	0
+KFREAD    	1
+Operations/Task00002/InterObject.KEY
+KFREAD    	1
+Operations/Task00002/MeshSettings00003.KEY
+IMPEQP    	1
+Equipments/Equipment00004.KEY
+IMPEQP    	2
+Equipments/Equipment00005.KEY
+IMPEQP    	3
+Equipments/Equipment00006.KEY
+KFREAD    	1
+Operations/Task00002/ObjProperties00001.KEY
+OBJPOS	2	2	0.0001	0	0	-1	1	0	0
+OBJPOS	3	2	0.0001	0	0	1	1	0	0
+INICTC    	1
+GENCTC    	0
+OPRNAM
+Forming (2)
+SIMNAM
+Forming (2)
+CURSIM    	2	2	0
+GENDB     	1	1	2
+Gear_blank.DB
+
+*-------------------------------------------------------------------------*
+*                                                                         *
+* END OF MASTER FILE                                                      *
+*                                                                         *
+*-------------------------------------------------------------------------*
+

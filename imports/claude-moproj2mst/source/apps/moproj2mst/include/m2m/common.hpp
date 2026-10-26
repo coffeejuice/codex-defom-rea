@@ -66,6 +66,9 @@ struct Ctx {
     // existence check counts them as present (UTF-16 paths as written)
     std::vector<std::u16string> pendingWrites;
     std::vector<std::u16string> pendingDirectories; // explicit earlier mkdir effects, not inferred from writes
+    // Ordered, source-backed Open directory requests recorded during operation parsing.
+    // Staged metadata only; these paths are not FileEffects and are never applied here.
+    std::vector<std::u16string> stagedOperationDirectoryDecisions;
     // Full native Save only: step5 writers perform their original immediate
     // file attempts while the already-open MST stream is being generated.
     bool nativeMstSideFiles = false;

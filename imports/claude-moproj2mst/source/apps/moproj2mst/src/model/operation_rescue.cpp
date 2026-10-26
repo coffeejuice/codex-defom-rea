@@ -10,6 +10,7 @@
 #include "m2m/mst/writer.hpp"
 #include "m2m/p17.hpp"
 #include "m2m/qt4path.hpp"
+#include "operation_project_directories.hpp"
 
 namespace m2m {
 using qt::L;
@@ -53,6 +54,14 @@ bool parseOperation(Project& p, const xml::Node& e, bool withProps, int ordinal,
             diagName += L("DiagItem");
             if (id == 0) id = ordinal;
             item = createOperation(p, name, type, diagName, id);
+            std::vector<String> decisions;
+            const SubProject* activeSub = activeSubProject(p);
+            const std::optional<int> activeSubType = activeSub
+                ? std::optional<int>(activeSub->type) : std::nullopt;
+            detail::collectOperationProjectDirectoryDecisions(
+                projectDir(p), id, activeSubType, decisions);
+            for (const String& path : decisions)
+                ctx.stagedOperationDirectoryDecisions.push_back(path.u16());
         } else if (tag == L("SubType")) {
             need("SubType");
             type = c->text();                         // the original reuses the Type string

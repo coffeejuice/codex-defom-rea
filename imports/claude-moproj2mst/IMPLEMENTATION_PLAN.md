@@ -3267,3 +3267,93 @@ binary and fixture checks. Add compact monotonic phase timing to future fresh
 fixture preparation before comparing copy methods. Review again after three
 checkpoints or one hour at a safe boundary.
 
+Checkpoint216 added a pure internal collector for the five original
+project-directory decisions in order: Operations, Objects, Materials,
+Equipments and Lubricants. It records paths only and is not connected to Open,
+`FileEffects::mkdirs` or a filesystem writer. The copied-PE static call path
+supports these decisions; the CP213/214 runtime directory creator and failure
+effects remain unobserved. Focused source/test validation and independent
+review passed. The 363-test full bound suite passed with 356 clean, six logged
+gaps, one diagnostic difference and no fixture changes; source and binaries
+are frozen in `build/wave3-checkpoint216-verified/`. See
+`analysis/resume216-op-directory-collector.md`,
+`analysis/resume216-opdir-review.md` and
+`analysis/wave3-checkpoint216-validation.json`.
+
+Checkpoint217 must bind the original operation-ID to project-subdirectory
+creation occurrence and exact failure/order effects before enabling public
+Open-time writes. Continue other independent source-backed items and retain
+the view/XML, Save and accepted-Close guards.
+
+Checkpoint217's candidate-only negative-ID preflight is now frozen in
+`build/wave3-checkpoint217-candidate-verified/`. A byte-exact copy of B98
+changed only operation IDs `1,2` to `-1,-2`; the candidate accepted Open and
+left the copied tree unchanged. The reviewed test enforces those outcomes.
+The source-bound 364-test suite passed with 357 clean, six logged gaps, one
+diagnostic difference and no fixture changes; historical comparison remains
+93 SAME/five DIFF. This does not establish original acceptance or directory
+causation. The noninstrumented original comparison runner remains disabled
+while independent reviews' receipt and cleanup defects are repaired. See
+`analysis/resume217-negative-id-candidate-preflight.md`,
+`analysis/resume217-negative-id-test-review.md`, and
+`analysis/wave3-checkpoint217-candidate-validation.json`.
+
+Checkpoint218 has started the next source-backed increment: stage the ordered
+operation-directory decisions in per-call Open state while keeping all
+filesystem effects and public continuation guarded. An original same-call
+creator/effect witness remains required before applying those decisions.
+
+Checkpoint218's staged Open decisions are now implemented, source-reviewed,
+focused-tested and frozen in `build/wave3-checkpoint218-verified/`. The
+365-test source-bound suite passed with 358 clean, six logged gaps, one
+diagnostic difference and no fixture changes; historical comparison remains
+93 SAME/five DIFF. The decisions are internal metadata and cause no
+filesystem effects. See `analysis/resume218-staged-open-dir-implementation.md`,
+`analysis/resume218-staged-open-dir-review.md` and
+`analysis/wave3-checkpoint218-validation.json`. Checkpoint219 continues the
+owned, noninstrumented original directory comparison after runner review.
+
+The CP216–218 efficiency review is `analysis/resume218-efficiency-review.md`.
+Full 363–365-test launchers took 34.8–38.3 seconds, while CP218's shared
+header change caused a 165.6-second 749-step incremental build. Source,
+binary and fixture integrity checks remain in place. Before claiming a build
+speed gain, identify the dependency fanout and compare a matched edit with
+and without a narrow internal implementation seam.
+
+Checkpoint219 completed one reviewed, owned, noninstrumented original v11.0.2
+comparison on two fresh B98 copies. The control added only an empty
+`Lubricants` directory; the copy with operation IDs `-1,-2` added three
+root-level `ObjPropertiesNNNNN.KEY` files and no `Lubricants` directory.
+Both five-second child observations ended by intentional held-handle
+termination, with verified exit, closed handles, zero-row Windows process
+queries and preserved raw manifests. The transient enabled runner copy was
+removed and the reviewed source guard restored; no GUI control was acquired.
+Independent receipt review accepts the filesystem/cleanup evidence, but Open
+completion and the exact directory creator remain unobserved. No public
+filesystem effect is enabled from this contrast. See
+`analysis/resume219-original-receipt-review.md`,
+`analysis/resume219-negative-id-effect-analysis.md` and the raw
+`analysis/resume217-plain-run-2026-10-26T14-38-49.491Z/` receipts.
+
+Checkpoint220 examines the negative-ID property-file path in candidate and
+retained original evidence. A four-minus-byte input that also updates diagram
+references is designed only to assess the stale-reference confound; the
+decisive creator/failure-order gate still needs a same-occurrence call trace.
+
+Checkpoint220 is frozen in `build/wave3-checkpoint220-verified/`. The candidate
+native-blob Open test enforces the three project-root ObjProperties files and
+their byte/hash agreement with B98 task-file fixtures and retained CP219
+original output hashes, without depending on a disposable C:\PROBLEM copy.
+The internal Open decision collector now appends `DieStress` after the fixed
+five only for a positive operation ID and active Type-4 subproject. It still
+does no I/O. Independent source reviews and focused tests passed; the
+366-test bound suite passed with 359 clean, six logged gaps, one diagnostic
+difference and no fixture changes. Historical comparison remains 93 SAME and
+five DIFF. See `analysis/resume220-native-blob-test-review.md`,
+`analysis/resume220-conditional-directory-review.md` and
+`analysis/wave3-checkpoint220-validation.json`.
+
+Checkpoint221 examines the preceding task-directory attempt and ignored
+helper returns for internal Open ordering. Public mkdir effects still require
+a same-occurrence original call/result and failure-order witness.
+

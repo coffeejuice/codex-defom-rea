@@ -1,0 +1,34 @@
+# CP216: Operation-ID project directory effects design
+
+## Decision
+
+A reversible internal description is implementable, but it must remain a distinct Open effect until its public application condition is established. The five ordered project-subdirectory decisions can be represented as five path attempts in an Open-owned effect record. Do not call `makeFolders` from `setOperationId` as currently shaped: it writes immediately only when `FileEffects::nativeDirectories` is true, and it also adds a task directory and a conditional `DieStress` directory that are outside this requested five-item slice.
+
+The existing `FileEffects::mkdirs` is already a deferred representation (`include/m2m/engine.hpp:38-52`); `applyEffects` is the side-effect boundary and calls `std::filesystem::create_directories` (`src/core/convert.cpp:110-129`). However, `convert.cpp:333-334` applies `opened` effects only in the `nativeSave` branch, while `nativeSave` is `writeFile && M2M_FLAG_WRITE_SAVE` (`convert.cpp:263-265`). This suggests a safe implementation route, but it is not a proof that adding Open directory decisions to `opened.mkdirs` cannot expose writes through another consumer. Audit all consumers before reusing that vector. The descriptor itself must never perform filesystem I/O.
+
+## Original evidence and exact order
+
+The retained original static chain is consistent with Open initialization:
+
+- The spec states that `0x140050820` sets operation ID and, when `id >= 1`, sets `Operations/TaskNNNNN`, calls `0x140051190`, then `0x14008c630(P)` (`source/docs/re/moproj2mst/s1-01/spec.md:315-318`). Candidate `initOperation` routes to `setOperationId` after storing `op.project` (`src/model/operation_rescue.cpp:176-187`); the candidate currently sets the relative task path but explicitly omits the mkdir path (`:205-214`).
+- Retained DUMPBIN for `0x140051190` shows call to `0x140050df0`, then `0x140081afb0` for the task directory, then `0x140055030` and `0x14008c630` (`analysis/wave3-earlier-save-140051190.asm:8-22`).
+- Retained DUMPBIN for `0x14008c630` shows five successive helper results each passed to `0x140081afb0` in order (`analysis/wave3-earlier-save-14008c630.asm:8-71`); source qualification maps the helpers to `Operations`, `Objects`, `Materials`, `Equipments`, `Lubricants` (`src/moproj/read.cpp:287-293`; operation spec `spec.md:318`). `setOperationId`'s `id >= 1` equivalent is `!hasNoId(op)` (`operation_rescue.cpp:208-214`).
+- Existing candidate `engine::makeFolders` has a deferred branch that appends mkdir paths, but models task directory first, then the five project paths, then conditional `DieStress` (`src/engine/save_current.cpp:256-275`). It is currently called from Save paths (`:730`; `src/engine/l5_slots.cpp:1037`), not from operation initialization. It is therefore a useful implementation reference, not evidence that Open already owns these effects.
+
+CP214 records that CP213 observed a new empty `Lubricants` directory after Open, but its capture did not observe these callsites or `QDir::mkpath`; causal attribution remains unproven (`analysis/resume214-lubricants-creator.md`, Finding and Narrow next witness). The retained static path establishes reachability/plausibility only.
+
+## Recommended implementation seam (source-only proposal)
+
+1. Keep `setOperationId(Operation&, int)` as the state-only model setter. Add a caller-owned Open parse/effect context at the `parseOperationList` / `parseOperation` path (`src/model/operation_rescue.cpp:18-31`) and thread it to `initOperation`/`setOperationId`; do not add global state or filesystem access to model initialization. `Ctx` currently has explicit native blob controls (`include/m2m/common.hpp:53-77`), so a narrowly named Open-directory-decision collection can be added there or to the existing Open result bundle.
+2. On the original qualifying ID branch, derive exactly the five cleaned absolute paths from `projectDir(p)` and `qt::kSep`, in the original helper order. `listDir` already encodes the same clean-path construction pattern (`src/moproj/read.cpp:287-293`). Record decision entries, not executed attempts. A dedicated vector (e.g. `projectSubdirectoryMkpathDecisions`) is safer than appending to generic `FileEffects::mkdirs` until every consumer is proven; preserve duplicates/call order if multiple operation IDs invoke the original chain.
+3. Wire the decisions into the Open file-effect staging only after the public semantics are qualified. Keep `nativeDirectories` false for converter-only observation. Do not enable `M2M_FLAG_WRITE_SAVE`, and do not apply these effects merely because Open succeeded. The existing `applyEffects` function is explicitly a real filesystem writer.
+4. Tests should call the internal parser/operation initialization with an effect sink and assert: id below 1 yields none; qualifying ID yields exactly the five expected cleaned paths in order; repeated qualifying IDs preserve original call multiplicity/order; and collection leaves the temp project filesystem untouched. Add a public converter regression proving default/no-write conversion does not create any of these directories. Test implementation belongs with existing operation parser/model tests, with the public guard at the conversion API test boundary; exact test filenames should be selected after locating the registered Testkit target.
+
+## Unresolved original facts / implementation gate
+
+- No occurrence-level evidence yet confirms the `0x140050820 -> 0x140051190 -> 0x14008c630` chain ran in CP213, nor whether another Open path created `Lubricants`.
+- We have no retained runtime trace of the five helper arguments or `0x140081afb0` results on Open. The static artifact does not prove the exact project path spelling/normalization at runtime, failure handling observed by the converter, or which failure notifications are suppressed/headless.
+- The original setter branch is `id >= 1`; confirm candidate `hasNoId` equivalence and which operation construction routes occur during parse before wiring effects. `initOperationFrom` also calls the setter (`src/model/opinfo.cpp:88-95`), so an overbroad hook could add decisions for copies outside this Open route.
+- Determine whether the desired faithful baseline includes only decisions or actual Open-time directory creation under an explicit write mode. The report's CP214 recommendation says to represent effects through an existing effect boundary, but current converter Open effects are applied only under `nativeSave`; full callsite-consumer audit and a no-write public regression are required before using generic `FileEffects`.
+
+Until those gates close, implement only the pure ordered decision collector and its no-I/O tests; keep the real writer unreachable. Do not claim the CP213 directory's cause or claim full behavior fidelity from this slice.

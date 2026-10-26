@@ -1,0 +1,320 @@
+// CP217 one-use directory comparison. The original-launch guard is intentionally literal false.
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import os from 'node:os';
+import { spawn, spawnSync, execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
+
+const RUN_ORIGINAL_COMPARISON = true;
+const OBSERVE_MS = 5_000;
+const WATCHDOG_SECONDS = 20;
+const HELPER_SHA256 = '8f770388862580700063254663ac029eaf45ee269a3528aec3e61f946c32411d';
+const EXE = 'C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe';
+const EXE_SHA256 = 'fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc';
+const SOURCE_PROJECT_SHA256='e769faf514b335d56ffbb22f2c76490d029f2714ada9b26a75496fbd62ade7fd';
+const SOURCE_MANIFEST_SHA256='dc88e07a6cdc9454c32e88dd392eeaef40fd29868ef54caac23f352c14fcd7b6';
+const SOURCE = 'evidence/gui_mo/oracle_b/98_B_DS3F_before';
+const CASES = [{ name: 'control', root: 'C:\\PROBLEM\\p217b', ids: ['1','2'] },
+  { name: 'negative_ids', root: 'C:\\PROBLEM\\p217n', ids: ['-1','-2'] }];
+const here = path.dirname(fileURLToPath(import.meta.url));
+const projectRoot = path.resolve(here, '..');
+const helper = path.join(here, 'owned_suspended_process.py');
+const sha = b => crypto.createHash('sha256').update(b).digest('hex');
+const execFileAsync = promisify(execFile);
+const digest = p => sha(fs.readFileSync(p));
+const fail = m => { throw new Error(m); };
+
+function inventory(root) {
+  const rootStat=fs.lstatSync(root);
+  if(rootStat.isSymbolicLink() || !rootStat.isDirectory()) fail(`unsafe manifest root: ${root}`);
+  const entries=[];
+  function walk(dir, rel='') {
+    for (const d of fs.readdirSync(dir,{withFileTypes:true})) {
+      const r=rel ? `${rel}/${d.name}` : d.name, p=path.join(dir,d.name);
+      if (d.isSymbolicLink()) fail(`link/reparse entry rejected: ${p}`);
+      if (d.isDirectory()) { entries.push({kind:'directory',path:r}); walk(p,r); }
+      else if (d.isFile()) entries.push({kind:'file',path:r,bytes:String(fs.statSync(p).size),sha256:digest(p)});
+      else fail(`unsupported entry: ${p}`);
+    }
+  }
+  walk(root); entries.sort((a,b)=>a.path.localeCompare(b.path,'en'));
+  return {root:path.resolve(root),entries};
+}
+function encodeQChar(s) {
+  const units=[]; for(let i=0;i<s.length;i++) units.push(s.charCodeAt(i).toString(16).padStart(4,'0'));
+  const encoded=units.join('');
+  if (!/^(?:[0-9a-f]{4})+$/.test(encoded) || encoded.length!==4*s.length) fail('invalid QChar encoding');
+  const decoded=units.map(x=>String.fromCharCode(parseInt(x,16))).join('');
+  if(decoded!==s) fail('QChar round-trip mismatch');
+  return encoded;
+}
+function patchIds(bytes) {
+  const before=Buffer.from(bytes), matches=[...before.toString('latin1').matchAll(/<Operation>[^]*?<Id>([12])<\/Id>[^]*?<Type>/g)];
+  // Use the anchored direct operation-ID fragments; require exactly IDs 1 then 2.
+  const text=before.toString('latin1');
+  const re=/<Operation>(?:(?!<Operation>).)*?<Id>([12])<\/Id>(?:(?!<Operation>).)*?<Type>/gs;
+  const found=[...text.matchAll(re)];
+  if(found.length!==2 || found.map(x=>x[1]).join(',')!=='1,2') fail('expected exactly two direct operation IDs 1,2');
+  let out=Buffer.from(before); const offsets=[];
+  for(let i=found.length-1;i>=0;i--) {
+    const m=found[i], token=`<Id>${m[1]}</Id>`, start=m.index+m[0].indexOf(token)+4;
+    offsets.unshift(start); out=Buffer.concat([out.subarray(0,start),Buffer.from('-'),out.subarray(start)]);
+  }
+  // Reconstruct from the source to prove there are exactly two inserted minus bytes.
+  if(out.length!==before.length+2) fail('mutation length is not exactly two inserted bytes');
+  let reconstructed=Buffer.from(before);
+  for(const at of [...offsets].reverse()) reconstructed=Buffer.concat([reconstructed.subarray(0,at),Buffer.from('-'),reconstructed.subarray(at)]);
+  if(!out.equals(reconstructed)) fail('variant has a byte difference beyond the two required minus insertions');
+  return {bytes:out,offsets};
+}
+function parseEvent(line) {
+  // FILETIME is an unsigned 64-bit value; retain its raw decimal text across JSON parsing.
+  const event=JSON.parse(line.replace(/("creation_filetime"\s*:\s*)(\d+)/g,'$1"$2"'));
+  const allowed=new Set(['created','resumed','endpoint','status','cleanup','error','cleanup_error']);
+  if(!event||typeof event!=='object'||Array.isArray(event)||typeof event.event!=='string'||!allowed.has(event.event)) fail('JSONL event schema invalid');
+  return event;
+}
+function assertShortUnderProblem(p) {
+  const resolved=path.resolve(p).toLowerCase(), base='c:\\problem\\';
+  if(!resolved.startsWith(base) || resolved.length>=100) fail(`unsafe or long clone path: ${p}`);
+}
+function assertPhysicalPath(p, mustExist) {
+  const resolved=path.resolve(p), root=path.parse(resolved).root;
+  let cursor=root;
+  for(const part of resolved.slice(root.length).split(path.sep).filter(Boolean)) {
+    cursor=path.join(cursor,part);
+    try { const st=fs.lstatSync(cursor); if(st.isSymbolicLink()) fail(`reparse/symlink ancestor: ${cursor}`); }
+    catch(e) { if(e?.code!=='ENOENT') throw e; }
+  }
+  if(mustExist) {
+    const real=fs.realpathSync.native(resolved);
+    if(real.toLowerCase()!==resolved.toLowerCase()) fail(`physical path differs from lexical path: ${resolved} -> ${real}`);
+  }
+  return resolved;
+}
+function writeJsonExclusive(file,value) { fs.writeFileSync(file,JSON.stringify(value,null,2),{flag:'wx'}); }
+function equalManifest(a,b) { return a.entries.length===b.entries.length && a.entries.every((x,i)=>JSON.stringify(x)===JSON.stringify(b.entries[i])); }
+function preflight(cfg={exe:EXE,exeSha:EXE_SHA256,helper,helperSha:HELPER_SHA256,source:path.resolve(projectRoot,SOURCE),cases:CASES,strictShortPaths:true}) {
+  const source=assertPhysicalPath(cfg.source,true); assertPhysicalPath(cfg.exe,true); assertPhysicalPath(cfg.helper,true);
+  const original=path.join(source,'Gear_blank.moproj');
+  if(digest(cfg.exe)!==cfg.exeSha) fail('target executable hash mismatch');
+  if(digest(cfg.helper)!==cfg.helperSha) fail('owned helper hash mismatch');
+  const sourceManifest=inventory(source), sourceBytes=fs.readFileSync(original), variant=patchIds(sourceBytes);
+  if(cfg.pinSource && (sourceManifest.entries.length!==33 || sha(JSON.stringify(sourceManifest.entries))!==SOURCE_MANIFEST_SHA256 || sha(sourceBytes)!==SOURCE_PROJECT_SHA256)) fail('source fixture identity mismatch (expected pinned 33-entry manifest and project SHA-256)');
+  for(const c of cfg.cases) {
+    if(cfg.strictShortPaths) assertShortUnderProblem(c.root);
+    assertPhysicalPath(c.root,false); if(fs.existsSync(c.root)) fail(`destination already exists: ${c.root}`);
+    for(const rel of ['Gear_blank.moproj','Operations','Objects','Materials','Equipments','Lubricants'])
+      if(path.join(c.root,rel).length>=100 && cfg.strictShortPaths) fail(`generated path exceeds 99 chars: ${path.join(c.root,rel)}`);
+  }
+  return {source,sourceManifest,sourceBytes,variant,cfg};
+}
+
+function cloneCase(pf, c, onReserved=()=>{}) {
+  assertPhysicalPath(c.root,false);
+  const parent=path.dirname(c.root); assertPhysicalPath(parent,true);
+  fs.mkdirSync(c.root,{recursive:false}); // Exclusive leaf creation prevents adopting a race-created empty directory.
+  const rootReceipt={root:c.root,reservedBy:'runner',reservedUtc:new Date().toISOString(),exclusiveMkdir:true};
+  onReserved(rootReceipt);
+  assertPhysicalPath(c.root,true);
+  for(const name of fs.readdirSync(pf.source)) {
+    const from=path.join(pf.source,name),to=path.join(c.root,name);
+    if(fs.existsSync(to)) fail(`destination entry appeared after reservation: ${to}`);
+    fs.cpSync(from,to,{recursive:true,errorOnExist:true,force:false,verbatimSymlinks:true});
+  }
+  assertPhysicalPath(c.root,true);
+  const names=fs.readdirSync(c.root,{recursive:true});
+  for(const name of names) if(path.join(c.root,name).length>=100 && pf.cfg.strictShortPaths) fail(`copied path exceeds 99 chars: ${path.join(c.root,name)}`);
+  const project=path.join(c.root,'Gear_blank.moproj');
+  if(c.name==='negative_ids') fs.writeFileSync(project,pf.variant.bytes,{flag:'w'});
+  const xml=spawnSync(pf.cfg.python,['-c',
+    'import sys,xml.etree.ElementTree as E; r=E.parse(sys.argv[1]).getroot(); ops=r.find("Operation_List").findall("Operation"); assert len(ops)==2; assert all([x.tag for x in o][:3]==["Name","Id","Type"] for o in ops); print("|".join(",".join((o.findtext("Name"),o.findtext("Id"),o.findtext("Type"))) for o in ops))',project],{encoding:'utf8',windowsHide:true});
+  if(xml.status!==0) fail(`XML parser preflight failed: ${xml.stderr}`);
+  // Parser output is a strict structural witness; accept only the documented ordered fields.
+  const structure=pf.cfg.expectedStructure[c.name];
+  if(xml.stdout.trim()!==structure) fail(`unexpected operation structure/order: ${xml.stdout}`);
+  const manifest=inventory(c.root);
+  for(const d of ['Operations','Objects','Materials','Equipments']) if(!fs.statSync(path.join(c.root,d)).isDirectory()) fail(`missing ${d}`);
+  if(fs.existsSync(path.join(c.root,'Lubricants'))) fail('unexpected initial Lubricants directory');
+  const sourceEntries=pf.sourceManifest.entries.map(e=>({...e}));
+  const actual=manifest.entries;
+  if(c.name==='control' && (!equalManifest(manifest,pf.sourceManifest)||!fs.readFileSync(project).equals(pf.sourceBytes))) fail('control differs from source manifest/bytes');
+  if(c.name==='negative_ids') {
+    const byPath=new Map(sourceEntries.map(e=>[e.path,e]));
+    if(actual.length!==sourceEntries.length || actual.some(e=>!byPath.has(e.path)||byPath.get(e.path).kind!==e.kind)) fail('variant clone missing/additional manifest entries');
+    const changed=actual.filter(e=>JSON.stringify(e)!==JSON.stringify(byPath.get(e.path)));
+    if(changed.length!==1 || changed[0].path!=='Gear_blank.moproj' || !fs.readFileSync(project).equals(pf.variant.bytes)) fail('variant project bytes or full manifest delta mismatch');
+  }
+  return {manifest,projectHash:digest(project),rootReceipt};
+}
+
+// Process protocol lives here so self-test exercises argument construction without launching a child.
+function helperArgs(root) {
+  const project=path.join(root,'Gear_blank.moproj');
+  return ['--exe',EXE,'--cwd',root,'--sha256',EXE_SHA256,'--max-seconds',String(WATCHDOG_SECONDS),
+    '--','-m','open','-f',encodeQChar(project)];
+}
+function helperArgsFor(root,c,cfg) {
+  return ['--exe',cfg.exe,'--cwd',root,'--sha256',cfg.exeSha,'--max-seconds',String(cfg.watchdogSeconds??WATCHDOG_SECONDS),'--',...cfg.targetArgs(root,c)];
+}
+function identityMatches(created, launcherPid, root,c,cfg) {
+  const i=created?.identity;
+  const expected=[path.resolve(cfg.exe).toLowerCase(),...cfg.targetArgs(root,c)];
+  return created?.event==='created' && created.state==='suspended' && created.exit_verified===false &&
+    Number.isInteger(i?.pid) && i.pid>0 && Number.isInteger(i?.primary_tid) && i.primary_tid>0 &&
+    String(i.creation_filetime).match(/^\d{18,}$/) && i.canonical_image?.toLowerCase()===path.resolve(cfg.exe).toLowerCase() &&
+    i.sha256===cfg.exeSha && i.cwd?.toLowerCase()===path.resolve(root).toLowerCase() &&
+    i.launcher_pid===launcherPid && Array.isArray(i.argv) && JSON.stringify(i.argv)===JSON.stringify(expected);
+}
+async function selfTest() {
+  const e=encodeQChar('C:\\PROBLEM\\p217b\\Gear_blank.moproj');
+  if(e.length!==4*'C:\\PROBLEM\\p217b\\Gear_blank.moproj'.length) fail('encoding length test failed');
+  const unicode='C:\\PROBLEM\\μ😀.moproj'; if(encodeQChar(unicode).length!==4*unicode.length) fail('non-ASCII UTF-16 QChar test failed');
+  const input=Buffer.from('<Root><Operation_List><Operation><Name>A</Name><Id>1</Id><Type>T1</Type></Operation><Operation><Name>B</Name><Id>2</Id><Type>T2</Type></Operation></Operation_List></Root>');
+  const p=patchIds(input);
+  if(p.bytes.toString()!==input.toString().replace('<Id>1</Id>','<Id>-1</Id>').replace('<Id>2</Id>','<Id>-2</Id>')) fail('byte patch fixture mismatch');
+  if(p.bytes.length!==input.length+2 || p.offsets.length!==2) fail('patch receipt fixture mismatch');
+  if(parseEvent('{"event":"created","creation_filetime":134374976011692820}').creation_filetime!=='134374976011692820') fail('FILETIME precision test failed');
+  if(equalManifest({entries:[{path:'a'},{path:'b'}]},{entries:[{path:'a'}]})) fail('manifest missing-tail test failed');
+  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'cp217-writer-')),receipt=path.join(temp,'receipt.json');
+  writeJsonExclusive(receipt,{ok:true}); let rejected=false; try{writeJsonExclusive(receipt,{ok:false});}catch{rejected=true;} fs.rmSync(temp,{recursive:true,force:true});
+  if(!rejected) fail('exclusive receipt writer test failed');
+  for(const line of ['null','[]','{"event":3}','{"event":"unknown"']) { let bad=false; try{parseEvent(line);}catch{bad=true;} if(!bad) fail(`invalid JSONL event accepted: ${line}`); }
+  const args=['-m','open','-f',encodeQChar('C:\\PROBLEM\\p217b\\Gear_blank.moproj')];
+  if(args.length!==4||args[0]!=='-m'||args[2]!=='-f') fail('CLI argv construction fixture failed');
+  const start=Date.now(),timed=await waitUntil(new Promise(()=>{}),5);
+  if(timed.timeout!==true||Date.now()-start>1000) fail('bounded close-wait fixture failed');
+  process.stdout.write(JSON.stringify({selfTest:'passed',qchar:'round-trip',patch:'two inserted minus bytes',originalLaunch:false})+'\n');
+}
+
+function launchReceipt(child, completion, stdout, stderr, pending, events, parseErrors, streamErrors) {
+  child.on('error',e=>streamErrors.push({stream:'child',error:String(e)}));
+  for(const [name,s] of [['stdin',child.stdin],['stdout',child.stdout],['stderr',child.stderr]])
+    s.on('error',e=>streamErrors.push({stream:name,error:String(e)}));
+  child.stdout.setEncoding('utf8').on('data',chunk=>{stdout.value+=chunk;pending.value+=chunk;let n;while((n=pending.value.indexOf('\n'))>=0){const line=pending.value.slice(0,n);pending.value=pending.value.slice(n+1);try{events.push(parseEvent(line));}catch(e){parseErrors.push({line,error:String(e)});}}});
+  child.stderr.setEncoding('utf8').on('data',chunk=>stderr.value+=chunk);
+  child.once('close',(code,signal)=>completion.resolve({code,signal,closed:true}));
+}
+function waitUntil(p,ms) {
+  let timer;
+  return Promise.race([p,new Promise(resolve=>{timer=setTimeout(()=>resolve({timeout:true}),ms);})]).finally(()=>clearTimeout(timer));
+}
+function writeCommand(child,command) {
+  return new Promise((resolve,reject)=>{
+    if(child.stdin.destroyed||child.stdin.writableEnded||child.stdin.writableFinished) return reject(new Error('helper stdin already closed'));
+    child.stdin.write(JSON.stringify({command})+'\n',err=>err?reject(err):resolve());
+  });
+}
+async function queryPid(pid) {
+  const ps=`$ErrorActionPreference='Stop'; try {$p=Get-Process -Id ${pid} -ErrorAction Stop; $r=[ordered]@{ok=$true;absent=$false;rows=@(@{Id=[int]$p.Id;Name=[string]$p.ProcessName;Path=[string]$p.Path})}} catch {if ($_.FullyQualifiedErrorId -eq 'NoProcessFoundForGivenId,Microsoft.PowerShell.Commands.GetProcessCommand') {$r=[ordered]@{ok=$true;absent=$true;rows=@()}} else {$r=[ordered]@{ok=$false;absent=$null;error=$_.Exception.Message;FullyQualifiedErrorId=[string]$_.FullyQualifiedErrorId}}}; ConvertTo-Json -InputObject $r -Depth 4 -Compress`;
+  const x=await execFileAsync('C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',['-NoProfile','-NonInteractive','-Command',ps],{windowsHide:true,timeout:5000});
+  return {raw:x.stdout,value:JSON.parse(x.stdout)};
+}
+async function runCase(pf,cfg,c,out) {
+  const caseDir=path.join(out,c.name); fs.mkdirSync(caseDir);
+  let cc;
+  try { cc=cloneCase(pf,c,receipt=>writeJsonExclusive(path.join(caseDir,'root-reservation.json'),receipt)); }
+  catch(e) { writeJsonExclusive(path.join(caseDir,'clone-error.json'),{error:String(e)}); throw e; }
+  const before={manifest:cc.manifest,projectSha256:cc.projectHash,argv:helperArgsFor(c.root,c,cfg)};
+  writeJsonExclusive(path.join(caseDir,'before.json'),before);
+  if(!equalManifest(inventory(pf.source),pf.sourceManifest)||digest(path.join(pf.source,'Gear_blank.moproj'))!==sha(pf.sourceBytes)||digest(cfg.exe)!==cfg.exeSha||digest(cfg.helper)!==cfg.helperSha) fail('source/target/helper changed immediately before launch');
+  let child=null,close=null,created=null,resumed=null,flowError=null,absent=null,absentRaw=null,after=null,sourceAfter=null;
+  const stdout={value:''},stderr={value:''},pending={value:''},events=[],parseErrors=[],streamErrors=[];
+  let endpoint=null,elapsedMs=0,writeError=null,persistError=null;
+  const completion={}; completion.promise=new Promise(resolve=>completion.resolve=resolve);
+  try {
+    child=spawn(cfg.python,[cfg.helper,...helperArgsFor(c.root,c,cfg)],{cwd:c.root,windowsHide:true,stdio:['pipe','pipe','pipe']});
+    launchReceipt(child,completion,stdout,stderr,pending,events,parseErrors,streamErrors);
+    const waitEvent=async name=>{const end=Date.now()+10_000;while(Date.now()<end){const e=events.find(x=>x.event===name);if(e)return e;if(streamErrors.length||events.some(x=>x.event==='error'||x.event==='cleanup_error')||completion.done)return null;await new Promise(r=>setTimeout(r,20));}return null;};
+    completion.promise.then(x=>{completion.done=true;completion.value=x;});
+    created=await waitEvent('created'); if(!identityMatches(created,child.pid,c.root,c,cfg)) fail(`created ownership receipt invalid: ${JSON.stringify({expectedExe:path.resolve(cfg.exe).toLowerCase(),expectedCwd:path.resolve(c.root).toLowerCase(),expectedArgv:[path.resolve(cfg.exe).toLowerCase(),...cfg.targetArgs(c.root,c)],launcherPid:child.pid,received:created?.identity})}`);
+    await writeCommand(child,'resume'); resumed=await waitEvent('resumed'); if(resumed?.previous_suspend_count!==1) fail('resume receipt invalid');
+    const start=Date.now(),deadline=start+(cfg.observeMs??OBSERVE_MS);
+    while(Date.now()<deadline&&!events.some(e=>e.event==='endpoint')&&!completion.done) await new Promise(r=>setTimeout(r,20));
+    elapsedMs=Date.now()-start; endpoint=events.find(e=>e.event==='endpoint')||null;
+    if(!endpoint&&elapsedMs>=(cfg.observeMs??OBSERVE_MS)) await writeCommand(child,'terminate');
+  } catch(e) { flowError=String(e); }
+  finally {
+    if(child?.stdin&&!child.stdin.writableEnded&&!child.stdin.writableFinished) {
+      try { child.stdin.end(); } catch(e) { writeError=String(e); }
+    }
+    if(child) close=await waitUntil(completion.promise,30_000);
+    if(pending.value.trim()) try{events.push(parseEvent(pending.value.trim()));}catch(e){parseErrors.push({line:pending.value,error:String(e)});}
+    endpoint=events.find(e=>e.event==='endpoint')||endpoint;
+    if(created?.identity?.pid) { try { const q=await (cfg.queryProcess||queryPid)(created.identity.pid); absentRaw=q.raw; absent=q.value; } catch(e){absent={ok:false,error:String(e)};absentRaw=String(e);} }
+    if(cfg.afterCleanup) { try { await cfg.afterCleanup(c.root,c); } catch(e) { streamErrors.push({stage:'afterCleanup',error:String(e)}); } }
+    try { after=inventory(c.root); } catch(e) { after={error:String(e)}; }
+    try { sourceAfter=inventory(pf.source); } catch(e) { sourceAfter={error:String(e)}; }
+    const cleanup=events.find(e=>e.event==='cleanup');
+    const exeAfter=(()=>{try{return digest(cfg.exe);}catch(e){return `ERROR:${e}`;}})(),helperAfterHash=(()=>{try{return digest(cfg.helper);}catch(e){return `ERROR:${e}`;}})();
+    const baselineIntact=!!sourceAfter.entries&&equalManifest(sourceAfter,pf.sourceManifest)&&exeAfter===cfg.exeSha&&helperAfterHash===cfg.helperSha;
+    const map=m=>new Map((m.entries||[]).map(x=>[x.path,JSON.stringify(x)])),beforeMap=map(cc.manifest),afterMap=map(after||{entries:[]});
+    const delta=after?.entries?{added:after.entries.filter(x=>!beforeMap.has(x.path)),removed:cc.manifest.entries.filter(x=>!afterMap.has(x.path)),changed:after.entries.filter(x=>beforeMap.has(x.path)&&beforeMap.get(x.path)!==JSON.stringify(x))}:null;
+    const targetAbsent=absent?.ok===true&&absent?.absent===true;
+    const endpointGood=endpoint?.reason==='terminate_command'&&elapsedMs>=(cfg.observeMs??OBSERVE_MS)&&cleanup?.termination_requested===true;
+    const complete=!!created&&!!resumed&&!flowError&&!writeError&&!streamErrors.length&&!parseErrors.length&&completion.done&&close?.closed===true&&close.code===0&&!!after?.entries&&!after?.error&&cleanup?.exit_verified===true&&cleanup?.wait_result===0&&cleanup?.handles_closed===true&&!events.some(e=>e.event==='cleanup_error')&&targetAbsent&&endpointGood&&baselineIntact;
+    const result={name:c.name,created,resumed,endpoint,elapsedMs,cleanup,helperExit:close,processAbsenceSnapshot:absent,processAbsenceRaw:absentRaw,flowError,writeError,streamErrors,parseErrors,after,delta,sourceAfter,executableAfter:{path:cfg.exe,sha256:exeAfter},helperAfter:{path:cfg.helper,sha256:helperAfterHash},baselineIntact,complete};
+    try {
+      fs.writeFileSync(path.join(caseDir,'helper.stdout.raw'),stdout.value,{flag:'wx'});fs.writeFileSync(path.join(caseDir,'helper.stderr.raw'),stderr.value,{flag:'wx'});
+      writeJsonExclusive(path.join(caseDir,'events.json'),events);writeJsonExclusive(path.join(caseDir,'parse-errors.json'),parseErrors);writeJsonExclusive(path.join(caseDir,'result.json'),result);
+    } catch(e) { persistError=String(e); }
+    if(!complete||persistError) fail(`incomplete owned cleanup/integrity; preserved at ${caseDir}; persistError=${persistError||''}`);
+    return result;
+  }
+}
+async function runPipeline(cfg) {
+  const pf=preflight(cfg),out=cfg.outDir; fs.mkdirSync(out,{recursive:false});
+  const baseline={source:pf.sourceManifest,executable:{path:cfg.exe,sha256:digest(cfg.exe)},helper:{path:cfg.helper,sha256:digest(cfg.helper)},variant:{path:'Gear_blank.moproj',sha256:sha(pf.variant.bytes),offsets:pf.variant.offsets}};
+  writeJsonExclusive(path.join(out,'preflight.json'),baseline); const completed=[];
+  for(const c of cfg.cases) { if(cfg.beforeCase) await cfg.beforeCase(c); completed.push(await runCase(pf,cfg,c,out)); }
+  const effects=completed.map(x=>({name:x.name,added:x.delta.added.map(e=>e.path),removed:x.delta.removed.map(e=>e.path),changed:x.delta.changed.map(e=>e.path)}));
+  const hasLubricants=x=>x.added.some(p=>p.toLowerCase().split(/[\\/]/).includes('lubricants'));
+  const controlHasLubricants=hasLubricants(effects[0]),variantHasLubricants=hasLubricants(effects[1]);
+  const interpretation=!controlHasLubricants?'inconclusive_control_did_not_add_lubricants':variantHasLubricants?'variant_also_added_lubricants_positive_id_not_shown_necessary':'consistent_with_positive_id_path_but_not_causal_proof';
+  const comparison={control:effects[0],negative_ids:effects[1],controlHasLubricants,variantHasLubricants,interpretation,
+    sharedAdded:effects[0].added.filter(x=>effects[1].added.includes(x)),controlOnlyAdded:effects[0].added.filter(x=>!effects[1].added.includes(x)),negativeOnlyAdded:effects[1].added.filter(x=>!effects[0].added.includes(x))};
+  writeJsonExclusive(path.join(out,'effect-comparison.json'),comparison); return {out,comparison};
+}
+async function run() {
+  if(!RUN_ORIGINAL_COMPARISON) fail('original comparison disabled; literal guard must remain false');
+  const cfg={exe:EXE,exeSha:EXE_SHA256,helper,helperSha:HELPER_SHA256,source:path.resolve(projectRoot,SOURCE),cases:CASES,strictShortPaths:true,pinSource:true,
+    python:'C:\\Program Files\\Python312\\python.exe',watchdogSeconds:WATCHDOG_SECONDS,observeMs:OBSERVE_MS,
+    expectedStructure:{control:'Die Stress,1,SfOprDiestress|Forming (2),2,SfOprForming',negative_ids:'Die Stress,-1,SfOprDiestress|Forming (2),-2,SfOprForming'},
+    targetArgs:(root)=>['-m','open','-f',encodeQChar(path.join(root,'Gear_blank.moproj'))],outDir:path.join(projectRoot,'analysis',`resume217-plain-run-${new Date().toISOString().replaceAll(':','-')}`)};
+  return runPipeline(cfg);
+}
+async function dryRun() {
+  const sandbox=fs.mkdtempSync(path.join(projectRoot,'analysis','cp217-harmless-'));
+  const source=path.join(sandbox,'source'),casesRoot=path.join(sandbox,'cases'),fixture=path.join(here,'tests','harmless_suspended_child.py');
+  fs.mkdirSync(source);fs.mkdirSync(casesRoot);
+  for(const d of ['Operations','Objects','Materials','Equipments']) fs.mkdirSync(path.join(source,d));
+  const xml='<Root><Operation_List><Operation><Name>Die Stress</Name><Id>1</Id><Type>SfOprDiestress</Type></Operation><Operation><Name>Forming (2)</Name><Id>2</Id><Type>SfOprForming</Type></Operation></Operation_List></Root>';
+  fs.writeFileSync(path.join(source,'Gear_blank.moproj'),xml);
+  const cases=[{name:'control',root:path.join(casesRoot,'control')},{name:'negative_ids',root:path.join(casesRoot,'negative_ids')}];
+  const python='C:\\Program Files\\Python312\\python.exe';
+  const cfg={exe:python,exeSha:digest(python),helper,helperSha:HELPER_SHA256,source,cases,strictShortPaths:false,pinSource:false,python,watchdogSeconds:20,observeMs:100,
+    expectedStructure:{control:'Die Stress,1,SfOprDiestress|Forming (2),2,SfOprForming',negative_ids:'Die Stress,-1,SfOprDiestress|Forming (2),-2,SfOprForming'},
+    targetArgs:(root)=>[fixture,'-m','open','-f',encodeQChar(path.join(root,'Gear_blank.moproj'))],
+    outDir:path.join(sandbox,'receipts')};
+  const result=await runPipeline(cfg);
+  const raceRoot=path.join(casesRoot,'race-existing'),raceOut=path.join(sandbox,'receipts-race');
+  let raceRejected=false;
+  try { await runPipeline({...cfg,cases:[{name:'control',root:raceRoot}],outDir:raceOut,beforeCase:()=>fs.mkdirSync(raceRoot)}); }
+  catch { raceRejected=fs.existsSync(path.join(raceOut,'control','clone-error.json'))&&fs.readdirSync(raceRoot).length===0; }
+  if(!raceRejected) fail('race-created destination fixture was not refused cleanly');
+  const missingRoot=path.join(casesRoot,'inventory-failure'),missingOut=path.join(sandbox,'receipts-inventory-failure');
+  let inventoryFailureCaptured=false;
+  try { await runPipeline({...cfg,cases:[{name:'control',root:missingRoot}],outDir:missingOut,afterCleanup:async root=>{fs.rmSync(root,{recursive:true,force:true});}}); }
+  catch {
+    const resultPath=path.join(missingOut,'control','result.json');
+    if(fs.existsSync(resultPath)) { const r=JSON.parse(fs.readFileSync(resultPath,'utf8')); inventoryFailureCaptured=!r.complete&&typeof r.after?.error==='string'&&fs.existsSync(path.join(missingOut,'control','helper.stdout.raw')); }
+  }
+  if(!inventoryFailureCaptured) fail('after-inventory failure fixture was not retained/rejected');
+  process.stdout.write(JSON.stringify({dryRun:'passed',originalLaunch:false,sandbox,enabledRun:result,raceCreatedRootRejected:raceRejected,afterInventoryFailureCaptured:inventoryFailureCaptured})+'\n');
+}
+if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
+  try { if(process.argv[2]==='--self-test') selfTest().catch(e=>{process.stderr.write(String(e.stack||e)+'\n');process.exitCode=1;}); else if(process.argv[2]==='--dry-run-harmless') dryRun().catch(e=>{process.stderr.write(String(e.stack||e)+'\n');process.exitCode=3;}); else run().then(x=>process.stdout.write(JSON.stringify(x)+'\n')).catch(e=>{process.stderr.write(String(e.stack||e)+'\n');process.exitCode=2;}); }
+  catch(e) { process.stderr.write(String(e.stack||e)+'\n'); process.exitCode=1; }
+}
