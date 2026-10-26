@@ -1,0 +1,31 @@
+# CP260 lifecycle and Save failure next-leaf audit
+
+The smallest next action in this lane is an original occurrence capture, not another candidate implementation. Post-CP258 source retains the already implemented writer-continuation and guarded Close boundaries. This pass found no independent source-evidenced change that would remove either gate faithfully.
+
+## Reconciliation against current source
+
+- `source/apps/moproj2mst/src/core/convert.cpp:416-448` attempts the native MST writer, records its return, then invokes session-owned remesh handling before reporting project/MST failure. `target.close()` precedes the final stream failure query. A non-Completed remesh result maps to unsupported before ordinary writer error mapping. Do not introduce early return, rollback, or atomic replacement into this path.
+- CP164's conjunction is already in `source/apps/moproj2mst/tests/s/test_save_remesh_failure_matrix.cpp`. CP203 and CP214 correctly qualify its project-output events and held file sentinels as candidate precedence coverage only. More paired denials would repeat that coverage rather than establish the original terminal result.
+- `source/apps/moproj2mst/src/engine/conversion_session.cpp:223` labels its destructor as adapter exception/final cleanup. This is not native normal Close or a native partial-Open unwind. `src/engine/close_empty_manager_tail.cpp:85` still stops with `OwnedChildTeardownUnavailable` for owned children; `tests/mdt/test_close_empty_manager_tail.cpp:132,163` already checks this boundary.
+- `src/engine/save_project.cpp` preserves the must-be-last modal warning guard. CP112 and CP110 distinguish this branch from normal writer false: writer false can retain native Save answer No, whereas the warning's actual modal return and nested event delivery remain unbound. `tests/s/test_close_dialog_answer.cpp` already covers exact supplied answer mapping; another mapping test does not produce a modal result.
+- CP257/258's frozen scene refresh and Advanced Apply remap work and CP259's assigned scene-box contribution work do not supply Save return, accepted Close, or native teardown occurrences. The takeover queue still explicitly leaves these gates open. The 369-test receipt is retained validation, not a new run or full lifecycle acceptance.
+
+## Original evidence and required side-effect order
+
+The controlling retained source qualifications are `resume214-rio-failure-order.md`, `resume214-close-ownership.md`, `resume203-io-failure-static.md`, `resume120-close-ownership-order.md`, `resume112-default-dialog-save-failure.md`, and their referenced original contracts. They concern original DEF_GUI_MO_64 v11.0.2, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`; no reconstructed executable is assessed here.
+
+Static Save order is active operation Save -> project write -> property saves -> MST/study -> remesh. Returned project/MST false does not skip the later stages. Enabled remesh null fopen reaches fprintf/invalid-parameter dispatch; encoded-null startup initialization does not prove the decoded handler value at the Save occurrence. Conditional termination with 0xC0000417 is therefore not an established external original result.
+
+Static accepted Close order remains conditional on earlier guards, modal/nested Save and callbacks returning: main FileCloseAll `0x1400299a0` -> manager clear/ordered child deletion `0x140c78300` -> Mo-owned Project feature cleanup `0x1400aab30` -> Project destruction `0x14008a3c0` -> live diagram null-rebind `0x140170430` -> SubProject/flow cleanup -> Project feature-member/member destruction -> remaining Mo operation/object/material/equipment/lubricant slots -> manager list/current clear -> main refresh -> late operation-widget removal. Operation-editor OPI and model guards have separate lifetimes; timer/deleteLater requests do not prove destruction. No blanket process-global reset follows from these bodies.
+
+## Exact missing original occurrence
+
+Prefer one bounded successful Open -> Save -> separately requested default accepted Close trace using an owned fresh process and disposable short-path project when the supported control/release gate permits it. Bind main, manager, Mo child, Project, diagram and operation-editor allocation generations throughout; record Save-entry processEvents deliveries, writer outcomes and sidefiles; then the fresh Close gate inputs, modal interval/result, nested Save return, feature callbacks, child deleting virtual entry/return, diagram null binding, Project/SubProject/member destruction and late widget removal. Acceptance must be observed, not inferred from a requested Close or process exit. Partial-Open failure cleanup needs its own reached failure edge plus the live allocation/effect cursor; this successful occurrence cannot establish all such edges.
+
+For the independent remesh terminal gate, the exact outstanding occurrence remains same-run successful Open, enabled state and CWD, verified pre-truncation write denial, actual null fopen/first fprintf/module errno, decoded handler and selected filter/termination branch, external child result, and before/after raw output manifest. Status alone is insufficient. Retain instrumentation effects on filter behavior. Do not run another candidate endpoint merely to repeat a known gate.
+
+## Files and tests after evidence arrives
+
+Any eventual integration must revisit `src/core/convert.cpp`, `src/engine/save_project.cpp`, `src/engine/conversion_session.cpp`, `src/engine/close_empty_manager_tail.cpp` and the corresponding public headers only for the newly observed owner/effect prefix. Preserve existing `tests/s/test_save_remesh_failure_matrix.cpp`, `tests/s/test_close_dialog_answer.cpp`, `tests/mdt/test_close_empty_manager_tail.cpp` and `tests/mdt/test_conversion_session.cpp` as candidate regression boundaries. The missing test is an occurrence-backed integration case asserting reached effects in order and absence only beyond an observed stop; synthetic cleanup or a guessed terminal code must not stand in for the original.
+
+This audit read current source, queue and retained immutable evidence. No unresolved static question justified a fresh REA call. No source, test, shared state, build, GUI, original process or mutable REA action occurred; this report is the only write. No test was run.

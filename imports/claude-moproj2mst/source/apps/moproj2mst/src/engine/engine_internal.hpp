@@ -38,6 +38,9 @@ namespace m2m::engine {
 // Public raw fields and previously returned pointers cannot retire its cursor.
 void requireModelGeometrySyncAvailable(const GuiModel& model);
 
+// @src 0x140c8f830: settings-bearing views; 2D recomputes, 3D reads cached boxes.
+bool viewerAllViewBox(GuiModel& model, bool& valid, float mn[3], float mx[3]);
+
 template <class T> T* at(void* p, std::size_t off)
 {
     return reinterpret_cast<T*>(static_cast<std::byte*>(p) + off);

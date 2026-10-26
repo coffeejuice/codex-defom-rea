@@ -18,6 +18,7 @@
 #include <testkit/check.hpp>
 #include "../support/test_paths.hpp"
 
+#include <cmath>
 #include <cstdint>
 #include <cstddef>
 #include <array>
@@ -42,6 +43,7 @@
 #include <defmodel/layout/geo2d_and_mesh2d.hpp>
 #include <defmodel/layout/llobj_data.hpp>
 #include <defmodel/layout/obj_geo2d.hpp>
+#include <defmodel/layout/obj_geo3d.hpp>
 #include <defmodel/layout/obj_mesh2d.hpp>
 #include <defmodel/layout/state_var_node.hpp>
 #include <defmodel/llobj/cls_14017ef20.hpp>
@@ -631,6 +633,165 @@ TEST_CASE(geometry_item_rect_refresh_and_missing_source_keep_original_state_orde
     CHECK(!valid);
 }
 
+namespace {
+void fitFlags(engine::GuiModel& model, int view, bool shown, bool geometry)
+{
+    engine::readViewerDisplayOptions(model, view, *parseDisplayOptions(
+        std::string("<SfDispOpt><DispFlagList ObjectOn='") + (shown ? "1" : "0") +
+        "' GeoOn='" + (geometry ? "1" : "0") + "' MeshOn='0'/></SfDispOpt>"));
+    const auto flags = engine::viewerDisplayOptionSnapshot(model, view);
+    REQUIRE(flags);
+    CHECK(flags->flags[1] == (shown ? 1 : 0)); CHECK(flags->flags[3] == (geometry ? 1 : 0)); CHECK(flags->flags[2] == 0);
+}
+
+void importedFitRep(engine::GuiModel& model, int number, double scale, double translate)
+{
+    const auto key = m2m_test::configuredPath("M2M_DB_FIXTURE") / "Objects" / "Object00001.KEY";
+    const bool mark5 = true;
+    REQUIRE(model.loadObjectKeyGeometry(qt::String{key.u16string()}, &number, &mark5));
+    auto* object = model.object(number); REQUIRE(object);
+    auto* surface = def::model::geo_kw::surface(*object, 0); REQUIRE(surface);
+    REQUIRE(surface->node_count() == 242); REQUIRE(surface->elem_count() == 480);
+    surface->scale(&scale);
+    const double offset[3] = {translate, 0, 0};
+    surface->translate(offset);
+    engine::viewerSync(model, object, true);
+    fitFlags(model, number - 1, true, true);
+    engine::viewerRefresh(model);
+}
+}
+
+TEST_CASE(display_fit_independent_radius_rejects_rectangle_fallback_and_preserves_prior_origin)
+{
+    engine::GuiModel main(nullptr, 3);
+    auto* curve = geometryLine(main, 2.0);
+    const double offset[3] = {12, 0, 0}; curve->translate(offset);
+    engine::viewerRefresh(main);
+    bool valid = true; float mn[3] = {}, mx[3] = {};
+    REQUIRE(engine::viewerAllViewBox(main, valid, mn, mx)); CHECK(!valid);
+    REQUIRE(engine::viewerSceneBox(main, valid, mn, mx));
+    CHECK(valid && mn[0] == 10 && mx[0] == 14);
+    Project project; ProjectScope scope(project);
+    engine::displayRefreshScene(project, &main);
+    auto camera = engine::displayCamera(project);
+    CHECK(camera.origin[0] == 0);
+    CHECK(std::fabs(camera.lrtb[0] - 9.9) < 1e-6);
+    CHECK(std::fabs(camera.lrtb[1] - 14.1) < 1e-6);
+    CHECK(std::fabs(camera.lrtb[2] - 2.1) < 1e-6);
+    CHECK(std::fabs(camera.lrtb[3] + 2.1) < 1e-6);
+
+    engine::GuiModel populated(nullptr, 3);
+    importedFitRep(populated, 1, 1.0, 12.0);
+    REQUIRE(engine::viewerAllViewBox(populated, valid, mn, mx));
+    CHECK(valid && mn[0] == -988 && mx[0] == 1012);
+    CHECK(mn[1] == -250 && mx[1] == 250 && mn[2] == -250 && mx[2] == 250);
+    engine::displayRefreshScene(project, &populated);
+    CHECK(engine::displayCamera(project).origin[0] == -12);
+    curve->translate(offset); // fallback becomes [22,26], still zero independent radius
+    engine::displayRefreshScene(project, &main);
+    camera = engine::displayCamera(project);
+    CHECK(camera.origin[0] == -12);
+    CHECK(std::fabs(camera.lrtb[0] - 21.9) < 1e-6);
+    CHECK(std::fabs(camera.lrtb[1] - 26.1) < 1e-6);
+}
+
+TEST_CASE(display_fit_recomputes_hidden_2d_view_without_refreshing_cached_model_rect)
+{
+    engine::GuiModel main(nullptr, 2); main.step->sim_ctrl.geotyp = 2;
+    geometryLine(main, 2.0); geometryLine(main, 8.0, 2);
+    REQUIRE(def::model::geo_kw::object_dim(*main.object(2)) == 2);
+    fitFlags(main, 0, true, true); fitFlags(main, 1, true, true);
+    engine::viewerRefresh(main);
+    float mn[3] = {}, mx[3] = {};
+    REQUIRE(engine::viewerBox(main, 2, mn, mx)); CHECK(mn[0] == -8 && mx[0] == 8);
+    fitFlags(main, 1, false, false);
+    REQUIRE(engine::viewerBox(main, 2, mn, mx)); CHECK(mn[0] == -8 && mx[0] == 8);
+    Project project; ProjectScope scope(project);
+    engine::displayRefreshScene(project, &main);
+    REQUIRE(engine::viewerBox(main, 2, mn, mx));
+    for (int c = 0; c < 3; ++c) { CHECK(mn[c] == 0); CHECK(mx[c] == 0); }
+    const auto camera = engine::displayCamera(project);
+    CHECK(std::fabs(camera.lrtb[0] + 2.1) < 1e-6);
+    CHECK(std::fabs(camera.lrtb[1] - 2.1) < 1e-6);
+}
+
+TEST_CASE(display_fit_axis_extension_reads_cached_named_model_rectangle)
+{
+    for (int geometry : {1, 3}) {
+        engine::GuiModel main(nullptr, 2); main.step->sim_ctrl.geotyp = geometry;
+        Project project; ProjectScope scope(project);
+        engine::displayRefreshScene(project, &main);
+        CHECK(engine::displayCamera(project).origin[0] == 0);
+        auto* named = engine::displayNamedModel(*project.display, qt::L("Axis")); REQUIRE(named);
+        auto* curve = geometryLine(*named, 2.0);
+        REQUIRE(def::model::geo_kw::object_dim(*named->object(1)) == 2);
+        const double offset[3] = {12, 0, 0}; curve->translate(offset);
+        engine::viewerSync(*named, named->object(1), true);
+        fitFlags(*named, 0, true, true); engine::viewerRefresh(*named);
+        bool valid = false; float mn[3] = {}, mx[3] = {};
+        REQUIRE(engine::viewerSceneBox(*named, valid, mn, mx));
+        CHECK(valid && mn[0] == 0 && mx[0] == 14);
+        fitFlags(*named, 0, false, false);
+        REQUIRE(engine::viewerBox(*named, 1, mn, mx)); CHECK(mn[0] == 10 && mx[0] == 14);
+        engine::displayModels(*project.display).named[0].flag = true;
+        engine::displayRefreshScene(project, &main);
+        CHECK(engine::displayCamera(project).origin[0] == -7);
+        REQUIRE(engine::viewerBox(*named, 1, mn, mx)); CHECK(mn[0] == 0 && mx[0] == 0);
+        REQUIRE(engine::viewerAllViewBox(*named, valid, mn, mx));
+        CHECK(valid && mn[0] == 0 && mx[0] == 14);
+    }
+}
+
+TEST_CASE(display_fit_radius_includes_hidden_views_only_inside_admitted_models)
+{
+    engine::GuiModel main(nullptr, 3);
+    importedFitRep(main, 1, 0.0000006, 0.01);
+    Project project; ProjectScope scope(project);
+    engine::displayRefreshScene(project, &main);
+    const auto smallCamera = engine::displayCamera(project);
+    CHECK(smallCamera.origin[0] == 0);
+    CHECK(smallCamera.lrtb[1] - smallCamera.lrtb[0] > 0.001);
+    importedFitRep(main, 2, 1.0, 0);
+    fitFlags(main, 1, false, true);
+    engine::displayRefreshScene(project, &main);
+    CHECK(std::fabs(engine::displayCamera(project).origin[0] + 0.01) < 1e-8);
+    for (int c = 0; c < 4; ++c) CHECK(engine::displayCamera(project).lrtb[c] == smallCamera.lrtb[c]);
+    // Fresh stores distinguish each model admission from retained prior acceptance.
+    for (int slot = 0; slot < 3; ++slot) {
+        Project slots; ProjectScope slotScope(slots);
+        engine::GuiModel tiny(nullptr, 3);
+        engine::GuiModel donor(nullptr, 3);
+        importedFitRep(tiny, 1, 0.0000006, 0.01);
+        engine::displayRefreshScene(slots, &tiny);
+        auto& models = engine::displayModels(*slots.display);
+        engine::GuiModel* contribution = nullptr;
+        if (slot == 0) contribution = engine::displaySecond(*slots.display);
+        else if (slot == 1) { models.third.reset(&donor); contribution = &donor; }
+        else contribution = engine::displayNamedModel(*slots.display, qt::L("Radius"));
+        REQUIRE(contribution);
+        importedFitRep(*contribution, 1, 1.0, 0);
+        fitFlags(*contribution, 0, false, true);
+        // Named caches are not refreshed by fit. Establish the same invalid scene
+        // box as hidden-view fixed models, while retaining their valid view box.
+        engine::viewerRefresh(*contribution);
+        bool valid = true; float mn[3] = {}, mx[3] = {};
+        REQUIRE(engine::viewerSceneBox(*contribution, valid, mn, mx)); CHECK(!valid);
+        REQUIRE(engine::viewerAllViewBox(*contribution, valid, mn, mx)); CHECK(valid);
+        engine::displayRefreshScene(slots, &tiny);
+        CHECK(engine::displayCamera(slots).origin[0] == 0); // hidden display model skipped
+        if (slot == 0) models.secondShown = true;
+        else {
+            engine::displayDropSecond(*slots.display);
+            models.secondShown = true; REQUIRE(!models.second.get());
+            if (slot == 1) models.thirdShown = true;
+            else models.named[0].flag = true;
+        }
+        engine::displayRefreshScene(slots, &tiny);
+        CHECK(std::fabs(engine::displayCamera(slots).origin[0] + 0.01) < 1e-8);
+    }
+
+}
+
 TEST_CASE(display_refresh_scene_refreshes_only_shown_main_secondary_and_third_caches)
 {
     engine::GuiModel main(nullptr, 3);
@@ -685,6 +846,136 @@ TEST_CASE(display_refresh_scene_refreshes_only_shown_main_secondary_and_third_ca
     moveCurve(thirdCurve, 9.0);
     engine::displayRefreshScene(project, &main);
     checkX(third, -9.0f, 9.0f);
+}
+
+TEST_CASE(display_refresh_scene_fits_shown_fixed_slot_box_union)
+{
+    engine::GuiModel main(nullptr, 3);
+    engine::GuiModel third(nullptr, 3);
+    engine::GuiModel empty(nullptr, 3);
+    geometryLine(main, 2.0);
+    geometryLine(third, 12.0);
+    Project project;
+    ProjectScope scope(project);
+    engine::displayRefreshScene(project, &main);
+    REQUIRE(project.display);
+    auto* secondary = engine::displaySecond(*project.display);
+    REQUIRE(secondary);
+    auto* secondaryCurve = geometryLine(*secondary, 8.0);
+    auto& models = engine::displayModels(*project.display);
+    models.third.reset(&third);
+
+    const auto checkWindow = [&](double left, double right, double top, double bottom) {
+        const auto camera = engine::displayCamera(project);
+        CHECK(std::fabs(camera.lrtb[0] - left) < 1e-6);
+        CHECK(std::fabs(camera.lrtb[1] - right) < 1e-6);
+        CHECK(std::fabs(camera.lrtb[2] - top) < 1e-6);
+        CHECK(std::fabs(camera.lrtb[3] - bottom) < 1e-6);
+    };
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1); // both secondary and third hidden
+
+    models.secondShown = true;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-8.4, 8.4, 8.4, -8.4);
+
+    // Mutate directly, with no refreshing helper before the actual caller.
+    secondaryCurve->points[0] = 10.0;
+    secondaryCurve->points[3] = 14.0;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.4, 14.4, 8.4, -8.4); // union [-2,14], not maximum individual radius
+    // Curve-only cached 3D boxes have zero independent radius; window still updates.
+
+    models.secondShown = false;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1);
+    models.thirdShown = true;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-12.6, 12.6, 12.6, -12.6);
+
+    engine::displayDropSecond(*project.display);
+    models.secondShown = true;
+    REQUIRE(!models.second.get() && !models.secondOwned);
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-12.6, 12.6, 12.6, -12.6); // null shown secondary skipped
+
+    {
+        auto temporary = std::make_unique<engine::GuiModel>(nullptr, 3);
+        models.third.reset(temporary.get());
+    }
+    REQUIRE(!models.third.get());
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1); // expired shown guard skipped
+
+    models.third.reset(&empty);
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1); // live invalid box preserves valid main
+}
+
+TEST_CASE(display_refresh_scene_fits_cached_named_box_union)
+{
+    engine::GuiModel main(nullptr, 3);
+    geometryLine(main, 2.0);
+    Project project;
+    ProjectScope scope(project);
+    engine::displayRefreshScene(project, &main);
+    REQUIRE(project.display);
+    auto& display = *project.display;
+    auto* zeta = engine::displayNamedModel(display, qt::L("Zeta"));
+    auto* alpha = engine::displayNamedModel(display, qt::L("Alpha"));
+    REQUIRE(zeta && alpha);
+    auto* zetaCurve = geometryLine(*zeta, 2.0);
+    zetaCurve->points[0] = 10.0;
+    zetaCurve->points[3] = 14.0;
+    engine::viewerRefresh(*zeta); // establish the named cache before the caller
+    auto* alphaCurve = geometryLine(*alpha, 8.0);
+    engine::displayNamedModel(display, qt::L("Null"));
+    engine::displayNamedModel(display, qt::L("Invalid"));
+    auto& models = engine::displayModels(display);
+    REQUIRE(models.named.size() == 4);
+    CHECK(models.named[0].name == qt::L("Alpha"));
+    CHECK(models.named[1].name == qt::L("Invalid"));
+    CHECK(models.named[2].name == qt::L("Null"));
+    CHECK(models.named[3].name == qt::L("Zeta"));
+    CHECK(engine::displayNamedModel(display, qt::L("Alpha")) == alpha);
+    // Reacquire holders only after all canonical insertions.
+    auto& alphaHolder = models.named[0];
+    auto& invalidHolder = models.named[1];
+    auto& nullHolder = models.named[2];
+    auto& zetaHolder = models.named[3];
+    nullHolder.model.reset();
+    const auto checkWindow = [&](double left, double right, double top, double bottom) {
+        const auto camera = engine::displayCamera(project);
+        CHECK(std::fabs(camera.lrtb[0] - left) < 1e-6);
+        CHECK(std::fabs(camera.lrtb[1] - right) < 1e-6);
+        CHECK(std::fabs(camera.lrtb[2] - top) < 1e-6);
+        CHECK(std::fabs(camera.lrtb[3] - bottom) < 1e-6);
+        CHECK(engine::displayMain(display) == &main);
+    };
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1); // all hidden, including false-flag null
+    alphaHolder.flag = true;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-8.4, 8.4, 8.4, -8.4);
+    // Direct geometry edits must not refresh a named cache through fit.
+    alphaCurve->points[0] = -30.0;
+    alphaCurve->points[3] = 30.0;
+    zetaHolder.flag = true;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-8.55, 14.55, 11.55, -11.55); // cached union [-8,14]
+    nullHolder.flag = true;
+    invalidHolder.flag = true;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-8.55, 14.55, 11.55, -11.55); // shown null/invalid do not erase union
+    alphaHolder.flag = false;
+    zetaHolder.flag = false;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1); // invalid named preserves main
+    invalidHolder.flag = false;
+    nullHolder.flag = false;
+    engine::displayRefreshScene(project, &main);
+    checkWindow(-2.1, 2.1, 2.1, -2.1);
+    // These legacy cases retain their scene-window selection assertions.
 }
 
 TEST_CASE(empty_and_populated_geometry_mesh_rectangles)

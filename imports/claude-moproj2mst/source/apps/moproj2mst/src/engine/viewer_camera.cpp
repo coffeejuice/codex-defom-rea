@@ -259,8 +259,52 @@ BoxD sceneBox(Display& d)
         viewerSceneBox(*d.main.get(), valid, mn, mx);                  // 0x140c8e0f0
         b = boxUnion(b, boxOf(valid, mn, mx));
     }
-    // +0x1b8 / +0x1c8 (second and third model) and the +0x1d8 item list: not set on this path
+    if (d.models.second.get() && d.models.secondShown) {
+        bool valid = false;
+        float mn[3], mx[3];
+        viewerSceneBox(*d.models.second.get(), valid, mn, mx);
+        b = boxUnion(b, boxOf(valid, mn, mx));
+    }
+    if (d.models.third.get() && d.models.thirdShown) {
+        bool valid = false;
+        float mn[3], mx[3];
+        viewerSceneBox(*d.models.third.get(), valid, mn, mx);
+        b = boxUnion(b, boxOf(valid, mn, mx));
+    }
+    // +0x1d8 snapshot visits follow the fixed slots in native map order. The
+    // canonical owner vector has that order; this false-refresh path cannot
+    // mutate it, so each holder can be queried immediately without a borrow list.
+    for (const auto& named : d.models.named) {
+        if (!named.flag) continue;                                  // holder+8 before model lookup
+        auto* model = named.model.get();                            // 0x140d12200
+        if (!model) continue;
+        bool valid = false;
+        float mn[3], mx[3];
+        viewerSceneBox(*model, valid, mn, mx);                       // cached; no named refresh
+        b = boxUnion(b, boxOf(valid, mn, mx));
+    }
     return b;
+}
+
+// @src 0x140cfdc60 / 0x140cfe0f0: independent all-view union radius.
+double sceneRadius(Display& d)
+{
+    BoxD box;
+    const auto contribute = [&](GuiModel& model) {
+        bool valid = false;
+        float mn[3], mx[3];
+        viewerAllViewBox(model, valid, mn, mx);
+        box = boxUnion(box, boxOf(valid, mn, mx));
+    };
+    if (d.main.get() && d.mainShown) contribute(*d.main.get());
+    if (d.models.second.get() && d.models.secondShown) contribute(*d.models.second.get());
+    if (d.models.third.get() && d.models.thirdShown) contribute(*d.models.third.get());
+    for (const auto& named : d.models.named) {
+        if (!named.flag) continue;
+        auto* model = named.model.get();
+        if (model) contribute(*model);
+    }
+    return box.radius;
 }
 
 // @src 0x140cfe9c0  fit (display +0x708 == 0): refresh the shown models, then the box, window,
@@ -272,24 +316,26 @@ void fit(Display& d)
         viewerRefresh(*d.models.second.get());
     if (d.models.third.get() && d.models.thirdShown)
         viewerRefresh(*d.models.third.get());
-    // 0x140cfe0f0: the box radius through 0x140cfdc60 (0x140c8f830 per model); taken here from the
-    // same scene box (0x140c8f830 not traced; it only gates the store below at radius >= 0.001)
+    if (!glScenePresent()) return;
+    const double radius = sceneRadius(d);
     const BoxD box = sceneBox(d);
-    const double radius = box.radius;
-    // @src 0x140d69e70  the box stored when valid and not degenerate
-    if (box.valid && 0.001 <= radius && 0.001 <= box.vol[1] - box.vol[0] && 0.001 <= box.vol[3] - box.vol[2]) {
+    // @src 0x140d69e70: derive dimensions before validity, reject ordered less-than.
+    const double width = box.vol[1] - box.vol[0];
+    const double height = box.vol[3] - box.vol[2];
+    if (box.valid && !(0.001 > radius) && !(0.001 > width) && !(0.001 > height)) {
         d.box = box;
         d.boxRadius = radius;
     }
+    const BoxD window = sceneBox(d);
     // @src 0x140d69d60  the window from the box's view volume
-    if (box.valid) {
-        d.rectMin[0] = box.vol[0];
+    if (window.valid) {
+        d.rectMin[0] = window.vol[0];
         rectDerive(d);
-        d.rectMax[0] = box.vol[1];
+        d.rectMax[0] = window.vol[1];
         rectDerive(d);
-        d.rectMin[1] = box.vol[2];
+        d.rectMin[1] = window.vol[2];
         rectDerive(d);
-        d.rectMax[1] = box.vol[3];
+        d.rectMax[1] = window.vol[3];
         rectDerive(d);
     }
     resetView(d);                                                      // 0x140d69740

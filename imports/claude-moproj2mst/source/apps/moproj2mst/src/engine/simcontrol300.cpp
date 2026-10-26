@@ -1200,7 +1200,7 @@ MeshingObjectReport transitionMeshingObject3D(GuiModel& model, MeshingPage& form
         report.outcome = ApplyResult::Completed; report.stage = MeshingObjectStage::Complete;
         return report;
     }
-    if (!model.step || model.step->dimension != 3 ||
+    if (model.dimension() != 3 ||
         static_cast<std::size_t>(requestedIndex) >= form.objects.size() || form.storedObjectIndex < -1 ||
         (form.storedObjectIndex >= 0 && static_cast<std::size_t>(form.storedObjectIndex) >= form.objects.size()) ||
         (event == MeshingObjectEvent::InitialLoad && form.storedObjectIndex != -1)) return report;
@@ -1305,7 +1305,7 @@ ApplyResult applyMeshing3D(GuiModel& model, RemeshState& state, const MeshingPag
 {
     // Native disabled tail never reads method/scaling/internal-checkbox controls;
     // remembered object copies still precede its enabled-byte store.
-    if (!model.step || model.step->dimension != 3 ||
+    if (model.dimension() != 3 ||
         (form.remeshEnabled && form.remeshMethodRadio != 1 && form.remeshMethodRadio != 3) ||
         (!form.objects.empty() && (form.storedObjectIndex != 0 || form.comboObjectIndex != 0)))
         return ApplyResult::UnsupportedSnapshot;
@@ -1327,7 +1327,7 @@ ApplyResult applyMeshing3D(GuiModel& model, RemeshState& state, const MeshingPag
 // Explicit mutable private path; this name does not alter legacy const callers.
 ApplyResult applyMeshingSelection3D(GuiModel& model, RemeshState& state, MeshingPage& form)
 {
-    if (!model.step || model.step->dimension != 3 ||
+    if (model.dimension() != 3 ||
         (form.remeshEnabled && form.remeshMethodRadio != 1 && form.remeshMethodRadio != 3))
         return ApplyResult::UnsupportedSnapshot;
     const auto transition = transitionMeshingObject3D(

@@ -1,0 +1,13 @@
+# CP260 named scene-box next leaf independent review
+
+## Verdict: PASS within the box/window-only scope
+
+The retained native tail supports the proposed named contribution order. `0x140d12a30` snapshots named-map values in map iteration order; `0x140cfd750` then tests each holder's flag before unwrapping its model, skips null models, optionally refreshes only when its refresh argument is nonzero, queries the cached scene box, unions it into the accumulator, and advances. In fit's `refresh=false` specialization, named models are not refreshed. The named pass follows main, secondary and third. There is no deduplication or selected-model substitution in the trace.
+
+The port's canonical `DisplayModels::named` vector is maintained in key order by `displayNamedModel`, and each `Named` owns its model through `unique_ptr` with a separate flag. Given the documented non-mutating `sceneBox` path, an immediate ordered const loop that checks flag first, then obtains and queries `model.get()`, is sufficient. Not retaining references across visits, not calling `displayNamedModel`, and not copying owners appropriately avoids invalidation and accidental ownership. The report properly excludes synthetic unsorted/duplicate entries, ownership parity, callback/reentrant traversal, and repeated visits for aliases to fixed slots.
+
+The actual-caller test plan uses `displayRefreshScene` and established cached curve geometry, with out-of-order named insertion to verify canonical key order and explicit window-bound expectations. It checks hidden and shown named models, contributions from multiple named boxes, false-flag/null and shown/null cases, invalid boxes preserving a valid accumulator, and (where supported) named-only contribution with main hidden. `viewerSceneBox` reads the current cache, so named geometry mutation is not silently refreshed by this path. Assertions are on camera window bounds only; the report explicitly says not to assert stored radius or origin from the converter's approximate radius path. The numeric radius 11 for the stated union should remain descriptive arithmetic, not a claimed native stored-radius expectation.
+
+The report keeps the remaining boundaries clear: no named refresh parity, no expansion of `sceneBox` radius calculation, no scene-box cache refresh, and no claim of complete fit parity. It accurately binds native static evidence and notes there is no fresh original execution or natural named occurrence witness. No source/tests/build changes or runtime claims are present.
+
+No source, tests, build, GUI, or mutable REA state was changed or run for this review.

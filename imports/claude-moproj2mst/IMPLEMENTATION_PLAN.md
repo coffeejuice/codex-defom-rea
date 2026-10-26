@@ -3868,3 +3868,102 @@ Checkpoint259 has started the reviewed fixed-slot scene-box union repair.
 Add shown secondary and third box contributions in native order, preserving
 the current separate radius qualification and actual-caller camera tests.
 
+Checkpoint259 is independently reviewed and frozen in
+`build/wave3-checkpoint259-verified/`. Viewer fixed-slot camera tests passed;
+the bound 369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. Native
+independent radius, named-holder traversal and full camera parity remain open.
+
+Checkpoint260 has started the reviewed Editor300 meshing Apply dimension-query
+owner cleanup. It preserves admission truth and effect order, and does not
+claim additional public editor behavior. A separate named-holder scene-box
+union contract is under independent review for parallel release.
+
+Checkpoints260/261 are jointly reviewed and frozen in
+`build/wave3-checkpoint260-261-verified/`. The meshing Apply preflight now
+uses GuiModel's dimension query; canonical named holders contribute cached
+boxes after fixed slots. Viewer and snapshot targets passed; the bound
+369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. Native
+independent radius/store, named refresh and the public editor route remain
+separate.
+
+Checkpoint262 has started bounded immutable PE recovery of the native scene
+radius/store path. Reconcile its independent model-view box source and gate
+with the current camera implementation before choosing an implementation leaf.
+
+Checkpoint263 is independently reviewed and frozen in
+`build/wave3-checkpoint263-verified/`. The meshing-selection preflight now
+uses GuiModel's dimension query without changing its transition. A worker's
+direct build lacked the MSVC environment; root rebuilt the edited target and
+then the full candidate. The bound 369-test suite passed with 362 clean, six
+logged gaps, one diagnostic difference, no fixture changes and historical
+93 SAME/five DIFF. This owner cleanup does not add public editor reachability.
+
+Checkpoint262's independent scene-radius/store contract was recovered from
+immutable original PE bytes and independently reviewed. Implementation now
+owns viewer all-view box selection, separate display radius union, store gate
+and ordered scene-box queries. Actual-caller fixture and failure qualifications
+remain required before freeze.
+
+Checkpoint262 is independently reviewed and frozen in
+`build/wave3-checkpoint262-verified/`. Source-qualified all-view radius,
+cached-model axis use, unordered-preserving store rejection and two scene-box
+queries passed 65 viewer cases. The bound 369-test suite passed with 362
+clean, six logged gaps, one diagnostic difference, no fixture changes and
+historical 93 SAME/five DIFF. The earlier macro and named-cache fixture
+failures remain in evidence; original runtime and exceptional paths remain
+qualified.
+
+Checkpoint264 has started a bounded design for a disposable original CLI
+lifecycle probe that does not acquire GUI-control. It must preserve exact
+child ownership and cleanup, avoid user sessions, and bind a missing Open,
+Save or accepted-Close occurrence before promoting further public behavior.
+
+Checkpoint264's read-only probe design and independent review found no
+qualified replacement for the interrupted CP215 Frida observer; do not retry
+that lane. A separate static reconciliation confirmed the candidate's
+positive-ID task-first, five-project-path, optional DieStress request order
+against retained original instructions. The same-child creator witness,
+Save and accepted Close remain open.
+
+Checkpoint265 found installed `DEF_CVT3.com`, verified it is an x86 PE32
+console image despite the suffix, and copied it with possible `DEF_STL.exe`
+handoff evidence into this converter subtree with source/destination hashes
+equal. Bounded static recovery of the selected KEY/STL route is underway;
+neither original executable has been run.
+
+Checkpoint265's independent review corroborated the static KEY/STL wrapper
+and child prefix but held it outside this converter's Open→Save→Close scope:
+the established caller is DEF_PRE's console File Input menu, with no proven
+m2m lifecycle edge. Keep the imported binaries as qualified reference
+artifacts; do not implement or runtime-test that menu branch as converter
+progress unless original GUI lifecycle reachability is established.
+
+Checkpoint266 audits of active DOE Add Study, Boolean timing and accepted
+Close refined static owner/witness requirements but found no independently
+promotable behavior leaf. Checkpoint267 scans the actual m2m core, registered
+operations and Save I/O separately for the next source-ready reachable leaf,
+reconciling completed fixes and refusals before assignment.
+
+Checkpoint267 found no new source-ready public branch in those three scopes.
+Checkpoint268's internal model-alias inventory selected the meshing-object
+transition's dimension admission as a finite owner query. Its independent
+review detected that CP260's earlier const meshing Apply edit had disappeared
+by the CP263 source state even though CP260/261 had been frozen. Root restored
+that exact reviewed expression; the current diff retains both CP260 const and
+CP263 mutable Apply queries. The transition edit and a full source-stable
+regression are required before this repair can be accepted.
+
+Checkpoint268 is independently reviewed and frozen in
+`build/wave3-checkpoint268-verified/`. CP260's const Apply query is restored,
+CP263's mutable Apply query remains, and the transition's later dimension
+admission now uses GuiModel ownership. Meshing-selection and snapshot targets
+passed; the bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The integration regression and its repair are retained in the qualification.
+
+Checkpoint269 has started the separately reviewed `fillMeshing3D` dimension
+owner query. Preserve its initial scaling short-circuit and subsequent object
+enumeration/initial-load order; root is snapshotting CP268 before source edit.
+

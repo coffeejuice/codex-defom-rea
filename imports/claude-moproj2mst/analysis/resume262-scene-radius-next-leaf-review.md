@@ -1,0 +1,54 @@
+# CP262 independent-radius design review — PASS
+
+The revised native radius/fit design receives PASS. Independent bounded PE inspection supports the recovered per-view branches, slot selection, fit order and camera comparison predicate. The private owner/query integration is suitable. The revised 2D test now uses supported flag import to establish a genuinely stale rectangle, replacing the ineffective native-coordinate mutation. The type-1/3 axis fixture is explicitly open and remains an implementation coverage obligation; neither design PASS nor the proposed fixture is a claim that this branch has been tested or that whole radius parity is complete.
+
+Only this review was written. No source/test/build/shared state, original process, GUI control or mutable REA state changed. No tests ran.
+
+## Independent native checks
+
+Read the design, current `viewer.cpp`, `viewer_camera.cpp`, existing private header and viewer fixtures, retained `viewer_rect/a1.c`, `mdt/view_d1.c`, `viewer_rect/r1.c`, and the shared box/rectangle qualification. Independently read the immutable PE and decoded bounded selections using DUMPBIN 14.44.35228.0. Original is **DEF_GUI_MO_64.exe v11.0.2**, SHA-256 independently confirmed `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`.
+
+The report's inclusive selections, PE offsets, byte lengths and hashes reproduce exactly:
+
+| Inclusive selection | SHA-256 |
+| --- | --- |
+| `140cfe0f0..140cfe148` | `9b259d9d270be82846237047a342c4cb2026b4746f780e298fc7f6d9a0f2ee22` |
+| `140cfdc60..140cfe0df` | `ee60e5be6ffc1e35aac6ef8602cf8f26df82716669bae3ffb2933b1ab4961b86` |
+| `140c8f830..140c900e2` | `34d5fa8cf05d7428898eb15bcccb7234f329d10077ee25624d3021db64cec8ca` |
+| `140d69e70..140d69f9b` | `ec5e3d1d974e1a7df7a54df7c813f5a4cd59a1c3365092087b2e2753cdc20171` |
+
+`cfe0f0` queries `cfdc60`, reads Box+58 through `14121a310`, destroys the temporary and returns the retained scalar. `cfdc60` starts invalid, performs main/secondary/third live-guard-before-shown-flag branches, then a named-holder snapshot traversal with holder flag before model lookup/null check. Every contribution uses `c8f830` followed by `14121a9f0`, in the report's order and at the reported sites. There is no refresh, max-of-model-radii operation, or use of `c8e0f0` in this path.
+
+`c8f830` matches the dimension split in the design:
+
+- **2D:** settings lookup before recompute; no outer ObjectOn/flag-1 or object-kind filter. `1411f5250` resets/recomputes the view rectangle, and `1411f51d0` supplies its cached +98 for the local rectangle union. After each admitted view contribution, display/axis and geometry-type 1/3 gates can union an extension derived from **model+108**. The `add rcx,108h` at `c8fc17` precedes `1404ec860` at `c8fc2e`; it is not the local accumulator address. The model rectangle is read, not overwritten. Final `1412399d0` conversion is separate from the scene-query fallback threshold.
+- **3D:** settings-bearing views contribute their cached +d8 boxes directly (`1411f51f0` at `c9000b`, union at `c90037`). No outer flag-1/kind filter, per-view recompute, model-box read, or rectangle fallback appears. Missing settings takes the debug branch and continues.
+- **Other dimensions:** the initial invalid box survives. Empty/all-invalid 3D views therefore give invalid box/default zero radius, whereas 2D rectangle conversion can produce a valid degenerate box.
+
+The independently decoded `d69e70` computes width, then height, before its invalidity test. PE constant `1421b5050` decodes to double **0.001**. Threshold-versus-radius and threshold-versus-width `COMISD/JA` reject only ordered greater-than; threshold-versus-height `COMISD/JBE` accepts less/equal or unordered. Thus the report's `valid && !(t > radius) && !(t > width) && !(t > height)` is the correct value predicate, with width/height computed first. Existing `t <= value` differs for NaN. Preserve this distinction without claiming signaling-NaN/FPU exception parity or admitting unsupported inputs merely to force a test.
+
+Retained full fit confirms refresh prefix, scene-present guard, independent radius, first false-refresh scene-box query/store, second query/window, reset, then origin from the stored box. Current single-query/union-radius substitution is different. The proposal correctly restores the independent query before either scene-box query and does not infer the scalar from a shared box.
+
+## Revised 2D fixture contract accepted
+
+Current `viewer.cpp::bind2D`, around lines 1601–1613, copies `curveItemPoints(nativeCurve,0.01)` into `View::curveItems`. `recompute2D`, around lines 1731–1742, recomputes rectangles from those stored vectors via `curveItemRect(curveItem(view,i))`. `viewer2d.cpp::curveItemRect` reads only its supplied item rows. Retained native `r1.c::FUN_141267530` likewise resets the item rectangle and traverses its cached rows at item+190; it does not reread native curve geometry. Native `1411f5250` invokes that item virtual refresh at `1411f533e`. This is different from the supported 3D geometry-item refresh that rereads native geometry.
+
+The revised test 3 now adopts the correct existing-API fixture:
+
+1. Bind two ordinary 2D views with known nonzero cached item/view rectangles and settings. Keep the visible first view nondegenerate and use geometry type 2 to avoid axis extension.
+2. For the second view, use `readViewerDisplayOptions` to set ObjectOn false and both geometry/mesh contributions false. That API changes settings without recomputing the view rectangle. Confirm the old nonzero view rectangle remains before the display call.
+3. Invoke actual `displayRefreshScene`. Normal refresh skips the hidden second view; the new all-view 2D query must reset/recompute its rectangle to the empty/default endpoints despite flag 1 being false. Observe through existing `viewerBox(model,secondObjectNo,...)` with a genuine 2D object: that path reads `rectBox(view.rect)` with recompute=false. Check before/after endpoints, not a validity claim from `viewerBox`'s bool, which reports view presence.
+
+This can prove hidden-view rectangle effects without new mutable test API, unsupported input, or rebinding away the stale-cache condition. The revised explicit `ObjectOn`, `GeoOn`, and `MeshOn` names match `doe/view_stepdata.cpp`'s flag importer; the settings snapshot checks and genuine 2D object prerequisite are appropriate. It remains a proposed regression, not an executed result. Do not replace it with a helper-result-only test and claim the hidden-cache effect was exercised.
+
+The report correctly leaves the separate type-1/3 axis fixture open. Implementation must deliberately make cached modelRect and the local all-view accumulator differ in a way observable at the output. For an ordinary fixed main, fit's preceding refresh often makes cached modelRect agree with the shown contributions, so merely asserting that the result includes x=0 can pass an incorrect accumulator-widening implementation. A source-backed candidate profile is a flagged named 2D model, which fit does not refresh: first establish a nonzero cached modelRect with an ordinary refresh, then change contribution flags so the subsequent all-view rectangle becomes empty while cached modelRect remains nonzero. Under axis geometry, native extension must retain that cached rectangle's extent; an accumulator-derived extension would remain degenerate. Pin exact flags/known extents and use the actual display caller plus the private query/result or existing view-box observation as appropriate before counting this as tested. This candidate has not been executed or fully fixture-qualified; it is not a natural named-model runtime witness. No source-contract change is needed merely because that regression still requires implementation work.
+
+## Owner/API and other test assessment
+
+Keeping mutable per-view access inside `viewer.cpp` and declaring one validity/min/max query in an existing private engine header is appropriate. The query is not const/pure: 2D recomputation can mutate per-view rectangles and allocate absent curve/mesh items through existing helpers. Use `viewerOf`'s geometry-currentness and pending-removal admission. Do not call `refresh`, import flag-1/kind filtering, coerce unsupported contributions to empty boxes, or introduce a second owner/cache. Canonical nonnull view/owner invariants and existing explicit adapter refusals remain required; the native loop is not evidence that arbitrary public-storage/no-step states are safe.
+
+The proposed translated 3D curve-only fallback is a sound discriminating actual-caller profile: `viewerSceneBox` can return valid rectangle `[10,14]`, while cached per-view 3D boxes remain invalid and independent radius is zero. With a fresh display's default stored box and no prior accepted store, native gate rejection leaves origin zero even though window L/R is `9.9/14.1`. Independently establish the cached 3D invalidity through the new private query/result or a source-bound diagnostic; `viewerBox`'s return bool alone does not report box validity. Keep zero-origin reasoning explicitly conditional on the fresh/default store prefix. A later rejection test must instead preserve a previously established nonzero origin.
+
+A proper supported populated rep case is required to reject an always-zero helper. Use existing real supported rep input/builder state, not optional cross-section mesh fabrication or an unsupported geometry owner. The small-visible/large-hidden cached 3D case is feasible if the hidden box is populated **before** hiding and remains unchanged by the visible refresh prefix; independent radius includes settings-bearing hidden views, whereas scene box continues to use shown contributions. Preserve the exact float-rounded small extent when checking the 0.001 gate. Slot hidden/null/named tests and genuine owner lifetimes should reuse CP259/CP261 patterns. To assert no object-kind filter separately, review the new code directly and, where needed, retain a bound-view case whose object kind changes to 7 without replacing its items/settings; ordinary hidden views alone do not test that filter.
+
+No native function was executed. Static function/byte recovery resolves the previous missing-body blocker but does not prove natural fresh-project reachability, logging/Qt callbacks, native unwind/allocator behavior, no-step handling, geometry continuation, original failure disposition or full floating behavior. The revised design correctly preserves those limits and clearly identifies axis test feasibility as open. PASS applies to the coherent owner/query/fit design, including the corrected 2D regression contract; implementation review must assess actual tests and retain every untested qualification. It does not certify an implemented/tested/frozen candidate or whole radius parity.

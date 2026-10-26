@@ -2092,6 +2092,40 @@ int guiModelDim(const GuiModel& m)
     return modelDim(m);
 }
 
+// @src 0x140c8f830: independent fit-radius contribution, not the scene box.
+bool viewerAllViewBox(GuiModel& m, bool& valid, float mn[3], float mx[3])
+{
+    Viewer& v = viewerOf(m);
+    Box3 box;
+    if (modelDim(m) == 2) {
+        Rect2 rect;
+        for (auto& p : v.views) {
+            View* view = p.get();
+            if (!view || !settingsOf(v, view)) continue;
+            recompute2D(v, *view);
+            rect = rectUnion(rect, view->rect);
+            if (m.display && displayAxisOn(*m.display)) {
+                const int geometry = simGeometryType(m);
+                if (geometry == 1 || geometry == 3) {
+                    // Native reads model+108, not this local all-view union.
+                    Rect2 axis = v.modelRect;
+                    axis.mn[0] = 0.0;
+                    axis.valid = true;
+                    rect = rectUnion(rect, axis);
+                }
+            }
+        }
+        box = rectBox(rect);
+    } else if (modelDim(m) == 3) {
+        for (auto& p : v.views) {
+            if (p && settingsOf(v, p.get())) box = boxUnion(box, p->box);
+        }
+    }
+    valid = box.valid;
+    for (int c = 0; c < 3; ++c) { mn[c] = box.mn[c]; mx[c] = box.mx[c]; }
+    return true;
+}
+
 // @src 0x140c8e0f0  the model's scene box: a 2D model's rect (m+0x108) as a box; for other
 // models the 3D box m+0x148, unless some view shows flag 1 and none of the views with flag 1 shows
 // geometry (3), mesh (2) or flag 0x2d, when the rect box is taken if its radius exceeds 1e-6. That

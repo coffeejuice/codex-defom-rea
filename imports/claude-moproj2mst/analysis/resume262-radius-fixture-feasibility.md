@@ -1,0 +1,16 @@
+# CP262 radius fixture feasibility review
+
+Read-only review of the CP262 implementation and actual caller tests in `source/apps/moproj2mst/tests/mdt/test_viewer_box.cpp`, against `analysis/resume262-scene-radius-next-leaf.md` and its design review. I did not modify source, tests, shared state, builds, GUI, or REA state.
+
+## Findings
+
+The four requested fixture properties are feasible with the present test APIs, and the newly added tests use supported setups for each:
+
+1. **Translated dim-3 rectangle fallback and retained origin:** `display_fit_independent_radius_rejects_rectangle_fallback_and_preserves_prior_origin` translates the curve to `[10,14]`, establishes `viewerAllViewBox` invalid separately from `viewerSceneBox` valid, then exercises `displayRefreshScene`. Its first fresh project checks default origin zero and literal window edges. A populated supported rep fixture then establishes a nonzero accepted origin; a later translated curve-only rejection checks that origin stays `-12` while the window changes. This separates scene-window selection from independent-radius acceptance as required.
+2. **Populated 3D acceptance:** `importedFitRep` loads the configured `Object00001.KEY`, verifies the surface has 242 nodes/480 elements, translates/scales it, synchronizes, enables flags, and refreshes. The test checks exact cached bounds and that the actual display caller stores origin `-12`. This is an actual populated rep rather than fabricated mesh data.
+3. **Natural dim-2 hidden-view importer reset:** `display_fit_recomputes_hidden_2d_view_without_refreshing_cached_model_rect` uses two ordinary curves, confirms object 2 is dimension 2, enables both contributions, refreshes and observes the second view's `[-8,8]` cache through `viewerBox`. It then disables the second view and its geometry contribution through `fitFlags`, confirms the old cache remains before fit, calls `displayRefreshScene`, and checks the hidden view resets to zero while the first view controls the window. Geometry type 2 correctly excludes the separate axis extension.
+4. **Cached modelRect distinct from local accumulator:** `display_fit_axis_extension_reads_cached_named_model_rectangle` runs for geometry types 1 and 3. It first refreshes a named 2D model to establish cached modelRect `[10,14]`; then disables its only view's object/geometry flags and admits the named model. Fit does not refresh named models, so the all-view recompute empties the local accumulator while the cached modelRect remains nonzero. The expected all-view result `[0,14]` and camera origin `-7` distinguish the cached-modelRect extension from an accumulator-based implementation. The test also checks the per-view cache was reset to zero.
+
+## Review caveat
+
+No fixture-level blocker was found. These are source-bound constructed regressions, not natural original-GUI observations. The separate hidden-view 3D populated case is represented by `display_fit_radius_includes_hidden_views_only_inside_admitted_models`; it establishes cached rep geometry before hiding and verifies slot/model admission behavior. The implementation should still be reviewed for unsupported hidden-view geometry refresh effects and propagated refusals, as the design report requires. I did not run or inspect build results.
