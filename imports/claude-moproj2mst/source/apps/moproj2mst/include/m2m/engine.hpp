@@ -12,6 +12,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "m2m/model.hpp"
@@ -196,10 +197,32 @@ public:
 
     // @src 0x140c7b2d0  sim control (step+0x750), null without a step
     def::model::Cls_1401e7b10* simCtl() const;
+    // Furnace load prologue; a missing step remains a no-op.
+    void setFurnaceLoadTnow3();
+    // Furnace post-load defaults; requires the existing step just like the legacy unchecked caller.
+    void initializeFurnacePostLoadDefaults();
+    // Editor title event: reject non-ASCII/oversize input, then barrier, identity check and copy.
+    // expected is the legacy raw pointer identity token; the command never dereferences it.
+    bool copyEditorTitleIfControlMatches(const def::model::Cls_1401e7b10* expected,
+        std::string_view ascii);
+    // Applies one validated editor frequency-index event without returning the control/table alias.
+    bool applyEditorFrequencyIndexIfControlMatches(
+        const def::model::Cls_1401e7b10* expected, int row, int selection);
+    // Applies one admitted editor frequency-text event; conversion stays between shape and storage reads.
+    bool applyEditorFrequencyTextIfControlMatches(
+        const def::model::Cls_1401e7b10* expected, int row, const String& deliveredText);
+    // @src 0x140822210 (GUI twin of DEF_PRE 0x1401c8f70): set UNIT and reset defaults on change.
+    void setModelUnit(std::int32_t unit, bool reset);
     // @src 0x140c7b370  viewer geometry type; 0 without a 2D step/control
     int simGeometryTypeIf2D() const;
     // @src 0x140c7c0e0 / 0x140c7c0a0  unguarded native step dimension; 0 without a step
     int dimension() const noexcept;
+    // @src 0x140c7acd0 / 0x140c7ff30  guarded native virtual dimension setter.
+    // Requires an existing step; the legacy null-step path is unchecked.
+    // This staged command does not extend StepIdentity invalidation coverage.
+    void setDimension(int dim);
+    // @src 0x140c7c220 -> 0x1408301c0  tail object number; 0 without a step
+    int lastObjectNumber() const;
     // @src 0x140c7b720  reset: viewer list, +0x30, DB_STEP_DATA clear (1401cb400), +0x230, +0x100
     void reset();
     // @src 0x140c7ae80  object by number (140830270 -> 14017aaf0)

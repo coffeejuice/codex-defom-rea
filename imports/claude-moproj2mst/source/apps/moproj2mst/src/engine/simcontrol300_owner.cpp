@@ -292,11 +292,10 @@ ApplyResult StagedEditor300::titleChanged(Editor300Binding binding,
     for (char16_t unit : deliveredText.u16())
         if (unit < 0x20 || unit > 0x7e) return ApplyResult::UnsupportedSnapshot;
     const auto bytes = qt::toAscii(deliveredText);
-    // pageState() would query SC before conversion. Keep the native order and
-    // reject an absent/replaced source without using a stale control pointer.
-    auto* control = binding.model.simCtl();
-    if (!control || control != pages_->sourceControl) return ApplyResult::UnsupportedSnapshot;
-    std::memcpy(control->title, bytes.c_str(), bytes.size() + 1);
+    // The model command retains simCtl()'s barrier-first lookup here, after
+    // conversion, and compares the cached source only as an identity token.
+    if (!binding.model.copyEditorTitleIfControlMatches(pages_->sourceControl, bytes))
+        return ApplyResult::UnsupportedSnapshot;
     return ApplyResult::Completed;
 }
 
@@ -372,30 +371,8 @@ ApplyResult StagedEditor300::frequencyTextEdited(Editor300Binding binding, int r
     const auto& cached = pages_->pages.advanced.populatedFrequencyText[row];
     if (!cached || !(*cached == deliveredText)) return ApplyResult::UnsupportedSnapshot;
 
-    // Candidate spelling/range admission only. Native toInt ignores validity;
-    // its value conversion remains below the current-SC/stride lookup.
-    const auto& text = deliveredText.u16();
-    if (!text.empty()) {
-        if (text.size() > 10 || text.front() < u'1' || text.front() > u'9')
-            return ApplyResult::UnsupportedSnapshot;
-        std::uint64_t magnitude = 0;
-        for (char16_t unit : text) {
-            if (unit < u'0' || unit > u'9') return ApplyResult::UnsupportedSnapshot;
-            magnitude = magnitude * 10 + (unit - u'0');
-        }
-        if (magnitude > (std::numeric_limits<std::int32_t>::max)())
-            return ApplyResult::UnsupportedSnapshot;
-    }
-    auto* control = binding.model.simCtl();
-    if (!control || control != pages_->sourceControl) return ApplyResult::UnsupportedSnapshot;
-    const int stride = control->frqncy_cols;
-    if (control->frqncy_rows != 6 || stride != 1 || control->frqncy.ncomp != 6)
-        return ApplyResult::UnsupportedSnapshot;
-    const int converted = qt::toInt(deliveredText); // ok=null, base10; empty ->0
-    auto* values = control->frqncy.values;
-    if (!values) return ApplyResult::UnsupportedSnapshot;
-    values[row * stride] = static_cast<double>(converted);
-    return ApplyResult::Completed;
+    return binding.model.applyEditorFrequencyTextIfControlMatches(pages_->sourceControl, row,
+        deliveredText) ? ApplyResult::Completed : ApplyResult::UnsupportedSnapshot;
 }
 
 // @src 0x140ecfab0/fb90/fc30/fcd0/fd70/fe10.
@@ -409,20 +386,13 @@ ApplyResult StagedEditor300::frequencyIndexChanged(Editor300Binding binding,
         pages_->sourceRemesh != &binding.remesh ||
         pages_->pages.advanced.frequencyCombo[row] != selection)
         return ApplyResult::UnsupportedSnapshot;
-    auto* control = binding.model.simCtl();
-    if (!control || control != pages_->sourceControl) return ApplyResult::UnsupportedSnapshot;
-    // All six native bodies read the stride before testing selection, even
-    // row0's IMUL0 and the custom branches that do not consume table values.
-    const int stride = control->frqncy_cols;
-    if (stride != 1) return ApplyResult::UnsupportedSnapshot;
+    if (!binding.model.applyEditorFrequencyIndexIfControlMatches(pages_->sourceControl,
+        row, selection)) return ApplyResult::UnsupportedSnapshot;
     auto& enabled = pages_->pages.advanced.frequencyInputEnabled[row];
     if (selection == (row == 0 ? 2 : 1)) {
         enabled = true;
         return ApplyResult::Completed;
     }
-    if (control->frqncy_rows != 6 || control->frqncy.ncomp != 6 || !control->frqncy.values)
-        return ApplyResult::UnsupportedSnapshot;
-    control->frqncy.values[row * stride] = row == 0 && selection == 1 ? -1.0 : 0.0;
     enabled = false; // Native model store precedes the requested disable.
     return ApplyResult::Completed;
 }

@@ -67,6 +67,56 @@ std::array<std::uint64_t, 6> bits(const SimControl& sc)
 }
 }
 
+TEST_CASE(model_frequency_index_command_admits_control_shape_and_single_cell_write)
+{
+    Fixture f; auto& model = *f.operation.engineModel;
+    auto* const control = model.simCtl(); REQUIRE(control); REQUIRE(control->frqncy.values);
+    for (int i = 0; i < 6; ++i) control->frqncy.values[i] = 20 + i;
+    auto before = bits(*control);
+
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(nullptr, 0, 0));
+    engine::GuiModel other(nullptr, 3);
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(other.simCtl(), 0, 0));
+    auto heldStep = std::move(model.step);
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(nullptr, 0, 0));
+    model.step = std::move(heldStep);
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(control, -1, 0));
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(control, 0, 3));
+    CHECK(bits(*control) == before);
+
+    const int oldStride = control->frqncy_cols;
+    control->frqncy_cols = 2;
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(control, 0, 2));
+    control->frqncy_cols = oldStride;
+    CHECK(bits(*control) == before);
+
+    const int oldRows = control->frqncy_rows;
+    const int oldComponents = control->frqncy.ncomp;
+    auto* const values = control->frqncy.values;
+    control->frqncy_rows = 5;
+    CHECK(model.applyEditorFrequencyIndexIfControlMatches(control, 0, 2));
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(control, 0, 0));
+    control->frqncy_rows = oldRows;
+    control->frqncy.ncomp = 5;
+    CHECK(model.applyEditorFrequencyIndexIfControlMatches(control, 1, 1));
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(control, 1, 0));
+    control->frqncy.ncomp = oldComponents;
+    control->frqncy.values = nullptr;
+    CHECK(model.applyEditorFrequencyIndexIfControlMatches(control, 1, 1));
+    CHECK(!model.applyEditorFrequencyIndexIfControlMatches(control, 1, 0));
+    control->frqncy.values = values;
+    CHECK(bits(*control) == before);
+
+    CHECK(model.applyEditorFrequencyIndexIfControlMatches(control, 0, 1));
+    CHECK_EQ(std::bit_cast<std::uint64_t>(values[0]), std::uint64_t{0xbff0000000000000});
+    for (int i = 1; i < 6; ++i) CHECK_EQ(std::bit_cast<std::uint64_t>(values[i]), before[i]);
+    before = bits(*control);
+    CHECK(model.applyEditorFrequencyIndexIfControlMatches(control, 4, 0));
+    CHECK_EQ(std::bit_cast<std::uint64_t>(values[4]), std::uint64_t{0});
+    for (int i = 0; i < 6; ++i) if (i != 4)
+        CHECK_EQ(std::bit_cast<std::uint64_t>(values[i]), before[i]);
+}
+
 TEST_CASE(frequency_fill_projects_known_enabled_arguments_from_each_native_selection)
 {
     for (int first : {0, -1, 5}) {

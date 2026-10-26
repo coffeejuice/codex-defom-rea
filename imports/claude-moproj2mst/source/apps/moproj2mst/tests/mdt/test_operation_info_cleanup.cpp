@@ -51,6 +51,11 @@ struct BorrowedClass final : mst::OpClass {
 private:
     engine::GuiModel* model_;
 };
+
+struct TwoModelOwner final {
+    engine::GuiModel first{nullptr, 3};
+    engine::GuiModel second{nullptr, 3};
+};
 }
 
 static_assert(!std::is_copy_constructible_v<OperationInfoCleanupProgress>);
@@ -221,6 +226,7 @@ TEST_CASE(opi_cache_nonnull_refuses_without_retaining_or_resetting_the_model)
     CHECK_EQ(operation.engineModel.use_count(), owners);
     CHECK(attemptOperationInfoEngineCacheCleanup(operation, progress) ==
           OperationInfoCleanupOutcome::NonNullEngineCacheVirtualDeleteUnavailable);
+    CHECK_EQ(operation.engineModel.use_count(), owners);
     operation.engineModel.reset(); // external fixture mutation, NOT native delete
     CHECK(model.expired());
     CHECK(refuses([&] { attemptOperationInfoEngineCacheCleanup(operation, progress); }, "Engine cache changed"));
@@ -283,15 +289,64 @@ TEST_CASE(opi_cache_blocked_retry_rejects_another_control_block_at_the_same_addr
 {
     Operation operation;
     const auto original = std::make_shared<engine::GuiModel>(nullptr, 3);
+    const std::weak_ptr<engine::GuiModel> observedOwner = original;
     operation.engineModel = original;
+    CHECK(operation.sameEngineModelOwner(observedOwner));
     OperationInfoCleanupProgress progress(operation);
     CHECK(attemptOperationInfoPropsCleanup(operation, progress) == OperationInfoCleanupOutcome::NullPropsSkipReached);
     CHECK(attemptOperationInfoEngineCacheCleanup(operation, progress) ==
           OperationInfoCleanupOutcome::NonNullEngineCacheVirtualDeleteUnavailable);
     operation.engineModel = std::shared_ptr<engine::GuiModel>(original.get(), [](engine::GuiModel*) {});
     CHECK(operation.engineModel.get() == original.get());
+    CHECK(!operation.sameEngineModelOwner(observedOwner));
     CHECK(refuses([&] { attemptOperationInfoEngineCacheCleanup(operation, progress); }, "Engine cache changed"));
     operation.engineModel.reset(); // discard only this no-op-deleter fixture alias
+    CHECK(progress.stage() == OperationInfoCleanupStage::EngineModelVirtualDeleteBlocked);
+}
+
+TEST_CASE(opi_cache_blocked_retry_rejects_another_address_before_same_owner_comparison)
+{
+    auto owner = std::make_shared<TwoModelOwner>();
+    const std::shared_ptr<engine::GuiModel> first(owner, &owner->first);
+    const std::shared_ptr<engine::GuiModel> second(owner, &owner->second);
+    const std::weak_ptr<engine::GuiModel> observedOwner = first;
+    Operation operation;
+    operation.engineModel = first;
+    OperationInfoCleanupProgress progress(operation);
+    REQUIRE(attemptOperationInfoPropsCleanup(operation, progress) ==
+            OperationInfoCleanupOutcome::NullPropsSkipReached);
+    REQUIRE(attemptOperationInfoEngineCacheCleanup(operation, progress) ==
+            OperationInfoCleanupOutcome::NonNullEngineCacheVirtualDeleteUnavailable);
+
+    operation.engineModel = second;
+    CHECK(operation.engineModel.get() != first.get());
+    CHECK(operation.sameEngineModelOwner(observedOwner)); // same control block, different pointee address
+    CHECK(refuses([&] { attemptOperationInfoEngineCacheCleanup(operation, progress); },
+                  "Engine cache changed"));
+    CHECK(progress.stage() == OperationInfoCleanupStage::EngineModelVirtualDeleteBlocked);
+}
+
+TEST_CASE(opi_cache_blocked_retry_rejects_replacement_after_observed_weak_owner_expires)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto original = std::shared_ptr<engine::GuiModel>(&model, [](engine::GuiModel*) {});
+    const std::weak_ptr<engine::GuiModel> observedOwner = original;
+    Operation operation;
+    operation.engineModel = original;
+    OperationInfoCleanupProgress progress(operation);
+    REQUIRE(attemptOperationInfoPropsCleanup(operation, progress) ==
+            OperationInfoCleanupOutcome::NullPropsSkipReached);
+    REQUIRE(attemptOperationInfoEngineCacheCleanup(operation, progress) ==
+            OperationInfoCleanupOutcome::NonNullEngineCacheVirtualDeleteUnavailable);
+
+    operation.engineModel.reset();
+    original.reset();
+    REQUIRE(observedOwner.expired());
+    operation.engineModel = std::shared_ptr<engine::GuiModel>(&model, [](engine::GuiModel*) {});
+    CHECK_EQ(operation.engineModel.get(), &model); // the stored address token still matches
+    CHECK(!operation.sameEngineModelOwner(observedOwner));
+    CHECK(refuses([&] { attemptOperationInfoEngineCacheCleanup(operation, progress); },
+                  "Engine cache changed"));
     CHECK(progress.stage() == OperationInfoCleanupStage::EngineModelVirtualDeleteBlocked);
 }
 

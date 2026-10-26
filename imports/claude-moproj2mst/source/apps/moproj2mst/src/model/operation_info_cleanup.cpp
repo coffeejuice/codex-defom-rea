@@ -89,7 +89,7 @@ OperationInfoCleanupOutcome attemptOperationInfoEngineCacheCleanup(
         return OperationInfoCleanupOutcome::NullEngineCacheSkipReached;
     case OperationInfoCleanupStage::EngineModelVirtualDeleteBlocked:
         if (!cache || reinterpret_cast<std::uintptr_t>(cache.get()) != progress.observedEngineCacheToken_ ||
-            cache.owner_before(progress.observedEngineCache_) || progress.observedEngineCache_.owner_before(cache))
+            !operation.sameEngineModelOwner(progress.observedEngineCache_))
             unavailable("Engine cache changed since the guarded virtual-delete boundary");
         return OperationInfoCleanupOutcome::NonNullEngineCacheVirtualDeleteUnavailable;
     case OperationInfoCleanupStage::ObjectCleanupBoundary:

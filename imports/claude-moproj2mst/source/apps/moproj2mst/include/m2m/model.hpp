@@ -194,6 +194,9 @@ public:
         return operationInfoModelCache_;
     }
     bool hasEngineModel() const noexcept { return static_cast<bool>(engineModel); }
+    bool sameEngineModelOwner(const std::weak_ptr<engine::GuiModel>& expected) const noexcept {
+        return !engineModel.owner_before(expected) && !expected.owner_before(engineModel);
+    }
     // Future qualified OPI driver must complete payload/member cleanup first.
     // No normal destruction or public Close path commits this automatically.
     bool commitOperationInfoQObjectBoundary(const std::string& qualification) {

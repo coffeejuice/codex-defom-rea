@@ -3419,3 +3419,118 @@ metadata. Another independent lane is mapping a named shared-owner comparison
 for the operation cache. Neither changes native storage or editor admission
 until the source and evidence dependencies are resolved.
 
+Checkpoint225 is frozen in `build/wave3-checkpoint225-verified/`. The blocked
+operation-cache cleanup stage now uses a named, non-owning weak/shared
+control-block comparison after its null and address-token checks. Two viewer
+tail-number reads now use a model-owned value operation while preserving the
+existing geometry refusal and null shortcuts. Independent reviews, repaired
+owner-edge tests, grouped focused targets and the 367-test bound suite passed
+(360 clean, six logged gaps, one diagnostic difference, no fixture changes;
+historical 93 SAME/five DIFF). This remains partial alias migration.
+
+The CP225 object mutation audit found hidden whole-list replacement and
+in-place deletion paths below public wrappers. A live ObjectKey registry cannot
+be issued from the current wrapper events. Checkpoint226 has started the next
+actual production migration: a model-owned dimension-setting command for the
+two raw application setter callbacks. Preserve native virtual dispatch,
+geometry refusal, unchecked null-step precondition, and StepIdentity's present
+constructor/reset/destruction observation scope.
+
+Checkpoint226 is independently reviewed and frozen in
+`build/wave3-checkpoint226-verified/`. The two raw dimension-setting callbacks
+now enter `GuiModel::setDimension`; its native virtual call and effect order are
+retained. Four focused targets passed 75 cases. The bound 368-test suite passed
+with 361 clean, six logged gaps, one diagnostic difference, no fixture changes
+and historical 93 SAME/five DIFF. This command does not cover native KEY/import
+setters or make StepIdentity a live-object certificate.
+
+Checkpoint227 has started the editor300 title-copy owner command. The design
+was corrected before source edits to preserve `simCtl()`'s existing geometry
+refusal after text validation/conversion and before control matching or copy.
+Stopping/cache1 behavior and the C ABI remain guarded.
+
+Checkpoint227 is independently reviewed and frozen in
+`build/wave3-checkpoint227-verified/`. The title event now calls a model-owned
+copy command after its original text checks; the command preserves the
+geometry barrier, fresh nullable control comparison, and NUL-inclusive write.
+Focused title and Stopping targets passed 22 cases. The bound 368-test suite
+passed with 361 clean, six logged gaps, one diagnostic difference, no fixture
+changes and historical 93 SAME/five DIFF. The expected control is still a raw
+identity token, so editor ownership closure and cache1 remain open.
+
+Checkpoint228 has started the loader unit initialization owner command. Keep
+shared model allocation and GUI initialization before the existing unit setter
+with `reset=true`, then return the same owner; preserve equal-unit and failure
+ordering. Independent source review qualified the test seam and distinguished
+code-derived exception behavior from original runtime evidence.
+
+Checkpoint228 is independently reviewed and frozen in
+`build/wave3-checkpoint228-verified/`. `newModel` retains the same shared
+allocation and return but now calls `GuiModel::setModelUnit` after GUI
+initialization. The focused test covers changed/equal native behavior and the
+actual loader slot. The bound 369-test suite passed with 362 clean, six logged
+gaps, one diagnostic difference, no fixture changes and historical 93 SAME/five
+DIFF. Exception ordering remains source-derived, not fresh original failure
+evidence.
+
+Checkpoint229 has started an editor300 frequency-index owner command. Preserve
+the geometry guard and current-control match before the stride check; the
+custom branch needs no table shape, while the non-custom branch writes one
+native cell before the editor disables its input. Stopping/cache1 remains
+guarded. A separate Close audit found no supported implementation increment
+without a same-owner accepted Close witness.
+
+Checkpoint229 is independently reviewed and frozen in
+`build/wave3-checkpoint229-verified/`. The editor event retains its cached
+selection checks, then uses a model-owned command for the current-control,
+stride, custom and one-cell native-store branches. A parked-geometry assertion
+was added after its initial const-receiver test error was repaired. Focused
+frequency, Stopping and viewer targets passed 79 cases; the source-bound
+369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. Raw expected
+control identity and cache1 closure remain open.
+
+Checkpoint230 has started the source-qualified furnace post-load owner command.
+Preserve the one `simCtl()` geometry check, unchecked existing-step precondition,
+`furnace_on` write, curve-count decision, conditional setup 0x16 then defaults,
+and later property cast. No furnace or C ABI redesign is authorized.
+
+Checkpoint230 is independently reviewed and frozen in
+`build/wave3-checkpoint230-verified/`. Furnace post-load now executes the
+existing control/curve sequence inside the model owner. The focused loader L2
+target passed eight cases; the bound 369-test suite passed with 362 clean, six
+logged gaps, one diagnostic difference, no fixture changes and historical
+93 SAME/five DIFF. Native helper internals and the legacy null-step precondition
+remain qualified.
+
+Checkpoint231 has started the distinct furnace-load prologue TNOW3 command.
+It follows base-load and the two transition calls, preserving the existing
+unguarded `withOpStep` behavior: a null step is a no-op, and an existing step
+receives the native one-field write. Do not add a geometry refusal here.
+
+Checkpoint231 is independently reviewed and frozen in
+`build/wave3-checkpoint231-verified/`. The focused loader L2 target passed
+eight cases; the bound 369-test suite passed with 362 clean, six logged gaps,
+one diagnostic difference, no fixture changes and historical 93 SAME/five
+DIFF. This source migration does not establish new original runtime parity.
+
+Checkpoint232 has started the editor300 frequency-text owner command. Keep the
+existing lexical gate before the geometry guard, then current-control match,
+table shape, `qt::toInt`, values-pointer check and one-cell write in that
+order. Preserve null/empty content equality and do not open cache1.
+
+Checkpoint232 is independently reviewed and frozen in
+`build/wave3-checkpoint232-verified/`. Direct owner tests now cover the live
+control with null expected identity and the parked geometry guard. The focused
+editor, Stopping and viewer targets passed 79 cases; the bound 369-test suite
+passed with 362 clean, six logged gaps, one diagnostic difference, no fixture
+changes and historical 93 SAME/five DIFF. This is a bounded source migration,
+not editor300 lifecycle closure.
+
+Checkpoint233 starts with the independently reviewed HeatTreat dimension
+predicate migration in `src/ops/heattreat_htwz.cpp`. Preserve the null-model,
+null-step, parked and arbitrary-dimension outcomes and the existing evaluation
+sites. The corrected DB-loaded step-number owner command and page-state
+identity query remain ready successor candidates, while Save and accepted Close
+still require same-owner original lifecycle witnesses.
+

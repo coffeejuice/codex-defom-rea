@@ -446,9 +446,7 @@ void dieStressFromDbStep(OpClass& c, Project& p, int step)
     engine::GuiModelAccess::withStep(*s, [&](DB_STEP_DATA* scratch) {
         d = *at<std::int32_t>(scratch, 0x1c);              // 0x140c7fee0 = 0x140100980 (+0x1c)
     });
-    engine::GuiModelAccess::withStep(*m, [&](DB_STEP_DATA* actual) {
-        actual->set_dimension(&d);                        // 0x140c7ff30: DB_STEP_DATA vt slot 0
-    });
+    m->setDimension(d);                                   // 0x140c7ff30: DB_STEP_DATA vt slot 0
     opi->objIds.clear();                                   // 0x140060eb0 -> 0x1400424b0(opi+0x40)
     if (s->objectCount() != 0)
         unsupported("Diestress objects copied from a DB step (0x140835430 loop of 0x1402b6870)");

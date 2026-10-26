@@ -313,12 +313,7 @@ void furnaceLoadPrologue(mst::OpClass& c, Project& p, Operation& op)
     mst::baseLoadPrologue(c, p, op);                        // 0x1405f1bb0
     setTrans2(p, op, false);
     setTrans1(p, op, true);
-    withOpStep(p, op, [](DB_STEP_DATA* s) {                 // 0x14005f7a0
-        if (s) {
-            // 0x1408221e0(S): returns the unit, result unused
-            s->sim_ctrl.tnow3 = 1;                          // S+0xda0
-        }
-    });
+    if (GuiModel* m = opModel(p, op)) m->setFurnaceLoadTnow3();
 }
 
 // @src 0x140c65830  vt+0xc0: furnace on, furnace curves with their defaults when there are none
@@ -327,14 +322,7 @@ void furnacePostLoad(mst::OpClass& c, Project& p, Operation& op, Ctx&, FileEffec
     // 0x1405ef3a0: object-tree list (UI object, never null)
     GuiModel* m = opModel(p, op);                           // 0x14005f820
     if (!m) return;
-    [](Cls_1401e7b10* sc) {
-        sc->furnace_on = 1;                                 // SC+0x3c0
-        if (sc->furnace.curve_count() == 0) {               // 0x1409f0630
-            const std::int32_t n = 0x16;
-            sc->furnace.setup_curves(&n);                   // 0x1409f02e0 = 140375600
-            sc->furnace.set_defaults();                     // 0x1409f0b70 = 140375e90
-        }
-    }(m->simCtl());                                        // 0x140c7b2d0, not checked
+    m->initializeFurnacePostLoadDefaults();
     (void)furnaceProps(c.propsOf(nullptr));                 // dynamic_cast, result unused
 }
 

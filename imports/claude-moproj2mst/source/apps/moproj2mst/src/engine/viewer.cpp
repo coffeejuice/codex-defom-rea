@@ -1851,10 +1851,7 @@ void viewerSync(GuiModel& m, LLOBJ_DATA* obj, bool flag)
     GeometrySyncAccess::requireAvailable(m);
     if (!obj) return;
     Viewer& v = viewerOf(m);
-    int n = 0;
-    GuiModelAccess::withStep(m, [&](DB_STEP_DATA* nativeStep) {
-        n = nativeStep ? def::model::last_object_number(*nativeStep) : 0; // 0x140c7c220 -> 0x1408301c0 = 1401d6df0
-    });
+    const int n = m.lastObjectNumber();
     resizeViews(m, v, &n);
     View* view = viewOf(m, v, at<std::int32_t>(obj, 8));
     if (!view) return;
@@ -1876,10 +1873,7 @@ void viewerRebuild(GuiModel& m, bool a, bool b)
         })) return;                                                  // 0x140c7acd0
     Viewer& v = viewerOf(m);
     if (a) viewerClear(m);                                            // 0x140c82c70
-    int n = 0;
-    GuiModelAccess::withStep(m, [&](DB_STEP_DATA* nativeStep) {
-        n = def::model::last_object_number(*nativeStep);               // 0x140c7c220
-    });
+    const int n = m.lastObjectNumber();
     resizeViews(m, v, &n);
     int i = 0;
     for (auto& p : v.views) {

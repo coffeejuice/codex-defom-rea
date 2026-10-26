@@ -68,6 +68,22 @@ std::array<char, 81> titleBytes(const SimControl& sc)
 }
 }
 
+TEST_CASE(model_editor_title_command_copies_only_with_matching_control_and_fits_native_buffer)
+{
+    Fixture f;
+    auto& model = *f.operation.engineModel;
+    auto* const control = model.simCtl(); REQUIRE(control);
+    std::strcpy(control->title, "BEFORE");
+    CHECK(model.copyEditorTitleIfControlMatches(control, "ADMITTED"));
+    CHECK_EQ(std::string(control->title), std::string("ADMITTED"));
+
+    const auto before = titleBytes(*control);
+    CHECK(!model.copyEditorTitleIfControlMatches(nullptr, "WRONG OWNER"));
+    CHECK(!model.copyEditorTitleIfControlMatches(control, std::string(81, 'X')));
+    CHECK(!model.copyEditorTitleIfControlMatches(control, "NONASCII\xC3\xA9"));
+    CHECK(titleBytes(*control) == before);
+}
+
 TEST_CASE(title_delivery_copies_immediately_without_general_apply_or_external_effects)
 {
     Fixture f; auto& session = f.open(); auto& page = session.pages.general;

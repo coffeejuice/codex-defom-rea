@@ -3,10 +3,8 @@
 #include <string>
 
 #include <defmodel/layout/cls_1401e7b10.hpp>
-#include <defmodel/layout/db_step_data.hpp>
 
 #include "engine_internal.hpp"
-#include "gui_model_access.hpp"
 #include "m2m/engine.hpp"
 #include "m2m/doe_session.hpp"
 #include "m2m/doe_output_data.hpp"
@@ -180,10 +178,7 @@ void installLoaderSlots()
     g_loaderSlots.readDoeDocument = &doe::prepareCurrentOutputSession;
     g_loaderSlots.finishDoeOutputClassData = &doe::finishCurrentOutputClassData;
     g_loaderSlots.setDimension = [](engine::GuiModel& m, int dim) {
-        engine::GuiModelAccess::withStep(m, [dim](engine::DB_STEP_DATA* step) {
-            const std::int32_t d = dim;
-            step->set_dimension(&d);              // 0x140c7acd0(m)->vt[0] = DB_STEP_DATA slot 0 (1401c8ba0)
-        });
+        m.setDimension(dim);                     // 0x140c7acd0(m)->vt[0] = DB_STEP_DATA slot 0 (1401c8ba0)
     };
     g_loaderSlots.prevOp = &engine::previousOperation;
     installL6Slots();

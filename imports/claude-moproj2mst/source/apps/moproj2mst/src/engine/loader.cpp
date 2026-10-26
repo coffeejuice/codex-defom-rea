@@ -183,7 +183,7 @@ GuiModel* opModel(Project& p, Operation& op)
 std::shared_ptr<GuiModel> newModel(Project& p, int dim)
 {
     auto m = std::make_shared<GuiModel>(projectDb(p), dim);   // P+8 (0x1400a5890)
-    def::key::set_model_unit(*m->step, p.unit, true);
+    m->setModelUnit(p.unit, true);
     return m;
 }
 

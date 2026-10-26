@@ -26,6 +26,7 @@
 #include "m2m/engine.hpp"
 #include "m2m/engine_scene.hpp"
 #include "m2m/engine_auxiliary.hpp"
+#include "m2m/qt4.hpp"
 
 #include "m2m/doe_stepdata.hpp"
 #include "m2m/engine/picking_owner.hpp"
@@ -200,6 +201,11 @@ GuiModel::~GuiModel()
     if (display) displayForget(*display, this);   // the display's QPointers to this model become null
 }
 
+void GuiModel::setModelUnit(std::int32_t unit, bool reset)
+{
+    def::key::set_model_unit(*step, unit, reset);
+}
+
 void GuiModel::requireGeometrySyncAvailable() const
 {
     if (geometrySyncBarrier_)
@@ -212,6 +218,81 @@ Cls_1401e7b10* GuiModel::simCtl() const
     return step ? &step->sim_ctrl : nullptr;
 }
 
+void GuiModel::setFurnaceLoadTnow3()
+{
+    if (step) step->sim_ctrl.tnow3 = 1;
+}
+
+void GuiModel::initializeFurnacePostLoadDefaults()
+{
+    auto* sc = simCtl();
+    sc->furnace_on = 1;
+    if (sc->furnace.curve_count() == 0) {
+        const std::int32_t n = 0x16;
+        sc->furnace.setup_curves(&n);
+        sc->furnace.set_defaults();
+    }
+}
+
+bool GuiModel::copyEditorTitleIfControlMatches(const Cls_1401e7b10* expected,
+    std::string_view ascii)
+{
+    if (ascii.size() > 80) return false;
+    for (unsigned char byte : ascii)
+        if (byte < 0x20 || byte > 0x7e) return false;
+    requireGeometrySyncAvailable();
+    auto* control = step ? &step->sim_ctrl : nullptr;
+    if (!control || control != expected) return false;
+    if (!ascii.empty()) std::memcpy(control->title, ascii.data(), ascii.size());
+    control->title[ascii.size()] = '\0';
+    return true;
+}
+
+bool GuiModel::applyEditorFrequencyIndexIfControlMatches(
+    const Cls_1401e7b10* expected, int row, int selection)
+{
+    if (row < 0 || row > 5 || selection < 0 || selection > (row == 0 ? 2 : 1))
+        return false;
+    requireGeometrySyncAvailable();
+    auto* control = step ? &step->sim_ctrl : nullptr;
+    if (!control || control != expected) return false;
+    const int stride = control->frqncy_cols;
+    if (stride != 1) return false;
+    if (selection == (row == 0 ? 2 : 1)) return true;
+    if (control->frqncy_rows != 6) return false;
+    if (control->frqncy.ncomp != 6) return false;
+    if (!control->frqncy.values) return false;
+    control->frqncy.values[row * stride] = row == 0 && selection == 1 ? -1.0 : 0.0;
+    return true;
+}
+
+bool GuiModel::applyEditorFrequencyTextIfControlMatches(
+    const Cls_1401e7b10* expected, int row, const String& deliveredText)
+{
+    if (row < 0 || row > 5) return false;
+    const auto& text = deliveredText.u16();
+    if (!text.empty()) {
+        if (text.size() > 10 || text.front() < u'1' || text.front() > u'9') return false;
+        std::uint64_t magnitude = 0;
+        for (char16_t unit : text) {
+            if (unit < u'0' || unit > u'9') return false;
+            magnitude = magnitude * 10 + (unit - u'0');
+        }
+        if (magnitude > (std::numeric_limits<std::int32_t>::max)()) return false;
+    }
+    requireGeometrySyncAvailable();
+    auto* control = step ? &step->sim_ctrl : nullptr;
+    if (!control || control != expected) return false;
+    const int stride = control->frqncy_cols;
+    if (control->frqncy_rows != 6 || stride != 1 || control->frqncy.ncomp != 6)
+        return false;
+    const int converted = qt::toInt(deliveredText);
+    auto* values = control->frqncy.values;
+    if (!values) return false;
+    values[row * stride] = static_cast<double>(converted);
+    return true;
+}
+
 int GuiModel::simGeometryTypeIf2D() const
 {
     requireGeometrySyncAvailable();
@@ -222,6 +303,19 @@ int GuiModel::simGeometryTypeIf2D() const
 int GuiModel::dimension() const noexcept
 {
     return step ? step->dimension : 0;
+}
+
+void GuiModel::setDimension(int dim)
+{
+    requireGeometrySyncAvailable();
+    const std::int32_t d = dim;
+    step->set_dimension(&d);
+}
+
+int GuiModel::lastObjectNumber() const
+{
+    requireGeometrySyncAvailable();
+    return step ? def::model::last_object_number(*step) : 0;
 }
 
 PendingPickingOwner& GuiModel::beginPickingConstructionPrefix()

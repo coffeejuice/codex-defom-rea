@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <filesystem>
 #include <string>
+#include <utility>
 
 #include <defmodel/layout/cls_1401e7b10.hpp>
 #include <defmodel/layout/cls_1403753f0.hpp>
@@ -302,6 +303,13 @@ TEST_CASE(heat1_as_furnace)
     CHECK_EQ(pr->data->stpInc, 1);
     CHECK(pr->data->dtMax == 0.1);
     CHECK(!pr->data->viewFactor);                           // VFACTR 0
+
+    auto* model = engine::opModel(p, *op);
+    REQUIRE(model != nullptr && model->step != nullptr);
+    auto savedStep = std::move(model->step);
+    model->setFurnaceLoadTnow3();                           // null step is a legacy no-op
+    CHECK(model->step == nullptr);
+    model->step = std::move(savedStep);
 }
 
 // Direct same-owner slot calls isolate the empty and populated furnace branches

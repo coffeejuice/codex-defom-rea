@@ -448,6 +448,7 @@ TEST_CASE(viewer_sync_uses_tail_number_and_keeps_null_object_shortcut_before_all
     REQUIRE(model.objectWrap(4, true, false));
     CHECK(model.objectCount() == 4);
     CHECK(def::pre::step_count_objects(model.step.get()) == 2);
+    CHECK_EQ(model.lastObjectNumber(), 4);
     REQUIRE(model.object(2)); REQUIRE(model.object(3));
     CHECK(*engine::at<std::int32_t>(model.object(2), 0x0c) == 7);
     CHECK(*engine::at<std::int32_t>(model.object(3), 0x0c) == 7);
@@ -462,6 +463,7 @@ TEST_CASE(viewer_sync_uses_tail_number_and_keeps_null_object_shortcut_before_all
 
     engine::GuiModel absent(nullptr, 3);
     absent.step.reset();
+    CHECK_EQ(absent.lastObjectNumber(), 0);
     engine::viewerSync(absent, nullptr, false);
     CHECK(!absent.step); CHECK(!absent.viewer);
 }
@@ -515,6 +517,7 @@ TEST_CASE(viewer_rebuild_preserves_normal_flags_and_missing_step_shortcut_before
     CHECK(model.step.get() == originalStep);
     engine::GuiModel absent(nullptr, 2);
     absent.step.reset();
+    CHECK_EQ(absent.lastObjectNumber(), 0);
     for (const bool reset : {false, true}) {
         for (const bool contacts : {false, true}) {
             engine::viewerRebuild(absent, reset, contacts);
@@ -2836,6 +2839,9 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
     refused([&] { (void)pendingModel.simGeometryTypeIf2D(); });
+    refused([&] { (void)pendingModel.lastObjectNumber(); });
+    refused([&] { (void)model.applyEditorFrequencyIndexIfControlMatches(nullptr, 0, 2); });
+    refused([&] { (void)model.applyEditorFrequencyTextIfControlMatches(nullptr, 0, qt::L("1")); });
     refused([&] { (void)pendingModel.object(1); });
     refused([&] { (void)pendingModel.objectAt(1); });
     refused([&] { (void)pendingModel.material(1); });
@@ -2858,6 +2864,7 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
         refused([&] { engine::deleteObject(model, object); });
     refused([&] { engine::repickPdie(model); });
     refused([&] { mst::g_loaderSlots.setDimension(model, 2); });
+    refused([&] { model.setDimension(2); });
     bool accessCallbackInvoked = false;
     refused([&] {
         (void)engine::GuiModelAccess::withStep(model, [&](def::model::DB_STEP_DATA*) {

@@ -212,4 +212,55 @@ TEST_CASE(frequency_unconstructed_partial_or_expired_opi_cannot_advance_public_o
     CHECK(bits(sc) == before); CHECK(!StagedEditor300::completeForPublicSave);
 }
 
+TEST_CASE(frequency_text_model_command_admits_matching_control_and_only_writes_selected_row)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto* control = model.simCtl(); REQUIRE(control); REQUIRE(control->frqncy.values);
+    for (int row = 0; row < 6; ++row) control->frqncy.values[row] = 20.0 + row;
+    const auto before = bits(*control);
+    CHECK(model.applyEditorFrequencyTextIfControlMatches(control, 4, qt::L("2147483647")));
+    const auto after = bits(*control);
+    for (int row = 0; row < 6; ++row) {
+        if (row == 4) CHECK_EQ(control->frqncy.values[row], 2147483647.0);
+        else CHECK_EQ(after[row], before[row]);
+    }
+    CHECK(model.applyEditorFrequencyTextIfControlMatches(control, 2, qt::L("")));
+    CHECK_EQ(std::bit_cast<std::uint64_t>(control->frqncy.values[2]), std::uint64_t{0});
+}
+
+TEST_CASE(frequency_text_model_command_refuses_invalid_identity_row_text_and_table_without_writes)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto* control = model.simCtl(); REQUIRE(control); REQUIRE(control->frqncy.values);
+    for (int row = 0; row < 6; ++row) control->frqncy.values[row] = 30.0 + row;
+    const auto before = bits(*control);
+    auto* otherIdentity = reinterpret_cast<const def::model::Cls_1401e7b10*>(
+        reinterpret_cast<std::uintptr_t>(control) + 16);
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(otherIdentity, 0, qt::L("8")));
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(nullptr, 0, qt::L("8")));
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, -1, qt::L("8")));
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 6, qt::L("8")));
+    for (const auto& text : {qt::L("0"), qt::L("01"), qt::L("+1"), qt::L("2147483648"), qt::L("1x")})
+        CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 0, text));
+    CHECK(bits(*control) == before);
+    const int rows = control->frqncy_rows, cols = control->frqncy_cols, ncomp = control->frqncy.ncomp;
+    auto* values = control->frqncy.values;
+    control->frqncy_cols = 2;
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 0, qt::L("8")));
+    control->frqncy_cols = cols;
+    control->frqncy_rows = 5;
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 0, qt::L("8")));
+    control->frqncy_rows = rows;
+    control->frqncy.ncomp = 5;
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 0, qt::L("8")));
+    control->frqncy.ncomp = ncomp;
+    control->frqncy.values = nullptr;
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 0, qt::L("8")));
+    control->frqncy.values = values;
+    CHECK(bits(*control) == before);
+    model.step.reset();
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(control, 0, qt::L("8")));
+    CHECK(!model.applyEditorFrequencyTextIfControlMatches(nullptr, 0, qt::L("8")));
+}
+
 int main() { return testkit::run_all(); }
