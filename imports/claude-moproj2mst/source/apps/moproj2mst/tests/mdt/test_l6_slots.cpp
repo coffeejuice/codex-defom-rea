@@ -186,6 +186,13 @@ TEST_CASE(heattreat_property_simcontrol_writes_and_null_step)
     CHECK_EQ(out.kind, qt::Variant::Int);
     CHECK_EQ(out.i, 0);
     CHECK_EQ(scInt(*op, 0x1c8), 1);
+    hp->block->stpdef = -4;
+    sc(*op)->stpdef = 41;
+    REQUIRE(hp->getValue(stepdef, {}, out));
+    CHECK_EQ(out.kind, qt::Variant::Int);
+    CHECK_EQ(out.i, -4);
+    CHECK_EQ(hp->block->stpdef, -4);
+    CHECK_EQ(scInt(*op, 0x1c8), 3);
 
     *at<std::int32_t>(sc(*op), 0x108) = 37;
     sc(*op)->stpdef = 41;

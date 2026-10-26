@@ -10,6 +10,28 @@
 
 using namespace m2m::engine;
 
+TEST_CASE(gui_model_dimension_or_returns_live_dimension_including_zero)
+{
+    for (const int dimension : {2, 3}) {
+        GuiModel model(nullptr, dimension);
+        CHECK_EQ(model.dimensionOr(3), dimension);
+        CHECK_EQ(model.dimensionOr(-17), dimension);
+    }
+
+    GuiModel zeroModel(nullptr, 2);
+    zeroModel.step->dimension = 0;
+    CHECK_EQ(zeroModel.dimensionOr(3), 0);
+}
+
+TEST_CASE(gui_model_dimension_or_returns_fallback_without_step)
+{
+    GuiModel model(nullptr, 2);
+    model.step.reset();
+    CHECK_EQ(model.dimensionOr(3), 3);
+    CHECK_EQ(model.dimensionOr(-17), -17);
+    CHECK_EQ(model.dimension(), 0);
+}
+
 TEST_CASE(gui_model_equal_dimension_preserves_native_and_wrapper_state)
 {
     for (const int dimension : {2, 3}) {

@@ -228,6 +228,7 @@ public:
     int simGeometryTypeIf2D() const;
     // @src 0x140c7c0e0 / 0x140c7c0a0  unguarded native step dimension; 0 without a step
     int dimension() const noexcept;
+    int dimensionOr(int whenNoStep) const noexcept;
     // @src 0x140c7acd0 / 0x140c7ff30  guarded native virtual dimension setter.
     // Requires an existing step; the legacy null-step path is unchecked.
     // This staged command does not extend StepIdentity invalidation coverage.
@@ -244,6 +245,11 @@ public:
     LLOBJ_DATA* objectAt(int no) const;
     // @src 0x140c7c1a0  object count (step+0x1378)
     int objectCount() const;
+    // @src 0x1408da6d0  HeatTransferExpress post-load primary-die selection.
+    void setHeatExpressPrimaryObject();
+    // @src 0x140c7c1e0 -> DEF_PRE 0x1401cab30: live-step non-kind-7 count.
+    // Requires the current step; the native helper has no null-step handling.
+    int countNonType7Objects() const;
     // @src 0x140c7c950  object by number, created when missing (defaults, primary die, viewer)
     LLOBJ_DATA* objectWrap(int no, bool reset, bool withViewer);
     // @src 0x140c7c8b0  a new object numbered after the list's tail (0x1408301c0 + 1): kind-7 reset
@@ -263,6 +269,8 @@ public:
     // @src 0x140c7b5a0 / 0x140c7b5e0  PDIE (sim control +0x168)
     int pdie() const;
     void setPdie(int v);
+    // HeatTreat STEPDEF property dispatch; missing step remains a guarded no-op.
+    void setHeatTreatPropertyStepDefinition(int selection);
 };
 
 // Original viewer-list count, independent of DB object count; never allocates a viewer.

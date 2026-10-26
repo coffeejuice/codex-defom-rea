@@ -19,7 +19,10 @@
 
 #include <defmodel/layout/cls_1401e7b10.hpp>
 #include <defmodel/layout/db_step_data.hpp>
+#include <defmodel/gui_twins_delete.hpp>
+#include <defmodel/llobj_ctor/llobj_ctor.hpp>
 #include <defmodel/window/inter_object_ops.hpp>
+#include <def_pre/menu56.hpp>
 
 #include "../../src/engine/engine_internal.hpp"
 #include "../../src/ops/express.hpp"
@@ -60,6 +63,34 @@ TEST_CASE(forming_express_dimension_flag_command)
         CHECK_EQ(*engine::at<std::int32_t>(step, 0xa30), expected);
         CHECK_EQ(*engine::at<std::int32_t>(step, 0x1118), dimension == 2 ? 0 : 77);
     }
+}
+
+TEST_CASE(live_step_non_type7_object_count)
+{
+    engine::GuiModel model(nullptr, 3);
+    auto* step = model.step.get();
+    REQUIRE(step != nullptr);
+    REQUIRE(def::model::llobj_ctor::get_or_create(step, 4) != nullptr);
+    REQUIRE(model.objectCount() == 4);
+    for (int position = 1; position <= 4; ++position)
+        REQUIRE(step->objects.at(position) != nullptr);
+    *engine::at<std::int32_t>(step->objects.at(1), 0xc) = 1;
+    *engine::at<std::int32_t>(step->objects.at(2), 0xc) = 7;
+    *engine::at<std::int32_t>(step->objects.at(3), 0xc) = 0;
+    *engine::at<std::int32_t>(step->objects.at(4), 0xc) = 7;
+
+    CHECK_EQ(model.countNonType7Objects(), 2);
+    CHECK_EQ(model.countNonType7Objects(), def::pre::step_count_objects(step));
+    CHECK_EQ(model.objectCount(), 4);
+
+    auto* removed = step->objects.at(3);
+    REQUIRE(def::model::object_list_remove(&step->objects, removed));
+    // u1378 still spans four positions, while unlinking leaves only three nodes.
+    REQUIRE(step->objects.at(4) == nullptr);
+    REQUIRE(step->objects.at(3) != nullptr);
+    CHECK_EQ(model.objectCount(), 4);
+    CHECK_EQ(model.countNonType7Objects(), 1);
+    CHECK_EQ(model.countNonType7Objects(), def::pre::step_count_objects(step));
 }
 
 Project* openCorpus(Project& p, Ctx& ctx, const char* caseDir, const char* moproj)

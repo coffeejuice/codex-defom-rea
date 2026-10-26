@@ -312,7 +312,7 @@ static InitialApplyReport applyInitialEditorPageStateBound(InitialEditorSession&
     if (!record(Page::Meshing, applyMeshingSelection3D(model, remesh, pages.meshing))) return report;
     if (!record(Page::Iteration, applyIteration3D(sc, pages.iteration))) return report;
     if (!record(Page::Environment, applyEnvironment3D(sc, pages.environment,
-            EnvironmentViewFactorState{model.step ? model.step->dimension : 3,
+            EnvironmentViewFactorState{model.dimensionOr(3),
                 session.viewFactorCurve.get(), session.viewFactorDefinition},
             &session.environmentCurves))) return report;
     if (!record(Page::Advanced, applyAdvanced3D(sc, model, pages.advanced))) return report;

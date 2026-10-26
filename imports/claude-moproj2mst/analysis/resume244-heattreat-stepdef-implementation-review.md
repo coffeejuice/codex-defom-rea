@@ -1,0 +1,17 @@
+# CP244 HeatTreat STEPDEF implementation review — PASS
+
+The implemented STEPDEF migration matches the approved design and preserves the supported synchronous effect order. No defects found in this leaf.
+
+`GuiModel::setHeatTreatPropertyStepDefinition(int)` is declared without noexcept and exactly calls simCtl() once, then writes only control->stpdef when control exists. simCtl() still checks the geometry barrier before resolving the nullable step. Zero maps to 1; every other int, including negative and out-of-enumeration values, maps to 3. Missing step remains a guarded no-op. There is no reset, initialization, identity change or added status.
+
+The new syncOwnerStepDefinition helper accepts the selected block by reference, returns for missing owner/project and performs exactly one engine::opModel lookup before reading block.stpdef. It therefore preserves lazy provider effects rather than sampling a value or checking the cache before lookup. The copied integer now crosses the owner API before its guard; the current guard merely tests the barrier and throws, with no callbacks/block mutation, so this ordinary read changes no observable effect in valid synchronous state, as qualified in the design.
+
+The setter still converts/stores b.stpdef before synchronization. The getter still performs property-to-native synchronization before constructing/assigning its returned Variant. On guard refusal, the earlier setter block store survives and the getter output assignment is not reached. The complete property-file diff changes only the two STEPDEF callbacks plus their new helper. withOwnerSimCtl, setScWord, setMode/getMode and their call sites remain unchanged.
+
+The existing L6 fixture retains zero/nonzero setter checks, effectful zero getter and null-step saved-control sentinels/restoration. The added negative getter case seeds a distinct native sentinel, checks native 3 and confirms both stored and returned selection remain -4; it meaningfully verifies the unusual-int policy through real property dispatch. The new direct owner-command refusal sits inside the existing parked geometry fixture and is followed by existing native byte/state/effect comparisons. It verifies command admission without claiming to dynamically prove the property setter's pre-guard store. Testkit assertions remain Release-active; no unsafe null dereference, missing-file probe or GUI is introduced.
+
+Focused receipt `analysis/cp244-heattreat-stepdef-build.json` records configure/build exit 0 for m2m_mdt_l6_slots and m2m_mdt_viewer_box and matching before/after source fingerprints `56b4dba4ce3930bf15ef0c8c06869d3f275e8cca3e8f5c6088ce0ebad2f73b16`. Its source_stable_during_build flag is true. Build log confirms both target links. Inspected CTest LastTest.log records the L6 fixture with 0/12 failing and viewer fixture with 0/56 failing on Oct 26 at 13:41 Central. The five current source/test SHA-256 values exactly match the implementation note.
+
+Concurrent dimensionOr, HeatExpress primary-object and countNonType7Objects hunks appear in shared model/header files; this review certifies only the STEPDEF leaf. No C ABI/layout, cache1, ObjectKey, native bypass or original-witness gate is advanced. Historical setter/getter provenance and copied-corpus test limitations remain those recorded in the design and independent design review. These focused results are not a full regression/freeze or original runtime witness.
+
+Only this review report was written. No source/test/build, shared recovery state, original process, GUI or REA changes were made.

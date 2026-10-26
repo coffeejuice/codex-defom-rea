@@ -56,6 +56,13 @@ void withOwnerSimCtl(HeatTreatProps& hp, F&& callback)
     std::invoke(std::forward<F>(callback), m ? m->simCtl() : nullptr);
 }
 
+void syncOwnerStepDefinition(HeatTreatProps& hp, const data::HTPropsBlock& block)
+{
+    if (!hp.owner || !hp.owner->project) return;
+    engine::GuiModel* model = engine::opModel(*hp.owner->project, *hp.owner);
+    if (model) model->setHeatTreatPropertyStepDefinition(block.stpdef);
+}
+
 Project& ownerProject(HeatTreatProps& hp)
 {
     if (!hp.owner || !hp.owner->project) unsupported("without an owner operation (props vt+0x58 needs it)");
@@ -221,9 +228,7 @@ void HeatTreatProps::applyValue(PropNode& node, const std::vector<PropNode*>& an
         if (inRange(b.mediaFlag, idx)) b.mediaFlag[static_cast<std::size_t>(idx)] = pv::toBool(v);
     } else if (n == u"STEPDEF") {
         b.stpdef = pv::toInt(v);                                   // B+8
-        withOwnerSimCtl(*this, [&b](Cls_1401e7b10* sc) -> void {
-            if (sc) sc->stpdef = b.stpdef == 0 ? 1 : 3;              // SC+0x1c8
-        });
+        syncOwnerStepDefinition(*this, b);
     } else if (n == u"DTMAX") b.dtmax = pv::toDouble(v);           // B+0x10
     else if (n == u"STPINC") b.stepIncr = static_cast<int>(pv::toDouble(v));   // B+0xc
     else if (n == u"DTEMPMAX") b.dtpmax1 = pv::toDouble(v);        // B+0x18
@@ -258,9 +263,7 @@ bool HeatTreatProps::getValue(const PropNode& node, const std::vector<PropNode*>
     else if (n == u"ACVCOF") out = dbl(b.acvcof);
     else if (n == u"ENVRAD") out = pv::vBool(inRange(b.mediaFlag, idx) && b.mediaFlag[static_cast<std::size_t>(idx)]);
     else if (n == u"STEPDEF") {
-        withOwnerSimCtl(*this, [&b](Cls_1401e7b10* sc) -> void {
-            if (sc) sc->stpdef = b.stpdef == 0 ? 1 : 3;              // SC+0x1c8
-        });
+        syncOwnerStepDefinition(*this, b);
         out = pv::vInt(b.stpdef);
     } else if (n == u"DTMAX") out = pv::vDouble(b.dtmax);
     else if (n == u"STPINC") out = pv::vInt(b.stepIncr);

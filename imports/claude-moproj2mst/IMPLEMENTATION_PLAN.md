@@ -3643,3 +3643,56 @@ null-step precondition. The test fixture must verify a null linked-list
 position, not infer one from an object-ID gap; no current corpus case proves
 the caller refusals.
 
+Checkpoint241 is independently reviewed and frozen in
+`build/wave3-checkpoint241-verified/`. Its direct fixture verifies kind-7
+exclusion and an actual null positional lookup while comparing the native
+helper and new owner query. The focused L3 target passed eight cases; the bound
+369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. Caller
+refusals remain source-qualified without a direct corpus occurrence.
+
+Checkpoint242 has started the reviewed live HeatTransferExpress post-load PDIE
+owner command. Preserve the prior Express/transition effects, one `simCtl()`
+geometry guard, the unused +0x240 read, and `objectCount()==1 ? 1 : 2` at
+the original write point. Existing one- and two-object L3 fixtures exercise
+both values; they are reconstructed tests, not fresh original execution.
+
+Checkpoint242 is independently reviewed and frozen in
+`build/wave3-checkpoint242-verified/`. The focused L3 target passed eight
+cases; the bound 369-test suite passed with 362 clean, six logged gaps, one
+diagnostic difference, no fixture changes and historical 93 SAME/five DIFF.
+The current caller fixtures cover the PDIE 1/2 choice but do not establish
+fresh original runtime parity.
+
+Checkpoint243 has started the reviewed editor initial-page dimension value
+query. Preserve the absent-step fallback of 3, the actual live dimension 0,
+the unguarded read, and its position between Iteration and Environment Apply.
+This removes one scalar public-step alias without changing cache1 or the
+remaining cached-control aliases.
+
+Checkpoint243 is independently reviewed and frozen in
+`build/wave3-checkpoint243-verified/`. Direct tests distinguish live dimensions
+2/3/0 from absent-step fallback 3, and four focused targets passed 106 cases.
+The bound 369-test suite passed with 362 clean, six logged gaps, one diagnostic
+difference, no fixture changes and historical 93 SAME/five DIFF. The fallback
+is an adapter assembly rule, not a recovered native getter behavior.
+
+Checkpoint244 has started the reviewed HeatTreat STEPDEF property owner
+command. Preserve setter conversion before lazy model lookup, effectful getter
+native write before returned Variant, geometry guard before nullable control,
+and zero-to-1/nonzero-to-3 mapping. The property and direct command tests must
+retain those distinct evidence limits.
+
+Checkpoint244 is independently reviewed and frozen in
+`build/wave3-checkpoint244-verified/`. Focused L6, Stopping, viewer and
+HeatTreat targets passed 82 cases. The bound 369-test suite passed with 362
+clean, six logged gaps, one diagnostic difference, no fixture changes and
+historical 93 SAME/five DIFF. Mode callbacks and broader property/owner
+aliases remain.
+
+Checkpoint245 has started the independently reviewed private editor
+reaction-rate coordinator. Keep controls projection before one guarded control
+lookup, collision refusal before index/data stores, and then index, optional
+live dimension, live variable and temporary variable writes in native order.
+The coordinator remains synchronous and does not retain raw control aliases.
+

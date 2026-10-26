@@ -411,7 +411,7 @@ void expressBasePostLoad(Project& p, Operation& op)
     (void)scD;
     bool merge = ht == 0;
     if (has(cls, "SfOprHeatExpress", qt::Case::Insensitive)) merge = true;   // 0x142e82f30
-    if (merge && def::pre::step_count_objects(m->step.get()) > 1)            // 0x140c7c1e0 = 1401cab30
+    if (merge && m->countNonType7Objects() > 1)            // 0x140c7c1e0 = 1401cab30
         unsupported(opLabel(op) + ": the GUI merges the objects into object 1 and deletes the others "
                     "(0x140057770, 0x140835800, 0x1400581d0), not ported");
     // OprFlag 0 only (refused above): lubSystem = 1, data+0xc0 (step definition) = 0
@@ -434,10 +434,7 @@ void htePostLoad(mst::OpClass&, Project& p, Operation& op, Ctx&, FileEffects&)
     setTrans1(p, op, true);                                 // 0x1405ef750(self, 1)
     GuiModel* m = opModel(p, op);
     if (!m) return;
-    Cls_1401e7b10* sc = m->simCtl();
-    if (!sc) return;
-    (void)*at<std::int32_t>(sc, 0x240);                     // 0x1408da6d0, result unused
-    sc->pdie1 = m->objectCount() == 1 ? 1 : 2;              // SC+0x168
+    m->setHeatExpressPrimaryObject();
 }
 
 // vt+0x228 of HeatTransferExpress / 2D (0x1413e6520 / 0x1413e5c60): in heat-transfer type 0 with
@@ -453,7 +450,7 @@ void hteObjectTreeAdd(mst::OpClass&, Project& p, Operation& op)
     GuiModel* m = opModel(p, op);                           // 0x14005f770
     if (!m) return;
     for (int i = m->objectCount(); 0 < i; --i)              // 0x140c7c1a0
-        if (1 < def::pre::step_count_objects(m->step.get()))   // 0x140c7c1e0 = 1401cab30
+        if (1 < m->countNonType7Objects())   // 0x140c7c1e0 = 1401cab30
             unsupported(opLabel(op) + ": opening it deletes object slot " + std::to_string(i) +
                         " (0x1400581d0), not ported");
 }

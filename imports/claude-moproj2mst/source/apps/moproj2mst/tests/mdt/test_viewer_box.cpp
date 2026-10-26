@@ -2839,6 +2839,7 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
     CHECK(parkedPropertyTable.owner() == &model);
     CHECK(parkedPropertyTable.queryCount() == 0 && parkedPropertyTable.queryPrefix().empty());
     refused([&] { (void)pendingModel.simCtl(); });
+    refused([&] { model.setHeatTreatPropertyStepDefinition(0); });
     refused([&] { (void)model.matchesCurrentSimControl(nullptr); });
     engine::simcontrol300::StepCountContext parkedStepContext{5, {},
         engine::simcontrol300::MoStepCountContext{nullptr}};

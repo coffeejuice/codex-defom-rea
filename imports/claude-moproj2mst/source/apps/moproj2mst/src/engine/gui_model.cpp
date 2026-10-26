@@ -219,6 +219,14 @@ Cls_1401e7b10* GuiModel::simCtl() const
     return step ? &step->sim_ctrl : nullptr;
 }
 
+void GuiModel::setHeatExpressPrimaryObject()
+{
+    auto* control = simCtl();
+    if (!control) return;
+    (void)*at<std::int32_t>(control, 0x240); // 0x1408da6d0, result unused
+    control->pdie1 = objectCount() == 1 ? 1 : 2;
+}
+
 bool GuiModel::matchesCurrentSimControl(const Cls_1401e7b10* expected) const
 {
     requireGeometrySyncAvailable();
@@ -330,6 +338,11 @@ int GuiModel::dimension() const noexcept
     return step ? step->dimension : 0;
 }
 
+int GuiModel::dimensionOr(int whenNoStep) const noexcept
+{
+    return step ? step->dimension : whenNoStep;
+}
+
 void GuiModel::setDimension(int dim)
 {
     requireGeometrySyncAvailable();
@@ -402,6 +415,11 @@ LLOBJ_DATA* GuiModel::objectAt(int no) const
 int GuiModel::objectCount() const
 {
     return step ? step->u1378 : 0;
+}
+
+int GuiModel::countNonType7Objects() const
+{
+    return def::pre::step_count_objects(step.get());
 }
 
 namespace {
@@ -577,6 +595,12 @@ void GuiModel::setPdie(int v)
 {
     requireGeometrySyncAvailable();
     if (Cls_1401e7b10* sc = simCtl()) sc->pdie1 = v;
+}
+
+void GuiModel::setHeatTreatPropertyStepDefinition(int selection)
+{
+    if (auto* control = simCtl())
+        control->stpdef = selection == 0 ? 1 : 3;
 }
 
 }  // namespace m2m::engine
