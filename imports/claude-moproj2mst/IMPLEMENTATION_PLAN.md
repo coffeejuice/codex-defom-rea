@@ -4046,3 +4046,19 @@ profile; do not claim which branch fired. Other adaptation profiles retain the
 guard. Source implementation, focused/full validation and freeze follow the
 checkpoint273 snapshot.
 
+Checkpoint274 is independently reviewed and frozen in
+`build/wave3-checkpoint274-verified/`. The actual canonical 3D/null-DB
+`viewerSync` caller now preserves the Slice collection on repeated rebinds;
+CP272's 2D behavior remains. Static recovery also established the native
++0x258 byte initializes to zero on the canonical constructor path, while the
+qualification still avoids claiming a fresh original occurrence or later
+database-backed adaptation. The bound 369-test suite passed with 362 clean,
+six logged gaps, one diagnostic difference, no fixture changes and historical
+93 SAME/five DIFF.
+
+Checkpoint275 read-only recovery has started for the post-bind color helper
+and node-display helper. Adjacent scene, Save and editor300 scans did not
+identify another independently source-ready implementation leaf. Retain the
+public and failure-path guards until the exact original caller/effect contract
+is available.
+

@@ -244,7 +244,7 @@ TEST_CASE(slice_rebind_for_canonical_2d_owner_preserves_constructor_only_collect
     CHECK(runtime.colorScratchBits == scratch);
 }
 
-TEST_CASE(slice_rebind_for_canonical_3d_owner_still_refuses_and_preserves_collection)
+TEST_CASE(slice_rebind_for_canonical_3d_null_db_owner_preserves_collection)
 {
     doe::SliceConstructorRuntime runtime;
     engine::GuiModel model(nullptr, 3);
@@ -259,13 +259,21 @@ TEST_CASE(slice_rebind_for_canonical_3d_owner_still_refuses_and_preserves_collec
     const auto scratch = runtime.colorScratchBits;
     REQUIRE(scratch.has_value());
 
-    CHECK(refuses([&] { engine::viewerSync(model, object, false); }, "object-rebind"));
+    engine::viewerSync(model, object, false);
     REQUIRE(engine::viewerSliceState(model, 0) == collection);
     REQUIRE(collection->viewIdentity == viewIdentity);
     CHECK(!collection->model.has_value());
     CHECK(collection->boundObject == nullptr);
     CHECK(collection->backendKnownNull);
     CHECK(collection->graphicCount == 0);
+    CHECK(collection->opaqueMembersConstructorOnly);
+    CHECK(runtime.colorScratchBits == scratch);
+    engine::viewerSync(model, object, false);
+    REQUIRE(engine::viewerSliceState(model, 0) == collection);
+    REQUIRE(collection->viewIdentity == viewIdentity);
+    CHECK(!collection->model.has_value());
+    CHECK(collection->boundObject == nullptr);
+    CHECK(collection->backendKnownNull && collection->graphicCount == 0);
     CHECK(collection->opaqueMembersConstructorOnly);
     CHECK(runtime.colorScratchBits == scratch);
 }
