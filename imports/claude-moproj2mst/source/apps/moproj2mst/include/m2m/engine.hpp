@@ -158,6 +158,7 @@ private:
     // bypass this model-owned barrier by replacing the public Viewer pointer.
     std::shared_ptr<GeometrySyncBarrier> geometrySyncBarrier_;
     void requireGeometrySyncAvailable() const;
+    void setHeatTreatPropertyModeWord(int mode, bool enabled);
     // Retained interrupted c90f10 constructor allocation, NOT published +248.
     // Adapter storage lifetime is not a native constructor-unwind assertion.
     std::unique_ptr<PendingPickingOwner> pickingConstruction_;

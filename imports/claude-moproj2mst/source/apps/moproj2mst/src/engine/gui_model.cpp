@@ -695,17 +695,22 @@ void GuiModel::setHeatTreatPropertyStepDefinition(int selection)
 
 void GuiModel::setHeatTreatPropertyDeformation(bool enabled)
 {
-    if (auto* control = simCtl()) control->trans[1] = enabled ? 1 : 0;
+    setHeatTreatPropertyModeWord(1, enabled);
 }
 
 void GuiModel::setHeatTreatPropertyDiffusion(bool enabled)
 {
-    if (auto* control = simCtl()) control->trans[3] = enabled ? 1 : 0;
+    setHeatTreatPropertyModeWord(3, enabled);
 }
 
 void GuiModel::setHeatTreatPropertyPhaseTransformation(bool enabled)
 {
-    if (auto* control = simCtl()) control->trans[2] = enabled ? 1 : 0;
+    setHeatTreatPropertyModeWord(2, enabled);
+}
+
+void GuiModel::setHeatTreatPropertyModeWord(int mode, bool enabled)
+{
+    if (auto* control = simCtl()) control->trans[mode] = enabled ? 1 : 0;
 }
 
 }  // namespace m2m::engine

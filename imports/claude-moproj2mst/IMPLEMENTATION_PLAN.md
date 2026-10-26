@@ -4030,3 +4030,19 @@ the three HeatTreat mode writes behind one private GuiModel implementation,
 keeping all three named commands and their existing caller order. This is an
 architecture cleanup only; the original lifecycle gaps remain queued.
 
+Checkpoint273 is independently reviewed and frozen in
+`build/wave3-checkpoint273-verified/`. The private HeatTreat helper preserves
+all three named commands, one control admission per call, mode-word mapping,
+the geometry barrier and caller partial-effect order. L6 and parked viewer
+focused tests passed. The bound 369-test suite passed with 362 clean, six
+logged gaps, one diagnostic difference, no fixture changes and historical
+93 SAME/five DIFF. This consolidation adds no new public lifecycle coverage.
+
+Checkpoint274 geometry design review admits one bounded actual-caller leaf:
+canonical live 3D Slice rebind with a null database retains its collection and
+continues outer bind. The native +0x258 flag value is unresolved, but either
+value exits the adaptation helper before collection mutation on this null-DB
+profile; do not claim which branch fired. Other adaptation profiles retain the
+guard. Source implementation, focused/full validation and freeze follow the
+checkpoint273 snapshot.
+
