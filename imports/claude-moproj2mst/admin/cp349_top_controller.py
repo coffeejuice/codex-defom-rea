@@ -181,6 +181,9 @@ def _child_trace_result(path):
                                   "before_inherit", "after_inherit",
                                   "before_tick2", "after_tick2",
                                   "before_pipeinfo", "after_pipeinfo"))
+    allowed.update(f"cp334_h{index}_pipeflags_{value}" for index in (0, 1)
+                   for value in ("0", "1", "4", "5", "other"))
+    allowed.update(f"cp334_h{index}_flags_validated" for index in (0, 1))
     if not raw:
         result["status"] = "partial"
         return result

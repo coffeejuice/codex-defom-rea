@@ -166,6 +166,8 @@ class TopTests(unittest.TestCase):
                 "before_tick1", "after_tick1", "before_inherit",
                 "after_inherit", "before_tick2", "after_tick2",
                 "before_pipeinfo", "after_pipeinfo"))
+            stages.append(f"cp334_h{index}_pipeflags_0")
+            stages.append(f"cp334_h{index}_flags_validated")
         stages.extend(("cp334_before_final_tick", "cp334_after_final_tick",
                   "after_cp334_adopt",
                   "before_cp333_acknowledge", "after_cp333_acknowledge",
@@ -182,6 +184,30 @@ class TopTests(unittest.TestCase):
                 result = m._child_trace_result(path)
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["stages"], stages)
+
+    def test_child_trace_reader_preserves_rejected_pipe_flags_prefix(self):
+        stages = ["script-entry", "cp347-module-imported",
+                  "from-client-argv-constructed", "entry",
+                  "before_load_native_exports", "after_load_native_exports",
+                  "before_cp334_from_bootstrap_argv", "cp334_argv_parsed",
+                  "cp334_owner_created", "cp334_adopt_enter",
+                  "cp334_h0_before_tick1", "cp334_h0_after_tick1",
+                  "cp334_h0_before_inherit", "cp334_h0_after_inherit",
+                  "cp334_h0_before_tick2", "cp334_h0_after_tick2",
+                  "cp334_h0_before_pipeinfo", "cp334_h0_after_pipeinfo",
+                  "cp334_h0_pipeflags_1"]
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "b" * 32 + ".jsonl")
+            path.write_bytes(b"".join(
+                (json.dumps({"stage": stage}, separators=(",", ":")) + "\n")
+                .encode("ascii") for stage in stages))
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                result = m._child_trace_result(path)
+        self.assertEqual(result["status"], "valid")
+        self.assertEqual(result["stages"], stages)
+        self.assertNotIn("cp334_h0_flags_validated", result["stages"])
 
     def test_child_bootstrap_failure_success_and_exclusive_collision(self):
         class InjectedChildFailure(RuntimeError):

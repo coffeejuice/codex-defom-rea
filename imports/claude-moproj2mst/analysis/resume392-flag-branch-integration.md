@@ -1,0 +1,9 @@
+# CP392 first-client flag-branch integration
+
+CP391's trace reached `cp334_h0_after_pipeinfo`, emitted after `GetNamedPipeInfo` returned success but before CP334 checked the returned flags. CP334 requires zero for the client byte-pipe end. A nonzero result would raise the original `Hold`, while the outer claim pipe could break during subsequent child cleanup. The raw CP391 evidence did not expose the value or show whether validation passed.
+
+CP334 now emits one bounded classification marker for DWORD values 0, 1, 4, 5 or `other`, followed by `cp334_h0_flags_validated` only when the original zero-flags check passes. Both handles remain owned before the query and on rejection; the `_hold()`/cleanup path is unchanged. The same markers apply to the second handle if reached. The trace writer remains separate from the claim pipe, with 2048-byte and 40-record bounds. A complete known success trace is accepted at the 40-record bound; the parser reports recorded stages and does not certify whole-run ordering.
+
+Injected CP334 tests cover zero and rejected-one flags with retained-handle cleanup. CP349 tests cover the full success trace and a rejected prefix ending at `cp334_h0_pipeflags_1` without `flags_validated`. Independent review found no owner-custody change and suggested the rejected-prefix parser test, which is included. `analysis/cp392-flag-branch-tests.log` records 629 passing CP3xx tests from both import roots. No native child, WORKER, original application or GUI ran during this integration.
+
+CP393 next freezes source/bytecode and independently gates at most one new monitored inert occurrence. A missing marker remains qualified by best-effort trace I/O and cleanup timing. The sixth CP391 occurrence is not retryable. The compiled public C++ converter remains CP301 with the same guarded paths.

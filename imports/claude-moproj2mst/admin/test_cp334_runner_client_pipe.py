@@ -134,6 +134,8 @@ class Tests(unittest.TestCase):
                 "before_tick1", "after_tick1", "before_inherit",
                 "after_inherit", "before_tick2", "after_tick2",
                 "before_pipeinfo", "after_pipeinfo"))
+            expected.append(f"cp334_h{index}_pipeflags_0")
+            expected.append(f"cp334_h{index}_flags_validated")
         expected.extend(("cp334_before_final_tick", "cp334_after_final_tick"))
         self.assertEqual(stages, expected)
         self.assertTrue(owner.cleanup())
@@ -147,6 +149,17 @@ class Tests(unittest.TestCase):
                 stage=stages.append)
         self.assertEqual(stages[-1], "cp334_h0_before_pipeinfo")
         self.assertTrue(caught.exception.owner.held)
+        self.assertEqual(caught.exception.owner.handles, {11, 12})
+        self.assertTrue(caught.exception.owner.cleanup())
+
+        f = Fake()
+        f.pipe_flags[11] = 1
+        stages = []
+        with self.assertRaises(client.Hold) as caught:
+            client.from_bootstrap_argv(
+                f.exports, [client.ARGV_TAG, "11", "12", "100"],
+                stage=stages.append)
+        self.assertEqual(stages[-1], "cp334_h0_pipeflags_1")
         self.assertEqual(caught.exception.owner.handles, {11, 12})
         self.assertTrue(caught.exception.owner.cleanup())
 
