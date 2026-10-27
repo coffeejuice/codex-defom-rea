@@ -1112,13 +1112,13 @@ ObjectRowPorts& ensureObjectRowPorts(FlowItem& item, std::size_t rowSlot)
     return ports;
 }
 
-void clearObjectRowPort(ObjectRowPort& port)
+void clearObjectRowPort(ObjectRowPort& port) noexcept
 {
     // @src 0x140161f90 / 0x140161eb0: clearing one connector removes the
     // corresponding entry from every peer, preserving reciprocal lists.
-    const auto oldPeers = port.peers;
-    port.peers.clear();
-    for (ObjectRowPort* peer : oldPeers) {
+    while (!port.peers.empty()) {
+        ObjectRowPort* peer = port.peers.back();
+        port.peers.pop_back();
         if (!peer) continue;
         auto& links = peer->peers;
         links.erase(std::remove(links.begin(), links.end(), &port), links.end());

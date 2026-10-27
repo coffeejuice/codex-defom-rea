@@ -285,6 +285,7 @@ struct ObjectRowPorts {
 
 struct FlowItem {                  // diagram item (model+0x20 list)
     FlowItem() = default;
+    ~FlowItem() noexcept;
     FlowItem(const FlowItem&) = delete;
     FlowItem& operator=(const FlowItem&) = delete;
     FlowItem(FlowItem&&) = delete;
@@ -305,7 +306,33 @@ struct FlowItem {                  // diagram item (model+0x20 list)
     // Keys are zero-based object slots (expansion index 7 + slot), not
     // operation IDs or copied row values. The selected construction is Forming2D.
     std::map<std::size_t, ObjectRowPorts> objectRowPorts;
+    // Diagnostic lifetime identity: a weak observer must reject an item
+    // destroyed and reallocated at the same address. Not serialized or ABI.
+    std::shared_ptr<int> diagnosticLifetime = std::make_shared<int>(0);
 };
+
+inline FlowItem::~FlowItem() noexcept
+{
+    // Inline because the P11 namespace-renamed source double instantiates
+    // FlowItem without linking the original model's out-of-line lifetime unit.
+    const auto detach = [](ObjectRowPort& port) noexcept {
+        while (!port.peers.empty()) {
+            ObjectRowPort* peer = port.peers.back();
+            port.peers.pop_back();
+            if (!peer) continue;
+            auto& links = peer->peers;
+            for (auto it = links.begin(); it != links.end();) {
+                if (*it == &port) it = links.erase(it);
+                else ++it;
+            }
+        }
+    };
+    for (auto& [slot, ports] : objectRowPorts) {
+        (void)slot;
+        if (ports.input) detach(*ports.input);
+        if (ports.output) detach(*ports.output);
+    }
+}
 
 // Internal Forming2D construction helper only: expansion[7 + rowSlot] must be Text.
 // Native 0x140082760 ensures input before output and retains existing ports.
@@ -314,7 +341,7 @@ ObjectRowPorts& ensureObjectRowPorts(FlowItem& item, std::size_t rowSlot);
 // Internal Object2d connector operations. Native +0x88 clears each endpoint's
 // prior reciprocal peer before +0x78 links the selected output/input pair.
 // Notification delivery belongs to the owning graph/model call site.
-void clearObjectRowPort(ObjectRowPort& port);
+void clearObjectRowPort(ObjectRowPort& port) noexcept;
 void linkObjectRowPorts(ObjectRowPort& fromOutput, ObjectRowPort& toInput);
 
 struct FlowChart {                 // SfMoDiagEditorModel
