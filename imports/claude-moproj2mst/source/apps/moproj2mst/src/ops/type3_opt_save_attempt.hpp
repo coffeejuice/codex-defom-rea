@@ -1,13 +1,16 @@
 #pragma once
+#include "type3_optimizer_scalar_state.hpp"
 #include <array>
+#include <cstddef>
+#include <cstdint>
 #include <string>
 #include <vector>
 
 namespace m2m::mst::detail {
 
-// Prepared insertion phase order only; recovered getters are not executed here.
-// Native formatting and physical bytes are not modeled. Each collection
-// supplies its separately prepared first-member insertions only when nonempty.
+// Prepared insertion phase order only; native formatting and physical bytes are not modeled.
+// CP466 treated firstMember as stream output; CP468 shows these preliminary
+// result locals are never inserted, even when supplied to this generic seam.
 using Type3OptFragments = std::vector<std::string>;
 struct Type3OptCollection {
     bool nonempty = false;
@@ -26,6 +29,16 @@ struct Type3OptSavePrepared {
     Type3OptFragments finalLines;
 };
 
+// Logical prepared identities, not an implementation of Qt copy-on-write.
+// Snapshots record the values in each destroyed callee temporary; each writer
+// original remains empty and its preliminary +0x60 branch is skipped.
+struct Type3OptGroupReceipt {
+    std::array<std::vector<std::int32_t>, 3> temporarySnapshots;
+    std::array<std::size_t, 3> ignoredCounts{};
+    std::array<std::vector<std::int32_t>, 3> writerOriginals;
+    std::array<bool, 3> preliminaryBranchTaken{};
+};
+
 struct Type3OptAttemptSink {
     virtual ~Type3OptAttemptSink() = default;
     virtual bool open(const std::string& path) = 0;
@@ -39,6 +52,15 @@ struct Type3OptAttemptSink {
 // buffering, formatting, physical writes, and unwind cleanup are not modeled.
 bool attemptType3OptSave(const Type3OptSavePrepared& prepared,
                          Type3OptAttemptSink& sink);
+
+// Stable normally returning group profile. Receipt is assigned only after open,
+// header and scalarPrefix complete; a failed open or earlier throw leaves it alone.
+// This is a private value projection, not public Type3 admission, Qt bytes or
+// an assertion about the native optimizer owner's lifetime.
+bool attemptType3OptSaveWithGroups(const Type3OptSavePrepared& prepared,
+                                   const Type3OptimizerScalarState& state,
+                                   Type3OptAttemptSink& sink,
+                                   Type3OptGroupReceipt& receipt);
 
 struct Type3OptCallerEffects {
     virtual ~Type3OptCallerEffects() = default;
