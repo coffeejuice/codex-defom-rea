@@ -1654,6 +1654,117 @@ TEST_CASE(seven_item_positive_g_inserts_with_no_gap_at_right_edge)
     }
 }
 
+TEST_CASE(four_to_seven_negative_last_direction_and_underflow)
+{
+    const double eps = std::numeric_limits<double>::denorm_min();
+    struct Case { double x; bool negativeQuotient; };
+    const Case cases[] = {
+        {-std::numeric_limits<double>::max(), false},
+        {-60.00000000000001, false}, {-60.0, true}, {-1.0, true},
+        {-103.0 * eps, true}, {-102.0 * eps, false}, {-eps, false}};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"2147483647\"/>",
+                           "<CellPos Row=\"-2147483648\" Col=\"-1\"/>"};
+    const char* ys[] = {"-1.7976931348623157e308", "159.99999999999997"};
+    for (int count = 4; count <= 7; ++count) for (const Case& c : cases)
+        for (const char* y : ys) for (int form = 0; form < 3; ++form) {
+        char xText[64]; std::snprintf(xText, sizeof(xText), "%.17g", c.x);
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        for (int i = 0; i < count; ++i) {
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(100 + i) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (i + 1 == count ? std::string(xText) : std::string(i == 0 ? "-0" : "0")) +
+                "</x><y>" + (i + 1 == count ? std::string(y) : std::string("0")) +
+                "</y><width>" + ((i == 0 || i + 1 == count) ? "-0" : "0") +
+                "</width><height>" + (i + 1 == count ? "4.9406564584124654e-324" :
+                                       (i == 1 ? "-0" : "0")) +
+                "</height></RectF>" + cells[(i + form) % 3] + "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items;
+        REQUIRE(items.size() == static_cast<std::size_t>(count));
+        std::vector<int> cols(count);
+        cols[0] = c.negativeQuotient ? 1 : 0;
+        for (int i = 1; i + 1 < count; ++i) cols[i] = count - i;
+        cols[count - 1] = c.negativeQuotient ? 0 : 1;
+        for (int i = 0; i < count; ++i) {
+            CHECK_EQ(items[i]->opId, 100 + i); CHECK_EQ(items[i]->row, 0);
+            CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]);
+            CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], (i == 0 || i + 1 == count) ? -0.0 : 0.0);
+            CHECK_BITS(items[i]->rect[3], i + 1 == count ? eps : (i == 1 ? -0.0 : 0.0));
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < count; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        std::vector<int> expected;
+        for (int col = 0; col < count; ++col)
+            for (int i = 0; i < count; ++i) if (cols[i] == col) expected.push_back(100 + i);
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
+TEST_CASE(negative_id_pair_expanded_graphic_admits_row_zero_to_190)
+{
+    struct Case { const char* x; int col; };
+    const Case cases[] = {{"4.9406564584124654e-324", 1}, {"1", 1},
+        {"205", 1}, {"307.49999999999994", 1}, {"307.5", 2},
+        {"512.5", 3}, {"717.5", 4}, {"922.5", 5},
+        {"1127.5", 6}, {"1332.4999999999998", 6}};
+    const char* ys[] = {"160", "189.99999999999997"};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"2147483647\"/>",
+                           "<CellPos Row=\"-2147483648\" Col=\"-1\"/>"};
+    for (const Case& c : cases) for (const char* y : ys) for (int form = 0; form < 3; ++form) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project>") +
+            "<DiagramItem Operation_Id=\"-10\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" +
+            cells[form] + "</DiagramItem>" +
+            "<DiagramItem Operation_Id=\"-11\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>" + c.x + "</x><y>" + y +
+            "</y><width>-0</width><height>4.9406564584124654e-324</height></RectF>" +
+            cells[(form + 1) % 3] + "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->opId, -10); CHECK_EQ(items[1]->opId, -11);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 0);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, c.col);
+        CHECK_BITS(items[0]->rect[0], 0.0); CHECK_BITS(items[0]->rect[1], 0.0);
+        CHECK_BITS(items[1]->rect[0], 205.0 * c.col); CHECK_BITS(items[1]->rect[1], 0.0);
+        CHECK_BITS(items[1]->rect[2], -0.0);
+        CHECK_BITS(items[1]->rect[3], 4.9406564584124654e-324);
+        CHECK(items[0]->prev == nullptr); CHECK(items[1]->next == nullptr);
+        CHECK(items[0]->next == (c.col == 1 ? items[1].get() : nullptr));
+        CHECK(items[1]->prev == (c.col == 1 ? items[0].get() : nullptr));
+        CHECK(mstOrder(*p.subs[0]) == (c.col == 1 ?
+            std::vector<int>({-10, -11}) : std::vector<int>({-10})));
+    }
+    for (const char* y : {"190", "190.00000000000003"}) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project>") +
+            "<DiagramItem Operation_Id=\"-10\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+            "<DiagramItem Operation_Id=\"-11\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>1</x><y>" + y +
+            "</y><width>0</width><height>0</height></RectF></DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool guarded = false;
+        try { parseSubProject(p, *doc.root, ctx); }
+        catch (const Error& e) { guarded = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(guarded);
+    }
+}
+
 TEST_CASE(three_item_distinct_explicit_cells_relayout_and_connect_grid_runs)
 {
     const auto cell = [](int col) {

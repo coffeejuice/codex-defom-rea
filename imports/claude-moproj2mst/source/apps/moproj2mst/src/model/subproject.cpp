@@ -511,6 +511,11 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         }) && std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
             return input.selected;
         }) && (initiallyUnlinked || initialForwardPair);
+    // Negative operation IDs expand the first item's graphic to height 190.
+    // Rebuild therefore establishes row height 215 before the second item.
+    const bool negativePairGraphicsHeight = flow.items.size() == 2 &&
+        flow.items[0] && flow.items[1] &&
+        flow.items[0]->opId < 0 && flow.items[1]->opId < 0;
     // CP495-497: source-qualified finite positive-left intervals select free columns
     // either by collision insertion or directly in a free column. Keep the
     // original geometry snapshot before B moves.
@@ -524,7 +529,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
         std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
         std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] > 0.0 && flow.items[1]->rect[0] < 1332.5 &&
-        std::isfinite(flow.items[1]->rect[1]) && flow.items[1]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[1]->rect[1]) &&
+        flow.items[1]->rect[1] < (negativePairGraphicsHeight ? 190.0 : 160.0) &&
         std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]);
     const bool freeColumnPairCandidate = initiallyEmpty && initiallyUnlinked && cellInputs.size() == 2 &&
         flow.items.size() == 2 && nonzeroPairCandidate && flow.items[1]->rect[0] >= 102.5;
@@ -555,6 +561,20 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         std::isfinite(flow.items[2]->rect[0]) && flow.items[2]->rect[0] < 0.0 &&
         std::isfinite(flow.items[2]->rect[1]) && flow.items[2]->rect[1] < 160.0 &&
         std::isfinite(flow.items[2]->rect[2]) && std::isfinite(flow.items[2]->rect[3]);
+    const bool negativeMultiCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() >= 4 && flow.items.size() <= 7 &&
+        cellInputs.size() == flow.items.size() &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
+        }) &&
+        std::all_of(flow.items.begin(), flow.items.end() - 1, [](const auto& item) {
+            return item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) &&
+        std::isfinite(flow.items.back()->rect[0]) && std::isfinite(flow.items.back()->rect[1]) &&
+        std::isfinite(flow.items.back()->rect[2]) && std::isfinite(flow.items.back()->rect[3]) &&
+        flow.items.back()->rect[0] < 0.0 && flow.items.back()->rect[1] < 160.0;
     const bool fourPositiveCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() == 4 && cellInputs.size() == 4 &&
         std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
@@ -692,7 +712,9 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             int col = static_cast<int>(std::floor(cx));
             if (cx - std::floor(cx) >= 0.5) col = static_cast<int>(std::ceil(cx));
             // row 0: the empty row list gives round((y + 25) / 185), a row 0 present y - 0 < h - 25
-            const bool inRow0 = row0 ? y < 185.0 - 25.0 : (y + 25.0) / 185.0 < 0.5;
+            const bool inRow0 = row0 ?
+                y < ((negativePairGraphicsHeight && nonzeroPairCandidate) ? 190.0 : 160.0) :
+                (y + 25.0) / 185.0 < 0.5;
             if (!inRow0 || col < 0 || col >= 7)
                 throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos outside row 0 / the 7 columns "
                                                "(0x14014dfa0 row list, 0x1401583e0 relayout)");
@@ -714,7 +736,18 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 }
                 // The selected row-0 recurrence shifts an occupied token run
                 // to the adjacent free cells; other collision patterns stay guarded.
-                if (sevenPositiveCandidate && k == 6 && row0 && col >= 0 && col <= 5 &&
+                if (negativeMultiCandidate && k + 1 == flow.items.size() && row0 &&
+                    col == 0 && cx < 0.0 &&
+                    flow.items[0]->row == 0 && flow.items[0]->col == 0) {
+                    // Negative direction inserts before A and shifts the full
+                    // occupied prefix. Underflow to -0 follows the +1 branch.
+                    for (std::size_t prior = 0; prior < k; ++prior) {
+                        ++flow.items[prior]->col;
+                        flow.items[prior]->rect[0] = 205.0 * flow.items[prior]->col;
+                    }
+                    it.row = 0; it.col = 0;
+                    it.rect[0] = 0.0; it.rect[1] = 0.0;
+                } else if (sevenPositiveCandidate && k == 6 && row0 && col >= 0 && col <= 5 &&
                     flow.items[0]->col == 0 && flow.items[5]->col == 1 &&
                     flow.items[4]->col == 2 && flow.items[3]->col == 3 &&
                     flow.items[2]->col == 4 && flow.items[1]->col == 5) {
@@ -830,7 +863,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.rect[1] = 0.0;
                 } else if ((recurrenceCandidate || nonzeroPairCandidate || threeCollisionCandidate ||
                             threeNegativeCandidate || fourPositiveCandidate || fivePositiveCandidate ||
-                            sixPositiveCandidate || sevenPositiveCandidate ||
+                            sixPositiveCandidate || sevenPositiveCandidate || negativeMultiCandidate ||
                             (negativeEightCandidate && k < 7)) &&
                            k > 0 && row0 && col == 0 &&
                     flow.items[0]->row == 0 && flow.items[0]->col == 0) {
@@ -856,7 +889,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     (threeCollisionCandidate && k == 2) ||
                     ((nonzeroPairCandidate || threeCollisionCandidate || threeNegativeCandidate ||
                       fourPositiveCandidate || fivePositiveCandidate || sixPositiveCandidate ||
-                      sevenPositiveCandidate) && k == 0)) {
+                      sevenPositiveCandidate || negativeMultiCandidate) && k == 0)) {
                     it.rect[0] = 205.0 * col;
                     it.rect[1] = 0.0;
                 }
@@ -878,12 +911,14 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             used.insert({0, 3});
         if ((sixPositiveCandidate || sevenPositiveCandidate) && k == 4) used.insert({0, 4});
         if (sevenPositiveCandidate && k == 5) used.insert({0, 5});
+        if (negativeMultiCandidate && k >= 2 && k + 1 < flow.items.size())
+            used.insert({0, static_cast<int>(k)});
         if (it.row == 0) row0 = true;
     }
     if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate ||
         singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
         threeCollisionCandidate || threeNegativeCandidate || fourPositiveCandidate || fivePositiveCandidate ||
-        sixPositiveCandidate || sevenPositiveCandidate ||
+        sixPositiveCandidate || sevenPositiveCandidate || negativeMultiCandidate ||
         threeDirectCandidate || multiDirectCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
