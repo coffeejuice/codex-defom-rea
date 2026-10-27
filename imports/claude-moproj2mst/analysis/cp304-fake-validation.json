@@ -1,0 +1,27 @@
+{
+  "schema": "cp304-fake-validation-v1",
+  "status": "FAKE_SUPERVISOR_PROTOCOL_VALIDATED_REAL_CHILD_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp304_job_supervisor.py": "612eceb74974cc5c36dc9314a4f84b81e605f004836c5dd0a545c65a2cca141e",
+    "admin/test_cp304_job_supervisor.py": "5f34aaf6c2f9ce007a60695322186629945fc0040ab1427ad7be82ecc3782062"
+  },
+  "tests": {
+    "run": 12,
+    "passed": 12,
+    "failed": 0,
+    "log": "analysis/cp304-fake-tests.log",
+    "log_sha256": "81d4262f2e15cbdaff9ba41ccae9681f472ae287e002b200fc81a8eb12317a7e"
+  },
+  "review": "Independent final review PASS for the fake-only protocol after ACK and retained-handle corrections",
+  "unpassed_gates": [
+    "Real worker handoff and independently confirmed ACK acceptance",
+    "Fixed cloned image and loaded image identity",
+    "Live Job Object containment, valid handles, exit and cleanup receipts",
+    "Worker interruption inside CreateProcessW remains unknown",
+    "CP215 observer, original process and fresh Open-Save-accepted Close acceptance"
+  ]
+}
