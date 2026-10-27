@@ -169,6 +169,59 @@ class RunnerTests(unittest.TestCase):
         self.assertTrue(all(got_nonce == nonce and deadline == 700
                             for got_nonce, deadline, _, _ in calls))
 
+    def test_worker_ack_progress_delay_consumes_original_deadline_before_completion(self):
+        h = Harness()
+        self.external(h, lambda *_: None)
+        stages = []
+
+        def delayed_progress(_nonce, deadline, stage, *, remaining=None):
+            stages.append(stage)
+            if stage == "worker_ack":
+                self.assertGreater(remaining, 0)
+                # The marker's remaining value is sampled before its storage I/O.
+                # Model that I/O returning only at the original deadline.
+                h.now = deadline
+            return True
+
+        with patch.object(m.progress, "write_progress", side_effect=delayed_progress), \
+             patch.object(m.creator.NativeWorkerCreator, "complete_success") as complete, \
+             patch.object(m.secrets, "token_hex", return_value="a" * 64):
+            with self.assertRaises(m.RunFailure) as caught:
+                h.run()
+
+        self.assertIsInstance(caught.exception.__cause__, m.Hold)
+        self.assertIn("original absolute deadline expired", str(caught.exception.__cause__))
+        complete.assert_not_called()
+        self.assertEqual(stages, ["worker_resumed", "result", "worker_ack"])
+        self.assertEqual(h.calls.count("ResumeThread"), 1)
+        self.assertEqual(len(h.frames), 2)  # INIT and exactly one ACK.
+        self.assertEqual(h.runner.receipt.ack_outcome,
+                         "48-bytes-written-exit-unconfirmed")
+        self.assertNotEqual(h.runner.receipt.phase, "closed-success")
+
+    def test_worker_ack_progress_delay_with_remaining_budget_reaches_completion(self):
+        h = Harness()
+        self.external(h, lambda *_: None)
+        stages = []
+
+        def delayed_progress(_nonce, deadline, stage, *, remaining=None):
+            stages.append(stage)
+            if stage == "worker_ack":
+                self.assertGreater(remaining, 1)
+                h.now = deadline - 1
+            return True
+
+        with patch.object(m.progress, "write_progress", side_effect=delayed_progress), \
+             patch.object(m.secrets, "token_hex", return_value="a" * 64):
+            result = h.run()
+
+        self.assertEqual(result.phase, "closed-success")
+        self.assertEqual(result.ack_outcome, "exact-worker-exit-zero-observed")
+        self.assertEqual(stages, ["worker_resumed", "result", "worker_ack",
+                                  "worker_closed"])
+        self.assertEqual(h.calls.count("ResumeThread"), 1)
+        self.assertEqual(len(h.frames), 2)
+
     def test_non_external_run_does_not_write_worker_progress(self):
         h = Harness()
         with patch.object(m.progress, "write_progress",
