@@ -1,4 +1,4 @@
-// CP448: static enabled-builder prefix, stopped before unknown local bounds.
+// CP448/CP456: enabled-builder prefix and exact-capacity normal return.
 // These private integrated occurrences do not establish original runtime parity
 // or public admission of SfOprCopyMirror.
 // ctest-labels: m2m-mdt
@@ -138,6 +138,26 @@ void checkUnwrittenCallerFields(const engine::detail::MirrorPlaneRecordSnapshot&
     CHECK((record.c0 == std::array<double, 4>{}));
     CHECK((record.links == std::array<int, 2>{-1, -1}));
 }
+
+void fillCapacity(Fixture& fixture)
+{
+    for (int i = 0; i < 128; ++i)
+        REQUIRE(fixture.post(firstRow, 1, boundsBoundary));
+    CHECK_EQ(fixture.snapshot().allocatedSlotCount, 128);
+}
+
+void checkMatricesAndExtentUnchanged(const engine::detail::MirrorPlaneOwnerSnapshot& before,
+    const engine::detail::MirrorPlaneOwnerSnapshot& after)
+{
+    CHECK(after.viewIdentity == before.viewIdentity);
+    CHECK_EQ(after.allocatedSlotCount, before.allocatedSlotCount);
+    for (std::size_t i = 0; i < before.records.size(); ++i) {
+        CHECK(after.records[i].matrixDouble == before.records[i].matrixDouble);
+        CHECK(after.records[i].matrixFloat == before.records[i].matrixFloat);
+        CHECK_EQ(after.records[i].mode, before.records[i].mode);
+        CHECK_EQ(after.records[i].c0[3], before.records[i].c0[3]);
+    }
+}
 }
 
 TEST_CASE(copymirror_enabled_builder_uses_exact_mixed_settings_gate)
@@ -262,27 +282,98 @@ TEST_CASE(copymirror_enabled_nonzero_parents_stop_before_allocation)
     }
 }
 
-TEST_CASE(copymirror_enabled_capacity_guard_precedes_inactive_slot_search)
+TEST_CASE(copymirror_enabled_capacity_return_precedes_reuse_and_fills_root_links)
 {
     Fixture fixture;
-    for (int i = 0; i < 128; ++i)
-        REQUIRE(fixture.post(firstRow, 1, boundsBoundary));
+    fillCapacity(fixture);
     fixture.setGate(false);
     CHECK(!fixture.post("67 0 0 8 9 10 11 12 13 0\n"));
     const auto before = fixture.snapshot();
-    CHECK_EQ(before.allocatedSlotCount, 128);
     CHECK(!before.records[0].active);
     fixture.setGate(true);
-    REQUIRE(fixture.post("0 0 0 5 0 0 2 0 0 1\n", 1, "capacity-return continuation"));
+    for (int call = 0; call < 3; ++call) {
+        CHECK(!fixture.post("0 90 91 5 6 7 2 3 4 0\n"));
+        const auto after = fixture.snapshot();
+        CHECK((after.links == std::array<int, 2>{0, call == 0 ? -1 : 0}));
+        checkMatricesAndExtentUnchanged(before, after);
+        // A normal return reaches fixed row 0 and the deferred parsed disable.
+        CHECK(!after.records[0].active);
+        REQUIRE(after.records[0].a && after.records[0].e0);
+        CHECK_EQ(*after.records[0].a, 0);
+        CHECK((*after.records[0].e0 == std::array<double, 3>{5.0, 6.0, 7.0}));
+        CHECK((after.records[0].c0 == std::array<double, 4>{2.0, 3.0, 4.0, 0.0}));
+        // Only default record links are reachable here; this does not prove
+        // preservation/clearing of nondefault record links.
+        CHECK((after.records[0].links == std::array<int, 2>{-1, -1}));
+        for (std::size_t i = 1; i < before.records.size(); ++i) {
+            CHECK_EQ(after.records[i].active, before.records[i].active);
+            CHECK(after.records[i].a == before.records[i].a);
+            CHECK(after.records[i].e0 == before.records[i].e0);
+            CHECK(after.records[i].c0 == before.records[i].c0);
+            CHECK(after.records[i].links == before.records[i].links);
+        }
+    }
+}
+
+TEST_CASE(copymirror_capacity_caller_writes_fixed_input_rows_then_parsed_flags)
+{
+    Fixture fixture;
+    fillCapacity(fixture);
+    const auto before = fixture.snapshot();
+    CHECK(!fixture.post("0 90 91 5 6 7 2 3 4 0\n0 92 93 8 9 10 11 12 13 1\n", 2));
     const auto after = fixture.snapshot();
-    CHECK_EQ(after.allocatedSlotCount, 128);
+    checkMatricesAndExtentUnchanged(before, after);
+    CHECK((after.links == std::array<int, 2>{0, 0}));
+    REQUIRE(after.records[0].e0 && after.records[1].e0);
+    CHECK((*after.records[0].e0 == std::array<double, 3>{5.0, 6.0, 7.0}));
+    CHECK((*after.records[1].e0 == std::array<double, 3>{8.0, 9.0, 10.0}));
+    CHECK((after.records[1].c0 == std::array<double, 4>{11.0, 12.0, 13.0, 0.0}));
+    REQUIRE(after.records[1].a);
+    CHECK_EQ(*after.records[1].a, 0);
     CHECK(!after.records[0].active);
-    CHECK(after.records[0].matrixDouble == before.records[0].matrixDouble);
-    CHECK(after.records[0].matrixFloat == before.records[0].matrixFloat);
-    CHECK(after.records[0].a == before.records[0].a);
-    CHECK(after.records[0].e0 == before.records[0].e0);
-    CHECK(after.records[0].c0 == before.records[0].c0);
-    CHECK(after.records[0].links == before.records[0].links);
+    CHECK(after.records[1].active);
+    checkUnwrittenCallerFields(after.records[2]);
+}
+
+TEST_CASE(copymirror_capacity_later_parent_refusal_retains_first_pass_and_root)
+{
+    Fixture fixture;
+    fillCapacity(fixture);
+    const auto before = fixture.snapshot();
+    REQUIRE(fixture.post("0 90 91 5 6 7 2 3 4 0\n-1 92 93 8 9 10 11 12 13 0\n",
+        2, "nonzero parent matrix composition"));
+    const auto after = fixture.snapshot();
+    checkMatricesAndExtentUnchanged(before, after);
+    // The nonzero-parent guard runs before the second root insertion. The
+    // refusal suppresses the deferred disable of row 0 as well as row 1 stores.
+    CHECK((after.links == std::array<int, 2>{0, -1}));
+    CHECK(after.records[0].active);
+    REQUIRE(after.records[0].e0);
+    CHECK((*after.records[0].e0 == std::array<double, 3>{5.0, 6.0, 7.0}));
+    CHECK((after.records[0].c0 == std::array<double, 4>{2.0, 3.0, 4.0, 0.0}));
+    checkUnwrittenCallerFields(after.records[1]);
+}
+
+TEST_CASE(copymirror_capacity_return_keeps_fixed_row_out_of_range_refusal)
+{
+    Fixture fixture;
+    fillCapacity(fixture);
+    const auto before = fixture.snapshot();
+    std::string rows;
+    for (int i = 0; i < 129; ++i)
+        rows += "0 90 91 " + std::to_string(i + 1) + " 6 7 2 3 4 0\n";
+    REQUIRE(fixture.post(rows, 129, "first out-of-range fixed plane record"));
+    const auto after = fixture.snapshot();
+    checkMatricesAndExtentUnchanged(before, after);
+    CHECK((after.links == std::array<int, 2>{0, 0}));
+    for (std::size_t i = 0; i < after.records.size(); ++i) {
+        // All 128 preceding stores survive; no deferred flag pass ran.
+        CHECK(after.records[i].active);
+        REQUIRE(after.records[i].a && after.records[i].e0);
+        CHECK_EQ(*after.records[i].a, 0);
+        CHECK_EQ((*after.records[i].e0)[0], static_cast<double>(i + 1));
+        CHECK((after.records[i].c0 == std::array<double, 4>{2.0, 3.0, 4.0, 0.0}));
+    }
 }
 
 int main() { return testkit::run_all(); }

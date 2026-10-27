@@ -331,10 +331,14 @@ void importEnabledMirrorPlanePrefix(MirrorPlaneOwner& owner, const mst::MirrorPl
 
     if (plane.a != 0)
         throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: nonzero parent matrix composition remains unsupported");
-    // 141249730 checks exactly 128 before looking for inactive records. Its
-    // zero-return continuation is unmodeled; do not enter caller/link writes.
-    if (owner.allocatedSlotCount == 128)
-        throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: capacity-return continuation remains unsupported");
+    // CP456: 141249730 returns id zero at exactly 128 before searching inactive
+    // records or consuming bounds. 141249f80 then inserts zero at the root
+    // (14124a010); lookup(0) skips all record work and the builder returns.
+    if (owner.allocatedSlotCount == 128) {
+        if (owner.links[0] == -1) owner.links[0] = 0;
+        else if (owner.links[1] == -1) owner.links[1] = 0;
+        return;
+    }
     int slot = 0;
     while (slot < owner.allocatedSlotCount && owner.records[static_cast<std::size_t>(slot)].active)
         ++slot;
@@ -2016,7 +2020,7 @@ bool importMirrorEntry(GuiModel& model, int objectNo, const std::vector<mst::Mir
         if (builderGate)
             importEnabledMirrorPlanePrefix(view->mirrorPlanes, planes[i]);
 
-        // 140e23490 ignores the disabled builder's early return, then addresses
+        // 140e23490 ignores the builder's normal return, then addresses
         // fixed index i rather than the owner count or the parsed a/b/c links.
         // Preserve all preceding writes before refusing the first OOB store.
         if (i >= view->mirrorPlanes.records.size())
@@ -2030,7 +2034,7 @@ bool importMirrorEntry(GuiModel& model, int objectNo, const std::vector<mst::Mir
         record.c0[1] = static_cast<double>(plane.v[4]);
         record.c0[2] = static_cast<double>(plane.v[5]);
         setMirrorPlaneActive(record, true);
-        // No 141249730 call reached: allocatedSlotCount remains unchanged.
+        // A disabled builder or capacity return leaves the extent unchanged.
     }
     // The complete first pass precedes any parsed flag application. A refusal
     // above therefore retains the earlier records active, without a finalizer.
