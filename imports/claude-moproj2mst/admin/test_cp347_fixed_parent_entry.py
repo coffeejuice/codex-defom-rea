@@ -437,9 +437,10 @@ class ParentEntryTests(unittest.TestCase):
         argv = [client.ARGV_TAG, "11", "12", str(channel_deadline)]
         events = []
         owner = SimpleClient(self.state.exports, channel_deadline, events)
-        def adopt(exports, args):
+        def adopt(exports, args, *, stage=None):
             self.assertIs(exports, self.state.exports)
             self.assertEqual(tuple(args), tuple(argv))
+            self.assertTrue(callable(stage))
             events.append("adopt")
             return owner
         with patch.object(entry.client, "from_bootstrap_argv", side_effect=adopt):

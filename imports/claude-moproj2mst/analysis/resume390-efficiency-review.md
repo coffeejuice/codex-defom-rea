@@ -1,0 +1,5 @@
+# CP388–390 efficiency review
+
+At the next safe checkpoint after the CP381 review, CP388 integrated exact child-exit and stage observation, CP389 ran one fresh inert diagnostic, and CP390 narrowed the next diagnostic to CP334 adoption. The CP388 final dual-root injected suite ran 627 tests in 0.435 and 0.426 seconds. CP390's dual-root suite ran 628 tests in 0.419 and 0.436 seconds. These are process-reported test times, not full engineering elapsed time. The CP389 monitored occurrence returned its outer receipt in about one second according to the command runner, but that does not measure design, preflight, review or documentation time. No C++ source changed, so no CMake build or public converter CTest rerun was needed at these checkpoints.
+
+The short focused diagnostic suite and one clean freeze per native occurrence remain appropriate. Retain full raw reports and independent cleanup checks. The 21-sync local trace sample took 8.192 ms but is not a worst-case latency or an end-to-end speedup measurement. No token count or tenfold speedup is claimed. Review efficiency again after three checkpoints or one hour at a safe boundary.

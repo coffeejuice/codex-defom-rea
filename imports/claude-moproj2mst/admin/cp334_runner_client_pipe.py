@@ -35,12 +35,15 @@ class NativeRunnerClientPipe:
     OVERLAPPED provenance remain the fixed CP328/CP331 creation contract;
     Win32 GetNamedPipeInfo does not report those access/creation flags.
     """
-    def __init__(self, exports, *, deadline):
+    def __init__(self, exports, *, deadline, stage=None):
         if not isinstance(exports, BoundExports):
             raise TypeError("CP325 BoundExports required")
         if type(deadline) is not int or not 0 < deadline < 2**64:
             raise ValueError("explicit absolute GetTickCount64 deadline required")
+        if stage is not None and not callable(stage):
+            raise TypeError("optional diagnostic stage callback must be callable")
         self._exports, self._deadline = exports, deadline
+        self._stage = stage
         self._receipt = None
         self.handles, self.operations, self.cancel_errors = set(), [], {}
         self.started = self.held = False
@@ -63,6 +66,10 @@ class NativeRunnerClientPipe:
 
     def _failure(self, name):
         return ApiFailure(name, int(self._exports.last_error()))
+
+    def _mark(self, name):
+        if self._stage is not None:
+            self._stage(name)
 
     def _budget(self):
         now = self._call("GetTickCount64")
@@ -88,21 +95,32 @@ class NativeRunnerClientPipe:
         self.started = True
         self.handles.update(values)
         try:
-            for handle in values:
+            self._mark("cp334_adopt_enter")
+            for index, handle in enumerate(values):
+                self._mark(f"cp334_h{index}_before_tick1")
                 self._budget()
+                self._mark(f"cp334_h{index}_after_tick1")
                 flags = abi.DWORD()
+                self._mark(f"cp334_h{index}_before_inherit")
                 if not self._call("GetHandleInformation", handle, C.byref(flags)):
                     raise self._failure("GetHandleInformation")
+                self._mark(f"cp334_h{index}_after_inherit")
                 if flags.value != 1:
                     raise Hold("inheritable, unprotected client handle required")
+                self._mark(f"cp334_h{index}_before_tick2")
                 self._budget()
+                self._mark(f"cp334_h{index}_after_tick2")
                 pipe_flags = abi.DWORD()
+                self._mark(f"cp334_h{index}_before_pipeinfo")
                 if not self._call("GetNamedPipeInfo", handle, C.byref(pipe_flags),
                                   None, None, None):
                     raise self._failure("GetNamedPipeInfo")
+                self._mark(f"cp334_h{index}_after_pipeinfo")
                 if pipe_flags.value != 0:
                     raise Hold("named byte-pipe client end required")
+            self._mark("cp334_before_final_tick")
             self._budget()
+            self._mark("cp334_after_final_tick")
             self._receipt = ClientEndpoints(*values)
             return self._receipt
         except BaseException:
@@ -226,7 +244,7 @@ class NativeRunnerClientPipe:
         return not self.handles
 
 
-def from_bootstrap_argv(exports, argv):
+def from_bootstrap_argv(exports, argv, *, stage=None):
     """Parse only fixed argv tail: TAG input-read output-write absolute-deadline.
 
     Accept canonical unsigned decimal strings only. Call before protocol reads;
@@ -239,8 +257,11 @@ def from_bootstrap_argv(exports, argv):
                 len(s) > 20 or str(int(s)) != s for s in argv[1:])):
         raise Hold("fixed CP334 bootstrap argv required")
     input_read, output_write, deadline = map(int, argv[1:])
-    owner = NativeRunnerClientPipe(exports, deadline=deadline)
+    if stage is not None:
+        stage("cp334_argv_parsed")
+    owner = NativeRunnerClientPipe(exports, deadline=deadline, stage=stage)
     try:
+        owner._mark("cp334_owner_created")
         owner.adopt(input_read, output_write)
     except BaseException as error:
         error.owner = owner

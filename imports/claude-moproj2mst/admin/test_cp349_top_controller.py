@@ -159,10 +159,18 @@ class TopTests(unittest.TestCase):
         stages = ["script-entry", "cp347-module-imported",
                   "from-client-argv-constructed", "entry",
                   "before_load_native_exports", "after_load_native_exports",
-                  "before_cp334_from_bootstrap_argv", "after_cp334_adopt",
+                  "before_cp334_from_bootstrap_argv", "cp334_argv_parsed",
+                  "cp334_owner_created", "cp334_adopt_enter"]
+        for index in (0, 1):
+            stages.extend(f"cp334_h{index}_{suffix}" for suffix in (
+                "before_tick1", "after_tick1", "before_inherit",
+                "after_inherit", "before_tick2", "after_tick2",
+                "before_pipeinfo", "after_pipeinfo"))
+        stages.extend(("cp334_before_final_tick", "cp334_after_final_tick",
+                  "after_cp334_adopt",
                   "before_cp333_acknowledge", "after_cp333_acknowledge",
                   "before_cp333_complete", "after_cp333_complete",
-                  "run-returned"]
+                  "run-returned"))
         with tempfile.TemporaryDirectory(
                 dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
             root = Path(directory)

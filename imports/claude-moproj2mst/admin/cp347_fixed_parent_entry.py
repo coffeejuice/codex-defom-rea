@@ -253,7 +253,7 @@ class FixedParentEntry:
                 try:
                     self._mark("before_cp334_from_bootstrap_argv")
                     self.client_owner = client.from_bootstrap_argv(
-                        exports, self._client_argv)
+                        exports, self._client_argv, stage=self._mark)
                     self._mark("after_cp334_adopt")
                 except BaseException as error:
                     self.client_owner = getattr(error, "owner", None)

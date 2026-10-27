@@ -121,6 +121,35 @@ class Tests(unittest.TestCase):
         with self.assertRaises(TypeError):
             client.NativeRunnerClientPipe(object(), deadline=100)
 
+    def test_adoption_stages_bound_each_native_query_and_failure_retains_owner(self):
+        f = Fake()
+        stages = []
+        owner = client.from_bootstrap_argv(
+            f.exports, [client.ARGV_TAG, "11", "12", "100"],
+            stage=stages.append)
+        expected = ["cp334_argv_parsed", "cp334_owner_created",
+                    "cp334_adopt_enter"]
+        for index in (0, 1):
+            expected.extend(f"cp334_h{index}_{suffix}" for suffix in (
+                "before_tick1", "after_tick1", "before_inherit",
+                "after_inherit", "before_tick2", "after_tick2",
+                "before_pipeinfo", "after_pipeinfo"))
+        expected.extend(("cp334_before_final_tick", "cp334_after_final_tick"))
+        self.assertEqual(stages, expected)
+        self.assertTrue(owner.cleanup())
+
+        f = Fake()
+        f.query_fail = True
+        stages = []
+        with self.assertRaises(client.ApiFailure) as caught:
+            client.from_bootstrap_argv(
+                f.exports, [client.ARGV_TAG, "11", "12", "100"],
+                stage=stages.append)
+        self.assertEqual(stages[-1], "cp334_h0_before_pipeinfo")
+        self.assertTrue(caught.exception.owner.held)
+        self.assertEqual(caught.exception.owner.handles, {11, 12})
+        self.assertTrue(caught.exception.owner.cleanup())
+
     def test_invalid_alias_and_pseudo_handles_never_claimed(self):
         for pair in ((11, 11), (0, 12), (-1, 12), (True, 12), (client.INVALID - 1, 12)):
             f, owner = self.owner(False)

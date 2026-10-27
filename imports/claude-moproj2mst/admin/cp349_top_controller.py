@@ -173,6 +173,14 @@ def _child_trace_result(path):
                "before_cp334_from_bootstrap_argv", "after_cp334_adopt",
                "before_cp333_acknowledge", "after_cp333_acknowledge",
                "before_cp333_complete", "after_cp333_complete"}
+    allowed.update({"cp334_argv_parsed", "cp334_owner_created",
+                    "cp334_adopt_enter", "cp334_before_final_tick",
+                    "cp334_after_final_tick"})
+    allowed.update(f"cp334_h{index}_{suffix}" for index in (0, 1)
+                   for suffix in ("before_tick1", "after_tick1",
+                                  "before_inherit", "after_inherit",
+                                  "before_tick2", "after_tick2",
+                                  "before_pipeinfo", "after_pipeinfo"))
     if not raw:
         result["status"] = "partial"
         return result
@@ -187,7 +195,7 @@ def _child_trace_result(path):
             break
         if (type(row) is not dict or set(row) != {"stage"} or
                 type(row["stage"]) is not str or row["stage"] not in allowed or
-                len(result["stages"]) >= 20):
+                len(result["stages"]) >= 40):
             result["status"] = "malformed"
             break
         result["stages"].append(row["stage"])
