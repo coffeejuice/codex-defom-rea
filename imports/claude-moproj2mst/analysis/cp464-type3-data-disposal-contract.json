@@ -1,0 +1,53 @@
+{
+  "checkpoint": "CP464",
+  "scope": "Private prepared stable graph ordinary disposal projection only",
+  "evidence_receipt": "analysis\\cp464-type3-data-disposal-byte-verification.json",
+  "evidence_receipt_sha256": "b5da2be98ae6e4dfc356f6a9fbbc973f77eda76df5e7d32f771cd8573ce0c0fa",
+  "original_exe_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "original_qtcore_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "observed_runtime": false,
+  "property": "B",
+  "data": "D = value stored at B+38",
+  "data_allocation": {
+    "bytes": 24,
+    "constructor": "0x140142d90",
+    "store": "0x140142777",
+    "backing": "EXE CRT HeapAlloc",
+    "qobject": false,
+    "ownership_registration": "not present on selected direct allocation/construction path"
+  },
+  "normal_events": [
+    "B derived vtable stores",
+    "clear B+18 list through refcounted tree/payload release",
+    "B base vtable stores",
+    "clear B+18 list again",
+    "removeGuard B+20",
+    "secondary-base list reset and wrapper destruction",
+    "QObject B teardown: conditional guard invalidation before later callback/child/private-object boundaries",
+    "free B if deleting flag bit0",
+    "containing operation clears OPI+10 only after deleting call returns"
+  ],
+  "direct_data_release": "None in selected B/EXE base destructor bodies; no B+38 read or clear",
+  "data_lifetime_result": "Unresolved beyond bounded direct absence; no global leak/nonfree claim",
+  "source_ready_step": "Private event projection separating B,D,tree,operation and guard identities; preserve ordered prefix on injected refusal; no claimed original D-free event",
+  "forbidden_inferences": [
+    "B+38 is unique-owned from raw store alone",
+    "Deleting B necessarily deletes D",
+    "No observed D-free in one teardown means never freed",
+    "Guard invalidation equals QObject or data deletion"
+  ],
+  "remaining_dependencies": [
+    "Tree recursive refcount graph and QVariant custom handlers",
+    "QString cache/allocator and OS heap internals",
+    "QObject dynamic metaobject/signal/connection/child/private-destructor callbacks",
+    "External aliases, concurrency and exceptional/unwind paths",
+    "Same-occurrence selected P versus linked B identity"
+  ],
+  "missing_runtime_witness": [
+    "Same B,D,OPI,OB identity captured at B+38 store",
+    "Loaded original module hashes and relevant tree/guard state",
+    "All allocator release events for exact D address through successful operation teardown",
+    "D alias/field rewrites and guard/B-free/OPI-null order"
+  ],
+  "public_integration": "Existing Open-Save-Close/P-versus-B gates unchanged"
+}

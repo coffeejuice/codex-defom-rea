@@ -1,0 +1,7 @@
+# CP464 Type3 ShapeOptim property disposal
+
+CP464 bound the original selected normal B property destructor and related QtCore cleanup to 39 PE ranges, 6,310 bytes and 1,484 instructions, with zero byte mismatches. Independent review reproduced the hashes, bounds and counts. B+38 points to a separate ordinary heap allocation D. The selected derived and base property destructor path does not directly read, clear or free D. Tree payload cleanup and QObject callbacks remain opaque, so this is not a claim that D survives native teardown or leaks process-wide.
+
+The normal call order is derived B+18 tree reset, base reset, operation guard removal, secondary reset/list destruction, QObject guard and child/private cleanup, conditional B free, then OPI+10 clear after the deleting call returns. A nonreturn at an opaque boundary retains completed effects; exception and unwind behavior is not recovered. The next source increment is a private prepared disposal state projection with distinct B, D, tree, guard and OPI identities, explicit stable no-D-alias assumptions and injected host-only boundary refusals. It must not synthesize delete-D or change public Type3 admission. CP465 independently traces the .OPT Save writer and optimizer owner Close edge.
+
+See `analysis/cp464-type3-data-disposal-report.md`, `analysis/cp464-type3-data-disposal-contract.json` and the byte-verification receipt. Original GUI control and executable execution were not used.
