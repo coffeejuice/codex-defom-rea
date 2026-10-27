@@ -539,8 +539,22 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 item->rect[2] == 0.0 && item->rect[3] == 0.0;
         }) &&
         std::isfinite(flow.items[2]->rect[0]) && flow.items[2]->rect[0] > 0.0 &&
-        flow.items[2]->rect[0] < 102.5 && flow.items[2]->rect[1] == 0.0 &&
-        flow.items[2]->rect[2] == 0.0 && flow.items[2]->rect[3] == 0.0;
+        flow.items[2]->rect[0] < 1332.5 &&
+        std::isfinite(flow.items[2]->rect[1]) && flow.items[2]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[2]->rect[2]) && std::isfinite(flow.items[2]->rect[3]);
+    const bool threeNegativeCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() == 3 && cellInputs.size() == 3 &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
+        }) &&
+        std::all_of(flow.items.begin(), flow.items.begin() + 2, [](const auto& item) {
+            return item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) &&
+        std::isfinite(flow.items[2]->rect[0]) && flow.items[2]->rect[0] < 0.0 &&
+        std::isfinite(flow.items[2]->rect[1]) && flow.items[2]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[2]->rect[2]) && std::isfinite(flow.items[2]->rect[3]);
     bool threeDirectCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() == 3 && cellInputs.size() == 3;
     if (threeDirectCandidate) {
@@ -566,6 +580,39 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             }
             if (col < 0 || col >= 7 || !targets.insert(col).second) {
                 threeDirectCandidate = false;
+                break;
+            }
+        }
+    }
+    // CP510: every requested token is empty when four to seven distinct
+    // row-zero targets are installed. The first item sees the empty row table;
+    // subsequent items see a populated row with a minimum height of 185.
+    bool multiDirectCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() >= 4 && flow.items.size() <= 7 &&
+        cellInputs.size() == flow.items.size();
+    if (multiDirectCandidate) {
+        std::set<int> targets;
+        for (std::size_t i = 0; i < flow.items.size(); ++i) {
+            const auto& item = flow.items[i];
+            const CellInput& input = cellInputs[i];
+            if (!item || item->group || item->className != L("SfOprForming2D") ||
+                !std::isfinite(item->rect[0]) || !std::isfinite(item->rect[1]) ||
+                !std::isfinite(item->rect[2]) || !std::isfinite(item->rect[3]) ||
+                item->rect[0] >= 1332.5 || item->rect[1] >= (i == 0 ? 67.5 : 160.0) ||
+                !(validExplicitCell(input) || sentinelCell(input))) {
+                multiDirectCandidate = false;
+                break;
+            }
+            int col = input.col;
+            if (sentinelCell(input)) {
+                double x = item->rect[0];
+                if (x < -60.0) x = 0.0;
+                const double cx = x / 205.0;
+                col = static_cast<int>(std::floor(cx));
+                if (cx - std::floor(cx) >= 0.5) col = static_cast<int>(std::ceil(cx));
+            }
+            if (col < 0 || col >= 7 || !targets.insert(col).second) {
+                multiDirectCandidate = false;
                 break;
             }
         }
@@ -611,7 +658,35 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 }
                 // The selected row-0 recurrence shifts an occupied token run
                 // to the adjacent free cells; other collision patterns stay guarded.
-                if ((recurrenceCandidate || nonzeroPairCandidate || threeCollisionCandidate || (negativeEightCandidate && k < 7)) && k > 0 && row0 && col == 0 &&
+                if (threeNegativeCandidate && k == 2 && col == 0 && row0 && cx < 0.0 &&
+                    flow.items[0]->row == 0 && flow.items[0]->col == 0 &&
+                    flow.items[1]->row == 0 && flow.items[1]->col == 1) {
+                    // A genuinely negative quotient requests direction -1:
+                    // insert C before A and shift the occupied suffix right.
+                    flow.items[0]->col = 1;
+                    flow.items[0]->rect[0] = 205.0;
+                    flow.items[1]->col = 2;
+                    flow.items[1]->rect[0] = 410.0;
+                    it.row = 0; it.col = 0;
+                    it.rect[0] = 0.0; it.rect[1] = 0.0;
+                } else if (threeCollisionCandidate && k == 2 && col == 1 && row0 &&
+                    flow.items[1]->row == 0 && flow.items[1]->col == 1) {
+                    // Native direction changes at x=205. Before it, C inserts
+                    // at occupied column 1 and shifts B right. Afterwards it
+                    // advances past B to the empty column 2.
+                    if (it.rect[0] < 205.0) {
+                        flow.items[1]->col = 2;
+                        flow.items[1]->rect[0] = 410.0;
+                        it.col = 1;
+                    } else {
+                        it.col = 2;
+                    }
+                    it.row = 0;
+                    it.rect[0] = 205.0 * it.col;
+                    it.rect[1] = 0.0;
+                } else if ((recurrenceCandidate || nonzeroPairCandidate || threeCollisionCandidate ||
+                            threeNegativeCandidate || (negativeEightCandidate && k < 7)) &&
+                           k > 0 && row0 && col == 0 &&
                     flow.items[0]->row == 0 && flow.items[0]->col == 0) {
                     // Insertion at column 1 recursively shifts the occupied
                     // type-1 run; the model vector remains in source order.
@@ -629,8 +704,9 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             } else {
                 it.row = 0;
                 it.col = col;
-                if (singletonRelayoutCandidate || mixedPairCandidate || threeDirectCandidate ||
-                    ((nonzeroPairCandidate || threeCollisionCandidate) && k == 0)) {
+                if (singletonRelayoutCandidate || mixedPairCandidate || threeDirectCandidate || multiDirectCandidate ||
+                    (threeCollisionCandidate && k == 2) ||
+                    ((nonzeroPairCandidate || threeCollisionCandidate || threeNegativeCandidate) && k == 0)) {
                     it.rect[0] = 205.0 * col;
                     it.rect[1] = 0.0;
                 }
@@ -639,7 +715,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.rect[1] = 0.0;
                 }
             }
-        } else if (singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate) {
+        } else if (singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
+                   threeDirectCandidate || multiDirectCandidate) {
             it.rect[0] = 205.0 * it.col;
             it.rect[1] = 0.0;
         }
@@ -648,7 +725,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
     }
     if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate ||
         singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
-        threeCollisionCandidate || threeDirectCandidate) {
+        threeCollisionCandidate || threeNegativeCandidate || threeDirectCandidate || multiDirectCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.
@@ -663,7 +740,9 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             // The native grid scan visits empty cells too and clears its previous
             // item there. In this selected row-0 pair, an unoccupied column gap
             // therefore prevents a synthesized connector edge.
-            if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate) &&
+            if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate ||
+                 threeCollisionCandidate ||
+                 multiDirectCandidate) &&
                 grid[k]->row == grid[k - 1]->row &&
                 grid[k]->col > grid[k - 1]->col + 1) continue;
             connectItems(grid[k - 1], grid[k]);
