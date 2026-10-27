@@ -128,9 +128,8 @@ def _receipt(owner):
         return None
     r = owner.receipt
     claim = getattr(owner, "claim", None)
-    local = getattr(r, "local", None)
-    child_diagnostic = (local.get("child_diagnostic")
-                        if type(local) is dict else None)
+    child_diagnostic = getattr(owner, "child_diagnostic_result", None)
+    child_trace = getattr(owner, "child_trace_result", None)
     return {
         "phase": getattr(r, "phase", None),
         "deadline": getattr(r, "deadline", None),
@@ -150,6 +149,7 @@ def _receipt(owner):
         "claim_deadline": getattr(claim, "deadline", None),
         "claim_nonce_hex": getattr(claim, "nonce", b"").hex() if claim is not None else None,
         "child_diagnostic": child_diagnostic,
+        "child_trace": child_trace,
     }
 
 

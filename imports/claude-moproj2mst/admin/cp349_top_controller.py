@@ -33,30 +33,72 @@ CHANNEL_MS = 5000
 DIAGNOSTIC_DIR = Path(__file__).resolve().parent.parent / "analysis"
 DIAGNOSTIC_PREFIX = "cp349-child-failure-"
 DIAGNOSTIC_MAX_BYTES = 4096
+TRACE_PREFIX = "cp349-child-trace-"
+TRACE_MAX_BYTES = 2048
 
 
 def _child_diagnostic_path():
     return DIAGNOSTIC_DIR / (DIAGNOSTIC_PREFIX + secrets.token_hex(16) + ".json")
 
 
-def _child_bootstrap(path):
+def _child_trace_path():
+    return DIAGNOSTIC_DIR / (TRACE_PREFIX + secrets.token_hex(16) + ".jsonl")
+
+
+def _child_bootstrap(path, trace_path=None):
     """Return fixed child code; only the fixed CP347 entry is importable."""
+    trace_path = trace_path or _child_trace_path()
     return ("import json,os,sys,traceback\n"
             "sys.path.insert(0," + repr(outer.RUNNER_CWD) + ")\n"
             "p=" + repr(str(path)) + "\n"
+            "q=" + repr(str(trace_path)) + "\n"
+            "_trace_ok=False\n"
+            "def _stage(s):\n"
+            " if not _trace_ok:return\n"
+            " try:\n"
+            "  b=(json.dumps({'stage':s},separators=(',',':'))+'\\n').encode('ascii')\n"
+            "  if os.path.getsize(q)+len(b)>" + str(TRACE_MAX_BYTES) + ":return\n"
+            "  with open(q,'ab') as f:f.write(b);f.flush();os.fsync(f.fileno())\n"
+            " except BaseException:pass\n"
             "try:\n"
-            " import " + FIXED_MODULE + " as e\n"
-            " e.FixedParentEntry.from_client_argv(sys.argv[1:]).run()\n"
+            " with open(q,'xb') as f:pass\n"
+            " _trace_ok=True\n"
+            "except BaseException:\n"
+            " _trace_ok=False\n"
+            "_stage('script-entry')\n"
+            "try:\n"
+            " try:\n"
+            "  import " + FIXED_MODULE + " as e\n"
+            " except BaseException:\n"
+            "  _stage('cp347-module-import-exception');raise\n"
+            " _stage('cp347-module-imported')\n"
+            " try:\n"
+            "  x=e.FixedParentEntry.from_client_argv(sys.argv[1:])\n"
+            " except BaseException:\n"
+            "  _stage('from-client-argv-exception');raise\n"
+            " _stage('from-client-argv-constructed')\n"
+            " try:\n"
+            "  x.run()\n"
+            " except BaseException:\n"
+            "  _stage('run-exception');raise\n"
+            " _stage('run-returned')\n"
             "except BaseException as exc:\n"
             " try:\n"
-            "  tb=traceback.extract_tb(exc.__traceback__)[-4:]\n"
-            "  d={'stage':'fixed-parent-import-or-run','type':type(exc).__name__[:120],"
+            "  try:\n"
+            "   tb=traceback.extract_tb(exc.__traceback__)[-4:]\n"
+            "   d={'stage':'fixed-parent-import-or-run','type':type(exc).__name__[:120],"
             "'message':str(exc)[:1000],"
             "'traceback':[{'file':x.filename[-300:],'line':x.lineno,"
             "'name':x.name[:120]} for x in tb]}\n"
-            "  b=json.dumps(d,ensure_ascii=True,separators=(',',':')).encode('ascii')[:"
+            "   b=json.dumps(d,ensure_ascii=True,separators=(',',':')).encode('ascii')[:"
             + str(DIAGNOSTIC_MAX_BYTES) + "]\n"
-            "  with open(p,'xb') as f:f.write(b);f.flush();os.fsync(f.fileno())\n"
+            "   with open(p,'xb') as f:f.write(b);f.flush();os.fsync(f.fileno())\n"
+            "  except FileExistsError:\n"
+            "   _stage('diagnostic-write-collision')\n"
+            "  except BaseException:\n"
+            "   _stage('diagnostic-write-failed')\n"
+            "  else:\n"
+            "   _stage('diagnostic-write-succeeded')\n"
             " except BaseException: pass\n"
             " raise\n")
 
@@ -103,6 +145,51 @@ def _child_diagnostic_result(path):
             "sha256": None, "data": None}
 
 
+def _child_trace_result(path):
+    """Return a bounded, parsed trace from the occurrence-specific path."""
+    try:
+        path = Path(path)
+        if (path.parent.resolve() != DIAGNOSTIC_DIR.resolve() or
+                not path.name.startswith(TRACE_PREFIX) or
+                not path.name.endswith(".jsonl")):
+            raise ValueError("trace path outside expected namespace")
+        with path.open("rb") as stream:
+            raw = stream.read(TRACE_MAX_BYTES + 1)
+    except FileNotFoundError:
+        return {"status": "absent", "bytes": 0, "sha256": None, "stages": []}
+    except (OSError, UnicodeError, ValueError, TypeError):
+        return {"status": "malformed", "bytes": 0, "sha256": None, "stages": []}
+    result = {"status": "valid", "bytes": len(raw),
+              "sha256": hashlib.sha256(raw).hexdigest(), "stages": []}
+    if len(raw) > TRACE_MAX_BYTES:
+        result["status"] = "malformed"
+        return result
+    allowed = {"script-entry", "cp347-module-import-exception",
+               "cp347-module-imported", "from-client-argv-exception",
+               "from-client-argv-constructed", "run-exception", "run-returned",
+               "diagnostic-write-collision", "diagnostic-write-failed",
+               "diagnostic-write-succeeded"}
+    if not raw:
+        result["status"] = "partial"
+        return result
+    for line in raw.splitlines(keepends=True):
+        if not line.endswith(b"\n"):
+            result["status"] = "partial"
+            break
+        try:
+            row = json.loads(line[:-1].decode("ascii"))
+        except (ValueError, UnicodeError):
+            result["status"] = "malformed"
+            break
+        if (type(row) is not dict or set(row) != {"stage"} or
+                type(row["stage"]) is not str or row["stage"] not in allowed or
+                len(result["stages"]) >= 8):
+            result["status"] = "malformed"
+            break
+        result["stages"].append(row["stage"])
+    return result
+
+
 class TopFailure(Hold):
     def __init__(self, error, owner):
         self.owner, self.receipt = owner, owner.receipt
@@ -132,6 +219,11 @@ class TopController(outer.OuterWatchdog):
         self._channel_cleanup_proven = False
         self._channel_custody_uncertain = False
         self.child_diagnostic_path = None
+        self.child_trace_path = None
+        self.child_diagnostic_result = None
+        self.child_trace_result = None
+        self._fixed_child_argv = None
+        self._fixed_child_command_line = None
         self._claim_read_failed = False
 
     def _budget(self):
@@ -254,10 +346,15 @@ class TopController(outer.OuterWatchdog):
             self._channel_deadline = channel_deadline
             # Isolated Python receives no path, project or executable argument.
             self.child_diagnostic_path = _child_diagnostic_path()
-            bootstrap = _child_bootstrap(self.child_diagnostic_path)
-            command = C.create_unicode_buffer(subprocess.list2cmdline(
-                [outer.RUNNER_IMAGE, "-I", "-B", "-c", bootstrap, client.ARGV_TAG,
-                 str(child_read), str(child_write), str(channel_deadline)]))
+            self.child_trace_path = _child_trace_path()
+            bootstrap = _child_bootstrap(self.child_diagnostic_path,
+                                         self.child_trace_path)
+            self._fixed_child_argv = (
+                outer.RUNNER_IMAGE, "-I", "-B", "-c", bootstrap, client.ARGV_TAG,
+                str(child_read), str(child_write), str(channel_deadline))
+            self._fixed_child_command_line = subprocess.list2cmdline(
+                self._fixed_child_argv)
+            command = C.create_unicode_buffer(self._fixed_child_command_line)
             info = abi.PROCESS_INFORMATION()
             self._budget()
             self._create_attempted = True
@@ -423,9 +520,23 @@ class TopController(outer.OuterWatchdog):
             original_receipt.phase = "hold"
             self.close()
             if self._claim_read_failed:
-                diagnostic = _child_diagnostic_result(self.child_diagnostic_path)
+                terminated = (original_receipt.phase == "closed" and
+                              original_receipt.runner_waited is True and
+                              original_receipt.job_empty is True)
+                diagnostic = (_child_diagnostic_result(self.child_diagnostic_path)
+                              if terminated else {"status": "unresolved-process",
+                                                  "bytes": 0, "sha256": None,
+                                                  "data": None})
                 diagnostic["path"] = str(self.child_diagnostic_path)
-                original_receipt.local["child_diagnostic"] = diagnostic
+                self.child_diagnostic_result = diagnostic
+                trace = (_child_trace_result(self.child_trace_path)
+                         if terminated else {"status": "unresolved-process",
+                                             "bytes": 0, "sha256": None,
+                                             "stages": []})
+                trace["path"] = str(self.child_trace_path)
+                trace["launch_argv"] = list(self._fixed_child_argv or ())
+                trace["command_line"] = self._fixed_child_command_line
+                self.child_trace_result = trace
             raise TopFailure(error, self) from error
 
     def close(self):

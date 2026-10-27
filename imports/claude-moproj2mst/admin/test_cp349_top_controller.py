@@ -124,14 +124,35 @@ class TopTests(unittest.TestCase):
 
     def test_child_diagnostic_bootstrap_is_fixed_and_compiles(self):
         path = Path("C:/PROBLEM/analysis/cp349-child-failure-" + "a" * 32 + ".json")
-        code = m._child_bootstrap(path)
+        code = m._child_bootstrap(path, Path("C:/PROBLEM/analysis/cp349-child-trace-" + "a" * 32 + ".jsonl"))
         compile(code, "<cp349 fixed bootstrap>", "exec")
         self.assertIn("import " + m.FIXED_MODULE + " as e", code)
         self.assertNotIn("exec(", code)
         self.assertIn("open(p,'xb')", code)
+        self.assertIn("open(q,'xb')", code)
         self.assertIn("os.fsync", code)
         self.assertNotIn("original_executable", code)
         self.assertNotIn("project_path", code)
+
+    def test_child_trace_reader_accepts_partial_prefix_and_rejects_oversize(self):
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "e" * 32 + ".jsonl")
+            path.write_bytes(b'{"stage":"script-entry"}\n')
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                result = m._child_trace_result(path)
+                self.assertEqual(result["status"], "valid")
+                self.assertEqual(result["stages"], ["script-entry"])
+                self.assertEqual(len(result["sha256"]), 64)
+                path.write_bytes(b'{"stage":"script-entry"}\n{"stage":"run-returned"}')
+                result = m._child_trace_result(path)
+                self.assertEqual(result["status"], "partial")
+                self.assertEqual(result["stages"], ["script-entry"])
+                path.write_bytes(b"7\n")
+                self.assertEqual(m._child_trace_result(path)["status"], "malformed")
+                path.write_bytes(b"x" * (m.TRACE_MAX_BYTES + 1))
+                self.assertEqual(m._child_trace_result(path)["status"], "malformed")
 
     def test_child_bootstrap_failure_success_and_exclusive_collision(self):
         class InjectedChildFailure(RuntimeError):
@@ -139,9 +160,12 @@ class TopTests(unittest.TestCase):
 
         class FakeEntry:
             failure = None
+            construction_failure = None
             @classmethod
             def from_client_argv(cls, argv):
                 assert argv == ["--fixed-test"]
+                if cls.construction_failure is not None:
+                    raise cls.construction_failure
                 return cls()
             def run(self):
                 if type(self).failure is not None:
@@ -156,6 +180,7 @@ class TopTests(unittest.TestCase):
                     dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
                 root = Path(directory)
                 path = root / (m.DIAGNOSTIC_PREFIX + "d" * 32 + ".json")
+                trace = root / (m.TRACE_PREFIX + "d" * 32 + ".jsonl")
                 with (mock.patch.object(m, "DIAGNOSTIC_DIR", root),
                       mock.patch.object(sys, "argv", ["runner", "--fixed-test"]),
                       mock.patch.object(sys, "path", list(sys.path)),
@@ -163,7 +188,7 @@ class TopTests(unittest.TestCase):
                     failure = InjectedChildFailure("injected CP347 failure")
                     FakeEntry.failure = failure
                     with self.assertRaises(InjectedChildFailure) as caught:
-                        exec(m._child_bootstrap(path), {"__name__": "__main__"})
+                        exec(m._child_bootstrap(path, trace), {"__name__": "__main__"})
                     self.assertIs(caught.exception, failure)
                     result = m._child_diagnostic_result(path)
                     self.assertEqual(result["status"], "valid")
@@ -171,22 +196,50 @@ class TopTests(unittest.TestCase):
                     self.assertLessEqual(result["bytes"], m.DIAGNOSTIC_MAX_BYTES)
                     self.assertEqual(result["bytes"], path.stat().st_size)
                     self.assertEqual(len(result["sha256"]), 64)
-                    fsync.assert_called_once()
+                    self.assertEqual(m._child_trace_result(trace)["stages"],
+                                     ["script-entry", "cp347-module-imported",
+                                      "from-client-argv-constructed", "run-exception",
+                                      "diagnostic-write-succeeded"])
+                    self.assertGreaterEqual(fsync.call_count, 5)
 
                     path.unlink()
+                    trace.unlink()
                     FakeEntry.failure = None
-                    exec(m._child_bootstrap(path), {"__name__": "__main__"})
+                    exec(m._child_bootstrap(path, trace), {"__name__": "__main__"})
                     self.assertFalse(path.exists(), "successful child must not write diagnostic")
+                    self.assertIn("run-returned", m._child_trace_result(trace)["stages"])
 
                     sentinel = b"existing exclusive diagnostic"
                     path.write_bytes(sentinel)
+                    trace.unlink()
+                    trace.write_bytes(b"existing trace")
                     FakeEntry.failure = InjectedChildFailure("collision must not overwrite")
                     with self.assertRaises(InjectedChildFailure) as collision:
-                        exec(m._child_bootstrap(path), {"__name__": "__main__"})
+                        exec(m._child_bootstrap(path, trace), {"__name__": "__main__"})
                     self.assertIs(collision.exception, FakeEntry.failure)
                     self.assertEqual(path.read_bytes(), sentinel)
+                    self.assertEqual(trace.read_bytes(), b"existing trace")
+
+                    trace.unlink()
+                    with self.assertRaises(InjectedChildFailure):
+                        exec(m._child_bootstrap(path, trace), {"__name__": "__main__"})
+                    self.assertIn("diagnostic-write-collision",
+                                  m._child_trace_result(trace)["stages"])
+
+                    path.unlink()
+                    trace.unlink()
+                    FakeEntry.failure = None
+                    FakeEntry.construction_failure = InjectedChildFailure("argv failure")
+                    with self.assertRaises(InjectedChildFailure) as argv_error:
+                        exec(m._child_bootstrap(path, trace), {"__name__": "__main__"})
+                    self.assertIs(argv_error.exception, FakeEntry.construction_failure)
+                    self.assertEqual(m._child_trace_result(trace)["stages"],
+                                     ["script-entry", "cp347-module-imported",
+                                      "from-client-argv-exception",
+                                      "diagnostic-write-succeeded"])
         finally:
             FakeEntry.failure = None
+            FakeEntry.construction_failure = None
             if original_module is None:
                 sys.modules.pop(m.FIXED_MODULE, None)
             else:
@@ -202,6 +255,9 @@ class TopTests(unittest.TestCase):
         diagnostic = {"status": "valid", "bytes": 120, "sha256": "a" * 64,
                       "data": {"stage": "fixed-parent-import-or-run",
                                "type": "InjectedChildError"}}
+        trace = {"status": "valid", "bytes": 128, "sha256": "b" * 64,
+                 "stages": ["script-entry", "cp347-module-imported",
+                            "run-exception", "diagnostic-write-succeeded"]}
         try:
             class FailedReadPipe(base_pipe):
                 def transfer(self, handle, kind, count):
@@ -211,23 +267,53 @@ class TopTests(unittest.TestCase):
             with (mock.patch.object(m, "DIAGNOSTIC_DIR", directory),
                   mock.patch.object(m, "_child_diagnostic_path", return_value=path),
                   mock.patch.object(m, "_child_diagnostic_result", return_value=diagnostic),
+                  mock.patch.object(m, "_child_trace_result", return_value=trace),
                   mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
                   mock.patch.object(m.pipes, "NativePipeOwner", FailedReadPipe),
                   mock.patch.object(owner, "_start_timer"),
                   mock.patch.object(owner, "_stop_timer")):
                 with self.assertRaises(m.TopFailure) as caught:
                     owner.run()
-            self.assertEqual(owner.receipt.local["child_diagnostic"]["path"], str(path))
-            self.assertEqual(owner.receipt.local["child_diagnostic"]["status"], "valid")
-            self.assertEqual(owner.receipt.local["child_diagnostic"]["data"]["type"],
+            self.assertEqual(owner.child_diagnostic_result["path"], str(path))
+            self.assertEqual(owner.child_diagnostic_result["status"], "valid")
+            self.assertEqual(owner.child_diagnostic_result["data"]["type"],
                              "InjectedChildError")
-            self.assertEqual(owner.receipt.local["child_diagnostic"]["bytes"], 120)
-            self.assertEqual(len(owner.receipt.local["child_diagnostic"]["sha256"]), 64)
+            self.assertEqual(owner.child_diagnostic_result["bytes"], 120)
+            self.assertEqual(len(owner.child_diagnostic_result["sha256"]), 64)
+            self.assertEqual(owner.child_trace_result["stages"], trace["stages"])
+            self.assertEqual(owner.child_trace_result["launch_argv"][0], m.outer.RUNNER_IMAGE)
+            self.assertIsInstance(owner.child_trace_result["command_line"], str)
+            self.assertNotIn("child_trace", owner.receipt.local)
             self.assertEqual(owner.receipt.phase, "closed")
             self.assertFalse(owner._accepted)
             self.assertIs(caught.exception.owner, owner)
         finally:
             pass
+
+    def test_unresolved_child_cleanup_does_not_read_racing_trace(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, base_pipe = self.fake_channel(h)
+
+        class FailedReadPipe(base_pipe):
+            def transfer(self, handle, kind, count):
+                if (handle, kind, count) == (15, "read", 80):
+                    raise m.pipes.ApiFailure("read", 109)
+                return super().transfer(handle, kind, count)
+
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", FailedReadPipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer"),
+              mock.patch.object(owner, "close", side_effect=lambda: owner.receipt),
+              mock.patch.object(m, "_child_trace_result", side_effect=AssertionError("racing trace read")),
+              mock.patch.object(m, "_child_diagnostic_result", side_effect=AssertionError("racing diagnostic read"))):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertEqual(owner.child_trace_result["status"], "unresolved-process")
+        self.assertEqual(owner.child_diagnostic_result["status"], "unresolved-process")
+        self.assertNotIn("child_trace", owner.receipt.local)
+        self.assertNotIn("child_diagnostic", owner.receipt.local)
 
     def test_child_diagnostic_reader_rejects_oversize_and_bad_schema(self):
         directory = Path(__file__).resolve().parent.parent / "analysis"
@@ -326,7 +412,7 @@ class TopTests(unittest.TestCase):
         self.assertEqual(args[7], m.outer.RUNNER_CWD)
         cmd = args[1].value
         self.assertIn("cp347_fixed_parent_entry", cmd)
-        self.assertIn("FixedParentEntry.from_client_argv(sys.argv[1:]).run()", cmd)
+        self.assertIn("FixedParentEntry.from_client_argv(sys.argv[1:])", cmd)
         self.assertIn("--cp334-client 11 13 5100", cmd)
         self.assertEqual(owner._channel_deadline, 5100)
         self.assertIn(" -I -B -c ", cmd)

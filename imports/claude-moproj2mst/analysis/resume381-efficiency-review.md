@@ -1,0 +1,5 @@
+# CP381 efficiency review at a safe boundary
+
+The separate CP372 startup-only observation completed its exact monitor interval in about 0.361 seconds, from 06:49:54.665Z to 06:49:55.026Z. The latest CP378 injected suite ran 617 tests in 0.427 and 0.414 seconds from the two module roots. These narrow checks are fast enough that test execution is not the current critical path. The remaining time is spent constructing and qualifying evidence at an unobserved native child boundary; no public C++ rebuild or fresh original-app comparison occurred in this interval. Token use was not measured, so no token or end-to-end speedup is claimed.
+
+The isolated startup result ruled out a broad Python/overlapped-stdio/file capability failure, but it did not explain CP349's actual broken claim. A direct staged trace is the next smallest discriminating observation. Independent reviews caught false-positive and cleanup-race risks before another native run; those repairs preserve raw evidence and acceptance gates. Do not broaden the startup probe or repeat it merely because it passed. Continue from the CP378 source freeze and CP380 trial gate.

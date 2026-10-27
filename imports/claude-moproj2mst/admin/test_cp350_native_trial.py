@@ -121,13 +121,19 @@ class TrialTests(unittest.TestCase):
                       "data": {"stage": "fixed-parent-import-or-run",
                                "type": "InjectedError", "message": "failure",
                                "traceback": []}}
-        owner.receipt.local = {"child_diagnostic": diagnostic}
+        owner.child_diagnostic_result = diagnostic
+        trace = {"path": "analysis/cp349-child-trace-test.json",
+                 "status": "valid", "bytes": 21, "sha256": "b" * 64,
+                 "stages": ["preimport", "imported"]}
+        owner.child_trace_result = trace
         with mock.patch.object(m, "_make_controller", return_value=owner):
             trial = m.run_once(self.path)
         self.assertFalse(trial.accepted)
         self.assertEqual(trial.report["owner"]["child_diagnostic"], diagnostic)
+        self.assertEqual(trial.report["owner"]["child_trace"], trace)
         disk = json.loads(self.path.read_text())
         self.assertEqual(disk["owner"]["child_diagnostic"], diagnostic)
+        self.assertEqual(disk["owner"]["child_trace"], trace)
 
     def test_changed_source_after_run_refuses_success(self):
         owner = FakeTop(on_run=lambda: self.source.write_text("changed source\n"))
