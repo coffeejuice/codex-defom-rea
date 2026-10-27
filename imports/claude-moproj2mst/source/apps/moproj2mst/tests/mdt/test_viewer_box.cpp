@@ -3613,3 +3613,106 @@ TEST_CASE(viewer_2d_curve_owners_follow_sync_rebind_empty_and_full_unbind)
     engine::viewerSync(model, object, true);
     checkScene(-3, 3);
 }
+
+
+TEST_CASE(curve_item_binary32_width_is_owned_independently_of_rows_and_tolerance)
+{
+    const auto bits = [](float value) {
+        std::uint32_t word = 0;
+        std::memcpy(&word, &value, sizeof word);
+        return word;
+    };
+    engine::CurveItemState item;
+    static_assert(std::is_same_v<decltype(item.width()), float>);
+    CHECK_EQ(bits(item.width()), 0x3d0f5c29u);
+    CHECK(static_cast<double>(item.width()) == 0.03500000014901161);
+    CHECK(static_cast<double>(item.width()) != 0.035);
+
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 2;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    points[0] = -2; points[1] = 3; points[2] = 0;
+    points[3] = 4; points[4] = -5; points[5] = 0;
+    item.bind(&curve, 0.01);
+    CHECK_EQ(bits(item.width()), 0x3d0f5c29u);
+    const auto rows = item.vertexRows();
+    const auto* rowStorage = item.vertexRows().data();
+    const auto count = item.vertexCount();
+    const auto rect = item.rectangle();
+    points[0] = -12; // a setter must not reread the bound geometry
+    item.setWidth(0.01f); // external native callers supply this distinct float
+    CHECK_EQ(bits(item.width()), 0x3c23d70au);
+    CHECK(item.vertexRows() == rows); CHECK(item.vertexRows().data() == rowStorage);
+    CHECK_EQ(item.vertexCount(), count);
+    CHECK(item.rectangle().mn[0] == rect.mn[0]);
+    CHECK(item.rectangle().mx[0] == rect.mx[0]);
+    CHECK(item.rectangle().mn[1] == rect.mn[1]);
+    CHECK(item.rectangle().mx[1] == rect.mx[1]);
+
+    item.bind(&curve, 0.2); // tolerance is a row-binder input, never the width
+    CHECK_EQ(bits(item.width()), 0x3c23d70au);
+    CHECK_EQ(item.vertexCount(), 2); CHECK(item.rectangle().mn[0] == -12);
+    item.reset();
+    CHECK_EQ(bits(item.width()), 0x3c23d70au);
+    CHECK_EQ(item.vertexCount(), 0); CHECK(item.vertexRows().empty());
+    CHECK(!item.rectangle().valid);
+    item.bind(&curve, 0.01);
+    item.bind(nullptr, 0.01);
+    CHECK_EQ(bits(item.width()), 0x3c23d70au);
+    CHECK_EQ(item.vertexCount(), 0); CHECK(item.vertexRows().empty());
+    CHECK(!item.rectangle().valid);
+
+    // The recovered setter stores the supplied float without clamping or filtering.
+    for (const std::uint32_t word : {0x80000000u, 0xbf800000u, 0x7f800000u, 0x7fc12345u}) {
+        float supplied = 0;
+        std::memcpy(&supplied, &word, sizeof supplied);
+        item.setWidth(supplied);
+        CHECK_EQ(bits(item.width()), word);
+        CHECK_EQ(item.vertexCount(), 0); CHECK(item.vertexRows().empty());
+    }
+    // Public View bind clears its curve owners and lazy getter emplaces fresh items.
+    // Exercise that owner replacement separately from direct bind/reset above.
+    std::vector<engine::CurveItemState> owners;
+    owners.emplace_back(); owners.front().setWidth(0.01f);
+    owners.clear(); owners.emplace_back();
+    CHECK_EQ(bits(owners.front().width()), 0x3d0f5c29u);
+    engine::CurveItemState independent;
+    CHECK_EQ(bits(independent.width()), 0x3d0f5c29u);
+}
+
+TEST_CASE(curve_item_index_and_render_containers_follow_their_owner)
+{
+    engine::CurveItemState item, independent;
+    static_assert(std::is_same_v<decltype(item.indices()), const std::vector<std::int32_t>&>);
+    static_assert(std::is_same_v<decltype(item.renderWords()), const std::vector<std::uint32_t>&>);
+    const auto* indices = &item.indices();
+    const auto* render = &item.renderWords();
+    CHECK(indices != &independent.indices());
+    CHECK(render != &independent.renderWords());
+    CHECK(static_cast<const void*>(indices) != static_cast<const void*>(render));
+    CHECK(indices->empty() && render->empty());
+
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 2;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    points[0] = -2; points[1] = 3; points[2] = 0;
+    points[3] = 4; points[4] = -5; points[5] = 0;
+    item.bind(&curve, 0.01);
+    CHECK_EQ(item.vertexCount(), 2);
+    CHECK(&item.indices() == indices && &item.renderWords() == render);
+    item.reset();
+    CHECK(&item.indices() == indices && &item.renderWords() == render);
+    item.bind(&curve, 0.01);
+    item.bind(nullptr, 0.01);
+    CHECK(&item.indices() == indices && &item.renderWords() == render);
+
+    // Exercise destruction/recreation without retaining a reference to a dead owner.
+    // These empty containers do not establish preservation of populated state.
+    std::vector<engine::CurveItemState> owners;
+    owners.emplace_back(); owners.front().bind(&curve, 0.01);
+    owners.clear(); owners.emplace_back();
+    CHECK_EQ(owners.front().vertexCount(), 0);
+    CHECK(owners.front().indices().empty() && owners.front().renderWords().empty());
+    CHECK(&owners.front().indices() != &independent.indices());
+    CHECK(&owners.front().renderWords() != &independent.renderWords());
+}

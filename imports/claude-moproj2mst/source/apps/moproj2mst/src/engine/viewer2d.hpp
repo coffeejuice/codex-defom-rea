@@ -36,20 +36,33 @@ std::vector<double> curveItemPoints(def::model::OBJ_GEO2D* c, double tol);
 // @src 0x141267530  vt+0x48 of the curve item: the rect of its vertices
 Rect2 curveItemRect(const std::vector<double>& rows);
 
-// Owned geometry portion of SfGL2DCurveItem: signed count (+0x188) and
-// vertex rows (+0x190). The separate index/render/color arrays remain unresolved.
+// Owned portion of SfGL2DCurveItem: binary32 width (+0x178), signed count
+// (+0x188), vertex rows (+0x190), indices (+0x1a0) and render/color words (+0x1a8).
+// Index/render containers begin empty; their population is not reconstructed here.
 // This is internal converter state, not a native-layout or C ABI declaration.
 class CurveItemState {
 public:
     void bind(def::model::OBJ_GEO2D* curve, double tol);
     void reset() noexcept;
+    // @src 0x14126f380 / 0x14126f3b0: store/read only, with no geometry rebuild.
+    void setWidth(float width) noexcept { width_ = width; }
+    float width() const noexcept { return width_; }
     std::int32_t vertexCount() const noexcept { return vertexCount_; }
     const std::vector<double>& vertexRows() const noexcept { return vertexRows_; }
+    const std::vector<std::int32_t>& indices() const noexcept { return indices_; }
+    const std::vector<std::uint32_t>& renderWords() const noexcept { return renderWords_; }
     Rect2 rectangle() const;
 
 private:
     std::vector<double> vertexRows_;
+    // 0x1412671d0 constructs these separately; 0x1412672c0 destroys them.
+    // Direct row bind/reset leaves both owned containers intact. Raw render words
+    // preserve the distinction between color bits and floating-point coordinates.
+    std::vector<std::int32_t> indices_;
+    std::vector<std::uint32_t> renderWords_;
     std::int32_t vertexCount_ = 0;
+    // 0x14126ee40: binary32 0x3d0f5c29; independent of row tolerance 0.01.
+    float width_ = 0.035f;
 };
 
 // @src 0x14124be10  the mesh item's node positions (x, y as floats, two per node)

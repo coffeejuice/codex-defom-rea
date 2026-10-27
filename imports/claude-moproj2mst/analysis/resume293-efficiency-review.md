@@ -1,0 +1,7 @@
+# CP291-293 efficiency review
+
+This safe-boundary review used saved receipts rather than inferred token counts. CP291's first full build took 223.375 seconds; its full CTest took 20.719 seconds. CP292-293 used the existing build incrementally. The final no-work CMake verification took 0.125 seconds; the first full CTest failed after 17.516 seconds, the isolated terminal test passed in 2.44 seconds, and the complete retry passed in 18.391 seconds. The first failure is retained separately and is not counted as steady-state performance.
+
+The final source-bound launcher took 38.063 seconds. Its phase receipt recorded inventory 1.109, fixture hashes 6.938+7.453, source/binary bindings 2.156+2.453, CTest 17.813 and report 0.125 seconds. The launcher passed 370 m2m tests with 363 clean, six logged-gap and one diagnostic-difference result; source/binaries and fixtures were stable. The receipt does not provide attributable token usage or end-to-end model time, so no overall speedup or token saving is claimed.
+
+The next safe process adjustment is to keep source edits in one integrated candidate, use incremental builds and focused tests while editing, then run one full CTest and one source-bound launcher at freeze. This retains the source/fixture binding and logged-gap audit. A failure still requires focused diagnosis and a qualified rerun, as CP292-293 did. No test coverage or evidence gate is removed.

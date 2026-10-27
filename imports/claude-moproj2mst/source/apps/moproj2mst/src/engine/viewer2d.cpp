@@ -343,13 +343,15 @@ Rect2 curveItemRect(const std::vector<double>& rows)
 void CurveItemState::bind(def::model::OBJ_GEO2D* curve, double tol)
 {
     // Preserve the existing converter failure order: build before replacing rows.
-    // The production View creates a fresh owner after unbind on each bind.
+    // Direct row binding preserves configured width. The production View
+    // instead creates a fresh owner after unbind on each public bind.
     vertexRows_ = curveItemPoints(curve, tol);
     vertexCount_ = static_cast<std::int32_t>(vertexRows_.size() / 3);
 }
 
 void CurveItemState::reset() noexcept
 {
+    // Row reset leaves the independently owned secondary width intact.
     vertexCount_ = 0;
     vertexRows_.clear();
 }
