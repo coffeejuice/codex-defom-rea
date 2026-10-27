@@ -1,0 +1,376 @@
+"""Independent fixed top job for one disposable CP347 watchdog occurrence.
+
+This is native-capable only when explicitly supplied CP325 BoundExports. Public
+launch is HARD HOLD. The controller itself never opens an original executable,
+selects a project, or controls a GUI. A timer thread can request termination
+while the launch thread is inside a synchronous Win32 call. That is a practical
+independent ceiling, not a hard real-time or crash-atomic cleanup guarantee.
+"""
+from __future__ import annotations
+
+import ctypes as C
+import secrets
+import subprocess
+import threading
+
+import cp321_native_exports as abi
+import cp325_real_bindings as binding
+import cp326_native_pipe_security as security
+import cp328_native_pipes as pipes
+import cp329_native_worker_creator as creator
+import cp331_outer_watchdog as outer
+import cp334_runner_client_pipe as client
+import cp347_fixed_parent_entry as parent
+
+NATIVE_ENTRY = "HARD HOLD"
+Hold = abi.Hold
+SAFETY_MS = 10000
+FIXED_MODULE = "cp347_fixed_parent_entry"
+CHANNEL_MS = 5000
+
+
+class TopFailure(Hold):
+    def __init__(self, error, owner):
+        self.owner, self.receipt = owner, owner.receipt
+        super().__init__(str(error))
+
+
+class TopController(outer.OuterWatchdog):
+    """One-use controller; retain after any uncertain API or timeout outcome."""
+
+    def __init__(self, exports):
+        if not isinstance(exports, binding.BoundExports):
+            raise TypeError("CP325 BoundExports required")
+        super().__init__(exports, timeout_ms=5000, cleanup_wait_ms=500)
+        self.timeout_ms = SAFETY_MS
+        self.security = self.pipe_owner = None
+        self.claim = None
+        self._timer_cancel = threading.Event()
+        self._timer_thread = None
+        self._timer_guard = threading.Lock()
+        self._timer_fired = False
+        self._timer_error = None
+        self._accepted = False
+        self._channel_deadline = None
+        self._channel_receipt = None
+        self._channel_values = None
+        self._channel_expected = frozenset()
+        self._channel_cleanup_proven = False
+        self._channel_custody_uncertain = False
+
+    def _budget(self):
+        if self._timer_fired or self._timer_error is not None:
+            raise Hold("independent top timer expired or termination uncertain")
+        return super()._budget()
+
+    def _timer_body(self):
+        if self._timer_cancel.wait(SAFETY_MS / 1000):
+            return
+        with self._timer_guard:
+            if self._timer_cancel.is_set():
+                return
+            self._timer_fired = True
+            job = self._owned_handles.get("outer_job")
+        if job is not None:
+            try:
+                if not self._call("TerminateJobObject", job, 0xE349):
+                    raise creator.ApiFailure("TerminateJobObject",
+                                             int(self.exports.last_error()))
+                self._abort_job_terminated = True
+                self.receipt.job_terminated = True
+            except BaseException as error:
+                self._timer_error = error
+
+    def _start_timer(self):
+        if self._timer_thread is not None:
+            raise Hold("top timer is one-use")
+        self._timer_thread = threading.Thread(
+            target=self._timer_body, name="cp349-top-ceiling", daemon=True)
+        self._timer_thread.start()
+
+    def _stop_timer(self):
+        self._timer_cancel.set()
+        if self._timer_thread is not None:
+            self._timer_thread.join(1)
+            if self._timer_thread.is_alive():
+                raise Hold("top timer still owns a possible job termination call")
+
+    def _acceptance_custody(self, frozen, channel_frozen, expected_handles):
+        claim, deadline, nonce, pipe_owner, descriptor, receipt, exports, channel_deadline = frozen
+        if (self.claim is not claim or type(self.claim) is not parent.ParentSuccess or
+                type(self.claim.deadline) is not int or self.claim.deadline != deadline or
+                type(self.claim.nonce) is not bytes or self.claim.nonce != nonce or
+                self.pipe_owner is not pipe_owner or self.security is not descriptor or
+                self.receipt is not receipt or self.exports is not exports or
+                type(self._channel_deadline) is not int or
+                self._channel_deadline != channel_deadline):
+            raise Hold("original parent claim or top owner custody changed")
+        self._channel_custody(channel_frozen, expected_handles)
+        self._success_custody()
+
+    def _channel_custody(self, frozen, expected_handles):
+        original_pipe, channel_receipt, channel_values = frozen
+        if self.pipe_owner is None or self._channel_receipt is None:
+            raise Hold("fixed private claim channel required")
+        owner = self.pipe_owner
+        if (owner is not original_pipe or
+                self._channel_receipt is not channel_receipt or
+                type(self._channel_values) is not tuple or
+                self._channel_values != channel_values or
+                type(self._channel_expected) is not frozenset or
+                self._channel_expected != expected_handles):
+            self._channel_custody_uncertain = True
+            raise Hold("private claim channel ledger changed")
+        if self._channel_cleanup_proven:
+            if (owner.handles != set() or owner.operations != [] or
+                    owner.receipt is not None):
+                self._channel_custody_uncertain = True
+                raise Hold("terminal claim channel cleanup custody changed")
+            return
+        names = ("parent_write", "client_read", "parent_read", "client_write")
+        values = tuple(getattr(channel_receipt, name, None) for name in names)
+        if (owner.receipt is not channel_receipt or
+                any(type(value) is not int for value in values) or
+                values != channel_values or
+                owner.handles != expected_handles or owner.operations != []):
+            self._channel_custody_uncertain = True
+            raise Hold("original claim channel endpoint/handle custody changed")
+
+    def prepare_fixed_suspended(self, *, child_read, child_write):
+        """Create only the fixed CP347 child, suspended in the top job."""
+        if self._used:
+            raise Hold("top controller is one-use")
+        self._used = True
+        r = self.receipt
+        try:
+            handles = (child_read, child_write)
+            if (any(type(h) is not int or not 0 < h < creator.INVALID_HANDLE
+                    for h in handles) or child_read == child_write):
+                raise Hold("two distinct private child endpoints required")
+            self._endpoint_handles = set(handles)
+            if r.phase != "occurrence-started":
+                raise Hold("top deadline must precede private IPC preparation")
+            self._budget()
+            current, member = self._call("GetCurrentProcess"), abi.BOOL()
+            self._ok("IsProcessInJob", current, None, C.byref(member))
+            if member.value not in (0, 1):
+                raise Hold("invalid host job membership")
+            r.host_in_job = bool(member.value)
+            for handle in handles:
+                if not self._flags(handle) & creator.INHERIT:
+                    raise Hold("only explicit private child endpoints may be inherited")
+            job = creator.NativeWorkerCreator._job(self, "outer_job")
+            self._budget()  # a fired timer cannot authorize later creation
+            address = self._attribute_list(job, handles)
+            startup = abi.STARTUPINFOEXW()
+            startup.StartupInfo.cb = C.sizeof(startup)
+            startup.StartupInfo.dwFlags = 0x100
+            startup.StartupInfo.hStdInput = child_read
+            startup.StartupInfo.hStdOutput = startup.StartupInfo.hStdError = child_write
+            startup.lpAttributeList = address.value
+            # CP334's inherited channel has its own five-second deadline
+            # starting before CreateProcessW. CP333's inner occurrence later
+            # allocates a separate five-second deadline; top retains ten seconds.
+            self._budget()
+            channel_deadline = min(self.deadline, self._tick() + CHANNEL_MS)
+            if not 0 < channel_deadline - self._tick() <= CHANNEL_MS:
+                raise Hold("fixed channel deadline expired before creation")
+            self._channel_deadline = channel_deadline
+            # Isolated Python receives no path, project or executable argument.
+            bootstrap = ("import sys;sys.path.insert(0," + repr(outer.RUNNER_CWD) +
+                         ");import " + FIXED_MODULE +
+                         " as e;e.FixedParentEntry.from_client_argv(sys.argv[1:]).run()")
+            command = C.create_unicode_buffer(subprocess.list2cmdline(
+                [outer.RUNNER_IMAGE, "-I", "-B", "-c", bootstrap, client.ARGV_TAG,
+                 str(child_read), str(child_write), str(channel_deadline)]))
+            info = abi.PROCESS_INFORMATION()
+            self._budget()
+            self._create_attempted = True
+            r.create_outcome = "unknown: CreateProcessW entered"
+            try:
+                ok = self._call("CreateProcessW", outer.RUNNER_IMAGE, command,
+                    None, None, True, creator.CREATE_FLAGS, None, outer.RUNNER_CWD,
+                    C.byref(startup.StartupInfo), C.byref(info))
+                error = None if ok else int(self.exports.last_error())
+            finally:
+                capture_errors = []
+                for name, value in (("runner_process", info.hProcess),
+                                    ("runner_thread", info.hThread)):
+                    if value:
+                        try:
+                            self._own(name, value)
+                        except BaseException as exc:
+                            capture_errors.append(str(exc))
+                r.pid, r.tid = int(info.dwProcessId) or None, int(info.dwThreadId) or None
+                if capture_errors:
+                    raise Hold("; ".join(capture_errors))
+            if not ok:
+                if not any((info.hProcess, info.hThread,
+                            info.dwProcessId, info.dwThreadId)):
+                    self._no_child_proven = True
+                    r.create_outcome = "returned-failure-no-child"
+                raise creator.ApiFailure("CreateProcessW", error)
+            r.create_outcome = "returned-success"
+            self._verify()
+            self._delete_attributes()
+            r.phase = "prepared-suspended"
+            return r
+        except BaseException as error:
+            r.errors.append(str(error))
+            r.phase = "hold"
+            self.close()
+            raise TopFailure(error, self) from error
+
+    def run(self):
+        """Attempt one fixed CP347 claim; no public native launch is exposed."""
+        if self.receipt.phase != "new":
+            raise Hold("top occurrence is one-use")
+        original_receipt, original_exports = self.receipt, self.exports
+        original_security = original_pipe = original_claim = None
+        original_channel_deadline = None
+        try:
+            self.start_occurrence()  # before security/IPC and CreateProcessW
+            self._start_timer()      # independent of the launch thread
+            self.security = original_security = security.NativePrivatePipeSecurity(self.exports)
+            self.pipe_owner = original_pipe = pipes.NativePipeOwner(
+                self.exports, self.security, deadline=self.deadline)
+            endpoints = self.pipe_owner.prepare(
+                r"\\.\pipe\cp349-" + secrets.token_hex(32))
+            self._channel_receipt = endpoints
+            self._channel_values = (
+                endpoints.parent_write, endpoints.client_read,
+                endpoints.parent_read, endpoints.client_write)
+            channel_frozen = (original_pipe, endpoints, self._channel_values)
+            expected = frozenset(self._channel_values)
+            self._channel_expected = expected
+            if len(expected) != 4:
+                raise Hold("four distinct retained claim endpoints required")
+            self._channel_custody(channel_frozen, expected)
+            parent_write, child_read, parent_read, child_write = self._channel_values
+            self.prepare_fixed_suspended(
+                child_read=child_read, child_write=child_write)
+            self._channel_custody(channel_frozen, expected)
+            original_channel_deadline = self._channel_deadline
+            # The child received exactly the two listed handles at creation.
+            # Parent copies of those clients must not prolong EOF or pipe life.
+            self.pipe_owner._close(child_read)
+            expected = expected - {child_read}
+            self._channel_expected = expected
+            self._channel_custody(channel_frozen, expected)
+            self.pipe_owner._close(child_write)
+            expected = expected - {child_write}
+            self._channel_expected = expected
+            self._channel_custody(channel_frozen, expected)
+            self.resume_once()
+            self._budget()
+            self._channel_custody(channel_frozen, expected)
+            raw = self.pipe_owner.transfer(parent_read, "read",
+                                           parent.FRAME.size)
+            self._budget()
+            self._channel_custody(channel_frozen, expected)
+            self.claim = original_claim = parent.decode_parent(raw)
+            if not self.deadline - SAFETY_MS < self.claim.deadline <= self.deadline:
+                raise Hold("inner occurrence deadline exceeds the fixed top ceiling")
+            frozen = (self.claim, self.claim.deadline, self.claim.nonce,
+                      self.pipe_owner, self.security, self.receipt, self.exports,
+                      self._channel_deadline)
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            available = abi.DWORD()
+            self._budget()
+            self._ok("PeekNamedPipe", parent_read, None, 0, None,
+                     C.byref(available), None)
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            if available.value:
+                raise Hold("queued duplicate/trailing parent claim bytes")
+            process = self._owned_handles["runner_process"]
+            job = self._owned_handles["outer_job"]
+            status = self._call("WaitForSingleObject", process, self._budget())
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            if type(status) is not int or status != 0:
+                raise Hold("exact CP347 watchdog wait unresolved")
+            code = abi.DWORD()
+            self._ok("GetExitCodeProcess", process, C.byref(code))
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            if code.value != 0 or self._active(job) != 0:
+                raise Hold("watchdog exit or top job accounting not successful")
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            self.receipt.runner_waited = self.receipt.job_empty = True
+            self._channel_custody(channel_frozen, expected)
+            if self.pipe_owner.cleanup() is not True:
+                raise Hold("parent claim pipe cleanup unresolved")
+            if (self.pipe_owner.handles != set() or self.pipe_owner.operations != [] or
+                    self.pipe_owner.receipt is not None):
+                self._channel_custody_uncertain = True
+                raise Hold("terminal claim channel still owns handles or operations")
+            expected = frozenset()
+            self._channel_expected = expected
+            self._channel_cleanup_proven = True
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            if self.security.cleanup() is not True:
+                raise Hold("private descriptor cleanup unresolved")
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            self._stop_timer()
+            self._budget()
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            if self._timer_fired or self._timer_error is not None:
+                raise Hold("top timer fired before acceptance")
+            self._runner_success_observed = True
+            self._finish_runner_success()
+            self._budget()  # final close can also cross the original ceiling
+            self._acceptance_custody(frozen, channel_frozen, expected)
+            self._accepted = True
+            self.receipt.phase = "closed-success"
+            return self.receipt
+        except BaseException as error:
+            self.receipt, self.exports = original_receipt, original_exports
+            if original_security is not None:
+                self.security = original_security
+            if original_pipe is not None:
+                self.pipe_owner = original_pipe
+            if original_claim is not None:
+                self.claim = original_claim
+            if original_channel_deadline is not None:
+                self._channel_deadline = original_channel_deadline
+            original_receipt.errors.append(f"{type(error).__name__}: {error}")
+            original_receipt.phase = "hold"
+            self.close()
+            raise TopFailure(error, self) from error
+
+    def close(self):
+        """Retry only exact owned cleanup; never launch or replay a claim."""
+        try:
+            self._stop_timer()
+        except BaseException as error:
+            self.receipt.errors.append(str(error))
+            self.receipt.phase = "hold"
+            return self.receipt
+        result = super().close()
+        if result.phase not in ("closed", "runner-closed-success", "closed-success"):
+            return result
+        if self._channel_custody_uncertain:
+            result.errors.append("claim channel custody uncertain; original handles retained")
+            result.phase = "hold"
+            return result
+        try:
+            if self.pipe_owner is not None and self.pipe_owner.cleanup() is not True:
+                raise Hold("top claim pipe cleanup unresolved")
+            if self.security is not None and self.security.cleanup() is not True:
+                raise Hold("top private descriptor cleanup unresolved")
+        except BaseException as error:
+            result.errors.append(str(error))
+            result.phase = "hold"
+        return result
+
+
+def launch_trial(*_args, **_kwargs):
+    raise Hold("CP349 top-controller live launch HARD HOLD pending independent review")
+
+
+if __name__ == "__main__":
+    launch_trial()

@@ -309,7 +309,7 @@ class OuterWatchdog:
                          ");import " + FIXED_ENTRY_MODULE +
                          " as e;e.FixedRunnerEntry(sys.argv[1:]).run()")
             command = C.create_unicode_buffer(subprocess.list2cmdline(
-                [RUNNER_IMAGE, "-I", "-c", bootstrap, FIXED_ENTRY_TAG,
+                [RUNNER_IMAGE, "-I", "-B", "-c", bootstrap, FIXED_ENTRY_TAG,
                  str(child_read), str(child_write), str(self.deadline)]))
             info = abi.PROCESS_INFORMATION()
             self._budget()

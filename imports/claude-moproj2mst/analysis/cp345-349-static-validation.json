@@ -1,0 +1,34 @@
+{
+  "scope": "CP345-349 fixed parent, shared injected trial, independent top controller",
+  "module_root_orders": [
+    {"root": "converter", "tests": 580, "passed": 580, "seconds": 0.263},
+    {"root": "converter/admin", "tests": 580, "passed": 580, "seconds": 0.257}
+  ],
+  "raw_log": "analysis/cp345-349-injected-tests.log",
+  "raw_log_sha256": "776dc646b237da771fe120ece4322d2e81147e6c04a08d030d735a10dc914163",
+  "reviewed_source_sha256": {
+    "cp331_outer_watchdog.py": "9a8d5f5e0989922cad4a14725dc9b0e6800a5293a83164807af406716dd3e400",
+    "cp347_fixed_parent_entry.py": "99155e4594cc6c3765e9b6e423002bc8304f4f281fb795dba6d9febaf9180910",
+    "cp349_top_controller.py": "0acd1b2fcc372cdd7e426102f3fc3444262ba0cc65daa11dfd231ce61b213cc0"
+  },
+  "cross_owner_test_sha256": "4c599462c42d735cb032d9569323b9a6cad798a14bae86a4af04cd0d81044e20",
+  "independent_reviews": {
+    "cp347_fixed_parent_entry": "pass_injected_after_overlapped_sink_and_cleanup_repair",
+    "cp348_shared_channel": "pass_injected_including_corrupt_ack_denial",
+    "cp349_top_controller": "pass_static_injected_after_endpoint_and_owner_custody_repair",
+    "nested_job_and_win32_abi": "no_additional_static_blocker_found"
+  },
+  "native_worker_executed": false,
+  "public_launch": "HARD HOLD",
+  "compiled_cpp_candidate": "CP301 unchanged",
+  "native_trial_prerequisites": [
+    "freeze and hash imported Python source and relevant pyc provenance in a quiescent checkout",
+    "review one fixed top-level trial command and exact owned cleanup receipt",
+    "observe one disposable CP316 inert WORKER occurrence without original or GUI process"
+  ],
+  "qualifications": [
+    "The 10-second top timer is practical containment, not a hard real-time or crash-atomic guarantee.",
+    "The separate 5-second claim channel may expire before a valid inner 5-second occurrence finishes and then fails closed.",
+    "CP348 injects process creation, jobs, image pinning and OS pipes; native behavior remains untested."
+  ]
+}

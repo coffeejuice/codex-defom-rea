@@ -335,9 +335,10 @@ class WatchdogTests(unittest.TestCase):
             ");import cp335_fixed_runner_entry as e;"
             "e.FixedRunnerEntry(sys.argv[1:]).run()")
         self.assertEqual(h.creation[1].value, m.subprocess.list2cmdline([
-            m.RUNNER_IMAGE, "-I", "-c", expected_bootstrap,
+            m.RUNNER_IMAGE, "-I", "-B", "-c", expected_bootstrap,
             "--cp334-client", "11", "13", "5100"]))
         self.assertIn("-I", h.creation[1].value)
+        self.assertIn("-B", h.creation[1].value)
         self.assertIn("--cp334-client", h.creation[1].value)
         self.assertIn("FixedRunnerEntry(sys.argv[1:]).run()", h.creation[1].value)
         self.assertNotIn("cp330_native_inert_runner.py", h.creation[1].value)

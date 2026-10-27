@@ -1,0 +1,344 @@
+"""CP349 injected-only top-job tests; no process or native export is invoked."""
+from pathlib import Path
+from unittest import mock
+import sys
+import threading
+import unittest
+from types import SimpleNamespace
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cp349_top_controller as m
+from test_cp331_outer_watchdog import Harness
+
+
+class TopHarness(Harness):
+    def dispatch(self, name, *args):
+        if name == "WaitForSingleObject" and args[1] > 5000:
+            self.calls.append((name, args))
+            assert args[0] == 31 and args[1] <= 10000
+            return 0 if self.dead else 258
+        return super().dispatch(name, *args)
+
+
+class TopTests(unittest.TestCase):
+    @staticmethod
+    def fake_channel(h, *, payload=None):
+        if payload is None:
+            payload = m.parent.encode_parent(
+                m.parent.ParentSuccess(5200, b"n" * 32))
+        class Security:
+            def __init__(self, exports):
+                self.exports = exports
+                self.cleaned = False
+            def cleanup(self):
+                self.cleaned = True
+                return True
+        class Pipe:
+            def __init__(self, exports, descriptor, *, deadline):
+                self.exports, self.descriptor, self.deadline = (
+                    exports, descriptor, deadline)
+                self.closed, self.cleaned = [], False
+                self.receipt = None
+                self.handles, self.operations = set(), []
+            def prepare(self, name):
+                assert name.startswith(r"\\.\pipe\cp349-")
+                self.receipt = SimpleNamespace(
+                    parent_write=10, client_read=11,
+                    parent_read=15, client_write=13)
+                self.handles = {10, 11, 15, 13}
+                return self.receipt
+            def _close(self, handle):
+                self.closed.append(handle)
+                self.handles.remove(handle)
+            def transfer(self, handle, kind, count):
+                assert (handle, kind, count) == (15, "read", 80)
+                h.dead = True  # fixed child exits after its terminal write
+                h.now = 200
+                return payload
+            def cleanup(self):
+                self.cleaned = True
+                self.handles.clear()
+                self.receipt = None
+                return True
+        return Security, Pipe
+
+    def test_import_and_public_launch_are_inert(self):
+        self.assertEqual(m.NATIVE_ENTRY, "HARD HOLD")
+        with self.assertRaises(m.Hold):
+            m.launch_trial()
+
+    def test_fixed_cp347_suspended_creation_and_exact_inheritance(self):
+        h = Harness()
+        owner = m.TopController(h.exports)
+        self.assertEqual(owner.start_occurrence(), 10100)
+        result = owner.prepare_fixed_suspended(child_read=11, child_write=13)
+        self.assertIs(result, owner.receipt)
+        self.assertEqual(result.phase, "prepared-suspended")
+        self.assertEqual(h.attributes[m.outer.JOB_LIST], (21,))
+        self.assertEqual(h.attributes[m.outer.HANDLE_LIST], (11, 13))
+        args = h.creation
+        self.assertEqual(args[0], m.outer.RUNNER_IMAGE)
+        self.assertEqual(args[5], m.creator.CREATE_FLAGS)
+        self.assertEqual(args[7], m.outer.RUNNER_CWD)
+        cmd = args[1].value
+        self.assertIn("cp347_fixed_parent_entry", cmd)
+        self.assertIn("FixedParentEntry.from_client_argv(sys.argv[1:]).run()", cmd)
+        self.assertIn("--cp334-client 11 13 5100", cmd)
+        self.assertEqual(owner._channel_deadline, 5100)
+        self.assertIn(" -I -B -c ", cmd)
+        self.assertNotIn("cp335_fixed_runner_entry", cmd)
+        self.assertNotIn("DEF_GUI_MO", cmd)
+        self.assertEqual(owner._owned_handles,
+                         {"outer_job": 21, "runner_process": 31, "runner_thread": 32})
+        self.assertFalse(h.dead)
+        self.assertNotIn("ResumeThread", [name for name, _ in h.calls])
+
+    def test_independent_timer_targets_only_owned_top_job(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        owner.start_occurrence()
+        m.creator.NativeWorkerCreator._job(owner, "outer_job")
+        with mock.patch.object(owner._timer_cancel, "wait", return_value=False):
+            owner._timer_body()
+        self.assertTrue(owner._timer_fired)
+        self.assertTrue(h.dead)
+        self.assertEqual([args[0] for name, args in h.calls
+                          if name == "TerminateJobObject"], [21])
+        self.assertNotIn("TerminateProcess", [name for name, _ in h.calls])
+        with self.assertRaises(m.Hold):
+            owner._budget()
+        self.assertTrue(owner._abort_job_terminated)
+        owner.close()
+        self.assertEqual([name for name, _ in h.calls].count("TerminateJobObject"), 1)
+
+    def test_one_fixed_claim_needs_exact_exit_and_empty_top_job(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            result = owner.run()
+        self.assertIs(result, owner.receipt)
+        self.assertEqual(result.phase, "closed-success")
+        self.assertEqual(owner.claim.nonce, b"n" * 32)
+        self.assertEqual((owner.deadline, owner._channel_deadline,
+                          owner.claim.deadline), (10100, 5100, 5200))
+        self.assertEqual(owner.pipe_owner.closed, [11, 13])
+        self.assertTrue(owner.pipe_owner.cleaned and owner.security.cleaned)
+        names = [name for name, _ in h.calls]
+        self.assertLess(names.index("ResumeThread"), names.index("GetExitCodeProcess"))
+        self.assertEqual(h.closed, [32, 31, 21])
+        self.assertNotIn("TerminateJobObject", names)
+        self.assertTrue(owner._accepted)
+
+    def test_malformed_private_claim_aborts_exact_top_job(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, pipe = self.fake_channel(h, payload=b"x" * 80)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertIn("TerminateJobObject", [name for name, _ in h.calls])
+        self.assertNotEqual(owner.receipt.phase, "closed-success")
+
+    def test_valid_claim_cannot_renew_top_safety_deadline(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        payload = m.parent.encode_parent(
+            m.parent.ParentSuccess(10101, b"n" * 32))
+        security, pipe = self.fake_channel(h, payload=payload)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertIn("TerminateJobObject", [name for name, _ in h.calls])
+
+    def test_claim_mutation_during_exit_query_prevents_acceptance(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        original = h.dispatch
+        def mutate(name, *args):
+            value = original(name, *args)
+            if name == "GetExitCodeProcess":
+                object.__setattr__(owner.claim, "nonce", b"x" * 32)
+            return value
+        h.dispatch = mutate
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertIn("TerminateJobObject", [name for name, _ in h.calls])
+
+    def test_parent_read_redirect_after_resume_cannot_route_claim(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        original = h.dispatch
+        def redirect(name, *args):
+            value = original(name, *args)
+            if name == "ResumeThread":
+                owner._channel_receipt.parent_read = 999
+            return value
+        h.dispatch = redirect
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertTrue(owner._channel_custody_uncertain)
+        self.assertEqual(owner.pipe_owner.handles, {10, 15})
+        self.assertFalse(owner.pipe_owner.cleaned)
+        self.assertIn("TerminateJobObject", [name for name, _ in h.calls])
+
+    def test_parent_read_redirect_during_valid_claim_is_rejected(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, base_pipe = self.fake_channel(h)
+        class RedirectPipe(base_pipe):
+            def transfer(self, handle, kind, count):
+                result = super().transfer(handle, kind, count)
+                self.receipt.parent_read = 999
+                return result
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", RedirectPipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertTrue(owner._channel_custody_uncertain)
+        self.assertEqual(owner.pipe_owner.handles, {10, 15})
+        self.assertFalse(owner.pipe_owner.cleaned)
+
+    def test_paired_handle_and_diagnostic_ledger_mutation_is_rejected(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        original = h.dispatch
+        def redirect(name, *args):
+            value = original(name, *args)
+            if name == "ResumeThread":
+                owner.pipe_owner.handles.remove(15)
+                owner.pipe_owner.handles.add(999)
+                owner._channel_expected = frozenset({10, 999})
+            return value
+        h.dispatch = redirect
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertTrue(owner._channel_custody_uncertain)
+        self.assertFalse(owner.pipe_owner.cleaned)
+        self.assertIn(999, owner.pipe_owner.handles)
+
+    def test_replacing_pipe_owner_with_equal_clone_is_rejected(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        original_dispatch = h.dispatch
+        retained = []
+        def replace(name, *args):
+            value = original_dispatch(name, *args)
+            if name == "ResumeThread":
+                original_pipe = owner.pipe_owner
+                retained.append(original_pipe)
+                clone = type(original_pipe)(h.exports, owner.security,
+                                            deadline=owner.deadline)
+                clone.receipt = original_pipe.receipt
+                clone.handles = set(original_pipe.handles)
+                owner.pipe_owner = clone
+            return value
+        h.dispatch = replace
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertIs(owner.pipe_owner, retained[0])
+        self.assertEqual(retained[0].handles, {10, 15})
+        self.assertFalse(retained[0].cleaned)
+
+    def test_terminal_cleanup_crossing_top_deadline_stays_unaccepted(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, base_pipe = self.fake_channel(h)
+        class LatePipe(base_pipe):
+            def cleanup(self):
+                h.now = 10100
+                return super().cleanup()
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", LatePipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertFalse(owner._accepted)
+        self.assertNotEqual(owner.receipt.phase, "closed-success")
+
+    def test_independent_timer_terminates_job_during_blocked_create(self):
+        h = Harness()
+        entered, released = threading.Event(), threading.Event()
+        original = h.dispatch
+        def blocked(name, *args):
+            if name == "CreateProcessW":
+                entered.set()
+                if not released.wait(1):
+                    raise AssertionError("independent timer did not run")
+            if name == "TerminateJobObject":
+                released.set()
+            return original(name, *args)
+        h.dispatch = blocked
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m, "SAFETY_MS", 30),
+              mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe)):
+            owner = m.TopController(h.exports)
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        self.assertTrue(entered.is_set() and released.is_set())
+        self.assertTrue(owner._timer_fired)
+        self.assertFalse(owner._accepted)
+        names = [name for name, _ in h.calls]
+        self.assertIn("TerminateJobObject", names)
+        self.assertNotIn("ResumeThread", names)
+
+    def test_partial_published_create_output_keeps_exact_cleanup_owner(self):
+        h = Harness()
+        h.create_raise = True
+        security, pipe = self.fake_channel(h)
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(m.TopController, "_start_timer"),
+              mock.patch.object(m.TopController, "_stop_timer")):
+            owner = m.TopController(h.exports)
+            with self.assertRaises(m.TopFailure) as caught:
+                owner.run()
+        self.assertIs(caught.exception.owner, owner)
+        self.assertEqual(owner.receipt.pid, 33)
+        self.assertIn("TerminateJobObject", [name for name, _ in h.calls])
+        self.assertNotIn("ResumeThread", [name for name, _ in h.calls])
+        self.assertFalse(owner._accepted)
+
+
+if __name__ == "__main__":
+    unittest.main()
