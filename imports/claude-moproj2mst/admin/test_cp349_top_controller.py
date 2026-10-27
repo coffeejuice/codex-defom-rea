@@ -1,10 +1,13 @@
 """CP349 injected-only top-job tests; no process or native export is invoked."""
 from pathlib import Path
+import io
+import os
+import tempfile
 from unittest import mock
 import sys
 import threading
 import unittest
-from types import SimpleNamespace
+from types import ModuleType, SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cp349_top_controller as m
@@ -118,6 +121,127 @@ class TopTests(unittest.TestCase):
         self.assertEqual(m.NATIVE_ENTRY, "HARD HOLD")
         with self.assertRaises(m.Hold):
             m.launch_trial()
+
+    def test_child_diagnostic_bootstrap_is_fixed_and_compiles(self):
+        path = Path("C:/PROBLEM/analysis/cp349-child-failure-" + "a" * 32 + ".json")
+        code = m._child_bootstrap(path)
+        compile(code, "<cp349 fixed bootstrap>", "exec")
+        self.assertIn("import " + m.FIXED_MODULE + " as e", code)
+        self.assertNotIn("exec(", code)
+        self.assertIn("open(p,'xb')", code)
+        self.assertIn("os.fsync", code)
+        self.assertNotIn("original_executable", code)
+        self.assertNotIn("project_path", code)
+
+    def test_child_bootstrap_failure_success_and_exclusive_collision(self):
+        class InjectedChildFailure(RuntimeError):
+            pass
+
+        class FakeEntry:
+            failure = None
+            @classmethod
+            def from_client_argv(cls, argv):
+                assert argv == ["--fixed-test"]
+                return cls()
+            def run(self):
+                if type(self).failure is not None:
+                    raise type(self).failure
+
+        fake = ModuleType(m.FIXED_MODULE)
+        fake.FixedParentEntry = FakeEntry
+        original_module = sys.modules.get(m.FIXED_MODULE)
+        sys.modules[m.FIXED_MODULE] = fake
+        try:
+            with tempfile.TemporaryDirectory(
+                    dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+                root = Path(directory)
+                path = root / (m.DIAGNOSTIC_PREFIX + "d" * 32 + ".json")
+                with (mock.patch.object(m, "DIAGNOSTIC_DIR", root),
+                      mock.patch.object(sys, "argv", ["runner", "--fixed-test"]),
+                      mock.patch.object(sys, "path", list(sys.path)),
+                      mock.patch.object(os, "fsync") as fsync):
+                    failure = InjectedChildFailure("injected CP347 failure")
+                    FakeEntry.failure = failure
+                    with self.assertRaises(InjectedChildFailure) as caught:
+                        exec(m._child_bootstrap(path), {"__name__": "__main__"})
+                    self.assertIs(caught.exception, failure)
+                    result = m._child_diagnostic_result(path)
+                    self.assertEqual(result["status"], "valid")
+                    self.assertEqual(result["data"]["type"], "InjectedChildFailure")
+                    self.assertLessEqual(result["bytes"], m.DIAGNOSTIC_MAX_BYTES)
+                    self.assertEqual(result["bytes"], path.stat().st_size)
+                    self.assertEqual(len(result["sha256"]), 64)
+                    fsync.assert_called_once()
+
+                    path.unlink()
+                    FakeEntry.failure = None
+                    exec(m._child_bootstrap(path), {"__name__": "__main__"})
+                    self.assertFalse(path.exists(), "successful child must not write diagnostic")
+
+                    sentinel = b"existing exclusive diagnostic"
+                    path.write_bytes(sentinel)
+                    FakeEntry.failure = InjectedChildFailure("collision must not overwrite")
+                    with self.assertRaises(InjectedChildFailure) as collision:
+                        exec(m._child_bootstrap(path), {"__name__": "__main__"})
+                    self.assertIs(collision.exception, FakeEntry.failure)
+                    self.assertEqual(path.read_bytes(), sentinel)
+        finally:
+            FakeEntry.failure = None
+            if original_module is None:
+                sys.modules.pop(m.FIXED_MODULE, None)
+            else:
+                sys.modules[m.FIXED_MODULE] = original_module
+
+    def test_read_failure_attaches_only_bounded_child_diagnostic(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, base_pipe = self.fake_channel(h)
+        directory = Path(__file__).resolve().parent.parent / "analysis"
+        path = directory / (m.DIAGNOSTIC_PREFIX + "b" * 24 +
+                            format(threading.get_ident(), "x") + ".json")
+        diagnostic = {"status": "valid", "bytes": 120, "sha256": "a" * 64,
+                      "data": {"stage": "fixed-parent-import-or-run",
+                               "type": "InjectedChildError"}}
+        try:
+            class FailedReadPipe(base_pipe):
+                def transfer(self, handle, kind, count):
+                    if (handle, kind, count) == (15, "read", 80):
+                        raise m.pipes.ApiFailure("read", 109)
+                    return super().transfer(handle, kind, count)
+            with (mock.patch.object(m, "DIAGNOSTIC_DIR", directory),
+                  mock.patch.object(m, "_child_diagnostic_path", return_value=path),
+                  mock.patch.object(m, "_child_diagnostic_result", return_value=diagnostic),
+                  mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+                  mock.patch.object(m.pipes, "NativePipeOwner", FailedReadPipe),
+                  mock.patch.object(owner, "_start_timer"),
+                  mock.patch.object(owner, "_stop_timer")):
+                with self.assertRaises(m.TopFailure) as caught:
+                    owner.run()
+            self.assertEqual(owner.receipt.local["child_diagnostic"]["path"], str(path))
+            self.assertEqual(owner.receipt.local["child_diagnostic"]["status"], "valid")
+            self.assertEqual(owner.receipt.local["child_diagnostic"]["data"]["type"],
+                             "InjectedChildError")
+            self.assertEqual(owner.receipt.local["child_diagnostic"]["bytes"], 120)
+            self.assertEqual(len(owner.receipt.local["child_diagnostic"]["sha256"]), 64)
+            self.assertEqual(owner.receipt.phase, "closed")
+            self.assertFalse(owner._accepted)
+            self.assertIs(caught.exception.owner, owner)
+        finally:
+            pass
+
+    def test_child_diagnostic_reader_rejects_oversize_and_bad_schema(self):
+        directory = Path(__file__).resolve().parent.parent / "analysis"
+        path = directory / (m.DIAGNOSTIC_PREFIX + "c" * 24 +
+                            format(threading.get_ident(), "x") + ".json")
+        with (mock.patch.object(m, "DIAGNOSTIC_DIR", directory),
+              mock.patch.object(Path, "open", return_value=io.BytesIO(
+                  b"{" + b" " * (m.DIAGNOSTIC_MAX_BYTES + 1)))):
+            self.assertIsNone(m._read_child_diagnostic(path))
+        malformed = b'{"type":1,"message":"x","stage":"s","traceback":[]}'
+        with (mock.patch.object(m, "DIAGNOSTIC_DIR", directory),
+              mock.patch.object(Path, "open", return_value=io.BytesIO(malformed)),
+              mock.patch.object(Path, "exists", return_value=True)):
+            self.assertEqual(m._child_diagnostic_result(path)["status"], "malformed")
 
     def test_security_prepared_before_pipe_using_cp326_precondition(self):
         h = TopHarness()

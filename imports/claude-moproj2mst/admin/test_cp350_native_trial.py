@@ -114,6 +114,21 @@ class TrialTests(unittest.TestCase):
         self.assertEqual(trial.report["cleanup"], "closed")
         self.assertIn("injected uncertain OS call", trial.report["error"])
 
+    def test_failure_report_preserves_bounded_child_diagnostic(self):
+        owner = FakeTop(fail=True)
+        diagnostic = {"path": "analysis/cp349-child-failure-test.json",
+                      "status": "valid", "bytes": 42, "sha256": "a" * 64,
+                      "data": {"stage": "fixed-parent-import-or-run",
+                               "type": "InjectedError", "message": "failure",
+                               "traceback": []}}
+        owner.receipt.local = {"child_diagnostic": diagnostic}
+        with mock.patch.object(m, "_make_controller", return_value=owner):
+            trial = m.run_once(self.path)
+        self.assertFalse(trial.accepted)
+        self.assertEqual(trial.report["owner"]["child_diagnostic"], diagnostic)
+        disk = json.loads(self.path.read_text())
+        self.assertEqual(disk["owner"]["child_diagnostic"], diagnostic)
+
     def test_changed_source_after_run_refuses_success(self):
         owner = FakeTop(on_run=lambda: self.source.write_text("changed source\n"))
         with mock.patch.object(m, "_make_controller", return_value=owner):

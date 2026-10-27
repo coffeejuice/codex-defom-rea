@@ -467,6 +467,32 @@ class WatchdogTests(unittest.TestCase):
         h.wait = 0
         self.assertEqual(h.owner.close().phase, "closed")
 
+    def test_terminate_process_denied_after_job_kill_can_still_close_on_exact_wait(self):
+        h = Harness()
+        h.prepare()
+        h.fail = "TerminateProcess"
+        original = h.dispatch
+        waits = 0
+
+        def delayed_wait(name, *args):
+            nonlocal waits
+            if name == "WaitForSingleObject":
+                h.calls.append((name, args))
+                waits += 1
+                return 258 if waits == 1 else 0
+            return original(name, *args)
+
+        h.dispatch = delayed_wait
+        result = h.owner.close()
+        self.assertEqual(result.phase, "closed")
+        self.assertTrue(result.job_terminated and result.runner_waited and
+                        result.job_empty)
+        self.assertFalse(result.process_terminated)
+        self.assertEqual(waits, 2)
+        self.assertTrue(any("TerminateProcess failed (5)" in str(error)
+                            for error in result.errors))
+        self.assertEqual(h.closed, [32, 31, 21])
+
     def test_job_accounting_and_failed_close_retain_owners(self):
         h = Harness()
         h.prepare()

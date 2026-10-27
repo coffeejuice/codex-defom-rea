@@ -9,9 +9,12 @@ independent ceiling, not a hard real-time or crash-atomic cleanup guarantee.
 from __future__ import annotations
 
 import ctypes as C
+import hashlib
+import json
 import secrets
 import subprocess
 import threading
+from pathlib import Path
 
 import cp321_native_exports as abi
 import cp325_real_bindings as binding
@@ -27,6 +30,77 @@ Hold = abi.Hold
 SAFETY_MS = 10000
 FIXED_MODULE = "cp347_fixed_parent_entry"
 CHANNEL_MS = 5000
+DIAGNOSTIC_DIR = Path(__file__).resolve().parent.parent / "analysis"
+DIAGNOSTIC_PREFIX = "cp349-child-failure-"
+DIAGNOSTIC_MAX_BYTES = 4096
+
+
+def _child_diagnostic_path():
+    return DIAGNOSTIC_DIR / (DIAGNOSTIC_PREFIX + secrets.token_hex(16) + ".json")
+
+
+def _child_bootstrap(path):
+    """Return fixed child code; only the fixed CP347 entry is importable."""
+    return ("import json,os,sys,traceback\n"
+            "sys.path.insert(0," + repr(outer.RUNNER_CWD) + ")\n"
+            "p=" + repr(str(path)) + "\n"
+            "try:\n"
+            " import " + FIXED_MODULE + " as e\n"
+            " e.FixedParentEntry.from_client_argv(sys.argv[1:]).run()\n"
+            "except BaseException as exc:\n"
+            " try:\n"
+            "  tb=traceback.extract_tb(exc.__traceback__)[-4:]\n"
+            "  d={'stage':'fixed-parent-import-or-run','type':type(exc).__name__[:120],"
+            "'message':str(exc)[:1000],"
+            "'traceback':[{'file':x.filename[-300:],'line':x.lineno,"
+            "'name':x.name[:120]} for x in tb]}\n"
+            "  b=json.dumps(d,ensure_ascii=True,separators=(',',':')).encode('ascii')[:"
+            + str(DIAGNOSTIC_MAX_BYTES) + "]\n"
+            "  with open(p,'xb') as f:f.write(b);f.flush();os.fsync(f.fileno())\n"
+            " except BaseException: pass\n"
+            " raise\n")
+
+
+def _read_child_diagnostic(path):
+    """Read only a small, schema-checked diagnostic from our nonce path."""
+    if path is None:
+        return None
+    try:
+        path = Path(path)
+        if (path.parent.resolve() != DIAGNOSTIC_DIR.resolve() or
+                not path.name.startswith(DIAGNOSTIC_PREFIX) or
+                not path.name.endswith(".json")):
+            return None
+        with path.open("rb") as stream:
+            raw = stream.read(DIAGNOSTIC_MAX_BYTES + 1)
+        if len(raw) > DIAGNOSTIC_MAX_BYTES:
+            return None
+        value = json.loads(raw.decode("ascii"))
+        if (type(value) is not dict or type(value.get("type")) is not str or
+                type(value.get("message")) is not str or
+                type(value.get("stage")) is not str or
+                type(value.get("traceback")) is not list or
+                len(value["traceback"]) > 4 or
+                any(type(row) is not dict or type(row.get("file")) is not str or
+                    type(row.get("line")) is not int or type(row.get("name")) is not str
+                    for row in value["traceback"])):
+            return None
+        return {"status": "valid", "bytes": len(raw),
+                "sha256": hashlib.sha256(raw).hexdigest(), "data": value}
+    except (OSError, UnicodeError, ValueError, TypeError):
+        return None
+
+
+def _child_diagnostic_result(path):
+    result = _read_child_diagnostic(path)
+    if result is not None:
+        return result
+    try:
+        exists = Path(path).exists()
+    except (OSError, TypeError):
+        exists = False
+    return {"status": "malformed" if exists else "absent", "bytes": 0,
+            "sha256": None, "data": None}
 
 
 class TopFailure(Hold):
@@ -57,6 +131,8 @@ class TopController(outer.OuterWatchdog):
         self._channel_expected = frozenset()
         self._channel_cleanup_proven = False
         self._channel_custody_uncertain = False
+        self.child_diagnostic_path = None
+        self._claim_read_failed = False
 
     def _budget(self):
         if self._timer_fired or self._timer_error is not None:
@@ -177,9 +253,8 @@ class TopController(outer.OuterWatchdog):
                 raise Hold("fixed channel deadline expired before creation")
             self._channel_deadline = channel_deadline
             # Isolated Python receives no path, project or executable argument.
-            bootstrap = ("import sys;sys.path.insert(0," + repr(outer.RUNNER_CWD) +
-                         ");import " + FIXED_MODULE +
-                         " as e;e.FixedParentEntry.from_client_argv(sys.argv[1:]).run()")
+            self.child_diagnostic_path = _child_diagnostic_path()
+            bootstrap = _child_bootstrap(self.child_diagnostic_path)
             command = C.create_unicode_buffer(subprocess.list2cmdline(
                 [outer.RUNNER_IMAGE, "-I", "-B", "-c", bootstrap, client.ARGV_TAG,
                  str(child_read), str(child_write), str(channel_deadline)]))
@@ -267,8 +342,12 @@ class TopController(outer.OuterWatchdog):
             self.resume_once()
             self._budget()
             self._channel_custody(channel_frozen, expected)
-            raw = self.pipe_owner.transfer(parent_read, "read",
-                                           parent.FRAME.size)
+            try:
+                raw = self.pipe_owner.transfer(parent_read, "read",
+                                               parent.FRAME.size)
+            except BaseException:
+                self._claim_read_failed = True
+                raise
             self._budget()
             self._channel_custody(channel_frozen, expected)
             self.claim = original_claim = parent.decode_parent(raw)
@@ -343,6 +422,10 @@ class TopController(outer.OuterWatchdog):
             original_receipt.errors.append(f"{type(error).__name__}: {error}")
             original_receipt.phase = "hold"
             self.close()
+            if self._claim_read_failed:
+                diagnostic = _child_diagnostic_result(self.child_diagnostic_path)
+                diagnostic["path"] = str(self.child_diagnostic_path)
+                original_receipt.local["child_diagnostic"] = diagnostic
             raise TopFailure(error, self) from error
 
     def close(self):

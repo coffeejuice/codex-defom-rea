@@ -128,6 +128,9 @@ def _receipt(owner):
         return None
     r = owner.receipt
     claim = getattr(owner, "claim", None)
+    local = getattr(r, "local", None)
+    child_diagnostic = (local.get("child_diagnostic")
+                        if type(local) is dict else None)
     return {
         "phase": getattr(r, "phase", None),
         "deadline": getattr(r, "deadline", None),
@@ -146,6 +149,7 @@ def _receipt(owner):
         "pipe_handle_count": len(getattr(getattr(owner, "pipe_owner", None), "handles", ())),
         "claim_deadline": getattr(claim, "deadline", None),
         "claim_nonce_hex": getattr(claim, "nonce", b"").hex() if claim is not None else None,
+        "child_diagnostic": child_diagnostic,
     }
 
 
