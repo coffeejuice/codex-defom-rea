@@ -1,0 +1,28 @@
+{
+  "schema": "cp306-fake-validation-v1",
+  "status": "CP289_RETAINED_CLONE_TO_CP305_FAKE_TRANSACTION_VALIDATED_REAL_CHILD_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp306_clone_fixed_transaction.py": "407b9ba9b6adaa8c18639ef600724c57174ba17cff492766d3466e3e9d09c108",
+    "admin/test_cp306_clone_fixed_transaction.py": "02b77a2cdd02779704a30ee98dcf0f7574721650c072b5a1a03081c47f836299",
+    "analysis/cp302-fixture-build.json": "53a71fc4383b293c45c8751ead0fe67cb2686372af3a3acdf86e68f697cad4d7"
+  },
+  "tests": {
+    "focused_cp305_cp306": {"run": 20, "passed": 20},
+    "combined_cp303_cp304_cp305_cp306": {"run": 41, "passed": 41, "failed": 0},
+    "both_test_module_orders_passed": true,
+    "log": "analysis/cp306-fake-tests.log",
+    "log_sha256": "45abd567f351039d5cdadbfb43bfbf8651bcd813465e6ebd2fd0bce95f971cb9"
+  },
+  "review": "Independent final review PASS for scoped in-memory fake join after callback activation, full build receipt pin and post-close joined outcome",
+  "unpassed_gates": [
+    "Real creation-bound worker, Job Object, child offer and ACK acceptance",
+    "Protected clone file to mapped process image identity and loaded bytes",
+    "Real exact child/worker exit and job accounting after every failure",
+    "CreateProcessW interruption may leave unassigned child existence unknown",
+    "CP215 observer and fresh original Open-Save-accepted Close acceptance"
+  ]
+}

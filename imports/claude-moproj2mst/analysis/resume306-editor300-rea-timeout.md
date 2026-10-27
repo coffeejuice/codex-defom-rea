@@ -1,0 +1,7 @@
+# Editor300 step-alias follow-up
+
+A read-only REA query selected the installed original `DEF_GUI_MO_64.exe` v11.0.2, SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc`. The focused Ghidra procedure query for `0x140828060` did not return. The wait was terminated without an identical retry. The subsequent REA close request also did not return; **the REA session-close state is unverified**. No database edit, original process run or GUI control occurred.
+
+Previously retained original assembly still establishes the selected-length compare at `0x140828248`, zero-length cache write at `0x140828265`, and nonzero normal-return cache write at `0x1408283b2`. Current converter source exposes public `GuiModel::step`, and `engine_internal.hpp` / `gui_model_access.hpp` pass raw `step.get()` into callbacks that can retain aliases. A model-only parked flag does not close those aliases. Keep the current public refusal after A publication.
+
+The next functional witness is one same-occurrence Open-to-InitialFill trace joining the actual Project/DB reader, step and node with physical directory/index, query/version, A, selected length/cache, normal loader return, arrays timer, recipient assignments, Stop and reader/outer return. This static follow-up supplies none of that runtime evidence. Before any further REA query, inspect the existing session state through a bounded supported status operation; do not assume the close request succeeded.
