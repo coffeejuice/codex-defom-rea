@@ -2021,6 +2021,87 @@ TEST_CASE(positive_unbound_ids_distinct_targets_use_conservative_row_height)
     }
 }
 
+TEST_CASE(first_positive_unbound_id_allows_later_mixed_sign_distinct_targets)
+{
+    for (int count = 2; count <= 7; ++count) for (int rotation = 0; rotation < 7; ++rotation)
+        for (int mixed = 0; mixed < 2; ++mixed) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        std::vector<int> cols, ids;
+        for (int i = 0; i < count; ++i) {
+            const int id = i == 0 ? 0 : (i % 2 ? -100 - i : 100 + i);
+            const int target = (rotation + 3 * i) % 7;
+            ids.push_back(id); cols.push_back(target);
+            const bool explicitCell = (i + mixed) % 2 == 0;
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(id) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (explicitCell ? std::string("-1.7976931348623157e308") :
+                                std::to_string(205 * target)) +
+                "</x><y>" + (i == 0 ? "67.49999999999999" : "188.99999999999997") +
+                "</y><width>" + (i % 2 ? "-3.5" : "-0") +
+                "</width><height>" +
+                (i % 2 ? "2.5" : "4.9406564584124654e-324") +
+                "</height></RectF>";
+            if (explicitCell)
+                source += "<CellPos Row=\"0\" Col=\"" + std::to_string(target) + "\"/>";
+            else if (i % 3 == 0)
+                source += "<CellPos Row=\"-1\" Col=\"2147483647\"/>";
+            source += "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items;
+        REQUIRE(items.size() == static_cast<std::size_t>(count));
+        for (int i = 0; i < count; ++i) {
+            CHECK_EQ(items[i]->opId, ids[i]); CHECK_EQ(items[i]->row, 0);
+            CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], i % 2 ? -3.5 : -0.0);
+            CHECK_BITS(items[i]->rect[3], i % 2 ? 2.5 : 4.9406564584124654e-324);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < count; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        int lowest = 0;
+        for (int i = 1; i < count; ++i) if (cols[i] < cols[lowest]) lowest = i;
+        std::vector<int> expected{ids[lowest]};
+        int current = lowest;
+        for (int step = 1; step < count; ++step) {
+            int next = -1;
+            for (int i = 0; i < count; ++i) if (cols[i] == cols[current] + 1) next = i;
+            if (next < 0) break;
+            expected.push_back(ids[next]); current = next;
+        }
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+    // An associated later Operation may add object-row graph effects; its
+    // above-common-envelope profile stays outside this selected direct route.
+    {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        auto op = std::make_unique<Operation>(); op->id = -101;
+        p.operations.push_back(std::move(op));
+        const std::string source =
+            "<Sub_Project><DiagramItem Operation_Id=\"0\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+            "<DiagramItem Operation_Id=\"-101\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>205</x><y>188</y><width>0</width><height>0</height></RectF></DiagramItem>"
+            "<DiagramItem Operation_Id=\"102\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>410</x><y>188</y><width>0</width><height>0</height></RectF></DiagramItem>"
+            "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool guarded = false;
+        try { parseSubProject(p, *doc.root, ctx); }
+        catch (const Error& e) { guarded = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(guarded);
+    }
+}
+
 TEST_CASE(three_item_distinct_explicit_cells_relayout_and_connect_grid_runs)
 {
     const auto cell = [](int col) {

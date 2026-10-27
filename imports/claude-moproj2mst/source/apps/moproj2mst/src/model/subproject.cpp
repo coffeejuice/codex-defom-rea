@@ -735,14 +735,16 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
             }
         }
     }
-    // CP523: an unbound nonnegative-ID Forming2D template proves graphics
-    // height at least 189. Distinct targets avoid the native direction local.
+    // CP523-524: the first unbound nonnegative-ID Forming2D template proves
+    // graphics height at least 189. Later unbound IDs may have either sign;
+    // distinct targets avoid the native direction local.
     bool positiveTallDirectCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() >= 2 && flow.items.size() <= 7 &&
-        cellInputs.size() == flow.items.size() &&
+        cellInputs.size() == flow.items.size() && flow.items[0] &&
+        flow.items[0]->opId >= 0 &&
         std::all_of(flow.items.begin(), flow.items.end(), [&project](const auto& item) {
             return item && !item->group && item->className == L("SfOprForming2D") &&
-                item->opId >= 0 && operationById(project, item->opId) == nullptr;
+                operationById(project, item->opId) == nullptr;
         });
     if (positiveTallDirectCandidate) {
         std::set<int> targets;
