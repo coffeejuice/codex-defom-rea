@@ -451,7 +451,12 @@ class ExactWorkerHandoff:
             if status == 258:
                 return "active"
             if status == 0:
-                return "signaled"
+                code = abi.DWORD()
+                try:
+                    self._ok("GetExitCodeProcess", process, C.byref(code))
+                except BaseException:
+                    return "signaled"
+                return f"exit_{int(code.value) & 0xFFFFFFFF}"
             return "unavailable"
         except BaseException:
             return "unavailable"

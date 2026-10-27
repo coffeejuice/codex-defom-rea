@@ -55,6 +55,8 @@ class Harness:
         self.output_override = None
         self.outer_flags = m.creator.KILL_ON_CLOSE
         self.success_exit_code = 0
+        self.exit_query_raise = False
+        self.exit_query_fail = False
         self.success_wait_status = None
         self.wait_raise = False
         self.success_active = None
@@ -190,6 +192,10 @@ class Harness:
             return 0 if self.dead or self.bad == "wait" else 258
         elif name == "GetExitCodeProcess":
             assert args[0] == 81
+            if self.exit_query_raise:
+                raise RuntimeError("injected exit query exception")
+            if self.exit_query_fail:
+                return 0
             out(args[1], m.abi.DWORD, self.success_exit_code)
         elif name == "PeekNamedPipe":
             out(args[4], m.abi.DWORD, int(self.bad == "trailing"))
@@ -802,7 +808,7 @@ class HandoffTests(unittest.TestCase):
         self.assertTrue(h.owner.termination_confirmed)
 
     def test_failure_only_worker_wait_snapshot_statuses_are_inert(self):
-        for status, expected in ((258, "active"), (0, "signaled"),
+        for status, expected in ((258, "active"), (0, "exit_0"),
                                  (0xFFFFFFFF, "unavailable")):
             with self.subTest(status=status):
                 h = Harness()
@@ -814,13 +820,57 @@ class HandoffTests(unittest.TestCase):
                 before = len(h.calls)
                 self.assertEqual(h.owner.diagnostic_worker_wait(), expected)
                 calls = h.calls[before:]
-                self.assertEqual(len(calls), 1)
+                self.assertEqual(len(calls), 1 if status != 0 else 2)
                 self.assertEqual(calls[0][0], "WaitForSingleObject")
                 self.assertEqual(calls[0][1], (81, 0))
+                if status == 0:
+                    self.assertEqual(calls[1][0], "GetExitCodeProcess")
+                    self.assertEqual(calls[1][1][0], 81)
                 self.assertEqual(h.owner.phase, phase)
                 self.assertEqual(h.owner._owned_outputs, owned)
                 self.assertEqual(h.closed, [])
                 self.assertFalse(h.owner.termination_confirmed)
+
+    def test_worker_wait_snapshot_reports_unsigned_exit_code_and_query_failures(self):
+        for code, expected in ((0xE329, "exit_58153"), (7, "exit_7"),
+                               (0xFFFFFFFF, "exit_4294967295")):
+            with self.subTest(code=code):
+                h = Harness()
+                h.run()
+                h.dead = True
+                h.success_exit_code = code
+                before = len(h.calls)
+                self.assertEqual(h.owner.diagnostic_worker_wait(), expected)
+                self.assertEqual([name for name, _ in h.calls[before:]],
+                                 ["WaitForSingleObject", "GetExitCodeProcess"])
+                self.assertEqual(h.calls[-1][1][0], 81)
+                self.assertEqual(h.owner.phase, "acknowledged")
+                self.assertEqual(h.owner._owned_outputs["worker_process"], 81)
+                self.assertEqual(h.closed, [])
+
+        for fault in ("failure", "exception"):
+            with self.subTest(fault=fault):
+                h = Harness()
+                h.run()
+                h.dead = True
+                if fault == "failure":
+                    h.exit_query_fail = True
+                else:
+                    h.exit_query_raise = True
+                before = len(h.calls)
+                self.assertEqual(h.owner.diagnostic_worker_wait(), "signaled")
+                self.assertEqual([name for name, _ in h.calls[before:]],
+                                 ["WaitForSingleObject", "GetExitCodeProcess"])
+                self.assertEqual(h.owner.phase, "acknowledged")
+                self.assertEqual(h.owner._owned_outputs["worker_process"], 81)
+                self.assertEqual(h.closed, [])
+
+    def test_active_worker_wait_does_not_query_exit_code(self):
+        h = Harness()
+        h.run()
+        before = len(h.calls)
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "active")
+        self.assertEqual(h.calls[before:], [("WaitForSingleObject", (81, 0))])
 
     def test_worker_wait_snapshot_handles_failures_and_checks_custody(self):
         h = Harness()
@@ -857,6 +907,20 @@ class HandoffTests(unittest.TestCase):
         self.assertEqual(h.calls[before:], [("WaitForSingleObject", (81, 0))])
         self.assertEqual(h.owner.phase, "acknowledged")
         self.assertFalse(h.owner.termination_confirmed)
+
+        h = Harness()
+        h.run()
+        h.pipe.held = True
+        h.pipe.receipt = None
+        h.dead = True
+        h.success_exit_code = 0xE329
+        before = len(h.calls)
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "exit_58153")
+        self.assertEqual([name for name, _ in h.calls[before:]],
+                         ["WaitForSingleObject", "GetExitCodeProcess"])
+        self.assertEqual(h.owner.phase, "acknowledged")
+        self.assertEqual(h.owner._owned_outputs["worker_process"], 81)
+        self.assertEqual(h.closed, [])
 
         h = Harness()
         h.run()

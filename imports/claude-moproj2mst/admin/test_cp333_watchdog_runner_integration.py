@@ -522,7 +522,7 @@ class CompletionTests(unittest.TestCase):
         control = NS(exports=h.exports, deadline=500, phase="acknowledged",
             _channel_handles=(9, 11, 10, 12), _parent_read=10, _parent_write=9,
             _worker_success_released=False, _budget=lambda: None,
-            diagnostic_worker_wait=lambda: "active",
+            diagnostic_worker_wait=lambda: "exit_58153",
             _transfer=lambda kind, size: step("read-terminal", raw),
             observe_worker_success=lambda: step("observe-worker", True),
             release_worker_success=lambda: release_worker(),
@@ -588,7 +588,7 @@ class CompletionTests(unittest.TestCase):
         marker.assert_called_once_with(h.nonce, 500)
         self.assertEqual(str(caught.exception.__cause__), "absolute pipe deadline expired")
         self.assertEqual(stages[-4:], ["cp333_pipe_wait_retry_budget", "cp333_runner_result",
-            "cp333_worker_wait_active",
+            "cp333_worker_wait_exit_58153",
             "cp333_error:Hold:absolute pipe deadline expired"])
         self.assertFalse(owner._accepted_success)
 
@@ -604,7 +604,7 @@ class CompletionTests(unittest.TestCase):
                 owner.complete()
         self.assertEqual(str(caught.exception.__cause__), "absolute pipe deadline expired")
         self.assertEqual(stages[-3:], ["cp333_runner_unavailable",
-            "cp333_worker_wait_active",
+            "cp333_worker_wait_exit_58153",
             "cp333_error:Hold:absolute pipe deadline expired"])
         self.assertFalse(owner._accepted_success)
 

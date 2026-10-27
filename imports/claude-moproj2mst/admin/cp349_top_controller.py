@@ -220,12 +220,15 @@ def _child_trace_result(path):
         stage = row.get("stage") if type(row) is dict else None
         numeric = (re.fullmatch(r"cp334_h[01]_pipeflags_(0|[1-9][0-9]{0,9})",
                                 stage) if type(stage) is str else None)
+        worker_exit = (re.fullmatch(r"cp333_worker_wait_exit_(0|[1-9][0-9]{0,9})",
+                                     stage) if type(stage) is str else None)
         failure = (re.fullmatch(r"cp333_error:[A-Za-z_][A-Za-z0-9_]{0,39}:[ -~]{0,120}",
                                 stage) if type(stage) is str else None)
         if (type(row) is not dict or set(row) != {"stage"} or
                 type(stage) is not str or
                 (stage not in allowed and not failure and
-                 not (numeric and int(numeric.group(1)) <= 0xFFFFFFFF)) or
+                 not (numeric and int(numeric.group(1)) <= 0xFFFFFFFF) and
+                 not (worker_exit and int(worker_exit.group(1)) <= 0xFFFFFFFF)) or
                 len(result["stages"]) >= 40):
             result["status"] = "malformed"
             break

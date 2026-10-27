@@ -254,7 +254,7 @@ class TopTests(unittest.TestCase):
     def test_terminal_pipe_phase_and_primary_error_marker_are_schema_checked(self):
         stages = ["cp333_before_terminal_read", "cp333_pipe_wait_retry_budget",
                   "cp333_runner_result",
-                  "cp333_worker_wait_active",
+                  "cp333_worker_wait_exit_58153",
                   "cp333_error:Hold:absolute pipe deadline expired"]
         raw = b"".join((json.dumps({"stage": stage}, separators=(",", ":"))
                         + "\n").encode("ascii") for stage in stages)
@@ -267,6 +267,20 @@ class TopTests(unittest.TestCase):
                 result = m._child_trace_result(path)
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["stages"], stages)
+
+    def test_worker_exit_marker_requires_canonical_uint32(self):
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "e" * 32 + ".jsonl")
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                for value, expected in (("0", "valid"),
+                                        ("4294967295", "valid"),
+                                        ("00", "malformed"),
+                                        ("4294967296", "malformed")):
+                    stage = "cp333_worker_wait_exit_" + value
+                    path.write_bytes((json.dumps({"stage": stage}) + "\n").encode("ascii"))
+                    self.assertEqual(m._child_trace_result(path)["status"], expected)
 
     def test_child_trace_reader_accepts_bounded_primary_error_marker(self):
         stages = ["cp333_before_offer_ack",

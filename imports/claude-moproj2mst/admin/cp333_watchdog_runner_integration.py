@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import ctypes as C
 from dataclasses import dataclass, field
+import re
 import secrets
 
 import cp321_native_exports as abi
@@ -272,7 +273,10 @@ class WatchdogIntegration:
                         worker_wait = self.handoff.diagnostic_worker_wait()
                     except BaseException:
                         worker_wait = "unavailable"
-                    if worker_wait in ("active", "signaled", "unavailable"):
+                    exit_code = (re.fullmatch(r"exit_(0|[1-9][0-9]{0,9})", worker_wait)
+                                 if type(worker_wait) is str else None)
+                    if (worker_wait in ("active", "signaled", "unavailable") or
+                            (exit_code and int(exit_code.group(1)) <= 0xFFFFFFFF)):
                         self._mark(f"cp333_worker_wait_{worker_wait}")
                 kind = type(error).__name__[:40]
                 message = "".join(ch if 32 <= ord(ch) <= 126 else "?"
