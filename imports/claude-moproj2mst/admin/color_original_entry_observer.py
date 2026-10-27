@@ -177,7 +177,7 @@ class HandleLedger:
         del self.live[handle]
 
 
-def run_harmless(mode='normal'):
+def run_harmless(mode='normal', *, _supervision=None):
     if mode not in MODES:
         raise ValueError('fixed harmless mode required')
     if os.name != 'nt' or C.sizeof(abi.P) != 8:
@@ -278,6 +278,8 @@ def run_harmless(mode='normal'):
         if ev.pid != pi.pid:
             raise RuntimeError('foreign event')
         resources()
+        if _supervision:
+            _supervision('event-held', dict(row, disposition=hex(disposition)))
         return True
 
     def terminate():
@@ -288,9 +290,13 @@ def run_harmless(mode='normal'):
                 raise RuntimeError('owned termination failed')
 
     try:
+        if _supervision:
+            _supervision('created-before-explicit-kill-policy', dict(pid=pi.pid, primaryTid=pi.tid))
         abi.check(abi.duplicate(abi.current(), pi.process, abi.current(), C.byref(retained), 0, False, 2))
         ledger.own(retained.value, 'retained-process', 'manual')
         abi.check(abi.killonexit(True))
+        result['explicitKillOnExitChecked'] = True
+        result['defaultKillOnExitWindow'] = 'CreateProcess to checked explicit call; documented default TRUE'
         image, length = C.create_unicode_buffer(32768), abi.D(32768)
         abi.check(abi.queryimage(retained, 0, image, C.byref(length)))
         if Path(image.value).resolve() != Path(sys.executable).resolve():
@@ -298,6 +304,13 @@ def run_harmless(mode='normal'):
         times = [abi.U64() for _ in range(4)]
         abi.check(abi.gettimes(retained, *(C.byref(t) for t in times)))
         result.update(image=image.value, creationFiletime=str(times[0].value))
+        if _supervision:
+            acknowledgement = _supervision('child-handle-offer', dict(
+                handle=pi.process, pid=pi.pid, primaryTid=pi.tid, image=image.value,
+                creationFiletime=str(times[0].value), explicitKillOnExitChecked=True))
+            if acknowledgement is not True:
+                raise RuntimeError('supervisor child identity acknowledgement required')
+            result['independentSupervisorEstablished'] = True
         observation_started = time.monotonic()
         previous = abi.api('ResumeThread', abi.D, [abi.P])(pi.thread)
         result.update(resumePreviousCount=previous,
@@ -398,6 +411,8 @@ def run_harmless(mode='normal'):
                         result['entryQualified'] = all(checks.values())
                         if not result['entryQualified']:
                             raise RuntimeError('entry predicates failed')
+                        if _supervision:
+                            _supervision('selected-entry-held', dict(row, disposition=hex(disposition)))
                         terminate()  # helper's first instruction never executes in this mode
                 exception['disposition'] = hex(disposition)
                 if not ex.first:
