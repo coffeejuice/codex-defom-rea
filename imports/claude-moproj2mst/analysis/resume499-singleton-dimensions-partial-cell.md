@@ -1,0 +1,7 @@
+# CP499 singleton dimensions and partial CellPos
+
+The selected original parser/model route now admits finite signed model RectF width/height and a partial `-1` CellPos for one initially unlinked nongroup Forming2D item in an empty chart. Native recomputation overwrites both CellPos coordinates when either is `-1`; relayout moves only x/y, retaining width/height bitwise. The shared two-item collision gate remains missing/full-sentinel only. Duplicate CellPos elements use the final parsed occurrence, matching the original setter and avoiding an incorrect admission decision.
+
+Independent source review, focused preflight and full build passed. The bound launcher registered 387 tests: 380 clean, six passed with logged gaps, one passed with logged differences, zero failed/skipped/incomplete and no fixture changes; execution binding stayed stable. Historical Save comparison remains 93 SAME/five DIFF. Focused `m2m.p03.subproject` passed 27 cases. Build source tree SHA-256 `836279cdde3045e7f60e5252d071eaab957eafb2c37d1a7113b0c411ee46c394`; frozen candidate `build/cp499-verified`, with full receipts in `analysis/cp499-build.json`, `analysis/cp499-tests.json`, and `analysis/cp499-validation.json`.
+
+This is a selected static parser/model projection. It does not establish native Qt notification effects, fresh original Open/Save/Close parity, or closure of other guarded branches. CP500 is the next source-closed explicit valid CellPos singleton increment.

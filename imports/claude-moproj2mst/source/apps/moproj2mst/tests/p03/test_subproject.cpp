@@ -5,6 +5,8 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
+#include <cstring>
 
 #include "m2m/model.hpp"
 #include "m2m/xml.hpp"
@@ -148,6 +150,95 @@ TEST_CASE(singleton_forming2d_cell_selection_relayouts_rectf)
     REQUIRE(p.subs[0]->flow.items.size() == 1u);
     CHECK_EQ(p.subs[0]->flow.items[0]->rect[0], 0.0); CHECK_EQ(p.subs[0]->flow.items[0]->rect[1], 0.0);
     CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+}
+
+TEST_CASE(singleton_partial_cellpos_relayouts_signed_rectf_dimensions)
+{
+    struct Case { const char* cell; const char* width; const char* height; const char* x; const char* y; int col; };
+    const Case cases[] = {
+        {"<CellPos Row=\"-1\" Col=\"0\"/>", "3.25", "-4.5", "205", "10", 1},
+        {"<CellPos Row=\"0\" Col=\"0\"/><CellPos Row=\"-1\" Col=\"5\"/>", "3.25", "4.5", "102.49999999999999", "67.49999999999999", 0},
+        {"<CellPos Row=\"-1\" Col=\"0\"/>", "3.25", "4.5", "102.5", "-25.000000000000004", 1},
+        {"<CellPos Row=\"-1\" Col=\"5\"/>", "3.25", "4.5", "102.50000000000001", "-25", 1},
+        {"<CellPos Row=\"-1\" Col=\"5\"/>", "-3.25", "4.5", "410", "20", 2},
+        {"<CellPos Row=\"0\" Col=\"-1\"/>", "4.5", "-3.25", "615", "30", 3},
+        {"<CellPos Row=\"0\" Col=\"-1\"/>", "-4.5", "0", "717.5", "30", 4},
+        {"<CellPos Row=\"5\" Col=\"-1\"/>", "-4.5", "3.25", "820", "40", 4},
+        {"<CellPos Row=\"-1\" Col=\"5\"/>", "-4.5", "-3.25", "922.5", "5", 5},
+        {"<CellPos Row=\"0\" Col=\"-1\"/>", "3.25", "4.5", "-61", "-26", 0},
+        {"<CellPos Row=\"-1\" Col=\"0\"/>", "4.9406564584124654e-324", "-1.7976931348623157e+308", "102.5", "0", 1},
+        {"<CellPos Row=\"0\" Col=\"-1\"/>", "1.7976931348623157e+308", "-4.9406564584124654e-324", "1127.5", "0", 6},
+    };
+    for (const Case& sample : cases) {
+        Project p; p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>") +
+            sample.x + "</x><y>" + sample.y + "</y><width>" + sample.width + "</width><height>" + sample.height +
+            "</height></RectF>" + sample.cell + "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 1u);
+        const FlowItem& item = *items[0];
+        CHECK_EQ(item.row, 0); CHECK_EQ(item.col, sample.col);
+        CHECK_EQ(item.rect[0], 205.0 * sample.col); CHECK_EQ(item.rect[1], 0.0);
+        CHECK_BITS(item.rect[2], std::strtod(sample.width, nullptr));
+        CHECK_BITS(item.rect[3], std::strtod(sample.height, nullptr));
+        CHECK(item.prev == nullptr); CHECK(item.next == nullptr);
+        CHECK_EQ(item.opId, 73); CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+    }
+    // CellPos missing and fully sentinel remain accepted with nonzero signed dimensions.
+    for (const char* cell : {"", "<CellPos Row=\"-1\" Col=\"-1\"/>"}) {
+        Project p; p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>307.5</x><y>0</y><width>-0.0</width><height>1.25</height></RectF>" + cell + "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 1u);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 2);
+        CHECK_EQ(items[0]->rect[0], 410.0); CHECK_EQ(items[0]->rect[1], 0.0);
+        CHECK_BITS(items[0]->rect[2], -0.0); CHECK_BITS(items[0]->rect[3], 1.25);
+        CHECK(items[0]->prev == nullptr); CHECK(items[0]->next == nullptr);
+        CHECK_EQ(items[0]->opId, 73); CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+    }
+}
+
+TEST_CASE(singleton_explicit_valid_cellpos_relayouts_rectf)
+{
+    struct Case { int col; const char* x; const char* y; const char* width; const char* height; };
+    const Case cases[] = {
+        {0,"1025","50","3.25","-4.5"}, {1,"0","20","-3.25","4.5"},
+        {2,"1127.5","0","4.9406564584124654e-324","-1.7976931348623157e+308"},
+        {3,"0","67.49999999999999","1.7976931348623157e+308","-4.9406564584124654e-324"},
+        {4,"102.5","10","-0.0","0"}, {5,"0","0","-8","9"}, {6,"0","1","7","-6"}};
+    for (const Case& sample : cases) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>") +
+            sample.x + "</x><y>" + sample.y + "</y><width>" + sample.width + "</width><height>" + sample.height +
+            "</height></RectF><CellPos Row=\"0\" Col=\"" + std::to_string(sample.col) + "\"/></DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 1u);
+        const FlowItem& item = *items[0];
+        CHECK_EQ(item.row, 0); CHECK_EQ(item.col, sample.col);
+        CHECK_EQ(item.rect[0], 205.0 * sample.col); CHECK_EQ(item.rect[1], 0.0);
+        CHECK_BITS(item.rect[2], std::strtod(sample.width, nullptr));
+        CHECK_BITS(item.rect[3], std::strtod(sample.height, nullptr));
+        CHECK(item.prev == nullptr); CHECK(item.next == nullptr);
+        CHECK_EQ(item.opId, 73); CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+    }
+    // The final duplicate CellPos controls the explicit selection.
+    Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+    const std::string source = "<Sub_Project><DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>1025</x><y>0</y><width>-2</width><height>3</height></RectF>"
+        "<CellPos Row=\"0\" Col=\"1\"/><CellPos Row=\"0\" Col=\"5\"/></DiagramItem></Sub_Project>";
+    xml::Document doc; String error; int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+    Ctx ctx; parseSubProject(p, *doc.root, ctx);
+    REQUIRE(p.subs[0]->flow.items.size() == 1u);
+    CHECK_EQ(p.subs[0]->flow.items[0]->row, 0); CHECK_EQ(p.subs[0]->flow.items[0]->col, 5);
+    CHECK_EQ(p.subs[0]->flow.items[0]->rect[0], 1025.0);
 }
 
 TEST_CASE(cellpos_minus_one_column_rounding_and_clamps)
@@ -375,17 +466,17 @@ TEST_CASE(two_item_left_one_nearby_profiles_do_not_enter_cp495_route)
     struct Case { const char* name; int ax; int ay; int bx; int by; int bw; int bh; const char* aCell; const char* bCell; int aNext; int bNext; const char* bClass; };
     const Case cases[] = {
         {"reversed origin", 1, 0, 0, 0, 0, 0, "", "", -1, -1, "SfOprForming2D"},
-        {"nonzero top", 0, 0, 1, 1, 0, 0, "", "", -1, -1, "SfOprForming2D"},
         {"nonzero width", 0, 0, 1, 0, 1, 0, "", "", -1, -1, "SfOprForming2D"},
         {"nonzero height", 0, 0, 1, 0, 0, 1, "", "", -1, -1, "SfOprForming2D"},
         {"forward linked", 0, 0, 1, 0, 0, 0, "", "", 1, -1, "SfOprForming2D"},
         {"reverse linked", 0, 0, 1, 0, 0, 0, "", "", -1, 0, "SfOprForming2D"},
         {"self linked", 0, 0, 1, 0, 0, 0, "", "", 0, -1, "SfOprForming2D"},
-        {"partial A cell", 0, 0, 1, 0, 0, 0, "<CellPos Row=\"-1\" Col=\"0\"/>", "", -1, -1, "SfOprForming2D"},
         {"valid A cell", 0, 0, 1, 0, 0, 0, "<CellPos Row=\"0\" Col=\"0\"/>", "", -1, -1, "SfOprForming2D"},
         {"other class", 0, 0, 1, 0, 0, 0, "", "", -1, -1, "SfOprForming"},
     };
     for (const Case& c : cases) {
+        // CP501 accepts finite signed dimensions; selected-result coverage is below.
+        if (std::string(c.name) == "nonzero width" || std::string(c.name) == "nonzero height") continue;
         Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
         std::string source = "<Sub_Project>";
         for (int i = 0; i < 2; ++i) {
@@ -503,7 +594,11 @@ TEST_CASE(two_cellless_free_column_pair_relayouts_half_up_interval)
 {
     const char* values[] = {"102.5", "103", "204.99999999999997", "205",
                             "205.00000000000003", "307.49999999999994"};
-    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>"};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"5\"/>", "<CellPos Row=\"5\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"-2147483648\"/>", "<CellPos Row=\"2147483647\" Col=\"-1\"/>",
+        "<CellPos Row=\"0\" Col=\"0\"/><CellPos Row=\"-1\" Col=\"5\"/>"};
     for (const char* x : values) for (const char* aCell : cells) for (const char* bCell : cells) {
         Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
         const std::string source =
@@ -553,7 +648,9 @@ TEST_CASE(two_cellless_free_column_gap_pair_relayouts_columns_two_through_six)
         {"922.4999999999999", 4}, {"922.5", 5}, {"922.5000000000001", 5}, {"1025", 5},
         {"1127.4999999999998", 5}, {"1127.5", 6}, {"1127.5000000000002", 6}, {"1230", 6},
         {"1332.4999999999998", 6}};
-    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>"};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"5\"/>", "<CellPos Row=\"5\" Col=\"-1\"/>",
+        "<CellPos Row=\"0\" Col=\"0\"/><CellPos Row=\"-1\" Col=\"5\"/>"};
     for (const Sample& sample : samples) for (const char* aCell : cells) for (const char* bCell : cells) {
         Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
         const std::string source =
@@ -717,6 +814,175 @@ TEST_CASE(eight_cellless_items_keep_seven_column_guard)
     catch (const Error& e) { refused = e.code == M2M_E_UNSUPPORTED &&
         std::string(e.what()).find("on an occupied cell (0x14015b610)") != std::string::npos; }
     CHECK(refused);
+}
+
+TEST_CASE(two_item_signed_rect_dimensions_survive_native_cell_placement)
+{
+    struct Sample { const char* x; const char* w; const char* h; int col; bool linked; };
+    const Sample samples[] = {
+        {"1", "1", "1", 1, true},
+        {"102.49999999999999", "-1", "-1", 1, true},
+        {"102.5", "-0", "-1", 1, true},
+        {"307.49999999999994", "0", "0", 1, true},
+        {"307.49999999999994", "4.9406564584124654e-324", "-4.9406564584124654e-324", 1, true},
+        {"307.5", "-1.25", "1.7976931348623157e308", 2, false},
+        {"512.5", "-1.7976931348623157e308", "2.2250738585072014e-308", 3, false},
+        {"717.5", "1", "-1", 4, false},
+        {"922.5", "0", "-0", 5, false},
+        {"1127.5", "-0", "0", 6, false},
+        {"1332.4999999999998", "1.7976931348623157e308", "-0", 6, false},
+    };
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"5\"/>", "<CellPos Row=\"5\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"-2147483648\"/>", "<CellPos Row=\"2147483647\" Col=\"-1\"/>",
+        "<CellPos Row=\"0\" Col=\"0\"/><CellPos Row=\"-1\" Col=\"5\"/>"};
+    for (const Sample& sample : samples) for (const char* aCell : cells) for (const char* bCell : cells) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + aCell + "</DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" + sample.x +
+            "</x><y>0</y><width>" + sample.w + "</width><height>" + sample.h + "</height></RectF>" + bCell +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 0);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, sample.col);
+        CHECK_EQ(items[1]->rect[0], 205.0 * sample.col); CHECK_EQ(items[1]->rect[1], 0.0);
+        double expectedW = std::strtod(sample.w, nullptr), expectedH = std::strtod(sample.h, nullptr);
+        std::uint64_t expectedWBits, expectedHBits, actualWBits, actualHBits;
+        std::memcpy(&expectedWBits, &expectedW, sizeof expectedWBits);
+        std::memcpy(&expectedHBits, &expectedH, sizeof expectedHBits);
+        std::memcpy(&actualWBits, &items[1]->rect[2], sizeof actualWBits);
+        std::memcpy(&actualHBits, &items[1]->rect[3], sizeof actualHBits);
+        CHECK_EQ(actualWBits, expectedWBits); CHECK_EQ(actualHBits, expectedHBits);
+        for (int j = 0; j < 4; ++j) CHECK_EQ(items[0]->rect[j], 0.0);
+        CHECK(items[0]->next == (sample.linked ? items[1].get() : nullptr));
+        CHECK(items[1]->prev == (sample.linked ? items[0].get() : nullptr));
+        CHECK(items[1]->next == nullptr); CHECK(items[0]->prev == nullptr);
+        CHECK(mstOrder(*p.subs[0]) == (sample.linked ? std::vector<int>({41, 73}) : std::vector<int>({41})));
+    }
+}
+
+TEST_CASE(two_item_signed_dimension_route_exclusion_controls)
+{
+    struct Control { const char* name; const char* aw; const char* bw; const char* bh;
+                     const char* bCell; const char* bx; };
+    const Control controls[] = {
+        {"nonfinite width", "0", "nan", "0", "", "1"},
+        {"nonfinite height", "0", "0", "inf", "", "1"},
+        {"nonzero A dimensions", "1", "0", "0", "", "1"},
+        {"exact upper x endpoint", "0", "0", "0", "", "1332.5"},
+    };
+    for (const Control& c : controls) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>" + c.aw + "</width><height>0</height></RectF></DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" + c.bx +
+            "</x><y>0</y><width>" + c.bw + "</width><height>" + c.bh + "</height></RectF>" + c.bCell +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool excluded = false;
+        try { parseSubProject(p, *doc.root, ctx); }
+        catch (const Error& e) { excluded = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(excluded);
+    }
+}
+
+TEST_CASE(two_item_partial_cell_route_keeps_final_non_sentinel_A_outside_selection)
+{
+    const char* excludedCells[] = {
+        "<CellPos Row=\"-1\" Col=\"5\"/><CellPos Row=\"0\" Col=\"0\"/>",
+        "<CellPos Row=\"-2\" Col=\"0\"/>"};
+    for (const char* aCell : excludedCells) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + aCell + "</DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>" +
+            "<RectF><x>1</x><y>0</y><width>2</width><height>-3</height></RectF></DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool excluded = false;
+        try {
+            parseSubProject(p, *doc.root, ctx);
+            const auto& items = p.subs[0]->flow.items;
+            REQUIRE(items.size() == 2u);
+            excluded = !(items[1]->row == 0 && items[1]->col == 1 && items[1]->rect[0] == 205.0 &&
+                         items[0]->next == items[1].get() && items[1]->prev == items[0].get());
+        } catch (const Error& e) { excluded = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(excluded);
+    }
+}
+
+TEST_CASE(two_item_nonzero_top_relayouts_with_populated_row_zero)
+{
+    struct XSample { const char* x; int col; bool linked; };
+    const XSample xs[] = {{"1", 1, true}, {"102.49999999999999", 1, true},
+        {"102.5", 1, true}, {"307.49999999999994", 1, true},
+        {"307.5", 2, false}, {"512.49999999999994", 2, false},
+        {"512.5", 3, false}, {"717.4999999999999", 3, false},
+        {"717.5", 4, false}, {"922.4999999999999", 4, false},
+        {"922.5", 5, false}, {"1127.4999999999998", 5, false},
+        {"1127.5", 6, false}, {"1332.4999999999998", 6, false}};
+    const char* ys[] = {"-1.7976931348623157e308", "-4.9406564584124654e-324",
+                        "-25.000000000000004", "-25", "-24.999999999999996",
+                        "67.49999999999999", "67.5", "67.50000000000001",
+                        "100", "159.99999999999997"};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"5\"/>", "<CellPos Row=\"5\" Col=\"-1\"/>"};
+    for (const XSample& sample : xs) for (const char* y : ys)
+        for (const char* aCell : cells) for (const char* bCell : cells) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + aCell + "</DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" + sample.x +
+            "</x><y>" + y + "</y><width>2.5</width><height>-3.25</height></RectF>" + bCell +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 0);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, sample.col);
+        for (int i = 0; i < 4; ++i) CHECK_EQ(items[0]->rect[i], 0.0);
+        CHECK_EQ(items[1]->rect[0], 205.0 * sample.col); CHECK_BITS(items[1]->rect[1], 0.0);
+        CHECK_BITS(items[1]->rect[2], 2.5); CHECK_BITS(items[1]->rect[3], -3.25);
+        CHECK(items[0]->prev == nullptr); CHECK(items[1]->next == nullptr);
+        CHECK(items[0]->next == (sample.linked ? items[1].get() : nullptr));
+        CHECK(items[1]->prev == (sample.linked ? items[0].get() : nullptr));
+        CHECK(mstOrder(*p.subs[0]) == (sample.linked ? std::vector<int>({41, 73}) : std::vector<int>({41})));
+    }
+    // Exact 160 is outside the shared row-zero cut, even though taller native graphics may admit it.
+    Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+    const std::string source = "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+        "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>1</x><y>160</y><width>2.5</width><height>-3.25</height></RectF></DiagramItem></Sub_Project>";
+    xml::Document doc; String error; int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+    Ctx ctx; bool guarded = false;
+    try { parseSubProject(p, *doc.root, ctx); }
+    catch (const Error& e) { guarded = e.code == M2M_E_UNSUPPORTED; }
+    CHECK(guarded);
+    for (const char* invalidY : {"nan", "inf", "-inf"}) {
+        Project invalid; makeRegistry(invalid); invalid.subs.push_back(makeSubProject(invalid, 0, 0));
+        const std::string invalidSource = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>1</x><y>" +
+            invalidY + "</y><width>2.5</width><height>-3.25</height></RectF></DiagramItem></Sub_Project>";
+        xml::Document invalidDoc; String invalidError; int invalidLine = 0, invalidCol = 0;
+        REQUIRE(xml::setContent(invalidDoc, invalidSource, &invalidError, &invalidLine, &invalidCol));
+        REQUIRE(invalidDoc.root != nullptr);
+        Ctx invalidCtx; bool invalidGuarded = false;
+        try { parseSubProject(invalid, *invalidDoc.root, invalidCtx); }
+        catch (const Error& e) { invalidGuarded = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(invalidGuarded);
+    }
 }
 
 TEST_CASE(nonempty_initial_chart_does_not_enter_cell_recurrence)

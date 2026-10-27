@@ -420,18 +420,19 @@ void parseSubProject(Project& p, const xml::Node& e, Ctx& ctx)
 // up of x / 205, row 0x14014dfa0 from the row list), which the editor stores back in the item.
 void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty)
 {
-    struct CellInput { bool missing = true; bool selected = true; };
+    struct CellInput { bool missing = true; bool selected = true; int row = -1; int col = -1; };
     std::vector<CellInput> cellInputs;
     for (const xml::Node* c : e.childElements()) {
         if (c->tag != L("DiagramItem")) continue;
-        bool given = false, eligible = true;
+        bool given = false;
+        int inputRow = -1, inputCol = -1;
         for (const xml::Node* g : c->childElements())
             if (g->tag == L("CellPos")) {
                 given = true;
-                eligible = qt::toInt(g->attribute(L("Row"))) == -1 &&
-                            qt::toInt(g->attribute(L("Col"))) == -1;
+                inputRow = qt::toInt(g->attribute(L("Row")));
+                inputCol = qt::toInt(g->attribute(L("Col")));
             }
-        cellInputs.push_back({!given, !given || eligible});
+        cellInputs.push_back({!given, !given || (inputRow == -1 && inputCol == -1), inputRow, inputCol});
     }
     std::set<std::pair<int, int>> used;
     bool row0 = false;
@@ -440,10 +441,18 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         return item && item->next == nullptr && item->prev == nullptr;
     });
     const bool singletonRelayoutCandidate = initiallyEmpty && flow.items.size() == 1 &&
-        cellInputs.size() == 1 && cellInputs[0].selected && initiallyUnlinked && flow.items[0] &&
+        cellInputs.size() == 1 &&
+        (cellInputs[0].missing || cellInputs[0].row == -1 || cellInputs[0].col == -1) && initiallyUnlinked && flow.items[0] &&
         !flow.items[0]->group && flow.items[0]->className == L("SfOprForming2D") &&
         std::isfinite(flow.items[0]->rect[0]) && std::isfinite(flow.items[0]->rect[1]) &&
-        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
+        flow.items[0]->rect[0] < 1332.5 && flow.items[0]->rect[1] < 67.5;
+    const bool singletonExplicitCellCandidate = initiallyEmpty && flow.items.size() == 1 &&
+        cellInputs.size() == 1 && !cellInputs[0].missing && cellInputs[0].row == 0 &&
+        cellInputs[0].col >= 0 && cellInputs[0].col <= 6 && initiallyUnlinked && flow.items[0] &&
+        !flow.items[0]->group && flow.items[0]->className == L("SfOprForming2D") &&
+        std::isfinite(flow.items[0]->rect[0]) && std::isfinite(flow.items[0]->rect[1]) &&
+        std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
         flow.items[0]->rect[0] < 1332.5 && flow.items[0]->rect[1] < 67.5;
     const bool initialForwardPair = flow.items.size() == 2 && flow.items[0] && flow.items[1] &&
         flow.items[0]->prev == nullptr && flow.items[0]->next == flow.items[1].get() &&
@@ -461,13 +470,16 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
     // either by collision insertion or directly in a free column. Keep the
     // original geometry snapshot before B moves.
     const bool nonzeroPairCandidate = flow.items.size() == 2 && cellInputs.size() == 2 &&
-        std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) { return input.selected; }) &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
+            return input.missing || input.row == -1 || input.col == -1;
+        }) &&
         initiallyEmpty && initiallyUnlinked && flow.items[0] && flow.items[1] &&
         !flow.items[0]->group && !flow.items[1]->group &&
         flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
         flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 && flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
         std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] > 0.0 && flow.items[1]->rect[0] < 1332.5 &&
-        flow.items[1]->rect[1] == 0.0 && flow.items[1]->rect[2] == 0.0 && flow.items[1]->rect[3] == 0.0;
+        std::isfinite(flow.items[1]->rect[1]) && flow.items[1]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]);
     const bool freeColumnPairCandidate = initiallyEmpty && initiallyUnlinked && cellInputs.size() == 2 &&
         flow.items.size() == 2 && nonzeroPairCandidate && flow.items[1]->rect[0] >= 102.5;
     const bool negativeEightCandidate = initiallyEmpty && flow.items.size() == 8 &&
@@ -522,6 +534,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.row = 0;
                     it.col = 1;
                     it.rect[0] = 205.0;
+                    it.rect[1] = 0.0;
                 } else {
                     throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos on an occupied cell (0x14015b610)");
                 }
@@ -537,11 +550,14 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.rect[1] = 0.0;
                 }
             }
+        } else if (singletonExplicitCellCandidate) {
+            it.rect[0] = 205.0 * it.col;
+            it.rect[1] = 0.0;
         }
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;
     }
-    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate || singletonRelayoutCandidate) {
+    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate || singletonRelayoutCandidate || singletonExplicitCellCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.

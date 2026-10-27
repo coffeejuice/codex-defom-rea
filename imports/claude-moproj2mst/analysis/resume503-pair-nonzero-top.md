@@ -1,0 +1,7 @@
+# CP503 two-item nonzero top
+
+The selected original parser/model pair route now accepts finite B top `y<160`, including negative values clamped below -25. With A already installed, native row lookup uses the populated row0 minimum height185; this differs from singleton empty-table rounding. For the selected x intervals, B moves to row0 origin top+0, preserving parsed signed dimensions and the previously qualified adjacent/gap graph. Exact y160 stays outside the common gate because taller graphics can admit it.
+
+Independent PE audit and source review found no implementation defect. The initial source-stable focused/full build passed but was not frozen while reviewers requested more boundary and nonfinite-y controls. Corrected CP503r focused/full build and bound launcher registered 387 tests: 380 clean, six with logged gaps, one with logged differences, zero failed/skipped/incomplete, no fixture changes and stable binding. Historical Save remains 93 SAME/five DIFF. Focused `m2m.p03.subproject` passed 32 cases. Corrected build source SHA-256 `2501c4e1940726c3dfb2e5de322bfb4ce1c867634eeac27b54caafa4e852fe5a`; frozen `build/cp503-verified`. Receipts: `analysis/cp503-build.json`, `analysis/cp503r-build.json`, `analysis/cp503r-tests.json`, `analysis/cp503-validation.json`.
+
+This is selected static parser/model behavior. Native notifications, fresh Open/Save/Close parity and other guarded branches remain unresolved. CP504 is the next independently PE-bound distinct explicit valid-cell pair route.

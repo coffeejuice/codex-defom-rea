@@ -1,0 +1,7 @@
+# CP501 two-item signed RectF dimensions
+
+The selected original parser/model route now preserves B's parsed finite signed width/height through two-item Forming2D placement and relayout. The previously qualified x intervals, connected adjacent graph and disconnected gap graph remain; A's RectF stays zero and shared CellPos gates stay narrow. Independent PE audit and source review qualified the selected gate.
+
+The first focused build failed a test-only compile: an older singleton loop had been accidentally changed to pair loop variables, leaving `cell` undefined. Root restored that loop, then the corrected source-stable focused/full build passed. The bound launcher registered 387 tests: 380 clean, six with logged gaps, one with logged differences, zero failed/skipped/incomplete, no fixture changes and stable execution binding. Historical Save remains 93 SAME/five DIFF. Focused `m2m.p03.subproject` passed 30 cases. Corrected build source SHA-256 `f5daf004f6693c1d19d4041a8674d6f13e8823b4fd5dacb746c0a4ce10b6a23f`; `build/cp501-verified` freezes it. Receipts: `analysis/cp501-build.json` for the failed preflight, `analysis/cp501r-build.json`, `analysis/cp501r-tests.json`, `analysis/cp501-validation.json`.
+
+This is selected static parser/model behavior. Qt notification effects, fresh original Open/Save/Close parity and other guarded branches remain unresolved. CP502 is the next PE-qualified pair-specific partial -1 CellPos extension.

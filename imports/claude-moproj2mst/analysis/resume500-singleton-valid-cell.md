@@ -1,0 +1,7 @@
+# CP500 explicit valid singleton cell
+
+The selected original parser/model route now accepts a singleton ordinary Forming2D item whose final parsed CellPos is valid row0/col0..6. Native first admits the RectF-derived point, then honors that explicit cell rather than recomputing it. Final RectF moves to the requested grid origin with signed finite dimensions preserved; links remain null and singleton model/MST order stays unchanged. The source implements this as a separate snapshot gate and branch so CP499's partial-sentinel logic and the shared two-item gate remain unchanged.
+
+Independent review, focused preflight and full build passed. The bound launcher registered 387 tests: 380 clean, six passed with logged gaps, one with logged differences, zero failed/skipped/incomplete and no fixture changes; execution binding stayed stable. Historical Save comparison remains 93 SAME/five DIFF. Focused `m2m.p03.subproject` passed 28 cases. Build source tree SHA-256 `432cf9f5aa3f3926a48aaa750b8acd133754d45a99856e677deafab4a6ae8d14`; frozen candidate `build/cp500-verified`. Full receipts: `analysis/cp500-build.json`, `analysis/cp500-tests.json`, `analysis/cp500-validation.json`.
+
+The evidence is a selected static parser/model projection. Qt notifications, out-of-range complete failure, fresh original Open/Save/Close parity and other guarded branches remain unresolved. CP501 is the next independently PE-bound two-item finite signed dimension increment.

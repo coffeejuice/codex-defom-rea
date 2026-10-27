@@ -1,0 +1,5 @@
+# Efficiency review after CP499–501
+
+Measured successful build elapsed seconds: CP499 64.422 (configure11.750, focused build3.313, focused test0.656, full build48.703); CP500 62.250 (11.937+3.344+0.656+46.313); corrected CP501 63.906 (11.890+3.422+0.688+47.906). Bound launchers took 22.141, 22.781 and 21.359 seconds respectively. The initial CP501 test-only compile failure consumed an additional configure11.922 plus focused build1.797 seconds before diagnosis. These receipts establish stable current throughput, not an additional speedup claim; token expenditure was not measured.
+
+The focused preflight prevented a full build and launcher on the failed CP501 candidate. Source ownership and independent review remain useful but review missed a cross-test loop edit, so continue compiling every source-stable increment before integration. Keep the current focused-then-full launcher and immutable checkpoint freeze. Do not relax the original-evidence qualification or logged gap inspection to reduce elapsed time. Continue immediately to CP502.
