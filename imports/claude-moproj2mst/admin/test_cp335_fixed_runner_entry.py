@@ -18,6 +18,7 @@ class Stubs:
         self.events = []
         self.failure_completions = []
         self.counts = (None, None)
+        self.creation_pid = None
         self.census = ("not-attempted", None, None, None)
         self.exports = object()
         self.cleanup_ok = True
@@ -61,7 +62,8 @@ class Stubs:
                     result_outcome="not-attempted", peek_outcome="not-attempted",
                     ack_outcome="not-attempted", errors=[])
                 self.worker = SimpleNamespace(receipt=SimpleNamespace(
-                    phase="prepared-suspended", worker_waited=False, jobs_empty=False,
+                    phase="prepared-suspended", pid=state.creation_pid,
+                    worker_waited=False, jobs_empty=False,
                     worker_terminated=False, errors=[],
                     completion_worker_active_processes=state.counts[0],
                     completion_child_active_processes=state.counts[1],
@@ -286,6 +288,7 @@ class EntryTests(unittest.TestCase):
 
     def test_failure_receipt_preserves_bounded_cause_after_cleanup(self):
         state = Stubs()
+        state.creation_pid = 37656
         state.counts = (2, 3)
         state.census = ("changed", 2, 2, (412, 413))
         owner = self.run_stubs(state)
@@ -304,11 +307,20 @@ class EntryTests(unittest.TestCase):
         self.assertEqual(state.failure_completions[0][2]["worker"]
                          ["child_active_processes"], 3)
         worker = state.failure_completions[0][2]["worker"]
+        self.assertEqual(worker["creation_pid"], 37656)
         self.assertEqual((worker["worker_census_status"],
                           worker["worker_census_assigned"],
                           worker["worker_census_listed"],
                           worker["worker_census_pids"]),
                          ("changed", 2, 2, (412, 413)))
+
+    def test_failure_receipt_retains_missing_creation_pid_as_none(self):
+        state = Stubs()
+        owner = self.run_stubs(state)
+        with patch.object(state.Runner, "run", side_effect=RuntimeError("failure")):
+            with self.assertRaises(entry.EntryFailure):
+                owner.run()
+        self.assertIsNone(state.failure_completions[0][2]["worker"]["creation_pid"])
 
     def test_marker_failure_never_gates_success(self):
         state = Stubs()

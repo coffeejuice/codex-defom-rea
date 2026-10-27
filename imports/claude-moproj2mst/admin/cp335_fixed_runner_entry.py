@@ -161,6 +161,7 @@ class FixedRunnerEntry:
                         },
                         "worker": {
                             "phase": getattr(wr, "phase", None),
+                            "creation_pid": getattr(wr, "pid", None),
                             "wait_outcome": getattr(wr, "completion_wait_outcome", None),
                             "wait_remaining": getattr(wr, "completion_wait_remaining", None),
                             "wait_status": getattr(wr, "completion_wait_status", None),

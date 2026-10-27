@@ -10,10 +10,10 @@ import cp420_runner_progress as progress
 
 
 class ProgressTests(unittest.TestCase):
-    def test_cp438_failure_receipt_is_separate_bounded_and_one_use(self):
+    def test_cp440_failure_receipt_is_separate_bounded_and_one_use(self):
         nonce, deadline = b"q" * 32, 900
         self.assertRegex(progress.failure_path(nonce, deadline).name,
-                         r"^cp438-failure-[0-9a-f]{64}\.json$")
+                         r"^cp440-failure-[0-9a-f]{64}\.json$")
         self.assertNotEqual(progress.failure_path(nonce, deadline),
                             progress.path(nonce, deadline))
         with tempfile.TemporaryDirectory(dir=os.environ.get("CP420_TEST_TEMP") or None) as directory:
@@ -31,7 +31,7 @@ class ProgressTests(unittest.TestCase):
                  patch.object(progress.os, "fsync") as fsync:
                 self.assertTrue(progress.write_failure_completion(nonce, deadline, snapshot))
                 self.assertEqual(json.loads(target.read_text(encoding="ascii")),
-                                 {"schema": 4, "snapshot": {
+                                 {"schema": 5, "snapshot": {
                                      **snapshot, "worker": {
                                          **snapshot["worker"],
                                          "worker_census_pids": [412]}}})

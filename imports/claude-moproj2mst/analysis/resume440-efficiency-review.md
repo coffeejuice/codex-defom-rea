@@ -1,0 +1,7 @@
+# CP438–440 efficiency review
+
+CP438 and CP440 each made one narrow failure-only harness receipt change with injected tests and independent review. CP439 used one fresh monitored inert occurrence; the monitor span was about 5.62 seconds. Its valid exact-job census listed one PID, but the occurrence was unaccepted and still did not identify the image or cause. CP440 therefore reuses CP329's already captured creation PID. This is a narrower, cheaper discriminator than adding a PID-derived handle or a new native identity query.
+
+CP440's converter-root injected suites ran 673 CP3xx tests in 0.579 seconds and 10 CP4xx tests in 0.046 seconds; the repository-root suites ran 673 in 0.593 seconds and 10 in 0.039 seconds. These timings are unittest's in-process values, not end-to-end test setup. Token usage is unavailable, so no token-saving claim is made. No public C++ converter branch was integrated at these checkpoints, and no original Open-Save-accepted Close witness was acquired. The 15 workstreams and eight gates remain.
+
+Run at most one independently gated CP441 observation to compare creation and census PIDs. If it cannot resolve a concrete harness defect or mechanism, stop expanding this receipt ladder and return effort to original-behavior evidence dependencies. Maintain source freeze, ABI and regression gates; do not weaken fidelity for speed. Review again after three checkpoints or one hour at a safe boundary.
