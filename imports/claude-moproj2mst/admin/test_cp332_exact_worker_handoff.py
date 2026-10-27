@@ -61,6 +61,11 @@ class Harness:
         self.outer_pids = (74, 73, 95)
         self.census_returned = None
         self.census_fail = False
+        self.snapshot_rows = ((74, 1, "python.exe"), (73, 74, "worker.exe"),
+                              (95, 74, "conhost.exe"))
+        self.snapshot_index = 0
+        self.snapshot_fail = False
+        self.snapshot_close_fail = False
         self.exports = m.binding.BoundExports({name: lambda *a, n=name: self.dispatch(n, *a)
             for name in m.abi.EXPORTS}, {}, lambda: self.error)
         self.watchdog = SimpleNamespace(exports=self.exports, deadline=500,
@@ -159,6 +164,23 @@ class Harness:
                     obj.ActiveProcesses = self.success_active
                 if self.bad == "accounting":
                     obj.ActiveProcesses += 1
+        elif name == "CreateToolhelp32Snapshot":
+            assert args == (2, 0)
+            return m.INVALID if self.snapshot_fail else 111
+        elif name in ("Process32FirstW", "Process32NextW"):
+            assert args[0] == 111
+            if name == "Process32FirstW":
+                self.snapshot_index = 0
+            else:
+                self.snapshot_index += 1
+            if self.snapshot_index >= len(self.snapshot_rows):
+                return 0
+            entry = C.cast(args[1], C.POINTER(m.abi.PROCESSENTRY32W)).contents
+            assert entry.dwSize == C.sizeof(m.abi.PROCESSENTRY32W)
+            pid, parent, executable = self.snapshot_rows[self.snapshot_index]
+            entry.th32ProcessID = pid
+            entry.th32ParentProcessID = parent
+            entry.szExeFile = executable
         elif name == "WaitForSingleObject":
             if args[0] == 81 and self.success_wait_status is not None:
                 return self.success_wait_status
@@ -172,6 +194,8 @@ class Harness:
             assert args[0] == 21
             self.dead = True
         elif name == "CloseHandle":
+            if args[0] == 111 and self.snapshot_close_fail:
+                return 0
             self.closed.append(args[0])
         if name == self.raise_at:
             raise RuntimeError("injected exception")
@@ -242,7 +266,7 @@ class HandoffTests(unittest.TestCase):
         self.assertIsNone(h.ack)
         h = Harness()
         h.outer_active = 1
-        with self.assertRaisesRegex(m.Hold, "worker=1; outer=1; ids=unavailable"):
+        with self.assertRaisesRegex(m.Hold, "w=1 o=1 x=unavailable; ids=unavailable"):
             h.run()
         self.assertTrue(h.dead)
         self.assertIsNone(h.ack)
@@ -251,10 +275,12 @@ class HandoffTests(unittest.TestCase):
         h = Harness()
         h.outer_active = 3
         with self.assertRaisesRegex(m.Hold,
-                "worker=1; outer=3; ids=74,73,95; runner=74; worker_pid=73"):
+                "w=1 o=3 x=95:conhost.exe:74; ids=74,73,95; r=74; wp=73"):
             h.run()
         self.assertTrue(h.dead)
         self.assertIsNone(h.ack)
+        self.assertEqual(h.closed.count(111), 1)
+        self.assertIsNone(h.owner._diagnostic_snapshot)
         self.assertEqual(sum(args[1] == 3 for name, args in h.calls
                              if name == "QueryInformationJobObject"), 1)
         h = Harness()
@@ -264,6 +290,7 @@ class HandoffTests(unittest.TestCase):
             h.run()
         self.assertTrue(h.dead)
         self.assertIsNone(h.ack)
+        self.assertFalse(any(name == "CreateToolhelp32Snapshot" for name, _ in h.calls))
         for field, value in (("census_fail", True), ("census_returned", 8),
                              ("outer_pids", (74, 74, 95)),
                              ("outer_pids", (74, 0, 95))):
@@ -275,6 +302,56 @@ class HandoffTests(unittest.TestCase):
                     h.run()
                 self.assertTrue(h.dead)
                 self.assertIsNone(h.ack)
+
+    def test_snapshot_failure_or_missing_row_cannot_authorize_ack(self):
+        for field, value in (("snapshot_fail", True),
+                             ("snapshot_rows", ((74, 1, "python.exe"),
+                                                (73, 74, "worker.exe")))):
+            with self.subTest(field=field):
+                h = Harness()
+                h.outer_active = 3
+                setattr(h, field, value)
+                with self.assertRaisesRegex(m.Hold, "x=unavailable"):
+                    h.run()
+                self.assertTrue(h.dead)
+                self.assertIsNone(h.ack)
+                self.assertIsNone(h.owner._diagnostic_snapshot)
+        h = Harness()
+        h.outer_active = 3
+        h.snapshot_close_fail = True
+        with self.assertRaisesRegex(m.Hold, "x=close-uncertain"):
+            h.run()
+        self.assertEqual(h.owner._diagnostic_snapshot, 111)
+        self.assertIsNone(h.ack)
+        h.snapshot_close_fail = False
+        self.assertTrue(h.owner.close())
+        self.assertIsNone(h.owner._diagnostic_snapshot)
+
+    def test_snapshot_query_exception_closes_snapshot_without_ack(self):
+        for operation in ("Process32FirstW", "Process32NextW"):
+            with self.subTest(operation=operation):
+                h = Harness()
+                h.outer_active = 3
+                h.raise_at = operation
+                with self.assertRaisesRegex(m.Hold, "x=unavailable"):
+                    h.run()
+                self.assertEqual(h.closed.count(111), 1)
+                self.assertIsNone(h.owner._diagnostic_snapshot)
+                self.assertTrue(h.dead)
+                self.assertIsNone(h.ack)
+
+    def test_snapshot_close_exception_retains_uncertain_custody(self):
+        h = Harness()
+        h.outer_active = 3
+        h.raise_at = "CloseHandle"
+        with self.assertRaisesRegex(m.Hold, "x=close-uncertain"):
+            h.run()
+        self.assertEqual(h.owner._diagnostic_snapshot, 111)
+        self.assertTrue(h.owner._diagnostic_snapshot_uncertain)
+        self.assertFalse(h.owner.close())
+        self.assertEqual(h.owner._diagnostic_snapshot, 111)
+        self.assertTrue(h.dead)
+        self.assertIsNone(h.ack)
 
     def test_nonce_deadline_order_replay(self):
         for offer in (replace(Harness().offer, nonce=b"y" * 32),

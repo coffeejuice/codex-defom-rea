@@ -156,6 +156,8 @@ class ExactWorkerHandoff:
         self._worker_success_observed = False
         self._worker_success_released = False
         self._verified_outputs = MappingProxyType({})
+        self._diagnostic_snapshot = None
+        self._diagnostic_snapshot_uncertain = False
         self.errors, self.termination_confirmed = [], False
 
     def _call(self, name, *args):
@@ -285,15 +287,71 @@ class ExactWorkerHandoff:
                            not 8 <= returned.value <= C.sizeof(result)) or
                     result.assigned != expected_count or
                     result.listed != result.assigned or result.listed > 8):
-                return "unavailable"
+                return "unavailable", None
             if returned.value and returned.value < 8 + result.listed * C.sizeof(abi.ULONG_PTR):
-                return "unavailable"
+                return "unavailable", None
             values = tuple(int(result.ids[i]) for i in range(result.listed))
             if any(not 0 < value < 2**32 for value in values) or len(set(values)) != len(values):
-                return "invalid"
-            return ",".join(str(value) for value in values)
+                return "invalid", None
+            return ",".join(str(value) for value in values), values
+        except BaseException:
+            return "unavailable", None
+
+    def _scan_diagnostic_snapshot(self, handle, ids, extra_pid):
+        """Read names only for census PIDs; never open a PID-derived handle."""
+        target, found = set(ids), {}
+        entry = abi.PROCESSENTRY32W()
+        entry.dwSize = C.sizeof(entry)
+        if not self._call("Process32FirstW", handle, C.byref(entry)):
+            return "unavailable"
+        for _ in range(1024):
+            pid = int(entry.th32ProcessID)
+            if pid in target:
+                if pid in found:
+                    return "invalid"
+                found[pid] = (str(entry.szExeFile), int(entry.th32ParentProcessID))
+            if len(found) == len(target):
+                name, parent = found[extra_pid]
+                if not name or not 0 <= parent < 2**32:
+                    return "invalid"
+                name = "".join(ch if 33 <= ord(ch) <= 126 else "?"
+                               for ch in name[:24])
+                return f"{extra_pid}:{name}:{parent}"
+            if not self._call("Process32NextW", handle, C.byref(entry)):
+                return "unavailable"
+        return "unavailable"
+
+    def _extra_process_snapshot(self, ids, runner_pid, worker_pid):
+        """Failure-only Toolhelp enrichment with retryable snapshot custody."""
+        if (ids is None or len(ids) != 3 or runner_pid not in ids or
+                worker_pid not in ids or runner_pid == worker_pid or
+                self._diagnostic_snapshot is not None):
+            return "unavailable"
+        extra = set(ids) - {runner_pid, worker_pid}
+        if len(extra) != 1:
+            return "unavailable"
+        try:
+            handle = self._call("CreateToolhelp32Snapshot", 2, 0)
         except BaseException:
             return "unavailable"
+        if type(handle) is not int or handle in (0, INVALID):
+            return "unavailable"
+        if handle in self._reserved or handle in self._owned_outputs.values():
+            self.uncertain.append(("diagnostic_snapshot", handle))
+            return "unavailable"
+        self._diagnostic_snapshot = handle
+        try:
+            result = self._scan_diagnostic_snapshot(handle, ids, extra.pop())
+        except BaseException:
+            result = "unavailable"
+        try:
+            if self._call("CloseHandle", handle):
+                self._diagnostic_snapshot = None
+        except BaseException:
+            self._diagnostic_snapshot_uncertain = True
+        if self._diagnostic_snapshot is not None:
+            return "close-uncertain"
+        return result
 
     def _verify(self, offer):
         self._budget()
@@ -325,9 +383,11 @@ class ExactWorkerHandoff:
                        f"(worker={worker_active}; outer=not-queried)")
         outer_active = self._active(self.outer)
         if outer_active != 2:
-            members = self._outer_census(outer_active)
-            raise Hold(f"job accounting worker={worker_active}; outer={outer_active}; "
-                       f"ids={members}; runner={self.watchdog.receipt.pid}; worker_pid={offer.pid}")
+            members, ids = self._outer_census(outer_active)
+            runner_pid = self.watchdog.receipt.pid
+            extra = self._extra_process_snapshot(ids, runner_pid, offer.pid)
+            raise Hold(f"job accounting w={worker_active} o={outer_active} x={extra}; "
+                       f"ids={members}; r={runner_pid}; wp={offer.pid}")
         if self._call("WaitForSingleObject", process, 0) != 258:
             raise Hold("exact WORKER WAIT_TIMEOUT required")
         if self._call("WaitForSingleObject", self.runner, 0) != 258:
@@ -454,7 +514,12 @@ class ExactWorkerHandoff:
         self._fail(Hold("explicit handoff cleanup"))
         if not self.termination_confirmed or self.uncertain:
             return False
+        if self._diagnostic_snapshot_uncertain:
+            return False
         try:
+            if self._diagnostic_snapshot is not None:
+                self._ok("CloseHandle", self._diagnostic_snapshot)
+                self._diagnostic_snapshot = None
             if "worker_process" in self._owned_outputs:
                 if self._call("WaitForSingleObject", self._owned_outputs["worker_process"], 0) != 0:
                     return False

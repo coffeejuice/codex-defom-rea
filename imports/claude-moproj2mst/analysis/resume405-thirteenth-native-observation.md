@@ -1,0 +1,11 @@
+# CP405 thirteenth monitored inert-trial observation
+
+One fresh CP350 occurrence `da0ce0e849244c11bbbbc6c1f20fd460` ran from clean commit `fc44d9e5152a6028005f8d74bf684d4aab5b2ad9` after CP404's 636-test dual-root suite, independent review and one-occurrence gate. Fresh preflight confirmed 42 pinned CP3xx source modules, zero CP3xx bytecode, expected fixed Python and inert WORKER hashes, no matching owned process and unique receipt paths. No original application or GUI was controlled.
+
+Raw trial: `analysis/cp350-inert-trial-da0ce0e849244c11bbbbc6c1f20fd460.json`, SHA-256 `01B03E4CBF9A25968B350CF0027B2C636A51353D267D88DE07BADD8448F7BDA6`. Monitor: `analysis/cp350-monitor-da0ce0e849244c11bbbbc6c1f20fd460.json`, SHA-256 `F6538FCE728F793911BABF62F0ECBB09FEB0FDD03BA2CC422C1AF2E1A4169B12`. Valid 1126-byte trace: `analysis/cp349-child-trace-f5a13b3439f84546092f05f271449da8.jsonl`, SHA-256 `EF96EE94674324AC2C4BD77B0F1B2F9D4F7D3658378E1090E9672B54C5157AAB`. The separate child diagnostic was absent. Pre/post source and fixture manifests matched.
+
+The trial was **not accepted**. CP332's failure-only exact inner outer-job census reported `worker=1; outer=3; ids=38528,10212,32924; runner=38528; worker_pid=32924`. Thus the complete returned PID list has runner `38528`, offered WORKER `32924` and a third PID `10212`. The exact CP347 parent in the outer trial receipt was PID `36880`, different from that third PID. The list is a snapshot, not an executable/creation-time identity for PID `10212`. CP332 stopped before its exact process waits and ACK. The outer claim read failed Win32 109 while CP347 was active before cleanup; nested WORKER outcome remains unknown.
+
+CP349 cleanup reported closed, exact runner wait, empty job and job termination, with `TerminateProcess failed (5)` and `process_terminated: false`. The monitor saw controller exit 1 and terminal streams, without a monitor kill. Post-run matching owned-process inventory was empty. None of these fields establishes a successful WORKER result or what executable PID `10212` ran.
+
+CP406 next determines the third process's image and parent from a bounded read-only snapshot at the exact failure, while preserving the strict outer count and the no-OpenProcess-by-PID authority boundary. Do not rerun CP405. Public C++ converter candidate CP301 is unchanged.

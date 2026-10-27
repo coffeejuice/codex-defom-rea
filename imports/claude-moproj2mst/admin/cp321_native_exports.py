@@ -83,6 +83,15 @@ class PROCESS_INFORMATION(C.Structure):
                 ("dwProcessId", DWORD), ("dwThreadId", DWORD)]
 
 
+class PROCESSENTRY32W(C.Structure):
+    """Canonical Win64 PROCESSENTRY32W layout from tlhelp32.h."""
+    _fields_ = [("dwSize", DWORD), ("cntUsage", DWORD), ("th32ProcessID", DWORD),
+                ("th32DefaultHeapID", ULONG_PTR), ("th32ModuleID", DWORD),
+                ("cntThreads", DWORD), ("th32ParentProcessID", DWORD),
+                ("pcPriClassBase", C.c_int32), ("dwFlags", DWORD),
+                ("szExeFile", C.c_wchar * 260)]
+
+
 class BASIC_LIMIT(C.Structure):
     _fields_ = [("PerProcessUserTimeLimit", C.c_int64), ("PerJobUserTimeLimit", C.c_int64),
                 ("LimitFlags", DWORD), ("MinimumWorkingSetSize", SIZE_T),
@@ -147,6 +156,9 @@ _KERNEL = {
     "CreateProcessW": ((LPCWSTR, LPWSTR, SA, SA, BOOL, DWORD, PVOID, LPCWSTR,
                          C.POINTER(STARTUPINFOW), C.POINTER(PROCESS_INFORMATION)), BOOL),
     "GetProcessId": ((HANDLE,), DWORD),
+    "CreateToolhelp32Snapshot": ((DWORD, DWORD), HANDLE),
+    "Process32FirstW": ((HANDLE, C.POINTER(PROCESSENTRY32W)), BOOL),
+    "Process32NextW": ((HANDLE, C.POINTER(PROCESSENTRY32W)), BOOL),
     "QueryFullProcessImageNameW": ((HANDLE, DWORD, LPWSTR, LPDWORD), BOOL),
     "IsProcessInJob": ((HANDLE, HANDLE, C.POINTER(BOOL)), BOOL),
     "DuplicateHandle": ((HANDLE, HANDLE, HANDLE, LPHANDLE, DWORD, BOOL, DWORD), BOOL),

@@ -51,6 +51,7 @@ class LayoutTests(unittest.TestCase):
             m.STARTUPINFOW: 104, m.STARTUPINFOEXW: 112,
             m.PROCESS_INFORMATION: 24, m.BASIC_LIMIT: 64,
             m.IO_COUNTERS: 48, m.EXTENDED_LIMIT: 144, m.BASIC_ACCOUNTING: 48,
+            m.PROCESSENTRY32W: 568,
         }
         for structure, size in expected.items():
             with self.subTest(structure=structure.__name__):
@@ -64,11 +65,33 @@ class LayoutTests(unittest.TestCase):
             (m.STARTUPINFOEXW, "lpAttributeList", 104),
             (m.BASIC_LIMIT, "Affinity", 48),
             (m.EXTENDED_LIMIT, "IoInfo", 64),
+            (m.PROCESSENTRY32W, "th32DefaultHeapID", 16),
+            (m.PROCESSENTRY32W, "th32ModuleID", 24),
+            (m.PROCESSENTRY32W, "pcPriClassBase", 36),
+            (m.PROCESSENTRY32W, "szExeFile", 44),
         ):
             self.assertEqual(getattr(structure, field).offset, offset)
         self.assertEqual(C.sizeof(m.DWORD), 4)
         self.assertEqual(C.sizeof(m.BOOL), 4)
         self.assertEqual(C.sizeof(m.SIZE_T), 8)
+
+    def test_toolhelp_exports_have_canonical_kernel32_signatures(self):
+        entry = C.POINTER(m.PROCESSENTRY32W)
+        expected = {
+            "CreateToolhelp32Snapshot": ((m.DWORD, m.DWORD), m.HANDLE),
+            "Process32FirstW": ((m.HANDLE, entry), m.BOOL),
+            "Process32NextW": ((m.HANDLE, entry), m.BOOL),
+        }
+        for name, signature in expected.items():
+            with self.subTest(name=name):
+                spec = m.EXPORTS[name]
+                self.assertEqual(spec.dll, "kernel32.dll")
+                self.assertEqual((spec.argtypes, spec.restype), signature)
+        bound = bind()
+        for name, signature in expected.items():
+            function = getattr(bound, name)
+            self.assertEqual(tuple(function.argtypes), signature[0])
+            self.assertIs(function.restype, signature[1])
 
     def test_export_map_covers_all_legacy_consumers(self):
         import cp317_win32_named_pipe_abi as pipes
