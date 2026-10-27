@@ -248,6 +248,26 @@ class TopTests(unittest.TestCase):
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["stages"], stages)
 
+    def test_child_trace_reader_accepts_bounded_primary_error_marker(self):
+        stages = ["cp333_before_offer_ack",
+                  "cp333_error:ApiFailure:read failed (109)",
+                  "run-exception"]
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "a" * 32 + ".jsonl")
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                path.write_bytes(b"".join(
+                    (json.dumps({"stage": stage}, separators=(",", ":"))
+                     + "\n").encode("ascii") for stage in stages))
+                self.assertEqual(m._child_trace_result(path)["stages"], stages)
+                for invalid in ("cp333_error:Hold:x\nredirect",
+                                "cp333_error:Hold:" + "x" * 121):
+                    path.write_bytes((json.dumps({"stage": invalid}) + "\n")
+                                     .encode("ascii"))
+                    self.assertEqual(m._child_trace_result(path)["status"],
+                                     "malformed")
+
     def test_child_bootstrap_failure_success_and_exclusive_collision(self):
         class InjectedChildFailure(RuntimeError):
             pass

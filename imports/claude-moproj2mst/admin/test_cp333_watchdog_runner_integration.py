@@ -323,6 +323,33 @@ class OuterTests(unittest.TestCase):
             "cp333_before_offer_ack", "cp333_after_offer_ack",
         ])
 
+    def test_ack_failure_marker_precedes_cleanup_and_preserves_primary_error(self):
+        h, watchdog, pipe_factory, control_factory = self.setup_contract()
+        descriptor = NS(prepare=lambda: None, cleanup=lambda: True)
+        stages = []
+        def failing_control_factory(*args, **kwargs):
+            control = control_factory(*args, **kwargs)
+            def fail_offer():
+                h.events.append("offer-failure")
+                raise m.Hold("OFFER rejected (109)")
+            control.accept_offer_and_ack = fail_offer
+            return control
+        with patch.object(m.outer, "OuterWatchdog", return_value=watchdog), \
+             patch.object(m.security, "NativePrivatePipeSecurity",
+                          return_value=descriptor), \
+             patch.object(m.pipes, "NativePipeOwner", side_effect=pipe_factory), \
+             patch.object(m.handoff, "ExactWorkerHandoff",
+                          side_effect=failing_control_factory), \
+             patch.object(m.secrets, "token_bytes", return_value=h.nonce):
+            owner = m.WatchdogIntegration(h.exports, stage=stages.append)
+            with self.assertRaises(m.IntegrationFailure) as caught:
+                owner.acknowledge()
+        self.assertIsInstance(caught.exception.__cause__, m.Hold)
+        self.assertEqual(str(caught.exception.__cause__), "OFFER rejected (109)")
+        self.assertEqual(stages[-1], "cp333_error:Hold:OFFER rejected (109)")
+        self.assertLess(h.events.index("offer-failure"),
+                        h.events.index("close-handoff"))
+
     def test_cp326_prepared_descriptor_is_required_by_parent_pipe_path(self):
         h, watchdog, pipe_factory, control_factory = self.setup_contract()
         real_security = m.security.NativePrivatePipeSecurity

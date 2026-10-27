@@ -161,6 +161,15 @@ class WatchdogIntegration:
             self.receipt.phase = "worker-authorized-trial-unaccepted"
             return offer
         except BaseException as error:
+            # Persist the primary failure before containment cleanup can close
+            # the outer channel. Diagnostic failure never replaces this error.
+            try:
+                kind = type(error).__name__[:40]
+                message = "".join(ch if 32 <= ord(ch) <= 126 else "?"
+                                  for ch in str(error)[:120])
+                self._mark(f"cp333_error:{kind}:{message}")
+            except BaseException:
+                pass
             self.receipt.errors.append(f"{type(error).__name__}: {error}")
             self.receipt.phase = "hold"
             self.close()
