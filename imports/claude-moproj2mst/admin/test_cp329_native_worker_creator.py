@@ -232,6 +232,35 @@ class CreatorTests(unittest.TestCase):
         h.pipes.ready = True
         self.assertEqual(h.owner.close().phase, "closed")
 
+    def test_worker_wait_return_at_deadline_precedes_exit_query(self):
+        for return_tick, accepted in ((999, True), (1000, False)):
+            with self.subTest(return_tick=return_tick):
+                h = self.completion_harness()
+                original = h.dispatch
+
+                def timed_dispatch(name, *args):
+                    value = original(name, *args)
+                    if name == "WaitForSingleObject":
+                        h.now = return_tick
+                    return value
+
+                h.dispatch = timed_dispatch
+                before = len(h.calls)
+                if accepted:
+                    self.assertEqual(h.owner.complete_success().phase, "closed")
+                else:
+                    with self.assertRaises(m.Hold):
+                        h.owner.complete_success()
+                completion_calls = h.calls[before:]
+                self.assertIn("WaitForSingleObject", completion_calls)
+                self.assertEqual("GetExitCodeProcess" in completion_calls, accepted)
+                self.assertEqual(h.owner.receipt.worker_waited, accepted)
+                self.assertEqual(h.owner.receipt.jobs_empty, accepted)
+                if not accepted:
+                    self.assertEqual(h.owner.receipt.phase, "prepared-suspended")
+                    self.assertTrue(h.owner.receipt.local)
+                    self.assertNotIn("pipes.cleanup", completion_calls)
+
     def prepare(self, h):
         return h.owner.prepare(r"\\.\pipe\cp329-injected")
 
