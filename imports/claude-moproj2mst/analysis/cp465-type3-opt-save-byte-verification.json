@@ -1,0 +1,103 @@
+{
+  "checkpoint": "CP465 Type3 .OPT Save consumer static trace",
+  "binary": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "binary_bytes": 67611136,
+  "method": "PE exception-directory function bounds; bounded dumpbin exports; independently map every addressed byte through PE sections; original not executed",
+  "exports": [
+    {
+      "path": "analysis\\cp465-type3-opt-save-140907a10.asm",
+      "sha256": "c188feb9a5cf880507f6b1fa7b4e78f833e547cc6b8f6540ad613f4b19e9e866",
+      "start": "0x140907a10",
+      "end_exclusive": "0x140908627",
+      "bytes": 3095,
+      "instructions": 577,
+      "raw_sha256": "66b545af5736084402aa28577578924eced302d90646717bf943e81368313f26",
+      "mismatches": 0,
+      "last_instruction": "c3"
+    },
+    {
+      "path": "analysis\\cp465-type3-opt-save-140307410.asm",
+      "sha256": "da22246663144344edd0e6edf95456484e665da2cb11849a1de311b99c988ce2",
+      "start": "0x140307410",
+      "end_exclusive": "0x140307429",
+      "bytes": 25,
+      "instructions": 6,
+      "raw_sha256": "a464e5227f1e10b0249958009d2759cb7977487caedec4f4e9647cdd9cfe4839",
+      "mismatches": 0,
+      "last_instruction": "c3"
+    }
+  ],
+  "return_contract": {
+    "slot": "[rsp+0x38]",
+    "initializer_va": "0x140907a3e",
+    "initializer": "zero",
+    "writes": [
+      "0x140907a3e: zero initialization"
+    ],
+    "reads": [
+      "0x140907b5e: open-failure path",
+      "0x1409085a8: post-close path"
+    ],
+    "ordinary_returns": {
+      "open_failure": false,
+      "normal_post_close": false
+    },
+    "verification": "Complete bound function contains exactly one byte-slot write (zero) and two reads; no other slot references."
+  },
+  "exception_metadata": {
+    "runtime_function_start": "0x140907a10",
+    "runtime_function_end_exclusive": "0x140908627",
+    "unwind_info_va": "0x1432b540c",
+    "version": 1,
+    "flags": 2,
+    "handler_va": "0x14146e20c",
+    "qualification": "The UHANDLER target and exception/cleanup behavior are not traced in this checkpoint."
+  },
+  "ordered_collection_contract": {
+    "collection_getter_sites": [
+      "0x140907d22",
+      "0x140907dc8",
+      "0x140907e6b"
+    ],
+    "nonempty_helper": "0x140307410",
+    "conditional_first_value_getter_sites": [
+      "0x140907d64",
+      "0x140907e04",
+      "0x140907ea7"
+    ],
+    "qualification": "QListData::isEmpty returns true for empty; that branch skips +0x60. False means nonempty and reaches +0x60. Helper body is separately byte-bound."
+  },
+  "source_qualifications": [
+    {
+      "path": "analysis/resume449-type3-published-owner-edge-audit.md",
+      "sha256": "4fbc84130c9bcf13c9774478b37f390a2077b4963d639895053fdeefc024c557"
+    },
+    {
+      "path": "analysis/resume63-doe-public-save-order.md",
+      "sha256": "354b25eb69b39d8aa0896fbe2ffd3d12d84f0f6de824599c7da1483ddf432335"
+    },
+    {
+      "path": "analysis/resume143-type3-file-parser.md",
+      "sha256": "455d56fed0541cf40768d3c018799a48d75a9d2f484d6e368cbc431e8fb1cb06"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/DB/d3.c",
+      "sha256": "87be514dd85fc1500fed709ee9b1fc6b8bd250e2ccd5036e101bc7e769fd1a10"
+    },
+    {
+      "path": "evidence/gui_mo/s1/mdt/DOE/d6.c",
+      "sha256": "5155d5debfc2d4e88ffc8508de0b2ef6049f29911acbfc0d533aca9840e61500"
+    },
+    {
+      "path": "source/docs/re/moproj2mst/ledger.tsv",
+      "sha256": "0f333af0c8dd7662f458a0df1db688f9622b4b5907564e21b256bcb458016659"
+    }
+  ],
+  "qualifications": [
+    "The original PE is static evidence only.",
+    "Qt QFile/QTextStream codec, buffering, flush/close error reporting are not independently characterized by this export.",
+    "The writer has UHANDLER unwind metadata; the handler target and exception/cleanup behavior are not traced here.",
+    "No source, build, test, plan, state, GUI, original process, or mutable REA database changes."
+  ]
+}
