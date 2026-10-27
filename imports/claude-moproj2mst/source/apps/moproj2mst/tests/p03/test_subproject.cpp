@@ -2168,7 +2168,7 @@ TEST_CASE(first_associated_zero_slot_operation_preserves_height_and_name_order)
         auto op = std::make_unique<Operation>();
         op->id = exclusion == 2 ? -101 : 41;
         if (exclusion == 0) op->restartGiven = 1;
-        if (exclusion == 1) op->objIds.push_back(-1);
+        if (exclusion == 1) op->objIds.push_back(-2);
         p.operations.push_back(std::move(op));
         const std::string source =
             "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
@@ -2184,6 +2184,61 @@ TEST_CASE(first_associated_zero_slot_operation_preserves_height_and_name_order)
         try { parseSubProject(p, *doc.root, ctx); }
         catch (const Error& e) { guarded = e.code == M2M_E_UNSUPPORTED; }
         CHECK(guarded);
+    }
+}
+
+TEST_CASE(first_associated_undefined_rows_keep_empty_accepts_and_direct_targets)
+{
+    for (int slots : {1, 2, 7}) for (int count : {2, 3, 7}) for (int rotation : {0, 2}) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        auto op = std::make_unique<Operation>(); op->id = 41;
+        op->name = L("Undefined Holder"); op->objIds.assign(slots, -1);
+        p.operations.push_back(std::move(op));
+        std::string source = "<Sub_Project>";
+        std::vector<int> cols, ids;
+        for (int i = 0; i < count; ++i) {
+            const int id = i == 0 ? 41 : (i % 2 ? -100 - i : 100 + i);
+            const int target = (rotation + 3 * i) % 7;
+            ids.push_back(id); cols.push_back(target);
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(id) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                std::to_string(205 * target) + "</x><y>" +
+                (i == 0 ? "0" : "188.99999999999997") +
+                "</y><width>-0</width><height>4.9406564584124654e-324</height></RectF>";
+            if (i == 0)
+                source += "<CellPos Row=\"0\" Col=\"" + std::to_string(target) + "\"/>";
+            source += "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items;
+        REQUIRE(items.size() == static_cast<std::size_t>(count));
+        CHECK(items[0]->itemName == L("Undefined Holder"));
+        CHECK_EQ(items[0]->expansion.size(), static_cast<std::size_t>(7 + slots));
+        for (int s = 0; s < slots; ++s) {
+            const auto& row = items[0]->expansion[static_cast<std::size_t>(7 + s)];
+            CHECK_EQ(row.type, 0); CHECK(row.label == L("  Undefined"));
+            CHECK(row.accepts.empty());
+        }
+        p.activeSub = 0;
+        diagramEqpDataAdded(p, 41, -1, L("Equipment"));
+        for (int s = 0; s < slots; ++s)
+            CHECK(items[0]->expansion[static_cast<std::size_t>(7 + s)].label == L("  Undefined"));
+        for (int i = 0; i < count; ++i) {
+            CHECK_EQ(items[i]->opId, ids[i]); CHECK_EQ(items[i]->row, 0);
+            CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], -0.0);
+            CHECK_BITS(items[i]->rect[3], 4.9406564584124654e-324);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < count; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
     }
 }
 

@@ -741,9 +741,10 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
             }
         }
     }
-    // CP523-525: the first nonnegative-ID Forming2D template proves graphics
-    // height at least 189. A matching first Operation with no object slots or
-    // restart retains that template. Later items stay unbound to avoid
+    // CP523-526: the first nonnegative-ID Forming2D template proves graphics
+    // height at least 189. A matching first Operation with only Undefined
+    // slots and no restart retains this conservative lower bound. Later items
+    // stay unbound to avoid
     // association-dependent object-row graph effects.
     bool positiveTallDirectCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() >= 2 && flow.items.size() <= 7 &&
@@ -754,8 +755,10 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
         });
     if (positiveTallDirectCandidate) {
         Operation* firstOp = operationById(project, flow.items[0]->opId);
-        positiveTallDirectCandidate =
-            (!firstOp || (firstOp->objIds.empty() && firstOp->restartGiven == 0));
+        positiveTallDirectCandidate = !firstOp ||
+            (firstOp->restartGiven == 0 &&
+             std::all_of(firstOp->objIds.begin(), firstOp->objIds.end(),
+                         [](int id) { return id == -1; }));
         for (std::size_t i = 1; i < flow.items.size() && positiveTallDirectCandidate; ++i)
             positiveTallDirectCandidate = operationById(project, flow.items[i]->opId) == nullptr;
     }
@@ -1150,7 +1153,7 @@ void buildExpansion(Project& p, FlowItem& it)
     for (int s = 0; s < ns; ++s) {
         const int code = s < static_cast<int>(op->objIds.size()) ? op->objIds[static_cast<std::size_t>(s)] : -99;   // 0x14005fb30
         if (code == -1) {
-            addObjectRow(it, L("Undefined"));
+            addText(it, L("Undefined"));             // accepted-type list remains empty
         } else if (code == -2) {
             addObjectRow(it, L("Read From DB"));
         } else if (ObjEntry* e = objEntry(*op, s)) {
