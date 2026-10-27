@@ -693,6 +693,41 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             }
         }
     }
+    // CP520: the first negative-ID graphic expands row0 to height 215.
+    // Distinct targets avoid every direction-dependent occupied-token path.
+    bool negativeTallDirectCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() >= 2 && flow.items.size() <= 7 &&
+        cellInputs.size() == flow.items.size() &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && item->opId < 0 && !item->group &&
+                item->className == L("SfOprForming2D");
+        });
+    if (negativeTallDirectCandidate) {
+        std::set<int> targets;
+        for (std::size_t i = 0; i < flow.items.size(); ++i) {
+            const auto& item = flow.items[i];
+            const CellInput& input = cellInputs[i];
+            if (!std::isfinite(item->rect[0]) || !std::isfinite(item->rect[1]) ||
+                !std::isfinite(item->rect[2]) || !std::isfinite(item->rect[3]) ||
+                item->rect[0] >= 1332.5 || item->rect[1] >= (i == 0 ? 67.5 : 190.0) ||
+                !(validExplicitCell(input) || sentinelCell(input))) {
+                negativeTallDirectCandidate = false;
+                break;
+            }
+            int col = input.col;
+            if (sentinelCell(input)) {
+                double x = item->rect[0];
+                if (x < -60.0) x = 0.0;
+                const double cx = x / 205.0;
+                col = static_cast<int>(std::floor(cx));
+                if (cx - std::floor(cx) >= 0.5) col = static_cast<int>(std::ceil(cx));
+            }
+            if (col < 0 || col >= 7 || !targets.insert(col).second) {
+                negativeTallDirectCandidate = false;
+                break;
+            }
+        }
+    }
     const bool negativeEightCandidate = initiallyEmpty && flow.items.size() == 8 &&
         cellInputs.size() == 8 &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
@@ -713,7 +748,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             if (cx - std::floor(cx) >= 0.5) col = static_cast<int>(std::ceil(cx));
             // row 0: the empty row list gives round((y + 25) / 185), a row 0 present y - 0 < h - 25
             const bool inRow0 = row0 ?
-                y < ((negativePairGraphicsHeight && nonzeroPairCandidate) ? 190.0 : 160.0) :
+                y < (((negativePairGraphicsHeight && nonzeroPairCandidate) ||
+                      negativeTallDirectCandidate) ? 190.0 : 160.0) :
                 (y + 25.0) / 185.0 < 0.5;
             if (!inRow0 || col < 0 || col >= 7)
                 throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos outside row 0 / the 7 columns "
@@ -884,6 +920,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 it.row = 0;
                 it.col = col;
                 if (singletonRelayoutCandidate || mixedPairCandidate || threeDirectCandidate || multiDirectCandidate ||
+                    negativeTallDirectCandidate ||
                     (fourPositiveCandidate && k == 3) || (fivePositiveCandidate && k == 4) ||
                     (sixPositiveCandidate && k == 5) || (sevenPositiveCandidate && k == 6) ||
                     (threeCollisionCandidate && k == 2) ||
@@ -899,7 +936,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 }
             }
         } else if (singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
-                   threeDirectCandidate || multiDirectCandidate) {
+                   threeDirectCandidate || multiDirectCandidate || negativeTallDirectCandidate) {
             it.rect[0] = 205.0 * it.col;
             it.rect[1] = 0.0;
         }
@@ -919,7 +956,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
         threeCollisionCandidate || threeNegativeCandidate || fourPositiveCandidate || fivePositiveCandidate ||
         sixPositiveCandidate || sevenPositiveCandidate || negativeMultiCandidate ||
-        threeDirectCandidate || multiDirectCandidate) {
+        threeDirectCandidate || multiDirectCandidate || negativeTallDirectCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.
@@ -937,7 +974,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate ||
                  threeCollisionCandidate || fourPositiveCandidate || fivePositiveCandidate ||
                  sixPositiveCandidate || sevenPositiveCandidate ||
-                 multiDirectCandidate) &&
+                 multiDirectCandidate || negativeTallDirectCandidate) &&
                 grid[k]->row == grid[k - 1]->row &&
                 grid[k]->col > grid[k - 1]->col + 1) continue;
             connectItems(grid[k - 1], grid[k]);

@@ -1765,6 +1765,66 @@ TEST_CASE(negative_id_pair_expanded_graphic_admits_row_zero_to_190)
     }
 }
 
+TEST_CASE(all_negative_distinct_targets_use_expanded_row_zero_height)
+{
+    for (int count = 2; count <= 7; ++count) for (int rotation = 0; rotation < 7; ++rotation)
+        for (int mixed = 0; mixed < 2; ++mixed) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        std::vector<int> cols;
+        for (int i = 0; i < count; ++i) {
+            const int target = (rotation + 3 * i) % 7;
+            cols.push_back(target);
+            const bool explicitCell = (i + mixed) % 2 == 0;
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(-100 - i) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (explicitCell ? std::string("-1.7976931348623157e308") :
+                                std::to_string(205 * target)) +
+                "</x><y>" + (i == 0 ? "67.49999999999999" : "189.99999999999997") +
+                "</y><width>" + (i % 2 == 0 ? "-0" : "-3.5") +
+                "</width><height>" + (i % 2 == 0 ? "4.9406564584124654e-324" : "2.5") +
+                "</height></RectF>";
+            if (explicitCell)
+                source += "<CellPos Row=\"0\" Col=\"" + std::to_string(target) + "\"/>";
+            else if (i % 3 == 0)
+                source += "<CellPos Row=\"2147483647\" Col=\"-1\"/>";
+            else if (i % 3 == 1)
+                source += "<CellPos Row=\"-1\" Col=\"-2147483648\"/>";
+            source += "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items;
+        REQUIRE(items.size() == static_cast<std::size_t>(count));
+        for (int i = 0; i < count; ++i) {
+            CHECK_EQ(items[i]->opId, -100 - i); CHECK_EQ(items[i]->row, 0);
+            CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], i % 2 == 0 ? -0.0 : -3.5);
+            CHECK_BITS(items[i]->rect[3], i % 2 == 0 ? 4.9406564584124654e-324 : 2.5);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < count; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        int lowest = 0;
+        for (int i = 1; i < count; ++i) if (cols[i] < cols[lowest]) lowest = i;
+        std::vector<int> expected{-100 - lowest};
+        int current = lowest;
+        for (int step = 1; step < count; ++step) {
+            int next = -1;
+            for (int i = 0; i < count; ++i) if (cols[i] == cols[current] + 1) next = i;
+            if (next < 0) break;
+            expected.push_back(-100 - next); current = next;
+        }
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
 TEST_CASE(three_item_distinct_explicit_cells_relayout_and_connect_grid_runs)
 {
     const auto cell = [](int col) {
