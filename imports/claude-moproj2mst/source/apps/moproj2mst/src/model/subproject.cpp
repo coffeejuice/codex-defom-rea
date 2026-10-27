@@ -361,13 +361,14 @@ void activateSubProject(Project& p, int idx, Ctx& ctx)
     refreshDiagramItems(p);
 }
 
-void placeCelllessItems(FlowChart& flow, const xml::Node& e);
+void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty);
 
 // @src 0x14008f530  ParseSubProject into the active sub-project
 void parseSubProject(Project& p, const xml::Node& e, Ctx& ctx)
 {
     SubProject& sub = *p.subs.at(static_cast<size_t>(p.activeSub));
     FlowChart& flow = sub.flow;
+    const bool initiallyEmpty = flow.items.empty();
     const int active = qt::toInt(e.attribute(L("Active")));
     std::vector<FlowItem*> items;
     std::map<int, int> next;
@@ -410,14 +411,14 @@ void parseSubProject(Project& p, const xml::Node& e, Ctx& ctx)
                 connectItems(from, to);
         }
     }
-    placeCelllessItems(flow, e);
+    placeCelllessItems(flow, e, initiallyEmpty);
 }
 
 // @src 0x1401574f0 -> 0x14015a070 -> 0x140158dc0  the cell editor takes the model's items in order;
 // an item with either native cell coordinate -1 (including a file without CellPos) gets the cell under its
 // rectangle's top-left (x < -60 -> 0, y < -25 -> 0; 0x14014e210: column 0x14014db20 = round half
 // up of x / 205, row 0x14014dfa0 from the row list), which the editor stores back in the item.
-void placeCelllessItems(FlowChart& flow, const xml::Node& e)
+void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty)
 {
     struct CellInput { bool missing = true; bool selected = true; };
     std::vector<CellInput> cellInputs;
@@ -441,7 +442,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
     const bool initialForwardPair = flow.items.size() == 2 && flow.items[0] && flow.items[1] &&
         flow.items[0]->prev == nullptr && flow.items[0]->next == flow.items[1].get() &&
         flow.items[1]->prev == flow.items[0].get() && flow.items[1]->next == nullptr;
-    const bool recurrenceCandidate = flow.items.size() >= 2 && flow.items.size() <= 7 &&
+    const bool recurrenceCandidate = initiallyEmpty && flow.items.size() >= 2 && flow.items.size() <= 7 &&
         cellInputs.size() == flow.items.size() &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
             return item && !item->group && item->className == L("SfOprForming2D") &&
@@ -450,13 +451,23 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
         }) && std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
             return input.selected;
         }) && (initiallyUnlinked || initialForwardPair);
-    const bool negativeEightCandidate = flow.items.size() == 8 &&
+    // CP495: the source-qualified finite positive-left interval rounds to
+    // occupied column zero. Keep the original geometry snapshot before B moves.
+    const bool nonzeroPairCandidate = flow.items.size() == 2 && cellInputs.size() == 2 &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) { return input.selected; }) &&
+        initiallyEmpty && initiallyUnlinked && flow.items[0] && flow.items[1] &&
+        !flow.items[0]->group && !flow.items[1]->group &&
+        flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
+        flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 && flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] > 0.0 && flow.items[1]->rect[0] < 102.5 &&
+        flow.items[1]->rect[1] == 0.0 && flow.items[1]->rect[2] == 0.0 && flow.items[1]->rect[3] == 0.0;
+    const bool negativeEightCandidate = initiallyEmpty && flow.items.size() == 8 &&
         cellInputs.size() == 8 &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
             return item && !item->group && item->className == L("SfOprForming2D") &&
                    item->rect[0] == 0.0 && item->rect[1] == 0.0 && item->rect[2] == 0.0 && item->rect[3] == 0.0 &&
                    item->opId < 0;
-        }) && initiallyUnlinked &&
+        }) && initiallyEmpty && initiallyUnlinked &&
         std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) { return input.selected; });
     for (std::size_t k = 0; k < flow.items.size() && k < cellInputs.size(); ++k) {
         FlowItem& it = *flow.items[k];
@@ -491,7 +502,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
                 }
                 // The selected row-0 recurrence shifts an occupied token run
                 // to the adjacent free cells; other collision patterns stay guarded.
-                if ((recurrenceCandidate || (negativeEightCandidate && k < 7)) && k > 0 && row0 && col == 0 &&
+                if ((recurrenceCandidate || nonzeroPairCandidate || (negativeEightCandidate && k < 7)) && k > 0 && row0 && col == 0 &&
                     flow.items[0]->row == 0 && flow.items[0]->col == 0) {
                     // Insertion at column 1 recursively shifts the occupied
                     // type-1 run; the model vector remains in source order.
@@ -513,7 +524,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;
     }
-    if (recurrenceCandidate || negativeEightCandidate) {
+    if (recurrenceCandidate || nonzeroPairCandidate || negativeEightCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.
