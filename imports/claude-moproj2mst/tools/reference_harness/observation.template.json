@@ -10,8 +10,14 @@
     "started_utc": "REPLACE_WITH_OBSERVED_TIME_WITH_UTC_OFFSET",
     "ended_utc": "REPLACE_WITH_OBSERVED_TIME_WITH_UTC_OFFSET",
     "pid": 0,
+    "primary_tid": "RECORD_OBSERVED_OR_UNKNOWN",
+    "creation_filetime_text": "RECORD_EXACT_OBSERVED_FILETIME_OR_UNKNOWN",
     "argv": ["REPLACE_WITH_ACTUAL_EXECUTABLE_AND_ARGUMENTS"],
     "executable_sha256": "REPLACE_WITH_OBSERVED_FULL_SHA256",
+    "loaded_module_identities": "RETAIN_PATH_BASE_SIZE_HASH_AND_EVIDENCE_OR_DECLARE_UNOBSERVED",
+    "clone_creation_receipt": "RETAIN_NEW_CREATION_BOUND_RECEIPT_OR_NOT_APPLICABLE",
+    "control_acquired": "RECORD_TRUE_FALSE_OR_UNOBSERVED",
+    "control_release_receipt_or_not_applicable": "RETAIN_VERIFIABLE_RELEASE_RECEIPT_OR_NON_GUI_REASON",
     "cwd": "REPLACE_WITH_ABSOLUTE_CASE_SANDBOX_ROLE_CWD",
     "environment": {
       "locale": "RECORD_OBSERVED_OR_UNKNOWN",
@@ -23,7 +29,8 @@
       "startup_unit": "RECORD_OBSERVED_OR_UNKNOWN",
       "initial_project_state": "REFERENCE_RETAINED_INITIAL_STATE_EVIDENCE"
     },
-    "exit_status": "RECORD_CLOSE_AND_PROCESS_EXIT_OUTCOME"
+    "exit_status": "RECORD_CLOSE_AND_PROCESS_EXIT_OUTCOME",
+    "accepted_close_evidence": "RETAIN_OWNER_AND_MODAL_ACCEPTANCE_RECEIPT_OR_UNOBSERVED"
   },
   "actions": [
     {"action": "open", "status": "completed", "evidence": "evidence/open.json"},

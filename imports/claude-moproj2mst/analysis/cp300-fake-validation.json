@@ -1,0 +1,35 @@
+{
+  "schema": "cp300-fake-validation-v1",
+  "status": "FAKE_SCAFFOLD_VALIDATED_REAL_HANDOFF_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/color_atomic_clone_acquire.py": "57bc3f74c5bfb107a346ef71687d3514781a8cfbdf59f45e715437e89e513a23",
+    "admin/cp300_clone_owned_child_handoff.py": "e520e176daac04f67af3511e98a17ee19b079b4319de72270fffca811d36f721",
+    "admin/test_cp300_clone_owned_child_handoff.py": "1a0ddeb9b41fa2be634892716680751bb47c519e71a9661afcb1b096ec2ff4e2"
+  },
+  "focused_fake_tests": {
+    "run": 9,
+    "passed": 9,
+    "failed": 0,
+    "log": "analysis/cp300-fake-tests.log"
+  },
+  "cp289_compatibility_tests": {
+    "run": 26,
+    "passed": 25,
+    "skipped": 1,
+    "failed": 0,
+    "skip": "OS symlink fixture requires privilege: WinError 1314",
+    "receipt": "analysis/cp300-cp289-regression.json",
+    "log": "analysis/cp300-cp289-regression.log"
+  },
+  "unpassed_gates": [
+    "Reviewed fixed harmless fixture source and exact digest",
+    "Real creation-bound cloned-image to owned suspended-child observation",
+    "CP214 cleanup ownership across failed termination or wait and constructor cleanup failure",
+    "CP215 live patch, observer coverage, loaded-module and cleanup validation",
+    "Fresh original Open-Save-accepted Close comparison"
+  ]
+}

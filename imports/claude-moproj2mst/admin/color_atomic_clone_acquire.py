@@ -254,7 +254,7 @@ def _command_gate(source, clone, encoded, cwd, argv, production):
 
 
 def _acquire(source, parent, entries, *, api=None, name=None, production=False,
-             installed_evidence=None):
+             installed_evidence=None, on_retained=None):
     """Private disposable-fixture seam. main() alone selects production pins."""
     receipt = {"schema": "cp289-creation-bound-clone-v1", "status": "HOLD",
         "original_run_ready": False, "runtimeLoadedModuleIdentity": "unknown",
@@ -375,6 +375,12 @@ def _acquire(source, parent, entries, *, api=None, name=None, production=False,
         receipt["cloneFinalIdentity"] = api.snapshot(clone_handle, clone, True)
         receipt["sourceStableAcrossAcquisition"] = True
         receipt["manifestsMatchPinnedEntries"] = True
+        if on_retained is not None:
+            phase = "retainedHandoff"
+            handoff = on_retained(receipt)
+            receipt["retainedHandoff"] = handoff
+            if not isinstance(handoff, dict) or handoff.get("completed") is not True:
+                raise ValueError("retained handoff did not verify completion")
         receipt["acquisitionOutcome"] = "ACQUIRED_FRESH_CLONE_STATIC_ONLY"
     except Exception as exc:
         receipt["errors"].append({"phase": phase, "type": type(exc).__name__, "message": str(exc)})
