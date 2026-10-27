@@ -169,7 +169,7 @@ class ExactWorkerHandoff:
             raise creator.ApiFailure(name, int(self.exports.last_error()))
         return result
 
-    def _custody(self):
+    def _custody(self, *, allow_held_channel=False):
         if (self.exports is not self._bound_exports or
                 self.watchdog is not self._watchdog_owner or
                 self._watchdog_owner.exports is not self._bound_exports or
@@ -178,7 +178,10 @@ class ExactWorkerHandoff:
                 self.nonce != self._occurrence_nonce or
                 self.pipe_owner is not self._channel_owner or
                 self._channel_owner.exports is not self._bound_exports or
-                self._channel_owner.receipt is not self._channel_receipt or
+                (self._channel_owner.receipt is not self._channel_receipt and
+                 not (allow_held_channel and
+                      getattr(self._channel_owner, "held", None) is True and
+                      self._channel_owner.receipt is None)) or
                 tuple(getattr(self._channel_receipt, name) for name in self._channel_fields)
                     != self._channel_handles or
                 type(self._parent_write) is not int or
@@ -440,7 +443,7 @@ class ExactWorkerHandoff:
                     self.uncertain or
                     set(self._owned_outputs) != {"worker_process", "worker_job"}):
                 return "unavailable"
-            self._custody()
+            self._custody(allow_held_channel=True)
             process = self._owned_outputs["worker_process"]
             status = self._call("WaitForSingleObject", process, 0)
             if type(status) is not int:

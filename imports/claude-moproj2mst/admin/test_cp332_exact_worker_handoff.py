@@ -844,6 +844,46 @@ class HandoffTests(unittest.TestCase):
         self.assertFalse(h.owner.termination_confirmed)
         self.assertEqual(h.closed, [])
 
+    def test_worker_wait_snapshot_survives_only_the_exact_held_channel(self):
+        h = Harness()
+        h.run()
+        h.now = 500
+        h.pipe.held = True
+        h.pipe.receipt = None  # CP328 _hold() clears this after a pipe deadline.
+        with self.assertRaises(m.Hold):
+            h.owner._custody()  # Normal protocol custody stays strict.
+        before = len(h.calls)
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "active")
+        self.assertEqual(h.calls[before:], [("WaitForSingleObject", (81, 0))])
+        self.assertEqual(h.owner.phase, "acknowledged")
+        self.assertFalse(h.owner.termination_confirmed)
+
+        h = Harness()
+        h.run()
+        h.pipe.receipt = None
+        before = len(h.calls)
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "unavailable")
+        self.assertFalse(any(name == "WaitForSingleObject"
+                             for name, _ in h.calls[before:]))
+
+        h = Harness()
+        h.run()
+        h.pipe.held = True
+        h.pipe.receipt = SimpleNamespace(parent_read=12)  # foreign receipt
+        before = len(h.calls)
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "unavailable")
+        self.assertFalse(any(name == "WaitForSingleObject"
+                             for name, _ in h.calls[before:]))
+
+        h = Harness()
+        h.run()
+        h.pipe.held = True
+        h.pipe.receipt = None
+        h.owner._channel_receipt.parent_read = 999  # frozen endpoint changed
+        before = len(h.calls)
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "unavailable")
+        self.assertFalse(any(name == "WaitForSingleObject"
+                             for name, _ in h.calls[before:]))
 
 if __name__ == "__main__":
     unittest.main()
