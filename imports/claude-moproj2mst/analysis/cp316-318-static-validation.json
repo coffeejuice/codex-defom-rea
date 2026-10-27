@@ -1,0 +1,46 @@
+{
+  "schema": "cp316-318-static-validation-v1",
+  "status": "BUILT_AND_INDEPENDENTLY_INSPECTED_INERT_PE_NATIVE_RUN_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "worker_executable": {
+    "path": "C:\\PROBLEM\\s316\\worker.exe",
+    "bytes": 104960,
+    "sha256": "19886a0821d47611cc82dc44476ae222328e9c169b8e8ba9183cf92c3b655985",
+    "pe": "AMD64 PE32+ console, KERNEL32-only imports, no TLS or delay imports",
+    "build_receipt": "analysis/cp316-worker-fixture-build.json",
+    "build_receipt_sha256": "7dbf6936c3261e5faa83b1d29e3fd69e54963ab312670c8b1d9a058d6728e309"
+  },
+  "source_sha256": {
+    "admin/fixtures/cp316/worker.c": "e657f3f4bcc69732238a50094a7766c91f801c3b05a38db88cd2795a63f48703",
+    "admin/fixtures/cp316/README.md": "f6839741b4e37efafe276701863ab625ee96e8a9cc89e4cf8bff57761e04057b",
+    "admin/build_cp316_worker_fixture.py": "071393bb245eeff67035de3937537fb27ce8f9df5ccb66da433e190d8f29a069",
+    "admin/test_cp316_worker_fixture_source.py": "a0add572cca9108053bb7c5a1b8a050f5c6d2ffedd7e414f0bab4ad73ee07774",
+    "admin/cp316_native_pipe_adapter.py": "cc4447eeedb1df8c90ed39b2ce0bdb688353df910b8df5b26a0fe4c9e3b1c65e",
+    "admin/test_cp316_native_pipe_adapter.py": "a8b0f4db8bf6de101c2584414b71336fada5b66d3bcc385f1100e9268c9785f8",
+    "admin/cp317_win32_named_pipe_abi.py": "b1b5d9e298703b58fac58877ee884246d7caf836d4a6079298ceb8f845a9ec6a",
+    "admin/test_cp317_win32_named_pipe_abi.py": "b59da1e4e9de4c8e126711e3df62fb251e4811160ccb180fc9ec0390078c8221",
+    "admin/cp318_fixed_worker_creator.py": "44e923d475aeb7101cb8273ad504d5931ad857664307a9fea20411b3fcc76a04",
+    "admin/test_cp318_fixed_worker_creator.py": "a806946f07e6bd7b248c78d7ec624539f83d5453bf4ffa0a604c48be5d86396a"
+  },
+  "tests": {
+    "subset": "test_cp3*.py through CP318",
+    "root_order": {"run": 253, "passed": 253, "failed": 0},
+    "admin_order": {"run": 253, "passed": 253, "failed": 0},
+    "log": "analysis/cp316-318-static-fake-tests.log",
+    "log_sha256": "b33ddc7d8f3882a7439d76f44f7f6dc453f7d950cdf468efede331d4740e517d",
+    "failed_invocation_log": "analysis/cp316-318-static-fake-tests-attempt1.log",
+    "failed_invocation_log_sha256": "4a3e3dc3415b70ab3c15ff22798c0304e74794ababb9f3db75714abedb9bc9ab",
+    "failed_invocation_qualification": "Explicit root module list lacked admin on PYTHONPATH; one CP300 import failed, while admin invocation passed. Corrected without source change."
+  },
+  "reviews": "CP316 worker source/build and built PE, CP316 adapter, revised CP317 ABI and revised CP318 creator independently reviewed PASS within static/fake scope",
+  "unpassed_gates": [
+    "Integrate verified private pipe DACL, connected overlapped endpoints and restricted HANDLE_LIST",
+    "Bind retained fixed image file identity to creation and exact returned process",
+    "Run only a reviewed inert WORKER occurrence with exact deadline, job and pending-I/O cleanup",
+    "Then establish synthetic CHILD nested-job and supervisor-death containment",
+    "Fresh original Open-Save-accepted Close/failure behavior and public C++ integration"
+  ]
+}
