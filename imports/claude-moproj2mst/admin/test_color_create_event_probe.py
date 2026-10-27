@@ -15,10 +15,10 @@ class CreateEventProbeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.receipts = {}
-        for mode in ('normal', 'reject-image', 'held-entry'):
+        for mode in ('normal', 'reject-image', 'held-entry', 'reject-create-event', 'no-ack'):
             receipt = supervisor.run_supervised(mode, backend='native-create-event')
             cls.receipts[mode] = receipt
-            (ROOT / f'analysis/cp283-create-event-{mode}.raw.json').write_text(
+            (ROOT / f'analysis/cp284-create-event-{mode}.raw.json').write_text(
                 json.dumps(receipt, separators=(',', ':'), sort_keys=True) + '\n', encoding='utf-8')
 
     def test_fixed_image_binding(self):
@@ -86,6 +86,53 @@ class CreateEventProbeTests(unittest.TestCase):
         self.assertTrue(worker['cleanupComplete'])
         self.assertTrue(receipt['independentChildExitVerified'])
         self.assertTrue(worker['events'][0]['continued'])
+
+    def test_create_event_failure_after_arm_retains_pending_and_cleans(self):
+        receipt = self.receipts['reject-create-event']
+        worker = receipt['workerResult']
+        self.assertEqual(receipt['errors'], [])
+        self.assertTrue(receipt['childHandleAcknowledged'])
+        injection = worker['createEventFailureInjection']
+        self.assertTrue(injection['imageGatePassed'])
+        self.assertTrue(injection['armReadbackPassed'])
+        held = injection['pendingEvent']
+        self.assertEqual((held['sequence'], held['code']), (1, 3))
+        self.assertEqual((held['pid'], held['tid']), (worker['pid'], worker['primaryTid']))
+        self.assertFalse(held['continued'])
+        self.assertFalse(held['continuationAttempted'])
+        self.assertEqual(held['continuationStatus'], 'not attempted at injection')
+        self.assertEqual(held['disposition'], hex(probe.CONTINUE))
+        self.assertTrue(worker['initialEventArmed'])
+        self.assertTrue(all(worker['armChecks'].values()))
+        first = worker['events'][0]
+        self.assertTrue(first['continuationAttempted'])
+        self.assertTrue(first['continued'])
+        self.assertEqual(first['continuationStatus'], 'successful')
+        self.assertEqual(first['disposition'], held['disposition'])
+        self.assertIn('fixed injected CREATE_PROCESS failure after arm before continuation', worker['errors'])
+        self.assertFalse(worker['entryQualified'])
+        self.assertFalse(worker['harmlessPassed'])
+        self.assertTrue(worker['termination']['ok'])
+        self.assertEqual(worker['cleanupErrors'], [])
+        self.assertTrue(worker['cleanupComplete'])
+        self.assertIsNone(worker['pendingEvent'])
+        self.assertTrue(all(e['continued'] for e in worker['events']))
+        self.assertTrue(all(h['closed'] for h in worker['handles']))
+        self.assertTrue(receipt['independentChildExitVerified'])
+        self.assertTrue(receipt['workerExitVerified'])
+        self.assertTrue(receipt['sourceStable'])
+        self.assertLess(receipt['elapsedSeconds'], 9)
+        with self.assertRaises(ValueError):
+            supervisor.run_supervised('reject-create-event', backend='python-marker')
+
+    def test_native_no_ack_independent_exit_does_not_imply_worker_cleanup(self):
+        receipt = self.receipts['no-ack']
+        self.assertFalse(receipt['childHandleAcknowledged'])
+        self.assertTrue(receipt['independentChildExitVerified'])
+        self.assertTrue(receipt['workerExitVerified'])
+        self.assertFalse(receipt['workerCleanupComplete'])
+        self.assertTrue(receipt['sourceStable'])
+        self.assertEqual(receipt['errors'], [])
 
     def test_held_entry_abandoned_not_continued(self):
         receipt = self.receipts['held-entry']

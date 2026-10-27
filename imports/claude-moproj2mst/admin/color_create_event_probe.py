@@ -20,7 +20,7 @@ CONTINUE, FORWARD, STEP, BREAK, RF = prior.CONTINUE, prior.FORWARD, prior.STEP, 
 REGS, NTDLL_SHA, LOADER_RVA, LOADER_BYTES = prior.REGS, prior.NTDLL_SHA, prior.LOADER_RVA, prior.LOADER_BYTES
 read_exact = prior.read_exact
 ORIGINAL_RUN_ENABLED = False
-MODES = ('normal', 'reject-image')
+MODES = ('normal', 'reject-image', 'reject-create-event')
 MAX_EVENTS, MAX_RECEIPT = 512, 256 * 1024
 FIXTURE = Path(__file__).resolve().parent.parent / 'build/cp282-native-startup-fixture/native_color_entry_fixture.exe'
 FIXTURE_SHA = '2a07aecccca5562b0dfe02fd212b1aa84d0a69cc58d4ceddd7c1617f970dc962'
@@ -249,6 +249,19 @@ def run_harmless(mode='normal', *, _supervision=None):
             armed = True
             result['initialEventArmed'] = True
             row['armedBeforeSuccessfulContinuation'] = True
+            if mode == 'reject-create-event':
+                if row['sequence'] != 1 or ev.code != 3 or not pending:
+                    raise RuntimeError('create-event failure injection gate mismatch')
+                # Snapshot the held event before cleanup can mutate its outcome.
+                result['createEventFailureInjection'] = dict(
+                    point='after initial image gate and DR0 readback before continuation',
+                    imageGatePassed=True, armReadbackPassed=all(checks.values()),
+                    pendingEvent=dict(row, disposition=hex(disposition),
+                        continuationAttempted=False,
+                        continuationStatus='not attempted at injection'))
+                if _supervision:
+                    _supervision('event-held', dict(row, disposition=hex(disposition)))
+                raise RuntimeError('fixed injected CREATE_PROCESS failure after arm before continuation')
         elif ev.code == 2:
             ledger.own(ev.u.thread.thread, 'event-thread', 'event')
             threads[ev.tid] = ev.u.thread.thread
@@ -278,7 +291,8 @@ def run_harmless(mode='normal', *, _supervision=None):
         row['continuationAttempted'] = True
         ok = bool(abi.cont(ev.pid, ev.tid, disposition))
         row.update(disposition=hex(disposition), continued=ok,
-                   continuationError=None if ok else C.get_last_error())
+                   continuationError=None if ok else C.get_last_error(),
+                   continuationStatus='successful' if ok else 'failed; no retry')
         if not ok:
             raise RuntimeError('ContinueDebugEvent failed')
         pending = False

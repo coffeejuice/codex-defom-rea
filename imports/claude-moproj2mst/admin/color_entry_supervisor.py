@@ -96,14 +96,14 @@ def _worker(mode, backend="python-marker"):
             raise RuntimeError('supervisor requested cooperative cleanup')
         raise RuntimeError('unexpected supervisor command')
 
-    result = target.run_harmless('reject-image' if mode == 'reject-image' else 'normal', _supervision=hook)
+    result = target.run_harmless(mode if mode in ('reject-image', 'reject-create-event') else 'normal', _supervision=hook)
     send(sys.stdout, dict(kind='worker-result', data=result))
 
 
 def run_supervised(mode='normal', *, backend='python-marker'):
     if backend not in ('python-marker', 'native-create-event'):
         raise ValueError('fixed harmless backend required')
-    allowed = MODES if backend == 'python-marker' else (*MODES, 'reject-image')
+    allowed = MODES if backend == 'python-marker' else (*MODES, 'reject-image', 'reject-create-event')
     if mode not in allowed:
         raise ValueError('fixed harmless supervisor mode required')
     started = time.monotonic()
@@ -257,8 +257,8 @@ def run_supervised(mode='normal', *, backend='python-marker'):
 if __name__ == '__main__':
     if (len(sys.argv) == 4 and sys.argv[1] == '--fixed-worker'
             and sys.argv[3] in ('python-marker', 'native-create-event')
-            and sys.argv[2] in (*MODES, 'reject-image')
-            and (sys.argv[2] != 'reject-image' or sys.argv[3] == 'native-create-event')):
+            and sys.argv[2] in (*MODES, 'reject-image', 'reject-create-event')
+            and (sys.argv[2] not in ('reject-image', 'reject-create-event') or sys.argv[3] == 'native-create-event')):
         _worker(sys.argv[2], sys.argv[3])
     elif len(sys.argv) == 3 and sys.argv[1] == '--harmless-supervised' and sys.argv[2] in MODES:
         print(json.dumps(run_supervised(sys.argv[2]), sort_keys=True))

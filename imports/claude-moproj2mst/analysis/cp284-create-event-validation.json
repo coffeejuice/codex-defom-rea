@@ -1,0 +1,177 @@
+{
+  "schema": "cp284-create-event-failure-validation-v1",
+  "baselineCommit": "20b4324e84f3d66512cb5610ef119d92f697e2cb",
+  "originalLaunched": false,
+  "originalReady": false,
+  "guiControlAcquired": false,
+  "fixtureSha256": "2a07aecccca5562b0dfe02fd212b1aa84d0a69cc58d4ceddd7c1617f970dc962",
+  "sourceHashes": {
+    "admin/color_create_event_probe.py": "c56a08421b7914b0163277b3b88c095c93ad8fe6202aa33ca61a1ff665debd2b",
+    "admin/color_entry_supervisor.py": "20595f041c599f371ddd7b88addac0af7812cf774ef7c5682eb1e52853864886",
+    "admin/test_color_create_event_probe.py": "c546f98f4751242b1b897792b9d1a5e3c476a9e43cd2fd839fd7e60c8e459bd4",
+    "admin/color_original_entry_observer.py": "def5c760da99860553a1fc6ca4c06149f9b7e114410b63b2e389cde6933fdc25",
+    "admin/child_debug_event_fixture.py": "0aea50992e9e6749f9d5f4db7092710d61ca159e1622f7fd65c275e273ed31ee",
+    "admin/build_native_color_entry_fixture.py": "bc07e6cb33bd95f22aef4817faee16b4ff64164e8871c5ff556506d113e73a5f",
+    "admin/native_color_entry_fixture.cpp": "88a52efc7d3544b7d84bba93cc7c41e897bddc370dff5b82f5028bf1d9bbf87b"
+  },
+  "tests": [
+    {
+      "command": "python -m unittest discover -s admin -p test_color_create_event_probe.py -q",
+      "passed": 10,
+      "seconds": 7.164,
+      "qualification": "root final-source integration rerun"
+    },
+    {
+      "command": "python -m unittest discover -s admin -p test_color_entry_supervisor.py -q",
+      "passed": 6,
+      "seconds": 12.295,
+      "qualification": "root final-source integration rerun"
+    },
+    {
+      "command": "python -m unittest discover -s admin -p test_color_original_entry_observer.py -q",
+      "passed": 12,
+      "seconds": 2.325,
+      "qualification": "root final-source integration rerun"
+    }
+  ],
+  "cases": {
+    "normal": {
+      "path": "analysis/cp284-create-event-normal.raw.json",
+      "sha256": "33af54eaa3e98825865e7150ea6b4d8413b480d2b73c4a20da3aa7f8a3c8db1a",
+      "bytes": 15732,
+      "elapsedSeconds": 0.141,
+      "sourceStable": true,
+      "childHandleAcknowledged": true,
+      "workerCleanupComplete": true,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "workerResultPresent": true,
+      "pendingEvent": null,
+      "errors": [],
+      "entryQualified": true,
+      "initialEventArmed": true,
+      "cleanupErrors": [],
+      "eventCodes": [
+        3,
+        6,
+        6,
+        6,
+        1,
+        1,
+        5
+      ]
+    },
+    "reject-image": {
+      "path": "analysis/cp284-create-event-reject-image.raw.json",
+      "sha256": "c237c67d9a0fba698b17d2e34c650ee6f0da1450c0dee58b80bf4438ff5cfc1b",
+      "bytes": 7068,
+      "elapsedSeconds": 0.125,
+      "sourceStable": true,
+      "childHandleAcknowledged": true,
+      "workerCleanupComplete": true,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "workerResultPresent": true,
+      "pendingEvent": null,
+      "errors": [],
+      "entryQualified": false,
+      "initialEventArmed": false,
+      "cleanupErrors": [],
+      "eventCodes": [
+        3,
+        6,
+        5
+      ]
+    },
+    "held-entry": {
+      "path": "analysis/cp284-create-event-held-entry.raw.json",
+      "sha256": "4bbd967930789df20055304a2ea4e2b7622408b4bbe4515c3150980bdb958526",
+      "bytes": 3976,
+      "elapsedSeconds": 3.375,
+      "sourceStable": true,
+      "childHandleAcknowledged": true,
+      "workerCleanupComplete": false,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "workerResultPresent": false,
+      "pendingEvent": {
+        "code": 1,
+        "continuationStatus": "abandoned by debugger-worker termination",
+        "continued": false,
+        "disposition": "0x10002",
+        "pid": 11540,
+        "sequence": 6,
+        "tid": 33712
+      },
+      "errors": []
+    },
+    "reject-create-event": {
+      "path": "analysis/cp284-create-event-reject-create-event.raw.json",
+      "sha256": "be7144d532a6a0ac634e1be1870a8b9c1c59c098cfbdbab321039d3a28da10b5",
+      "bytes": 10662,
+      "elapsedSeconds": 0.125,
+      "sourceStable": true,
+      "childHandleAcknowledged": true,
+      "workerCleanupComplete": true,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "workerResultPresent": true,
+      "pendingEvent": null,
+      "errors": [],
+      "entryQualified": false,
+      "initialEventArmed": true,
+      "cleanupErrors": [],
+      "eventCodes": [
+        3,
+        6,
+        5
+      ],
+      "injection": {
+        "armReadbackPassed": true,
+        "imageGatePassed": true,
+        "pendingEvent": {
+          "armedBeforeSuccessfulContinuation": true,
+          "code": 3,
+          "continuationAttempted": false,
+          "continuationStatus": "not attempted at injection",
+          "continued": false,
+          "disposition": "0x10002",
+          "pid": 29620,
+          "sequence": 1,
+          "soleResumeAlreadyIssued": true,
+          "tid": 31380
+        },
+        "point": "after initial image gate and DR0 readback before continuation"
+      },
+      "firstEventFinal": {
+        "armedBeforeSuccessfulContinuation": true,
+        "code": 3,
+        "continuationAttempted": true,
+        "continuationError": null,
+        "continuationStatus": "successful",
+        "continued": true,
+        "disposition": "0x10002",
+        "pid": 29620,
+        "sequence": 1,
+        "soleResumeAlreadyIssued": true,
+        "tid": 31380
+      }
+    },
+    "no-ack": {
+      "path": "analysis/cp284-create-event-no-ack.raw.json",
+      "sha256": "e33e95b040bf40450e1e03416afe1b4fecf466acb6706f384d40fa318802f661",
+      "bytes": 2744,
+      "elapsedSeconds": 3.39,
+      "sourceStable": true,
+      "childHandleAcknowledged": false,
+      "workerCleanupComplete": false,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "workerResultPresent": false,
+      "pendingEvent": null,
+      "errors": []
+    }
+  },
+  "qualifiedScope": "fixed harmless CREATE_PROCESS exception after image gate and successful DR0 readback; bounded owned-child termination and exact continuation receipt; not ContinueDebugEvent API failure, neutrality, original readiness or overlap",
+  "noAckQualification": "independent child/worker exits verified; no completed worker result, so no worker-local cleanup-complete claim; no event-held IPC receipt does not prove no pending event"
+}
