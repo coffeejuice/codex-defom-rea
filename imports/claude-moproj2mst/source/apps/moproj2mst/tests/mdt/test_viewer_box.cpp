@@ -3830,9 +3830,11 @@ TEST_CASE(curve_item_supplied_render_seam_rejects_before_mutating_and_composes_e
     // Explicit caller composition only: the public viewer never invokes the suffix.
     int calls = 0;
     const engine::CurveItemState::SuppliedRenderColor color =
-        [&](engine::CurveItemState&, std::span<std::uint32_t> words) {
+        [&](engine::CurveItemState& owner, std::span<std::uint32_t> words) {
             ++calls;
-            for (std::size_t i = 0; i < words.size(); i += 3) words[i] = 0xdeadbeefu;
+            CHECK(&owner == &item);
+            CHECK(words.data() == owner.renderWords().data());
+            owner.applySuppliedRenderColorWords2D(0xdeadbeefu, 0xdeadbeefu);
         };
     item.packSuppliedRender2D(xy, displaced, color);
     CHECK_EQ(calls, 1);
@@ -3859,4 +3861,104 @@ TEST_CASE(curve_item_supplied_render_seam_rejects_before_mutating_and_composes_e
     item.reset(); item.bind(&curve, 0.01);
     CHECK(item.renderWords() == words && item.indices() == indices);
     CHECK(item.renderStride() == 4 && item.segmentCount() == 1);
+}
+
+TEST_CASE(curve_item_supplied_color_words_mutate_same_owner_after_packing)
+{
+    engine::CurveItemState item, independent;
+    item.applySuppliedRenderColorWords2D(0x7fc12345u, 0xff812345u);
+    CHECK(item.renderWords().empty() && item.indices().empty());
+    CHECK(!item.renderStride() && !item.segmentCount());
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 3;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    for (int i = 0; i < 3; ++i) {
+        points[3 * i] = i; points[3 * i + 1] = -i; points[3 * i + 2] = 0;
+    }
+    item.bind(&curve, 0.01); independent.bind(&curve, 0.01);
+    item.setWidth(0.25f);
+    const auto rows = item.vertexRows();
+    const auto* rowStorage = item.vertexRows().data();
+    const std::array<double, 6> original{-0.0, 1, 2, 3, 4, 5};
+    const std::array<double, 6> displaced{6, 7, 8, 9, 10, 11};
+    independent.packSuppliedRender2D(original, displaced,
+        [](engine::CurveItemState& owner, std::span<std::uint32_t>) {
+            owner.applySuppliedRenderColorWords2D(0x12345678u, 0x87654321u);
+        });
+    const auto independentWords = independent.renderWords();
+    const auto independentIndices = independent.indices();
+    int calls = 0;
+    item.packSuppliedRender2D(original, displaced,
+        [&](engine::CurveItemState& owner, std::span<std::uint32_t> words) {
+            ++calls; CHECK(&owner == &item);
+            CHECK(words.data() == owner.renderWords().data());
+            CHECK(owner.renderStride() == 4 && owner.segmentCount() == 2);
+            CHECK(owner.indices() == std::vector<std::int32_t>({0, 1, 4, 3, 1, 2, 5, 4}));
+            for (std::size_t i = 0; i < 3; ++i)
+                for (std::size_t axis = 0; axis < 2; ++axis) {
+                    CHECK_EQ(words[3 * i + axis + 1],
+                        std::bit_cast<std::uint32_t>(static_cast<float>(original[2 * i + axis])));
+                    CHECK_EQ(words[3 * (3 + i) + axis + 1],
+                        std::bit_cast<std::uint32_t>(static_cast<float>(displaced[2 * i + axis])));
+                }
+            // Distinct NaN-like words must survive without float interpretation.
+            owner.applySuppliedRenderColorWords2D(0x7fc12345u, 0xff812345u);
+        });
+    CHECK_EQ(calls, 1);
+    const auto before = item.renderWords();
+    const auto indices = item.indices();
+    const auto* storage = item.renderWords().data();
+    const auto* indexStorage = item.indices().data();
+    for (std::size_t i = 0; i < 6; ++i)
+        CHECK_EQ(before[3 * i], i < 3 ? 0x7fc12345u : 0xff812345u);
+    item.applySuppliedRenderColorWords2D(0x80000000u, 0x00000001u);
+    CHECK_EQ(item.renderWords().size(), before.size());
+    CHECK(item.renderWords().data() == storage && item.indices().data() == indexStorage);
+    CHECK(item.indices() == indices);
+    CHECK(item.renderStride() == 4 && item.segmentCount() == 2);
+    CHECK_EQ(item.vertexCount(), 3); CHECK_EQ(item.width(), 0.25f);
+    CHECK(item.vertexRows() == rows && item.vertexRows().data() == rowStorage);
+    for (std::size_t i = 0; i < 6; ++i) {
+        CHECK_EQ(item.renderWords()[3 * i], i < 3 ? 0x80000000u : 0x00000001u);
+        CHECK_EQ(item.renderWords()[3 * i + 1], before[3 * i + 1]);
+        CHECK_EQ(item.renderWords()[3 * i + 2], before[3 * i + 2]);
+    }
+    CHECK(independent.renderWords() == independentWords && independent.indices() == independentIndices);
+    CHECK(independent.renderStride() == 4 && independent.segmentCount() == 2);
+    const auto recolored = item.renderWords();
+    item.reset();
+    item.applySuppliedRenderColorWords2D(0xffffffffu, 0u);
+    CHECK(item.renderWords() == recolored && item.renderWords().data() == storage);
+    CHECK(item.indices() == indices && item.renderStride() == 4 && item.segmentCount() == 2);
+}
+
+TEST_CASE(curve_item_supplied_color_one_vertex_and_insufficient_storage_policy)
+{
+    engine::CurveItemState item;
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 2;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    for (int i = 0; i < 6; ++i) points[i] = 0;
+    curve.n_points = 1; item.bind(&curve, 0.01);
+    bool rejected = false;
+    try { item.applySuppliedRenderColorWords2D(1u, 2u); }
+    catch (const std::length_error&) { rejected = true; }
+    CHECK(rejected); CHECK(item.renderWords().empty() && item.indices().empty());
+    CHECK(!item.renderStride() && !item.segmentCount());
+    const std::array<double, 2> xy{-0.0, 2}, displaced{3, -4};
+    item.packSuppliedRender2D(xy, displaced,
+        [](engine::CurveItemState& owner, std::span<std::uint32_t>) {
+            owner.applySuppliedRenderColorWords2D(0x7f800001u, 0xffcabcdeu);
+        });
+    CHECK(item.renderWords() == std::vector<std::uint32_t>({0x7f800001u, 0x80000000u,
+        0x40000000u, 0xffcabcdeu, 0x40400000u, 0xc0800000u}));
+    CHECK(item.indices().empty() && item.renderStride() == 4 && item.segmentCount() == 0);
+    const auto words = item.renderWords(); const auto* storage = item.renderWords().data();
+    curve.n_points = 2; item.bind(&curve, 0.01); // row bind preserves six existing words
+    rejected = false;
+    try { item.applySuppliedRenderColorWords2D(0u, 0xffffffffu); }
+    catch (const std::length_error&) { rejected = true; }
+    CHECK(rejected); CHECK(item.renderWords() == words && item.renderWords().data() == storage);
+    CHECK_EQ(item.vertexCount(), 2);
+    CHECK(item.indices().empty() && item.renderStride() == 4 && item.segmentCount() == 0);
 }

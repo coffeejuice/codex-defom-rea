@@ -402,6 +402,21 @@ void CurveItemState::packSuppliedRender2D(std::span<const double> originalXY,
     color(*this, std::span<std::uint32_t>(renderWords_));
 }
 
+void CurveItemState::applySuppliedRenderColorWords2D(std::uint32_t firstHalf,
+    std::uint32_t secondHalf)
+{
+    if (vertexCount_ == 0) return;
+    // Native's unchecked slot accessor may detach and allocate per write.
+    // This bounded supplied-input seam admits only representable, owned storage.
+    if (vertexCount_ < 0 || vertexCount_ > std::numeric_limits<std::int32_t>::max() / 6)
+        throw std::length_error("supplied render color count outside seam domain");
+    const auto n = static_cast<std::size_t>(vertexCount_);
+    if (renderWords_.size() < 6 * n)
+        throw std::length_error("supplied render color requires existing render storage");
+    for (std::size_t i = 0; i < n; ++i) renderWords_[3 * i] = firstHalf;
+    for (std::size_t i = n; i < 2 * n; ++i) renderWords_[3 * i] = secondHalf;
+}
+
 Rect2 CurveItemState::rectangle() const
 {
     Rect2 r;

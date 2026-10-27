@@ -68,6 +68,13 @@ public:
     // recursively repack the owner, or retain the mutable span after returning.
     void packSuppliedRender2D(std::span<const double> originalXY,
         std::span<const double> displacedXY, const SuppliedRenderColor& color);
+    // @src 0x14126a74b..0x14126a7cf: supplied raw words for the two N-row halves.
+    // N==0 leaves all state untouched. Count/size admission is safe seam policy,
+    // not a recovered native bounds guard. Only stride-3 color slots are written,
+    // in ascending order; XY, metadata, indices and storage size are preserved.
+    // Direct vector stores do not reproduce native Qt COW/detach or allocation-
+    // failure effects; no resize, catch or rollback is introduced here.
+    void applySuppliedRenderColorWords2D(std::uint32_t firstHalf, std::uint32_t secondHalf);
     Rect2 rectangle() const;
 
 private:
