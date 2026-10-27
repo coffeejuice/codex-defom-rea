@@ -1,0 +1,33 @@
+{
+  "schema": "cp313-315-static-validation-v1",
+  "status": "REVIEWED_FAKE_ONLY_NATIVE_RUN_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp313_native_worker_creator.py": "e66f3d0b6aa79da1c6675188d77eb2bf5e67e8ca0cae60e80c5c7e9f7a438af4",
+    "admin/test_cp313_native_worker_creator.py": "6d39e5fc661dc45963136ec901cd9b7343755418217005b7cb8f593650b383b9",
+    "admin/cp313_worker_binary_protocol.py": "ab320efd8828c20eb07347af544551a208839bc4723b6ac26fa359f8ad6ed81c",
+    "admin/test_cp313_worker_binary_protocol.py": "34c0bb045d9612040ab43a4479fca6a3e4b280aa082912600e2d4e51b3bce00f",
+    "admin/cp314_exact_result_handoff.py": "db17d65186d2ae96a4f5ed2200515531f1966c279308d12165280e0f1d348cc7",
+    "admin/test_cp314_exact_result_handoff.py": "28444a0d6b99ff438430e4f38b6ddc003b1a0ec42c0abd046d331d170f8aa530",
+    "admin/cp315_bounded_pipe_transport.py": "ad9c9dba95b041f841f5b4551addee76abfb1789c30e5563b9b0f7ad186550da",
+    "admin/test_cp315_bounded_pipe_transport.py": "cde31105fa5cfbe91cea6ebe443cea7543d01b4ecf59f561d87733adacd1a71a"
+  },
+  "tests": {
+    "discovery_pattern": "test_cp3*.py",
+    "root_order": {"run": 200, "passed": 200, "failed": 0},
+    "admin_order": {"run": 200, "passed": 200, "failed": 0},
+    "log": "analysis/cp313-315-static-fake-tests.log",
+    "log_sha256": "ca17cdd8018b30db06aa9ae2350a627ec770c08b84ded50e5dc0702be11543af"
+  },
+  "reviews": "CP313 binary/creator, CP314 handoff and CP315 transport separately reviewed PASS for fake-only scope after repair",
+  "unpassed_gates": [
+    "Bounded native pipe exchange under one pre-creation deadline",
+    "Retained worker file identity and native job topology/ancestor check",
+    "Supervisor-death containment and exact suspended worker/child exit observations",
+    "Fresh original Open-Save-accepted Close and failure comparisons",
+    "Guarded public C++ lifecycle integration and independent acceptance"
+  ]
+}

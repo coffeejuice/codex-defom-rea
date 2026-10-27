@@ -4,8 +4,8 @@ No object in this module opens a process or job.  The injected backend and
 channel are trusted in-memory fakes; their marker is not a security boundary.
 This uses CP311 framed JSON, a dynamic m289 clone path, one CHILD job duplicate,
 and an OFFER/ACK/RECEIPT. The prepared worker.c instead uses packed
-CP312_INIT/RESULT/ACK, fixed C:\\PROBLEM\\s302\\fixture.exe, both WORKER and
-CHILD job duplicates, and no RECEIPT. The two protocols are not wired together.
+CP312_INIT/RESULT/ACK, fixed C:\\PROBLEM\\s302\\fixture.exe, only a CHILD
+job duplicate, and no RECEIPT. The two protocols are not wired together.
 The live entry remains held until a reviewed exact bridge and cleanup are ready.
 """
 from __future__ import annotations
@@ -35,9 +35,9 @@ EXIT_CODE = 0xE312
 WAIT_MS = 2000
 HARD_HOLD_DEPENDENCIES = (
     "reviewed x64 C:\\PROBLEM\\s312\\worker.exe PE receipt and pinned digest",
-    "bridge CP311 JSON/m289/CHILD-only/RECEIPT fake to worker.c packed CP312_INIT/RESULT/ACK, fixed s302, both job handles, no RECEIPT",
+    "bridge CP311 JSON/m289/CHILD-only/RECEIPT fake to worker.c packed CP312_INIT/RESULT/ACK, fixed s302, CHILD job handle only, no RECEIPT",
     "private bounded stdin/stdout pipe and worker identity binding with explicit inherited pipe HANDLE_LIST",
-    "reviewed native creation adapter with one JOB_LIST attribute and no breakaway",
+    "reviewed native WORKER creation with JOB_LIST plus restricted pipe HANDLE_LIST, and CHILD creation with one JOB_LIST and no breakaway",
     "ancestor job-chain silent-breakaway assessment before worker resume",
     "interrupted CreateProcessW recovery with independent child-existence evidence",
 )
