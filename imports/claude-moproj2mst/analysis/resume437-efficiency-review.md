@@ -1,0 +1,7 @@
+# CP435–437 efficiency review
+
+CP435 and CP437 each used one independently gated inert occurrence. Both were unaccepted. CP435 located the hold at CP329's strict job-count check; CP436 used injected tests and source review to capture its existing values; CP437 showed WORKER=1 and CHILD=0. This narrowed the next question to the exact WORKER-job member. It did not advance public converter parity or supply the original Open-Save-accepted Close witness.
+
+The CP435 and CP437 monitored invocations took 6.22 and 9.70 seconds at their tool boundaries, including final gate checks for CP437; each monitor itself spanned about 5.6 seconds. CP436's retained injected suites ran 670 CP3xx tests in 0.514 seconds and 10 CP4xx tests in 0.036 seconds; the enclosing log command took 6.2 seconds. Token usage is unavailable, so no token-saving claim is made. No REA retry was spent after its 330-second Ghidra startup timeout.
+
+The harness is yielding narrower failure evidence but remains an auxiliary route; 28 inert observations do not equal converter reconstruction. CP438 should limit new work to one failure-only exact WORKER-job PID census. If that still cannot distinguish a removable harness artifact, reassess the return from further inert trials and prioritize a different evidence dependency. Preserve public guards and the GUI-control release hold. Review again after three checkpoints or one hour at the next safe boundary.
