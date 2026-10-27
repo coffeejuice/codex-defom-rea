@@ -42,14 +42,18 @@ constexpr int qt4Digit(unsigned char ch) noexcept
 
 inline Qt4IntParseResult parseQt4Base0Int(std::string_view bytes,
                                           std::size_t offset = 0,
-                                          bool allowExactSw2spWordLeaf = false) noexcept
+                                          bool allowExactSw2spInvalidLeaves = false) noexcept
 {
     // The retained QtCore static evidence qualifies this exact SW2SP leaf:
     // getInteger fails on initial 'w', ungets it, and the fresh int operator
     // reports status 2 while leaving its destination zero. Do not generalize
     // this to arbitrary nonnumeric input or other encodings.
-    if (allowExactSw2spWordLeaf && offset == 0 && bytes == "word\r\n")
+    if (allowExactSw2spInvalidLeaves && offset == 0 && bytes == "word\r\n")
         return {0, false, 0, true};
+    // A leading minus is consumed before Qt rejects the following 'x'. The
+    // invalid character is ungot, so this exact SW2SP leaf ends at byte 1.
+    if (allowExactSw2spInvalidLeaves && offset == 0 && bytes == "-x10\r\n")
+        return {0, false, 1, true};
 
     std::size_t cursor = offset;
     while (cursor < bytes.size() && qt4AsciiSpace(static_cast<unsigned char>(bytes[cursor])))

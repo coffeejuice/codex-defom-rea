@@ -277,8 +277,10 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         std::size_t nextByte;
         int operatorStatus;
     };
-    // These rows are transcribed from the independent PE-verified table in
-    // analysis/resume83-sw2sp-parser-independent-review.md.
+    // Numeric rows use the independent PE-verified table in
+    // analysis/resume83-sw2sp-parser-independent-review.md. Exact invalid
+    // leaves are separate static qualifications: word in resume486 and
+    // -x10 in the CP487 original QtCore/GUI analysis.
     const OracleRow rows[] = {
         {"0xA\r\n", 10, true, 3, 0},
         {"0XA\r\n", 10, true, 3, 0},
@@ -301,12 +303,13 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         {"-9223372036854775809", 1, true, 20, 0},
         {"-18446744073709551615", -1, true, 21, 0},
         {"word\r\n", 0, false, 0, 2},
+        {"-x10\r\n", 0, false, 1, 2},
     };
 
     std::array<int, 1> value{};
     for (const auto& row : rows) {
         const auto parsed = detail::parseQt4Base0Int(
-            row.bytes, 0, row.bytes == "word\r\n");
+            row.bytes, 0, row.bytes == "word\r\n" || row.bytes == "-x10\r\n");
         CHECK(parsed.sourceQualified);
         CHECK_EQ(parsed.getterSucceeded, row.getterSucceeded);
         CHECK_EQ(parsed.nextByte, row.nextByte);
@@ -320,9 +323,13 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         CHECK_EQ(value[0], row.value);
     }
 
-    // The exact source-qualified word leaf above is admitted. Other
-    // nonnumeric input and a sign followed by a nonnumeric byte remain guarded.
-    for (const char* outside : {"words\r\n", "-x10\r\n"}) {
+    const auto minusXDefault = detail::parseQt4Base0Int("-x10\r\n");
+    CHECK(!minusXDefault.sourceQualified);
+    const auto minusXOffset = detail::parseQt4Base0Int(" -x10\r\n", 1, true);
+    CHECK(!minusXOffset.sourceQualified);
+
+    // Only the two exact source-qualified leaves above are admitted.
+    for (const char* outside : {"words\r\n", "-x11\r\n", "-X10\r\n"}) {
         rig.write("SW2SP.DAT", outside);
         CHECK(unsupported([&] { rig.io->readInts(qt::L("SW2SP.DAT"), value); }));
     }
@@ -330,8 +337,14 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
     CHECK(unsupported([&] { rig.io->readInts(qt::L("integer"), value); }));
     rig.write("STRETCH.DAT", "word\r\n");
     CHECK(unsupported([&] { rig.io->readInts(qt::L("STRETCH.DAT"), value); }));
+    rig.write("STRETCH.DAT", "-x10\r\n");
+    CHECK(unsupported([&] { rig.io->readInts(qt::L("STRETCH.DAT"), value); }));
+    rig.write("integer", "-x10\r\n");
+    CHECK(unsupported([&] { rig.io->readInts(qt::L("integer"), value); }));
     rig.write("SW2SP.DAT", "word\r\n");
     std::array<int, 2> twoValues{};
+    CHECK(unsupported([&] { rig.io->readInts(qt::L("SW2SP.DAT"), twoValues); }));
+    rig.write("SW2SP.DAT", "-x10\r\n");
     CHECK(unsupported([&] { rig.io->readInts(qt::L("SW2SP.DAT"), twoValues); }));
 }
 
