@@ -189,6 +189,30 @@ TEST_CASE(copymirror_private_save_missing_directory_precedes_plane_scan)
     refusesPositivePlanes(existing);
     CHECK(existing.mkdirs.empty());
     CHECK(!fs::exists(task / "mirrormerge.ini"));
+
+    // QFile(WriteOnly) also fails when the final target exists as a directory.
+    // That early open failure precedes the positive-plane scan and leaves viewer state alone.
+    const fs::path target = task / "mirrormerge.ini";
+    fs::create_directory(target);
+    engine::FileEffects targetDirectory;
+    CHECK(cls->saveAfterFiles(project, operation, targetDirectory));
+    CHECK(targetDirectory.writes.empty());
+    CHECK(targetDirectory.deletes.empty());
+    CHECK(targetDirectory.mkdirs.empty());
+    CHECK(model->viewerMirrorPlanes == planes);
+
+    // With zero planes, the same failed open remains a no-op and does not create a write.
+    model->viewerMirrorPlanes.clear();
+    CHECK(cls->saveAfterFiles(project, operation, targetDirectory));
+    CHECK(targetDirectory.writes.empty());
+    CHECK(model->viewerMirrorPlanes.empty());
+    model->viewerMirrorPlanes = planes;
+
+    // Once that target directory is removed, an existing task folder reaches the
+    // established unsupported positive-plane behavior.
+    fs::remove(target);
+    refusesPositivePlanes(existing);
+    CHECK(!fs::exists(task / "mirrormerge.ini"));
     fs::remove(task);
     fs::remove(dir);
 }

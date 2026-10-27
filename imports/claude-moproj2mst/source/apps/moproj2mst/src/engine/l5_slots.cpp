@@ -1137,6 +1137,10 @@ void cmSaveAfter(OpClass& c, CopyMirrorState& st, const String& stepKey, Project
     // 0x140e23d80 opens QFile(WriteOnly) before the object/viewer scan. This models only
     // the missing-directory failure, including directories already recorded by this save.
     if (!folderExistsFx(path, fx)) return;
+    // QFile(WriteOnly) fails when the final target itself is an existing directory.
+    // Keep this check physical; do not infer a final-target directory from planned mkdirs.
+    std::error_code ec;
+    if (std::filesystem::is_directory(std::filesystem::path(path.u16()), ec)) return;
     const int n = m->objectCount();                       // 0x140c7c1a0
     for (int i = 0; i < n; ++i) {
         int* planes = viewerItemPlanes(*m, i + 1);        // 0x140c82d50 (made when missing)
