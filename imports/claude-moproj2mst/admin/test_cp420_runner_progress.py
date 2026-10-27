@@ -10,10 +10,10 @@ import cp420_runner_progress as progress
 
 
 class ProgressTests(unittest.TestCase):
-    def test_cp436_failure_receipt_is_separate_bounded_and_one_use(self):
+    def test_cp438_failure_receipt_is_separate_bounded_and_one_use(self):
         nonce, deadline = b"q" * 32, 900
         self.assertRegex(progress.failure_path(nonce, deadline).name,
-                         r"^cp436-failure-[0-9a-f]{64}\.json$")
+                         r"^cp438-failure-[0-9a-f]{64}\.json$")
         self.assertNotEqual(progress.failure_path(nonce, deadline),
                             progress.path(nonce, deadline))
         with tempfile.TemporaryDirectory(dir=os.environ.get("CP420_TEST_TEMP") or None) as directory:
@@ -21,13 +21,20 @@ class ProgressTests(unittest.TestCase):
             snapshot = {"runner": {"ack_memory_stage": "returned"},
                         "worker": {"wait_outcome": "returned",
                                    "worker_active_processes": 0xFFFFFFFF,
-                                   "child_active_processes": None},
+                                   "child_active_processes": None,
+                                   "worker_census_status": "valid",
+                                   "worker_census_assigned": 1,
+                                   "worker_census_listed": 1,
+                                   "worker_census_pids": (412,)},
                         "failure": {"type": "Hold", "message": "deadline"}}
             with patch.object(progress, "failure_path", return_value=target), \
                  patch.object(progress.os, "fsync") as fsync:
                 self.assertTrue(progress.write_failure_completion(nonce, deadline, snapshot))
                 self.assertEqual(json.loads(target.read_text(encoding="ascii")),
-                                 {"schema": 3, "snapshot": snapshot})
+                                 {"schema": 4, "snapshot": {
+                                     **snapshot, "worker": {
+                                         **snapshot["worker"],
+                                         "worker_census_pids": [412]}}})
                 self.assertFalse(progress.write_failure_completion(nonce, deadline, snapshot))
                 self.assertFalse(progress.write_failure_completion(
                     nonce, deadline, {"runner": {"x": "a" * 1200},

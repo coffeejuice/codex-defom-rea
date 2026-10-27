@@ -25,6 +25,12 @@ CREATE_FLAGS = 4 | 0x80000 | 0x08000000  # suspended, extended startup, no windo
 INVALID_HANDLE = C.c_void_p(-1).value
 
 
+class _PID_LIST_8(C.Structure):
+    """Fixed failure-only JobObjectBasicProcessIdList buffer (Win64)."""
+    _fields_ = [("assigned", abi.DWORD), ("listed", abi.DWORD),
+                ("ids", abi.ULONG_PTR * 8)]
+
+
 class ApiFailure(Hold):
     def __init__(self, name, code):
         self.api, self.code = name, code
@@ -59,6 +65,10 @@ class Receipt:
     completion_post_wait_stage: str = "not-attempted"
     completion_worker_active_processes: int | None = None
     completion_child_active_processes: int | None = None
+    completion_worker_census_status: str = "not-attempted"
+    completion_worker_census_assigned: int | None = None
+    completion_worker_census_listed: int | None = None
+    completion_worker_census_pids: tuple[int, ...] | None = None
     errors: list = field(default_factory=list)
 
 
@@ -305,6 +315,46 @@ class NativeWorkerCreator:
             self.close()
             raise PreparationFailure(error, self) from error
 
+    def _record_worker_census(self, earlier_count):
+        """One failure-only exact-job observation; never acceptance evidence.
+
+        The later census can differ from the earlier accounting query. Retain
+        that difference without replaying either query or weakening the Hold.
+        No process handle is derived from any diagnostic PID.
+        """
+        r = self.receipt
+        if r.completion_worker_census_status != "not-attempted":
+            return
+        r.completion_worker_census_status = "entered"
+        try:
+            info, returned = _PID_LIST_8(), abi.DWORD()
+            ok = self._call("QueryInformationJobObject", r.local["worker_job"], 3,
+                            C.byref(info), C.sizeof(info), C.byref(returned))
+            if not ok:
+                r.completion_worker_census_status = "unavailable"
+                return
+            r.completion_worker_census_assigned = int(info.assigned)
+            r.completion_worker_census_listed = int(info.listed)
+            if returned.value and not 8 <= returned.value <= C.sizeof(info):
+                r.completion_worker_census_status = "invalid"
+                return
+            if info.listed > 8 or info.assigned != info.listed:
+                r.completion_worker_census_status = "unavailable"
+                return
+            if returned.value and returned.value < 8 + info.listed * C.sizeof(abi.ULONG_PTR):
+                r.completion_worker_census_status = "unavailable"
+                return
+            values = tuple(int(info.ids[i]) for i in range(info.listed))
+            if (any(not 0 < value < 2**32 for value in values) or
+                    len(set(values)) != len(values)):
+                r.completion_worker_census_status = "invalid"
+                return
+            r.completion_worker_census_pids = values
+            r.completion_worker_census_status = (
+                "valid" if info.assigned == earlier_count else "changed")
+        except BaseException:
+            r.completion_worker_census_status = "unavailable"
+
     def complete_success(self):
         """Observe a clean exact WORKER exit, then release terminal owners.
 
@@ -360,6 +410,8 @@ class NativeWorkerCreator:
         r.completion_post_wait_stage = "child-budget-passed"
         r.completion_post_wait_stage = "job-count-check"
         if worker_count != 0 or child_count != 0:
+            if worker_count != 0:
+                self._record_worker_census(worker_count)
             raise Hold("both WORKER and CHILD jobs must be empty")
         r.completion_post_wait_stage = "pending-pipe-check"
         if any(not op.terminal for op in self.pipe_owner.operations):

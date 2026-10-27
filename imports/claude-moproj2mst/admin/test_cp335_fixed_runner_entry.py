@@ -18,6 +18,7 @@ class Stubs:
         self.events = []
         self.failure_completions = []
         self.counts = (None, None)
+        self.census = ("not-attempted", None, None, None)
         self.exports = object()
         self.cleanup_ok = True
         self.fail_bootstrap = self.fail_run = self.skip_ack = False
@@ -63,7 +64,11 @@ class Stubs:
                     phase="prepared-suspended", worker_waited=False, jobs_empty=False,
                     worker_terminated=False, errors=[],
                     completion_worker_active_processes=state.counts[0],
-                    completion_child_active_processes=state.counts[1]))
+                    completion_child_active_processes=state.counts[1],
+                    completion_worker_census_status=state.census[0],
+                    completion_worker_census_assigned=state.census[1],
+                    completion_worker_census_listed=state.census[2],
+                    completion_worker_census_pids=state.census[3]))
 
             def run(self):
                 if not state.skip_ack:
@@ -282,6 +287,7 @@ class EntryTests(unittest.TestCase):
     def test_failure_receipt_preserves_bounded_cause_after_cleanup(self):
         state = Stubs()
         state.counts = (2, 3)
+        state.census = ("changed", 2, 2, (412, 413))
         owner = self.run_stubs(state)
         outer = RuntimeError("outer failure")
         outer.__cause__ = ValueError("inner cause")
@@ -297,6 +303,12 @@ class EntryTests(unittest.TestCase):
                          ["worker_active_processes"], 2)
         self.assertEqual(state.failure_completions[0][2]["worker"]
                          ["child_active_processes"], 3)
+        worker = state.failure_completions[0][2]["worker"]
+        self.assertEqual((worker["worker_census_status"],
+                          worker["worker_census_assigned"],
+                          worker["worker_census_listed"],
+                          worker["worker_census_pids"]),
+                         ("changed", 2, 2, (412, 413)))
 
     def test_marker_failure_never_gates_success(self):
         state = Stubs()

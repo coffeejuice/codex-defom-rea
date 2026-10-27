@@ -26,6 +26,7 @@ class Harness:
         self.close_fail = self.fail = None
         self.bad_return_size = self.bad_job_flags = False
         self.attr_init_raise = False
+        self.census_calls = []
         functions = {name: (lambda *args, name=name: self.dispatch(name, *args))
                      for name in m.abi.EXPORTS}
         self.exports = BoundExports(functions, {}, lambda: self.error)
@@ -50,7 +51,13 @@ class Harness:
         elif name == "QueryInformationJobObject":
             handle, kind, pointer, size, returned = args
             out(returned, m.abi.DWORD, size - int(self.bad_return_size))
-            if kind == m.JOB_LIMITS:
+            if kind == 3:
+                self.census_calls.append(args)
+                assert handle == 21 and size == C.sizeof(m._PID_LIST_8)
+                obj = C.cast(pointer, C.POINTER(m._PID_LIST_8)).contents
+                obj.assigned = obj.listed = 1
+                obj.ids[0] = 33
+            elif kind == m.JOB_LIMITS:
                 obj = C.cast(pointer, C.POINTER(m.abi.EXTENDED_LIMIT)).contents
                 obj.BasicLimitInformation.LimitFlags = m.KILL_ON_CLOSE | (0x1000 if self.bad_job_flags else 0)
             else:
@@ -491,7 +498,8 @@ class CreatorTests(unittest.TestCase):
                 self.assertEqual(r.completion_worker_active_processes, worker_count)
                 self.assertEqual(r.completion_child_active_processes, child_count)
                 completion_calls = h.calls[before:]
-                self.assertEqual(completion_calls.count("QueryInformationJobObject"), 2)
+                self.assertEqual(completion_calls.count("QueryInformationJobObject"),
+                                 2 + int(worker_count != 0))
                 self.assertEqual(completion_calls.count("GetTickCount64"), 5)
                 before_cleanup = len(h.calls)
                 # Cleanup independently sees empty jobs after termination.
@@ -504,6 +512,108 @@ class CreatorTests(unittest.TestCase):
                     self.assertTrue(r.worker_terminated)
                     self.assertEqual(h.calls[before_cleanup:].count(
                         "QueryInformationJobObject"), 2)
+
+    def test_failure_census_layout_and_call_gate(self):
+        self.assertEqual(C.sizeof(m._PID_LIST_8), 72)
+        self.assertEqual(m._PID_LIST_8.ids.offset, 8)
+        for worker_count, child_count in ((0, 0), (0, 1), (1, 0), (1, 1)):
+            with self.subTest(worker_count=worker_count, child_count=child_count):
+                h = self.completion_harness(worker_count=worker_count)
+                h.child_count = child_count
+                if worker_count or child_count:
+                    with self.assertRaisesRegex(m.Hold, "both WORKER and CHILD jobs must be empty"):
+                        h.owner.complete_success()
+                else:
+                    h.owner.complete_success()
+                r = h.owner.receipt
+                self.assertEqual(len(h.census_calls), int(worker_count != 0))
+                self.assertEqual(r.completion_worker_census_status,
+                                 "valid" if worker_count else "not-attempted")
+                self.assertEqual(r.completion_worker_census_pids,
+                                 (33,) if worker_count else None)
+                if worker_count:
+                    self.assertEqual(r.completion_worker_census_assigned, 1)
+                    self.assertEqual(r.completion_worker_census_listed, 1)
+                    self.assertFalse(r.worker_waited)
+                    self.assertFalse(r.jobs_empty)
+                    self.assertTrue(r.local)
+                    self.assertEqual(h.closed, [])
+
+    def test_failure_census_bounded_outputs_and_query_faults_preserve_hold(self):
+        cases = (
+            # name, assigned, listed, ids, returned bytes, API outcome, status
+            ("same", 1, 1, (33,), 16, True, "valid"),
+            ("other-pid", 1, 1, (77,), 16, True, "valid"),
+            ("no-length", 1, 1, (33,), 0, True, "valid"),
+            ("empty-later", 0, 0, (), 8, True, "changed"),
+            ("larger-later", 2, 2, (33, 77), 24, True, "changed"),
+            ("capacity", 8, 8, tuple(range(1, 9)), 72, True, "changed"),
+            ("incomplete", 2, 1, (33,), 16, True, "unavailable"),
+            ("raced-count", 1, 2, (33, 77), 24, True, "unavailable"),
+            ("over-capacity", 9, 9, (), 72, True, "unavailable"),
+            ("truncated", 1, 1, (33,), 8, True, "unavailable"),
+            ("short-header", 1, 1, (33,), 7, True, "invalid"),
+            ("oversize", 1, 1, (33,), 73, True, "invalid"),
+            ("duplicate", 2, 2, (33, 33), 24, True, "invalid"),
+            ("zero-pid", 1, 1, (0,), 16, True, "invalid"),
+            ("wide-pid", 1, 1, (2**32,), 16, True, "invalid"),
+            ("false-return", 1, 1, (33,), 16, False, "unavailable"),
+            ("raised", 1, 1, (33,), 16, "raise", "unavailable"),
+        )
+        for name, assigned, listed, ids, returned, outcome, expected in cases:
+            with self.subTest(name=name):
+                h = self.completion_harness(worker_count=1)
+                original = h.dispatch
+                census_calls = []
+
+                def census_dispatch(name, *args):
+                    if name == "QueryInformationJobObject" and args[1] == 3:
+                        h.calls.append(name)
+                        census_calls.append(args)
+                        self.assertEqual(args[0], 21)
+                        self.assertEqual(args[3], 72)
+                        obj = C.cast(args[2], C.POINTER(m._PID_LIST_8)).contents
+                        obj.assigned, obj.listed = assigned, listed
+                        for i, pid in enumerate(ids):
+                            obj.ids[i] = pid
+                        out(args[4], m.abi.DWORD, returned)
+                        if outcome == "raise":
+                            raise RuntimeError("census outcome unknown")
+                        return outcome
+                    return original(name, *args)
+
+                h.dispatch = census_dispatch
+                with self.assertRaisesRegex(m.Hold, "^both WORKER and CHILD jobs must be empty$"):
+                    h.owner.complete_success()
+                r = h.owner.receipt
+                self.assertEqual(len(census_calls), 1)
+                self.assertEqual(r.completion_worker_census_status, expected)
+                self.assertEqual(r.completion_worker_census_pids,
+                                 ids if expected in ("valid", "changed") else None)
+                self.assertEqual(r.completion_worker_census_assigned,
+                                 assigned if outcome is True else None)
+                self.assertEqual(r.completion_worker_census_listed,
+                                 listed if outcome is True else None)
+                self.assertEqual(r.completion_post_wait_stage, "job-count-check")
+                self.assertEqual(r.completion_worker_active_processes, 1)
+                self.assertEqual(r.completion_child_active_processes, 0)
+                self.assertFalse(r.worker_waited)
+                self.assertFalse(r.jobs_empty)
+                self.assertTrue(r.local)
+                self.assertEqual(h.closed, [])
+                # No second census even if completion is called again while
+                # held; cleanup continues to use its original accounting path.
+                with self.assertRaisesRegex(m.Hold, "both WORKER and CHILD jobs"):
+                    h.owner.complete_success()
+                self.assertEqual(len(census_calls), 1)
+                h.dispatch = lambda name, *args: Harness.dispatch(h, name, *args)
+                before_cleanup = len(h.calls)
+                self.assertEqual(h.owner.close().phase, "closed")
+                self.assertEqual(h.calls[before_cleanup:].count("TerminateJobObject"), 1)
+                self.assertEqual(h.calls[before_cleanup:].count("QueryInformationJobObject"), 2)
+                self.assertEqual(r.completion_worker_census_status, expected)
+                self.assertEqual(r.completion_worker_census_pids,
+                                 ids if expected in ("valid", "changed") else None)
 
     def prepare(self, h):
         return h.owner.prepare(r"\\.\pipe\cp329-injected")

@@ -171,6 +171,14 @@ class FixedRunnerEntry:
                                 wr, "completion_worker_active_processes", None),
                             "child_active_processes": getattr(
                                 wr, "completion_child_active_processes", None),
+                            "worker_census_status": getattr(
+                                wr, "completion_worker_census_status", None),
+                            "worker_census_assigned": getattr(
+                                wr, "completion_worker_census_assigned", None),
+                            "worker_census_listed": getattr(
+                                wr, "completion_worker_census_listed", None),
+                            "worker_census_pids": getattr(
+                                wr, "completion_worker_census_pids", None),
                         },
                         "failure": {
                             "type": type(error).__name__[:40],
