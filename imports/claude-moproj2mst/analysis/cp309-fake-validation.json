@@ -1,0 +1,31 @@
+{
+  "schema": "cp309-fake-validation-v1",
+  "status": "ONE_RETAINED_CLONE_FAKE_COMPOSITION_VALIDATED_NATIVE_PATH_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp307_fixed_clone_preflight.py": "264b0014d917c9dd21c43e91fe2745e0e6f18595f1323b7ed356203733112fb8",
+    "admin/test_cp307_fixed_clone_preflight.py": "54a636d915c41f57e092c21a6d780c85f8dc4909cd3a4e43d3d81ef93b315d14",
+    "admin/cp307_worker_job.py": "06475bb82966841787a0b3de06ba238246468ba964e6613601d09486c0f4f363",
+    "admin/test_cp307_worker_job.py": "235566f5330c35cab718c85423577e88200a7cd8bc18d84bf6ad24481b96e7e1",
+    "admin/cp309_fake_composition.py": "6a57cfb5a5e914cee212e67a1c19ba3877d5068c4e759fbd1143df10e5d5af82",
+    "admin/test_cp309_fake_composition.py": "bed79d5fe716af8248bbe9258a83881740e27e590e3c74131d172c52986bec23"
+  },
+  "tests": {
+    "focused_cp309": {"run": 16, "passed": 16},
+    "combined_cp303_through_cp309": {"run": 104, "passed": 104, "failed": 0},
+    "both_test_module_orders_passed": true,
+    "log": "analysis/cp309-fake-tests.log",
+    "log_sha256": "f672ea79ca90fa8808035fd59a1c62cac8f51b4c26c9c454cf723197144e5ae5"
+  },
+  "review": "Independent final review PASS for bounded fake composition after partial-owner and unknown-worker-output corrections",
+  "unpassed_gates": [
+    "Typed live creation API, protected worker transport and external ACK receipt",
+    "Native worker/child job separation and breakaway behavior",
+    "Lossless occurrence_id binding across protocols",
+    "Real clone file-to-process image identity and exact child/worker cleanup",
+    "Original Open-Save-accepted Close and failure acceptance"
+  ]
+}

@@ -60,14 +60,18 @@ def _fixed_contract(receipt, root):
         raise ValueError("CP289 original launchContract does not match fixed B98 provenance")
 
 
-def _validate_retained(receipt, size):
+def _validate_retained(receipt, size, *, pending=False):
+    expected_outcome = ("INCOMPLETE" if pending else
+                        "ACQUIRED_FRESH_CLONE_STATIC_ONLY")
     if (not isinstance(receipt, dict) or
             receipt.get("schema") != "cp289-creation-bound-clone-v1" or
             receipt.get("production") is not False or
             receipt.get("sourceStableAcrossAcquisition") is not True or
             receipt.get("manifestsMatchPinnedEntries") is not True or
-            receipt.get("acquisitionOutcome") != "ACQUIRED_FRESH_CLONE_STATIC_ONLY"):
-        raise ValueError("complete retained CP289 fake acquisition required")
+            receipt.get("acquisitionOutcome") != expected_outcome or
+            (pending and (receipt.get("finishedUtc") is not None or
+                          receipt.get("allHandlesClosed") is True))):
+        raise ValueError("CP289 retained fake acquisition outcome/scope mismatch")
     root = PureWindowsPath(receipt.get("cloneRoot", ""))
     if (root.parent != PureWindowsPath(r"C:\PROBLEM") or
             re.fullmatch(r"m289_[0-9a-f]{16}", root.name) is None):
@@ -93,7 +97,7 @@ def _validate_retained(receipt, size):
     return str(image), str(root), copied[0]
 
 
-def preflight_retained(receipt, *, file_api):
+def _measure_retained(receipt, *, file_api, pending=False):
     """Fake-only preflight from caller-supplied CP289 static receipt evidence.
 
     file_api must expose open_read(path), snapshot(handle,path), read_all(handle),
@@ -104,7 +108,7 @@ def preflight_retained(receipt, *, file_api):
     if getattr(file_api, "cp307_fake_file_api", False) is not True:
         raise RuntimeError("CP307 real file/process preflight HOLD")
     size = _verify_pins()
-    image, root, copied = _validate_retained(receipt, size)
+    image, root, copied = _validate_retained(receipt, size, pending=pending)
     handle = file_api.open_read(image)
     if handle is None:
         raise OSError("fake image open returned no handle")
@@ -129,7 +133,12 @@ def preflight_retained(receipt, *, file_api):
                 "protectedFileToImageBinding": "matched retained CP289 destination identity and CP302 digest",
                 "measuredLoadedBytes": "unknown; no process was created or inspected",
                 "preIdentity": before, "postIdentity": after,
-                "receiptQualification": "caller-supplied CP289 static receipt; does not prove handles remain live",
+                "receiptQualification": (
+                    "activation-scoped CP289 retained callback; acquisition INCOMPLETE until callback and handle close finish"
+                    if pending else
+                    "caller-supplied CP289 static receipt; does not prove handles remain live"),
+                "acquisitionEvidenceScope": (
+                    "PENDING_RETAINED_CALLBACK_ONLY" if pending else "FINAL_CP289_STATIC_RECEIPT"),
                 "cp307OwnedCalls": "file preflight only; no process or GUI calls",
                 "operationScope": "CP307-owned calls only; supplied fake API may have arbitrary side effects"}
     except BaseException as error:
@@ -150,6 +159,73 @@ def preflight_retained(receipt, *, file_api):
         raise RuntimeError(f"preflight succeeded but fake handle close is uncertain: {close_error}") from close_error
     result["handleClose"] = "fake API close returned successfully"
     return result
+
+
+def preflight_retained(receipt, *, file_api):
+    """Preflight a caller-supplied *final* fake CP289 receipt only."""
+    return _measure_retained(receipt, file_api=file_api)
+
+
+class FakePendingRetainedPreflight:
+    """One-use fake CP289 callback adapter; final acquisition remains separate."""
+
+    def __init__(self, *, clone_api, file_api):
+        if (isinstance(clone_api, clone.WindowsCloneFiles) or
+                getattr(clone_api, "cp307_fake_clone_api", False) is not True):
+            raise RuntimeError("CP307 real clone acquisition HOLD")
+        if getattr(file_api, "cp307_fake_file_api", False) is not True:
+            raise RuntimeError("CP307 real file/process preflight HOLD")
+        self.clone_api = clone_api
+        self.file_api = file_api
+        self.used = False
+        self._retained_token = None
+        self._active_receipt = None
+        self.preflight = None
+
+    def on_retained(self, receipt):
+        raise RuntimeError("CP307 retained callback requires CP289 acquisition activation")
+
+    def _on_retained(self, receipt, token):
+        if (token is None or token is not self._retained_token or
+                receipt is not self._active_receipt):
+            raise RuntimeError("CP307 retained callback activation missing")
+        if self.used:
+            raise RuntimeError("CP307 retained callback is one-use")
+        self.used = True
+        self.preflight = _measure_retained(receipt, file_api=self.file_api, pending=True)
+        return {"completed": True, "preflight": self.preflight,
+                "completionScope": "CP307 pending retained callback only; CP289 final outcome follows"}
+
+    def acquire_for_fake_test(self, source, parent, entries, *, name):
+        if self.used or self._retained_token is not None:
+            raise RuntimeError("CP307 retained callback is one-use")
+
+        def activated_callback(receipt):
+            if self.used or self._retained_token is not None:
+                raise RuntimeError("CP307 retained callback already used")
+            token = object()
+            self._retained_token = token
+            self._active_receipt = receipt
+            try:
+                return self._on_retained(receipt, token)
+            finally:
+                self._active_receipt = None
+                self._retained_token = None
+
+        receipt = clone._acquire(source, parent, entries, api=self.clone_api,
+                                 name=name, production=False,
+                                 on_retained=activated_callback)
+        joined = (self.used and self.preflight is not None and
+                  receipt.get("acquisitionOutcome") == "ACQUIRED_FRESH_CLONE_STATIC_ONLY" and
+                  receipt.get("allHandlesClosed") is True and
+                  not receipt.get("errors") and
+                  isinstance(receipt.get("retainedHandoff"), dict) and
+                  receipt["retainedHandoff"].get("completed") is True)
+        receipt["cp307Preflight"] = self.preflight
+        receipt["cp307JoinedOutcome"] = (
+            "FAKE_PREFLIGHT_AND_ACQUISITION_COMPLETE_STATIC_ONLY" if joined else
+            "INCOMPLETE_OR_UNCERTAIN")
+        return receipt
 
 
 def acquire_real(*_args, **_kwargs):

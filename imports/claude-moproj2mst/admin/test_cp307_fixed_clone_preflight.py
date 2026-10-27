@@ -2,6 +2,7 @@
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import color_clone_manifest_gate as gate
@@ -81,6 +82,27 @@ class FakeFileApi:
         self.calls.append(("close",))
         if self.close_error:
             raise OSError(self.close_error)
+
+
+class FakeCloneApi:
+    cp307_fake_clone_api = True
+
+
+def simulated_acquire(receipt, *, final="ACQUIRED_FRESH_CLONE_STATIC_ONLY",
+                      close_ok=True):
+    """Exercise the CP289 callback ordering without filesystem or process calls."""
+    def acquire(_source, _parent, _entries, *, api, name, production, on_retained):
+        assert isinstance(api, FakeCloneApi)
+        assert name == "m289_0123456789abcdef" and production is False
+        try:
+            receipt["retainedHandoff"] = on_retained(receipt)
+        except Exception as error:
+            receipt["errors"] = [{"phase": "retainedHandoff", "message": str(error)}]
+        receipt["allHandlesClosed"] = close_ok
+        receipt["acquisitionOutcome"] = final if close_ok and not receipt.get("errors") else "INCOMPLETE"
+        receipt["finishedUtc"] = "after callback"
+        return receipt
+    return acquire
 
 
 class PreflightTests(unittest.TestCase):
@@ -167,6 +189,80 @@ class PreflightTests(unittest.TestCase):
             m.preflight_retained(retained_receipt(), file_api=object())
         with self.assertRaisesRegex(RuntimeError, "HOLD"):
             m.acquire_real()
+
+    def test_pending_receipt_direct_call_and_direct_callback_refuse(self):
+        receipt = retained_receipt()
+        receipt["acquisitionOutcome"] = "INCOMPLETE"
+        api = FakeFileApi()
+        with self.assertRaisesRegex(ValueError, "outcome/scope"):
+            m.preflight_retained(receipt, file_api=api)
+        self.assertEqual(api.calls, [])
+        adapter = m.FakePendingRetainedPreflight(clone_api=FakeCloneApi(), file_api=api)
+        with self.assertRaisesRegex(RuntimeError, "activation"):
+            adapter.on_retained(receipt)
+        with self.assertRaisesRegex(RuntimeError, "activation"):
+            adapter._on_retained(receipt, object())
+        self.assertFalse(adapter.used)
+        self.assertEqual(api.calls, [])
+
+    def test_pending_callback_success_and_final_join(self):
+        receipt = retained_receipt()
+        receipt["acquisitionOutcome"] = "INCOMPLETE"
+        api = FakeFileApi()
+        adapter = m.FakePendingRetainedPreflight(clone_api=FakeCloneApi(), file_api=api)
+        with patch.object(m.clone, "_acquire", simulated_acquire(receipt)):
+            final = adapter.acquire_for_fake_test("source", "parent", [],
+                                                  name="m289_0123456789abcdef")
+        self.assertEqual(final["cp307JoinedOutcome"],
+                         "FAKE_PREFLIGHT_AND_ACQUISITION_COMPLETE_STATIC_ONLY")
+        self.assertEqual(final["cp307Preflight"]["acquisitionEvidenceScope"],
+                         "PENDING_RETAINED_CALLBACK_ONLY")
+        self.assertIn("INCOMPLETE until callback", final["cp307Preflight"]["receiptQualification"])
+        self.assertEqual(api.calls[-1], ("close",))
+        self.assertIsNone(adapter._retained_token)
+        with self.assertRaisesRegex(RuntimeError, "one-use"):
+            adapter.acquire_for_fake_test("source", "parent", [],
+                                          name="m289_0123456789abcdef")
+
+    def test_pending_callback_does_not_substitute_for_final_cp289_outcome(self):
+        for final, close_ok in (("INCOMPLETE", True),
+                                ("ACQUIRED_FRESH_CLONE_STATIC_ONLY", False)):
+            receipt = retained_receipt()
+            receipt["acquisitionOutcome"] = "INCOMPLETE"
+            adapter = m.FakePendingRetainedPreflight(
+                clone_api=FakeCloneApi(), file_api=FakeFileApi())
+            with patch.object(m.clone, "_acquire",
+                              simulated_acquire(receipt, final=final, close_ok=close_ok)):
+                result = adapter.acquire_for_fake_test("source", "parent", [],
+                                                       name="m289_0123456789abcdef")
+            self.assertIsNotNone(result["cp307Preflight"])
+            self.assertEqual(result["cp307JoinedOutcome"], "INCOMPLETE_OR_UNCERTAIN")
+
+    def test_pending_failure_closes_file_and_does_not_join(self):
+        for api in (FakeFileApi(data=b"wrong"), FakeFileApi(close_error="close failed")):
+            receipt = retained_receipt()
+            receipt["acquisitionOutcome"] = "INCOMPLETE"
+            adapter = m.FakePendingRetainedPreflight(clone_api=FakeCloneApi(), file_api=api)
+            with patch.object(m.clone, "_acquire", simulated_acquire(receipt)):
+                result = adapter.acquire_for_fake_test("source", "parent", [],
+                                                       name="m289_0123456789abcdef")
+            self.assertEqual(result["cp307JoinedOutcome"], "INCOMPLETE_OR_UNCERTAIN")
+            self.assertIsNone(result["cp307Preflight"])
+            self.assertEqual(result["acquisitionOutcome"], "INCOMPLETE")
+            self.assertEqual(api.calls[-1], ("close",))
+            self.assertIsNone(adapter._retained_token)
+
+    def test_pending_mode_rejects_final_receipt_and_real_clone_api(self):
+        with self.assertRaisesRegex(RuntimeError, "real clone"):
+            m.FakePendingRetainedPreflight(clone_api=object(), file_api=FakeFileApi())
+        receipt = retained_receipt()
+        adapter = m.FakePendingRetainedPreflight(
+            clone_api=FakeCloneApi(), file_api=FakeFileApi())
+        with patch.object(m.clone, "_acquire", simulated_acquire(receipt)):
+            result = adapter.acquire_for_fake_test("source", "parent", [],
+                                                   name="m289_0123456789abcdef")
+        self.assertEqual(result["cp307JoinedOutcome"], "INCOMPLETE_OR_UNCERTAIN")
+        self.assertIn("outcome/scope", result["errors"][0]["message"])
 
 
 if __name__ == "__main__":

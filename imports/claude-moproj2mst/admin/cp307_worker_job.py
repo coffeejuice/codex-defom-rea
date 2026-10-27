@@ -60,6 +60,7 @@ class FakeWorkerJob:
         self._created = False
         self._worker_exited = False
         self._job_zero = False
+        self._transfer_attempted = False
         self.report = WorkerJobReport()
 
     def _retain(self):
@@ -178,15 +179,49 @@ class FakeWorkerJob:
         self.report.phase = "gate-open"
         return True
 
+    def transfer_to(self, receiver, *, child_job):
+        """Bind exact worker handles once, disarming only handles the receiver took.
+
+        The receiver has CP308's ``bind_created`` and public handle fields.
+        A bind may raise after taking any prefix of the handles. Its fields are
+        inspected even on failure, so each exact handle has one cleanup owner.
+        This remains a trusted in-memory fake seam, not a live handoff.
+        """
+        if self._transfer_attempted or self.report.phase != "gate-open":
+            raise RuntimeError("gated WORKER handles may be transferred once")
+        worker = ("worker_job", "worker_process", "worker_thread")
+        originals = {name: getattr(self, name.removeprefix("worker_")) for name in worker}
+        if (any(_handle(value) is None for value in originals.values())
+                or _handle(child_job) is None
+                or len(set((*originals.values(), child_job))) != 4):
+            raise ValueError("four distinct creation-owned handles required")
+        bind = getattr(receiver, "bind_created", None)
+        if not callable(bind) or any(getattr(receiver, name, 0) is not None for name in worker):
+            raise ValueError("empty CP308 receiver with bind_created required")
+        self._transfer_attempted = True
+        self.report.worker_gate = "closed"
+        try:
+            bind(child_job=child_job, **originals)
+        finally:
+            adopted = {name for name, value in originals.items()
+                       if getattr(receiver, name, None) == value}
+            for name in adopted:
+                setattr(self, name.removeprefix("worker_"), None)
+            self._retain()
+            self.report.phase = "transferred" if len(adopted) == 3 else "transfer-partial"
+        if len(adopted) != 3:
+            raise RuntimeError("CP308 receiver did not retain all WORKER handles")
+
     def cleanup(self, *, wait_ms=2000):
         if type(wait_ms) is not int or not 0 <= wait_ms <= 5000:
             raise ValueError("bounded wait in [0, 5000] milliseconds required")
         self.report.worker_gate = "closed"
-        if self.job is not None and self.process is not None and not self._worker_exited:
+        if self.process is not None and not self._worker_exited:
             try:
-                stopped = self.api.TerminateJobObject(self.job, 0xE307)
-                if not stopped:
-                    self.report.errors.append("TerminateJobObject WORKER did not confirm termination")
+                if self.job is not None:
+                    stopped = self.api.TerminateJobObject(self.job, 0xE307)
+                    if not stopped:
+                        self.report.errors.append("TerminateJobObject WORKER did not confirm termination")
                 self._worker_exited = self.api.WaitForSingleObject(self.process, wait_ms) == WAIT_OBJECT_0
                 if not self._worker_exited:
                     self.report.errors.append("exact WORKER wait did not confirm exit")

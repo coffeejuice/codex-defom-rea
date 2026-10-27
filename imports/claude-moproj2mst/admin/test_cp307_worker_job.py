@@ -7,6 +7,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cp307_worker_job as m
+import cp308_real_job_protocol as downstream
 
 
 class FakeApi:
@@ -88,6 +89,141 @@ class FakeApi:
 
 
 class WorkerJobTests(unittest.TestCase):
+    @staticmethod
+    def gated_worker(api=None):
+        api = api or FakeApi()
+        worker = m.FakeWorkerJob(api)
+        worker.stage_job()
+        worker.create_suspended_worker()
+        worker.verify_worker_gate()
+        return api, worker
+
+    def test_transfer_disarms_exact_worker_handles_once(self):
+        class Receiver:
+            worker_job = worker_process = worker_thread = None
+
+            def bind_created(self, **handles):
+                self.__dict__.update(handles)
+
+        api, worker = self.gated_worker()
+        receiver = Receiver()
+        worker.transfer_to(receiver, child_job=201)
+        self.assertEqual((receiver.worker_job, receiver.worker_process,
+                          receiver.worker_thread, receiver.child_job), (71, 101, 102, 201))
+        self.assertEqual(worker.report.retained_handles, {})
+        self.assertEqual(worker.report.phase, "transferred")
+        self.assertEqual(worker.report.worker_gate, "closed")
+        with self.assertRaisesRegex(RuntimeError, "transferred once"):
+            worker.transfer_to(Receiver(), child_job=201)
+        worker.cleanup()
+        self.assertNotIn("CloseHandle", [call[0] for call in api.calls])
+
+    def test_transfer_to_actual_cp308_fake_owner(self):
+        class SharedApi(FakeApi):
+            cp308_fake_api = True
+
+            def GetHandleInformation(self, handle, flags=None):
+                if flags is None:
+                    self.calls.append(("GetHandleInformation", handle))
+                    return 0
+                return super().GetHandleInformation(handle, flags)
+
+            def GetJobLimitFlags(self, handle):
+                self.calls.append(("GetJobLimitFlags", handle))
+                return downstream.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+
+            def IsProcessInJob(self, process, job, output=None):
+                if output is None:
+                    self.calls.append(("IsProcessInJob", process, job))
+                    return job == 71
+                return super().IsProcessInJob(process, job, output)
+
+        class Transport:
+            cp308_fake_transport = True
+
+        api, worker = self.gated_worker(SharedApi())
+        owner = downstream.FakeRealJobProtocol(
+            api, Transport(), occurrence=downstream.Occurrence("run", "child"),
+            worker_id="worker", fixed_clone_image=r"C:\PROBLEM\m289_0123456789abcdef\fixture.exe",
+            fixture_sha256=downstream.CP302_SHA256)
+        worker.transfer_to(owner, child_job=201)
+        self.assertEqual(owner.report.phase, "worker-gate-checked")
+        self.assertEqual(owner.report.retained,
+                         {"worker_job": 71, "child_job": 201,
+                          "worker_process": 101, "worker_thread": 102})
+        self.assertEqual(worker.report.retained_handles, {})
+
+    def test_transfer_requires_gate_and_empty_receiver(self):
+        class Receiver:
+            worker_job = worker_process = worker_thread = None
+
+            def bind_created(self, **handles):
+                self.__dict__.update(handles)
+
+        api = FakeApi()
+        worker = m.FakeWorkerJob(api)
+        worker.stage_job()
+        worker.create_suspended_worker()
+        with self.assertRaisesRegex(RuntimeError, "gated"):
+            worker.transfer_to(Receiver(), child_job=201)
+        worker.verify_worker_gate()
+        receiver = Receiver()
+        receiver.worker_job = 999
+        with self.assertRaisesRegex(ValueError, "empty CP308 receiver"):
+            worker.transfer_to(receiver, child_job=201)
+        self.assertEqual(worker.report.retained_handles,
+                         {"worker_job": 71, "worker_process": 101, "worker_thread": 102})
+        worker.transfer_to(Receiver(), child_job=201)
+
+    def test_transfer_exception_disarms_only_adopted_handles(self):
+        for taken in ((), ("worker_job",), ("worker_job", "worker_process"),
+                      ("worker_job", "worker_process", "worker_thread")):
+            with self.subTest(taken=taken):
+                class Receiver:
+                    worker_job = worker_process = worker_thread = None
+
+                    def bind_created(self, **handles):
+                        for name in taken:
+                            setattr(self, name, handles[name])
+                        raise RuntimeError("receiver failed")
+
+                api, worker = self.gated_worker()
+                receiver = Receiver()
+                with self.assertRaisesRegex(RuntimeError, "receiver failed"):
+                    worker.transfer_to(receiver, child_job=201)
+                expected = {name: value for name, value in (
+                    ("worker_job", 71), ("worker_process", 101),
+                    ("worker_thread", 102)) if name not in taken}
+                self.assertEqual(worker.report.retained_handles, expected)
+                for name in taken:
+                    self.assertEqual(getattr(receiver, name),
+                                     {"worker_job": 71, "worker_process": 101,
+                                      "worker_thread": 102}[name])
+                with self.assertRaisesRegex(RuntimeError, "transferred once"):
+                    worker.transfer_to(Receiver(), child_job=201)
+                worker.cleanup()
+                self.assertTrue(all(call[1] not in [
+                    {"worker_job": 71, "worker_process": 101,
+                     "worker_thread": 102}[name] for name in taken]
+                    for call in api.calls if call[0] == "CloseHandle"))
+
+    def test_transfer_cleanup_retry_after_receiver_takes_no_handles(self):
+        class Receiver:
+            worker_job = worker_process = worker_thread = None
+
+            def bind_created(self, **_handles):
+                raise RuntimeError("bind failed")
+
+        api, worker = self.gated_worker(FakeApi("wait"))
+        with self.assertRaisesRegex(RuntimeError, "bind failed"):
+            worker.transfer_to(Receiver(), child_job=201)
+        self.assertEqual(worker.cleanup().retained_handles,
+                         {"worker_job": 71, "worker_process": 101, "worker_thread": 102})
+        api.fail = None
+        self.assertEqual(worker.cleanup().retained_handles, {})
+        self.assertEqual([call[1] for call in api.calls if call[0] == "CloseHandle"],
+                         [102, 101, 71])
+
     def test_abi_and_creation_order(self):
         api = FakeApi()
         job = m.FakeWorkerJob(api)
