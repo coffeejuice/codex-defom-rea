@@ -1,0 +1,7 @@
+# CP284–287 efficiency review
+
+This review follows four completed converter evidence/fixture checkpoints after CP283. CP284 root final-source tests took 7.164 seconds for ten native probe tests, 12.295 seconds for six supervisor tests and 2.325 seconds for twelve observer tests: 21.784 seconds of test execution, excluding process/tool startup, review, hashing and Git. CP285's eleven pure static binding tests took 6.170 seconds. CP286–287 were read-only evidence corrections and required no converter C++ build or regression. These different groups are not a controlled speed comparison. CP274 remains the last complete C++ 369-test candidate.
+
+The main rework was evidentiary: CP286 corrected an offset-composition error in a prior 3D backend report; CP287 separated render-builder's finite suffix from its ignored transform failure and uninitialized scratch. Independent bounded PE reads caught both without a new original run. CP284 raw receipts were rebound once after root's final tests, avoiding a stale validation manifest. No repeated identical tool retries, new test-time optimization or measured throughput change arose from this interval. Token usage telemetry remains unavailable, so no token saving is claimed.
+
+Keep exclusive source ownership, bounded PE ranges, focused admin suites for admin-only changes and a single final-source receipt rebind. Next work should acquire missing provenance or actual original behavior rather than repeat settled synthetic cases. Fidelity, original-execution HOLD and GUI-release gate remain unchanged.
