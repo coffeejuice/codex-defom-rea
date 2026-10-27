@@ -1,0 +1,37 @@
+{
+  "schema": "cp325-329-static-validation-v1",
+  "status": "REVIEWED_NATIVE_CAPABLE_OWNERS_WORKER_RUN_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "system_dll_load_only_smoke": true,
+  "native_win32_exports_invoked": false,
+  "source_sha256": {
+    "admin/cp325_real_bindings.py": "96d4ce1daebc3066a1050f30e005df7da1a8603e82259319a14927b55e73d7e3",
+    "admin/test_cp325_real_bindings.py": "0264bef0850e8ee3f7990e2a1a16b9708c9fc57e93f24f615a2c325b8bbf069a",
+    "admin/cp326_native_pipe_security.py": "8bdb324659f9987992a015bed0c4d66b677d415951253bf25065759bca818793",
+    "admin/test_cp326_native_pipe_security.py": "2b63cafe87c5c59dd45a2152f4605697bfdc46db7fa6cedd4c6c546c92e2997f",
+    "admin/cp327_native_image_pin.py": "99175fd93dcf74d7cbc5347e5b33dfc3fd8fa051bad19df18569c59bb47dac7d",
+    "admin/test_cp327_native_image_pin.py": "b35cb9f961e0e1205f60f02a9dbf6d7b4ec63483fb92c0785c17e589533a4d81",
+    "admin/cp328_native_pipes.py": "91cad0d29398b62d5cfec7dad1f668fec128c807f1d70d7601c2c2cd28136e5f",
+    "admin/test_cp328_native_pipes.py": "b2440e2ef2a9120e129b03e893a784997455c134cae3f54bfc8ee578cb180fbb",
+    "admin/cp329_native_worker_creator.py": "be0542252acbbca38d0603cad1801695a1a5380568e844413dac65ecc024d273",
+    "admin/test_cp329_native_worker_creator.py": "1cc8e2ce19469a0a49753f843077677aa1dbb4fd7dfa527fff7301ed3523ed82"
+  },
+  "tests": {
+    "subset": "test_cp3*.py through CP329",
+    "root_order": {"run": 399, "passed": 399, "failed": 0},
+    "admin_order": {"run": 399, "passed": 399, "failed": 0},
+    "log": "analysis/cp325-329-native-seam-tests.log",
+    "log_sha256": "d2f2eb8e0271a6129c141f296f6abb1b79b9ed182e2b8a50af879f03dba49809"
+  },
+  "reviews": "CP325–329 individually reviewed PASS within injected/static scope; no WORKER run authorized by these results alone",
+  "unpassed_gates": [
+    "CP330 strict inert protocol, current-queue PeekNamedPipe and evidence-backed successful Close path",
+    "End-to-end review of actual native function composition and failure containment",
+    "One bounded inert WORKER-only native observation with exact exits and handle cleanup",
+    "Synthetic CHILD nested-job and supervisor-death containment",
+    "Fresh original lifecycle/failure comparisons and public C++ converter acceptance"
+  ]
+}
