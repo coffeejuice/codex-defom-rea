@@ -5,9 +5,11 @@
 #include <cstdint>
 #include <filesystem>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <defmodel/layout/llobj_data.hpp>
+#include <defmodel/llobj_ctor/llobj_ctor.hpp>
 
 #include "m2m/engine.hpp"
 #include "m2m/model.hpp"
@@ -113,6 +115,82 @@ TEST_CASE(copymirror_writer_applies_properties_before_only_sim_filter)
     CHECK_EQ(*engine::at<std::int32_t>(object, 0x2be8), 2);
     CHECK(*engine::at<double>(object, 0x2c10) == 23.5);
     CHECK(*engine::at<double>(object, 0x2c18) == -2.25);
+}
+
+TEST_CASE(copymirror_private_save_missing_directory_precedes_plane_scan)
+{
+    // Candidate-only private class/model setup; public CopyMirror admission is unchanged.
+    Project project;
+    ProjectScope projectScope(project);
+    const fs::path dir = m2m_test::scratchOutput(m2m_test::scratchRoot() /
+        ("cm443_" + std::to_string(GetCurrentProcessId()) + "_" + std::to_string(GetTickCount64())));
+    fs::create_directories(dir);
+    const fs::path task = m2m_test::scratchOutput(dir / "task");
+    REQUIRE(!fs::exists(task));
+    project.path = qt::String((dir / "private.moproj").u16string());
+
+    Operation operation;
+    operation.project = &project;
+    retagCopyMirror(project, operation);
+    setTaskDirRel(operation, qt::L("task"));
+    mst::OpClass* cls = opBase(operation);
+    REQUIRE(cls != nullptr);
+    cls->current = &operation;
+    mst::installLoaderSlots();
+    operation.engineModel = std::make_shared<engine::GuiModel>(nullptr, 3);
+    engine::GuiModel* model = engine::opModel(project, operation);
+    REQUIRE(model == operation.engineModel.get());
+    REQUIRE(def::model::llobj_ctor::get_or_create(model->step.get(), 2) != nullptr);
+    REQUIRE(model->objectCount() == 2);
+    model->viewerMirrorPlanes = {1};
+    const auto planes = model->viewerMirrorPlanes;
+
+    // Native cm1.c:131-145 branches out on QFile::open failure before objectCount.
+    // A missing parent must therefore bypass even a positive unsupported plane count.
+    engine::FileEffects missing;
+    CHECK(cls->saveAfterFiles(project, operation, missing));
+    CHECK(missing.writes.empty());
+    CHECK(missing.deletes.empty());
+    CHECK(missing.mkdirs.empty());
+    CHECK(model->viewerMirrorPlanes == planes);
+    CHECK(!fs::exists(task));
+
+    // With no viewer owner yet, the same early return must not grow its plane vector.
+    model->viewerMirrorPlanes.clear();
+    CHECK(cls->saveAfterFiles(project, operation, missing));
+    CHECK(model->viewerMirrorPlanes.empty());
+    CHECK(missing.writes.empty());
+    model->viewerMirrorPlanes = planes;
+
+    auto refusesPositivePlanes = [&](engine::FileEffects& fx) {
+        bool refused = false;
+        try {
+            (void)cls->saveAfterFiles(project, operation, fx);
+        } catch (const Error& e) {
+            refused = e.code == M2M_E_UNSUPPORTED &&
+                std::string(e.what()).find("MIRROR_MERGE lines") != std::string::npos;
+        }
+        CHECK(refused);
+        CHECK(fx.writes.empty());
+        CHECK(fx.deletes.empty());
+        CHECK(model->viewerMirrorPlanes == planes);
+    };
+
+    // FileEffects directories count as existing, without creating a physical task folder.
+    engine::FileEffects planned;
+    planned.mkdirs.push_back(qt::cleanPath(qt::String(task.u16string())));
+    refusesPositivePlanes(planned);
+    REQUIRE(planned.mkdirs.size() == 1u);
+    CHECK(!fs::exists(task));
+
+    // An existing parent keeps the prior unsupported positive-plane boundary.
+    fs::create_directory(task);
+    engine::FileEffects existing;
+    refusesPositivePlanes(existing);
+    CHECK(existing.mkdirs.empty());
+    CHECK(!fs::exists(task / "mirrormerge.ini"));
+    fs::remove(task);
+    fs::remove(dir);
 }
 
 int main()

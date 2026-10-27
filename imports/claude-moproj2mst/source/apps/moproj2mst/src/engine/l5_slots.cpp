@@ -1133,13 +1133,17 @@ void cmSaveAfter(OpClass& c, CopyMirrorState& st, const String& stepKey, Project
     if (!m) return;
     // relative paths resolve against the current directory, the project folder
     const String ini = qt::cleanPath(taskDirRel(*opi) + qt::kSep + L("mirrormerge.ini"));   // 0x142abf750
+    const String path = qt::cleanPath(projectDir(p) + qt::kSep + ini);
+    // 0x140e23d80 opens QFile(WriteOnly) before the object/viewer scan. This models only
+    // the missing-directory failure, including directories already recorded by this save.
+    if (!folderExistsFx(path, fx)) return;
     const int n = m->objectCount();                       // 0x140c7c1a0
     for (int i = 0; i < n; ++i) {
         int* planes = viewerItemPlanes(*m, i + 1);        // 0x140c82d50 (made when missing)
         if (planes && 0 < *planes)                        // 0x141249420
             unsupported("CopyMirror save: MIRROR_MERGE lines of the viewer items' planes (0x140e23d80, packet V)");
     }
-    captureFx(qt::cleanPath(projectDir(p) + qt::kSep + ini), fx, [&](const char* file) {
+    captureFx(path, fx, [&](const char* file) {
         // QFile::open(WriteOnly) without Text, QTextStream with the locale codec (ASCII here): "\n"
         std::FILE* f = std::fopen(file, "wb");
         if (!f) return 1;
