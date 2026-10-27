@@ -667,7 +667,8 @@ public:
         for (int& value : values) {
             if (cursor == bytes.size()) break;
             if (oneValueQtIntSidecar) {
-                const auto parsed = detail::parseQt4Base0Int(bytes, cursor);
+                const auto parsed = detail::parseQt4Base0Int(
+                    bytes, cursor, pathName == u"SW2SP.DAT");
                 if (!parsed.sourceQualified)
                     throw Error(M2M_E_UNSUPPORTED,
                                 "editor300 sidecar integer input outside recovered Qt profile");

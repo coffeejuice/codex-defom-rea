@@ -300,11 +300,13 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         {"18446744073709551616", 0, true, 20, 0},
         {"-9223372036854775809", 1, true, 20, 0},
         {"-18446744073709551615", -1, true, 21, 0},
+        {"word\r\n", 0, false, 0, 2},
     };
 
     std::array<int, 1> value{};
     for (const auto& row : rows) {
-        const auto parsed = detail::parseQt4Base0Int(row.bytes);
+        const auto parsed = detail::parseQt4Base0Int(
+            row.bytes, 0, row.bytes == "word\r\n");
         CHECK(parsed.sourceQualified);
         CHECK_EQ(parsed.getterSucceeded, row.getterSucceeded);
         CHECK_EQ(parsed.nextByte, row.nextByte);
@@ -318,12 +320,19 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         CHECK_EQ(value[0], row.value);
     }
 
-    // The reconstructed ASCII state machine does not claim behavior for an
-    // initial nonnumeric character or a sign followed by a nonnumeric byte.
-    for (const char* outside : {"word\r\n", "-x10\r\n"}) {
+    // The exact source-qualified word leaf above is admitted. Other
+    // nonnumeric input and a sign followed by a nonnumeric byte remain guarded.
+    for (const char* outside : {"words\r\n", "-x10\r\n"}) {
         rig.write("SW2SP.DAT", outside);
         CHECK(unsupported([&] { rig.io->readInts(qt::L("SW2SP.DAT"), value); }));
     }
+    rig.write("integer", "word\r\n");
+    CHECK(unsupported([&] { rig.io->readInts(qt::L("integer"), value); }));
+    rig.write("STRETCH.DAT", "word\r\n");
+    CHECK(unsupported([&] { rig.io->readInts(qt::L("STRETCH.DAT"), value); }));
+    rig.write("SW2SP.DAT", "word\r\n");
+    std::array<int, 2> twoValues{};
+    CHECK(unsupported([&] { rig.io->readInts(qt::L("SW2SP.DAT"), twoValues); }));
 }
 
 TEST_CASE(native_extra3d_stretch_one_integer_uses_qt4_base0_profile)
