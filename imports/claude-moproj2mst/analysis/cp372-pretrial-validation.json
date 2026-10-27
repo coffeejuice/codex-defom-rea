@@ -1,0 +1,21 @@
+{
+  "scope": "separate fixed Python startup-only diagnostic, no WORKER or original application",
+  "status": "injected-and-static-reviewed; native probe not yet run",
+  "purpose": "Distinguish interpreter/event progress, overlapped standard-stream output and exclusive file output after CP350 third trial's absent child diagnostic",
+  "public_entry": "HARD HOLD",
+  "test_log": "analysis/cp372-pretrial-static-tests.log",
+  "test_log_sha256": "0a2b622ef26402a851ed3ab2b62a8923340fd0a2dfc3f73d54fc942a055efe23",
+  "converter_root": {"tests": 615, "passed": 615, "seconds": 0.407},
+  "admin_root": {"tests": 615, "passed": 615, "seconds": 0.402},
+  "powershell_parse_errors": 0,
+  "preflight": {"cp3xx_source_modules": 42, "cp3xx_bytecode_files": 0, "python_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a"},
+  "source_sha256": {
+    "admin/cp372_startup_only_probe.py": "070243505732fd36013ce4be8c700b2e5fcd735087e9b15ed25660da3d278d4a",
+    "admin/test_cp372_startup_only_probe.py": "3d0a55cff101199eab65246b6a105101e974e8ca0d673d76c07f93601a999f54",
+    "admin/run_cp372_monitored.ps1": "fe6e5f7d99d30ab124f80705a90496acd863e655646079e7af38a9ad80fe5852",
+    "admin/test_cp372_monitor.py": "e71fde5414d4471f9838096489c3a6c444cf65ce1a64d4afb9edcf2f085c010b"
+  },
+  "review": "CP373/375 found no probe false-success blocker after root fixed receipt-write clearing; CP376 found no monitor acceptance blocker after exact occurrence/image/child and parent path binding",
+  "limits": ["An absent event may mean interpreter startup, control setup, or SetEvent failed.", "Stdout and stderr share an overlapped named-pipe endpoint; first 48 bytes only are observed.", "An isolated startup result cannot prove CP350 or WORKER behavior.", "Synchronous Win32 calls may exceed the internal five-second ceiling; outer exact-process monitor bounds the controller to 15 seconds plus bounded cleanup."],
+  "next": "Freeze a clean candidate and run at most one exact-process-monitored startup-only occurrence with a new ID; retain raw reports and refrain from CP350 retry until its result is interpreted."
+}
