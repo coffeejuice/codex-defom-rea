@@ -389,6 +389,7 @@ class ParentEntryTests(unittest.TestCase):
         self.assertIn("cp334_h1_flags_validated", stages)
         self.assertNotIn("cp334_h0_before_tick1", stages)
         self.assertNotIn("cp334_h1_before_pipeinfo", stages)
+        self.assertNotIn("cp334_after_final_tick", stages)
 
     def test_diagnostic_callback_cannot_replace_original_failure_or_claim(self):
         stages = []

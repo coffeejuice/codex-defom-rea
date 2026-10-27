@@ -191,7 +191,10 @@ def _child_trace_result(path):
                     "cp333_before_worker_prepare", "cp333_after_worker_prepare",
                     "cp333_before_resume", "cp333_after_resume",
                     "cp333_before_bootstrap", "cp333_after_bootstrap",
-                    "cp333_before_offer_ack", "cp333_after_offer_ack"})
+                     "cp333_before_offer_ack", "cp333_after_offer_ack",
+                     "cp333_complete_enter", "cp333_complete_validated",
+                     "cp333_before_terminal_read", "cp333_after_terminal",
+                     "cp333_after_worker", "cp333_after_runner"})
     if not raw:
         result["status"] = "partial"
         return result

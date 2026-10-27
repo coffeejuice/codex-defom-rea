@@ -187,19 +187,23 @@ class WatchdogIntegration:
         self._completion_entered = True
         r = self.receipt
         try:
+            self._mark("cp333_complete_enter")
             self._completion_custody()
             if self.handoff.phase != "acknowledged":
                 raise Hold("exact WORKER ACK required before terminal receipt")
+            self._mark("cp333_complete_validated")
             r.phase = "terminal-read-entered"
             r.terminal_outcome = "unknown: read entered"
             # CP332 owns the parent endpoint and shares CP331's original clock.
             # Its transfer checks exact channel/handle custody on both sides.
+            self._mark("cp333_before_terminal_read")
             raw = self.handoff._transfer("read", terminal.FRAME.size)
             self._completion_custody()
             terminal.decode_terminal(raw, deadline=r.deadline, nonce=self.nonce)
             r.terminal_outcome = "unknown: terminal queue snapshot entered"
             self._terminal_queue_empty()
             r.terminal_outcome = "80-byte-occurrence-validated-zero-queued-snapshot"
+            self._mark("cp333_after_terminal")
 
             r.worker_outcome = "unknown: exact WORKER observation entered"
             if self.handoff.observe_worker_success() is not True:
@@ -210,6 +214,7 @@ class WatchdogIntegration:
                 raise Hold("verified WORKER duplicate release unresolved")
             self._completion_custody()
             r.worker_outcome = "exact-worker-observed-and-duplicates-released"
+            self._mark("cp333_after_worker")
 
             r.runner_outcome = "unknown: exact RUNNER observation entered"
             runner_receipt = self.watchdog.observe_runner_success()
@@ -229,6 +234,7 @@ class WatchdogIntegration:
             r.runner_outcome = "exact-runner-exit-zero-job-empty-observed"
             self._verified_success = True
             self._completion_budget()
+            self._mark("cp333_after_runner")
 
             r.cleanup_outcome = "unknown: parent channel cleanup entered"
             if self.pipe_owner.cleanup() is not True:
@@ -242,6 +248,13 @@ class WatchdogIntegration:
             self._accepted_success = True
             return r
         except BaseException as error:
+            try:
+                kind = type(error).__name__[:40]
+                message = "".join(ch if 32 <= ord(ch) <= 126 else "?"
+                                  for ch in str(error)[:120])
+                self._mark(f"cp333_error:{kind}:{message}")
+            except BaseException:
+                pass
             # The original receipt is part of the frozen occurrence owner.
             # Preserve its diagnostics if an injected callback replaces the
             # public attribute while a native call is in progress.

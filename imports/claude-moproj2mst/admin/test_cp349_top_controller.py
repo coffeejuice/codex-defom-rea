@@ -223,7 +223,7 @@ class TopTests(unittest.TestCase):
         for index in (0, 1):
             stages.extend((f"cp334_h{index}_pipeflags_8",
                            f"cp334_h{index}_flags_validated"))
-        stages.extend(("cp334_after_final_tick", "after_cp334_adopt",
+        stages.extend(("after_cp334_adopt",
                        "before_cp333_acknowledge"))
         stages.extend(("cp333_start", "cp333_occurrence_started",
                        "cp333_before_security", "cp333_after_security",
@@ -232,7 +232,10 @@ class TopTests(unittest.TestCase):
                        "cp333_before_resume", "cp333_after_resume",
                        "cp333_before_bootstrap", "cp333_after_bootstrap",
                        "cp333_before_offer_ack", "cp333_after_offer_ack",
-                       "after_cp333_acknowledge", "before_cp333_complete",
+                        "after_cp333_acknowledge", "before_cp333_complete",
+                        "cp333_complete_enter", "cp333_complete_validated",
+                        "cp333_before_terminal_read", "cp333_after_terminal",
+                        "cp333_after_worker", "cp333_after_runner",
                        "after_cp333_complete", "run-returned"))
         raw = b"".join((json.dumps({"stage": stage}, separators=(",", ":"))
                         + "\n").encode("ascii") for stage in stages)

@@ -234,7 +234,7 @@ class FixedParentEntry:
         if name.startswith("cp334_h") and not (
                 "_pipeflags_" in name or name.endswith("_flags_validated")):
             return
-        if name in ("cp334_before_final_tick",):
+        if name in ("cp334_before_final_tick", "cp334_after_final_tick"):
             return
         self._mark(name)
 

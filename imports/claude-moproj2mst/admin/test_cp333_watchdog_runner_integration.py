@@ -539,7 +539,12 @@ class CompletionTests(unittest.TestCase):
 
     def test_terminal_then_exact_worker_and_runner_then_cleanup(self):
         owner, h, _ = self.make_owner()
+        stages = []
+        owner._stage = stages.append
         self.assertIs(owner.complete(), owner.receipt)
+        self.assertEqual(stages, ["cp333_complete_enter", "cp333_complete_validated",
+            "cp333_before_terminal_read", "cp333_after_terminal",
+            "cp333_after_worker", "cp333_after_runner"])
         self.assertEqual(owner.receipt.phase, "closed-success")
         self.assertEqual(h.events, ["read-terminal", "PeekNamedPipe",
             "observe-worker", "release-worker",
@@ -554,6 +559,19 @@ class CompletionTests(unittest.TestCase):
         self.assertEqual(h.events[-1], "cleanup-security")
         with self.assertRaises(m.Hold):
             owner.complete()
+
+    def test_completion_primary_error_marker_precedes_abort_cleanup(self):
+        owner, h, _ = self.make_owner(fail="read-terminal")
+        stages = []
+        owner._stage = stages.append
+        with self.assertRaises(m.IntegrationFailure) as caught:
+            owner.complete()
+        self.assertIsInstance(caught.exception.__cause__, m.Hold)
+        self.assertEqual(str(caught.exception.__cause__), "read-terminal")
+        self.assertEqual(stages, ["cp333_complete_enter", "cp333_complete_validated",
+            "cp333_before_terminal_read", "cp333_error:Hold:read-terminal"])
+        self.assertIn("abort-handoff", h.events)
+        self.assertFalse(owner._accepted_success)
 
     def test_ack_or_forged_public_phase_never_accepts(self):
         h = Harness()
