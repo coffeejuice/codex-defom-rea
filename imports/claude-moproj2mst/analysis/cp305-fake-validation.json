@@ -1,0 +1,28 @@
+{
+  "schema": "cp305-fake-validation-v1",
+  "status": "SUPPLIED_IMAGE_FAKE_CP303_CP304_TRANSACTION_VALIDATED_CP289_PROVENANCE_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp305_integrated_synthetic.py": "39186b05f221703247477488d01b271c2c18ed86d5a85ab5312d398c27ab521e",
+    "admin/test_cp305_integrated_synthetic.py": "d9e1b74eaab92edb6a6473099a3c029b4ab548a8498f7498e7641db302ae790b",
+    "admin/test_cp303_job_creation.py": "2c3c9b4f0814cab75ebcb3b4db606f0b72308f8513ed567e715e84da7335a671"
+  },
+  "tests": {
+    "focused_cp305": {"run": 10, "passed": 10},
+    "combined_cp303_cp304_cp305": {"run": 31, "passed": 31, "failed": 0},
+    "both_test_module_orders_passed": true,
+    "log": "analysis/cp305-fake-tests.log",
+    "log_sha256": "19824a65e55973fa2d71eb258f3c243faa10b321a70feb36b02aaa1f677fef35"
+  },
+  "review": "Independent final review PASS for the fake-only supplied-image transaction after preownership wait validation; no CP289 provenance claim",
+  "unpassed_gates": [
+    "CP289 retained source and cloned fixture identity joined to this transaction",
+    "Real worker/child containment and authenticated ACK",
+    "Loaded image bytes and process exit/cleanup independently verified",
+    "Creator interruption inside CreateProcessW remains unknown",
+    "Original Open-Save-accepted Close and failure comparisons"
+  ]
+}

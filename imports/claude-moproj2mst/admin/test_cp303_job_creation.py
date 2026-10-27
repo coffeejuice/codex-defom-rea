@@ -1,17 +1,14 @@
 """CP303 ABI and failure checks with a fake WinAPI; never creates a process."""
 import ctypes as C
 from ctypes import wintypes as W
-import importlib.util
 from pathlib import Path
 import subprocess
+import sys
 import unittest
 
 
-SPEC = importlib.util.spec_from_file_location("cp303_job_creation", Path(__file__).with_name("cp303_job_creation.py"))
-m = importlib.util.module_from_spec(SPEC)
-import sys
-sys.modules[SPEC.name] = m
-SPEC.loader.exec_module(m)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cp303_job_creation as m
 
 
 class FakeApi:
