@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iterator>
 #include <string_view>
+#include <string>
+#include <utility>
 #include "m2m/common.hpp"
 #include "m2m/engine/simcontrol300_io.hpp"
 #include "../../src/engine/simcontrol300_qt_int_parser.hpp"
@@ -278,9 +280,9 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         int operatorStatus;
     };
     // Numeric rows use the independent PE-verified table in
-    // analysis/resume83-sw2sp-parser-independent-review.md. Exact invalid
-    // leaves are separate static qualifications: word in resume486 and
-    // -x10 in the CP487 original QtCore/GUI analysis.
+    // analysis/resume83-sw2sp-parser-independent-review.md. CP486/487 qualify
+    // the finite malformed classes: first M has getter error 2; sign then Q
+    // has getter error 1. The helper reports only failure/cursor/status.
     const OracleRow rows[] = {
         {"0xA\r\n", 10, true, 3, 0},
         {"0XA\r\n", 10, true, 3, 0},
@@ -303,13 +305,17 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
         {"-9223372036854775809", 1, true, 20, 0},
         {"-18446744073709551615", -1, true, 21, 0},
         {"word\r\n", 0, false, 0, 2},
+        {"!\r\n", 0, false, 0, 2},
         {"-x10\r\n", 0, false, 1, 2},
+        {"+x\r\n", 0, false, 1, 2},
+        {"- \r\n", 0, false, 1, 2},
     };
 
     std::array<int, 1> value{};
     for (const auto& row : rows) {
-        const auto parsed = detail::parseQt4Base0Int(
-            row.bytes, 0, row.bytes == "word\r\n" || row.bytes == "-x10\r\n");
+        const bool malformedOptIn = row.bytes == "word\r\n" || row.bytes == "!\r\n" ||
+                                    row.bytes == "-x10\r\n" || row.bytes == "+x\r\n" || row.bytes == "- \r\n";
+        const auto parsed = detail::parseQt4Base0Int(row.bytes, 0, malformedOptIn);
         CHECK(parsed.sourceQualified);
         CHECK_EQ(parsed.getterSucceeded, row.getterSucceeded);
         CHECK_EQ(parsed.nextByte, row.nextByte);
@@ -328,8 +334,82 @@ TEST_CASE(native_extra3d_sw2sp_qt4_base0_parser_matches_source_table)
     const auto minusXOffset = detail::parseQt4Base0Int(" -x10\r\n", 1, true);
     CHECK(!minusXOffset.sourceQualified);
 
-    // Only the two exact source-qualified leaves above are admitted.
-    for (const char* outside : {"words\r\n", "-x11\r\n", "-X10\r\n"}) {
+    // Exhaust the finite first-marker M set (printable ASCII excluding digits
+    // and signs), then every sign followed by printable nondigit Q.
+    std::size_t firstClassRows = 0;
+    for (unsigned char marker = 0x21; marker <= 0x7e; ++marker) {
+        if ((marker >= '0' && marker <= '9') || marker == '+' || marker == '-') continue;
+        const std::string bytes(1, static_cast<char>(marker));
+        const auto parsed = detail::parseQt4Base0Int(bytes, 0, true);
+        CHECK(parsed.sourceQualified);
+        CHECK(!parsed.getterSucceeded);
+        CHECK_EQ(parsed.nextByte, 0u);
+        const auto mapped = detail::applyQt4IntOperatorToFreshStream(parsed, bytes.size());
+        CHECK_EQ(mapped.value, 0);
+        CHECK_EQ(mapped.freshStreamStatus, 2);
+        ++firstClassRows;
+    }
+    CHECK_EQ(firstClassRows, 82u);
+    std::size_t signClassRows = 0;
+    for (char sign : {'+', '-'}) {
+        for (unsigned char marker = 0x21; marker <= 0x7e; ++marker) {
+            if (marker >= '0' && marker <= '9') continue;
+            const std::string bytes{sign, static_cast<char>(marker)};
+            const auto parsed = detail::parseQt4Base0Int(bytes, 0, true);
+            CHECK(parsed.sourceQualified);
+            CHECK(!parsed.getterSucceeded);
+            CHECK_EQ(parsed.nextByte, 1u);
+            const auto mapped = detail::applyQt4IntOperatorToFreshStream(parsed, bytes.size());
+            CHECK_EQ(mapped.value, 0);
+            CHECK_EQ(mapped.freshStreamStatus, 2);
+            ++signClassRows;
+        }
+        for (unsigned char whitespace : {9, 10, 11, 12, 13, 32}) {
+            const std::string bytes{sign, static_cast<char>(whitespace)};
+            const auto parsed = detail::parseQt4Base0Int(bytes, 0, true);
+            CHECK(parsed.sourceQualified);
+            CHECK(!parsed.getterSucceeded);
+            CHECK_EQ(parsed.nextByte, 1u);
+            const auto mapped = detail::applyQt4IntOperatorToFreshStream(parsed, bytes.size());
+            CHECK_EQ(mapped.value, 0);
+            CHECK_EQ(mapped.freshStreamStatus, 2);
+            ++signClassRows;
+        }
+        const std::string bytes{sign};
+        const auto parsed = detail::parseQt4Base0Int(bytes, 0, true);
+        CHECK(parsed.sourceQualified);
+        CHECK(!parsed.getterSucceeded);
+        CHECK_EQ(parsed.nextByte, 1u);
+        CHECK_EQ(detail::applyQt4IntOperatorToFreshStream(parsed, bytes.size()).freshStreamStatus, 1);
+    }
+    CHECK_EQ(signClassRows, 180u);
+    // Whitespace belongs to Q after a consumed sign, while control/non-ASCII
+    // bytes and an offset/non-opt-in parser call remain out of scope.
+    for (const std::string bytes : {std::string("!\x01", 2), std::string("!\x80", 2)})
+        CHECK(!detail::parseQt4Base0Int(bytes, 0, true).sourceQualified);
+    CHECK(!detail::parseQt4Base0Int("!", 0).sourceQualified);
+    CHECK(!detail::parseQt4Base0Int(" !", 1, true).sourceQualified);
+    for (const auto& [bytes, next] : {std::pair<std::string, std::size_t>{"\t !", 2}, {"\t -x", 3}}) {
+        const auto parsed = detail::parseQt4Base0Int(bytes, 0, true);
+        CHECK(parsed.sourceQualified);
+        CHECK(!parsed.getterSucceeded);
+        CHECK_EQ(parsed.nextByte, next);
+        CHECK_EQ(detail::applyQt4IntOperatorToFreshStream(parsed, bytes.size()).freshStreamStatus, 2);
+    }
+
+    // Outside names, shared STRETCH, and multi-value SW2SP remain guarded.
+    for (const char* admitted : {"words\r\n", "-x11\r\n", "-X10\r\n", "+ \r\n", "+", "-", "\t !", "\t -x"}) {
+        rig.write("SW2SP.DAT", admitted);
+        value[0] = 456;
+        REQUIRE(rig.io->readInts(qt::L("SW2SP.DAT"), value));
+        CHECK_EQ(value[0], 0);
+        if (std::string_view(admitted) == "+" || std::string_view(admitted) == "-")
+            CHECK_EQ(detail::applyQt4IntOperatorToFreshStream(
+                         detail::parseQt4Base0Int(admitted, 0, true), std::string_view(admitted).size())
+                         .freshStreamStatus,
+                     1);
+    }
+    for (const char* outside : {"word\x01", "word\x80"}) {
         rig.write("SW2SP.DAT", outside);
         CHECK(unsupported([&] { rig.io->readInts(qt::L("SW2SP.DAT"), value); }));
     }

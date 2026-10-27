@@ -1,6 +1,7 @@
 #pragma once
 
 #include <bit>
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <string_view>
@@ -44,17 +45,6 @@ inline Qt4IntParseResult parseQt4Base0Int(std::string_view bytes,
                                           std::size_t offset = 0,
                                           bool allowExactSw2spInvalidLeaves = false) noexcept
 {
-    // The retained QtCore static evidence qualifies this exact SW2SP leaf:
-    // getInteger fails on initial 'w', ungets it, and the fresh int operator
-    // reports status 2 while leaving its destination zero. Do not generalize
-    // this to arbitrary nonnumeric input or other encodings.
-    if (allowExactSw2spInvalidLeaves && offset == 0 && bytes == "word\r\n")
-        return {0, false, 0, true};
-    // A leading minus is consumed before Qt rejects the following 'x'. The
-    // invalid character is ungot, so this exact SW2SP leaf ends at byte 1.
-    if (allowExactSw2spInvalidLeaves && offset == 0 && bytes == "-x10\r\n")
-        return {0, false, 1, true};
-
     std::size_t cursor = offset;
     while (cursor < bytes.size() && qt4AsciiSpace(static_cast<unsigned char>(bytes[cursor])))
         ++cursor;
@@ -75,8 +65,24 @@ inline Qt4IntParseResult parseQt4Base0Int(std::string_view bytes,
             ++cursor;
             ++digits;
         }
-        if (digits == 0)
+        if (digits == 0) {
+            const auto ch = cursor < bytes.size() ? static_cast<unsigned char>(bytes[cursor]) : 0;
+            const bool asciiInput = std::all_of(bytes.begin(), bytes.end(), [](char byte) {
+                const auto value = static_cast<unsigned char>(byte);
+                return value == 9 || (value >= 10 && value <= 13) || value == 32 ||
+                       (value >= 0x21 && value <= 0x7e);
+            });
+            const bool qClass = (ch >= 0x21 && ch <= 0x7e) && !(ch >= '0' && ch <= '9');
+            const bool qWhitespace = ch == 9 || (ch >= 10 && ch <= 13) || ch == 32;
+            if (allowExactSw2spInvalidLeaves && offset == 0 && cursor == first + 1 &&
+                (bytes[first] == '+' || bytes[first] == '-') &&
+                (qClass || qWhitespace) && asciiInput)
+                return {0, false, cursor, true};
+            if (allowExactSw2spInvalidLeaves && offset == 0 && cursor == bytes.size() &&
+                (bytes[first] == '+' || bytes[first] == '-'))
+                return {0, false, cursor, true};
             return {0, false, cursor, cursor == bytes.size()};
+        }
         if (negative && value != 0 && (value & (std::uint64_t{1} << 63)) == 0)
             value = std::uint64_t{0} - value;
         return {value, true, cursor};
@@ -134,8 +140,25 @@ inline Qt4IntParseResult parseQt4Base0Int(std::string_view bytes,
         return {0, false, rollback};
     }
 
-    if (bytes[cursor] < '0' || bytes[cursor] > '9')
+    if (bytes[cursor] < '0' || bytes[cursor] > '9') {
+        // CP486/487 PE-qualified finite ASCII class for the one-value SW2SP
+        // callsite: initial M is ungot (getter error 2); after a consumed sign,
+        // Q is ungot (getter error 1). The fresh operator writes zero/status 2
+        // for these admitted inputs. Internal getter codes are not modeled.
+        // The caller opt-in is only used by SW2SP; keep this ASCII model
+        // bounded to printable malformed bytes and default-C whitespace.
+        const auto ch = static_cast<unsigned char>(bytes[cursor]);
+        const bool asciiInput = std::all_of(bytes.begin(), bytes.end(), [](char byte) {
+            const auto value = static_cast<unsigned char>(byte);
+            return value == 9 || (value >= 10 && value <= 13) || value == 32 ||
+                   (value >= 0x21 && value <= 0x7e);
+        });
+        const bool qClass = (ch >= 0x21 && ch <= 0x7e) && !(ch >= '0' && ch <= '9');
+        const bool firstClass = qClass && ch != '+' && ch != '-';
+        if (allowExactSw2spInvalidLeaves && offset == 0 && cursor == first && firstClass && asciiInput)
+            return {0, false, cursor, true};
         return {0, false, cursor, false};
+    }
 
     std::uint64_t value = 0;
     std::size_t digits = 0;
