@@ -57,6 +57,7 @@ class Harness:
         self.success_exit_code = 0
         self.success_wait_status = None
         self.success_active = None
+        self.outer_active = None
         self.exports = m.binding.BoundExports({name: lambda *a, n=name: self.dispatch(n, *a)
             for name in m.abi.EXPORTS}, {}, lambda: self.error)
         self.watchdog = SimpleNamespace(exports=self.exports, deadline=500,
@@ -137,6 +138,8 @@ class Harness:
             else:
                 obj = C.cast(pointer, C.POINTER(m.abi.BASIC_ACCOUNTING)).contents
                 obj.ActiveProcesses = 0 if self.dead else (2 if job == 21 else 1)
+                if job == 21 and self.outer_active is not None:
+                    obj.ActiveProcesses = self.outer_active
                 if job == 82 and self.success_active is not None:
                     obj.ActiveProcesses = self.success_active
                 if self.bad == "accounting":
@@ -214,6 +217,20 @@ class HandoffTests(unittest.TestCase):
                 self.assertEqual(h.owner.phase, "hold")
                 self.assertTrue(h.dead)
                 self.assertEqual(len([f for f in h.pipe.frames if f[1] == "write"]), 1)
+
+    def test_accounting_failure_reports_first_failed_snapshot_without_extra_query(self):
+        h = Harness()
+        h.success_active = 2
+        with self.assertRaisesRegex(m.Hold, "worker=2; outer=not-queried"):
+            h.run()
+        self.assertTrue(h.dead)
+        self.assertIsNone(h.ack)
+        h = Harness()
+        h.outer_active = 1
+        with self.assertRaisesRegex(m.Hold, "worker=1; outer=1"):
+            h.run()
+        self.assertTrue(h.dead)
+        self.assertIsNone(h.ack)
 
     def test_nonce_deadline_order_replay(self):
         for offer in (replace(Harness().offer, nonce=b"y" * 32),

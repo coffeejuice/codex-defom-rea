@@ -293,8 +293,14 @@ class ExactWorkerHandoff:
                 raise Hold("exact WORKER membership required in both jobs")
         self._job_verified(job)
         self._job_verified(self.outer)
-        if self._active(job) != 1 or self._active(self.outer) != 2:
-            raise Hold("sole WORKER and runner-plus-WORKER accounting required")
+        worker_active = self._active(job)
+        if worker_active != 1:
+            raise Hold("sole WORKER and runner-plus-WORKER accounting required "
+                       f"(worker={worker_active}; outer=not-queried)")
+        outer_active = self._active(self.outer)
+        if outer_active != 2:
+            raise Hold("sole WORKER and runner-plus-WORKER accounting required "
+                       f"(worker={worker_active}; outer={outer_active})")
         if self._call("WaitForSingleObject", process, 0) != 258:
             raise Hold("exact WORKER WAIT_TIMEOUT required")
         if self._call("WaitForSingleObject", self.runner, 0) != 258:
