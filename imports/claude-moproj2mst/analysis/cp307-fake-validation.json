@@ -1,0 +1,33 @@
+{
+  "schema": "cp307-fake-validation-v1",
+  "status": "THREE_PRIVATE_FAKE_GATES_VALIDATED_REAL_CHILD_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp307_worker_job.py": "b4228004746e67e4e7e3904209bcc51cc9c91c4af8f4d1f1c5fe83746f3e1f4b",
+    "admin/test_cp307_worker_job.py": "de7f90a659837860cfd1aba1eb4bce4d5e834f95752171c91b0a925208dede7a",
+    "admin/cp307_offer_protocol.py": "19bf96e322c2e936f64ecd6e95dde86c9972c343a6e2f90d0ae01b7d5dfeda92",
+    "admin/test_cp307_offer_protocol.py": "ed55cb66412f53b12f58935436eb1337b9c48820dabcd62ea038aeeeae329efb",
+    "admin/cp307_fixed_clone_preflight.py": "63a9d34cbb410337cebb6bf7e06119eff596c7f71232dd3611139629bfbfd6f5",
+    "admin/test_cp307_fixed_clone_preflight.py": "3b6e30d484979497c0c53ea2c50bbe5470094bc38e83bab4c4df90d85347d158"
+  },
+  "tests": {
+    "cp307_worker_job": 8,
+    "cp307_offer_protocol": 9,
+    "cp307_fixed_clone_preflight": 11,
+    "combined_cp303_through_cp307": {"run": 69, "passed": 69, "failed": 0},
+    "both_test_module_orders_passed": true,
+    "log": "analysis/cp307-fake-tests.log",
+    "log_sha256": "dd0224c7db6714f44c0c427a5583d66ee442e78e5dce7c6233ee1d37bb991773"
+  },
+  "review": "Three independent reviews PASS for their explicitly fake-only scopes; real transport, process and image claims remain HOLD",
+  "unpassed_gates": [
+    "Compose worker and child job creation under a real supervisor lifetime",
+    "Protected worker transport and independently authenticated ACK receipt",
+    "Real retained clone file and process image binding, exact exits and cleanup",
+    "CreateProcessW interruption may leave child existence or assignment unknown",
+    "Original Open-Save-accepted Close and failure comparisons"
+  ]
+}
