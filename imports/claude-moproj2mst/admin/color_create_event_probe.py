@@ -20,7 +20,7 @@ CONTINUE, FORWARD, STEP, BREAK, RF = prior.CONTINUE, prior.FORWARD, prior.STEP, 
 REGS, NTDLL_SHA, LOADER_RVA, LOADER_BYTES = prior.REGS, prior.NTDLL_SHA, prior.LOADER_RVA, prior.LOADER_BYTES
 read_exact = prior.read_exact
 ORIGINAL_RUN_ENABLED = False
-MODES = ('normal', 'reject-image', 'reject-create-event')
+MODES = ('normal', 'reject-image', 'reject-create-event', 'invalid-continue-status')
 MAX_EVENTS, MAX_RECEIPT = 512, 256 * 1024
 FIXTURE = Path(__file__).resolve().parent.parent / 'build/cp282-native-startup-fixture/native_color_entry_fixture.exe'
 FIXTURE_SHA = '2a07aecccca5562b0dfe02fd212b1aa84d0a69cc58d4ceddd7c1617f970dc962'
@@ -150,6 +150,34 @@ class HandleLedger:
         del self.live[handle]
 
 
+def invalid_continue_once(row, disposition):
+    """CP290 distinct invalid call; an uncertain native outcome is never retried."""
+    if row.get('invalidContinuation') or row.get('continuationAttempted'):
+        raise RuntimeError('invalid continuation already attempted')
+    if row['sequence'] != 1 or row['code'] != 3 or disposition != CONTINUE:
+        raise RuntimeError('invalid continuation requires held initial CREATE_PROCESS')
+    attempt = dict(pid=row['pid'], tid=row['tid'], status='0x0',
+        savedDisposition=hex(disposition), attempted=True, outcome='unknown',
+        boolResult=None, immediateLastError=None)
+    row['invalidContinuation'] = attempt
+    # Set uncertainty before crossing the native boundary, including an exception
+    # from the FFI wrapper. No ordinary continuation is safe until FALSE returns.
+    row.update(continuationAttempted=True, continuationStatus='invalid call outcome unknown; no retry')
+    ok = bool(abi.cont(row['pid'], row['tid'], 0))
+    error = C.get_last_error()  # immediately after BOOL, before another Win32 call
+    attempt.update(boolResult=ok, immediateLastError=error,
+                   outcome='consumed' if ok else 'rejected')
+    if ok:
+        row.update(continued=True, disposition='0x0',
+                   continuationStatus='unexpected invalid-status success; consumed')
+    else:
+        # The failed call is retained separately; allow exactly one ordinary
+        # continuation with the saved disposition after owned termination.
+        row.update(continuationAttempted=False,
+                   continuationStatus='invalid status rejected; ordinary continuation not attempted')
+    return ok
+
+
 def run_harmless(mode='normal', *, _supervision=None):
     if mode not in MODES:
         raise ValueError('fixed harmless mode required')
@@ -188,7 +216,7 @@ def run_harmless(mode='normal', *, _supervision=None):
         ledger.closed(handle, generation, 'CloseHandle')
 
     def resources():
-        nonlocal event_process, ntdll, base, armed
+        nonlocal event_process, ntdll, base, armed, pending
         if ev.code == 3:
             if ev.tid != pi.tid or event_process is not None:
                 raise RuntimeError('initial create-event mismatch')
@@ -249,6 +277,21 @@ def run_harmless(mode='normal', *, _supervision=None):
             armed = True
             result['initialEventArmed'] = True
             row['armedBeforeSuccessfulContinuation'] = True
+            if mode == 'invalid-continue-status':
+                if not pending:
+                    raise RuntimeError('invalid continuation pending gate mismatch')
+                result['invalidContinueGate'] = dict(imageGatePassed=True,
+                    armReadbackPassed=all(checks.values()), pendingEvent=dict(row),
+                    savedDisposition=hex(disposition))
+                try:
+                    invalid_continue_once(row, disposition)
+                finally:
+                    attempt = row.get('invalidContinuation')
+                    if attempt:
+                        result['invalidContinuation'] = attempt
+                        if attempt['outcome'] == 'consumed':
+                            pending = False  # must precede termination/cleanup
+                raise RuntimeError('CP290 invalid-status experiment complete; terminate owned child')
             if mode == 'reject-create-event':
                 if row['sequence'] != 1 or ev.code != 3 or not pending:
                     raise RuntimeError('create-event failure injection gate mismatch')
@@ -486,5 +529,13 @@ def run_harmless(mode='normal', *, _supervision=None):
         result['elapsedSeconds'] = round(time.monotonic() - started, 4)
         result['harmlessPassed'] = (result['entryQualified'] and result['cleanupComplete']
             and result['sourceStable'] and not result['errors'])
+        if mode == 'invalid-continue-status':
+            result['invalidContinuePassed'] = (
+                result.get('invalidContinuation', {}).get('outcome') == 'rejected'
+                and result['initialEventArmed'] and result['cleanupComplete']
+                and result['sourceStable']
+                and [event['code'] for event in result['events']] == [3, 6, 5]
+                and result['events'][0].get('disposition') == hex(CONTINUE)
+                and result['errors'] == ['CP290 invalid-status experiment complete; terminate owned child'])
     return result
 
