@@ -1,0 +1,28 @@
+{
+  "schema": "cp319-320-static-validation-v1",
+  "status": "REVIEWED_INJECTED_SEAMS_NATIVE_RUN_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp319_pipe_security.py": "59134bca2a8f5f371b7f548dd1c83453e2f0f512e640b376c90e8d7176f94420",
+    "admin/test_cp319_pipe_security.py": "3726e492364e05d3554265cca032ec6c5c661877ecc16f773b6095e98ddb1879",
+    "admin/cp320_retained_image_pin.py": "54f47faf7d70634d2395f31a02b5d9903921b9ef9fe8d222ad4693c141ffcfe4",
+    "admin/test_cp320_retained_image_pin.py": "1010dc4f8466b94612ea60f138cf0afe43b113ca5bb3b987104c7127a154c132"
+  },
+  "tests": {
+    "root_order": {"run": 275, "passed": 275, "failed": 0},
+    "admin_order": {"run": 275, "passed": 275, "failed": 0},
+    "log": "analysis/cp319-320-static-fake-tests.log",
+    "log_sha256": "8a9592365ef21c4b18fe83b9dba23e6259b352759eec19ee826f54b30d8e1767"
+  },
+  "reviews": "CP319 security and CP320 retained-image seams independently reviewed PASS within fake-only scope; CP319 stale documentation corrected after review without behavior change",
+  "unpassed_gates": [
+    "Native token/ACL creation and readback; CP317/319 owned descriptor integration",
+    "Native retained image handle and CP318 creator integration without unverified file-to-image equivalence",
+    "Bounded CP316 INIT/RESULT/ACK plus positive empty CHILD-job token and exact cleanup",
+    "Independent inert WORKER observation, then synthetic CHILD/job and supervisor-death tests",
+    "Fresh original lifecycle/failure evidence and public C++ converter acceptance"
+  ]
+}
