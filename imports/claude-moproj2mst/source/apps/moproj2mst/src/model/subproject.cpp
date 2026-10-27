@@ -434,18 +434,30 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
     }
     std::set<std::pair<int, int>> used;
     bool row0 = false;
-    // Capture the exact three-item candidate before the two-item route can
-    // move B's rectangle as it places it.
-    const bool threeItemCandidate = flow.items.size() == 3 && cellInputs.size() == 3 &&
+    // Snapshot the parsed graph and eligibility before any rectangle or link mutation.
+    const bool initiallyUnlinked = std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+        return item && item->next == nullptr && item->prev == nullptr;
+    });
+    const bool initialForwardPair = flow.items.size() == 2 && flow.items[0] && flow.items[1] &&
+        flow.items[0]->prev == nullptr && flow.items[0]->next == flow.items[1].get() &&
+        flow.items[1]->prev == flow.items[0].get() && flow.items[1]->next == nullptr;
+    const bool recurrenceCandidate = flow.items.size() >= 2 && flow.items.size() <= 7 &&
+        cellInputs.size() == flow.items.size() &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
             return item && !item->group && item->className == L("SfOprForming2D") &&
                    item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
                    item->rect[2] == 0.0 && item->rect[3] == 0.0;
         }) && std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
             return input.selected;
-        }) && std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
-            return item->next == nullptr && item->prev == nullptr;
-        });
+        }) && (initiallyUnlinked || initialForwardPair);
+    const bool negativeEightCandidate = flow.items.size() == 8 &&
+        cellInputs.size() == 8 &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D") &&
+                   item->rect[0] == 0.0 && item->rect[1] == 0.0 && item->rect[2] == 0.0 && item->rect[3] == 0.0 &&
+                   item->opId < 0;
+        }) && initiallyUnlinked &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) { return input.selected; });
     for (std::size_t k = 0; k < flow.items.size() && k < cellInputs.size(); ++k) {
         FlowItem& it = *flow.items[k];
         if (it.group) continue;
@@ -462,34 +474,31 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
                 throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos outside row 0 / the 7 columns "
                                                "(0x14014dfa0 row list, 0x1401583e0 relayout)");
             if (used.count({0, col})) {
-                // The bounded native two-item route advances one occupied token
-                // to the adjacent free cell and relayouts that item's rectangle.
-                // Keep all larger/more complex collision patterns guarded.
-                if (flow.items.size() == 2 && k == 1 && cellInputs[0].selected && cellInputs[1].selected && !it.group &&
-                    flow.items[0] && !flow.items[0]->group &&
-                    flow.items[0]->className == L("SfOprForming2D") && it.className == L("SfOprForming2D") &&
-                    flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
-                    flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
-                    it.rect[0] == 0.0 && it.rect[1] == 0.0 && it.rect[2] == 0.0 && it.rect[3] == 0.0 &&
-                    flow.items[0]->row == 0 && flow.items[0]->col == 0 && col == 0 && row0) {
-                    it.row = 0;
-                    it.col = 1;
-                    it.rect[0] = 205.0;
-                } else if (threeItemCandidate && k == 1 && row0 && col == 0 &&
-                           flow.items[0]->row == 0 && flow.items[0]->col == 0) {
-                    // B takes the same adjacent free cell as CP491. C's later
-                    // insertion is the separately guarded recursive shift.
-                    it.row = 0;
-                    it.col = 1;
-                    it.rect[0] = 205.0;
-                } else if (threeItemCandidate && k == 2 && row0 && col == 0 &&
-                           flow.items[0]->row == 0 && flow.items[0]->col == 0 &&
-                           flow.items[1]->row == 0 && flow.items[1]->col == 1 &&
-                           flow.items[1]->rect[0] == 205.0) {
-                    // Native third-install collision recursively shifts B to
-                    // column 2 before installing C in column 1.
-                    flow.items[1]->col = 2;
-                    flow.items[1]->rect[0] = 410.0;
+                if (negativeEightCandidate && k == 7 && col == 0 && flow.items[0]->row == 0 && flow.items[0]->col == 0) {
+                    flow.items[1]->row = 1; flow.items[1]->col = 0;
+                    flow.items[1]->rect[0] = 0.0; flow.items[1]->rect[1] = 215.0;
+                    for (std::size_t prior = 2; prior < k; ++prior) {
+                        flow.items[prior]->row = 0;
+                        flow.items[prior]->col = static_cast<int>(8 - prior);
+                        flow.items[prior]->rect[0] = 205.0 * flow.items[prior]->col;
+                        flow.items[prior]->rect[1] = 0.0;
+                    }
+                    it.row = 0; it.col = 1; it.rect[0] = 205.0; it.rect[1] = 0.0;
+                    used.clear();
+                    for (const auto& placed : flow.items) used.insert({placed->row, placed->col});
+                    row0 = true;
+                    continue;
+                }
+                // The selected row-0 recurrence shifts an occupied token run
+                // to the adjacent free cells; other collision patterns stay guarded.
+                if ((recurrenceCandidate || (negativeEightCandidate && k < 7)) && k > 0 && row0 && col == 0 &&
+                    flow.items[0]->row == 0 && flow.items[0]->col == 0) {
+                    // Insertion at column 1 recursively shifts the occupied
+                    // type-1 run; the model vector remains in source order.
+                    for (std::size_t prior = k; prior-- > 1;) {
+                        flow.items[prior]->col = static_cast<int>(k + 1 - prior);
+                        flow.items[prior]->rect[0] = 205.0 * flow.items[prior]->col;
+                    }
                     it.row = 0;
                     it.col = 1;
                     it.rect[0] = 205.0;
@@ -503,6 +512,20 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
         }
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;
+    }
+    if (recurrenceCandidate || negativeEightCandidate) {
+        // @src 0x140158cc0: relayout clears links, then reconnects compatible
+        // occupied graphics in grid order, including the selected row boundary.
+        // These selected Forming2D items have compatible Control2d connectors.
+        std::vector<FlowItem*> grid;
+        for (const auto& item : flow.items) {
+            item->prev = nullptr;
+            item->next = nullptr;
+            grid.push_back(item.get());
+        }
+        std::sort(grid.begin(), grid.end(), lessByCell);
+        for (std::size_t k = 1; k < grid.size(); ++k)
+            connectItems(grid[k - 1], grid[k]);
     }
 }
 
