@@ -451,16 +451,19 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         }) && std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
             return input.selected;
         }) && (initiallyUnlinked || initialForwardPair);
-    // CP495: the source-qualified finite positive-left interval rounds to
-    // occupied column zero. Keep the original geometry snapshot before B moves.
+    // CP495/496: source-qualified finite positive-left intervals select col1
+    // either by collision insertion or directly in a free column. Keep the
+    // original geometry snapshot before B moves.
     const bool nonzeroPairCandidate = flow.items.size() == 2 && cellInputs.size() == 2 &&
         std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) { return input.selected; }) &&
         initiallyEmpty && initiallyUnlinked && flow.items[0] && flow.items[1] &&
         !flow.items[0]->group && !flow.items[1]->group &&
         flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
         flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 && flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
-        std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] > 0.0 && flow.items[1]->rect[0] < 102.5 &&
+        std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] > 0.0 && flow.items[1]->rect[0] < 307.5 &&
         flow.items[1]->rect[1] == 0.0 && flow.items[1]->rect[2] == 0.0 && flow.items[1]->rect[3] == 0.0;
+    const bool freeColumnPairCandidate = initiallyEmpty && initiallyUnlinked && cellInputs.size() == 2 &&
+        flow.items.size() == 2 && nonzeroPairCandidate && flow.items[1]->rect[0] >= 102.5;
     const bool negativeEightCandidate = initiallyEmpty && flow.items.size() == 8 &&
         cellInputs.size() == 8 &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
@@ -519,12 +522,16 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             } else {
                 it.row = 0;
                 it.col = col;
+                if (freeColumnPairCandidate && k == 1 && col == 1) {
+                    it.rect[0] = 205.0;
+                    it.rect[1] = 0.0;
+                }
             }
         }
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;
     }
-    if (recurrenceCandidate || nonzeroPairCandidate || negativeEightCandidate) {
+    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.

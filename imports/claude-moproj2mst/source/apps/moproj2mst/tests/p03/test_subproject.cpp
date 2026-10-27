@@ -458,6 +458,50 @@ TEST_CASE(two_cellless_small_positive_left_collision_interval_is_selected)
     }
 }
 
+TEST_CASE(two_cellless_free_column_pair_relayouts_half_up_interval)
+{
+    const char* values[] = {"102.5", "103", "204.99999999999997", "205",
+                            "205.00000000000003", "307.49999999999994"};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>"};
+    for (const char* x : values) for (const char* aCell : cells) for (const char* bCell : cells) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source =
+            "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + std::string(aCell) + "</DiagramItem>"
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+            std::string(x) + "</x><y>0</y><width>0</width><height>0</height></RectF>" + bCell +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 0);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, 1);
+        for (int j = 0; j < 4; ++j) CHECK_EQ(items[0]->rect[j], 0.0);
+        CHECK_EQ(items[1]->rect[0], 205.0); CHECK_EQ(items[1]->rect[1], 0.0);
+        CHECK_EQ(items[1]->rect[2], 0.0); CHECK_EQ(items[1]->rect[3], 0.0);
+        CHECK(items[0]->prev == nullptr); CHECK(items[0]->next == items[1].get());
+        CHECK(items[1]->prev == items[0].get()); CHECK(items[1]->next == nullptr);
+        CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+        CHECK(mstOrder(*p.subs[0]) == std::vector<int>({41, 73}));
+    }
+    // At the exact upper endpoint native half-up selects free column 2; this is
+    // an exclusion control, not an occupied-cell refusal.
+    Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+    const std::string source =
+        "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+        "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>307.5</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem></Sub_Project>";
+    xml::Document doc; String error; int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+    Ctx ctx; parseSubProject(p, *doc.root, ctx);
+    const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+    CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, 2);
+    CHECK(items[0]->next == nullptr); CHECK(items[1]->prev == nullptr);
+    CHECK(mstOrder(*p.subs[0]) == std::vector<int>({41}));
+}
+
 
 TEST_CASE(three_cellless_zero_rect_items_use_native_recursive_shift)
 {

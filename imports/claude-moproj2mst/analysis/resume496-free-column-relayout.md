@@ -1,0 +1,9 @@
+# CP496 finite two-item free-column relayout
+
+The original directly installs B at free row0/col1 for finite original B.RectF left `102.5 <= x < 307.5`, but still moves B's model RectF left to 205 during grid rebuild. The public parser now reproduces that selected rectangle move and the adjacent Control2d graph A→B, under the same initially empty, two-item, unlinked Forming2D and CellPos/shape gates as CP495. The PE path and binary64 interval are in `analysis/cp496-free-column-relayout-source-contract.md`. This is static parser/model recovery, not fresh original runtime parity.
+
+Focused public XML tests cover six lower, midpoint and upper values across all four independent missing/full-sentinel CellPos combinations for A and B, checking cells, every RectF component, reciprocal links, complete `mstOrder`, IDs and model order. An exact x=307.5 control checks only col2, disconnected graph and `mstOrder=[A]`; it does not assert the still-unimplemented native col2 rectangle x410. Independent review removed an initial assertion of unchanged x307.5, which would have encoded a known discrepancy.
+
+Source-stable `analysis/cp496-build.json` passed focused `m2m.p03.subproject` and full build. The bound launcher registered 387 tests: 380 clean, six logged gaps, one logged difference, zero failed/skipped/incomplete and no fixture changes. Source SHA-256 was `2fe3510c4a6b6c109e77e996799d0125af6414624a76865cbc6a166df9a199d8`. Historical Save remains 93 SAME/five DIFF. No GUI process, app control or REA session was used.
+
+CP497 is the successor. An independent PE audit qualified one finite selected free-column class for x from 307.5 up to but excluding 1332.5, covering columns 2–6, RectF left `205*col`, and an empty-col1 graph gap. Positive-ID eight-item row height, native graphics/bus side effects, editor300, DOE, failure/Close and fresh original acceptance remain queued.
