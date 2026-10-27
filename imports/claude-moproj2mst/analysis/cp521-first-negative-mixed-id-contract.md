@@ -38,3 +38,11 @@ native notifications are outside this parser/model projection.
 Nonnegative-first height extensions, collisions/duplicate targets, other
 classes/groups/counts, preseeded charts, initial links, nonfinite/outside
 geometry and fresh Open/Save/Close parity remain excluded.
+# CP525 integration qualification
+
+The later CP525 graph audit found that associated Operations may add
+object-row connector effects. The integrated above-common-height negative
+pair and direct routes now require every item unbound to a Project
+Operation. This narrows the original CP521 candidate; its PE height proof
+and historical evidence above are retained.
+

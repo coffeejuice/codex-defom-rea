@@ -511,16 +511,22 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
         }) && std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
             return input.selected;
         }) && (initiallyUnlinked || initialForwardPair);
+    // Above-common-height routes stay unbound until associated object-row
+    // connector effects have their own public contract.
+    const bool allItemsUnbound = std::all_of(flow.items.begin(), flow.items.end(),
+        [&project](const auto& item) {
+            return item && operationById(project, item->opId) == nullptr;
+        });
     // Negative operation IDs expand the first item's graphic to height 190.
     // Rebuild therefore establishes row height 215 before the second item.
     const bool negativePairGraphicsHeight = flow.items.size() == 2 &&
         flow.items[0] && flow.items[1] &&
-        flow.items[0]->opId < 0;
+        flow.items[0]->opId < 0 && allItemsUnbound;
     // With no associated project Operation, an ordinary positive-ID Forming2D
     // graphic's expanded template supplies a conservative height of 189.
     const bool positivePairGraphicsHeight = flow.items.size() == 2 &&
         flow.items[0] && flow.items[1] && flow.items[0]->opId >= 0 &&
-        operationById(project, flow.items[0]->opId) == nullptr;
+        allItemsUnbound;
     // CP495-497: source-qualified finite positive-left intervals select free columns
     // either by collision insertion or directly in a free column. Keep the
     // original geometry snapshot before B moves.
@@ -704,7 +710,7 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
     bool negativeTallDirectCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() >= 2 && flow.items.size() <= 7 &&
         cellInputs.size() == flow.items.size() && flow.items[0] &&
-        flow.items[0]->opId < 0 &&
+        flow.items[0]->opId < 0 && allItemsUnbound &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
             return item && !item->group &&
                 item->className == L("SfOprForming2D");
@@ -735,17 +741,24 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
             }
         }
     }
-    // CP523-524: the first unbound nonnegative-ID Forming2D template proves
-    // graphics height at least 189. Later unbound IDs may have either sign;
-    // distinct targets avoid the native direction local.
+    // CP523-525: the first nonnegative-ID Forming2D template proves graphics
+    // height at least 189. A matching first Operation with no object slots or
+    // restart retains that template. Later items stay unbound to avoid
+    // association-dependent object-row graph effects.
     bool positiveTallDirectCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() >= 2 && flow.items.size() <= 7 &&
         cellInputs.size() == flow.items.size() && flow.items[0] &&
         flow.items[0]->opId >= 0 &&
-        std::all_of(flow.items.begin(), flow.items.end(), [&project](const auto& item) {
-            return item && !item->group && item->className == L("SfOprForming2D") &&
-                operationById(project, item->opId) == nullptr;
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
         });
+    if (positiveTallDirectCandidate) {
+        Operation* firstOp = operationById(project, flow.items[0]->opId);
+        positiveTallDirectCandidate =
+            (!firstOp || (firstOp->objIds.empty() && firstOp->restartGiven == 0));
+        for (std::size_t i = 1; i < flow.items.size() && positiveTallDirectCandidate; ++i)
+            positiveTallDirectCandidate = operationById(project, flow.items[i]->opId) == nullptr;
+    }
     if (positiveTallDirectCandidate) {
         std::set<int> targets;
         for (std::size_t i = 0; i < flow.items.size(); ++i) {
@@ -1130,7 +1143,9 @@ void buildExpansion(Project& p, FlowItem& it)
 {
     expansionTemplate(it);
     Operation* op = operationById(p, it.opId);       // 0x14001d7d0 -> 0x140047950 -> 0x140045f90
-    if (!op || !acceptsObjects(it.className)) return;
+    if (!op) return;
+    it.itemName = op->name;                           // 0x140050ac0 before later XML ItemName
+    if (!acceptsObjects(it.className)) return;
     const int ns = objSlots(*op);                    // 0x14005fa80
     for (int s = 0; s < ns; ++s) {
         const int code = s < static_cast<int>(op->objIds.size()) ? op->objIds[static_cast<std::size_t>(s)] : -99;   // 0x14005fb30

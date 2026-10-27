@@ -31,3 +31,11 @@ for two to seven items is queued after this smallest pair increment. Other
 graphics, positive-ID first items, nonfinite/outside-envelope input,
 preseeded charts, initial links, groups/classes and native notifications
 remain excluded. Fresh Open/Save/Close parity remains unqualified.
+
+# CP525 integration qualification
+
+The later CP525 graph audit found that associated Operations may add
+object-row connector effects. The integrated above-common-height pair route
+now requires both items unbound to Project Operations. This narrows the
+original CP519 candidate; the historical evidence above is retained.
+

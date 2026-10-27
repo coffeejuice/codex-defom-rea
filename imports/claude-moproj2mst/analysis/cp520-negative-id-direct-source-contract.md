@@ -35,3 +35,10 @@ Explicit collisions, duplicate target columns, positive-ID profiles,
 nonfinite/outside-envelope geometry, initial links/preseeded charts,
 other classes/groups/counts and native notifications remain excluded.
 Fresh original Open/Save/Close parity remains unqualified.
+# CP525 integration qualification
+
+The later CP525 graph audit found that associated Operations may add
+object-row connector effects. The integrated above-common-height negative
+direct route now requires every item unbound to a Project Operation. This
+narrows the original CP520 candidate; historical evidence above is retained.
+

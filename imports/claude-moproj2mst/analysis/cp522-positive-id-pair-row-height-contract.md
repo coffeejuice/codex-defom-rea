@@ -32,3 +32,12 @@ and Forming2D init `140c043e0..140c048b1` SHA-256
 `493f37dd7b0b4c67fcc196a4c21610b4cd822b9d59d3352c96a5df3c157c6506`.
 The native graphical/template route can add further height. Fresh
 Open/Save/Close parity and exact positive graphic height remain unobserved.
+# CP525 integration qualification
+
+The later CP525 graph audit found that an associated second Operation may
+add object-row connector effects. The integrated positive-ID pair
+above-common-height helper now requires both items unbound; CP525 separately
+admits a first associated zero-slot/no-restart item through its distinct
+direct-target route. This narrows the original CP522 candidate; the height
+proof and historical evidence above are retained.
+
