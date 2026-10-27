@@ -16,18 +16,35 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
     Type3OptGroupReceipt* receipt = nullptr;
     bool groupReadyAtSuffix = false;
     Type3OptimizerScalarState* mutateState = nullptr;
+    bool changeCountOnSecondTypObjEndl = false;
+    int typObjEndls = 0;
+    bool inTypObj = false;
+    bool changeCountOnNumConLiteral = false;
     bool open(const std::string& path) override { events.push_back("open:" + path); return opened; }
     bool typed(const std::string& event) { events.push_back(event); if (event == throwOn) throw InsertStopped{}; return insertStatus; }
     bool insertLiteral(const char* s) override {
         const bool result = typed(std::string("literal:") + s);
+        if (std::string(s) == "TYP_OBJ       ") inTypObj = true;
         if (mutateState && std::string(s) == "TYP_OBJ       ") {
             mutateState->value30 = 300; mutateState->value10 = 100; mutateState->value34 = 340;
         }
+        if (mutateState && std::string(s) == "NUM_CON\t\t" && changeCountOnNumConLiteral)
+            mutateState->numConRows.push_back({0, 7, 0, 0, 0.0, {}});
         return result;
     }
     bool insertInt(std::int32_t n) override { return typed("int:" + std::to_string(n)); }
     bool insertString(const m2m::qt::String& s) override { return typed("qstring:" + s.utf8()); }
-    bool insertEndl() override { return typed("endl"); }
+    bool insertEndl() override {
+        const bool result = typed("endl");
+        if (mutateState && inTypObj && changeCountOnSecondTypObjEndl && typObjEndls < 2) {
+            ++typObjEndls;
+            if (typObjEndls == 2) {
+                mutateState->numConRows.push_back({0, 7, 0, 0, 0.0, {}});
+                inTypObj = false;
+            }
+        }
+        return result;
+    }
     bool insert(const std::string& s) override { events.push_back("insert:" + s); if (s == "suffix" && receipt) groupReadyAtSuffix = receipt->ignoredCounts[0] == 2; if (mutateState && s == "prefix") mutateState->value34 = 341; if (s == throwOn) throw InsertStopped{}; return insertStatus; }
     bool close() override { events.push_back("close"); return closeStatus; }
     void assignOpenFailureDiagnostic(const std::string& p) override { events.push_back("diagnostic:" + p); }
@@ -171,7 +188,8 @@ TEST_CASE(type3_opt_typed_profile_emits_saved_typ_obj_after_groups)
     CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
     const std::vector<std::string> expected = {
         "literal:TYP_OBJ       ", "int:30", "literal:        ", "int:10",
-        "literal:      ", "int:341", "endl", "endl"
+        "literal:      ", "int:341", "endl", "endl",
+        "literal:NUM_CON\t\t", "int:1", "endl"
     };
     const auto start = std::find(t.events.begin(), t.events.end(), expected.front());
     REQUIRE(start != t.events.end());
@@ -185,6 +203,7 @@ TEST_CASE(type3_opt_typed_profile_emits_saved_typ_obj_after_groups)
 TEST_CASE(type3_opt_typed_profile_typed_literal_throw_stops_after_receipt)
 {
     auto p = prepared(); Type3OptimizerScalarState state;
+    state.value30 = 30; state.value10 = 10; state.value34 = 34;
     state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
     Manager manager; Trace t; manager.events = &t.events; t.throwOn = "literal:TYP_OBJ       ";
     Type3OptGroupReceipt receipt;
@@ -197,6 +216,48 @@ TEST_CASE(type3_opt_typed_profile_typed_literal_throw_stops_after_receipt)
     CHECK(position(t.events, "int:1021") == t.events.size());
     CHECK(position(t.events, "insert:row0") == t.events.size());
     CHECK(position(t.events, "manager-scan") == t.events.size());
+    CHECK(position(t.events, "close") == t.events.size());
+}
+TEST_CASE(type3_opt_numcon_count_is_sampled_after_typ_obj_and_before_literal)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    state.value30 = 30; state.value10 = 10; state.value34 = 34;
+    state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
+    Manager manager; Trace t; manager.events = &t.events; t.mutateState = &state;
+    t.changeCountOnSecondTypObjEndl = true;
+    Type3OptGroupReceipt receipt;
+    CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
+    const std::vector<std::string> expected = {
+        "literal:TYP_OBJ       ", "int:30", "literal:        ", "int:10",
+        "literal:      ", "int:341", "endl", "endl", "literal:NUM_CON\t\t", "int:2", "endl"
+    };
+    const auto start = std::find(t.events.begin(), t.events.end(), expected.front());
+    REQUIRE(start != t.events.end());
+    REQUIRE(static_cast<std::size_t>(t.events.end() - start) >= expected.size());
+    CHECK(std::equal(expected.begin(), expected.end(), start));
+
+    t.events.clear(); t.typObjEndls = 0; t.inTypObj = false;
+    t.changeCountOnSecondTypObjEndl = false; t.changeCountOnNumConLiteral = true;
+    state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
+    CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
+    CHECK(position(t.events, "literal:NUM_CON\t\t") + 1 == position(t.events, "int:1"));
+    CHECK(state.numConRows.size() == 2);
+}
+TEST_CASE(type3_opt_numcon_literal_throw_preserves_group_receipt_prefix)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
+    Manager manager; Trace t; manager.events = &t.events; t.throwOn = "literal:NUM_CON\t\t";
+    Type3OptGroupReceipt receipt;
+    bool caught = false;
+    try { (void)attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt); }
+    catch (const InsertStopped&) { caught = true; }
+    CHECK(caught);
+    CHECK(receipt.temporarySnapshots[0] == std::vector<std::int32_t>({42}));
+    CHECK(position(t.events, t.throwOn) > position(t.events, "endl"));
+    CHECK(!t.events.empty() && t.events.back() == t.throwOn);
+    CHECK(position(t.events, "manager-scan") == t.events.size());
+    CHECK(position(t.events, "insert:row0") == t.events.size());
     CHECK(position(t.events, "close") == t.events.size());
 }
 }

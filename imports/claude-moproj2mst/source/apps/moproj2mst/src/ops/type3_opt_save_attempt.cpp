@@ -63,6 +63,11 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
         (void)sink.insertInt(savedValue34);
         (void)sink.insertEndl();
         (void)sink.insertEndl();
+        const Type3OptimizerDefOptView countView(*state);
+        const std::int32_t savedNumConCount = countView.numConCount();
+        (void)sink.insertLiteral("NUM_CON\t\t");
+        (void)sink.insertInt(savedNumConCount);
+        (void)sink.insertEndl();
     } else insertAll(sink, p.scalarSuffix);
     for (const auto& row : p.rows) insertAll(sink, row);
     if (manager && state && receipt) {
