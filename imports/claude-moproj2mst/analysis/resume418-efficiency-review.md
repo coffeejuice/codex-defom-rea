@@ -1,0 +1,7 @@
+# CP416–418 efficiency review
+
+At the CP418 safe boundary, CP416 and CP418 each changed only the smallest diagnostic boundary exposed by the preceding inert occurrence; CP417 used one fresh monitored disposable run. CP416 distinguished first from retried parent wait budget. CP417 proved at least one nonterminal overlapped result return. CP418 now observes the separate CP335 terminal producer. No prior occurrence was retried. This sequence avoids broad original-app/GUI captures while their independent controls remain unavailable.
+
+The final isolated CP418 injected CP3xx suite reported 646 tests in 0.439 and 0.446 seconds from the two roots; the four new marker tests reported 0.006 and 0.007 seconds. The enclosing shell command took 11.9 seconds and left no marker sidecars. CP417's monitored occurrence took 12.3 seconds at the tool boundary. No new public C++ build, fresh original comparison or measured token reduction occurred; no end-to-end speedup is claimed. The public CP301 baseline remains 373 CTests with 93/98 historical Save comparator matches, and all eight completion gates remain open.
+
+After CP419, use the runner marker only to select the next smallest recovery action. If marker entry or return is present, inspect parent pipe completion/custody. If absent, investigate the pre-terminal CP330/CP316 path with a separately qualified witness. Preserve the fixed deadline, strict acceptance and exact cleanup; avoid another diagnostic layer unless this observation resolves a specific uncertainty.

@@ -581,10 +581,27 @@ class CompletionTests(unittest.TestCase):
         def expired(*_args):
             raise m.Hold("absolute pipe deadline expired")
         owner.handoff._transfer = expired
-        with self.assertRaises(m.IntegrationFailure) as caught:
-            owner.complete()
+        with patch.object(m.runner_marker, "read_stage", return_value="entered") as marker:
+            with self.assertRaises(m.IntegrationFailure) as caught:
+                owner.complete()
+        marker.assert_called_once_with(h.nonce, 500)
         self.assertEqual(str(caught.exception.__cause__), "absolute pipe deadline expired")
-        self.assertEqual(stages[-2:], ["cp333_pipe_wait_retry_budget",
+        self.assertEqual(stages[-3:], ["cp333_pipe_wait_retry_budget", "cp333_runner_entered",
+            "cp333_error:Hold:absolute pipe deadline expired"])
+        self.assertFalse(owner._accepted_success)
+
+    def test_runner_marker_read_failure_preserves_deadline_error(self):
+        owner, _, _ = self.make_owner()
+        stages = []
+        owner._stage = stages.append
+        def expired(*_args):
+            raise m.Hold("absolute pipe deadline expired")
+        owner.handoff._transfer = expired
+        with patch.object(m.runner_marker, "read_stage", side_effect=OSError("diagnostic")):
+            with self.assertRaises(m.IntegrationFailure) as caught:
+                owner.complete()
+        self.assertEqual(str(caught.exception.__cause__), "absolute pipe deadline expired")
+        self.assertEqual(stages[-2:], ["cp333_runner_unavailable",
             "cp333_error:Hold:absolute pipe deadline expired"])
         self.assertFalse(owner._accepted_success)
 

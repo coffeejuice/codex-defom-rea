@@ -14,6 +14,7 @@ import cp330_native_inert_runner as runner
 import cp333_watchdog_runner_integration as integration
 import cp334_runner_client_pipe as client
 import cp339_terminal_protocol as terminal
+import cp418_runner_marker as marker
 
 NATIVE_ENTRY = "HARD HOLD"
 Hold = abi.Hold
@@ -108,6 +109,10 @@ class FixedRunnerEntry:
                 raise Hold("adopted client channel required for terminal claim")
             write_handle = channel.client_write
             self.receipt.terminal_outcome = "unknown: terminal write entered"
+            try:
+                marker.write_stage(self.nonce, deadline, "entered")
+            except BaseException:
+                pass
             count = self.pipe_owner.transfer(write_handle, "write", frame)
             if (type(count) is not int or count != len(frame) or
                     self.pipe_owner.receipt is not channel or
@@ -115,6 +120,10 @@ class FixedRunnerEntry:
                     self.nonce != claim.nonce or self.handoff.nonce != claim.nonce or
                     self.handoff.phase != "authorized"):
                 raise Hold("exact terminal claim delivery and custody required")
+            try:
+                marker.write_stage(self.nonce, deadline, "returned")
+            except BaseException:
+                pass
             self.receipt.terminal_outcome = "80-byte-claim-written-parent-unconfirmed"
             if not self.close():
                 raise Hold("fixed runner terminal cleanup unresolved")

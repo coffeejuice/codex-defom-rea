@@ -21,6 +21,7 @@ class Stubs:
         self.fail_bootstrap = self.fail_run = self.skip_ack = False
         self.fail_terminal = False
         self.short_terminal = False
+        self.marker_failure = False
         self.bootstrap_deadline = 100
         self.pipe = SimpleNamespace(cleanup=self.cleanup, transfer=self.transfer,
                                     receipt=SimpleNamespace(client_read=11, client_write=12))
@@ -98,6 +99,12 @@ class Stubs:
         self.events.append("load")
         return self.exports
 
+    def mark(self, nonce, deadline, stage):
+        self.events.append("marker-" + stage)
+        if self.marker_failure:
+            raise OSError("diagnostic unavailable")
+        return True
+
     def adopt(self, exports, argv):
         assert exports is self.exports and tuple(argv) == tuple(ARGV)
         self.events.append("adopt-two")
@@ -105,6 +112,7 @@ class Stubs:
 
     def patches(self):
         return (patch.object(entry.binding, "load_native_exports", self.load),
+                patch.object(entry.marker, "write_stage", self.mark),
                 patch.object(entry.client, "from_bootstrap_argv", self.adopt),
                 patch.object(entry.integration, "RunnerHandoff", self.Handoff),
                 patch.object(entry.runner, "NativeInertRunner", self.Runner))
@@ -168,7 +176,8 @@ class EntryTests(unittest.TestCase):
                          deadline=100, nonce=b"n" * 32),
                          terminal.TerminalSuccess(100, b"n" * 32))
         self.assertEqual(state.events, ["load", "adopt-two", "bootstrap", "runner-construct",
-                         "offer-ack", "resume", "terminal-write", "runner-close", "client-cleanup"])
+                         "offer-ack", "resume", "marker-entered", "terminal-write",
+                         "marker-returned", "runner-close", "client-cleanup"])
         before = list(state.events)
         with self.assertRaises(entry.EntryFailure):
             owner.run()
@@ -232,11 +241,22 @@ class EntryTests(unittest.TestCase):
             self.assertEqual(owner.receipt.terminal_outcome,
                              "unknown: terminal write entered")
             self.assertEqual(state.events.count("terminal-write"), 1)
+            self.assertNotIn("marker-returned", state.events)
             self.assertEqual(terminal.decode_terminal(state.terminal_frame,
                              deadline=100, nonce=b"n" * 32),
                              terminal.TerminalSuccess(100, b"n" * 32))
             self.assertTrue(owner.close())
             self.assertEqual(state.events.count("terminal-write"), 1)
+
+    def test_marker_failure_never_gates_success(self):
+        state = Stubs()
+        state.marker_failure = True
+        owner = self.run_stubs(state)
+        self.assertIs(owner.run(), owner.receipt)
+        self.assertEqual(owner.receipt.phase, "closed-success")
+        self.assertEqual(state.events.count("terminal-write"), 1)
+        self.assertLess(state.events.index("marker-entered"), state.events.index("terminal-write"))
+        self.assertGreater(state.events.index("marker-returned"), state.events.index("terminal-write"))
 
     def test_real_adopted_client_and_handoff_send_terminal_after_ack(self):
         """Compose actual CP334/CP333 owners with injected Win32 exports."""
@@ -320,6 +340,7 @@ class EntryTests(unittest.TestCase):
 
         with patch.object(entry.binding, "load_native_exports", return_value=exports), \
                 patch.object(entry.client, "from_bootstrap_argv", adopt), \
+                patch.object(entry.marker, "write_stage", return_value=True), \
                 patch.object(entry.runner, "NativeInertRunner", Runner):
             owner = entry.FixedRunnerEntry(ARGV)
             self.assertEqual(owner.run().phase, "closed-success")

@@ -199,6 +199,8 @@ def _child_trace_result(path):
         "before_operation", "before_submit", "before_io", "wait_budget",
         "wait_retry_budget", "wait_result", "close_event", "post_operation_budget",
         "final_budget", "complete"))
+    allowed.update("cp333_runner_" + stage for stage in (
+        "absent", "entered", "returned", "malformed", "unavailable"))
     if not raw:
         result["status"] = "partial"
         return result
