@@ -1,0 +1,35 @@
+{
+  "schema": "cp302-validation-v1",
+  "status": "FIXED_SYNTHETIC_FIXTURE_AND_IN_PROCESS_CLEANUP_VALIDATED_REAL_CHILD_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "fixture": {
+    "source_sha256": "31afbe79ea842eb663be7d278ea389dddd70d5c628106371b5ef3e6a55b703b1",
+    "built_path": "C:\\PROBLEM\\s302\\fixture.exe",
+    "retained_path": "admin/fixtures/cp302/fixture.exe",
+    "bytes": 108032,
+    "sha256": "66eadac3f5dd6ee0d0b856a53760dc9270ecfd170808c62dff01b99a583f6a28",
+    "pe": {"machine": "AMD64", "subsystem": "CONSOLE", "imports": ["KERNEL32.DLL"]},
+    "build_receipt": "analysis/cp302-fixture-build.json"
+  },
+  "source_sha256": {
+    "admin/cp214_owned_suspended_process.py": "b2341e791d303efa7c35c588e4718595e356cadb0c82b58e304bef2c6fbe5070",
+    "admin/test_cp302_owned_cleanup.py": "b6ce6864542f61a5b1da6ea608b8b0fd2c25256d562197593f4f3c5dc7559c56",
+    "admin/build_cp302_fixture.py": "00f6b2ee27754be1587cb527306e1ae604f4ee78718a3177e75d53e645eff160",
+    "admin/test_cp302_fixture_source.py": "e03d16fecb8a869c060e7de29456f50b1b77ba441dcdafcc013387ecc8e940ff"
+  },
+  "tests": {
+    "fake_owned_cleanup": {"run": 9, "passed": 9, "log": "analysis/cp302-owned-cleanup-tests.log"},
+    "fixture_static": {"run": 6, "passed": 6, "log": "analysis/cp302-fixture-source-tests.log"},
+    "prior_cp214_fake_kernel": {"run": 1, "passed": 1, "log": "analysis/cp302-cp214-fake-regression.log"}
+  },
+  "unpassed_gates": [
+    "Real cloned-image process launch remains disabled in CP300",
+    "Durable owner or Job Object containment after helper exit on cleanup failure",
+    "Creation-time and loaded-image identity binding across path replacement race",
+    "Independent real harmless synthetic-child exit/absence receipt",
+    "CP215 observer, original process and fresh Open-Save-accepted Close acceptance"
+  ]
+}

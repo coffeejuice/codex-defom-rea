@@ -1,0 +1,5 @@
+# CP300–302 efficiency review
+
+CP300 and CP302 exercised bounded fake/static checks only. CP300's nine fake tests took 0.005 seconds, and its 26 CP289 compatibility tests took 0.328 seconds with one symlink-privilege skip. CP302's nine fake cleanup tests took 0.006 seconds, six fixture static tests 0.008 seconds, and the existing CP214 fake-kernel regression 0.002 seconds; the reviewed fixture build took about 1.7 seconds in the root command. These are execution times, not full investigation or model time.
+
+CP301's first full build and CTest passed in 38.5 and 17.984 seconds; its first source-bound launcher failed one terminal-harness boundary assertion after 39.625 seconds. The focused test passed in 2.81 seconds. The full rerun passed with build 0.109, CTest 16.469 and bound launcher 36.484 seconds. Preserve the first raw failure and final receipt; its cause remains unproven. Retain one complete source-bound freeze for compiled converter increments and targeted fake/static checks for oracle infrastructure. Do not run broad converter suites for documentation or fake-only changes. No token use or whole-job speedup was measured.

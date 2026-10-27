@@ -88,6 +88,8 @@ class OwnedProcess:
         self.resumed = False
         self.termination_attempts = []
         self.identity = None
+        self._exit_verified = False
+        self._last_exit_receipt = None
         if not Path(exe).is_absolute() or not Path(cwd).is_absolute():
             raise ValueError("exe and cwd must be absolute")
         self.exe, self.cwd = canonical(exe), canonical(cwd)
@@ -116,8 +118,15 @@ class OwnedProcess:
                              "canonical_image": image, "sha256": actual,
                              "cwd": self.cwd, "argv": [self.exe, *args],
                              "host": socket.gethostname(), "launcher_pid": os.getpid()}
-        except BaseException:
-            self.close()
+        except BaseException as original_error:
+            try:
+                self.close()
+            except BaseException as cleanup_error:
+                # The exception keeps the exact process and thread handles alive
+                # for a caller-side retry. Never rediscover this child by PID.
+                original_error.owned_process = self
+                original_error.cleanup_error = cleanup_error
+                original_error.add_note(f"owned child cleanup failed: {cleanup_error!r}")
             raise
 
     @locked
@@ -127,6 +136,8 @@ class OwnedProcess:
             raise C.WinError(C.get_last_error())
         code = W.DWORD()
         checked(self.k.GetExitCodeProcess(self.pi.hProcess, C.byref(code)))
+        if result == 0:
+            self._exit_verified = True
         return {"state": "exited" if result == 0 else ("running" if self.resumed else "suspended"),
                 "wait_result": result, "exit_code": code.value,
                 "exit_verified": result == 0}
@@ -175,18 +186,26 @@ class OwnedProcess:
 
     @locked
     def close(self):
-        try:
-            return self.terminate() if self.pi.hProcess else None
-        finally:
-            errors = []
-            for field in ("hThread", "hProcess"):
-                handle = getattr(self.pi, field)
-                if handle:
-                    if not self.k.CloseHandle(handle):
-                        errors.append(str(C.WinError(C.get_last_error())))
+        if self.pi.hProcess:
+            receipt = self.terminate()
+            if receipt["exit_verified"] is not True:
+                raise RuntimeError("owned process exit not verified; exact handles retained")
+            self._last_exit_receipt = receipt
+        else:
+            receipt = self._last_exit_receipt
+            if self.pi.hThread and not self._exit_verified:
+                raise RuntimeError("owned process exit not verified; exact thread handle retained")
+        errors = []
+        for field in ("hThread", "hProcess"):
+            handle = getattr(self.pi, field)
+            if handle:
+                if self.k.CloseHandle(handle):
                     setattr(self.pi, field, None)
-            if errors:
-                raise RuntimeError("; ".join(errors))
+                else:
+                    errors.append(f"{field}: {C.WinError(C.get_last_error())}")
+        if errors:
+            raise RuntimeError("owned child handle close failed; retained for retry: " + "; ".join(errors))
+        return receipt
 
 
 def emit(event, **fields):
@@ -219,6 +238,7 @@ def main():
     if not 0 < ns.max_seconds <= 30:
         parser.error("max-seconds must be in (0, 30]")
     child, failed = None, False
+    watcher = None
     stop_watchdog = threading.Event()
     watchdog_errors = []
     deadline = time.monotonic() + ns.max_seconds
@@ -268,6 +288,10 @@ def main():
                 raise ValueError("unsupported command")
     except BaseException as exc:
         failed = True
+        # Constructor cleanup failures expose their original exact-handle owner.
+        # Keep that owner for the same final cleanup path rather than losing it.
+        if child is None:
+            child = getattr(exc, "owned_process", None)
         try:
             emit("error", error=repr(exc))
         except (OSError, ValueError):
@@ -277,14 +301,27 @@ def main():
             try:
                 receipt = child.close()
                 stop_watchdog.set()
-                watcher.join(timeout=6)
+                if watcher is not None:
+                    watcher.join(timeout=6)
                 if watchdog_errors:
                     raise RuntimeError("watchdog cleanup error: " + "; ".join(watchdog_errors))
                 emit("cleanup", **receipt, handles_closed=True)
             except BaseException as exc:
                 failed = True
                 try:
-                    emit("cleanup_error", error=repr(exc), exit_verified=False)
+                    fields_nonzero = {"hProcess": bool(child.pi.hProcess),
+                                      "hThread": bool(child.pi.hThread)}
+                    if child._exit_verified:
+                        certainty = ("verified_exited_handles_nonzero_at_error"
+                                     if any(fields_nonzero.values()) else
+                                     "verified_exited_handles_closed")
+                    else:
+                        certainty = "uncertain_child_may_remain_live"
+                    emit("cleanup_error", error=repr(exc),
+                         exit_verified=bool(child._exit_verified),
+                         handle_fields_nonzero_at_error=fields_nonzero,
+                         owner_retention_after_helper_exit=False,
+                         cleanup_certainty=certainty)
                 except (OSError, ValueError):
                     pass
         stop_watchdog.set()
