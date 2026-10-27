@@ -2,6 +2,7 @@
 #include <testkit/check.hpp>
 
 #include "../../src/ops/type3_shapeoptim_identity_view.hpp"
+#include "../../src/ops/type3_shapeoptim_initializer.hpp"
 
 using namespace m2m::mst::detail;
 
@@ -18,8 +19,10 @@ std::vector<Type3ShapeOptimPropertyNode> tree()
 Type3ShapeOptimIdentityGraph prepared()
 {
     Type3ShapeOptimIdentityGraph graph;
-    graph.classes.emplace(1, Type3ShapeOptimIdentityClass{{42, 3.25}, {}, {}});
-    graph.classes.emplace(2, Type3ShapeOptimIdentityClass{{-99, 0.125}, {}, {}});
+    graph.classes.emplace(1, Type3ShapeOptimIdentityClass{});
+    graph.classes.emplace(2, Type3ShapeOptimIdentityClass{});
+    graph.classes.at(1).state.values = {42, 3.25};
+    graph.classes.at(2).state.values = {-99, 0.125};
     graph.operations.emplace(10, Type3ShapeOptimIdentityOperation{});
     // These are supplied normal-path postconditions, not native factory calls.
     REQUIRE(prepareType3ShapeOptimConstruction(graph, 1, 20, 30, tree()));
@@ -202,6 +205,55 @@ TEST_CASE(type3_identity_invalid_prepared_publication_does_not_change_selection)
     CHECK(graph.classes.at(1).linkedProperty == Type3ShapeOptimOptionalIdentity{20});
     CHECK(graph.classes.at(1).currentOperation == Type3ShapeOptimOptionalIdentity{10});
     CHECK(graph.operations.at(10).property == Type3ShapeOptimOptionalIdentity{20});
+}
+
+TEST_CASE(type3_identity_initializer_preserves_links_and_independent_property_data)
+{
+    for (bool sharedSink : {false, true}) {
+        auto graph = prepared();
+        REQUIRE(prepareType3ShapeOptimConstruction(graph, 2, 21, 31, tree()));
+        REQUIRE(prepareType3ShapeOptimLinkedProperty(graph, 1, 21));
+        if (sharedSink) graph.properties.at(21).data = 30;
+        graph.data.at(30) = {333, 3.5}; graph.data.at(31) = {444, 4.5};
+        auto& state = graph.classes.at(1).state;
+        state.listA0 = {4}; state.listA8 = {4.5}; state.listF0 = {m2m::qt::L("seed")};
+        state.value9e = 44; state.valued4 = -45; state.valued8 = 46;
+        std::vector<Type3ShapeOptimInitEvent> initEvents;
+        for (int iteration = 0; iteration < 2; ++iteration) {
+            CHECK(initializeType3ShapeOptimPreparedState(state, initEvents)
+                  == Type3ShapeOptimInitResult::Complete);
+            CHECK(graph.classes.at(1).currentOperation == Type3ShapeOptimOptionalIdentity{10});
+            CHECK(graph.classes.at(1).linkedProperty == Type3ShapeOptimOptionalIdentity{21});
+            CHECK(graph.operations.at(10).property == Type3ShapeOptimOptionalIdentity{20});
+            CHECK(graph.properties.at(20).creator == Type3ShapeOptimOptionalIdentity{1});
+            CHECK(graph.properties.at(21).creator == Type3ShapeOptimOptionalIdentity{2});
+            CHECK(graph.properties.at(20).data == Type3ShapeOptimOptionalIdentity{30});
+            CHECK(graph.properties.at(21).data == Type3ShapeOptimOptionalIdentity{sharedSink ? 30u : 31u});
+            CHECK(graph.properties.at(20).castSuccess);
+            CHECK_EQ(graph.properties.at(20).properties.size(), 1u);
+            CHECK_EQ(graph.classes.size(), 2u); CHECK_EQ(graph.operations.size(), 1u);
+            CHECK_EQ(graph.properties.size(), 2u); CHECK_EQ(graph.data.size(), 2u);
+            checkValues(graph, 30, 333, 3.5); checkValues(graph, 31, 444, 4.5);
+            CHECK_EQ(graph.classes.at(2).state.values.maxSims, -99);
+            CHECK_BITS(graph.classes.at(2).state.values.minObjective, 0.125);
+        }
+        CHECK_EQ(initEvents.size(), 52u);
+        CHECK(state.listA0.empty()); CHECK(state.listA8.empty()); CHECK(state.listF0.empty());
+        CHECK_EQ(state.value9e, 44); CHECK_EQ(state.valued4, -45); CHECK_EQ(state.valued8, 46);
+        // CP453 now writes the same OB values read by CP459; data remains separate.
+        Type3OptimizerScalarState source;
+        source.value38 = 57; source.value40 = 6.25;
+        projectType3ShapeOptimPreparedView(Type3OptimizerDefOptView(source), state);
+        checkValues(graph, 30, 333, 3.5);
+        Events events;
+        CHECK(projectType3ShapeOptimIdentityView(graph, 1, events) == Result::Complete);
+        REQUIRE(events.size() == 5);
+        CHECK_EQ(events[1].intValue, 57); CHECK_BITS(events[2].doubleValue, 6.25);
+        CHECK_EQ(events[3].intValue, -99); CHECK_BITS(events[4].doubleValue, 0.125);
+        checkValues(graph, 30, sharedSink ? -99 : 57, sharedSink ? 0.125 : 6.25);
+        checkValues(graph, 31, sharedSink ? 444 : -99, sharedSink ? 4.5 : 0.125);
+        CHECK_EQ(state.values.maxSims, 57); CHECK_BITS(state.values.minObjective, 6.25);
+    }
 }
 
 int main() { return testkit::run_all(); }

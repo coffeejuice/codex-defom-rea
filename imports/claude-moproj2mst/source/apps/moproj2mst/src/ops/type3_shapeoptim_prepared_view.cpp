@@ -23,7 +23,7 @@ void projectType3ShapeOptimPreparedView(
     const Type3OptimizerDefOptView& view,
     Type3ShapeOptimPreparedState& state)
 {
-    state.valuecc = view.value38();
+    state.values.maxSims = view.value38();
     state.valued8 = view.value0c();
     state.valued4 = view.value10();
     state.valued0 = view.value34();
@@ -68,7 +68,7 @@ void projectType3ShapeOptimPreparedView(
     const auto regionCount = view.regionCount();
     for (std::int32_t index = 0; index < regionCount; ++index)
         state.listF0.push_back(view.regionNameAt(index));
-    state.valuee0 = view.value40();
+    state.values.minObjective = view.value40();
     state.valuee9 = view.value48();
 }
 

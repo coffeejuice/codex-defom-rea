@@ -32,6 +32,7 @@ TEST_CASE(type3_shapeoptim_maps_scalars_and_preserves_absent_row_destinations)
     source.value34 = 0; source.value38 = 42; source.value40 = -0.0;
     source.value48 = true;
     Type3ShapeOptimPreparedState state;
+    state.value6c = -6; state.value88 = -0.0; state.value90 = 90.5;
     state.value70 = 70; state.value74 = 74; state.value78 = 78;
     state.value7c = -7; state.value80 = -8; state.value84 = -9;
     state.value98 = 2; state.value99 = 3; state.value9a = 4; state.value9b = 5;
@@ -39,11 +40,13 @@ TEST_CASE(type3_shapeoptim_maps_scalars_and_preserves_absent_row_destinations)
     state.valuec8 = -800;
     state.listA0 = {9}; state.listA8 = {1.25}; state.listF0 = {qt::L("seed")};
     project(source, state);
-    CHECK_EQ(state.valuecc, 42); CHECK_EQ(state.valued8, -12);
+    CHECK_EQ(state.values.maxSims, 42); CHECK_EQ(state.valued8, -12);
     CHECK_EQ(state.valued4, 13); CHECK_EQ(state.valued0, 0);
     CHECK_EQ(state.valuec0, 1055); CHECK_EQ(state.valuec4, 0);
     CHECK_EQ(state.valuec8, -800); CHECK_EQ(state.valuee8, 0);
-    CHECK_EQ(state.valuee9, 1); CHECK_BITS(state.valuee0, -0.0);
+    CHECK_EQ(state.value6c, -6); CHECK_BITS(state.value88, -0.0);
+    CHECK_BITS(state.value90, 90.5);
+    CHECK_EQ(state.valuee9, 1); CHECK_BITS(state.values.minObjective, -0.0);
     CHECK_EQ(state.value70, 70); CHECK_EQ(state.value74, 74); CHECK_EQ(state.value78, 78);
     CHECK_EQ(state.value7c, -7); CHECK_EQ(state.value80, -8); CHECK_EQ(state.value84, -9);
     CHECK_EQ(state.value98, 0); CHECK_EQ(state.value99, 0);

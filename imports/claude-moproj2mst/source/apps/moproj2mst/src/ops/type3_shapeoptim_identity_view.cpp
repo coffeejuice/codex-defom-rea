@@ -101,11 +101,11 @@ Type3ShapeOptimIdentityResult projectType3ShapeOptimIdentityView(
     Type3ShapeOptimPropertyRefresh refresh;
     if (b) {
         refresh.linkedClass = b->creator
-            ? &graph.classes.at(*b->creator).values : nullptr;
+            ? &graph.classes.at(*b->creator).state.values : nullptr;
         refresh.data = b->data ? &graph.data.at(*b->data) : nullptr;
     }
     const auto result = projectType3ShapeOptimPropertyTail(
-        ob.values, p && p->castSuccess ? &cast : nullptr,
+        ob.state.values, p && p->castSuccess ? &cast : nullptr,
         b ? &refresh : nullptr, events);
     switch (result) {
     case Type3ShapeOptimPropertyTailResult::Complete: return Result::Complete;

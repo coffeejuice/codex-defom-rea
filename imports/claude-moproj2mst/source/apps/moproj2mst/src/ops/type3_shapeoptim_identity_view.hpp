@@ -1,6 +1,7 @@
 #pragma once
 
 #include "type3_shapeoptim_property_tail.hpp"
+#include "type3_shapeoptim_prepared_view.hpp"
 
 #include <map>
 #include <optional>
@@ -13,7 +14,8 @@ using Type3ShapeOptimIdentity = std::uint64_t;
 using Type3ShapeOptimOptionalIdentity = std::optional<Type3ShapeOptimIdentity>;
 
 struct Type3ShapeOptimIdentityClass {
-    Type3ShapeOptimPropertyValues values;
+    // The OB value state is independent of every property-data map entry.
+    Type3ShapeOptimPreparedState state;
     Type3ShapeOptimOptionalIdentity currentOperation;  // OB+20
     Type3ShapeOptimOptionalIdentity linkedProperty;    // OB+b0
 };
