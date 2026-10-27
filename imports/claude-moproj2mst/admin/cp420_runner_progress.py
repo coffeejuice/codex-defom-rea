@@ -4,12 +4,11 @@ from __future__ import annotations
 import hashlib
 import os
 from pathlib import Path
+import re
 
-_DOMAIN = b"codex-deform-rea:cp420-runner-progress:v2\0"
+_DOMAIN = b"codex-deform-rea:cp420-runner-progress:v3\0"
 _STAGES = ("bootstrap", "parent_ack", "worker_resumed", "result",
            "worker_ack", "worker_closed", "terminal_entered", "terminal_returned")
-_RECORDS = tuple(("\n".join(_STAGES[:i]) + "\n").encode("ascii")
-                 for i in range(1, len(_STAGES) + 1))
 _LIMIT = 160
 
 
@@ -23,26 +22,57 @@ def _identity(nonce: bytes, deadline: int) -> None:
 def path(nonce: bytes, deadline: int) -> Path:
     _identity(nonce, deadline)
     digest = hashlib.sha256(_DOMAIN + nonce + deadline.to_bytes(8, "big")).hexdigest()
-    return Path(__file__).resolve().parent.parent / "analysis" / f"cp420-runner-{digest}.txt"
+    return Path(__file__).resolve().parent.parent / "analysis" / f"cp422-runner-{digest}.txt"
 
 
-def write_progress(nonce: bytes, deadline: int, stage: str) -> bool:
+def _parse(current: bytes):
+    """Return exact last-stage index and ACK remaining ms, or None."""
+    if (not current or len(current) > _LIMIT or not current.endswith(b"\n")):
+        return None
+    lines = current.splitlines()
+    if len(lines) > len(_STAGES):
+        return None
+    remaining = None
+    for index, line in enumerate(lines):
+        if index == 4:
+            match = re.fullmatch(rb"worker_ack:([1-9][0-9]{0,3})", line)
+            if not match:
+                return None
+            remaining = int(match.group(1))
+            if remaining > 5000:
+                return None
+        elif line != _STAGES[index].encode("ascii"):
+            return None
+    return len(lines) - 1, remaining
+
+
+def write_progress(nonce: bytes, deadline: int, stage: str,
+                   remaining: int | None = None) -> bool:
     _identity(nonce, deadline)
     if type(stage) is not str or stage not in _STAGES:
         return False
     target = path(nonce, deadline)
     index = _STAGES.index(stage)
+    if index == 4:
+        if type(remaining) is not int or not 0 < remaining <= 5000:
+            return False
+        record = f"worker_ack:{remaining}\n".encode("ascii")
+    else:
+        if remaining is not None:
+            return False
+        record = (stage + "\n").encode("ascii")
     try:
         if index == 0:
             with target.open("xb") as stream:
-                stream.write(_RECORDS[0]); stream.flush(); os.fsync(stream.fileno())
+                stream.write(record); stream.flush(); os.fsync(stream.fileno())
             return True
         with target.open("rb") as stream:
             current = stream.read(_LIMIT + 1)
-        if current != _RECORDS[index - 1]:
+        parsed = _parse(current)
+        if parsed is None or parsed[0] != index - 1:
             return False
         with target.open("ab") as stream:
-            stream.write((stage + "\n").encode("ascii"))
+            stream.write(record)
             stream.flush(); os.fsync(stream.fileno())
         return True
     except BaseException:
@@ -54,10 +84,20 @@ def read_progress(nonce: bytes, deadline: int) -> str:
     try:
         with path(nonce, deadline).open("rb") as stream:
             current = stream.read(_LIMIT + 1)
-        if current in _RECORDS:
-            return _STAGES[_RECORDS.index(current)]
-        return "malformed"
+        parsed = _parse(current)
+        return _STAGES[parsed[0]] if parsed is not None else "malformed"
     except FileNotFoundError:
         return "absent"
     except BaseException:
         return "unavailable"
+
+
+def read_ack_remaining(nonce: bytes, deadline: int) -> int | None:
+    """Return the existing post-ACK clock sample, if its record is complete."""
+    _identity(nonce, deadline)
+    try:
+        with path(nonce, deadline).open("rb") as stream:
+            parsed = _parse(stream.read(_LIMIT + 1))
+        return parsed[1] if parsed is not None and parsed[0] >= 4 else None
+    except BaseException:
+        return None

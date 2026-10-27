@@ -220,12 +220,16 @@ class NativeInertRunner:
             raise Hold("queued duplicate/trailing RESULT bytes")
         self.receipt.peek_outcome = "zero-queued-byte-snapshot"
 
-    def _progress(self, nonce, stage):
+    def _progress(self, nonce, stage, *, remaining=None):
         """Best-effort CP420 evidence; progress storage never gates the run."""
         if not self._external:
             return
         try:
-            progress.write_progress(nonce, self._supplied_deadline, stage)
+            if remaining is None:
+                progress.write_progress(nonce, self._supplied_deadline, stage)
+            else:
+                progress.write_progress(nonce, self._supplied_deadline, stage,
+                                        remaining=remaining)
         except BaseException:
             pass
 
@@ -295,7 +299,8 @@ class NativeInertRunner:
             r.ack_outcome = "unknown: write entered"
             self._write(wire.encode_ack(wire.Ack(0, nonce)))
             r.ack_outcome = "48-bytes-written-exit-unconfirmed"
-            self._progress(nonce, "worker_ack")
+            self._progress(nonce, "worker_ack",
+                           remaining=self._deadline - self._last_tick)
             self._budget()
             completed = self.worker.complete_success()
             self._budget()

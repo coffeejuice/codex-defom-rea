@@ -130,8 +130,10 @@ class RunnerTests(unittest.TestCase):
         nonce = self.external(h, lambda *_: None)
         marks = []
 
-        def record_progress(got_nonce, deadline, stage):
-            marks.append((got_nonce, deadline, stage))
+        def record_progress(got_nonce, deadline, stage, *, remaining=None):
+            if stage == "worker_ack":
+                self.assertEqual(remaining, deadline - h.runner._last_tick)
+            marks.append((got_nonce, deadline, stage, remaining))
             return True
 
         with patch.object(m.progress, "write_progress", side_effect=record_progress), \
@@ -139,18 +141,20 @@ class RunnerTests(unittest.TestCase):
             r = h.run()
 
         self.assertEqual(r.phase, "closed-success")
-        self.assertEqual(marks, [(nonce, 700, "worker_resumed"),
-                                 (nonce, 700, "result"),
-                                 (nonce, 700, "worker_ack"),
-                                 (nonce, 700, "worker_closed")])
+        self.assertEqual([(n, d, s) for n, d, s, _ in marks],
+                         [(nonce, 700, "worker_resumed"), (nonce, 700, "result"),
+                          (nonce, 700, "worker_ack"), (nonce, 700, "worker_closed")])
+        self.assertTrue(all(remaining is None for _, _, stage, remaining in marks
+                            if stage != "worker_ack"))
+        self.assertTrue(0 < marks[2][3] <= 5000)
 
     def test_external_progress_storage_failures_do_not_change_acceptance(self):
         h = Harness()
         nonce = self.external(h, lambda *_: None)
         calls = []
 
-        def failed_progress(got_nonce, deadline, stage):
-            calls.append((got_nonce, deadline, stage))
+        def failed_progress(got_nonce, deadline, stage, *, remaining=None):
+            calls.append((got_nonce, deadline, stage, remaining))
             raise OSError("progress storage unavailable")
 
         with patch.object(m.progress, "write_progress", side_effect=failed_progress), \
@@ -160,10 +164,10 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(r.phase, "closed-success")
         self.assertEqual(r.result_outcome, "80-byte-zero-child-result")
         self.assertEqual(r.ack_outcome, "exact-worker-exit-zero-observed")
-        self.assertEqual([stage for _, _, stage in calls],
+        self.assertEqual([stage for _, _, stage, _ in calls],
                          ["worker_resumed", "result", "worker_ack", "worker_closed"])
         self.assertTrue(all(got_nonce == nonce and deadline == 700
-                            for got_nonce, deadline, _ in calls))
+                            for got_nonce, deadline, _, _ in calls))
 
     def test_non_external_run_does_not_write_worker_progress(self):
         h = Harness()

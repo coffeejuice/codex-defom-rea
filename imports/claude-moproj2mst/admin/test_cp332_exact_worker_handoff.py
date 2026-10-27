@@ -56,6 +56,7 @@ class Harness:
         self.outer_flags = m.creator.KILL_ON_CLOSE
         self.success_exit_code = 0
         self.success_wait_status = None
+        self.wait_raise = False
         self.success_active = None
         self.outer_active = None
         self.outer_pids = (74, 73, 95)
@@ -182,6 +183,8 @@ class Harness:
             entry.th32ParentProcessID = parent
             entry.szExeFile = executable
         elif name == "WaitForSingleObject":
+            if self.wait_raise:
+                raise RuntimeError("injected wait failure")
             if args[0] == 81 and self.success_wait_status is not None:
                 return self.success_wait_status
             return 0 if self.dead or self.bad == "wait" else 258
@@ -797,6 +800,49 @@ class HandoffTests(unittest.TestCase):
         with self.assertRaises(m.Hold):
             h.owner.observe_worker_success()
         self.assertTrue(h.owner.termination_confirmed)
+
+    def test_failure_only_worker_wait_snapshot_statuses_are_inert(self):
+        for status, expected in ((258, "active"), (0, "signaled"),
+                                 (0xFFFFFFFF, "unavailable")):
+            with self.subTest(status=status):
+                h = Harness()
+                h.run()
+                h.now = 500  # expired success budget must not be consulted
+                h.success_wait_status = status
+                phase = h.owner.phase
+                owned = dict(h.owner._owned_outputs)
+                before = len(h.calls)
+                self.assertEqual(h.owner.diagnostic_worker_wait(), expected)
+                calls = h.calls[before:]
+                self.assertEqual(len(calls), 1)
+                self.assertEqual(calls[0][0], "WaitForSingleObject")
+                self.assertEqual(calls[0][1], (81, 0))
+                self.assertEqual(h.owner.phase, phase)
+                self.assertEqual(h.owner._owned_outputs, owned)
+                self.assertEqual(h.closed, [])
+                self.assertFalse(h.owner.termination_confirmed)
+
+    def test_worker_wait_snapshot_handles_failures_and_checks_custody(self):
+        h = Harness()
+        h.run()
+        h.wait_raise = True
+        phase = h.owner.phase
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "unavailable")
+        self.assertEqual(h.owner.phase, phase)
+        self.assertFalse(h.owner.termination_confirmed)
+        self.assertEqual(h.closed, [])
+
+        h = Harness()
+        h.run()
+        before = len(h.calls)
+        h.owner.runner = 999  # invalidate the frozen exact custody
+        phase = h.owner.phase
+        self.assertEqual(h.owner.diagnostic_worker_wait(), "unavailable")
+        self.assertFalse(any(name == "WaitForSingleObject"
+                             for name, _ in h.calls[before:]))
+        self.assertEqual(h.owner.phase, phase)
+        self.assertFalse(h.owner.termination_confirmed)
+        self.assertEqual(h.closed, [])
 
 
 if __name__ == "__main__":

@@ -203,6 +203,8 @@ def _child_trace_result(path):
         "absent", "entered", "returned", "bootstrap", "parent_ack",
         "worker_resumed", "result", "worker_ack", "worker_closed",
         "terminal_entered", "terminal_returned", "malformed", "unavailable"))
+    allowed.update("cp333_worker_wait_" + status for status in (
+        "active", "signaled", "unavailable"))
     if not raw:
         result["status"] = "partial"
         return result

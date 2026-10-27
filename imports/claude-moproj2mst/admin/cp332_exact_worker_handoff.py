@@ -429,6 +429,30 @@ class ExactWorkerHandoff:
             self._fail(error)
             raise
 
+    def diagnostic_worker_wait(self):
+        """Failure-only zero-time snapshot of the retained exact WORKER handle.
+
+        This reports process state after ACK without spending the expired
+        success deadline, changing ownership, or affecting the ACK outcome.
+        """
+        try:
+            if (self.phase != "acknowledged" or not self._ack_recorded or
+                    self.uncertain or
+                    set(self._owned_outputs) != {"worker_process", "worker_job"}):
+                return "unavailable"
+            self._custody()
+            process = self._owned_outputs["worker_process"]
+            status = self._call("WaitForSingleObject", process, 0)
+            if type(status) is not int:
+                return "unavailable"
+            if status == 258:
+                return "active"
+            if status == 0:
+                return "signaled"
+            return "unavailable"
+        except BaseException:
+            return "unavailable"
+
     def observe_worker_success(self):
         """Independently observe the exact duplicated WORKER's clean exit.
 

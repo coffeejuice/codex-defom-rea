@@ -268,6 +268,12 @@ class WatchdogIntegration:
                             "terminal_entered", "terminal_returned",
                             "malformed", "unavailable"):
                         self._mark(f"cp333_runner_{runner_stage}")
+                    try:
+                        worker_wait = self.handoff.diagnostic_worker_wait()
+                    except BaseException:
+                        worker_wait = "unavailable"
+                    if worker_wait in ("active", "signaled", "unavailable"):
+                        self._mark(f"cp333_worker_wait_{worker_wait}")
                 kind = type(error).__name__[:40]
                 message = "".join(ch if 32 <= ord(ch) <= 126 else "?"
                                   for ch in str(error)[:120])
