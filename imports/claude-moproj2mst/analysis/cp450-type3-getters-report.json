@@ -1,0 +1,213 @@
+{
+  "checkpoint": "CP450 Type3 DefOptModel getter chain",
+  "binary": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\evidence\\original-binaries\\DEF_GUI_MO_64.exe",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "status": "Static getter contracts recovered; actual-owner production activation remains unqualified.",
+  "tool": "Microsoft dumpbin 14.44.35228.0; no Ghidra project or REA session opened",
+  "vtable": {
+    "address": "0x1427bceb8",
+    "through_slot160_sha256": "892092bd77b5abfd5de107fcb554df603875c6f1ac4a312910d9ebb530fe8da2",
+    "slots": [
+      {
+        "slot": "0x118",
+        "target": "0x140918960",
+        "loads_owner_offset": "0x30",
+        "type": "int32"
+      },
+      {
+        "slot": "0x128",
+        "target": "0x1409189a0",
+        "loads_owner_offset": "0x34",
+        "type": "int32"
+      },
+      {
+        "slot": "0x138",
+        "target": "0x1409189e0",
+        "loads_owner_offset": "0x38",
+        "type": "int32"
+      },
+      {
+        "slot": "0x148",
+        "target": "0x140918a20",
+        "loads_owner_offset": "0x40",
+        "type": "double"
+      },
+      {
+        "slot": "0x158",
+        "target": "0x140918a70",
+        "loads_owner_offset": "0x48",
+        "type": "byte"
+      }
+    ]
+  },
+  "direct_getters": [
+    {
+      "entry": "0x14091e0b0",
+      "loads": "owner+0x0c",
+      "type": "int32"
+    },
+    {
+      "entry": "0x14091e0f0",
+      "loads": "owner+0x10",
+      "type": "int32"
+    }
+  ],
+  "list_getters": [
+    {
+      "slot": "0x28",
+      "target": "0x140159d00",
+      "contract": "Returns QListData::size(owner+0x18), via 0x140004ae0 and IAT 0x141e04210."
+    },
+    {
+      "slot": "0x30",
+      "target": "0x14091e2d0",
+      "contract": "Signed index must be >=0 and <size(owner+0x18), else returns null. Valid index calls 0x14091fb20(owner+0x18,index). That calls RET-only 0x140004b80, detach check 0x14091fe20, QListData::at at 0x141e04208, then 0x140619750 dereferences the returned list slot to return its node pointer."
+    },
+    {
+      "slot": "0xc0",
+      "target": "0x1400d7ee0",
+      "contract": "Returns QListData::size(owner+0x20), using the same size wrapper."
+    },
+    {
+      "slot": "0xd8",
+      "target": "0x14091f380",
+      "contract": "Constructs local QString from literal Selected Object at 0x1427bea50. Signed index >=0 and <size(owner+0x20) calls 0x14091fca0(owner+0x20,index) and assigns QString at returned node+8 into the local. Copy-constructs caller out QString, destroys local, returns caller out pointer. Invalid index returns Selected Object. Valid-index accessor similarly performs conditional detach via 0x14091fe60 before QListData::at and slot dereference."
+    }
+  ],
+  "copy_on_write": {
+    "predicate": "0x14091fe20/fe60 call QBasicAtomicInt::operator!=(1) on the data pointer, then conditionally invoke 0x140919260/92e0. Getters can mutate their embedded containers when shared.",
+    "row_branch": "140919260 -> 140919360 -> QListData::detach(data allocation+4), node_copy 1409196c0; old-data deref then 140919290 when zero.",
+    "region_branch": "1409192e0 -> 1409194b0 -> same Qt imports, node_copy 1409198b0; old-data deref then 140919310 when zero.",
+    "normal_node_copy": "Active compiled branch copies indirect allocated nodes, stride8 pointer slots, row node allocation0x28 with 140919aa0, region allocation0x10 with 140919b40. Later inline/memcpy branches are bypassed by constant xor eax,eax / cmp eax,1 and must not be treated as possible normal paths.",
+    "allocation_failure": "Null allocation is written into the new slot, with no new getter-level null validation before caller dereference. No safe error result is inferred."
+  },
+  "physical_numcon_node": {
+    "size": "0x28",
+    "copy_ctor": "0x140919aa0",
+    "members": {
+      "0x00": "int32 classifierResult",
+      "0x04": "int32 parser field1 (tag consumed by ShapeOptim)",
+      "0x08": "int32 parser field2",
+      "0x0c": "int32 parser field4",
+      "0x10": "double copied by copy ctor; no initialization/write in 0x14091fab0 or 0x14091e110",
+      "0x18": "double parser field3",
+      "0x20": "QString formatted value"
+    },
+    "builder": "0x14091e110: vtable+8; local ctor14091fab0 initializes QString+20 and int+8/+c=1; then overwrites the four int fields, double+18 and QString+20 before append14091fb60. Does not initialize double+10. Returns size-1.",
+    "destruction": "140919400 walks indirect nodes backward and calls deleting wrapper140919600(flags1), which calls QString-at+20 destructor140919640 then delete1414dfc68."
+  },
+  "physical_region_node": {
+    "size": "0x10",
+    "copy_ctor": "0x140919b40",
+    "members": {
+      "0x00": "qword copied from builder rdx argument, parser passes zero",
+      "0x08": "QString"
+    },
+    "builder": "0x14091f1a0 stores full rdx qword at+0 then assigns QString+8 and append14091fce0; returns size-1.",
+    "destruction": "140919550 walks indirect nodes backward and calls deleting wrapper140919660(flags1), which calls QString-at+8 destructor1409196a0 then delete1414dfc68."
+  },
+  "prior_report_correction": "CP131 prepared-rows prose assigns incompatible physical offsets. New row builder/copy constructor close the physical layout. Current candidate Type3NumConRowValues and appendType3NumConPreparedRow already use classifierResult,field1,field2,field4,field3,formattedValue in matching semantic member order; no code bug is established by stale prose alone.",
+  "smallest_source_ready_increment": {
+    "scope": "Private prepared-state getter/view adapter over Type3OptimizerScalarState and its ordered row vectors. Mirror the actual DefOptModel getter surface, signed bounds/null for NUM_CON row access, Selected Object fallback for region name, scalar int/double/byte loads, and ordered region-name projection. This can support a private ShapeOptim load-projection helper without production activation.",
+    "validation": "Use unequal classifierResult and field1 to prove ShapeOptim dispatches value04; valid/negative/past-end row access; multiple region names retain order; invalid region index returns Selected Object; scalar mapping retains defaults/changed values. Existing candidate row field order needs no change.",
+    "restriction": "This value adapter cannot claim native Qt allocation/refcount/unwind parity or read/serialize native+0x10. Keep actual Type3 SUB+0x28 lifetime, .OPT file/codec/partial mutation and ShapeOptim GEO/save effects as independent production gates."
+  },
+  "remaining_dependencies": [
+    "Normal getter load/return and list node access contract is recovered. QtCore imported size/at/detach/QString operations are bound by original PE imports; their implementation/exceptions were not revalidated in this work.",
+    "Heap allocation14146eabc, delete1414dfc68 and exception landing-pad/unwind behavior are not fully audited; no native allocation/error parity claim.",
+    "Actual Type3 owner publication-to-disposal edge remains separate; this work does not establish it.",
+    "Physical NUM_CON double+0x10 is uninitialized on captured row construction path. Do not assign a native semantic default or claim deterministic serialization for it."
+  ],
+  "selected_imports": [
+    {
+      "iat": "0x141e04210",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?size@QListData@@QEBAHXZ"
+    },
+    {
+      "iat": "0x141e04208",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?at@QListData@@QEBAPEAPEAXH@Z"
+    },
+    {
+      "iat": "0x141e042d8",
+      "dll": "QtCore4_64.dll",
+      "symbol": "??9QBasicAtomicInt@@QEBA_NH@Z"
+    },
+    {
+      "iat": "0x141e041e0",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?begin@QListData@@QEBAPEAPEAXXZ"
+    },
+    {
+      "iat": "0x141e041d8",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?detach@QListData@@QEAAPEAUData@1@H@Z"
+    },
+    {
+      "iat": "0x141e041f0",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?end@QListData@@QEBAPEAPEAXXZ"
+    },
+    {
+      "iat": "0x141e042e8",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?deref@QBasicAtomicInt@@QEAA_NXZ"
+    },
+    {
+      "iat": "0x141e041f8",
+      "dll": "QtCore4_64.dll",
+      "symbol": "?qFree@@YAXPEAX@Z"
+    },
+    {
+      "iat": "0x141e04480",
+      "dll": "QtCore4_64.dll",
+      "symbol": "??0QString@@QEAA@PEBD@Z"
+    },
+    {
+      "iat": "0x141e04470",
+      "dll": "QtCore4_64.dll",
+      "symbol": "??4QString@@QEAAAEAV0@AEBV0@@Z"
+    },
+    {
+      "iat": "0x141e059d8",
+      "dll": "QtCore4_64.dll",
+      "symbol": "??0QString@@QEAA@AEBV0@@Z"
+    },
+    {
+      "iat": "0x141e059e0",
+      "dll": "QtCore4_64.dll",
+      "symbol": "??1QString@@QEAA@XZ"
+    },
+    {
+      "iat": "0x141e044c0",
+      "dll": "QtCore4_64.dll",
+      "symbol": "??0QString@@QEAA@XZ"
+    }
+  ],
+  "evidence_receipts": [
+    "analysis/cp450-type3-getters-evidence.json",
+    "analysis/cp450-type3-getters-throughRET.json",
+    "analysis/cp450-type3-getters-dependencies.json",
+    "analysis/cp450-type3-getters-access.json",
+    "analysis/cp450-type3-getters-detach.json",
+    "analysis/cp450-type3-getters-detach-body.json",
+    "analysis/cp450-type3-getters-node-copy.json",
+    "analysis/cp450-type3-getters-node-value.json",
+    "analysis/cp450-type3-getters-record.json",
+    "analysis/cp450-type3-getters-record-defaults.json",
+    "analysis/cp450-type3-getters-byte-verification.json"
+  ],
+  "capture_correction": "Initial scalar/direct leaf captures exclude RET, preserving complete load instructions. All seven corrected throughRET captures supersede those initial leaf ranges. Earlier chat suggestion of an incomplete double-load instruction was mistaken; final byte verification confirms complete loads in both versions.",
+  "qualification": "Immutable static PE evidence only. No original execution, GUI session, mutable/shared database, application source/test edit, build/deployment, or shared plan/state mutation. All child-owned files are closed and released for root review.",
+  "reviewed_candidate_files": [
+    {
+      "path": "source/apps/moproj2mst/src/ops/type3_optimizer_scalar_state.hpp",
+      "sha256": "9a1aabdf47f1332643e9d09537ba8483f5f80891f54e9bda454c81d3d5f7b946"
+    },
+    {
+      "path": "source/apps/moproj2mst/src/ops/type3_optimizer_scalar_state.cpp",
+      "sha256": "715033d53f0b265c49e6fb075f9c32bc4317bb4787a2c40d4bfd5f2a317e7eb6"
+    }
+  ]
+}

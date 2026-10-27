@@ -80,6 +80,26 @@ TEST_CASE(bwz_end_marker_stops_early)
     CHECK_EQ(d.workpiece, 1);
 }
 
+TEST_CASE(bwz_eof_after_valid_prefix_synthesizes_done)
+{
+    TextFile f(std::string("WZD_BOOLEAN_CUTTER_OBJECT_NO\n4\nWZD_MACHDIST_WORKPIECE_OBJECT_NO\n9\n"));
+    m2m::data::BooleanData d;
+    CHECK(readBwzFile(f, d));
+    CHECK_EQ(d.cutter, 4);
+    CHECK_EQ(d.workpiece, 9);
+    CHECK_EQ(int(d.remesh), 0);
+}
+
+TEST_CASE(bwz_empty_eof_synthesizes_done)
+{
+    TextFile f(std::string(""));
+    m2m::data::BooleanData d;
+    CHECK(readBwzFile(f, d));
+    CHECK_EQ(d.workpiece, 1);
+    CHECK_EQ(d.cutter, 0);
+    CHECK_EQ(int(d.remesh), 0);
+}
+
 TEST_CASE(fwz_corpus)
 {
     REQUIRE(!corpus().empty());
