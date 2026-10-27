@@ -50,6 +50,7 @@ struct Type3OptAttemptSink {
     // Separate stream attempts; ordinary return statuses are ignored.
     virtual bool insertLiteral(const char* literal) = 0;
     virtual bool insertInt(std::int32_t value) = 0;
+    virtual bool insertDouble(double value) = 0;
     virtual bool insertString(const qt::String& value) = 0;
     virtual bool insertEndl() = 0;
     // Return status is an observation, never a branch in the ordinary path.

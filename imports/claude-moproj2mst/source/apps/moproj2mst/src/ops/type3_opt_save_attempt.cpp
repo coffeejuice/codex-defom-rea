@@ -68,8 +68,23 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
         (void)sink.insertLiteral("NUM_CON\t\t");
         (void)sink.insertInt(savedNumConCount);
         (void)sink.insertEndl();
+        const Type3OptimizerDefOptView rowView(*state);
+        for (std::int32_t i = 0; i < savedNumConCount; ++i) {
+            const std::int32_t field4 = rowView.numConField4At(i);
+            const double field3 = rowView.numConField3At(i);
+            const std::int32_t field2 = rowView.numConField2At(i);
+            const std::int32_t field1 = rowView.numConField1At(i);
+            (void)sink.insertLiteral("  "); (void)sink.insertInt(i + 1);
+            (void)sink.insertLiteral(" "); (void)sink.insertInt(field1);
+            (void)sink.insertLiteral("    "); (void)sink.insertInt(field2);
+            (void)sink.insertLiteral("      "); (void)sink.insertDouble(field3);
+            (void)sink.insertLiteral("    "); (void)sink.insertInt(field4);
+            (void)sink.insertEndl();
+        }
+        (void)sink.insertEndl();
     } else insertAll(sink, p.scalarSuffix);
-    for (const auto& row : p.rows) insertAll(sink, row);
+    if (!(manager && state && receipt))
+        for (const auto& row : p.rows) insertAll(sink, row);
     if (manager && state && receipt) {
         // The original manager query runs here, after open and earlier rows.
         // Its reindexing side effect applies even to linked variables.
