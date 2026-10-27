@@ -1,6 +1,7 @@
 """CP349 injected-only top-job tests; no process or native export is invoked."""
 from pathlib import Path
 import io
+import json
 import os
 import tempfile
 from unittest import mock
@@ -154,6 +155,26 @@ class TopTests(unittest.TestCase):
                 path.write_bytes(b"x" * (m.TRACE_MAX_BYTES + 1))
                 self.assertEqual(m._child_trace_result(path)["status"], "malformed")
 
+    def test_child_trace_reader_accepts_full_fixed_entry_stage_sequence(self):
+        stages = ["script-entry", "cp347-module-imported",
+                  "from-client-argv-constructed", "entry",
+                  "before_load_native_exports", "after_load_native_exports",
+                  "before_cp334_from_bootstrap_argv", "after_cp334_adopt",
+                  "before_cp333_acknowledge", "after_cp333_acknowledge",
+                  "before_cp333_complete", "after_cp333_complete",
+                  "run-returned"]
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "f" * 32 + ".jsonl")
+            path.write_bytes(b"".join(
+                (json.dumps({"stage": stage}, separators=(",", ":")) + "\n")
+                .encode("ascii") for stage in stages))
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                result = m._child_trace_result(path)
+        self.assertEqual(result["status"], "valid")
+        self.assertEqual(result["stages"], stages)
+
     def test_child_bootstrap_failure_success_and_exclusive_collision(self):
         class InjectedChildFailure(RuntimeError):
             pass
@@ -162,8 +183,9 @@ class TopTests(unittest.TestCase):
             failure = None
             construction_failure = None
             @classmethod
-            def from_client_argv(cls, argv):
+            def from_client_argv(cls, argv, *, stage=None):
                 assert argv == ["--fixed-test"]
+                assert callable(stage)
                 if cls.construction_failure is not None:
                     raise cls.construction_failure
                 return cls()
@@ -412,7 +434,7 @@ class TopTests(unittest.TestCase):
         self.assertEqual(args[7], m.outer.RUNNER_CWD)
         cmd = args[1].value
         self.assertIn("cp347_fixed_parent_entry", cmd)
-        self.assertIn("FixedParentEntry.from_client_argv(sys.argv[1:])", cmd)
+        self.assertIn("FixedParentEntry.from_client_argv(sys.argv[1:],stage=_stage)", cmd)
         self.assertIn("--cp334-client 11 13 5100", cmd)
         self.assertEqual(owner._channel_deadline, 5100)
         self.assertIn(" -I -B -c ", cmd)
@@ -476,6 +498,48 @@ class TopTests(unittest.TestCase):
         self.assertFalse(owner._accepted)
         self.assertIn("TerminateJobObject", [name for name, _ in h.calls])
         self.assertNotEqual(owner.receipt.phase, "closed-success")
+
+    def _run_failed_claim_read(self, *, exit_state, query_failure=False):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, pipe = self.fake_channel(h)
+        def fail_read(_pipe, handle, kind, count):
+            assert (handle, kind, count) == (15, "read", 80)
+            h.dead = (exit_state == "signaled")
+            raise OSError(109, "injected broken pipe")
+        if query_failure:
+            h.fail = "GetExitCodeProcess"
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", security),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(pipe, "transfer", fail_read),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaises(m.TopFailure):
+                owner.run()
+        names = [name for name, _ in h.calls]
+        self.assertLess(names.index("WaitForSingleObject"),
+                        names.index("TerminateJobObject"))
+        return owner, h
+
+    def test_claim_read_failure_records_signaled_exit_before_cleanup(self):
+        owner, h = self._run_failed_claim_read(exit_state="signaled")
+        self.assertEqual(owner.claim_process_exit_observation,
+                         {"status": "exited-before-cleanup", "exit_code": 0,
+                          "error": None})
+        self.assertEqual([name for name, _ in h.calls].count("TerminateJobObject"), 1)
+
+    def test_claim_read_failure_records_active_before_cleanup_on_timeout(self):
+        owner, _ = self._run_failed_claim_read(exit_state="active")
+        self.assertEqual(owner.claim_process_exit_observation,
+                         {"status": "active-before-cleanup", "exit_code": None,
+                          "error": None})
+
+    def test_claim_read_failure_preserves_query_failure_as_unknown(self):
+        owner, _ = self._run_failed_claim_read(
+            exit_state="signaled", query_failure=True)
+        self.assertEqual(owner.claim_process_exit_observation["status"],
+                         "unknown-before-cleanup")
+        self.assertIn("GetExitCodeProcess", owner.claim_process_exit_observation["error"])
 
     def test_valid_claim_cannot_renew_top_safety_deadline(self):
         h = TopHarness()

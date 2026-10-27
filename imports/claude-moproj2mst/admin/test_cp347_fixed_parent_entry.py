@@ -344,6 +344,94 @@ class ParentEntryTests(unittest.TestCase):
                 entry.FixedParentEntry.from_client_argv(bad)
         self.assertEqual(self.state.events, [])
 
+    def test_diagnostic_stages_are_ordered(self):
+        argv = [client.ARGV_TAG, "11", "12", "4000"]
+        stages = []
+
+        def record(name):
+            stages.append(name)
+
+        owner = SimpleClient(self.state.exports, 4000, [])
+        with patch.object(entry.client, "from_bootstrap_argv", return_value=owner):
+            parent = entry.FixedParentEntry.from_client_argv(argv, stage=record)
+            result = parent.run()
+        self.assertEqual(result.phase, "closed-local-success-controller-unverified")
+        self.assertEqual(stages, [
+            "entry", "before_load_native_exports", "after_load_native_exports",
+            "before_cp334_from_bootstrap_argv", "after_cp334_adopt",
+            "before_cp333_acknowledge", "after_cp333_acknowledge",
+            "before_cp333_complete", "after_cp333_complete",
+        ])
+        self.assertEqual(self.sink.events, [])
+
+    def test_diagnostic_callback_cannot_replace_original_failure_or_claim(self):
+        stages = []
+
+        def fail_diagnostics(name):
+            stages.append(name)
+            raise KeyboardInterrupt("ignored diagnostic failure")
+
+        self.state.fail_complete = True
+        parent = entry.FixedParentEntry(self.sink, stage=fail_diagnostics)
+        with self.assertRaises(entry.ParentEntryFailure) as caught:
+            parent.run()
+        self.assertIsInstance(caught.exception.__cause__, RuntimeError)
+        self.assertEqual(str(caught.exception.__cause__), "terminal failure")
+        self.assertEqual(stages, [
+            "entry", "before_load_native_exports", "after_load_native_exports",
+            "before_cp333_acknowledge", "after_cp333_acknowledge",
+            "before_cp333_complete",
+        ])
+        self.assertEqual(self.sink.events, [])
+        self.assertEqual(parent.receipt.claim_outcome, "not-attempted")
+
+    def test_diagnostic_callback_failure_prevents_claim(self):
+        stages = []
+
+        def fail_diagnostics(name):
+            stages.append(name)
+            raise RuntimeError("diagnostic sink failed")
+
+        parent = entry.FixedParentEntry(self.sink, stage=fail_diagnostics)
+        with self.assertRaises(entry.ParentEntryFailure) as caught:
+            parent.run()
+        self.assertIsInstance(caught.exception.__cause__, entry.Hold)
+        self.assertEqual(self.sink.events, [])
+        self.assertEqual(parent.receipt.claim_outcome, "not-attempted")
+        self.assertEqual(stages[-1], "after_cp333_complete")
+
+    def test_diagnostic_callback_mutation_is_restored_and_fails_closed(self):
+        parent = entry.FixedParentEntry(self.sink)
+        receipt = parent.receipt
+
+        def mutate_receipt(name):
+            parent.receipt = entry.Receipt(phase="forged")
+
+        parent._stage = mutate_receipt
+        with self.assertRaises(entry.ParentEntryFailure):
+            parent.run()
+        self.assertIs(parent.receipt, receipt)
+        self.assertEqual(parent.receipt.phase, "hold")
+        self.assertEqual(self.sink.events, [])
+
+    def test_diagnostic_failure_cannot_be_cleared_by_later_stage(self):
+        parent = entry.FixedParentEntry(self.sink)
+        stages = []
+
+        def callback(name):
+            stages.append(name)
+            if name == "entry":
+                raise RuntimeError("first stage failed")
+            parent._stage_error = False
+
+        parent._stage = callback
+        with self.assertRaises(entry.ParentEntryFailure) as caught:
+            parent.run()
+        self.assertIsInstance(caught.exception.__cause__, entry.Hold)
+        self.assertIn("after_cp333_complete", stages)
+        self.assertEqual(parent.receipt.claim_outcome, "not-attempted")
+        self.assertEqual(self.sink.events, [])
+
     def test_distinct_channel_and_inner_deadlines_overlapped_claim(self):
         channel_deadline = 4000  # CP349 channel; CP333 inner deadline is 4242.
         argv = [client.ARGV_TAG, "11", "12", str(channel_deadline)]

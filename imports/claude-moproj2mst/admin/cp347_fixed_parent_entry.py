@@ -181,7 +181,7 @@ class ParentEntryFailure(Hold):
 class FixedParentEntry:
     """One fixed occurrence; retain owner after any uncertain write or cleanup."""
 
-    def __init__(self, sink=None, *, client_argv=None):
+    def __init__(self, sink=None, *, client_argv=None, stage=None):
         if (sink is None) == (client_argv is None):
             raise TypeError("one binary sink or fixed inherited client argv required")
         if client_argv is not None:
@@ -200,11 +200,39 @@ class FixedParentEntry:
         self._client_owner = None
         self._used = False
         self._claim = None
+        self._stage = stage if callable(stage) else None
+        self._stage_error = False
+
+    def _mark(self, name):
+        """Emit bounded diagnostics without affecting the occurrence outcome."""
+        if self._stage is not None:
+            callback = self._stage
+            prior_error = self._stage_error
+            protected = ("receipt", "_owner", "integration", "exports", "sink",
+                         "_sink", "client_owner", "_client_owner", "_used", "_claim",
+                         "_stage", "_client_argv", "_client_fields")
+            before = {key: getattr(self, key) for key in protected}
+            receipt_state = dict(vars(self.receipt))
+            if isinstance(receipt_state.get("errors"), list):
+                receipt_state["errors"] = list(receipt_state["errors"])
+            try:
+                callback(name)
+            except BaseException:
+                self._stage_error = True
+            if any(getattr(self, key) is not value for key, value in before.items()):
+                self._stage_error = True
+                for key, value in before.items():
+                    setattr(self, key, value)
+            if self.receipt is before["receipt"] and vars(self.receipt) != receipt_state:
+                self._stage_error = True
+                vars(self.receipt).clear()
+                vars(self.receipt).update(receipt_state)
+            self._stage_error = bool(prior_error or self._stage_error)
 
     @classmethod
-    def from_client_argv(cls, argv):
+    def from_client_argv(cls, argv, *, stage=None):
         """Construct inert fixed child entry; no DLL, pipe or process call."""
-        return cls(client_argv=argv)
+        return cls(client_argv=argv, stage=stage)
 
     def run(self):
         if self._used or self in _USED_ENTRIES:
@@ -213,15 +241,20 @@ class FixedParentEntry:
         self._used = True
         local_receipt, owner, exports = self.receipt, None, None
         sink = self._sink
+        self._mark("entry")
         try:
             if self.sink is not sink:
                 raise Hold("original binary claim sink required")
+            self._mark("before_load_native_exports")
             self.exports = binding.load_native_exports()
+            self._mark("after_load_native_exports")
             exports = self.exports
             if self._client_argv is not None:
                 try:
+                    self._mark("before_cp334_from_bootstrap_argv")
                     self.client_owner = client.from_bootstrap_argv(
                         exports, self._client_argv)
+                    self._mark("after_cp334_adopt")
                 except BaseException as error:
                     self.client_owner = getattr(error, "owner", None)
                     self._client_owner = self.client_owner
@@ -230,8 +263,14 @@ class FixedParentEntry:
                 sink = self.sink = self._sink = _ClientSink(self.client_owner)
             self.integration = integration.WatchdogIntegration(self.exports)
             owner = self._owner = self.integration
+            self._mark("before_cp333_acknowledge")
             self.integration.acknowledge()
+            self._mark("after_cp333_acknowledge")
+            self._mark("before_cp333_complete")
             result = self.integration.complete()
+            self._mark("after_cp333_complete")
+            if self._stage_error:
+                raise Hold("diagnostic stage callback failed")
             if result is not owner.receipt:
                 raise Hold("exact CP333 success receipt required")
             claim = from_integration(owner)

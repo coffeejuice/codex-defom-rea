@@ -22,6 +22,7 @@ class FakeTop:
         self.claim = SimpleNamespace(deadline=99, nonce=b"a" * 32)
         self._accepted = False
         self._timer_fired = False
+        self.claim_process_exit_observation = None
         self._owned_handles = {}
         self.pipe_owner = SimpleNamespace(handles=set())
         self.runs = self.closes = 0
@@ -134,6 +135,20 @@ class TrialTests(unittest.TestCase):
         disk = json.loads(self.path.read_text())
         self.assertEqual(disk["owner"]["child_diagnostic"], diagnostic)
         self.assertEqual(disk["owner"]["child_trace"], trace)
+
+    def test_failure_report_serializes_claim_process_exit_observation(self):
+        owner = FakeTop(fail=True)
+        observation = {"status": "active-before-cleanup", "exit_code": None,
+                       "error": None}
+        owner.claim_process_exit_observation = observation
+        with mock.patch.object(m, "_make_controller", return_value=owner):
+            trial = m.run_once(self.path)
+        self.assertFalse(trial.accepted)
+        self.assertEqual(trial.report["owner"]["claim_process_exit_observation"],
+                         observation)
+        disk = json.loads(self.path.read_text())
+        self.assertEqual(disk["owner"]["claim_process_exit_observation"],
+                         observation)
 
     def test_changed_source_after_run_refuses_success(self):
         owner = FakeTop(on_run=lambda: self.source.write_text("changed source\n"))

@@ -150,6 +150,8 @@ def _receipt(owner):
         "claim_nonce_hex": getattr(claim, "nonce", b"").hex() if claim is not None else None,
         "child_diagnostic": child_diagnostic,
         "child_trace": child_trace,
+        "claim_process_exit_observation": getattr(
+            owner, "claim_process_exit_observation", None),
     }
 
 

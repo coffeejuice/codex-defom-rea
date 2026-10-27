@@ -73,7 +73,7 @@ def _child_bootstrap(path, trace_path=None):
             "  _stage('cp347-module-import-exception');raise\n"
             " _stage('cp347-module-imported')\n"
             " try:\n"
-            "  x=e.FixedParentEntry.from_client_argv(sys.argv[1:])\n"
+            "  x=e.FixedParentEntry.from_client_argv(sys.argv[1:],stage=_stage)\n"
             " except BaseException:\n"
             "  _stage('from-client-argv-exception');raise\n"
             " _stage('from-client-argv-constructed')\n"
@@ -168,7 +168,11 @@ def _child_trace_result(path):
                "cp347-module-imported", "from-client-argv-exception",
                "from-client-argv-constructed", "run-exception", "run-returned",
                "diagnostic-write-collision", "diagnostic-write-failed",
-               "diagnostic-write-succeeded"}
+               "diagnostic-write-succeeded", "entry",
+               "before_load_native_exports", "after_load_native_exports",
+               "before_cp334_from_bootstrap_argv", "after_cp334_adopt",
+               "before_cp333_acknowledge", "after_cp333_acknowledge",
+               "before_cp333_complete", "after_cp333_complete"}
     if not raw:
         result["status"] = "partial"
         return result
@@ -183,7 +187,7 @@ def _child_trace_result(path):
             break
         if (type(row) is not dict or set(row) != {"stage"} or
                 type(row["stage"]) is not str or row["stage"] not in allowed or
-                len(result["stages"]) >= 8):
+                len(result["stages"]) >= 20):
             result["status"] = "malformed"
             break
         result["stages"].append(row["stage"])
@@ -225,6 +229,31 @@ class TopController(outer.OuterWatchdog):
         self._fixed_child_argv = None
         self._fixed_child_command_line = None
         self._claim_read_failed = False
+        self.claim_process_exit_observation = None
+
+    def _observe_claim_process_before_cleanup(self):
+        """Failure-only, zero-wait observation on the retained exact process handle."""
+        result = {"status": "unknown-before-cleanup", "exit_code": None,
+                 "error": None}
+        try:
+            process = self._owned_handles.get("runner_process")
+            if process is None:
+                raise Hold("retained runner process handle unavailable")
+            status = self._call("WaitForSingleObject", process, 0)
+            if type(status) is not int:
+                raise Hold("zero-wait returned an unknown status")
+            if status == 258:  # WAIT_TIMEOUT; do not interpret STILL_ACTIVE (259) as exit.
+                result["status"] = "active-before-cleanup"
+            elif status == 0:  # WAIT_OBJECT_0
+                code = abi.DWORD()
+                self._ok("GetExitCodeProcess", process, C.byref(code))
+                result.update(status="exited-before-cleanup",
+                              exit_code=int(code.value) & 0xFFFFFFFF)
+            else:
+                raise Hold("zero-wait returned an unrecognized status")
+        except BaseException as error:
+            result["error"] = f"{type(error).__name__}: {str(error)[:300]}"
+        self.claim_process_exit_observation = result
 
     def _budget(self):
         if self._timer_fired or self._timer_error is not None:
@@ -518,6 +547,8 @@ class TopController(outer.OuterWatchdog):
                 self._channel_deadline = original_channel_deadline
             original_receipt.errors.append(f"{type(error).__name__}: {error}")
             original_receipt.phase = "hold"
+            if self._claim_read_failed:
+                self._observe_claim_process_before_cleanup()
             self.close()
             if self._claim_read_failed:
                 terminated = (original_receipt.phase == "closed" and
