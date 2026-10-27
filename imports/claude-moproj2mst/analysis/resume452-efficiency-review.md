@@ -1,0 +1,5 @@
+# CP452 safe-boundary efficiency review
+
+Three recovery checkpoints followed CP449: CP450 and CP451 changed the candidate; CP452 recovered original evidence without rebuilding. The CP450 grouped build and bound launcher measured 20.569 and 25.391 seconds. CP451 measured 56.863 and 21.235 seconds. Different source changes and build-cache states prevent a controlled speedup claim. Token-cost measurement remains unavailable.
+
+CP450's separate diagnostic focused build duplicated the later grouped preflight. At CP451, independent source review caught the new test's namespace and missing `main` before the selected grouped build, avoiding a failed full acceptance attempt. Continue one semantic review, one grouped focused preflight/full build, one bound launcher and freeze for stable source changes. For evidence-only checkpoints, use bounded PE-byte verification and independent review without rebuilding an unchanged executable. Keep fixture hashing, raw diagnostic differences, candidate freezes and public guards.
