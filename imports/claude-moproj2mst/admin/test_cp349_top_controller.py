@@ -166,7 +166,7 @@ class TopTests(unittest.TestCase):
                 "before_tick1", "after_tick1", "before_inherit",
                 "after_inherit", "before_tick2", "after_tick2",
                 "before_pipeinfo", "after_pipeinfo"))
-            stages.append(f"cp334_h{index}_pipeflags_0")
+            stages.append(f"cp334_h{index}_pipeflags_8")
             stages.append(f"cp334_h{index}_flags_validated")
         stages.extend(("cp334_before_final_tick", "cp334_after_final_tick",
                   "after_cp334_adopt",

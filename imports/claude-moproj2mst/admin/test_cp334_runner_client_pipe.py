@@ -10,7 +10,7 @@ class Fake:
     def __init__(self):
         self.error, self.tick = 0, 1
         self.calls, self.pending, self.counts = [], {}, []
-        self.flags, self.pipe_flags = {11: 1, 12: 1}, {11: 0, 12: 0}
+        self.flags, self.pipe_flags = {11: 1, 12: 1}, {11: 8, 12: 8}
         self.block, self.cancel_error, self.query_fail = False, 0, False
         self.close_fail, self.next_event = set(), 20
         self.submit_error, self.raise_submit, self.late_event = 0, False, False
@@ -134,7 +134,7 @@ class Tests(unittest.TestCase):
                 "before_tick1", "after_tick1", "before_inherit",
                 "after_inherit", "before_tick2", "after_tick2",
                 "before_pipeinfo", "after_pipeinfo"))
-            expected.append(f"cp334_h{index}_pipeflags_0")
+            expected.append(f"cp334_h{index}_pipeflags_8")
             expected.append(f"cp334_h{index}_flags_validated")
         expected.extend(("cp334_before_final_tick", "cp334_after_final_tick"))
         self.assertEqual(stages, expected)
@@ -199,7 +199,9 @@ class Tests(unittest.TestCase):
 
     def test_inheritance_server_message_and_attributes_fail_closed(self):
         for setting, value in (("flags", 0), ("flags", 3),
-                               ("pipe_flags", 1), ("pipe_flags", 4)):
+                               ("pipe_flags", 0), ("pipe_flags", 1),
+                               ("pipe_flags", 4), ("pipe_flags", 9),
+                               ("pipe_flags", 12)):
             f, owner = self.owner(False)
             getattr(f, setting)[12] = value
             with self.assertRaises(client.Hold):

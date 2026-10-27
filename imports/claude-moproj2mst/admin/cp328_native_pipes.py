@@ -15,6 +15,7 @@ Hold = abi.Hold
 PENDING, INCOMPLETE, TIMEOUT = 997, 996, 258
 CONNECTED, NOT_FOUND = 535, 1168
 OVERLAPPED_FLAG, FIRST_INSTANCE = 0x40000000, 0x00080000
+PIPE_REJECT_REMOTE_CLIENTS = 0x00000008
 INVALID_HANDLE = C.c_void_p(-1).value
 # Data, FILE_READ_ATTRIBUTES (worker GetNamedPipeInfo), and SYNCHRONIZE;
 # never FILE_CREATE_PIPE_INSTANCE/FILE_APPEND_DATA.
@@ -181,7 +182,8 @@ class NativePipeOwner:
             for suffix, direction, access in (("-in", 2, CLIENT_READ), ("-out", 1, CLIENT_WRITE)):
                 self._budget()
                 server = self._own(self._call("CreateNamedPipeW", base_name + suffix,
-                    direction | OVERLAPPED_FLAG | FIRST_INSTANCE, 8, 1, 80, 80, 0,
+                    direction | OVERLAPPED_FLAG | FIRST_INSTANCE,
+                    PIPE_REJECT_REMOTE_CLIENTS, 1, 80, 80, 0,
                     C.byref(server_sa)), "CreateNamedPipeW")
                 op = self._operation(server, "connect")
                 self._budget()

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 
 import cp321_native_exports as abi
 from cp325_real_bindings import BoundExports
-from cp328_native_pipes import Operation, ApiFailure
+from cp328_native_pipes import Operation, ApiFailure, PIPE_REJECT_REMOTE_CLIENTS
 
 NATIVE_ENTRY = "HARD HOLD"
 Hold = abi.Hold
@@ -31,7 +31,8 @@ class NativeRunnerClientPipe:
     """Explicit native-capable owner, with no authority to launch a runner.
 
     GetNamedPipeInfo success proves FILE_READ_ATTRIBUTES query capability;
-    zero flags establish PIPE_CLIENT_END and PIPE_TYPE_BYTE. Direction and
+    exactly PIPE_REJECT_REMOTE_CLIENTS flags establish the client byte-pipe
+    end with the fixed CP328 local-only mode. Direction and
     OVERLAPPED provenance remain the fixed CP328/CP331 creation contract;
     Win32 GetNamedPipeInfo does not report those access/creation flags.
     """
@@ -117,8 +118,8 @@ class NativeRunnerClientPipe:
                     raise self._failure("GetNamedPipeInfo")
                 self._mark(f"cp334_h{index}_after_pipeinfo")
                 self._mark(f"cp334_h{index}_pipeflags_{pipe_flags.value}")
-                if pipe_flags.value != 0:
-                    raise Hold("named byte-pipe client end required")
+                if pipe_flags.value != PIPE_REJECT_REMOTE_CLIENTS:
+                    raise Hold("local-only named byte-pipe client end required")
                 self._mark(f"cp334_h{index}_flags_validated")
             self._mark("cp334_before_final_tick")
             self._budget()

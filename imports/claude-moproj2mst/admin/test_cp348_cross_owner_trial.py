@@ -177,6 +177,11 @@ class CrossOwnerHandoffTests(unittest.TestCase):
                 parent_wire.C.cast(args[1], parent_wire.C.POINTER(
                     parent_wire.abi.DWORD)).contents.value = 1
                 return 1
+            if name == "GetNamedPipeInfo" and args[0] in (13, 14):
+                parent_wire.C.cast(args[1], parent_wire.C.POINTER(
+                    parent_wire.abi.DWORD)).contents.value = (
+                    client.PIPE_REJECT_REMOTE_CLIENTS)
+                return 1
             if name in ("DuplicateHandle", "ResumeThread"):
                 channel.events.append(("kernel", name, args[1] if name ==
                                        "DuplicateHandle" else args[0]))

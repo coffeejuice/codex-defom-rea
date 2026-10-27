@@ -251,7 +251,7 @@ class EntryTests(unittest.TestCase):
             return True
 
         def get_named_pipe_info(handle, flags, unused_out, unused_in, unused_count):
-            flags._obj.value = 0
+            flags._obj.value = entry.client.PIPE_REJECT_REMOTE_CLIENTS
             return True
 
         def get_process_times(handle, created, *unused):

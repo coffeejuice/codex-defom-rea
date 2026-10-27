@@ -1,0 +1,7 @@
+# CP396 exact local-only client-mode repair
+
+CP395 proved that CP334 receives `GetNamedPipeInfo` flags 8 on the first inherited client handle. CP328 creates both server pipe instances with mode 8 (`PIPE_REJECT_REMOTE_CLIENTS`); Microsoft SDK and HLK identify that mode and its returned option. The CP334 zero-only check was incompatible with the fixed CP328 creator. CP396 names that constant in CP328 and requires CP334 flags to equal it exactly. A client byte pipe lacking remote rejection, or one with server-end/message-type bits added, remains rejected. The original `_hold()` and cleanup ownership paths are unchanged.
+
+Injected tests now model the fixed local-only mode in CP334, CP335 and CP348. They verify successful adoption of exact flags 8; rejection of 0, 1, 4, 9 and 12; retained handles on rejection; and unchanged full handoff composition. Independent read-only review found no concrete custody or cleanup defect. `analysis/cp396-final-tests.log` records 629 passing CP3xx tests from each import root. The earlier passing `analysis/cp396-local-only-pipe-tests.log` predates the added 9/12 rejection cases. No native child, WORKER, original application or GUI ran during this integration.
+
+CP397 next freezes source/bytecode and obtains an independent gate for at most one new monitored inert occurrence. Passage of the first handle alone will not prove a complete protocol. The eighth CP395 occurrence is not retryable. Public C++ converter candidate CP301 remains unchanged.
