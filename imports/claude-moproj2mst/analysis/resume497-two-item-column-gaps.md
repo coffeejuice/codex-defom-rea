@@ -1,0 +1,9 @@
+# CP497 finite two-item column-gap class
+
+The original PE's half-up geometry places B directly in a free row0 column 2–6 when finite original B.RectF left is `307.5 <= x < 1332.5`. The public parser now moves B's model RectF left to `205*column` after placement. It preserves the empty col1 gap, so both Forming2D items remain unlinked and `mstOrder` contains only A. The selected prerequisites, binary64 intervals and PE checks are in `analysis/cp497-two-item-column-gap-source-contract.md`. This is static parser/model recovery, not fresh original runtime parity.
+
+Focused XML tests cover all five intervals, half-step boundaries and nearby representable values, integer centers, all four independent missing/full-sentinel CellPos combinations, every cell/RectF component, null links, IDs/model order and `mstOrder`. The exact 1332.5 boundary remains outside the selected cut; no unsupported or unchanged-rectangle outcome is asserted for it. Independent review found missing successor samples and accepted the stable source after they were added.
+
+Source-stable `analysis/cp497-build.json` passed focused `m2m.p03.subproject` and full build. The bound launcher registered 387 tests: 380 clean, six logged gaps, one logged difference, zero failed/skipped/incomplete and no fixture changes. Source SHA-256 was `dd67d8fe32ab82b570af59dff2b7507daa18a36834ea9cd54b4873ba522a4615`. Historical Save remains 93 SAME/five DIFF. No GUI process, app control or REA session was used.
+
+CP498 is the successor. An independent PE audit qualified singleton Forming2D grid relayout across finite x/y values within the seven-column row-zero envelope; it will correct the retained model RectF top-left under an exact one-item gate. Native connector/graphics callback closure and full lifecycle acceptance remain unresolved.

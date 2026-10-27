@@ -502,6 +502,41 @@ TEST_CASE(two_cellless_free_column_pair_relayouts_half_up_interval)
     CHECK(mstOrder(*p.subs[0]) == std::vector<int>({41}));
 }
 
+TEST_CASE(two_cellless_free_column_gap_pair_relayouts_columns_two_through_six)
+{
+    struct Sample { const char* x; int col; };
+    const Sample samples[] = {
+        {"307.5", 2}, {"307.50000000000006", 2}, {"410", 2},
+        {"512.49999999999994", 2}, {"512.5", 3}, {"512.5000000000001", 3}, {"615", 3},
+        {"717.4999999999999", 3}, {"717.5", 4}, {"717.5000000000001", 4}, {"820", 4},
+        {"922.4999999999999", 4}, {"922.5", 5}, {"922.5000000000001", 5}, {"1025", 5},
+        {"1127.4999999999998", 5}, {"1127.5", 6}, {"1127.5000000000002", 6}, {"1230", 6},
+        {"1332.4999999999998", 6}};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>"};
+    for (const Sample& sample : samples) for (const char* aCell : cells) for (const char* bCell : cells) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source =
+            "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + std::string(aCell) + "</DiagramItem>"
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+            sample.x + "</x><y>0</y><width>0</width><height>0</height></RectF>" + bCell +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 0);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, sample.col);
+        for (int j = 0; j < 4; ++j) CHECK_EQ(items[0]->rect[j], 0.0);
+        CHECK_EQ(items[1]->rect[0], 205.0 * sample.col);
+        CHECK_EQ(items[1]->rect[1], 0.0); CHECK_EQ(items[1]->rect[2], 0.0); CHECK_EQ(items[1]->rect[3], 0.0);
+        CHECK(items[0]->prev == nullptr); CHECK(items[0]->next == nullptr);
+        CHECK(items[1]->prev == nullptr); CHECK(items[1]->next == nullptr);
+        CHECK(mstOrder(*p.subs[0]) == std::vector<int>({41}));
+    }
+}
+
 
 TEST_CASE(three_cellless_zero_rect_items_use_native_recursive_shift)
 {
