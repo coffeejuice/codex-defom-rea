@@ -54,6 +54,8 @@ class TrialTests(unittest.TestCase):
         analysis.mkdir()
         self.source = admin / "cp349_top_controller.py"
         self.source.write_text("fixed source\n")
+        self.progress_source = admin / "cp420_runner_progress.py"
+        self.progress_source.write_text("fixed progress helper\n")
         worker_source = admin / "fixtures" / "cp316" / "worker.c"
         worker_source.parent.mkdir(parents=True)
         worker_source.write_text("int main(void) { return 0; }\n")
@@ -102,6 +104,8 @@ class TrialTests(unittest.TestCase):
         self.assertEqual(disk["phase"], "closed-success")
         self.assertEqual(disk["owner"]["claim_nonce_hex"], (b"a" * 32).hex())
         self.assertEqual(disk["before"], disk["after"])
+        self.assertEqual(disk["before"]["admin_modules"]["source"]["cp420_runner_progress.py"],
+                         m._digest(self.progress_source))
         with self.assertRaises(m.Hold):
             m.run_once(self.path.with_name("cp350-inert-trial-" + "b" * 32 + ".json"))
 
@@ -158,6 +162,14 @@ class TrialTests(unittest.TestCase):
         self.assertEqual(trial.report["phase"], "hold")
         self.assertNotEqual(trial.report["before"], trial.report["after"])
 
+    def test_changed_progress_helper_after_run_refuses_success(self):
+        owner = FakeTop(on_run=lambda: self.progress_source.write_text("changed helper\n"))
+        with mock.patch.object(m, "_make_controller", return_value=owner):
+            trial = m.run_once(self.path)
+        self.assertFalse(trial.accepted)
+        self.assertEqual(trial.report["phase"], "hold")
+        self.assertNotEqual(trial.report["before"], trial.report["after"])
+
     def test_changed_worker_source_after_run_refuses_success(self):
         owner = FakeTop(on_run=lambda: m.WORKER_SOURCE.write_text("changed C source\n"))
         with mock.patch.object(m, "_make_controller", return_value=owner):
@@ -170,6 +182,17 @@ class TrialTests(unittest.TestCase):
         cache = m.ADMIN_DIR / "__pycache__"
         cache.mkdir()
         (cache / "cp349_top_controller.cpython-312.pyc").write_bytes(b"old")
+        with mock.patch.object(m, "_make_controller") as make:
+            trial = m.run_once(self.path)
+        self.assertFalse(trial.accepted)
+        self.assertIsNone(trial.owner)
+        make.assert_not_called()
+        self.assertIn("bytecode", trial.report["error"])
+
+    def test_progress_helper_bytecode_blocks_owner_creation(self):
+        cache = m.ADMIN_DIR / "__pycache__"
+        cache.mkdir()
+        (cache / "cp420_runner_progress.cpython-312.pyc").write_bytes(b"old")
         with mock.patch.object(m, "_make_controller") as make:
             trial = m.run_once(self.path)
         self.assertFalse(trial.accepted)

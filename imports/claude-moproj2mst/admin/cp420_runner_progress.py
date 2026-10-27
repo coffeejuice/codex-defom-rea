@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import re
 
-_DOMAIN = b"codex-deform-rea:cp420-runner-progress:v3\0"
+_DOMAIN = b"codex-deform-rea:cp420-runner-progress:v4\0"
 _STAGES = ("bootstrap", "parent_ack", "worker_resumed", "result",
            "worker_ack", "worker_closed", "terminal_entered", "terminal_returned")
 _LIMIT = 160
@@ -22,7 +22,7 @@ def _identity(nonce: bytes, deadline: int) -> None:
 def path(nonce: bytes, deadline: int) -> Path:
     _identity(nonce, deadline)
     digest = hashlib.sha256(_DOMAIN + nonce + deadline.to_bytes(8, "big")).hexdigest()
-    return Path(__file__).resolve().parent.parent / "analysis" / f"cp422-runner-{digest}.txt"
+    return Path(__file__).resolve().parent.parent / "analysis" / f"cp429-runner-{digest}.txt"
 
 
 def _parse(current: bytes):
@@ -73,7 +73,11 @@ def write_progress(nonce: bytes, deadline: int, stage: str,
             return False
         with target.open("ab") as stream:
             stream.write(record)
-            stream.flush(); os.fsync(stream.fileno())
+            stream.flush()
+            # Post-ACK evidence is best effort: avoid the extra synchronous
+            # durability call on the completion/terminal critical path.
+            if index < 4:
+                os.fsync(stream.fileno())
         return True
     except BaseException:
         return False

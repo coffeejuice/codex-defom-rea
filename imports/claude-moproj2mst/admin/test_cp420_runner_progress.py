@@ -13,7 +13,7 @@ class ProgressTests(unittest.TestCase):
         nonce, deadline = b"n" * 32, 100
         derived = progress.path(nonce, deadline)
         self.assertEqual(derived.parent.name, "analysis")
-        self.assertRegex(derived.name, r"^cp422-runner-[0-9a-f]{64}\.txt$")
+        self.assertRegex(derived.name, r"^cp429-runner-[0-9a-f]{64}\.txt$")
         with tempfile.TemporaryDirectory(dir=os.environ.get("CP420_TEST_TEMP") or None) as directory:
             target = Path(directory) / "cp420-test-record.txt"
             with patch.object(progress, "path", return_value=target):
@@ -29,6 +29,18 @@ class ProgressTests(unittest.TestCase):
                 self.assertEqual(progress.read_ack_remaining(nonce, deadline), 1234)
                 self.assertIn(b"worker_ack:1234\n", target.read_bytes())
                 self.assertFalse(progress.write_progress(nonce, deadline, "bootstrap"))
+
+    def test_post_ack_stages_flush_without_fsync(self):
+        nonce, deadline = b"z" * 32, 103
+        with tempfile.TemporaryDirectory(dir=os.environ.get("CP420_TEST_TEMP") or None) as directory:
+            target = Path(directory) / "cp429-test-record.txt"
+            with patch.object(progress, "path", return_value=target), \
+                 patch.object(progress.os, "fsync") as fsync:
+                for index, stage in enumerate(progress._STAGES):
+                    kwargs = {"remaining": 1234} if stage == "worker_ack" else {}
+                    self.assertTrue(progress.write_progress(nonce, deadline, stage, **kwargs))
+                    self.assertEqual(progress.read_progress(nonce, deadline), stage)
+                    self.assertEqual(fsync.call_count, min(index + 1, 4))
 
     def test_requires_exact_prefix_and_classifies_bad_states(self):
         nonce, deadline = b"x" * 32, 101

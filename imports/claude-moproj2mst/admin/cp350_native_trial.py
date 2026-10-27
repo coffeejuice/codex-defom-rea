@@ -69,11 +69,15 @@ def _report_path(value):
 
 def _source_manifest():
     """Current bytes only; caller must quiesce the tree during the trial."""
-    files = sorted(ADMIN_DIR.glob("cp3*.py"), key=lambda p: p.name)
-    if not files or not any(p.name == "cp349_top_controller.py" for p in files):
-        raise Hold("fixed CP3xx source set missing")
+    files = sorted([*ADMIN_DIR.glob("cp3*.py"),
+                    ADMIN_DIR / "cp420_runner_progress.py"], key=lambda p: p.name)
+    if (not files or not any(p.name == "cp349_top_controller.py" for p in files) or
+            any(not p.is_file() for p in files)):
+        raise Hold("fixed trial source set missing")
     cache = ADMIN_DIR / "__pycache__"
-    pyc = sorted(cache.glob("cp3*.pyc"), key=lambda p: p.name) if cache.exists() else []
+    pyc = sorted([*cache.glob("cp3*.pyc"),
+                  *cache.glob("cp420_runner_progress*.pyc")],
+                 key=lambda p: p.name) if cache.exists() else []
     return {
         "source": {p.name: _digest(p) for p in files},
         "pyc": {p.name: _digest(p) for p in pyc},
@@ -83,7 +87,7 @@ def _source_manifest():
 def _preflight():
     manifest = _source_manifest()
     if manifest["pyc"]:
-        raise Hold("existing CP3xx bytecode cache prevents source-only trial binding")
+        raise Hold("existing trial bytecode cache prevents source-only trial binding")
     if not WORKER_IMAGE.is_file() or WORKER_IMAGE.stat().st_size != WORKER_BYTES:
         raise Hold("fixed CP316 WORKER image missing or wrong size")
     worker_hash = _digest(WORKER_IMAGE)
