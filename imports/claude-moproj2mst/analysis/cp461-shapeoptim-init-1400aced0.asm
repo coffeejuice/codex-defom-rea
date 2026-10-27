@@ -1,0 +1,29 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Users\alext\Projects\codex-deform-rea\imports\claude-moproj2mst\evidence\original-binaries\DEF_GUI_MO_64.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00000001400ACED0: 48 89 4C 24 08     mov         qword ptr [rsp+8],rcx
+  00000001400ACED5: 48 83 EC 48        sub         rsp,48h
+  00000001400ACED9: 48 C7 44 24 28 FE  mov         qword ptr [rsp+28h],0FFFFFFFFFFFFFFFEh
+                    FF FF FF
+  00000001400ACEE2: 48 8D 4C 24 20     lea         rcx,[rsp+20h]
+  00000001400ACEE7: E8 F4 2A 0E 00     call        000000014018F9E0
+  00000001400ACEEC: 48 89 44 24 30     mov         qword ptr [rsp+30h],rax
+  00000001400ACEF1: 48 8B 44 24 30     mov         rax,qword ptr [rsp+30h]
+  00000001400ACEF6: 48 89 44 24 38     mov         qword ptr [rsp+38h],rax
+  00000001400ACEFB: 48 8B 54 24 38     mov         rdx,qword ptr [rsp+38h]
+  00000001400ACF00: 48 8B 4C 24 50     mov         rcx,qword ptr [rsp+50h]
+  00000001400ACF05: E8 B6 BB FD FF     call        0000000140088AC0
+  00000001400ACF0A: 90                 nop
+  00000001400ACF0B: 48 8D 4C 24 20     lea         rcx,[rsp+20h]
+  00000001400ACF10: E8 EB 7B F5 FF     call        0000000140004B00
+  00000001400ACF15: 48 83 C4 48        add         rsp,48h
+  00000001400ACF19: C3                 ret
+
+  Summary
+
+     1E02000 .text

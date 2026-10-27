@@ -1,0 +1,111 @@
+{
+  "binary": "evidence\\original-binaries\\QtCore4_64.dll",
+  "binary_sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+  "exports": [
+    {
+      "path": "analysis\\cp461-shapeoptim-init-qt-67001aa0.asm",
+      "start": "0x67001aa0",
+      "end_exclusive": "0x67001aa8",
+      "bytes": 8,
+      "instructions": 3,
+      "mismatches": 0,
+      "raw_sha256": "7b57a50acb800ca3e7d326b624b14349c569ea06f18e594273c33a92fe1256de",
+      "sha256": "259688b2484de41dec4d97196d14f4ed6438abd5026761929da1f8781d6fae2b",
+      "last_bytes": "c3"
+    },
+    {
+      "path": "analysis\\cp461-shapeoptim-init-qt-67001ac0.asm",
+      "start": "0x67001ac0",
+      "end_exclusive": "0x67001ac8",
+      "bytes": 8,
+      "instructions": 3,
+      "mismatches": 0,
+      "raw_sha256": "06457cdd529a46d5cd423e2ccd7a761b5abfd4d97a001e30895a55157b8065b6",
+      "sha256": "caf61df7156c4282d16c9644065f328bca5586ce27c8d9b5c5702fd70110108c",
+      "last_bytes": "c3"
+    },
+    {
+      "path": "analysis\\cp461-shapeoptim-init-qt-670203b0.asm",
+      "start": "0x670203b0",
+      "end_exclusive": "0x670203b7",
+      "bytes": 7,
+      "instructions": 1,
+      "mismatches": 0,
+      "raw_sha256": "644b100caf1a8923c65eead5a7e0523ef43c5a3b865290a7edc3b2569d94fea1",
+      "sha256": "f218f70a3715f961263002491bcb1f73f503cff4ba9857d8d664c7579a54f8c3",
+      "last_bytes": "48ff2561821800"
+    },
+    {
+      "path": "analysis\\cp461-shapeoptim-init-qt-67020c70.asm",
+      "start": "0x67020c70",
+      "end_exclusive": "0x67020c8a",
+      "bytes": 26,
+      "instructions": 8,
+      "mismatches": 0,
+      "raw_sha256": "2214b33e00f85a3ccf2b7b16663329691e32e2b1be2676d4fcc9fbdb49bc9c9a",
+      "sha256": "6b6e1f84b1b404107a96d025f9dfa78bcaa2fa03fb50cf88e960e0ee832f40ef",
+      "last_bytes": "c3"
+    },
+    {
+      "path": "analysis\\cp461-shapeoptim-init-qt-670700d0.asm",
+      "start": "0x670700d0",
+      "end_exclusive": "0x6707019f",
+      "bytes": 207,
+      "instructions": 61,
+      "mismatches": 0,
+      "raw_sha256": "3efee13ab3f128bffb99e099747d99bbfb92369fe0ea1f32b8be33121a6c5530",
+      "sha256": "631dfbdf5409f0a62d9fac1e1c2351d49a0b888cb7a49b8c1019f961efcaf303",
+      "last_bytes": "e91102fbff"
+    }
+  ],
+  "export_bindings": [
+    {
+      "symbol": "??1QString@@QEAA@XZ",
+      "va": "0x67020c70"
+    },
+    {
+      "symbol": "?deref@QBasicAtomicInt@@QEAA_NXZ",
+      "va": "0x67001ac0"
+    },
+    {
+      "symbol": "?qFree@@YAXPEAX@Z",
+      "va": "0x670203b0"
+    },
+    {
+      "symbol": "?ref@QBasicAtomicInt@@QEAA_NXZ",
+      "va": "0x67001aa0"
+    },
+    {
+      "symbol": "?shared_null@QListData@@2UData@1@A",
+      "va": "0x672f0a50"
+    }
+  ],
+  "compared_bytes": 256,
+  "addressed_instructions": 76,
+  "mismatches": 0,
+  "imports": [
+    {
+      "iat": "0x671a8618",
+      "dll": "MSVCR90.dll",
+      "symbol": "free"
+    }
+  ],
+  "shared_null": {
+    "va": "0x672f0a50",
+    "raw_hex": "010000000000000000000000000000000100000000000000",
+    "file_offset": 3073616,
+    "dwords": [
+      1,
+      0,
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  "qualifications": [
+    "Original imported QtCore static bytes only. Runtime module identity and state are not observed. Leaf ref/deref ranges end at RET; qFree range ends at unconditional imported JMP. QString ranges use pdata bounds.",
+    "Original DLL metadata establishes initial shared_null refcount=1, alloc=0, begin=0, end=0, sharable-bit=1. Refcount mutates in a process; no runtime snapshot was acquired.",
+    "CRT free boundary, invalid memory, heap corruption, concurrent mutation and C++ unwind behavior are not reproduced."
+  ]
+}
