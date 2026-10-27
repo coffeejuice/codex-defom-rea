@@ -22,7 +22,10 @@ class Harness(CreatorHarness):
         self.short_write = False
         self.expire_peek = self.regress_peek = False
         self.pending_read = False
-        self.pipes.operations, self.pipes.handles = [], set()
+        self.pipes.operations, self.pipes.handles = [], {10, 11, 12, 13}
+        self.pin.snapshot = m.image.Snapshot("a" * 64,
+            m.image.Identity(1, b"i" * 16, 104960, 2, 3, m.image.WORKER_IMAGE))
+        self.pin.post_create_verified = True
         self.pipes.receipt = m.pipes.ConnectedEndpoints(10, 11, 12, 13)
         self.pipes.transfer = self.transfer
         self.runner = m.NativeInertRunner(self.exports, timeout_ms=900)
@@ -89,6 +92,216 @@ class Harness(CreatorHarness):
 
 
 class RunnerTests(unittest.TestCase):
+    def external(self, h, callback, *, deadline=700):
+        nonce = bytes(range(32))
+        h.runner = m.NativeInertRunner(h.exports, timeout_ms=900,
+            deadline=deadline, nonce=nonce, before_resume=callback)
+        return nonce
+
+    def test_external_occurrence_preserves_deadline_nonce_and_callback_order(self):
+        h, seen = Harness(), []
+        def callback(worker, nonce):
+            self.assertIs(worker, h.runner.worker)
+            self.assertEqual(worker.receipt.phase, "prepared-suspended")
+            self.assertEqual(worker.deadline, 700)
+            self.assertNotIn("ResumeThread", h.calls)
+            self.assertEqual(h.frames, [])
+            h.calls.append("before_resume")
+            seen.append((worker, nonce))
+        nonce = self.external(h, callback)
+        with patch.object(m.secrets, "token_bytes", side_effect=AssertionError("no new nonce")), \
+             patch.object(m.secrets, "token_hex", return_value="a" * 64):
+            r = h.run()
+        self.assertEqual(r.deadline, 700)
+        self.assertEqual(h.command, m.creator.WORKER_IMAGE + " 700")
+        self.assertEqual(len(seen), 1)
+        self.assertEqual(seen[0][1], nonce)
+        self.assertEqual(m.wire.decode_init(h.frames[0]).nonce, nonce)
+        self.assertEqual(m.wire.decode_ack(h.frames[1]).nonce, nonce)
+        self.assertLess(h.calls.index("before_resume"), h.calls.index("ResumeThread"))
+        self.assertEqual(h.calls.count("ResumeThread"), 1)
+        with self.assertRaises(m.Hold):
+            h.runner.run()
+        self.assertEqual(len(seen), 1)
+        self.assertEqual(h.calls.count("ResumeThread"), 1)
+
+    def test_external_expiry_rejects_before_preparation_without_reallocation(self):
+        for deadline in (100, 99, 1001):
+            h = Harness()
+            self.external(h, lambda *_: self.fail("callback must not run"), deadline=deadline)
+            with patch.object(m.secrets, "token_bytes", side_effect=AssertionError("no nonce")), \
+                 patch.object(m.secrets, "token_hex", side_effect=AssertionError("no pipe name")):
+                with self.assertRaises(m.RunFailure):
+                    h.run()
+            self.assertEqual(h.runner.receipt.deadline, deadline)
+            self.assertIsNone(h.runner.worker)
+            self.assertEqual(h.calls, ["GetTickCount64"])
+
+    def test_external_expiry_after_callback_terminates_without_resume(self):
+        h = Harness()
+        self.external(h, lambda *_: setattr(h, "now", 700))
+        with self.assertRaises(m.RunFailure):
+            h.run()
+        self.assertNotIn("ResumeThread", h.calls)
+        self.assertIn("TerminateJobObject", h.calls)
+        self.assertEqual(h.frames, [])
+
+    def test_external_callback_failure_preserves_owner_and_retries_cleanup_only(self):
+        h, seen = Harness(), []
+        h.pipes.ready = False
+        def callback(worker, nonce):
+            seen.append(worker)
+            raise RuntimeError("handoff uncertain")
+        self.external(h, callback)
+        with self.assertRaises(m.RunFailure) as caught:
+            h.run()
+        self.assertIs(caught.exception.owner, h.runner)
+        self.assertIs(h.runner.worker, seen[0])
+        self.assertEqual(h.runner.worker.receipt.phase, "hold")
+        self.assertTrue(h.runner.worker.receipt.local)
+        self.assertNotIn("ResumeThread", h.calls)
+        self.assertIn("TerminateJobObject", h.calls)
+        h.pipes.ready = True
+        h.runner.close()
+        self.assertEqual(h.runner.worker.receipt.phase, "closed")
+        self.assertEqual(len(seen), 1)
+        self.assertEqual(h.frames, [])
+
+    def test_external_custody_mutations_hold_original_snapshot_without_resume(self):
+        mutations = {
+            "thread": lambda w: w.receipt.local.__setitem__("worker_thread", 999),
+            "process": lambda w: w.receipt.local.__setitem__("worker_process", 999),
+            "local-object": lambda w: setattr(w.receipt, "local", dict(w.receipt.local)),
+            "pid": lambda w: setattr(w.receipt, "pid", 99),
+            "remote": lambda w: setattr(w.receipt, "remote_child_job", m.creator.RemoteHandle(99, 31)),
+            "phase": lambda w: setattr(w.receipt, "phase", "closed"),
+            "evidence": lambda w: setattr(w.receipt, "worker_waited", True),
+            "exports": lambda w: setattr(w, "exports", object()),
+            "receipt": lambda w: setattr(w, "receipt", m.creator.Receipt()),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                h, original = Harness(), []
+                def callback(worker, nonce):
+                    original.append(worker)
+                    mutate(worker)
+                self.external(h, callback)
+                with self.assertRaises(m.RunFailure):
+                    h.run()
+                self.assertTrue(h.runner._custody_uncertain)
+                self.assertIs(h.runner._prepared_custody[0], original[0])
+                self.assertEqual(dict(h.runner._prepared_custody[3])["worker_thread"], 32)
+                self.assertNotIn("ResumeThread", h.calls)
+                self.assertNotIn("TerminateJobObject", h.calls)
+                self.assertEqual(h.frames, [])
+
+    def test_external_options_are_all_required_and_validated_inertly(self):
+        valid = dict(deadline=700, nonce=b"n" * 32, before_resume=lambda *_: None)
+        for name, bad in (("deadline", True), ("deadline", 0), ("nonce", b"short"),
+                          ("nonce", bytearray(32)), ("before_resume", 1)):
+            h = Harness()
+            values = dict(valid, **{name: bad})
+            with self.assertRaises(ValueError):
+                m.NativeInertRunner(h.exports, **values)
+            self.assertEqual(h.calls, [])
+        for name in valid:
+            h = Harness()
+            values = {key: value for key, value in valid.items() if key != name}
+            with self.assertRaises(ValueError):
+                m.NativeInertRunner(h.exports, **values)
+            self.assertEqual(h.calls, [])
+
+    def test_external_runner_references_and_occurrence_cannot_change(self):
+        mutations = {
+            "security": lambda r: setattr(r, "security", object()),
+            "pipe": lambda r: setattr(r, "pipe_owner", object()),
+            "image": lambda r: setattr(r, "image_pin", object()),
+            "receipt": lambda r: setattr(r, "receipt", m.Receipt(deadline=700)),
+            "external": lambda r: setattr(r, "_external", False),
+            "supplied-deadline": lambda r: setattr(r, "_supplied_deadline", 701),
+            "nonce": lambda r: setattr(r, "_supplied_nonce", b"z" * 32),
+            "callback": lambda r: setattr(r, "_before_resume", lambda *_: None),
+            "timeout": lambda r: setattr(r, "timeout_ms", 5000),
+            "used": lambda r: setattr(r, "_used", False),
+            "custody-snapshot": lambda r: setattr(r, "_prepared_custody", None),
+            "pipe-exports": lambda r: setattr(r.pipe_owner, "exports", object()),
+            "pipe-security": lambda r: setattr(r.pipe_owner, "security", object()),
+            "pipe-deadline": lambda r: setattr(r.pipe_owner, "deadline", 701),
+            "pipe-endpoints": lambda r: setattr(r.pipe_owner, "receipt", m.pipes.ConnectedEndpoints(91, 92, 93, 94)),
+            "security-exports": lambda r: setattr(r.security, "exports", object()),
+            "image-exports": lambda r: setattr(r.image_pin, "exports", object()),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                h = Harness()
+                self.external(h, lambda *_: mutate(h.runner))
+                original_receipt = h.runner.receipt
+                with self.assertRaises(m.RunFailure):
+                    h.run()
+                self.assertIs(h.runner.receipt, original_receipt)
+                self.assertTrue(h.runner._custody_uncertain)
+                self.assertIs(h.runner._prepared_custody[-1][0], original_receipt)
+                self.assertNotIn("ResumeThread", h.calls)
+                self.assertEqual(h.frames, [])
+                with self.assertRaises(m.Hold):
+                    h.runner.run()
+                self.assertNotIn("ResumeThread", h.calls)
+
+    def test_external_deadline_spoof_cannot_extend_original_occurrence(self):
+        class Spoof:
+            def __eq__(self, other):
+                return True
+            def __sub__(self, other):
+                return 1
+        for target in ("receipt-worker", "private", "supplied"):
+            h = Harness()
+            def callback(worker, nonce):
+                spoof = Spoof()
+                if target == "receipt-worker":
+                    worker._deadline = h.runner.receipt.deadline = spoof
+                elif target == "private":
+                    h.runner._deadline = spoof
+                else:
+                    h.runner._supplied_deadline = spoof
+                h.now = 1001
+            self.external(h, callback)
+            with self.assertRaises(m.RunFailure):
+                h.run()
+            self.assertNotIn("ResumeThread", h.calls)
+            self.assertTrue(h.runner._custody_uncertain)
+            self.assertEqual(h.frames, [])
+
+    def test_external_subordinate_ownership_and_frozen_identity_cannot_change(self):
+        mutations = {
+            "clear-handles": lambda w: w.pipe_owner.handles.clear(),
+            "replace-handle-set": lambda w: setattr(w.pipe_owner, "handles", set(w.pipe_owner.handles)),
+            "replace-operations": lambda w: setattr(w.pipe_owner, "operations", []),
+            "remote-value": lambda w: object.__setattr__(w.receipt.remote_child_job, "value", 999),
+            "remote-owner": lambda w: object.__setattr__(w.receipt.remote_child_job, "owner_process", 999),
+            "image-handle": lambda w: setattr(w.image_pin, "handle", 999),
+            "image-reopen": lambda w: setattr(w.image_pin, "reopened_handle", 999),
+            "image-hash": lambda w: object.__setattr__(w.image_pin.snapshot, "sha256", "b" * 64),
+            "image-file-id": lambda w: object.__setattr__(w.image_pin.snapshot.identity, "file_id", b"z" * 16),
+            "image-verified": lambda w: setattr(w.image_pin, "post_create_verified", False),
+            "endpoint-handle": lambda w: object.__setattr__(w.pipe_owner.receipt, "parent_write", 999),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                h = Harness()
+                self.external(h, lambda worker, nonce: mutate(worker))
+                with self.assertRaises(m.RunFailure):
+                    h.run()
+                self.assertTrue(h.runner._custody_uncertain)
+                subordinate = h.runner._prepared_custody[-2]
+                self.assertEqual(subordinate[1], frozenset({10, 11, 12, 13}))
+                self.assertEqual(subordinate[5], (44, 31))
+                self.assertEqual(subordinate[6], 50)
+                self.assertEqual(subordinate[10][0], "a" * 64)
+                self.assertNotIn("ResumeThread", h.calls)
+                self.assertNotIn("CloseHandle", h.calls)
+                self.assertNotIn("pipes.cleanup", h.calls)
+                self.assertEqual(h.frames, [])
+
     def test_import_constructor_and_live_entry_inert(self):
         with patch.object(m.binding, "load_native_exports", side_effect=AssertionError("no load")):
             importlib.reload(m)

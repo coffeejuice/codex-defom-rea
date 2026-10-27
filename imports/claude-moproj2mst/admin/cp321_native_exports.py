@@ -123,6 +123,7 @@ _KERNEL = {
     "CreateNamedPipeW": ((LPCWSTR, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, SA), HANDLE),
     "CreateFileW": ((LPCWSTR, DWORD, DWORD, SA, DWORD, DWORD, HANDLE), HANDLE),
     "ConnectNamedPipe": ((HANDLE, OV), BOOL),
+    "GetNamedPipeInfo": ((HANDLE, LPDWORD, LPDWORD, LPDWORD, LPDWORD), BOOL),
     "ReadFile": ((HANDLE, PVOID, DWORD, LPDWORD, OV), BOOL),
     "WriteFile": ((HANDLE, PVOID, DWORD, LPDWORD, OV), BOOL),
     "GetOverlappedResultEx": ((HANDLE, OV, LPDWORD, DWORD, BOOL), BOOL),

@@ -95,6 +95,17 @@ class LayoutTests(unittest.TestCase):
         self.assertIs(m.EXPORTS["GetFinalPathNameByHandleW"].argtypes[1], m.LPWSTR)
         self.assertIs(m.EXPORTS["CreateProcessW"].argtypes[1], m.LPWSTR)
 
+    def test_get_named_pipe_info_has_four_dword_outputs(self):
+        spec = m.EXPORTS["GetNamedPipeInfo"]
+        self.assertEqual(spec.dll, "kernel32.dll")
+        self.assertEqual(spec.argtypes, (m.HANDLE,) + (m.LPDWORD,) * 4)
+        self.assertIs(spec.restype, m.BOOL)
+        factory = Prototypes()
+        functions = bind(prototype_factory=factory)
+        self.assertEqual(functions.GetNamedPipeInfo.argtypes, list(spec.argtypes))
+        self.assertIs(functions.GetNamedPipeInfo.restype, m.BOOL)
+        self.assertNotIn("GetNamedPipeHandleStateW", m.EXPORTS)
+
     def test_explicit_dll_membership_and_immutable_declarations(self):
         advapi = {"OpenThreadToken", "OpenProcessToken", "GetTokenInformation", "IsValidSid",
                   "GetLengthSid", "CopySid", "InitializeAcl", "AddAccessAllowedAceEx",

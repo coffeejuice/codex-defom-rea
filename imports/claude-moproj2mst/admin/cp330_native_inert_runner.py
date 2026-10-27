@@ -50,15 +50,121 @@ class NativeInertRunner:
     All subordinate owners and bound DLLs remain strongly held. close() retries
     CP329 cleanup, which terminates WORKER before testing pipe readiness.
     """
-    def __init__(self, exports, *, timeout_ms=5000):
+    def __init__(self, exports, *, timeout_ms=5000, deadline=None, nonce=None, before_resume=None):
         if not isinstance(exports, binding.BoundExports):
             raise TypeError("CP325 BoundExports required")
         if type(timeout_ms) is not int or not 0 < timeout_ms <= 5000:
             raise ValueError("timeout must be an integer in 1..5000ms")
+        external = deadline is not None or nonce is not None or before_resume is not None
+        if external and (type(deadline) is not int or not 0 < deadline < 2**64 or
+                         type(nonce) is not bytes or len(nonce) != 32 or
+                         not callable(before_resume)):
+            raise ValueError("external deadline, 32-byte nonce and pre-resume callback required")
+        self._external = external
+        self._supplied_deadline, self._supplied_nonce = deadline, nonce
+        self._before_resume = before_resume
         self.exports, self.timeout_ms = exports, timeout_ms
         self.receipt, self.worker = Receipt(), None
         self.security = self.pipe_owner = self.image_pin = None
         self._used, self._last_tick = False, None
+        self._deadline = None
+        self._prepared_custody = None
+        self._custody_uncertain = False
+
+    def _capture_custody(self, worker, receipt):
+        # Retain both the exact mutable owners and immutable evidence before
+        # calling external code. A changed owner cannot safely authorize cleanup.
+        self._prepared_custody = (worker, receipt, receipt.local,
+            tuple(sorted(receipt.local.items())), receipt.remote_child_job,
+            receipt.pid, receipt.tid, worker.exports, worker.security,
+            worker.pipe_owner, worker.image_pin, worker.deadline,
+            (receipt.create_outcome, receipt.duplicate_outcome,
+             receipt.worker_terminated, receipt.worker_waited, receipt.jobs_empty),
+            self._subordinate_state(worker),
+            (self.receipt, self.security, self.pipe_owner, self.image_pin,
+             self._external, self._supplied_deadline, self._supplied_nonce,
+             self._before_resume, self.timeout_ms, self._used, self.pipe_owner.receipt))
+        return self._prepared_custody
+
+    @staticmethod
+    def _subordinate_state(worker):
+        pipe, pin, remote = worker.pipe_owner, worker.image_pin, worker.receipt.remote_child_job
+        endpoints = pipe.receipt
+        endpoint_values = tuple(getattr(endpoints, name) for name in
+            ("parent_write", "client_read", "parent_read", "client_write"))
+        if (type(pipe.handles) is not set or any(type(h) is not int for h in pipe.handles) or
+                any(type(h) is not int for h in endpoint_values) or
+                type(remote.value) is not int or type(remote.owner_process) is not int or
+                type(pin.handle) is not int or
+                (pin.reopened_handle is not None and type(pin.reopened_handle) is not int)):
+            raise Hold("exact integer subordinate handle ownership required")
+        snapshot = pin.snapshot
+        identity = snapshot.identity
+        image_values = (snapshot.sha256, identity.volume, identity.file_id,
+            identity.size, identity.legacy_volume, identity.legacy_index, identity.final_path)
+        if (type(snapshot) is not image.Snapshot or type(identity) is not image.Identity or
+                type(snapshot.sha256) is not str or type(identity.file_id) is not bytes or
+                type(identity.final_path) is not str or
+                any(type(value) is not int for value in
+                    (identity.volume, identity.size, identity.legacy_volume, identity.legacy_index)) or
+                type(pin._used) is not bool or type(pin.post_create_verified) is not bool):
+            raise Hold("exact immutable image identity evidence required")
+        return (pipe.handles, frozenset(pipe.handles), pipe.operations,
+            tuple(pipe.operations), endpoint_values, (remote.value, remote.owner_process),
+            pin.handle, pin.reopened_handle, snapshot, identity, image_values,
+            pin._used, pin.post_create_verified)
+
+    @staticmethod
+    def _same_subordinates(worker, frozen):
+        current = NativeInertRunner._subordinate_state(worker)
+        # Compare identity separately: equal replacements can still discard the
+        # exact cleanup owner. Immutable values preserve mutated-frozen evidence.
+        return (current[0] is frozen[0] and current[2] is frozen[2] and
+            current[8] is frozen[8] and current[9] is frozen[9] and
+            all(current[index] == frozen[index] for index in
+                (1, 3, 4, 5, 6, 7, 10, 11, 12)))
+
+    def _custody_changed(self, custody):
+        worker, receipt, local, tokens, remote, pid, tid, exports, sec, pipe, pin, deadline, state, subordinate, runner = custody
+        own_receipt, own_sec, own_pipe, own_pin, external, supplied_deadline, supplied_nonce, callback, timeout, used, endpoints = runner
+        return (self._prepared_custody is not custody or self.worker is not worker or
+                self.receipt is not own_receipt or self.security is not own_sec or
+                self.pipe_owner is not own_pipe or self.image_pin is not own_pin or
+                own_sec is not sec or own_pipe is not pipe or own_pin is not pin or
+                sec.exports is not exports or pipe.exports is not exports or pin.exports is not exports or
+                pipe.security is not sec or type(pipe.deadline) is not int or pipe.deadline != deadline or
+                pipe.receipt is not endpoints or
+                self._external is not external or self._used is not used or
+                type(self._supplied_deadline) is not int or self._supplied_deadline != supplied_deadline or
+                type(self._supplied_nonce) is not bytes or self._supplied_nonce != supplied_nonce or
+                self._before_resume is not callback or type(self.timeout_ms) is not int or self.timeout_ms != timeout or
+                worker.receipt is not receipt or
+                receipt.phase != "prepared-suspended" or receipt.local is not local or
+                tuple(sorted(local.items())) != tokens or
+                any(type(value) is not int for value in local.values()) or
+                receipt.remote_child_job is not remote or
+                type(receipt.pid) is not int or receipt.pid != pid or
+                type(receipt.tid) is not int or receipt.tid != tid or
+                worker.exports is not exports or self.exports is not exports or
+                worker.security is not sec or worker.pipe_owner is not pipe or
+                worker.image_pin is not pin or type(worker.deadline) is not int or worker.deadline != deadline or
+                not self._same_subordinates(worker, subordinate) or
+                type(self._deadline) is not int or self._deadline != deadline or
+                type(self.receipt.deadline) is not int or self.receipt.deadline != deadline or
+                (receipt.create_outcome, receipt.duplicate_outcome,
+                 receipt.worker_terminated, receipt.worker_waited, receipt.jobs_empty) != state)
+
+    def _verify_custody(self, custody):
+        try:
+            changed = self._custody_changed(custody)
+        except BaseException as error:
+            self._prepared_custody = custody
+            self._custody_uncertain = True
+            raise Hold("prepared WORKER custody cannot be verified") from error
+        if changed:
+            self._prepared_custody = custody
+            self._custody_uncertain = True
+            raise Hold("prepared WORKER custody changed after pre-resume callback")
 
     def _call(self, name, *args):
         return self.exports.fn(name)(*args)
@@ -72,8 +178,20 @@ class NativeInertRunner:
         return now
 
     def _budget(self):
-        remaining = self.receipt.deadline - self._tick()
-        if not 0 < remaining <= self.timeout_ms:
+        deadline, timeout = self._deadline, self.timeout_ms
+        def unchanged():
+            return (type(deadline) is int and type(timeout) is int and
+                type(self._deadline) is int and self._deadline == deadline and
+                type(self.timeout_ms) is int and self.timeout_ms == timeout and
+                type(self.receipt.deadline) is int and self.receipt.deadline == deadline and
+                (self.worker is None or (type(self.worker.deadline) is int and self.worker.deadline == deadline)))
+        if not unchanged():
+            raise Hold("original exact integer deadline or timeout changed")
+        now = self._tick()
+        if not unchanged():
+            raise Hold("original exact integer deadline or timeout changed during clock query")
+        remaining = deadline - now
+        if not 0 < remaining <= timeout:
             raise Hold("original absolute deadline expired or changed")
         if self.worker is not None and self.worker.deadline != self.receipt.deadline:
             raise Hold("creator deadline changed")
@@ -102,22 +220,26 @@ class NativeInertRunner:
         self.receipt.peek_outcome = "zero-queued-byte-snapshot"
 
     def run(self):
-        if self._used:
+        if self._used or self._custody_uncertain:
             raise Hold("runner is one-use")
         self._used = True
         r = self.receipt
         try:
-            start = self._tick()  # sole allocation, before any owner preparation
-            r.deadline = start + self.timeout_ms
-            if r.deadline >= 2**64:
-                raise Hold("deadline overflow")
+            if self._external:
+                self._deadline = r.deadline = self._supplied_deadline
+                self._budget()
+            else:
+                start = self._tick()  # sole allocation, before any owner preparation
+                self._deadline = r.deadline = start + self.timeout_ms
+                if r.deadline >= 2**64:
+                    raise Hold("deadline overflow")
             self.security = security.NativePrivatePipeSecurity(self.exports)
             self.pipe_owner = pipes.NativePipeOwner(self.exports, self.security, deadline=r.deadline)
             self.image_pin = image.NativeImagePin(self.exports)
             self.worker = creator.NativeWorkerCreator(self.exports, security=self.security,
                 pipe_owner=self.pipe_owner, image_pin=self.image_pin, deadline=r.deadline)
             pipe_name = r"\\.\pipe\cp330-" + secrets.token_hex(32)
-            nonce = secrets.token_bytes(32)
+            nonce = self._supplied_nonce if self._external else secrets.token_bytes(32)
             wire.Init(1, nonce)  # validate entropy output before preparation
             self._budget()
             prepared = self.worker.prepare(pipe_name)
@@ -130,6 +252,14 @@ class NativeInertRunner:
                 raise Hold("exact WORKER-owned remote CHILD token required")
             init = wire.encode_init(wire.Init(remote.value, nonce))
             self._budget()
+            if self._external:
+                custody = self._capture_custody(self.worker, prepared)
+                try:
+                    self._before_resume(self.worker, nonce)
+                finally:
+                    self._verify_custody(custody)
+                self._budget()
+                self._verify_custody(custody)  # the clock call is also an external boundary
             r.resume_outcome = "unknown: ResumeThread entered"
             previous = self._call("ResumeThread", prepared.local["worker_thread"])
             if type(previous) is not int or previous != 1:
@@ -162,12 +292,17 @@ class NativeInertRunner:
             r.phase = "closed-success"
             return r
         except BaseException as error:
+            self.receipt = r  # retain the original occurrence receipt on callback replacement
             r.errors.append(f"{type(error).__name__}: {error}")
             r.phase = "hold"
             self.close()
             raise RunFailure(error, self) from error
 
     def close(self):
+        if self._custody_uncertain:
+            # The retained snapshot is evidence, not permission to close handles
+            # whose ownership an external callback may have changed or released.
+            return self.receipt
         if self.worker is not None:
             self.worker.close()
         return self.receipt
