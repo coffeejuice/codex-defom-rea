@@ -5,6 +5,7 @@
 
 #include <map>
 #include <optional>
+#include <string>
 
 namespace m2m::mst::detail {
 
@@ -22,6 +23,7 @@ struct Type3ShapeOptimIdentityClass {
 
 struct Type3ShapeOptimIdentityOperation {
     Type3ShapeOptimOptionalIdentity property;  // OPI+10
+    std::u16string classKey;                  // prepared OPI+120 value
 };
 
 struct Type3ShapeOptimIdentityProperty {
