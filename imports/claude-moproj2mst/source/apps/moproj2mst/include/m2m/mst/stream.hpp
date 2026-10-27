@@ -30,6 +30,8 @@ public:
     virtual bool flush() = 0;
     virtual void close() = 0;
     virtual bool opened() const = 0;
+    virtual bool isTextModeEnabled() const { return false; }
+    virtual void setTextModeEnabled(bool) {}
     // One stream per device in this recovered lifecycle. Qt uses an embedded
     // QObject receiver; this scoped callback preserves its ownership and order.
     void setAboutToClose(std::function<void()> callback) { aboutToClose_ = std::move(callback); }

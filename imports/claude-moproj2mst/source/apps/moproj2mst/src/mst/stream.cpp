@@ -20,7 +20,19 @@ Stream& Stream::flush()
     // Shipped Qt0x670c2f50: sticky error guard; clear source text before device
     // write. Short/nonpositive write or QFile::flush failure records status3.
     if (writeFailed_ || wbuf_.empty()) return *this;
-    const auto encoded = qt::encodeLocale(String(wbuf_), codepage_);
+    const bool restoreTextMode = device_ && device_->isTextModeEnabled();
+    if (restoreTextMode) device_->setTextModeEnabled(false);
+    auto text = wbuf_;
+    if (restoreTextMode) {
+        std::u16string converted;
+        converted.reserve(text.size());
+        for (const auto ch : text) {
+            if (ch == u'\n') converted.push_back(u'\r');
+            converted.push_back(ch);
+        }
+        text = std::move(converted);
+    }
+    const auto encoded = qt::encodeLocale(String(text), codepage_);
     wbuf_.clear();
     if (!device_) {
         buf_ += encoded;
@@ -34,6 +46,7 @@ Stream& Stream::flush()
         writeFailed_ = true;
         return *this;
     }
+    if (restoreTextMode) device_->setTextModeEnabled(true);
     const bool flushed = device_->flush();
     writeFailed_ = !flushed || static_cast<size_t>(written) != encoded.size();
     return *this;
