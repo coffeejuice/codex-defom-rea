@@ -6,7 +6,11 @@
 #include <string>
 #include <vector>
 
+namespace m2m::doe { class Model; }
+
 namespace m2m::mst::detail {
+
+class Type3OptimizerDefOptView;
 
 // Prepared insertion phase order only; native formatting and physical bytes are not modeled.
 // CP466 treated firstMember as stream output; CP468 shows these preliminary
@@ -46,6 +50,7 @@ struct Type3OptAttemptSink {
     // Separate stream attempts; ordinary return statuses are ignored.
     virtual bool insertLiteral(const char* literal) = 0;
     virtual bool insertInt(std::int32_t value) = 0;
+    virtual bool insertString(const qt::String& value) = 0;
     virtual bool insertEndl() = 0;
     // Return status is an observation, never a branch in the ordinary path.
     virtual bool insert(const std::string& fragment) = 0;
@@ -68,6 +73,15 @@ bool attemptType3OptSaveWithGroups(const Type3OptSavePrepared& prepared,
                                    Type3OptAttemptSink& sink,
                                    Type3OptGroupReceipt& receipt);
 
+// Private live-section profile: borrows the existing DOE manager and reads its
+// unlinked list only at the writer's late count position. Region rows are read
+// one by one after the manager section. No public Type3 admission is implied.
+bool attemptType3OptSaveWithTypedSections(const Type3OptSavePrepared& prepared,
+                                          const Type3OptimizerScalarState& state,
+                                          doe::Model& manager,
+                                          Type3OptAttemptSink& sink,
+                                          Type3OptGroupReceipt& receipt);
+
 struct Type3OptCallerEffects {
     virtual ~Type3OptCallerEffects() = default;
     virtual void appendStudy() = 0;
@@ -80,5 +94,13 @@ void attemptType3SaveCaller(bool optimizerPresent, bool managerPresent,
                             const Type3OptSavePrepared& prepared,
                             Type3OptAttemptSink& sink,
                             Type3OptCallerEffects& effects);
+
+void attemptType3SaveCallerWithTypedSections(bool optimizerPresent,
+                                             doe::Model* manager,
+                                             const Type3OptSavePrepared& prepared,
+                                             const Type3OptimizerScalarState& state,
+                                             Type3OptAttemptSink& sink,
+                                             Type3OptCallerEffects& effects,
+                                             Type3OptGroupReceipt& receipt);
 
 } // namespace m2m::mst::detail

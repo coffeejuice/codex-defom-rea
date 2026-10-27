@@ -1,0 +1,80 @@
+{
+  "checkpoint": "CP473 DOE manager vtable +0x1c0 byte binding",
+  "binary": "evidence/original-binaries/DEF_GUI_MO_64.exe",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "method": "PE exception-directory bounds; bounded dumpbin; compare each addressed instruction byte against PE sections",
+  "tool": {
+    "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\dumpbin.exe",
+    "reported_version": "14.44.35228.0",
+    "mode": "/DISASM /RANGE"
+  },
+  "vtable": {
+    "class": "SfMoDoeManager",
+    "base_va": "0x1421671b8",
+    "base_plus_offset": "0x142167378",
+    "offset": "0x1c0",
+    "file_offset": "0x2165b78",
+    "qword_bytes": "b0 bc 91 40 01 00 00 00",
+    "target_va": "0x14091bcb0",
+    "qualification": "Constructor 0x1400d1180 installs vtable 0x1421671b8; normal manager branch only."
+  },
+  "method_export": {
+    "path": "analysis/cp473-manager-slot-14091bcb0.asm",
+    "start": "0x14091bcb0",
+    "end_exclusive": "0x14091bd9d",
+    "bytes": 237,
+    "instructions": 57,
+    "raw_sha256": "f287cbd6ec06628ca3324c8bcfeba867dd7cd2766e59e7264c49bb9423483ad9",
+    "text_sha256": "bf6648cb6c679b6a860335a413304c66e1329e13bce98e56964be50c885324d4",
+    "mismatches": 0
+  },
+  "visible_semantics": {
+    "source_list": "QList copy of manager+0x38",
+    "source_iteration": "in increasing QList index order from zero to the copied list size",
+    "mutation_before_filter": "For each source member, store its loop index in variable+0x18 before reading its link field.",
+    "predicate": "Variable+0x40 link getter returns null; only then append the variable pointer to result QList.",
+    "membership": "No manager+0x38 erase, append, or reorder is visible in this body.",
+    "return": "Copy-assign temporary result QList to caller-provided hidden return storage in RDX, then destroy local lists.",
+    "type3_opt_consumer": "Writer uses returned QList size and emits count/number sequence; it does not retrieve individual returned elements."
+  },
+  "ordered_instruction_anchors": [
+    {
+      "va": "0x14091bcd4",
+      "effect": "copy manager+0x38 list"
+    },
+    {
+      "va": "0x14091bd03",
+      "effect": "read source-list size"
+    },
+    {
+      "va": "0x14091bd17",
+      "effect": "get current source variable"
+    },
+    {
+      "va": "0x14091bd28",
+      "effect": "write variable+0x18 index"
+    },
+    {
+      "va": "0x14091bd3c",
+      "effect": "read link pointer from variable+0x40"
+    },
+    {
+      "va": "0x14091bd44",
+      "effect": "skip append if link is nonnull"
+    },
+    {
+      "va": "0x14091bd5c",
+      "effect": "append unlinked variable to result"
+    },
+    {
+      "va": "0x14091bd68",
+      "effect": "copy result QList to hidden return storage"
+    }
+  ],
+  "limits": [
+    "Static PE evidence only; no original application or runtime was executed.",
+    "Qt QList helper internals, implicit-sharing refcount transitions, detach/allocation failure behavior, and destruction internals are not independently recovered here.",
+    "The method's visible reindex side effect occurs before its null-link filter; downstream behavior after helper failures is not established.",
+    "Vtable interpretation is qualified to the normal SfMoDoeManager dynamic type, not arbitrary manager implementations."
+  ]
+}

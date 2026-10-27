@@ -1,0 +1,92 @@
+{
+  "checkpoint": "CP473 Type3 OPT count and region literals",
+  "binary": "evidence\\original-binaries\\DEF_GUI_MO_64.exe",
+  "binary_sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+  "writer_disassembly": "analysis\\cp465-type3-opt-save-140907a10.asm",
+  "writer_disassembly_sha256": "c188feb9a5cf880507f6b1fa7b4e78f833e547cc6b8f6540ad613f4b19e9e866",
+  "method": "Read fixed NUL-terminated bytes by PE section mapping and compare against expected bytes and SHA-256; separately assert ordered call/reference anchors in the complete CP465 bounded writer export.",
+  "literals": [
+    {
+      "address": "0x1427ba028",
+      "file_offset": "0x27b8828",
+      "bytes": 14,
+      "literal_ascii": "DOE_PAR    \t\t",
+      "includes_nul": true,
+      "sha256": "f0b3ca54302b70ca6222919b8fe7b274abad0423f547dbad55873772f2dc5b82",
+      "role": "manager_count_label"
+    },
+    {
+      "address": "0x1427ba038",
+      "file_offset": "0x27b8838",
+      "bytes": 27,
+      "literal_ascii": "   0.0  1.0  0.5  0.01   0",
+      "includes_nul": true,
+      "sha256": "676f4c16871c9b73623082d7e6a8745ccd60bca037a6881d32ecc7347237a21a",
+      "role": "manager_number_iteration_literal"
+    },
+    {
+      "address": "0x1427ba058",
+      "file_offset": "0x27b8858",
+      "bytes": 14,
+      "literal_ascii": "REGIONS    \t\t",
+      "includes_nul": true,
+      "sha256": "ad5b1e3d6dd2cc8e53e8af8ce3ece6ab3420ea12144144e00043badddbbd4141",
+      "role": "regions_count_label"
+    },
+    {
+      "address": "0x1427ba078",
+      "file_offset": "0x27b8878",
+      "bytes": 11,
+      "literal_ascii": "REGIONS\t\t0",
+      "includes_nul": true,
+      "sha256": "0ab48ff7fb54071df1b9e00c55cd169229c49fb39c6b738dbd4688a4061ba6a4",
+      "role": "regions_nonpositive_count_literal"
+    },
+    {
+      "address": "0x1427ba074",
+      "file_offset": "0x27b8874",
+      "bytes": 4,
+      "literal_ascii": "Opt",
+      "includes_nul": true,
+      "sha256": "2ba757c7120c9517ace17328b12a518aafd0c276688451105bdc52800f7f4ef0",
+      "role": "region_row_suffix_opt"
+    },
+    {
+      "address": "0x1427ba070",
+      "file_offset": "0x27b8870",
+      "bytes": 2,
+      "literal_ascii": "/",
+      "includes_nul": true,
+      "sha256": "ade0274f84b828b0980112609bb51775d0a4e39bf4728f21dcdd04a627abb92a",
+      "role": "region_row_separator"
+    },
+    {
+      "address": "0x1427ba068",
+      "file_offset": "0x27b8868",
+      "bytes": 5,
+      "literal_ascii": ".GEO",
+      "includes_nul": true,
+      "sha256": "736692cb080c6a3f73a5f3e33d9954663430c777db220effa67666f735b5e342",
+      "role": "region_row_suffix_geo"
+    }
+  ],
+  "ordered_groups": [
+    {
+      "name": "manager count then 1..N sequence",
+      "evidence": "CP465 saved disassembly; byte binding recorded in cp465-type3-opt-save-byte-verification.json",
+      "qualification": "The call to helper 0x140004ae0 precedes the count literal; the returned int is inserted, and the loop starts at 1, compares against that count, inserts the sequence literal, and increments."
+    },
+    {
+      "name": "region count and row suffix operands",
+      "evidence": "CP465 saved disassembly; byte binding recorded in cp465-type3-opt-save-byte-verification.json",
+      "qualification": "The +0xc0 count is inserted after the positive-count branch; row building calls +0xd8 and references .GEO, /, Opt in order; the nonpositive arm references its own fixed literal."
+    }
+  ],
+  "physical_file_bytes_established": false,
+  "original_executed": false,
+  "limits": [
+    "This binds static source literals and call/reference order only, not QTextStream encoding, integer formatting, buffering, flush, QFile text translation, write errors, or physical file bytes.",
+    "The row suffix concatenation helpers are visible as call sites; their complete implementations and resulting runtime strings are not established by this receipt.",
+    "No original process, GUI, build, test, or mutable REA session was used."
+  ]
+}

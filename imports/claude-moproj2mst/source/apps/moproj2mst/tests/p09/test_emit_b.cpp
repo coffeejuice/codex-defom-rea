@@ -550,6 +550,28 @@ static void test_doe_model()
     check("link map to linked", lm, "0:0 1:0 2:-1 3:-1 ");
 }
 
+static void test_unlinked_vars_reindexes_before_filter()
+{
+    doe::Var first, linkedFirst, second, linkedSecond;
+    first.index = 91;
+    linkedFirst.index = 92;
+    second.index = 93;
+    linkedSecond.index = 94;
+    linkedFirst.link = &first;
+    linkedSecond.link = &second;
+
+    FakeDoe model;
+    model.vars = {&first, &linkedFirst, &second, &linkedSecond};
+    const std::vector<doe::Var*> selected = model.unlinkedVars();
+
+    const std::string selectedOrder =
+        selected.size() == 2 && selected[0] == &first && selected[1] == &second ? "first,second" : "wrong";
+    check("direct unlinked selection order", selectedOrder, "first,second");
+    check("direct unlinked reindexes linked and unlinked sources",
+          std::to_string(first.index) + "," + std::to_string(linkedFirst.index) + "," +
+              std::to_string(second.index) + "," + std::to_string(linkedSecond.index),
+          "0,1,2,3");
+}
 int main()
 {
     struct T {
@@ -557,7 +579,7 @@ int main()
         void (*fn)();
     } tests[] = {{"objects", test_objects}, {"kfread", test_kfread_family},
                  {"objpos/tloc/contact", test_objpos_tloc_contact}, {"state vars", test_state_vars},
-                 {"doe", test_doe}, {"doe model", test_doe_model}};
+                 {"doe", test_doe}, {"doe model", test_doe_model}, {"direct unlinked", test_unlinked_vars_reindexes_before_filter}};
     int skipped = 0;
     for (const T& t : tests) {
         try {

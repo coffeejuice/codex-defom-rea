@@ -1,5 +1,8 @@
 #include <testkit/check.hpp>
 #include "../../src/ops/type3_opt_save_attempt.hpp"
+#include "../../src/ops/type3_optimizer_defopt_view.hpp"
+#include <m2m/mst/doe_model.hpp>
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -16,6 +19,7 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
     bool typed(const std::string& event) { events.push_back(event); if (event == throwOn) throw InsertStopped{}; return insertStatus; }
     bool insertLiteral(const char* s) override { return typed(std::string("literal:") + s); }
     bool insertInt(std::int32_t n) override { return typed("int:" + std::to_string(n)); }
+    bool insertString(const m2m::qt::String& s) override { return typed("qstring:" + s.utf8()); }
     bool insertEndl() override { return typed("endl"); }
     bool insert(const std::string& s) override { events.push_back("insert:" + s); if (s == "suffix" && receipt) groupReadyAtSuffix = receipt->ignoredCounts[0] == 2; if (s == throwOn) throw InsertStopped{}; return insertStatus; }
     bool close() override { events.push_back("close"); return closeStatus; }
@@ -24,6 +28,21 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
     void saveInputTable() override { events.push_back("input"); }
     void commonContinuation() override { events.push_back("common"); }
 };
+struct Manager : m2m::doe::Model {
+    std::vector<std::string>* events = nullptr;
+    int scans = 0;
+    std::vector<m2m::doe::Var*> geometryVars(int, int) const override { return {}; }
+    std::vector<m2m::doe::Var*> unlinkedVars() override {
+        ++scans;
+        if (events) events->push_back("manager-scan");
+        return Model::unlinkedVars();
+    }
+};
+std::size_t position(const std::vector<std::string>& events, const std::string& sought)
+{
+    const auto it = std::find(events.begin(), events.end(), sought);
+    return static_cast<std::size_t>(it - events.begin());
+}
 Type3OptSavePrepared prepared()
 {
     Type3OptSavePrepared p;
@@ -37,6 +56,103 @@ Type3OptSavePrepared prepared()
     p.emptySection = {"empty"}; p.sectionRows = {{"section0"}, {"section1"}};
     p.finalLines = {"final", "closing"};
     return p;
+}
+
+TEST_CASE(type3_opt_live_sections_scan_at_late_position_and_emit_typed_rows)
+{
+    auto p = prepared();
+    Type3OptimizerScalarState state;
+    appendType3RegionPreparedRow(state, m2m::qt::L("first"));
+    appendType3RegionPreparedRow(state, m2m::qt::L("second"));
+    m2m::doe::Var first, linked, second;
+    first.index = 91; linked.index = 92; second.index = 93;
+    linked.link = &first;
+    Manager manager; manager.vars = {&first, &linked, &second};
+    Trace t; manager.events = &t.events; t.insertStatus = false; t.closeStatus = false;
+    Type3OptGroupReceipt receipt;
+    attemptType3SaveCallerWithTypedSections(true, &manager, p, state, t, t, receipt);
+    CHECK(manager.scans == 1);
+    CHECK(first.index == 0 && linked.index == 1 && second.index == 2);
+    CHECK(manager.vars == std::vector<m2m::doe::Var*>({&first, &linked, &second}));
+    CHECK(position(t.events, "insert:row1") < position(t.events, "manager-scan"));
+    const std::vector<std::string> section = {
+        "manager-scan", "literal:DOE_PAR    \t\t", "int:2", "endl",
+        "int:1", "literal:   0.0  1.0  0.5  0.01   0", "endl",
+        "int:2", "literal:   0.0  1.0  0.5  0.01   0", "endl", "endl",
+        "literal:REGIONS    \t\t", "int:2", "endl"
+    };
+    const auto sectionStart = std::find(t.events.begin(), t.events.end(), "manager-scan");
+    REQUIRE(sectionStart != t.events.end());
+    REQUIRE(static_cast<std::size_t>(t.events.end() - sectionStart) >= section.size());
+    CHECK(std::equal(section.begin(), section.end(), sectionStart));
+    CHECK(position(t.events, "literal:REGIONS    \t\t") < position(t.events, "qstring:Opt/first.GEO"));
+    CHECK(position(t.events, "qstring:Opt/first.GEO") < position(t.events, "qstring:Opt/second.GEO"));
+    CHECK(position(t.events, "qstring:Opt/second.GEO") < position(t.events, "insert:final"));
+    CHECK(position(t.events, "insert:final") < position(t.events, "close"));
+    CHECK(t.events.back() == "common");
+    CHECK(position(t.events, "insert:count") == t.events.size());
+    CHECK(position(t.events, "insert:section0") == t.events.size());
+}
+
+TEST_CASE(type3_opt_live_sections_empty_direct_return_and_missing_caller_gates)
+{
+    auto p = prepared(); p.rows.clear();
+    Type3OptimizerScalarState state;
+    Manager manager; Trace t; manager.events = &t.events;
+    Type3OptGroupReceipt receipt;
+    CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
+    CHECK(manager.scans == 1);
+    const std::vector<std::string> section = {
+        "manager-scan", "literal:DOE_PAR    \t\t", "int:0", "endl", "endl",
+        "literal:REGIONS\t\t0", "endl", "insert:final", "insert:closing", "close"
+    };
+    const auto sectionStart = std::find(t.events.begin(), t.events.end(), "manager-scan");
+    REQUIRE(sectionStart != t.events.end());
+    REQUIRE(static_cast<std::size_t>(t.events.end() - sectionStart) == section.size());
+    CHECK(std::equal(section.begin(), section.end(), sectionStart));
+    t.events.clear();
+    attemptType3SaveCallerWithTypedSections(true, nullptr, p, state, t, t, receipt);
+    CHECK(t.events == std::vector<std::string>({"common"}));
+    t.events.clear();
+    attemptType3SaveCallerWithTypedSections(false, &manager, p, state, t, t, receipt);
+    CHECK(t.events == std::vector<std::string>({"common"}));
+    CHECK(manager.scans == 1);
+}
+
+TEST_CASE(type3_opt_live_sections_failed_open_and_earlier_throw_do_not_scan)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    m2m::doe::Var variable; variable.index = 77;
+    Manager manager; manager.vars = {&variable};
+    Type3OptGroupReceipt receipt; Trace t; manager.events = &t.events; t.opened = false;
+    attemptType3SaveCallerWithTypedSections(true, &manager, p, state, t, t, receipt);
+    CHECK(manager.scans == 0 && variable.index == 77);
+    CHECK(t.events == std::vector<std::string>({"study", "input", "open:x.OPT", "diagnostic:x.OPT", "common"}));
+    t.events.clear(); t.opened = true; t.throwOn = "row0";
+    bool caught = false;
+    try { attemptType3SaveCallerWithTypedSections(true, &manager, p, state, t, t, receipt); }
+    catch (const InsertStopped&) { caught = true; }
+    CHECK(caught && manager.scans == 0 && variable.index == 77);
+    CHECK(position(t.events, "manager-scan") == t.events.size());
+    CHECK(position(t.events, "common") == t.events.size());
+}
+
+TEST_CASE(type3_opt_live_sections_count_throw_keeps_scan_but_stops_region)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    appendType3RegionPreparedRow(state, m2m::qt::L("later"));
+    m2m::doe::Var variable; variable.index = 77;
+    Manager manager; manager.vars = {&variable};
+    Type3OptGroupReceipt receipt; Trace t; manager.events = &t.events;
+    t.throwOn = "literal:DOE_PAR    \t\t";
+    bool caught = false;
+    try { attemptType3SaveCallerWithTypedSections(true, &manager, p, state, t, t, receipt); }
+    catch (const InsertStopped&) { caught = true; }
+    CHECK(caught && manager.scans == 1 && variable.index == 0);
+    CHECK(position(t.events, "manager-scan") < position(t.events, t.throwOn));
+    CHECK(position(t.events, "literal:REGIONS    \t\t") == t.events.size());
+    CHECK(position(t.events, "close") == t.events.size());
+    CHECK(position(t.events, "common") == t.events.size());
 }
 }
 TEST_CASE(type3_opt_save_failed_open_returns_false_and_caller_continues)
