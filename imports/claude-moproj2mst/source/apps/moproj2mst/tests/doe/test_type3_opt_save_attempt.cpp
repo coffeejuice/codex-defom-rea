@@ -24,6 +24,11 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
     bool changeCountOnNumConLiteral = false;
     bool mutateRowOnFirstInsert = false, mutateSecondRowAfterFirstEndl = false;
     bool inNumConRow = false;
+    bool mutateValue40AfterRegion = false, mutateValue40AtEpsLiteral = false;
+    bool mutateValue48AtEpsLiteral = false, sawEpsLiteral = false;
+    int epsEndls = 0;
+    bool inRegions = false;
+    int regionEndls = 0;
     int rowEndls = 0;
     bool open(const std::string& path) override { events.push_back("open:" + path); return opened; }
     bool typed(const std::string& event) { events.push_back(event); if (event == throwOn) throw InsertStopped{}; return insertStatus; }
@@ -35,6 +40,11 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
         }
         if (mutateState && std::string(s) == "NUM_CON\t\t" && changeCountOnNumConLiteral)
             mutateState->numConRows.push_back({0, 7, 0, 0, 0.0, {}});
+        if (mutateState && std::string(s) == "EPS_OBJ       \t") {
+            sawEpsLiteral = true;
+            if (mutateValue40AtEpsLiteral) mutateState->value40 = 999.0;
+        }
+        if (std::string(s) == "REGIONS    \t\t") inRegions = true;
         if (mutateState && std::string(s) == "  ") {
             inNumConRow = true;
             if (mutateRowOnFirstInsert) {
@@ -61,6 +71,14 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
                 mutateState->numConRows.push_back({0, 7, 0, 0, 0.0, {}});
                 inTypObj = false;
             }
+        }
+        if (mutateState && inRegions && mutateValue40AfterRegion && regionEndls < 3) {
+            ++regionEndls;
+            if (regionEndls == 3) { mutateState->value40 = 123.5; inRegions = false; }
+        }
+        if (mutateState && sawEpsLiteral && mutateValue48AtEpsLiteral && epsEndls < 2) {
+            ++epsEndls;
+            if (epsEndls == 2) mutateState->value48 = true;
         }
         return result;
     }
@@ -130,8 +148,8 @@ TEST_CASE(type3_opt_live_sections_scan_at_late_position_and_emit_typed_rows)
     CHECK(std::equal(section.begin(), section.end(), sectionStart));
     CHECK(position(t.events, "literal:REGIONS    \t\t") < position(t.events, "qstring:Opt/first.GEO"));
     CHECK(position(t.events, "qstring:Opt/first.GEO") < position(t.events, "qstring:Opt/second.GEO"));
-    CHECK(position(t.events, "qstring:Opt/second.GEO") < position(t.events, "insert:final"));
-    CHECK(position(t.events, "insert:final") < position(t.events, "close"));
+    CHECK(position(t.events, "qstring:Opt/second.GEO") < position(t.events, "literal:EPS_OBJ       \t"));
+    CHECK(position(t.events, "literal:ENDDATA") < position(t.events, "close"));
     CHECK(t.events.back() == "common");
     CHECK(position(t.events, "insert:count") == t.events.size());
     CHECK(position(t.events, "insert:section0") == t.events.size());
@@ -147,7 +165,8 @@ TEST_CASE(type3_opt_live_sections_empty_direct_return_and_missing_caller_gates)
     CHECK(manager.scans == 1);
     const std::vector<std::string> section = {
         "manager-scan", "literal:DOE_PAR    \t\t", "int:0", "endl", "endl",
-        "literal:REGIONS\t\t0", "endl", "insert:final", "insert:closing", "close"
+        "literal:REGIONS\t\t0", "endl", "endl", "literal:EPS_OBJ       \t", "double:4562254508917369340",
+        "endl", "endl", "literal:DB_PURGE\t\t1", "endl", "endl", "literal:ENDDATA", "endl", "close"
     };
     const auto sectionStart = std::find(t.events.begin(), t.events.end(), "manager-scan");
     REQUIRE(sectionStart != t.events.end());
@@ -160,6 +179,51 @@ TEST_CASE(type3_opt_live_sections_empty_direct_return_and_missing_caller_gates)
     attemptType3SaveCallerWithTypedSections(false, &manager, p, state, t, t, receipt);
     CHECK(t.events == std::vector<std::string>({"common"}));
     CHECK(manager.scans == 1);
+}
+
+TEST_CASE(type3_opt_typed_tail_is_concrete_ordered_and_snapshots_getters)
+{
+    auto p = prepared(); p.scalarPrefix = {"forbidden-prefix"}; p.finalLines = {"forbidden-final"};
+    Type3OptimizerScalarState state; state.value40 = -0.0; state.value48 = false;
+    appendType3RegionPreparedRow(state, m2m::qt::L("one"));
+    Manager manager; Trace t; Type3OptGroupReceipt receipt;
+    t.mutateState = &state; t.mutateValue40AfterRegion = true; t.mutateValue40AtEpsLiteral = true;
+    (void)attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt);
+    CHECK(position(t.events, "insert:forbidden-prefix") == t.events.size());
+    CHECK(position(t.events, "insert:forbidden-final") == t.events.size());
+    CHECK(position(t.events, "literal:EPS_OBJ       \t") < position(t.events, "double:4638390956842811392"));
+    CHECK(position(t.events, "double:4638390956842811392") == position(t.events, "literal:EPS_OBJ       \t") + 1);
+    CHECK(position(t.events, "literal:EPS_OBJ       \t") < position(t.events, "literal:DB_PURGE\t\t1"));
+    CHECK(position(t.events, "literal:ENDDATA") < position(t.events, "close"));
+    CHECK(t.sawEpsLiteral);
+    state.value48 = false; t.events.clear(); t.epsEndls = 0; t.sawEpsLiteral = false; t.mutateValue40AfterRegion = false;
+    t.mutateValue40AtEpsLiteral = false; t.mutateValue48AtEpsLiteral = true;
+    (void)attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt);
+    CHECK(position(t.events, "literal:DB_PURGE\t\t0") < position(t.events, "close"));
+    CHECK(t.epsEndls == 2);
+    CHECK(position(t.events, "insert:forbidden-final") == t.events.size());
+    t.events.clear(); t.sawEpsLiteral = false; t.mutateValue48AtEpsLiteral = false; state.value48 = true;
+    (void)attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt);
+    CHECK(position(t.events, "literal:DB_PURGE\t\t0") < position(t.events, "close"));
+}
+
+TEST_CASE(type3_opt_typed_tail_throw_stops_after_eps_without_close_or_common)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
+    appendType3RegionPreparedRow(state, m2m::qt::L("one"));
+    Manager manager; Trace t; Type3OptGroupReceipt receipt;
+    t.throwOn = "literal:EPS_OBJ       \t";
+    bool caught = false;
+    try { attemptType3SaveCallerWithTypedSections(true, &manager, p, state, t, t, receipt); }
+    catch (const InsertStopped&) { caught = true; }
+    CHECK(caught);
+    CHECK(receipt.temporarySnapshots[0] == std::vector<std::int32_t>({42}));
+    CHECK(position(t.events, t.throwOn) < t.events.size());
+    CHECK(position(t.events, "literal:DB_PURGE\t\t1") == t.events.size());
+    CHECK(position(t.events, "literal:ENDDATA") == t.events.size());
+    CHECK(position(t.events, "close") == t.events.size());
+    CHECK(position(t.events, "common") == t.events.size());
 }
 
 TEST_CASE(type3_opt_live_sections_failed_open_and_earlier_throw_do_not_scan)
@@ -208,7 +272,7 @@ TEST_CASE(type3_opt_typed_profile_emits_saved_typ_obj_after_groups)
     CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
     const std::vector<std::string> expected = {
         "literal:TYP_OBJ       ", "int:30", "literal:        ", "int:10",
-        "literal:      ", "int:341", "endl", "endl",
+        "literal:      ", "int:34", "endl", "endl",
         "literal:NUM_CON\t\t", "int:1", "endl"
     };
     const auto start = std::find(t.events.begin(), t.events.end(), expected.front());
@@ -250,7 +314,7 @@ TEST_CASE(type3_opt_numcon_count_is_sampled_after_typ_obj_and_before_literal)
     CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
     const std::vector<std::string> expected = {
         "literal:TYP_OBJ       ", "int:30", "literal:        ", "int:10",
-        "literal:      ", "int:341", "endl", "endl", "literal:NUM_CON\t\t", "int:2", "endl"
+        "literal:      ", "int:34", "endl", "endl", "literal:NUM_CON\t\t", "int:2", "endl"
     };
     const auto start = std::find(t.events.begin(), t.events.end(), expected.front());
     REQUIRE(start != t.events.end());

@@ -37,10 +37,10 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
     (void)sink.insertInt(p.oprNo);
     (void)sink.insertEndl();
     (void)sink.insertEndl();
-    insertAll(sink, p.scalarPrefix);
     // The native writer saves TYP_OBJ's +0x34 before group collection. Keep
     // the value local: later sink calls may mutate the prepared projection.
     const bool typedProfile = manager && state && receipt;
+    if (!typedProfile) insertAll(sink, p.scalarPrefix);
     const std::int32_t savedValue34 = typedProfile ? state->value34 : 0;
     if (state && receipt) {
         Type3OptGroupReceipt completed;
@@ -108,7 +108,18 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
             case Type3OptRegionSectionEvent::Kind::Endl: (void)sink.insertEndl(); break;
             }
         });
-        insertAll(sink, p.finalLines);
+        (void)sink.insertEndl();
+        const double savedValue40 = view.value40();
+        (void)sink.insertLiteral("EPS_OBJ       \t");
+        (void)sink.insertDouble(savedValue40);
+        (void)sink.insertEndl();
+        (void)sink.insertEndl();
+        const bool savedValue48 = view.value48();
+        (void)sink.insertLiteral(savedValue48 ? "DB_PURGE\t\t0" : "DB_PURGE\t\t1");
+        (void)sink.insertEndl();
+        (void)sink.insertEndl();
+        (void)sink.insertLiteral("ENDDATA");
+        (void)sink.insertEndl();
         (void)sink.close();
         return false;
     }

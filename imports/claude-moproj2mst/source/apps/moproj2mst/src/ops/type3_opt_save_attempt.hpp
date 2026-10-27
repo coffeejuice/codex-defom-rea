@@ -66,7 +66,9 @@ bool attemptType3OptSave(const Type3OptSavePrepared& prepared,
                          Type3OptAttemptSink& sink);
 
 // Stable normally returning group profile. Receipt is assigned only after open,
-// fixed typed prefix and scalarPrefix complete; a failed open or earlier throw leaves it alone.
+// fixed typed prefix, and (for this profile) scalarPrefix complete; a failed
+// open or earlier throw leaves it alone. The typed-manager profile suppresses
+// scalarPrefix and assigns the receipt after the fixed OPR blank line.
 // This is a private value projection, not public Type3 admission, Qt bytes or
 // an assertion about the native optimizer owner's lifetime.
 bool attemptType3OptSaveWithGroups(const Type3OptSavePrepared& prepared,
