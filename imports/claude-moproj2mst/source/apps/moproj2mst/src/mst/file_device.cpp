@@ -34,6 +34,7 @@ struct FileDevice::Impl {
     std::deque<std::string> buffers;
     std::size_t head = 0, tail = 0, pending = 0;
     int fileError = 0, engineError = 0;
+    bool textMode = false;
 
     int writeError() const { return engineError == 8 ? 2 : engineError; }
 
@@ -110,7 +111,7 @@ struct FileDevice::Impl {
     }
 };
 
-FileDevice::FileDevice(const qt::String& path) : impl_(std::make_unique<Impl>())
+FileDevice::FileDevice(const qt::String& path, bool textMode) : impl_(std::make_unique<Impl>())
 {
     // QFile mode2 -> QFS WriteOnly|Unbuffered|Truncate. nativeOpen uses
     // OPEN_ALWAYS, then setSize(0), whose result is ignored (0x670f8150).
@@ -118,7 +119,10 @@ FileDevice::FileDevice(const qt::String& path) : impl_(std::make_unique<Impl>())
     impl_->handle = CreateFileW(win32Path(path.u16()).c_str(), GENERIC_WRITE,
                                FILE_SHARE_READ | FILE_SHARE_WRITE, &security,
                                OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
-    if (opened()) (void)SetEndOfFile(impl_->handle); // fresh native handle is at offset0
+    if (opened()) {
+        (void)SetEndOfFile(impl_->handle); // fresh native handle is at offset0
+        impl_->textMode = textMode;
+    }
     else impl_->fileError = impl_->engineError = 5; // nativeOpen/QFile::open: OpenError
 }
 
@@ -126,8 +130,31 @@ FileDevice::~FileDevice() { close(); }
 
 bool FileDevice::opened() const { return impl_->handle != INVALID_HANDLE_VALUE; }
 int FileDevice::error() const { return impl_->fileError; }
+bool FileDevice::isTextModeEnabled() const { return impl_->textMode; }
+void FileDevice::setTextModeEnabled(bool enabled)
+{
+    // QIODevice::setTextModeEnabled is a no-op after close (BC240).
+    if (opened()) impl_->textMode = enabled;
+}
 
 std::int64_t FileDevice::write(std::string_view bytes)
+{
+    if (!impl_->textMode) return writeRaw(bytes);
+
+    // The splitter calls write for each span. Route those calls directly to
+    // the QFile byte sink so Text-mode dispatch cannot recurse.
+    struct RawSink final : OutputDevice {
+        FileDevice& file;
+        explicit RawSink(FileDevice& value) : file(value) {}
+        std::int64_t write(std::string_view data) override { return file.writeRaw(data); }
+        bool flush() override { return file.flush(); }
+        void close() override { file.close(); }
+        bool opened() const override { return file.opened(); }
+    } sink(*this);
+    return writeTextMode(sink, bytes);
+}
+
+std::int64_t FileDevice::writeRaw(std::string_view bytes)
 {
     if (!opened()) return -1;
     if (bytes.empty()) return 0;
@@ -154,6 +181,9 @@ void FileDevice::close()
     // the attached QTextStream can flush pending text before buffer discard.
     const bool flushed = impl_->flush();                  // saved BEFORE aboutToClose
     notifyAboutToClose();
+    // QIODevice clears its open mode after aboutToClose returns. Keep Text
+    // enabled during the callback so an attached Stream sees the same state.
+    impl_->textMode = false;
     impl_->buffers.clear();
     impl_->head = impl_->tail = impl_->pending = 0;
     const bool closed = CloseHandle(impl_->handle) != FALSE;

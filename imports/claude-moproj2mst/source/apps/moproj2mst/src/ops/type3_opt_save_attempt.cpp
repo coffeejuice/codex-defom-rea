@@ -38,6 +38,10 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
     (void)sink.insertEndl();
     (void)sink.insertEndl();
     insertAll(sink, p.scalarPrefix);
+    // The native writer saves TYP_OBJ's +0x34 before group collection. Keep
+    // the value local: later sink calls may mutate the prepared projection.
+    const bool typedProfile = manager && state && receipt;
+    const std::int32_t savedValue34 = typedProfile ? state->value34 : 0;
     if (state && receipt) {
         Type3OptGroupReceipt completed;
         for (std::size_t group = 0; group < completed.temporarySnapshots.size(); ++group) {
@@ -48,7 +52,18 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
         }
         *receipt = std::move(completed);
     }
-    insertAll(sink, p.scalarSuffix);
+    if (typedProfile) {
+        const std::int32_t savedValue10 = state->value10;
+        const std::int32_t savedValue30 = state->value30;
+        (void)sink.insertLiteral("TYP_OBJ       ");
+        (void)sink.insertInt(savedValue30);
+        (void)sink.insertLiteral("        ");
+        (void)sink.insertInt(savedValue10);
+        (void)sink.insertLiteral("      ");
+        (void)sink.insertInt(savedValue34);
+        (void)sink.insertEndl();
+        (void)sink.insertEndl();
+    } else insertAll(sink, p.scalarSuffix);
     for (const auto& row : p.rows) insertAll(sink, row);
     if (manager && state && receipt) {
         // The original manager query runs here, after open and earlier rows.

@@ -8,14 +8,16 @@
 namespace m2m::mst {
 
 // QIODevice Text-mode write, 0x670bb827..0x670bb9aa: split at LF and
-// independently write each span and CRLF. Returns consumed source bytes;
+// independently write each span and CRLF. Closed devices ignore Text-mode
+// setter calls because native QIODevice rejects changes without an open handle.
+// Returns consumed source bytes;
 // a positive short span is not retried before proceeding to the newline.
 // The underlying device is the write-only binary QFile data boundary.
 std::int64_t writeTextMode(OutputDevice& device, std::string_view bytes);
 
 class FileDevice final : public OutputDevice {
 public:
-    explicit FileDevice(const qt::String& path);
+    explicit FileDevice(const qt::String& path, bool textMode = false);
     ~FileDevice() override;
     FileDevice(const FileDevice&) = delete;
     FileDevice& operator=(const FileDevice&) = delete;
@@ -24,10 +26,13 @@ public:
     bool flush() override;
     void close() override;
     bool opened() const override;
+    bool isTextModeEnabled() const override;
+    void setTextModeEnabled(bool enabled) override;
     // QFile::error (private+0x120), separate from QTextStream's sticky status.
     int error() const;
 
 private:
+    std::int64_t writeRaw(std::string_view bytes);
     struct Impl;
     std::unique_ptr<Impl> impl_;
 };

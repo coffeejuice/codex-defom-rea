@@ -15,13 +15,20 @@ struct Trace : Type3OptAttemptSink, Type3OptCallerEffects {
     std::string throwOn;
     Type3OptGroupReceipt* receipt = nullptr;
     bool groupReadyAtSuffix = false;
+    Type3OptimizerScalarState* mutateState = nullptr;
     bool open(const std::string& path) override { events.push_back("open:" + path); return opened; }
     bool typed(const std::string& event) { events.push_back(event); if (event == throwOn) throw InsertStopped{}; return insertStatus; }
-    bool insertLiteral(const char* s) override { return typed(std::string("literal:") + s); }
+    bool insertLiteral(const char* s) override {
+        const bool result = typed(std::string("literal:") + s);
+        if (mutateState && std::string(s) == "TYP_OBJ       ") {
+            mutateState->value30 = 300; mutateState->value10 = 100; mutateState->value34 = 340;
+        }
+        return result;
+    }
     bool insertInt(std::int32_t n) override { return typed("int:" + std::to_string(n)); }
     bool insertString(const m2m::qt::String& s) override { return typed("qstring:" + s.utf8()); }
     bool insertEndl() override { return typed("endl"); }
-    bool insert(const std::string& s) override { events.push_back("insert:" + s); if (s == "suffix" && receipt) groupReadyAtSuffix = receipt->ignoredCounts[0] == 2; if (s == throwOn) throw InsertStopped{}; return insertStatus; }
+    bool insert(const std::string& s) override { events.push_back("insert:" + s); if (s == "suffix" && receipt) groupReadyAtSuffix = receipt->ignoredCounts[0] == 2; if (mutateState && s == "prefix") mutateState->value34 = 341; if (s == throwOn) throw InsertStopped{}; return insertStatus; }
     bool close() override { events.push_back("close"); return closeStatus; }
     void assignOpenFailureDiagnostic(const std::string& p) override { events.push_back("diagnostic:" + p); }
     void appendStudy() override { events.push_back("study"); }
@@ -153,6 +160,44 @@ TEST_CASE(type3_opt_live_sections_count_throw_keeps_scan_but_stops_region)
     CHECK(position(t.events, "literal:REGIONS    \t\t") == t.events.size());
     CHECK(position(t.events, "close") == t.events.size());
     CHECK(position(t.events, "common") == t.events.size());
+}
+TEST_CASE(type3_opt_typed_profile_emits_saved_typ_obj_after_groups)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    state.value30 = 30; state.value10 = 10; state.value34 = 34;
+    state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
+    Manager manager; Trace t; manager.events = &t.events; t.mutateState = &state;
+    Type3OptGroupReceipt receipt;
+    CHECK(!attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt));
+    const std::vector<std::string> expected = {
+        "literal:TYP_OBJ       ", "int:30", "literal:        ", "int:10",
+        "literal:      ", "int:341", "endl", "endl"
+    };
+    const auto start = std::find(t.events.begin(), t.events.end(), expected.front());
+    REQUIRE(start != t.events.end());
+    REQUIRE(static_cast<std::size_t>(t.events.end() - start) >= expected.size());
+    CHECK(std::equal(expected.begin(), expected.end(), start));
+    CHECK(position(t.events, "insert:suffix") == t.events.size());
+    CHECK(position(t.events, "insert:suffix") == t.events.size());
+    CHECK(position(t.events, expected.front()) < position(t.events, "insert:row0"));
+    CHECK(position(t.events, "insert:row1") < position(t.events, "manager-scan"));
+}
+TEST_CASE(type3_opt_typed_profile_typed_literal_throw_stops_after_receipt)
+{
+    auto p = prepared(); Type3OptimizerScalarState state;
+    state.numConRows = {{0, 42, 0, 0, 0.0, {}}};
+    Manager manager; Trace t; manager.events = &t.events; t.throwOn = "literal:TYP_OBJ       ";
+    Type3OptGroupReceipt receipt;
+    bool caught = false;
+    try { (void)attemptType3OptSaveWithTypedSections(p, state, manager, t, receipt); }
+    catch (const InsertStopped&) { caught = true; }
+    CHECK(caught);
+    CHECK(receipt.temporarySnapshots[0] == std::vector<std::int32_t>({42}));
+    CHECK(position(t.events, t.throwOn) < t.events.size());
+    CHECK(position(t.events, "int:1021") == t.events.size());
+    CHECK(position(t.events, "insert:row0") == t.events.size());
+    CHECK(position(t.events, "manager-scan") == t.events.size());
+    CHECK(position(t.events, "close") == t.events.size());
 }
 }
 TEST_CASE(type3_opt_save_failed_open_returns_false_and_caller_continues)

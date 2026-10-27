@@ -50,6 +50,48 @@ TEST_CASE(file_device_open_truncates_and_small_writes_wait_for_flush)
     CHECK(!file.flush());
 }
 
+TEST_CASE(file_device_text_mode_direct_write_and_state_lifecycle)
+{
+    const auto path = freshDir() / "text-direct.txt";
+    FileDevice binary{String(path.u16string())};
+    REQUIRE(binary.opened());
+    CHECK(!binary.isTextModeEnabled());
+    binary.setTextModeEnabled(true);
+    CHECK(binary.isTextModeEnabled());
+    CHECK_EQ(binary.write("first\nsecond"), 12); // return source-byte count
+    CHECK_EQ(fs::file_size(path), 0u);             // same QFile buffering path
+    binary.setTextModeEnabled(false);
+    CHECK(!binary.isTextModeEnabled());
+    CHECK_EQ(binary.write("\n"), 1);
+    binary.close();
+    CHECK(!binary.isTextModeEnabled());
+    CHECK(readFile(path) == "first\r\nsecond\n");
+    binary.setTextModeEnabled(true);               // closed QIODevice setter is a no-op
+    CHECK(!binary.isTextModeEnabled());
+
+    const auto optPath = freshDir() / "text-opt-in.txt";
+    FileDevice text{String(optPath.u16string()), true};
+    REQUIRE(text.opened());
+    CHECK(text.isTextModeEnabled());
+    CHECK_EQ(text.write("a\nb\n"), 4);
+    text.close();
+    CHECK(readFile(optPath) == "a\r\nb\r\n");
+}
+
+TEST_CASE(file_device_opt_in_stream_produces_one_crlf_and_close_flushes_tail)
+{
+    const auto path = freshDir() / "stream-text.txt";
+    FileDevice file{String(path.u16string()), true};
+    REQUIRE(file.opened());
+    m2m::mst::Stream stream(1252, &file);
+    stream << "line" << m2m::mst::endl << "tail\nlast";
+    CHECK(file.isTextModeEnabled());               // Stream restores Text after flush
+    file.close();                                  // callback emits unterminated tail
+    CHECK(readFile(path) == "line\r\ntail\r\nlast");
+    CHECK(stream.pending().empty());
+    CHECK(!file.isTextModeEnabled());
+}
+
 TEST_CASE(file_device_buffer_boundary_and_large_direct_write)
 {
     const auto path = freshDir() / "boundary.txt";
