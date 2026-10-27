@@ -214,6 +214,40 @@ class TopTests(unittest.TestCase):
         self.assertEqual(result["stages"], stages)
         self.assertNotIn("cp334_h0_flags_validated", result["stages"])
 
+    def test_compact_live_cp334_and_cp333_trace_fits_bound(self):
+        stages = ["script-entry", "cp347-module-imported",
+                  "from-client-argv-constructed", "entry",
+                  "before_load_native_exports", "after_load_native_exports",
+                  "before_cp334_from_bootstrap_argv", "cp334_argv_parsed",
+                  "cp334_owner_created", "cp334_adopt_enter"]
+        for index in (0, 1):
+            stages.extend((f"cp334_h{index}_pipeflags_8",
+                           f"cp334_h{index}_flags_validated"))
+        stages.extend(("cp334_after_final_tick", "after_cp334_adopt",
+                       "before_cp333_acknowledge"))
+        stages.extend(("cp333_start", "cp333_occurrence_started",
+                       "cp333_before_security", "cp333_after_security",
+                       "cp333_before_pipes", "cp333_after_pipes",
+                       "cp333_before_worker_prepare", "cp333_after_worker_prepare",
+                       "cp333_before_resume", "cp333_after_resume",
+                       "cp333_before_bootstrap", "cp333_after_bootstrap",
+                       "cp333_before_offer_ack", "cp333_after_offer_ack",
+                       "after_cp333_acknowledge", "before_cp333_complete",
+                       "after_cp333_complete", "run-returned"))
+        raw = b"".join((json.dumps({"stage": stage}, separators=(",", ":"))
+                        + "\n").encode("ascii") for stage in stages)
+        self.assertLessEqual(len(stages), 40)
+        self.assertLessEqual(len(raw), m.TRACE_MAX_BYTES)
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "c" * 32 + ".jsonl")
+            path.write_bytes(raw)
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                result = m._child_trace_result(path)
+        self.assertEqual(result["status"], "valid")
+        self.assertEqual(result["stages"], stages)
+
     def test_child_bootstrap_failure_success_and_exclusive_collision(self):
         class InjectedChildFailure(RuntimeError):
             pass

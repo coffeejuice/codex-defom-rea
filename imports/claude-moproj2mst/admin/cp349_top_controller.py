@@ -185,6 +185,13 @@ def _child_trace_result(path):
     allowed.update(f"cp334_h{index}_pipeflags_{value}" for index in (0, 1)
                    for value in ("0", "1", "4", "5", "other"))
     allowed.update(f"cp334_h{index}_flags_validated" for index in (0, 1))
+    allowed.update({"cp333_start", "cp333_occurrence_started",
+                    "cp333_before_security", "cp333_after_security",
+                    "cp333_before_pipes", "cp333_after_pipes",
+                    "cp333_before_worker_prepare", "cp333_after_worker_prepare",
+                    "cp333_before_resume", "cp333_after_resume",
+                    "cp333_before_bootstrap", "cp333_after_bootstrap",
+                    "cp333_before_offer_ack", "cp333_after_offer_ack"})
     if not raw:
         result["status"] = "partial"
         return result

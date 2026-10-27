@@ -204,7 +204,7 @@ class FixedParentEntry:
         self._stage_error = False
 
     def _mark(self, name):
-        """Emit bounded diagnostics without affecting the occurrence outcome."""
+        """Emit fixed diagnostics; callback faults fail closed before a claim."""
         if self._stage is not None:
             callback = self._stage
             prior_error = self._stage_error
@@ -228,6 +228,15 @@ class FixedParentEntry:
                 vars(self.receipt).clear()
                 vars(self.receipt).update(receipt_state)
             self._stage_error = bool(prior_error or self._stage_error)
+
+    def _adoption_mark(self, name):
+        """Keep the already-qualified CP334 path compact in live traces."""
+        if name.startswith("cp334_h") and not (
+                "_pipeflags_" in name or name.endswith("_flags_validated")):
+            return
+        if name in ("cp334_before_final_tick",):
+            return
+        self._mark(name)
 
     @classmethod
     def from_client_argv(cls, argv, *, stage=None):
@@ -253,7 +262,7 @@ class FixedParentEntry:
                 try:
                     self._mark("before_cp334_from_bootstrap_argv")
                     self.client_owner = client.from_bootstrap_argv(
-                        exports, self._client_argv, stage=self._mark)
+                        exports, self._client_argv, stage=self._adoption_mark)
                     self._mark("after_cp334_adopt")
                 except BaseException as error:
                     self.client_owner = getattr(error, "owner", None)
@@ -261,7 +270,8 @@ class FixedParentEntry:
                     raise
                 self._client_owner = self.client_owner
                 sink = self.sink = self._sink = _ClientSink(self.client_owner)
-            self.integration = integration.WatchdogIntegration(self.exports)
+            self.integration = integration.WatchdogIntegration(
+                self.exports, stage=self._mark)
             owner = self._owner = self.integration
             self._mark("before_cp333_acknowledge")
             self.integration.acknowledge()

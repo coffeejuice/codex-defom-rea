@@ -82,8 +82,9 @@ class StubState:
         state = self
 
         class Integration:
-            def __init__(self, exports):
+            def __init__(self, exports, *, stage=None):
                 assert exports is state.exports
+                assert callable(stage)
                 state.events.append("construct")
                 self.exports = exports
                 self.receipt = accepted_receipt()
@@ -363,6 +364,31 @@ class ParentEntryTests(unittest.TestCase):
             "before_cp333_complete", "after_cp333_complete",
         ])
         self.assertEqual(self.sink.events, [])
+
+    def test_live_adoption_trace_keeps_recovered_boundary_markers(self):
+        argv = [client.ARGV_TAG, "11", "12", "4000"]
+        stages = []
+        owner = SimpleClient(self.state.exports, 4000, [])
+
+        def adopt(exports, args, *, stage):
+            self.assertIs(exports, self.state.exports)
+            for name in ("cp334_argv_parsed", "cp334_owner_created",
+                         "cp334_adopt_enter", "cp334_h0_before_tick1",
+                         "cp334_h0_pipeflags_8", "cp334_h0_flags_validated",
+                         "cp334_h1_before_pipeinfo", "cp334_h1_pipeflags_8",
+                         "cp334_h1_flags_validated", "cp334_after_final_tick"):
+                stage(name)
+            return owner
+
+        with patch.object(entry.client, "from_bootstrap_argv", side_effect=adopt):
+            parent = entry.FixedParentEntry.from_client_argv(
+                argv, stage=stages.append)
+            self.assertEqual(parent.run().phase,
+                             "closed-local-success-controller-unverified")
+        self.assertIn("cp334_h0_pipeflags_8", stages)
+        self.assertIn("cp334_h1_flags_validated", stages)
+        self.assertNotIn("cp334_h0_before_tick1", stages)
+        self.assertNotIn("cp334_h1_before_pipeinfo", stages)
 
     def test_diagnostic_callback_cannot_replace_original_failure_or_claim(self):
         stages = []

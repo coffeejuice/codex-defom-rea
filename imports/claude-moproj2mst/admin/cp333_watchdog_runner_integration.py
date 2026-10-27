@@ -47,10 +47,13 @@ class WatchdogIntegration:
     inert RESULT/exit receipt. close() aborts containment and retains owners
     through unresolved cancellation/waits; it never labels abort as success.
     """
-    def __init__(self, exports, *, timeout_ms=5000):
+    def __init__(self, exports, *, timeout_ms=5000, stage=None):
         if not isinstance(exports, binding.BoundExports):
             raise TypeError("CP325 BoundExports required")
+        if stage is not None and not callable(stage):
+            raise TypeError("optional diagnostic stage callback must be callable")
         self.exports = exports
+        self._stage = stage
         self.watchdog = outer.OuterWatchdog(exports, timeout_ms=timeout_ms)
         self.receipt = Receipt()
         self.security = self.pipe_owner = self.handoff = None
@@ -59,6 +62,10 @@ class WatchdogIntegration:
         self._completion_entered = False
         self._verified_success = False
         self._accepted_success = False
+
+    def _mark(self, name):
+        if self._stage is not None:
+            self._stage(name)
 
     def _completion_custody(self):
         frozen = self._completion_owners
@@ -117,23 +124,37 @@ class WatchdogIntegration:
             raise Hold("integration is one-use")
         self.receipt.phase = "starting"
         try:
+            self._mark("cp333_start")
             self.receipt.deadline = self.watchdog.start_occurrence()
+            self._mark("cp333_occurrence_started")
             self.nonce = secrets.token_bytes(32)
             handoff.encode_bootstrap(self.receipt.deadline, self.nonce)
             self.security = security.NativePrivatePipeSecurity(self.exports)
             self.watchdog._budget()
+            self._mark("cp333_before_security")
             self.security.prepare()
+            self._mark("cp333_after_security")
             self.watchdog._budget()
             self.pipe_owner = pipes.NativePipeOwner(self.exports, self.security,
                 deadline=self.receipt.deadline)
+            self._mark("cp333_before_pipes")
             endpoints = self.pipe_owner.prepare(r"\\.\pipe\cp333-" + secrets.token_hex(32))
+            self._mark("cp333_after_pipes")
+            self._mark("cp333_before_worker_prepare")
             self.watchdog.prepare_suspended(child_read=endpoints.client_read,
                 child_write=endpoints.client_write)
+            self._mark("cp333_after_worker_prepare")
             self.handoff = handoff.ExactWorkerHandoff(self.exports,
                 watchdog=self.watchdog, pipe_owner=self.pipe_owner, nonce=self.nonce)
+            self._mark("cp333_before_resume")
             self.watchdog.resume_once()
+            self._mark("cp333_after_resume")
+            self._mark("cp333_before_bootstrap")
             self.handoff.bootstrap()
+            self._mark("cp333_after_bootstrap")
+            self._mark("cp333_before_offer_ack")
             offer = self.handoff.accept_offer_and_ack()
+            self._mark("cp333_after_offer_ack")
             self._completion_owners = (self.exports, self.watchdog, self.pipe_owner,
                 self.handoff, self.security, self.receipt, self.nonce, self.receipt.deadline,
                 tuple(self.handoff._channel_handles))

@@ -1,0 +1,9 @@
+# CP398 CP333 acknowledgement stages
+
+CP397's trace ended immediately before CP333 `WatchdogIntegration.acknowledge()`. That method allocates its own deadline, prepares a private descriptor and pipe, prepares and resumes the inert WORKER, and exchanges BOOTSTRAP, OFFER and ACK. The trace could not distinguish these steps.
+
+CP333 now accepts an optional diagnostic stage callback and emits ordered markers around the major acknowledgement operations. The actual CP347 fixed child passes its sticky failure-only marker callback. CP347 filters the already qualified CP334 per-call clock/inheritance/pipe-info marks while retaining CP334 parse, owner, entry, exact flags and validation markers; CP349 still recognizes historical full traces and accepts the new CP333 markers. The combined expected live success trace fits 2048 bytes and 40 records in an injected parser test. Separate injected tests check CP333 marker order and the CP347 live adoption filter.
+
+`analysis/cp398-ack-stage-tests.log` records 632 passing CP3xx tests from both import roots. Independent CP398 review confirmed marker order and the designed size/record bounds. It qualified two limits: synchronous per-marker file `fsync` can affect the five-second inner deadline, and an arbitrary injected callback that closes over CP347 can mutate nested CP333 owner state outside CP347's shallow mutation checks. The fixed bootstrap callback only writes the trace and is the production diagnostic used here; arbitrary callbacks are not an authority boundary.
+
+These markers are diagnostic only. They do not permit public launch, claim acceptance or altered cleanup. The CP397 raw occurrence is not repeatable. CP399 next freezes clean source/bytecode and obtains a one-occurrence gate for at most one fresh monitored inert diagnostic. No native child, WORKER, original application or GUI ran during this integration.

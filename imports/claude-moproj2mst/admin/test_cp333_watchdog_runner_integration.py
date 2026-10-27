@@ -300,6 +300,29 @@ class OuterTests(unittest.TestCase):
             with self.assertRaises(m.Hold):
                 owner.acknowledge()
 
+    def test_acknowledge_emits_ordered_diagnostic_boundaries(self):
+        h, watchdog, pipe_factory, control_factory = self.setup_contract()
+        descriptor = NS(prepare=lambda: None, cleanup=lambda: True)
+        stages = []
+        with patch.object(m.outer, "OuterWatchdog", return_value=watchdog), \
+             patch.object(m.security, "NativePrivatePipeSecurity",
+                          return_value=descriptor), \
+             patch.object(m.pipes, "NativePipeOwner", side_effect=pipe_factory), \
+             patch.object(m.handoff, "ExactWorkerHandoff",
+                          side_effect=control_factory), \
+             patch.object(m.secrets, "token_bytes", return_value=h.nonce):
+            owner = m.WatchdogIntegration(h.exports, stage=stages.append)
+            self.assertEqual(owner.acknowledge(), h.offer)
+        self.assertEqual(stages, [
+            "cp333_start", "cp333_occurrence_started",
+            "cp333_before_security", "cp333_after_security",
+            "cp333_before_pipes", "cp333_after_pipes",
+            "cp333_before_worker_prepare", "cp333_after_worker_prepare",
+            "cp333_before_resume", "cp333_after_resume",
+            "cp333_before_bootstrap", "cp333_after_bootstrap",
+            "cp333_before_offer_ack", "cp333_after_offer_ack",
+        ])
+
     def test_cp326_prepared_descriptor_is_required_by_parent_pipe_path(self):
         h, watchdog, pipe_factory, control_factory = self.setup_contract()
         real_security = m.security.NativePrivatePipeSecurity
