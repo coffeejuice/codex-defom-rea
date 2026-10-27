@@ -197,7 +197,13 @@ class CrossOwnerHandoffTests(unittest.TestCase):
         channel.parent.prepare = lambda name: channel.parent.receipt
 
         class ParentSecurity:
-            exports = h.exports
+            def __init__(self):
+                self.exports = h.exports
+                self.started = self.prepared = False
+            def prepare(self):
+                if self.started:
+                    raise AssertionError("parent descriptor prepared twice")
+                self.started = self.prepared = True
             def cleanup(self):
                 return True
         parent_security = ParentSecurity()

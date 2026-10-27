@@ -261,6 +261,7 @@ class OuterTests(unittest.TestCase):
                 return result
             return called
         watchdog = NS(start_occurrence=event("start", 500),
+            _budget=event("budget", 400),
             prepare_suspended=event("prepare-runner"), resume_once=event("resume-runner"),
             close=event("close-watchdog", NS(phase="closed")))
         pipe = NS(prepare=event("prepare-pipes", NS(client_read=11, client_write=12)),
@@ -281,19 +282,113 @@ class OuterTests(unittest.TestCase):
 
     def test_start_precedes_all_ipc_and_exact_ack(self):
         h, watchdog, pf, cf = self.setup_contract()
+        descriptor = NS(prepare=lambda: h.events.append("prepare-security"),
+            cleanup=lambda: True)
         with patch.object(m.outer, "OuterWatchdog", return_value=watchdog), \
-             patch.object(m.security, "NativePrivatePipeSecurity", side_effect=lambda e: h.events.append("security")), \
+             patch.object(m.security, "NativePrivatePipeSecurity",
+                 side_effect=lambda e: h.events.append("security") or descriptor), \
              patch.object(m.pipes, "NativePipeOwner", side_effect=pf), \
              patch.object(m.handoff, "ExactWorkerHandoff", side_effect=cf), \
              patch.object(m.secrets, "token_bytes", return_value=h.nonce):
             owner = m.WatchdogIntegration(h.exports)
             self.assertEqual(h.events, [])
             self.assertEqual(owner.acknowledge(), h.offer)
-            self.assertEqual(h.events, ["start", "security", "construct-pipes", "prepare-pipes",
+            self.assertEqual(h.events, ["start", "security", "budget", "prepare-security",
+                "budget", "construct-pipes", "prepare-pipes",
                 "prepare-runner", "construct-handoff", "resume-runner", "bootstrap", "ack"])
             self.assertEqual(owner.receipt.phase, "worker-authorized-trial-unaccepted")
             with self.assertRaises(m.Hold):
                 owner.acknowledge()
+
+    def test_cp326_prepared_descriptor_is_required_by_parent_pipe_path(self):
+        h, watchdog, pipe_factory, control_factory = self.setup_contract()
+        real_security = m.security.NativePrivatePipeSecurity
+        unprepared = real_security(h.exports)
+        with self.assertRaisesRegex(m.Hold, "successful prepare required"):
+            unprepared.security_attributes(inheritable=False)
+
+        native_check = h.call
+        descriptor_calls = {"InitializeAcl", "AddAccessAllowedAceEx",
+            "InitializeSecurityDescriptor", "SetSecurityDescriptorDacl",
+            "IsValidSecurityDescriptor"}
+        def check_call(name, *args):
+            if name in descriptor_calls:
+                h.events.append(name)
+                return 1
+            return native_check(name, *args)
+        h.call = check_call
+
+        def checking_pipe_factory(exports, descriptor, *, deadline):
+            pipe = pipe_factory(exports, descriptor, deadline=deadline)
+            original_prepare = pipe.prepare
+            def prepare(name):
+                # Use the actual CP326 precondition at CP328's call boundary.
+                attrs = descriptor.security_attributes(inheritable=False)
+                self.assertIs(attrs._descriptor_owner, descriptor)
+                return original_prepare(name)
+            pipe.prepare = prepare
+            return pipe
+
+        with patch.object(m.outer, "OuterWatchdog", return_value=watchdog), \
+             patch.object(real_security, "_copy_user",
+                 lambda descriptor: setattr(descriptor, "_sid", C.create_string_buffer(8))), \
+             patch.object(m.pipes, "NativePipeOwner", side_effect=checking_pipe_factory), \
+             patch.object(m.handoff, "ExactWorkerHandoff", side_effect=control_factory), \
+             patch.object(m.secrets, "token_bytes", return_value=h.nonce):
+            owner = m.WatchdogIntegration(h.exports)
+            self.assertEqual(owner.acknowledge(), h.offer)
+            self.assertIsInstance(owner.security, real_security)
+            self.assertTrue(owner.security.started)
+            self.assertTrue(owner.security.prepared)
+            self.assertEqual(h.events.count("InitializeAcl"), 1)
+            self.assertEqual(h.events.count("budget"), 2)
+
+    def test_security_prepare_failure_retains_owner_and_prevents_pipes(self):
+        h, watchdog, pipe_factory, control_factory = self.setup_contract()
+        def prepare():
+            h.events.append("prepare-security")
+            raise m.Hold("descriptor preparation failed")
+        descriptor = NS(prepare=prepare,
+            cleanup=lambda: h.events.append("cleanup-security") or True)
+        with patch.object(m.outer, "OuterWatchdog", return_value=watchdog), \
+             patch.object(m.security, "NativePrivatePipeSecurity", return_value=descriptor), \
+             patch.object(m.pipes, "NativePipeOwner", side_effect=pipe_factory), \
+             patch.object(m.handoff, "ExactWorkerHandoff", side_effect=control_factory), \
+             patch.object(m.secrets, "token_bytes", return_value=h.nonce):
+            owner = m.WatchdogIntegration(h.exports)
+            with self.assertRaisesRegex(m.IntegrationFailure, "descriptor preparation failed"):
+                owner.acknowledge()
+            self.assertIs(owner.security, descriptor)
+            self.assertIsNone(owner.pipe_owner)
+            self.assertEqual(owner.receipt.phase, "closed-aborted")
+            self.assertEqual(h.events, ["start", "budget", "prepare-security",
+                "close-watchdog", "cleanup-security"])
+
+    def test_security_prepare_uses_original_deadline_before_pipes(self):
+        h, watchdog, pipe_factory, control_factory = self.setup_contract()
+        def budget():
+            h.events.append("budget")
+            if h.now >= 500:
+                raise m.Hold("original deadline expired")
+            return 500 - h.now
+        watchdog._budget = budget
+        def prepare():
+            h.events.append("prepare-security")
+            h.now = 500
+        descriptor = NS(prepare=prepare,
+            cleanup=lambda: h.events.append("cleanup-security") or True)
+        with patch.object(m.outer, "OuterWatchdog", return_value=watchdog), \
+             patch.object(m.security, "NativePrivatePipeSecurity", return_value=descriptor), \
+             patch.object(m.pipes, "NativePipeOwner", side_effect=pipe_factory), \
+             patch.object(m.handoff, "ExactWorkerHandoff", side_effect=control_factory), \
+             patch.object(m.secrets, "token_bytes", return_value=h.nonce):
+            owner = m.WatchdogIntegration(h.exports)
+            with self.assertRaisesRegex(m.IntegrationFailure, "original deadline expired"):
+                owner.acknowledge()
+            self.assertIs(owner.security, descriptor)
+            self.assertIsNone(owner.pipe_owner)
+            self.assertEqual(h.events, ["start", "budget", "prepare-security",
+                "budget", "close-watchdog", "cleanup-security"])
 
     def test_failure_closes_retained_owner(self):
         for fail in ("prepare-pipes", "prepare-runner", "resume-runner", "bootstrap", "ack"):

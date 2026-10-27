@@ -4,7 +4,7 @@ import importlib
 import runpy
 from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import cp347_fixed_parent_entry as entry
 import cp334_runner_client_pipe as client
@@ -298,9 +298,11 @@ class ParentEntryTests(unittest.TestCase):
         import test_cp333_watchdog_runner_integration as cp333_tests
         h, watchdog, pipe_factory, control_factory = (
             cp333_tests.OuterTests().setup_contract())
+        descriptor = Mock()
+        descriptor.prepare.return_value = None
         with patch.object(entry.integration.outer, "OuterWatchdog", return_value=watchdog), \
              patch.object(entry.integration.security, "NativePrivatePipeSecurity",
-                          return_value=object()), \
+                          return_value=descriptor), \
              patch.object(entry.integration.pipes, "NativePipeOwner",
                           side_effect=pipe_factory), \
              patch.object(entry.integration.handoff, "ExactWorkerHandoff",
@@ -308,6 +310,7 @@ class ParentEntryTests(unittest.TestCase):
              patch.object(entry.integration.secrets, "token_bytes", return_value=h.nonce):
             actual = entry.integration.WatchdogIntegration(h.exports)
             actual.acknowledge()
+        descriptor.prepare.assert_called_once_with()
         self.assertEqual(len(actual._completion_owners), 9)
         self.assertIs(actual._completion_owners[5], actual.receipt)
         actual._accepted_success = actual._verified_success = True

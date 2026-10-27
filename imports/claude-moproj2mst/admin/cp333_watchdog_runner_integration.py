@@ -121,6 +121,9 @@ class WatchdogIntegration:
             self.nonce = secrets.token_bytes(32)
             handoff.encode_bootstrap(self.receipt.deadline, self.nonce)
             self.security = security.NativePrivatePipeSecurity(self.exports)
+            self.watchdog._budget()
+            self.security.prepare()
+            self.watchdog._budget()
             self.pipe_owner = pipes.NativePipeOwner(self.exports, self.security,
                 deadline=self.receipt.deadline)
             endpoints = self.pipe_owner.prepare(r"\\.\pipe\cp333-" + secrets.token_hex(32))

@@ -1,0 +1,29 @@
+{
+  "scope": "first CP350 native observation and CP333/CP349 security preparation repair",
+  "first_occurrence": {
+    "id": "24e4ad922a464a2185412063bb1b78a3",
+    "trial": "analysis/cp350-inert-trial-24e4ad922a464a2185412063bb1b78a3.json",
+    "trial_sha256": "704ca539e37e18f5edd62a327c432b3daac08b197dac8e9194ebd34580395ab0",
+    "monitor": "analysis/cp350-monitor-24e4ad922a464a2185412063bb1b78a3.json",
+    "monitor_sha256": "02110a04d10e06bd74713678c2d4358baaf4f08e4f7e297b91ab066e280b87fe",
+    "accepted": false,
+    "create_process_entered": false,
+    "cleanup": "closed",
+    "source_before_after_equal": true,
+    "error": "TopFailure: successful prepare required"
+  },
+  "initial_integration_log": "analysis/cp351-353-security-repair-tests.log",
+  "initial_integration_log_sha256": "5a39b7295723469e8cd0bcaa2f0992a96894e8775e8a05371e6e617dd5c5ffff",
+  "initial_integration_result": "594 tests in each module order; two failures and one error from old security fakes lacking prepare",
+  "repaired_integration_log": "analysis/cp351-353-security-repair-passed.log",
+  "repaired_integration_log_sha256": "f5388c02c2021b9a7b254b48d4d07a175f725c16c15a3dc1e468a6cca75bce5e",
+  "repaired_module_root_orders": [
+    {"root": "converter", "tests": 594, "passed": 594, "seconds": 0.336},
+    {"root": "converter/admin", "tests": 594, "passed": 594, "seconds": 0.337}
+  ],
+  "source_sha256": {
+    "admin/cp333_watchdog_runner_integration.py": "bdfe8d0e9e5ff8c5f6e956e896b96ce3476738c5f76c8536db3b265b0afbcd44",
+    "admin/cp349_top_controller.py": "260cf6079564ee71c742d719c12127367159b999367a42d1276c07dd4ea69261"
+  },
+  "next": "Independently qualify first-occurrence cleanup, freeze a clean source candidate and run at most one new monitored CP316 inert occurrence."
+}

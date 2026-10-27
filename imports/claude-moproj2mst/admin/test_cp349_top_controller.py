@@ -9,6 +9,8 @@ from types import SimpleNamespace
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cp349_top_controller as m
 from test_cp331_outer_watchdog import Harness
+from test_cp326_native_pipe_security import FakeBoundExports as SecurityExports
+from test_cp328_native_pipes import Fake as PipeExports
 
 
 class TopHarness(Harness):
@@ -17,6 +19,52 @@ class TopHarness(Harness):
             self.calls.append((name, args))
             assert args[0] == 31 and args[1] <= 10000
             return 0 if self.dead else 258
+        return super().dispatch(name, *args)
+
+
+class ComposedOwnerHarness(TopHarness):
+    """One injected export seam for real CP326, CP328, and CP349 owners."""
+    SECURITY = frozenset((
+        "GetCurrentThread", "OpenThreadToken", "GetCurrentProcess",
+        "OpenProcessToken", "GetTokenInformation", "IsValidSid",
+        "GetLengthSid", "CopySid", "InitializeAcl", "AddAccessAllowedAceEx",
+        "InitializeSecurityDescriptor", "SetSecurityDescriptorDacl",
+        "IsValidSecurityDescriptor"))
+    PIPE = frozenset((
+        "CreateNamedPipeW", "CreateFileW", "CreateEventW", "ConnectNamedPipe",
+        "GetOverlappedResultEx", "GetHandleInformation", "CancelIoEx"))
+
+    def __init__(self):
+        super().__init__()
+        self.security_exports = SecurityExports()
+        self.pipe_exports = PipeExports()
+        self.pipe_exports.next_handle = 40  # disjoint from the fixed job handle
+        self.create_false = self.no_outputs = True
+
+    def dispatch(self, name, *args):
+        if name in self.SECURITY:
+            self.calls.append((name, args))
+            result = self.security_exports.call(name, args)
+            self.error = self.security_exports.error
+            return result
+        if name in self.PIPE and (name != "GetHandleInformation" or
+                                  args[0] in self.pipe_exports.inherit):
+            self.calls.append((name, args))
+            result = getattr(self.pipe_exports, name)(*args)
+            self.error = self.pipe_exports.error
+            return result
+        if name == "CloseHandle":
+            handle = getattr(args[0], "value", args[0])
+            if handle == 100:
+                self.calls.append((name, args))
+                result = self.security_exports.call(name, args)
+                self.error = self.security_exports.error
+                return result
+            if handle in self.pipe_exports.inherit:
+                self.calls.append((name, args))
+                result = self.pipe_exports.CloseHandle(*args)
+                self.error = self.pipe_exports.error
+                return result
         return super().dispatch(name, *args)
 
 
@@ -30,6 +78,10 @@ class TopTests(unittest.TestCase):
             def __init__(self, exports):
                 self.exports = exports
                 self.cleaned = False
+                self.prepared = False
+            def prepare(self):
+                self.prepared = True
+                return self
             def cleanup(self):
                 self.cleaned = True
                 return True
@@ -66,6 +118,74 @@ class TopTests(unittest.TestCase):
         self.assertEqual(m.NATIVE_ENTRY, "HARD HOLD")
         with self.assertRaises(m.Hold):
             m.launch_trial()
+
+    def test_security_prepared_before_pipe_using_cp326_precondition(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, pipe = self.fake_channel(h)
+        class PreconditionSecurity(security):
+            security_attributes = m.security.NativePrivatePipeSecurity.security_attributes
+            def __init__(self, exports):
+                super().__init__(exports)
+                self._sd = m.security.SECURITY_DESCRIPTOR()
+        class PreconditionPipe(pipe):
+            def prepare(self, name):
+                attributes = self.descriptor.security_attributes()
+                self.assert_descriptor(attributes)
+                return super().prepare(name)
+            def assert_descriptor(self, attributes):
+                assert attributes._descriptor_owner is self.descriptor
+                assert not attributes.bInheritHandle
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", PreconditionSecurity),
+              mock.patch.object(m.pipes, "NativePipeOwner", PreconditionPipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            result = owner.run()
+        self.assertEqual(result.phase, "closed-success")
+        self.assertTrue(owner.security.prepared)
+        self.assertTrue(owner.security.cleaned)
+
+    def test_security_prepare_failure_retains_cleanup_owner(self):
+        h = TopHarness()
+        owner = m.TopController(h.exports)
+        security, pipe = self.fake_channel(h)
+        class FailedSecurity(security):
+            def prepare(self):
+                raise m.Hold("injected security preparation failure")
+        with (mock.patch.object(m.security, "NativePrivatePipeSecurity", FailedSecurity),
+              mock.patch.object(m.pipes, "NativePipeOwner", pipe),
+              mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaisesRegex(m.TopFailure, "injected security preparation failure"):
+                owner.run()
+        self.assertIsInstance(owner.security, FailedSecurity)
+        self.assertTrue(owner.security.cleaned)
+        self.assertIsNone(owner.pipe_owner)
+
+    def test_real_security_and_pipe_compose_until_injected_create_failure(self):
+        h = ComposedOwnerHarness()
+        owner = m.TopController(h.exports)
+        with (mock.patch.object(owner, "_start_timer"),
+              mock.patch.object(owner, "_stop_timer")):
+            with self.assertRaisesRegex(m.TopFailure, "CreateProcessW"):
+                owner.run()
+        names = [name for name, _ in h.calls]
+        self.assertIn("SetSecurityDescriptorDacl", names)
+        self.assertEqual(names.count("CreateNamedPipeW"), 2)
+        self.assertLess(names.index("SetSecurityDescriptorDacl"),
+                        names.index("CreateNamedPipeW"))
+        self.assertIn("CreateProcessW", names)
+        self.assertNotIn("ResumeThread", names)
+        self.assertFalse(h.created)
+        self.assertEqual(h.security_exports.closed, [100])
+        self.assertEqual(owner.pipe_owner.handles, set())
+        self.assertEqual(owner.pipe_owner.operations, [])
+        self.assertIsNone(owner.pipe_owner.receipt)
+        self.assertEqual(h.pipe_exports.inherit, {})
+        self.assertEqual(owner._owned_handles, {})
+        self.assertTrue(owner._no_child_proven)
+        self.assertEqual(owner.receipt.create_outcome, "returned-failure-no-child")
+        self.assertEqual(owner.receipt.phase, "hold")
 
     def test_fixed_cp347_suspended_creation_and_exact_inheritance(self):
         h = Harness()

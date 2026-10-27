@@ -232,6 +232,9 @@ class TopController(outer.OuterWatchdog):
             self.start_occurrence()  # before security/IPC and CreateProcessW
             self._start_timer()      # independent of the launch thread
             self.security = original_security = security.NativePrivatePipeSecurity(self.exports)
+            self._budget()
+            self.security.prepare()
+            self._budget()
             self.pipe_owner = original_pipe = pipes.NativePipeOwner(
                 self.exports, self.security, deadline=self.deadline)
             endpoints = self.pipe_owner.prepare(
