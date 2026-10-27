@@ -18,7 +18,8 @@ struct Type3OptCollection {
 };
 struct Type3OptSavePrepared {
     std::string path;
-    Type3OptFragments header;                 // includes the three header lines
+    std::int32_t krgMax = 0; // prepared +0x138 result, not a native getter call
+    std::int32_t oprNo = 0;  // prepared helper 0x14091e0b0 result
     Type3OptFragments scalarPrefix;
     std::array<Type3OptCollection, 3> collections;
     Type3OptFragments scalarSuffix;
@@ -42,6 +43,10 @@ struct Type3OptGroupReceipt {
 struct Type3OptAttemptSink {
     virtual ~Type3OptAttemptSink() = default;
     virtual bool open(const std::string& path) = 0;
+    // Separate stream attempts; ordinary return statuses are ignored.
+    virtual bool insertLiteral(const char* literal) = 0;
+    virtual bool insertInt(std::int32_t value) = 0;
+    virtual bool insertEndl() = 0;
     // Return status is an observation, never a branch in the ordinary path.
     virtual bool insert(const std::string& fragment) = 0;
     virtual bool close() = 0;
@@ -49,12 +54,13 @@ struct Type3OptAttemptSink {
 };
 
 // Both ordinary paths return false. Exceptions/nonreturns and native Qt
-// buffering, formatting, physical writes, and unwind cleanup are not modeled.
+// getter execution/timing, Qt integer formatting, flushing, physical bytes,
+// unwind cleanup, owner lifetime, and public Save are not modeled.
 bool attemptType3OptSave(const Type3OptSavePrepared& prepared,
                          Type3OptAttemptSink& sink);
 
 // Stable normally returning group profile. Receipt is assigned only after open,
-// header and scalarPrefix complete; a failed open or earlier throw leaves it alone.
+// fixed typed prefix and scalarPrefix complete; a failed open or earlier throw leaves it alone.
 // This is a private value projection, not public Type3 admission, Qt bytes or
 // an assertion about the native optimizer owner's lifetime.
 bool attemptType3OptSaveWithGroups(const Type3OptSavePrepared& prepared,

@@ -16,7 +16,20 @@ bool attempt(const Type3OptSavePrepared& p, Type3OptAttemptSink& sink,
         sink.assignOpenFailureDiagnostic(p.path);
         return false;
     }
-    insertAll(sink, p.header);
+    (void)sink.insertLiteral("DEF_OPT       \t1.0");
+    (void)sink.insertEndl();
+    (void)sink.insertLiteral("TYP_OPT       \t1");
+    (void)sink.insertEndl();
+    (void)sink.insertLiteral("GRD_TYP  \t\t10");
+    (void)sink.insertEndl();
+    // Operands are already prepared; this does not execute native getters.
+    (void)sink.insertLiteral("KRG_MAX       \t");
+    (void)sink.insertInt(p.krgMax);
+    (void)sink.insertEndl();
+    (void)sink.insertLiteral("OPR_NO        \t");
+    (void)sink.insertInt(p.oprNo);
+    (void)sink.insertEndl();
+    (void)sink.insertEndl();
     insertAll(sink, p.scalarPrefix);
     if (state && receipt) {
         Type3OptGroupReceipt completed;
