@@ -459,7 +459,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         !flow.items[0]->group && !flow.items[1]->group &&
         flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
         flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
-        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
         std::isfinite(flow.items[1]->rect[0]) && std::isfinite(flow.items[1]->rect[1]) &&
         std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]) &&
         flow.items[1]->rect[0] < 1332.5 && flow.items[1]->rect[1] < 67.5 &&
@@ -493,7 +493,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         !flow.items[0]->group && !flow.items[1]->group &&
         flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
         flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
-        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
         std::isfinite(flow.items[1]->rect[0]) && std::isfinite(flow.items[1]->rect[1]) &&
         std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]) &&
         flow.items[1]->rect[0] < 1332.5 && flow.items[1]->rect[1] < 67.5 &&
@@ -521,12 +521,55 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         initiallyEmpty && initiallyUnlinked && flow.items[0] && flow.items[1] &&
         !flow.items[0]->group && !flow.items[1]->group &&
         flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
-        flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 && flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
+        std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
         std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] > 0.0 && flow.items[1]->rect[0] < 1332.5 &&
         std::isfinite(flow.items[1]->rect[1]) && flow.items[1]->rect[1] < 160.0 &&
         std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]);
     const bool freeColumnPairCandidate = initiallyEmpty && initiallyUnlinked && cellInputs.size() == 2 &&
         flow.items.size() == 2 && nonzeroPairCandidate && flow.items[1]->rect[0] >= 102.5;
+    const bool threeCollisionCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() == 3 && cellInputs.size() == 3 &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
+        }) &&
+        std::all_of(flow.items.begin(), flow.items.begin() + 2, [](const auto& item) {
+            return item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) &&
+        std::isfinite(flow.items[2]->rect[0]) && flow.items[2]->rect[0] > 0.0 &&
+        flow.items[2]->rect[0] < 102.5 && flow.items[2]->rect[1] == 0.0 &&
+        flow.items[2]->rect[2] == 0.0 && flow.items[2]->rect[3] == 0.0;
+    bool threeDirectCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() == 3 && cellInputs.size() == 3;
+    if (threeDirectCandidate) {
+        std::set<int> targets;
+        for (std::size_t i = 0; i < 3; ++i) {
+            const auto& item = flow.items[i];
+            const CellInput& input = cellInputs[i];
+            if (!item || item->group || item->className != L("SfOprForming2D") ||
+                !std::isfinite(item->rect[0]) || !std::isfinite(item->rect[1]) ||
+                !std::isfinite(item->rect[2]) || !std::isfinite(item->rect[3]) ||
+                item->rect[0] >= 1332.5 || item->rect[1] >= 67.5 ||
+                !(validExplicitCell(input) || sentinelCell(input))) {
+                threeDirectCandidate = false;
+                break;
+            }
+            int col = input.col;
+            if (sentinelCell(input)) {
+                double x = item->rect[0];
+                if (x < -60.0) x = 0.0;
+                const double cx = x / 205.0;
+                col = static_cast<int>(std::floor(cx));
+                if (cx - std::floor(cx) >= 0.5) col = static_cast<int>(std::ceil(cx));
+            }
+            if (col < 0 || col >= 7 || !targets.insert(col).second) {
+                threeDirectCandidate = false;
+                break;
+            }
+        }
+    }
     const bool negativeEightCandidate = initiallyEmpty && flow.items.size() == 8 &&
         cellInputs.size() == 8 &&
         std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
@@ -568,7 +611,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 }
                 // The selected row-0 recurrence shifts an occupied token run
                 // to the adjacent free cells; other collision patterns stay guarded.
-                if ((recurrenceCandidate || nonzeroPairCandidate || (negativeEightCandidate && k < 7)) && k > 0 && row0 && col == 0 &&
+                if ((recurrenceCandidate || nonzeroPairCandidate || threeCollisionCandidate || (negativeEightCandidate && k < 7)) && k > 0 && row0 && col == 0 &&
                     flow.items[0]->row == 0 && flow.items[0]->col == 0) {
                     // Insertion at column 1 recursively shifts the occupied
                     // type-1 run; the model vector remains in source order.
@@ -586,7 +629,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             } else {
                 it.row = 0;
                 it.col = col;
-                if (singletonRelayoutCandidate || mixedPairCandidate) {
+                if (singletonRelayoutCandidate || mixedPairCandidate || threeDirectCandidate ||
+                    ((nonzeroPairCandidate || threeCollisionCandidate) && k == 0)) {
                     it.rect[0] = 205.0 * col;
                     it.rect[1] = 0.0;
                 }
@@ -595,7 +639,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.rect[1] = 0.0;
                 }
             }
-        } else if (singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate) {
+        } else if (singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate) {
             it.rect[0] = 205.0 * it.col;
             it.rect[1] = 0.0;
         }
@@ -603,7 +647,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         if (it.row == 0) row0 = true;
     }
     if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate ||
-        singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate) {
+        singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
+        threeCollisionCandidate || threeDirectCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.
@@ -618,7 +663,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             // The native grid scan visits empty cells too and clears its previous
             // item there. In this selected row-0 pair, an unoccupied column gap
             // therefore prevents a synthesized connector edge.
-            if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate) && grid[k]->row == grid[k - 1]->row &&
+            if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate) &&
+                grid[k]->row == grid[k - 1]->row &&
                 grid[k]->col > grid[k - 1]->col + 1) continue;
             connectItems(grid[k - 1], grid[k]);
         }
