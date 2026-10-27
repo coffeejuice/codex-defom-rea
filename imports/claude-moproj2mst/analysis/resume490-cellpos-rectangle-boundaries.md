@@ -1,0 +1,9 @@
+# CP490 CellPos singleton geometry boundaries
+
+CP489's corrected missing/explicit-`-1` placement already covers selected nonzero RectF top-lefts in an initially empty chart. The original editor takes RectF left/top, clamps x below -60 and y below -25 to zero, and derives column by half-up rounding of x/205. The empty-chart row-zero limit changes at y=67.5: equality selects native row 1, which remains outside the converter's supported row-zero subset. This checkpoint strengthens evidence-backed public XML tests; it does not add a production branch.
+
+Fresh-chart singleton tests now cover absent, partial and full `-1` CellPos with interior columns 1–6, half-step column boundaries, x/y clamp results, empty-chart row-zero boundary and a valid explicitly selected cell. They assert the parsed coordinates or the specific row-zero refusal rather than accepting any unrelated unsupported error. Independent review qualified the selected thresholds, corrected a comment that had misstated native row selection, and found no final defect. Clamp cases establish resulting cells, not the strict comparator itself.
+
+Source-stable `analysis/cp490-build.json` passed focused `m2m.p03.subproject` and full build. The bound launcher registered 387 tests: 380 clean, six with logged gaps, one with a logged difference, zero failed/skipped/incomplete and no fixture changes. Source SHA-256 was `b4696125863025b23e27901c2e46b3642c12f6bbe31ab9da43ea33dc5972ce80`; historical Save remains 93 SAME/five DIFF. No original GUI process or control was used.
+
+An independent PE audit identified the next source-closed production cut: two ordinary zero-RectF items both selecting initially occupied row0/col0. The native free-adjacent route places the second at col1 and moves its RectF left to 205; CP491 must preserve both mutations and keep other collision patterns guarded. See the CP491 source contract after its separate review.

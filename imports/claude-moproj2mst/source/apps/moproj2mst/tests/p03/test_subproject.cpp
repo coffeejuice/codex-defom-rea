@@ -65,21 +65,21 @@ TEST_CASE(operation_by_id_first_row)
 
 TEST_CASE(cellpos_minus_one_coordinate_is_recomputed_through_parser)
 {
-    struct Case { const char* cell; int row; int col; };
+    struct Case { const char* cell; double x; double y; int row; int col; };
     const Case cases[] = {
-        {"", 0, 0},
-        {"<CellPos Row=\"-1\" Col=\"0\"/>", 0, 0},
-        {"<CellPos Row=\"0\" Col=\"-1\"/>", 0, 0},
-        {"<CellPos Row=\"-1\" Col=\"-1\"/>", 0, 0},
-        {"<CellPos Row=\"-1\" Col=\"5\"/>", 0, 0},
-        {"<CellPos Row=\"5\" Col=\"-1\"/>", 0, 0},
-        {"<CellPos Row=\"0\" Col=\"4\"/>", 0, 4},
+        {"", 0, 0, 0, 0},
+        {"<CellPos Row=\"-1\" Col=\"0\"/>", 410, 0, 0, 2},
+        {"<CellPos Row=\"0\" Col=\"-1\"/>", 820, 0, 0, 4},
+        {"<CellPos Row=\"-1\" Col=\"-1\"/>", 1230, 0, 0, 6},
+        {"<CellPos Row=\"-1\" Col=\"5\"/>", 205, 0, 0, 1},
+        {"<CellPos Row=\"5\" Col=\"-1\"/>", 1025, 0, 0, 5},
+        {"<CellPos Row=\"0\" Col=\"4\"/>", 0, 0, 0, 4},
     };
     for (const Case& c : cases) {
         Project p;
         p.subs.push_back(makeSubProject(p, 0, 0));
-        std::string source = "<Sub_Project><DiagramItem Operation_Id=\"1\"><ClassName>SfOprForming2D</ClassName>"
-                             "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>";
+        std::string source = "<Sub_Project><DiagramItem Operation_Id=\"1\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                             std::to_string(c.x) + "</x><y>" + std::to_string(c.y) + "</y><width>0</width><height>0</height></RectF>";
         source += c.cell;
         source += "</DiagramItem></Sub_Project>";
         xml::Document doc;
@@ -93,6 +93,73 @@ TEST_CASE(cellpos_minus_one_coordinate_is_recomputed_through_parser)
         CHECK_EQ(p.subs[0]->flow.items[0]->row, c.row);
         CHECK_EQ(p.subs[0]->flow.items[0]->col, c.col);
     }
+}
+
+TEST_CASE(cellpos_minus_one_column_rounding_and_clamps)
+{
+    struct Case { double x; int col; };
+    const Case cases[] = {
+        {205.0 + 102.5 - 0.001, 1}, {205.0 + 102.5, 2}, {205.0 + 102.5 + 0.001, 2},
+        {3.0 * 205.0 + 102.5 - 0.001, 3}, {3.0 * 205.0 + 102.5, 4}, {3.0 * 205.0 + 102.5 + 0.001, 4},
+        {-60.001, 0},
+    };
+    for (const Case& c : cases) {
+        Project p;
+        p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project><DiagramItem Operation_Id=\"1\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                             std::to_string(c.x) + "</x><y>0</y><width>0</width><height>0</height></RectF>"
+                             "<CellPos Row=\"-1\" Col=\"-1\"/></DiagramItem></Sub_Project>";
+        xml::Document doc;
+        String error;
+        int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col));
+        REQUIRE(doc.root != nullptr);
+        Ctx ctx;
+        parseSubProject(p, *doc.root, ctx);
+        REQUIRE(p.subs[0]->flow.items.size() == 1u);
+        CHECK_EQ(p.subs[0]->flow.items[0]->row, 0);
+        CHECK_EQ(p.subs[0]->flow.items[0]->col, c.col);
+    }
+}
+
+TEST_CASE(cellpos_minus_one_y_clamp_and_empty_chart_row_boundary)
+{
+    for (double y : {-25.001, 0.0, 67.499}) {
+        Project p;
+        p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project><DiagramItem Operation_Id=\"1\"><ClassName>SfOprForming2D</ClassName><RectF><x>0</x><y>" +
+                             std::to_string(y) + "</y><width>0</width><height>0</height></RectF>"
+                             "<CellPos Row=\"-1\" Col=\"-1\"/></DiagramItem></Sub_Project>";
+        xml::Document doc;
+        String error;
+        int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col));
+        REQUIRE(doc.root != nullptr);
+        Ctx ctx;
+        parseSubProject(p, *doc.root, ctx);
+        REQUIRE(p.subs[0]->flow.items.size() == 1u);
+        CHECK_EQ(p.subs[0]->flow.items[0]->row, 0);
+        CHECK_EQ(p.subs[0]->flow.items[0]->col, 0);
+    }
+    // Native row lookup selects row 1 at 67.5; this converter subset rejects placement outside row 0.
+    Project p;
+    p.subs.push_back(makeSubProject(p, 0, 0));
+    const std::string source = "<Sub_Project><DiagramItem Operation_Id=\"1\"><ClassName>SfOprForming2D</ClassName>"
+                               "<RectF><x>0</x><y>67.5</y><width>0</width><height>0</height></RectF>"
+                               "<CellPos Row=\"-1\" Col=\"-1\"/></DiagramItem></Sub_Project>";
+    xml::Document doc;
+    String error;
+    int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col));
+    REQUIRE(doc.root != nullptr);
+    Ctx ctx;
+    bool row_guard = false;
+    try { parseSubProject(p, *doc.root, ctx); }
+    catch (const Error& e) {
+        row_guard = e.code == M2M_E_UNSUPPORTED &&
+                    std::string(e.what()).find("outside row 0 / the 7 columns") != std::string::npos;
+    }
+    CHECK(row_guard);
 }
 
 TEST_CASE(activate_parses_every_corpus_flow_chart)
