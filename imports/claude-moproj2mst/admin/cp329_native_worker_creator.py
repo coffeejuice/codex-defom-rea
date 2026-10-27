@@ -56,6 +56,7 @@ class Receipt:
     completion_wait_status: int | None = None
     completion_post_wait_budget: str = "not-attempted"
     completion_post_wait_remaining: int | None = None
+    completion_post_wait_stage: str = "not-attempted"
     errors: list = field(default_factory=list)
 
 
@@ -329,24 +330,43 @@ class NativeWorkerCreator:
             raise
         r.completion_post_wait_budget = "passed"
         r.completion_post_wait_remaining = self.deadline - self._last_tick
+        r.completion_post_wait_stage = "wait-status-check"
         if type(status) is not int or status != 0:
             raise Hold("exact bounded worker WAIT_OBJECT_0 required")
         code = abi.DWORD()
+        r.completion_post_wait_stage = "exit-query-entered"
         self._ok("GetExitCodeProcess", process, C.byref(code))
+        r.completion_post_wait_stage = "exit-query-returned"
+        r.completion_post_wait_stage = "exit-budget-entered"
         self._budget()
+        r.completion_post_wait_stage = "exit-budget-passed"
         if code.value != 0:
             raise Hold("exact WORKER exit code zero required")
+        r.completion_post_wait_stage = "worker-accounting-entered"
         worker_count = self._active(r.local["worker_job"])
+        r.completion_post_wait_stage = "worker-accounting-returned"
+        r.completion_post_wait_stage = "worker-budget-entered"
         self._budget()
+        r.completion_post_wait_stage = "worker-budget-passed"
+        r.completion_post_wait_stage = "child-accounting-entered"
         child_count = self._active(r.local["child_job"])
+        r.completion_post_wait_stage = "child-accounting-returned"
+        r.completion_post_wait_stage = "child-budget-entered"
         self._budget()
+        r.completion_post_wait_stage = "child-budget-passed"
+        r.completion_post_wait_stage = "job-count-check"
         if worker_count != 0 or child_count != 0:
             raise Hold("both WORKER and CHILD jobs must be empty")
+        r.completion_post_wait_stage = "pending-pipe-check"
         if any(not op.terminal for op in self.pipe_owner.operations):
             raise Hold("all pipe I/O must have terminal evidence")
         r.worker_waited, r.jobs_empty = True, True
         r.remote_child_job = None  # exact worker death releases remote ownership
-        return self.close()
+        r.completion_post_wait_stage = "success-flags-set"
+        r.completion_post_wait_stage = "close-entered"
+        completed = self.close()
+        r.completion_post_wait_stage = "close-returned"
+        return completed
 
     def close(self):
         """Nonblocking retryable cleanup; failed waits retain all handles.

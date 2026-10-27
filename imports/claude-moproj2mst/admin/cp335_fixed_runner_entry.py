@@ -149,8 +149,10 @@ class FixedRunnerEntry:
                 if self.runner is not None and type(self.nonce) is bytes and len(self.nonce) == 32:
                     rr = self.runner.receipt
                     wr = getattr(getattr(self.runner, "worker", None), "receipt", None)
+                    cause = error.__cause__
                     snapshot = {
                         "runner": {
+                            "phase": getattr(rr, "phase", None),
                             "ack_memory_stage": getattr(rr, "ack_memory_stage", None),
                             "ack_remaining": getattr(rr, "ack_remaining", None),
                             "post_ack_budget": getattr(rr, "post_ack_budget", None),
@@ -158,11 +160,19 @@ class FixedRunnerEntry:
                             "terminal_memory_stage": self.receipt.terminal_memory_stage,
                         },
                         "worker": {
+                            "phase": getattr(wr, "phase", None),
                             "wait_outcome": getattr(wr, "completion_wait_outcome", None),
                             "wait_remaining": getattr(wr, "completion_wait_remaining", None),
                             "wait_status": getattr(wr, "completion_wait_status", None),
                             "post_wait_budget": getattr(wr, "completion_post_wait_budget", None),
                             "post_wait_remaining": getattr(wr, "completion_post_wait_remaining", None),
+                            "post_wait_stage": getattr(wr, "completion_post_wait_stage", None),
+                        },
+                        "failure": {
+                            "type": type(error).__name__[:40],
+                            "message": str(error)[:120],
+                            "cause_type": type(cause).__name__[:40] if cause is not None else None,
+                            "cause_message": str(cause)[:120] if cause is not None else None,
                         },
                     }
                     progress.write_failure_completion(self.nonce, self.receipt.deadline, snapshot)

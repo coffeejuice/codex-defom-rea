@@ -255,6 +255,10 @@ class EntryTests(unittest.TestCase):
             self.assertEqual((observed_nonce, observed_deadline), (b"n" * 32, 100))
             self.assertEqual(snapshot["runner"]["terminal_memory_stage"], "entered")
             self.assertIsNone(snapshot["worker"]["wait_outcome"])
+            self.assertEqual(snapshot["failure"]["type"],
+                             "RuntimeError" if mode == "exception" else "Hold")
+            self.assertIn("terminal write outcome unknown" if mode == "exception"
+                          else "terminal claim delivery", snapshot["failure"]["message"])
             self.assertEqual(terminal.decode_terminal(state.terminal_frame,
                              deadline=100, nonce=b"n" * 32),
                              terminal.TerminalSuccess(100, b"n" * 32))
@@ -271,6 +275,20 @@ class EntryTests(unittest.TestCase):
                 owner.run()
         self.assertIn("terminal write outcome unknown", str(caught.exception.__cause__))
         self.assertEqual(owner.receipt.phase, "hold")
+
+    def test_failure_receipt_preserves_bounded_cause_after_cleanup(self):
+        state = Stubs()
+        owner = self.run_stubs(state)
+        outer = RuntimeError("outer failure")
+        outer.__cause__ = ValueError("inner cause")
+        with patch.object(state.Runner, "run", side_effect=outer):
+            with self.assertRaises(entry.EntryFailure):
+                owner.run()
+        self.assertEqual(state.events[-2:], ["runner-close", "client-cleanup"])
+        self.assertEqual(len(state.failure_completions), 1)
+        failure = state.failure_completions[0][2]["failure"]
+        self.assertEqual(failure, {"type": "RuntimeError", "message": "outer failure",
+                                   "cause_type": "ValueError", "cause_message": "inner cause"})
 
     def test_marker_failure_never_gates_success(self):
         state = Stubs()

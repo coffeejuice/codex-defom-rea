@@ -199,6 +199,7 @@ class CreatorTests(unittest.TestCase):
         self.assertIsNone(h.owner.receipt.remote_child_job)
         self.assertNotIn("TerminateJobObject", h.calls)
         self.assertEqual(h.owner.receipt.local, {})
+        self.assertEqual(h.owner.receipt.completion_post_wait_stage, "close-returned")
 
     def test_completion_refuses_timeout_nonzero_exit_jobs_or_pending_io(self):
         for mode in ("timeout", "bad-status", "exit", "worker-job", "child-job", "pending"):
@@ -216,6 +217,11 @@ class CreatorTests(unittest.TestCase):
                 self.assertFalse(h.owner.receipt.worker_waited)
                 self.assertFalse(h.owner.receipt.jobs_empty)
                 self.assertEqual(h.closed, [])
+                expected_stage = {"timeout": "wait-status-check",
+                    "bad-status": "wait-status-check", "exit": "exit-budget-passed",
+                    "worker-job": "job-count-check", "child-job": "job-count-check",
+                    "pending": "pending-pipe-check"}[mode]
+                self.assertEqual(h.owner.receipt.completion_post_wait_stage, expected_stage)
 
     def test_completion_rejects_deadline_expiry_and_cleanup_uncertainty(self):
         h = self.completion_harness()
@@ -332,7 +338,7 @@ class CreatorTests(unittest.TestCase):
         r = h.owner.receipt
         fields = ("completion_wait_outcome", "completion_wait_remaining",
                   "completion_wait_status", "completion_post_wait_budget",
-                  "completion_post_wait_remaining")
+                  "completion_post_wait_remaining", "completion_post_wait_stage")
         before = tuple(getattr(r, name) for name in fields)
         h.dispatch = lambda name, *args: Harness.dispatch(h, name, *args)
         self.assertEqual(h.owner.close().phase, "closed")
@@ -340,6 +346,116 @@ class CreatorTests(unittest.TestCase):
         self.assertTrue(r.worker_waited)
         self.assertEqual(tuple(getattr(r, name) for name in fields), before)
         self.assertEqual(r.completion_post_wait_budget, "rejected")
+
+    def test_post_wait_deadline_records_exact_later_budget_without_extra_clocks(self):
+        for target, expected_stage, clock_calls in (
+                ("exit", "exit-budget-entered", 3),
+                ("worker", "worker-budget-entered", 4),
+                ("child", "child-budget-entered", 5)):
+            with self.subTest(target=target):
+                h = self.completion_harness()
+                original = h.dispatch
+
+                def late_return(name, *args):
+                    result = original(name, *args)
+                    selected = (name == "GetExitCodeProcess" if target == "exit" else
+                        name == "QueryInformationJobObject" and
+                        args[0] == (21 if target == "worker" else 22))
+                    if selected:
+                        h.now = h.owner.deadline
+                    return result
+
+                h.dispatch = late_return
+                before = len(h.calls)
+                with self.assertRaisesRegex(m.Hold, "original absolute deadline"):
+                    h.owner.complete_success()
+                r = h.owner.receipt
+                self.assertEqual(r.completion_wait_status, 0)
+                self.assertEqual(r.completion_post_wait_budget, "passed")
+                self.assertEqual(r.completion_post_wait_remaining, 900)
+                self.assertEqual(r.completion_post_wait_stage, expected_stage)
+                self.assertEqual(h.calls[before:].count("GetTickCount64"), clock_calls)
+                self.assertFalse(r.worker_waited)
+                self.assertFalse(r.jobs_empty)
+                self.assertTrue(r.local)
+                self.assertEqual(h.closed, [])
+                self.assertNotIn("pipes.cleanup", h.calls[before:])
+
+    def test_post_wait_api_failure_records_last_entered_helper(self):
+        for target, expected_stage in (
+                ("exit", "exit-query-entered"),
+                ("worker", "worker-accounting-entered"),
+                ("child", "child-accounting-entered")):
+            for uncertain in (False, True):
+                with self.subTest(target=target, uncertain=uncertain):
+                    h = self.completion_harness()
+                    original = h.dispatch
+                    error = RuntimeError("native return unknown")
+
+                    def failed_query(name, *args):
+                        selected = (name == "GetExitCodeProcess" if target == "exit" else
+                            name == "QueryInformationJobObject" and
+                            args[0] == (21 if target == "worker" else 22))
+                        if selected:
+                            h.calls.append(name)
+                            if uncertain:
+                                raise error
+                            h.error = 5
+                            return 0
+                        return original(name, *args)
+
+                    h.dispatch = failed_query
+                    with self.assertRaises(RuntimeError if uncertain else m.ApiFailure) as caught:
+                        h.owner.complete_success()
+                    if uncertain:
+                        self.assertIs(caught.exception, error)
+                    else:
+                        self.assertEqual(caught.exception.code, 5)
+                    r = h.owner.receipt
+                    self.assertEqual(r.completion_post_wait_stage, expected_stage)
+                    self.assertFalse(r.worker_waited)
+                    self.assertFalse(r.jobs_empty)
+                    self.assertTrue(r.local)
+                    self.assertEqual(h.closed, [])
+
+    def test_post_wait_cleanup_failure_and_retry_preserve_returned_stage(self):
+        for failure in ("pipe", "handle", "pin"):
+            with self.subTest(failure=failure):
+                h = self.completion_harness()
+                if failure == "pipe":
+                    h.pipes.ready = False
+                elif failure == "handle":
+                    h.close_fail = 31
+                else:
+                    h.pin.fail_close = True
+                r = h.owner.complete_success()
+                self.assertEqual(r.phase, "hold")
+                self.assertEqual(r.completion_post_wait_stage, "close-returned")
+                self.assertTrue(r.worker_waited)
+                self.assertTrue(r.jobs_empty)
+                self.assertIsNone(r.remote_child_job)
+                self.assertNotIn("TerminateJobObject", h.calls)
+                h.pipes.ready, h.close_fail, h.pin.fail_close = True, None, False
+                self.assertEqual(h.owner.close().phase, "closed")
+                self.assertEqual(r.completion_post_wait_stage, "close-returned")
+                self.assertNotIn("TerminateJobObject", h.calls)
+
+    def test_post_wait_unexpected_close_exception_keeps_entered_stage(self):
+        h = self.completion_harness()
+        error = RuntimeError("cleanup outcome unknown")
+        with patch.object(h.owner, "close", side_effect=error):
+            with self.assertRaises(RuntimeError) as caught:
+                h.owner.complete_success()
+        self.assertIs(caught.exception, error)
+        r = h.owner.receipt
+        self.assertEqual(r.completion_post_wait_stage, "close-entered")
+        self.assertTrue(r.worker_waited)
+        self.assertTrue(r.jobs_empty)
+        self.assertIsNone(r.remote_child_job)
+        self.assertTrue(r.local)
+        self.assertEqual(h.owner.close().phase, "closed")
+        self.assertEqual(r.completion_post_wait_stage, "close-entered")
+        self.assertNotIn("TerminateJobObject", h.calls)
 
     def prepare(self, h):
         return h.owner.prepare(r"\\.\pipe\cp329-injected")
