@@ -306,9 +306,9 @@ void importEnabledMirrorPlanePrefix(MirrorPlaneOwner& owner, const mst::MirrorPl
     // by the reflection helper, which uses the supplied, unnormalized normal.
     std::array<double, 16> matrix{1.0, 0.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
-    const std::array<double, 3> n{static_cast<double>(plane.v[3]),
+    std::array<double, 3> n{static_cast<double>(plane.v[3]),
         static_cast<double>(plane.v[4]), static_cast<double>(plane.v[5])};
-    const std::array<double, 3> p{static_cast<double>(plane.v[0]),
+    std::array<double, 3> p{static_cast<double>(plane.v[0]),
         static_cast<double>(plane.v[1]), static_cast<double>(plane.v[2])};
     const double d = (n[0] * p[0] + n[1] * p[1]) + n[2] * p[2]; //140945050
     // Preserve 140946ca0's multiplication, assignment and symmetry-copy order.
@@ -329,14 +329,53 @@ void importEnabledMirrorPlanePrefix(MirrorPlaneOwner& owner, const mst::MirrorPl
     matrix[7] = 0.0;
     matrix[11] = 0.0;
 
-    if (plane.a != 0)
-        throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: nonzero parent matrix composition remains unsupported");
+    std::uint8_t mode = 0;
+    if (plane.a != 0) {
+        // Native indices are one-based. Only compose from a matrix this View
+        // owner has actually written; constructor-unknown native bytes stay unknown.
+        if (plane.a < 1 || plane.a > owner.allocatedSlotCount || plane.a > 128)
+            throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: parent record is outside the known owner extent");
+        const MirrorPlaneRecord& parent = owner.records[static_cast<std::size_t>(plane.a - 1)];
+        if (!parent.matrixDouble)
+            throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: parent matrix is unknown");
+        const auto parentMatrix = *parent.matrixDouble;
+        const auto parentMode = parent.mode;
+        std::array<double, 3> t{p[0] + n[0], p[1] + n[1], p[2] + n[2]};
+        auto transformPoint = [&parentMatrix](std::array<double, 3>& point) {
+            const std::array<double, 4> input{point[0], point[1], point[2], 1.0};
+            std::array<double, 3> output{};
+            for (std::size_t c = 0; c < 3; ++c) {
+                double sum = 0.0;
+                for (std::size_t k = 0; k < 4; ++k)
+                    sum += parentMatrix[4 * k + c] * input[k];
+                output[c] = sum;
+            }
+            point = output;
+        };
+        transformPoint(t);
+        auto parentPoint = p;
+        transformPoint(parentPoint);
+        for (std::size_t i = 0; i < 3; ++i) n[i] = t[i] - parentPoint[i];
+        p = parentPoint;
+        mode = static_cast<std::uint8_t>(parentMode == 0);
+        const auto reflection = matrix;
+        for (std::size_t r = 0; r < 4; ++r) {
+            for (std::size_t c = 0; c < 4; ++c) {
+                double sum = 0.0;
+                for (std::size_t k = 0; k < 4; ++k)
+                    sum += parentMatrix[4 * k + c] * reflection[4 * r + k];
+                matrix[4 * r + c] = sum;
+            }
+        }
+    }
     // CP456: 141249730 returns id zero at exactly 128 before searching inactive
-    // records or consuming bounds. 141249f80 then inserts zero at the root
-    // (14124a010); lookup(0) skips all record work and the builder returns.
+    // records or consuming bounds. The subsequent join inserts zero at the
+    // parent's first empty link, or at the root for parent zero; lookup(0)
+    // skips reciprocal record work and the builder returns.
     if (owner.allocatedSlotCount == 128) {
-        if (owner.links[0] == -1) owner.links[0] = 0;
-        else if (owner.links[1] == -1) owner.links[1] = 0;
+        auto& links = plane.a == 0 ? owner.links : owner.records[static_cast<std::size_t>(plane.a - 1)].links;
+        if (links[0] == -1) links[0] = 0;
+        else if (links[1] == -1) links[1] = 0;
         return;
     }
     int slot = 0;
@@ -348,7 +387,7 @@ void importEnabledMirrorPlanePrefix(MirrorPlaneOwner& owner, const mst::MirrorPl
     record.matrixFloat.emplace();
     for (std::size_t i = 0; i < matrix.size(); ++i)
         (*record.matrixFloat)[i] = static_cast<float>(matrix[i]);
-    record.mode = 0;
+    record.mode = mode;
     setMirrorPlaneActive(record, true); //141247ed0 enabling preserves links
 
     // The next native call, 141249e40, consumes two builder-local triples

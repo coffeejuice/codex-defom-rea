@@ -272,7 +272,7 @@ TEST_CASE(copymirror_enabled_nonzero_parents_stop_before_allocation)
 {
     Fixture fixture;
     for (const char* row : {"1 0 0 3 0 0 2 0 0 1\n", "-1 0 0 3 0 0 2 0 0 1\n"}) {
-        REQUIRE(fixture.post(row, 1, "nonzero parent matrix composition"));
+        REQUIRE(fixture.post(row, 1, "parent"));
         const auto owner = fixture.snapshot();
         CHECK_EQ(owner.allocatedSlotCount, 0);
         CHECK(!owner.records[0].matrixDouble && !owner.records[0].matrixFloat);
@@ -280,6 +280,63 @@ TEST_CASE(copymirror_enabled_nonzero_parents_stop_before_allocation)
         CHECK(!owner.records[0].active);
         checkUnwrittenCallerFields(owner.records[0]);
     }
+}
+
+TEST_CASE(copymirror_enabled_known_parent_composes_reflection_as_r_times_parent)
+{
+    Fixture fixture;
+    // Parent matrix P is a non-unit x reflection with scale -7 and x translation 24.
+    REQUIRE(fixture.post("0 40 41 3 0 0 2 0 0 0\n", 1, boundsBoundary));
+    REQUIRE(fixture.post("1 0 0 1 2 0 1 1 0 1\n", 1, boundsBoundary));
+    const auto owner = fixture.snapshot();
+    CHECK_EQ(owner.allocatedSlotCount, 2);
+    REQUIRE(owner.records[0].matrixDouble && owner.records[0].matrixFloat &&
+        owner.records[1].matrixDouble && owner.records[1].matrixFloat);
+    const auto& composed = *owner.records[1].matrixDouble;
+    // R from the child plane and parent P do not commute; the native storage
+    // convention composes R*P, while P*R has different first-row/translation values.
+    CHECK_EQ(composed[0], 7.0);
+    CHECK_EQ(composed[1], -2.0);
+    CHECK_EQ(composed[4], 14.0);
+    CHECK_EQ(composed[5], -1.0);
+    CHECK_EQ(composed[12], -18.0);
+    CHECK_EQ(composed[13], 6.0);
+    CHECK_EQ(owner.records[1].mode, 1); // parent.mode was zero
+    CHECK(owner.records[1].active);
+    checkUnwrittenCallerFields(owner.records[1]);
+    for (std::size_t i = 0; i < composed.size(); ++i)
+        CHECK_EQ(std::bit_cast<std::uint32_t>((*owner.records[1].matrixFloat)[i]),
+            std::bit_cast<std::uint32_t>(static_cast<float>(composed[i])));
+    REQUIRE(fixture.post("2 2 1 0 1 0 0 0 1 1\n", 1, boundsBoundary));
+    const auto toggled = fixture.snapshot();
+    CHECK_EQ(toggled.records[2].mode, 0); // parent mode was one
+}
+
+TEST_CASE(copymirror_known_parent_is_snapshotted_before_inactive_slot_reuse)
+{
+    Fixture fixture;
+    REQUIRE(fixture.post("0 40 41 3 0 0 2 0 0 0\n", 1, boundsBoundary));
+    fixture.setGate(false);
+    CHECK(!fixture.post("9 0 0 0 1 0 0 0 0 0\n"));
+    const auto disabled = fixture.snapshot();
+    CHECK(!disabled.records[0].active);
+    fixture.setGate(true);
+    REQUIRE(fixture.post("1 0 0 1 2 0 1 1 0 1\n", 1, boundsBoundary));
+    const auto owner = fixture.snapshot();
+    CHECK_EQ(owner.allocatedSlotCount, 1);
+    REQUIRE(owner.records[0].matrixDouble);
+    CHECK_EQ((*owner.records[0].matrixDouble)[0], 7.0);
+    CHECK_EQ((*owner.records[0].matrixDouble)[1], -2.0);
+    CHECK_EQ((*owner.records[0].matrixDouble)[4], 14.0);
+    CHECK_EQ((*owner.records[0].matrixDouble)[5], -1.0);
+    CHECK_EQ((*owner.records[0].matrixDouble)[12], -18.0);
+    CHECK_EQ((*owner.records[0].matrixDouble)[13], 6.0);
+    CHECK_EQ(owner.records[0].mode, 1);
+    CHECK(owner.records[0].active);
+    CHECK(owner.records[0].a == disabled.records[0].a);
+    CHECK(owner.records[0].e0 == disabled.records[0].e0);
+    CHECK(owner.records[0].c0 == disabled.records[0].c0);
+    CHECK(owner.records[0].links == disabled.records[0].links);
 }
 
 TEST_CASE(copymirror_enabled_capacity_return_precedes_reuse_and_fills_root_links)
@@ -315,6 +372,25 @@ TEST_CASE(copymirror_enabled_capacity_return_precedes_reuse_and_fills_root_links
     }
 }
 
+TEST_CASE(copymirror_known_parent_capacity_return_links_zero_to_parent)
+{
+    Fixture fixture;
+    fillCapacity(fixture);
+    const auto before = fixture.snapshot();
+    CHECK(!fixture.post("1 0 0 1 2 0 1 1 0 1\n", 1));
+    const auto after = fixture.snapshot();
+    CHECK_EQ(after.allocatedSlotCount, 128);
+    CHECK(after.links == before.links);
+    CHECK_EQ(after.records[0].links[0], 0);
+    CHECK_EQ(after.records[0].links[1], -1);
+    CHECK(after.records[0].matrixDouble == before.records[0].matrixDouble);
+    CHECK(after.records[0].matrixFloat == before.records[0].matrixFloat);
+    CHECK_EQ(after.records[0].mode, before.records[0].mode);
+    CHECK(after.records[0].active);
+    REQUIRE(after.records[0].a && after.records[0].e0);
+    CHECK_EQ(*after.records[0].a, 1);
+}
+
 TEST_CASE(copymirror_capacity_caller_writes_fixed_input_rows_then_parsed_flags)
 {
     Fixture fixture;
@@ -341,7 +417,7 @@ TEST_CASE(copymirror_capacity_later_parent_refusal_retains_first_pass_and_root)
     fillCapacity(fixture);
     const auto before = fixture.snapshot();
     REQUIRE(fixture.post("0 90 91 5 6 7 2 3 4 0\n-1 92 93 8 9 10 11 12 13 0\n",
-        2, "nonzero parent matrix composition"));
+        2, "parent"));
     const auto after = fixture.snapshot();
     checkMatricesAndExtentUnchanged(before, after);
     // The nonzero-parent guard runs before the second root insertion. The

@@ -1,9 +1,10 @@
 #pragma once
 
 // Private CopyMirror seam for the actual per-View plane owner (native +0x348).
-// The enabled parent-zero builder returns normally at exact extent 128 after
-// inserting id zero in a root link; below capacity it stops after the known
-// matrix/active prefix. General positive completion and public admission remain unsupported.
+// The enabled builder returns normally at exact extent 128 after inserting id
+// zero in the root link (parent zero) or the known parent's first empty link.
+// Below capacity it stops after the known matrix/active prefix. General positive
+// completion and public admission remain unsupported.
 #include <array>
 #include <cstdint>
 #include <optional>
