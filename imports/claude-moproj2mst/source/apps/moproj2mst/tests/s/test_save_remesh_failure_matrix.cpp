@@ -16,6 +16,7 @@
 #include "m2m/mst/file_device.hpp"
 #include "m2m/qt4path.hpp"
 #include "../../src/core/conversion_call_services.hpp"
+#include "../../src/core/remesh_terminal_call_service.hpp"
 #include "../../src/moproj/project_output_device.hpp"
 
 namespace fs = std::filesystem;
@@ -132,6 +133,32 @@ public:
 private:
     Observation& observation_;
 };
+
+class TerminalSpy final : public detail::RemeshTerminalCallService {
+public:
+    mutable unsigned profileReads = 0;
+    unsigned dispatches = 0;
+    unsigned failClosedCalls = 0;
+
+    engine::simcontrol300::detail::RemeshTerminalProfile profile() const noexcept override
+    {
+        ++profileReads;
+        return engine::simcontrol300::detail::RemeshTerminalProfile::FreshDefault;
+    }
+    engine::simcontrol300::detail::RemeshTerminalDispatchFailure dispatch(
+        const engine::simcontrol300::detail::RemeshTerminalRequest&,
+        const engine::SaveCallState&) noexcept override
+    {
+        ++dispatches;
+        return engine::simcontrol300::detail::RemeshTerminalDispatchFailure::EndpointReturned;
+    }
+    void failClosed(const engine::simcontrol300::detail::RemeshTerminalRequest&,
+                    engine::simcontrol300::detail::RemeshTerminalDispatchFailure,
+                    const engine::SaveCallState&) noexcept override
+    {
+        ++failClosedCalls;
+    }
+};
 } // namespace
 
 TEST_CASE(save_project_mst_failures_do_not_turn_ignored_disabled_remesh_delete_into_status)
@@ -154,7 +181,8 @@ TEST_CASE(save_project_mst_failures_do_not_turn_ignored_disabled_remesh_delete_i
     };
 
     OutputFactory factory(observation);
-    detail::ConversionCallServices services{&factory};
+    TerminalSpy terminal;
+    detail::ConversionCallServices services{&factory, &terminal};
     ConversionDetails details;
     const Result result = detail::convertDetailedWithServices(
         files.project.u16string(), files.mst.u16string(), M2M_FLAG_WRITE_SAVE, 1252,
@@ -184,6 +212,9 @@ TEST_CASE(save_project_mst_failures_do_not_turn_ignored_disabled_remesh_delete_i
     CHECK_EQ(result.message, prefix + qt::String(files.mst.u16string()).utf8());
     REQUIRE(details.returnedCode.has_value());
     CHECK_EQ(*details.returnedCode, M2M_E_WRITE);
+    CHECK_EQ(terminal.profileReads, 0);
+    CHECK_EQ(terminal.dispatches, 0);
+    CHECK_EQ(terminal.failClosedCalls, 0);
     // These are adapter status and scripted/device observations, not the
     // original GUI Save's earlier check/status local or a fresh original run.
 }
