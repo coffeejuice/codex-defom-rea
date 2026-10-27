@@ -15,6 +15,7 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -36,6 +37,7 @@ using qt::String;
 struct Project;
 struct SubProject;
 struct Operation;
+struct FlowItem;
 struct Props;           // m2m/props.hpp
 class KeyTokenizer;     // below
 namespace mst { class OpClass; }   // m2m/mst/writer.hpp (the SfOpr* singleton, "OB")
@@ -253,7 +255,41 @@ struct ExpansionRow {
     std::vector<String> accepts;   // +0x48 accepted mime types (vt+0x38 / vt+0x40)
 };
 
+enum class ObjectRowPortDirection { Input, Output };
+
+// Internal row-port state from 0x140082760 / 0x140160f50. Identity is the
+// owning FlowItem instance, its zero-based object slot and direction;
+// Operation_Id is not unique. ExpansionRow copies do not own or copy ports.
+struct ObjectRowPort {
+    ObjectRowPort(FlowItem& item, std::size_t slot, ObjectRowPortDirection dir)
+        : owner(&item), rowSlot(slot), direction(dir) {}
+    ObjectRowPort(const ObjectRowPort&) = delete;
+    ObjectRowPort& operator=(const ObjectRowPort&) = delete;
+    ObjectRowPort(ObjectRowPort&&) = delete;
+    ObjectRowPort& operator=(ObjectRowPort&&) = delete;
+
+    FlowItem* const owner;
+    const std::size_t rowSlot;
+    const ObjectRowPortDirection direction;
+    String type = String(u"Object2d");
+    int capacity = 1;
+    // Native connections are ordered and reciprocal. Construction leaves this
+    // empty; linking, callbacks and row removal remain outside this state cut.
+    std::vector<ObjectRowPort*> peers;
+};
+
+struct ObjectRowPorts {
+    std::optional<ObjectRowPort> input;    // native row-private +0x30
+    std::optional<ObjectRowPort> output;   // native row-private +0x38
+};
+
 struct FlowItem {                  // diagram item (model+0x20 list)
+    FlowItem() = default;
+    FlowItem(const FlowItem&) = delete;
+    FlowItem& operator=(const FlowItem&) = delete;
+    FlowItem(FlowItem&&) = delete;
+    FlowItem& operator=(FlowItem&&) = delete;
+
     int opId = 0;                  // vt+0x28 Operation_Id
     String className;              // after the legacy mapping
     String itemName;
@@ -265,7 +301,15 @@ struct FlowItem {                  // diagram item (model+0x20 list)
     std::vector<ExpansionRow> expansion;   // vt+0x50, built when the item is created (0x140073900)
     FlowItem* next = nullptr;      // conn+0x130 successor
     FlowItem* prev = nullptr;      // conn+0x138 predecessor
+    // Map nodes preserve port addresses as more expansion slots are installed.
+    // Keys are zero-based object slots (expansion index 7 + slot), not
+    // operation IDs or copied row values. The selected construction is Forming2D.
+    std::map<std::size_t, ObjectRowPorts> objectRowPorts;
 };
+
+// Internal Forming2D construction helper only: expansion[7 + rowSlot] must be Text.
+// Native 0x140082760 ensures input before output and retains existing ports.
+ObjectRowPorts& ensureObjectRowPorts(FlowItem& item, std::size_t rowSlot);
 
 struct FlowChart {                 // SfMoDiagEditorModel
     std::vector<std::unique_ptr<FlowItem>> items;

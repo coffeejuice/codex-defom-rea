@@ -2292,6 +2292,66 @@ TEST_CASE(selected_multi_item_graph_guards_read_from_db_row_ports_before_placeme
     }
 }
 
+TEST_CASE(object_row_port_identity_is_item_owned_and_stable)
+{
+    Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+    auto op = std::make_unique<Operation>(); op->id = 41;
+    op->objIds = {-1, -2, 100};
+    p.operations.push_back(std::move(op));
+    const std::string source =
+        "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>"
+        "</DiagramItem></Sub_Project>";
+    xml::Document doc; String error; int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+    Ctx ctx; parseSubProject(p, *doc.root, ctx);
+    const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 1u);
+    FlowItem& item = *items[0];
+    CHECK_EQ(item.objectRowPorts.size(), 2u);
+    CHECK(item.objectRowPorts.count(0) == 0u);
+    for (std::size_t slot : {1u, 2u}) {
+        ObjectRowPorts& pair = item.objectRowPorts.at(slot);
+        REQUIRE(pair.input.has_value()); REQUIRE(pair.output.has_value());
+        CHECK(pair.input->owner == &item); CHECK(pair.output->owner == &item);
+        CHECK_EQ(pair.input->rowSlot, slot); CHECK_EQ(pair.output->rowSlot, slot);
+        CHECK(pair.input->direction == ObjectRowPortDirection::Input);
+        CHECK(pair.output->direction == ObjectRowPortDirection::Output);
+        CHECK(pair.input->type == L("Object2d")); CHECK(pair.output->type == L("Object2d"));
+        CHECK_EQ(pair.input->capacity, 1); CHECK_EQ(pair.output->capacity, 1);
+        CHECK(pair.input->peers.empty()); CHECK(pair.output->peers.empty());
+    }
+    ObjectRowPort* savedInput = &*item.objectRowPorts.at(1).input;
+    ObjectRowPort* savedOutput = &*item.objectRowPorts.at(1).output;
+    item.expansion.emplace_back();
+    ensureObjectRowPorts(item, 3);
+    ensureObjectRowPorts(item, 1);
+    CHECK(savedInput == &*item.objectRowPorts.at(1).input);
+    CHECK(savedOutput == &*item.objectRowPorts.at(1).output);
+    CHECK_EQ(item.objectRowPorts.size(), 3u);
+    // Two diagram items with the same Operation_Id own distinct row ports.
+    Project duplicate; makeRegistry(duplicate);
+    duplicate.subs.push_back(makeSubProject(duplicate, 0, 0));
+    auto sharedOp = std::make_unique<Operation>(); sharedOp->id = 41;
+    sharedOp->objIds = {-2}; duplicate.operations.push_back(std::move(sharedOp));
+    const std::string two =
+        "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+        "<DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>205</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+        "</Sub_Project>";
+    xml::Document twoDoc; REQUIRE(xml::setContent(twoDoc, two, &error, &line, &col));
+    REQUIRE(twoDoc.root != nullptr);
+    bool guarded = false;
+    try { parseSubProject(duplicate, *twoDoc.root, ctx); }
+    catch (const Error& e) { guarded = e.code == M2M_E_UNSUPPORTED; }
+    CHECK(guarded);
+    const auto& twoItems = duplicate.subs[0]->flow.items; REQUIRE(twoItems.size() == 2u);
+    CHECK(&*twoItems[0]->objectRowPorts.at(0).input !=
+          &*twoItems[1]->objectRowPorts.at(0).input);
+    CHECK(twoItems[0]->objectRowPorts.at(0).input->owner == twoItems[0].get());
+    CHECK(twoItems[1]->objectRowPorts.at(0).input->owner == twoItems[1].get());
+}
+
 TEST_CASE(above_common_row_height_routes_guard_unqualified_associations)
 {
     struct Case { int a; int b; int associated; int count; const char* y; };

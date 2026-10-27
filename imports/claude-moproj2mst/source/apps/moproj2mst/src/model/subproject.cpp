@@ -1070,6 +1070,27 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
     }
 }
 
+ObjectRowPorts& ensureObjectRowPorts(FlowItem& item, std::size_t rowSlot)
+{
+    constexpr std::size_t objectRowBase = 7;
+    if (item.className != L("SfOprForming2D") ||
+        item.expansion.size() <= objectRowBase ||
+        rowSlot >= item.expansion.size() - objectRowBase ||
+        item.expansion[objectRowBase + rowSlot].type != 0)
+        throw Error(M2M_E_UNSUPPORTED,
+                    "Forming2D object-row ports require an existing Text expansion row");
+    // @src 0x140082760: missing input first, then missing output. Native row
+    // setters 0x140187940/0x140187970 keep one reference per direction.
+    auto [entry, inserted] = item.objectRowPorts.try_emplace(rowSlot);
+    (void)inserted;
+    ObjectRowPorts& ports = entry->second;
+    if (!ports.input)
+        ports.input.emplace(item, rowSlot, ObjectRowPortDirection::Input);
+    if (!ports.output)
+        ports.output.emplace(item, rowSlot, ObjectRowPortDirection::Output);
+    return ports;
+}
+
 namespace {
 
 // The classes whose init (vt+0x180) sets the item info's mime list (+0x90, 0x1405fdfc0) to one
@@ -1180,8 +1201,12 @@ void buildExpansion(Project& p, FlowItem& it)
             addText(it, L("Undefined"));             // accepted-type list remains empty
         } else if (code == -2) {
             addObjectRow(it, L("Read From DB"));
+            if (it.className == L("SfOprForming2D"))
+                ensureObjectRowPorts(it, static_cast<std::size_t>(s));
         } else if (ObjEntry* e = objEntry(*op, s)) {
             addObjectRow(it, e->name);
+            if (it.className == L("SfOprForming2D"))
+                ensureObjectRowPorts(it, static_cast<std::size_t>(s));
         }
     }
 }
