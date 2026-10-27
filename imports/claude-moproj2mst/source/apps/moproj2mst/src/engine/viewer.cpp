@@ -278,7 +278,7 @@ struct View {
     std::optional<Rep> mesh;       // +0x40 (one entry)
     std::vector<GeometryItem> items; // +0x48 geometry-list items
     // +0x28 2D curve items: the vertex rows each built at bind (0x141267410, viewer2d.cpp)
-    std::vector<std::vector<double>> curveItems;
+    std::vector<CurveItemState> curveItems;
     // +0x30 2D mesh items: entry 0's node positions (0x14124be10); made empty when missing
     std::vector<std::vector<float>> meshItems;
     Rect2 rect;                    // +0x98 2D rect
@@ -1585,7 +1585,7 @@ void bind3D(GuiModel& m, View& view)
 }
 
 // @src 0x1411f3560  curve item i of the view, made (empty) when missing
-std::vector<double>& curveItem(View& view, int i)
+CurveItemState& curveItem(View& view, int i)
 {
     while (static_cast<int>(view.curveItems.size()) <= i) view.curveItems.emplace_back();   // new 0x1c0, 0x1412671d0
     return view.curveItems[static_cast<std::size_t>(i)];
@@ -1606,9 +1606,9 @@ void bind2D(View& view)
     if (def::model::geo_kw::geometry_has_edges(*obj)) {               // 0x140834db0 = 140160d20
         for (int i = 0; i < def::model::geo_kw::curve_count(*obj); ++i) {   // 0x14086c4b0 = 140198310
             def::model::OBJ_GEO2D* c = def::model::geo_kw::curve(*obj, i);  // 0x14086c460 = 1401982c0
-            std::vector<double>& it = curveItem(view, i);
-            it = curveItemPoints(c, 0.01);                            // 0x141267410(item, c, DAT_142203f60)
-            view.rect = rectUnion(view.rect, curveItemRect(it));      // 0x1412510a0, 0x141239830
+            CurveItemState& it = curveItem(view, i);
+            it.bind(c, 0.01);                            // 0x141267410(item, c, DAT_142203f60)
+            view.rect = rectUnion(view.rect, it.rectangle());      // 0x1412510a0, 0x141239830
         }
     }
     if (*at<std::int32_t>(obj, 0x87c) != 0 && def::model::llobj_mesh_coords_plausible(obj)) {   // 0x1408340f0
@@ -1743,7 +1743,7 @@ void recompute2D(Viewer& v, View& view)
     if (!s) return;
     if (flagOf(*s, 3) && view.obj && objHasGeometry(view.obj)) {      // 0x1411f1c00
         for (int i = 0; i < def::model::geo_kw::curve_count(*view.obj); ++i)   // 0x14086c4b0
-            view.rect = rectUnion(view.rect, curveItemRect(curveItem(view, i)));   // 0x141267530
+            view.rect = rectUnion(view.rect, curveItem(view, i).rectangle());   // 0x141267530
     }
     if (flagOf(*s, 2) && view.obj && objHasMesh(view.obj))           // 0x1411f1bc0
         view.rect = rectUnion(view.rect, meshItemRect(meshItem(view, 0)));        // 0x14124c3d0

@@ -340,6 +340,29 @@ Rect2 curveItemRect(const std::vector<double>& rows)
     return r;
 }
 
+void CurveItemState::bind(def::model::OBJ_GEO2D* curve, double tol)
+{
+    // Preserve the existing converter failure order: build before replacing rows.
+    // The production View creates a fresh owner after unbind on each bind.
+    vertexRows_ = curveItemPoints(curve, tol);
+    vertexCount_ = static_cast<std::int32_t>(vertexRows_.size() / 3);
+}
+
+void CurveItemState::reset() noexcept
+{
+    vertexCount_ = 0;
+    vertexRows_.clear();
+}
+
+Rect2 CurveItemState::rectangle() const
+{
+    Rect2 r;
+    // 0x141267530 reads this item's signed count and owned vertex rows.
+    for (std::int32_t i = 0; i < vertexCount_; ++i)
+        rectExtend(r, &vertexRows_[static_cast<std::size_t>(i) * 3 + 1]);
+    return r;
+}
+
 std::vector<float> meshItemPoints(def::model::LLOBJ_DATA* obj)
 {
     std::vector<float> xy;                            // 0x14124bdd0: reset

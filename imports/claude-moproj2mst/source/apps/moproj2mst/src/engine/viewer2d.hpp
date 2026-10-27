@@ -4,6 +4,7 @@
 // docs/re/moproj2mst/moproj/dispview.md.
 #pragma once
 
+#include <cstdint>
 #include <vector>
 
 namespace def::model {
@@ -34,6 +35,22 @@ Rect2 rectUnion(const Rect2& a, const Rect2& b);
 std::vector<double> curveItemPoints(def::model::OBJ_GEO2D* c, double tol);
 // @src 0x141267530  vt+0x48 of the curve item: the rect of its vertices
 Rect2 curveItemRect(const std::vector<double>& rows);
+
+// Owned geometry portion of SfGL2DCurveItem: signed count (+0x188) and
+// vertex rows (+0x190). The separate index/render/color arrays remain unresolved.
+// This is internal converter state, not a native-layout or C ABI declaration.
+class CurveItemState {
+public:
+    void bind(def::model::OBJ_GEO2D* curve, double tol);
+    void reset() noexcept;
+    std::int32_t vertexCount() const noexcept { return vertexCount_; }
+    const std::vector<double>& vertexRows() const noexcept { return vertexRows_; }
+    Rect2 rectangle() const;
+
+private:
+    std::vector<double> vertexRows_;
+    std::int32_t vertexCount_ = 0;
+};
 
 // @src 0x14124be10  the mesh item's node positions (x, y as floats, two per node)
 std::vector<float> meshItemPoints(def::model::LLOBJ_DATA* obj);

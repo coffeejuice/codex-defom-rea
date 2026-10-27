@@ -70,6 +70,7 @@
 #include "../../src/engine/engine_internal.hpp"
 #include "../../src/engine/cogging_save.hpp"
 #include "../../src/engine/gui_model_access.hpp"
+#include "../../src/engine/viewer2d.hpp"
 
 namespace fs = std::filesystem;
 using namespace m2m;
@@ -3541,4 +3542,74 @@ TEST_CASE(geometry_low_query_model_barrier_stops_next_view_retries_and_owner_byp
 int main()
 {
     return testkit::run_all();
+}
+
+
+TEST_CASE(curve_item_owned_rows_count_and_rectangle_survive_source_changes_until_rebind)
+{
+    engine::CurveItemState item;
+    static_assert(std::is_same_v<decltype(item.vertexCount()), std::int32_t>);
+    CHECK_EQ(item.vertexCount(), 0);
+    CHECK(item.vertexRows().empty()); CHECK(!item.rectangle().valid);
+    item.bind(nullptr, 0.01);
+    CHECK_EQ(item.vertexCount(), 0); CHECK(!item.rectangle().valid);
+
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 2;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    points[0] = -2; points[1] = 3; points[2] = 0;
+    points[3] = 4; points[4] = -5; points[5] = 0;
+    item.bind(&curve, 0.01);
+    CHECK_EQ(item.vertexCount(), 2);
+    CHECK(item.vertexRows() == std::vector<double>({1, -2, 3, 2, 4, -5}));
+    auto rect = item.rectangle();
+    CHECK(rect.valid && rect.mn[0] == -2 && rect.mn[1] == -5);
+    CHECK(rect.mx[0] == 4 && rect.mx[1] == 3);
+    points[0] = -12;
+    CHECK(item.rectangle().mn[0] == -2); // owned rows, no borrowed source storage
+    item.bind(&curve, 0.01);
+    CHECK_EQ(item.vertexCount(), 2); CHECK(item.rectangle().mn[0] == -12);
+    item.reset();
+    CHECK_EQ(item.vertexCount(), 0);
+    CHECK(item.vertexRows().empty()); CHECK(!item.rectangle().valid);
+    item.bind(&curve, 0.01);
+    item.bind(nullptr, 0.01); // rebinding empty discards the former geometry
+    CHECK_EQ(item.vertexCount(), 0); CHECK(item.vertexRows().empty());
+    CHECK(!item.rectangle().valid);
+}
+
+TEST_CASE(viewer_2d_curve_owners_follow_sync_rebind_empty_and_full_unbind)
+{
+    engine::GuiModel model(nullptr, 2); model.step->sim_ctrl.geotyp = 2;
+    auto* first = geometryLine(model, 2.0);
+    auto* object = model.object(1); REQUIRE(object);
+    auto* second = geometryLine(model, 8.0); // second curve in the same actual view
+    CHECK_EQ(engine::viewerItemCount(model), 1);
+    REQUIRE(def::model::geo_kw::curve_count(*object) == 2);
+    CHECK(def::model::geo_kw::curve(*object, 0) == first);
+    CHECK(def::model::geo_kw::curve(*object, 1) == second);
+    bool valid = false;
+    float mn[3] = {}, mx[3] = {};
+    const auto checkScene = [&](float low, float high) {
+        REQUIRE(engine::viewerSceneBox(model, valid, mn, mx));
+        CHECK(valid); CHECK_EQ(mn[0], low); CHECK_EQ(mx[0], high);
+        CHECK_EQ(mn[1], 0.0f); CHECK_EQ(mx[1], 0.0f);
+    };
+    checkScene(-8, 8);
+    first->points[0] = -20; second->points[3] = 30;
+    engine::viewerRefresh(model);
+    checkScene(-8, 8); // rectangle consumes the bound owned rows
+    engine::viewerSync(model, object, true);
+    checkScene(-20, 30);
+    def::model::geo_kw::geo_list_clear(def::model::geo_kw::geo_list(*object));
+    engine::viewerSync(model, object, true);
+    checkScene(0, 0); // native rectBox marks even an empty 2D rect valid
+    geometryLine(model, 3.0);
+    checkScene(-3, 3);
+    engine::viewerClear(model); // actual full-unbind/destruction path
+    CHECK_EQ(engine::viewerItemCount(model), 0);
+    engine::viewerRefresh(model);
+    checkScene(0, 0); // native rectBox marks even an empty 2D rect valid
+    engine::viewerSync(model, object, true);
+    checkScene(-3, 3);
 }
