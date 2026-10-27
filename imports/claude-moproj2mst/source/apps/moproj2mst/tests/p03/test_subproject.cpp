@@ -1597,6 +1597,63 @@ TEST_CASE(six_item_positive_f_inserts_and_breaks_graph_at_gap)
     }
 }
 
+TEST_CASE(seven_item_positive_g_inserts_with_no_gap_at_right_edge)
+{
+    struct Case { const char* x; int bCol; int cCol; int dCol; int eCol; int fCol; int gCol; };
+    const Case cases[] = {
+        {"4.9406564584124654e-324", 6, 5, 4, 3, 2, 1},
+        {"102.5", 6, 5, 4, 3, 2, 1}, {"204.99999999999997", 6, 5, 4, 3, 2, 1},
+        {"205", 6, 5, 4, 3, 1, 2}, {"307.5", 6, 5, 4, 3, 1, 2},
+        {"409.99999999999994", 6, 5, 4, 3, 1, 2},
+        {"410", 6, 5, 4, 2, 1, 3}, {"512.5", 6, 5, 4, 2, 1, 3},
+        {"614.9999999999999", 6, 5, 4, 2, 1, 3},
+        {"615", 6, 5, 3, 2, 1, 4}, {"717.5", 6, 5, 3, 2, 1, 4},
+        {"819.9999999999999", 6, 5, 3, 2, 1, 4},
+        {"820", 6, 4, 3, 2, 1, 5}, {"922.5", 6, 4, 3, 2, 1, 5},
+        {"1024.9999999999998", 6, 4, 3, 2, 1, 5},
+        {"1025", 5, 4, 3, 2, 1, 6}, {"1127.5", 5, 4, 3, 2, 1, 6},
+        {"1332.4999999999998", 5, 4, 3, 2, 1, 6}};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"2147483647\"/>",
+                           "<CellPos Row=\"-2147483648\" Col=\"-1\"/>"};
+    const char* ys[] = {"-1.7976931348623157e308", "159.99999999999997"};
+    for (const Case& c : cases) for (const char* y : ys) for (int form = 0; form < 3; ++form) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        const int ids[] = {41, 52, 63, 74, 85, 96, 107};
+        for (int i = 0; i < 7; ++i) {
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(ids[i]) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (i == 6 ? std::string(c.x) : std::string("0")) + "</x><y>" +
+                (i == 6 ? std::string(y) : std::string("0")) +
+                "</y><width>" + (i == 6 ? "-0" : "0") +
+                "</width><height>" + (i == 6 ? "4.9406564584124654e-324" : "0") +
+                "</height></RectF>" + cells[(i + form) % 3] + "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 7u);
+        const int cols[] = {0, c.bCol, c.cCol, c.dCol, c.eCol, c.fCol, c.gCol};
+        for (int i = 0; i < 7; ++i) {
+            CHECK_EQ(items[i]->opId, ids[i]); CHECK_EQ(items[i]->row, 0); CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], i == 6 ? -0.0 : 0.0);
+            CHECK_BITS(items[i]->rect[3], i == 6 ? 4.9406564584124654e-324 : 0.0);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < 7; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        std::vector<int> expected;
+        for (int col = 0; col < 7; ++col)
+            for (int i = 0; i < 7; ++i) if (cols[i] == col) expected.push_back(ids[i]);
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
 TEST_CASE(three_item_distinct_explicit_cells_relayout_and_connect_grid_runs)
 {
     const auto cell = [](int col) {
