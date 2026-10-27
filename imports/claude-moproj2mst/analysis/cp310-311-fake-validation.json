@@ -1,0 +1,30 @@
+{
+  "schema": "cp310-311-fake-validation-v1",
+  "status": "TYPED_WIN32_READ_CLEANUP_AND_STRICT_FRAME_MODELS_VALIDATED_LIVE_HOLD",
+  "original_run_ready": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp310_native_job_adapter.py": "9131f7d59f22fb6d3ecef64f08eb789a4d96a2cfc94ac451caa066972d2ef3b6",
+    "admin/test_cp310_native_job_adapter.py": "cfe29f2dc55fff7904994e63585aef17d1ba189262e08f739009ccfd6d2acbc3",
+    "admin/cp311_frame_protocol.py": "f2ced852792feea4e61893743809a6312b78403eb7ec74007760ec1c915103ce",
+    "admin/test_cp311_frame_protocol.py": "599773b68a7f801826e0770981010b77cd1522e9e4a0e1f9507df59e9615ef5f"
+  },
+  "tests": {
+    "focused_cp310": {"run": 8, "passed": 8},
+    "focused_cp311": {"run": 11, "passed": 11},
+    "combined_cp303_through_cp311": {"run": 123, "passed": 123, "failed": 0},
+    "both_test_module_orders_passed": true,
+    "log": "analysis/cp310-311-fake-tests.log",
+    "log_sha256": "12cbdc345385b5c03ec8f57d7e9ddd6f172dab0097fad4941c71ca6feff39a37"
+  },
+  "review": "Separate independent final reviews PASS for CP310 fake ABI and CP311 in-memory parser; no live process or pipe validation",
+  "unpassed_gates": [
+    "Live worker/child creation API and worker endpoint ownership",
+    "External pipe delivery, worker-side ACK comparison and independent receipt",
+    "Native worker/child job topology and supervisor-death containment",
+    "Protected clone-to-process image identity and exact real cleanup",
+    "Original Open-Save-accepted Close and failure acceptance"
+  ]
+}

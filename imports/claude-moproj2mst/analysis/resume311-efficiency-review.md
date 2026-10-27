@@ -1,0 +1,5 @@
+# CP309–311 efficiency review
+
+The final fake suite grew from 104 tests after CP309 to 123 after CP310/311 and still reported about 0.05 seconds inside `unittest`; the orchestrator's non-logging shell runs were under one second. These numbers measure only the isolated Python checks, not review, editing, Git transport or an end-to-end recovery interval. They do not establish a tenfold time or token improvement.
+
+Parallel ownership let CP310's ctypes adapter and CP311's byte parser proceed independently while CP309's composition was reviewed. The reviews found lost output obligations after CP303 helper exceptions, pointer-width handle aliasing, and non-sticky malformed-frame failures. The current fast fake suite and both module-order runs should remain the edit loop. A real worker/child capture will require its own bounded validation and cannot be replaced by these fake results. The compiled converter suite remains frozen at CP301 until compiled converter source changes. Review efficiency after three further checkpoints or one hour at the next safe boundary.
