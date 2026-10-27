@@ -1,0 +1,88 @@
+{
+  "schema": "cp283-create-event-probe-validation-v1",
+  "baselineCommit": "e4616c13",
+  "originalLaunched": false,
+  "originalReady": false,
+  "guiControlAcquired": false,
+  "fixtureSha256": "2a07aecccca5562b0dfe02fd212b1aa84d0a69cc58d4ceddd7c1617f970dc962",
+  "sourceHashes": {
+    "admin/color_create_event_probe.py": "a0aee28dbdae5550b99306e5afbaf9929278d91bff577d1611306a3dec54edc2",
+    "admin/test_color_create_event_probe.py": "a20569c5d1289b2d2e59c62159a9c15fb463ec78dd1614d79d50be7d0a1c3e74",
+    "admin/color_entry_supervisor.py": "804bc0722e494ff81de3796109d0821f02f91b7a33550b627d6e2ea6dec16a6c",
+    "admin/color_original_entry_observer.py": "def5c760da99860553a1fc6ca4c06149f9b7e114410b63b2e389cde6933fdc25",
+    "admin/child_debug_event_fixture.py": "0aea50992e9e6749f9d5f4db7092710d61ca159e1622f7fd65c275e273ed31ee",
+    "admin/build_native_color_entry_fixture.py": "bc07e6cb33bd95f22aef4817faee16b4ff64164e8871c5ff556506d113e73a5f",
+    "admin/native_color_entry_fixture.cpp": "88a52efc7d3544b7d84bba93cc7c41e897bddc370dff5b82f5028bf1d9bbf87b"
+  },
+  "tests": [
+    {
+      "command": "python -m unittest discover -s admin -p test_color_create_event_probe.py -q",
+      "passed": 8,
+      "seconds": 3.652,
+      "qualification": "Root final-source integration rerun"
+    },
+    {
+      "command": "python -m unittest discover -s admin -p test_color_entry_supervisor.py -q",
+      "passed": 6,
+      "seconds": 12.278,
+      "qualification": "Root final-source integration rerun after LF normalization"
+    },
+    {
+      "command": "python -m unittest discover -s admin -p test_color_original_entry_observer.py -q",
+      "passed": 12,
+      "seconds": 2.399,
+      "qualification": "Root final-source integration rerun"
+    }
+  ],
+  "cases": {
+    "normal": {
+      "path": "analysis\\cp283-create-event-normal.raw.json",
+      "sha256": "298ac1ba9004de0e064a23db7687df5b8a4b11c3a07a61db319fff550c95df2f",
+      "bytes": 15485,
+      "elapsedSeconds": 0.14,
+      "sourceStable": true,
+      "entryQualified": true,
+      "initialEventArmed": true,
+      "workerCleanupComplete": true,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "pendingEvent": null
+    },
+    "reject-image": {
+      "path": "analysis\\cp283-create-event-reject-image.raw.json",
+      "sha256": "fa2f7324cc426f7e951b53a82e3716ae145ef7b179449efb44f4382304cf6e9c",
+      "bytes": 6966,
+      "elapsedSeconds": 0.141,
+      "sourceStable": true,
+      "entryQualified": false,
+      "initialEventArmed": false,
+      "workerCleanupComplete": true,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "pendingEvent": null
+    },
+    "held-entry": {
+      "path": "analysis\\cp283-create-event-held-entry.raw.json",
+      "sha256": "d7e0776870702ce22f90108d71a64d6f04e21e0efc06847724ef69794fc2db7e",
+      "bytes": 3976,
+      "elapsedSeconds": 3.375,
+      "sourceStable": true,
+      "entryQualified": null,
+      "initialEventArmed": null,
+      "workerCleanupComplete": false,
+      "independentChildExitVerified": true,
+      "workerExitVerified": true,
+      "pendingEvent": {
+        "code": 1,
+        "continuationStatus": "abandoned by debugger-worker termination",
+        "continued": false,
+        "disposition": "0x10002",
+        "pid": 9348,
+        "sequence": 6,
+        "tid": 28716
+      }
+    }
+  },
+  "qualifiedScope": "fixed harmless primary positive entry at initial creation stop; termination endpoint; no original readiness or overlap claim",
+  "tokenUsage": "unavailable"
+}

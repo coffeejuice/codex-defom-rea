@@ -1,0 +1,5 @@
+# CP283 conditional 3D backend +0xf8 leaf
+
+The immutable original `DEF_GUI_MO_64.exe` v11.0.2 SHA-256 `fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc` contains vtable `0x142d19028`. Root independently mapped its +0xf8 slot at `0x142d19120` in `.rdata`; bytes `30 7a 2a 41 01 00 00 00` resolve to `0x1412a7a30`. The executable `.text` bytes there are `48 89 4c 24 08 c3 cc`: store RCX in its stack home, RET, then INT3 padding. The method has no visible object-field write or nested call.
+
+For a backend whose actual vptr is `0x142d19028`, the later +0xf8 call from `0x1412a7340` is thus a no-op for object state on normal return. CP282's three normalized float stores at backend+0x10/+0x14/+0x18 and flag byte +8 remain the bounded direct effects of that method. This does not prove the ordinary 3D representation owns a backend, uses this vptr, or reaches the color callback. Public `viewerSync` color integration stays HOLD. Evidence is direct PE vtable/target bytes and bounded DUMPBIN disassembly, with no original execution, GUI control or mutable REA state.

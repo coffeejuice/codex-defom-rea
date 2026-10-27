@@ -56,7 +56,10 @@ def reader(stream, messages):
         messages.put(dict(kind='ipc-eof'))
 
 
-def _worker(mode):
+def _worker(mode, backend="python-marker"):
+    target = observer
+    if backend == "native-create-event":
+        import color_create_event_probe as target
     # Parent owns the worker handle/identity and immutable deadline before gate.
     gate = json.loads(sys.stdin.readline(1024))
     if gate != dict(kind='start-fixed-worker'):
@@ -93,19 +96,29 @@ def _worker(mode):
             raise RuntimeError('supervisor requested cooperative cleanup')
         raise RuntimeError('unexpected supervisor command')
 
-    result = observer.run_harmless('normal', _supervision=hook)
+    result = target.run_harmless('reject-image' if mode == 'reject-image' else 'normal', _supervision=hook)
     send(sys.stdout, dict(kind='worker-result', data=result))
 
 
-def run_supervised(mode='normal'):
-    if mode not in MODES:
+def run_supervised(mode='normal', *, backend='python-marker'):
+    if backend not in ('python-marker', 'native-create-event'):
+        raise ValueError('fixed harmless backend required')
+    allowed = MODES if backend == 'python-marker' else (*MODES, 'reject-image')
+    if mode not in allowed:
         raise ValueError('fixed harmless supervisor mode required')
     started = time.monotonic()
     deadline = started + OWNER_SECONDS  # never extended by traffic or cleanup
     here = Path(__file__).resolve()
+    sources = [here, Path(observer.__file__).resolve()]
+    expected_child = Path(sys.executable).resolve()
+    if backend == 'native-create-event':
+        import color_create_event_probe as native
+        native.fixed_fixture()
+        expected_child = native.FIXTURE.resolve()
+        sources.extend([Path(native.__file__).resolve(), Path(native.build.__file__).resolve(), Path(abi.__file__).resolve()])
     source_before = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                     for p in (here, Path(observer.__file__).resolve())}
-    result = dict(schema='cp282-fixed-harmless-supervisor-v1', mode=mode,
+                     for p in sources}
+    result = dict(schema='cp282-fixed-harmless-supervisor-v1', mode=mode, backend=backend,
         originalLaunched=False, originalReady=False, guiControlAcquired=False,
         deadlineStartedBeforeWorkerCreation=True, ownerDeadlineSeconds=OWNER_SECONDS,
         cooperativeSeconds=COOPERATIVE_SECONDS, workerIdentity=None,
@@ -118,7 +131,7 @@ def run_supervised(mode='normal'):
     fallback_at = None
     last_event, injection = None, None
     try:
-        command = [sys.executable, '-I', '-S', str(here), '--fixed-worker', mode]
+        command = [sys.executable, '-I', '-S', str(here), '--fixed-worker', mode, backend]
         worker = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL, text=True, bufsize=1, creationflags=0x08000000)
         worker_handle = int(worker._handle)  # creation-owned Popen handle; no PID reopen
@@ -165,7 +178,7 @@ def run_supervised(mode='normal'):
                     C.byref(child), 0, False, 2))
                 bound = identity(child)
                 expected = {k: data[k] for k in ('pid', 'creationFiletime', 'image')}
-                if bound != expected or Path(bound['image']).resolve() != Path(sys.executable).resolve():
+                if bound != expected or Path(bound['image']).resolve() != expected_child:
                     raise RuntimeError('duplicated child identity mismatch')
                 if not data['explicitKillOnExitChecked']:
                     raise RuntimeError('explicit kill policy not checked')
@@ -235,15 +248,18 @@ def run_supervised(mode='normal'):
             result['eventTail'] = 'unknown after debugger-worker termination'
         result['sourceBefore'] = source_before
         result['sourceAfter'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                                for p in (here, Path(observer.__file__).resolve())}
+                                for p in sources}
         result['sourceStable'] = result['sourceBefore'] == result['sourceAfter']
         result['elapsedSeconds'] = round(time.monotonic() - started, 4)
     return result
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 3 and sys.argv[1] == '--fixed-worker' and sys.argv[2] in MODES:
-        _worker(sys.argv[2])
+    if (len(sys.argv) == 4 and sys.argv[1] == '--fixed-worker'
+            and sys.argv[3] in ('python-marker', 'native-create-event')
+            and sys.argv[2] in (*MODES, 'reject-image')
+            and (sys.argv[2] != 'reject-image' or sys.argv[3] == 'native-create-event')):
+        _worker(sys.argv[2], sys.argv[3])
     elif len(sys.argv) == 3 and sys.argv[1] == '--harmless-supervised' and sys.argv[2] in MODES:
         print(json.dumps(run_supervised(sys.argv[2]), sort_keys=True))
     else:

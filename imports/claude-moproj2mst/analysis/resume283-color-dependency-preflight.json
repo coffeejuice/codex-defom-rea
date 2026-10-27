@@ -1,0 +1,59 @@
+{
+  "schema": "cp283-color-dependency-preflight-v1",
+  "status": "HOLD",
+  "executionAuthorized": false,
+  "staticDependencyPreflight": "PASS",
+  "target": {
+    "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\DEF_GUI_MO_64.exe",
+    "sha256": "fd8ae1f8dd50d068267b3b7e49efdf11eaa178889131e59ec4b6f8de64725acc",
+    "size": 67611136,
+    "fileVersion": null,
+    "productVersion": null
+  },
+  "directImportDllNames": [
+    "QtCore4_64.dll", "QtGui4_64.dll", "QtXml4_64.dll", "OLEAUT32.dll",
+    "QtNetwork4_64.dll", "WS2_32.dll", "QtCommercialChart_64.dll",
+    "QtOpenGL4_64.dll", "QtSvg4_64.dll", "QtSql4_64.dll", "OPENGL32.dll",
+    "GLU32.dll", "KERNEL32.dll", "USER32.dll", "COMDLG32.dll",
+    "ADVAPI32.dll", "ole32.dll"
+  ],
+  "dependencies": [
+    {
+      "dll": "QtGui4_64.dll",
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtGui4_64.dll",
+      "present": true,
+      "size": 10859008,
+      "fileVersion": "4.8.4.0",
+      "sha256": "c360c971d292a3c84fc59b8e38733a85a111243f1dbc44737d87b6d744725887",
+      "requiredColorExports": {
+        "?redF@QColor@@QEBANXZ": true,
+        "?greenF@QColor@@QEBANXZ": true,
+        "?blueF@QColor@@QEBANXZ": true
+      }
+    },
+    {
+      "dll": "QtCore4_64.dll",
+      "path": "C:\\Program Files\\SFTC\\DEFORM\\v11.0.2\\QtCore4_64.dll",
+      "present": true,
+      "size": 3250688,
+      "fileVersion": "4.8.4.0",
+      "sha256": "bcf0074c7e9fba3bcafdaa38742931f309889cbdbacffbca32af83db237fc160",
+      "requiredColorExports": {
+        "?redF@QColor@@QEBANXZ": false,
+        "?greenF@QColor@@QEBANXZ": false,
+        "?blueF@QColor@@QEBANXZ": false
+      }
+    }
+  ],
+  "observedRuntimeLoadedModulePathVersion": "unknown",
+  "limitations": [
+    "PE imports enumerate static declared DLL dependencies only.",
+    "Installed file presence and hashes do not prove Windows loader resolution or runtime loaded module identity.",
+    "No original application, GUI, REA mutable database, build, or installed file was opened or changed."
+  ],
+  "evidence": {
+    "report": "analysis/resume283-color-dependency-preflight.md",
+    "priorColorImportQualification": "analysis/resume282-color-2d-import-correction.md",
+    "method": "Read-only local PE import/export directory parsing and installed-file metadata/hash inspection."
+  }
+}
