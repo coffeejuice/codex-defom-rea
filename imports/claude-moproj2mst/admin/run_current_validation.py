@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import time
@@ -30,8 +31,8 @@ def msvc_environment():
     return env
 
 
-def run_step(name, command, env, build, receipt):
-    log = build / f"cp292-293-{name}.log"
+def run_step(tag, name, command, env, build, receipt):
+    log = build / f"{tag}-{name}.log"
     started = time.monotonic()
     with log.open("w", encoding="utf-8") as output:
         result = subprocess.run(command, cwd=ROOT, env=env,
@@ -46,13 +47,17 @@ def run_step(name, command, env, build, receipt):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--build", type=Path, required=True)
+    parser.add_argument("--tag", required=True,
+                        help="lowercase checkpoint name used for receipt and logs")
     args = parser.parse_args()
+    if not re.fullmatch(r"cp[0-9]+(?:-[0-9]+)?", args.tag):
+        raise ValueError("checkpoint tag must look like cp294 or cp292-293")
     build = (ROOT / args.build).resolve()
     if not build.is_relative_to((ROOT / "build").resolve()) or not (build / "CMakeCache.txt").is_file():
         raise ValueError("existing converter build directory required")
-    report = ROOT / "analysis/cp292-293-full-validation.json"
+    report = ROOT / "analysis" / f"{args.tag}-full-validation.json"
     env = msvc_environment()
-    receipt = {"schema": "cp292-293-full-validation-v1", "build": str(build),
+    receipt = {"schema": f"{args.tag}-full-validation-v1", "build": str(build),
                "msvc_environment": str(VCVARS), "steps": [],
                "source_before": source_fingerprint(ROOT / "source"),
                "original_run_ready": False}
@@ -68,7 +73,7 @@ def main():
     exit_code = 0
     try:
         for name, command in commands:
-            if run_step(name, command, env, build, receipt):
+            if run_step(args.tag, name, command, env, build, receipt):
                 receipt["status"] = f"failed:{name}"
                 exit_code = 1
                 break

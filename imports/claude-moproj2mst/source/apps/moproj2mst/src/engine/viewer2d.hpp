@@ -5,6 +5,9 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
+#include <optional>
+#include <span>
 #include <vector>
 
 namespace def::model {
@@ -38,7 +41,7 @@ Rect2 curveItemRect(const std::vector<double>& rows);
 
 // Owned portion of SfGL2DCurveItem: binary32 width (+0x178), signed count
 // (+0x188), vertex rows (+0x190), indices (+0x1a0) and render/color words (+0x1a8).
-// Index/render containers begin empty; their population is not reconstructed here.
+// Index/render containers begin empty; supplied-input packing is an internal seam.
 // This is internal converter state, not a native-layout or C ABI declaration.
 class CurveItemState {
 public:
@@ -51,6 +54,20 @@ public:
     const std::vector<double>& vertexRows() const noexcept { return vertexRows_; }
     const std::vector<std::int32_t>& indices() const noexcept { return indices_; }
     const std::vector<std::uint32_t>& renderWords() const noexcept { return renderWords_; }
+    std::optional<std::int32_t> renderStride() const noexcept { return renderStride_; }
+    std::optional<std::int32_t> segmentCount() const noexcept { return segmentCount_; }
+    using SuppliedRenderColor = std::function<void(CurveItemState&, std::span<std::uint32_t>)>;
+    // @src 0x14126a32e..0x14126a5cb: suffix AFTER transform, never a public bind.
+    // N==0 is an unconditional no-op. For positive N the finite, binary32-
+    // representable XY, exact spans, bounded signed arithmetic and nonempty
+    // callback requirements are seam policy, not recovered native admission.
+    // Call only with explicitly supplied output; native ignores transform status
+    // and can consume indeterminate scratch. No automatic transform composition.
+    // Mutates metadata, indices, then words; exceptions propagate without rollback.
+    // Callback borrows this owner/storage synchronously; it must not resize or
+    // recursively repack the owner, or retain the mutable span after returning.
+    void packSuppliedRender2D(std::span<const double> originalXY,
+        std::span<const double> displacedXY, const SuppliedRenderColor& color);
     Rect2 rectangle() const;
 
 private:
@@ -60,6 +77,8 @@ private:
     // preserve the distinction between color bits and floating-point coordinates.
     std::vector<std::int32_t> indices_;
     std::vector<std::uint32_t> renderWords_;
+    // Native constructor values are unqualified; engage only on positive packing.
+    std::optional<std::int32_t> renderStride_, segmentCount_;
     std::int32_t vertexCount_ = 0;
     // 0x14126ee40: binary32 0x3d0f5c29; independent of row tolerance 0.01.
     float width_ = 0.035f;

@@ -7,8 +7,11 @@
 #include "viewer2d.hpp"
 
 #include <cmath>
+#include <bit>
 #include <cstdint>
 #include <cstdlib>
+#include <limits>
+#include <stdexcept>
 
 #include <defmodel/geo_kw/geo_kw.hpp>
 #include <defmodel/layout/llobj_data.hpp>
@@ -354,6 +357,49 @@ void CurveItemState::reset() noexcept
     // Row reset leaves the independently owned secondary width intact.
     vertexCount_ = 0;
     vertexRows_.clear();
+}
+
+void CurveItemState::packSuppliedRender2D(std::span<const double> originalXY,
+    std::span<const double> displacedXY, const SuppliedRenderColor& color)
+{
+    if (vertexCount_ == 0) return;
+    // Explicit safe seam domain, not guards present in the native suffix.
+    // Native signed 6*N word sizing and 2*N vertex indices must stay representable.
+    if (vertexCount_ < 0 || vertexCount_ > std::numeric_limits<std::int32_t>::max() / 6)
+        throw std::length_error("supplied render count outside seam domain");
+    const auto n = static_cast<std::size_t>(vertexCount_);
+    if (originalXY.size() != 2 * n || displacedXY.size() != 2 * n || !color)
+        throw std::invalid_argument("supplied render requires exact XY spans and color callback");
+    const auto admissible = [](double value) {
+        return std::isfinite(value) && std::fabs(value) <= std::numeric_limits<float>::max();
+    };
+    for (std::size_t i = 0; i < 2 * n; ++i)
+        if (!admissible(originalXY[i]) || !admissible(displacedXY[i]))
+            throw std::invalid_argument("supplied render coordinate outside seam domain");
+
+    renderStride_ = 4;
+    segmentCount_ = vertexCount_ - 1;
+    indices_.resize(4 * (n - 1));
+    for (std::int32_t i = 0; i < vertexCount_ - 1; ++i) {
+        const auto offset = 4 * static_cast<std::size_t>(i);
+        indices_[offset] = i;
+        indices_[offset + 1] = i + 1;
+        indices_[offset + 2] = vertexCount_ + i + 1;
+        indices_[offset + 3] = vertexCount_ + i;
+    }
+    // std::vector preserves its prefix and value-initializes new words (zero).
+    // Native color-slot initialization, COW, allocator and exception equivalence
+    // are unqualified. Color slots are raw words, never numerical float colors.
+    renderWords_.resize(6 * n);
+    for (std::size_t i = 0; i < n; ++i) {
+        renderWords_[3 * i + 1] = std::bit_cast<std::uint32_t>(static_cast<float>(originalXY[2 * i]));
+        renderWords_[3 * i + 2] = std::bit_cast<std::uint32_t>(static_cast<float>(originalXY[2 * i + 1]));
+    }
+    for (std::size_t i = 0; i < n; ++i) {
+        renderWords_[3 * (n + i) + 1] = std::bit_cast<std::uint32_t>(static_cast<float>(displacedXY[2 * i]));
+        renderWords_[3 * (n + i) + 2] = std::bit_cast<std::uint32_t>(static_cast<float>(displacedXY[2 * i + 1]));
+    }
+    color(*this, std::span<std::uint32_t>(renderWords_));
 }
 
 Rect2 CurveItemState::rectangle() const

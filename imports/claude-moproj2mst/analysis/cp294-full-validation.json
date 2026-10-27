@@ -1,0 +1,83 @@
+{
+  "schema": "cp294-full-validation-v1",
+  "build": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner",
+  "msvc_environment": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Auxiliary\\Build\\vcvars64.bat",
+  "steps": [
+    {
+      "name": "build",
+      "command": [
+        "cmake",
+        "--build",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 26.329,
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner\\cp294-build.log"
+    },
+    {
+      "name": "ctest",
+      "command": [
+        "ctest",
+        "--test-dir",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner",
+        "--parallel",
+        "4",
+        "--output-on-failure",
+        "--no-tests=error"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 17.625,
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner\\cp294-ctest.log"
+    },
+    {
+      "name": "bound-launcher",
+      "command": [
+        "C:\\Program Files\\Python312\\python.exe",
+        "admin/run_converter_tests.py",
+        "--build",
+        "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner",
+        "--jobs",
+        "4",
+        "--hash-engine",
+        "threaded",
+        "--hash-workers",
+        "4",
+        "--hash-path-engine",
+        "exact"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 35.468,
+      "log": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\cp291-curve-owner\\cp294-bound-launcher.log"
+    }
+  ],
+  "source_before": {
+    "sha256": "43e790c678ec0882606fe9d5dba7a872eb536856099746dab3cd40af390026d1",
+    "files": 3566
+  },
+  "original_run_ready": false,
+  "bound_launcher": {
+    "run": "C:\\Users\\alext\\Projects\\codex-deform-rea\\imports\\claude-moproj2mst\\build\\test-runs\\1793066438511280900",
+    "registered_tests": 370,
+    "counts": {
+      "passed": 363,
+      "passed-with-logged-gaps": 6,
+      "passed-with-logged-differences": 1,
+      "incomplete-output": 0,
+      "skipped": 0,
+      "failed": 0
+    },
+    "status": "completed-with-recorded-gaps",
+    "source_binary_stable": true,
+    "fixture_changes": [],
+    "unreported_tests": [],
+    "incomplete_output_tests": []
+  },
+  "status": "passed",
+  "source_after": {
+    "sha256": "43e790c678ec0882606fe9d5dba7a872eb536856099746dab3cd40af390026d1",
+    "files": 3566
+  },
+  "source_stable": true
+}

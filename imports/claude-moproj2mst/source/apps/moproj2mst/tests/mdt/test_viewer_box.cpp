@@ -19,6 +19,7 @@
 #include "../support/test_paths.hpp"
 
 #include <cmath>
+#include <bit>
 #include <cstdint>
 #include <cstddef>
 #include <array>
@@ -31,6 +32,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <stdexcept>
 #include <type_traits>
 #include <vector>
 #include <process.h>
@@ -71,6 +73,7 @@
 #include "../../src/engine/cogging_save.hpp"
 #include "../../src/engine/gui_model_access.hpp"
 #include "../../src/engine/viewer2d.hpp"
+#include "../../src/engine/curve_render_transform.hpp"
 
 namespace fs = std::filesystem;
 using namespace m2m;
@@ -3715,4 +3718,145 @@ TEST_CASE(curve_item_index_and_render_containers_follow_their_owner)
     CHECK(owners.front().indices().empty() && owners.front().renderWords().empty());
     CHECK(&owners.front().indices() != &independent.indices());
     CHECK(&owners.front().renderWords() != &independent.renderWords());
+}
+
+TEST_CASE(curve_item_supplied_render_suffix_orders_owner_packing_and_preserves_reset_state)
+{
+    engine::CurveItemState item, independent;
+    CHECK(!item.renderStride() && !item.segmentCount());
+    // Empty count returns before validating even a malformed span and missing callback.
+    const std::array<double, 1> malformed{std::numeric_limits<double>::infinity()};
+    item.packSuppliedRender2D(malformed, {}, {});
+    CHECK(!item.renderStride() && !item.segmentCount());
+    CHECK(item.indices().empty() && item.renderWords().empty());
+
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 3;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    for (int i = 0; i < 3; ++i) {
+        points[3 * i] = i; points[3 * i + 1] = 0; points[3 * i + 2] = 0;
+    }
+    item.bind(&curve, 0.01); item.setWidth(0.25f);
+    const auto rows = item.vertexRows();
+    const auto* indices = &item.indices();
+    const auto* render = &item.renderWords();
+    const std::array<double, 6> original{-0.0, 1.0000000596046448, 2, 3, 4, 5};
+    const std::array<double, 6> displaced{6, 7, 8, 9, 10, 11};
+    int calls = 0;
+    item.packSuppliedRender2D(original, displaced,
+        [&](engine::CurveItemState& owner, std::span<std::uint32_t> words) {
+            ++calls;
+            CHECK(&owner == &item);
+            CHECK(words.data() == owner.renderWords().data()); CHECK_EQ(words.size(), 18u);
+            CHECK(owner.renderStride() == 4 && owner.segmentCount() == 2);
+            CHECK(owner.indices() == std::vector<std::int32_t>({0, 1, 4, 3, 1, 2, 5, 4}));
+            for (std::size_t i = 0; i < 3; ++i) {
+                for (std::size_t axis = 0; axis < 2; ++axis) {
+                    CHECK_EQ(words[3 * i + axis + 1],
+                        std::bit_cast<std::uint32_t>(static_cast<float>(original[2 * i + axis])));
+                    CHECK_EQ(words[3 * (3 + i) + axis + 1],
+                        std::bit_cast<std::uint32_t>(static_cast<float>(displaced[2 * i + axis])));
+                }
+            }
+            CHECK_EQ(words[1], 0x80000000u); CHECK_EQ(words[2], 0x3f800000u);
+            // This zero is std::vector growth policy, not native color initialization.
+            for (std::size_t i = 0; i < 6; ++i) {
+                CHECK_EQ(words[3 * i], 0u);
+                words[3 * i] = 0x7fc12340u + static_cast<std::uint32_t>(i);
+            }
+        });
+    CHECK_EQ(calls, 1); CHECK(item.vertexRows() == rows); CHECK_EQ(item.width(), 0.25f);
+    CHECK(independent.indices().empty() && independent.renderWords().empty());
+    CHECK(!independent.renderStride() && !independent.segmentCount());
+    const auto packed = item.renderWords(); const auto quads = item.indices();
+    item.reset();
+    item.packSuppliedRender2D(malformed, {}, {});
+    CHECK(item.renderWords() == packed && item.indices() == quads);
+    CHECK(item.renderStride() == 4 && item.segmentCount() == 2);
+    item.bind(&curve, 0.2); item.bind(nullptr, 0.01);
+    CHECK(item.renderWords() == packed && item.indices() == quads);
+    CHECK(&item.indices() == indices && &item.renderWords() == render);
+    CHECK_EQ(item.width(), 0.25f);
+
+    // One row still packs two vertices and calls color once, with no segments.
+    curve.n_points = 1; item.bind(&curve, 0.01);
+    const std::array<double, 2> one{12, -0.0}, other{13, 14};
+    item.packSuppliedRender2D(one, other,
+        [&](engine::CurveItemState&, std::span<std::uint32_t> words) {
+            ++calls; CHECK_EQ(words.size(), 6u); CHECK(item.indices().empty());
+            CHECK(item.segmentCount() == 0 && item.renderStride() == 4);
+            CHECK_EQ(words[0], packed[0]); CHECK_EQ(words[3], packed[3]);
+            CHECK_EQ(words[2], 0x80000000u);
+        });
+    CHECK_EQ(calls, 2);
+    // Grow the same storage: retained colors survive; new slots are vector zeros.
+    curve.n_points = 3; item.bind(&curve, 0.01);
+    bool caught = false;
+    try {
+        item.packSuppliedRender2D(original, displaced,
+            [&](engine::CurveItemState& owner, std::span<std::uint32_t> words) {
+                ++calls; CHECK(&owner == &item);
+                CHECK_EQ(words[0], packed[0]); CHECK_EQ(words[3], packed[3]);
+                CHECK_EQ(words[6], 0u); CHECK_EQ(words[15], 0u);
+                CHECK_EQ(words[16], std::bit_cast<std::uint32_t>(10.0f));
+                words[0] = 0xffabcdefu;
+                throw std::runtime_error("partial color write");
+            });
+    } catch (const std::runtime_error& error) {
+        caught = std::string(error.what()) == "partial color write";
+    }
+    CHECK(caught); CHECK_EQ(calls, 3);
+    CHECK(item.indices() == quads); CHECK_EQ(item.renderWords().size(), 18u);
+    CHECK_EQ(item.renderWords()[0], 0xffabcdefu);
+    CHECK_EQ(item.renderWords()[3], packed[3]); CHECK_EQ(item.renderWords()[6], 0u);
+    CHECK(item.renderStride() == 4 && item.segmentCount() == 2);
+}
+
+TEST_CASE(curve_item_supplied_render_seam_rejects_before_mutating_and_composes_explicit_transform)
+{
+    engine::CurveItemState item;
+    def::model::OBJ_GEO2D curve;
+    curve.curve_type = 1; curve.n_points = 2;
+    auto* points = curve.allocate_points(); REQUIRE(points);
+    points[0] = 0; points[1] = 0; points[2] = 0;
+    points[3] = 2; points[4] = 0; points[5] = 0;
+    item.bind(&curve, 0.01);
+    const std::array<double, 4> xy{0, 0, 2, 0};
+    std::array<double, 4> displaced{};
+    const auto transformed = engine::transformCurveRender2D(2, xy.data(),
+        static_cast<double>(item.width()), displaced.data(), false);
+    REQUIRE(transformed.outcome == engine::TransformOutcome::completed);
+    REQUIRE(transformed.outputWritten);
+    // Explicit caller composition only: the public viewer never invokes the suffix.
+    int calls = 0;
+    const engine::CurveItemState::SuppliedRenderColor color =
+        [&](engine::CurveItemState&, std::span<std::uint32_t> words) {
+            ++calls;
+            for (std::size_t i = 0; i < words.size(); i += 3) words[i] = 0xdeadbeefu;
+        };
+    item.packSuppliedRender2D(xy, displaced, color);
+    CHECK_EQ(calls, 1);
+    CHECK(item.indices() == std::vector<std::int32_t>({0, 1, 3, 2}));
+    CHECK_EQ(item.renderWords()[8], std::bit_cast<std::uint32_t>(item.width()));
+    const auto words = item.renderWords(); const auto indices = item.indices();
+    const auto rejects = [&](std::span<const double> a, std::span<const double> b,
+                             const engine::CurveItemState::SuppliedRenderColor& callback) {
+        bool rejected = false;
+        try { item.packSuppliedRender2D(a, b, callback); }
+        catch (const std::invalid_argument&) { rejected = true; }
+        CHECK(rejected); CHECK_EQ(calls, 1);
+        CHECK(item.renderWords() == words && item.indices() == indices);
+        CHECK(item.renderStride() == 4 && item.segmentCount() == 1);
+    };
+    rejects(std::span<const double>(xy).first(2), displaced, color);
+    rejects(xy, std::span<const double>(displaced).first(2), color);
+    rejects(xy, displaced, {});
+    for (const double invalid : {std::numeric_limits<double>::infinity(),
+             std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::max()}) {
+        auto bad = xy; bad[3] = invalid;
+        rejects(bad, displaced, color); rejects(xy, bad, color);
+    }
+    item.reset(); item.bind(&curve, 0.01);
+    CHECK(item.renderWords() == words && item.indices() == indices);
+    CHECK(item.renderStride() == 4 && item.segmentCount() == 1);
 }
