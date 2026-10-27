@@ -555,6 +555,48 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         std::isfinite(flow.items[2]->rect[0]) && flow.items[2]->rect[0] < 0.0 &&
         std::isfinite(flow.items[2]->rect[1]) && flow.items[2]->rect[1] < 160.0 &&
         std::isfinite(flow.items[2]->rect[2]) && std::isfinite(flow.items[2]->rect[3]);
+    const bool fourPositiveCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() == 4 && cellInputs.size() == 4 &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
+        }) &&
+        std::all_of(flow.items.begin(), flow.items.begin() + 3, [](const auto& item) {
+            return item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) &&
+        std::isfinite(flow.items[3]->rect[0]) && flow.items[3]->rect[0] > 0.0 &&
+        flow.items[3]->rect[0] < 1332.5 &&
+        std::isfinite(flow.items[3]->rect[1]) && flow.items[3]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[3]->rect[2]) && std::isfinite(flow.items[3]->rect[3]);
+    const bool fivePositiveCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() == 5 && cellInputs.size() == 5 &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
+        }) &&
+        std::all_of(flow.items.begin(), flow.items.begin() + 4, [](const auto& item) {
+            return item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) &&
+        std::isfinite(flow.items[4]->rect[0]) && flow.items[4]->rect[0] > 0.0 &&
+        flow.items[4]->rect[0] < 1332.5 &&
+        std::isfinite(flow.items[4]->rect[1]) && flow.items[4]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[4]->rect[2]) && std::isfinite(flow.items[4]->rect[3]);
+    const bool sixPositiveCandidate = initiallyEmpty && initiallyUnlinked &&
+        flow.items.size() == 6 && cellInputs.size() == 6 &&
+        std::all_of(cellInputs.begin(), cellInputs.end(), sentinelCell) &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D");
+        }) &&
+        std::all_of(flow.items.begin(), flow.items.begin() + 5, [](const auto& item) {
+            return item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) &&
+        std::isfinite(flow.items[5]->rect[0]) && flow.items[5]->rect[0] > 0.0 &&
+        flow.items[5]->rect[0] < 1332.5 &&
+        std::isfinite(flow.items[5]->rect[1]) && flow.items[5]->rect[1] < 160.0 &&
+        std::isfinite(flow.items[5]->rect[2]) && std::isfinite(flow.items[5]->rect[3]);
     bool threeDirectCandidate = initiallyEmpty && initiallyUnlinked &&
         flow.items.size() == 3 && cellInputs.size() == 3;
     if (threeDirectCandidate) {
@@ -658,7 +700,79 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 }
                 // The selected row-0 recurrence shifts an occupied token run
                 // to the adjacent free cells; other collision patterns stay guarded.
-                if (threeNegativeCandidate && k == 2 && col == 0 && row0 && cx < 0.0 &&
+                if (sixPositiveCandidate && k == 5 && row0 && col >= 1 && col <= 4 &&
+                    flow.items[0]->col == 0 && flow.items[4]->col == 1 &&
+                    flow.items[3]->col == 2 && flow.items[2]->col == 3 &&
+                    flow.items[1]->col == 4) {
+                    if (it.rect[0] < 205.0) {
+                        flow.items[4]->col = 2; flow.items[4]->rect[0] = 410.0;
+                        flow.items[3]->col = 3; flow.items[3]->rect[0] = 615.0;
+                        flow.items[2]->col = 4; flow.items[2]->rect[0] = 820.0;
+                        flow.items[1]->col = 5; flow.items[1]->rect[0] = 1025.0;
+                        it.col = 1;
+                    } else if (it.rect[0] < 410.0) {
+                        flow.items[3]->col = 3; flow.items[3]->rect[0] = 615.0;
+                        flow.items[2]->col = 4; flow.items[2]->rect[0] = 820.0;
+                        flow.items[1]->col = 5; flow.items[1]->rect[0] = 1025.0;
+                        it.col = 2;
+                    } else if (it.rect[0] < 615.0) {
+                        flow.items[2]->col = 4; flow.items[2]->rect[0] = 820.0;
+                        flow.items[1]->col = 5; flow.items[1]->rect[0] = 1025.0;
+                        it.col = 3;
+                    } else if (it.rect[0] < 820.0) {
+                        flow.items[1]->col = 5; flow.items[1]->rect[0] = 1025.0;
+                        it.col = 4;
+                    } else {
+                        it.col = 5;
+                    }
+                    it.row = 0;
+                    it.rect[0] = 205.0 * it.col;
+                    it.rect[1] = 0.0;
+                } else if (fivePositiveCandidate && k == 4 && row0 && col >= 1 && col <= 3 &&
+                    flow.items[0]->col == 0 && flow.items[3]->col == 1 &&
+                    flow.items[2]->col == 2 && flow.items[1]->col == 3) {
+                    // Native direction selects insertion before the occupied
+                    // suffix or advances to the next free token at 205/410/615.
+                    if (it.rect[0] < 205.0) {
+                        flow.items[3]->col = 2; flow.items[3]->rect[0] = 410.0;
+                        flow.items[2]->col = 3; flow.items[2]->rect[0] = 615.0;
+                        flow.items[1]->col = 4; flow.items[1]->rect[0] = 820.0;
+                        it.col = 1;
+                    } else if (it.rect[0] < 410.0) {
+                        flow.items[2]->col = 3; flow.items[2]->rect[0] = 615.0;
+                        flow.items[1]->col = 4; flow.items[1]->rect[0] = 820.0;
+                        it.col = 2;
+                    } else if (it.rect[0] < 615.0) {
+                        flow.items[1]->col = 4; flow.items[1]->rect[0] = 820.0;
+                        it.col = 3;
+                    } else {
+                        it.col = 4;
+                    }
+                    it.row = 0;
+                    it.rect[0] = 205.0 * it.col;
+                    it.rect[1] = 0.0;
+                } else if (fourPositiveCandidate && k == 3 && row0 && (col == 1 || col == 2) &&
+                    flow.items[0]->col == 0 && flow.items[2]->col == 1 &&
+                    flow.items[1]->col == 2) {
+                    // Native installer direction changes at x=205 and x=410.
+                    // Before each boundary it shifts the occupied suffix;
+                    // afterwards it advances to the next free token.
+                    const bool insertAtOne = it.rect[0] < 205.0;
+                    const bool insertAtTwo = it.rect[0] < 410.0;
+                    if (insertAtOne) {
+                        flow.items[2]->col = 2; flow.items[2]->rect[0] = 410.0;
+                        flow.items[1]->col = 3; flow.items[1]->rect[0] = 615.0;
+                        it.col = 1;
+                    } else if (insertAtTwo) {
+                        flow.items[1]->col = 3; flow.items[1]->rect[0] = 615.0;
+                        it.col = 2;
+                    } else {
+                        it.col = 3;
+                    }
+                    it.row = 0;
+                    it.rect[0] = 205.0 * it.col;
+                    it.rect[1] = 0.0;
+                } else if (threeNegativeCandidate && k == 2 && col == 0 && row0 && cx < 0.0 &&
                     flow.items[0]->row == 0 && flow.items[0]->col == 0 &&
                     flow.items[1]->row == 0 && flow.items[1]->col == 1) {
                     // A genuinely negative quotient requests direction -1:
@@ -685,7 +799,9 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.rect[0] = 205.0 * it.col;
                     it.rect[1] = 0.0;
                 } else if ((recurrenceCandidate || nonzeroPairCandidate || threeCollisionCandidate ||
-                            threeNegativeCandidate || (negativeEightCandidate && k < 7)) &&
+                            threeNegativeCandidate || fourPositiveCandidate || fivePositiveCandidate ||
+                            sixPositiveCandidate ||
+                            (negativeEightCandidate && k < 7)) &&
                            k > 0 && row0 && col == 0 &&
                     flow.items[0]->row == 0 && flow.items[0]->col == 0) {
                     // Insertion at column 1 recursively shifts the occupied
@@ -705,8 +821,11 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                 it.row = 0;
                 it.col = col;
                 if (singletonRelayoutCandidate || mixedPairCandidate || threeDirectCandidate || multiDirectCandidate ||
+                    (fourPositiveCandidate && k == 3) || (fivePositiveCandidate && k == 4) ||
+                    (sixPositiveCandidate && k == 5) ||
                     (threeCollisionCandidate && k == 2) ||
-                    ((nonzeroPairCandidate || threeCollisionCandidate || threeNegativeCandidate) && k == 0)) {
+                    ((nonzeroPairCandidate || threeCollisionCandidate || threeNegativeCandidate ||
+                      fourPositiveCandidate || fivePositiveCandidate || sixPositiveCandidate) && k == 0)) {
                     it.rect[0] = 205.0 * col;
                     it.rect[1] = 0.0;
                 }
@@ -721,11 +840,17 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             it.rect[1] = 0.0;
         }
         used.insert({it.row, it.col});
+        if ((fourPositiveCandidate || fivePositiveCandidate || sixPositiveCandidate) && k == 2)
+            used.insert({0, 2});
+        if ((fivePositiveCandidate || sixPositiveCandidate) && k == 3) used.insert({0, 3});
+        if (sixPositiveCandidate && k == 4) used.insert({0, 4});
         if (it.row == 0) row0 = true;
     }
     if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate ||
         singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate ||
-        threeCollisionCandidate || threeNegativeCandidate || threeDirectCandidate || multiDirectCandidate) {
+        threeCollisionCandidate || threeNegativeCandidate || fourPositiveCandidate || fivePositiveCandidate ||
+        sixPositiveCandidate ||
+        threeDirectCandidate || multiDirectCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.
@@ -741,7 +866,8 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             // item there. In this selected row-0 pair, an unoccupied column gap
             // therefore prevents a synthesized connector edge.
             if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate || threeDirectCandidate ||
-                 threeCollisionCandidate ||
+                 threeCollisionCandidate || fourPositiveCandidate || fivePositiveCandidate ||
+                 sixPositiveCandidate ||
                  multiDirectCandidate) &&
                 grid[k]->row == grid[k - 1]->row &&
                 grid[k]->col > grid[k - 1]->col + 1) continue;

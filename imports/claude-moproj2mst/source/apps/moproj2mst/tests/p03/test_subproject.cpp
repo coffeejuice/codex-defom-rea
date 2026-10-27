@@ -1424,6 +1424,179 @@ TEST_CASE(three_item_negative_c_direction_clamp_and_underflow)
     }
 }
 
+TEST_CASE(four_item_positive_d_inserts_and_breaks_graph_at_gap)
+{
+    struct Case { const char* x; int bCol; int cCol; int dCol; };
+    const Case cases[] = {
+        {"4.9406564584124654e-324", 3, 2, 1},
+        {"102.49999999999999", 3, 2, 1}, {"102.5", 3, 2, 1},
+        {"204.99999999999997", 3, 2, 1},
+        {"205", 3, 1, 2}, {"307.49999999999994", 3, 1, 2},
+        {"307.5", 3, 1, 2}, {"409.99999999999994", 3, 1, 2},
+        {"410", 2, 1, 3}, {"512.5", 2, 1, 3},
+        {"717.4999999999999", 2, 1, 3}, {"717.5", 2, 1, 4},
+        {"922.5", 2, 1, 5}, {"1127.5", 2, 1, 6},
+        {"1332.4999999999998", 2, 1, 6}};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"2147483647\"/>",
+                           "<CellPos Row=\"-2147483648\" Col=\"-1\"/>"};
+    const char* ys[] = {"-1.7976931348623157e308", "159.99999999999997"};
+    for (const Case& c : cases) for (const char* y : ys) for (int form = 0; form < 3; ++form) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        const int ids[] = {41, 52, 63, 74};
+        for (int i = 0; i < 4; ++i) {
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(ids[i]) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (i == 3 ? std::string(c.x) : std::string("0")) + "</x><y>" +
+                (i == 3 ? std::string(y) : std::string("0")) +
+                "</y><width>" + (i == 3 ? "-0" : "0") +
+                "</width><height>" + (i == 3 ? "4.9406564584124654e-324" : "0") +
+                "</height></RectF>" + cells[(i + form) % 3] + "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 4u);
+        const int cols[] = {0, c.bCol, c.cCol, c.dCol};
+        for (int i = 0; i < 4; ++i) {
+            CHECK_EQ(items[i]->opId, ids[i]); CHECK_EQ(items[i]->row, 0); CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], i == 3 ? -0.0 : 0.0);
+            CHECK_BITS(items[i]->rect[3], i == 3 ? 4.9406564584124654e-324 : 0.0);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < 4; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        const std::vector<int> expected = c.dCol == 1 ? std::vector<int>({41, 74, 63, 52}) :
+            c.dCol == 2 ? std::vector<int>({41, 63, 74, 52}) :
+            c.dCol == 3 ? std::vector<int>({41, 63, 52, 74}) :
+                             std::vector<int>({41, 63, 52});
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
+TEST_CASE(five_item_positive_e_inserts_and_breaks_graph_at_gap)
+{
+    struct Case { const char* x; int bCol; int cCol; int dCol; int eCol; };
+    const Case cases[] = {
+        {"4.9406564584124654e-324", 4, 3, 2, 1},
+        {"102.5", 4, 3, 2, 1}, {"204.99999999999997", 4, 3, 2, 1},
+        {"205", 4, 3, 1, 2}, {"307.5", 4, 3, 1, 2},
+        {"409.99999999999994", 4, 3, 1, 2},
+        {"410", 4, 2, 1, 3}, {"512.5", 4, 2, 1, 3},
+        {"614.9999999999999", 4, 2, 1, 3},
+        {"615", 3, 2, 1, 4}, {"717.5", 3, 2, 1, 4},
+        {"922.4999999999999", 3, 2, 1, 4},
+        {"922.5", 3, 2, 1, 5}, {"1127.5", 3, 2, 1, 6},
+        {"1332.4999999999998", 3, 2, 1, 6}};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"2147483647\"/>",
+                           "<CellPos Row=\"-2147483648\" Col=\"-1\"/>"};
+    const char* ys[] = {"-1.7976931348623157e308", "159.99999999999997"};
+    for (const Case& c : cases) for (const char* y : ys) for (int form = 0; form < 3; ++form) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        const int ids[] = {41, 52, 63, 74, 85};
+        for (int i = 0; i < 5; ++i) {
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(ids[i]) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (i == 4 ? std::string(c.x) : std::string("0")) + "</x><y>" +
+                (i == 4 ? std::string(y) : std::string("0")) +
+                "</y><width>" + (i == 4 ? "-0" : "0") +
+                "</width><height>" + (i == 4 ? "4.9406564584124654e-324" : "0") +
+                "</height></RectF>" + cells[(i + form) % 3] + "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 5u);
+        const int cols[] = {0, c.bCol, c.cCol, c.dCol, c.eCol};
+        for (int i = 0; i < 5; ++i) {
+            CHECK_EQ(items[i]->opId, ids[i]); CHECK_EQ(items[i]->row, 0); CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], i == 4 ? -0.0 : 0.0);
+            CHECK_BITS(items[i]->rect[3], i == 4 ? 4.9406564584124654e-324 : 0.0);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < 5; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        const std::vector<int> expected = c.eCol == 1 ? std::vector<int>({41, 85, 74, 63, 52}) :
+            c.eCol == 2 ? std::vector<int>({41, 74, 85, 63, 52}) :
+            c.eCol == 3 ? std::vector<int>({41, 74, 63, 85, 52}) :
+            c.eCol == 4 ? std::vector<int>({41, 74, 63, 52, 85}) :
+                            std::vector<int>({41, 74, 63, 52});
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
+TEST_CASE(six_item_positive_f_inserts_and_breaks_graph_at_gap)
+{
+    struct Case { const char* x; int bCol; int cCol; int dCol; int eCol; int fCol; };
+    const Case cases[] = {
+        {"4.9406564584124654e-324", 5, 4, 3, 2, 1},
+        {"102.5", 5, 4, 3, 2, 1}, {"204.99999999999997", 5, 4, 3, 2, 1},
+        {"205", 5, 4, 3, 1, 2}, {"307.5", 5, 4, 3, 1, 2},
+        {"409.99999999999994", 5, 4, 3, 1, 2},
+        {"410", 5, 4, 2, 1, 3}, {"512.5", 5, 4, 2, 1, 3},
+        {"614.9999999999999", 5, 4, 2, 1, 3},
+        {"615", 5, 3, 2, 1, 4}, {"717.5", 5, 3, 2, 1, 4},
+        {"819.9999999999999", 5, 3, 2, 1, 4},
+        {"820", 4, 3, 2, 1, 5}, {"922.5", 4, 3, 2, 1, 5},
+        {"1127.4999999999998", 4, 3, 2, 1, 5},
+        {"1127.5", 4, 3, 2, 1, 6},
+        {"1332.4999999999998", 4, 3, 2, 1, 6}};
+    const char* cells[] = {"", "<CellPos Row=\"-1\" Col=\"2147483647\"/>",
+                           "<CellPos Row=\"-2147483648\" Col=\"-1\"/>"};
+    const char* ys[] = {"-1.7976931348623157e308", "159.99999999999997"};
+    for (const Case& c : cases) for (const char* y : ys) for (int form = 0; form < 3; ++form) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project>";
+        const int ids[] = {41, 52, 63, 74, 85, 96};
+        for (int i = 0; i < 6; ++i) {
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(ids[i]) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+                (i == 5 ? std::string(c.x) : std::string("0")) + "</x><y>" +
+                (i == 5 ? std::string(y) : std::string("0")) +
+                "</y><width>" + (i == 5 ? "-0" : "0") +
+                "</width><height>" + (i == 5 ? "4.9406564584124654e-324" : "0") +
+                "</height></RectF>" + cells[(i + form) % 3] + "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 6u);
+        const int cols[] = {0, c.bCol, c.cCol, c.dCol, c.eCol, c.fCol};
+        for (int i = 0; i < 6; ++i) {
+            CHECK_EQ(items[i]->opId, ids[i]); CHECK_EQ(items[i]->row, 0); CHECK_EQ(items[i]->col, cols[i]);
+            CHECK_BITS(items[i]->rect[0], 205.0 * cols[i]); CHECK_BITS(items[i]->rect[1], 0.0);
+            CHECK_BITS(items[i]->rect[2], i == 5 ? -0.0 : 0.0);
+            CHECK_BITS(items[i]->rect[3], i == 5 ? 4.9406564584124654e-324 : 0.0);
+            FlowItem* prev = nullptr; FlowItem* next = nullptr;
+            for (int j = 0; j < 6; ++j) {
+                if (cols[j] + 1 == cols[i]) prev = items[j].get();
+                if (cols[i] + 1 == cols[j]) next = items[j].get();
+            }
+            CHECK(items[i]->prev == prev); CHECK(items[i]->next == next);
+        }
+        std::vector<int> expected;
+        for (int col = 0; col < 6; ++col) {
+            int index = -1;
+            for (int i = 0; i < 6; ++i) if (cols[i] == col) index = i;
+            if (index < 0) break;
+            expected.push_back(ids[index]);
+        }
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
 TEST_CASE(three_item_distinct_explicit_cells_relayout_and_connect_grid_runs)
 {
     const auto cell = [](int col) {
