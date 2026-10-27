@@ -27,6 +27,12 @@ FRAME = struct.Struct("<IIQQIIQ32sQ")
 INVALID = C.c_void_p(-1).value
 
 
+class _PID_LIST_8(C.Structure):
+    """Fixed diagnostic buffer for JobObjectBasicProcessIdList (Win64)."""
+    _fields_ = [("assigned", abi.DWORD), ("listed", abi.DWORD),
+                ("ids", abi.ULONG_PTR * 8)]
+
+
 def _uint(value, bits, positive=True):
     if type(value) is not int or not (int(positive) <= value < 2**bits):
         raise Hold("invalid fixed unsigned field")
@@ -269,6 +275,26 @@ class ExactWorkerHandoff:
     _active = creator.NativeWorkerCreator._active
     _job_verified = creator.NativeWorkerCreator._job_verified
 
+    def _outer_census(self, expected_count):
+        """One failure-only snapshot; a race or query fault is inconclusive."""
+        try:
+            result, returned = _PID_LIST_8(), abi.DWORD()
+            ok = self._call("QueryInformationJobObject", self.outer, 3,
+                            C.byref(result), C.sizeof(result), C.byref(returned))
+            if (not ok or (returned.value != 0 and
+                           not 8 <= returned.value <= C.sizeof(result)) or
+                    result.assigned != expected_count or
+                    result.listed != result.assigned or result.listed > 8):
+                return "unavailable"
+            if returned.value and returned.value < 8 + result.listed * C.sizeof(abi.ULONG_PTR):
+                return "unavailable"
+            values = tuple(int(result.ids[i]) for i in range(result.listed))
+            if any(not 0 < value < 2**32 for value in values) or len(set(values)) != len(values):
+                return "invalid"
+            return ",".join(str(value) for value in values)
+        except BaseException:
+            return "unavailable"
+
     def _verify(self, offer):
         self._budget()
         process, job = self._owned_outputs["worker_process"], self._owned_outputs["worker_job"]
@@ -299,8 +325,9 @@ class ExactWorkerHandoff:
                        f"(worker={worker_active}; outer=not-queried)")
         outer_active = self._active(self.outer)
         if outer_active != 2:
-            raise Hold("sole WORKER and runner-plus-WORKER accounting required "
-                       f"(worker={worker_active}; outer={outer_active})")
+            members = self._outer_census(outer_active)
+            raise Hold(f"job accounting worker={worker_active}; outer={outer_active}; "
+                       f"ids={members}; runner={self.watchdog.receipt.pid}; worker_pid={offer.pid}")
         if self._call("WaitForSingleObject", process, 0) != 258:
             raise Hold("exact WORKER WAIT_TIMEOUT required")
         if self._call("WaitForSingleObject", self.runner, 0) != 258:

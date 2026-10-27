@@ -58,11 +58,14 @@ class Harness:
         self.success_wait_status = None
         self.success_active = None
         self.outer_active = None
+        self.outer_pids = (74, 73, 95)
+        self.census_returned = None
+        self.census_fail = False
         self.exports = m.binding.BoundExports({name: lambda *a, n=name: self.dispatch(n, *a)
             for name in m.abi.EXPORTS}, {}, lambda: self.error)
         self.watchdog = SimpleNamespace(exports=self.exports, deadline=500,
             receipt=SimpleNamespace(local={"runner_process": 31, "outer_job": 21},
-                deadline=500, phase="running-unacknowledged"), close=self.close_watchdog,
+                pid=74, deadline=500, phase="running-unacknowledged"), close=self.close_watchdog,
             _tick=self.watchdog_tick, claim_handoff=self.claim_handoff,
             record_handoff_ack=self.record_handoff_ack)
         self.pipe = Pipe(self)
@@ -129,6 +132,18 @@ class Harness:
             out(args[2], m.abi.BOOL, int(self.bad != "member"))
         elif name == "QueryInformationJobObject":
             job, kind, pointer, size, returned = args
+            if kind == 3:
+                assert job == 21 and size == C.sizeof(m._PID_LIST_8)
+                if self.census_fail:
+                    return 0
+                obj = C.cast(pointer, C.POINTER(m._PID_LIST_8)).contents
+                obj.assigned = len(self.outer_pids)
+                obj.listed = min(len(self.outer_pids), 8)
+                for index, pid in enumerate(self.outer_pids[:8]):
+                    obj.ids[index] = pid
+                out(returned, m.abi.DWORD, size if self.census_returned is None
+                    else self.census_returned)
+                return 1
             out(returned, m.abi.DWORD, size - int(self.bad == "query-size"))
             if kind == m.creator.JOB_LIMITS:
                 obj = C.cast(pointer, C.POINTER(m.abi.EXTENDED_LIMIT)).contents
@@ -227,10 +242,39 @@ class HandoffTests(unittest.TestCase):
         self.assertIsNone(h.ack)
         h = Harness()
         h.outer_active = 1
-        with self.assertRaisesRegex(m.Hold, "worker=1; outer=1"):
+        with self.assertRaisesRegex(m.Hold, "worker=1; outer=1; ids=unavailable"):
             h.run()
         self.assertTrue(h.dead)
         self.assertIsNone(h.ack)
+
+    def test_outer_accounting_census_is_failure_only_and_bounded(self):
+        h = Harness()
+        h.outer_active = 3
+        with self.assertRaisesRegex(m.Hold,
+                "worker=1; outer=3; ids=74,73,95; runner=74; worker_pid=73"):
+            h.run()
+        self.assertTrue(h.dead)
+        self.assertIsNone(h.ack)
+        self.assertEqual(sum(args[1] == 3 for name, args in h.calls
+                             if name == "QueryInformationJobObject"), 1)
+        h = Harness()
+        h.outer_active = 3
+        h.outer_pids = tuple(range(1, 10))
+        with self.assertRaisesRegex(m.Hold, "ids=unavailable"):
+            h.run()
+        self.assertTrue(h.dead)
+        self.assertIsNone(h.ack)
+        for field, value in (("census_fail", True), ("census_returned", 8),
+                             ("outer_pids", (74, 74, 95)),
+                             ("outer_pids", (74, 0, 95))):
+            with self.subTest(field=field, value=value):
+                h = Harness()
+                h.outer_active = 3
+                setattr(h, field, value)
+                with self.assertRaisesRegex(m.Hold, "ids=(unavailable|invalid)"):
+                    h.run()
+                self.assertTrue(h.dead)
+                self.assertIsNone(h.ack)
 
     def test_nonce_deadline_order_replay(self):
         for offer in (replace(Harness().offer, nonce=b"y" * 32),
