@@ -167,6 +167,10 @@ class FixedRunnerEntry:
                             "post_wait_budget": getattr(wr, "completion_post_wait_budget", None),
                             "post_wait_remaining": getattr(wr, "completion_post_wait_remaining", None),
                             "post_wait_stage": getattr(wr, "completion_post_wait_stage", None),
+                            "worker_active_processes": getattr(
+                                wr, "completion_worker_active_processes", None),
+                            "child_active_processes": getattr(
+                                wr, "completion_child_active_processes", None),
                         },
                         "failure": {
                             "type": type(error).__name__[:40],

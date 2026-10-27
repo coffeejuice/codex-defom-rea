@@ -57,6 +57,8 @@ class Receipt:
     completion_post_wait_budget: str = "not-attempted"
     completion_post_wait_remaining: int | None = None
     completion_post_wait_stage: str = "not-attempted"
+    completion_worker_active_processes: int | None = None
+    completion_child_active_processes: int | None = None
     errors: list = field(default_factory=list)
 
 
@@ -344,12 +346,14 @@ class NativeWorkerCreator:
             raise Hold("exact WORKER exit code zero required")
         r.completion_post_wait_stage = "worker-accounting-entered"
         worker_count = self._active(r.local["worker_job"])
+        r.completion_worker_active_processes = worker_count
         r.completion_post_wait_stage = "worker-accounting-returned"
         r.completion_post_wait_stage = "worker-budget-entered"
         self._budget()
         r.completion_post_wait_stage = "worker-budget-passed"
         r.completion_post_wait_stage = "child-accounting-entered"
         child_count = self._active(r.local["child_job"])
+        r.completion_child_active_processes = child_count
         r.completion_post_wait_stage = "child-accounting-returned"
         r.completion_post_wait_stage = "child-budget-entered"
         self._budget()

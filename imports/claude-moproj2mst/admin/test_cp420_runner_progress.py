@@ -10,22 +10,24 @@ import cp420_runner_progress as progress
 
 
 class ProgressTests(unittest.TestCase):
-    def test_cp434_failure_receipt_is_separate_bounded_and_one_use(self):
+    def test_cp436_failure_receipt_is_separate_bounded_and_one_use(self):
         nonce, deadline = b"q" * 32, 900
         self.assertRegex(progress.failure_path(nonce, deadline).name,
-                         r"^cp434-failure-[0-9a-f]{64}\.json$")
+                         r"^cp436-failure-[0-9a-f]{64}\.json$")
         self.assertNotEqual(progress.failure_path(nonce, deadline),
                             progress.path(nonce, deadline))
         with tempfile.TemporaryDirectory(dir=os.environ.get("CP420_TEST_TEMP") or None) as directory:
             target = Path(directory) / "failure.json"
             snapshot = {"runner": {"ack_memory_stage": "returned"},
-                        "worker": {"wait_outcome": "returned"},
+                        "worker": {"wait_outcome": "returned",
+                                   "worker_active_processes": 0xFFFFFFFF,
+                                   "child_active_processes": None},
                         "failure": {"type": "Hold", "message": "deadline"}}
             with patch.object(progress, "failure_path", return_value=target), \
                  patch.object(progress.os, "fsync") as fsync:
                 self.assertTrue(progress.write_failure_completion(nonce, deadline, snapshot))
                 self.assertEqual(json.loads(target.read_text(encoding="ascii")),
-                                 {"schema": 2, "snapshot": snapshot})
+                                 {"schema": 3, "snapshot": snapshot})
                 self.assertFalse(progress.write_failure_completion(nonce, deadline, snapshot))
                 self.assertFalse(progress.write_failure_completion(
                     nonce, deadline, {"runner": {"x": "a" * 1200},

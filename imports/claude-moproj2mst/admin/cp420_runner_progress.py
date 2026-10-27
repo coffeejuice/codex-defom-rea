@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 
 _DOMAIN = b"codex-deform-rea:cp420-runner-progress:v4\0"
-_FAILURE_DOMAIN = b"codex-deform-rea:cp434-completion-failure:v2\0"
+_FAILURE_DOMAIN = b"codex-deform-rea:cp436-completion-failure:v3\0"
 _STAGES = ("bootstrap", "parent_ack", "worker_resumed", "result",
            "worker_ack", "worker_closed", "terminal_entered", "terminal_returned")
 _LIMIT = 160
@@ -28,10 +28,10 @@ def path(nonce: bytes, deadline: int) -> Path:
 
 
 def failure_path(nonce: bytes, deadline: int) -> Path:
-    """Separate one-use CP434 diagnostic; preserve historical CP432 records."""
+    """Separate one-use CP436 diagnostic; preserve historical CP432/434 records."""
     _identity(nonce, deadline)
     digest = hashlib.sha256(_FAILURE_DOMAIN + nonce + deadline.to_bytes(8, "big")).hexdigest()
-    return Path(__file__).resolve().parent.parent / "analysis" / f"cp434-failure-{digest}.json"
+    return Path(__file__).resolve().parent.parent / "analysis" / f"cp436-failure-{digest}.json"
 
 
 def write_failure_completion(nonce: bytes, deadline: int, snapshot: dict) -> bool:
@@ -41,7 +41,7 @@ def write_failure_completion(nonce: bytes, deadline: int, snapshot: dict) -> boo
             any(type(snapshot[name]) is not dict for name in ("runner", "worker", "failure"))):
         return False
     try:
-        payload = (json.dumps({"schema": 2, "snapshot": snapshot},
+        payload = (json.dumps({"schema": 3, "snapshot": snapshot},
                               sort_keys=True, separators=(",", ":"),
                               ensure_ascii=True) + "\n").encode("ascii")
         if len(payload) > 1024:

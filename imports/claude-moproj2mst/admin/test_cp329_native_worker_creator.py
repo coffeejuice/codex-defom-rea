@@ -353,7 +353,8 @@ class CreatorTests(unittest.TestCase):
                 ("worker", "worker-budget-entered", 4),
                 ("child", "child-budget-entered", 5)):
             with self.subTest(target=target):
-                h = self.completion_harness()
+                h = self.completion_harness(worker_count=3)
+                h.child_count = 4
                 original = h.dispatch
 
                 def late_return(name, *args):
@@ -374,6 +375,10 @@ class CreatorTests(unittest.TestCase):
                 self.assertEqual(r.completion_post_wait_budget, "passed")
                 self.assertEqual(r.completion_post_wait_remaining, 900)
                 self.assertEqual(r.completion_post_wait_stage, expected_stage)
+                self.assertEqual(r.completion_worker_active_processes,
+                                 None if target == "exit" else 3)
+                self.assertEqual(r.completion_child_active_processes,
+                                 4 if target == "child" else None)
                 self.assertEqual(h.calls[before:].count("GetTickCount64"), clock_calls)
                 self.assertFalse(r.worker_waited)
                 self.assertFalse(r.jobs_empty)
@@ -388,7 +393,8 @@ class CreatorTests(unittest.TestCase):
                 ("child", "child-accounting-entered")):
             for uncertain in (False, True):
                 with self.subTest(target=target, uncertain=uncertain):
-                    h = self.completion_harness()
+                    h = self.completion_harness(worker_count=3)
+                    h.child_count = 4
                     original = h.dispatch
                     error = RuntimeError("native return unknown")
 
@@ -397,7 +403,9 @@ class CreatorTests(unittest.TestCase):
                             name == "QueryInformationJobObject" and
                             args[0] == (21 if target == "worker" else 22))
                         if selected:
-                            h.calls.append(name)
+                            # Simulate outputs being written before a false or
+                            # uncertain API return; neither proves a count.
+                            original(name, *args)
                             if uncertain:
                                 raise error
                             h.error = 5
@@ -413,6 +421,9 @@ class CreatorTests(unittest.TestCase):
                         self.assertEqual(caught.exception.code, 5)
                     r = h.owner.receipt
                     self.assertEqual(r.completion_post_wait_stage, expected_stage)
+                    self.assertEqual(r.completion_worker_active_processes,
+                                     3 if target == "child" else None)
+                    self.assertIsNone(r.completion_child_active_processes)
                     self.assertFalse(r.worker_waited)
                     self.assertFalse(r.jobs_empty)
                     self.assertTrue(r.local)
@@ -456,6 +467,43 @@ class CreatorTests(unittest.TestCase):
         self.assertEqual(h.owner.close().phase, "closed")
         self.assertEqual(r.completion_post_wait_stage, "close-entered")
         self.assertNotIn("TerminateJobObject", h.calls)
+
+    def test_completion_retains_both_exact_counts_through_cleanup(self):
+        for worker_count, child_count in ((0, 0), (1, 0), (0, 1), (1, 1)):
+            with self.subTest(worker_count=worker_count, child_count=child_count):
+                h = self.completion_harness(worker_count=worker_count)
+                h.child_count = child_count
+                r = h.owner.receipt
+                self.assertIsNone(r.completion_worker_active_processes)
+                self.assertIsNone(r.completion_child_active_processes)
+                before = len(h.calls)
+                if worker_count == child_count == 0:
+                    self.assertEqual(h.owner.complete_success().phase, "closed")
+                    self.assertEqual(r.completion_post_wait_stage, "close-returned")
+                else:
+                    with self.assertRaisesRegex(m.Hold, "both WORKER and CHILD jobs"):
+                        h.owner.complete_success()
+                    self.assertEqual(r.completion_post_wait_stage, "job-count-check")
+                    self.assertFalse(r.worker_waited)
+                    self.assertFalse(r.jobs_empty)
+                    self.assertTrue(r.local)
+                    self.assertEqual(h.closed, [])
+                self.assertEqual(r.completion_worker_active_processes, worker_count)
+                self.assertEqual(r.completion_child_active_processes, child_count)
+                completion_calls = h.calls[before:]
+                self.assertEqual(completion_calls.count("QueryInformationJobObject"), 2)
+                self.assertEqual(completion_calls.count("GetTickCount64"), 5)
+                before_cleanup = len(h.calls)
+                # Cleanup independently sees empty jobs after termination.
+                h.child_count = 0
+                h.dispatch = lambda name, *args: Harness.dispatch(h, name, *args)
+                self.assertEqual(h.owner.close().phase, "closed")
+                self.assertEqual(r.completion_worker_active_processes, worker_count)
+                self.assertEqual(r.completion_child_active_processes, child_count)
+                if worker_count or child_count:
+                    self.assertTrue(r.worker_terminated)
+                    self.assertEqual(h.calls[before_cleanup:].count(
+                        "QueryInformationJobObject"), 2)
 
     def prepare(self, h):
         return h.owner.prepare(r"\\.\pipe\cp329-injected")

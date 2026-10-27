@@ -17,6 +17,7 @@ class Stubs:
     def __init__(self):
         self.events = []
         self.failure_completions = []
+        self.counts = (None, None)
         self.exports = object()
         self.cleanup_ok = True
         self.fail_bootstrap = self.fail_run = self.skip_ack = False
@@ -60,7 +61,9 @@ class Stubs:
                     ack_outcome="not-attempted", errors=[])
                 self.worker = SimpleNamespace(receipt=SimpleNamespace(
                     phase="prepared-suspended", worker_waited=False, jobs_empty=False,
-                    worker_terminated=False, errors=[]))
+                    worker_terminated=False, errors=[],
+                    completion_worker_active_processes=state.counts[0],
+                    completion_child_active_processes=state.counts[1]))
 
             def run(self):
                 if not state.skip_ack:
@@ -278,6 +281,7 @@ class EntryTests(unittest.TestCase):
 
     def test_failure_receipt_preserves_bounded_cause_after_cleanup(self):
         state = Stubs()
+        state.counts = (2, 3)
         owner = self.run_stubs(state)
         outer = RuntimeError("outer failure")
         outer.__cause__ = ValueError("inner cause")
@@ -289,6 +293,10 @@ class EntryTests(unittest.TestCase):
         failure = state.failure_completions[0][2]["failure"]
         self.assertEqual(failure, {"type": "RuntimeError", "message": "outer failure",
                                    "cause_type": "ValueError", "cause_message": "inner cause"})
+        self.assertEqual(state.failure_completions[0][2]["worker"]
+                         ["worker_active_processes"], 2)
+        self.assertEqual(state.failure_completions[0][2]["worker"]
+                         ["child_active_processes"], 3)
 
     def test_marker_failure_never_gates_success(self):
         state = Stubs()
