@@ -419,20 +419,37 @@ void parseSubProject(Project& p, const xml::Node& e, Ctx& ctx)
 // up of x / 205, row 0x14014dfa0 from the row list), which the editor stores back in the item.
 void placeCelllessItems(FlowChart& flow, const xml::Node& e)
 {
-    std::vector<bool> hasCell;
+    struct CellInput { bool missing = true; bool selected = true; };
+    std::vector<CellInput> cellInputs;
     for (const xml::Node* c : e.childElements()) {
         if (c->tag != L("DiagramItem")) continue;
-        bool given = false;
+        bool given = false, eligible = true;
         for (const xml::Node* g : c->childElements())
-            if (g->tag == L("CellPos")) given = true;
-        hasCell.push_back(given);
+            if (g->tag == L("CellPos")) {
+                given = true;
+                eligible = qt::toInt(g->attribute(L("Row"))) == -1 &&
+                            qt::toInt(g->attribute(L("Col"))) == -1;
+            }
+        cellInputs.push_back({!given, !given || eligible});
     }
     std::set<std::pair<int, int>> used;
     bool row0 = false;
-    for (std::size_t k = 0; k < flow.items.size() && k < hasCell.size(); ++k) {
+    // Capture the exact three-item candidate before the two-item route can
+    // move B's rectangle as it places it.
+    const bool threeItemCandidate = flow.items.size() == 3 && cellInputs.size() == 3 &&
+        std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item && !item->group && item->className == L("SfOprForming2D") &&
+                   item->rect[0] == 0.0 && item->rect[1] == 0.0 &&
+                   item->rect[2] == 0.0 && item->rect[3] == 0.0;
+        }) && std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) {
+            return input.selected;
+        }) && std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
+            return item->next == nullptr && item->prev == nullptr;
+        });
+    for (std::size_t k = 0; k < flow.items.size() && k < cellInputs.size(); ++k) {
         FlowItem& it = *flow.items[k];
         if (it.group) continue;
-        if (!hasCell[k] || it.row == -1 || it.col == -1) {
+        if (cellInputs[k].missing || it.row == -1 || it.col == -1) {
             double x = it.rect[0], y = it.rect[1];
             if (x < -60.0) x = 0;
             if (y < -25.0) y = 0;
@@ -444,10 +461,45 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
             if (!inRow0 || col < 0 || col >= 7)
                 throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos outside row 0 / the 7 columns "
                                                "(0x14014dfa0 row list, 0x1401583e0 relayout)");
-            if (used.count({0, col}))
-                throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos on an occupied cell (0x14015b610)");
-            it.row = 0;
-            it.col = col;
+            if (used.count({0, col})) {
+                // The bounded native two-item route advances one occupied token
+                // to the adjacent free cell and relayouts that item's rectangle.
+                // Keep all larger/more complex collision patterns guarded.
+                if (flow.items.size() == 2 && k == 1 && cellInputs[0].selected && cellInputs[1].selected && !it.group &&
+                    flow.items[0] && !flow.items[0]->group &&
+                    flow.items[0]->className == L("SfOprForming2D") && it.className == L("SfOprForming2D") &&
+                    flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
+                    flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+                    it.rect[0] == 0.0 && it.rect[1] == 0.0 && it.rect[2] == 0.0 && it.rect[3] == 0.0 &&
+                    flow.items[0]->row == 0 && flow.items[0]->col == 0 && col == 0 && row0) {
+                    it.row = 0;
+                    it.col = 1;
+                    it.rect[0] = 205.0;
+                } else if (threeItemCandidate && k == 1 && row0 && col == 0 &&
+                           flow.items[0]->row == 0 && flow.items[0]->col == 0) {
+                    // B takes the same adjacent free cell as CP491. C's later
+                    // insertion is the separately guarded recursive shift.
+                    it.row = 0;
+                    it.col = 1;
+                    it.rect[0] = 205.0;
+                } else if (threeItemCandidate && k == 2 && row0 && col == 0 &&
+                           flow.items[0]->row == 0 && flow.items[0]->col == 0 &&
+                           flow.items[1]->row == 0 && flow.items[1]->col == 1 &&
+                           flow.items[1]->rect[0] == 205.0) {
+                    // Native third-install collision recursively shifts B to
+                    // column 2 before installing C in column 1.
+                    flow.items[1]->col = 2;
+                    flow.items[1]->rect[0] = 410.0;
+                    it.row = 0;
+                    it.col = 1;
+                    it.rect[0] = 205.0;
+                } else {
+                    throw Error(M2M_E_UNSUPPORTED, "project file: diagram item without CellPos on an occupied cell (0x14015b610)");
+                }
+            } else {
+                it.row = 0;
+                it.col = col;
+            }
         }
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;

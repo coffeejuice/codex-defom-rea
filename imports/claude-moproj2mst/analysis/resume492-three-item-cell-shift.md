@@ -1,0 +1,9 @@
+# CP492 selected three-item occupied-cell shift
+
+The original editor's bounded three-item zero-rectangle route shifts B's grid token from column 1 to 2, then installs C at column 1. The model list remains A,B,C; its cells are `(0,0)`, `(0,2)`, `(0,1)` and RectF lefts are 0, 410, 205. The native path and PE byte receipt are in `analysis/cp492-three-item-cell-shift-source-contract.md`. This is static evidence, not a fresh original runtime comparison.
+
+The public XML parser now snapshots selected eligibility before B's rectangle changes. It admits exactly three initially unlinked nongroup `SfOprForming2D` items with original zero RectF and absent or full `(-1,-1)` CellPos, preserving the separate CP491 two-item branch. Tests verify all model cells and rectangle components, vector order, the unlinked `mstOrder` result, and specific occupied-cell refusals for a nonzero rectangle, other class, partial/valid CellPos, a real parsed connection and four items. Independent review found and repaired three initial source/test defects before the build, then approved the stable candidate.
+
+The source-stable `analysis/cp492-build.json` passed focused `m2m.p03.subproject` and the complete build. The bound launcher registered 387 tests: 380 clean, six logged gaps, one logged difference, zero failed/skipped/incomplete and no fixture changes. Source SHA-256 was `dfdf8e37117f02f2561086644f2268eba8aa786197755a4e7489b505333a80e3`. Historical Save remains 93 SAME/five DIFF. No GUI process, app control or REA session was used.
+
+CP493 is the successor. A separate bounded PE audit supports a finite selected zero-rectangle recurrence through the native seven-column row, covering four through seven items in one increment. Eight items first require row 1 and remain guarded. Broader collision patterns, full lifecycle closure and fresh original acceptance remain unresolved.
