@@ -253,6 +253,17 @@ class CreatorTests(unittest.TestCase):
                         h.owner.complete_success()
                 completion_calls = h.calls[before:]
                 self.assertIn("WaitForSingleObject", completion_calls)
+                r = h.owner.receipt
+                self.assertEqual(r.completion_wait_outcome, "returned")
+                self.assertEqual(r.completion_wait_remaining, 900)
+                self.assertEqual(r.completion_wait_status, 0)
+                self.assertEqual(r.completion_post_wait_budget,
+                                 "passed" if accepted else "rejected")
+                self.assertEqual(r.completion_post_wait_remaining,
+                                 1 if accepted else None)
+                # The same existing clock checks run; diagnostics add none.
+                self.assertEqual(completion_calls.count("GetTickCount64"),
+                                 5 if accepted else 2)
                 self.assertEqual("GetExitCodeProcess" in completion_calls, accepted)
                 self.assertEqual(h.owner.receipt.worker_waited, accepted)
                 self.assertEqual(h.owner.receipt.jobs_empty, accepted)
@@ -260,6 +271,75 @@ class CreatorTests(unittest.TestCase):
                     self.assertEqual(h.owner.receipt.phase, "prepared-suspended")
                     self.assertTrue(h.owner.receipt.local)
                     self.assertNotIn("pipes.cleanup", completion_calls)
+
+    def test_completion_wait_exception_keeps_entry_without_return_evidence(self):
+        h = self.completion_harness()
+        original = h.dispatch
+        error = RuntimeError("wait return unknown")
+
+        def uncertain_wait(name, *args):
+            if name == "WaitForSingleObject":
+                h.calls.append(name)
+                raise error
+            return original(name, *args)
+
+        h.dispatch = uncertain_wait
+        before = len(h.calls)
+        with self.assertRaises(RuntimeError) as caught:
+            h.owner.complete_success()
+        self.assertIs(caught.exception, error)
+        r = h.owner.receipt
+        self.assertEqual(r.completion_wait_outcome, "entered")
+        self.assertEqual(r.completion_wait_remaining, 900)
+        self.assertIsNone(r.completion_wait_status)
+        self.assertEqual(r.completion_post_wait_budget, "not-attempted")
+        self.assertIsNone(r.completion_post_wait_remaining)
+        self.assertEqual(h.calls[before:].count("GetTickCount64"), 1)
+        self.assertNotIn("GetExitCodeProcess", h.calls[before:])
+        self.assertTrue(r.local)
+
+    def test_completion_wait_diagnostics_bound_status_without_authorizing_it(self):
+        for status in (258, 0xFFFFFFFF, True, None, -1, 2**64):
+            with self.subTest(status=status):
+                h = self.completion_harness(status=status)
+                with self.assertRaises(m.Hold):
+                    h.owner.complete_success()
+                r = h.owner.receipt
+                self.assertEqual(r.completion_wait_outcome, "returned")
+                self.assertEqual(r.completion_wait_status,
+                                 status if type(status) is int and
+                                 0 <= status <= 0xFFFFFFFF else None)
+                self.assertEqual(r.completion_post_wait_budget, "passed")
+                self.assertEqual(r.completion_post_wait_remaining, 900)
+                self.assertFalse(r.worker_waited)
+                self.assertFalse(r.jobs_empty)
+                self.assertNotIn("GetExitCodeProcess", h.calls)
+                self.assertEqual(h.closed, [])
+
+    def test_cleanup_wait_does_not_overwrite_completion_diagnostics(self):
+        h = self.completion_harness()
+        original = h.dispatch
+
+        def expiry_wait(name, *args):
+            result = original(name, *args)
+            if name == "WaitForSingleObject":
+                h.now = h.owner.deadline
+            return result
+
+        h.dispatch = expiry_wait
+        with self.assertRaises(m.Hold):
+            h.owner.complete_success()
+        r = h.owner.receipt
+        fields = ("completion_wait_outcome", "completion_wait_remaining",
+                  "completion_wait_status", "completion_post_wait_budget",
+                  "completion_post_wait_remaining")
+        before = tuple(getattr(r, name) for name in fields)
+        h.dispatch = lambda name, *args: Harness.dispatch(h, name, *args)
+        self.assertEqual(h.owner.close().phase, "closed")
+        self.assertTrue(r.worker_terminated)
+        self.assertTrue(r.worker_waited)
+        self.assertEqual(tuple(getattr(r, name) for name in fields), before)
+        self.assertEqual(r.completion_post_wait_budget, "rejected")
 
     def prepare(self, h):
         return h.owner.prepare(r"\\.\pipe\cp329-injected")

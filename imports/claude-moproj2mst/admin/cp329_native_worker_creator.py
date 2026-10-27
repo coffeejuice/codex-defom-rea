@@ -49,6 +49,13 @@ class Receipt:
     worker_terminated: bool = False
     worker_waited: bool = False
     jobs_empty: bool = False
+    # Diagnostic-only success-completion milestones. Cleanup never changes
+    # these fields, and no acceptance check consumes them.
+    completion_wait_outcome: str = "not-attempted"
+    completion_wait_remaining: int | None = None
+    completion_wait_status: int | None = None
+    completion_post_wait_budget: str = "not-attempted"
+    completion_post_wait_remaining: int | None = None
     errors: list = field(default_factory=list)
 
 
@@ -308,8 +315,20 @@ class NativeWorkerCreator:
         self._budget()
         process = r.local["worker_process"]
         remaining = self.deadline - self._last_tick
+        r.completion_wait_remaining = remaining
+        r.completion_wait_outcome = "entered"
         status = self._call("WaitForSingleObject", process, remaining)
-        self._budget()
+        r.completion_wait_outcome = "returned"
+        r.completion_wait_status = (status if type(status) is int and
+                                    0 <= status <= 0xFFFFFFFF else None)
+        r.completion_post_wait_budget = "entered"
+        try:
+            self._budget()  # unchanged clock query and acceptance boundary
+        except BaseException:
+            r.completion_post_wait_budget = "rejected"
+            raise
+        r.completion_post_wait_budget = "passed"
+        r.completion_post_wait_remaining = self.deadline - self._last_tick
         if type(status) is not int or status != 0:
             raise Hold("exact bounded worker WAIT_OBJECT_0 required")
         code = abi.DWORD()

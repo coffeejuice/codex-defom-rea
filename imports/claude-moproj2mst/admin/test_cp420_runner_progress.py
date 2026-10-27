@@ -1,5 +1,6 @@
 """Filesystem contract tests for CP420 occurrence progress records."""
 import os
+import json
 import unittest
 from pathlib import Path
 import tempfile
@@ -9,6 +10,26 @@ import cp420_runner_progress as progress
 
 
 class ProgressTests(unittest.TestCase):
+    def test_cp432_failure_receipt_is_separate_bounded_and_one_use(self):
+        nonce, deadline = b"q" * 32, 900
+        self.assertRegex(progress.failure_path(nonce, deadline).name,
+                         r"^cp432-failure-[0-9a-f]{64}\.json$")
+        self.assertNotEqual(progress.failure_path(nonce, deadline),
+                            progress.path(nonce, deadline))
+        with tempfile.TemporaryDirectory(dir=os.environ.get("CP420_TEST_TEMP") or None) as directory:
+            target = Path(directory) / "failure.json"
+            snapshot = {"runner": {"ack_memory_stage": "returned"},
+                        "worker": {"wait_outcome": "returned"}}
+            with patch.object(progress, "failure_path", return_value=target), \
+                 patch.object(progress.os, "fsync") as fsync:
+                self.assertTrue(progress.write_failure_completion(nonce, deadline, snapshot))
+                self.assertEqual(json.loads(target.read_text(encoding="ascii")),
+                                 {"schema": 1, "snapshot": snapshot})
+                self.assertFalse(progress.write_failure_completion(nonce, deadline, snapshot))
+                self.assertFalse(progress.write_failure_completion(
+                    nonce, deadline, {"runner": {"x": "a" * 1200}, "worker": {}}))
+                fsync.assert_not_called()
+
     def test_deterministic_identity_and_full_order(self):
         nonce, deadline = b"n" * 32, 100
         derived = progress.path(nonce, deadline)

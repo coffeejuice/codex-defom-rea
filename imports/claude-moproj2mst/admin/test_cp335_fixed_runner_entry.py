@@ -16,6 +16,7 @@ ARGV = ["--cp334-client", "11", "12", "100"]
 class Stubs:
     def __init__(self):
         self.events = []
+        self.failure_completions = []
         self.exports = object()
         self.cleanup_ok = True
         self.fail_bootstrap = self.fail_run = self.skip_ack = False
@@ -105,6 +106,10 @@ class Stubs:
             raise OSError("diagnostic unavailable")
         return True
 
+    def failure_completion(self, nonce, deadline, snapshot):
+        self.failure_completions.append((nonce, deadline, snapshot))
+        return True
+
     def adopt(self, exports, argv):
         assert exports is self.exports and tuple(argv) == tuple(ARGV)
         self.events.append("adopt-two")
@@ -113,6 +118,7 @@ class Stubs:
     def patches(self):
         return (patch.object(entry.binding, "load_native_exports", self.load),
                 patch.object(entry.progress, "write_progress", self.mark),
+                patch.object(entry.progress, "write_failure_completion", self.failure_completion),
                 patch.object(entry.client, "from_bootstrap_argv", self.adopt),
                 patch.object(entry.integration, "RunnerHandoff", self.Handoff),
                 patch.object(entry.runner, "NativeInertRunner", self.Runner))
@@ -177,8 +183,9 @@ class EntryTests(unittest.TestCase):
                          terminal.TerminalSuccess(100, b"n" * 32))
         self.assertEqual(state.events, ["load", "adopt-two", "bootstrap", "progress-bootstrap",
                          "runner-construct", "offer-ack", "progress-parent_ack", "resume",
-                         "progress-terminal_entered", "terminal-write",
-                         "progress-terminal_returned", "runner-close", "client-cleanup"])
+                         "terminal-write", "runner-close", "client-cleanup"])
+        self.assertEqual(owner.receipt.terminal_memory_stage, "returned")
+        self.assertEqual(state.failure_completions, [])
         before = list(state.events)
         with self.assertRaises(entry.EntryFailure):
             owner.run()
@@ -242,12 +249,28 @@ class EntryTests(unittest.TestCase):
             self.assertEqual(owner.receipt.terminal_outcome,
                              "unknown: terminal write entered")
             self.assertEqual(state.events.count("terminal-write"), 1)
-            self.assertNotIn("progress-terminal_returned", state.events)
+            self.assertEqual(owner.receipt.terminal_memory_stage, "entered")
+            self.assertEqual(len(state.failure_completions), 1)
+            observed_nonce, observed_deadline, snapshot = state.failure_completions[0]
+            self.assertEqual((observed_nonce, observed_deadline), (b"n" * 32, 100))
+            self.assertEqual(snapshot["runner"]["terminal_memory_stage"], "entered")
+            self.assertIsNone(snapshot["worker"]["wait_outcome"])
             self.assertEqual(terminal.decode_terminal(state.terminal_frame,
                              deadline=100, nonce=b"n" * 32),
                              terminal.TerminalSuccess(100, b"n" * 32))
             self.assertTrue(owner.close())
             self.assertEqual(state.events.count("terminal-write"), 1)
+
+    def test_failure_diagnostic_error_does_not_replace_primary_error(self):
+        state = Stubs()
+        state.fail_terminal = True
+        owner = self.run_stubs(state)
+        with patch.object(entry.progress, "write_failure_completion",
+                          side_effect=OSError("diagnostic unavailable")):
+            with self.assertRaises(entry.EntryFailure) as caught:
+                owner.run()
+        self.assertIn("terminal write outcome unknown", str(caught.exception.__cause__))
+        self.assertEqual(owner.receipt.phase, "hold")
 
     def test_marker_failure_never_gates_success(self):
         state = Stubs()
@@ -256,8 +279,9 @@ class EntryTests(unittest.TestCase):
         self.assertIs(owner.run(), owner.receipt)
         self.assertEqual(owner.receipt.phase, "closed-success")
         self.assertEqual(state.events.count("terminal-write"), 1)
-        self.assertLess(state.events.index("progress-terminal_entered"), state.events.index("terminal-write"))
-        self.assertGreater(state.events.index("progress-terminal_returned"), state.events.index("terminal-write"))
+        self.assertEqual(owner.receipt.terminal_memory_stage, "returned")
+        self.assertNotIn("progress-terminal_entered", state.events)
+        self.assertNotIn("progress-terminal_returned", state.events)
 
     def test_real_adopted_client_and_handoff_send_terminal_after_ack(self):
         """Compose actual CP334/CP333 owners with injected Win32 exports."""

@@ -125,14 +125,12 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(len(seen), 1)
         self.assertEqual(h.calls.count("ResumeThread"), 1)
 
-    def test_external_worker_progress_markers_follow_exact_milestones_best_effort(self):
+    def test_external_pre_ack_progress_and_memory_only_completion(self):
         h = Harness()
         nonce = self.external(h, lambda *_: None)
         marks = []
 
         def record_progress(got_nonce, deadline, stage, *, remaining=None):
-            if stage == "worker_ack":
-                self.assertEqual(remaining, deadline - h.runner._last_tick)
             marks.append((got_nonce, deadline, stage, remaining))
             return True
 
@@ -143,10 +141,12 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(r.phase, "closed-success")
         self.assertEqual([(n, d, s) for n, d, s, _ in marks],
                          [(nonce, 700, "worker_resumed"), (nonce, 700, "result"),
-                          (nonce, 700, "worker_ack"), (nonce, 700, "worker_closed")])
-        self.assertTrue(all(remaining is None for _, _, stage, remaining in marks
-                            if stage != "worker_ack"))
-        self.assertTrue(0 < marks[2][3] <= 5000)
+                          ])
+        self.assertTrue(all(remaining is None for _, _, _, remaining in marks))
+        self.assertEqual(r.ack_memory_stage, "returned")
+        self.assertTrue(0 < r.ack_remaining <= 5000)
+        self.assertEqual((r.post_ack_budget, r.creator_completion),
+                         ("passed", "returned"))
 
     def test_external_progress_storage_failures_do_not_change_acceptance(self):
         h = Harness()
@@ -165,25 +165,21 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(r.result_outcome, "80-byte-zero-child-result")
         self.assertEqual(r.ack_outcome, "exact-worker-exit-zero-observed")
         self.assertEqual([stage for _, _, stage, _ in calls],
-                         ["worker_resumed", "result", "worker_ack", "worker_closed"])
+                         ["worker_resumed", "result"])
         self.assertTrue(all(got_nonce == nonce and deadline == 700
                             for got_nonce, deadline, _, _ in calls))
 
-    def test_worker_ack_progress_delay_consumes_original_deadline_before_completion(self):
+    def test_post_ack_memory_stage_and_budget_rejection_at_deadline(self):
         h = Harness()
         self.external(h, lambda *_: None)
-        stages = []
 
-        def delayed_progress(_nonce, deadline, stage, *, remaining=None):
-            stages.append(stage)
-            if stage == "worker_ack":
-                self.assertGreater(remaining, 0)
-                # The marker's remaining value is sampled before its storage I/O.
-                # Model that I/O returning only at the original deadline.
-                h.now = deadline
-            return True
+        original_write = h.runner._write
+        def delayed_after_ack(frame):
+            original_write(frame)
+            if len(h.frames) == 2:
+                h.now = 700
 
-        with patch.object(m.progress, "write_progress", side_effect=delayed_progress), \
+        with patch.object(h.runner, "_write", side_effect=delayed_after_ack), \
              patch.object(m.creator.NativeWorkerCreator, "complete_success") as complete, \
              patch.object(m.secrets, "token_hex", return_value="a" * 64):
             with self.assertRaises(m.RunFailure) as caught:
@@ -192,33 +188,33 @@ class RunnerTests(unittest.TestCase):
         self.assertIsInstance(caught.exception.__cause__, m.Hold)
         self.assertIn("original absolute deadline expired", str(caught.exception.__cause__))
         complete.assert_not_called()
-        self.assertEqual(stages, ["worker_resumed", "result", "worker_ack"])
         self.assertEqual(h.calls.count("ResumeThread"), 1)
         self.assertEqual(len(h.frames), 2)  # INIT and exactly one ACK.
         self.assertEqual(h.runner.receipt.ack_outcome,
                          "48-bytes-written-exit-unconfirmed")
+        self.assertEqual(h.runner.receipt.ack_memory_stage, "returned")
+        self.assertEqual(h.runner.receipt.post_ack_budget, "rejected")
+        self.assertEqual(h.runner.receipt.creator_completion, "not-attempted")
         self.assertNotEqual(h.runner.receipt.phase, "closed-success")
 
-    def test_worker_ack_progress_delay_with_remaining_budget_reaches_completion(self):
+    def test_post_ack_memory_stage_with_remaining_budget_reaches_completion(self):
         h = Harness()
         self.external(h, lambda *_: None)
-        stages = []
 
-        def delayed_progress(_nonce, deadline, stage, *, remaining=None):
-            stages.append(stage)
-            if stage == "worker_ack":
-                self.assertGreater(remaining, 1)
-                h.now = deadline - 1
-            return True
+        original_write = h.runner._write
+        def delayed_after_ack(frame):
+            original_write(frame)
+            if len(h.frames) == 2:
+                h.now = 699
 
-        with patch.object(m.progress, "write_progress", side_effect=delayed_progress), \
+        with patch.object(h.runner, "_write", side_effect=delayed_after_ack), \
              patch.object(m.secrets, "token_hex", return_value="a" * 64):
             result = h.run()
 
         self.assertEqual(result.phase, "closed-success")
         self.assertEqual(result.ack_outcome, "exact-worker-exit-zero-observed")
-        self.assertEqual(stages, ["worker_resumed", "result", "worker_ack",
-                                  "worker_closed"])
+        self.assertEqual((result.ack_memory_stage, result.post_ack_budget,
+                          result.creator_completion), ("returned", "passed", "returned"))
         self.assertEqual(h.calls.count("ResumeThread"), 1)
         self.assertEqual(len(h.frames), 2)
 

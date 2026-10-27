@@ -332,6 +332,7 @@ class CrossOwnerHandoffTests(unittest.TestCase):
         with patch.object(entry.binding, "load_native_exports", return_value=h.exports), \
              patch.object(entry.client, "from_bootstrap_argv", side_effect=adopt), \
              patch.object(entry.progress, "write_progress", return_value=True), \
+             patch.object(entry.progress, "write_failure_completion", return_value=True), \
              patch.object(runner_wire.runner_progress, "read_progress", return_value="absent"), \
              patch.object(runner_wire.outer, "OuterWatchdog", return_value=h.watchdog), \
              patch.object(inert.security, "NativePrivatePipeSecurity", side_effect=security_factory), \

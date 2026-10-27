@@ -36,6 +36,10 @@ class Receipt:
     result_outcome: str = "not-attempted"
     peek_outcome: str = "not-attempted"
     ack_outcome: str = "not-attempted"
+    ack_memory_stage: str = "not-attempted"
+    ack_remaining: int | None = None
+    post_ack_budget: str = "not-attempted"
+    creator_completion: str = "not-attempted"
     errors: list = field(default_factory=list)
 
 
@@ -299,16 +303,25 @@ class NativeInertRunner:
             r.ack_outcome = "unknown: write entered"
             self._write(wire.encode_ack(wire.Ack(0, nonce)))
             r.ack_outcome = "48-bytes-written-exit-unconfirmed"
-            self._progress(nonce, "worker_ack",
-                           remaining=self._deadline - self._last_tick)
-            self._budget()
+            # A memory-only observation keeps filesystem I/O off the interval
+            # between ACK and the exact WORKER completion deadline.
+            r.ack_remaining = self._deadline - self._last_tick
+            r.ack_memory_stage = "returned"
+            r.post_ack_budget = "entered"
+            try:
+                self._budget()
+            except BaseException:
+                r.post_ack_budget = "rejected"
+                raise
+            r.post_ack_budget = "passed"
+            r.creator_completion = "entered"
             completed = self.worker.complete_success()
+            r.creator_completion = "returned"
             self._budget()
             if completed.phase != "closed":
                 raise Hold("successful exit with complete terminal owner cleanup required")
             r.ack_outcome = "exact-worker-exit-zero-observed"
             r.phase = "closed-success"
-            self._progress(nonce, "worker_closed")
             return r
         except BaseException as error:
             self.receipt = r  # retain the original occurrence receipt on callback replacement

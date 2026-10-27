@@ -43,6 +43,7 @@ class Receipt:
     phase: str = "new"
     deadline: int | None = None
     terminal_outcome: str = "not-attempted"
+    terminal_memory_stage: str = "not-attempted"
     errors: list = field(default_factory=list)
 
 
@@ -124,10 +125,7 @@ class FixedRunnerEntry:
                 raise Hold("adopted client channel required for terminal claim")
             write_handle = channel.client_write
             self.receipt.terminal_outcome = "unknown: terminal write entered"
-            try:
-                progress.write_progress(marker_nonce, deadline, "terminal_entered")
-            except BaseException:
-                pass
+            self.receipt.terminal_memory_stage = "entered"
             count = self.pipe_owner.transfer(write_handle, "write", frame)
             if (type(count) is not int or count != len(frame) or
                     self.pipe_owner.receipt is not channel or
@@ -135,10 +133,7 @@ class FixedRunnerEntry:
                     self.nonce != claim.nonce or self.handoff.nonce != claim.nonce or
                     self.handoff.phase != "authorized"):
                 raise Hold("exact terminal claim delivery and custody required")
-            try:
-                progress.write_progress(marker_nonce, deadline, "terminal_returned")
-            except BaseException:
-                pass
+            self.receipt.terminal_memory_stage = "returned"
             self.receipt.terminal_outcome = "80-byte-claim-written-parent-unconfirmed"
             if not self.close():
                 raise Hold("fixed runner terminal cleanup unresolved")
@@ -148,6 +143,31 @@ class FixedRunnerEntry:
             self.receipt.errors.append(f"{type(error).__name__}: {error}")
             self.receipt.phase = "hold"
             self.close()
+            # Failure-only evidence is written after cleanup. Its absence is
+            # inconclusive when the outer watchdog ends the runner first.
+            try:
+                if self.runner is not None and type(self.nonce) is bytes and len(self.nonce) == 32:
+                    rr = self.runner.receipt
+                    wr = getattr(getattr(self.runner, "worker", None), "receipt", None)
+                    snapshot = {
+                        "runner": {
+                            "ack_memory_stage": getattr(rr, "ack_memory_stage", None),
+                            "ack_remaining": getattr(rr, "ack_remaining", None),
+                            "post_ack_budget": getattr(rr, "post_ack_budget", None),
+                            "creator_completion": getattr(rr, "creator_completion", None),
+                            "terminal_memory_stage": self.receipt.terminal_memory_stage,
+                        },
+                        "worker": {
+                            "wait_outcome": getattr(wr, "completion_wait_outcome", None),
+                            "wait_remaining": getattr(wr, "completion_wait_remaining", None),
+                            "wait_status": getattr(wr, "completion_wait_status", None),
+                            "post_wait_budget": getattr(wr, "completion_post_wait_budget", None),
+                            "post_wait_remaining": getattr(wr, "completion_post_wait_remaining", None),
+                        },
+                    }
+                    progress.write_failure_completion(self.nonce, self.receipt.deadline, snapshot)
+            except BaseException:
+                pass
             raise EntryFailure(error, self) from error
 
     def close(self):

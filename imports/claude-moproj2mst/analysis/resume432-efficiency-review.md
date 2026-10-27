@@ -1,0 +1,7 @@
+# CP430–432 efficiency review
+
+CP430 consumed one monitored inert occurrence and remained unaccepted. CP431 used injected clocks instead of another native run to isolate a wait-return deadline ambiguity. CP432 removed synchronous sidecar operations after ACK and added bounded failure-only evidence, again without a native run. This sequence narrows the next observation while preserving the 5,000 ms absolute deadline and strict acceptance.
+
+The final injected CP432 suites ran 664 CP3xx tests in 0.547 seconds and 10 CP4xx tests in 0.050 seconds from the converter root; the repository-root run reported 664 in 0.505 seconds and 10 in 0.040 seconds. Enclosing tool wall times were 5.9 and 5.4 seconds respectively, including process startup and review overhead. These figures do not measure native capture or end-to-end reconstruction speed. Token usage was unavailable, so no token-saving claim is made.
+
+The remaining cost is evidence acquisition: source-only audits found the public editor300, active DOE, Boolean, COG, geometry, Close, dialog, format, graph, connector and inheritance gates dependent on distinct original witnesses. Parallel read-only reviews avoided speculative patches but did not close those gates. CP433 should run a single independently gated inert trial only after a clean source freeze; repeated unmodified trials are not progress. Review efficiency again after three more checkpoints or one hour at a safe boundary.
