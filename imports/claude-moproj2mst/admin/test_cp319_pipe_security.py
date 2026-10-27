@@ -27,6 +27,7 @@ class Fake:
         self.size_fault = None
         self.fail_token_read = False
         self.wrong_sid_length = False
+        self.close_exception = None
         self.create_handle = 123
         self.snapshot = None
         self.closed = []
@@ -79,6 +80,8 @@ class Fake:
                 C.c_ubyte.from_address(sid).value = 2
             return 1
         if name == "CloseHandle":
+            if self.close_exception is not None:
+                raise self.close_exception
             self.closed.append(args[0].value)
             return 1
         if name in ("IsValidSid", "IsValidSecurityDescriptor"):
@@ -244,6 +247,68 @@ class Tests(unittest.TestCase):
             self.owner(fake)
         self.assertEqual(fake.closed, [100])
         self.assertNotIn("CopySid", fake.calls)
+
+    def test_token_close_failure_retains_retryable_owner_after_constructor_aborts(self):
+        fake = Fake()
+        fake.fail = "CloseHandle"
+        with self.assertRaises(security.TokenCleanupFailure) as caught:
+            self.owner(fake)
+        retained = caught.exception.token_owner
+        self.assertEqual(retained.handle, 100)
+        self.assertFalse(retained.closed)
+        self.assertEqual(fake.closed, [])
+        self.assertNotIn("InitializeAcl", fake.calls)
+        with self.assertRaises(security.TokenCleanupFailure) as retry:
+            retained.retry_close()
+        self.assertIs(retry.exception.token_owner, retained)
+        self.assertFalse(retained.closed)
+        fake.fail = None
+        retained.retry_close()
+        self.assertTrue(retained.closed)
+        self.assertEqual(fake.closed, [100])
+        calls = fake.calls.count("CloseHandle")
+        retained.retry_close()
+        self.assertEqual(fake.calls.count("CloseHandle"), calls)
+
+    def test_token_close_failure_preserves_original_construction_failure(self):
+        fake = Fake()
+        fake.sid_fault = "outside"
+        fake.fail = "CloseHandle"
+        with self.assertRaises(security.TokenCleanupFailure) as caught:
+            self.owner(fake)
+        self.assertIsInstance(caught.exception.__context__, security.Hold)
+        self.assertIn("token SID outside", str(caught.exception.__context__))
+        retained = caught.exception.token_owner
+        self.assertFalse(retained.closed)
+        fake.fail = None
+        retained.retry_close()
+        self.assertEqual(fake.closed, [100])
+
+    def test_raising_token_close_retains_owner_and_cause_until_retry_receipt(self):
+        fake = Fake()
+        interruption = InterruptedError("injected close interrupted")
+        fake.close_exception = interruption
+        with self.assertRaises(security.TokenCleanupFailure) as caught:
+            self.owner(fake)
+        retained = caught.exception.token_owner
+        self.assertIs(caught.exception.__cause__, interruption)
+        self.assertIsNone(caught.exception.code)
+        self.assertFalse(retained.closed)
+        self.assertEqual(retained.handle, 100)
+        self.assertEqual(fake.closed, [])
+        self.assertNotIn("InitializeAcl", fake.calls)
+        with self.assertRaises(security.TokenCleanupFailure) as retry:
+            retained.retry_close()
+        self.assertIs(retry.exception.token_owner, retained)
+        self.assertIs(retry.exception.__cause__, interruption)
+        self.assertFalse(retained.closed)
+        fake.close_exception = None
+        retained.retry_close()
+        self.assertTrue(retained.closed)
+        self.assertEqual(fake.closed, [100])
+        calls = fake.calls.count("CloseHandle")
+        retained.retry_close()
+        self.assertEqual(fake.calls.count("CloseHandle"), calls)
 
 
 if __name__ == "__main__":

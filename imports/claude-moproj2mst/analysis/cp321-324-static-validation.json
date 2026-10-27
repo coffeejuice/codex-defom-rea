@@ -1,0 +1,34 @@
+{
+  "schema": "cp321-324-static-validation-v1",
+  "status": "REVIEWED_INJECTED_INTEGRATION_NATIVE_RUN_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp319_pipe_security.py": "f3a6b4e43897bea2df4f6c9ffe741bbfd790eb207a260b9ccdca2c4094dbef8c",
+    "admin/test_cp319_pipe_security.py": "a9074a613a9ba8b231b37a5f7ccabfda456e590e63c7f4c258260e26db2e9813",
+    "admin/cp321_native_exports.py": "b7370b622d0205b5432f37094c7feaabcc3b7a66e8215179d90d46020540ec2c",
+    "admin/test_cp321_native_exports.py": "c335a961aadc335cc6b8d2eb9393f1d78f61e508b2db56869de9c44a1439f442",
+    "admin/cp322_private_pipe_owner.py": "55739a35ca5bcc794ad344472f6c0becdb33422da6e1f7ea4a369bedec31acfe",
+    "admin/test_cp322_private_pipe_owner.py": "788bab13ad0cc2fb014913d606da0dc2c6e737161930ab87e9fac8f0dd6809b8",
+    "admin/cp323_fixed_job_token.py": "5e2610df900f6e2b6cc28062d8297fe52a8ed3318939b16a14fa4e2634e12b9c",
+    "admin/test_cp323_fixed_job_token.py": "4e0f4f4c95124dfeffa0f9c70025e5890375d45a0ef140ff2d2d99386a35531e",
+    "admin/cp324_inert_worker_protocol.py": "c2336f5c075a5fe5b38c6be373d228f3e2bc7aabb9fd7bc2377acf2ab2b026f2",
+    "admin/test_cp324_inert_worker_protocol.py": "a501857fd775b27542c45ce654dbeabc5ea1744200f4124f3285aeaa6e5467d7"
+  },
+  "tests": {
+    "subset": "test_cp3*.py through CP324",
+    "root_order": {"run": 340, "passed": 340, "failed": 0},
+    "admin_order": {"run": 340, "passed": 340, "failed": 0},
+    "log": "analysis/cp321-324-static-fake-tests.log",
+    "log_sha256": "3ee3dbd7c57700814643678d527c6fe1b6169f03d7b63d85dcab052f0a8dcdcb"
+  },
+  "reviews": "CP321, repaired CP322/CP319, CP323 and repaired CP324 independently reviewed PASS within injected/static scope",
+  "unpassed_gates": [
+    "Real Windows export, descriptor, pipe, image and suspended WORKER integration",
+    "One bounded inert WORKER-only native occurrence with full exit and cleanup evidence",
+    "Synthetic CHILD nested-job and supervisor-death containment",
+    "Fresh original Open-Save-accepted Close/failure evidence and public C++ converter acceptance"
+  ]
+}

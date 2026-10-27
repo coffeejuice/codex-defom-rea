@@ -78,6 +78,39 @@ class ApiFailure(Hold):
         super().__init__(f"{operation}: Win32 error {code}")
 
 
+class TokenCleanupFailure(ApiFailure):
+    """Caller must retain token_owner and retry cleanup after constructor HOLD.
+
+    Any earlier construction failure remains available in __context__. The
+    retained owner is also attached when a retry fails; no failure relinquishes
+    token ownership or proves that CloseHandle succeeded.
+    """
+    def __init__(self, token_owner: RetainedTokenOwner, code: int | None):
+        self.token_owner = token_owner
+        super().__init__("CloseHandle(token)", code)
+
+
+class RetainedTokenOwner:
+    """Explicit token cleanup receipt, including after a constructor failure."""
+    def __init__(self, functions: FakeAPI, last_error: Callable[[], int], handle: int):
+        self._functions, self._last_error = functions, last_error
+        self.handle = handle
+        self.closed = False
+
+    def retry_close(self) -> None:
+        if self.closed:
+            return
+        try:
+            ok = self._functions.CloseHandle(HANDLE(self.handle))
+        except BaseException as error:
+            # A raised/interrupted call gives no close receipt. Keep the owner
+            # reachable even when construction itself is being unwound.
+            raise TokenCleanupFailure(self, None) from error
+        if not ok:
+            raise TokenCleanupFailure(self, int(self._last_error()))
+        self.closed = True
+
+
 class InjectedPrivatePipeSecurity:
     """Own SID, ACL, absolute descriptor and SA through synchronous pipe create.
 
@@ -124,6 +157,7 @@ class InjectedPrivatePipeSecurity:
             self._check("OpenProcessToken", f.GetCurrentProcess(), TOKEN_QUERY, C.byref(token))
         if token.value in (None, 0, INVALID_HANDLE_VALUE):
             raise Hold("invalid token handle")
+        token_owner = RetainedTokenOwner(f, self.last_error, token.value)
         try:
             needed = DWORD()
             ok = f.GetTokenInformation(token, TOKEN_USER, None, 0, C.byref(needed))
@@ -154,7 +188,7 @@ class InjectedPrivatePipeSecurity:
             self._check("IsValidSid", result)
             return result
         finally:
-            self._check("CloseHandle", token)
+            token_owner.retry_close()
 
     def create_pipe(self, name: str, *, direction: int) -> int:
         """Create one local, noninheritable, first-instance overlapped pipe.
