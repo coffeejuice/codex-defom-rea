@@ -21,6 +21,7 @@ import cp326_native_pipe_security as security
 import cp327_native_image_pin as image
 import cp328_native_pipes as pipes
 import cp329_native_worker_creator as creator
+import cp420_runner_progress as progress
 
 NATIVE_ENTRY = "HARD HOLD"
 Hold = abi.Hold
@@ -219,6 +220,15 @@ class NativeInertRunner:
             raise Hold("queued duplicate/trailing RESULT bytes")
         self.receipt.peek_outcome = "zero-queued-byte-snapshot"
 
+    def _progress(self, nonce, stage):
+        """Best-effort CP420 evidence; progress storage never gates the run."""
+        if not self._external:
+            return
+        try:
+            progress.write_progress(nonce, self._supplied_deadline, stage)
+        except BaseException:
+            pass
+
     def run(self):
         if self._used or self._custody_uncertain:
             raise Hold("runner is one-use")
@@ -266,6 +276,7 @@ class NativeInertRunner:
                 raise Hold("ResumeThread previous suspend count must be exactly one")
             r.resume_outcome = "resumed-once-previous-count-one"
             self._budget()
+            self._progress(nonce, "worker_resumed")
             r.init_outcome = "unknown: write entered"
             self._write(init)
             r.init_outcome = "48-bytes-written"
@@ -279,10 +290,12 @@ class NativeInertRunner:
                     "child_query_ok", "child_query_error", "child_member", "child_process_handle")):
                 raise Hold("RESULT must echo nonce with all child fields zero")
             r.result_outcome = "80-byte-zero-child-result"
+            self._progress(nonce, "result")
             self._peek_empty()
             r.ack_outcome = "unknown: write entered"
             self._write(wire.encode_ack(wire.Ack(0, nonce)))
             r.ack_outcome = "48-bytes-written-exit-unconfirmed"
+            self._progress(nonce, "worker_ack")
             self._budget()
             completed = self.worker.complete_success()
             self._budget()
@@ -290,6 +303,7 @@ class NativeInertRunner:
                 raise Hold("successful exit with complete terminal owner cleanup required")
             r.ack_outcome = "exact-worker-exit-zero-observed"
             r.phase = "closed-success"
+            self._progress(nonce, "worker_closed")
             return r
         except BaseException as error:
             self.receipt = r  # retain the original occurrence receipt on callback replacement

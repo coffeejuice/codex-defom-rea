@@ -14,7 +14,7 @@ import cp330_native_inert_runner as runner
 import cp333_watchdog_runner_integration as integration
 import cp334_runner_client_pipe as client
 import cp339_terminal_protocol as terminal
-import cp418_runner_marker as marker
+import cp420_runner_progress as progress
 
 NATIVE_ENTRY = "HARD HOLD"
 Hold = abi.Hold
@@ -88,8 +88,23 @@ class FixedRunnerEntry:
             if (type(echoed_deadline) is not int or echoed_deadline != deadline or
                     type(self.nonce) is not bytes or len(self.nonce) != 32):
                 raise Hold("exact BOOTSTRAP occurrence required")
+            try:
+                progress.write_progress(self.nonce, deadline, "bootstrap")
+            except BaseException:
+                pass
+            marker_nonce = self.nonce
+            original_before_resume = self.handoff.before_resume
+
+            def before_resume(worker, nonce):
+                offer = original_before_resume(worker, nonce)
+                try:
+                    progress.write_progress(marker_nonce, deadline, "parent_ack")
+                except BaseException:
+                    pass
+                return offer
+
             self.runner = runner.NativeInertRunner(self.exports, deadline=deadline,
-                nonce=self.nonce, before_resume=self.handoff.before_resume)
+                nonce=self.nonce, before_resume=before_resume)
             result = self.runner.run()
             if (result is not self.runner.receipt or result.phase != "closed-success" or
                     result.deadline != deadline or self.handoff.phase != "authorized" or
@@ -110,7 +125,7 @@ class FixedRunnerEntry:
             write_handle = channel.client_write
             self.receipt.terminal_outcome = "unknown: terminal write entered"
             try:
-                marker.write_stage(self.nonce, deadline, "entered")
+                progress.write_progress(marker_nonce, deadline, "terminal_entered")
             except BaseException:
                 pass
             count = self.pipe_owner.transfer(write_handle, "write", frame)
@@ -121,7 +136,7 @@ class FixedRunnerEntry:
                     self.handoff.phase != "authorized"):
                 raise Hold("exact terminal claim delivery and custody required")
             try:
-                marker.write_stage(self.nonce, deadline, "returned")
+                progress.write_progress(marker_nonce, deadline, "terminal_returned")
             except BaseException:
                 pass
             self.receipt.terminal_outcome = "80-byte-claim-written-parent-unconfirmed"

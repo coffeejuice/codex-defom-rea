@@ -125,6 +125,52 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(len(seen), 1)
         self.assertEqual(h.calls.count("ResumeThread"), 1)
 
+    def test_external_worker_progress_markers_follow_exact_milestones_best_effort(self):
+        h = Harness()
+        nonce = self.external(h, lambda *_: None)
+        marks = []
+
+        def record_progress(got_nonce, deadline, stage):
+            marks.append((got_nonce, deadline, stage))
+            return True
+
+        with patch.object(m.progress, "write_progress", side_effect=record_progress), \
+             patch.object(m.secrets, "token_hex", return_value="a" * 64):
+            r = h.run()
+
+        self.assertEqual(r.phase, "closed-success")
+        self.assertEqual(marks, [(nonce, 700, "worker_resumed"),
+                                 (nonce, 700, "result"),
+                                 (nonce, 700, "worker_ack"),
+                                 (nonce, 700, "worker_closed")])
+
+    def test_external_progress_storage_failures_do_not_change_acceptance(self):
+        h = Harness()
+        nonce = self.external(h, lambda *_: None)
+        calls = []
+
+        def failed_progress(got_nonce, deadline, stage):
+            calls.append((got_nonce, deadline, stage))
+            raise OSError("progress storage unavailable")
+
+        with patch.object(m.progress, "write_progress", side_effect=failed_progress), \
+             patch.object(m.secrets, "token_hex", return_value="a" * 64):
+            r = h.run()
+
+        self.assertEqual(r.phase, "closed-success")
+        self.assertEqual(r.result_outcome, "80-byte-zero-child-result")
+        self.assertEqual(r.ack_outcome, "exact-worker-exit-zero-observed")
+        self.assertEqual([stage for _, _, stage in calls],
+                         ["worker_resumed", "result", "worker_ack", "worker_closed"])
+        self.assertTrue(all(got_nonce == nonce and deadline == 700
+                            for got_nonce, deadline, _ in calls))
+
+    def test_non_external_run_does_not_write_worker_progress(self):
+        h = Harness()
+        with patch.object(m.progress, "write_progress",
+                          side_effect=AssertionError("unexpected progress write")):
+            self.assertEqual(h.run().phase, "closed-success")
+
     def test_external_expiry_rejects_before_preparation_without_reallocation(self):
         for deadline in (100, 99, 1001):
             h = Harness()

@@ -200,7 +200,9 @@ def _child_trace_result(path):
         "wait_retry_budget", "wait_result", "close_event", "post_operation_budget",
         "final_budget", "complete"))
     allowed.update("cp333_runner_" + stage for stage in (
-        "absent", "entered", "returned", "malformed", "unavailable"))
+        "absent", "entered", "returned", "bootstrap", "parent_ack",
+        "worker_resumed", "result", "worker_ack", "worker_closed",
+        "terminal_entered", "terminal_returned", "malformed", "unavailable"))
     if not raw:
         result["status"] = "partial"
         return result

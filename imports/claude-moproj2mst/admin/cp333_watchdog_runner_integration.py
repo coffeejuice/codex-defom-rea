@@ -18,7 +18,7 @@ import cp328_native_pipes as pipes
 import cp331_outer_watchdog as outer
 import cp332_exact_worker_handoff as handoff
 import cp339_terminal_protocol as terminal
-import cp418_runner_marker as runner_marker
+import cp420_runner_progress as runner_progress
 
 NATIVE_ENTRY = "HARD HOLD"
 Hold = abi.Hold
@@ -258,10 +258,15 @@ class WatchdogIntegration:
                     self._mark(f"cp333_pipe_{phase}")
                 if "absolute pipe deadline expired" in str(error):
                     try:
-                        runner_stage = runner_marker.read_stage(self.nonce, self.receipt.deadline)
+                        runner_stage = runner_progress.read_progress(
+                            self.nonce, self.receipt.deadline)
                     except BaseException:
                         runner_stage = "unavailable"
-                    if runner_stage in ("absent", "entered", "returned", "malformed", "unavailable"):
+                    if runner_stage in (
+                            "absent", "bootstrap", "parent_ack", "worker_resumed",
+                            "result", "worker_ack", "worker_closed",
+                            "terminal_entered", "terminal_returned",
+                            "malformed", "unavailable"):
                         self._mark(f"cp333_runner_{runner_stage}")
                 kind = type(error).__name__[:40]
                 message = "".join(ch if 32 <= ord(ch) <= 126 else "?"
