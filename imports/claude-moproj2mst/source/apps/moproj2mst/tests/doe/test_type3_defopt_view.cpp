@@ -1,4 +1,5 @@
 #include <testkit/check.hpp>
+#include <limits>
 
 #include "../../src/ops/type3_optimizer_defopt_view.hpp"
 
@@ -45,6 +46,29 @@ TEST_CASE(type3_defopt_view_keeps_region_order_and_invalid_name_fallback)
     CHECK(view.regionNameAt(1) == qt::L("second"));
     CHECK(view.regionNameAt(-1) == qt::L("Selected Object"));
     CHECK(view.regionNameAt(2) == qt::L("Selected Object"));
+}
+
+TEST_CASE(type3_defopt_view_projects_row_fields_and_signed_invalid_defaults)
+{
+    Type3OptimizerScalarState state;
+    appendType3NumConPreparedRow(state, 7, 99, 2.5, qt::L("first"), 31, 41);
+    appendType3NumConPreparedRow(state, 0, -8, -3.25, qt::L("second"), 32, 42);
+    Type3OptimizerDefOptView view(state);
+    CHECK(view.numConField1At(0) == 7); CHECK(view.numConField1At(1) == 0);
+    CHECK(view.numConField3At(0) == 2.5); CHECK(view.numConField3At(1) == -3.25);
+    CHECK(view.numConField4At(0) == 41); CHECK(view.numConField4At(1) == 42);
+    CHECK(view.numConField2At(0) == 31); CHECK(view.numConField2At(1) == 32);
+    const std::int32_t invalid[] = {(std::numeric_limits<std::int32_t>::min)(), -1, 2,
+                                    (std::numeric_limits<std::int32_t>::max)()};
+    for (const auto index : invalid) {
+        CHECK(view.numConField1At(index) == -1);
+        CHECK(view.numConField3At(index) == 0.0);
+        CHECK(view.numConField4At(index) == -1);
+        CHECK(view.numConField2At(index) == -1);
+    }
+    // Field1 is a value; if used as an index it retains signed-index behavior.
+    CHECK(view.numConField4At(view.numConField1At(0)) == -1);
+    CHECK(view.numConField4At(view.numConField1At(1)) == 41);
 }
 
 int main() { return testkit::run_all(); }

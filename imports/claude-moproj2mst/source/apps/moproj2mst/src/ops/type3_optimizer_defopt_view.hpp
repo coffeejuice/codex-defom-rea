@@ -20,6 +20,10 @@ public:
 
     std::int32_t numConCount() const noexcept;
     const Type3NumConRowValues* numConAt(std::int32_t index) const noexcept;
+    std::int32_t numConField1At(std::int32_t index) const noexcept;
+    double numConField3At(std::int32_t index) const noexcept;
+    std::int32_t numConField4At(std::int32_t index) const noexcept;
+    std::int32_t numConField2At(std::int32_t index) const noexcept;
     std::int32_t regionCount() const noexcept;
     qt::String regionNameAt(std::int32_t index) const;
 

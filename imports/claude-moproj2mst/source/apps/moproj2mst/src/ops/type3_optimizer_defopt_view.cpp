@@ -34,6 +34,30 @@ const Type3NumConRowValues* Type3OptimizerDefOptView::numConAt(std::int32_t inde
     return &state_.numConRows[static_cast<std::size_t>(index)];
 }
 
+std::int32_t Type3OptimizerDefOptView::numConField1At(std::int32_t index) const noexcept
+{
+    const auto* row = numConAt(index);
+    return row ? row->value04 : -1;
+}
+
+double Type3OptimizerDefOptView::numConField3At(std::int32_t index) const noexcept
+{
+    const auto* row = numConAt(index);
+    return row ? row->value18 : 0.0;
+}
+
+std::int32_t Type3OptimizerDefOptView::numConField4At(std::int32_t index) const noexcept
+{
+    const auto* row = numConAt(index);
+    return row ? row->value0c : -1;
+}
+
+std::int32_t Type3OptimizerDefOptView::numConField2At(std::int32_t index) const noexcept
+{
+    const auto* row = numConAt(index);
+    return row ? row->value08 : -1;
+}
+
 std::int32_t Type3OptimizerDefOptView::regionCount() const noexcept { return count(state_.regionRows); }
 
 qt::String Type3OptimizerDefOptView::regionNameAt(std::int32_t index) const
