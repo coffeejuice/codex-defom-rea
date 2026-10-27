@@ -182,7 +182,9 @@ std::map<int, int> groupMap(const FlowChart& flow)
 // Model +0x90 (0x140075050) on the first out connector of `from` and the first in connector of
 // `to`: +0x88 clears both connectors (the far ends lose that connection too), then +0x78 links
 // them. The caller must first apply the model's admission check (+0x88 on the model).
-// The "Read From DB" label updates of the same function are UI only (s1-01 Q5).
+// Object rows can also reconnect object-row ports and emit ordered
+// notifications. FlowItem prev/next represent only this main Control2d edge;
+// associated profiles requiring row ports remain outside selected routes.
 void connectItems(FlowItem* from, FlowItem* to)
 {
     if (to->prev) {
@@ -796,6 +798,28 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
                    item->opId < 0;
         }) && initiallyEmpty && initiallyUnlinked &&
         std::all_of(cellInputs.begin(), cellInputs.end(), [](const CellInput& input) { return input.selected; });
+    // Native graph relayout can reconnect separate object-row
+    // ports after the main Control2d edge. This model represents only the
+    // latter; do not claim a selected multi-item graph result with such rows.
+    const bool selectedMultiItemGraph = flow.items.size() >= 2 &&
+        (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate ||
+         explicitPairCandidate || mixedPairCandidate || threeCollisionCandidate ||
+         threeNegativeCandidate || fourPositiveCandidate || fivePositiveCandidate ||
+         sixPositiveCandidate || sevenPositiveCandidate || negativeMultiCandidate ||
+         threeDirectCandidate || multiDirectCandidate || negativeTallDirectCandidate ||
+         positiveTallDirectCandidate || negativeEightCandidate);
+    if (selectedMultiItemGraph) {
+        const bool hasObjectPortRow = std::any_of(flow.items.begin(), flow.items.end(),
+            [&project](const auto& item) {
+                if (!item) return false;
+                const Operation* op = operationById(project, item->opId);
+                return op && std::any_of(op->objIds.begin(), op->objIds.end(),
+                    [](int id) { return id != -1; });
+            });
+        if (hasObjectPortRow)
+            throw Error(M2M_E_UNSUPPORTED,
+                        "project file: associated object-row ports require graph recovery");
+    }
     for (std::size_t k = 0; k < flow.items.size() && k < cellInputs.size(); ++k) {
         FlowItem& it = *flow.items[k];
         if (it.group) continue;

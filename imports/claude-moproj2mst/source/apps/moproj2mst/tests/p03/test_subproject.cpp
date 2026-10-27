@@ -2242,6 +2242,56 @@ TEST_CASE(first_associated_undefined_rows_keep_empty_accepts_and_direct_targets)
     }
 }
 
+TEST_CASE(selected_multi_item_graph_guards_read_from_db_row_ports_before_placement)
+{
+    struct Case { const char* cells[4]; const char* xs[4]; int count; int associated; };
+    const Case cases[] = {
+        {{"", "", "", ""}, {"0", "205", "0", "0"}, 2, 73},
+        {{"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"1\"/>", "", ""},
+         {"0", "123", "0", "0"}, 2, 41},
+        {{"<CellPos Row=\"0\" Col=\"0\"/>", "", "", ""},
+         {"0", "205", "410", "0"}, 3, 52},
+        {{"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"1\"/>",
+          "<CellPos Row=\"0\" Col=\"2\"/>", "<CellPos Row=\"0\" Col=\"3\"/>"},
+         {"0", "123", "410", "615"}, 4, 84},
+        {{"", "", "", ""}, {"0", "0", "0", "0"}, 2, 41}};
+    for (const Case& c : cases) for (int slotId : {-2, 100, 101}) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        auto op = std::make_unique<Operation>(); op->id = c.associated;
+        op->objIds.push_back(slotId);
+        if (slotId >= 0) {
+            auto entry = std::make_unique<ObjEntry>();
+            entry->name = slotId == 100 ? L("Read From DB") : L("Defined");
+            op->objs.push_back(std::move(entry));
+        }
+        p.operations.push_back(std::move(op));
+        std::string source = "<Sub_Project>";
+        for (int i = 0; i < c.count; ++i) {
+            const int id = i == 0 ? 41 : i == 1 ? 73 : i == 2 ? 52 : 84;
+            source += "<DiagramItem Operation_Id=\"" + std::to_string(id) +
+                "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" + c.xs[i] +
+                "</x><y>0</y><width>0</width><height>0</height></RectF>" +
+                c.cells[i] + "</DiagramItem>";
+        }
+        source += "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool guarded = false;
+        try { parseSubProject(p, *doc.root, ctx); }
+        catch (const Error& e) {
+            guarded = e.code == M2M_E_UNSUPPORTED &&
+                std::string(e.what()).find("object-row ports") != std::string::npos;
+        }
+        CHECK(guarded);
+        const auto& items = p.subs[0]->flow.items;
+        REQUIRE(items.size() == static_cast<std::size_t>(c.count));
+        for (int i = 0; i < c.count; ++i) {
+            CHECK_EQ(items[i]->rect[0], std::stod(c.xs[i]));
+            CHECK(items[i]->prev == nullptr); CHECK(items[i]->next == nullptr);
+        }
+    }
+}
+
 TEST_CASE(above_common_row_height_routes_guard_unqualified_associations)
 {
     struct Case { int a; int b; int associated; int count; const char* y; };
