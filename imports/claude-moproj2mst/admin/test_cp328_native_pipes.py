@@ -124,7 +124,11 @@ class Tests(unittest.TestCase):
             self.assertTrue(call[2] & pipes.OVERLAPPED_FLAG)
             self.assertEqual(call[3:6], (8, 1, False))
         self.assertEqual([f.inherit[h] for pair in receipt.pairs for h in pair], [False, True, False, True])
-        self.assertEqual([c[1] for c in f.calls if c[0] == "client"], [0x100001, 0x100002])
+        access_masks = [c[1] for c in f.calls if c[0] == "client"]
+        self.assertEqual(access_masks, [0x100081, 0x100082])
+        for access in access_masks:
+            self.assertEqual(access & pipes.FILE_READ_ATTRIBUTES, 0x80)
+            self.assertEqual(access & 0x4, 0)  # FILE_CREATE_PIPE_INSTANCE
         self.assertTrue(owner.cleanup())
 
     def test_partial_read_and_write_complete_full_frame(self):

@@ -36,6 +36,11 @@ def bind(**overrides):
 
 
 class LayoutTests(unittest.TestCase):
+    def test_peek_named_pipe_exact_canonical_signature(self):
+        self.assertEqual(m.SIGNATURES["PeekNamedPipe"],
+            ((m.HANDLE, m.PVOID, m.DWORD, m.LPDWORD, m.LPDWORD, m.LPDWORD), m.BOOL))
+        self.assertEqual(m.EXPORTS["PeekNamedPipe"].dll, "kernel32.dll")
+
     @unittest.skipUnless(C.sizeof(C.c_void_p) == 8, "x64 layout checks")
     def test_canonical_x64_sizes_and_offsets(self):
         expected = {

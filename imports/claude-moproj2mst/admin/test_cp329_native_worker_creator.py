@@ -163,6 +163,75 @@ class Pin:
 
 
 class CreatorTests(unittest.TestCase):
+    def completion_harness(self, *, status=0, exit_code=0, worker_count=0):
+        h = Harness()
+        self.prepare(h)
+        h.pipes.operations = []
+        dispatch = h.dispatch
+
+        def complete_dispatch(name, *args):
+            if name == "WaitForSingleObject":
+                h.calls.append(name)
+                self.assertEqual(args, (31, 900))
+                return status
+            if name == "GetExitCodeProcess":
+                h.calls.append(name)
+                self.assertEqual(args[0], 31)
+                out(args[1], m.abi.DWORD, exit_code)
+                return 1
+            if name == "QueryInformationJobObject" and args[1] == m.JOB_ACCOUNTING:
+                result = dispatch(name, *args)
+                obj = C.cast(args[2], C.POINTER(m.abi.BASIC_ACCOUNTING)).contents
+                if args[0] == 21:
+                    obj.ActiveProcesses = worker_count
+                return result
+            return dispatch(name, *args)
+
+        h.dispatch = complete_dispatch
+        return h
+
+    def test_success_completion_owns_exit_and_cleanup_evidence(self):
+        h = self.completion_harness()
+        self.assertEqual(h.owner.complete_success().phase, "closed")
+        self.assertTrue(h.owner.receipt.worker_waited)
+        self.assertTrue(h.owner.receipt.jobs_empty)
+        self.assertFalse(h.owner.receipt.worker_terminated)
+        self.assertIsNone(h.owner.receipt.remote_child_job)
+        self.assertNotIn("TerminateJobObject", h.calls)
+        self.assertEqual(h.owner.receipt.local, {})
+
+    def test_completion_refuses_timeout_nonzero_exit_jobs_or_pending_io(self):
+        for mode in ("timeout", "bad-status", "exit", "worker-job", "child-job", "pending"):
+            with self.subTest(mode=mode):
+                h = self.completion_harness(status=258 if mode == "timeout" else
+                    (True if mode == "bad-status" else 0),
+                    exit_code=8 if mode == "exit" else 0,
+                    worker_count=int(mode == "worker-job"))
+                h.child_count = int(mode == "child-job")
+                if mode == "pending":
+                    from types import SimpleNamespace
+                    h.pipes.operations.append(SimpleNamespace(terminal=False))
+                with self.assertRaises(m.Hold):
+                    h.owner.complete_success()
+                self.assertFalse(h.owner.receipt.worker_waited)
+                self.assertFalse(h.owner.receipt.jobs_empty)
+                self.assertEqual(h.closed, [])
+
+    def test_completion_rejects_deadline_expiry_and_cleanup_uncertainty(self):
+        h = self.completion_harness()
+        h.now = 1000
+        with self.assertRaises(m.Hold):
+            h.owner.complete_success()
+        self.assertNotIn("WaitForSingleObject", h.calls)
+        h = self.completion_harness()
+        h.pipes.ready = False
+        self.assertEqual(h.owner.complete_success().phase, "hold")
+        self.assertTrue(h.owner.receipt.worker_waited)
+        self.assertTrue(h.owner.receipt.local)
+        self.assertNotIn("TerminateJobObject", h.calls)
+        h.pipes.ready = True
+        self.assertEqual(h.owner.close().phase, "closed")
+
     def prepare(self, h):
         return h.owner.prepare(r"\\.\pipe\cp329-injected")
 

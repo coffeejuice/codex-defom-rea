@@ -156,6 +156,7 @@ _KERNEL = {
     "GetTickCount64": ((), C.c_uint64),
     "ResumeThread": ((HANDLE,), DWORD),
     "GetExitCodeProcess": ((HANDLE, LPDWORD), BOOL),
+    "PeekNamedPipe": ((HANDLE, PVOID, DWORD, LPDWORD, LPDWORD, LPDWORD), BOOL),
 }
 _ADVAPI = {
     "OpenThreadToken": ((HANDLE, DWORD, BOOL, LPHANDLE), BOOL),

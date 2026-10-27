@@ -295,6 +295,40 @@ class NativeWorkerCreator:
             self.close()
             raise PreparationFailure(error, self) from error
 
+    def complete_success(self):
+        """Observe a clean exact WORKER exit, then release terminal owners.
+
+        This method owns the evidence flags; callers cannot provide an exit or
+        job-count assertion. It never resumes a thread or allocates a deadline.
+        On any error the caller must retain this owner and invoke close().
+        """
+        r = self.receipt
+        if r.phase != "prepared-suspended" or r.create_outcome != "returned-success":
+            raise Hold("success completion requires the exact prepared WORKER owner")
+        self._budget()
+        process = r.local["worker_process"]
+        remaining = self.deadline - self._last_tick
+        status = self._call("WaitForSingleObject", process, remaining)
+        self._budget()
+        if type(status) is not int or status != 0:
+            raise Hold("exact bounded worker WAIT_OBJECT_0 required")
+        code = abi.DWORD()
+        self._ok("GetExitCodeProcess", process, C.byref(code))
+        self._budget()
+        if code.value != 0:
+            raise Hold("exact WORKER exit code zero required")
+        worker_count = self._active(r.local["worker_job"])
+        self._budget()
+        child_count = self._active(r.local["child_job"])
+        self._budget()
+        if worker_count != 0 or child_count != 0:
+            raise Hold("both WORKER and CHILD jobs must be empty")
+        if any(not op.terminal for op in self.pipe_owner.operations):
+            raise Hold("all pipe I/O must have terminal evidence")
+        r.worker_waited, r.jobs_empty = True, True
+        r.remote_child_job = None  # exact worker death releases remote ownership
+        return self.close()
+
     def close(self):
         """Nonblocking retryable cleanup; failed waits retain all handles.
 

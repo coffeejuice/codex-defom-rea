@@ -1,0 +1,35 @@
+{
+  "schema": "cp330-static-validation-v1",
+  "status": "REVIEWED_INERT_NATIVE_TRANSCRIPT_OUTER_WATCHDOG_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "source_sha256": {
+    "admin/cp321_native_exports.py": "820a0e6d78971e9537a2f960776acc1e35eb1f9268febe0fe38c7d6df9e8ee45",
+    "admin/test_cp321_native_exports.py": "cd4dcbdbc357ea191dba9bf489b1b316c3e038a21e1da686ae6e8d21c99cea63",
+    "admin/cp326_native_pipe_security.py": "b2f2e847b8004cd37b0de322058a17e8b2e8c3733e95bfdefd778efd65a13916",
+    "admin/test_cp326_native_pipe_security.py": "440fe94038acb24b01dbe01090c72dc3dcc9ae5fdb841fa0eeba601bc2d17f94",
+    "admin/cp328_native_pipes.py": "6acda12c57e812ca46ba64668025887f18235baea7ee34a3d2f187103eb5f95d",
+    "admin/test_cp328_native_pipes.py": "1f4cb76ff3d607d658be8060f9337a1f06cd9971b87b0ffcfa65101758720edc",
+    "admin/cp329_native_worker_creator.py": "805eca8e544e3846ad5ed571f00dda0e5f368e3a8f8efd13514fe3e33bcca78c",
+    "admin/test_cp329_native_worker_creator.py": "3db615e50dbcfd03f2214f10630210be5a1499c5b76f9bd7e1adc7f98786b6a2",
+    "admin/cp330_native_inert_runner.py": "e9ce733fd063fbf5f62fb4f04692d0f6f29967f77764b84c29ad3d36b9b5df11",
+    "admin/test_cp330_native_inert_runner.py": "1d4da67d1fe913178612eb1d77c5021441cd3774461f8b6b2730578bb73e7462"
+  },
+  "tests": {
+    "subset": "test_cp3*.py through CP330",
+    "root_order": {"run": 412, "passed": 412, "failed": 0},
+    "admin_order": {"run": 412, "passed": 412, "failed": 0},
+    "log": "analysis/cp330-inert-runner-tests.log",
+    "log_sha256": "a49043b9589f64d41e18a0e81bf2e1e8ec974ddb1c2fece6fc64678666444ce9"
+  },
+  "reviews": "Independent CP330 transcript and corrected CP326/328 access-mask review PASS static/injected; independent containment review HOLD for first live run without outer watchdog",
+  "unpassed_gates": [
+    "CP331 independent outer watchdog plus CP332 exact WORKER handoff before resume",
+    "End-to-end native process/pipe/job failure and cleanup review",
+    "One bounded inert WORKER-only observation with exact process exits",
+    "Synthetic CHILD nested-job and supervisor-death containment",
+    "Fresh original lifecycle/failure comparison and public C++ converter acceptance"
+  ]
+}

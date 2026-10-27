@@ -131,7 +131,7 @@ class Tests(unittest.TestCase):
         self.assertEqual((sd.Revision, sd.Control, sd.Owner, sd.Group, sd.Sacl), (1, 4, None, None, None))
         acl = C.string_at(sd.Dacl, 16 + len(fake.sid))
         self.assertEqual(struct.unpack("<BBHHH", acl[:8]), (2, 0, len(acl), 1, 0))
-        self.assertEqual(struct.unpack("<BBHI", acl[8:16]), (0, 0, 20, 0x100003))
+        self.assertEqual(struct.unpack("<BBHI", acl[8:16]), (0, 0, 20, 0x100083))
         self.assertEqual(acl[16:], fake.sid)
         self.assertEqual(fake.closed, [100])
         self.assertFalse(any(n in fake.calls for n in ("CreateNamedPipeW", "CreatePipe", "CreateProcessW")))
@@ -142,6 +142,17 @@ class Tests(unittest.TestCase):
     def test_specific_minimum_rights(self):
         self.assertEqual(security.PIPE_ACCESS_MASK, security.CLIENT_READ_ACCESS | security.CLIENT_WRITE_ACCESS)
         self.assertEqual(security.PIPE_ACCESS_MASK & (4 | 0x40000000 | 0x40000 | 0x80000), 0)
+
+    def test_both_worker_endpoints_may_query_pipe_info_without_create_instance(self):
+        # GetNamedPipeInfo requires FILE_READ_ATTRIBUTES on the inherited handle.
+        self.assertEqual(security.FILE_READ_ATTRIBUTES, 0x80)
+        self.assertEqual(security.CLIENT_READ_ACCESS, 0x100081)
+        self.assertEqual(security.CLIENT_WRITE_ACCESS, 0x100082)
+        self.assertEqual(security.PIPE_ACCESS_MASK, 0x100083)
+        for access in (security.CLIENT_READ_ACCESS, security.CLIENT_WRITE_ACCESS):
+            self.assertEqual(access & security.FILE_READ_ATTRIBUTES, 0x80)
+            self.assertEqual(access & ~security.PIPE_ACCESS_MASK, 0)
+            self.assertEqual(access & 4, 0)  # FILE_CREATE_PIPE_INSTANCE alias.
 
     def test_effective_thread_and_fallback_rules(self):
         for error in (0, 5, security.ERROR_NO_TOKEN):
