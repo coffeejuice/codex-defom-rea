@@ -414,7 +414,7 @@ void parseSubProject(Project& p, const xml::Node& e, Ctx& ctx)
 }
 
 // @src 0x1401574f0 -> 0x14015a070 -> 0x140158dc0  the cell editor takes the model's items in order;
-// a cell item without a cell (row or col -1: a file without CellPos) gets the cell under its
+// an item with either native cell coordinate -1 (including a file without CellPos) gets the cell under its
 // rectangle's top-left (x < -60 -> 0, y < -25 -> 0; 0x14014e210: column 0x14014db20 = round half
 // up of x / 205, row 0x14014dfa0 from the row list), which the editor stores back in the item.
 void placeCelllessItems(FlowChart& flow, const xml::Node& e)
@@ -432,7 +432,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e)
     for (std::size_t k = 0; k < flow.items.size() && k < hasCell.size(); ++k) {
         FlowItem& it = *flow.items[k];
         if (it.group) continue;
-        if (!hasCell[k]) {
+        if (!hasCell[k] || it.row == -1 || it.col == -1) {
             double x = it.rect[0], y = it.rect[1];
             if (x < -60.0) x = 0;
             if (y < -25.0) y = 0;

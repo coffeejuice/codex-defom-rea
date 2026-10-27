@@ -63,6 +63,38 @@ TEST_CASE(operation_by_id_first_row)
     CHECK(operationById(p, 4) == nullptr);
 }
 
+TEST_CASE(cellpos_minus_one_coordinate_is_recomputed_through_parser)
+{
+    struct Case { const char* cell; int row; int col; };
+    const Case cases[] = {
+        {"", 0, 0},
+        {"<CellPos Row=\"-1\" Col=\"0\"/>", 0, 0},
+        {"<CellPos Row=\"0\" Col=\"-1\"/>", 0, 0},
+        {"<CellPos Row=\"-1\" Col=\"-1\"/>", 0, 0},
+        {"<CellPos Row=\"-1\" Col=\"5\"/>", 0, 0},
+        {"<CellPos Row=\"5\" Col=\"-1\"/>", 0, 0},
+        {"<CellPos Row=\"0\" Col=\"4\"/>", 0, 4},
+    };
+    for (const Case& c : cases) {
+        Project p;
+        p.subs.push_back(makeSubProject(p, 0, 0));
+        std::string source = "<Sub_Project><DiagramItem Operation_Id=\"1\"><ClassName>SfOprForming2D</ClassName>"
+                             "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>";
+        source += c.cell;
+        source += "</DiagramItem></Sub_Project>";
+        xml::Document doc;
+        String error;
+        int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col));
+        REQUIRE(doc.root != nullptr);
+        Ctx ctx;
+        parseSubProject(p, *doc.root, ctx);
+        REQUIRE(p.subs[0]->flow.items.size() == 1u);
+        CHECK_EQ(p.subs[0]->flow.items[0]->row, c.row);
+        CHECK_EQ(p.subs[0]->flow.items[0]->col, c.col);
+    }
+}
+
 TEST_CASE(activate_parses_every_corpus_flow_chart)
 {
     const char* corpus = std::getenv("M2M_CORPUS");
