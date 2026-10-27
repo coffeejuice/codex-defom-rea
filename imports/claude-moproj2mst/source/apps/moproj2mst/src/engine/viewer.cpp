@@ -272,8 +272,10 @@ struct GeometryItem {
 struct Settings;
 
 // 141249140 owns 128 fixed 0x108-byte native records, not a requested-plane
-// sidecar. Keep only source-initialized/read fields; matrix construction is held.
+// sidecar. Constructor-unknown matrices remain absent until 141247a70 writes them.
 struct MirrorPlaneRecord {
+    std::optional<std::array<double, 16>> matrixDouble; // +0x40..+0xb8
+    std::optional<std::array<float, 16>> matrixFloat;   // +0x00..+0x3c
     std::uint8_t mode = 1;                  // 1412479e0: +0xf8
     bool active = false;                    // +0xf9
     std::array<double, 4> c0{};              // +0xc0..+0xd8
@@ -294,6 +296,61 @@ void setMirrorPlaneActive(MirrorPlaneRecord& record, bool active)
 {
     record.active = active;
     if (!active) record.links = {-1, -1};
+}
+
+// CP447 static contracts: 140e23a00 -> 140945d20/140946ca0 -> 141249730.
+// This is a guarded prefix, not the native builder's completed behavior.
+void importEnabledMirrorPlanePrefix(MirrorPlaneOwner& owner, const mst::MirrorPlane& plane)
+{
+    // 141249420's extent result is unused. The local identity is overwritten
+    // by the reflection helper, which uses the supplied, unnormalized normal.
+    std::array<double, 16> matrix{1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+    const std::array<double, 3> n{static_cast<double>(plane.v[3]),
+        static_cast<double>(plane.v[4]), static_cast<double>(plane.v[5])};
+    const std::array<double, 3> p{static_cast<double>(plane.v[0]),
+        static_cast<double>(plane.v[1]), static_cast<double>(plane.v[2])};
+    const double d = (n[0] * p[0] + n[1] * p[1]) + n[2] * p[2]; //140945050
+    // Preserve 140946ca0's multiplication, assignment and symmetry-copy order.
+    matrix[0] = 1.0 - 2.0 * n[0] * n[0];
+    matrix[5] = 1.0 - 2.0 * n[1] * n[1];
+    matrix[10] = 1.0 - 2.0 * n[2] * n[2];
+    matrix[15] = 1.0;
+    matrix[1] = -2.0 * n[0] * n[1];
+    matrix[2] = -2.0 * n[0] * n[2];
+    matrix[6] = -2.0 * n[1] * n[2];
+    matrix[4] = matrix[1];
+    matrix[8] = matrix[2];
+    matrix[9] = matrix[6];
+    matrix[12] = 2.0 * d * n[0];
+    matrix[13] = 2.0 * d * n[1];
+    matrix[14] = 2.0 * d * n[2];
+    matrix[3] = 0.0;
+    matrix[7] = 0.0;
+    matrix[11] = 0.0;
+
+    if (plane.a != 0)
+        throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: nonzero parent matrix composition remains unsupported");
+    // 141249730 checks exactly 128 before looking for inactive records. Its
+    // zero-return continuation is unmodeled; do not enter caller/link writes.
+    if (owner.allocatedSlotCount == 128)
+        throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: capacity-return continuation remains unsupported");
+    int slot = 0;
+    while (slot < owner.allocatedSlotCount && owner.records[static_cast<std::size_t>(slot)].active)
+        ++slot;
+    if (slot == owner.allocatedSlotCount) ++owner.allocatedSlotCount; //141249680
+    MirrorPlaneRecord& record = owner.records[static_cast<std::size_t>(slot)];
+    record.matrixDouble = matrix; //141247a70: all +0x40 doubles precede float stores
+    record.matrixFloat.emplace();
+    for (std::size_t i = 0; i < matrix.size(); ++i)
+        (*record.matrixFloat)[i] = static_cast<float>(matrix[i]);
+    record.mode = 0;
+    setMirrorPlaneActive(record, true); //141247ed0 enabling preserves links
+
+    // The next native call, 141249e40, consumes two builder-local triples
+    // without established stores. Preserve preceding mutations and propagate
+    // the guard through importMirrorEntry, before its fixed-row caller writes.
+    throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder: unknown builder-local bounds before 0x141249e40");
 }
 
 struct View {
@@ -1957,7 +2014,7 @@ bool importMirrorEntry(GuiModel& model, int objectNo, const std::vector<mst::Mir
         const bool builderGate = flagOf(*settings, 1) &&
             (flagOf(*settings, 2) || flagOf(*settings, 3));
         if (builderGate)
-            throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder (0x140e23a00) remains unsupported");
+            importEnabledMirrorPlanePrefix(view->mirrorPlanes, planes[i]);
 
         // 140e23490 ignores the disabled builder's early return, then addresses
         // fixed index i rather than the owner count or the parsed a/b/c links.
@@ -2004,6 +2061,8 @@ std::optional<MirrorPlaneOwnerSnapshot> mirrorPlaneOwnerSnapshot(const GuiModel&
     for (std::size_t i = 0; i < owner.records.size(); ++i) {
         const auto& record = owner.records[i];
         auto& target = snapshot.records[i];
+        target.matrixDouble = record.matrixDouble;
+        target.matrixFloat = record.matrixFloat;
         target.mode = record.mode;
         target.active = record.active;
         target.c0 = record.c0;

@@ -1,7 +1,8 @@
 #pragma once
 
 // Private CopyMirror seam for the actual per-View plane owner (native +0x348).
-// Positive builder admission remains unsupported; this is not public admission.
+// The enabled parent-zero builder stops after its known matrix/active prefix;
+// positive completion and public admission remain unsupported.
 #include <array>
 #include <cstdint>
 #include <optional>
@@ -12,6 +13,9 @@
 namespace m2m::engine::detail {
 
 struct MirrorPlaneRecordSnapshot {
+    // 1412479e0 leaves matrices unknown; 141247a70 writes doubles then floats.
+    std::optional<std::array<double, 16>> matrixDouble; // +0x40..+0xb8
+    std::optional<std::array<float, 16>> matrixFloat;   // +0x00..+0x3c
     std::uint8_t mode = 1;                  // +0xf8
     bool active = false;                    // +0xf9
     std::array<double, 4> c0{};              // +0xc0..+0xd8, ctor zero
