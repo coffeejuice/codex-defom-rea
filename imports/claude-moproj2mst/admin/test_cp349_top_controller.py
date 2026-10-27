@@ -195,7 +195,7 @@ class TopTests(unittest.TestCase):
                   "cp334_h0_before_inherit", "cp334_h0_after_inherit",
                   "cp334_h0_before_tick2", "cp334_h0_after_tick2",
                   "cp334_h0_before_pipeinfo", "cp334_h0_after_pipeinfo",
-                  "cp334_h0_pipeflags_1"]
+                  "cp334_h0_pipeflags_1073741824"]
         with tempfile.TemporaryDirectory(
                 dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
             root = Path(directory)
@@ -205,6 +205,11 @@ class TopTests(unittest.TestCase):
                 .encode("ascii") for stage in stages))
             with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
                 result = m._child_trace_result(path)
+                for invalid in ("4294967296", "01", "-1"):
+                    path.write_bytes((json.dumps({"stage":
+                        "cp334_h0_pipeflags_" + invalid}) + "\n").encode("ascii"))
+                    self.assertEqual(m._child_trace_result(path)["status"],
+                                     "malformed")
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["stages"], stages)
         self.assertNotIn("cp334_h0_flags_validated", result["stages"])

@@ -116,9 +116,7 @@ class NativeRunnerClientPipe:
                                   None, None, None):
                     raise self._failure("GetNamedPipeInfo")
                 self._mark(f"cp334_h{index}_after_pipeinfo")
-                flag_code = (str(pipe_flags.value) if pipe_flags.value in (0, 1, 4, 5)
-                             else "other")
-                self._mark(f"cp334_h{index}_pipeflags_{flag_code}")
+                self._mark(f"cp334_h{index}_pipeflags_{pipe_flags.value}")
                 if pipe_flags.value != 0:
                     raise Hold("named byte-pipe client end required")
                 self._mark(f"cp334_h{index}_flags_validated")

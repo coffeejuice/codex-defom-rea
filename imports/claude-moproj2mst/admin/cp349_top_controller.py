@@ -11,6 +11,7 @@ from __future__ import annotations
 import ctypes as C
 import hashlib
 import json
+import re
 import secrets
 import subprocess
 import threading
@@ -196,8 +197,13 @@ def _child_trace_result(path):
         except (ValueError, UnicodeError):
             result["status"] = "malformed"
             break
+        stage = row.get("stage") if type(row) is dict else None
+        numeric = (re.fullmatch(r"cp334_h[01]_pipeflags_(0|[1-9][0-9]{0,9})",
+                                stage) if type(stage) is str else None)
         if (type(row) is not dict or set(row) != {"stage"} or
-                type(row["stage"]) is not str or row["stage"] not in allowed or
+                type(stage) is not str or
+                (stage not in allowed and
+                 not (numeric and int(numeric.group(1)) <= 0xFFFFFFFF)) or
                 len(result["stages"]) >= 40):
             result["status"] = "malformed"
             break

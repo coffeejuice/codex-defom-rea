@@ -153,6 +153,17 @@ class Tests(unittest.TestCase):
         self.assertTrue(caught.exception.owner.cleanup())
 
         f = Fake()
+        f.pipe_flags[11] = 0x40000000
+        stages = []
+        with self.assertRaises(client.Hold) as caught:
+            client.from_bootstrap_argv(
+                f.exports, [client.ARGV_TAG, "11", "12", "100"],
+                stage=stages.append)
+        self.assertEqual(stages[-1], "cp334_h0_pipeflags_1073741824")
+        self.assertEqual(caught.exception.owner.handles, {11, 12})
+        self.assertTrue(caught.exception.owner.cleanup())
+
+        f = Fake()
         f.pipe_flags[11] = 1
         stages = []
         with self.assertRaises(client.Hold) as caught:

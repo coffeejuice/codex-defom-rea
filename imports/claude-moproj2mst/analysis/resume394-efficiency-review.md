@@ -1,0 +1,5 @@
+# CP391–394 efficiency review
+
+CP391 and CP393 each used one fresh, source-frozen monitored inert occurrence; the command runner reported about one second for each monitor execution. CP392's dual-root injected suite ran 629 tests in 0.438 and 0.428 seconds. CP394's suite ran 629 tests in 0.555 and 0.448 seconds. These durations exclude source analysis, review, preflight, Git transport and documentation. No C++ source changed, so no public converter build was needed.
+
+The staged traces localized CP391 to the first-handle flags check and CP393 to a nonzero value outside the initial 0/1/4/5 classification. Classifying `other` saved trace bytes but required another occurrence for the exact value. Future diagnostics should preserve bounded exact values when the value selects a repair, while still retaining the one-occurrence gate and raw cleanup evidence. No token count or end-to-end speedup is established. Review efficiency after three more checkpoints or one hour at the next safe boundary.
