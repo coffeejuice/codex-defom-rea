@@ -35,6 +35,7 @@
 #include "m2m/props.hpp"
 #include "m2m/qt4path.hpp"
 #include "../../src/engine/engine_internal.hpp"
+#include "../../src/engine/mirror_plane_owner.hpp"
 
 namespace m2m::mst {
 void installLoaderSlots();
@@ -216,7 +217,7 @@ TEST_CASE(copymirror_planes_need_viewer)
     CHECK(refused);
 }
 
-TEST_CASE(copymirror_postload_reads_mirrormerge)
+TEST_CASE(copymirror_postload_positive_builder_stays_guarded)
 {
     Project p;
     ProjectScope scope(p);
@@ -232,10 +233,21 @@ TEST_CASE(copymirror_postload_reads_mirrormerge)
                      "1 0 0 0.0 0.0 0.0 1.0 0.0 0.0 1\r\n"
                      "2 0 0 0.0 0.0 0.0 0.0 1.0 0.0 0\r\n";
     engine::FileEffects fx;
-    load(p, *op4, ctx, fx);
+    bool refused = false;
+    try {
+        load(p, *op4, ctx, fx);
+    } catch (const Error& e) {
+        refused = e.code == M2M_E_UNSUPPORTED &&
+            std::string(e.what()).find("positive View plane builder") != std::string::npos;
+    }
+    CHECK(refused);
     engine::GuiModel* m = engine::opModel(p, *op4);
-    REQUIRE(m->viewerMirrorPlanes.size() == 1u);
-    CHECK_EQ(m->viewerMirrorPlanes[0], 2);
+    REQUIRE(m != nullptr);
+    const auto owner = engine::detail::mirrorPlaneOwnerSnapshot(*m, 1);
+    REQUIRE(owner.has_value());
+    CHECK_EQ(owner->allocatedSlotCount, 0);
+    CHECK(!owner->records[0].a.has_value());
+    CHECK(m->viewerMirrorPlanes.empty());
     CHECK(fx.writes.empty());
 }
 

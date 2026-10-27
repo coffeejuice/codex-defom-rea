@@ -24,6 +24,7 @@
 // Known limit: the binary unions the rep box patch by patch (0x141287090), the patches coming from a
 // normal-angle flood fill (0x141282560); the port takes the faces in their own order as one patch.
 // min / max are the same except for which of +0.0 / -0.0 wins a tie (minV / maxV take the later).
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -67,6 +68,7 @@
 #include "engine_internal.hpp"
 #include "gui_model_access.hpp"
 #include "geometry_temp_prefix.hpp"
+#include "mirror_plane_owner.hpp"
 #include "viewer2d.hpp"
 #include "m2m/engine.hpp"
 #include "m2m/engine_scene.hpp"
@@ -269,6 +271,31 @@ struct GeometryItem {
 
 struct Settings;
 
+// 141249140 owns 128 fixed 0x108-byte native records, not a requested-plane
+// sidecar. Keep only source-initialized/read fields; matrix construction is held.
+struct MirrorPlaneRecord {
+    std::uint8_t mode = 1;                  // 1412479e0: +0xf8
+    bool active = false;                    // +0xf9
+    std::array<double, 4> c0{};              // +0xc0..+0xd8
+    std::optional<std::array<double, 3>> e0;  // native ctor leaves +0xe0..+0xf0 unknown
+    std::optional<int> a;                    // +0x104, set by 14004e810
+    std::array<int, 2> links{-1, -1};         // +0xfc/+0x100
+};
+
+struct MirrorPlaneOwner {
+    std::array<MirrorPlaneRecord, 128> records;
+    // 141249680 reuses an inactive slot below this extent before increasing it.
+    int allocatedSlotCount = 0;              // +0x8468, not number of active records
+    std::array<int, 2> links{-1, -1};         // +0x846c/+0x8470
+};
+
+// 141247ed0: disabling a record also removes both record links.
+void setMirrorPlaneActive(MirrorPlaneRecord& record, bool active)
+{
+    record.active = active;
+    if (!active) record.links = {-1, -1};
+}
+
 struct View {
     explicit View(GuiModel& model) : ownerModel(&model) {} //1f07d0, QPointer+10
     GuiModelGuard ownerModel; //actual nonowning model identity, independent of QObject parent
@@ -283,6 +310,7 @@ struct View {
     std::vector<std::vector<float>> meshItems;
     Rect2 rect;                    // +0x98 2D rect
     Box3 box;                      // +0xd8
+    MirrorPlaneOwner mirrorPlanes; // actual View+0x348, 141249140
     doe::ViewStepDataState doeStepData; //actual view+340 / embedded+348
     std::unique_ptr<doe::SliceCollectionState> slice; // lazy actual view+338
 };
@@ -1912,6 +1940,81 @@ void viewerClear(GuiModel& m)
         throw Error(M2M_E_UNSUPPORTED, "DOE Slice view removal is pending unrecovered cleanup");
     while (!m.viewer->views.empty()) removeLastView(*m.viewer);
 }
+
+namespace detail {
+
+bool importMirrorEntry(GuiModel& model, int objectNo, const std::vector<mst::MirrorPlane>& planes)
+{
+    Viewer& viewer = viewerOf(model); // includes the geometry-sync barrier
+    View* view = viewOf(model, viewer, &objectNo); //140c82d50, including lazy View growth
+    if (!view) return false;
+    for (std::size_t i = 0; i < planes.size(); ++i) {
+        // 140e23a00 first resolves actual View Settings. Missing Settings do not
+        // authorize a synthetic false gate; the native flag reader dereferences them.
+        Settings* settings = settingsOf(viewer, view);
+        if (!settings)
+            throw Error(M2M_E_UNSUPPORTED, "CopyMirror plane builder reached missing actual View Settings");
+        const bool builderGate = flagOf(*settings, 1) &&
+            (flagOf(*settings, 2) || flagOf(*settings, 3));
+        if (builderGate)
+            throw Error(M2M_E_UNSUPPORTED, "CopyMirror positive View plane builder (0x140e23a00) remains unsupported");
+
+        // 140e23490 ignores the disabled builder's early return, then addresses
+        // fixed index i rather than the owner count or the parsed a/b/c links.
+        // Preserve all preceding writes before refusing the first OOB store.
+        if (i >= view->mirrorPlanes.records.size())
+            throw Error(M2M_E_UNSUPPORTED, "CopyMirror post-load reached the first out-of-range fixed plane record");
+        MirrorPlaneRecord& record = view->mirrorPlanes.records[i];
+        const auto& plane = planes[i];
+        record.a = plane.a; //14004e810: +0x104
+        record.e0 = std::array<double, 3>{static_cast<double>(plane.v[0]),
+            static_cast<double>(plane.v[1]), static_cast<double>(plane.v[2])};
+        record.c0[0] = static_cast<double>(plane.v[3]);
+        record.c0[1] = static_cast<double>(plane.v[4]);
+        record.c0[2] = static_cast<double>(plane.v[5]);
+        setMirrorPlaneActive(record, true);
+        // No 141249730 call reached: allocatedSlotCount remains unchanged.
+    }
+    // The complete first pass precedes any parsed flag application. A refusal
+    // above therefore retains the earlier records active, without a finalizer.
+    for (std::size_t i = 0; i < planes.size(); ++i)
+        setMirrorPlaneActive(view->mirrorPlanes.records[i], planes[i].flag != 0);
+    return true;
+}
+
+int mirrorPlaneCount(GuiModel& model, int objectNo)
+{
+    Viewer& viewer = viewerOf(model);
+    View* view = viewOf(model, viewer, &objectNo);
+    return view ? view->mirrorPlanes.allocatedSlotCount : 0; //141249420
+}
+
+std::optional<MirrorPlaneOwnerSnapshot> mirrorPlaneOwnerSnapshot(const GuiModel& model, int objectNo)
+{
+    GeometrySyncAccess::requireAvailable(model);
+    if (objectNo < 1 || !model.viewer ||
+        static_cast<std::size_t>(objectNo) > model.viewer->views.size()) return std::nullopt;
+    const auto& view = model.viewer->views[static_cast<std::size_t>(objectNo - 1)];
+    if (!view) return std::nullopt;
+    const auto& owner = view->mirrorPlanes;
+    MirrorPlaneOwnerSnapshot snapshot;
+    snapshot.viewIdentity = view.get();
+    snapshot.allocatedSlotCount = owner.allocatedSlotCount;
+    snapshot.links = owner.links;
+    for (std::size_t i = 0; i < owner.records.size(); ++i) {
+        const auto& record = owner.records[i];
+        auto& target = snapshot.records[i];
+        target.mode = record.mode;
+        target.active = record.active;
+        target.c0 = record.c0;
+        target.e0 = record.e0;
+        target.a = record.a;
+        target.links = record.links;
+    }
+    return snapshot;
+}
+
+} // namespace detail
 
 int viewerItemCount(const GuiModel& m)
 {

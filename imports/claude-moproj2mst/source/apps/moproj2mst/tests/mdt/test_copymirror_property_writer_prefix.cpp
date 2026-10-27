@@ -12,6 +12,7 @@
 #include <defmodel/llobj_ctor/llobj_ctor.hpp>
 
 #include "m2m/engine.hpp"
+#include "m2m/engine_scene.hpp"
 #include "m2m/model.hpp"
 #include "m2m/p17.hpp"
 #include "m2m/mst/writer.hpp"
@@ -19,6 +20,7 @@
 #include "m2m/props_variant.hpp"
 #include "m2m/qt4path.hpp"
 #include "../../src/engine/engine_internal.hpp"
+#include "../../src/engine/mirror_plane_owner.hpp"
 
 namespace m2m::mst {
 void installLoaderSlots();
@@ -57,6 +59,15 @@ PropNode* childNamed(PropNode& parent, const char16_t* name)
     for (PropNode& child : parent.children)
         if (child.name == qt::String(name)) return &child;
     return nullptr;
+}
+
+xml::NodePtr parseDisplay(const std::string& source)
+{
+    xml::Document doc;
+    qt::String error;
+    int line = 0, column = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &column));
+    return doc.root;
 }
 
 }  // namespace
@@ -215,6 +226,76 @@ TEST_CASE(copymirror_private_save_missing_directory_precedes_plane_scan)
     CHECK(!fs::exists(task / "mirrormerge.ini"));
     fs::remove(task);
     fs::remove(dir);
+}
+
+TEST_CASE(copymirror_disabled_view_settings_keep_postload_records_but_save_zero_plane_prefix)
+{
+    // The original builder returns before allocating a plane when Settings flag1
+    // is false. The post-load caller still stores the parsed rows in fixed slots.
+    Project project;
+    ProjectScope projectScope(project);
+    Ctx ctx;
+    openVdie42(project, ctx);
+    Operation* operation = operationById(project, 4);
+    REQUIRE(operation != nullptr);
+    retagCopyMirror(project, *operation);
+    mst::OpClass* cls = opBase(*operation);
+    REQUIRE(cls != nullptr);
+    cls->current = operation;
+    engine::GuiModel* model = engine::opModel(project, *operation);
+    REQUIRE(model != nullptr);
+    model->reset();
+    engine::FileEffects loadFx;
+    cls->loadOperation(project, *operation, ctx, loadFx);
+    model = engine::opModel(project, *operation);
+    REQUIRE(model != nullptr);
+    auto* object = model->object(1);
+    REQUIRE(object != nullptr);
+    engine::viewerSync(*model, object, true);
+    auto display = parseDisplay("<SfDispOpt><DispFlagList ObjectOn='0' MeshOn='0' GeoOn='0'/></SfDispOpt>");
+    engine::readViewerDisplayOptions(*model, 0, *display);
+    auto settings = engine::viewerDisplayOptionSnapshot(*model, 0);
+    REQUIRE(settings.has_value());
+    CHECK_EQ(settings->flags[1], 0);
+
+    const qt::String ini = qt::cleanPath(projectDir(project) + qt::kSep +
+        taskDirRel(*operation) + qt::kSep + qt::L("mirrormerge.ini"));
+    project.overlay[ini] = "MIRROR_MERGE 1 2\n"
+        "7 40 41 1.25 -2.5 3.75 4.5 5.25 -6 1\n"
+        "8 50 51 11 12 13 14 15 16 0\n";
+    engine::FileEffects postFx;
+    cls->postLoad(project, *operation, ctx, postFx);
+    const auto owner = engine::detail::mirrorPlaneOwnerSnapshot(*model, 1);
+    REQUIRE(owner.has_value());
+    CHECK_EQ(owner->allocatedSlotCount, 0);
+    REQUIRE(owner->records[0].a.has_value());
+    CHECK_EQ(*owner->records[0].a, 7);
+    REQUIRE(owner->records[0].e0.has_value());
+    CHECK((*owner->records[0].e0)[0] == 1.25);
+    CHECK((*owner->records[0].e0)[1] == -2.5);
+    CHECK((*owner->records[0].e0)[2] == 3.75);
+    CHECK(owner->records[0].c0[0] == 4.5);
+    CHECK(owner->records[0].active);
+    CHECK(!owner->records[1].active);
+    CHECK(owner->records[1].links[0] == -1 && owner->records[1].links[1] == -1);
+
+    engine::FileEffects saveFx;
+    CHECK(cls->saveAfterFiles(project, *operation, saveFx));
+    REQUIRE(saveFx.writes.size() == 1u);
+    CHECK(saveFx.writes[0].path == ini);
+    CHECK(saveFx.writes[0].bytes.find("TOLERANCE\t") != std::string::npos);
+    CHECK(saveFx.writes[0].bytes.find("MIRROR_MERGE") == std::string::npos);
+
+    // The parser clears entries on the next post-load. The prior parsed
+    // requests must not resurface as an invented native plane count.
+    project.overlay[ini] = "";
+    engine::FileEffects secondPostFx;
+    cls->postLoad(project, *operation, ctx, secondPostFx);
+    CHECK(model->viewerMirrorPlanes.empty());
+    engine::FileEffects secondSaveFx;
+    CHECK(cls->saveAfterFiles(project, *operation, secondSaveFx));
+    REQUIRE(secondSaveFx.writes.size() == 1u);
+    CHECK(secondSaveFx.writes[0].bytes.find("MIRROR_MERGE") == std::string::npos);
 }
 
 int main()

@@ -2,8 +2,8 @@
 // (docs/re/moproj2mst/mdt/L5/spec_L5.md; decompiles deform-rea-work/gui_mo/s1/mdt/L5/d*.c, a*.asm).
 // One function per binary function, in the original's call order. Engine calls go to the DEF_PRE
 // port (GUI twin = DEF_PRE address in the comments). Viewer-only calls (the GL scene of the main
-// window, its second model, the viewer items) are dropped and named; the one viewer value engine code
-// reads (CopyMirror's plane count) is kept in GuiModel::viewerMirrorPlanes.
+// window and its second model) are modeled where needed. CopyMirror's actual plane owner lives in
+// each View; GuiModel::viewerMirrorPlanes remains only a legacy requested-count guard.
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
@@ -36,6 +36,7 @@
 #include <defrt/stdlib/libm.hpp>
 
 #include "engine_internal.hpp"
+#include "mirror_plane_owner.hpp"
 #include "m2m/data/boolean.hpp"
 #include "m2m/data/convert.hpp"
 #include "m2m/datafiles.hpp"
@@ -849,7 +850,8 @@ bool readMirrorMerge(CopyMirrorState& st, const Project& p, const String& file)
     return true;
 }
 
-// 0x140c82d50(m, &no): viewer item no, made when missing (null for no < 1); only its plane count
+// Legacy requested-count guard retained for synthetic private tests. Native
+// 0x141249420 reads the actual View-owned high-water extent instead.
 int* viewerItemPlanes(GuiModel& m, int no)
 {
     if (no < 1) return nullptr;
@@ -872,12 +874,7 @@ void loadMirrorPlanes(OpClass& c, CopyMirrorState& st, Project& p)
     for (char16_t ch : rel.u16()) latin += ch > 0xff ? u'?' : ch;
     readMirrorMerge(st, p, qt::cleanPath(projectDir(p) + qt::kSep + latin));
     for (const MirrorEntry& e : st.entries) {
-        int* planes = viewerItemPlanes(*m, e.objNo);
-        if (!planes) return;
-        // per plane 0x140e23a00 builds the plane on the item (viewer geometry 0x1411f1a10,
-        // 0x141249730 / 0x141249f80), then 0x14004e810 / 0x141247ed0 set its record: viewer code,
-        // not ported; the count records that planes were asked for
-        *planes += static_cast<int>(e.planes.size());
+        if (!engine::detail::importMirrorEntry(*m, e.objNo, e.planes)) return;
     }
 }
 
@@ -895,23 +892,24 @@ void cmPropsLoad(Project& p, Operation& op, data::ConvertData& d)
 }
 
 // @src 0x140e25b20  mirror the provided object when the viewer item has planes
-bool mirrorObject(OpClass& c, Project& p, int no, LLOBJ_DATA* o)
+bool mirrorObject(OpClass& c, CopyMirrorState& st, Project& p, int no, LLOBJ_DATA* o)
 {
     Operation* cur = c.current;
     if (!cur) return false;
     GuiModel* m = engine::opModel(p, *cur);
     if (!m) unsupported("CopyMirror object without an engine model (0x140e25b20)");
-    int* planes = viewerItemPlanes(*m, no);               // 0x140c82d50
+    const int actualCount = engine::detail::mirrorPlaneCount(*m, no); // 0x140c82d50, 0x141249420
+    int* requested = st.entries.empty() ? viewerItemPlanes(*m, no) : nullptr;
     if (!kindNot7(o)) return false;
-    if (!planes) unsupported("CopyMirror object number < 1 (0x140c82d50 gives no viewer item)");
-    if (0 < *planes && engine::objHasGeometry(o))         // 0x141249420(item+0x348), 0x140834d50
+    if (no < 1) unsupported("CopyMirror object number < 1 (0x140c82d50 gives no viewer item)");
+    if ((actualCount > 0 || (requested && *requested > 0)) && engine::objHasGeometry(o))
         unsupported("CopyMirror mirror construction (0x140e25c00 on the viewer item's planes, packet V)");
     return true;
 }
 
 // @src 0x140e25980  vt+0x2a0: object `no` of the current CopyMirror operation, as geometry, copied
 // into dst
-bool cmProvideObject(OpClass& c, CopyMirrorState&, Project& p, int no, LLOBJ_DATA* dst)
+bool cmProvideObject(OpClass& c, CopyMirrorState& st, Project& p, int no, LLOBJ_DATA* dst)
 {
     Operation* cur = c.current;                           // 0x1405ef2b0
     if (!cur) return false;
@@ -931,7 +929,7 @@ bool cmProvideObject(OpClass& c, CopyMirrorState&, Project& p, int no, LLOBJ_DAT
         }
     }
     if (!ok) return false;
-    mirrorObject(c, p, no, o);                            // 0x140e25b20
+    mirrorObject(c, st, p, no, o);                        // 0x140e25b20
     DB_STEP_DATA* owner = *at<DB_STEP_DATA*>(o, 0x3a98);  // 0x1400c35b0
     const bool p4 = true, p5 = true, p6 = true, p7 = true, p8 = false, p9 = true;
     def::model::llobj_copy_from(dst, o, owner->u15f8, &p4, &p5, &p6, &p7, &p8, &p9);   // 0x140835430 = 1401613a0
@@ -1143,8 +1141,9 @@ void cmSaveAfter(OpClass& c, CopyMirrorState& st, const String& stepKey, Project
     if (std::filesystem::is_directory(std::filesystem::path(path.u16()), ec)) return;
     const int n = m->objectCount();                       // 0x140c7c1a0
     for (int i = 0; i < n; ++i) {
-        int* planes = viewerItemPlanes(*m, i + 1);        // 0x140c82d50 (made when missing)
-        if (planes && 0 < *planes)                        // 0x141249420
+        const int actualCount = engine::detail::mirrorPlaneCount(*m, i + 1); // 0x140c82d50, 0x141249420
+        int* requested = st.entries.empty() ? viewerItemPlanes(*m, i + 1) : nullptr;
+        if (actualCount > 0 || (requested && *requested > 0))
             unsupported("CopyMirror save: MIRROR_MERGE lines of the viewer items' planes (0x140e23d80, packet V)");
     }
     captureFx(path, fx, [&](const char* file) {
