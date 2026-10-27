@@ -377,18 +377,31 @@ TEST_CASE(copymirror_known_parent_capacity_return_links_zero_to_parent)
     Fixture fixture;
     fillCapacity(fixture);
     const auto before = fixture.snapshot();
-    CHECK(!fixture.post("1 0 0 1 2 0 1 1 0 1\n", 1));
-    const auto after = fixture.snapshot();
-    CHECK_EQ(after.allocatedSlotCount, 128);
-    CHECK(after.links == before.links);
-    CHECK_EQ(after.records[0].links[0], 0);
-    CHECK_EQ(after.records[0].links[1], -1);
-    CHECK(after.records[0].matrixDouble == before.records[0].matrixDouble);
-    CHECK(after.records[0].matrixFloat == before.records[0].matrixFloat);
-    CHECK_EQ(after.records[0].mode, before.records[0].mode);
-    CHECK(after.records[0].active);
-    REQUIRE(after.records[0].a && after.records[0].e0);
-    CHECK_EQ(*after.records[0].a, 1);
+    CHECK((before.records[0].links == std::array<int, 2>{-1, -1}));
+    for (int call = 0; call < 4; ++call) {
+        // Parent 1 reaches the private actual-View owner and its parent-child
+        // link writes; flag 1 verifies caller completion preserves enabled.
+        CHECK(!fixture.post("1 0 0 1 2 0 1 1 0 1\n", 1));
+        const auto after = fixture.snapshot();
+        CHECK_EQ(after.allocatedSlotCount, 128);
+        CHECK(after.links == before.links); // root links are untouched
+        const std::array<int, 2> expected = call == 0
+            ? std::array<int, 2>{0, -1}
+            : std::array<int, 2>{0, 0};
+        CHECK(after.records[0].links == expected);
+        CHECK(after.records[0].matrixDouble == before.records[0].matrixDouble);
+        CHECK(after.records[0].matrixFloat == before.records[0].matrixFloat);
+        CHECK_EQ(after.records[0].mode, before.records[0].mode);
+        CHECK(after.records[0].active);
+        REQUIRE(after.records[0].a && after.records[0].e0);
+        CHECK_EQ(*after.records[0].a, 1);
+    }
+    fixture.setGate(false);
+    CHECK(!fixture.post("0 0 0 4 5 6 7 8 9 0\n"));
+    const auto disabled = fixture.snapshot();
+    CHECK(disabled.links == before.links); // deferred disabled clear is record-local
+    CHECK((disabled.records[0].links == std::array<int, 2>{-1, -1}));
+    CHECK(!disabled.records[0].active);
 }
 
 TEST_CASE(copymirror_capacity_caller_writes_fixed_input_rows_then_parsed_flags)
@@ -416,14 +429,17 @@ TEST_CASE(copymirror_capacity_later_parent_refusal_retains_first_pass_and_root)
     Fixture fixture;
     fillCapacity(fixture);
     const auto before = fixture.snapshot();
-    REQUIRE(fixture.post("0 90 91 5 6 7 2 3 4 0\n-1 92 93 8 9 10 11 12 13 0\n",
+    REQUIRE(fixture.post("1 90 91 5 6 7 2 3 4 0\n-1 92 93 8 9 10 11 12 13 0\n",
         2, "parent"));
     const auto after = fixture.snapshot();
     checkMatricesAndExtentUnchanged(before, after);
-    // The nonzero-parent guard runs before the second root insertion. The
-    // refusal suppresses the deferred disable of row 0 as well as row 1 stores.
-    CHECK((after.links == std::array<int, 2>{0, -1}));
+    // The first known-parent insertion survives the later invalid-parent
+    // refusal, which also suppresses the deferred disable and row 1 stores.
+    CHECK(after.links == before.links);
+    CHECK((after.records[0].links == std::array<int, 2>{0, -1}));
     CHECK(after.records[0].active);
+    REQUIRE(after.records[0].a);
+    CHECK_EQ(*after.records[0].a, 1);
     REQUIRE(after.records[0].e0);
     CHECK((*after.records[0].e0 == std::array<double, 3>{5.0, 6.0, 7.0}));
     CHECK((after.records[0].c0 == std::array<double, 4>{2.0, 3.0, 4.0, 0.0}));

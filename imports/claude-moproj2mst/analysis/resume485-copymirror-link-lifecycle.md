@@ -1,0 +1,9 @@
+# CP485 CopyMirror actual-owner link lifecycle regression
+
+CP484 makes a known nonzero parent and capacity-zero link insertion reachable through the private actual View owner. CP456's PE-bound helper contract inserts the returned id into the first empty parent-record link, preserves occupied slots, and clears both links only on deferred active=false. The caller applies parsed flags only after the complete first row pass; a later refusal leaves earlier parent/caller mutations and skips the deferred clear.
+
+The focused actual-owner test now observes record links `{-1,-1} → {0,-1} → {0,0} → {0,0}` over capacity-zero parent calls, with root links unchanged. It checks enabled preservation, completed disabled clearing, and a later invalid-parent refusal retaining the first row's fixed fields, active=true and record link while suppressing its parsed disable. Dynamic zero-id saturation shows an unchanged result; the no-overwrite branch itself is established by CP456's static evidence, not by distinct runtime ids. Public CopyMirror and positive serialization remain guarded.
+
+Independent review corrected an invalid root-link expectation and a first-row flag that had made deferred-disable suppression vacuous. Source-stable `analysis/cp485-build.json` passed focused `m2m.mdt.copymirror_enabled_prefix` and full build. The bound full launcher registered 387 tests: 380 clean, six with logged gaps, one with a logged difference, zero failed/skipped/incomplete and no fixture changes. Source SHA-256 was `d3de110b3c2b182cee33ff751dfed94fa9af466bb48fd9883119df59a9fc2ae5`. Historical Save remains 93 SAME/five DIFF; no fresh original GUI session ran.
+
+Next: select a source-closed branch from the remaining converter queue. CopyMirror below-capacity continuation still depends on original builder-local triples, and original GUI-control release remains unavailable.
