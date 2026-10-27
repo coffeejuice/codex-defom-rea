@@ -439,6 +439,12 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
     const bool initiallyUnlinked = std::all_of(flow.items.begin(), flow.items.end(), [](const auto& item) {
         return item && item->next == nullptr && item->prev == nullptr;
     });
+    const bool singletonRelayoutCandidate = initiallyEmpty && flow.items.size() == 1 &&
+        cellInputs.size() == 1 && cellInputs[0].selected && initiallyUnlinked && flow.items[0] &&
+        !flow.items[0]->group && flow.items[0]->className == L("SfOprForming2D") &&
+        std::isfinite(flow.items[0]->rect[0]) && std::isfinite(flow.items[0]->rect[1]) &&
+        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        flow.items[0]->rect[0] < 1332.5 && flow.items[0]->rect[1] < 67.5;
     const bool initialForwardPair = flow.items.size() == 2 && flow.items[0] && flow.items[1] &&
         flow.items[0]->prev == nullptr && flow.items[0]->next == flow.items[1].get() &&
         flow.items[1]->prev == flow.items[0].get() && flow.items[1]->next == nullptr;
@@ -522,6 +528,10 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             } else {
                 it.row = 0;
                 it.col = col;
+                if (singletonRelayoutCandidate) {
+                    it.rect[0] = 205.0 * col;
+                    it.rect[1] = 0.0;
+                }
                 if (freeColumnPairCandidate && k == 1 && col >= 1) {
                     it.rect[0] = 205.0 * col;
                     it.rect[1] = 0.0;
@@ -531,7 +541,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;
     }
-    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate) {
+    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate || singletonRelayoutCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.

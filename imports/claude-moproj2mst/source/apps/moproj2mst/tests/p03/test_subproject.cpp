@@ -109,6 +109,47 @@ TEST_CASE(cellpos_minus_one_coordinate_is_recomputed_through_parser)
     }
 }
 
+TEST_CASE(singleton_forming2d_cell_selection_relayouts_rectf)
+{
+    struct Sample { const char* x; const char* y; int col; };
+    const Sample samples[] = {
+        {"-61", "0", 0}, {"-60", "0", 0}, {"0", "0", 0},
+        {"0", "-25.000000000000004", 0}, {"0", "-25", 0}, {"0", "-24.999999999999996", 0},
+        {"102.49999999999999", "0", 0}, {"102.5", "0", 1}, {"102.50000000000001", "0", 1},
+        {"307.49999999999994", "0", 1}, {"307.5", "0", 2}, {"307.50000000000006", "0", 2},
+        {"512.49999999999994", "0", 2}, {"512.5", "0", 3}, {"512.5000000000001", "0", 3},
+        {"717.4999999999999", "0", 3}, {"717.5", "0", 4}, {"717.5000000000001", "0", 4},
+        {"922.4999999999999", "0", 4}, {"922.5", "0", 5}, {"922.5000000000001", "0", 5},
+        {"1127.4999999999998", "0", 5}, {"1127.5", "0", 6}, {"1127.5000000000002", "0", 6},
+        {"1332.4999999999998", "0", 6}};
+    for (const Sample& sample : samples) for (const char* cell : {"", "<CellPos Row=\"-1\" Col=\"-1\"/>"}) {
+        Project p; p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>") + sample.x + "</x><y>" + sample.y + "</y><width>0</width><height>0</height></RectF>" + cell +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 1u);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, sample.col);
+        CHECK_EQ(items[0]->rect[0], 205.0 * sample.col); CHECK_EQ(items[0]->rect[1], 0.0);
+        CHECK_EQ(items[0]->rect[2], 0.0); CHECK_EQ(items[0]->rect[3], 0.0);
+        CHECK(items[0]->prev == nullptr); CHECK(items[0]->next == nullptr);
+        CHECK_EQ(items[0]->opId, 73); CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+    }
+    // The upper y boundary is excluded; its immediate predecessor remains selected in row 0.
+    Project p; p.subs.push_back(makeSubProject(p, 0, 0));
+    const std::string source = "<Sub_Project><DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>0</x><y>67.49999999999999</y><width>0</width><height>0</height></RectF>"
+        "</DiagramItem></Sub_Project>";
+    xml::Document doc; String error; int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+    Ctx ctx; parseSubProject(p, *doc.root, ctx);
+    REQUIRE(p.subs[0]->flow.items.size() == 1u);
+    CHECK_EQ(p.subs[0]->flow.items[0]->rect[0], 0.0); CHECK_EQ(p.subs[0]->flow.items[0]->rect[1], 0.0);
+    CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+}
+
 TEST_CASE(cellpos_minus_one_column_rounding_and_clamps)
 {
     struct Case { double x; int col; };

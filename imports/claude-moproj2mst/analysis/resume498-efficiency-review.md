@@ -1,0 +1,5 @@
+# CP497–498 safe-boundary efficiency review
+
+CP497 full build took 34.344 seconds and its bound launcher 22.375 seconds. CP498's corrected full build took 47.078 seconds and launcher 22.047 seconds; its first focused compile failed after 19.800 seconds on a test-only pointer-string concatenation error. Different changed-source sets and cache state prevent a controlled build-speed claim. Token-use measurement is unavailable.
+
+The CP498 error escaped read-only Testkit/include preflight, so future focused test ownership must also compile newly added string-expression patterns before announcing build readiness. The focused target caught the error before a complete build or launcher. Keep that early gate and the source-bound full suite. Two independent PE audits were combined into the next CP499 contract because the dimension storage and sentinel coordinate decisions are separate and their selected composition is source-closed; this avoids separate build cycles for compatible singleton cuts without weakening evidence.
