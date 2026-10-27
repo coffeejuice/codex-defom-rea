@@ -1,0 +1,7 @@
+# CP504 distinct explicit valid-cell pair
+
+The selected original parser/model route now admits two initially empty/unlinked ordinary Forming2D items with distinct explicit row0 CellPos values. Both model RectFs move to requested grid origins. Adjacent cells reconnect in ascending grid order, including a reverse B→A edge when B's cell precedes A; a gap leaves both unlinked and MST contains the lower-column item. The explicit native installer direction local is uninitialized, but both selected tokens are empty, so the branch converges on direct installation. Colliding explicit cells remain guarded.
+
+Independent PE audit and source review passed. Focused/full build and bound 387-test launcher passed: 380 clean, six with logged gaps, one with logged differences, zero failed/skipped/incomplete, no fixture changes and stable binding. Historical Save remains 93 SAME/five DIFF. Focused `m2m.p03.subproject` passed 35 cases. Build source SHA-256 `d0e30693c0e93f9c56452d4b1c7217a6a55f1631da72f0518f4c862445ae4212`; frozen `build/cp504-verified`, receipts `analysis/cp504-build.json`, `analysis/cp504-tests.json`, `analysis/cp504-validation.json`. Seven explicit-pair exclusion controls supplement source-inspected guards; exhaustive guard tests are not claimed.
+
+Native notifications, fresh Open/Save/Close parity and other guarded branches remain unresolved. CP505 is the next independently PE-bound noncolliding mixed explicit/sentinel pair.

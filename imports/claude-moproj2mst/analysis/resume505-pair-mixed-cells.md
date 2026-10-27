@@ -1,0 +1,7 @@
+# CP505 mixed explicit/sentinel pair
+
+The selected original parser/model pair route now admits exactly one explicit valid row0 CellPos and one missing or OR-sentinel CellPos when their snapshot target columns differ. Native explicit placement leaves an installer direction local unwritten, but both selected target tokens are empty, so both branches install directly. Both RectFs move to their grid origins; adjacent links follow lower→higher column order, including B→A, while gaps remain disconnected. Mixed collisions remain guarded.
+
+Independent PE audit and source review passed. The source-stable focused/full build and bound 387-test launcher passed: 380 clean, six with logged gaps, one with logged differences, zero failed/skipped/incomplete, no fixture changes and stable execution binding. Historical Save remains 93 SAME/five DIFF. Focused `m2m.p03.subproject` passed 38 cases, including 353 selected parser samples, two collision controls and eight invalid-profile controls. Build source SHA-256 `08c99b4728935e094ee99af5f721d965f5e9bf45548f4bfbed539ab3b5d2b4e3`; frozen `build/cp505-verified`. Receipts: `analysis/cp505-build.json`, `analysis/cp505-tests.json`, `analysis/cp505-validation.json`.
+
+Native notifications, fresh original Open/Save/Close parity and other guarded branches remain unresolved. CP506 is an independent PE audit of A's finite signed dimensions in selected pairs; implementation will follow only a source-closed contract.

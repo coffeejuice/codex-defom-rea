@@ -985,6 +985,229 @@ TEST_CASE(two_item_nonzero_top_relayouts_with_populated_row_zero)
     }
 }
 
+TEST_CASE(two_item_distinct_explicit_cells_relayout_in_grid_order)
+{
+    struct BSample { const char* x; const char* y; const char* w; const char* h; };
+    const BSample samples[] = {
+        {"-61", "-26", "-0", "1.25"},
+        {"102.5", "67.49999999999999", "4.9406564584124654e-324", "-1.7976931348623157e308"},
+        {"1230", "0", "-3.5", "2.5"}};
+    for (const BSample& sample : samples) for (int aCol = 0; aCol < 7; ++aCol)
+        for (int bCol = 0; bCol < 7; ++bCol) {
+        if (aCol == bCol) continue;
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" +
+            "<CellPos Row=\"0\" Col=\"" + std::to_string(aCol) + "\"/></DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+            sample.x + "</x><y>" + sample.y + "</y><width>" + sample.w + "</width><height>" + sample.h +
+            "</height></RectF><CellPos Row=\"0\" Col=\"" + std::to_string(bCol) + "\"/></DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, aCol);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, bCol);
+        CHECK_EQ(items[0]->rect[0], 205.0 * aCol); CHECK_BITS(items[0]->rect[1], 0.0);
+        CHECK_BITS(items[0]->rect[2], 0.0); CHECK_BITS(items[0]->rect[3], 0.0);
+        CHECK_EQ(items[1]->rect[0], 205.0 * bCol); CHECK_BITS(items[1]->rect[1], 0.0);
+        CHECK_BITS(items[1]->rect[2], std::strtod(sample.w, nullptr));
+        CHECK_BITS(items[1]->rect[3], std::strtod(sample.h, nullptr));
+        const int lo = aCol < bCol ? 0 : 1, hi = 1 - lo;
+        const bool adjacent = aCol + 1 == bCol || bCol + 1 == aCol;
+        CHECK(items[lo]->prev == nullptr); CHECK(items[hi]->next == nullptr);
+        CHECK(items[lo]->next == (adjacent ? items[hi].get() : nullptr));
+        CHECK(items[hi]->prev == (adjacent ? items[lo].get() : nullptr));
+        const std::vector<int> expected = adjacent ?
+            std::vector<int>({items[lo]->opId, items[hi]->opId}) : std::vector<int>({items[lo]->opId});
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
+TEST_CASE(two_item_explicit_cells_use_final_duplicate_occurrence)
+{
+    Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+    const std::string source = "<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>"
+        "<CellPos Row=\"0\" Col=\"6\"/><CellPos Row=\"0\" Col=\"4\"/></DiagramItem>"
+        "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>"
+        "<RectF><x>1</x><y>0</y><width>-2</width><height>3</height></RectF>"
+        "<CellPos Row=\"0\" Col=\"0\"/><CellPos Row=\"0\" Col=\"2\"/></DiagramItem></Sub_Project>";
+    xml::Document doc; String error; int line = 0, col = 0;
+    REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+    Ctx ctx; parseSubProject(p, *doc.root, ctx);
+    const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+    CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 4);
+    CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, 2);
+    CHECK_EQ(items[0]->rect[0], 820.0); CHECK_BITS(items[0]->rect[1], 0.0);
+    CHECK_EQ(items[1]->rect[0], 410.0); CHECK_BITS(items[1]->rect[1], 0.0);
+    CHECK_BITS(items[1]->rect[2], -2.0); CHECK_BITS(items[1]->rect[3], 3.0);
+    CHECK(items[0]->prev == nullptr); CHECK(items[0]->next == nullptr);
+    CHECK(items[1]->prev == nullptr); CHECK(items[1]->next == nullptr);
+    CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+    CHECK(mstOrder(*p.subs[0]) == std::vector<int>({73}));
+}
+
+TEST_CASE(two_item_explicit_cell_selection_keeps_other_profiles_guarded)
+{
+    struct Control { const char* aCell; const char* bCell; const char* bClass;
+                     const char* bY; const char* bW; bool linked; double selectedX; };
+    const Control controls[] = {
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"0\"/>", "SfOprForming2D", "0", "2", false, 0.0},
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"-1\" Col=\"1\"/>", "SfOprForming2D", "0", "2", false, 205.0},
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"7\"/>", "SfOprForming2D", "0", "2", false, 1435.0},
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "67.5", "2", false, 205.0},
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "0", "nan", false, 205.0},
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming", "0", "2", false, 205.0},
+        {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "0", "2", true, 205.0}};
+    for (const Control& c : controls) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + c.aCell +
+            (c.linked ? "<Connectors><Connections><ItemIndex>1</ItemIndex></Connections></Connectors>" : "") +
+            "</DiagramItem><DiagramItem Operation_Id=\"73\"><ClassName>" + c.bClass +
+            "</ClassName><RectF><x>1</x><y>" + c.bY + "</y><width>" + c.bW +
+            "</width><height>3</height></RectF>" + c.bCell + "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool outsideSelectedRoute = false;
+        try {
+            parseSubProject(p, *doc.root, ctx);
+            const auto& items = p.subs[0]->flow.items;
+            REQUIRE(items.size() == 2u);
+            outsideSelectedRoute = items[1]->rect[0] != c.selectedX;
+        } catch (const Error& e) { outsideSelectedRoute = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(outsideSelectedRoute);
+    }
+}
+
+TEST_CASE(two_item_mixed_explicit_sentinel_cells_use_distinct_empty_targets)
+{
+    struct Case { std::string aCell; std::string bCell; const char* x; const char* y;
+                  const char* w; const char* h; int aCol; int bCol; };
+    std::vector<Case> cases;
+    const char* sentinels[] = {"", "<CellPos Row=\"-1\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"5\"/>", "<CellPos Row=\"5\" Col=\"-1\"/>",
+        "<CellPos Row=\"-1\" Col=\"-2147483648\"/>",
+        "<CellPos Row=\"2147483647\" Col=\"-1\"/>",
+        "<CellPos Row=\"0\" Col=\"0\"/><CellPos Row=\"-1\" Col=\"5\"/>"};
+    const char* columnX[] = {"-61", "102.5", "307.5", "512.5", "717.5", "922.5", "1127.5"};
+    const auto explicitCell = [](int col) {
+        return std::string("<CellPos Row=\"0\" Col=\"") + std::to_string(col) + "\"/>";
+    };
+    for (int bCol = 0; bCol < 7; ++bCol) for (int aCol = 0; aCol < 7; ++aCol) {
+        if (aCol == bCol) continue;
+        for (const char* sentinel : sentinels)
+            cases.push_back({explicitCell(aCol), sentinel, columnX[bCol], bCol == 0 ? "-26" : "67.49999999999999",
+                             bCol % 2 ? "-0" : "4.9406564584124654e-324",
+                             bCol % 2 ? "-1.7976931348623157e308" : "3.25", aCol, bCol});
+    }
+    for (int bCol = 1; bCol < 7; ++bCol) for (const char* sentinel : sentinels)
+        cases.push_back({sentinel, explicitCell(bCol), "-61", "-26", "-3.5", "1.7976931348623157e308", 0, bCol});
+    struct Edge { const char* x; const char* y; int col; };
+    const Edge edges[] = {
+        {"-1.7976931348623157e308", "-1.7976931348623157e308", 0},
+        {"-60.00000000000001", "-25.000000000000004", 0},
+        {"-60", "-25", 0}, {"-59.99999999999999", "-24.999999999999996", 0},
+        {"102.49999999999999", "0", 0}, {"102.50000000000001", "0", 1},
+        {"307.49999999999994", "0", 1}, {"307.50000000000006", "0", 2},
+        {"512.49999999999994", "0", 2}, {"512.5000000000001", "0", 3},
+        {"717.4999999999999", "0", 3}, {"717.5000000000001", "0", 4},
+        {"922.4999999999999", "0", 4}, {"922.5000000000001", "0", 5},
+        {"1127.4999999999998", "0", 5}, {"1127.5000000000002", "0", 6},
+        {"1332.4999999999998", "0", 6}};
+    for (const Edge& edge : edges)
+        cases.push_back({explicitCell((edge.col + 1) % 7), sentinels[2], edge.x, edge.y, "-0", "3.25",
+                         (edge.col + 1) % 7, edge.col});
+    for (const Case& c : cases) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + c.aCell + "</DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName><RectF><x>" + c.x +
+            "</x><y>" + c.y + "</y><width>" + c.w + "</width><height>" + c.h +
+            "</height></RectF>" + c.bCell + "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; parseSubProject(p, *doc.root, ctx);
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        CHECK_EQ(items[0]->opId, 41); CHECK_EQ(items[1]->opId, 73);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, c.aCol);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, c.bCol);
+        CHECK_EQ(items[0]->rect[0], 205.0 * c.aCol); CHECK_BITS(items[0]->rect[1], 0.0);
+        CHECK_BITS(items[0]->rect[2], 0.0); CHECK_BITS(items[0]->rect[3], 0.0);
+        CHECK_EQ(items[1]->rect[0], 205.0 * c.bCol); CHECK_BITS(items[1]->rect[1], 0.0);
+        CHECK_BITS(items[1]->rect[2], std::strtod(c.w, nullptr));
+        CHECK_BITS(items[1]->rect[3], std::strtod(c.h, nullptr));
+        const int lo = c.aCol < c.bCol ? 0 : 1, hi = 1 - lo;
+        const bool adjacent = c.aCol + 1 == c.bCol || c.bCol + 1 == c.aCol;
+        CHECK(items[lo]->prev == nullptr); CHECK(items[hi]->next == nullptr);
+        CHECK(items[lo]->next == (adjacent ? items[hi].get() : nullptr));
+        CHECK(items[hi]->prev == (adjacent ? items[lo].get() : nullptr));
+        const std::vector<int> expected = adjacent ?
+            std::vector<int>({items[lo]->opId, items[hi]->opId}) : std::vector<int>({items[lo]->opId});
+        CHECK(mstOrder(*p.subs[0]) == expected);
+    }
+}
+
+TEST_CASE(two_item_mixed_cell_collisions_remain_outside_selected_route)
+{
+    const char* aCells[] = {"<CellPos Row=\"0\" Col=\"0\"/>", "<CellPos Row=\"-1\" Col=\"5\"/>"};
+    const char* bCells[] = {"<CellPos Row=\"-1\" Col=\"5\"/>", "<CellPos Row=\"0\" Col=\"0\"/>"};
+    for (int i = 0; i < 2; ++i) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + aCells[i] + "</DiagramItem>" +
+            "<DiagramItem Operation_Id=\"73\"><ClassName>SfOprForming2D</ClassName>" +
+            "<RectF><x>1</x><y>0</y><width>2</width><height>-3</height></RectF>" + bCells[i] +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool outsideSelectedRoute = false;
+        try {
+            parseSubProject(p, *doc.root, ctx);
+            const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+            outsideSelectedRoute = items[1]->rect[0] == 1.0 &&
+                items[0]->next == nullptr && items[1]->prev == nullptr;
+        } catch (const Error& e) { outsideSelectedRoute = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(outsideSelectedRoute);
+    }
+}
+
+TEST_CASE(two_item_mixed_cell_route_keeps_invalid_profiles_guarded)
+{
+    struct Control { const char* aCell; const char* bClass; const char* y;
+                     const char* w; bool linked; };
+    const Control controls[] = {
+        {"<CellPos Row=\"0\" Col=\"7\"/>", "SfOprForming2D", "0", "2", false},
+        {"<CellPos Row=\"1\" Col=\"1\"/>", "SfOprForming2D", "0", "2", false},
+        {"<CellPos Row=\"0\" Col=\"1\"/><CellPos Row=\"1\" Col=\"1\"/>", "SfOprForming2D", "0", "2", false},
+        {"<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "67.5", "2", false},
+        {"<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "nan", "2", false},
+        {"<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "0", "nan", false},
+        {"<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming", "0", "2", false},
+        {"<CellPos Row=\"0\" Col=\"1\"/>", "SfOprForming2D", "0", "2", true}};
+    for (const Control& c : controls) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        const std::string source = std::string("<Sub_Project><DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>") +
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>" + c.aCell +
+            (c.linked ? "<Connectors><Connections><ItemIndex>1</ItemIndex></Connections></Connectors>" : "") +
+            "</DiagramItem><DiagramItem Operation_Id=\"73\"><ClassName>" + c.bClass +
+            "</ClassName><RectF><x>1</x><y>" + c.y + "</y><width>" + c.w +
+            "</width><height>3</height></RectF><CellPos Row=\"-1\" Col=\"5\"/>" +
+            "</DiagramItem></Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool outsideSelectedRoute = false;
+        try {
+            parseSubProject(p, *doc.root, ctx);
+            const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+            outsideSelectedRoute = items[1]->rect[0] != 0.0;
+        } catch (const Error& e) { outsideSelectedRoute = e.code == M2M_E_UNSUPPORTED; }
+        CHECK(outsideSelectedRoute);
+    }
+}
+
 TEST_CASE(nonempty_initial_chart_does_not_enter_cell_recurrence)
 {
     Project p; p.subs.push_back(makeSubProject(p, 0, 0));

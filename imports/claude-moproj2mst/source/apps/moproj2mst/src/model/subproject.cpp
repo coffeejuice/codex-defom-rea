@@ -454,6 +454,51 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
         std::isfinite(flow.items[0]->rect[0]) && std::isfinite(flow.items[0]->rect[1]) &&
         std::isfinite(flow.items[0]->rect[2]) && std::isfinite(flow.items[0]->rect[3]) &&
         flow.items[0]->rect[0] < 1332.5 && flow.items[0]->rect[1] < 67.5;
+    const bool explicitPairCandidate = initiallyEmpty && initiallyUnlinked && flow.items.size() == 2 &&
+        cellInputs.size() == 2 && flow.items[0] && flow.items[1] &&
+        !flow.items[0]->group && !flow.items[1]->group &&
+        flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
+        flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
+        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        std::isfinite(flow.items[1]->rect[0]) && std::isfinite(flow.items[1]->rect[1]) &&
+        std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]) &&
+        flow.items[1]->rect[0] < 1332.5 && flow.items[1]->rect[1] < 67.5 &&
+        !cellInputs[0].missing && !cellInputs[1].missing &&
+        cellInputs[0].row == 0 && cellInputs[1].row == 0 &&
+        cellInputs[0].col >= 0 && cellInputs[0].col <= 6 &&
+        cellInputs[1].col >= 0 && cellInputs[1].col <= 6 &&
+        cellInputs[0].col != cellInputs[1].col;
+    const auto validExplicitCell = [](const CellInput& input) {
+        return !input.missing && input.row == 0 && input.col >= 0 && input.col <= 6;
+    };
+    const auto sentinelCell = [](const CellInput& input) {
+        return input.missing || input.row == -1 || input.col == -1;
+    };
+    const bool mixedCellForms = cellInputs.size() == 2 &&
+        ((validExplicitCell(cellInputs[0]) && sentinelCell(cellInputs[1])) ||
+         (sentinelCell(cellInputs[0]) && validExplicitCell(cellInputs[1])));
+    int mixedACol = -1, mixedBCol = -1;
+    if (mixedCellForms && flow.items.size() == 2 && flow.items[1] &&
+        std::isfinite(flow.items[1]->rect[0]) && flow.items[1]->rect[0] < 1332.5) {
+        mixedACol = validExplicitCell(cellInputs[0]) ? cellInputs[0].col : 0;
+        double x = flow.items[1]->rect[0];
+        if (x < -60.0) x = 0.0;
+        const double cx = x / 205.0;
+        int derivedCol = static_cast<int>(std::floor(cx));
+        if (cx - std::floor(cx) >= 0.5) derivedCol = static_cast<int>(std::ceil(cx));
+        mixedBCol = validExplicitCell(cellInputs[1]) ? cellInputs[1].col : derivedCol;
+    }
+    const bool mixedPairCandidate = initiallyEmpty && initiallyUnlinked && flow.items.size() == 2 &&
+        mixedCellForms && flow.items[0] && flow.items[1] &&
+        !flow.items[0]->group && !flow.items[1]->group &&
+        flow.items[0]->className == L("SfOprForming2D") && flow.items[1]->className == L("SfOprForming2D") &&
+        flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
+        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        std::isfinite(flow.items[1]->rect[0]) && std::isfinite(flow.items[1]->rect[1]) &&
+        std::isfinite(flow.items[1]->rect[2]) && std::isfinite(flow.items[1]->rect[3]) &&
+        flow.items[1]->rect[0] < 1332.5 && flow.items[1]->rect[1] < 67.5 &&
+        mixedACol >= 0 && mixedACol <= 6 && mixedBCol >= 0 && mixedBCol <= 6 &&
+        mixedACol != mixedBCol;
     const bool initialForwardPair = flow.items.size() == 2 && flow.items[0] && flow.items[1] &&
         flow.items[0]->prev == nullptr && flow.items[0]->next == flow.items[1].get() &&
         flow.items[1]->prev == flow.items[0].get() && flow.items[1]->next == nullptr;
@@ -541,7 +586,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             } else {
                 it.row = 0;
                 it.col = col;
-                if (singletonRelayoutCandidate) {
+                if (singletonRelayoutCandidate || mixedPairCandidate) {
                     it.rect[0] = 205.0 * col;
                     it.rect[1] = 0.0;
                 }
@@ -550,14 +595,15 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
                     it.rect[1] = 0.0;
                 }
             }
-        } else if (singletonExplicitCellCandidate) {
+        } else if (singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate) {
             it.rect[0] = 205.0 * it.col;
             it.rect[1] = 0.0;
         }
         used.insert({it.row, it.col});
         if (it.row == 0) row0 = true;
     }
-    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate || singletonRelayoutCandidate || singletonExplicitCellCandidate) {
+    if (recurrenceCandidate || nonzeroPairCandidate || freeColumnPairCandidate || negativeEightCandidate ||
+        singletonRelayoutCandidate || singletonExplicitCellCandidate || explicitPairCandidate || mixedPairCandidate) {
         // @src 0x140158cc0: relayout clears links, then reconnects compatible
         // occupied graphics in grid order, including the selected row boundary.
         // These selected Forming2D items have compatible Control2d connectors.
@@ -572,7 +618,7 @@ void placeCelllessItems(FlowChart& flow, const xml::Node& e, bool initiallyEmpty
             // The native grid scan visits empty cells too and clears its previous
             // item there. In this selected row-0 pair, an unoccupied column gap
             // therefore prevents a synthesized connector edge.
-            if (freeColumnPairCandidate && grid[k]->row == grid[k - 1]->row &&
+            if ((freeColumnPairCandidate || explicitPairCandidate || mixedPairCandidate) && grid[k]->row == grid[k - 1]->row &&
                 grid[k]->col > grid[k - 1]->col + 1) continue;
             connectItems(grid[k - 1], grid[k]);
         }
