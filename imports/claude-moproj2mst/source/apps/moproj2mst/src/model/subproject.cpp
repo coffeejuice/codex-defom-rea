@@ -184,7 +184,8 @@ std::map<int, int> groupMap(const FlowChart& flow)
 // them. The caller must first apply the model's admission check (+0x88 on the model).
 // Object rows can also reconnect object-row ports and emit ordered
 // notifications. FlowItem prev/next represent only this main Control2d edge;
-// associated profiles requiring row ports remain outside selected routes.
+// associated profiles requiring row-port links remain guarded until their
+// ordered notification and graphics effects are bound.
 void connectItems(FlowItem* from, FlowItem* to)
 {
     if (to->prev) {
@@ -1109,6 +1110,33 @@ ObjectRowPorts& ensureObjectRowPorts(FlowItem& item, std::size_t rowSlot)
     if (!ports.output)
         ports.output.emplace(item, rowSlot, ObjectRowPortDirection::Output);
     return ports;
+}
+
+void clearObjectRowPort(ObjectRowPort& port)
+{
+    // @src 0x140161f90 / 0x140161eb0: clearing one connector removes the
+    // corresponding entry from every peer, preserving reciprocal lists.
+    const auto oldPeers = port.peers;
+    port.peers.clear();
+    for (ObjectRowPort* peer : oldPeers) {
+        if (!peer) continue;
+        auto& links = peer->peers;
+        links.erase(std::remove(links.begin(), links.end(), &port), links.end());
+    }
+}
+
+void linkObjectRowPorts(ObjectRowPort& fromOutput, ObjectRowPort& toInput)
+{
+    if (fromOutput.direction != ObjectRowPortDirection::Output ||
+        toInput.direction != ObjectRowPortDirection::Input ||
+        fromOutput.type != L("Object2d") || toInput.type != L("Object2d") ||
+        fromOutput.capacity != 1 || toInput.capacity != 1 ||
+        fromOutput.owner == toInput.owner)
+        throw Error(M2M_E_UNSUPPORTED, "object-row connector admission is unqualified");
+    clearObjectRowPort(toInput);                  // native 0x140075050 target first
+    clearObjectRowPort(fromOutput);               // then source
+    fromOutput.peers.push_back(&toInput);         // native +0x78 reciprocal link
+    toInput.peers.push_back(&fromOutput);
 }
 
 namespace {

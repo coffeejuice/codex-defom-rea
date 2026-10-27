@@ -2352,6 +2352,38 @@ TEST_CASE(object_row_port_identity_is_item_owned_and_stable)
     CHECK(twoItems[1]->objectRowPorts.at(0).input->owner == twoItems[1].get());
 }
 
+TEST_CASE(object_row_ports_clear_and_relink_reciprocally)
+{
+    FlowItem a, b, c, d;
+    for (FlowItem* item : {&a, &b, &c, &d}) {
+        item->className = L("SfOprForming2D");
+        item->expansion.resize(8);
+    }
+    ObjectRowPort& aOut = *ensureObjectRowPorts(a, 0).output;
+    ObjectRowPort& bIn = *ensureObjectRowPorts(b, 0).input;
+    ObjectRowPort& cOut = *ensureObjectRowPorts(c, 0).output;
+    ObjectRowPort& dIn = *ensureObjectRowPorts(d, 0).input;
+    linkObjectRowPorts(aOut, bIn);
+    linkObjectRowPorts(cOut, dIn);
+    CHECK(aOut.peers == std::vector<ObjectRowPort*>{&bIn});
+    CHECK(bIn.peers == std::vector<ObjectRowPort*>{&aOut});
+    CHECK(cOut.peers == std::vector<ObjectRowPort*>{&dIn});
+    CHECK(dIn.peers == std::vector<ObjectRowPort*>{&cOut});
+
+    linkObjectRowPorts(aOut, dIn); // target clears first, then source
+    CHECK(bIn.peers.empty()); CHECK(cOut.peers.empty());
+    CHECK(aOut.peers == std::vector<ObjectRowPort*>{&dIn});
+    CHECK(dIn.peers == std::vector<ObjectRowPort*>{&aOut});
+    clearObjectRowPort(dIn);
+    CHECK(dIn.peers.empty()); CHECK(aOut.peers.empty());
+
+    bool guarded = false;
+    try { linkObjectRowPorts(bIn, aOut); }
+    catch (const Error& e) { guarded = e.code == M2M_E_UNSUPPORTED; }
+    CHECK(guarded);
+    CHECK(bIn.peers.empty()); CHECK(aOut.peers.empty());
+}
+
 TEST_CASE(normal_defined_object_pair_keeps_row_ports_unlinked)
 {
     for (int variant = 0; variant < 7; ++variant) {

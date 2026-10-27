@@ -274,7 +274,7 @@ struct ObjectRowPort {
     String type = String(u"Object2d");
     int capacity = 1;
     // Native connections are ordered and reciprocal. Construction leaves this
-    // empty; linking, callbacks and row removal remain outside this state cut.
+    // empty; callback dispatch and row removal have separate ownership.
     std::vector<ObjectRowPort*> peers;
 };
 
@@ -310,6 +310,12 @@ struct FlowItem {                  // diagram item (model+0x20 list)
 // Internal Forming2D construction helper only: expansion[7 + rowSlot] must be Text.
 // Native 0x140082760 ensures input before output and retains existing ports.
 ObjectRowPorts& ensureObjectRowPorts(FlowItem& item, std::size_t rowSlot);
+
+// Internal Object2d connector operations. Native +0x88 clears each endpoint's
+// prior reciprocal peer before +0x78 links the selected output/input pair.
+// Notification delivery belongs to the owning graph/model call site.
+void clearObjectRowPort(ObjectRowPort& port);
+void linkObjectRowPorts(ObjectRowPort& fromOutput, ObjectRowPort& toInput);
 
 struct FlowChart {                 // SfMoDiagEditorModel
     std::vector<std::unique_ptr<FlowItem>> items;
