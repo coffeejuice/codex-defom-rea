@@ -122,10 +122,12 @@ class NativePipeOwner:
         self.handles.remove(handle)
 
     def _finish(self, op):
+        first_wait = True
         while not op.terminal:
-            self.last_transfer_phase = "wait_budget"
+            self.last_transfer_phase = "wait_budget" if first_wait else "wait_retry_budget"
             self._result(op, self._budget())
             self.last_transfer_phase = "wait_result"
+            first_wait = False
         self.last_transfer_phase = "close_event"
         self._close(op.event)
         self.operations.remove(op)

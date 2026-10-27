@@ -577,14 +577,14 @@ class CompletionTests(unittest.TestCase):
         owner, h, _ = self.make_owner()
         stages = []
         owner._stage = stages.append
-        owner.pipe_owner.last_transfer_phase = "wait_budget"
+        owner.pipe_owner.last_transfer_phase = "wait_retry_budget"
         def expired(*_args):
             raise m.Hold("absolute pipe deadline expired")
         owner.handoff._transfer = expired
         with self.assertRaises(m.IntegrationFailure) as caught:
             owner.complete()
         self.assertEqual(str(caught.exception.__cause__), "absolute pipe deadline expired")
-        self.assertEqual(stages[-2:], ["cp333_pipe_wait_budget",
+        self.assertEqual(stages[-2:], ["cp333_pipe_wait_retry_budget",
             "cp333_error:Hold:absolute pipe deadline expired"])
         self.assertFalse(owner._accepted_success)
 

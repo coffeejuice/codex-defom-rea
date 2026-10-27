@@ -252,7 +252,7 @@ class WatchdogIntegration:
                 phase = getattr(self.pipe_owner, "last_transfer_phase", None)
                 if ("absolute pipe deadline expired" in str(error) and phase in {
                         "before_operation", "before_submit", "before_io",
-                        "wait_budget", "wait_result", "close_event",
+                        "wait_budget", "wait_retry_budget", "wait_result", "close_event",
                         "post_operation_budget", "final_budget", "complete"}):
                     self._mark(f"cp333_pipe_{phase}")
                 kind = type(error).__name__[:40]

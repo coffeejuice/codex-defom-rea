@@ -252,7 +252,7 @@ class TopTests(unittest.TestCase):
         self.assertEqual(result["stages"], stages)
 
     def test_terminal_pipe_phase_and_primary_error_marker_are_schema_checked(self):
-        stages = ["cp333_before_terminal_read", "cp333_pipe_wait_budget",
+        stages = ["cp333_before_terminal_read", "cp333_pipe_wait_retry_budget",
                   "cp333_error:Hold:absolute pipe deadline expired"]
         raw = b"".join((json.dumps({"stage": stage}, separators=(",", ":"))
                         + "\n").encode("ascii") for stage in stages)

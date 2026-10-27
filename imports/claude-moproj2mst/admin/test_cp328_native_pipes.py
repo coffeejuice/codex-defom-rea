@@ -217,7 +217,7 @@ class Tests(unittest.TestCase):
         f.block = True
         with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
             owner.transfer(ep.parent_read, "read", 80)
-        self.assertEqual(owner.last_transfer_phase, "wait_budget")
+        self.assertEqual(owner.last_transfer_phase, "wait_retry_budget")
         f.block = False
         self.assertTrue(owner.cleanup())
 
@@ -235,6 +235,53 @@ class Tests(unittest.TestCase):
         with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
             owner.transfer(ep.parent_read, "read", 80)
         self.assertEqual(owner.last_transfer_phase, "post_operation_budget")
+        self.assertTrue(owner.cleanup())
+
+    def test_wait_budget_discriminator(self):
+        # Expiry before the first result remains the original phase.
+        f, owner, ep = self.prepared()
+        op = owner._operation(ep.parent_read, "read", (C.c_ubyte * 80)())
+        op.terminal = False
+        f.tick = 100
+        with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
+            owner._finish(op)
+        self.assertEqual(owner.last_transfer_phase, "wait_budget")
+        self.assertTrue(owner.cleanup())
+
+        # A successful first wait keeps the existing phase and completion path.
+        f, owner, ep = self.prepared()
+        observed = []
+        budget = owner._budget
+
+        def record_budget():
+            observed.append(owner.last_transfer_phase)
+            return budget()
+
+        owner._budget = record_budget
+        self.assertEqual(owner.transfer(ep.parent_write, "write", bytes(48)), 48)
+        self.assertIn("wait_budget", observed)
+        self.assertNotIn("wait_retry_budget", observed)
+        self.assertEqual(owner.last_transfer_phase, "complete")
+        self.assertTrue(owner.cleanup())
+
+        # A nonterminal result followed by deadline expiry is distinguishable
+        # from expiry at the initial wait budget check.
+        f, owner, ep = self.prepared()
+        functions = dict(f.exports.functions)
+        def nonterminal_then_expire(*args):
+            f.calls.append(("wait", args[3]))
+            f.error = pipes.PENDING
+            f.tick = 100
+            return False
+
+        functions["GetOverlappedResultEx"] = nonterminal_then_expire
+        owner.exports = BoundExports(functions, {}, lambda: f.error)
+        with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
+            owner.transfer(ep.parent_read, "read", 80)
+        self.assertEqual(owner.last_transfer_phase, "wait_retry_budget")
+        self.assertEqual(f.error, pipes.PENDING)
+        # Cleanup can reap the retained operation after restoring the fake API.
+        owner.exports = f.exports
         self.assertTrue(owner.cleanup())
 
     def test_already_connected_race_and_terminal_error(self):
