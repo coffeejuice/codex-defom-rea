@@ -573,6 +573,21 @@ class CompletionTests(unittest.TestCase):
         self.assertIn("abort-handoff", h.events)
         self.assertFalse(owner._accepted_success)
 
+    def test_completion_pipe_deadline_reports_internal_phase_before_primary_error(self):
+        owner, h, _ = self.make_owner()
+        stages = []
+        owner._stage = stages.append
+        owner.pipe_owner.last_transfer_phase = "wait_budget"
+        def expired(*_args):
+            raise m.Hold("absolute pipe deadline expired")
+        owner.handoff._transfer = expired
+        with self.assertRaises(m.IntegrationFailure) as caught:
+            owner.complete()
+        self.assertEqual(str(caught.exception.__cause__), "absolute pipe deadline expired")
+        self.assertEqual(stages[-2:], ["cp333_pipe_wait_budget",
+            "cp333_error:Hold:absolute pipe deadline expired"])
+        self.assertFalse(owner._accepted_success)
+
     def test_ack_or_forged_public_phase_never_accepts(self):
         h = Harness()
         owner = m.WatchdogIntegration(h.exports)

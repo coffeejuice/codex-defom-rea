@@ -251,6 +251,21 @@ class TopTests(unittest.TestCase):
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["stages"], stages)
 
+    def test_terminal_pipe_phase_and_primary_error_marker_are_schema_checked(self):
+        stages = ["cp333_before_terminal_read", "cp333_pipe_wait_budget",
+                  "cp333_error:Hold:absolute pipe deadline expired"]
+        raw = b"".join((json.dumps({"stage": stage}, separators=(",", ":"))
+                        + "\n").encode("ascii") for stage in stages)
+        with tempfile.TemporaryDirectory(
+                dir=os.environ.get("CP349_TEST_TEMP") or None) as directory:
+            root = Path(directory)
+            path = root / (m.TRACE_PREFIX + "d" * 32 + ".jsonl")
+            path.write_bytes(raw)
+            with mock.patch.object(m, "DIAGNOSTIC_DIR", root):
+                result = m._child_trace_result(path)
+        self.assertEqual(result["status"], "valid")
+        self.assertEqual(result["stages"], stages)
+
     def test_child_trace_reader_accepts_bounded_primary_error_marker(self):
         stages = ["cp333_before_offer_ack",
                   "cp333_error:ApiFailure:read failed (109)",

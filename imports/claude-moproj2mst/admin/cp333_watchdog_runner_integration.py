@@ -249,6 +249,12 @@ class WatchdogIntegration:
             return r
         except BaseException as error:
             try:
+                phase = getattr(self.pipe_owner, "last_transfer_phase", None)
+                if ("absolute pipe deadline expired" in str(error) and phase in {
+                        "before_operation", "before_submit", "before_io",
+                        "wait_budget", "wait_result", "close_event",
+                        "post_operation_budget", "final_budget", "complete"}):
+                    self._mark(f"cp333_pipe_{phase}")
                 kind = type(error).__name__[:40]
                 message = "".join(ch if 32 <= ord(ch) <= 126 else "?"
                                   for ch in str(error)[:120])

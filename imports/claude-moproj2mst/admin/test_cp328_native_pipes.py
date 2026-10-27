@@ -207,11 +207,34 @@ class Tests(unittest.TestCase):
 
     def test_deadline_not_reset_and_direction_enforced(self):
         f, owner, ep = self.prepared()
-        with self.assertRaises(pipes.Hold):
-            owner.transfer(ep.parent_read, "write", bytes(48))
         f.tick = 100
-        with self.assertRaises(pipes.Hold):
+        with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
             owner.transfer(ep.parent_write, "write", bytes(48))
+        self.assertEqual(owner.last_transfer_phase, "before_operation")
+        self.assertTrue(owner.cleanup())
+
+        f, owner, ep = self.prepared()
+        f.block = True
+        with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
+            owner.transfer(ep.parent_read, "read", 80)
+        self.assertEqual(owner.last_transfer_phase, "wait_budget")
+        f.block = False
+        self.assertTrue(owner.cleanup())
+
+        f, owner, ep = self.prepared()
+        functions = dict(f.exports.functions)
+        original = functions["GetOverlappedResultEx"]
+
+        def late_completion(*args):
+            result = original(*args)
+            f.tick = 100
+            return result
+
+        functions["GetOverlappedResultEx"] = late_completion
+        owner.exports = BoundExports(functions, {}, lambda: f.error)
+        with self.assertRaisesRegex(pipes.Hold, "absolute pipe deadline expired"):
+            owner.transfer(ep.parent_read, "read", 80)
+        self.assertEqual(owner.last_transfer_phase, "post_operation_budget")
         self.assertTrue(owner.cleanup())
 
     def test_already_connected_race_and_terminal_error(self):

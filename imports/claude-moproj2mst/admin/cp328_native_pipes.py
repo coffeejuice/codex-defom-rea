@@ -74,6 +74,7 @@ class NativePipeOwner:
         self.started = self.held = False
         self.receipt = None
         self.cancel_errors = {}
+        self.last_transfer_phase = "before_operation"
 
     def _call(self, name, *args):
         return self.exports.fn(name)(*args)
@@ -122,9 +123,13 @@ class NativePipeOwner:
 
     def _finish(self, op):
         while not op.terminal:
+            self.last_transfer_phase = "wait_budget"
             self._result(op, self._budget())
+            self.last_transfer_phase = "wait_result"
+        self.last_transfer_phase = "close_event"
         self._close(op.event)
         self.operations.remove(op)
+        self.last_transfer_phase = "post_operation_budget"
         self._budget()
         if op.error:
             raise ApiFailure(op.kind, op.error)
@@ -219,6 +224,7 @@ class NativePipeOwner:
             raise
 
     def transfer(self, handle, kind, payload):
+        self.last_transfer_phase = "before_operation"
         if self.held or self.receipt is None:
             raise Hold("connected owner required")
         if kind == "write" and type(payload) is bytes and len(payload) in (48, 80):
@@ -233,23 +239,30 @@ class NativePipeOwner:
             raise Hold("endpoint direction mismatch")
         offset, chunks = 0, []
         try:
+            self.last_transfer_phase = "before_operation"
             while offset < size:
                 remaining = size - offset
                 buffer = ((C.c_ubyte * remaining).from_buffer_copy(payload[offset:])
                           if kind == "write" else (C.c_ubyte * remaining)())
+                self.last_transfer_phase = "before_operation"
                 op = self._operation(handle, kind, buffer)
+                self.last_transfer_phase = "before_submit"
                 self._budget()
                 op.terminal = False
+                self.last_transfer_phase = "before_io"
                 if not self._call("WriteFile" if kind == "write" else "ReadFile",
                                   handle, buffer, remaining, None, C.byref(op.overlapped)):
                     code = int(self.exports.last_error())
                     if code != PENDING:
                         op.error, op.terminal = code, True
+                self.last_transfer_phase = "before_operation"
                 count = self._finish(op)
                 if kind == "read":
                     chunks.append(bytes(buffer[:count]))
                 offset += count
+            self.last_transfer_phase = "final_budget"
             self._budget()
+            self.last_transfer_phase = "complete"
             return b"".join(chunks) if kind == "read" else offset
         except BaseException:
             self._hold()

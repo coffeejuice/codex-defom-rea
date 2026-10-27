@@ -1,0 +1,11 @@
+# CP413 seventeenth monitored inert observation
+
+CP413 used one new disposable occurrence `4057c3ad11ac418ab02928e9ea15422e` from clean pushed commit `d15bbb4be5fb4fa637e59f99c231a8d9114763ad`. The independent conditional gate and fresh preflight preceded the occurrence. This was an inert harness trial; it did not run the original application or GUI.
+
+The bounded CP349 child trace is valid: 36 stages, 1247 bytes, SHA-256 `9ac4ab98cc8c8a810d75149716aff567f540b1978d4ff905d1226cdedd8f0f35`. It passed `cp333_after_offer_ack` and `after_cp333_acknowledge`, entered CP333 completion, validated completion custody, and reached `cp333_before_terminal_read`. Its last record is `cp333_error:Hold:absolute pipe deadline expired`. There is no terminal frame, exact WORKER result, successful runner observation, or accepted Save/Close conclusion. The same occurrence must not be retried.
+
+The outer parent-claim read failed with Win32 109. CP347 was active at the pre-cleanup observation. The CP350 report records `accepted=false`, `phase=hold`, `cleanup=closed`, exact runner waited, job empty and terminated, and `process_terminated=false` after a `TerminateProcess` access-denied result. The exact monitor observed controller exit 1 with terminal stdout/stderr and did not need to kill it. Pre/post source manifests matched; no matching owned process remained in the post-check. Absent child diagnostic data cannot be read as a natural success or failure result.
+
+Raw evidence is `cp350-inert-trial-4057c3ad11ac418ab02928e9ea15422e.json` (SHA-256 `272c31069469c380d4e75eebf33362eff681bdb512f47cd4c07a543eafddd4dd`), `cp350-monitor-4057c3ad11ac418ab02928e9ea15422e.json` (SHA-256 `e151f7452c4f51db44fc61a8bc6d53186af43e5a99d064fb3409170a7e75826d`), and `cp349-child-trace-ce28d69cc11a1ce316cb24fb98d53e07.jsonl`.
+
+CP328 raised the literal deadline Hold, but the CP413 trace does not distinguish timeout before submitting the terminal `ReadFile`, while waiting for it, or after a completed partial transfer. CP414 adds fixed phase bookkeeping at existing CP328 boundaries and emits it only on that failure. It does not extend the original five-second deadline or weaken acceptance. A new native occurrence requires a separately frozen candidate, independent gate and fresh preflight.

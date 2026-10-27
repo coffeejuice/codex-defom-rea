@@ -195,6 +195,10 @@ def _child_trace_result(path):
                      "cp333_complete_enter", "cp333_complete_validated",
                      "cp333_before_terminal_read", "cp333_after_terminal",
                      "cp333_after_worker", "cp333_after_runner"})
+    allowed.update("cp333_pipe_" + phase for phase in (
+        "before_operation", "before_submit", "before_io", "wait_budget",
+        "wait_result", "close_event", "post_operation_budget",
+        "final_budget", "complete"))
     if not raw:
         result["status"] = "partial"
         return result
