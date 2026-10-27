@@ -2352,6 +2352,67 @@ TEST_CASE(object_row_port_identity_is_item_owned_and_stable)
     CHECK(twoItems[1]->objectRowPorts.at(0).input->owner == twoItems[1].get());
 }
 
+TEST_CASE(normal_defined_object_pair_keeps_row_ports_unlinked)
+{
+    for (int variant = 0; variant < 7; ++variant) {
+        Project p; makeRegistry(p); p.subs.push_back(makeSubProject(p, 0, 0));
+        for (int i = 0; i < 2; ++i) {
+            auto op = std::make_unique<Operation>();
+            op->id = i == 0 ? 41 : (variant == 5 ? 41 : 73);
+            op->name = i == 0 ? L("Operation A") : L("Operation B");
+            op->objIds.push_back(100 + i);
+            if (!(variant == 3 && i == 1)) {
+                auto entry = std::make_unique<ObjEntry>();
+                entry->number = 1; entry->objectType = variant == 2 && i == 1 ? 7 : 1;
+                entry->name = i == 0 ? L("Source") :
+                    variant == 1 ? L("Read From DB") : L("Target");
+                if (variant == 4 && i == 1) entry->matIds.push_back(5);
+                op->objs.push_back(std::move(entry));
+            }
+            p.operations.push_back(std::move(op));
+        }
+        const std::string source = std::string("<Sub_Project>") +
+            "<DiagramItem Operation_Id=\"41\"><ClassName>SfOprForming2D</ClassName>"
+            "<RectF><x>0</x><y>0</y><width>0</width><height>0</height></RectF>"
+            "</DiagramItem><DiagramItem Operation_Id=\"" +
+            (variant == 5 ? "41" : "73") +
+            "\"><ClassName>SfOprForming2D</ClassName><RectF><x>" +
+            (variant == 6 ? "206" : "205") +
+            "</x><y>0</y><width>0</width><height>0</height></RectF></DiagramItem>"
+            "</Sub_Project>";
+        xml::Document doc; String error; int line = 0, col = 0;
+        REQUIRE(xml::setContent(doc, source, &error, &line, &col)); REQUIRE(doc.root != nullptr);
+        Ctx ctx; bool guarded = false;
+        try { parseSubProject(p, *doc.root, ctx); }
+        catch (const Error& e) {
+            guarded = e.code == M2M_E_UNSUPPORTED &&
+                std::string(e.what()).find("object-row ports") != std::string::npos;
+        }
+        const auto& items = p.subs[0]->flow.items; REQUIRE(items.size() == 2u);
+        if (variant != 0) {
+            CHECK(guarded); continue;
+        }
+        CHECK(!guarded);
+        CHECK_EQ(items[0]->row, 0); CHECK_EQ(items[0]->col, 0);
+        CHECK_EQ(items[1]->row, 0); CHECK_EQ(items[1]->col, 1);
+        CHECK(items[0]->next == items[1].get()); CHECK(items[1]->prev == items[0].get());
+        CHECK(mstOrder(*p.subs[0]) == std::vector<int>({41, 73}));
+        CHECK(items[0]->expansion[7].label == L("  Source"));
+        CHECK(items[1]->expansion[7].label == L("  Target"));
+        for (int i = 0; i < 2; ++i) {
+            const ObjectRowPorts& row = items[i]->objectRowPorts.at(0);
+            REQUIRE(row.input.has_value()); REQUIRE(row.output.has_value());
+            CHECK(row.input->peers.empty()); CHECK(row.output->peers.empty());
+        }
+        p.activeSub = 0;
+        refreshDiagramItems(p);
+        CHECK(items[0]->itemName == L("Operation A"));
+        CHECK(items[1]->itemName == L("Operation B"));
+        CHECK(items[0]->expansion[7].label == L("  Source"));
+        CHECK(items[1]->expansion[7].label == L("  Target"));
+    }
+}
+
 TEST_CASE(above_common_row_height_routes_guard_unqualified_associations)
 {
     struct Case { int a; int b; int associated; int count; const char* y; };

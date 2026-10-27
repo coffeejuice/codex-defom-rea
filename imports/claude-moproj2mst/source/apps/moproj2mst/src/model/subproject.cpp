@@ -808,6 +808,26 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
          sixPositiveCandidate || sevenPositiveCandidate || negativeMultiCandidate ||
          threeDirectCandidate || multiDirectCandidate || negativeTallDirectCandidate ||
          positiveTallDirectCandidate || negativeEightCandidate);
+    // CP530: a normal defined-object row owns ports, but the native
+    // Read-From-DB-only row-link branch never touches those ordinary labels.
+    // A type-1 record proves it was preexisting: lazy ObjEntry defaults to 7.
+    const auto normalDefinedOp = [](const Operation* op) {
+        return op && op->restartGiven == 0 && op->objIds.size() == 1 &&
+            op->objIds[0] >= 0 && op->objs.size() == 1 && op->objs[0] &&
+            op->objs[0]->objectType == 1 && op->objs[0]->matIds.empty() &&
+            !op->objs[0]->name.isEmpty() && op->objs[0]->name != L("Read From DB");
+    };
+    const bool normalDefinedPairCandidate = nonzeroPairCandidate &&
+        flow.items.size() == 2 && cellInputs.size() == 2 &&
+        cellInputs[0].missing && cellInputs[1].missing &&
+        flow.items[0]->opId > 0 && flow.items[1]->opId > 0 &&
+        flow.items[0]->opId != flow.items[1]->opId &&
+        flow.items[0]->rect[0] == 0.0 && flow.items[0]->rect[1] == 0.0 &&
+        flow.items[0]->rect[2] == 0.0 && flow.items[0]->rect[3] == 0.0 &&
+        flow.items[1]->rect[0] == 205.0 && flow.items[1]->rect[1] == 0.0 &&
+        flow.items[1]->rect[2] == 0.0 && flow.items[1]->rect[3] == 0.0 &&
+        normalDefinedOp(operationById(project, flow.items[0]->opId)) &&
+        normalDefinedOp(operationById(project, flow.items[1]->opId));
     if (selectedMultiItemGraph) {
         const bool hasObjectPortRow = std::any_of(flow.items.begin(), flow.items.end(),
             [&project](const auto& item) {
@@ -816,7 +836,7 @@ void placeCelllessItems(Project& project, FlowChart& flow, const xml::Node& e, b
                 return op && std::any_of(op->objIds.begin(), op->objIds.end(),
                     [](int id) { return id != -1; });
             });
-        if (hasObjectPortRow)
+        if (hasObjectPortRow && !normalDefinedPairCandidate)
             throw Error(M2M_E_UNSUPPORTED,
                         "project file: associated object-row ports require graph recovery");
     }
