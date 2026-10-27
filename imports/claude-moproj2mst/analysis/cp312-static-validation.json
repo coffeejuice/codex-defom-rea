@@ -1,0 +1,39 @@
+{
+  "schema": "cp312-static-validation-v1",
+  "status": "REVIEWED_WORKER_PE_AND_FAKE_TOPOLOGY_NATIVE_RUN_HOLD",
+  "real_worker_run": false,
+  "real_synthetic_child_run": false,
+  "original_application_run": false,
+  "gui_control_acquired": false,
+  "worker_executable": {
+    "path": "C:\\PROBLEM\\s312\\worker.exe",
+    "sha256": "8691e408108d788e7c97cbcefdb2d19dec82972ab2404c17d4da05abab4e1797",
+    "bytes": 105472,
+    "pe": "AMD64 PE32+ Windows console; BCRYPT.DLL and KERNEL32.DLL imports; no TLS or delay imports",
+    "build_receipt": "analysis/cp312-worker-fixture-build.json",
+    "build_receipt_sha256": "5aaad75d0f0245ec0675cf3568b32368d44630693a91c79bb742eeb1f58d1460"
+  },
+  "source_sha256": {
+    "admin/fixtures/cp312/worker.c": "7a6eb4d1ded0ef6fb7961a9bda3285ae7c63bdd96bc4a469ae92076bb522bc15",
+    "admin/build_cp312_worker_fixture.py": "21d5266c96b92656f767a75df89cf8926b393b339d7c239cb535dd4eeb784bd3",
+    "admin/test_cp312_worker_fixture_source.py": "fb88027a902adb6d9779b3a74809d57187a5659b7ed3f2882cc652869025d981",
+    "admin/cp312_topology_harness.py": "a31bd495244a6f8aefda5b475eaa5edd71fc3c26175cf9f46c45113e2b8ca4a1",
+    "admin/test_cp312_topology_harness.py": "b9c711e99caf11474b4e692ee389de4123d282d2d7504e11f0bbac37c0dc806a"
+  },
+  "tests": {
+    "focused_worker_static": 5,
+    "focused_topology_fake": 12,
+    "combined_cp303_through_cp312": {"run": 140, "passed": 140, "failed": 0},
+    "both_test_module_orders_passed": true,
+    "log": "analysis/cp312-static-fake-tests.log",
+    "log_sha256": "f4c43eac5d3e3f27252b27d9164876f6a85bc4433f1e2fb6fdd7d4c8bcaac28e"
+  },
+  "review": "Independent static source and built PE/receipt consistency PASS; fake topology rehearsal PASS; native execution HARD HOLD",
+  "unpassed_gates": [
+    "Bridge CP312 packed worker protocol to a supervisor with exact pipe and remote handle ownership",
+    "Supervisor sole WORKER job handle, ancestor silent-breakaway and native nested membership proof",
+    "Exact child offered-handle duplication, image binding and uncertain cleanup",
+    "Supervisor-death containment and creator-interruption observation",
+    "Original Open-Save-accepted Close and failure acceptance"
+  ]
+}
