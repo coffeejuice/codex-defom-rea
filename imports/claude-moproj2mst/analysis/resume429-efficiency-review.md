@@ -1,0 +1,7 @@
+# CP427–429 efficiency review
+
+CP427 used one fresh monitored inert occurrence after a clean pushed source freeze, independent gate and root preflight; its monitor returned in 5.94 seconds at the tool boundary. The occurrence was unaccepted. CP428 used deterministic injected clocks to prove a possible diagnostic timing effect without another native attempt. CP429 reduced explicit post-ACK fsync work and repaired the CP350 source manifest so the imported CP420 helper is checked before and after a trial. This is a narrower, testable next experiment rather than a repeated CP427 run.
+
+The CP428 injected suite reported 657 CP3xx tests in 0.465 and 0.459 seconds and eight CP4xx tests in 0.042 and 0.031 seconds from the two roots. CP429 reported 659 CP3xx in 0.494 and 0.473 seconds and nine CP4xx in 0.036 and 0.037 seconds. The enclosing CP429 command took 4.72 seconds. The separate RIO full CTest rerun passed 392/392 in 15.12 seconds after four missing local test executables were built; the first failed launch and complete rerun are both retained. These measured durations do not establish overall reconstruction speedup or token savings.
+
+The public C++ behavioral baseline remains CP301; no fresh original comparison was made. Next, if independently gated, run one CP430 inert occurrence from the versioned progress source and compare the post-ACK boundary. Preserve all acceptance gates and raw evidence. Source-only work can continue if the trial is unaccepted.
