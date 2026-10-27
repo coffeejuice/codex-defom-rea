@@ -22,7 +22,6 @@ KILL_ON_CLOSE, INHERIT = 0x2000, 1
 JOB_LIMITS, JOB_ACCOUNTING = 9, 1
 HANDLE_LIST, JOB_LIST = 0x20002, 0x2000D
 CREATE_FLAGS = 4 | 0x80000 | 0x08000000  # suspended, extended startup, no window
-WORKER_CREATE_FLAGS = 4 | 0x80000 | 0x00000008  # suspended, extended startup, detached console
 INVALID_HANDLE = C.c_void_p(-1).value
 
 
@@ -251,8 +250,7 @@ class NativeWorkerCreator:
             r.create_outcome = "unknown: CreateProcessW entered"
             try:
                 success = self._call("CreateProcessW", WORKER_IMAGE, command, None, None,
-                    True, WORKER_CREATE_FLAGS, None, WORKER_CWD,
-                    C.byref(startup.StartupInfo), C.byref(info))
+                    True, CREATE_FLAGS, None, WORKER_CWD, C.byref(startup.StartupInfo), C.byref(info))
                 error = None if success else int(self.exports.last_error())
             finally:
                 # Capture independently even when the call raises after outputs.

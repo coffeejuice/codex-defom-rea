@@ -35,6 +35,7 @@ KILL_ON_CLOSE, INHERIT = creator.KILL_ON_CLOSE, creator.INHERIT
 JOB_LIMITS, JOB_ACCOUNTING = creator.JOB_LIMITS, creator.JOB_ACCOUNTING
 HANDLE_LIST, JOB_LIST = creator.HANDLE_LIST, creator.JOB_LIST
 CREATE_FLAGS, INVALID_HANDLE = creator.CREATE_FLAGS, creator.INVALID_HANDLE
+RUNNER_CREATE_FLAGS = 4 | 0x80000 | 0x00000008  # suspended, extended startup, detached console
 
 
 @dataclass
@@ -317,7 +318,7 @@ class OuterWatchdog:
             r.create_outcome = "unknown: CreateProcessW entered"
             try:
                 ok = self._call("CreateProcessW", RUNNER_IMAGE, command, None, None,
-                    True, CREATE_FLAGS, None, RUNNER_CWD,
+                    True, RUNNER_CREATE_FLAGS, None, RUNNER_CWD,
                     C.byref(startup.StartupInfo), C.byref(info))
                 error = None if ok else int(self.exports.last_error())
             finally:

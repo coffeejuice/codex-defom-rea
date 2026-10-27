@@ -330,7 +330,10 @@ class WatchdogTests(unittest.TestCase):
         self.assertTrue(r.host_in_job)
         self.assertEqual(h.attributes, {m.JOB_LIST: (21,), m.HANDLE_LIST: (11, 13)})
         self.assertEqual(h.creation[0], m.RUNNER_IMAGE)
-        self.assertEqual(h.creation[4:6], (True, m.CREATE_FLAGS))
+        self.assertEqual(h.creation[4:6], (True, m.RUNNER_CREATE_FLAGS))
+        self.assertEqual(m.RUNNER_CREATE_FLAGS & (4 | 0x80000 | 8), 4 | 0x80000 | 8)
+        self.assertFalse(m.RUNNER_CREATE_FLAGS & 0x08000000)
+        self.assertEqual(m.CREATE_FLAGS, 4 | 0x80000 | 0x08000000)
         expected_bootstrap = ("import sys;sys.path.insert(0," + repr(m.RUNNER_CWD) +
             ");import cp335_fixed_runner_entry as e;"
             "e.FixedRunnerEntry(sys.argv[1:]).run()")
