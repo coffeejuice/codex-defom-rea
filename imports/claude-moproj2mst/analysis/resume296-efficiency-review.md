@@ -1,0 +1,5 @@
+# CP294–296 efficiency review
+
+CP294 and CP295 final source-bound validations measured 79.422 and 80.703 seconds respectively. Their incremental builds took 26.329 and 26.297 seconds; full CTest took 17.625 and 17.313 seconds; bound launchers took 35.468 and 37.093 seconds. Both passed with 370 registered m2m tests, 363 clean passes, six logged gaps, one diagnostic difference pass, stable source/binaries and unchanged fixtures. CP296 was a static read-only PE analysis, so it has no comparable build or test duration.
+
+The CP294 launcher receipt accounts for 35.344 seconds: inventory 1.062, two fixture hash passes 6.656 and 6.672, source/binary bindings 2.032 and 1.937, embedded CTest 16.828, report 0.141. The launcher's embedded CTest binds results to exact source and binary state; it should stay. During edits use focused incremental build/tests, then one full CTest and one bound launcher for the frozen candidate. Repeat a gate only to diagnose an actual failure or drift, preserving its first receipt. These two different increments do not establish a causal speedup, and token or whole-job time was not measured. Fidelity and source binding remain unchanged.
