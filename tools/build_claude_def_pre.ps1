@@ -37,7 +37,6 @@ Invoke-LoggedTool -Program 'cmake' -ToolArguments @(
     '--', '/nr:false'
 ) -LogName 'build.log'
 
-try {
 if (-not $SkipTests) {
     $priorOffline = $env:DEFORM_ORACLE_OFFLINE
     try {
@@ -50,11 +49,5 @@ if (-not $SkipTests) {
     } finally {
         $env:DEFORM_ORACLE_OFFLINE = $priorOffline
     }
-}
-
-} finally {
-    # A successful rebuild must be installed even when subsequent tests report a failure.
-    # Deployment never restores originals; test failures must still be reported.
-    & "$PSScriptRoot\deploy_latest_def_pre.ps1" -Candidate (Join-Path $buildDirectory "$Configuration\DEF_PRE_64.exe")
 }
 Write-Host "Executable: $(Join-Path $buildDirectory "$Configuration\DEF_PRE_64.exe")"

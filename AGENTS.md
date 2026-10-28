@@ -17,7 +17,7 @@ physical Escape interrupts GUI control, not the overall task. Respect enforced
 tool stops, retain uncertain action outcomes, and continue available independent
 work. Never claim JS reset, debugger detach or closing DEFORM releases app control.
 
-## Standing deployment rule (user instruction, 2026-10-23)
+## DEF_PRE installed-oracle rule (user instruction, 2026-10-28)
 
 Every report mentioning a reconstructed DEF_PRE_64 instance must identify its
 verified version (and distinguish source/build/deployed versions when different).
@@ -29,14 +29,12 @@ the allocation. Resolve version-file merge conflicts with the higher version,
 then allocate again before the next build. Older unversioned artifacts must be
 identified by legacy banner plus SHA-256, never assigned an invented version.
 
-Keep the latest successfully built reconstructed DEF_PRE_64.exe installed at all
-three paths under C:\Program Files\SFTC\DEFORM\v11.0.2 (root, 2D, 3D).
-Preserve each original in its own folder as DEF_PRE_64.exe.original; never overwrite
-those backups. After each rebuild, deploy the new executable to all three paths,
-verify matching SHA-256 hashes, and report the deployment and any test failures.
-Use tools/deploy_latest_def_pre.ps1. Do not restore originals after tests, on a
-failure, or during cleanup unless the user explicitly asks to return originals.
-The prior temporary-trial automatic restoration policy is superseded.
+The owner restored original DEF_PRE_64.exe at all three paths under
+C:\Program Files\SFTC\DEFORM\v11.0.2 (root, 2D, 3D). These installed binaries
+are read-only oracles. Never deploy the reconstructed port there, rename or
+replace an installed binary, or run the deployment/substitution scripts.
+Never run DEFORM, attach Frida or a debugger to DEFORM, or drive its GUI.
+Build outputs remain in the workspace; no build or test step may deploy them.
 Keep DEFORM test projects and generated paths under C:\PROBLEM, with full paths
 shorter than 100 characters. Keep diagnostic reports in this checkout.
 
