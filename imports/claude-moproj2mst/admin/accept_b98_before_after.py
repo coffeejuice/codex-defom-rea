@@ -100,6 +100,7 @@ def validate_cli(
     candidate_version: str,
     expected_source_sha256: str,
     freeze_receipt_arg: str | None,
+    current_freeze_receipt_arg: str | None = None,
 ) -> tuple[Path, dict[str, str], Path | None, str | None]:
     cli = Path(cli_arg).resolve(strict=True)
     if cli.name.lower() != "moproj2mst.exe":
@@ -121,11 +122,20 @@ def validate_cli(
 
     freeze_receipt = None
     freeze_receipt_hash = None
-    if freeze_receipt_arg:
-        freeze_receipt = Path(freeze_receipt_arg).resolve(strict=True)
+    if freeze_receipt_arg and current_freeze_receipt_arg:
+        raise RuntimeError("Select only one frozen receipt layout")
+    selected_receipt = current_freeze_receipt_arg or freeze_receipt_arg
+    if selected_receipt:
+        freeze_receipt = Path(selected_receipt).resolve(strict=True)
         match = re.fullmatch(r"CP(\d+)", candidate_version, re.IGNORECASE)
+        if current_freeze_receipt_arg and not match:
+            raise RuntimeError("--current-freeze-receipt requires a CP<number> candidate version")
         if match:
-            expected_receipt = (ROOT / "build" / f"wave3-checkpoint{match.group(1)}-verified" / "receipt.json").resolve()
+            # Opt into the current layout without accepting an arbitrary receipt
+            # directory or changing the checkpoint label to bypass its binding.
+            folder = (f"cp{match.group(1)}-verified" if current_freeze_receipt_arg
+                      else f"wave3-checkpoint{match.group(1)}-verified")
+            expected_receipt = (ROOT / "build" / folder / "receipt.json").resolve()
             if freeze_receipt != expected_receipt:
                 raise RuntimeError(f"Freeze receipt does not match candidate version {candidate_version}: {freeze_receipt}")
         receipt = json.loads(freeze_receipt.read_text(encoding="utf-8"))
@@ -142,7 +152,7 @@ def validate_cli(
                 raise RuntimeError(f"Explicit hash does not match frozen receipt for {name}")
         freeze_receipt_hash = file_sha256(freeze_receipt)
     elif candidate_version.upper() != "CP88":
-        raise RuntimeError("Non-CP88 candidate runs require --freeze-receipt")
+        raise RuntimeError("Non-CP88 candidate runs require a frozen receipt")
     return cli, hashes, freeze_receipt, freeze_receipt_hash
 
 
@@ -237,7 +247,9 @@ def validate_hash_overrides(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--candidate-version", default="CP88", help="Checkpoint label, for example CP88 or CP90")
-    parser.add_argument("--freeze-receipt", help="Frozen checkpoint receipt that binds source and artifact paths/hashes")
+    receipts = parser.add_mutually_exclusive_group()
+    receipts.add_argument("--freeze-receipt", help="Legacy build/wave3-checkpoint<N>-verified/receipt.json")
+    receipts.add_argument("--current-freeze-receipt", help="Current build/cp<N>-verified/receipt.json; requires matching CP<N> label")
     parser.add_argument("--source-tree-sha256", help="Expected source-tree SHA-256 from the checkpoint freeze")
     parser.add_argument("--cli", help="Explicit path to frozen candidate moproj2mst.exe")
     parser.add_argument("--expected-cli-sha256", help="Expected frozen candidate executable SHA-256")
@@ -268,8 +280,9 @@ def main() -> int:
     if args.expected_deformdb_sha256:
         expected_artifacts["deformdb.dll"] = args.expected_deformdb_sha256
     expected_source_sha256 = args.source_tree_sha256 or CP88_SOURCE_SHA256
-    if not is_cp88_default and not args.freeze_receipt:
-        parser.error("non-CP88 runs require --freeze-receipt")
+    has_freeze_receipt = bool(args.freeze_receipt or args.current_freeze_receipt)
+    if not is_cp88_default and not has_freeze_receipt:
+        parser.error("non-CP88 runs require --freeze-receipt or --current-freeze-receipt")
     try:
         validate_hash_overrides(
             candidate_version=args.candidate_version,
@@ -279,7 +292,7 @@ def main() -> int:
                 "deformdb.dll": args.expected_deformdb_sha256,
             },
             supplied_source_hash=args.source_tree_sha256,
-            has_freeze_receipt=bool(args.freeze_receipt),
+            has_freeze_receipt=has_freeze_receipt,
         )
     except ValueError as exc:
         parser.error(str(exc))
@@ -291,6 +304,7 @@ def main() -> int:
         candidate_version=args.candidate_version,
         expected_source_sha256=expected_source_sha256,
         freeze_receipt_arg=args.freeze_receipt,
+        current_freeze_receipt_arg=args.current_freeze_receipt,
     )
     run_root = checked_scratch_root(args.candidate_version)
     project_dir = run_root / "p"
@@ -371,6 +385,7 @@ def main() -> int:
         "schema": "b98-before-after-candidate-acceptance-v2",
         "candidate_version": args.candidate_version,
         "freeze_receipt": str(freeze_receipt) if freeze_receipt else None,
+        "freeze_receipt_layout": "current" if args.current_freeze_receipt else ("legacy" if args.freeze_receipt else None),
         "freeze_receipt_sha256": freeze_receipt_hash,
         "retained_before": str(BEFORE),
         "retained_after": str(AFTER),

@@ -98,9 +98,11 @@ ObjectRowNotificationResult attemptObjectRowNotificationPrefix(
     return {progress.stage_, signal(progress.kind_), progress.input_, read, stored};
 }
 
-ObjectRowConnectionPrefixResult attemptObjectRowConnectionPrefix(
+namespace {
+struct RowEndpoints { ObjectRowPort& output; ObjectRowPort& input; };
+RowEndpoints admitRowConnection(
     engine::ConversionSession& session, FlowItem& source, FlowItem& target,
-    std::size_t rowSlot, std::string sourceOccurrence, std::string qualification)
+    std::size_t rowSlot, const std::string& sourceOccurrence, const std::string& qualification)
 {
     if (sourceOccurrence != "0x140075e7c:row branch after main link" ||
         !nonblank(qualification) || !owns(session, &source) || !owns(session, &target) ||
@@ -125,6 +127,25 @@ ObjectRowConnectionPrefixResult attemptObjectRowConnectionPrefix(
         output.type != qt::L("Object2d") || input.type != qt::L("Object2d") ||
         output.capacity != 1 || input.capacity != 1)
         unavailable("Object2d row connector admission is unqualified");
+    return {output, input};
+}
+
+std::uint8_t linkClearedRowPorts(ObjectRowPort& output, ObjectRowPort& input)
+{
+    if (!input.peers.empty() || !output.peers.empty())
+        unavailable("row endpoints changed after Destroyed2 return");
+    output.peers.push_back(&input);
+    input.peers.push_back(&output);
+    return 1; // admitted native 161e94 normal reciprocal-link return
+}
+} // namespace
+
+ObjectRowConnectionPrefixResult attemptObjectRowConnectionPrefix(
+    engine::ConversionSession& session, FlowItem& source, FlowItem& target,
+    std::size_t rowSlot, std::string sourceOccurrence, std::string qualification)
+{
+    auto [output, input] = admitRowConnection(session, source, target, rowSlot,
+                                             sourceOccurrence, qualification);
 
     clearObjectRowPort(input);  // 075e7c target first
     clearObjectRowPort(output); // 075eaf source second
@@ -138,10 +159,7 @@ ObjectRowConnectionPrefixResult attemptObjectRowConnectionPrefix(
 
     // 076148: the two already-cleared capacity-one endpoints link without
     // another clear or intervening callback. The suppressed dispatcher returned.
-    if (!input.peers.empty() || !output.peers.empty())
-        unavailable("row endpoints changed after Destroyed2 return");
-    output.peers.push_back(&input);
-    input.peers.push_back(&output);
+    linkClearedRowPorts(output, input);
     ObjectRowNotificationProgress created(session, target, rowSlot,
         ObjectRowNotificationKind::Created2,
         occurrence(ObjectRowNotificationKind::Created2), qualification);
@@ -151,5 +169,98 @@ ObjectRowConnectionPrefixResult attemptObjectRowConnectionPrefix(
                 &input, &output, destroyedResult, true, true};
     return {ObjectRowConnectionPrefixStage::CompleteSuppressedEvents,
             &input, &output, destroyedResult, true, true};
+}
+
+ObjectRowBackendConnectionResult attemptObjectRowConnectionWithBackendPrefix(
+    engine::ConversionSession& session, FlowItem& source, FlowItem& target,
+    std::size_t rowSlot, std::string sourceOccurrence, std::string qualification,
+    ObjectRowBackendReadDriver& driver)
+{
+    auto [output, input] = admitRowConnection(session, source, target, rowSlot,
+                                             sourceOccurrence, qualification);
+    const Project* project = session.liveProject();
+    const SubProject* modelOwner = nullptr;
+    for (const auto& sub : project->subs) {
+        if (!sub) continue;
+        const auto contains = [&](const FlowItem* item) {
+            return std::any_of(sub->flow.items.begin(), sub->flow.items.end(),
+                [item](const auto& entry) { return entry.get() == item; });
+        };
+        if (contains(&source) && contains(&target)) { modelOwner = sub.get(); break; }
+    }
+    const auto notifier = session.sessionNotificationStateOwner();
+    if (!modelOwner || modelOwner->project != project || !notifier)
+        unavailable("backend gates require the same live model and notifier owner");
+    const std::weak_ptr<int> sourceLifetime = source.diagnosticLifetime;
+    const std::weak_ptr<int> targetLifetime = target.diagnosticLifetime;
+    const auto requireBinding = [&] {
+        const auto sourceAlive = sourceLifetime.lock();
+        const auto targetAlive = targetLifetime.lock();
+        const auto currentNotifier = session.sessionNotificationStateOwner();
+        if (!sourceAlive || !targetAlive || session.liveProject() != project ||
+            currentNotifier != notifier || currentNotifier.owner_before(notifier) ||
+            notifier.owner_before(currentNotifier) || !owns(session, &source) || !owns(session, &target))
+            unavailable("backend read lost its live model/row generation");
+        if (source.diagnosticLifetime.get() != sourceAlive.get() ||
+            target.diagnosticLifetime.get() != targetAlive.get())
+            unavailable("backend read changed its row generation");
+        const auto ports = admitRowConnection(session, source, target, rowSlot,
+                                              sourceOccurrence, qualification);
+        if (&ports.input != &input || &ports.output != &output ||
+            std::none_of(project->subs.begin(), project->subs.end(),
+                [modelOwner](const auto& sub) { return sub.get() == modelOwner; }))
+            unavailable("backend read changed its model/port owner");
+        const auto contains = [&](const FlowItem* item) {
+            return std::any_of(modelOwner->flow.items.begin(), modelOwner->flow.items.end(),
+                [item](const auto& entry) { return entry.get() == item; });
+        };
+        if (modelOwner->project != project || !contains(&source) || !contains(&target))
+            unavailable("backend read changed its actual model membership");
+    };
+    const auto read = [&](std::uint64_t instruction) {
+        requireBinding();
+        const auto inputPeers = input.peers;
+        const auto outputPeers = output.peers;
+        auto value = driver.readCurrentBackend({session, *modelOwner, source, target, rowSlot, instruction});
+        requireBinding();
+        if (input.peers != inputPeers || output.peers != outputPeers)
+            unavailable("backend observation changed reciprocal row peers");
+        if (!nonblank(value.qualification)) value.backend.reset();
+        return value;
+    };
+
+    clearObjectRowPort(input);  // 075e7c
+    clearObjectRowPort(output); // 075eaf
+    ObjectRowBackendConnectionResult result{
+        ObjectRowBackendConnectionStage::DestroyedBackendUnavailable, &input, &output,
+        read(0x140075ebdULL), {}, {}, {}, {}, false};
+    if (!result.beforeDestroyed.backend) return result;
+    if (*result.beforeDestroyed.backend) {
+        ObjectRowNotificationProgress progress(session, target, rowSlot,
+            ObjectRowNotificationKind::Destroyed2, occurrence(ObjectRowNotificationKind::Destroyed2), qualification);
+        result.destroyed = attemptObjectRowNotificationPrefix(session, progress);
+        if (result.destroyed->stage == ObjectRowNotificationStage::BeforeKeyQStringConstruction) {
+            result.stage = ObjectRowBackendConnectionStage::DestroyedKeyUnavailable;
+            return result;
+        }
+    }
+    result.linkReturnByte = linkClearedRowPorts(output, input); // 076148, saved07614b
+    result.linked = true;
+    result.beforeCreated = read(0x14007615aULL); // must precede return-byte test076165
+    if (!result.beforeCreated->backend) {
+        result.stage = ObjectRowBackendConnectionStage::CreatedBackendUnavailable;
+        return result;
+    }
+    if (*result.beforeCreated->backend && *result.linkReturnByte != 0) {
+        ObjectRowNotificationProgress progress(session, target, rowSlot,
+            ObjectRowNotificationKind::Created2, occurrence(ObjectRowNotificationKind::Created2), qualification);
+        result.created = attemptObjectRowNotificationPrefix(session, progress);
+        if (result.created->stage == ObjectRowNotificationStage::BeforeKeyQStringConstruction) {
+            result.stage = ObjectRowBackendConnectionStage::CreatedKeyUnavailable;
+            return result;
+        }
+    }
+    result.stage = ObjectRowBackendConnectionStage::Complete;
+    return result;
 }
 } // namespace m2m

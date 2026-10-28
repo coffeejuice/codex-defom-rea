@@ -3,9 +3,10 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
 
-namespace m2m { struct FlowItem; struct ObjectRowPort; }
+namespace m2m { struct FlowItem; struct ObjectRowPort; struct SubProject; }
 namespace m2m::doe { struct SessionNotificationState; }
 namespace m2m::engine { class ConversionSession; }
 
@@ -70,4 +71,52 @@ struct ObjectRowConnectionPrefixResult {
 ObjectRowConnectionPrefixResult attemptObjectRowConnectionPrefix(
     engine::ConversionSession&, FlowItem& source, FlowItem& target,
     std::size_t rowSlot, std::string sourceOccurrence, std::string qualification);
+
+struct ObjectRowBackendReadContext {
+    engine::ConversionSession& session;
+    const SubProject& modelOwner;
+    FlowItem& source;
+    FlowItem& target;
+    std::size_t rowSlot;
+    std::uint64_t instruction;
+};
+struct ObjectRowBackendRead {
+    // nullopt means unavailable; an engaged nullptr is qualified current null.
+    std::optional<const void*> backend;
+    std::string qualification;
+};
+class ObjectRowBackendReadDriver {
+public:
+    virtual ~ObjectRowBackendReadDriver() = default;
+    // This is an observation boundary, not a callback/receiver executor. Each
+    // read needs its own current model-generation/occurrence qualification.
+    virtual ObjectRowBackendRead readCurrentBackend(const ObjectRowBackendReadContext&)
+    { return {}; }
+};
+enum class ObjectRowBackendConnectionStage {
+    DestroyedBackendUnavailable, DestroyedKeyUnavailable,
+    CreatedBackendUnavailable, CreatedKeyUnavailable, Complete
+};
+struct ObjectRowBackendConnectionResult {
+    ObjectRowBackendConnectionStage stage;
+    ObjectRowPort* targetInput;
+    ObjectRowPort* sourceOutput;
+    ObjectRowBackendRead beforeDestroyed;
+    std::optional<ObjectRowBackendRead> beforeCreated;
+    std::optional<ObjectRowNotificationResult> destroyed;
+    std::optional<ObjectRowNotificationResult> created;
+    // Actual return of the admitted private reciprocal-link projection; the
+    // native Created2 branch tests this byte AFTER its second backend read.
+    std::optional<std::uint8_t> linkReturnByte;
+    bool linked = false;
+    static constexpr bool completeForPublicGraph = false;
+};
+
+// Private row-only progression with independent 075ebd/07615a backend reads.
+// The driver must retain current owner/lifetime evidence across each read;
+// neither constructor null nor this diagnostic admits public graph execution.
+ObjectRowBackendConnectionResult attemptObjectRowConnectionWithBackendPrefix(
+    engine::ConversionSession&, FlowItem& source, FlowItem& target,
+    std::size_t rowSlot, std::string sourceOccurrence, std::string qualification,
+    ObjectRowBackendReadDriver&);
 } // namespace m2m
